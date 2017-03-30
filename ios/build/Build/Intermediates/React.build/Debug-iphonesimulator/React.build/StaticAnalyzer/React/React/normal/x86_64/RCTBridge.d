@@ -1,0 +1,26 @@
+dependencies: \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTBridge.m \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTBridge.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTBridge+Private.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTConvert.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Views/RCTAnimationType.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Views/RCTBorderStyle.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTLog.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Views/RCTPointerEvents.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Views/RCTTextDecorationLineType.h \
+  /Users/evernym/dev/evernym/ConnectMe/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/evernym/dev/evernym/ConnectMe/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/evernym/dev/evernym/ConnectMe/ios/build/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTEventDispatcher.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTModuleData.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTPerformanceLogger.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Profiler/RCTProfile.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTReloadCommand.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTUtils.h

@@ -1,0 +1,24 @@
+dependencies: \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Executors/RCTJSCExecutor.mm \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Executors/RCTJSCExecutor.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTJavaScriptExecutor.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/evernym/dev/evernym/ConnectMe/ios/build/Build/Products/Debug-iphonesimulator/include/cxxreact/JSBundleType.h \
+  /Users/evernym/dev/evernym/ConnectMe/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/JavaScriptCore.h \
+  /Users/evernym/dev/evernym/ConnectMe/ios/build/Build/Products/Debug-iphonesimulator/include/jschelpers/JSCWrapper.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Modules/JSCSamplingProfiler.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTBridge+Private.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTBridge.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Modules/RCTDevMenu.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Executors/RCTJSCErrorHandling.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Profiler/RCTJSCProfiler.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTLog.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTPerformanceLogger.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Profiler/RCTProfile.h \
+  /Users/evernym/dev/evernym/ConnectMe/node_modules/react-native/React/Base/RCTUtils.h
