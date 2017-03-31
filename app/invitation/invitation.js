@@ -16,7 +16,7 @@ export default class InvitationScreen extends Component {
           <InvitationText />
         </View>
         <View>
-          <InvitationActions />
+          <InvitationActions {...this.props} />
         </View>
       </View>
     );
