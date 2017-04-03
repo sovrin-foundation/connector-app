@@ -9,6 +9,7 @@ import { Icon, Avatar } from "react-native-elements";
 import { View as AnimatableView } from "react-native-animatable";
 
 import Bubbles from "./bubbles";
+import HomeScreenActions from "./actions";
 
 class HomeScreenDrawer extends Component {
   static navigationOptions = {
@@ -25,28 +26,23 @@ class HomeScreenDrawer extends Component {
 
   render() {
     const bubblesHeight = this.state.scrollY.interpolate({
-      inputRange: [0, 500],
-      outputRange: [0, -500],
+      inputRange: [0, 420],
+      outputRange: [0, -420],
       extrapolate: "clamp"
     });
-
-    const texts = [];
-    for (var index = 0; index < 200; index++) {
-      texts.push(index);
-    }
 
     return (
       <View style={{ flex: 1 }}>
         <Animated.ScrollView
           scrollEventThrottle={16}
-          onScroll={Animated.event([
-            { nativeEvent: { contentOffset: { y: this.state.scrollY } } }
-          ],
-          {useNativeDriver: true})}
-          style={{ backgroundColor: "#e0e0e0"}}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
+            { useNativeDriver: true }
+          )}
+          style={{ backgroundColor: "#e0e0e0" }}
         >
-          <AnimatableView style={{marginTop: 500}}>
-            {texts.map(text => <Text key={text}>{`Hello-${text}`}</Text>)}
+          <AnimatableView style={{ marginTop: 420 }}>
+            <HomeScreenActions />
           </AnimatableView>
         </Animated.ScrollView>
         <Bubbles height={bubblesHeight} />
