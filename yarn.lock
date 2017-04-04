@@ -2938,6 +2938,16 @@ react-native-elements@^0.10.3:
     react-native-side-menu "^0.20.1"
     react-native-tab-navigator "^0.3.3"
 
+react-native-interactable@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/react-native-interactable/-/react-native-interactable-0.0.7.tgz#727582616dbe3706001c810cba42d4b6d27bc494"
+
+react-native-lightbox@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/react-native-lightbox/-/react-native-lightbox-0.6.0.tgz#291701fb3dd0d7eaf88cebb5f105d7891bea5452"
+  dependencies:
+    react-timer-mixin "^0.13.3"
+
 react-native-modalbox@^1.3.9:
   version "1.3.9"
   resolved "https://registry.yarnpkg.com/react-native-modalbox/-/react-native-modalbox-1.3.9.tgz#9991c51ebc69c720d8a778aaa47c89137ddea111"
@@ -2945,6 +2955,14 @@ react-native-modalbox@^1.3.9:
 react-native-side-menu@^0.20.1:
   version "0.20.1"
   resolved "https://registry.yarnpkg.com/react-native-side-menu/-/react-native-side-menu-0.20.1.tgz#df21b4bb9d8a1aa3bae53d74ddf8a739eb59bfc5"
+
+react-native-swipe-list-view@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/react-native-swipe-list-view/-/react-native-swipe-list-view-0.4.1.tgz#f4b0288e090fc86f743bc30b45df829de729bcd7"
+
+react-native-swipeable@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-swipeable/-/react-native-swipeable-0.4.0.tgz#10ca127af1d206e857eb94c6bc49207ee21fa3e7"
 
 react-native-tab-navigator@^0.3.3:
   version "0.3.3"
@@ -3068,7 +3086,7 @@ react-test-renderer@~15.4.1:
     fbjs "^0.8.4"
     object-assign "^4.1.0"
 
-react-timer-mixin@^0.13.2:
+react-timer-mixin@^0.13.2, react-timer-mixin@^0.13.3:
   version "0.13.3"
   resolved "https://registry.yarnpkg.com/react-timer-mixin/-/react-timer-mixin-0.13.3.tgz#0da8b9f807ec07dc3e854d082c737c65605b3d22"
 

@@ -9,12 +9,12 @@ const Divider = ({ left, right, containerStyle }) => (
   <View style={[styles.container, styles.divider, containerStyle]}>
     <View style={[styles.container, styles.left]}>
       <View>
-        {left}
+        {left && left}
       </View>
     </View>
     <View style={[styles.container, styles.right]}>
       <View>
-        {right}
+        {right && right}
       </View>
     </View>
   </View>
