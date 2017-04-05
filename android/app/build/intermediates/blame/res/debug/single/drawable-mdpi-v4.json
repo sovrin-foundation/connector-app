@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/app_invitation_invitee.jpg",
+        "source": "/Users/evernym/dev/evernym/ConnectMe/android/app/src/main/res/drawable-mdpi/app_invitation_invitee.jpg"
+    },
+    {
+        "merged": "/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/app_invitation_inviter.jpg",
+        "source": "/Users/evernym/dev/evernym/ConnectMe/android/app/src/main/res/drawable-mdpi/app_invitation_inviter.jpg"
+    }
+]

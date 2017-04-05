@@ -9,7 +9,8 @@ import {
   Text,
   Image,
   TouchableHighlight,
-  TouchableOpacity
+  TouchableOpacity,
+  Animated
 } from "react-native";
 import { List, ListItem } from "react-native-elements";
 import { Avatar, Icon, Button } from "react-native-elements";
@@ -52,13 +53,11 @@ class ActionListItems extends Component {
         />
         <View style={styles.listItemContainer}>
           <View style={[styles.avatarsContainer, styles.horizontalSpace]}>
-            <Lightbox>
-              <Image
-                style={styles.avatar}
-                resizeMode="contain"
-                source={require("../invitation/invitee.jpg")}
-              />
-            </Lightbox>
+            <Image
+              style={styles.avatar}
+              resizeMode="contain"
+              source={require("../invitation/invitee.jpg")}
+            />
             <Image
               style={styles.avatar}
               source={require("../invitation/invitee.jpg")}
@@ -68,7 +67,11 @@ class ActionListItems extends Component {
         <Divider left={emailDividerLeft} right={emailDividerRight} />
         <View>
           <View style={[styles.container]}>
-            <SwipeRow leftOpenValue={150} disableLeftSwipe={true}>
+            <SwipeRow
+              leftOpenValue={150}
+              disableLeftSwipe={true}
+              tension={0}
+            >
               <View style={[styles.container, styles.swipeActionContainer]}>
                 <View style={[styles.swipeActionLeft]}>
                   <Text style={styles.swipeActionLeftText}>
@@ -91,7 +94,10 @@ class ActionListItems extends Component {
                 </View>
               </View>
             </SwipeRow>
-            <Swipeable rightButtons={rightActionButtons}>
+            <Swipeable
+              leftActionReleaseAnimationFn={Animated.spring}
+              rightButtons={rightActionButtons}
+            >
               <View
                 style={[
                   styles.container,
@@ -163,7 +169,7 @@ const styles = StyleSheet.create({
   },
   rightSwipeItem: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     paddingLeft: 20
   }
 });

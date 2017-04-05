@@ -3,7 +3,14 @@
  */
 
 import React, { Component } from "react";
-import { View, Animated, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Animated,
+  StyleSheet,
+  Image,
+  InteractionManager,
+  Text
+} from "react-native";
 import { View as AnimatableView } from "react-native-animatable";
 import { Avatar } from "react-native-elements";
 
@@ -29,7 +36,7 @@ const bubbles = [
   {
     name: "starbucks",
     image: require("../images/cbStarbucks.png"),
-    size: size.L
+    size: size.XL
   },
   { name: "edcu", image: require("../images/cbEDCU.png"), size: size.XXL },
   { name: "amazon", image: require("../images/Amazon.png"), size: size.XL },
@@ -38,6 +45,19 @@ const bubbles = [
 ];
 
 export default class ConnectionBubbles extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showBubble: false
+    };
+  }
+
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ showBubble: true });
+    });
+  }
+
   render() {
     return (
       <Animated.View
@@ -49,16 +69,15 @@ export default class ConnectionBubbles extends Component {
         {bubbles.map(({ name, image, size }) => (
           <AnimatableView
             animation="zoomIn"
-            duration={700}
+            duration={600}
+            delay={200}
             style={[styles.avatar, styles[name]]}
             key={name}
           >
-            <Avatar
-              width={size}
-              height={size}
-              rounded
+            <Image
               source={image}
-              avatarStyle={styles.avatarImage}
+              style={{ width: size, height: size }}
+              resizeMode={Image.resizeMode.contain}
             />
           </AnimatableView>
         ))}

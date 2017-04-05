@@ -10,10 +10,10 @@ import HomeScreen from "./home/home";
 
 const ConnectMeApp = StackNavigator({
   Home: {
-    screen: HomeScreen
+    screen: InvitationScreen
   },
   Connections: {
-    screen: InvitationScreen
+    screen: HomeScreen
   }
 });
 

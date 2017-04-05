@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/res/merged/debug/drawable-ldrtl-xxhdpi/abc_spinner_mtrl_am_alpha.9.png",
+        "source": "/Users/evernym/.android/build-cache/7d990fd8865849859bf619037ca5c42c57dc397e/output/res/drawable-ldrtl-xxhdpi/abc_spinner_mtrl_am_alpha.9.png"
+    },
+    {
+        "merged": "/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/res/merged/debug/drawable-ldrtl-xxhdpi/abc_ic_menu_copy_mtrl_am_alpha.png",
+        "source": "/Users/evernym/.android/build-cache/7d990fd8865849859bf619037ca5c42c57dc397e/output/res/drawable-ldrtl-xxhdpi/abc_ic_menu_copy_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/res/merged/debug/drawable-ldrtl-xxhdpi/abc_ic_menu_cut_mtrl_alpha.png",
+        "source": "/Users/evernym/.android/build-cache/7d990fd8865849859bf619037ca5c42c57dc397e/output/res/drawable-ldrtl-xxhdpi/abc_ic_menu_cut_mtrl_alpha.png"
+    },
+    {
+        "merged": "/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/res/merged/debug/drawable-ldrtl-xxhdpi/abc_ic_ab_back_mtrl_am_alpha.png",
+        "source": "/Users/evernym/.android/build-cache/7d990fd8865849859bf619037ca5c42c57dc397e/output/res/drawable-ldrtl-xxhdpi/abc_ic_ab_back_mtrl_am_alpha.png"
+    }
+]

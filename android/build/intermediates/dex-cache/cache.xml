@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_6df25a425ed091ab3013186dcab786ce4af2a478.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.android/build-cache/710fa628c4a1080763ef2e110deebcea03117257/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="98786c1770b531b9194fb6448b2a2692c64074b6">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/classes_6bdb1169c96a92987e2d7647cbea35f806ce949a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.android/build-cache/875f979b849759b07924e332e58347000ab1a077/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/classes_9bc22f0837c1cd8a5549098689d1baaae74458ed.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/library-2.4.0_b250a37d65471945ad2842c77de0667735e0a809.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.android/build-cache/24078dc86f5be5e37be3d341bacf4666bce66f92/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2b8a01ad9da5d26d0067894c22e87597bca2c500">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/classes_4e3b9d12452eafa2c5043abbe98f9b023038b949.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/3.4.1/63994437f62bc861bc20c605d12962f7246116d1/okhttp-urlconnection-3.4.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="63994437f62bc861bc20c605d12962f7246116d1">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.4.1_449158fe215be7dca9dc6473c590278206ee41f1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.gradle/caches/modules-2/files-2.1/javax.inject/javax.inject/1/6975da39a7040257bd51d21a231b76c915872d38/javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/javax.inject-1_f4acf2e33312fd1f8a9f98f6ce0929457471a5dc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.android/build-cache/770bb97708f7d11bb197a890ad4cac2fe8078608/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d31aadf33187c37a7cd63dc1b769f8c6e33f78c3">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/classes_816ab0a6f1d0a291e9294031fa02daeea4ef8989.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/support-annotations-23.4.0_1e0856a5273d90ab22c895aaa2d622b4be6b754f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.9.0/f824591a0016efbaeddb8300bee54832a1398cfa/okio-1.9.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f824591a0016efbaeddb8300bee54832a1398cfa">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/okio-1.9.0_4f9a51e213ea672019010d432866afb6eec21bb7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/5871fb60dc68d67da54a663c3fd636a10a532948/jsr305-3.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0_ac7d90104c1611df12843c5e1ad0e6f6a4b6ada3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.4.1/c7c4f9e35c2fd5900da24f9872e3971801f08ce0/okhttp-3.4.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c7c4f9e35c2fd5900da24f9872e3971801f08ce0">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/okhttp-3.4.1_2eef6bf2677b3fe5f93a7765690f295260b1c358.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.android/build-cache/56fc03a8501658a02c08a867ad6c98ab3184a23a/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/classes_db318d5f3ca0e0629d38e5fa36b0b4e56c8c1463.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-ws/3.4.1/8ace66ef7002d98f633377c9e67daeeb196d8c3b/okhttp-ws-3.4.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8ace66ef7002d98f633377c9e67daeeb196d8c3b">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/okhttp-ws-3.4.1_e50fab31dc2faf31d00def0996f07ee32ad06876.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.android/build-cache/56fc03a8501658a02c08a867ad6c98ab3184a23a/output/jars/libs/internal_impl-23.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/internal_impl-23.4.0_fba10477e12e65db1a21bba69d9148e5297f8439.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.android/build-cache/53704a772a13420be5bc77c68c37a81eef74132a/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ca63c521b5745ae9a09629d7ca67ff6bc2a967fe">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/classes_e10e3de1ed8cbdc0af9e5eebb4c952bfd7a914f4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.android/build-cache/ae4c54deea231e8b62a495581247d4b25b8ca2e9/output/jars/libs/infer-annotations-1.5.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="dcac634e137395f79693ec760f081a86eb2bd84e">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/infer-annotations-1.5_fa8a424be4b009cad1cd08e51321d59da70c77dc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.android/build-cache/d6bb24e54da0b0097809237189f2c749ad231c3f/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="1137942adeb03984c1311b662363dd38fc238fd3">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/classes_9d558589ea8d9e05ebfa8f178b4df160b91e27fa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.android/build-cache/db7bd0013f6bf855cf54f8a0ef2a2cd0a6c72f5e/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/classes_928f47be5ea4e0c97418f314836dd6c03e492727.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.android/build-cache/ae4c54deea231e8b62a495581247d4b25b8ca2e9/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="962b06c207e808c0557ffd6163ac584025a96021">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/classes_8bdda7653c911587f09772d31d73439963d026a2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.android/build-cache/517358908de29a1450960502cabe4d57c0ed858f/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3341b66c54367e777a0647e2db96c045329bfeab">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/classes_1adb506e97ca08831438ed3bf57dbb885fdbef72.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/dev/evernym/ConnectMe/node_modules/react-native-interactable/android/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f760a865752acc0ae93e64e37410d8d7d2e026c0">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/classes_042e7fff140b0b2d93b0871c0a6c7814e1049d24.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.android/build-cache/7d990fd8865849859bf619037ca5c42c57dc397e/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/classes_f75d28b8786863286ebb189220d38577ce653df9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.gradle/caches/modules-2/files-2.1/com.facebook.fbui.textlayoutbuilder/staticlayout-proxy/1.0/f162442a19fff13995fbd51ba414d9ee05579080/staticlayout-proxy-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f162442a19fff13995fbd51ba414d9ee05579080">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/staticlayout-proxy-1.0_a2493089e50c0fc7ab4c8dd43008cff24f8883bf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/.android/build-cache/516435ad8db9110d922bb06afba00c1efe624846/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ec75036c3c52e451d0cde50a5aedaf5fd32354a0">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/classes_85dbf3763fbaa4b4fbd03a4b6109017d1d116af8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/evernym/dev/evernym/ConnectMe/node_modules/react-native-vector-icons/android/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b319ff9834bbeb9be394687614eb86892699ea14">
+        <dex dex="/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/pre-dexed/debug/classes_a71a2b4f801a7e39aeabf97a48fe6989386cfb65.jar" />
+    </item>
+
+</items>

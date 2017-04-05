@@ -11,6 +11,7 @@ const InviteText = () => {
         style={styles.inviteTextContainer}
         animation="bounceInDown"
         duration={1500}
+        delay={100}
       >
         <Text h4>Hi Dale</Text>
         <Text h5>EDCU wants to connect with you.</Text>
