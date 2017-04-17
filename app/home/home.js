@@ -39,7 +39,7 @@ class HomeScreenDrawer extends Component {
             [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
             { useNativeDriver: true }
           )}
-          style={{ backgroundColor: "#e0e0e0" }}
+          style={{ backgroundColor: "#3F4140" }}
         >
           <AnimatableView style={{ marginTop: 420 }}>
             <HomeScreenActions />

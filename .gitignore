@@ -48,3 +48,7 @@ fastlane/screenshots
 buck-out/
 \.buckd/
 *.keystore
+
+# ios specific files
+.DS_Store
+app/.DS_Store

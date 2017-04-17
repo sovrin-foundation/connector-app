@@ -32,6 +32,7 @@ const icons = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "flex-end",
+    paddingBottom: 20
   },
   icon: {
     flex: 1

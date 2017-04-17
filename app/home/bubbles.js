@@ -6,13 +6,14 @@ import React, { Component } from "react";
 import {
   View,
   Animated,
-  StyleSheet,
   Image,
   InteractionManager,
-  Text
+  Platform,
+  Dimensions
 } from "react-native";
 import { View as AnimatableView } from "react-native-animatable";
 import { Avatar } from "react-native-elements";
+import styles from './bubbles.styles';
 
 const size = {
   XS: 40,
@@ -59,6 +60,13 @@ export default class ConnectionBubbles extends Component {
   }
 
   render() {
+    const {width} = Dimensions.get('window');
+    let deviceClass = "";
+
+    if (Platform.OS === 'ios') {
+      deviceClass = (width === 320) ? "Iphone5" : (width === 414) ? "IphonePlus" : "ios";
+    }
+
     return (
       <Animated.View
         style={[
@@ -71,7 +79,7 @@ export default class ConnectionBubbles extends Component {
             animation="zoomIn"
             duration={600}
             delay={200}
-            style={[styles.avatar, styles[name]]}
+            style={[styles.avatar, styles[name], styles[`${name}${deviceClass}`]]}
             key={name}
           >
             <Image
@@ -85,60 +93,3 @@ export default class ConnectionBubbles extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  bubbleContainer: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    overflow: "hidden",
-    height: 420
-  },
-  avatar: {
-    position: "absolute"
-  },
-  avatarImage: {
-    resizeMode: "contain"
-  },
-  bh: {
-    top: 80,
-    left: -10
-  },
-  dell: {
-    top: 60,
-    left: 130
-  },
-  ebay: {
-    top: 80,
-    left: 210
-  },
-  target: {
-    top: 120,
-    left: 290
-  },
-  centuryLink: {
-    top: 210,
-    left: 20
-  },
-  starbucks: {
-    top: 150,
-    left: 120
-  },
-  edcu: {
-    top: 210,
-    left: 230
-  },
-  amazon: {
-    top: 280,
-    left: 10
-  },
-  dillard: {
-    top: 270,
-    left: 140
-  },
-  verizon: {
-    top: 340,
-    left: 210
-  }
-});
