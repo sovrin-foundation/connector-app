@@ -1,11 +1,18 @@
 import React, { Component } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, AlertIOS } from "react-native";
 import { Button } from "react-native-elements";
+import TouchId from "react-native-touch-id";
 
 class actions extends Component {
   _onAllow = () => {
-    this.props.navigation.navigate("Connections");
-  }
+    TouchId.authenticate("to let user allow connection")
+      .then(success => {
+        this.props.navigation.navigate("Connections");
+      })
+      .catch(error => {
+        // Fallback option to add
+      });
+  };
 
   render() {
     return (
