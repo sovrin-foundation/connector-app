@@ -16,7 +16,7 @@ const ActionsIcons = () => (
     />
     <Image
       style={[icons.icon, icons.avatar]}
-      source={require("../invitation/invitee.jpg")}
+      source={require("../invitation/invitee.png")}
     />
     <Icon
       containerStyle={[icons.icon]}

@@ -13,8 +13,8 @@ const InviteText = () => {
         duration={1500}
         delay={100}
       >
-        <Text h4>Hi Dale</Text>
-        <Text h5>EDCU wants to connect with you.</Text>
+        <Text h4 style={{color: 'white'}}>Hi Dale</Text>
+        <Text h5 style={{color: 'white'}}>EDCU wants to connect with you.</Text>
       </View>
       <View
         animation="bounceInUp"
@@ -31,7 +31,7 @@ const InviteText = () => {
 const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
-    backgroundColor: "#e0e0e0"
+    backgroundColor: "#3F4140"
   },
   inviteTextContainer: {
     flex: 1,

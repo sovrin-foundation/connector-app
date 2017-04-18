@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import { Avatar, Icon } from "react-native-elements";
 
 const avatars = () => (
@@ -8,16 +8,17 @@ const avatars = () => (
       containerStyle={styles.avatar}
       large
       rounded
-      source={require("./invitee.jpg")}
+      source={require("./invitee.png")}
     />
-    <Icon name="arrow-forward" containerStyle={{
-      marginTop: 30
-    }} />
+    <Image
+      style={styles.arrow}
+      source={require("./arrow-forward.png")}
+    />
     <Avatar
       containerStyle={styles.avatar}
       large
       rounded
-      source={require("./inviter.jpg")}
+      source={require("./inviter.png")}
     />
   </View>
 );
@@ -35,7 +36,8 @@ const styles = StyleSheet.create({
   },
   arrow: {
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    marginTop:30
   }
 });
 

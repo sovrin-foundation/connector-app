@@ -14,6 +14,10 @@ class actions extends Component {
       });
   };
 
+   _onDeny = () => {
+    this.props.navigation.navigate("Connections");
+   }
+
   render() {
     return (
       <View style={{ flexDirection: "row" }}>
@@ -23,6 +27,7 @@ class actions extends Component {
             title="Deny"
             raised
             icon={{ name: "clear" }}
+            onPress={this._onDeny}
           />
         </View>
         <View style={{ flex: 1 }}>

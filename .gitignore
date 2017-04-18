@@ -52,3 +52,6 @@ buck-out/
 # ios specific files
 .DS_Store
 app/.DS_Store
+
+# vscode files
+.vscode

@@ -62,7 +62,7 @@ class ActionListItems extends Component {
               containerStyle={styles.avatar}
               medium
               rounded
-              source={require("../invitation/invitee.jpg")}
+              source={require("../invitation/invitee.png")}
             />            
             <Badge 
               counter={76} 
