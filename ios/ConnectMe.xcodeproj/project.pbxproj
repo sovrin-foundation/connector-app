@@ -1214,7 +1214,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConnectMe/ConnectMe.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Khagesh Sharma (W4R75UM24Y)";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = ES8QU3D2A4;
 				HEADER_SEARCH_PATHS = (
@@ -1245,8 +1245,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ConnectMe/ConnectMe.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: EVERNYM, INC. (ES8QU3D2A4)";
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = ES8QU3D2A4;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1264,8 +1264,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.evernym.connectme.callcenter;
 				PRODUCT_NAME = ConnectMe;
-				PROVISIONING_PROFILE = "696471f7-ccb9-4599-a445-ecdb793cd115";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development com.evernym.connectme.callcenter";
+				PROVISIONING_PROFILE = "df8dce55-a02e-4c26-880b-794c2eff1198";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.evernym.connectme.callcenter";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
