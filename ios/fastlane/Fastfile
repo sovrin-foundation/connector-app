@@ -4,15 +4,15 @@ default_platform :ios
 
 platform :ios do
   before_all do
-     ENV["SLACK_URL"] = "https://evernym.slack.com"
+     ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
   end
 
   lane :beta do
       increment_build_number(xcodeproj: "ConnectMe.xcodeproj")
-      match(type: "appstore", readonly: true)
+      match(type: "adhoc", readonly: true)
       disable_automatic_code_signing(path: "ConnectMe.xcodeproj")
       app_identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
-      profile = ENV["sigh_#{app_identifier}_appstore"]
+      profile = ENV["sigh_#{app_identifier}_adhoc"]
       gym(
         scheme: "ConnectMe",
         xcargs: "PROVISIONING_PROFILE_SPECIFIER='#{profile}' DEVELOPMENT_TEAM='ES8QU3D2A4'",
@@ -22,7 +22,7 @@ platform :ios do
   end
   
   after_all do |lane|
-     slack(channel: "fastlane", message: "Successfully deployed new App Update.")
+     slack(channel: "fastlane", message: "Successfully deployed new App update on hockeyapp.")
   end
 
   error do |lane, exception|

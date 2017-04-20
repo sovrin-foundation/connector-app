@@ -1264,8 +1264,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.evernym.connectme.callcenter;
 				PRODUCT_NAME = ConnectMe;
-				PROVISIONING_PROFILE = "df8dce55-a02e-4c26-880b-794c2eff1198";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.evernym.connectme.callcenter";
+				PROVISIONING_PROFILE = "3010dc9c-611b-410c-a932-7b166c3e6107";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.evernym.connectme.callcenter";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
