@@ -4,12 +4,12 @@ default_platform :ios
 
 platform :ios do
   before_all do
-     ENV['FL_BUILD_NUMBER_PROJECT'] = "ConnectMe.xcodeproj"
-     ensure_git_status_clean unless ENV['FL_NO_ENSURE_CLEAN']
-     ENV['SLACK_URL'] = "https://hooks.slack.com/services/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"
+     ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
   end
 
   lane :beta do
+      ensure_git_status_clean
+      ensure_git_in_sync
       increment_build_number(xcodeproj: "ConnectMe.xcodeproj")
       commit_version_bump(xcodeproj: "ConnectMe.xcodeproj")
       add_git_tag
