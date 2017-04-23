@@ -28,12 +28,24 @@ class ActionListItems extends Component {
 
   render() {
     const addButtonText = <Text style={styles.dividerLabel}>ADD</Text>;
-    const avatarDividerLeft = <Text style={styles.dividerLabel}>AVATAR PHOTOS</Text>;
-    const identifyingDividerLeft = <Text style={styles.dividerLabel}>IDENTIFYING INFO</Text>;
-    const addressesDividerLeft = <Text style={styles.dividerLabel}>ADDRESSES</Text>;
-    const emailDividerLeft = <Text style={styles.dividerLabel}>EMAIL ADDRESSES</Text>;
-    const phoneDividerLeft = <Text style={styles.dividerLabel}>PHONE NUMBERS</Text>;
-    const creditCardDividerLeft = <Text style={styles.dividerLabel}>CREDIT CARDS</Text>;  
+    const avatarDividerLeft = (
+      <Text style={styles.dividerLabel}>AVATAR PHOTOS</Text>
+    );
+    const identifyingDividerLeft = (
+      <Text style={styles.dividerLabel}>IDENTIFYING INFO</Text>
+    );
+    const addressesDividerLeft = (
+      <Text style={styles.dividerLabel}>ADDRESSES</Text>
+    );
+    const emailDividerLeft = (
+      <Text style={styles.dividerLabel}>EMAIL ADDRESSES</Text>
+    );
+    const phoneDividerLeft = (
+      <Text style={styles.dividerLabel}>PHONE NUMBERS</Text>
+    );
+    const creditCardDividerLeft = (
+      <Text style={styles.dividerLabel}>CREDIT CARDS</Text>
+    );
 
     const rightActionButtons = [
       <TouchableOpacity
@@ -63,11 +75,8 @@ class ActionListItems extends Component {
               medium
               rounded
               source={require("../invitation/invitee.png")}
-            />            
-            <Badge 
-              counter={76} 
-              name={"white"} 
-              badgeStyle={styles.badge} />
+            />
+            <Badge counter={76} name={"white"} badgeStyle={styles.badge} />
           </View>
         </View>
 
@@ -75,7 +84,7 @@ class ActionListItems extends Component {
           left={identifyingDividerLeft}
           right={addButtonText}
           containerStyle={{ marginTop: 3 }}
-        />        
+        />
         <View
           style={[
             styles.container,
@@ -100,25 +109,21 @@ class ActionListItems extends Component {
         >
           <Badge counter={21} name={"grey"} />
           <View style={styles.listItemContainer}>
-          <Text style={styles.textLabel}>DATE OF BIRTH</Text>
-          <Text style={styles.listItemValue}>11/14/1968</Text>
+            <Text style={styles.textLabel}>DATE OF BIRTH</Text>
+            <Text style={styles.listItemValue}>11/14/1968</Text>
           </View>
-        </View>               
+        </View>
 
         <Divider left={addressesDividerLeft} right={addButtonText} />
         <View>
           <View style={[styles.container]}>
-            <SwipeRow
-              leftOpenValue={150}
-              disableLeftSwipe={true}
-              tension={0}
-            >
+            <SwipeRow leftOpenValue={150} disableLeftSwipe={true} tension={0}>
               <View style={[styles.container, styles.swipeActionContainer]}>
                 <View style={[styles.swipeActionLeft]}>
                   <Text style={styles.swipeActionLeftText}>
                     SEE ALL CERTIFICATIONS
                   </Text>
-                </View> 
+                </View>
               </View>
               <View
                 style={[
@@ -131,7 +136,9 @@ class ActionListItems extends Component {
                 <Badge counter={21} name={"grey"} />
                 <View style={styles.listItemContainer}>
                   <Text style={styles.textLabel}>HOME ADDRESS</Text>
-                  <Text style={styles.listItemValue}>11453 Lesterbend Circle NW Stream Harbor, WA 98329</Text>
+                  <Text style={styles.listItemValue}>
+                    11453 Lesterbend Circle NW Stream Harbor, WA 98329
+                  </Text>
                 </View>
               </View>
             </SwipeRow>
@@ -150,21 +157,19 @@ class ActionListItems extends Component {
                 <Badge counter={21} name={"grey"} />
                 <View style={styles.listItemContainer}>
                   <Text style={styles.textLabel}>MAILING ADDRESS</Text>
-                  <Text style={styles.listItemValue}>11453 Lesterbend Circle NW Stream Harbor, WA 98329</Text>
+                  <Text style={styles.listItemValue}>
+                    11453 Lesterbend Circle NW Stream Harbor, WA 98329
+                  </Text>
                 </View>
               </View>
             </Swipeable>
           </View>
-        </View>        
+        </View>
 
         <Divider left={emailDividerLeft} right={addButtonText} />
         <View>
           <View style={[styles.container]}>
-            <SwipeRow
-              leftOpenValue={150}
-              disableLeftSwipe={true}
-              tension={0}
-            >
+            <SwipeRow leftOpenValue={150} disableLeftSwipe={true} tension={0}>
               <View style={[styles.container, styles.swipeActionContainer]}>
                 <View style={[styles.swipeActionLeft]}>
                   <Text style={styles.swipeActionLeftText}>
@@ -183,7 +188,9 @@ class ActionListItems extends Component {
                 <Badge counter={21} name={"grey"} />
                 <View style={styles.listItemContainer}>
                   <Text style={styles.textLabel}>EMAIL ADDRESS 1</Text>
-                  <Text style={styles.listItemValue}>khageshhiet@gmail.com</Text>
+                  <Text style={styles.listItemValue}>
+                    khageshhiet@gmail.com
+                  </Text>
                 </View>
               </View>
             </SwipeRow>
@@ -202,7 +209,9 @@ class ActionListItems extends Component {
                 <Badge counter={12} name={"grey"} />
                 <View style={styles.listItemContainer}>
                   <Text style={styles.textLabel}>EMAIL ADDRESS 2</Text>
-                  <Text style={styles.listItemValue}>khagesh.sharma@evernym.com</Text>
+                  <Text style={styles.listItemValue}>
+                    khagesh.sharma@evernym.com
+                  </Text>
                 </View>
               </View>
             </Swipeable>
@@ -212,11 +221,7 @@ class ActionListItems extends Component {
         <Divider left={phoneDividerLeft} right={addButtonText} />
         <View>
           <View style={[styles.container]}>
-            <SwipeRow
-              leftOpenValue={150}
-              disableLeftSwipe={true}
-              tension={0}
-            >
+            <SwipeRow leftOpenValue={150} disableLeftSwipe={true} tension={0}>
               <View style={[styles.container, styles.swipeActionContainer]}>
                 <View style={[styles.swipeActionLeft]}>
                   <Text style={styles.swipeActionLeftText}>
@@ -276,18 +281,15 @@ class ActionListItems extends Component {
                   <Text style={styles.listItemValue}>844-238-0987</Text>
                 </View>
               </View>
-            </Swipeable>            
+            </Swipeable>
           </View>
         </View>
 
-        <Divider
-          left={creditCardDividerLeft}
-          right={addButtonText}
-        />
+        <Divider left={creditCardDividerLeft} right={addButtonText} />
         <View style={styles.listItemContainer}>
           <View style={[styles.creditCardContainer, styles.horizontalSpace]}>
             <Image
-              style={styles.creditCard} 
+              style={styles.creditCard}
               resizeMode="contain"
               source={require("../images/img_visa.png")}
             />
@@ -298,7 +300,7 @@ class ActionListItems extends Component {
             />
           </View>
 
-          <View style={[styles.creditCardContainer, styles.horizontalSpace]}>            
+          <View style={[styles.creditCardContainer, styles.horizontalSpace]}>
             <Image
               style={styles.creditCard}
               resizeMode="contain"
@@ -308,16 +310,16 @@ class ActionListItems extends Component {
               style={styles.creditCard}
               resizeMode="contain"
               source={require("../images/img_amex.png")}
-            />                                    
+            />
           </View>
-        </View>        
+        </View>
 
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     backgroundColor: "#EBEBEA",
     flex: 1
@@ -353,17 +355,18 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     flexDirection: "row",
     marginBottom: 3,
-    alignItems: 'center'    
+    alignItems: "center"
   },
   textLabel: {
     color: "#535353",
     fontSize: 12,
     marginBottom: 5
-  },  
+  },
   listItemValue: {
     fontWeight: "bold",
-    fontSize: 15
-  },  
+    fontSize: 15,
+    color: "#424342"
+  },
   swipeActionContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -395,7 +398,7 @@ const styles = StyleSheet.create({
   creditCard: {
     width: 145,
     height: 100
-  },  
+  }
 });
 
 export default ActionListItems;

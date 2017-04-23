@@ -7,16 +7,16 @@ class actions extends Component {
   _onAllow = () => {
     TouchId.authenticate("to let user allow connection")
       .then(success => {
-        this.props.navigation.navigate("Connections");
+        this.props.navigation.navigate("CallCenter");
       })
       .catch(error => {
         // Fallback option to add
       });
   };
 
-   _onDeny = () => {
+  _onDeny = () => {
     this.props.navigation.navigate("Connections");
-   }
+  };
 
   render() {
     return (
