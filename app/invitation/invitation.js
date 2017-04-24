@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, AlertIOS } from "react-native";
 import { Avatar, Text, Icon, Button } from "react-native-elements";
 import OneSignal from "react-native-onesignal";
 
@@ -9,14 +9,14 @@ import InvitationActions from "./invitation-actions";
 export default class InvitationScreen extends Component {
   componentWillMount() {
     OneSignal.addEventListener("received", this.onReceived);
-    OneSignal.addEventListener("opened", this.onOpened);
+    OneSignal.addEventListener("opened", this.onOpened.bind(this));
     OneSignal.addEventListener("registered", this.onRegistered);
     OneSignal.addEventListener("ids", this.onIds);
   }
 
   componentWillUnmount() {
     OneSignal.removeEventListener("received", this.onReceived);
-    OneSignal.removeEventListener("opened", this.onOpened);
+    OneSignal.removeEventListener("opened", this.onOpened.bind(this));
     OneSignal.removeEventListener("registered", this.onRegistered);
     OneSignal.removeEventListener("ids", this.onIds);
   }
@@ -26,6 +26,9 @@ export default class InvitationScreen extends Component {
   }
 
   onOpened(openResult) {
+    if (openResult.notification.payload.additionalData.actionSelected === "allow-button") {
+      this.props.navigation.navigate("CallCenter");
+    }
     console.log("Message: ", openResult.notification.payload.body);
     console.log("Data: ", openResult.notification.payload.additionalData);
     console.log("isActive: ", openResult.notification.isAppInFocus);
