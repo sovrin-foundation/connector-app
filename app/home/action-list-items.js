@@ -74,7 +74,7 @@ class ActionListItems extends Component {
               containerStyle={styles.avatar}
               medium
               rounded
-              source={require("../invitation/invitee.png")}
+              source={require("../invitation/inviter.jpeg")}
             />
             <Badge counter={76} name={"white"} badgeStyle={styles.badge} />
           </View>
@@ -96,7 +96,7 @@ class ActionListItems extends Component {
           <Badge counter={76} name={"grey"} />
           <View style={styles.listItemContainer}>
             <Text style={styles.textLabel}>NAME</Text>
-            <Text style={styles.listItemValue}>John Best</Text>
+            <Text style={styles.listItemValue}>Drummond Reed</Text>
           </View>
         </View>
         <View
@@ -189,7 +189,7 @@ class ActionListItems extends Component {
                 <View style={styles.listItemContainer}>
                   <Text style={styles.textLabel}>EMAIL ADDRESS 1</Text>
                   <Text style={styles.listItemValue}>
-                    khageshhiet@gmail.com
+                    drummond.reed@example.domain.com
                   </Text>
                 </View>
               </View>
@@ -210,7 +210,7 @@ class ActionListItems extends Component {
                 <View style={styles.listItemContainer}>
                   <Text style={styles.textLabel}>EMAIL ADDRESS 2</Text>
                   <Text style={styles.listItemValue}>
-                    khagesh.sharma@evernym.com
+                    drummond.reed@example.domain.com
                   </Text>
                 </View>
               </View>
@@ -285,7 +285,7 @@ class ActionListItems extends Component {
           </View>
         </View>
 
-        <Divider left={creditCardDividerLeft} right={addButtonText} />
+        {/*<Divider left={creditCardDividerLeft} right={addButtonText} />
         <View style={styles.listItemContainer}>
           <View style={[styles.creditCardContainer, styles.horizontalSpace]}>
             <Image
@@ -312,7 +312,7 @@ class ActionListItems extends Component {
               source={require("../images/img_amex.png")}
             />
           </View>
-        </View>
+        </View>*/}
 
       </View>
     );

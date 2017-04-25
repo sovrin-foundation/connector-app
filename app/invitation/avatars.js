@@ -18,7 +18,7 @@ const avatars = () => (
       containerStyle={styles.avatar}
       large
       rounded
-      source={require("./inviter.png")}
+      source={require("./inviter.jpeg")}
     />
   </View>
 );

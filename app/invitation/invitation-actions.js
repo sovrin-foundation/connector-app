@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, AlertIOS } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
 import TouchId from "react-native-touch-id";
 
@@ -7,7 +7,12 @@ class actions extends Component {
   _onAllow = () => {
     TouchId.authenticate("to let user allow connection")
       .then(success => {
-        this.props.navigation.navigate("CallCenter");
+        fetch("https://agency.evernym.com/callcenter/user/testdemo1/auth")
+          .then(res => res.json())
+          .then(resData => {
+            console.log(resData);
+            this.props.navigation.navigate("CallCenter");
+          });
       })
       .catch(error => {
         // Fallback option to add

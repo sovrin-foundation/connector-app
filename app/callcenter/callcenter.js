@@ -113,7 +113,7 @@ export class CallCenterHome extends Component {
                   containerStyle={listStyles.avatar}
                   medium
                   rounded
-                  source={require("../invitation/inviter.png")}
+                  source={require("../invitation/inviter.jpeg")}
                 />
                 <Badge
                   counter={86}
@@ -135,7 +135,7 @@ export class CallCenterHome extends Component {
               <Badge counter={76} name={"grey"} />
               <View style={listStyles.listItemContainer}>
                 <Text style={listStyles.textLabel}>NAME</Text>
-                <Text style={listStyles.listItemValue}>John Best</Text>
+                <Text style={listStyles.listItemValue}>Drummond Reed</Text>
               </View>
             </View>
             <View
@@ -198,7 +198,7 @@ export class CallCenterHome extends Component {
               <View style={listStyles.listItemContainer}>
                 <Text style={listStyles.textLabel}>EMAIL ADDRESS 1</Text>
                 <Text style={listStyles.listItemValue}>
-                  sigswayer@hotmail.com
+                  drummond.reed@example.domain.com
                 </Text>
               </View>
             </View>

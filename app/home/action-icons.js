@@ -15,8 +15,8 @@ const ActionsIcons = () => (
       size={40}
     />
     <Image
-      style={[icons.icon, icons.avatar]}
-      source={require("../invitation/invitee.png")}
+      style={[icons.icon, icons.avatar, icons.circle]}
+      source={require("../invitation/inviter.jpeg")}
     />
     <Icon
       containerStyle={[icons.icon]}
@@ -41,6 +41,11 @@ const icons = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 60
+  },
+  circle: {
+    width: 100,
+    height: 100,
+    borderRadius: 100/2
   }
 });
 
