@@ -26,7 +26,7 @@ platform :ios do
   end
   
   after_all do |lane|
-     slack(channel: "fastlane", message: "Successfully deployed new App update on hockeyapp.")
+     slack(channel: "connectme_build", message: "Successfully deployed new App update on hockeyapp.")
   end
 
   error do |lane, exception|
