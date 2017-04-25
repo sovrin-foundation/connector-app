@@ -9,9 +9,13 @@ platform :ios do
 
   lane :beta do
       increment_build_number(xcodeproj: "ConnectMe.xcodeproj")
-      match(type: "adhoc", readonly: true)
-      disable_automatic_code_signing(path: "ConnectMe.xcodeproj")
       app_identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
+      match(
+        type: "adhoc",
+        app_identifier: "#{app_identifier}",
+        force_for_new_devices: true
+      )
+      disable_automatic_code_signing(path: "ConnectMe.xcodeproj")
       profile = ENV["sigh_#{app_identifier}_adhoc"]
       gym(
         scheme: "ConnectMe",

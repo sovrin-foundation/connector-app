@@ -224,7 +224,7 @@ export default StackNavigator({
   Home: {
     screen: CallCenterHome
   }
-});
+}, {});
 
 const styles = StyleSheet.create({
   infoContainer: {
