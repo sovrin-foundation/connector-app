@@ -3,7 +3,14 @@
  */
 
 import React, { Component } from "react";
-import { View, Text, Button, ScrollView, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  ScrollView,
+  StyleSheet,
+  Image
+} from "react-native";
 import { StackNavigator } from "react-navigation";
 import LinearGradient from "react-native-linear-gradient";
 import { Avatar, Icon } from "react-native-elements";
@@ -27,10 +34,13 @@ export class CallCenterHome extends Component {
       left: (
         <Icon name="forum" color="#FFFFFF" containerStyle={{ marginLeft: 3 }} />
       ),
+      title: (
+        <Image source={require("../images/sovrinsecuredconnection.png")} />
+      ),
       right: (
         <Button
           title="X"
-          onPress={() => navigation.navigate("Home")}
+          onPress={() => navigation.navigate("Connections")}
           color="#FFFFFF"
         />
       ),
