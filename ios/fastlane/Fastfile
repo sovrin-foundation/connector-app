@@ -25,6 +25,8 @@ platform :ios do
       hockey(
         api_token: "27ccf5014490440fa0d9ffd75a836ed9",
         public_identifier: "4de29529a5d34f218bf6f3f70900cd6a",
+        bundle_short_version: "1.0.2",
+        bundle_version: "1.0.2.145",
         create_update: true,
         ipa: "./ConnectMe.ipa",
       ) 
