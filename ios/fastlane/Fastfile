@@ -8,6 +8,7 @@ platform :ios do
   end
 
   lane :beta do
+      reset_git_repo(force: true)
       increment_build_number(xcodeproj: "ConnectMe.xcodeproj")
       app_identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
       match(
@@ -22,7 +23,20 @@ platform :ios do
         xcargs: "PROVISIONING_PROFILE_SPECIFIER='#{profile}' DEVELOPMENT_TEAM='ES8QU3D2A4'",
         clean: true
       )
-      hockey(api_token: "27ccf5014490440fa0d9ffd75a836ed9") 
+      hockey(api_token: "27ccf5014490440fa0d9ffd75a836ed9")
+      remote_branch = ENV["BITRISE_GIT_BRANCH"]
+      commit_version_bump(
+        message: "Build Version bump by Fastlane [ci skip]",
+        xcodeproj: "ConnectMe.xcodeproj",
+        force: true
+      )
+      push_to_git_remote(
+        remote: "origin",         
+        local_branch: "HEAD",  
+        remote_branch: "#{remote_branch}",
+        force: true,    
+        tags: false     
+      )
   end
   
   after_all do |lane|
