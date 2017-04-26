@@ -22,7 +22,7 @@ platform :ios do
         xcargs: "PROVISIONING_PROFILE_SPECIFIER='#{profile}' DEVELOPMENT_TEAM='ES8QU3D2A4'",
         clean: true
       )
-      hockey(api_token: "65f19181f929462fbccb52b645f3b50c") 
+      hockey(api_token: "27ccf5014490440fa0d9ffd75a836ed9") 
   end
   
   after_all do |lane|
