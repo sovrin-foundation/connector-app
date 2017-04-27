@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, AsyncStorage } from "react-native";
 import { Avatar, Text, Icon, Button } from "react-native-elements";
 import OneSignal from "react-native-onesignal";
 
@@ -7,6 +7,14 @@ import InvitationText from "./invite-text";
 import InvitationActions from "./invitation-actions";
 
 export default class InvitationScreen extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      currentRoute: "Home"
+    };
+  }
+
   componentWillMount() {
     OneSignal.addEventListener("received", this.onReceived);
     OneSignal.addEventListener("opened", this.onOpened);
@@ -25,11 +33,30 @@ export default class InvitationScreen extends Component {
     console.log("Notification received: ", notification);
   }
 
-  onOpened(openResult) {
-    console.log("Message: ", openResult.notification.payload.body);
-    console.log("Data: ", openResult.notification.payload.additionalData);
-    console.log("isActive: ", openResult.notification.isAppInFocus);
-    console.log("openResult: ", openResult);
+  async saveRoute(value) {
+    try {
+      await AsyncStorage.setItem('newCurrentRoute', value);
+    } catch (error) {
+      console.log("Error saving newCurrentRoute" + error);
+    }
+  }
+
+  async getRoute() {
+    try {
+      const currentRoute = await AsyncStorage.getItem('newCurrentRoute');
+      this.setState({currentRoute});
+    } catch (error) {
+      console.log("Error retrieving newCurrentRoute" + error);
+    }
+  }
+
+  onOpened = (openResult) => {
+    this.getRoute().then(() => {
+      if (this.state.currentRoute !== "Home") {
+        this.saveRoute("Home");
+        this.props.navigation.navigate("Home");
+      }
+    });
   }
 
   onRegistered(notifData) {

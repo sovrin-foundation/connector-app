@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, AsyncStorage } from "react-native";
 import { Button } from "react-native-elements";
 import TouchId from "react-native-touch-id";
 
@@ -11,6 +11,7 @@ class actions extends Component {
           .then(res => res.json())
           .then(resData => {
             console.log(resData);
+            this.saveRoute("CallCenter");
             this.props.navigation.navigate("CallCenter");
           });
       })
@@ -19,7 +20,17 @@ class actions extends Component {
       });
   };
 
+  async saveRoute(value) {
+    try {
+      await AsyncStorage.setItem('newCurrentRoute', value);
+      console.log(value);
+    } catch (error) {
+      console.log("Error saving newCurrentRoute" + error);
+    }
+  }
+
   _onDeny = () => {
+    this.saveRoute("Connections");
     this.props.navigation.navigate("Connections");
   };
 
