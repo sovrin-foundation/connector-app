@@ -7,13 +7,27 @@ class actions extends Component {
   _onAllow = () => {
     TouchId.authenticate("to let user allow connection")
       .then(success => {
-        fetch("https://agency.evernym.com/callcenter/user/testdemo1/auth")
-          .then(res => res.json())
+        fetch("https://agency.evernym.com/callcenter/user/testdemo1/auth", {
+          method: "PUT",
+          mode: "cors",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            newStatus: "ACCEPTED"
+          })
+        })
+          .then(res => {
+            if (res.status >= 400 && res.status < 600)
+              throw new Error("Bad Request");
+            res.json();
+          })
           .then(resData => {
             console.log(resData);
-            this.saveRoute("CallCenter");
             this.props.navigation.navigate("CallCenter");
-          });
+          })
+          .catch(error => console.log(error));
       })
       .catch(error => {
         // Fallback option to add
