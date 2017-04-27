@@ -19,25 +19,21 @@ class actions extends Component {
           })
         })
           .then(res => {
-            if (res.status >= 400 && res.status < 600)
+            if (res.status == 200) {
+              this.saveRoute("CallCenter");
+              this.props.navigation.navigate("CallCenter");
+            } else {
               throw new Error("Bad Request");
-            res.json();
-          })
-          .then(resData => {
-            console.log(resData);
-            this.props.navigation.navigate("CallCenter");
+            }
           })
           .catch(error => console.log(error));
       })
-      .catch(error => {
-        // Fallback option to add
-      });
+      .catch(error => console.log(error));
   };
 
   async saveRoute(value) {
     try {
-      await AsyncStorage.setItem('newCurrentRoute', value);
-      console.log(value);
+      await AsyncStorage.setItem("newCurrentRoute", value);
     } catch (error) {
       console.log("Error saving newCurrentRoute" + error);
     }

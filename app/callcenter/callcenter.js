@@ -9,7 +9,8 @@ import {
   Button,
   ScrollView,
   StyleSheet,
-  Image
+  Image,
+  AsyncStorage
 } from "react-native";
 import { StackNavigator } from "react-navigation";
 import LinearGradient from "react-native-linear-gradient";
@@ -28,27 +29,33 @@ const labelAddresses = <Text>ADDRESSES</Text>;
 const labelEmailAddresses = <Text>EMAIL ADDRESSES</Text>;
 
 export class CallCenterHome extends Component {
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     title: " ",
-    header: navigation => ({
-      left: (
-        <Icon name="forum" color="#FFFFFF" containerStyle={{ marginLeft: 3 }} />
-      ),
-      title: (
-        <Image source={require("../images/sovrinsecuredconnection.png")} />
-      ),
-      right: (
-        <Button
-          title="X"
-          onPress={() => navigation.navigate("Connections")}
-          color="#FFFFFF"
-        />
-      ),
-      style: {
-        backgroundColor: "#2A5270"
-      }
-    })
-  };
+    headerLeft: (
+      <Icon name="forum" color="#FFFFFF" containerStyle={{ marginLeft: 3 }} />
+    ),
+    title: <Image source={require("../images/sovrinsecuredconnection.png")} />,
+    headerRight: (
+      <Button
+        title="X"
+        onPress={() => {
+          saveRoute = async value => {
+            try {
+              await AsyncStorage.setItem("newCurrentRoute", value);
+            } catch (error) {
+              console.log("Error saving newCurrentRoute" + error);
+            }
+          };
+          this.saveRoute("Connections");
+          navigation.navigate("Connections");
+        }}
+        color="#FFFFFF"
+      />
+    ),
+    headerStyle: {
+      backgroundColor: "#2A5270"
+    }
+  });
 
   render() {
     return (
@@ -220,11 +227,14 @@ export class CallCenterHome extends Component {
   }
 }
 
-export default StackNavigator({
-  Home: {
-    screen: CallCenterHome
-  }
-}, {});
+export default StackNavigator(
+  {
+    Home: {
+      screen: CallCenterHome
+    }
+  },
+  {}
+);
 
 const styles = StyleSheet.create({
   infoContainer: {
