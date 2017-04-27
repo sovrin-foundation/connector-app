@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { View as AnimatableView } from "react-native-animatable";
 import { Avatar } from "react-native-elements";
-import styles from './bubbles.styles';
+import styles from "./bubbles.styles";
 
 const size = {
   XS: 40,
@@ -39,7 +39,7 @@ const bubbles = [
     image: require("../images/cbStarbucks.png"),
     size: size.XL
   },
-  { name: "edcu", image: require("../images/cbEDCU.png"), size: size.XXL },
+  { name: "suncoast", image: require("../images/suncoast.png"), size: size.XL },
   { name: "amazon", image: require("../images/Amazon.png"), size: size.XL },
   { name: "dillard", image: require("../images/cbDillards.png"), size: size.M },
   { name: "verizon", image: require("../images/Verizon.png"), size: size.M }
@@ -60,11 +60,13 @@ export default class ConnectionBubbles extends Component {
   }
 
   render() {
-    const {width} = Dimensions.get('window');
+    const { width } = Dimensions.get("window");
     let deviceClass = "";
 
-    if (Platform.OS === 'ios') {
-      deviceClass = (width === 320) ? "Iphone5" : (width === 414) ? "IphonePlus" : "ios";
+    if (Platform.OS === "ios") {
+      deviceClass = width === 320
+        ? "Iphone5"
+        : width === 414 ? "IphonePlus" : "ios";
     }
 
     return (
@@ -79,7 +81,11 @@ export default class ConnectionBubbles extends Component {
             animation="zoomIn"
             duration={600}
             delay={200}
-            style={[styles.avatar, styles[name], styles[`${name}${deviceClass}`]]}
+            style={[
+              styles.avatar,
+              styles[name],
+              styles[`${name}${deviceClass}`]
+            ]}
             key={name}
           >
             <Image

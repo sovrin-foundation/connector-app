@@ -21,7 +21,7 @@ import Badge from "../components/badge";
 
 import { styles as listStyles } from "../home/action-list-items";
 
-const labelEdcuInfo = <Text>EDCU INFORMATION</Text>;
+const labelSuncoastInfo = <Text>SUNCOAST INFO</Text>;
 const labelAvatar = <Text>AVATAR PHOTOS</Text>;
 const labelIdentifyingInfo = <Text>IDENTIFYING INFO</Text>;
 const labelAdd = <Text>ADD</Text>;
@@ -64,7 +64,7 @@ export class CallCenterHome extends Component {
           <LinearGradient colors={["#2A5270", "#132A3F"]}>
             <View style={[styles.infoContainer]}>
               <Text style={[styles.white, styles.bold, styles.title]}>
-                EDCU
+                Suncoast
               </Text>
               <Text style={[styles.white, styles.infoTalking]}>
                 Currently Talking With
@@ -78,7 +78,7 @@ export class CallCenterHome extends Component {
             </View>
           </LinearGradient>
           <View style={[listStyles.container]}>
-            <Divider left={labelEdcuInfo} />
+            <Divider left={labelSuncoastInfo} />
             <View style={[listStyles.container]}>
               <View
                 style={[
@@ -88,7 +88,7 @@ export class CallCenterHome extends Component {
                 ]}
               >
                 <Text style={[listStyles.textLabel, styles.label]}>
-                  EDCU MEMBER NUMBER
+                  SUNCOAST MEMBER NUMBER
                 </Text>
                 <Text style={[listStyles.listItemValue]}>25269755</Text>
               </View>

@@ -15,7 +15,7 @@ const InviteText = () => {
       >
         <Text h4 style={{ color: "white" }}>Hi Drummond</Text>
         <Text h5 style={{ color: "white" }}>
-          EDCU wants to connect with you.
+          Suncoast wants to connect with you.
         </Text>
       </View>
       <View

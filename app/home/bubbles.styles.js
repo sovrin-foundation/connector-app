@@ -43,7 +43,7 @@ export default styles = StyleSheet.create({
     top: 140,
     left: 120
   },
-  edcu: {
+  suncoast: {
     top: 210,
     right: 0
   },
@@ -71,7 +71,7 @@ export default styles = StyleSheet.create({
     top: 140,
     left: 100
   },
-  edcuIphone5: {
+  suncoastIphone5: {
     top: 210,
     right: 2
   },
