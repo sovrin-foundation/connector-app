@@ -7,7 +7,6 @@ import InvitationText from "./invite-text";
 import InvitationActions from "./invitation-actions";
 
 export default class InvitationScreen extends Component {
-
   constructor() {
     super();
     this.state = {
@@ -33,9 +32,9 @@ export default class InvitationScreen extends Component {
     console.log("Notification received: ", notification);
   }
 
-  async saveRoute(value) {
+  async saveKey(key, value) {
     try {
-      await AsyncStorage.setItem('newCurrentRoute', value);
+      await AsyncStorage.setItem(key, value);
     } catch (error) {
       console.log("Error saving newCurrentRoute" + error);
     }
@@ -43,21 +42,26 @@ export default class InvitationScreen extends Component {
 
   async getRoute() {
     try {
-      const currentRoute = await AsyncStorage.getItem('newCurrentRoute');
-      this.setState({currentRoute});
+      const currentRoute = await AsyncStorage.getItem("newCurrentRoute");
+      this.setState({ currentRoute });
     } catch (error) {
       console.log("Error retrieving newCurrentRoute" + error);
     }
   }
 
-  onOpened = (openResult) => {
+  onOpened = openResult => {
     this.getRoute().then(() => {
+      this.saveKey(
+        "PN_username",
+        openResult.notification.payload.additionalData.userName
+      );
+
       if (this.state.currentRoute !== "Home") {
-        this.saveRoute("Home");
+        this.saveKey("newCurrentRoute", "Home");
         this.props.navigation.navigate("Home");
       }
     });
-  }
+  };
 
   onRegistered(notifData) {
     console.log(
