@@ -5,6 +5,14 @@ import TouchId from "react-native-touch-id";
 
 class actions extends Component {
   _onAllow = () => {
+    this.AuthRequest("ACCEPTED");
+  };
+
+  _onDeny = () => {
+    this.AuthRequest("REJECTED");
+  };
+
+  AuthRequest = type => {
     TouchId.authenticate("to let user allow connection")
       .then(success => {
         this.getKey("PN_username").then(username => {
@@ -16,13 +24,18 @@ class actions extends Component {
               "Content-Type": "application/json"
             },
             body: JSON.stringify({
-              newStatus: "ACCEPTED"
+              newStatus: type
             })
           })
             .then(res => {
               if (res.status == 200) {
-                this.saveKey("CallCenter");
-                this.props.navigation.navigate("CallCenter");
+                if (type === "ACCEPTED") {
+                  this.saveKey("CallCenter");
+                  this.props.navigation.navigate("CallCenter");
+                } else if (type === "REJECTED") {
+                  this.saveKey("Home");
+                  this.props.navigation.navigate("Home");
+                }
               } else {
                 throw new Error("Bad Request");
               }
@@ -49,11 +62,6 @@ class actions extends Component {
       console.log("Error retrieving newCurrentRoute" + error);
     }
   }
-
-  _onDeny = () => {
-    this.saveKey("Home");
-    this.props.navigation.navigate("Home");
-  };
 
   render() {
     return (

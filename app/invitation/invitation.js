@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, AsyncStorage } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { Avatar, Text, Icon, Button } from "react-native-elements";
 
 import InvitationText from "./invite-text";
@@ -11,23 +11,6 @@ export default class InvitationScreen extends Component {
     this.state = {
       currentRoute: "Connections"
     };
-  }
-
-  async saveKey(key, value) {
-    try {
-      await AsyncStorage.setItem(key, value);
-    } catch (error) {
-      console.log("Error saving newCurrentRoute" + error);
-    }
-  }
-
-  async getRoute() {
-    try {
-      const currentRoute = await AsyncStorage.getItem("newCurrentRoute");
-      this.setState({ currentRoute });
-    } catch (error) {
-      console.log("Error retrieving newCurrentRoute" + error);
-    }
   }
 
   static navigationOptions = {

@@ -8,5 +8,5 @@ App to connect Sovrin with 3rd party authentication
 
 # Steps to run
 
-- `npm i`
+- `yarn install`
 - `react-native run-ios`

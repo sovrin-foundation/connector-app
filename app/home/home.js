@@ -3,7 +3,14 @@
  */
 
 import React, { Component } from "react";
-import { ScrollView, View, Text, StyleSheet, Animated } from "react-native";
+import {
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  Animated,
+  AsyncStorage
+} from "react-native";
 import { DrawerNavigator } from "react-navigation";
 import { Icon, Avatar } from "react-native-elements";
 import { View as AnimatableView } from "react-native-animatable";
@@ -55,6 +62,14 @@ class HomeScreenDrawer extends Component {
     }
   }
 
+  async resetKey(key) {
+    try {
+      await AsyncStorage.removeItem(key);
+    } catch (error) {
+      console.log("Error saving newCurrentRoute" + error);
+    }
+  }
+
   onOpened = openResult => {
     this.getRoute().then(() => {
       this.saveKey(
@@ -69,7 +84,33 @@ class HomeScreenDrawer extends Component {
     });
   };
 
+  poll = username => {
+    fetch(`https://agency.evernym.com/callcenter/user/${username}/auth`, {
+      mode: "cors"
+    })
+      .then(res => {
+        if (res.status == 200) {
+          return res.json();
+        } else {
+          throw new Error("Bad Request");
+        }
+      })
+      .then(resData => {
+        if (resData.status === "NO_RESPONSE_YET") {
+          this.resetKey("newCurrentRoute");
+          this.saveKey("PN_username", username);
+          this.props.navigation.navigate("Connections");
+        } else {
+          window.setTimeout(() => {
+            this.poll("testdemo1");
+          }, 4000);
+        }
+      })
+      .catch(error => console.log(error));
+  };
+
   render() {
+    this.poll("testdemo1"); // polling for auth status
     const bubblesHeight = this.state.scrollY.interpolate({
       inputRange: [0, 5],
       outputRange: [0, -5],

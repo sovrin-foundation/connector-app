@@ -49,8 +49,8 @@ export class CallCenterHome extends Component {
                 console.log("Error saving newCurrentRoute" + error);
               }
             };
-            this.saveRoute("Connections");
-            navigation.navigate("Connections");
+            this.saveRoute("Home");
+            navigation.navigate("Home");
           }}
           color="#FFFFFF"
         />
@@ -233,7 +233,7 @@ export class CallCenterHome extends Component {
 
 export default StackNavigator(
   {
-    Home: {
+    Connections: {
       screen: CallCenterHome
     }
   },
