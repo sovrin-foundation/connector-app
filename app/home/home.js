@@ -26,8 +26,8 @@ class HomeScreenDrawer extends Component {
 
   render() {
     const bubblesHeight = this.state.scrollY.interpolate({
-      inputRange: [0, 420],
-      outputRange: [0, -420],
+      inputRange: [0, 5],
+      outputRange: [0, -5],
       extrapolate: "clamp"
     });
 
@@ -41,11 +41,12 @@ class HomeScreenDrawer extends Component {
           )}
           style={{ backgroundColor: "#3F4140" }}
         >
+          <Bubbles height={bubblesHeight} />
           <AnimatableView style={{ marginTop: 420 }}>
             <HomeScreenActions />
           </AnimatableView>
         </Animated.ScrollView>
-        <Bubbles height={bubblesHeight} />
+
       </View>
     );
   }
