@@ -8,10 +8,10 @@ import CallCenterHome from "./callcenter/callcenter";
 const ConnectMeApp = StackNavigator(
   {
     Home: {
-      screen: InvitationScreen
+      screen: HomeScreen
     },
     Connections: {
-      screen: HomeScreen
+      screen: InvitationScreen
     },
     CallCenter: {
       screen: CallCenterHome

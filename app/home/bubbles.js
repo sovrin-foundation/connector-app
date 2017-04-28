@@ -25,7 +25,7 @@ const size = {
 };
 
 const bubbles = [
-  { name: "bh", image: require("../images/cbBiggerHips@3x.png"), size: size.L },
+  { name: "bh", image: require("../images/cbEDCU@3x.png"), size: size.L },
   { name: "dell", image: require("../images/cbDell@1x.png"), size: size.S },
   { name: "ebay", image: require("../images/cbEbay@1x.png"), size: size.M },
   { name: "target", image: require("../images/cbTarget.png"), size: size.M },
@@ -39,7 +39,11 @@ const bubbles = [
     image: require("../images/cbStarbucks.png"),
     size: size.XL
   },
-  { name: "suncoast", image: require("../images/suncoast.png"), size: size.XL },
+  {
+    name: "suncoast",
+    image: require("../images/cbSuncoast.png"),
+    size: size.XL
+  },
   { name: "amazon", image: require("../images/Amazon.png"), size: size.XL },
   { name: "dillard", image: require("../images/cbDillards.png"), size: size.M },
   { name: "verizon", image: require("../images/Verizon.png"), size: size.M }

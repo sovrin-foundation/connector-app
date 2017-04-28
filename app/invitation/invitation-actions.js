@@ -51,8 +51,8 @@ class actions extends Component {
   }
 
   _onDeny = () => {
-    this.saveKey("Connections");
-    this.props.navigation.navigate("Connections");
+    this.saveKey("Home");
+    this.props.navigation.navigate("Home");
   };
 
   render() {
