@@ -74,7 +74,7 @@ export class CallCenterHome extends Component {
                 Currently Talking With
               </Text>
               <Text style={[styles.white, styles.bold, styles.infoName]}>
-                DRUMMOND REED
+                JOHN BEST
               </Text>
               <Text style={[styles.white, styles.infoCustomerService]}>
                 CUSTOMER SERVICE SPECIALIST
