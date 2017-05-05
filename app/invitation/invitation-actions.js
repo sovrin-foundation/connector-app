@@ -13,7 +13,7 @@ class actions extends Component {
   };
 
   AuthRequest = type => {
-    TouchId.authenticate("to let user allow connection")
+    TouchId.authenticate("Please confirm with TouchID")
       .then(success => {
         this.getKey("PN_username").then(username => {
           fetch(`https://agency.evernym.com/callcenter/user/${username}/auth`, {
