@@ -3,6 +3,7 @@ package com.connectme;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.wix.interactable.Interactable;
@@ -27,6 +28,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNSensitiveInfoPackage(),
             new LinearGradientPackage(),
             new ReactNativeOneSignalPackage(),
             new Interactable(),

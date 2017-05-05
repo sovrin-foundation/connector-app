@@ -126,6 +126,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-sensitive-info')
     compile project(':react-native-linear-gradient')
     compile project(':react-native-onesignal')
     compile project(':react-native-interactable')

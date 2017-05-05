@@ -2972,6 +2972,10 @@ react-native-onesignal@^3.0.3:
   dependencies:
     invariant "^2.2.2"
 
+react-native-sensitive-info@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-sensitive-info/-/react-native-sensitive-info-4.0.0.tgz#0001c054076dbc30c383c4fc7048e655c3bb79af"
+
 react-native-side-menu@^0.20.1:
   version "0.20.1"
   resolved "https://registry.yarnpkg.com/react-native-side-menu/-/react-native-side-menu-0.20.1.tgz#df21b4bb9d8a1aa3bae53d74ddf8a739eb59bfc5"
