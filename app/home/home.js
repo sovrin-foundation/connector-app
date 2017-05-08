@@ -1,8 +1,5 @@
-/**
- * @flow
- */
-
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   ScrollView,
   View,
@@ -18,6 +15,8 @@ import OneSignal from "react-native-onesignal";
 
 import Bubbles from "./bubbles";
 import HomeScreenActions from "./actions";
+
+import { getUserInfo, getConnections } from "../store";
 
 class HomeScreenDrawer extends Component {
   static navigationOptions = {
@@ -35,14 +34,12 @@ class HomeScreenDrawer extends Component {
 
   componentWillMount() {
     OneSignal.addEventListener("opened", this.onOpened);
+    this.props.loadUserInfo();
+    this.props.loadConnections();
   }
 
   componentWillUnmount() {
     OneSignal.removeEventListener("opened", this.onOpened);
-  }
-
-  onReceived(notification) {
-    console.log("Notification received: ", notification);
   }
 
   async saveKey(key, value) {
@@ -138,4 +135,14 @@ class HomeScreenDrawer extends Component {
   }
 }
 
-export default HomeScreenDrawer;
+const mapStateToProps = state => ({
+  user: state.user,
+  connections: state.connections
+});
+
+const mapDispatchToProps = dispatch => ({
+  loadUserInfo: () => dispatch(getUserInfo()),
+  loadConnections: () => dispatch(getConnections())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreenDrawer);

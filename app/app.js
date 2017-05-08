@@ -1,11 +1,14 @@
 import React, { Component } from "react";
+import { Provider } from "react-redux";
 import { AppRegistry, Text, View } from "react-native";
 import { StackNavigator } from "react-navigation";
 import InvitationScreen from "./invitation/invitation";
 import HomeScreen from "./home/home";
 import CallCenterHome from "./callcenter/callcenter";
 
-const ConnectMeApp = StackNavigator(
+import store from "./store";
+
+const ConnectMeAppNavigator = StackNavigator(
   {
     Home: {
       screen: HomeScreen
@@ -21,5 +24,11 @@ const ConnectMeApp = StackNavigator(
     headerMode: "none"
   }
 );
+
+class ConnectMeApp extends Component {
+  render() {
+    return <Provider store={store}><ConnectMeAppNavigator /></Provider>;
+  }
+}
 
 AppRegistry.registerComponent("ConnectMe", () => ConnectMeApp);

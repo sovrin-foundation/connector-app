@@ -3,6 +3,9 @@ import { View, StyleSheet, AsyncStorage } from "react-native";
 import { Button } from "react-native-elements";
 import TouchId from "react-native-touch-id";
 
+//TODO: Add actions and action creators at the top level
+//TODO: Use redux-saga for action creators
+
 class actions extends Component {
   _onAllow = () => {
     this.AuthRequest("ACCEPTED");

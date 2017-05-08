@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "flow": "flow",
+    "postinstall": "remotedev-debugger"
   },
   "dependencies": {
     "bs58": "^4.0.0",
-    "react": "~15.4.1",
-    "react-native": "0.42.3",
+    "react": "16.0.0-alpha.6",
+    "react-native": "0.44.0",
     "react-native-animatable": "^1.1.1",
     "react-native-elements": "^0.10.3",
     "react-native-interactable": "^0.0.7",
@@ -22,15 +24,21 @@
     "react-native-swipeable": "^0.4.0",
     "react-native-touch-id": "^3.0.0",
     "react-native-vector-icons": "^4.0.0",
-    "react-navigation": "^1.0.0-beta.7",
+    "react-navigation": "^1.0.0-beta.9",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0",
+    "redux-saga": "^0.15.0",
     "tweetnacl": "^1.0.0-rc.1",
     "tweetnacl-util": "^0.15.0"
   },
   "devDependencies": {
     "babel-jest": "19.0.0",
     "babel-preset-react-native": "1.9.1",
+    "flow-bin": "0.42.0",
     "jest": "19.0.2",
-    "react-test-renderer": "~15.4.1"
+    "react-devtools": "^2.1.7",
+    "react-test-renderer": "~16.0.0-alpha.6",
+    "remote-redux-devtools-on-debugger": "^0.7.1"
   },
   "jest": {
     "preset": "react-native"

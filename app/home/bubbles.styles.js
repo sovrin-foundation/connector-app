@@ -1,6 +1,4 @@
-/**
- * bubbles styles
- */
+// @flow
 
 import { StyleSheet } from 'react-native';
 

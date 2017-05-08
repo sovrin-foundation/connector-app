@@ -1,5 +1,5 @@
 /**
- * badge
+ * @flow
  */
 
 import React, { PropTypes } from 'react';
