@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { all } from "redux-saga/effects";
+import logger from "redux-logger";
 import user, { watchUserInfo } from "./user-store";
 import connections, { watchLoadConnections } from "./connections-store";
 
@@ -11,7 +12,7 @@ const appReducer = combineReducers({
   connections
 });
 
-const store = createStore(appReducer, applyMiddleware(sagaMiddleware));
+const store = createStore(appReducer, applyMiddleware(logger, sagaMiddleware));
 
 sagaMiddleware.run(function*() {
   return yield all([watchLoadConnections(), watchUserInfo()]);

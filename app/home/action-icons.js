@@ -1,8 +1,4 @@
-/**
- * @flow
- */
-
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import { Avatar, Icon } from "react-native-elements";
 

@@ -15,7 +15,8 @@ describe("user info should update correctly", () => {
   it("should reflect user info request started", () => {
     const expectedState = {
       ...initialState,
-      isFetching: true
+      isFetching: true,
+      isPristine: false
     };
     const actualState = userReducer(initialState, getUserInfo());
 

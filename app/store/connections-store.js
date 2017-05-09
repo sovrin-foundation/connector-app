@@ -21,6 +21,7 @@ export const getConnectionsSuccess = connections => ({
 const initialState = {
   data: {},
   isFetching: false,
+  isPristine: true,
   error: {
     code: "",
     message: ""
@@ -40,7 +41,9 @@ export default function connections(state = initialState, action) {
     case GET_CONNECTIONS:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
+        isPristine: false,
+        error: initialState.error
       };
     case GET_CONNECTIONS_FAIL:
       return {

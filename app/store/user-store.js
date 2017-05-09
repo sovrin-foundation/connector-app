@@ -25,6 +25,7 @@ export const getUserInfoSuccess = info => ({
 const initialState = {
   data: {},
   isFetching: false,
+  isPristine: true,
   error: {
     code: "",
     message: ""
@@ -45,6 +46,7 @@ export default function user(state = initialState, action) {
       return {
         ...state,
         isFetching: true,
+        isPristine: false,
         error: initialState.error
       };
     case GET_USERINFO_FAIL:

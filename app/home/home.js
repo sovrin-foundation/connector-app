@@ -34,8 +34,11 @@ class HomeScreenDrawer extends Component {
 
   componentWillMount() {
     OneSignal.addEventListener("opened", this.onOpened);
+    console.log("Home componentWillMount");
     this.props.loadUserInfo();
     this.props.loadConnections();
+    // ensure that it runs only once, and not every time component is rendered
+    this.poll("testdemo1");
   }
 
   componentWillUnmount() {
@@ -107,12 +110,13 @@ class HomeScreenDrawer extends Component {
   };
 
   render() {
-    this.poll("testdemo1"); // polling for auth status
     const bubblesHeight = this.state.scrollY.interpolate({
       inputRange: [0, 5],
       outputRange: [0, -5],
       extrapolate: "clamp"
     });
+
+    const { user, connections } = this.props;
 
     return (
       <View style={{ flex: 1 }}>
@@ -124,12 +128,11 @@ class HomeScreenDrawer extends Component {
           )}
           style={{ backgroundColor: "#3F4140" }}
         >
-          <Bubbles height={bubblesHeight} />
+          <Bubbles height={bubblesHeight} connections={connections} />
           <AnimatableView style={{ marginTop: 420 }}>
-            <HomeScreenActions />
+            <HomeScreenActions user={user} />
           </AnimatableView>
         </Animated.ScrollView>
-
       </View>
     );
   }

@@ -1,8 +1,4 @@
-/**
- * @flow
- */
-
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import {
   View,
   StyleSheet,
@@ -20,46 +16,95 @@ import Swipeable from "react-native-swipeable";
 
 import Divider from "../components/divider";
 import Badge from "../components/badge";
+import styles from "./action-list-items.styles";
 
-class ActionListItems extends Component {
-  openModal = () => {
-    this.refs.modal1.open();
-  };
+const addButtonText = <Text style={styles.dividerLabel}>ADD</Text>;
+const avatarDividerLeft = (
+  <Text style={styles.dividerLabel}>AVATAR PHOTOS</Text>
+);
+const identifyingDividerLeft = (
+  <Text style={styles.dividerLabel}>IDENTIFYING INFO</Text>
+);
+const addressesDividerLeft = <Text style={styles.dividerLabel}>ADDRESSES</Text>;
+const emailDividerLeft = (
+  <Text style={styles.dividerLabel}>EMAIL ADDRESSES</Text>
+);
+const phoneDividerLeft = <Text style={styles.dividerLabel}>PHONE NUMBERS</Text>;
+const creditCardDividerLeft = (
+  <Text style={styles.dividerLabel}>CREDIT CARDS</Text>
+);
 
+const rightActionButtons = [
+  <TouchableOpacity
+    style={[styles.rightSwipeItem, { backgroundColor: "#A0A0A0" }]}
+  >
+    <Text style={styles.swipeActionLeftText}>Edit</Text>
+  </TouchableOpacity>,
+  <TouchableOpacity
+    style={[styles.rightSwipeItem, { backgroundColor: "#D0021B" }]}
+  >
+    <Text style={styles.swipeActionLeftText}>Remove</Text>
+  </TouchableOpacity>
+];
+
+const ListItemContainer = ({ children }) => (
+  <View
+    style={[
+      styles.container,
+      styles.listItem,
+      styles.horizontalSpace,
+      styles.listItemContainer
+    ]}
+  >
+    {children}
+  </View>
+);
+
+const ListItemData = ({ label, itemValue }) => (
+  <View style={styles.listItemContainer}>
+    <Text style={styles.textLabel}>{label}</Text>
+    <Text style={styles.listItemValue}>{itemValue}</Text>
+  </View>
+);
+
+const IdentifyingInfo = ({ infos }) => (
+  <View>
+    {infos.map(info => {
+      return (
+        <ListItemContainer key={info.id}>
+          <Badge counter={info.score} name={"grey"} />
+          <ListItemData label={info.name.toUpperCase()} itemValue={info.data} />
+        </ListItemContainer>
+      );
+    })}
+  </View>
+);
+
+class ActionListItems extends PureComponent {
   render() {
-    const addButtonText = <Text style={styles.dividerLabel}>ADD</Text>;
-    const avatarDividerLeft = (
-      <Text style={styles.dividerLabel}>AVATAR PHOTOS</Text>
-    );
-    const identifyingDividerLeft = (
-      <Text style={styles.dividerLabel}>IDENTIFYING INFO</Text>
-    );
-    const addressesDividerLeft = (
-      <Text style={styles.dividerLabel}>ADDRESSES</Text>
-    );
-    const emailDividerLeft = (
-      <Text style={styles.dividerLabel}>EMAIL ADDRESSES</Text>
-    );
-    const phoneDividerLeft = (
-      <Text style={styles.dividerLabel}>PHONE NUMBERS</Text>
-    );
-    const creditCardDividerLeft = (
-      <Text style={styles.dividerLabel}>CREDIT CARDS</Text>
-    );
+    const { user: { isFetching, isPristine, data, error } } = this.props;
 
-    const rightActionButtons = [
-      <TouchableOpacity
-        style={[styles.rightSwipeItem, { backgroundColor: "#A0A0A0" }]}
-      >
-        <Text style={styles.swipeActionLeftText}>Edit</Text>
-      </TouchableOpacity>,
-      <TouchableOpacity
-        style={[styles.rightSwipeItem, { backgroundColor: "#D0021B" }]}
-      >
-        <Text style={styles.swipeActionLeftText}>Remove</Text>
-      </TouchableOpacity>
-    ];
+    const { identifyingInfo, addresses, emails, phones } = data;
 
+    if (isFetching || isPristine) {
+      // loading is in progress
+      return (
+        <View style={styles.container}>
+          <Text>Loading...</Text>
+        </View>
+      );
+    }
+
+    if (!isFetching && error.code) {
+      // some error occurred while loading data for user
+      return (
+        <View style={styles.container}>
+          <Text>Error fetching data</Text>
+        </View>
+      );
+    }
+
+    // data is fetched and there is no error, go ahead and render component
     return (
       <View style={styles.container}>
         <Divider
@@ -85,34 +130,7 @@ class ActionListItems extends Component {
           right={addButtonText}
           containerStyle={{ marginTop: 3 }}
         />
-        <View
-          style={[
-            styles.container,
-            styles.listItem,
-            styles.horizontalSpace,
-            styles.listItemContainer
-          ]}
-        >
-          <Badge counter={76} name={"grey"} />
-          <View style={styles.listItemContainer}>
-            <Text style={styles.textLabel}>NAME</Text>
-            <Text style={styles.listItemValue}>Drummond Reed</Text>
-          </View>
-        </View>
-        <View
-          style={[
-            styles.container,
-            styles.listItem,
-            styles.horizontalSpace,
-            styles.listItemContainer
-          ]}
-        >
-          <Badge counter={21} name={"grey"} />
-          <View style={styles.listItemContainer}>
-            <Text style={styles.textLabel}>DATE OF BIRTH</Text>
-            <Text style={styles.listItemValue}>11/14/1968</Text>
-          </View>
-        </View>
+        <IdentifyingInfo infos={identifyingInfo} />
 
         <Divider left={addressesDividerLeft} right={addButtonText} />
         <View>
@@ -125,43 +143,25 @@ class ActionListItems extends Component {
                   </Text>
                 </View>
               </View>
-              <View
-                style={[
-                  styles.container,
-                  styles.listItem,
-                  styles.horizontalSpace,
-                  styles.listItemContainer
-                ]}
-              >
+              <ListItemContainer>
                 <Badge counter={21} name={"grey"} />
-                <View style={styles.listItemContainer}>
-                  <Text style={styles.textLabel}>HOME ADDRESS</Text>
-                  <Text style={styles.listItemValue}>
-                    11453 Lesterbend Circle NW Stream Harbor, WA 98329
-                  </Text>
-                </View>
-              </View>
+                <ListItemData
+                  label={addresses[0].name.toUpperCase()}
+                  itemValue={addresses[0].data}
+                />
+              </ListItemContainer>
             </SwipeRow>
             <Swipeable
               leftActionReleaseAnimationFn={Animated.spring}
               rightButtons={rightActionButtons}
             >
-              <View
-                style={[
-                  styles.container,
-                  styles.listItem,
-                  styles.horizontalSpace,
-                  styles.listItemContainer
-                ]}
-              >
+              <ListItemContainer>
                 <Badge counter={21} name={"grey"} />
-                <View style={styles.listItemContainer}>
-                  <Text style={styles.textLabel}>MAILING ADDRESS</Text>
-                  <Text style={styles.listItemValue}>
-                    11453 Lesterbend Circle NW Stream Harbor, WA 98329
-                  </Text>
-                </View>
-              </View>
+                <ListItemData
+                  label={addresses[1].name.toUpperCase()}
+                  itemValue={addresses[1].data}
+                />
+              </ListItemContainer>
             </Swipeable>
           </View>
         </View>
@@ -177,43 +177,25 @@ class ActionListItems extends Component {
                   </Text>
                 </View>
               </View>
-              <View
-                style={[
-                  styles.container,
-                  styles.listItem,
-                  styles.horizontalSpace,
-                  styles.listItemContainer
-                ]}
-              >
+              <ListItemContainer>
                 <Badge counter={21} name={"grey"} />
-                <View style={styles.listItemContainer}>
-                  <Text style={styles.textLabel}>EMAIL ADDRESS 1</Text>
-                  <Text style={styles.listItemValue}>
-                    drummond.reed@example.domain.com
-                  </Text>
-                </View>
-              </View>
+                <ListItemData
+                  label={emails[0].name.toUpperCase()}
+                  itemValue={emails[0].data}
+                />
+              </ListItemContainer>
             </SwipeRow>
             <Swipeable
               leftActionReleaseAnimationFn={Animated.spring}
               rightButtons={rightActionButtons}
             >
-              <View
-                style={[
-                  styles.container,
-                  styles.listItem,
-                  styles.horizontalSpace,
-                  styles.listItemContainer
-                ]}
-              >
+              <ListItemContainer>
                 <Badge counter={12} name={"grey"} />
-                <View style={styles.listItemContainer}>
-                  <Text style={styles.textLabel}>EMAIL ADDRESS 2</Text>
-                  <Text style={styles.listItemValue}>
-                    drummond.reed@example.domain.com
-                  </Text>
-                </View>
-              </View>
+                <ListItemData
+                  label={emails[1].name.toUpperCase()}
+                  itemValue={emails[1].data}
+                />
+              </ListItemContainer>
             </Swipeable>
           </View>
         </View>
@@ -229,58 +211,37 @@ class ActionListItems extends Component {
                   </Text>
                 </View>
               </View>
-              <View
-                style={[
-                  styles.container,
-                  styles.listItem,
-                  styles.horizontalSpace,
-                  styles.listItemContainer
-                ]}
-              >
+              <ListItemContainer>
                 <Badge counter={21} name={"grey"} />
-                <View style={styles.listItemContainer}>
-                  <Text style={styles.textLabel}>HOME PHONE NUMBER</Text>
-                  <Text style={styles.listItemValue}>253-444-5677</Text>
-                </View>
-              </View>
+                <ListItemData
+                  label={phones[0].name.toUpperCase()}
+                  itemValue={phones[0].data}
+                />
+              </ListItemContainer>
             </SwipeRow>
             <Swipeable
               leftActionReleaseAnimationFn={Animated.spring}
               rightButtons={rightActionButtons}
             >
-              <View
-                style={[
-                  styles.container,
-                  styles.listItem,
-                  styles.horizontalSpace,
-                  styles.listItemContainer
-                ]}
-              >
+              <ListItemContainer>
                 <Badge counter={21} name={"grey"} />
-                <View style={styles.listItemContainer}>
-                  <Text style={styles.textLabel}>MOBILE PHONE NUMBER</Text>
-                  <Text style={styles.listItemValue}>844-456-2346</Text>
-                </View>
-              </View>
+                <ListItemData
+                  label={phones[1].name.toUpperCase()}
+                  itemValue={phones[1].data}
+                />
+              </ListItemContainer>
             </Swipeable>
             <Swipeable
               leftActionReleaseAnimationFn={Animated.spring}
               rightButtons={rightActionButtons}
             >
-              <View
-                style={[
-                  styles.container,
-                  styles.listItem,
-                  styles.horizontalSpace,
-                  styles.listItemContainer
-                ]}
-              >
+              <ListItemContainer>
                 <Badge counter={21} name={"grey"} />
-                <View style={styles.listItemContainer}>
-                  <Text style={styles.textLabel}>WORK PHONE NUMBER</Text>
-                  <Text style={styles.listItemValue}>844-238-0987</Text>
-                </View>
-              </View>
+                <ListItemData
+                  label={phones[2].name.toUpperCase()}
+                  itemValue={phones[2].data}
+                />
+              </ListItemContainer>
             </Swipeable>
           </View>
         </View>
@@ -318,87 +279,5 @@ class ActionListItems extends Component {
     );
   }
 }
-
-export const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#EBEBEA",
-    flex: 1
-  },
-  horizontalSpace: {
-    paddingHorizontal: 10
-  },
-  dividerLabel: {
-    color: "#242B2D"
-  },
-  listItemContainer: {
-    backgroundColor: "#FFFFFF",
-    paddingLeft: 10
-  },
-  badge: {
-    backgroundColor: "rgba(52, 52, 52, 0.0)",
-    left: 0,
-    position: "absolute"
-  },
-  avatar: {
-    top: 5,
-    left: 2,
-    position: "absolute"
-  },
-  avatarsContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    paddingVertical: 5,
-    height: 60
-  },
-  listItem: {
-    paddingVertical: 10,
-    flexDirection: "row",
-    marginBottom: 3,
-    alignItems: "center"
-  },
-  textLabel: {
-    color: "#535353",
-    fontSize: 12,
-    marginBottom: 5
-  },
-  listItemValue: {
-    fontWeight: "bold",
-    fontSize: 15,
-    color: "#424342"
-  },
-  swipeActionContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#85BF43",
-    marginBottom: 3
-  },
-  swipeActionLeft: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: 150
-  },
-  swipeActionLeftText: {
-    color: "#FFFFFF",
-    fontWeight: "bold"
-  },
-  rightSwipeItem: {
-    flex: 1,
-    justifyContent: "center",
-    paddingLeft: 20
-  },
-  creditCardContainer: {
-    flex: 1,
-    flexDirection: "row",
-    paddingLeft: 0,
-    paddingVertical: 5,
-    justifyContent: "space-around"
-  },
-  creditCard: {
-    width: 145,
-    height: 100
-  }
-});
 
 export default ActionListItems;

@@ -17,7 +17,11 @@ describe("connections should update correctly", () => {
   });
 
   it("should reflect get connections request started", () => {
-    const expectedState = { ...initialState, isFetching: true };
+    const expectedState = {
+      ...initialState,
+      isFetching: true,
+      isPristine: false
+    };
     const actualState = connectionReducer(initialState, getConnections());
 
     expect(actualState).toMatchObject(expectedState);
