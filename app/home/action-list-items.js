@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent } from 'react';
 import {
   View,
   StyleSheet,
@@ -6,17 +6,17 @@ import {
   Image,
   TouchableHighlight,
   TouchableOpacity,
-  Animated
-} from "react-native";
-import { List, ListItem } from "react-native-elements";
-import { Avatar, Icon, Button } from "react-native-elements";
-import Lightbox from "react-native-lightbox";
-import { SwipeRow } from "react-native-swipe-list-view";
-import Swipeable from "react-native-swipeable";
+  Animated,
+} from 'react-native';
+import { List, ListItem } from 'react-native-elements';
+import { Avatar, Icon, Button } from 'react-native-elements';
+import Lightbox from 'react-native-lightbox';
+import { SwipeRow } from 'react-native-swipe-list-view';
+import Swipeable from 'react-native-swipeable';
 
-import Divider from "../components/divider";
-import Badge from "../components/badge";
-import styles from "./action-list-items.styles";
+import Divider from '../components/divider';
+import Badge from '../components/badge';
+import styles from './action-list-items.styles';
 
 const addButtonText = <Text style={styles.dividerLabel}>ADD</Text>;
 const avatarDividerLeft = (
@@ -36,15 +36,15 @@ const creditCardDividerLeft = (
 
 const rightActionButtons = [
   <TouchableOpacity
-    style={[styles.rightSwipeItem, { backgroundColor: "#A0A0A0" }]}
+    style={[styles.rightSwipeItem, { backgroundColor: '#A0A0A0' }]}
   >
     <Text style={styles.swipeActionLeftText}>Edit</Text>
   </TouchableOpacity>,
   <TouchableOpacity
-    style={[styles.rightSwipeItem, { backgroundColor: "#D0021B" }]}
+    style={[styles.rightSwipeItem, { backgroundColor: '#D0021B' }]}
   >
     <Text style={styles.swipeActionLeftText}>Remove</Text>
-  </TouchableOpacity>
+  </TouchableOpacity>,
 ];
 
 const ListItemContainer = ({ children }) => (
@@ -53,7 +53,7 @@ const ListItemContainer = ({ children }) => (
       styles.container,
       styles.listItem,
       styles.horizontalSpace,
-      styles.listItemContainer
+      styles.listItemContainer,
     ]}
   >
     {children}
@@ -72,7 +72,7 @@ const IdentifyingInfo = ({ infos }) => (
     {infos.map(info => {
       return (
         <ListItemContainer key={info.id}>
-          <Badge counter={info.score} name={"grey"} />
+          <Badge counter={info.score} name={'grey'} />
           <ListItemData label={info.name.toUpperCase()} itemValue={info.data} />
         </ListItemContainer>
       );
@@ -119,9 +119,9 @@ class ActionListItems extends PureComponent {
               containerStyle={styles.avatar}
               medium
               rounded
-              source={require("../invitation/inviter.jpeg")}
+              source={require('../invitation/inviter.jpeg')}
             />
-            <Badge counter={76} name={"white"} badgeStyle={styles.badge} />
+            <Badge counter={76} name={'white'} badgeStyle={styles.badge} />
           </View>
         </View>
 
@@ -144,7 +144,7 @@ class ActionListItems extends PureComponent {
                 </View>
               </View>
               <ListItemContainer>
-                <Badge counter={21} name={"grey"} />
+                <Badge counter={21} name={'grey'} />
                 <ListItemData
                   label={addresses[0].name.toUpperCase()}
                   itemValue={addresses[0].data}
@@ -156,7 +156,7 @@ class ActionListItems extends PureComponent {
               rightButtons={rightActionButtons}
             >
               <ListItemContainer>
-                <Badge counter={21} name={"grey"} />
+                <Badge counter={21} name={'grey'} />
                 <ListItemData
                   label={addresses[1].name.toUpperCase()}
                   itemValue={addresses[1].data}
@@ -178,7 +178,7 @@ class ActionListItems extends PureComponent {
                 </View>
               </View>
               <ListItemContainer>
-                <Badge counter={21} name={"grey"} />
+                <Badge counter={21} name={'grey'} />
                 <ListItemData
                   label={emails[0].name.toUpperCase()}
                   itemValue={emails[0].data}
@@ -190,7 +190,7 @@ class ActionListItems extends PureComponent {
               rightButtons={rightActionButtons}
             >
               <ListItemContainer>
-                <Badge counter={12} name={"grey"} />
+                <Badge counter={12} name={'grey'} />
                 <ListItemData
                   label={emails[1].name.toUpperCase()}
                   itemValue={emails[1].data}
@@ -212,7 +212,7 @@ class ActionListItems extends PureComponent {
                 </View>
               </View>
               <ListItemContainer>
-                <Badge counter={21} name={"grey"} />
+                <Badge counter={21} name={'grey'} />
                 <ListItemData
                   label={phones[0].name.toUpperCase()}
                   itemValue={phones[0].data}
@@ -224,7 +224,7 @@ class ActionListItems extends PureComponent {
               rightButtons={rightActionButtons}
             >
               <ListItemContainer>
-                <Badge counter={21} name={"grey"} />
+                <Badge counter={21} name={'grey'} />
                 <ListItemData
                   label={phones[1].name.toUpperCase()}
                   itemValue={phones[1].data}
@@ -236,7 +236,7 @@ class ActionListItems extends PureComponent {
               rightButtons={rightActionButtons}
             >
               <ListItemContainer>
-                <Badge counter={21} name={"grey"} />
+                <Badge counter={21} name={'grey'} />
                 <ListItemData
                   label={phones[2].name.toUpperCase()}
                   itemValue={phones[2].data}
