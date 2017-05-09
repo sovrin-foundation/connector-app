@@ -1,83 +1,97 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: "#EBEBEA",
-    flex: 1
+    backgroundColor: '#EBEBEA',
+    flex: 1,
   },
   horizontalSpace: {
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
   dividerLabel: {
-    color: "#242B2D"
+    color: '#242B2D',
   },
   listItemContainer: {
-    backgroundColor: "#FFFFFF",
-    paddingLeft: 10
+    backgroundColor: '#FFFFFF',
+    paddingLeft: 10,
   },
   badge: {
-    backgroundColor: "rgba(52, 52, 52, 0.0)",
+    backgroundColor: 'rgba(52, 52, 52, 0.0)',
     left: 0,
-    position: "absolute"
+    position: 'absolute',
   },
   avatar: {
     top: 5,
     left: 2,
-    position: "absolute"
+    position: 'absolute',
   },
   avatarsContainer: {
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "flex-start",
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
     paddingVertical: 5,
-    height: 60
+    height: 60,
   },
   listItem: {
     paddingVertical: 10,
-    flexDirection: "row",
+    flexDirection: 'row',
     marginBottom: 3,
-    alignItems: "center"
+    alignItems: 'center',
   },
   textLabel: {
-    color: "#535353",
+    color: '#535353',
     fontSize: 12,
-    marginBottom: 5
+    marginBottom: 5,
   },
   listItemValue: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 15,
-    color: "#424342"
+    color: '#424342',
   },
   swipeActionContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    backgroundColor: "#85BF43",
-    marginBottom: 3
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#85BF43',
+    marginBottom: 3,
   },
   swipeActionLeft: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: 150
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 150,
   },
   swipeActionLeftText: {
-    color: "#FFFFFF",
-    fontWeight: "bold"
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+  },
+  leftSwipeItem: {
+    alignItems: 'flex-end',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    backgroundColor: '#85BF43',
+  },
+  leftSwipeItemText: {
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 140,
+    paddingLeft: 10,
   },
   rightSwipeItem: {
     flex: 1,
-    justifyContent: "center",
-    paddingLeft: 20
+    justifyContent: 'center',
+    paddingLeft: 20,
   },
   creditCardContainer: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: 'row',
     paddingLeft: 0,
     paddingVertical: 5,
-    justifyContent: "space-around"
+    justifyContent: 'space-around',
   },
   creditCard: {
     width: 145,
-    height: 100
-  }
-});
+    height: 100,
+  },
+})

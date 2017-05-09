@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from 'react'
 import {
   View,
   StyleSheet,
@@ -7,32 +7,30 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   Animated,
-} from 'react-native';
-import { List, ListItem } from 'react-native-elements';
-import { Avatar, Icon, Button } from 'react-native-elements';
-import Lightbox from 'react-native-lightbox';
-import { SwipeRow } from 'react-native-swipe-list-view';
-import Swipeable from 'react-native-swipeable';
+} from 'react-native'
+import { List, ListItem } from 'react-native-elements'
+import { Avatar, Icon, Button } from 'react-native-elements'
+import Lightbox from 'react-native-lightbox'
+import { SwipeRow } from 'react-native-swipe-list-view'
+import Swipeable from 'react-native-swipeable'
 
-import Divider from '../components/divider';
-import Badge from '../components/badge';
-import styles from './action-list-items.styles';
+import Divider from '../components/divider'
+import Badge from '../components/badge'
+import styles from './action-list-items.styles'
 
-const addButtonText = <Text style={styles.dividerLabel}>ADD</Text>;
-const avatarDividerLeft = (
-  <Text style={styles.dividerLabel}>AVATAR PHOTOS</Text>
-);
+const addButtonText = <Text style={styles.dividerLabel}>ADD</Text>
+const avatarDividerLeft = <Text style={styles.dividerLabel}>AVATAR PHOTOS</Text>
 const identifyingDividerLeft = (
   <Text style={styles.dividerLabel}>IDENTIFYING INFO</Text>
-);
-const addressesDividerLeft = <Text style={styles.dividerLabel}>ADDRESSES</Text>;
+)
+const addressesDividerLeft = <Text style={styles.dividerLabel}>ADDRESSES</Text>
 const emailDividerLeft = (
   <Text style={styles.dividerLabel}>EMAIL ADDRESSES</Text>
-);
-const phoneDividerLeft = <Text style={styles.dividerLabel}>PHONE NUMBERS</Text>;
+)
+const phoneDividerLeft = <Text style={styles.dividerLabel}>PHONE NUMBERS</Text>
 const creditCardDividerLeft = (
   <Text style={styles.dividerLabel}>CREDIT CARDS</Text>
-);
+)
 
 const rightActionButtons = [
   <TouchableOpacity
@@ -45,7 +43,7 @@ const rightActionButtons = [
   >
     <Text style={styles.swipeActionLeftText}>Remove</Text>
   </TouchableOpacity>,
-];
+]
 
 const ListItemContainer = ({ children }) => (
   <View
@@ -58,14 +56,14 @@ const ListItemContainer = ({ children }) => (
   >
     {children}
   </View>
-);
+)
 
 const ListItemData = ({ label, itemValue }) => (
   <View style={styles.listItemContainer}>
     <Text style={styles.textLabel}>{label}</Text>
     <Text style={styles.listItemValue}>{itemValue}</Text>
   </View>
-);
+)
 
 const IdentifyingInfo = ({ infos }) => (
   <View>
@@ -75,16 +73,40 @@ const IdentifyingInfo = ({ infos }) => (
           <Badge counter={info.score} name={'grey'} />
           <ListItemData label={info.name.toUpperCase()} itemValue={info.data} />
         </ListItemContainer>
-      );
+      )
     })}
   </View>
-);
+)
+
+const SeeAllButton = ({ leftButtonText }) => (
+  <TouchableOpacity style={[styles.container, styles.leftSwipeItem]}>
+    <Text style={styles.leftSwipeItemText}>
+      {leftButtonText}
+    </Text>
+  </TouchableOpacity>
+)
+
+const swipeableLeftProps = {
+  leftButtonWidth: 140,
+  leftActionReleaseAnimationFn: Animated.spring,
+  leftButtons: [<SeeAllButton leftButtonText={'See all connections'} />],
+}
 
 class ActionListItems extends PureComponent {
-  render() {
-    const { user: { isFetching, isPristine, data, error } } = this.props;
+  swipeStart = () => {
+    this.props.isSwiping(true)
+  }
 
-    const { identifyingInfo, addresses, emails, phones } = data;
+  swipeEnd = () => {
+    setTimeout(() => {
+      this.props.isSwiping(false)
+    }, 100)
+  }
+
+  render() {
+    const { user: { isFetching, isPristine, data, error } } = this.props
+
+    const { identifyingInfo, addresses, emails, phones } = data
 
     if (isFetching || isPristine) {
       // loading is in progress
@@ -92,7 +114,7 @@ class ActionListItems extends PureComponent {
         <View style={styles.container}>
           <Text>Loading...</Text>
         </View>
-      );
+      )
     }
 
     if (!isFetching && error.code) {
@@ -101,7 +123,12 @@ class ActionListItems extends PureComponent {
         <View style={styles.container}>
           <Text>Error fetching data</Text>
         </View>
-      );
+      )
+    }
+
+    const swipeEvents = {
+      onSwipeStart: this.swipeStart,
+      onSwipeRelease: this.swipeEnd,
     }
 
     // data is fetched and there is no error, go ahead and render component
@@ -135,14 +162,13 @@ class ActionListItems extends PureComponent {
         <Divider left={addressesDividerLeft} right={addButtonText} />
         <View>
           <View style={[styles.container]}>
-            <SwipeRow leftOpenValue={150} disableLeftSwipe={true} tension={0}>
-              <View style={[styles.container, styles.swipeActionContainer]}>
-                <View style={[styles.swipeActionLeft]}>
-                  <Text style={styles.swipeActionLeftText}>
-                    SEE ALL CERTIFICATIONS
-                  </Text>
-                </View>
-              </View>
+            <Swipeable
+              {...swipeableLeftProps}
+              {...swipeEvents}
+              leftButtons={[
+                <SeeAllButton leftButtonText={'SEE ALL CERTIFICATIONS'} />,
+              ]}
+            >
               <ListItemContainer>
                 <Badge counter={21} name={'grey'} />
                 <ListItemData
@@ -150,8 +176,9 @@ class ActionListItems extends PureComponent {
                   itemValue={addresses[0].data}
                 />
               </ListItemContainer>
-            </SwipeRow>
+            </Swipeable>
             <Swipeable
+              {...swipeEvents}
               leftActionReleaseAnimationFn={Animated.spring}
               rightButtons={rightActionButtons}
             >
@@ -169,14 +196,7 @@ class ActionListItems extends PureComponent {
         <Divider left={emailDividerLeft} right={addButtonText} />
         <View>
           <View style={[styles.container]}>
-            <SwipeRow leftOpenValue={150} disableLeftSwipe={true} tension={0}>
-              <View style={[styles.container, styles.swipeActionContainer]}>
-                <View style={[styles.swipeActionLeft]}>
-                  <Text style={styles.swipeActionLeftText}>
-                    See all connections
-                  </Text>
-                </View>
-              </View>
+            <Swipeable {...swipeableLeftProps} {...swipeEvents}>
               <ListItemContainer>
                 <Badge counter={21} name={'grey'} />
                 <ListItemData
@@ -184,8 +204,9 @@ class ActionListItems extends PureComponent {
                   itemValue={emails[0].data}
                 />
               </ListItemContainer>
-            </SwipeRow>
+            </Swipeable>
             <Swipeable
+              {...swipeEvents}
               leftActionReleaseAnimationFn={Animated.spring}
               rightButtons={rightActionButtons}
             >
@@ -203,14 +224,7 @@ class ActionListItems extends PureComponent {
         <Divider left={phoneDividerLeft} right={addButtonText} />
         <View>
           <View style={[styles.container]}>
-            <SwipeRow leftOpenValue={150} disableLeftSwipe={true} tension={0}>
-              <View style={[styles.container, styles.swipeActionContainer]}>
-                <View style={[styles.swipeActionLeft]}>
-                  <Text style={styles.swipeActionLeftText}>
-                    See all connections
-                  </Text>
-                </View>
-              </View>
+            <Swipeable {...swipeableLeftProps} {...swipeEvents}>
               <ListItemContainer>
                 <Badge counter={21} name={'grey'} />
                 <ListItemData
@@ -218,8 +232,9 @@ class ActionListItems extends PureComponent {
                   itemValue={phones[0].data}
                 />
               </ListItemContainer>
-            </SwipeRow>
+            </Swipeable>
             <Swipeable
+              {...swipeEvents}
               leftActionReleaseAnimationFn={Animated.spring}
               rightButtons={rightActionButtons}
             >
@@ -232,6 +247,7 @@ class ActionListItems extends PureComponent {
               </ListItemContainer>
             </Swipeable>
             <Swipeable
+              {...swipeEvents}
               leftActionReleaseAnimationFn={Animated.spring}
               rightButtons={rightActionButtons}
             >
@@ -276,8 +292,8 @@ class ActionListItems extends PureComponent {
         </View>*/}
 
       </View>
-    );
+    )
   }
 }
 
-export default ActionListItems;
+export default ActionListItems
