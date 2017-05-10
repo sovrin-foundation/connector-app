@@ -15,14 +15,10 @@ import OneSignal from 'react-native-onesignal'
 
 import Bubbles from './bubbles'
 import HomeScreenActions from './actions'
-
-import { getUserInfo, getConnections } from '../store'
+import { getUserInfo, getConnections, invitationReceived } from '../store'
+import invitationData from '../invitation/data/invitation-data'
 
 class HomeScreenDrawer extends Component {
-  static navigationOptions = {
-    title: 'Home',
-  }
-
   constructor(props) {
     super(props)
 
@@ -76,6 +72,7 @@ class HomeScreenDrawer extends Component {
   }
 
   onOpened = openResult => {
+    this.props.invitationReceived()
     this.getRoute().then(() => {
       this.saveKey(
         'PN_username',
@@ -102,6 +99,7 @@ class HomeScreenDrawer extends Component {
       })
       .then(resData => {
         if (resData.status === 'NO_RESPONSE_YET') {
+          this.props.invitationReceived()
           this.resetKey('newCurrentRoute')
           this.saveKey('PN_username', username)
           this.props.navigation.navigate('Connections')
@@ -111,7 +109,7 @@ class HomeScreenDrawer extends Component {
           }, 4000)
         }
       })
-      .catch(error => console.log(error))
+      .catch(console.log)
   }
 
   render() {
@@ -152,6 +150,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   loadUserInfo: () => dispatch(getUserInfo()),
   loadConnections: () => dispatch(getConnections()),
+  invitationReceived: () => dispatch(invitationReceived(invitationData)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreenDrawer)

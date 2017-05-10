@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   View,
   Text,
@@ -7,22 +7,22 @@ import {
   StyleSheet,
   Image,
   AsyncStorage,
-} from 'react-native';
-import { StackNavigator } from 'react-navigation';
-import LinearGradient from 'react-native-linear-gradient';
-import { Avatar, Icon } from 'react-native-elements';
+} from 'react-native'
+import { StackNavigator } from 'react-navigation'
+import LinearGradient from 'react-native-linear-gradient'
+import { Avatar, Icon } from 'react-native-elements'
 
-import Divider from '../components/divider';
-import Badge from '../components/badge';
+import Divider from '../components/divider'
+import Badge from '../components/badge'
 
-import { styles as listStyles } from '../home/action-list-items.styles';
+import { styles as listStyles } from '../home/action-list-items.styles'
 
-const labelSuncoastInfo = <Text>SUNCOAST INFO</Text>;
-const labelAvatar = <Text>AVATAR PHOTOS</Text>;
-const labelIdentifyingInfo = <Text>IDENTIFYING INFO</Text>;
-const labelAdd = <Text>ADD</Text>;
-const labelAddresses = <Text>ADDRESSES</Text>;
-const labelEmailAddresses = <Text>EMAIL ADDRESSES</Text>;
+const labelSuncoastInfo = <Text>SUNCOAST INFO</Text>
+const labelAvatar = <Text>AVATAR PHOTOS</Text>
+const labelIdentifyingInfo = <Text>IDENTIFYING INFO</Text>
+const labelAdd = <Text>ADD</Text>
+const labelAddresses = <Text>ADDRESSES</Text>
+const labelEmailAddresses = <Text>EMAIL ADDRESSES</Text>
 
 export class CallCenterHome extends Component {
   static navigationOptions = {
@@ -40,13 +40,13 @@ export class CallCenterHome extends Component {
           onPress={() => {
             saveRoute = async value => {
               try {
-                await AsyncStorage.setItem('newCurrentRoute', value);
+                await AsyncStorage.setItem('newCurrentRoute', value)
               } catch (error) {
-                console.log('Error saving newCurrentRoute' + error);
+                console.log('Error saving newCurrentRoute' + error)
               }
-            };
-            this.saveRoute('Home');
-            navigation.navigate('Home');
+            }
+            this.saveRoute('Home')
+            navigation.navigate('Home')
           }}
           color="#FFFFFF"
         />
@@ -55,7 +55,7 @@ export class CallCenterHome extends Component {
         backgroundColor: '#2A5270',
       },
     }),
-  };
+  }
 
   render() {
     return (
@@ -130,7 +130,7 @@ export class CallCenterHome extends Component {
                   containerStyle={listStyles.avatar}
                   medium
                   rounded
-                  source={require('../invitation/inviter.jpeg')}
+                  source={require('../invitation/images/inviter.jpeg')}
                 />
                 <Badge
                   counter={86}
@@ -223,7 +223,7 @@ export class CallCenterHome extends Component {
           </View>
         </ScrollView>
       </View>
-    );
+    )
   }
 }
 
@@ -234,7 +234,7 @@ export default StackNavigator(
     },
   },
   {}
-);
+)
 
 const styles = StyleSheet.create({
   infoContainer: {
@@ -271,4 +271,4 @@ const styles = StyleSheet.create({
   label: {
     marginBottom: 2,
   },
-});
+})

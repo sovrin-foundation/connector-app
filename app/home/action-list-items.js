@@ -146,7 +146,7 @@ class ActionListItems extends PureComponent {
               containerStyle={styles.avatar}
               medium
               rounded
-              source={require('../invitation/inviter.jpeg')}
+              source={require('../invitation/images/inviter.jpeg')}
             />
             <Badge counter={76} name={'white'} badgeStyle={styles.badge} />
           </View>
