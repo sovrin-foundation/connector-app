@@ -15,7 +15,7 @@ import { Avatar, Icon } from 'react-native-elements'
 import Divider from '../components/divider'
 import Badge from '../components/badge'
 
-import { styles as listStyles } from '../home/action-list-items.styles'
+import listStyles from '../home/action-list-items.styles'
 
 const labelSuncoastInfo = <Text>SUNCOAST INFO</Text>
 const labelAvatar = <Text>AVATAR PHOTOS</Text>
@@ -23,39 +23,38 @@ const labelIdentifyingInfo = <Text>IDENTIFYING INFO</Text>
 const labelAdd = <Text>ADD</Text>
 const labelAddresses = <Text>ADDRESSES</Text>
 const labelEmailAddresses = <Text>EMAIL ADDRESSES</Text>
+const headerLeft = (
+  <Icon name="forum" color="#FFFFFF" containerStyle={{ marginLeft: 3 }} />
+)
+const headerTitle = (
+  <Image source={require('../images/sovrinsecuredconnection.png')} />
+)
 
 export class CallCenterHome extends Component {
-  static navigationOptions = {
-    title: ' ',
-    header: navigation => ({
-      left: (
-        <Icon name="forum" color="#FFFFFF" containerStyle={{ marginLeft: 3 }} />
-      ),
-      title: (
-        <Image source={require('../images/sovrinsecuredconnection.png')} />
-      ),
-      right: (
-        <Button
-          title="X"
-          onPress={() => {
-            saveRoute = async value => {
-              try {
-                await AsyncStorage.setItem('newCurrentRoute', value)
-              } catch (error) {
-                console.log('Error saving newCurrentRoute' + error)
-              }
+  static navigationOptions = ({ navigation }) => ({
+    headerLeft: headerLeft,
+    title: headerTitle,
+    headerRight: (
+      <Button
+        title="X"
+        onPress={() => {
+          saveRoute = async value => {
+            try {
+              await AsyncStorage.setItem('newCurrentRoute', value)
+            } catch (error) {
+              console.log('Error saving newCurrentRoute' + error)
             }
-            this.saveRoute('Home')
-            navigation.navigate('Home')
-          }}
-          color="#FFFFFF"
-        />
-      ),
-      style: {
-        backgroundColor: '#2A5270',
-      },
-    }),
-  }
+          }
+          this.saveRoute('Connections')
+          navigation.navigate('Connections')
+        }}
+        color="#FFFFFF"
+      />
+    ),
+    headerStyle: {
+      backgroundColor: '#2A5270',
+    },
+  })
 
   render() {
     return (

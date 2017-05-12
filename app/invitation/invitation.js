@@ -7,16 +7,19 @@ import { invitationAccepted, invitationRejected } from './invitation-store'
 import InvitationText from './invite-text'
 import InvitationActions from './invitation-actions'
 
-const Invitation = ({ invitation, onAllow, onDeny }) => (
-  <View style={styles.container}>
-    <View style={styles.inviteContainer}>
-      <InvitationText invitation={invitation} />
+const Invitation = props => {
+  const { invitation, onAllow, onDeny } = props
+  return (
+    <View style={styles.container}>
+      <View style={styles.inviteContainer}>
+        <InvitationText invitation={invitation} {...props} />
+      </View>
+      <View>
+        <InvitationActions onAllow={onAllow} onDeny={onDeny} {...props} />
+      </View>
     </View>
-    <View>
-      <InvitationActions onAllow={onAllow} onDeny={onDeny} />
-    </View>
-  </View>
-)
+  )
+}
 
 const mapStateToProps = ({ invitation }) => ({
   invitation,
