@@ -17,6 +17,9 @@ import Bubbles from './bubbles'
 import HomeScreenActions from './actions'
 import { getUserInfo, getConnections, invitationReceived } from '../store'
 import invitationData from '../invitation/data/invitation-data'
+import { setItem, getItem } from '../services/secure-storage'
+import { getKeyPairFromSeed, randomSeed } from '../services/keys'
+import bs58 from 'bs58'
 
 class HomeScreenDrawer extends Component {
   constructor(props) {
@@ -31,15 +34,23 @@ class HomeScreenDrawer extends Component {
 
   componentWillMount() {
     OneSignal.addEventListener('opened', this.onOpened)
+    OneSignal.addEventListener('ids', this.onIds)
     console.log('Home componentWillMount')
     this.props.loadUserInfo()
     this.props.loadConnections()
     // ensure that it runs only once, and not every time component is rendered
-    this.poll('testdemo1')
+    getItem('identifier').then(identifier => {
+      if (!identifier) {
+        this.enroll()
+      } else {
+        this.poll(identifier)
+      }
+    })
   }
 
   componentWillUnmount() {
     OneSignal.removeEventListener('opened', this.onOpened)
+    OneSignal.removeEventListener('ids', this.onIds)
   }
 
   handleSwipe = isSwiping => {
@@ -74,11 +85,6 @@ class HomeScreenDrawer extends Component {
   onOpened = openResult => {
     this.props.invitationReceived()
     this.getRoute().then(() => {
-      this.saveKey(
-        'PN_username',
-        openResult.notification.payload.additionalData.userName
-      )
-
       if (this.state.currentRoute !== 'Connections') {
         this.saveKey('newCurrentRoute', 'Connections')
         this.props.navigation.navigate('Connections')
@@ -86,8 +92,12 @@ class HomeScreenDrawer extends Component {
     })
   }
 
-  poll = username => {
-    fetch(`https://agency.evernym.com/callcenter/user/${username}/auth`, {
+  onIds = device => {
+    setItem('pushComMethod', device.userId)
+  }
+
+  poll = identifier => {
+    fetch(`https://agency.evernym.com/agent/id/${identifier}/auth`, {
       mode: 'cors',
     })
       .then(res => {
@@ -101,15 +111,62 @@ class HomeScreenDrawer extends Component {
         if (resData.status === 'NO_RESPONSE_YET') {
           this.props.invitationReceived()
           this.resetKey('newCurrentRoute')
-          this.saveKey('PN_username', username)
+          this.saveKey('newCurrentRoute', 'Connections')
           this.props.navigation.navigate('Connections')
         } else {
           window.setTimeout(() => {
-            this.poll('testdemo1')
+            this.poll(identifier)
           }, 4000)
         }
       })
+      .catch(error =>
+        window.setTimeout(() => {
+          this.poll(identifier)
+        }, 4000)
+      )
+  }
+
+  enroll = () => {
+    let phoneNumber = (Math.random() * 1000000000000000000)
+      .toString()
+      .substring(0, 10)
+    let id = randomSeed(32).substring(0, 22)
+    let seed = randomSeed(32).substring(0, 32)
+    let { publicKey: verKey, secretKey: signingKey } = getKeyPairFromSeed(seed)
+
+    verKey = bs58.encode(verKey)
+    getItem('pushComMethod')
+      .then(function(pushComMethod) {
+        if (pushComMethod) {
+          fetch(`https://callcenter.evernym.com/agent/enroll`, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              phoneNumber,
+              id,
+              verKey,
+              pushComMethod,
+            }),
+          })
+            .then(res => {
+              if (res.status == 200) {
+                setItem('identifier', id)
+                setItem('seed', seed)
+              } else {
+                throw new Error('Bad Request')
+              }
+            })
+            .catch(console.log)
+        } else {
+          console.error('Device PushComMethod not present')
+        }
+      })
       .catch(console.log)
+    this.poll(id)
   }
 
   render() {

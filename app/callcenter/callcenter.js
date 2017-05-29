@@ -38,15 +38,14 @@ export class CallCenterHome extends Component {
       <Button
         title="X"
         onPress={() => {
-          saveRoute = async value => {
+          ;(async value => {
             try {
               await AsyncStorage.setItem('newCurrentRoute', value)
             } catch (error) {
               console.log('Error saving newCurrentRoute' + error)
             }
-          }
-          this.saveRoute('Connections')
-          navigation.navigate('Connections')
+          })('Home')
+          navigation.navigate('Home')
         }}
         color="#FFFFFF"
       />
