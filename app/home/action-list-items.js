@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   Animated,
+  AlertIOS,
 } from 'react-native'
 import { List, ListItem } from 'react-native-elements'
 import { Avatar, Icon, Button } from 'react-native-elements'
@@ -14,6 +15,7 @@ import Lightbox from 'react-native-lightbox'
 import { SwipeRow } from 'react-native-swipe-list-view'
 import Swipeable from 'react-native-swipeable'
 
+import { getItem } from '../services/secure-storage'
 import Divider from '../components/divider'
 import Badge from '../components/badge'
 import styles from './action-list-items.styles'
@@ -93,6 +95,13 @@ const swipeableLeftProps = {
 }
 
 class ActionListItems extends PureComponent {
+  constructor() {
+    super()
+    this.state = {
+      avatarTapCounts: 0,
+    }
+  }
+
   swipeStart = () => {
     this.props.isSwiping(true)
   }
@@ -101,6 +110,52 @@ class ActionListItems extends PureComponent {
     setTimeout(() => {
       this.props.isSwiping(false)
     }, 100)
+  }
+
+  avatarTap = () => {
+    let taps = this.state.avatarTapCounts
+    if (taps >= 3) {
+      this.setState({ avatarTapCounts: 0 })
+      Promise.all([getItem('identifier'), getItem('phone')]).then(
+        values => {
+          if (values.length == 0) {
+            AlertIOS.alert('Identifier or phone not present')
+          } else {
+            const phoneNumber = values[1]
+            const identifier = values[0]
+            AlertIOS.alert(
+              `Identifier - ${identifier}`,
+              `Phone Number - ${phoneNumber}`
+            )
+
+            fetch(`http://callcenter.evernym.com/agent/app-context`, {
+              method: 'POST',
+              mode: 'cors',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                phoneNumber,
+                identifier,
+              }),
+            })
+              .then(res => {
+                if (res.status != 200) {
+                  throw new Error('Bad Request')
+                }
+              })
+              .catch(console.log)
+          }
+        },
+        error => {
+          console.log(error)
+        }
+      )
+    } else {
+      taps = taps + 1
+      this.setState({ avatarTapCounts: taps })
+    }
   }
 
   render() {
@@ -147,6 +202,7 @@ class ActionListItems extends PureComponent {
               medium
               rounded
               source={require('../invitation/images/inviter.jpeg')}
+              onPress={() => this.avatarTap()}
             />
             <Badge counter={76} name={'white'} badgeStyle={styles.badge} />
           </View>

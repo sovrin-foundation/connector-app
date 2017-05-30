@@ -39,13 +39,22 @@ class HomeScreenDrawer extends Component {
     this.props.loadUserInfo()
     this.props.loadConnections()
     // ensure that it runs only once, and not every time component is rendered
-    getItem('identifier').then(identifier => {
-      if (!identifier) {
-        this.enroll()
-      } else {
-        this.poll(identifier)
+    Promise.all([
+      getItem('identifier'),
+      getItem('phone'),
+      getItem('seed'),
+    ]).then(
+      values => {
+        if (values.length == 0) {
+          this.enroll()
+        } else {
+          this.poll(values[0])
+        }
+      },
+      error => {
+        console.log(error)
       }
-    })
+    )
   }
 
   componentWillUnmount() {
@@ -154,6 +163,7 @@ class HomeScreenDrawer extends Component {
           })
             .then(res => {
               if (res.status == 200) {
+                setItem('phone', phoneNumber)
                 setItem('identifier', id)
                 setItem('seed', seed)
               } else {
