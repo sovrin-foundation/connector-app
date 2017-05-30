@@ -98,7 +98,7 @@ class ActionListItems extends PureComponent {
   constructor() {
     super()
     this.state = {
-      avatarTapCounts: 0,
+      avatarTapCounts: 1,
     }
   }
 
@@ -115,7 +115,7 @@ class ActionListItems extends PureComponent {
   avatarTap = () => {
     let taps = this.state.avatarTapCounts
     if (taps >= 3) {
-      this.setState({ avatarTapCounts: 0 })
+      this.setState({ avatarTapCounts: 1 })
       Promise.all([getItem('identifier'), getItem('phone')]).then(
         values => {
           if (values.length == 0) {
