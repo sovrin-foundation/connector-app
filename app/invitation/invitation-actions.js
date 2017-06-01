@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet, AsyncStorage } from 'react-native'
-import { Button } from 'react-native-elements'
+import { View, AsyncStorage, Button } from 'react-native'
 import TouchId from 'react-native-touch-id'
+import { StyledButton } from '../styled-components/common-styled'
+import { Container, CustomButton } from '../components'
 
 import {
   getKeyPairFromSeed,
@@ -96,35 +97,15 @@ class actions extends PureComponent {
   render() {
     return (
       <View style={{ flexDirection: 'row' }}>
-        <View style={{ flex: 1 }}>
-          <Button
-            buttonStyle={buttonStyles.invitaitonActions}
-            title="Deny"
-            raised
-            icon={{ name: 'clear' }}
-            onPress={this._onDeny}
-          />
-        </View>
-        <View style={{ flex: 1 }}>
-          <Button
-            buttonStyle={buttonStyles.invitaitonActions}
-            title="Allow"
-            raised
-            icon={{ name: 'check' }}
-            backgroundColor="#43a047"
-            onPress={this._onAllow}
-          />
-        </View>
+        <Container>
+          <CustomButton secondary raised title="Deny" onPress={this._onDeny} />
+        </Container>
+        <Container>
+          <CustomButton primary raised title="Allow" onPress={this._onAllow} />
+        </Container>
       </View>
     )
   }
 }
-
-const buttonStyles = StyleSheet.create({
-  invitaitonActions: {
-    marginRight: 0,
-    marginLeft: 0,
-  },
-})
 
 export default actions

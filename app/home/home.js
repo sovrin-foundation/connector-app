@@ -2,26 +2,52 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
   ScrollView,
-  View,
-  Text,
-  StyleSheet,
+  Image,
   Animated,
   AsyncStorage,
+  StatusBar,
 } from 'react-native'
+import { StackNavigator } from 'react-navigation'
 import { DrawerNavigator } from 'react-navigation'
 import { Icon, Avatar } from 'react-native-elements'
-import { View as AnimatableView } from 'react-native-animatable'
+import { AnimationView as AnimatableView } from 'react-native-animatable'
 import OneSignal from 'react-native-onesignal'
 
 import Bubbles from './bubbles'
-import HomeScreenActions from './actions'
+import User from './user'
 import { getUserInfo, getConnections, invitationReceived } from '../store'
 import invitationData from '../invitation/data/invitation-data'
 import { setItem, getItem } from '../services/secure-storage'
 import { getKeyPairFromSeed, randomSeed } from '../services/keys'
 import bs58 from 'bs58'
 
+const headerLeft = (
+  <Image
+    style={{ marginLeft: 10 }}
+    source={require('../images/icon_Menu.png')}
+  />
+)
+const headerTitle = (
+  <Image source={require('../images/icon_connectorLogo.png')} />
+)
+const headerRight = (
+  <Image
+    style={{ marginRight: 10 }}
+    source={require('../images/icon_Search.png')}
+  />
+)
+
 class HomeScreenDrawer extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    headerLeft: headerLeft,
+    title: headerTitle,
+    headerRight: headerRight,
+    headerStyle: {
+      backgroundColor: '#3F4140',
+      borderBottomWidth: 0,
+    },
+  })
+
   constructor(props) {
     super(props)
 
@@ -33,6 +59,7 @@ class HomeScreenDrawer extends Component {
   }
 
   componentWillMount() {
+    StatusBar.setHidden(true)
     OneSignal.addEventListener('opened', this.onOpened)
     OneSignal.addEventListener('ids', this.onIds)
     console.log('Home componentWillMount')
@@ -189,22 +216,20 @@ class HomeScreenDrawer extends Component {
     const { user, connections } = this.props
 
     return (
-      <View style={{ flex: 1 }}>
-        <Animated.ScrollView
-          scrollEnabled={!this.state.isSwiping}
-          scrollEventThrottle={16}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
-            { useNativeDriver: true }
-          )}
-          style={{ backgroundColor: '#3F4140' }}
-        >
-          <Bubbles height={bubblesHeight} connections={connections} />
-          <AnimatableView style={{ marginTop: 420 }}>
-            <HomeScreenActions user={user} isSwiping={this.handleSwipe} />
-          </AnimatableView>
-        </Animated.ScrollView>
-      </View>
+      <Animated.ScrollView
+        scrollEnabled={!this.state.isSwiping}
+        scrollEventThrottle={16}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
+          { useNativeDriver: true }
+        )}
+        style={{ backgroundColor: '#3F4140' }}
+      >
+        <Bubbles height={bubblesHeight} connections={connections} />
+        <AnimatableView style={{ marginTop: 420 }}>
+          <User user={user} isSwiping={this.handleSwipe} />
+        </AnimatableView>
+      </Animated.ScrollView>
     )
   }
 }
@@ -220,4 +245,12 @@ const mapDispatchToProps = dispatch => ({
   invitationReceived: () => dispatch(invitationReceived(invitationData)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreenDrawer)
+const mapsStateDispatch = connect(mapStateToProps, mapDispatchToProps)(
+  HomeScreenDrawer
+)
+
+export default StackNavigator({
+  Home: {
+    screen: mapsStateDispatch,
+  },
+})

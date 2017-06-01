@@ -1,46 +1,66 @@
-/**
- * @flow
- */
+import React from 'react'
+import { Image, Text, StyleSheet } from 'react-native'
+import { CustomView } from './layout'
+import { color, font } from '../common/styles/constant'
 
-import React, { PropTypes } from 'react';
-import {View, Image, Text, StyleSheet} from 'react-native';
+// We need both type of ribbon and it is better to load them once
+const whiteRibbon = require('../images/ribbon_white.png')
+const grayRibbbon = require('../images/ribbon.png')
 
-export default Badge = ({counter, name, badgeStyle}) => (
-  <View style={[styles.badgeContainer, badgeStyle]}>
-    <Image 
-      style={styles.badge}
-      resizeMode="contain"
-      source={require("../images/ribbon.png")} />
-    <Text 
-      style={[styles.label, styles[name]]}>
-      {counter}
+export const BadgeLabel = props => {
+  const textColor = props.secondary ? styles.secondary : styles.primary
+  const center = props.center ? styles.center : null
+
+  return (
+    <Text {...props} style={[styles.label, textColor, center, props.style]}>
+      {props.text}
     </Text>
-  </View>
-);
+  )
+}
 
-Badge.propTypes = {
-  counter: PropTypes.number,
-  name: PropTypes.string
-};
+const Badge = ({ count, secondary, badgeStyle, shadow }) => {
+  const badgeColor = secondary
+    ? color.bg.primary.font.primary
+    : color.bg.secondary.font.primary
+  const ribbon = secondary ? whiteRibbon : grayRibbbon
+  const style = shadow ? styles.shadow : null
 
-Badge.defaultProps = {
-  name: "grey"
-};
+  return (
+    <CustomView clearBg style={[badgeStyle, style]}>
+      <Image resizeMode="contain" source={ribbon} style={styles.image} />
+      <BadgeLabel center secondary={secondary} text={count} />
+    </CustomView>
+  )
+}
 
 const styles = StyleSheet.create({
-  badge: {
-    width: 20,
-    height: 20 
+  image: {
+    width: 22,
+    height: 26,
+  },
+  shadow: {
+    shadowColor: color.bg.primary.color,
+    shadowOffset: {
+      width: 1,
+      height: 1,
+    },
+    shadowRadius: 4,
+    shadowOpacity: 0.9,
   },
   label: {
-    fontWeight: "bold",
-    fontSize: 13,
-    textAlign: "center"
+    fontSize: font.XS,
+    fontWeight: 'bold',
   },
-  white: {
-    color: "#FFFFFF"
+  primary: {
+    color: color.bg.secondary.font.tertiary,
   },
-  grey: {
-    color: "#757575"
-  }
-});
+  secondary: {
+    color: color.bg.primary.font.primary,
+  },
+  center: {
+    textAlign: 'center',
+    textAlignVertical: 'center',
+  },
+})
+
+export default Badge
