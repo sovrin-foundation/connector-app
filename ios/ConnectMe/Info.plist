@@ -44,9 +44,18 @@
           <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
           <false/>
         </dict>
+        <key>evernym.com</key>
+        <dict>
+          <key>NSIncludesSubdomains</key>
+          <true/>
+          <key>NSRequiresCertificateTransparency</key>
+          <false/>
+          <key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+          <true/>
+          <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+          <false/>
+        </dict>        
       </dict>
-      <key>NSAllowsArbitraryLoads</key>
-      <true/>
     </dict>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string/>
