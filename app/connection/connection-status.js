@@ -6,7 +6,7 @@ import {
 } from '../styled-components/connection-styled'
 
 export default props => (
-  <LinearGradient colors={['#2A5270', '#132A3F']}>
+  <LinearGradient colors={['#295373', '#12293F']}>
     <HeaderContainer>
       <InfoText
         fontWeight={500}
@@ -16,10 +16,10 @@ export default props => (
       >
         Suncoast
       </InfoText>
-      <InfoText fontSize={16}>
+      <InfoText fontSize={16} marginBottom={7}>
         Currently Talking With
       </InfoText>
-      <InfoText fontWeight={500} fontSize={30}>
+      <InfoText fontWeight={500} fontSize={30} marginBottom={11}>
         JOHN BEST
       </InfoText>
       <InfoText fontSize={13}>

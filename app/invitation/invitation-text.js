@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { AnimationView } from 'react-native-animatable'
+import { View as AnimationView } from 'react-native-animatable'
 import { StyledText } from '../styled-components/common-styled'
 import { CustomView, CustomText, Container } from '../components'
 

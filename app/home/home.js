@@ -10,7 +10,7 @@ import {
 import { StackNavigator } from 'react-navigation'
 import { DrawerNavigator } from 'react-navigation'
 import { Icon, Avatar } from 'react-native-elements'
-import { AnimationView as AnimatableView } from 'react-native-animatable'
+import { View as AnimationView } from 'react-native-animatable'
 import OneSignal from 'react-native-onesignal'
 
 import Bubbles from './bubbles'
@@ -20,6 +20,7 @@ import invitationData from '../invitation/data/invitation-data'
 import { setItem, getItem } from '../services/secure-storage'
 import { getKeyPairFromSeed, randomSeed } from '../services/keys'
 import bs58 from 'bs58'
+import { connectionDetailRoute } from '../common/route-constants'
 
 const headerLeft = (
   <Image
@@ -59,12 +60,15 @@ class HomeScreenDrawer extends Component {
   }
 
   componentWillMount() {
-    StatusBar.setHidden(true)
+    // push notification events
     OneSignal.addEventListener('opened', this.onOpened)
     OneSignal.addEventListener('ids', this.onIds)
-    console.log('Home componentWillMount')
+
+    // load data for home screen
     this.props.loadUserInfo()
     this.props.loadConnections()
+
+    // TODO: Move it to the redux store and use sagas to load data
     // ensure that it runs only once, and not every time component is rendered
     Promise.all([
       getItem('identifier'),
@@ -121,9 +125,9 @@ class HomeScreenDrawer extends Component {
   onOpened = openResult => {
     this.props.invitationReceived()
     this.getRoute().then(() => {
-      if (this.state.currentRoute !== 'Connections') {
-        this.saveKey('newCurrentRoute', 'Connections')
-        this.props.navigation.navigate('Connections')
+      if (this.state.currentRoute !== invitationRoute) {
+        this.saveKey('newCurrentRoute', invitationRoute)
+        this.props.navigation.navigate(invitationRoute)
       }
     })
   }
@@ -133,6 +137,7 @@ class HomeScreenDrawer extends Component {
   }
 
   poll = identifier => {
+    // TODO:KS Add signature
     fetch(`https://agency.evernym.com/agent/id/${identifier}/auth`, {
       mode: 'cors',
     })
@@ -146,9 +151,8 @@ class HomeScreenDrawer extends Component {
       .then(resData => {
         if (resData.status === 'NO_RESPONSE_YET') {
           this.props.invitationReceived()
-          this.resetKey('newCurrentRoute')
-          this.saveKey('newCurrentRoute', 'Connections')
-          this.props.navigation.navigate('Connections')
+          this.saveKey('newCurrentRoute', invitationRoute)
+          this.props.navigation.navigate(invitationRoute)
         } else {
           window.setTimeout(() => {
             this.poll(identifier)
@@ -174,6 +178,7 @@ class HomeScreenDrawer extends Component {
     getItem('pushComMethod')
       .then(function(pushComMethod) {
         if (pushComMethod) {
+          // TODO:KS Add signature
           fetch(`https://callcenter.evernym.com/agent/enroll`, {
             method: 'POST',
             mode: 'cors',
@@ -226,9 +231,9 @@ class HomeScreenDrawer extends Component {
         style={{ backgroundColor: '#3F4140' }}
       >
         <Bubbles height={bubblesHeight} connections={connections} />
-        <AnimatableView style={{ marginTop: 420 }}>
+        <AnimationView style={{ marginTop: 420 }}>
           <User user={user} isSwiping={this.handleSwipe} />
-        </AnimatableView>
+        </AnimationView>
       </Animated.ScrollView>
     )
   }

@@ -5,18 +5,23 @@ import { StackNavigator } from 'react-navigation'
 import InvitationScreen from './invitation/invitation'
 import HomeScreen from './home/home'
 import ConnectionHome from './connection/connection'
-
 import store from './store'
+import { StatusBar, Container } from './components'
+import {
+  homeRoute,
+  invitationRoute,
+  connectionDetailRoute,
+} from './common/route-constants'
 
 const ConnectMeAppNavigator = StackNavigator(
   {
-    Home: {
+    [homeRoute]: {
       screen: HomeScreen,
     },
-    Connections: {
+    [invitationRoute]: {
       screen: InvitationScreen,
     },
-    ConnectionDetail: {
+    [connectionDetailRoute]: {
       screen: ConnectionHome,
     },
   },
@@ -27,7 +32,14 @@ const ConnectMeAppNavigator = StackNavigator(
 
 class ConnectMeApp extends Component {
   render() {
-    return <Provider store={store}><ConnectMeAppNavigator /></Provider>
+    return (
+      <Provider store={store}>
+        <Container>
+          <StatusBar />
+          <ConnectMeAppNavigator />
+        </Container>
+      </Provider>
+    )
   }
 }
 

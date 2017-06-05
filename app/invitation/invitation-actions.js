@@ -3,6 +3,7 @@ import { View, AsyncStorage, Button } from 'react-native'
 import TouchId from 'react-native-touch-id'
 import { StyledButton } from '../styled-components/common-styled'
 import { Container, CustomButton } from '../components'
+import bs58 from 'bs58'
 
 import {
   getKeyPairFromSeed,
@@ -10,7 +11,7 @@ import {
   verifySignature,
 } from '../services/keys'
 import { getItem } from '../services/secure-storage'
-import bs58 from 'bs58'
+import { connectionDetailRoute, homeRoute } from '../common/route-constants'
 
 class actions extends PureComponent {
   _onAllow = () => {
@@ -58,11 +59,11 @@ class actions extends PureComponent {
                   .then(res => {
                     if (res.status == 200) {
                       if (newStatus === 'ACCEPTED') {
-                        this.saveKey('CallCenter')
-                        this.props.navigation.navigate('CallCenter')
+                        this.saveKey(connectionDetailRoute)
+                        this.props.navigation.navigate(connectionDetailRoute)
                       } else if (newStatus === 'REJECTED') {
-                        this.saveKey('Home')
-                        this.props.navigation.navigate('Home')
+                        this.saveKey(homeRoute)
+                        this.props.navigation.navigate(homeRoute)
                       }
                     } else {
                       throw new Error('Bad Request')

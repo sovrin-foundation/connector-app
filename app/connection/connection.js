@@ -24,6 +24,7 @@ import {
 import ConnectionStatus from './connection-status'
 import ConnectionInfo from './connection-info'
 import user from '../store/data/user'
+import { homeRoute } from '../common/route-constants'
 
 const headerLeft = (
   <Image
@@ -49,8 +50,8 @@ export class ConnectionHome extends PureComponent {
               console.log('Error saving newCurrentRoute' + error)
             }
           }
-          this.saveRoute('Home')
-          navigation.navigate('Home')
+          this.saveRoute(homeRoute)
+          navigation.navigate(homeRoute)
         }}
       >
         <Image

@@ -7,7 +7,7 @@ import {
   Dimensions,
   StyleSheet,
 } from 'react-native'
-import { AnimationView as AnimatableView } from 'react-native-animatable'
+import { View as AnimationView } from 'react-native-animatable'
 import { StyledImage } from '../styled-components/common-styled'
 
 const size = {
@@ -76,7 +76,7 @@ export default class ConnectionBubbles extends Component {
         ]}
       >
         {bubbles.map(({ name, image, size }) => (
-          <AnimatableView
+          <AnimationView
             animation="zoomIn"
             duration={600}
             delay={200}
@@ -92,7 +92,7 @@ export default class ConnectionBubbles extends Component {
               source={image}
               resizeMode={'contain'}
             />
-          </AnimatableView>
+          </AnimationView>
         ))}
       </Animated.View>
     )
