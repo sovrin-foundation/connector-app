@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Text, StyleSheet } from 'react-native'
+import { Image, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { CustomView } from './layout'
 import { color, font } from '../common/styles/constant'
 
@@ -18,7 +18,7 @@ export const BadgeLabel = props => {
   )
 }
 
-const Badge = ({ count, secondary, badgeStyle, shadow }) => {
+const Badge = ({ count, secondary, badgeStyle, shadow, onPress }) => {
   const badgeColor = secondary
     ? color.bg.primary.font.primary
     : color.bg.secondary.font.primary
@@ -27,7 +27,14 @@ const Badge = ({ count, secondary, badgeStyle, shadow }) => {
 
   return (
     <CustomView clearBg style={[badgeStyle, style]}>
-      <Image resizeMode="contain" source={ribbon} style={styles.image} />
+      <TouchableWithoutFeedback onPress={onPress}>
+        <Image
+          resizeMode="contain"
+          source={ribbon}
+          style={styles.image}
+          onPress={onPress}
+        />
+      </TouchableWithoutFeedback>
       <BadgeLabel center secondary={secondary} text={count} />
     </CustomView>
   )

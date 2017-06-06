@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Image } from 'react-native'
+import { Image, TouchableWithoutFeedback } from 'react-native'
 import { CustomView } from '../layout'
 import avatarStyle from './avatar-style'
 import empty from '../../common/empty'
@@ -15,6 +15,7 @@ export default class Avatar extends PureComponent {
       imageStyle = empty,
       src,
       extraNode,
+      onPress,
     } = this.props
     const size = small ? 'small' : medium ? 'medium' : 'large'
     const styles = [
@@ -32,7 +33,9 @@ export default class Avatar extends PureComponent {
 
     return (
       <CustomView style={[...style]}>
-        <Image source={src} style={styles} />
+        <TouchableWithoutFeedback onPress={onPress}>
+          <Image source={src} style={styles} />
+        </TouchableWithoutFeedback>
         {extraNode && extraNode}
       </CustomView>
     )

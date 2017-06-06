@@ -5,13 +5,19 @@ import Badge from '../badge'
 
 export default class BadgeAvatar extends PureComponent {
   render() {
-    const { count } = this.props
+    const { count, onPress } = this.props
 
     return (
       <Avatar
         {...this.props}
         extraNode={
-          <Badge count={count} secondary shadow badgeStyle={style.topLeft} />
+          <Badge
+            count={count}
+            secondary
+            shadow
+            badgeStyle={style.topLeft}
+            onPress={onPress}
+          />
         }
       />
     )
