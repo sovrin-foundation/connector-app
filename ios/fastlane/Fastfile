@@ -23,7 +23,7 @@ platform :ios do
         xcargs: "PROVISIONING_PROFILE_SPECIFIER='#{profile}' DEVELOPMENT_TEAM='ES8QU3D2A4'",
         clean: true
       )
-      hockey(api_token: "a92ac9aa9d1a4efdb7c908f240b8417c")
+      hockey(api_token: "fc9455dc95d042d38ddba5784109aee4")
       remote_branch = ENV["BITRISE_GIT_BRANCH"]
       commit_version_bump(
         message: "Build Version bump by Fastlane [ci skip]",
