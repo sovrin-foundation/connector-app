@@ -173,8 +173,6 @@ class HomeScreenDrawer extends Component {
   }
 
   render() {
-    console.log(this.props.home)
-
     const bubblesHeight = this.state.scrollY.interpolate({
       inputRange: [0, 5],
       outputRange: [0, -5],

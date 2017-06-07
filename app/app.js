@@ -11,7 +11,7 @@ import store from './store'
 const ConnectMeAppNavigator = StackNavigator(
   {
     Home: {
-      screen: InvitationScreen,
+      screen: HomeScreen,
     },
     Connections: {
       screen: InvitationScreen,
