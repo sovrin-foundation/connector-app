@@ -1,5 +1,6 @@
 import nacl from 'tweetnacl'
 import bs58 from 'bs58'
+import randomString from 'random-string'
 
 const decodeUTF8 = s => {
   if (typeof s !== 'string') throw new TypeError('expected string')
@@ -18,4 +19,5 @@ export const getSignature = (secretKey, message) =>
 export const verifySignature = (signature, publicKey, message) =>
   nacl.sign.detached.verify(decodeUTF8(message), signature, publicKey)
 
-export const randomSeed = length => bs58.encode(nacl.randomBytes(length))
+export const randomSeed = length =>
+  bs58.encode(randomString({ length, letters: false }))

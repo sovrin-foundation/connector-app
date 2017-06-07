@@ -49,6 +49,8 @@ class HomeScreenDrawer extends Component {
     },
   })
 
+  userAllowedPushNotification = false
+
   constructor(props) {
     super(props)
 
@@ -70,22 +72,20 @@ class HomeScreenDrawer extends Component {
 
     // TODO: Move it to the redux store and use sagas to load data
     // ensure that it runs only once, and not every time component is rendered
-    Promise.all([
-      getItem('identifier'),
-      getItem('phone'),
-      getItem('seed'),
-    ]).then(
-      values => {
-        if (values.length == 0) {
+    Promise.all([getItem('identifier'), getItem('phone'), getItem('seed')])
+      .then(([identifier, phone, seed]) => {
+        if (!identifier || !phone || !seed) {
           this.enroll()
         } else {
-          this.poll(values[0])
+          this.poll(identifier)
         }
-      },
-      error => {
-        console.log(error)
-      }
-    )
+      })
+      .catch(error => {
+        console.log(
+          'LOG: getItem for identifier, phone and seed failed, ',
+          error
+        )
+      })
   }
 
   componentWillUnmount() {
@@ -134,6 +134,12 @@ class HomeScreenDrawer extends Component {
 
   onIds = device => {
     setItem('pushComMethod', device.userId)
+      .then(() => {
+        this.userAllowedPushNotification = true
+      })
+      .catch(function(error) {
+        console.log('LOG: onIds setItem error, ', error)
+      })
   }
 
   poll = identifier => {
@@ -175,40 +181,54 @@ class HomeScreenDrawer extends Component {
     let { publicKey: verKey, secretKey: signingKey } = getKeyPairFromSeed(seed)
 
     verKey = bs58.encode(verKey)
-    getItem('pushComMethod')
-      .then(function(pushComMethod) {
-        if (pushComMethod) {
-          // TODO:KS Add signature
-          fetch(`https://callcenter.evernym.com/agent/enroll`, {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              phoneNumber,
-              id,
-              verKey,
-              pushComMethod,
-            }),
-          })
-            .then(res => {
-              if (res.status == 200) {
-                setItem('phone', phoneNumber)
-                setItem('identifier', id)
-                setItem('seed', seed)
-              } else {
-                throw new Error('Bad Request')
-              }
-            })
-            .catch(console.log)
-        } else {
-          console.error('Device PushComMethod not present')
-        }
-      })
-      .catch(console.log)
+    this.enrollUser(phoneNumber, id, seed, verKey)
     this.poll(id)
+  }
+
+  enrollUser(phoneNumber, id, seed, verKey) {
+    if (this.userAllowedPushNotification) {
+      getItem('pushComMethod')
+        .then(function(pushComMethod) {
+          if (pushComMethod) {
+            // TODO:KS Add signature
+            fetch(`https://callcenter.evernym.com/agent/enroll`, {
+              method: 'POST',
+              mode: 'cors',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                phoneNumber,
+                id,
+                verKey,
+                pushComMethod,
+              }),
+            })
+              .then(res => {
+                if (res.status == 200) {
+                  setItem('phone', phoneNumber)
+                  setItem('identifier', id)
+                  setItem('seed', seed)
+                } else {
+                  throw new Error('Bad Request')
+                }
+              })
+              .catch(function(error) {
+                console.error('LOG: enrollUser enroll api failure, ', error)
+              })
+          } else {
+            console.error('LOG: Device PushComMethod not present')
+          }
+        })
+        .catch(function(error) {
+          console.error('LOG: enrollUser getItem failed, ', error)
+        })
+    } else {
+      setTimeout(() => {
+        this.enrollUser(phoneNumber, id, seed, verKey)
+      }, 2000)
+    }
   }
 
   render() {
