@@ -1,3 +1,5 @@
+import { sendAuthRequest } from '../services/api'
+
 const invitationStatus = {
   ACCEPTED: 'ACCEPTED',
   REJECTED: 'REJECTED',
@@ -6,6 +8,7 @@ const invitationStatus = {
 
 const initialState = {
   status: invitationStatus.NO_ACTION,
+  invitationApiData: {},
   invitation: {
     inviter: {
       image: '',
@@ -22,6 +25,7 @@ const initialState = {
 const INVITATION_RECEIVED = 'INVITATION_RECEIVED'
 const INVITATION_REJECTED = 'INVITATION_REJECTED'
 const INVITATION_ACCEPTED = 'INVITATION_ACCEPTED'
+const AUTH_REQUEST = 'AUTH_REQUEST'
 
 export const invitationReceived = invitation => ({
   type: INVITATION_RECEIVED,
@@ -34,6 +38,11 @@ export const invitationAccepted = () => ({
 
 export const invitationRejected = () => ({
   type: INVITATION_REJECTED,
+})
+
+export const authRequest = reqData => ({
+  type: AUTH_REQUEST,
+  reqData,
 })
 
 export default function invitation(state = initialState, action) {
@@ -52,6 +61,11 @@ export default function invitation(state = initialState, action) {
       return {
         ...state,
         status: invitationStatus.REJECTED,
+      }
+    case AUTH_REQUEST:
+      return {
+        ...state,
+        invitationApiData: sendAuthRequest(action.reqData),
       }
     default:
       return state

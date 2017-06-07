@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { View, StyleSheet, AsyncStorage } from 'react-native'
 import { Button } from 'react-native-elements'
 import TouchId from 'react-native-touch-id'
+import { connect } from 'react-redux'
 
 import {
   getKeyPairFromSeed,
@@ -10,8 +11,14 @@ import {
 } from '../services/keys'
 import { getItem } from '../services/secure-storage'
 import bs58 from 'bs58'
+import { authRequest } from './invitation-store'
+import { isContainsDefined } from '../services/utils'
 
 class actions extends PureComponent {
+  constructor(props) {
+    super(props)
+  }
+
   _onAllow = () => {
     this.AuthRequest('ACCEPTED')
   }
@@ -21,59 +28,57 @@ class actions extends PureComponent {
   }
 
   AuthRequest = newStatus => {
-    TouchId.authenticate('Please confirm with TouchID')
-      .then(success => {
-        getItem('identifier')
-          .then(identifier => {
-            getItem('seed')
-              .then(seed => {
-                const msg = JSON.stringify({
-                  type: 'authReqAnswered',
-                  newStatus,
-                })
-
-                const {
-                  publicKey: verKey,
-                  secretKey: signingKey,
-                } = getKeyPairFromSeed(seed)
-
-                const signature = bs58.encode(getSignature(signingKey, msg))
-
-                fetch(
-                  `https://agency.evernym.com/agent/id/${identifier}/auth`,
-                  {
-                    method: 'PUT',
-                    mode: 'cors',
-                    headers: {
-                      Accept: 'application/json',
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                      msg,
-                      signature,
-                    }),
-                  }
-                )
-                  .then(res => {
-                    if (res.status == 200) {
-                      if (newStatus === 'ACCEPTED') {
-                        this.saveKey('CallCenter')
-                        this.props.navigation.navigate('CallCenter')
-                      } else if (newStatus === 'REJECTED') {
-                        this.saveKey('Home')
-                        this.props.navigation.navigate('Home')
-                      }
-                    } else {
-                      throw new Error('Bad Request')
-                    }
-                  })
-                  .catch(error => console.log(error))
-              })
-              .catch(error => console.log(error))
+    Promise.all([
+      TouchId.authenticate('Please confirm with TouchID'),
+      getItem('identifier'),
+      getItem('seed'),
+    ]).then(
+      values => {
+        const identifier = values[1], seed = values[2]
+        if (isContainsDefined(values)) {
+          const msg = JSON.stringify({
+            type: 'authReqAnswered',
+            newStatus,
           })
-          .catch(error => console.log(error))
-      })
-      .catch(error => console.log(error))
+
+          const {
+            publicKey: verKey,
+            secretKey: signingKey,
+          } = getKeyPairFromSeed('5ZF5PicKgh4rZsBsGQBprZ5ZF5PicKgh')
+
+          const signature = bs58.encode(getSignature(signingKey, msg))
+
+          this.props.authRequest({
+            identifier: '5ZF5PicKgh4rZsBsGQBprZ5ZF5PicKgh',
+            dataBody: {
+              msg,
+              signature,
+            },
+          })
+
+          this.props.invitation.invitationApiData
+            .then(res => {
+              if (res.status == 200) {
+                if (newStatus === 'ACCEPTED') {
+                  this.saveKey('CallCenter')
+                  this.props.navigation.navigate('CallCenter')
+                } else if (newStatus === 'REJECTED') {
+                  this.saveKey('Home')
+                  this.props.navigation.navigate('Home')
+                }
+              } else {
+                throw new Error('Bad Request')
+              }
+            })
+            .catch(error => console.log(error))
+        } else {
+          console.error('either Identifier or seed not present!')
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }
 
   async saveKey(value) {
@@ -127,4 +132,12 @@ const buttonStyles = StyleSheet.create({
   },
 })
 
-export default actions
+const mapStateToProps = ({ invitation }) => ({
+  invitation,
+})
+
+const mapDispatchToProps = dispatch => ({
+  authRequest: reqData => dispatch(authRequest(reqData)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(actions)

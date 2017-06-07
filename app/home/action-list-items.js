@@ -14,11 +14,14 @@ import { Avatar, Icon, Button } from 'react-native-elements'
 import Lightbox from 'react-native-lightbox'
 import { SwipeRow } from 'react-native-swipe-list-view'
 import Swipeable from 'react-native-swipeable'
+import { connect } from 'react-redux'
 
 import { getItem } from '../services/secure-storage'
 import Divider from '../components/divider'
 import Badge from '../components/badge'
 import styles from './action-list-items.styles'
+import { TapCount, SendAppContext } from './home-store'
+import { isContainsDefined } from '../services/utils'
 
 const addButtonText = <Text style={styles.dividerLabel}>ADD</Text>
 const avatarDividerLeft = <Text style={styles.dividerLabel}>AVATAR PHOTOS</Text>
@@ -95,11 +98,8 @@ const swipeableLeftProps = {
 }
 
 class ActionListItems extends PureComponent {
-  constructor() {
-    super()
-    this.state = {
-      avatarTapCounts: 1,
-    }
+  constructor(props) {
+    super(props)
   }
 
   swipeStart = () => {
@@ -112,50 +112,29 @@ class ActionListItems extends PureComponent {
     }, 100)
   }
 
-  avatarTap = () => {
-    let taps = this.state.avatarTapCounts
-    if (taps >= 3) {
-      this.setState({ avatarTapCounts: 1 })
-      Promise.all([getItem('identifier'), getItem('phone')]).then(
-        values => {
-          if (values.length == 0) {
-            AlertIOS.alert('Identifier or phone not present')
-          } else {
-            const phoneNumber = values[1]
-            const identifier = values[0]
-            AlertIOS.alert(
-              `Identifier - ${identifier}`,
-              `Phone Number - ${phoneNumber}`
-            )
-
-            fetch(`http://callcenter.evernym.com/agent/app-context`, {
-              method: 'POST',
-              mode: 'cors',
-              headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                phoneNumber,
-                identifier,
-              }),
-            })
-              .then(res => {
-                if (res.status != 200) {
-                  throw new Error('Bad Request')
-                }
-              })
-              .catch(console.log)
-          }
-        },
-        error => {
-          console.log(error)
+  showAlert = () => {
+    this.props.tapCount(0)
+    Promise.all([getItem('identifier'), getItem('phone')]).then(
+      values => {
+        if (!isContainsDefined(values)) {
+          AlertIOS.alert('Identifier or phone not present')
+        } else {
+          const phoneNumber = values[1]
+          const identifier = values[0]
+          AlertIOS.alert(
+            `Identifier - ${identifier}`,
+            `Phone Number - ${phoneNumber}`
+          )
+          this.props.appContext({
+            phoneNumber: '9094256575',
+            identifier: '5ZF5PicKgh4rZsBsGQBprZ',
+          })
         }
-      )
-    } else {
-      taps = taps + 1
-      this.setState({ avatarTapCounts: taps })
-    }
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }
 
   render() {
@@ -186,6 +165,11 @@ class ActionListItems extends PureComponent {
       onSwipeRelease: this.swipeEnd,
     }
 
+    let tapCount = this.props.home.tapCount
+    if (tapCount >= 3) {
+      this.showAlert()
+    }
+
     // data is fetched and there is no error, go ahead and render component
     return (
       <View style={styles.container}>
@@ -202,7 +186,7 @@ class ActionListItems extends PureComponent {
               medium
               rounded
               source={require('../invitation/images/inviter.jpeg')}
-              onPress={() => this.avatarTap()}
+              onPress={() => this.props.tapCount(tapCount + 1)}
             />
             <Badge counter={76} name={'white'} badgeStyle={styles.badge} />
           </View>
@@ -318,38 +302,18 @@ class ActionListItems extends PureComponent {
           </View>
         </View>
 
-        {/*<Divider left={creditCardDividerLeft} right={addButtonText} />
-        <View style={styles.listItemContainer}>
-          <View style={[styles.creditCardContainer, styles.horizontalSpace]}>
-            <Image
-              style={styles.creditCard}
-              resizeMode="contain"
-              source={require("../images/img_visa.png")}
-            />
-            <Image
-              style={styles.creditCard}
-              resizeMode="contain"
-              source={require("../images/img_visa.png")}
-            />
-          </View>
-
-          <View style={[styles.creditCardContainer, styles.horizontalSpace]}>
-            <Image
-              style={styles.creditCard}
-              resizeMode="contain"
-              source={require("../images/img_usaa.png")}
-            />
-            <Image
-              style={styles.creditCard}
-              resizeMode="contain"
-              source={require("../images/img_amex.png")}
-            />
-          </View>
-        </View>*/}
-
       </View>
     )
   }
 }
 
-export default ActionListItems
+const mapStateToProps = ({ home }) => ({
+  home,
+})
+
+const mapDispatchToProps = dispatch => ({
+  tapCount: count => dispatch(TapCount(count)),
+  appContext: context => dispatch(SendAppContext(context)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ActionListItems)

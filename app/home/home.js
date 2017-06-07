@@ -19,12 +19,13 @@ import { getUserInfo, getConnections, invitationReceived } from '../store'
 import invitationData from '../invitation/data/invitation-data'
 import { setItem, getItem } from '../services/secure-storage'
 import { getKeyPairFromSeed, randomSeed } from '../services/keys'
+import { isContainsDefined } from '../services/utils'
 import bs58 from 'bs58'
+import { Enroll, Poll } from './home-store'
 
 class HomeScreenDrawer extends Component {
   constructor(props) {
     super(props)
-
     this.state = {
       currentRoute: 'Home',
       scrollY: new Animated.Value(0),
@@ -45,7 +46,7 @@ class HomeScreenDrawer extends Component {
       getItem('seed'),
     ]).then(
       values => {
-        if (values.length == 0) {
+        if (!isContainsDefined(values)) {
           this.enroll()
         } else {
           this.poll(values[0])
@@ -106,9 +107,8 @@ class HomeScreenDrawer extends Component {
   }
 
   poll = identifier => {
-    fetch(`https://agency.evernym.com/agent/id/${identifier}/auth`, {
-      mode: 'cors',
-    })
+    this.props.poll(identifier)
+    this.props.home.pollApi
       .then(res => {
         if (res.status == 200) {
           return res.json()
@@ -145,22 +145,15 @@ class HomeScreenDrawer extends Component {
 
     verKey = bs58.encode(verKey)
     getItem('pushComMethod')
-      .then(function(pushComMethod) {
+      .then(pushComMethod => {
         if (pushComMethod) {
-          fetch(`https://callcenter.evernym.com/agent/enroll`, {
-            method: 'POST',
-            mode: 'cors',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              phoneNumber,
-              id,
-              verKey,
-              pushComMethod,
-            }),
+          this.props.enroll({
+            phoneNumber,
+            id,
+            verKey,
+            pushComMethod,
           })
+          this.props.home.enrollApi
             .then(res => {
               if (res.status == 200) {
                 setItem('phone', phoneNumber)
@@ -180,6 +173,8 @@ class HomeScreenDrawer extends Component {
   }
 
   render() {
+    console.log(this.props.home)
+
     const bubblesHeight = this.state.scrollY.interpolate({
       inputRange: [0, 5],
       outputRange: [0, -5],
@@ -212,12 +207,15 @@ class HomeScreenDrawer extends Component {
 const mapStateToProps = state => ({
   user: state.user,
   connections: state.connections,
+  home: state.home,
 })
 
 const mapDispatchToProps = dispatch => ({
   loadUserInfo: () => dispatch(getUserInfo()),
   loadConnections: () => dispatch(getConnections()),
   invitationReceived: () => dispatch(invitationReceived(invitationData)),
+  enroll: device => dispatch(Enroll(device)),
+  poll: identifier => dispatch(Poll(identifier)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreenDrawer)
