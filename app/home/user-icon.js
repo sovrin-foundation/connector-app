@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { StyleSheet } from 'react-native'
 import { Container, Avatar, Icon } from '../components'
 
-export default props => (
+export default props =>
   <Container row pad hCenter bottom>
     <Container left>
       <Icon
@@ -21,7 +21,6 @@ export default props => (
       />
     </Container>
   </Container>
-)
 
 const styles = StyleSheet.create({
   start: {

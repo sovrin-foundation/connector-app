@@ -61,7 +61,8 @@ export const SwipeRightItem = styled.TouchableOpacity`
   flex: 1;
   padding-left: 20;
   justify-content: center;
-  background-color: ${props => (props.background ? props.background : '#FFFFFF')};
+  background-color: ${props =>
+    props.background ? props.background : '#FFFFFF'};
 `
 
 export const SwipeRightText = styled.Text`

@@ -1,0 +1,27 @@
+fastlane_version "2.27.0"
+
+default_platform :android
+platform :android do
+  before_all do
+     ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+end
+  
+lane :alpha do
+     gradle(
+      task: "assemble",
+      build_type: "Release",
+      )
+   hockey(api_token: "b68f8e14f97b41baa9b1f57a934834cd")
+end
+
+  after_all do |lane|
+     slack(channel: "fastlane", message: "Successfully build new Android App.”)
+  end
+
+  error do |lane, exception|
+     slack(
+       message: exception.message,
+       success: false
+     )
+  end
+end
