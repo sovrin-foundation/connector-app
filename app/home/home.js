@@ -2,28 +2,56 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
   ScrollView,
-  View,
-  Text,
-  StyleSheet,
+  Image,
   Animated,
   AsyncStorage,
+  StatusBar,
 } from 'react-native'
+import { StackNavigator } from 'react-navigation'
 import { DrawerNavigator } from 'react-navigation'
 import { Icon, Avatar } from 'react-native-elements'
-import { View as AnimatableView } from 'react-native-animatable'
+import { View as AnimationView } from 'react-native-animatable'
 import OneSignal from 'react-native-onesignal'
 
 import Bubbles from './bubbles'
-import HomeScreenActions from './actions'
+import User from './user'
 import { getUserInfo, getConnections, invitationReceived } from '../store'
 import invitationData from '../invitation/data/invitation-data'
 import { setItem, getItem } from '../services/secure-storage'
-import { getKeyPairFromSeed, randomSeed } from '../services/keys'
-import { isContainsDefined } from '../services/utils'
-import bs58 from 'bs58'
-import { Enroll, Poll } from './home-store'
+import { PNPermission } from '../store/pn-store'
+import {
+  connectionDetailRoute,
+  invitationRoute,
+} from '../common/route-constants'
+import EnrollUser from '../components/user-enroll'
+
+const headerLeft = (
+  <Image
+    style={{ marginLeft: 10 }}
+    source={require('../images/icon_Menu.png')}
+  />
+)
+const headerTitle = (
+  <Image source={require('../images/icon_connectorLogo.png')} />
+)
+const headerRight = (
+  <Image
+    style={{ marginRight: 10 }}
+    source={require('../images/icon_Search.png')}
+  />
+)
 
 class HomeScreenDrawer extends Component {
+  static navigationOptions = ({ navigation }) => ({
+    headerLeft: headerLeft,
+    title: headerTitle,
+    headerRight: headerRight,
+    headerStyle: {
+      backgroundColor: '#3F4140',
+      borderBottomWidth: 0,
+    },
+  })
+
   constructor(props) {
     super(props)
     this.state = {
@@ -34,28 +62,13 @@ class HomeScreenDrawer extends Component {
   }
 
   componentWillMount() {
+    // push notification events
     OneSignal.addEventListener('opened', this.onOpened)
     OneSignal.addEventListener('ids', this.onIds)
-    console.log('Home componentWillMount')
+
+    // load data for home screen
     this.props.loadUserInfo()
     this.props.loadConnections()
-    // ensure that it runs only once, and not every time component is rendered
-    Promise.all([
-      getItem('identifier'),
-      getItem('phone'),
-      getItem('seed'),
-    ]).then(
-      values => {
-        if (!isContainsDefined(values)) {
-          this.enroll()
-        } else {
-          this.poll(values[0])
-        }
-      },
-      error => {
-        console.log(error)
-      }
-    )
   }
 
   componentWillUnmount() {
@@ -95,81 +108,33 @@ class HomeScreenDrawer extends Component {
   onOpened = openResult => {
     this.props.invitationReceived()
     this.getRoute().then(() => {
-      if (this.state.currentRoute !== 'Connections') {
-        this.saveKey('newCurrentRoute', 'Connections')
-        this.props.navigation.navigate('Connections')
+      if (this.state.currentRoute !== invitationRoute) {
+        this.saveKey('newCurrentRoute', invitationRoute)
+        this.props.navigation.navigate(invitationRoute)
       }
     })
   }
 
   onIds = device => {
     setItem('pushComMethod', device.userId)
+      .then(() => {
+        this.props.pnPermission(true)
+      })
+      .catch(function(error) {
+        console.log('LOG: onIds setItem error, ', error)
+      })
   }
 
-  poll = identifier => {
-    this.props.poll(identifier)
-    this.props.home.pollApi
-      .then(res => {
-        if (res.status == 200) {
-          return res.json()
-        } else {
-          throw new Error('Bad Request')
-        }
-      })
-      .then(resData => {
-        if (resData.status === 'NO_RESPONSE_YET') {
-          this.props.invitationReceived()
-          this.resetKey('newCurrentRoute')
-          this.saveKey('newCurrentRoute', 'Connections')
-          this.props.navigation.navigate('Connections')
-        } else {
-          window.setTimeout(() => {
-            this.poll(identifier)
-          }, 4000)
-        }
-      })
-      .catch(error =>
-        window.setTimeout(() => {
-          this.poll(identifier)
-        }, 4000)
-      )
+  enrollSuccess() {
+    setItem('phone', phoneNumber)
+    setItem('identifier', id)
+    setItem('seed', seed)
   }
 
-  enroll = () => {
-    let phoneNumber = (Math.random() * 1000000000000000000)
-      .toString()
-      .substring(0, 10)
-    let id = randomSeed(32).substring(0, 22)
-    let seed = randomSeed(32).substring(0, 32)
-    let { publicKey: verKey, secretKey: signingKey } = getKeyPairFromSeed(seed)
-
-    verKey = bs58.encode(verKey)
-    getItem('pushComMethod')
-      .then(pushComMethod => {
-        if (pushComMethod) {
-          this.props.enroll({
-            phoneNumber,
-            id,
-            verKey,
-            pushComMethod,
-          })
-          this.props.home.enrollApi
-            .then(res => {
-              if (res.status == 200) {
-                setItem('phone', phoneNumber)
-                setItem('identifier', id)
-                setItem('seed', seed)
-              } else {
-                throw new Error('Bad Request')
-              }
-            })
-            .catch(console.log)
-        } else {
-          console.error('Device PushComMethod not present')
-        }
-      })
-      .catch(console.log)
-    this.poll(id)
+  pollSuccess() {
+    this.props.invitationReceived()
+    this.saveKey('newCurrentRoute', invitationRoute)
+    this.props.navigation.navigate(invitationRoute)
   }
 
   render() {
@@ -181,23 +146,35 @@ class HomeScreenDrawer extends Component {
 
     const { user, connections } = this.props
 
+    const { enrollRes, pollRes } = this.props.home
+    if (enrollRes && enrollRes.data && enrollRes.data.status === 200) {
+      this.enrollSuccess()
+    }
+    if (
+      pollRes &&
+      pollRes.data &&
+      pollRes.data &&
+      pollRes.data.status === 'NO_RESPONSE_YET'
+    ) {
+      this.pollSuccess()
+    }
+
     return (
-      <View style={{ flex: 1 }}>
-        <Animated.ScrollView
-          scrollEnabled={!this.state.isSwiping}
-          scrollEventThrottle={16}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
-            { useNativeDriver: true }
-          )}
-          style={{ backgroundColor: '#3F4140' }}
-        >
-          <Bubbles height={bubblesHeight} connections={connections} />
-          <AnimatableView style={{ marginTop: 420 }}>
-            <HomeScreenActions user={user} isSwiping={this.handleSwipe} />
-          </AnimatableView>
-        </Animated.ScrollView>
-      </View>
+      <Animated.ScrollView
+        scrollEnabled={!this.state.isSwiping}
+        scrollEventThrottle={16}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
+          { useNativeDriver: true }
+        )}
+        style={{ backgroundColor: '#3F4140' }}
+      >
+        <Bubbles height={bubblesHeight} connections={connections} />
+        <AnimationView style={{ marginTop: 420 }}>
+          <User user={user} isSwiping={this.handleSwipe} />
+        </AnimationView>
+        <EnrollUser />
+      </Animated.ScrollView>
     )
   }
 }
@@ -205,6 +182,7 @@ class HomeScreenDrawer extends Component {
 const mapStateToProps = state => ({
   user: state.user,
   connections: state.connections,
+  PNStore: state.PNStore,
   home: state.home,
 })
 
@@ -212,8 +190,15 @@ const mapDispatchToProps = dispatch => ({
   loadUserInfo: () => dispatch(getUserInfo()),
   loadConnections: () => dispatch(getConnections()),
   invitationReceived: () => dispatch(invitationReceived(invitationData)),
-  enroll: device => dispatch(Enroll(device)),
-  poll: identifier => dispatch(Poll(identifier)),
+  pnPermission: isAllowed => dispatch(PNPermission(isAllowed)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreenDrawer)
+const mapsStateDispatch = connect(mapStateToProps, mapDispatchToProps)(
+  HomeScreenDrawer
+)
+
+export default StackNavigator({
+  Home: {
+    screen: mapsStateDispatch,
+  },
+})

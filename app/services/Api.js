@@ -17,6 +17,15 @@ export const poll = identifier =>
   fetch(`${agencyBaseUrl}/id/${identifier}/auth`, {
     mode: 'cors',
   })
+    .then(res => {
+      if (res.status == 200) {
+        return res.json()
+      } else {
+        throw new Error('Bad Request')
+      }
+    })
+    .then(resData => resData.status)
+    .catch(error => error)
 
 export const sendAppContext = context => {
   return fetch(`${callCenterBaseUrl}/app-context`, {

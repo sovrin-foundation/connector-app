@@ -1,23 +1,28 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import { AppRegistry, Text, View } from 'react-native'
+import { AppRegistry } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import InvitationScreen from './invitation/invitation'
 import HomeScreen from './home/home'
-import CallCenterHome from './callcenter/callcenter'
-
+import ConnectionHome from './connection/connection'
 import store from './store'
+import { StatusBar, Container } from './components'
+import {
+  homeRoute,
+  invitationRoute,
+  connectionDetailRoute,
+} from './common/route-constants'
 
 const ConnectMeAppNavigator = StackNavigator(
   {
-    Home: {
-      screen: HomeScreen,
-    },
-    Connections: {
+    [homeRoute]: {
       screen: InvitationScreen,
     },
-    CallCenter: {
-      screen: CallCenterHome,
+    [invitationRoute]: {
+      screen: InvitationScreen,
+    },
+    [connectionDetailRoute]: {
+      screen: ConnectionHome,
     },
   },
   {
@@ -27,7 +32,14 @@ const ConnectMeAppNavigator = StackNavigator(
 
 class ConnectMeApp extends Component {
   render() {
-    return <Provider store={store}><ConnectMeAppNavigator /></Provider>
+    return (
+      <Provider store={store}>
+        <Container>
+          <StatusBar />
+          <ConnectMeAppNavigator />
+        </Container>
+      </Provider>
+    )
   }
 }
 

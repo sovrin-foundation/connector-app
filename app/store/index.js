@@ -3,14 +3,21 @@ import createSagaMiddleware from 'redux-saga'
 import { all } from 'redux-saga/effects'
 import logger from 'redux-logger'
 import user, { watchUserInfo } from './user-store'
+import PNStore from './pn-store'
 import connections, { watchLoadConnections } from './connections-store'
-import invitation from '../invitation/invitation-store'
+import invitation, { watchAuthRequest } from '../invitation/invitation-store'
 import home from '../home/home-store'
+import {
+  watchEnrollUser,
+  watchPollAuthRequest,
+  watchAppContext,
+} from '../home/home-saga'
 
 const sagaMiddleware = createSagaMiddleware()
 
 const appReducer = combineReducers({
   user,
+  PNStore,
   connections,
   invitation,
   home,
@@ -19,10 +26,18 @@ const appReducer = combineReducers({
 const store = createStore(appReducer, applyMiddleware(logger, sagaMiddleware))
 
 sagaMiddleware.run(function*() {
-  return yield all([watchLoadConnections(), watchUserInfo()])
+  return yield all([
+    watchLoadConnections(),
+    watchUserInfo(),
+    watchEnrollUser(),
+    watchPollAuthRequest(),
+    watchAppContext(),
+    watchAuthRequest(),
+  ])
 })
 
 export * from './user-store'
+export * from './pn-store'
 export * from './connections-store'
 export * from '../invitation/invitation-store'
 export * from '../home/home-store'
