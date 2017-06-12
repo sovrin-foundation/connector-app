@@ -10,7 +10,7 @@ class Alert extends PureComponent {
     super(props)
   }
 
-  showAlert() {
+  componentWillMount() {
     this.props.avatarTapped(-1)
     Promise.all([getItem(IDENTIFIER), getItem(PHONE)])
       .then(([identifier, phoneNumber]) => {
@@ -36,9 +36,6 @@ class Alert extends PureComponent {
   }
 
   render() {
-    if (this.props.home.avatarTapCount == 3) {
-      this.showAlert()
-    }
     return null
   }
 }

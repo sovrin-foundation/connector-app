@@ -42,7 +42,7 @@ class UserInfoAvatarSection extends PureComponent {
             />
           </ListItemData>
         </ListItem>
-        <Alert />
+        {this.props.home.avatarTapCount === 3 && <Alert />}
       </View>
     )
   }
