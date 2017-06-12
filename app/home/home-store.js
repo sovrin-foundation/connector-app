@@ -108,7 +108,7 @@ export default function home(state = initialState, action) {
         contextRes: {
           ...state.contextRes,
           isFetching: false,
-          data: action.enrollRes,
+          data: action.contextRes,
         },
       }
     case 'APP_CONTEXT_FAILURE':

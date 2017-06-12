@@ -56,19 +56,19 @@ export function* watchPollAuthRequest() {
 }
 
 const contextSuccess = contextRes => ({
-  type: 'CONTEXT_SUCCESS',
+  type: 'APP_CONTEXT_SUCCESS',
   contextRes,
 })
 
 const contextFailure = contextRes => ({
-  type: 'CONTEXT_FAILURE',
+  type: 'APP_CONTEXT_FAILURE',
   contextRes,
 })
 
 function* appContext(action) {
   try {
     const contextRes = yield call(sendAppContext, action.context)
-    yield put(contextSuccess(contextRes.data))
+    yield put(contextSuccess(contextRes))
   } catch (e) {
     yield put(contextSuccess(e.message))
   }

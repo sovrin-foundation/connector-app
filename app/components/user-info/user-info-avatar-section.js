@@ -24,10 +24,9 @@ class UserInfoAvatarSection extends PureComponent {
   }
 
   showAlert = () => {
-    this.props.tapCount(0)
     Promise.all([getItem('identifier'), getItem('phone')])
       .then(([identifier, phoneNumber]) => {
-        if (!identifier || !phoneNumber) {
+        if (identifier || phoneNumber) {
           AlertIOS.alert('Identifier or phone not present')
         } else {
           AlertIOS.alert(
@@ -50,9 +49,10 @@ class UserInfoAvatarSection extends PureComponent {
 
   avatarTap = () => {
     let count = this.props.home.avatarTapCount + 1
-    this.props.tapCount(count + 1)
+    this.props.tapCount(count)
     if (count == 3) {
       this.showAlert()
+      this.props.tapCount(0)
     }
   }
 
