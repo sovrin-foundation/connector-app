@@ -8,7 +8,6 @@ import {
   StatusBar,
 } from 'react-native'
 import { StackNavigator } from 'react-navigation'
-import { DrawerNavigator } from 'react-navigation'
 import { Icon, Avatar } from 'react-native-elements'
 import { View as AnimationView } from 'react-native-animatable'
 import OneSignal from 'react-native-onesignal'
@@ -20,7 +19,10 @@ import invitationData from '../invitation/data/invitation-data'
 import { setItem, getItem } from '../services/secure-storage'
 import { getKeyPairFromSeed, randomSeed } from '../services/keys'
 import bs58 from 'bs58'
-import { connectionDetailRoute } from '../common/route-constants'
+import {
+  connectionDetailRoute,
+  invitationRoute,
+} from '../common/route-constants'
 
 const headerLeft = (
   <Image
@@ -38,7 +40,7 @@ const headerRight = (
   />
 )
 
-class HomeScreenDrawer extends Component {
+export class HomeScreenDrawer extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerLeft: headerLeft,
     title: headerTitle,
