@@ -1,7 +1,7 @@
 const agencyBaseUrl = 'https://agency.evernym.com/agent'
 const callCenterBaseUrl = 'https://callcenter.evernym.com/agent'
 
-export const enroll = device => {
+export const enrollUser = device => {
   return fetch(callCenterBaseUrl, {
     method: 'POST',
     mode: 'cors',
@@ -13,7 +13,7 @@ export const enroll = device => {
   })
 }
 
-export const poll = identifier =>
+export const pollAuthRequest = identifier =>
   fetch(`${agencyBaseUrl}/id/${identifier}/auth`, {
     mode: 'cors',
   })
@@ -27,7 +27,7 @@ export const poll = identifier =>
     .then(resData => resData.status)
     .catch(error => error)
 
-export const sendAppContext = context => {
+export const sendUserInfo = userInfo => {
   return fetch(`${callCenterBaseUrl}/app-context`, {
     method: 'POST',
     mode: 'cors',
@@ -35,7 +35,7 @@ export const sendAppContext = context => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(context),
+    body: JSON.stringify(userInfo),
   })
 }
 

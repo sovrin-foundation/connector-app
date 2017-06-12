@@ -4,30 +4,27 @@ import { invitationReceived } from '../store'
 import { setItem, getItem } from '../services/secure-storage'
 import { getKeyPairFromSeed, randomSeed } from '../services/keys'
 import bs58 from 'bs58'
-import { Enroll, Poll } from '../home/home-store'
+import { enroll, poll } from '../home/home-store'
+import {
+  PUSH_COM_METHOD,
+  IDENTIFIER,
+  PHONE,
+  SEED,
+} from '../common/secure-storage-constants'
 
 class UserEnroll extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = this.props.home
   }
 
   componentWillMount() {
-    Promise.all([getItem('identifier'), getItem('phone'), getItem('seed')])
-      .then(([identifier, phone, seed]) => {
-        if (!identifier || !phone || !seed) {
-          this.enroll()
-        } else {
-          // TODO:KS Add signature
-          this.props.poll(identifier)
-        }
-      })
-      .catch(error => {
-        console.log(
-          'LOG: getItem for identifier, phone and seed failed, ',
-          error
-        )
-      })
+    const { identifier, phone, seed } = this.props.secureStorageStore.data
+    if (!identifier || !phone || !seed) {
+      this.enroll()
+    } else {
+      // TODO:KS Add signature
+      this.props.poll(identifier)
+    }
   }
 
   enroll = () => {
@@ -42,8 +39,8 @@ class UserEnroll extends PureComponent {
   }
 
   enrollUser(phoneNumber, id, seed, verKey) {
-    if (this.props.PNStore.isPNAllowed) {
-      getItem('pushComMethod')
+    if (this.props.pnStore.isPNAllowed) {
+      getItem(PUSH_COM_METHOD)
         .then(pushComMethod => {
           if (pushComMethod) {
             // TODO:KS Add signature
@@ -74,12 +71,13 @@ class UserEnroll extends PureComponent {
 
 const mapStateToProps = state => ({
   home: state.home,
-  PNStore: state.PNStore,
+  pnStore: state.pnStore,
+  secureStorageStore: state.secureStorageStore,
 })
 
 const mapDispatchToProps = dispatch => ({
-  enroll: device => dispatch(Enroll(device)),
-  poll: identifier => dispatch(Poll(identifier)),
+  enroll: device => dispatch(enroll(device)),
+  poll: identifier => dispatch(poll(identifier)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserEnroll)

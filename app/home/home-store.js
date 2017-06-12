@@ -1,4 +1,4 @@
-const initResData = {
+const initResponseData = {
   isFetching: false,
   isPristine: true,
   data: null,
@@ -7,29 +7,29 @@ const initResData = {
 
 const initialState = {
   avatarTapCount: 0,
-  enrollRes: initResData,
-  pollRes: initResData,
-  contextRes: initResData,
+  enrollResponse: initResponseData,
+  pollResponse: initResponseData,
+  userInfoResponse: initResponseData,
 }
 
-export const Enroll = device => ({
+export const enroll = device => ({
   type: 'ENROLL',
   device,
 })
 
-export const Poll = identifier => ({
+export const poll = identifier => ({
   type: 'POLL',
   identifier,
 })
 
-export const TapCount = newCount => ({
-  type: 'TAP_COUNT',
-  newCount,
+export const avatarTapped = avatarTapCount => ({
+  type: 'AVATAR_TAPPED',
+  avatarTapCount: avatarTapCount + 1,
 })
 
-export const SendAppContext = context => ({
-  type: 'APP_CONTEXT',
-  context,
+export const sendUserInfo = userInfo => ({
+  type: 'SEND_USER_INFO',
+  userInfo,
 })
 
 export default function home(state = initialState, action) {
@@ -37,8 +37,8 @@ export default function home(state = initialState, action) {
     case 'ENROLL':
       return {
         ...state,
-        enrollRes: {
-          ...state.enrollRes,
+        enrollResponse: {
+          ...state.enrollResponse,
           isFetching: true,
           isPristine: false,
         },
@@ -46,17 +46,17 @@ export default function home(state = initialState, action) {
     case 'ENROLL_SUCCESS':
       return {
         ...state,
-        enrollRes: {
-          ...state.enrollRes,
+        enrollResponse: {
+          ...state.enrollResponse,
           isFetching: false,
-          data: action.enrollRes,
+          data: action.enrollResponse,
         },
       }
     case 'ENROLL_FAILURE':
       return {
         ...state,
-        enrollRes: {
-          ...state.enrollRes,
+        enrollResponse: {
+          ...state.enrollResponse,
           isFetching: false,
           error: action.error,
         },
@@ -64,8 +64,8 @@ export default function home(state = initialState, action) {
     case 'POLL':
       return {
         ...state,
-        pollRes: {
-          ...state.pollRes,
+        pollResponse: {
+          ...state.pollResponse,
           isFetching: true,
           isPristine: false,
         },
@@ -73,49 +73,49 @@ export default function home(state = initialState, action) {
     case 'POLL_SUCCESS':
       return {
         ...state,
-        pollRes: {
-          ...state.pollRes,
+        pollResponse: {
+          ...state.pollResponse,
           isFetching: false,
-          data: action.pollRes,
+          data: action.pollResponse,
         },
       }
     case 'POLL_FAILURE':
       return {
         ...state,
-        pollRes: {
-          ...state.pollRes,
+        pollResponse: {
+          ...state.pollResponse,
           isFetching: false,
           error: action.error,
         },
       }
-    case 'TAP_COUNT':
+    case 'AVATAR_TAPPED':
       return {
         ...state,
-        avatarTapCount: action.newCount,
+        avatarTapCount: action.avatarTapCount,
       }
-    case 'APP_CONTEXT':
+    case 'SEND_USER_INFO':
       return {
         ...state,
-        contextRes: {
-          ...state.contextRes,
+        userInfoResponse: {
+          ...state.userInfoResponse,
           isFetching: true,
           isPristine: false,
         },
       }
-    case 'APP_CONTEXT_SUCCESS':
+    case 'USER_INFO_SUCCESS':
       return {
         ...state,
-        contextRes: {
-          ...state.contextRes,
+        userInfoResponse: {
+          ...state.userInfoResponse,
           isFetching: false,
-          data: action.contextRes,
+          data: action.userInfoResponse,
         },
       }
-    case 'APP_CONTEXT_FAILURE':
+    case 'USER_INFO_FAILURE':
       return {
         ...state,
-        contextRes: {
-          ...state.contextRes,
+        userInfoResponse: {
+          ...state.userInfoResponse,
           isFetching: false,
           error: action.error,
         },

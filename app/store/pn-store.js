@@ -2,12 +2,12 @@ const initialState = {
   isPNAllowed: false,
 }
 
-export const PNPermission = isAllowed => ({
+export const pnPermission = isAllowed => ({
   type: 'PN_PERMISSION',
   isAllowed,
 })
 
-export default function PNStore(state = initialState, action) {
+export default function pnStore(state = initialState, action) {
   switch (action.type) {
     case 'PN_PERMISSION':
       return {

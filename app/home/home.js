@@ -12,18 +12,29 @@ import { DrawerNavigator } from 'react-navigation'
 import { Icon, Avatar } from 'react-native-elements'
 import { View as AnimationView } from 'react-native-animatable'
 import OneSignal from 'react-native-onesignal'
-
 import Bubbles from './bubbles'
 import User from './user'
-import { getUserInfo, getConnections, invitationReceived } from '../store'
 import invitationData from '../invitation/data/invitation-data'
 import { setItem, getItem } from '../services/secure-storage'
-import { PNPermission } from '../store/pn-store'
+import EnrollUser from '../components/user-enroll'
+import {
+  getUserInfo,
+  getConnections,
+  invitationReceived,
+  getSecureStorage,
+  pnPermission,
+} from '../store'
 import {
   connectionDetailRoute,
   invitationRoute,
+  homeRoute,
 } from '../common/route-constants'
-import EnrollUser from '../components/user-enroll'
+import {
+  PUSH_COM_METHOD,
+  IDENTIFIER,
+  PHONE,
+  SEED,
+} from '../common/secure-storage-constants'
 
 const headerLeft = (
   <Image
@@ -55,7 +66,7 @@ class HomeScreenDrawer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentRoute: 'Home',
+      currentRoute: homeRoute,
       scrollY: new Animated.Value(0),
       isSwiping: false,
     }
@@ -65,6 +76,9 @@ class HomeScreenDrawer extends Component {
     // push notification events
     OneSignal.addEventListener('opened', this.onOpened)
     OneSignal.addEventListener('ids', this.onIds)
+
+    // load secure storage
+    this.props.loadSecureStorage()
 
     // load data for home screen
     this.props.loadUserInfo()
@@ -116,7 +130,7 @@ class HomeScreenDrawer extends Component {
   }
 
   onIds = device => {
-    setItem('pushComMethod', device.userId)
+    setItem(PUSH_COM_METHOD, device.userId)
       .then(() => {
         this.props.pnPermission(true)
       })
@@ -126,9 +140,10 @@ class HomeScreenDrawer extends Component {
   }
 
   enrollSuccess() {
-    setItem('phone', phoneNumber)
-    setItem('identifier', id)
-    setItem('seed', seed)
+    setItem(PHONE, phoneNumber)
+    setItem(IDENTIFIER, id)
+    setItem(SEED, seed)
+    this.props.loadSecureStorage()
   }
 
   pollSuccess() {
@@ -146,15 +161,19 @@ class HomeScreenDrawer extends Component {
 
     const { user, connections } = this.props
 
-    const { enrollRes, pollRes } = this.props.home
-    if (enrollRes && enrollRes.data && enrollRes.data.status === 200) {
+    const { enrollResponse, pollResponse } = this.props.home
+    if (
+      enrollResponse &&
+      enrollResponse.data &&
+      enrollResponse.data.status === 200
+    ) {
       this.enrollSuccess()
     }
     if (
-      pollRes &&
-      pollRes.data &&
-      pollRes.data &&
-      pollRes.data.status === 'NO_RESPONSE_YET'
+      pollResponse &&
+      pollResponse.data &&
+      pollResponse.data &&
+      pollResponse.data.status === 'NO_RESPONSE_YET'
     ) {
       this.pollSuccess()
     }
@@ -184,13 +203,15 @@ const mapStateToProps = state => ({
   connections: state.connections,
   PNStore: state.PNStore,
   home: state.home,
+  secureStorageStore: state.secureStorageStore,
 })
 
 const mapDispatchToProps = dispatch => ({
   loadUserInfo: () => dispatch(getUserInfo()),
   loadConnections: () => dispatch(getConnections()),
   invitationReceived: () => dispatch(invitationReceived(invitationData)),
-  pnPermission: isAllowed => dispatch(PNPermission(isAllowed)),
+  pnPermission: isAllowed => dispatch(pnPermission(isAllowed)),
+  loadSecureStorage: () => dispatch(getSecureStorage()),
 })
 
 const mapsStateDispatch = connect(mapStateToProps, mapDispatchToProps)(

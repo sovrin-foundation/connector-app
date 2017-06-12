@@ -1,79 +1,79 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import { enroll, poll, sendAppContext } from '../services/api'
-import { Poll } from './home-store'
+import { enrollUser, pollAuthRequest, sendUserInfo } from '../services/api'
+import { poll, avatarTapped } from './home-store'
 
-const enrollSuccess = enrollRes => ({
+const enrollSuccess = enrollResponse => ({
   type: 'ENROLL_SUCCESS',
-  enrollRes,
+  enrollResponse,
 })
 
-const enrollFailure = enrollRes => ({
+const enrollFailure = enrollResponse => ({
   type: 'ENROLL_FAILURE',
-  enrollRes,
+  enrollResponse,
 })
 
-function* enrollUser(action) {
+function* handleEnroll(action) {
   try {
-    const enrollRes = yield call(enroll, action.device)
-    yield put(enrollSuccess(enrollRes))
-    yield put(Poll(action.device.id))
+    const enrollResponse = yield call(enrollUser, action.device)
+    yield put(enrollSuccess(enrollResponse))
+    yield put(poll(action.device.id))
   } catch (e) {
     yield put(enrollFailure(e.message))
   }
 }
 
 export function* watchEnrollUser() {
-  yield takeLatest('ENROLL', enrollUser)
+  yield takeLatest('ENROLL', handleEnroll)
 }
 
-const pollSuccess = pollRes => ({
+const pollSuccess = pollResponse => ({
   type: 'POLL_SUCCESS',
-  pollRes,
+  pollResponse,
 })
 
-const pollFailure = pollRes => ({
+const pollFailure = pollResponse => ({
   type: 'POLL_FAILURE',
-  pollRes,
+  pollResponse,
 })
 
-function* pollAuthRequest(action) {
+function* handleAuthRequest(action) {
   try {
-    const pollRes = yield call(poll, action.identifier)
-    if (pollRes == 'auth request is not yet sent') {
-      yield put(pollSuccess(pollRes))
-      yield put(Poll(action.identifier))
+    const pollResponse = yield call(pollAuthRequest, action.identifier)
+    if (pollResponse == 'auth request is not yet sent') {
+      yield put(pollSuccess(pollResponse))
+      yield put(poll(action.identifier))
     } else {
-      yield put(pollSuccess(pollRes.data))
+      yield put(pollSuccess(pollResponse.data))
     }
   } catch (e) {
     yield put(pollFailure(e.message))
-    yield put(Poll(action.identifier))
+    yield put(poll(action.identifier))
   }
 }
 
 export function* watchPollAuthRequest() {
-  yield takeLatest('POLL', pollAuthRequest)
+  yield takeLatest('POLL', handleAuthRequest)
 }
 
-const contextSuccess = contextRes => ({
-  type: 'APP_CONTEXT_SUCCESS',
-  contextRes,
+const userInfoSuccess = userInfoResponse => ({
+  type: 'USER_INFO_SUCCESS',
+  userInfoResponse,
 })
 
-const contextFailure = contextRes => ({
-  type: 'APP_CONTEXT_FAILURE',
-  contextRes,
+const userInfoFailure = userInfoResponse => ({
+  type: 'USER_INFO_FAILURE',
+  userInfoResponse,
 })
 
-function* appContext(action) {
+function* userInfo(action) {
   try {
-    const contextRes = yield call(sendAppContext, action.context)
-    yield put(contextSuccess(contextRes))
+    const userInfoResponse = yield call(sendUserInfo, action.userInfo)
+    yield put(userInfoSuccess(userInfoResponse))
   } catch (e) {
-    yield put(contextSuccess(e.message))
+    yield put(userInfoSuccess(e.message))
   }
 }
 
 export function* watchAppContext() {
-  yield takeLatest('APP_CONTEXT', appContext)
+  yield takeLatest('SEND_USER_INFO', userInfo)
 }

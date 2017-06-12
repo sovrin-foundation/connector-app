@@ -13,7 +13,6 @@ import {
 } from '../services/keys'
 import { getItem } from '../services/secure-storage'
 import { authRequest } from './invitation-store'
-import { isContainsDefined } from '../services/utils'
 import { connectionDetailRoute, homeRoute } from '../common/route-constants'
 
 class actions extends PureComponent {

@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react'
-import { View, AlertIOS } from 'react-native'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
 import Divider from '../divider'
 import { ListItem, ListItemData } from '../info-section-list'
 import { BadgeAvatar, Avatar } from '../avatar'
 import { ItemDividerLabel } from '../../styled-components/common-styled'
 import { addButtonText } from './user-info-common-components'
-import { getItem } from '../../services/secure-storage'
-import { TapCount, SendAppContext } from '../../home/home-store'
+import Alert from '../alert'
+import { avatarTapped } from '../../home/home-store'
 
 /**
  * TODO:KS
@@ -23,37 +23,9 @@ class UserInfoAvatarSection extends PureComponent {
     super(props)
   }
 
-  showAlert = () => {
-    Promise.all([getItem('identifier'), getItem('phone')])
-      .then(([identifier, phoneNumber]) => {
-        if (identifier || phoneNumber) {
-          AlertIOS.alert('Identifier or phone not present')
-        } else {
-          AlertIOS.alert(
-            `Identifier - ${identifier}`,
-            `Phone Number - ${phoneNumber}`
-          )
-          this.props.appContext({
-            phoneNumber,
-            identifier,
-          })
-        }
-      })
-      .catch(error => {
-        console.log(
-          'LOG: getItem for identifier or phoneNumber failed, ',
-          error
-        )
-      })
-  }
-
   avatarTap = () => {
-    let count = this.props.home.avatarTapCount + 1
-    this.props.tapCount(count)
-    if (count == 3) {
-      this.showAlert()
-      this.props.tapCount(0)
-    }
+    let count = this.props.home.avatarTapCount
+    this.props.avatarTapped(count)
   }
 
   render() {
@@ -70,6 +42,7 @@ class UserInfoAvatarSection extends PureComponent {
             />
           </ListItemData>
         </ListItem>
+        <Alert />
       </View>
     )
   }
@@ -80,8 +53,7 @@ const mapStateToProps = ({ home }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  tapCount: count => dispatch(TapCount(count)),
-  appContext: context => dispatch(SendAppContext(context)),
+  avatarTapped: count => dispatch(avatarTapped(count)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
