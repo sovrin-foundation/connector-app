@@ -16,7 +16,7 @@ import {
 const ConnectMeAppNavigator = StackNavigator(
   {
     [homeRoute]: {
-      screen: InvitationScreen,
+      screen: HomeScreen,
     },
     [invitationRoute]: {
       screen: InvitationScreen,
