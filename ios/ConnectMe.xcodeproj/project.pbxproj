@@ -270,13 +270,6 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = TouchID;
 		};
-		DDA052F61E982553001F0857 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F5EE0F62F14F4156830AE3CA /* RCTOneSignal.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3245CDED1BFEE35C00EABF68;
-			remoteInfo = RCTOneSignal;
-		};
 		DDC1533C1E8D04F300571A2A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F1F340A9F4AC4349928BD1D3 /* RNVectorIcons.xcodeproj */;
@@ -355,7 +348,6 @@
 		DDA052DA1E9824F9001F0857 /* ConnectMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ConnectMe.entitlements; path = ConnectMe/ConnectMe.entitlements; sourceTree = "<group>"; };
 		E3B0FD8C0D858EC91E3F65F5 /* Pods-ConnectMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConnectMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-ConnectMe/Pods-ConnectMe.release.xcconfig"; sourceTree = "<group>"; };
 		F1F340A9F4AC4349928BD1D3 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
-		F5EE0F62F14F4156830AE3CA /* RCTOneSignal.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTOneSignal.xcodeproj; path = "../node_modules/react-native-onesignal/ios/RCTOneSignal.xcodeproj"; sourceTree = "<group>"; };
 		F6B10A5D751F4CC6B4D91944 /* libRNFIRMessaging.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFIRMessaging.a; sourceTree = "<group>"; };
 		FF5B8ABA15754B53BDAFE558 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		FF87A1937BAC523D19CFC635 /* Pods-ConnectMeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConnectMeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ConnectMeTests/Pods-ConnectMeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -592,7 +584,6 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				F1F340A9F4AC4349928BD1D3 /* RNVectorIcons.xcodeproj */,
 				CD4CC28195494C4B91BE98A8 /* Interactable.xcodeproj */,
-				F5EE0F62F14F4156830AE3CA /* RCTOneSignal.xcodeproj */,
 				0915D5E7C9B34B76A5B080C3 /* TouchID.xcodeproj */,
 				7A38794CCE994D7899DF52A1 /* BVLinearGradient.xcodeproj */,
 				820E1643F10D4EC1A9D13C6C /* RNSensitiveInfo.xcodeproj */,
@@ -668,14 +659,6 @@
 			isa = PBXGroup;
 			children = (
 				DD564C8F1EA18FF5007629F6 /* libTouchID.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		DDA052E81E982553001F0857 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				DDA052F71E982553001F0857 /* libRCTOneSignal.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -871,10 +854,6 @@
 				{
 					ProductGroup = 00C302D41ABCB9D200DB3ED1 /* Products */;
 					ProjectRef = 00C302D31ABCB9D200DB3ED1 /* RCTNetwork.xcodeproj */;
-				},
-				{
-					ProductGroup = DDA052E81E982553001F0857 /* Products */;
-					ProjectRef = F5EE0F62F14F4156830AE3CA /* RCTOneSignal.xcodeproj */;
 				},
 				{
 					ProductGroup = 139105B71AF99BAD00B5F7CC /* Products */;
@@ -1118,13 +1097,6 @@
 			fileType = archive.ar;
 			path = libTouchID.a;
 			remoteRef = DD564C8E1EA18FF5007629F6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		DDA052F71E982553001F0857 /* libRCTOneSignal.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTOneSignal.a;
-			remoteRef = DDA052F61E982553001F0857 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		DDC1533D1E8D04F300571A2A /* libRNVectorIcons.a */ = {

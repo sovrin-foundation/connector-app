@@ -11,12 +11,9 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#import <RCTOneSignal.h>
 #import "RNFIRMessaging.h"
 
 @implementation AppDelegate
-
-@synthesize oneSignal = _oneSignal;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -33,10 +30,6 @@
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
-
-  self.oneSignal = [[RCTOneSignal alloc] initWithLaunchOptions:launchOptions
-                    appId:@"***REMOVED***"
-                    settings:@{kOSSettingsKeyInFocusDisplayOption : @(OSNotificationDisplayTypeNone)}];
   
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
@@ -64,11 +57,6 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(nonnull NSDictionary *)userInfo fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler{
   [RNFIRMessaging didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
-}
-
-// Required for the notification event.
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)notification {
-  [RCTOneSignal didReceiveRemoteNotification:notification];
 }
 
 @end
