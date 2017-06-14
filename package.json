@@ -22,6 +22,7 @@
     "react-native": "0.44.0",
     "react-native-animatable": "^1.1.1",
     "react-native-elements": "^0.10.3",
+    "react-native-fcm": "^7.0.3",
     "react-native-interactable": "^0.0.7",
     "react-native-lightbox": "^0.6.0",
     "react-native-linear-gradient": "^2.0.0",
