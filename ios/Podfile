@@ -1,0 +1,55 @@
+# # Uncomment the next line to define a global platform for your project
+# # platform :ios, '9.0'
+
+# target 'ConnectMe' do
+#   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+#   # use_frameworks!
+
+#   # Pods for ConnectMe
+#   # Pods for ThamesClippers
+#   pod 'Google/Analytics'
+#   pod 'Firebase/Core'
+#   pod 'Firebase/AdMob'
+
+#   # Trying to fix GoogleToolboxForMac missing error
+#   pod 'Firebase/Messaging'
+#   pod 'GoogleToolboxForMac/Logger' 
+#   pod 'GoogleToolboxForMac', '~> 2.1'
+
+#   target 'ConnectMeTests' do
+#     inherit! :search_paths
+#     # Pods for testing
+#   end
+
+# end
+
+# target 'ConnectMe-tvOS' do
+#   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+#   # use_frameworks!
+
+#   # Pods for ConnectMe-tvOS
+
+#   target 'ConnectMe-tvOSTests' do
+#     inherit! :search_paths
+#     # Pods for testing
+#   end
+
+# end
+
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+pod 'Firebase/Messaging'
+
+target 'ConnectMe' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for SimpleFcmClient
+
+  target 'ConnectMeTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
