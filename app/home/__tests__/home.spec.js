@@ -2,7 +2,8 @@ import 'react-native'
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import { HomeScreenDrawer } from '../home'
+// un-comment it when don't want to skip this test
+// import { HomeScreenDrawer } from '../home'
 
 function props() {
   return {
