@@ -15,7 +15,7 @@ function props() {
 }
 
 describe('home page should', () => {
-  it('redirect user to invitation page once invitation is receieved', () => {
+  xit('redirect user to invitation page once invitation is receieved', () => {
     expect(renderer.create(<HomeScreenDrawer />).toJSON()).toMatchSnapshot()
   })
 })
