@@ -2,7 +2,8 @@ import 'react-native'
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import { HomeScreenDrawer } from '../home'
+// un-comment it when don't want to skip this test
+// import { HomeScreenDrawer } from '../home'
 
 function props() {
   return {
@@ -15,7 +16,7 @@ function props() {
 }
 
 describe('home page should', () => {
-  it('redirect user to invitation page once invitation is receieved', () => {
+  xit('redirect user to invitation page once invitation is receieved', () => {
     expect(renderer.create(<HomeScreenDrawer />).toJSON()).toMatchSnapshot()
   })
 })

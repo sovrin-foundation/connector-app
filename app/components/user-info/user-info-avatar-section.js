@@ -40,7 +40,7 @@ export default class UserInfoAvatarSection extends PureComponent {
               `Phone Number - ${phoneNumber}`
             )
             // TODO:KS Add signature
-            fetch(`http://callcenter.evernym.com/agent/app-context`, {
+            fetch(`https://cua.culedger.com/agent/app-context`, {
               method: 'POST',
               mode: 'cors',
               headers: {

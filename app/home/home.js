@@ -10,7 +10,7 @@ import {
 import { StackNavigator } from 'react-navigation'
 import { Icon, Avatar } from 'react-native-elements'
 import { View as AnimationView } from 'react-native-animatable'
-import OneSignal from 'react-native-onesignal'
+import FCM, { FCMEvent } from 'react-native-fcm'
 
 import Bubbles from './bubbles'
 import User from './user'
@@ -20,6 +20,7 @@ import { setItem, getItem } from '../services/secure-storage'
 import { getKeyPairFromSeed, randomSeed } from '../services/keys'
 import bs58 from 'bs58'
 import {
+  homeRoute,
   connectionDetailRoute,
   invitationRoute,
 } from '../common/route-constants'
@@ -65,8 +66,24 @@ export class HomeScreenDrawer extends Component {
 
   componentWillMount() {
     // push notification events
-    OneSignal.addEventListener('opened', this.onOpened)
-    OneSignal.addEventListener('ids', this.onIds)
+    FCM.requestPermissions() // for iOS
+    FCM.getFCMToken().then(token => {
+      this.saveDeviceToken(token)
+    })
+
+    this.saveKey('newCurrentRoute', homeRoute)
+
+    this.notificationListener = FCM.on(FCMEvent.Notification, async notif => {
+      this.handlePN(notif)
+    })
+
+    FCM.getInitialNotification().then(notif => {
+      this.handlePN(notif)
+    })
+
+    this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, token => {
+      this.saveDeviceToken(token)
+    })
 
     // load data for home screen
     this.props.loadUserInfo()
@@ -78,8 +95,6 @@ export class HomeScreenDrawer extends Component {
       .then(([identifier, phone, seed]) => {
         if (!identifier || !phone || !seed) {
           this.enroll()
-        } else {
-          this.poll(identifier)
         }
       })
       .catch(error => {
@@ -90,9 +105,32 @@ export class HomeScreenDrawer extends Component {
       })
   }
 
+  handlePN(notif) {
+    if (notif && notif.type === 'auth-req') {
+      this.props.invitationReceived()
+      this.getRoute().then(() => {
+        if (this.state.currentRoute !== invitationRoute) {
+          this.saveKey('newCurrentRoute', invitationRoute)
+          this.props.navigation.navigate(invitationRoute)
+        }
+      })
+    }
+  }
+
+  saveDeviceToken(token) {
+    setItem('pushComMethod', token)
+      .then(() => {
+        this.userAllowedPushNotification = true
+      })
+      .catch(function(error) {
+        console.log('LOG: onIds setItem error, ', error)
+      })
+  }
+
   componentWillUnmount() {
-    OneSignal.removeEventListener('opened', this.onOpened)
-    OneSignal.removeEventListener('ids', this.onIds)
+    // stop listening for events
+    this.notificationListener.remove()
+    this.refreshTokenListener.remove()
   }
 
   handleSwipe = isSwiping => {
@@ -124,56 +162,6 @@ export class HomeScreenDrawer extends Component {
     }
   }
 
-  onOpened = openResult => {
-    this.props.invitationReceived()
-    this.getRoute().then(() => {
-      if (this.state.currentRoute !== invitationRoute) {
-        this.saveKey('newCurrentRoute', invitationRoute)
-        this.props.navigation.navigate(invitationRoute)
-      }
-    })
-  }
-
-  onIds = device => {
-    setItem('pushComMethod', device.userId)
-      .then(() => {
-        this.userAllowedPushNotification = true
-      })
-      .catch(function(error) {
-        console.log('LOG: onIds setItem error, ', error)
-      })
-  }
-
-  poll = identifier => {
-    // TODO:KS Add signature
-    fetch(`https://agency.evernym.com/agent/id/${identifier}/auth`, {
-      mode: 'cors',
-    })
-      .then(res => {
-        if (res.status == 200) {
-          return res.json()
-        } else {
-          throw new Error('Bad Request')
-        }
-      })
-      .then(resData => {
-        if (resData.status === 'NO_RESPONSE_YET') {
-          this.props.invitationReceived()
-          this.saveKey('newCurrentRoute', invitationRoute)
-          this.props.navigation.navigate(invitationRoute)
-        } else {
-          window.setTimeout(() => {
-            this.poll(identifier)
-          }, 4000)
-        }
-      })
-      .catch(error =>
-        window.setTimeout(() => {
-          this.poll(identifier)
-        }, 4000)
-      )
-  }
-
   enroll = () => {
     let phoneNumber = (Math.random() * 1000000000000000000)
       .toString()
@@ -184,7 +172,6 @@ export class HomeScreenDrawer extends Component {
 
     verKey = bs58.encode(verKey)
     this.enrollUser(phoneNumber, id, seed, verKey)
-    this.poll(id)
   }
 
   enrollUser(phoneNumber, id, seed, verKey) {
@@ -193,7 +180,7 @@ export class HomeScreenDrawer extends Component {
         .then(function(pushComMethod) {
           if (pushComMethod) {
             // TODO:KS Add signature
-            fetch(`https://callcenter.evernym.com/agent/enroll`, {
+            fetch(`https://cua.culedger.com/agent/enroll`, {
               method: 'POST',
               mode: 'cors',
               headers: {
