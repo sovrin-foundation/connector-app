@@ -10,7 +10,6 @@ import {
 import { StackNavigator } from 'react-navigation'
 import { Icon, Avatar } from 'react-native-elements'
 import { View as AnimationView } from 'react-native-animatable'
-import { Platform } from 'react-native'
 import FCM, { FCMEvent } from 'react-native-fcm'
 
 import Bubbles from './bubbles'
@@ -68,13 +67,7 @@ export class HomeScreenDrawer extends Component {
     // push notification events
     FCM.requestPermissions() // for iOS
     FCM.getFCMToken().then(token => {
-      setItem('pushComMethod', token)
-        .then(() => {
-          this.userAllowedPushNotification = true
-        })
-        .catch(function(error) {
-          console.log('LOG: onIds setItem error, ', error)
-        })
+      this.saveDeviceToken(token)
     })
 
     this.notificationListener = FCM.on(FCMEvent.Notification, async notif => {
@@ -90,7 +83,7 @@ export class HomeScreenDrawer extends Component {
     })
 
     this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, token => {
-      console.log(token)
+      this.saveDeviceToken(token)
     })
 
     // load data for home screen
@@ -117,6 +110,16 @@ export class HomeScreenDrawer extends Component {
     // stop listening for events
     this.notificationListener.remove()
     this.refreshTokenListener.remove()
+  }
+
+  saveDeviceToken(token) {
+    setItem('pushComMethod', token)
+      .then(() => {
+        this.userAllowedPushNotification = true
+      })
+      .catch(function(error) {
+        console.log('LOG: onIds setItem error, ', error)
+      })
   }
 
   handleSwipe = isSwiping => {
