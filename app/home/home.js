@@ -20,6 +20,7 @@ import { setItem, getItem } from '../services/secure-storage'
 import { getKeyPairFromSeed, randomSeed } from '../services/keys'
 import bs58 from 'bs58'
 import {
+  homeRoute,
   connectionDetailRoute,
   invitationRoute,
 } from '../common/route-constants'
@@ -70,16 +71,14 @@ export class HomeScreenDrawer extends Component {
       this.saveDeviceToken(token)
     })
 
+    this.saveKey('newCurrentRoute', homeRoute)
+
     this.notificationListener = FCM.on(FCMEvent.Notification, async notif => {
-      if (notif.type === 'auth-req') {
-        this.props.invitationReceived()
-        this.getRoute().then(() => {
-          if (this.state.currentRoute !== invitationRoute) {
-            this.saveKey('newCurrentRoute', invitationRoute)
-            this.props.navigation.navigate(invitationRoute)
-          }
-        })
-      }
+      this.handlePN(notif)
+    })
+
+    FCM.getInitialNotification().then(notif => {
+      this.handlePN(notif)
     })
 
     this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, token => {
@@ -106,10 +105,16 @@ export class HomeScreenDrawer extends Component {
       })
   }
 
-  componentWillUnmount() {
-    // stop listening for events
-    this.notificationListener.remove()
-    this.refreshTokenListener.remove()
+  handlePN(notif) {
+    if (notif && notif.type === 'auth-req') {
+      this.props.invitationReceived()
+      this.getRoute().then(() => {
+        if (this.state.currentRoute !== invitationRoute) {
+          this.saveKey('newCurrentRoute', invitationRoute)
+          this.props.navigation.navigate(invitationRoute)
+        }
+      })
+    }
   }
 
   saveDeviceToken(token) {
@@ -120,6 +125,12 @@ export class HomeScreenDrawer extends Component {
       .catch(function(error) {
         console.log('LOG: onIds setItem error, ', error)
       })
+  }
+
+  componentWillUnmount() {
+    // stop listening for events
+    this.notificationListener.remove()
+    this.refreshTokenListener.remove()
   }
 
   handleSwipe = isSwiping => {
@@ -169,7 +180,7 @@ export class HomeScreenDrawer extends Component {
         .then(function(pushComMethod) {
           if (pushComMethod) {
             // TODO:KS Add signature
-            fetch(`https://callcenter.evernym.com/agent/enroll`, {
+            fetch(`https://cua.culedger.com/agent/enroll`, {
               method: 'POST',
               mode: 'cors',
               headers: {
