@@ -26,35 +26,6 @@ export function* watchEnrollUser() {
   yield takeLatest('ENROLL', handleEnroll)
 }
 
-const pollSuccess = pollResponse => ({
-  type: 'POLL_SUCCESS',
-  pollResponse,
-})
-
-const pollFailure = pollResponse => ({
-  type: 'POLL_FAILURE',
-  pollResponse,
-})
-
-function* handleAuthRequest(action) {
-  try {
-    const pollResponse = yield call(pollAuthRequest, action.identifier)
-    if (pollResponse == 'auth request is not yet sent') {
-      yield put(pollSuccess(pollResponse))
-      yield put(poll(action.identifier))
-    } else {
-      yield put(pollSuccess(pollResponse.data))
-    }
-  } catch (e) {
-    yield put(pollFailure(e.message))
-    yield put(poll(action.identifier))
-  }
-}
-
-export function* watchPollAuthRequest() {
-  yield takeLatest('POLL', handleAuthRequest)
-}
-
 const userInfoSuccess = userInfoResponse => ({
   type: 'USER_INFO_SUCCESS',
   userInfoResponse,

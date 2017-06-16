@@ -1,5 +1,5 @@
-const agencyBaseUrl = 'https://agency.evernym.com/agent'
-const callCenterBaseUrl = 'https://callcenter.evernym.com/agent'
+const agencyBaseUrl = 'https://agency.evernym.com'
+const callCenterBaseUrl = 'https://cua.culedger.com'
 
 export const enrollUser = device => {
   return fetch(callCenterBaseUrl, {
@@ -13,22 +13,8 @@ export const enrollUser = device => {
   })
 }
 
-export const pollAuthRequest = identifier =>
-  fetch(`${agencyBaseUrl}/id/${identifier}/auth`, {
-    mode: 'cors',
-  })
-    .then(res => {
-      if (res.status == 200) {
-        return res.json()
-      } else {
-        throw new Error('Bad Request')
-      }
-    })
-    .then(resData => resData.status)
-    .catch(error => error)
-
 export const sendUserInfo = userInfo => {
-  return fetch(`${callCenterBaseUrl}/app-context`, {
+  return fetch(`${callCenterBaseUrl}/agent/app-context`, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -40,7 +26,7 @@ export const sendUserInfo = userInfo => {
 }
 
 export const sendAuthRequest = ({ identifier, dataBody }) => {
-  return fetch(`https://agency.evernym.com/agent/id/${identifier}/auth`, {
+  return fetch(`${agencyBaseUrl}/agent/id/${identifier}/auth`, {
     method: 'PUT',
     mode: 'cors',
     headers: {

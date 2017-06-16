@@ -8,10 +8,10 @@ import {
   StatusBar,
 } from 'react-native'
 import { StackNavigator } from 'react-navigation'
-import { DrawerNavigator } from 'react-navigation'
 import { Icon, Avatar } from 'react-native-elements'
 import { View as AnimationView } from 'react-native-animatable'
-import OneSignal from 'react-native-onesignal'
+import FCM, { FCMEvent } from 'react-native-fcm'
+
 import Bubbles from './bubbles'
 import User from './user'
 import invitationData from '../invitation/data/invitation-data'
@@ -52,7 +52,7 @@ const headerRight = (
   />
 )
 
-class HomeScreenDrawer extends Component {
+export class HomeScreenDrawer extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerLeft: headerLeft,
     title: headerTitle,
@@ -74,8 +74,24 @@ class HomeScreenDrawer extends Component {
 
   componentWillMount() {
     // push notification events
-    OneSignal.addEventListener('opened', this.onOpened)
-    OneSignal.addEventListener('ids', this.onIds)
+    FCM.requestPermissions() // for iOS
+    FCM.getFCMToken().then(token => {
+      this.saveDeviceToken(token)
+    })
+
+    this.saveKey('newCurrentRoute', homeRoute)
+
+    this.notificationListener = FCM.on(FCMEvent.Notification, async notif => {
+      this.handlePN(notif)
+    })
+
+    FCM.getInitialNotification().then(notif => {
+      this.handlePN(notif)
+    })
+
+    this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, token => {
+      this.saveDeviceToken(token)
+    })
 
     // load secure storage
     this.props.loadSecureStorage()
@@ -85,9 +101,32 @@ class HomeScreenDrawer extends Component {
     this.props.loadConnections()
   }
 
+  handlePN(notif) {
+    if (notif && notif.type === 'auth-req') {
+      this.props.invitationReceived()
+      this.getRoute().then(() => {
+        if (this.state.currentRoute !== invitationRoute) {
+          this.saveKey('newCurrentRoute', invitationRoute)
+          this.props.navigation.navigate(invitationRoute)
+        }
+      })
+    }
+  }
+
+  saveDeviceToken(token) {
+    setItem(PUSH_COM_METHOD, token)
+      .then(() => {
+        this.userAllowedPushNotification = true
+      })
+      .catch(function(error) {
+        console.log('LOG: onIds setItem error, ', error)
+      })
+  }
+
   componentWillUnmount() {
-    OneSignal.removeEventListener('opened', this.onOpened)
-    OneSignal.removeEventListener('ids', this.onIds)
+    // stop listening for events
+    this.notificationListener.remove()
+    this.refreshTokenListener.remove()
   }
 
   handleSwipe = isSwiping => {
@@ -119,37 +158,11 @@ class HomeScreenDrawer extends Component {
     }
   }
 
-  onOpened = openResult => {
-    this.props.invitationReceived()
-    this.getRoute().then(() => {
-      if (this.state.currentRoute !== invitationRoute) {
-        this.saveKey('newCurrentRoute', invitationRoute)
-        this.props.navigation.navigate(invitationRoute)
-      }
-    })
-  }
-
-  onIds = device => {
-    setItem(PUSH_COM_METHOD, device.userId)
-      .then(() => {
-        this.props.pnPermission(true)
-      })
-      .catch(function(error) {
-        console.log('LOG: onIds setItem error, ', error)
-      })
-  }
-
   enrollSuccess() {
     setItem(PHONE, phoneNumber)
     setItem(IDENTIFIER, id)
     setItem(SEED, seed)
     this.props.loadSecureStorage()
-  }
-
-  pollSuccess() {
-    this.props.invitationReceived()
-    this.saveKey('newCurrentRoute', invitationRoute)
-    this.props.navigation.navigate(invitationRoute)
   }
 
   render() {
@@ -168,14 +181,6 @@ class HomeScreenDrawer extends Component {
       enrollResponse.data.status === 200
     ) {
       this.enrollSuccess()
-    }
-    if (
-      pollResponse &&
-      pollResponse.data &&
-      pollResponse.data &&
-      pollResponse.data.status === 'NO_RESPONSE_YET'
-    ) {
-      this.pollSuccess()
     }
 
     return (

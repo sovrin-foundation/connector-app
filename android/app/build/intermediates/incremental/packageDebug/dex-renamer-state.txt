@@ -1,4 +1,0 @@
-#Wed Apr 05 16:09:46 MDT 2017
-base.0=/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main
-renamed.0=classes.dex
-file.0=/Users/evernym/dev/evernym/ConnectMe/android/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex

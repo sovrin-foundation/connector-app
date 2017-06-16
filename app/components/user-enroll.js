@@ -4,15 +4,10 @@ import { invitationReceived } from '../store'
 import { setItem, getItem } from '../services/secure-storage'
 import { getKeyPairFromSeed, randomSeed } from '../services/keys'
 import bs58 from 'bs58'
-import { enroll, poll } from '../home/home-store'
-import {
-  PUSH_COM_METHOD,
-  IDENTIFIER,
-  PHONE,
-  SEED,
-} from '../common/secure-storage-constants'
+import { enroll } from '../home/home-store'
+import { PUSH_COM_METHOD } from '../common/secure-storage-constants'
 
-class UserEnroll extends PureComponent {
+export class UserEnroll extends PureComponent {
   constructor(props) {
     super(props)
   }
@@ -21,9 +16,6 @@ class UserEnroll extends PureComponent {
     const { identifier, phone, seed } = this.props.secureStorageStore.data
     if (!identifier || !phone || !seed) {
       this.enroll()
-    } else {
-      // TODO:KS Add signature
-      this.props.poll(identifier)
     }
   }
 
@@ -77,7 +69,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   enroll: device => dispatch(enroll(device)),
-  poll: identifier => dispatch(poll(identifier)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserEnroll)

@@ -21,29 +21,13 @@
     <key>CFBundleSignature</key>
     <string>????</string>
     <key>CFBundleVersion</key>
-    <string>40</string>
+    <string>44</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>NSAppTransportSecurity</key>
     <dict>
       <key>NSExceptionDomains</key>
       <dict>
-        <key>localhost</key>
-        <dict>
-          <key>NSExceptionAllowsInsecureHTTPLoads</key>
-          <true/>
-        </dict>
-        <key>onesignal.com</key>
-        <dict>
-          <key>NSIncludesSubdomains</key>
-          <true/>
-          <key>NSRequiresCertificateTransparency</key>
-          <false/>
-          <key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
-          <true/>
-          <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
-          <false/>
-        </dict>
         <key>evernym.com</key>
         <dict>
           <key>NSIncludesSubdomains</key>
@@ -54,11 +38,16 @@
           <true/>
           <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
           <false/>
-        </dict>        
+        </dict>
+        <key>localhost</key>
+        <dict>
+          <key>NSExceptionAllowsInsecureHTTPLoads</key>
+          <true/>
+        </dict>
       </dict>
     </dict>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string/>
+    <string></string>
     <key>UIAppFonts</key>
     <array>
       <string>Entypo.ttf</string>

@@ -7,11 +7,7 @@ import pnStore from './pn-store'
 import connections, { watchLoadConnections } from './connections-store'
 import invitation, { watchAuthRequest } from '../invitation/invitation-store'
 import home from '../home/home-store'
-import {
-  watchEnrollUser,
-  watchPollAuthRequest,
-  watchAppContext,
-} from '../home/home-saga'
+import { watchEnrollUser, watchAppContext } from '../home/home-saga'
 import secureStorageStore, { watchSecureStorage } from './secure-storage-store'
 
 const sagaMiddleware = createSagaMiddleware()
@@ -32,7 +28,6 @@ sagaMiddleware.run(function*() {
     watchLoadConnections(),
     watchUserInfo(),
     watchEnrollUser(),
-    watchPollAuthRequest(),
     watchAppContext(),
     watchAuthRequest(),
     watchSecureStorage(),

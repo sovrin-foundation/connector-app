@@ -1,25 +1,25 @@
-import { put, takeLatest } from "redux-saga/effects";
+import { put, takeLatest } from 'redux-saga/effects'
 
 // import hardcoded data as of now
-import userInfo from './data/user';
+import userInfo from './data/user'
 
-const GET_USERINFO = "GET_USERINFO";
-const GET_USERINFO_SUCCESS = "GET_USERINFO_SUCCESS";
-const GET_USERINFO_FAIL = "GET_USERINFO_FAIL";
+const GET_USERINFO = 'GET_USERINFO'
+const GET_USERINFO_SUCCESS = 'GET_USERINFO_SUCCESS'
+const GET_USERINFO_FAIL = 'GET_USERINFO_FAIL'
 
 export const getUserInfo = () => ({
-  type: GET_USERINFO
-});
+  type: GET_USERINFO,
+})
 
 export const getUserInfoFailed = error => ({
   type: GET_USERINFO_FAIL,
-  error
-});
+  error,
+})
 
 export const getUserInfoSuccess = info => ({
   type: GET_USERINFO_SUCCESS,
-  info
-});
+  info,
+})
 
 // initial state for home
 const initialState = {
@@ -27,10 +27,10 @@ const initialState = {
   isFetching: false,
   isPristine: true,
   error: {
-    code: "",
-    message: ""
-  }
-};
+    code: '',
+    message: '',
+  },
+}
 
 export function* loadUserInfoSaga() {
   yield put(getUserInfoSuccess(userInfo))
@@ -47,21 +47,21 @@ export default function user(state = initialState, action) {
         ...state,
         isFetching: true,
         isPristine: false,
-        error: initialState.error
-      };
+        error: initialState.error,
+      }
     case GET_USERINFO_FAIL:
       return {
         ...state,
         isFetching: false,
-        error: action.error
-      };
+        error: action.error,
+      }
     case GET_USERINFO_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        data: action.info
-      };
+        data: action.info,
+      }
     default:
-      return state;
+      return state
   }
 }

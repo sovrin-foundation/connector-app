@@ -8,18 +8,12 @@ const initResponseData = {
 const initialState = {
   avatarTapCount: 0,
   enrollResponse: initResponseData,
-  pollResponse: initResponseData,
   userInfoResponse: initResponseData,
 }
 
 export const enroll = device => ({
   type: 'ENROLL',
   device,
-})
-
-export const poll = identifier => ({
-  type: 'POLL',
-  identifier,
 })
 
 export const avatarTapped = avatarTapCount => ({
@@ -68,24 +62,6 @@ export default function home(state = initialState, action) {
           ...state.pollResponse,
           isFetching: true,
           isPristine: false,
-        },
-      }
-    case 'POLL_SUCCESS':
-      return {
-        ...state,
-        pollResponse: {
-          ...state.pollResponse,
-          isFetching: false,
-          data: action.pollResponse,
-        },
-      }
-    case 'POLL_FAILURE':
-      return {
-        ...state,
-        pollResponse: {
-          ...state.pollResponse,
-          isFetching: false,
-          error: action.error,
         },
       }
     case 'AVATAR_TAPPED':
