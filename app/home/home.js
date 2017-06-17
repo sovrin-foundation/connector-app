@@ -69,6 +69,7 @@ export class HomeScreenDrawer extends Component {
     FCM.requestPermissions() // for iOS
     FCM.getFCMToken().then(token => {
       this.saveDeviceToken(token)
+      console.log('LOG: getFCMToken', token)
     })
 
     this.saveKey('newCurrentRoute', homeRoute)
@@ -121,9 +122,10 @@ export class HomeScreenDrawer extends Component {
     setItem('pushComMethod', token)
       .then(() => {
         this.userAllowedPushNotification = true
+        console.log('LOG: saveDeviceToken setItem, ', token)
       })
       .catch(function(error) {
-        console.log('LOG: onIds setItem error, ', error)
+        console.log('LOG: saveDeviceToken setItem error, ', error)
       })
   }
 
@@ -141,7 +143,7 @@ export class HomeScreenDrawer extends Component {
     try {
       await AsyncStorage.setItem(key, value)
     } catch (error) {
-      console.log('Error saving newCurrentRoute' + error)
+      console.log('LOG: Error saving newCurrentRoute' + error)
     }
   }
 
@@ -150,7 +152,7 @@ export class HomeScreenDrawer extends Component {
       const currentRoute = await AsyncStorage.getItem('newCurrentRoute')
       this.setState({ currentRoute })
     } catch (error) {
-      console.log('Error retrieving newCurrentRoute' + error)
+      console.log('LOG: Error retrieving newCurrentRoute' + error)
     }
   }
 
@@ -158,7 +160,7 @@ export class HomeScreenDrawer extends Component {
     try {
       await AsyncStorage.removeItem(key)
     } catch (error) {
-      console.log('Error saving newCurrentRoute' + error)
+      console.log('LOG: Error saving newCurrentRoute' + error)
     }
   }
 
