@@ -10,7 +10,7 @@ import { getItem } from '../services/secure-storage'
 const initialState = {
   data: {
     identifier: null,
-    phone: null,
+    phoneNumber: null,
     seed: null,
     pushComMethod: null,
   },
@@ -52,7 +52,14 @@ function getSecureStorageItems() {
 export function* loadSecureStorage() {
   try {
     const userSecureStorage = yield call(getSecureStorageItems)
-    yield put(getSecureStorageSuccess(userSecureStorage))
+    yield put(
+      getSecureStorageSuccess({
+        identifier: userSecureStorage[0],
+        phoneNumber: userSecureStorage[1],
+        seed: userSecureStorage[2],
+        pushComMethod: userSecureStorage[3],
+      })
+    )
   } catch (error) {
     yield put(getSecureStorageError(error))
   }

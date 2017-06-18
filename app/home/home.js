@@ -16,13 +16,13 @@ import Bubbles from './bubbles'
 import User from './user'
 import invitationData from '../invitation/data/invitation-data'
 import { setItem, getItem } from '../services/secure-storage'
-import EnrollUser from '../components/user-enroll'
+import UserEnroll from '../components/user-enroll'
 import {
   getUserInfo,
   getConnections,
   invitationReceived,
-  getSecureStorage,
   pnPermission,
+  getSecureStorage,
 } from '../store'
 import {
   connectionDetailRoute,
@@ -117,7 +117,7 @@ export class HomeScreenDrawer extends Component {
   saveDeviceToken(token) {
     setItem(PUSH_COM_METHOD, token)
       .then(() => {
-        this.userAllowedPushNotification = true
+        this.props.pnPermission(true)
         console.log('LOG: saveDeviceToken setItem, ', token)
       })
       .catch(function(error) {
@@ -152,21 +152,6 @@ export class HomeScreenDrawer extends Component {
     }
   }
 
-  async resetKey(key) {
-    try {
-      await AsyncStorage.removeItem(key)
-    } catch (error) {
-      console.log('LOG: Error saving newCurrentRoute' + error)
-    }
-  }
-
-  enrollSuccess() {
-    setItem(PHONE, phoneNumber)
-    setItem(IDENTIFIER, id)
-    setItem(SEED, seed)
-    this.props.loadSecureStorage()
-  }
-
   render() {
     const bubblesHeight = this.state.scrollY.interpolate({
       inputRange: [0, 5],
@@ -175,15 +160,6 @@ export class HomeScreenDrawer extends Component {
     })
 
     const { user, connections } = this.props
-
-    const { enrollResponse, pollResponse } = this.props.home
-    if (
-      enrollResponse &&
-      enrollResponse.data &&
-      enrollResponse.data.status === 200
-    ) {
-      this.enrollSuccess()
-    }
 
     return (
       <Animated.ScrollView
@@ -199,7 +175,7 @@ export class HomeScreenDrawer extends Component {
         <AnimationView style={{ marginTop: 420 }}>
           <User user={user} isSwiping={this.handleSwipe} />
         </AnimationView>
-        <EnrollUser />
+        {this.props.pnStore.isPNAllowed && <UserEnroll />}
       </Animated.ScrollView>
     )
   }
@@ -208,7 +184,7 @@ export class HomeScreenDrawer extends Component {
 const mapStateToProps = state => ({
   user: state.user,
   connections: state.connections,
-  PNStore: state.PNStore,
+  pnStore: state.pnStore,
   home: state.home,
   secureStorageStore: state.secureStorageStore,
 })

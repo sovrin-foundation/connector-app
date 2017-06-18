@@ -12,27 +12,19 @@ class Alert extends PureComponent {
 
   componentWillMount() {
     this.props.avatarTapped(-1)
-    Promise.all([getItem(IDENTIFIER), getItem(PHONE)])
-      .then(([identifier, phoneNumber]) => {
-        if (identifier || phoneNumber) {
-          AlertIOS.alert('Identifier or phone not present')
-        } else {
-          AlertIOS.alert(
-            `Identifier - ${identifier}`,
-            `Phone Number - ${phoneNumber}`
-          )
-          this.props.userInfo({
-            phoneNumber,
-            identifier,
-          })
-        }
+    const { identifier, phoneNumber } = this.props.secureStorageStore.data
+    if (!identifier || !phoneNumber) {
+      AlertIOS.alert('Identifier or phone not present')
+    } else {
+      AlertIOS.alert(
+        `Identifier - ${identifier}`,
+        `Phone Number - ${phoneNumber}`
+      )
+      this.props.userInfo({
+        phoneNumber,
+        identifier,
       })
-      .catch(error => {
-        console.log(
-          'LOG: getItem for identifier or phoneNumber failed, ',
-          error
-        )
-      })
+    }
   }
 
   render() {
@@ -42,6 +34,7 @@ class Alert extends PureComponent {
 
 const mapStateToProps = state => ({
   home: state.home,
+  secureStorageStore: state.secureStorageStore,
 })
 
 const mapDispatchToProps = dispatch => ({

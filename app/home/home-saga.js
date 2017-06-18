@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import { enrollUser, pollAuthRequest, sendUserInfo } from '../services/api'
-import { poll, avatarTapped } from './home-store'
+import { enrollUser, sendUserInfo } from '../services/api'
+import { avatarTapped } from './home-store'
 
 const enrollSuccess = enrollResponse => ({
   type: 'ENROLL_SUCCESS',
@@ -16,7 +16,6 @@ function* handleEnroll(action) {
   try {
     const enrollResponse = yield call(enrollUser, action.device)
     yield put(enrollSuccess(enrollResponse))
-    yield put(poll(action.device.id))
   } catch (e) {
     yield put(enrollFailure(e.message))
   }
