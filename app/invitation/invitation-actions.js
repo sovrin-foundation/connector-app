@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { View, AsyncStorage, Button } from 'react-native'
 import TouchId from 'react-native-touch-id'
+import { connect } from 'react-redux'
 import { StyledButton } from '../styled-components/common-styled'
 import { Container, CustomButton } from '../components'
 import bs58 from 'bs58'
@@ -11,9 +12,14 @@ import {
   verifySignature,
 } from '../services/keys'
 import { getItem } from '../services/secure-storage'
+import { authRequest } from './invitation-store'
 import { connectionDetailRoute, homeRoute } from '../common/route-constants'
 
 class actions extends PureComponent {
+  constructor(props) {
+    super(props)
+  }
+
   _onAllow = () => {
     this.AuthRequest('ACCEPTED')
   }
@@ -23,59 +29,41 @@ class actions extends PureComponent {
   }
 
   AuthRequest = newStatus => {
-    TouchId.authenticate('Please confirm with TouchID')
-      .then(success => {
-        getItem('identifier')
-          .then(identifier => {
-            getItem('seed')
-              .then(seed => {
-                const msg = JSON.stringify({
-                  type: 'authReqAnswered',
-                  newStatus,
-                })
-
-                const {
-                  publicKey: verKey,
-                  secretKey: signingKey,
-                } = getKeyPairFromSeed(seed)
-
-                const signature = bs58.encode(getSignature(signingKey, msg))
-
-                fetch(
-                  `https://agency.evernym.com/agent/id/${identifier}/auth`,
-                  {
-                    method: 'PUT',
-                    mode: 'cors',
-                    headers: {
-                      Accept: 'application/json',
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                      msg,
-                      signature,
-                    }),
-                  }
-                )
-                  .then(res => {
-                    if (res.status == 200) {
-                      if (newStatus === 'ACCEPTED') {
-                        this.saveKey(connectionDetailRoute)
-                        this.props.navigation.navigate(connectionDetailRoute)
-                      } else if (newStatus === 'REJECTED') {
-                        this.saveKey(homeRoute)
-                        this.props.navigation.navigate(homeRoute)
-                      }
-                    } else {
-                      throw new Error('Bad Request')
-                    }
-                  })
-                  .catch(error => console.log(error))
-              })
-              .catch(error => console.log(error))
+    Promise.all([
+      TouchId.authenticate('Please confirm with TouchID'),
+      getItem('identifier'),
+      getItem('seed'),
+    ]).then(
+      ([touchIdSuccess, identifier, seed]) => {
+        if (touchIdSuccess && identifier && seed) {
+          const msg = JSON.stringify({
+            type: 'authReqAnswered',
+            newStatus,
           })
-          .catch(error => console.log(error))
-      })
-      .catch(error => console.log(error))
+
+          const {
+            publicKey: verKey,
+            secretKey: signingKey,
+          } = getKeyPairFromSeed(seed)
+
+          const signature = bs58.encode(getSignature(signingKey, msg))
+
+          this.props.authRequest({
+            identifier,
+            newStatus,
+            dataBody: {
+              msg,
+              signature,
+            },
+          })
+        } else {
+          console.error('Either Identifier or seed not present!')
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }
 
   async saveKey(value) {
@@ -95,7 +83,21 @@ class actions extends PureComponent {
     }
   }
 
+  authRequestSuccess(newStatus) {
+    if (newStatus === 'ACCEPTED') {
+      this.saveKey(connectionDetailRoute)
+      this.props.navigation.navigate(connectionDetailRoute)
+    } else if (newStatus === 'REJECTED') {
+      this.saveKey(homeRoute)
+      this.props.navigation.navigate(homeRoute)
+    }
+  }
+
   render() {
+    const { authRes } = this.props.invitation
+    if (authRes && authRes.data && authRes.data.status == 200) {
+      this.authRequestSuccess(authRes.newStatus)
+    }
     return (
       <View style={{ flexDirection: 'row' }}>
         <Container>
@@ -109,4 +111,12 @@ class actions extends PureComponent {
   }
 }
 
-export default actions
+const mapStateToProps = ({ invitation }) => ({
+  invitation,
+})
+
+const mapDispatchToProps = dispatch => ({
+  authRequest: reqData => dispatch(authRequest(reqData)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(actions)

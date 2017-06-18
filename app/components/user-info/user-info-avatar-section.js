@@ -1,11 +1,13 @@
 import React, { PureComponent } from 'react'
-import { View, AlertIOS } from 'react-native'
+import { View } from 'react-native'
+import { connect } from 'react-redux'
 import Divider from '../divider'
 import { ListItem, ListItemData } from '../info-section-list'
 import { BadgeAvatar, Avatar } from '../avatar'
 import { ItemDividerLabel } from '../../styled-components/common-styled'
 import { addButtonText } from './user-info-common-components'
-import { getItem } from '../../services/secure-storage'
+import Alert from '../alert'
+import { avatarTapped } from '../../home/home-store'
 
 /**
  * TODO:KS
@@ -16,58 +18,14 @@ import { getItem } from '../../services/secure-storage'
  */
 const avatarDividerLeft = <ItemDividerLabel>AVATAR PHOTOS</ItemDividerLabel>
 
-export default class UserInfoAvatarSection extends PureComponent {
+class UserInfoAvatarSection extends PureComponent {
   constructor(props) {
     super(props)
-    this.state = {
-      avatarTapCounts: 0,
-    }
   }
 
   avatarTap = () => {
-    let taps = this.state.avatarTapCounts
-    if (taps >= 3) {
-      this.setState({ avatarTapCounts: 1 })
-      Promise.all([getItem('identifier'), getItem('phone')]).then(
-        values => {
-          if (values.length == 0) {
-            AlertIOS.alert('Identifier or phone not present')
-          } else {
-            const phoneNumber = values[1]
-            const identifier = values[0]
-            AlertIOS.alert(
-              `Identifier - ${identifier}`,
-              `Phone Number - ${phoneNumber}`
-            )
-            // TODO:KS Add signature
-            fetch(`https://cua.culedger.com/agent/app-context`, {
-              method: 'POST',
-              mode: 'cors',
-              headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                phoneNumber,
-                identifier,
-              }),
-            })
-              .then(res => {
-                if (res.status != 200) {
-                  throw new Error('Bad Request')
-                }
-              })
-              .catch(console.log)
-          }
-        },
-        error => {
-          console.log(error)
-        }
-      )
-    } else {
-      taps = taps + 1
-      this.setState({ avatarTapCounts: taps })
-    }
+    let count = this.props.home.avatarTapCount
+    this.props.avatarTapped(count)
   }
 
   render() {
@@ -84,7 +42,20 @@ export default class UserInfoAvatarSection extends PureComponent {
             />
           </ListItemData>
         </ListItem>
+        {this.props.home.avatarTapCount === 3 && <Alert />}
       </View>
     )
   }
 }
+
+const mapStateToProps = ({ home }) => ({
+  home,
+})
+
+const mapDispatchToProps = dispatch => ({
+  avatarTapped: count => dispatch(avatarTapped(count)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  UserInfoAvatarSection
+)

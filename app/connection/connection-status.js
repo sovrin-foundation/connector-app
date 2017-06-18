@@ -5,7 +5,7 @@ import {
   InfoText,
 } from '../styled-components/connection-styled'
 
-export default props =>
+export default props => (
   <LinearGradient colors={['#295373', '#12293F']}>
     <HeaderContainer>
       <InfoText
@@ -27,3 +27,4 @@ export default props =>
       </InfoText>
     </HeaderContainer>
   </LinearGradient>
+)

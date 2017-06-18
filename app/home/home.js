@@ -14,16 +14,27 @@ import FCM, { FCMEvent } from 'react-native-fcm'
 
 import Bubbles from './bubbles'
 import User from './user'
-import { getUserInfo, getConnections, invitationReceived } from '../store'
 import invitationData from '../invitation/data/invitation-data'
 import { setItem, getItem } from '../services/secure-storage'
-import { getKeyPairFromSeed, randomSeed } from '../services/keys'
-import bs58 from 'bs58'
+import EnrollUser from '../components/user-enroll'
 import {
-  homeRoute,
+  getUserInfo,
+  getConnections,
+  invitationReceived,
+  getSecureStorage,
+  pnPermission,
+} from '../store'
+import {
   connectionDetailRoute,
   invitationRoute,
+  homeRoute,
 } from '../common/route-constants'
+import {
+  PUSH_COM_METHOD,
+  IDENTIFIER,
+  PHONE,
+  SEED,
+} from '../common/secure-storage-constants'
 
 const headerLeft = (
   <Image
@@ -52,13 +63,10 @@ export class HomeScreenDrawer extends Component {
     },
   })
 
-  userAllowedPushNotification = false
-
   constructor(props) {
     super(props)
-
     this.state = {
-      currentRoute: 'Home',
+      currentRoute: homeRoute,
       scrollY: new Animated.Value(0),
       isSwiping: false,
     }
@@ -86,24 +94,12 @@ export class HomeScreenDrawer extends Component {
       this.saveDeviceToken(token)
     })
 
+    // load secure storage
+    this.props.loadSecureStorage()
+
     // load data for home screen
     this.props.loadUserInfo()
     this.props.loadConnections()
-
-    // TODO: Move it to the redux store and use sagas to load data
-    // ensure that it runs only once, and not every time component is rendered
-    Promise.all([getItem('identifier'), getItem('phone'), getItem('seed')])
-      .then(([identifier, phone, seed]) => {
-        if (!identifier || !phone || !seed) {
-          this.enroll()
-        }
-      })
-      .catch(error => {
-        console.log(
-          'LOG: getItem for identifier, phone and seed failed, ',
-          error
-        )
-      })
   }
 
   handlePN(notif) {
@@ -119,7 +115,7 @@ export class HomeScreenDrawer extends Component {
   }
 
   saveDeviceToken(token) {
-    setItem('pushComMethod', token)
+    setItem(PUSH_COM_METHOD, token)
       .then(() => {
         this.userAllowedPushNotification = true
         console.log('LOG: saveDeviceToken setItem, ', token)
@@ -164,62 +160,11 @@ export class HomeScreenDrawer extends Component {
     }
   }
 
-  enroll = () => {
-    let phoneNumber = (Math.random() * 1000000000000000000)
-      .toString()
-      .substring(0, 10)
-    let id = randomSeed(32).substring(0, 22)
-    let seed = randomSeed(32).substring(0, 32)
-    let { publicKey: verKey, secretKey: signingKey } = getKeyPairFromSeed(seed)
-
-    verKey = bs58.encode(verKey)
-    this.enrollUser(phoneNumber, id, seed, verKey)
-  }
-
-  enrollUser(phoneNumber, id, seed, verKey) {
-    if (this.userAllowedPushNotification) {
-      getItem('pushComMethod')
-        .then(function(pushComMethod) {
-          if (pushComMethod) {
-            // TODO:KS Add signature
-            fetch(`https://cua.culedger.com/agent/enroll`, {
-              method: 'POST',
-              mode: 'cors',
-              headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                phoneNumber,
-                id,
-                verKey,
-                pushComMethod,
-              }),
-            })
-              .then(res => {
-                if (res.status == 200) {
-                  setItem('phone', phoneNumber)
-                  setItem('identifier', id)
-                  setItem('seed', seed)
-                } else {
-                  throw new Error('Bad Request')
-                }
-              })
-              .catch(function(error) {
-                console.error('LOG: enrollUser enroll api failure, ', error)
-              })
-          } else {
-            console.error('LOG: Device PushComMethod not present')
-          }
-        })
-        .catch(function(error) {
-          console.error('LOG: enrollUser getItem failed, ', error)
-        })
-    } else {
-      setTimeout(() => {
-        this.enrollUser(phoneNumber, id, seed, verKey)
-      }, 2000)
-    }
+  enrollSuccess() {
+    setItem(PHONE, phoneNumber)
+    setItem(IDENTIFIER, id)
+    setItem(SEED, seed)
+    this.props.loadSecureStorage()
   }
 
   render() {
@@ -230,6 +175,15 @@ export class HomeScreenDrawer extends Component {
     })
 
     const { user, connections } = this.props
+
+    const { enrollResponse, pollResponse } = this.props.home
+    if (
+      enrollResponse &&
+      enrollResponse.data &&
+      enrollResponse.data.status === 200
+    ) {
+      this.enrollSuccess()
+    }
 
     return (
       <Animated.ScrollView
@@ -245,6 +199,7 @@ export class HomeScreenDrawer extends Component {
         <AnimationView style={{ marginTop: 420 }}>
           <User user={user} isSwiping={this.handleSwipe} />
         </AnimationView>
+        <EnrollUser />
       </Animated.ScrollView>
     )
   }
@@ -253,12 +208,17 @@ export class HomeScreenDrawer extends Component {
 const mapStateToProps = state => ({
   user: state.user,
   connections: state.connections,
+  PNStore: state.PNStore,
+  home: state.home,
+  secureStorageStore: state.secureStorageStore,
 })
 
 const mapDispatchToProps = dispatch => ({
   loadUserInfo: () => dispatch(getUserInfo()),
   loadConnections: () => dispatch(getConnections()),
   invitationReceived: () => dispatch(invitationReceived(invitationData)),
+  pnPermission: isAllowed => dispatch(pnPermission(isAllowed)),
+  loadSecureStorage: () => dispatch(getSecureStorage()),
 })
 
 const mapsStateDispatch = connect(mapStateToProps, mapDispatchToProps)(
