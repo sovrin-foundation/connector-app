@@ -22,7 +22,6 @@ import {
   getConnections,
   invitationReceived,
   pnPermission,
-  getSecureStorage,
 } from '../store'
 import {
   connectionDetailRoute,
@@ -77,7 +76,6 @@ export class HomeScreenDrawer extends Component {
     FCM.requestPermissions() // for iOS
     FCM.getFCMToken().then(token => {
       this.saveDeviceToken(token)
-      console.log('LOG: getFCMToken', token)
     })
 
     this.saveKey('newCurrentRoute', homeRoute)
@@ -93,9 +91,6 @@ export class HomeScreenDrawer extends Component {
     this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, token => {
       this.saveDeviceToken(token)
     })
-
-    // load secure storage
-    this.props.loadSecureStorage()
 
     // load data for home screen
     this.props.loadUserInfo()
@@ -118,10 +113,9 @@ export class HomeScreenDrawer extends Component {
     setItem(PUSH_COM_METHOD, token)
       .then(() => {
         this.props.pnPermission(true)
-        console.log('LOG: saveDeviceToken setItem, ', token)
       })
       .catch(function(error) {
-        console.log('LOG: saveDeviceToken setItem error, ', error)
+        console.log('LOG: error saveDeviceToken setItem, ', error)
       })
   }
 
@@ -186,7 +180,6 @@ const mapStateToProps = state => ({
   connections: state.connections,
   pnStore: state.pnStore,
   home: state.home,
-  secureStorageStore: state.secureStorageStore,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -194,7 +187,6 @@ const mapDispatchToProps = dispatch => ({
   loadConnections: () => dispatch(getConnections()),
   invitationReceived: () => dispatch(invitationReceived(invitationData)),
   pnPermission: isAllowed => dispatch(pnPermission(isAllowed)),
-  loadSecureStorage: () => dispatch(getSecureStorage()),
 })
 
 const mapsStateDispatch = connect(mapStateToProps, mapDispatchToProps)(

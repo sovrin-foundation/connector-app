@@ -1,6 +1,8 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
 import { enrollUser, sendUserInfo } from '../services/api'
-import { avatarTapped } from './home-store'
+import { avatarTapped, setEnrollItems } from './../store'
+import { IDENTIFIER, PHONE } from '../common/secure-storage-constants'
+import { setItem } from '../services/secure-storage'
 
 const enrollSuccess = enrollResponse => ({
   type: 'ENROLL_SUCCESS',
@@ -15,6 +17,8 @@ const enrollFailure = enrollResponse => ({
 function* handleEnroll(action) {
   try {
     const enrollResponse = yield call(enrollUser, action.device)
+    setItem(PHONE, action.device.phoneNumber)
+    setItem(IDENTIFIER, action.device.id)
     yield put(enrollSuccess(enrollResponse))
   } catch (e) {
     yield put(enrollFailure(e.message))

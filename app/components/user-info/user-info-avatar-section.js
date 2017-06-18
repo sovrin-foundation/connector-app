@@ -7,7 +7,7 @@ import { BadgeAvatar, Avatar } from '../avatar'
 import { ItemDividerLabel } from '../../styled-components/common-styled'
 import { addButtonText } from './user-info-common-components'
 import Alert from '../alert'
-import { avatarTapped } from '../../home/home-store'
+import { avatarTapped } from '../../store'
 
 /**
  * TODO:KS

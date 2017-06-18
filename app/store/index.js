@@ -8,7 +8,6 @@ import connections, { watchLoadConnections } from './connections-store'
 import invitation, { watchAuthRequest } from '../invitation/invitation-store'
 import home from '../home/home-store'
 import { watchEnrollUser, watchAppContext } from '../home/home-saga'
-import secureStorageStore, { watchSecureStorage } from './secure-storage-store'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -18,7 +17,6 @@ const appReducer = combineReducers({
   connections,
   invitation,
   home,
-  secureStorageStore,
 })
 
 const store = createStore(appReducer, applyMiddleware(logger, sagaMiddleware))
@@ -30,14 +28,12 @@ sagaMiddleware.run(function*() {
     watchEnrollUser(),
     watchAppContext(),
     watchAuthRequest(),
-    watchSecureStorage(),
   ])
 })
 
 export * from './user-store'
 export * from './pn-store'
 export * from './connections-store'
-export * from './secure-storage-store'
 export * from '../invitation/invitation-store'
 export * from '../home/home-store'
 
