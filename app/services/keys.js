@@ -4,9 +4,7 @@ import randomString from 'random-string'
 
 const decodeUTF8 = s => {
   if (typeof s !== 'string') throw new TypeError('expected string')
-  var i,
-    d = unescape(s),
-    b = new Uint8Array(d.length)
+  var i, d = unescape(s), b = new Uint8Array(d.length)
   for (i = 0; i < d.length; i++) {
     b[i] = d.charCodeAt(i)
   }

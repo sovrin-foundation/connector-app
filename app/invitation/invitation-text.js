@@ -6,7 +6,7 @@ import { CustomView, CustomText, Container } from '../components'
 
 import InvitationAvatars from './invitation-avatars'
 
-const InvitationText = ({ invitation: { invitation, invitee } }) =>
+const InvitationText = ({ invitation: { invitation, invitee } }) => (
   <Container useNativeDriver>
     <Container bottom>
       <AnimationView animation="bounceInDown" duration={1500} delay={100}>
@@ -26,6 +26,7 @@ const InvitationText = ({ invitation: { invitation, invitee } }) =>
       </AnimationView>
     </Container>
   </Container>
+)
 
 export default InvitationText
 
