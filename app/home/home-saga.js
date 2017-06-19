@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import { enrollUser, sendUserInfo } from '../services/api'
+import { enrollUser, sendUserInfo } from '../services/Api'
 import { avatarTapped, setEnrollItems } from './../store'
 import { IDENTIFIER, PHONE } from '../common/secure-storage-constants'
 import { setItem } from '../services/secure-storage'

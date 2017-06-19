@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import { sendAuthRequest } from '../services/api'
+import { sendAuthRequest } from '../services/Api'
 
 const invitationStatus = {
   ACCEPTED: 'ACCEPTED',
