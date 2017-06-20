@@ -55,15 +55,6 @@ export default function home(state = initialState, action) {
           error: action.error,
         },
       }
-    case 'POLL':
-      return {
-        ...state,
-        pollResponse: {
-          ...state.pollResponse,
-          isFetching: true,
-          isPristine: false,
-        },
-      }
     case 'AVATAR_TAPPED':
       return {
         ...state,

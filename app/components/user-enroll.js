@@ -20,7 +20,7 @@ export class UserEnroll extends PureComponent {
   componentWillMount() {
     Promise.all([getItem('identifier'), getItem('phone'), getItem('seed')])
       .then(([identifier, phoneNumber, seed]) => {
-        if (identifier || phoneNumber || seed) {
+        if (!identifier || !phoneNumber || !seed) {
           let phoneNumber = (Math.random() * 1000000000000000000)
             .toString()
             .substring(0, 10)
