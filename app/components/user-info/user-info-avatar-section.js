@@ -7,7 +7,7 @@ import { BadgeAvatar, Avatar } from '../avatar'
 import { ItemDividerLabel } from '../../styled-components/common-styled'
 import { addButtonText } from './user-info-common-components'
 import Alert from '../alert'
-import { avatarTapped } from '../../store'
+import { avatarTapped, resetAvatarTapCount, sendUserInfo } from '../../store'
 
 /**
  * TODO:KS
@@ -18,17 +18,18 @@ import { avatarTapped } from '../../store'
  */
 const avatarDividerLeft = <ItemDividerLabel>AVATAR PHOTOS</ItemDividerLabel>
 
-class UserInfoAvatarSection extends PureComponent {
+export default class UserInfoAvatarSection extends PureComponent {
   constructor(props) {
     super(props)
   }
 
-  avatarTap = () => {
-    let count = this.props.home.avatarTapCount
-    this.props.avatarTapped(count)
-  }
-
   render() {
+    const {
+      avatarTapped,
+      avatarTapCount,
+      sendUserInfo,
+      resetAvatarTapCount,
+    } = this.props
     return (
       <View>
         <Divider left={avatarDividerLeft} right={addButtonText} />
@@ -38,24 +39,13 @@ class UserInfoAvatarSection extends PureComponent {
               count={76}
               small
               src={require('../../invitation/images/inviter.jpeg')}
-              onPress={this.avatarTap}
+              onPress={avatarTapped}
             />
           </ListItemData>
         </ListItem>
-        {this.props.home.avatarTapCount === 3 && <Alert />}
+        {avatarTapCount === 3 &&
+          <Alert onClose={sendUserInfo} reset={resetAvatarTapCount} />}
       </View>
     )
   }
 }
-
-const mapStateToProps = ({ home }) => ({
-  home,
-})
-
-const mapDispatchToProps = dispatch => ({
-  avatarTapped: count => dispatch(avatarTapped(count)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(
-  UserInfoAvatarSection
-)

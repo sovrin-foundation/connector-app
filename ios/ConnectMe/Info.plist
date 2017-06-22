@@ -39,6 +39,17 @@
           <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
           <false/>
         </dict>
+        <key>culedger.com</key>
+        <dict>
+          <key>NSIncludesSubdomains</key>
+          <true/>
+          <key>NSRequiresCertificateTransparency</key>
+          <false/>
+          <key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+          <true/>
+          <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+          <false/>
+        </dict>
         <key>localhost</key>
         <dict>
           <key>NSExceptionAllowsInsecureHTTPLoads</key>

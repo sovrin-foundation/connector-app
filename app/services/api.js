@@ -2,7 +2,7 @@ const agencyBaseUrl = 'https://agency.evernym.com'
 const callCenterBaseUrl = 'https://cua.culedger.com'
 
 export const enrollUser = device => {
-  return fetch(callCenterBaseUrl, {
+  return fetch(`${callCenterBaseUrl}/agent/enroll`, {
     method: 'POST',
     mode: 'cors',
     headers: {

@@ -4,10 +4,10 @@ import UserIcon from './user-icon'
 import UserInfo from './user-info'
 
 // TODO: Add reselect to avoid rerenders in functional components
-const User = ({ user, isSwiping }) => (
+const User = props => (
   <View>
     <UserIcon />
-    <UserInfo user={user} isSwiping={isSwiping} />
+    <UserInfo {...props} />
   </View>
 )
 

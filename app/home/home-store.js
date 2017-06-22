@@ -1,3 +1,8 @@
+import { call, put, takeLatest } from 'redux-saga/effects'
+import { enrollUser, sendUserInfo } from '../services/api'
+import { IDENTIFIER, PHONE } from '../common/secure-storage-constants'
+import { setItem } from '../services/secure-storage'
+
 const initResponseData = {
   isFetching: false,
   isPristine: true,
@@ -16,14 +21,37 @@ export const enroll = device => ({
   device,
 })
 
-export const avatarTapped = avatarTapCount => ({
-  type: 'AVATAR_TAPPED',
-  avatarTapCount: avatarTapCount + 1,
+const enrollSuccess = enrollResponse => ({
+  type: 'ENROLL_SUCCESS',
+  enrollResponse,
 })
 
-export const sendUserInfo = userInfo => ({
-  type: 'SEND_USER_INFO',
-  userInfo,
+const enrollFailure = error => ({
+  type: 'ENROLL_FAILURE',
+  error,
+})
+
+function* handleEnroll(action) {
+  try {
+    const enrollResponse = yield call(enrollUser, action.device)
+    setItem(PHONE, action.device.phoneNumber)
+    setItem(IDENTIFIER, action.device.id)
+    yield put(enrollSuccess(enrollResponse))
+  } catch (e) {
+    yield put(enrollFailure(e.message))
+  }
+}
+
+export function* watchEnrollUser() {
+  yield takeLatest('ENROLL', handleEnroll)
+}
+
+export const avatarTapped = () => ({
+  type: 'AVATAR_TAPPED',
+})
+
+export const resetAvatarTapCount = () => ({
+  type: 'RESET_AVATAR_TAP_COUNT',
 })
 
 export default function home(state = initialState, action) {
@@ -58,34 +86,12 @@ export default function home(state = initialState, action) {
     case 'AVATAR_TAPPED':
       return {
         ...state,
-        avatarTapCount: action.avatarTapCount,
+        avatarTapCount: state.avatarTapCount + 1,
       }
-    case 'SEND_USER_INFO':
+    case 'RESET_AVATAR_TAP_COUNT':
       return {
         ...state,
-        userInfoResponse: {
-          ...state.userInfoResponse,
-          isFetching: true,
-          isPristine: false,
-        },
-      }
-    case 'USER_INFO_SUCCESS':
-      return {
-        ...state,
-        userInfoResponse: {
-          ...state.userInfoResponse,
-          isFetching: false,
-          data: action.userInfoResponse,
-        },
-      }
-    case 'USER_INFO_FAILURE':
-      return {
-        ...state,
-        userInfoResponse: {
-          ...state.userInfoResponse,
-          isFetching: false,
-          error: action.error,
-        },
+        avatarTapCount: 0,
       }
     default:
       return state

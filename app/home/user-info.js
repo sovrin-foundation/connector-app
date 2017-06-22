@@ -23,7 +23,13 @@ class ActionListItems extends PureComponent {
   }
 
   render() {
-    const { user: { isFetching, isPristine, data, error } } = this.props
+    const {
+      user: { isFetching, isPristine, data, error },
+      avatarTapped,
+      avatarTapCount,
+      sendUserInfo,
+      resetAvatarTapCount,
+    } = this.props
 
     if (isFetching || isPristine) {
       // loading is in progress
@@ -48,7 +54,12 @@ class ActionListItems extends PureComponent {
     // data is fetched and there is no error, go ahead and render component
     return (
       <InfoSectionList>
-        <UserInfoAvatarSection />
+        <UserInfoAvatarSection
+          avatarTapped={avatarTapped}
+          avatarTapCount={avatarTapCount}
+          sendUserInfo={sendUserInfo}
+          resetAvatarTapCount={resetAvatarTapCount}
+        />
         <IdentifyingInfoSection infos={identifyingInfo} />
         <UserInfoAddressSection
           addresses={addresses}

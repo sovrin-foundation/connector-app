@@ -18,10 +18,14 @@ import invitationData from '../invitation/data/invitation-data'
 import { setItem, getItem } from '../services/secure-storage'
 import UserEnroll from '../components/user-enroll'
 import {
+  enroll,
   getUserInfo,
   getConnections,
   invitationReceived,
-  pnPermission,
+  pushNotificationPermissionAction,
+  avatarTapped,
+  resetAvatarTapCount,
+  sendUserInfo,
 } from '../store'
 import {
   connectionDetailRoute,
@@ -81,11 +85,11 @@ export class HomeScreenDrawer extends Component {
     this.saveKey('newCurrentRoute', homeRoute)
 
     this.notificationListener = FCM.on(FCMEvent.Notification, async notif => {
-      this.handlePN(notif)
+      this.handlePushNotification(notif)
     })
 
     FCM.getInitialNotification().then(notif => {
-      this.handlePN(notif)
+      this.handlePushNotification(notif)
     })
 
     this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, token => {
@@ -97,7 +101,7 @@ export class HomeScreenDrawer extends Component {
     this.props.loadConnections()
   }
 
-  handlePN(notif) {
+  handlePushNotification(notif) {
     if (notif && notif.type === 'auth-req') {
       this.props.invitationReceived()
       this.getRoute().then(() => {
@@ -112,7 +116,7 @@ export class HomeScreenDrawer extends Component {
   saveDeviceToken(token) {
     setItem(PUSH_COM_METHOD, token)
       .then(() => {
-        this.props.pnPermission(true)
+        this.props.pushNotificationPermissionAction(true)
       })
       .catch(function(error) {
         console.log('LOG: error saveDeviceToken setItem, ', error)
@@ -167,9 +171,10 @@ export class HomeScreenDrawer extends Component {
       >
         <Bubbles height={bubblesHeight} connections={connections} />
         <AnimationView style={{ marginTop: 420 }}>
-          <User user={user} isSwiping={this.handleSwipe} />
+          <User user={user} isSwiping={this.handleSwipe} {...this.props} />
         </AnimationView>
-        {this.props.pnStore.isPNAllowed && <UserEnroll />}
+        {this.props.pushNotification.isAllowed &&
+          <UserEnroll enrollAction={this.props.enroll} />}
       </Animated.ScrollView>
     )
   }
@@ -178,15 +183,20 @@ export class HomeScreenDrawer extends Component {
 const mapStateToProps = state => ({
   user: state.user,
   connections: state.connections,
-  pnStore: state.pnStore,
-  home: state.home,
+  pushNotification: state.pushNotification,
+  avatarTapCount: state.home.avatarTapCount,
 })
 
 const mapDispatchToProps = dispatch => ({
+  enroll: device => dispatch(enroll(device)),
   loadUserInfo: () => dispatch(getUserInfo()),
   loadConnections: () => dispatch(getConnections()),
   invitationReceived: () => dispatch(invitationReceived(invitationData)),
-  pnPermission: isAllowed => dispatch(pnPermission(isAllowed)),
+  pushNotificationPermissionAction: isAllowed =>
+    dispatch(pushNotificationPermissionAction(isAllowed)),
+  avatarTapped: () => dispatch(avatarTapped()),
+  resetAvatarTapCount: () => dispatch(resetAvatarTapCount()),
+  sendUserInfo: context => dispatch(sendUserInfo(context)),
 })
 
 const mapsStateDispatch = connect(mapStateToProps, mapDispatchToProps)(

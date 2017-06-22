@@ -1,30 +1,42 @@
 import React, { PureComponent } from 'react'
-import { View, AlertIOS } from 'react-native'
-import { connect } from 'react-redux'
+import { AlertIOS } from 'react-native'
 import { getItem } from '../services/secure-storage'
 import { IDENTIFIER, PHONE } from '../common/secure-storage-constants'
-import { avatarTapped, sendUserInfo } from '../home/home-store'
 
-class Alert extends PureComponent {
+export default class Alert extends PureComponent {
   constructor(props) {
     super(props)
   }
 
+  onAlertClose = (identifier, phoneNumber) => {
+    this.props.onClose({
+      phoneNumber,
+      identifier,
+    })
+    this.props.reset()
+  }
+
   componentWillMount() {
-    this.props.avatarTapped(-1)
     Promise.all([getItem('identifier'), getItem('phone')])
       .then(([identifier, phoneNumber]) => {
         if (!identifier || !phoneNumber) {
-          AlertIOS.alert('Identifier or phone not present')
+          AlertIOS.alert('Error', 'Identifier or phone not present', [
+            {
+              text: 'OK',
+              onPress: () => this.props.reset(),
+            },
+          ])
         } else {
           AlertIOS.alert(
             `Identifier - ${identifier}`,
-            `Phone Number - ${phoneNumber}`
+            `Phone Number - ${phoneNumber}`,
+            [
+              {
+                text: 'OK',
+                onPress: () => this.onAlertClose(identifier, phoneNumber),
+              },
+            ]
           )
-          this.props.userInfo({
-            phoneNumber,
-            identifier,
-          })
         }
       })
       .catch(error => {
@@ -36,14 +48,3 @@ class Alert extends PureComponent {
     return null
   }
 }
-
-const mapStateToProps = state => ({
-  home: state.home,
-})
-
-const mapDispatchToProps = dispatch => ({
-  avatarTapped: count => dispatch(avatarTapped(count)),
-  userInfo: context => dispatch(sendUserInfo(context)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Alert)
