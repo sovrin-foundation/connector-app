@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { color } from '../../common/styles/constant'
 import empty from '../../common/empty'
 import style from './layout-style'
@@ -24,6 +24,7 @@ export const CustomView = props => {
     hCenter,
     vCenter,
     bottom,
+    onPress,
   } = props
 
   const passedStyles = props.style || empty
@@ -49,9 +50,19 @@ export const CustomView = props => {
     ...passedStyles,
   ])
 
-  return (
+  const customView = (
     <View {...props} style={styles}>
       {props.children}
     </View>
   )
+
+  if (onPress) {
+    return (
+      <TouchableWithoutFeedback onPress={onPress}>
+        {customView}
+      </TouchableWithoutFeedback>
+    )
+  }
+
+  return customView
 }

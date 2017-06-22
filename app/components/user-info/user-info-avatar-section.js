@@ -44,7 +44,11 @@ export default class UserInfoAvatarSection extends PureComponent {
           </ListItemData>
         </ListItem>
         {avatarTapCount === 3 &&
-          <Alert onClose={sendUserInfo} reset={resetAvatarTapCount} />}
+          <Alert
+            onClose={sendUserInfo}
+            reset={resetAvatarTapCount}
+            config={this.props.config}
+          />}
       </View>
     )
   }

@@ -29,6 +29,7 @@ class ActionListItems extends PureComponent {
       avatarTapCount,
       sendUserInfo,
       resetAvatarTapCount,
+      config,
     } = this.props
 
     if (isFetching || isPristine) {
@@ -59,6 +60,7 @@ class ActionListItems extends PureComponent {
           avatarTapCount={avatarTapCount}
           sendUserInfo={sendUserInfo}
           resetAvatarTapCount={resetAvatarTapCount}
+          config={config}
         />
         <IdentifyingInfoSection infos={identifyingInfo} />
         <UserInfoAddressSection

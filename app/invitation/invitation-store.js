@@ -49,9 +49,10 @@ export const invitationRejected = () => ({
   type: INVITATION_REJECTED,
 })
 
-export const authRequest = reqData => ({
+export const authRequest = (reqData, config) => ({
   type: AUTH_REQUEST,
   reqData,
+  config,
 })
 
 const authSuccess = authRes => ({
@@ -66,7 +67,7 @@ const authFailure = authRes => ({
 
 export function* callAuthRequest(action) {
   try {
-    const authRes = yield call(sendAuthRequest, action.reqData)
+    const authRes = yield call(sendAuthRequest, action.reqData, action.config)
     yield put(authSuccess(authRes))
   } catch (e) {
     yield put(authFailure(e.message))

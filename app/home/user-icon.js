@@ -9,6 +9,7 @@ export default props => (
         medium
         iconStyle={[styles.historyIconStyle]}
         src={require('../invitation/images/icon_connectionHistory.jpg')}
+        onPress={props.changeServerEnvironmentToDemo}
       />
     </Container>
     <Container center>
@@ -17,6 +18,7 @@ export default props => (
     <Container right>
       <Icon
         medium
+        onPress={props.changeServerEnvironmentToSandbox}
         src={require('../invitation/images/icon_addConnection.jpg')}
       />
     </Container>

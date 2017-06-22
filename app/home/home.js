@@ -26,6 +26,8 @@ import {
   avatarTapped,
   resetAvatarTapCount,
   sendUserInfo,
+  changeServerEnvironmentToDemo,
+  changeServerEnvironmentToSandbox,
 } from '../store'
 import {
   connectionDetailRoute,
@@ -114,13 +116,15 @@ export class HomeScreenDrawer extends Component {
   }
 
   saveDeviceToken(token) {
-    setItem(PUSH_COM_METHOD, token)
-      .then(() => {
-        this.props.pushNotificationPermissionAction(true)
-      })
-      .catch(function(error) {
-        console.log('LOG: error saveDeviceToken setItem, ', error)
-      })
+    if (token) {
+      setItem(PUSH_COM_METHOD, token)
+        .then(() => {
+          this.props.pushNotificationPermissionAction(true)
+        })
+        .catch(function(error) {
+          console.log('LOG: error saveDeviceToken setItem, ', error)
+        })
+    }
   }
 
   componentWillUnmount() {
@@ -174,7 +178,10 @@ export class HomeScreenDrawer extends Component {
           <User user={user} isSwiping={this.handleSwipe} {...this.props} />
         </AnimationView>
         {this.props.pushNotification.isAllowed &&
-          <UserEnroll enrollAction={this.props.enroll} />}
+          <UserEnroll
+            enrollAction={this.props.enroll}
+            config={this.props.config}
+          />}
       </Animated.ScrollView>
     )
   }
@@ -185,18 +192,23 @@ const mapStateToProps = state => ({
   connections: state.connections,
   pushNotification: state.pushNotification,
   avatarTapCount: state.home.avatarTapCount,
+  config: state.config,
 })
 
 const mapDispatchToProps = dispatch => ({
-  enroll: device => dispatch(enroll(device)),
+  enroll: (device, config) => dispatch(enroll(device, config)),
   loadUserInfo: () => dispatch(getUserInfo()),
   loadConnections: () => dispatch(getConnections()),
   invitationReceived: () => dispatch(invitationReceived(invitationData)),
+  changeServerEnvironmentToDemo: () =>
+    dispatch(changeServerEnvironmentToDemo()),
+  changeServerEnvironmentToSandbox: () =>
+    dispatch(changeServerEnvironmentToSandbox()),
   pushNotificationPermissionAction: isAllowed =>
     dispatch(pushNotificationPermissionAction(isAllowed)),
   avatarTapped: () => dispatch(avatarTapped()),
   resetAvatarTapCount: () => dispatch(resetAvatarTapCount()),
-  sendUserInfo: context => dispatch(sendUserInfo(context)),
+  sendUserInfo: (context, config) => dispatch(sendUserInfo(context, config)),
 })
 
 const mapsStateDispatch = connect(mapStateToProps, mapDispatchToProps)(

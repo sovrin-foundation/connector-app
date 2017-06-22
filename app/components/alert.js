@@ -9,10 +9,13 @@ export default class Alert extends PureComponent {
   }
 
   onAlertClose = (identifier, phoneNumber) => {
-    this.props.onClose({
-      phoneNumber,
-      identifier,
-    })
+    this.props.onClose(
+      {
+        phoneNumber,
+        identifier,
+      },
+      this.props.config
+    )
     this.props.reset()
   }
 

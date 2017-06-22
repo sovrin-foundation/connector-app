@@ -1,8 +1,5 @@
-const agencyBaseUrl = 'https://agency.evernym.com'
-const callCenterBaseUrl = 'https://cua.culedger.com'
-
-export const enrollUser = device => {
-  return fetch(`${callCenterBaseUrl}/agent/enroll`, {
+export const enrollUser = (device, { callCenterUrl }) => {
+  return fetch(`${callCenterUrl}/agent/enroll`, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -13,8 +10,8 @@ export const enrollUser = device => {
   })
 }
 
-export const sendUserInfo = userInfo => {
-  return fetch(`${callCenterBaseUrl}/agent/app-context`, {
+export const sendUserInfo = (userInfo, { callCenterUrl }) => {
+  return fetch(`${callCenterUrl}/agent/app-context`, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -25,8 +22,8 @@ export const sendUserInfo = userInfo => {
   })
 }
 
-export const sendAuthRequest = ({ identifier, dataBody }) => {
-  return fetch(`${agencyBaseUrl}/agent/id/${identifier}/auth`, {
+export const sendAuthRequest = ({ identifier, dataBody }, { agencyUrl }) => {
+  return fetch(`${agencyUrl}/agent/id/${identifier}/auth`, {
     method: 'PUT',
     mode: 'cors',
     headers: {

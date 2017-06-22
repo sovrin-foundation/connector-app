@@ -49,9 +49,10 @@ export function* watchUserInfo() {
   yield takeLatest(GET_USERINFO, loadUserInfoSaga)
 }
 
-export const sendUserInfo = userInfo => ({
+export const sendUserInfo = (userInfo, config) => ({
   type: SEND_USER_INFO,
   userInfo,
+  config,
 })
 
 export const sendUserInfoFailed = error => ({
@@ -66,7 +67,7 @@ export const sendUserInfoSuccess = info => ({
 
 function* sendUserInfoSaga(action) {
   try {
-    const info = yield call(sendUserInfoApi, action.userInfo)
+    const info = yield call(sendUserInfoApi, action.userInfo, action.config)
     yield put(sendUserInfoSuccess(info))
   } catch (e) {
     yield put(sendUserInfoFailed(e.message))

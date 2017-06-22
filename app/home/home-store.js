@@ -16,9 +16,10 @@ const initialState = {
   userInfoResponse: initResponseData,
 }
 
-export const enroll = device => ({
+export const enroll = (device, config) => ({
   type: 'ENROLL',
   device,
+  config,
 })
 
 const enrollSuccess = enrollResponse => ({
@@ -33,7 +34,7 @@ const enrollFailure = error => ({
 
 function* handleEnroll(action) {
   try {
-    const enrollResponse = yield call(enrollUser, action.device)
+    const enrollResponse = yield call(enrollUser, action.device, action.config)
     setItem(PHONE, action.device.phoneNumber)
     setItem(IDENTIFIER, action.device.id)
     yield put(enrollSuccess(enrollResponse))

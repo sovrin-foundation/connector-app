@@ -3,6 +3,10 @@ package com.connectme;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
+import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
+import com.wix.interactable.Interactable;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -30,6 +34,10 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new VectorIconsPackage(),
+            new RNSensitiveInfoPackage(),
+            new LinearGradientPackage(),
+            new Interactable(),
             new FIRMessagingPackage()
             new LinearGradientPackage(),
             new ReactNativeOneSignalPackage(),

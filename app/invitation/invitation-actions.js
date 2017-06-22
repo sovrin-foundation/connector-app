@@ -48,14 +48,17 @@ class actions extends PureComponent {
 
           const signature = bs58.encode(getSignature(signingKey, msg))
 
-          this.props.authRequest({
-            identifier,
-            newStatus,
-            dataBody: {
-              msg,
-              signature,
+          this.props.authRequest(
+            {
+              identifier,
+              newStatus,
+              dataBody: {
+                msg,
+                signature,
+              },
             },
-          })
+            this.props.config
+          )
         } else {
           console.error('Either Identifier or seed not present!')
         }
@@ -111,12 +114,13 @@ class actions extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ invitation }) => ({
+const mapStateToProps = ({ invitation, config }) => ({
   invitation,
+  config,
 })
 
 const mapDispatchToProps = dispatch => ({
-  authRequest: reqData => dispatch(authRequest(reqData)),
+  authRequest: (reqData, config) => dispatch(authRequest(reqData, config)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(actions)

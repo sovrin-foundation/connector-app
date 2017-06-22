@@ -6,7 +6,10 @@ import UserInfo from './user-info'
 // TODO: Add reselect to avoid rerenders in functional components
 const User = props => (
   <View>
-    <UserIcon />
+    <UserIcon
+      changeServerEnvironmentToDemo={props.changeServerEnvironmentToDemo}
+      changeServerEnvironmentToSandbox={props.changeServerEnvironmentToSandbox}
+    />
     <UserInfo {...props} />
   </View>
 )
