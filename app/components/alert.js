@@ -19,32 +19,44 @@ export default class Alert extends PureComponent {
     this.props.reset()
   }
 
-  componentWillMount() {
-    Promise.all([getItem('identifier'), getItem('phone')])
-      .then(([identifier, phoneNumber]) => {
-        if (!identifier || !phoneNumber) {
-          AlertIOS.alert('Error', 'Identifier or phone not present', [
-            {
-              text: 'OK',
-              onPress: () => this.props.reset(),
-            },
-          ])
-        } else {
-          AlertIOS.alert(
-            `Identifier - ${identifier}`,
-            `Phone Number - ${phoneNumber}`,
-            [
+  showData = () => {
+    if (this.props.config.isHydrated) {
+      Promise.all([getItem('identifier'), getItem('phone')])
+        .then(([identifier, phoneNumber]) => {
+          if (!identifier || !phoneNumber) {
+            AlertIOS.alert('Error', 'Identifier or phone not present', [
               {
                 text: 'OK',
-                onPress: () => this.onAlertClose(identifier, phoneNumber),
+                onPress: () => this.props.reset(),
               },
-            ]
-          )
-        }
-      })
-      .catch(error => {
-        console.log('LOG: getItem for identifier and phone failed, ', error)
-      })
+            ])
+          } else {
+            AlertIOS.alert(
+              `Identifier - ${identifier}`,
+              `Phone Number - ${phoneNumber}`,
+              [
+                {
+                  text: 'OK',
+                  onPress: () => this.onAlertClose(identifier, phoneNumber),
+                },
+              ]
+            )
+          }
+        })
+        .catch(error => {
+          console.log('LOG: getItem for identifier and phone failed, ', error)
+        })
+    }
+  }
+
+  componentWillMount() {
+    this.showData()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.config.isHydrated !== this.props.isHydrated) {
+      this.showData()
+    }
   }
 
   render() {

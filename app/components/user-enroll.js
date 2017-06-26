@@ -39,34 +39,35 @@ export default class UserEnroll extends PureComponent {
       })
   }
 
+  startUserEnrollment = () => {
+    if (this.props.config.isHydrated) {
+      if (!this.props.config.isAlreadyInstalled) {
+        // if we hydrated our store and it is a fresh installation,
+        // then go ahead and register new user
+        const phoneNumber = (Math.random() * 1000000000000000000)
+          .toString()
+          .substring(0, 10)
+        const identifier = randomSeed(32).substring(0, 22)
+        const seed = randomSeed(32).substring(0, 32)
+        this.enrollUser(phoneNumber, identifier, seed, getVerificationKey(seed))
+        setItem(SEED, seed)
+      } else {
+        // what to do if not a fresh installation
+      }
+    } else {
+      // just wait for it to be called after hydrated
+    }
+  }
+
   componentWillMount() {
-    Promise.all([getItem('identifier'), getItem('phone'), getItem('seed')])
-      .then(([identifier, phoneNumber, seed]) => {
-        if (!identifier || !phoneNumber || !seed) {
-          phoneNumber = (Math.random() * 1000000000000000000)
-            .toString()
-            .substring(0, 10)
-          identifier = randomSeed(32).substring(0, 22)
-          seed = randomSeed(32).substring(0, 32)
-          this.enrollUser(
-            phoneNumber,
-            identifier,
-            seed,
-            getVerificationKey(seed)
-          )
-          setItem(SEED, seed)
-        }
-      })
-      .catch(error => {
-        console.log(
-          'LOG: error getItem for identifier, phone and seed failed, ',
-          error
-        )
-      })
+    // try user enrolllment as soon as we got push notification permission from user
+    // this might trigger again if app store is not yet hydrated
+    this.startUserEnrollment()
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.config !== this.props.config) {
+    if (nextProps.config.agencyUrl !== this.props.config.agencyUrl) {
+      // if the server environment is changed, enroll user again
       Promise.all([getItem('identifier'), getItem('phone'), getItem('seed')])
         .then(([identifier, phoneNumber, seed]) => {
           if (identifier && phoneNumber && seed) {
@@ -82,6 +83,11 @@ export default class UserEnroll extends PureComponent {
           }
         })
         .catch(console.log)
+    }
+
+    if (nextProps.config.isHydrated !== this.props.isHydrated) {
+      // if stored is hydrated after we got push notification permission
+      this.startUserEnrollment()
     }
   }
 

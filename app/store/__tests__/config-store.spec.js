@@ -10,6 +10,9 @@ import configReducer, {
   SERVER_ENVIRONMENT_CHANGED,
   SERVER_ENVIRONMENT,
   baseUrls,
+  hydrateConfig,
+  alreadyInstalledAction,
+  hydrated,
 } from '../config-store'
 
 describe('server environment should change', () => {
@@ -45,5 +48,19 @@ describe('server environment should change', () => {
         serverEnvironment: SERVER_ENVIRONMENT.DEMO,
       })
     ).toEqual(expectedConfig)
+  })
+})
+
+describe('hydration should work correctly', () => {
+  it('should raise correct action with correct data', () => {
+    const gen = hydrateConfig()
+    // call async storage to get data
+    gen.next()
+    // dispatch an action to tell app was not already installed
+    gen.next()
+    // save data in async storage
+    gen.next()
+    // now we should get hydrated action
+    expect(gen.next().value).toEqual(put(hydrated()))
   })
 })

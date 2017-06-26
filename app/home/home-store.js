@@ -2,6 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import { enrollUser, sendUserInfo } from '../services/api'
 import { IDENTIFIER, PHONE } from '../common/secure-storage-constants'
 import { setItem } from '../services/secure-storage'
+import { appInstalledSuccess } from '../store/config-store'
 
 const initResponseData = {
   isFetching: false,
@@ -38,6 +39,9 @@ function* handleEnroll(action) {
     setItem(PHONE, action.device.phoneNumber)
     setItem(IDENTIFIER, action.device.id)
     yield put(enrollSuccess(enrollResponse))
+    // use this action to trigger config change once user is registered
+    // so that user is not registered again
+    yield put(appInstalledSuccess())
   } catch (e) {
     yield put(enrollFailure(e.message))
   }
