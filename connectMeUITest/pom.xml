@@ -1,0 +1,72 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ConnectMeUITest</groupId>
+  <artifactId>ConnectMeUITest</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>ConnectMeUITest</name>
+  <description>UI Automation</description>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>src</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.5.1</version>
+        <configuration>
+          <source/>
+          <target/>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    		<dependency>
+  			<groupId>io.appium</groupId>
+  			<artifactId>java-client</artifactId>
+    <version>5.0.0-BETA9</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>org.seleniumhq.selenium</groupId>
+  			<artifactId>selenium-java</artifactId>
+  			<version>3.4.0</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>org.testng</groupId>
+  			<artifactId>testng</artifactId>
+  			<version>6.11</version>
+  		</dependency>
+  		<dependency>
+  			<groupId>log4j</groupId>
+  			<artifactId>log4j</artifactId>
+  			<version>1.2.17</version>
+  		</dependency>
+  		<dependency>
+    <groupId>org.testobject</groupId>
+    <artifactId>testobject-java-api</artifactId>
+    <version>0.0.26</version>
+</dependency>
+<dependency>
+    <groupId>de.twentyeleven.skysail</groupId>
+    <artifactId>com.jayway.rest-assured-osgi</artifactId>
+    <version>1.6.2</version>
+</dependency>
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20170516</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-collections4</artifactId>
+    <version>4.1</version>
+</dependency>
+
+  	</dependencies>
+</project>
