@@ -23,12 +23,12 @@ export const enroll = (device, config) => ({
   config,
 })
 
-const enrollSuccess = enrollResponse => ({
+export const enrollSuccess = enrollResponse => ({
   type: 'ENROLL_SUCCESS',
   enrollResponse,
 })
 
-const enrollFailure = error => ({
+export const enrollFailure = error => ({
   type: 'ENROLL_FAILURE',
   error,
 })

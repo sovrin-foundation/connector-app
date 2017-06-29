@@ -47,9 +47,11 @@ const headerLeft = (
     source={require('../images/icon_Menu.png')}
   />
 )
+
 const headerTitle = (
   <Image source={require('../images/icon_connectorLogo.png')} />
 )
+
 const headerRight = (
   <Image
     style={{ marginRight: 10 }}

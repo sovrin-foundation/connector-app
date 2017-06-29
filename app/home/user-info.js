@@ -11,7 +11,7 @@ import {
   Container,
 } from '../components'
 
-class ActionListItems extends PureComponent {
+class UserInfoItems extends PureComponent {
   swipeStart = () => {
     this.props.isSwiping(true)
   }
@@ -62,25 +62,28 @@ class ActionListItems extends PureComponent {
           resetAvatarTapCount={resetAvatarTapCount}
           config={config}
         />
-        <IdentifyingInfoSection infos={identifyingInfo} />
-        <UserInfoAddressSection
-          addresses={addresses}
-          onSwipeStart={this.swipeStart}
-          onSwipeRelease={this.swipeEnd}
-        />
-        <UserInfoEmailSection
-          emails={emails}
-          onSwipeStart={this.swipeStart}
-          onSwipeRelease={this.swipeEnd}
-        />
-        <UserInfoPhoneSection
-          phones={phones}
-          onSwipeStart={this.swipeStart}
-          onSwipeRelease={this.swipeEnd}
-        />
+        {identifyingInfo && <IdentifyingInfoSection infos={identifyingInfo} />}
+        {addresses &&
+          <UserInfoAddressSection
+            addresses={addresses}
+            onSwipeStart={this.swipeStart}
+            onSwipeRelease={this.swipeEnd}
+          />}
+        {emails &&
+          <UserInfoEmailSection
+            emails={emails}
+            onSwipeStart={this.swipeStart}
+            onSwipeRelease={this.swipeEnd}
+          />}
+        {phones &&
+          <UserInfoPhoneSection
+            phones={phones}
+            onSwipeStart={this.swipeStart}
+            onSwipeRelease={this.swipeEnd}
+          />}
       </InfoSectionList>
     )
   }
 }
 
-export default ActionListItems
+export default UserInfoItems

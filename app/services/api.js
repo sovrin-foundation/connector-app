@@ -1,35 +1,26 @@
-export const enrollUser = (device, { callCenterUrl }) => {
-  return fetch(`${callCenterUrl}/agent/enroll`, {
-    method: 'POST',
+const options = (method, body) => {
+  return {
+    method,
     mode: 'cors',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(device),
-  })
+    body: JSON.stringify(body),
+  }
+}
+
+export const enrollUser = (device, { callCenterUrl }) => {
+  return fetch(`${callCenterUrl}/agent/enroll`, options('POST', device))
 }
 
 export const sendUserInfo = (userInfo, { callCenterUrl }) => {
-  return fetch(`${callCenterUrl}/agent/app-context`, {
-    method: 'POST',
-    mode: 'cors',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userInfo),
-  })
+  return fetch(`${callCenterUrl}/agent/app-context`, options('POST', userInfo))
 }
 
 export const sendAuthRequest = ({ identifier, dataBody }, { agencyUrl }) => {
-  return fetch(`${agencyUrl}/agent/id/${identifier}/auth`, {
-    method: 'PUT',
-    mode: 'cors',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(dataBody),
-  })
+  return fetch(
+    `${agencyUrl}/agent/id/${identifier}/auth`,
+    options('POST', dataBody)
+  )
 }
