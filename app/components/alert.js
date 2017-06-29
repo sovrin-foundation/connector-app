@@ -26,7 +26,6 @@ export default class Alert extends PureComponent {
           if (!identifier || !phoneNumber) {
             AlertIOS.alert('Error', 'Identifier or phone not present', [
               {
-                text: 'OK',
                 onPress: () => this.props.reset(),
               },
             ])
@@ -34,12 +33,7 @@ export default class Alert extends PureComponent {
             AlertIOS.alert(
               `Identifier - ${identifier}`,
               `Phone Number - ${phoneNumber}`,
-              [
-                {
-                  text: 'OK',
-                  onPress: () => this.onAlertClose(identifier, phoneNumber),
-                },
-              ]
+              [{ onPress: () => this.onAlertClose(identifier, phoneNumber) }]
             )
           }
         })

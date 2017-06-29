@@ -1,7 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import Badge from '../badge'
-import { BadgeLabel } from '../badge'
+import Badge, { BadgeLabel } from '../badge'
 
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer'

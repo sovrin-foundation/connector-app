@@ -1,0 +1,193 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`user avatar section info should render properly 1`] = `
+<View>
+  <View
+    pad={true}
+    row={true}
+    style={
+      Object {
+        "backgroundColor": "#ebebea",
+        "flex": 1,
+        "flexDirection": "row",
+        "paddingHorizontal": 15,
+        "paddingVertical": 8,
+      }
+    }
+    tertiary={true}
+  >
+    <View
+      left={true}
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "flex": 1,
+        }
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "color": "#242B2D",
+            },
+            undefined,
+          ]
+        }
+      >
+        AVATAR PHOTOS
+      </Text>
+    </View>
+    <View
+      right={true}
+      style={
+        Object {
+          "alignItems": "flex-end",
+          "flex": 1,
+        }
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "#686868",
+          }
+        }
+      >
+        ADD
+      </Text>
+    </View>
+  </View>
+  <View
+    pad={true}
+    row={true}
+    secondary={true}
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+        "flex": 1,
+        "flexDirection": "row",
+        "paddingHorizontal": 15,
+        "paddingVertical": 8,
+      }
+    }
+  >
+    <View
+      row={true}
+      style={
+        Object {
+          "flex": 1,
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={Object {}}
+      >
+        <Image
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          hitSlop={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          source={1}
+          style={
+            Array [
+              Object {
+                "height": 50,
+                "width": 50,
+              },
+              Object {
+                "borderRadius": 25,
+              },
+            ]
+          }
+          testID={undefined}
+        />
+        <View
+          clearBg={true}
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "left": 0,
+              "position": "absolute",
+              "shadowColor": "#3f4140",
+              "shadowOffset": Object {
+                "height": 1,
+                "width": 1,
+              },
+              "shadowOpacity": 0.9,
+              "shadowRadius": 4,
+              "top": 0,
+            }
+          }
+        >
+          <Image
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hitSlop={undefined}
+            onLayout={undefined}
+            onPress={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            resizeMode="contain"
+            source={1}
+            style={
+              Object {
+                "height": 26,
+                "width": 22,
+              }
+            }
+            testID={undefined}
+          />
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            center={true}
+            ellipsizeMode="tail"
+            secondary={true}
+            style={
+              Array [
+                Object {
+                  "fontSize": undefined,
+                  "fontWeight": "bold",
+                },
+                Object {
+                  "color": "#ffffff",
+                },
+                Object {
+                  "textAlign": "center",
+                  "textAlignVertical": "center",
+                },
+                undefined,
+              ]
+            }
+            text={76}
+          >
+            76
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
