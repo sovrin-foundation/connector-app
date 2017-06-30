@@ -21,6 +21,6 @@ export const sendUserInfo = (userInfo, { callCenterUrl }) => {
 export const sendAuthRequest = ({ identifier, dataBody }, { agencyUrl }) => {
   return fetch(
     `${agencyUrl}/agent/id/${identifier}/auth`,
-    options('POST', dataBody)
+    options('PUT', dataBody)
   )
 }
