@@ -6,6 +6,7 @@ import { invitationAccepted, invitationRejected } from './invitation-store'
 import InvitationText from './invitation-text'
 import InvitationActions from './invitation-actions'
 import { Container, CustomText } from '../components'
+import { sendUserInvitationResponse } from './invitation-store'
 
 class Invitation extends PureComponent {
   render() {

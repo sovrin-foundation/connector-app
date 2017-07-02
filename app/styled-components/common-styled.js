@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, Image, Button, Animated, ScrollView } from 'react-native'
 import styled from 'styled-components/native'
-
+import { white } from '../common/styles/constant'
 import {
   imageWidth,
   imageHeight,
@@ -18,7 +18,7 @@ export const CenterContainer = styled.View`
 `
 
 export const StyledText = styled.Text`
-  color: ${props => (props.color ? props.color : '#FFFFFF')};
+  color: ${props => (props.color ? props.color : white)};
 `
 
 export const RoundedImage = styled.Image`
@@ -37,7 +37,7 @@ export const StyledImage = styled.Image`
 `
 
 export const StyledButton = styled.Button`
-  color: #fff;
+  color: white;
   background-color: #43a047;
 `
 
@@ -77,7 +77,7 @@ export const SwipeLeftItem = styled.TouchableOpacity`
   background-color: #85BF43;
 `
 export const SwipeLeftText = styled.Text`
-  color: #FFFFFF;
+  color: white;
   font-weight: bold;
   justifyContent: center;
   alignItems: center;

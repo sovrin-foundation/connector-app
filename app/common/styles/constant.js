@@ -1,6 +1,6 @@
 // TODO:KS Add support for themes as well
 const zircon = '#ebebea'
-const white = '#ffffff'
+export const white = '#ffffff'
 const mantis = '#85bf43'
 const sirocco = '#636564'
 const corduroy = '#3f4140'

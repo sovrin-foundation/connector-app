@@ -8,6 +8,10 @@ const decodeUTF8 = s => {
   for (i = 0; i < d.length; i++) {
     b[i] = d.charCodeAt(i)
   }
+  var i, d = unescape(s), b = new Uint8Array(d.length)
+  for (i = 0; i < d.length; i++) {
+    b[i] = d.charCodeAt(i)
+  }
   return b
 }
 

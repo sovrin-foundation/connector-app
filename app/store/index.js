@@ -5,9 +5,9 @@ import logger from 'redux-logger'
 import user, { watchUserInfo, watchSendUserInfo } from './user-store'
 import pushNotification from './pushNotification-store'
 import connections, { watchLoadConnections } from './connections-store'
-import invitation, { watchAuthRequest } from '../invitation/invitation-store'
 import config, { watchConfig } from './config-store'
 import home, { watchEnrollUser } from '../home/home-store'
+import invitation, { watchInvitation } from '../invitation/invitation-store'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -28,8 +28,8 @@ sagaMiddleware.run(function*() {
     watchUserInfo(),
     watchEnrollUser(),
     watchSendUserInfo(),
-    watchAuthRequest(),
     watchConfig(),
+    watchInvitation(),
   ])
 })
 

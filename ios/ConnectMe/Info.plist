@@ -65,7 +65,7 @@
         <key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
         <true/>
         <key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
-        <false/>
+        <false/>          
       </dict>
 		</dict>
 	</dict>

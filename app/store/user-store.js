@@ -13,8 +13,6 @@ const initResponseData = {
     message: '',
   },
 }
-
-// initial state for home
 const initialState = {
   ...initResponseData,
   userInfoResponse: initResponseData,

@@ -5,9 +5,11 @@ import { StackNavigator } from 'react-navigation'
 import InvitationScreen from './invitation/invitation'
 import HomeScreen from './home/home'
 import ConnectionHome from './connection/connection'
+import SplashScreenView from './invitation/splash-screen'
 import store from './store'
-import { StatusBar, Container } from './components'
+import { Container, StatusBar } from './components'
 import {
+  splashScreenRoute,
   homeRoute,
   invitationRoute,
   connectionDetailRoute,
@@ -15,6 +17,9 @@ import {
 
 const ConnectMeAppNavigator = StackNavigator(
   {
+    [splashScreenRoute]: {
+      screen: SplashScreenView,
+    },
     [homeRoute]: {
       screen: HomeScreen,
     },

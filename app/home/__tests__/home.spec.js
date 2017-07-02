@@ -25,7 +25,7 @@ function props() {
     connections: {},
     loadUserInfo: jest.fn(),
     loadConnections: jest.fn(),
-    invitationReceived: jest.fn(),
+    // invitationReceived: jest.fn(),
     pushNotificationPermissionAction: jest.fn(),
     pushNotification: { isPNAllowed: true },
     home: {

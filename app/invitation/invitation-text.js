@@ -5,17 +5,20 @@ import { StyledText } from '../styled-components/common-styled'
 import { CustomView, CustomText, Container } from '../components'
 
 import InvitationAvatars from './invitation-avatars'
+import invitation from '../invitation/invitation-store'
 
-const InvitationText = ({ invitation: { invitation, invitee } }) => (
+const InvitationText = ({
+  invitation: { data: { offerMsgTitle, offerMsgText }, invitee },
+}) => (
   <Container useNativeDriver>
     <Container bottom>
       <AnimationView animation="bounceInDown" duration={1500} delay={100}>
         <CustomView center style={[styles.invitationTextContainer]}>
           <CustomText h1 bg={'primary'} style={[styles.invitationTitle]}>
-            {invitation.title}
+            {offerMsgTitle}
           </CustomText>
           <CustomText h3>
-            {invitation.text}
+            {offerMsgText}
           </CustomText>
         </CustomView>
       </AnimationView>

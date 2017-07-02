@@ -4,7 +4,7 @@ import TouchId from 'react-native-touch-id'
 import { connect } from 'react-redux'
 import { StyledButton } from '../styled-components/common-styled'
 import { Container, CustomButton } from '../components'
-import bs58 from 'bs58'
+import { encode } from 'bs58'
 
 import {
   getKeyPairFromSeed,
@@ -12,8 +12,8 @@ import {
   verifySignature,
 } from '../services/keys'
 import { getItem } from '../services/secure-storage'
-import { authRequest } from './invitation-store'
 import { connectionDetailRoute, homeRoute } from '../common/route-constants'
+import { sendUserInvitationResponse } from './invitation-store'
 
 class actions extends PureComponent {
   constructor(props) {
@@ -21,52 +21,73 @@ class actions extends PureComponent {
   }
 
   _onAllow = () => {
-    this.AuthRequest('ACCEPTED')
+    if (this.props.invitation.type === 'PENDING_CONNECTION_REQUEST') {
+      this.pendingConnectionRequest('ACCEPTED', 'PENDING_CONNECTION_REQUEST')
+    } else if (this.props.invitation.type == 'AUTHENTICATION_REQUEST') {
+      this.pendingConnectionRequest('ACCEPTED', 'AUTHNTICATION_REQUEST')
+    }
   }
 
   _onDeny = () => {
-    this.AuthRequest('REJECTED')
+    if (this.props.invitation.type === 'PENDING_CONNECTION_REQUEST') {
+      this.pendingConnectionRequest('REJECTED', 'PENDING_CONNECTION_REQUEST')
+    } else if (this.props.invitation.type == 'AUTHENTICATION_REQUEST') {
+      this.pendingConnectionRequest('REJECTED', 'AUTHNTICATION_REQUEST')
+    }
   }
 
-  AuthRequest = newStatus => {
+  pendingConnectionRequest = (newStatus, type) => {
     Promise.all([
       TouchId.authenticate('Please confirm with TouchID'),
       getItem('identifier'),
       getItem('seed'),
-    ]).then(
-      ([touchIdSuccess, identifier, seed]) => {
-        if (touchIdSuccess && identifier && seed) {
-          const msg = JSON.stringify({
-            type: 'authReqAnswered',
+    ]).then(([touchIdSuccess, identifier, seed]) => {
+      if (touchIdSuccess && identifier && seed) {
+        const { publicKey: verKey, secretKey: signingKey } = getKeyPairFromSeed(
+          seed
+        )
+
+        if (type === 'PENDING_CONNECTION_REQUEST') {
+          const challenge = JSON.stringify({
             newStatus,
+            identifier,
+            verKey,
+            pushComMethod: 'FCM',
           })
-
-          const {
-            publicKey: verKey,
-            secretKey: signingKey,
-          } = getKeyPairFromSeed(seed)
-
-          const signature = bs58.encode(getSignature(signingKey, msg))
-
-          this.props.authRequest(
+          const signature = encode(getSignature(signingKey, challenge))
+          this.props.sendUserInvitationResponse(
             {
-              identifier,
               newStatus,
+              identifier,
               dataBody: {
-                msg,
+                challenge,
                 signature,
               },
             },
             this.props.config
           )
-        } else {
-          console.error('Either Identifier or seed not present!')
+        } else if (type == 'AUTHENTICATION_REQUEST') {
+          const message = JSON.stringify({
+            type: 'authRequestAnswered',
+            newStatus,
+          })
+          const signature = encode(getSignature(signingKey, message))
+          this.props.sendUserInvitationResponse(
+            {
+              identifier,
+              newStatus,
+              dataBody: {
+                message,
+                signature,
+              },
+            },
+            this.porps.config
+          )
         }
-      },
-      error => {
-        console.log(error)
+      } else {
+        console.error('Either Identifier or seed not present!')
       }
-    )
+    })
   }
 
   async saveKey(value) {
@@ -86,21 +107,27 @@ class actions extends PureComponent {
     }
   }
 
-  authRequestSuccess(newStatus) {
-    if (newStatus === 'ACCEPTED') {
+  connectionActionRequest(status) {
+    if (status === 'ACCEPTED') {
       this.saveKey(connectionDetailRoute)
       this.props.navigation.navigate(connectionDetailRoute)
-    } else if (newStatus === 'REJECTED') {
+    } else if (status === 'REJECTED') {
       this.saveKey(homeRoute)
       this.props.navigation.navigate(homeRoute)
     }
   }
 
-  render() {
-    const { authRes } = this.props.invitation
-    if (authRes && authRes.data && authRes.data.status == 200) {
-      this.authRequestSuccess(authRes.newStatus)
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.invitation.status === 'ACCEPTED' ||
+      nextProps.invitation.status === 'REJECTED'
+    ) {
+      const newStatus = nextProps.invitation.status
+      this.connectionActionRequest(newStatus)
     }
+  }
+
+  render() {
     return (
       <View style={{ flexDirection: 'row' }}>
         <Container>
@@ -120,7 +147,8 @@ const mapStateToProps = ({ invitation, config }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  authRequest: (reqData, config) => dispatch(authRequest(reqData, config)),
+  sendUserInvitationResponse: (data, config) =>
+    dispatch(sendUserInvitationResponse(data, config)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(actions)

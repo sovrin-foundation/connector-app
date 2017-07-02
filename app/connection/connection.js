@@ -28,10 +28,11 @@ import { homeRoute } from '../common/route-constants'
 
 const headerLeft = (
   <Image
-    style={{ marginLeft: 15 }}
+    style={{ marginLeft: 15, marginTop: 0 }}
     source={require('../images/icon_Chat.png')}
   />
 )
+
 const headerTitle = (
   <Image source={require('../images/sovrinsecuredconnection.png')} />
 )
@@ -39,7 +40,7 @@ const headerTitle = (
 export class ConnectionHome extends PureComponent {
   static navigationOptions = ({ navigation }) => ({
     headerLeft: headerLeft,
-    title: headerTitle,
+    headerTitle: headerTitle,
     headerRight: (
       <TouchableHighlight
         onPress={() => {
@@ -55,13 +56,14 @@ export class ConnectionHome extends PureComponent {
         }}
       >
         <Image
-          style={{ marginRight: 16.5 }}
+          style={{ marginRight: 16.5, marginTop: 0 }}
           source={require('../images/icon_Close.png')}
         />
       </TouchableHighlight>
     ),
     headerStyle: {
       backgroundColor: '#2A5270',
+      height: 50,
     },
   })
 
@@ -82,11 +84,8 @@ export class ConnectionHome extends PureComponent {
   }
 }
 
-export default StackNavigator(
-  {
-    Connections: {
-      screen: ConnectionHome,
-    },
+export default StackNavigator({
+  Connections: {
+    screen: ConnectionHome,
   },
-  {}
-)
+})

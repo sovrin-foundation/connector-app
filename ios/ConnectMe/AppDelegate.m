@@ -12,6 +12,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "RNFIRMessaging.h"
+#import "SplashScreen.h"
 
 @implementation AppDelegate
 
@@ -37,6 +38,7 @@
   [FIRApp configure];
   [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
 
+  [SplashScreen show]; //show splash screen
   return YES;
 }
 

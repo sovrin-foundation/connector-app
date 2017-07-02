@@ -14,14 +14,12 @@ import FCM, { FCMEvent } from 'react-native-fcm'
 
 import Bubbles from './bubbles'
 import User from './user'
-import invitationData from '../invitation/data/invitation-data'
 import { setItem, getItem } from '../services/secure-storage'
 import UserEnroll from '../components/user-enroll'
 import {
   enroll,
   getUserInfo,
   getConnections,
-  invitationReceived,
   pushNotificationPermissionAction,
   avatarTapped,
   resetAvatarTapCount,
@@ -40,33 +38,20 @@ import {
   PHONE,
   SEED,
 } from '../common/secure-storage-constants'
-
-const headerLeft = (
-  <Image
-    style={{ marginLeft: 10 }}
-    source={require('../images/icon_Menu.png')}
-  />
-)
+import { authenticationRequest } from '../invitation/invitation-store'
 
 const headerTitle = (
   <Image source={require('../images/icon_connectorLogo.png')} />
 )
 
-const headerRight = (
-  <Image
-    style={{ marginRight: 10 }}
-    source={require('../images/icon_Search.png')}
-  />
-)
-
 export class HomeScreenDrawer extends Component {
   static navigationOptions = ({ navigation }) => ({
-    headerLeft: headerLeft,
-    title: headerTitle,
-    headerRight: headerRight,
+    headerTitle: headerTitle,
     headerStyle: {
       backgroundColor: '#3F4140',
       borderBottomWidth: 0,
+      height: 50,
+      padding: 0,
     },
   })
 
@@ -88,12 +73,15 @@ export class HomeScreenDrawer extends Component {
 
     this.saveKey('newCurrentRoute', homeRoute)
 
-    this.notificationListener = FCM.on(FCMEvent.Notification, async notif => {
-      this.handlePushNotification(notif)
-    })
+    this.notificationListener = FCM.on(
+      FCMEvent.Notification,
+      async pushNotificationData => {
+        this.handlePushNotification(pushNotificationData)
+      }
+    )
 
-    FCM.getInitialNotification().then(notif => {
-      this.handlePushNotification(notif)
+    FCM.getInitialNotification().then(pushNotificationData => {
+      this.handlePushNotification(pushNotificationData)
     })
 
     this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, token => {
@@ -106,8 +94,8 @@ export class HomeScreenDrawer extends Component {
   }
 
   handlePushNotification(notif) {
-    if (notif && notif.type === 'auth-req') {
-      this.props.invitationReceived()
+    if (pushNotificationData && pushNotificationData.type === 'auth-req') {
+      this.props.authenticationRequest(pushNotificationData)
       this.getRoute().then(() => {
         if (this.state.currentRoute !== invitationRoute) {
           this.saveKey('newCurrentRoute', invitationRoute)
@@ -201,7 +189,6 @@ const mapDispatchToProps = dispatch => ({
   enroll: (device, config) => dispatch(enroll(device, config)),
   loadUserInfo: () => dispatch(getUserInfo()),
   loadConnections: () => dispatch(getConnections()),
-  invitationReceived: () => dispatch(invitationReceived(invitationData)),
   changeServerEnvironmentToDemo: () =>
     dispatch(changeServerEnvironmentToDemo()),
   changeServerEnvironmentToSandbox: () =>

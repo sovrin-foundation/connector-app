@@ -13,5 +13,4 @@ const User = props => (
     <UserInfo {...props} />
   </View>
 )
-
 export default User

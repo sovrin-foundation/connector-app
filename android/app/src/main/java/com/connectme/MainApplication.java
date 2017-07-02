@@ -8,6 +8,7 @@ import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.wix.interactable.Interactable;
 import com.evollu.react.fcm.FIRMessagingPackage;
+import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -33,12 +34,14 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
+            new MainReactPackage(),
             new VectorIconsPackage(),
             new RNSensitiveInfoPackage(),
             new LinearGradientPackage(),
             new Interactable(),
-            new FIRMessagingPackage()
+            new FIRMessagingPackage(),
+            new MainReactPackage(),
+            new SplashScreenReactPackage()
             new LinearGradientPackage(),
             new ReactNativeOneSignalPackage(),
             new Interactable(),
