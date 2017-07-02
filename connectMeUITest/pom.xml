@@ -53,11 +53,6 @@
     <version>0.0.26</version>
 </dependency>
 <dependency>
-    <groupId>de.twentyeleven.skysail</groupId>
-    <artifactId>com.jayway.rest-assured-osgi</artifactId>
-    <version>1.6.2</version>
-</dependency>
-<dependency>
     <groupId>org.json</groupId>
     <artifactId>json</artifactId>
     <version>20170516</version>
@@ -67,6 +62,5 @@
     <artifactId>commons-collections4</artifactId>
     <version>4.1</version>
 </dependency>
-
   	</dependencies>
 </project>

@@ -2,22 +2,13 @@
 package test.java;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MultiTouchAction;
-import io.appium.java_client.TouchAction;
-
 import java.util.HashMap;
-
 import org.apache.log4j.xml.DOMConfigurator;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 import org.testng.annotations.*;
-
+import appModules.RestApi;
 import pageObjects.HomePage;
 import utility.Setup;
-
 import utility.*;
 
 public class GetIdentifierTest {
@@ -37,9 +28,9 @@ public class GetIdentifierTest {
 
 	public void main() throws Exception {
 
-		//System.out.println("Click the Allow Button");
-		//HomePage.AllowAlert_Button(driver).click();
-		//Log.info("Click action is performed on Allow button of Alert");
+		System.out.println("Click the Allow Button");
+		HomePage.AllowAlert_Button(driver).click();
+		Log.info("Click action is performed on Allow button of Alert");
 		System.out.println("check starbuck is displayed");
 		Log.info("Validating Starbuck image is displayed or not");
 		HomePage.Starbuck_Image(driver).isDisplayed();
@@ -59,13 +50,17 @@ public class GetIdentifierTest {
 		System.out.println("Getting the Identifier");
 		Identifier = Identifier.substring(13);
 		System.out.println("Identifier"+" "+"for installed app is "+Identifier);
+    	String payload="{\"sendPushNotif\":\"Y\",\"message\":\"Are you on the phone with Amit at Suncoast?\"}";
+		String requestUrl="https://cua.culedger.com/agent/id/"+Identifier+"/auth";
+		RestApi.sendPostRequest(requestUrl, payload);
+		System.out.println("Notification is send on phone");
 
 	}
 
 	@AfterMethod
 	public void afterMethod() {
 
-		Log.endTestCase("AllowFlow");
+		Log.endTestCase("Allow Flow");
 		System.out.println("Cleaning up");
 		driver.quit();
 

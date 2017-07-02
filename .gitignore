@@ -55,3 +55,8 @@ app/.DS_Store
 
 # vscode files
 .vscode
+
+# ui automation test folder
+connectMeUITest/test-output
+connectMeUITest/*.log
+connectMeUITest/target

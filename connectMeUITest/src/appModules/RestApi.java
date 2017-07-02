@@ -1,43 +1,37 @@
 package appModules;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.jayway.restassured.builder.RequestSpecBuilder;
-import com.jayway.restassured.response.Response;
-import com.jayway.restassured.specification.RequestSpecification;
-import static com.jayway.restassured.RestAssured.given;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class RestApi {
+	public static String sendPostRequest(String requestUrl, String payload) {
+        StringBuffer jsonString = new StringBuffer();
 
-	public void httpPost() throws JSONException, InterruptedException {
-
-		// Initializing Rest API's URL
-		String APIUrl = "https://callcenter.evernym.com/agent/id/LHZ2PapMMYpFrwG8w82XHa/auth";
-
-		// Initializing payload or API body
-		String APIBody = "{\"sendPushNotif\":\"Y\",\"message\":\"Are you on the phone with Amit at Suncoast?\"}"; 
-		// e.g.-// "{\"key1\":\"value1\",\"key2\":\"value2\"}"
-
-		// Building request using requestSpecBuilder
-		RequestSpecBuilder builder = new RequestSpecBuilder();
-
-		// Setting API's body
-		builder.setBody(APIBody);
-
-		// Setting content type as application/json or application/xml
-		builder.setContentType("application/json; charset=UTF-8");
-
-		RequestSpecification requestSpec = builder.build();
-
-		// Making post request with authentication, leave blank in case there
-		// are no credentials- basic("","")
-		Response response = given().authentication().preemptive().basic("", "").spec(requestSpec).when().post(APIUrl);
-		try {
-			JSONObject JSONResponseBody = new JSONObject(response.body().asString());
-		} catch (org.json.JSONException e) {
-			e.printStackTrace();
-		}
-
+	    try {
+	        URL url = new URL(requestUrl);
+	        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	        connection.setDoInput(true);
+	        connection.setDoOutput(true);
+	        connection.setRequestMethod("POST");
+	        connection.setRequestProperty("Accept", "application/json");
+	        connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+	        OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
+	        writer.write(payload);
+	        writer.close();
+	        BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+	        String line;
+	        while ((line = br.readLine()) != null) {
+	                jsonString.append(line);
+	        }
+	        br.close();
+	        connection.disconnect();
+	    } catch (Exception e) {
+	            throw new RuntimeException(e.getMessage());
+	    }
+	    return jsonString.toString();
 	}
+
+	
 }

@@ -1,7 +1,6 @@
 package utility;
 
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -25,19 +24,18 @@ public class Setup {
 			DesiredCapabilities capabilities = new DesiredCapabilities();
 
 			if (Device == "Real Device") {
-				capabilities.setCapability("deviceName", "Ankur's iPhone");
 				capabilities.setCapability("automationName", "XCUITest");
 				capabilities.setCapability("platformVersion", "10.0");
 				capabilities.setCapability("platformName", "iOS");
 				capabilities.setCapability("bundleId", "com.evernym.connectme.callcenter");
-				capabilities.setCapability("udid", "42d9657d87b56203d1c4c5eb22fde827ca2c0090");
+				capabilities.setCapability("deviceName", "Ankur's iPhone");//device name
+				capabilities.setCapability("udid", "42d9657d87b56203d1c4c5eb22fde827ca2c0090");//udid of device
+				capabilities.setCapability("app","Users/ankurmishra/Downloads/ConnectMe-4.ipa");//ipa path
 				// capabilities.setCapability("udid",
 				// "b78a49129d22c79c81e303b812d14abaa6fc817d");
 				capabilities.setCapability("xcodeOrgId", "ES8QU3D2A4");
 				capabilities.setCapability("xcodeSigningId", "iPhone Developer");
 				capabilities.setCapability("autoAcceptAlerts", true);
-				// capabilities.setCapability("app",
-				// "Users/ankurmishra/Downloads/ConnectMe-2.ipa");//ipath
 				driver = new IOSDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 				// capabilities.setCapability("fullReset","true");
 				// capabilities.setCapability("noReset","false");
