@@ -10,22 +10,21 @@ import {
 import { StackNavigator } from 'react-navigation'
 import { Icon, Avatar } from 'react-native-elements'
 import { View as AnimationView } from 'react-native-animatable'
-import FCM, { FCMEvent } from 'react-native-fcm'
 
 import Bubbles from './bubbles'
 import User from './user'
 import { setItem, getItem } from '../services/secure-storage'
 import UserEnroll from '../components/user-enroll'
 import {
-  enroll,
   getUserInfo,
   getConnections,
-  pushNotificationPermissionAction,
+  pushNotificationReceived,
   avatarTapped,
   resetAvatarTapCount,
   sendUserInfo,
   changeServerEnvironmentToDemo,
   changeServerEnvironmentToSandbox,
+  authenticationRequestReceived,
 } from '../store'
 import {
   connectionDetailRoute,
@@ -65,62 +64,10 @@ export class HomeScreenDrawer extends Component {
   }
 
   componentWillMount() {
-    // push notification events
-    FCM.requestPermissions() // for iOS
-    FCM.getFCMToken().then(token => {
-      this.saveDeviceToken(token)
-    })
-
     this.saveKey('newCurrentRoute', homeRoute)
-
-    this.notificationListener = FCM.on(
-      FCMEvent.Notification,
-      async pushNotificationData => {
-        this.handlePushNotification(pushNotificationData)
-      }
-    )
-
-    FCM.getInitialNotification().then(pushNotificationData => {
-      this.handlePushNotification(pushNotificationData)
-    })
-
-    this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, token => {
-      this.saveDeviceToken(token)
-    })
-
     // load data for home screen
     this.props.loadUserInfo()
     this.props.loadConnections()
-  }
-
-  handlePushNotification(notif) {
-    if (pushNotificationData && pushNotificationData.type === 'auth-req') {
-      this.props.authenticationRequest(pushNotificationData)
-      this.getRoute().then(() => {
-        if (this.state.currentRoute !== invitationRoute) {
-          this.saveKey('newCurrentRoute', invitationRoute)
-          this.props.navigation.navigate(invitationRoute)
-        }
-      })
-    }
-  }
-
-  saveDeviceToken(token) {
-    if (token) {
-      setItem(PUSH_COM_METHOD, token)
-        .then(() => {
-          this.props.pushNotificationPermissionAction(true)
-        })
-        .catch(function(error) {
-          console.log('LOG: error saveDeviceToken setItem, ', error)
-        })
-    }
-  }
-
-  componentWillUnmount() {
-    // stop listening for events
-    this.notificationListener.remove()
-    this.refreshTokenListener.remove()
   }
 
   handleSwipe = isSwiping => {
@@ -141,6 +88,27 @@ export class HomeScreenDrawer extends Component {
       this.setState({ currentRoute })
     } catch (error) {
       console.log('LOG: Error retrieving newCurrentRoute' + error)
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props != prevProps) {
+      const { notification } = this.props.pushNotification
+      if (notification && notification.type === 'auth-req') {
+        this.getRoute().then(() => {
+          if (this.state.currentRoute !== invitationRoute) {
+            // todo: remove hard coded data & get data from notification
+            this.props.authenticationRequestReceived({
+              offerMsgTitle: 'Hi Drummond',
+              offerMsgText: 'Suncoast wants to connect with you',
+              status: 'NONE',
+            })
+            this.props.resetPushNotificationData()
+            this.saveKey('newCurrentRoute', invitationRoute)
+            this.props.navigation.navigate(invitationRoute)
+          }
+        })
+      }
     }
   }
 
@@ -167,11 +135,6 @@ export class HomeScreenDrawer extends Component {
         <AnimationView style={{ marginTop: 420 }}>
           <User user={user} isSwiping={this.handleSwipe} {...this.props} />
         </AnimationView>
-        {this.props.pushNotification.isAllowed &&
-          <UserEnroll
-            enrollAction={this.props.enroll}
-            config={this.props.config}
-          />}
       </Animated.ScrollView>
     )
   }
@@ -186,18 +149,18 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  enroll: (device, config) => dispatch(enroll(device, config)),
   loadUserInfo: () => dispatch(getUserInfo()),
   loadConnections: () => dispatch(getConnections()),
   changeServerEnvironmentToDemo: () =>
     dispatch(changeServerEnvironmentToDemo()),
   changeServerEnvironmentToSandbox: () =>
     dispatch(changeServerEnvironmentToSandbox()),
-  pushNotificationPermissionAction: isAllowed =>
-    dispatch(pushNotificationPermissionAction(isAllowed)),
+  resetPushNotificationData: () => dispatch(pushNotificationReceived(null)),
   avatarTapped: () => dispatch(avatarTapped()),
   resetAvatarTapCount: () => dispatch(resetAvatarTapCount()),
   sendUserInfo: (context, config) => dispatch(sendUserInfo(context, config)),
+  authenticationRequestReceived: data =>
+    dispatch(authenticationRequestReceived(data)),
 })
 
 const mapsStateDispatch = connect(mapStateToProps, mapDispatchToProps)(

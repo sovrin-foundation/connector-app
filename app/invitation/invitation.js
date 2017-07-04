@@ -1,41 +1,41 @@
 import React, { PureComponent } from 'react'
 import { View, Text, Image } from 'react-native'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-import { invitationAccepted, invitationRejected } from './invitation-store'
+import { resetInvitation, sendUserInvitationResponse } from '../store'
 import InvitationText from './invitation-text'
 import InvitationActions from './invitation-actions'
 import { Container, CustomText } from '../components'
-import { sendUserInvitationResponse } from './invitation-store'
 
 class Invitation extends PureComponent {
   render() {
-    const { invitation, onAllow, onDeny } = this.props
-
     return (
       <Container>
         <Container primary>
-          <InvitationText invitation={invitation} {...this.props} />
+          <InvitationText {...this.props} />
         </Container>
         <View>
-          <InvitationActions
-            onAllow={onAllow}
-            onDeny={onDeny}
-            {...this.props}
-          />
+          <InvitationActions {...this.props} />
         </View>
       </Container>
     )
   }
 }
 
-const mapStateToProps = ({ invitation }) => ({
+const mapStateToProps = ({ invitation, config, deepLink }) => ({
   invitation,
+  config,
+  deepLink,
 })
 
-const mapDispatchToProps = dispatch => ({
-  onAllow: () => dispatch(invitationAccepted()),
-  onDeny: () => dispatch(invitationRejected()),
-})
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      resetInvitation,
+      sendUserInvitationResponse,
+    },
+    dispatch
+  )
 
 export default connect(mapStateToProps, mapDispatchToProps)(Invitation)

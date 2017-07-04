@@ -11,48 +11,47 @@ import {
   getSignature,
   verifySignature,
 } from '../services/keys'
+import {
+  PUSH_COM_METHOD,
+  SEED,
+  IDENTIFIER,
+} from '../common/secure-storage-constants'
 import { getItem } from '../services/secure-storage'
 import { connectionDetailRoute, homeRoute } from '../common/route-constants'
-import { sendUserInvitationResponse } from './invitation-store'
 
-class actions extends PureComponent {
+export default class actions extends PureComponent {
   constructor(props) {
     super(props)
   }
 
-  _onAllow = () => {
+  onUserResponse = status => {
+    // TODO: Use constants from actions of invitation store
     if (this.props.invitation.type === 'PENDING_CONNECTION_REQUEST') {
-      this.pendingConnectionRequest('ACCEPTED', 'PENDING_CONNECTION_REQUEST')
+      this.pendingConnectionRequest(status, 'PENDING_CONNECTION_REQUEST')
     } else if (this.props.invitation.type == 'AUTHENTICATION_REQUEST') {
-      this.pendingConnectionRequest('ACCEPTED', 'AUTHNTICATION_REQUEST')
-    }
-  }
-
-  _onDeny = () => {
-    if (this.props.invitation.type === 'PENDING_CONNECTION_REQUEST') {
-      this.pendingConnectionRequest('REJECTED', 'PENDING_CONNECTION_REQUEST')
-    } else if (this.props.invitation.type == 'AUTHENTICATION_REQUEST') {
-      this.pendingConnectionRequest('REJECTED', 'AUTHNTICATION_REQUEST')
+      this.pendingConnectionRequest(status, 'AUTHENTICATION_REQUEST')
     }
   }
 
   pendingConnectionRequest = (newStatus, type) => {
     Promise.all([
       TouchId.authenticate('Please confirm with TouchID'),
-      getItem('identifier'),
-      getItem('seed'),
-    ]).then(([touchIdSuccess, identifier, seed]) => {
-      if (touchIdSuccess && identifier && seed) {
-        const { publicKey: verKey, secretKey: signingKey } = getKeyPairFromSeed(
+      getItem(IDENTIFIER),
+      getItem(SEED),
+      getItem(PUSH_COM_METHOD),
+    ]).then(([touchIdSuccess, identifier, seed, pushComMethod]) => {
+      if (touchIdSuccess && identifier && seed && pushComMethod) {
+        var { publicKey: verKey, secretKey: signingKey } = getKeyPairFromSeed(
           seed
         )
+        verKey = encode(verKey)
 
         if (type === 'PENDING_CONNECTION_REQUEST') {
           const challenge = JSON.stringify({
             newStatus,
             identifier,
             verKey,
-            pushComMethod: 'FCM',
+            pushComMethod: `FCM:${pushComMethod}`,
           })
           const signature = encode(getSignature(signingKey, challenge))
           this.props.sendUserInvitationResponse(
@@ -64,7 +63,9 @@ class actions extends PureComponent {
                 signature,
               },
             },
-            this.props.config
+            this.props.config,
+            type,
+            this.props.deepLink.token
           )
         } else if (type == 'AUTHENTICATION_REQUEST') {
           const message = JSON.stringify({
@@ -81,7 +82,8 @@ class actions extends PureComponent {
                 signature,
               },
             },
-            this.porps.config
+            this.props.config,
+            type
           )
         }
       } else {
@@ -122,8 +124,7 @@ class actions extends PureComponent {
       nextProps.invitation.status === 'ACCEPTED' ||
       nextProps.invitation.status === 'REJECTED'
     ) {
-      const newStatus = nextProps.invitation.status
-      this.connectionActionRequest(newStatus)
+      this.connectionActionRequest(nextProps.invitation.status)
     }
   }
 
@@ -131,24 +132,22 @@ class actions extends PureComponent {
     return (
       <View style={{ flexDirection: 'row' }}>
         <Container>
-          <CustomButton secondary raised title="Deny" onPress={this._onDeny} />
+          <CustomButton
+            secondary
+            raised
+            title="Deny"
+            onPress={() => this.onUserResponse('rejected')}
+          />
         </Container>
         <Container>
-          <CustomButton primary raised title="Allow" onPress={this._onAllow} />
+          <CustomButton
+            primary
+            raised
+            title="Allow"
+            onPress={() => this.onUserResponse('accepted')}
+          />
         </Container>
       </View>
     )
   }
 }
-
-const mapStateToProps = ({ invitation, config }) => ({
-  invitation,
-  config,
-})
-
-const mapDispatchToProps = dispatch => ({
-  sendUserInvitationResponse: (data, config) =>
-    dispatch(sendUserInvitationResponse(data, config)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(actions)

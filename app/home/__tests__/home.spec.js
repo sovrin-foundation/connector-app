@@ -58,14 +58,9 @@ describe('home page should', () => {
 
     setTimeout(() => {
       expect(tree).toMatchSnapshot()
-
       // expect that fetch is called twice, once for enrollUser and once for poll
       expect(fetch.mock.calls.length).toBeGreaterThan(1)
-      // and invitationReceived is called
-      expect(homeProps.invitationReceived).toBeCalled()
-      // and navigation.navigate is called as well,
-      // so that we can say that user is being redirected to invitation screen
-      expect()
+      // TODO:KS Add more expect statements to check for other functionalities
     }, 5000)
   })
 })

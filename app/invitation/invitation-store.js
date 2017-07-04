@@ -10,12 +10,14 @@ export const INVITATION_STATUS = {
   REJECTED: 'REJECTED',
   NONE: 'NONE',
 }
+
 export const INVITATION_TYPE = {
   NONE: 'NONE',
   PENDING_CONNECTION_REQUEST: 'PENDING_CONNECTION_REQUEST',
-  AUTHENCTICATION_REQUEST: 'AUTHENTICATION',
+  AUTHENTICATION_REQUEST: 'AUTHENTICATION',
 }
 
+// TODO: Add isLoading and isPrestine to check for user action call
 const initialState = {
   inviter: {
     image: '',
@@ -28,7 +30,9 @@ const initialState = {
   type: INVITATION_TYPE.NONE,
   status: INVITATION_STATUS.NONE,
 }
+
 const AUTHENTICATION_REQUEST = 'AUTHENTICATION_REQUEST'
+const AUTHENTICATION_REQUEST_RECEIVED = 'AUTHENTICATION_REQUEST_RECEIVED'
 const PENDING_CONNECTION_REQUEST = 'PENDING_CONNECTION_REQUEST'
 const PENDING_CONNECTION_SUCCESS = 'PENDING_CONNECTION_SUCCESS'
 const PENDING_CONNECTION_FAILURE = 'PENDING_CONNECTION_FAILURE'
@@ -37,6 +41,7 @@ const SEND_USER_INVITATION_RESPONSE_SUCCESS =
   'SEND_USER_INVITATION_RESPONSE_SUCCESS'
 const SEND_USER_INVITATION_RESPONSE_FAILURE =
   'SEND_USER_INVITATION_RESPONSE_FAILURE'
+const RESET_INVITATION = 'RESET_INVITATION'
 
 export const getInvitationDetailsRequest = (token, config) => ({
   type: PENDING_CONNECTION_REQUEST,
@@ -54,10 +59,17 @@ export const pendingConnectionFailure = error => ({
   error,
 })
 
-export const sendUserInvitationResponse = (data, config) => ({
+export const sendUserInvitationResponse = (
+  data,
+  config,
+  invitationType,
+  token
+) => ({
   type: SEND_USER_INVITATION_RESPONSE,
   data,
   config,
+  invitationType,
+  token,
 })
 
 export const sendUserInvitationResponseSuccess = data => ({
@@ -70,9 +82,13 @@ export const sendUserInvitationResponseFailure = error => ({
   error,
 })
 
-export const authenticationRequest = data => ({
-  type: INVITATION_TYPE.AUTHENCATION_REQUEST,
+export const authenticationRequestReceived = data => ({
+  type: AUTHENTICATION_REQUEST_RECEIVED,
   data,
+})
+
+export const resetInvitation = () => ({
+  type: RESET_INVITATION,
 })
 
 export function* callPendingConnectionRequest(action) {
@@ -93,43 +109,34 @@ export function* watchPendingConnectionRequest() {
 }
 
 export function* watchLoadInvitationDetailsRequest() {
-  yield takeLatest(
-    SEND_USER_INVITATION_RESPONSE,
-    handleUserInvitationDetailsRequest
-  )
+  yield takeLatest(SEND_USER_INVITATION_RESPONSE, handleUserInvitationResponse)
 }
 
-function* handleUserInvitationDetailsRequest(action) {
+function* handleUserInvitationResponse(action) {
   try {
-    const userInvitaitonDetailsResponse = yield call(
-      sendInvitationConnectionRequest,
-      action.data,
-      action.config
-    )
-    yield put(sendUserInvitationResponseSuccess(userInvitaitonDetailsResponse))
+    let invitationActionResponse = null
+    if (action.invitationType == AUTHENTICATION_REQUEST) {
+      invitationActionResponse = yield call(
+        sendAuthenticationRequest,
+        action.data,
+        action.config
+      )
+    } else {
+      invitationActionResponse = yield call(
+        sendInvitationConnectionRequest,
+        action
+      )
+    }
+    yield put(sendUserInvitationResponseSuccess(invitationActionResponse))
   } catch (e) {
     yield put(sendUserInvitationResponseFailure(e.message))
   }
-}
-
-export function* callAuthRequest(action) {
-  try {
-    const authResponse = yield call(sendAuthRequest, action.data, action.config)
-    yield put(sendUserInvitationResponseSuccess(authResponse))
-  } catch (e) {
-    yield put(sendUserInvitationResponseSuccess(e.message))
-  }
-}
-
-export function* watchAuthenticationRequest() {
-  yield takeLatest(AUTHENTICATION_REQUEST, callAuthRequest)
 }
 
 export function* watchInvitation() {
   yield all([
     watchPendingConnectionRequest(),
     watchLoadInvitationDetailsRequest(),
-    watchAuthenticationRequest(),
   ])
 }
 
@@ -144,22 +151,13 @@ export default function invitation(state = initialState, action) {
     case PENDING_CONNECTION_SUCCESS:
       return {
         ...state,
-        data: {
-          offerMsgTitle: action.data.offerMsgTitle,
-          offerMsgText: action.data.offerMsgText,
-          status: action.data.status,
-        },
+        data: action.data,
         type: INVITATION_TYPE.PENDING_CONNECTION_REQUEST,
       }
     case PENDING_CONNECTION_FAILURE:
       return {
         ...state,
         error: action.error,
-      }
-    case SEND_USER_INVITATION_RESPONSE:
-      return {
-        ...state,
-        status: action.data.newStatus,
       }
     case SEND_USER_INVITATION_RESPONSE_SUCCESS:
       return {
@@ -169,13 +167,24 @@ export default function invitation(state = initialState, action) {
     case SEND_USER_INVITATION_RESPONSE_FAILURE:
       return {
         ...state,
-        state: INVITATION_STATUS.REJECTED,
+        status: INVITATION_STATUS.REJECTED,
         error: action.error,
       }
-    case AUTHENTICATION_REQUEST:
+    case RESET_INVITATION:
       return {
         ...state,
-        type: INVITATION_TYPE.AUTHENCATION_REQUEST,
+        type: INVITATION_TYPE.NONE,
+        status: INVITATION_STATUS.NONE,
+        data: null,
+        error: null,
+      }
+    case AUTHENTICATION_REQUEST_RECEIVED:
+      return {
+        ...state,
+        type: INVITATION_TYPE.AUTHENTICATION_REQUEST,
+        status: INVITATION_STATUS.NONE,
+        data: action.data,
+        error: null,
       }
     default:
       return state

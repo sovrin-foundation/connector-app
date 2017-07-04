@@ -35,10 +35,12 @@ export const enrollFailure = error => ({
 
 function* handleEnroll(action) {
   try {
-    const enrollResponse = yield call(enrollUser, action.device, action.config)
+    // todo: enroll api call not needed anyone, will remove this later after testing
+    // const enrollResponse = yield call(enrollUser, action.device, action.config)
     setItem(PHONE, action.device.phoneNumber)
     setItem(IDENTIFIER, action.device.id)
-    yield put(enrollSuccess(enrollResponse))
+    // todo: enroll api success call not needed anyone, will remove this later after testing
+    yield put(enrollSuccess({ status: 200 }))
     // use this action to trigger config change once user is registered
     // so that user is not registered again
     yield put(appInstalledSuccess())
