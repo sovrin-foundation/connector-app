@@ -16,27 +16,34 @@ export class PushNotification extends PureComponent {
     super(props)
   }
 
-  componentDidMount() {
-    // push notification events
-    FCM.requestPermissions() // for iOS
-    FCM.removeAllDeliveredNotifications()
-    FCM.getFCMToken().then(token => {
-      this.saveDeviceToken(token)
-    })
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.deepLink.isLoading !== this.props.deepLink.isLoading) {
+      if (nextProps.deepLink.isLoading === false) {
+        // push notification events
+        FCM.requestPermissions() // for iOS
+        FCM.removeAllDeliveredNotifications()
+        FCM.getFCMToken().then(token => {
+          this.saveDeviceToken(token)
+        })
 
-    this.notificationListener = FCM.on(FCMEvent.Notification, notification => {
-      this.onPushNotificationReceived(notification)
-    })
+        this.notificationListener = FCM.on(
+          FCMEvent.Notification,
+          notification => {
+            this.onPushNotificationReceived(notification)
+          }
+        )
 
-    this.initialNotificationListener = FCM.getInitialNotification().then(
-      notification => {
-        this.onPushNotificationReceived(notification)
+        this.initialNotificationListener = FCM.getInitialNotification().then(
+          notification => {
+            this.onPushNotificationReceived(notification)
+          }
+        )
+
+        this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, token => {
+          this.saveDeviceToken(token)
+        })
       }
-    )
-
-    this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, token => {
-      this.saveDeviceToken(token)
-    })
+    }
   }
 
   onPushNotificationReceived(notification) {
@@ -82,6 +89,7 @@ export class PushNotification extends PureComponent {
 const mapStateToProps = state => ({
   pushNotification: state.pushNotification,
   config: state.config,
+  deepLink: state.deepLink,
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "bs58": "^4.0.0",
+    "lodash": "^4.17.4",
     "random-string": "^0.2.0",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.0",

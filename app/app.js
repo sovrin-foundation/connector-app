@@ -16,6 +16,8 @@ import {
 } from './common/route-constants'
 import DeepLink from './deep-link'
 
+// TODO:KS create a custom navigator to track page changes
+// for flows to support deep link, etc.
 const ConnectMeAppNavigator = StackNavigator(
   {
     [splashScreenRoute]: {
@@ -43,7 +45,7 @@ class ConnectMeApp extends Component {
       <Provider store={store}>
         <Container>
           <StatusBar />
-          <PushNotification store={store} />
+          <PushNotification />
           <DeepLink />
           <ConnectMeAppNavigator />
         </Container>

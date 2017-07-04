@@ -85,8 +85,8 @@ export default class UserEnroll extends PureComponent {
         .catch(console.log)
     }
 
-    if (nextProps.config.isHydrated !== this.props.isHydrated) {
-      // if stored is hydrated after we got push notification permission
+    if (nextProps.config.isHydrated !== this.props.config.isHydrated) {
+      // if store is hydrated after we got push notification permission
       this.startUserEnrollment()
     }
   }
