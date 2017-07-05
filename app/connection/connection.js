@@ -7,6 +7,7 @@ import {
   Image,
   AsyncStorage,
   TouchableHighlight,
+  StyleSheet,
 } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { Icon } from 'react-native-elements'
@@ -26,15 +27,30 @@ import ConnectionInfo from './connection-info'
 import user from '../store/data/user'
 import { homeRoute } from '../common/route-constants'
 
+const styles = StyleSheet.create({
+  left: {
+    marginLeft: 15,
+    marginTop: 0,
+  },
+  right: {
+    marginRight: 16.5,
+    marginTop: 0,
+  },
+  title: {
+    marginLeft: 34,
+    marginRight: 24,
+  },
+})
+
 const headerLeft = (
-  <Image
-    style={{ marginLeft: 15, marginTop: 0 }}
-    source={require('../images/icon_Chat.png')}
-  />
+  <Image style={[styles.left]} source={require('../images/icon_Chat.png')} />
 )
 
 const headerTitle = (
-  <Image source={require('../images/sovrinsecuredconnection.png')} />
+  <Image
+    style={[styles.title]}
+    source={require('../images/sovrinsecuredconnection.png')}
+  />
 )
 
 export class ConnectionHome extends PureComponent {
@@ -56,7 +72,7 @@ export class ConnectionHome extends PureComponent {
         }}
       >
         <Image
-          style={{ marginRight: 16.5, marginTop: 0 }}
+          style={[styles.right]}
           source={require('../images/icon_Close.png')}
         />
       </TouchableHighlight>

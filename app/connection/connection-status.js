@@ -4,19 +4,21 @@ import {
   HeaderContainer,
   InfoText,
 } from '../styled-components/connection-styled'
+import { StyleSheet, Image } from 'react-native'
 
 export default props => (
   <LinearGradient colors={['#295373', '#12293F']}>
     <HeaderContainer>
+      <Image
+        style={[styles.image]}
+        source={require('../images/cbSuncoast.png')}
+      />
       <InfoText
-        fontWeight={500}
-        fontSize={28}
-        fontStyle={'italic'}
-        marginBottom={20}
+        fontSize={16}
+        marginBottom={7}
+        marginLeft={121}
+        marginRight={121}
       >
-        Suncoast
-      </InfoText>
-      <InfoText fontSize={16} marginBottom={7}>
         Currently Talking With
       </InfoText>
       <InfoText fontWeight={500} fontSize={30} marginBottom={11}>
@@ -28,3 +30,11 @@ export default props => (
     </HeaderContainer>
   </LinearGradient>
 )
+
+const styles = StyleSheet.create({
+  image: {
+    marginLeft: 155,
+    marginBottom: 22,
+    marginRight: 148,
+  },
+})
