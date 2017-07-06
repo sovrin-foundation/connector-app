@@ -23,8 +23,16 @@ platform :ios do
         xcargs: "PROVISIONING_PROFILE_SPECIFIER='#{profile}' DEVELOPMENT_TEAM='ES8QU3D2A4'",
         clean: true
       )
-      hockey(api_token: "fc9455dc95d042d38ddba5784109aee4")
       remote_branch = ENV["BITRISE_GIT_BRANCH"]
+
+      if remote_branch == "master"
+        hockey(api_token: ENV["QA_HOCKEYAPP_TOKEN"])
+      elsif remote_branch == "stage"
+        hockey(api_token: ENV["STAGE_HOCKEYAPP_TOKEN"])
+      else
+        hockey(api_token: ENV["DEV_HOCKEYAPP_TOKEN"])
+      end
+
       commit_version_bump(
         message: "Build Version bump by Fastlane [ci skip]",
         xcodeproj: "ConnectMe.xcodeproj",
@@ -34,17 +42,18 @@ platform :ios do
         remote: "origin",         
         local_branch: "HEAD",  
         remote_branch: "#{remote_branch}",
-        force: true,    
-        tags: false     
+        force: true,
+        tags: false
       )
   end
-  
+
   after_all do |lane|
      slack(channel: "connectme_build", message: "Successfully deployed new App update on hockeyapp.")
   end
 
   error do |lane, exception|
      slack(
+       channel: "connectme_build",
        message: exception.message,
        success: false
      )
