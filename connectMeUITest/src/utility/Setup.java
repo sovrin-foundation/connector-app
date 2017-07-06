@@ -3,6 +3,7 @@ package utility;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
@@ -30,26 +31,17 @@ public class Setup {
 				capabilities.setCapability("bundleId", "com.evernym.connectme.callcenter");
 				capabilities.setCapability("deviceName", "Ankur's iPhone");//device name
 				capabilities.setCapability("udid", "42d9657d87b56203d1c4c5eb22fde827ca2c0090");//udid of device
-				capabilities.setCapability("app","Users/ankurmishra/Downloads/ConnectMe-4.ipa");//ipa path
+                capabilities.setCapability("app","Users/khagesh/Downloads/ConnectMe-4.ipa");//ipa path
 				// capabilities.setCapability("udid",
 				// "b78a49129d22c79c81e303b812d14abaa6fc817d");
 				capabilities.setCapability("xcodeOrgId", "ES8QU3D2A4");
 				capabilities.setCapability("xcodeSigningId", "iPhone Developer");
-				capabilities.setCapability("autoAcceptAlerts", true);
-				driver = new IOSDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-				// capabilities.setCapability("fullReset","true");
-				// capabilities.setCapability("noReset","false");
-			} else {
-				capabilities.setCapability("testobject_device", "iPhone_5_16GB_real");
-				capabilities.setCapability("testobject_api_key", "C4B377A5412C477DA2E5649E12B82397");
-				driver = new IOSDriver(new URL("https://eu1.appium.testobject.com/wd/hub"), capabilities);
-			}
-
+				driver = new IOSDriver(new URL("http://183.82.106.249:4723/wd/hub"), capabilities);
 			/*
 			 * We initialize the Appium driver that will connect us to the ios
 			 * device with the capabilities that we have just set. The URL we
 			 * are providing is telling Appium we
-			 * https://eu1.appium.testobject.com/wd/hub
+			 * http://183.82.106.249:4723/wd/hub
 			 * 
 			 * are going to run the test on Real ios Device lets say iphone 6s.
 			 */
@@ -59,6 +51,7 @@ public class Setup {
 			Log.info("Mobile application launched successfully");
 
 		}
+			}
 
 		catch (Exception e)
 
