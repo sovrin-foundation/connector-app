@@ -3,7 +3,7 @@ import { View, Text, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { resetInvitation, sendUserInvitationResponse } from '../store'
+import { resetInvitationStatus, sendUserInvitationResponse } from '../store'
 import InvitationText from './invitation-text'
 import InvitationActions from './invitation-actions'
 import { Container, CustomText } from '../components'
@@ -32,7 +32,7 @@ const mapStateToProps = ({ invitation, config, deepLink }) => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      resetInvitation,
+      resetInvitationStatus,
       sendUserInvitationResponse,
     },
     dispatch

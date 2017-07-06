@@ -59,10 +59,10 @@ export const sendInvitationConnectionRequest = ({
   })
 }
 
-export const sendAuthenticationRequest = (
-  { identifier, dataBody },
-  { agencyUrl }
-) => {
+export const sendAuthenticationRequest = ({
+  data: { identifier, dataBody },
+  config: { agencyUrl },
+}) => {
   return fetch(`${agencyUrl}/agent/id/${identifier}/auth`, {
     method: 'PUT',
     mode: 'cors',
@@ -71,5 +71,11 @@ export const sendAuthenticationRequest = (
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(dataBody),
+  }).then(res => {
+    if (res.status >= 200 && res.status < 300) {
+      return res.status
+    } else {
+      throw new Error('Bad Request')
+    }
   })
 }

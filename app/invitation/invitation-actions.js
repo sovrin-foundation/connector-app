@@ -24,16 +24,7 @@ export default class actions extends PureComponent {
     super(props)
   }
 
-  onUserResponse = status => {
-    // TODO: Use constants from actions of invitation store
-    if (this.props.invitation.type === 'PENDING_CONNECTION_REQUEST') {
-      this.pendingConnectionRequest(status, 'PENDING_CONNECTION_REQUEST')
-    } else if (this.props.invitation.type == 'AUTHENTICATION_REQUEST') {
-      this.pendingConnectionRequest(status, 'AUTHENTICATION_REQUEST')
-    }
-  }
-
-  pendingConnectionRequest = (newStatus, type) => {
+  onUserResponse = (newStatus, type) => {
     Promise.all([
       TouchId.authenticate('Please confirm with TouchID'),
       getItem(IDENTIFIER),
@@ -41,7 +32,7 @@ export default class actions extends PureComponent {
       getItem(PUSH_COM_METHOD),
     ]).then(([touchIdSuccess, identifier, seed, pushComMethod]) => {
       if (touchIdSuccess && identifier && seed && pushComMethod) {
-        var { publicKey: verKey, secretKey: signingKey } = getKeyPairFromSeed(
+        let { publicKey: verKey, secretKey: signingKey } = getKeyPairFromSeed(
           seed
         )
         verKey = encode(verKey)
@@ -68,17 +59,16 @@ export default class actions extends PureComponent {
             this.props.deepLink.token
           )
         } else if (type == 'AUTHENTICATION_REQUEST') {
-          const message = JSON.stringify({
-            type: 'authRequestAnswered',
+          const challenge = JSON.stringify({
             newStatus,
           })
-          const signature = encode(getSignature(signingKey, message))
+          const signature = encode(getSignature(signingKey, challenge))
           this.props.sendUserInvitationResponse(
             {
               identifier,
               newStatus,
               dataBody: {
-                message,
+                challenge,
                 signature,
               },
             },
@@ -109,26 +99,22 @@ export default class actions extends PureComponent {
     }
   }
 
-  connectionActionRequest(status) {
-    if (status === 'ACCEPTED') {
-      this.saveKey(connectionDetailRoute)
-      this.props.navigation.navigate(connectionDetailRoute)
-    } else if (status === 'REJECTED') {
-      this.saveKey(homeRoute)
-      this.props.navigation.navigate(homeRoute)
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.invitation.status === 'ACCEPTED' ||
-      nextProps.invitation.status === 'REJECTED'
-    ) {
-      this.connectionActionRequest(nextProps.invitation.status)
+    if (nextProps.invitation.status != this.props.invitation.status) {
+      if (nextProps.invitation.status === 'accepted') {
+        this.saveKey(connectionDetailRoute)
+        this.props.navigation.navigate(connectionDetailRoute)
+        this.props.resetInvitationStatus()
+      } else if (nextProps.invitation.status === 'rejected') {
+        this.saveKey(homeRoute)
+        this.props.navigation.navigate(homeRoute)
+        this.props.resetInvitationStatus()
+      }
     }
   }
 
   render() {
+    const { type: invitationType } = this.props.invitation
     return (
       <View style={{ flexDirection: 'row' }}>
         <Container>
@@ -136,7 +122,7 @@ export default class actions extends PureComponent {
             secondary
             raised
             title="Deny"
-            onPress={() => this.onUserResponse('rejected')}
+            onPress={() => this.onUserResponse('rejected', invitationType)}
           />
         </Container>
         <Container>
@@ -144,7 +130,7 @@ export default class actions extends PureComponent {
             primary
             raised
             title="Allow"
-            onPress={() => this.onUserResponse('accepted')}
+            onPress={() => this.onUserResponse('accepted', invitationType)}
           />
         </Container>
       </View>

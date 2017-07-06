@@ -1,7 +1,11 @@
 import React, { PureComponent } from 'react'
 import { AlertIOS } from 'react-native'
 import { getItem } from '../services/secure-storage'
-import { IDENTIFIER, PHONE } from '../common/secure-storage-constants'
+import {
+  IDENTIFIER,
+  PHONE,
+  PUSH_COM_METHOD,
+} from '../common/secure-storage-constants'
 
 export default class Alert extends PureComponent {
   constructor(props) {
@@ -21,18 +25,26 @@ export default class Alert extends PureComponent {
 
   showData = () => {
     if (this.props.config.isHydrated) {
-      Promise.all([getItem('identifier'), getItem('phone')])
-        .then(([identifier, phoneNumber]) => {
-          if (!identifier || !phoneNumber) {
-            AlertIOS.alert('Error', 'Identifier or phone not present', [
-              {
-                onPress: () => this.props.reset(),
-              },
-            ])
+      Promise.all([
+        getItem(IDENTIFIER),
+        getItem(PHONE),
+        getItem(PUSH_COM_METHOD),
+      ])
+        .then(([identifier, phoneNumber, pushComMethod]) => {
+          if (!identifier || !phoneNumber || !pushComMethod) {
+            AlertIOS.alert(
+              'Error',
+              'Identifier or phone or push-notification token not present',
+              [
+                {
+                  onPress: () => this.props.reset(),
+                },
+              ]
+            )
           } else {
             AlertIOS.alert(
               `Identifier - ${identifier}`,
-              `Phone Number - ${phoneNumber}`,
+              `PushToken - ${pushComMethod} - Phone Number - ${phoneNumber}`,
               [{ onPress: () => this.onAlertClose(identifier, phoneNumber) }]
             )
           }

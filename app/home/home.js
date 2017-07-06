@@ -91,9 +91,13 @@ export class HomeScreenDrawer extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props != prevProps) {
-      const { notification } = this.props.pushNotification
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.pushNotification.notification !=
+      this.props.pushNotification.notification
+    ) {
+      const { notification } = nextProps.pushNotification
+      this.props.resetPushNotificationData()
       if (notification && notification.type === 'auth-req') {
         this.getRoute().then(() => {
           if (this.state.currentRoute !== invitationRoute) {
@@ -101,9 +105,8 @@ export class HomeScreenDrawer extends Component {
             this.props.authenticationRequestReceived({
               offerMsgTitle: 'Hi Drummond',
               offerMsgText: 'Suncoast wants to connect with you',
-              status: 'NONE',
+              status: 'push-notification-sent',
             })
-            this.props.resetPushNotificationData()
             this.saveKey('newCurrentRoute', invitationRoute)
             this.props.navigation.navigate(invitationRoute)
           }

@@ -39,6 +39,25 @@ class SplashScreenView extends PureComponent {
       }
 
       if (nextProps.invitation.data) {
+        // for push notification data
+        // dont redirect manually let it resolve by default
+        if (
+          nextProps.invitation.data.status &&
+          nextProps.invitation.data.status === 'push-notification-sent'
+        ) {
+          return
+        }
+
+        // todo: separate connect request store from invitation store
+        // handle redirection when coming from deep-link
+        if (
+          this.props.invitation.data &&
+          nextProps.invitation.data.status === 'offer-sent' &&
+          this.props.invitation.data.status === nextProps.invitation.data.status
+        ) {
+          return
+        }
+
         // if we got the data, then check for status of connection request
         if (nextProps.invitation.data.status) {
           SplashScreen.hide()
@@ -60,10 +79,10 @@ class SplashScreenView extends PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
-  invitation: state.invitation,
-  config: state.config,
-  deepLink: state.deepLink,
+const mapStateToProps = ({ invitation, config, deepLink }) => ({
+  invitation,
+  config,
+  deepLink,
 })
 
 const mapDispatchToProps = dispatch => ({
