@@ -60,14 +60,13 @@ export class ConnectionHome extends PureComponent {
     headerRight: (
       <TouchableHighlight
         onPress={() => {
-          saveRoute = async value => {
+          ;(async () => {
             try {
-              await AsyncStorage.setItem('newCurrentRoute', value)
+              await AsyncStorage.setItem('newCurrentRoute', homeRoute)
             } catch (error) {
               console.log('Error saving newCurrentRoute' + error)
             }
-          }
-          this.saveRoute(homeRoute)
+          })()
           navigation.navigate(homeRoute)
         }}
       >

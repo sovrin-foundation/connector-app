@@ -1,10 +1,8 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { invitation } from '../store'
 import SplashScreen from 'react-native-splash-screen'
 import { invitationRoute, homeRoute } from '../common/route-constants'
-import { getInvitationDetailsRequest } from './invitation-store'
-import { NavigationActions } from 'react-navigation'
+import { getInvitationDetailsRequest } from '../store'
 
 class SplashScreenView extends PureComponent {
   constructor(props) {
@@ -13,7 +11,7 @@ class SplashScreenView extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     // check if deepLink is changed, then that means we either got token
-    // or we got error or nothing happend with deep link
+    // or we got error or nothing happened with deep link
     if (nextProps.deepLink.isLoading != this.props.deepLink.isLoading) {
       if (nextProps.deepLink.isLoading === false) {
         // loading deep link data is done

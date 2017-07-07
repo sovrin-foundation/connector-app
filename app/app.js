@@ -36,6 +36,9 @@ const ConnectMeAppNavigator = StackNavigator(
   {
     headerMode: 'none',
     initialRouteName: splashScreenRoute,
+    navigationOptions: {
+      gesturesEnabled: false, // disable back gesture for ios
+    },
   }
 )
 

@@ -24,7 +24,7 @@ export default class actions extends PureComponent {
     super(props)
   }
 
-  onUserResponse = (newStatus, type) => {
+  onUserResponse = newStatus => {
     Promise.all([
       TouchId.authenticate('Please confirm with TouchID'),
       getItem(IDENTIFIER),
@@ -37,7 +37,8 @@ export default class actions extends PureComponent {
         )
         verKey = encode(verKey)
 
-        if (type === 'PENDING_CONNECTION_REQUEST') {
+        const { type: invitationType } = this.props.invitation
+        if (invitationType === 'PENDING_CONNECTION_REQUEST') {
           const challenge = JSON.stringify({
             newStatus,
             identifier,
@@ -55,25 +56,25 @@ export default class actions extends PureComponent {
               },
             },
             this.props.config,
-            type,
+            invitationType,
             this.props.deepLink.token
           )
-        } else if (type == 'AUTHENTICATION_REQUEST') {
+        } else if (invitationType == 'AUTHENTICATION_REQUEST') {
           const challenge = JSON.stringify({
             newStatus,
           })
           const signature = encode(getSignature(signingKey, challenge))
           this.props.sendUserInvitationResponse(
             {
-              identifier,
               newStatus,
+              identifier,
               dataBody: {
                 challenge,
                 signature,
               },
             },
             this.props.config,
-            type
+            invitationType
           )
         }
       } else {
@@ -122,7 +123,7 @@ export default class actions extends PureComponent {
             secondary
             raised
             title="Deny"
-            onPress={() => this.onUserResponse('rejected', invitationType)}
+            onPress={() => this.onUserResponse('rejected')}
           />
         </Container>
         <Container>
@@ -130,7 +131,7 @@ export default class actions extends PureComponent {
             primary
             raised
             title="Allow"
-            onPress={() => this.onUserResponse('accepted', invitationType)}
+            onPress={() => this.onUserResponse('accepted')}
           />
         </Container>
       </View>
