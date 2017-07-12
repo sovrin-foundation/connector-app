@@ -125,7 +125,12 @@ function* handleUserInvitationResponse(action) {
     }
     yield put(sendUserInvitationResponseSuccess(invitationActionResponse))
   } catch (e) {
-    yield put(sendUserInvitationResponseFailure(e.message))
+    yield put(
+      sendUserInvitationResponseFailure({
+        message: e.message,
+        invitationType: action.invitationType,
+      })
+    )
   }
 }
 
@@ -168,7 +173,10 @@ export default function invitation(state = initialState, action) {
     case SEND_USER_INVITATION_RESPONSE_FAILURE:
       return {
         ...state,
-        error: action.error,
+        error: action.error.invitationType ===
+          INVITATION_TYPE.PENDING_CONNECTION_REQUEST
+          ? action.error.message
+          : null,
       }
     case RESET_INVITATION_STATUS:
       return {

@@ -9,14 +9,30 @@ import InvitationActions from './invitation-actions'
 import { Container, CustomText } from '../components'
 
 class Invitation extends PureComponent {
+  state = {
+    tapCount: 0,
+  }
+
+  _tapAvatar = () => {
+    this.setState({ tapCount: this.state.tapCount + 1 })
+  }
+
+  _resetTapCount = () => {
+    this.setState({ tapCount: 0 })
+  }
+
   render() {
     return (
       <Container>
         <Container primary>
-          <InvitationText {...this.props} />
+          <InvitationText {...this.props} tapAvatar={this._tapAvatar} />
         </Container>
         <View>
-          <InvitationActions {...this.props} />
+          <InvitationActions
+            {...this.props}
+            tapCount={this.state.tapCount}
+            resetTapCount={this._resetTapCount}
+          />
         </View>
       </Container>
     )

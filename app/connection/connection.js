@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import {
   View,
-  Text,
-  Button,
   ScrollView,
   Image,
-  AsyncStorage,
   TouchableHighlight,
   StyleSheet,
 } from 'react-native'
@@ -25,7 +24,12 @@ import {
 import ConnectionStatus from './connection-status'
 import ConnectionInfo from './connection-info'
 import user from '../store/data/user'
-import { homeRoute } from '../common/route-constants'
+import { homeRoute, connectionRoute } from '../common/route-constants'
+import {
+  authenticationRequestReceived,
+  pushNotificationReceived,
+} from '../store'
+import { handlePushNotification } from '../services'
 
 const styles = StyleSheet.create({
   left: {
@@ -58,18 +62,7 @@ export class ConnectionHome extends PureComponent {
     headerLeft: headerLeft,
     headerTitle: headerTitle,
     headerRight: (
-      <TouchableHighlight
-        onPress={() => {
-          ;(async () => {
-            try {
-              await AsyncStorage.setItem('newCurrentRoute', homeRoute)
-            } catch (error) {
-              console.log('Error saving newCurrentRoute' + error)
-            }
-          })()
-          navigation.navigate(homeRoute)
-        }}
-      >
+      <TouchableHighlight onPress={() => navigation.navigate(homeRoute)}>
         <Image
           style={[styles.right]}
           source={require('../images/icon_Close.png')}
@@ -81,6 +74,18 @@ export class ConnectionHome extends PureComponent {
       height: 50,
     },
   })
+
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.pushNotification.notification !=
+      this.props.pushNotification.notification
+    ) {
+      const { notification } = nextProps.pushNotification
+      if (notification && notification.type === 'auth-req') {
+        handlePushNotification(this.props, connectionRoute)
+      }
+    }
+  }
 
   render() {
     return (
@@ -99,8 +104,26 @@ export class ConnectionHome extends PureComponent {
   }
 }
 
+const mapStateToProps = ({ route, pushNotification }) => ({
+  route,
+  pushNotification,
+})
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      authenticationRequestReceived,
+      pushNotificationReceived,
+    },
+    dispatch
+  )
+
+const ConnectedConnection = connect(mapStateToProps, mapDispatchToProps)(
+  ConnectionHome
+)
+
 export default StackNavigator({
-  Connections: {
-    screen: ConnectionHome,
+  [connectionRoute]: {
+    screen: ConnectedConnection,
   },
 })

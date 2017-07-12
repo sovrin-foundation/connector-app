@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import { View } from 'react-native'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import FCM, { FCMEvent } from 'react-native-fcm'
 import { setItem } from '../services/secure-storage'
@@ -92,13 +93,15 @@ const mapStateToProps = state => ({
   deepLink: state.deepLink,
 })
 
-const mapDispatchToProps = dispatch => ({
-  enroll: (device, config) => dispatch(enroll(device, config)),
-  pushNotificationPermissionAction: isAllowed =>
-    dispatch(pushNotificationPermissionAction(isAllowed)),
-  pushNotificationReceived: notification =>
-    dispatch(pushNotificationReceived(notification)),
-})
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      enroll,
+      pushNotificationPermissionAction,
+      pushNotificationReceived,
+    },
+    dispatch
+  )
 
 export default (mapsStateDispatch = connect(
   mapStateToProps,

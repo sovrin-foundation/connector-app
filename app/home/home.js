@@ -1,12 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {
-  ScrollView,
-  Image,
-  Animated,
-  AsyncStorage,
-  StatusBar,
-} from 'react-native'
+import { ScrollView, Image, Animated } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { Icon, Avatar } from 'react-native-elements'
 import { View as AnimationView } from 'react-native-animatable'
@@ -26,11 +20,7 @@ import {
   changeServerEnvironmentToSandbox,
   authenticationRequestReceived,
 } from '../store'
-import {
-  connectionDetailRoute,
-  invitationRoute,
-  homeRoute,
-} from '../common/route-constants'
+import { homeRoute } from '../common/route-constants'
 import {
   PUSH_COM_METHOD,
   IDENTIFIER,
@@ -38,6 +28,7 @@ import {
   SEED,
 } from '../common/secure-storage-constants'
 import { authenticationRequest } from '../invitation/invitation-store'
+import { handlePushNotification } from '../services'
 
 const headerTitle = (
   <Image source={require('../images/icon_connectorLogo.png')} />
@@ -64,7 +55,6 @@ export class HomeScreenDrawer extends Component {
   }
 
   componentWillMount() {
-    this.saveKey('newCurrentRoute', homeRoute)
     // load data for home screen
     this.props.loadUserInfo()
     this.props.loadConnections()
@@ -74,43 +64,14 @@ export class HomeScreenDrawer extends Component {
     this.setState({ isSwiping })
   }
 
-  async saveKey(key, value) {
-    try {
-      await AsyncStorage.setItem(key, value)
-    } catch (error) {
-      console.log('LOG: Error saving newCurrentRoute' + error)
-    }
-  }
-
-  async getRoute() {
-    try {
-      const currentRoute = await AsyncStorage.getItem('newCurrentRoute')
-      this.setState({ currentRoute })
-    } catch (error) {
-      console.log('LOG: Error retrieving newCurrentRoute' + error)
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
     if (
       nextProps.pushNotification.notification !=
       this.props.pushNotification.notification
     ) {
       const { notification } = nextProps.pushNotification
-      this.props.resetPushNotificationData()
       if (notification && notification.type === 'auth-req') {
-        this.getRoute().then(() => {
-          if (this.state.currentRoute !== invitationRoute) {
-            // todo: remove hard coded data & get data from notification
-            this.props.authenticationRequestReceived({
-              offerMsgTitle: 'Hi Drummond',
-              offerMsgText: 'Suncoast wants to connect with you',
-              status: 'push-notification-sent',
-            })
-            this.saveKey('newCurrentRoute', invitationRoute)
-            this.props.navigation.navigate(invitationRoute)
-          }
-        })
+        handlePushNotification(this.props, homeRoute)
       }
     }
   }
@@ -149,6 +110,7 @@ const mapStateToProps = state => ({
   pushNotification: state.pushNotification,
   avatarTapCount: state.home.avatarTapCount,
   config: state.config,
+  route: state.route,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -158,7 +120,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(changeServerEnvironmentToDemo()),
   changeServerEnvironmentToSandbox: () =>
     dispatch(changeServerEnvironmentToSandbox()),
-  resetPushNotificationData: () => dispatch(pushNotificationReceived(null)),
+  pushNotificationReceived: data => dispatch(pushNotificationReceived(data)),
   avatarTapped: () => dispatch(avatarTapped()),
   resetAvatarTapCount: () => dispatch(resetAvatarTapCount()),
   sendUserInfo: (context, config) => dispatch(sendUserInfo(context, config)),

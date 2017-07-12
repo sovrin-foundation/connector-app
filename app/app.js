@@ -6,13 +6,13 @@ import InvitationScreen from './invitation/invitation'
 import HomeScreen from './home/home'
 import ConnectionHome from './connection/connection'
 import SplashScreenView from './invitation/splash-screen'
-import store from './store'
+import store, { ROUTE_UPDATE } from './store'
 import { StatusBar, Container, PushNotification } from './components'
 import {
   splashScreenRoute,
   homeRoute,
   invitationRoute,
-  connectionDetailRoute,
+  connectionRoute,
 } from './common/route-constants'
 import DeepLink from './deep-link'
 
@@ -29,7 +29,7 @@ const ConnectMeAppNavigator = StackNavigator(
     [invitationRoute]: {
       screen: InvitationScreen,
     },
-    [connectionDetailRoute]: {
+    [connectionRoute]: {
       screen: ConnectionHome,
     },
   },
@@ -43,6 +43,26 @@ const ConnectMeAppNavigator = StackNavigator(
 )
 
 class ConnectMeApp extends Component {
+  // gets the current screen from navigation state
+  getCurrentRouteName = navigationState => {
+    const route = navigationState.routes[navigationState.index]
+    // dive into nested navigators
+    if (route.routes) {
+      return this.getCurrentRouteName(route)
+    }
+    return route.routeName
+  }
+
+  navigationChangeHandler = (prevState, currentState) => {
+    if (currentState) {
+      const currentScreen = this.getCurrentRouteName(currentState)
+      store.dispatch({
+        type: ROUTE_UPDATE,
+        currentScreen,
+      })
+    }
+  }
+
   render() {
     return (
       <Provider store={store}>
@@ -50,7 +70,9 @@ class ConnectMeApp extends Component {
           <StatusBar />
           <PushNotification />
           <DeepLink />
-          <ConnectMeAppNavigator />
+          <ConnectMeAppNavigator
+            onNavigationStateChange={this.navigationChangeHandler}
+          />
         </Container>
       </Provider>
     )

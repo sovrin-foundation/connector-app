@@ -9,6 +9,7 @@ import invitation from '../invitation/invitation-store'
 
 const InvitationText = ({
   invitation: { data: { offerMsgTitle, offerMsgText }, invitee },
+  tapAvatar,
 }) => (
   <Container useNativeDriver>
     <Container bottom>
@@ -25,7 +26,7 @@ const InvitationText = ({
     </Container>
     <Container>
       <AnimationView animation="bounceInUp" delay={300} duration={1500}>
-        <InvitationAvatars invitee={invitee} inviter={invitation.inviter} />
+        <InvitationAvatars tapAvatar={tapAvatar} />
       </AnimationView>
     </Container>
   </Container>

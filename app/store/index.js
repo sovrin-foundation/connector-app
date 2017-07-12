@@ -9,6 +9,7 @@ import config, { watchConfig } from './config-store'
 import home, { watchEnrollUser } from '../home/home-store'
 import invitation, { watchInvitation } from '../invitation/invitation-store'
 import deepLink from '../deep-link/deep-link-store'
+import route from './route-store'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -20,6 +21,7 @@ const appReducer = combineReducers({
   home,
   config,
   deepLink,
+  route,
 })
 
 const store = createStore(appReducer, applyMiddleware(logger, sagaMiddleware))
@@ -39,6 +41,7 @@ export * from './user-store'
 export * from './push-notification-store'
 export * from './connections-store'
 export * from './config-store'
+export * from './route-store'
 export * from '../invitation/invitation-store'
 export * from '../home/home-store'
 export * from '../deep-link/deep-link-store'

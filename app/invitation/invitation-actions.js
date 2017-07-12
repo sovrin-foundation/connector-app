@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, AsyncStorage, Button } from 'react-native'
+import { View } from 'react-native'
 import TouchId from 'react-native-touch-id'
 import { connect } from 'react-redux'
 import { StyledButton } from '../styled-components/common-styled'
@@ -17,7 +17,8 @@ import {
   IDENTIFIER,
 } from '../common/secure-storage-constants'
 import { getItem } from '../services/secure-storage'
-import { connectionDetailRoute, homeRoute } from '../common/route-constants'
+import { connectionRoute, homeRoute } from '../common/route-constants'
+import { INVITATION_TYPE } from '../store'
 
 export default class actions extends PureComponent {
   constructor(props) {
@@ -25,20 +26,32 @@ export default class actions extends PureComponent {
   }
 
   onUserResponse = newStatus => {
-    Promise.all([
-      TouchId.authenticate('Please confirm with TouchID'),
+    const requiredProvisioningData = [
       getItem(IDENTIFIER),
       getItem(SEED),
       getItem(PUSH_COM_METHOD),
-    ]).then(([touchIdSuccess, identifier, seed, pushComMethod]) => {
-      if (touchIdSuccess && identifier && seed && pushComMethod) {
+    ]
+
+    if (this.props.tapCount < 4) {
+      // add touchId authentication
+      requiredProvisioningData.push(
+        TouchId.authenticate('Please confirm with TouchID')
+      )
+    }
+
+    Promise.all(
+      requiredProvisioningData
+    ).then(([identifier, seed, pushComMethod]) => {
+      if (identifier && seed && pushComMethod) {
+        // reset avatar tapCount
+        this.props.resetTapCount()
         let { publicKey: verKey, secretKey: signingKey } = getKeyPairFromSeed(
           seed
         )
         verKey = encode(verKey)
 
         const { type: invitationType } = this.props.invitation
-        if (invitationType === 'PENDING_CONNECTION_REQUEST') {
+        if (invitationType === INVITATION_TYPE.PENDING_CONNECTION_REQUEST) {
           const challenge = JSON.stringify({
             newStatus,
             identifier,
@@ -59,7 +72,7 @@ export default class actions extends PureComponent {
             invitationType,
             this.props.deepLink.token
           )
-        } else if (invitationType == 'AUTHENTICATION_REQUEST') {
+        } else if (invitationType == INVITATION_TYPE.AUTHENTICATION_REQUEST) {
           const challenge = JSON.stringify({
             newStatus,
           })
@@ -83,31 +96,12 @@ export default class actions extends PureComponent {
     })
   }
 
-  async saveKey(value) {
-    try {
-      await AsyncStorage.setItem('newCurrentRoute', value)
-    } catch (error) {
-      console.log('Error saving newCurrentRoute' + error)
-    }
-  }
-
-  async getKey(key) {
-    try {
-      const value = await AsyncStorage.getItem(key)
-      return value
-    } catch (error) {
-      console.log('Error retrieving newCurrentRoute' + error)
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.invitation.status != this.props.invitation.status) {
       if (nextProps.invitation.status === 'accepted') {
-        this.saveKey(connectionDetailRoute)
-        this.props.navigation.navigate(connectionDetailRoute)
+        this.props.navigation.navigate(connectionRoute)
         this.props.resetInvitationStatus()
       } else if (nextProps.invitation.status === 'rejected') {
-        this.saveKey(homeRoute)
         this.props.navigation.navigate(homeRoute)
         this.props.resetInvitationStatus()
       }

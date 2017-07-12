@@ -1,8 +1,18 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import SplashScreen from 'react-native-splash-screen'
-import { invitationRoute, homeRoute } from '../common/route-constants'
-import { getInvitationDetailsRequest } from '../store'
+import {
+  invitationRoute,
+  homeRoute,
+  splashScreenRoute,
+} from '../common/route-constants'
+import {
+  getInvitationDetailsRequest,
+  authenticationRequestReceived,
+  pushNotificationReceived,
+} from '../store'
+import { handlePushNotification } from '../services'
 
 class SplashScreenView extends PureComponent {
   constructor(props) {
@@ -28,6 +38,18 @@ class SplashScreenView extends PureComponent {
       }
     }
 
+    if (
+      nextProps.pushNotification.notification !=
+      this.props.pushNotification.notification
+    ) {
+      const { notification } = nextProps.pushNotification
+      if (notification && notification.type === 'auth-req') {
+        handlePushNotification(this.props, splashScreenRoute)
+      } else {
+        return
+      }
+    }
+
     // check if invitation are the only props that are changed
     if (nextProps.invitation != this.props.invitation) {
       if (nextProps.invitation.error) {
@@ -37,7 +59,7 @@ class SplashScreenView extends PureComponent {
       }
 
       if (nextProps.invitation.data) {
-        // for push notification data
+        // for invitation data
         // dont redirect manually let it resolve by default
         if (
           nextProps.invitation.data.status &&
@@ -46,7 +68,7 @@ class SplashScreenView extends PureComponent {
           return
         }
 
-        // todo: separate connect request store from invitation store
+        // todo: separate connection-request store from invitation store
         // handle redirection when coming from deep-link
         if (
           this.props.invitation.data &&
@@ -77,16 +99,29 @@ class SplashScreenView extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ invitation, config, deepLink }) => ({
+const mapStateToProps = ({
   invitation,
   config,
   deepLink,
+  pushNotification,
+  route,
+}) => ({
+  invitation,
+  config,
+  deepLink,
+  pushNotification,
+  route,
 })
 
-const mapDispatchToProps = dispatch => ({
-  getInvitationDetailsRequest: (token, config) =>
-    dispatch(getInvitationDetailsRequest(token, config)),
-})
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getInvitationDetailsRequest,
+      authenticationRequestReceived,
+      pushNotificationReceived,
+    },
+    dispatch
+  )
 
 export default (mapStateDispatchConnection = connect(
   mapStateToProps,
