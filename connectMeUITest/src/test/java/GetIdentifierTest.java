@@ -5,6 +5,7 @@ import io.appium.java_client.AppiumDriver;
 import java.util.HashMap;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 import appModules.RestApi;
 import pageObjects.HomePage;
@@ -15,20 +16,25 @@ public class GetIdentifierTest {
 
 	public AppiumDriver driver;
 
+
 	@BeforeMethod
 
 	public void beforeMethod() throws Exception {
+		
 
 		DOMConfigurator.configure("log4j.xml");
-		driver = Setup.openApp("Real Device");
-		Log.startTestCase("Allow Flow");
+    	Thread.sleep(60000);
+
+		driver = Setup.ConfigureDriver("App");
+		Log.startTestCase("Open App");
 	}
 
 	@org.testng.annotations.Test
 
 	public void main() throws Exception {
-
-		System.out.println("Click the Allow Button");
+    	
+		driver.switchTo().alert().accept();
+       /*System.out.println("Click the Allow Button");
 		HomePage.AllowAlert_Button(driver).click();
 		Log.info("Click action is performed on Allow button of Alert");
 		System.out.println("check starbuck is displayed");
@@ -53,15 +59,16 @@ public class GetIdentifierTest {
     	String payload="{\"sendPushNotif\":\"Y\",\"message\":\"Are you on the phone with Amit at Suncoast?\"}";
 		String requestUrl="https://cua.culedger.com/agent/id/"+Identifier+"/auth";
 		RestApi.sendPostRequest(requestUrl, payload);
-		System.out.println("Notification is send on phone");
+		System.out.println("Notification is send on phone");*/
 
 	}
 
 	@AfterMethod
 	public void afterMethod() {
 
-		Log.endTestCase("Allow Flow");
-		System.out.println("Cleaning up");
+		Log.endTestCase("Open App");
+	    driver.removeApp("com.evernym.connectme.callcenter");
+		System.out.println("Cleaning up Completed");
 		driver.quit();
 
 	}
