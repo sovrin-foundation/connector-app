@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.9,
   },
   label: {
-    fontSize: font.XS,
+    fontSize: font.size.XS,
     fontWeight: 'bold',
   },
   primary: {
