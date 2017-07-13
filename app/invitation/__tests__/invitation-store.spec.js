@@ -50,7 +50,7 @@ describe('user connection request should work fine', () => {
     const data = {
       offerMsgTitle: 'Hi John',
       offerMsgText: 'CU ledger wants to connect with you',
-      status: 'offer-sent',
+      statusMsg: 'offer-sent',
     }
     const type = 'PENDING_CONNECTION_REQUEST'
     expectedState = {

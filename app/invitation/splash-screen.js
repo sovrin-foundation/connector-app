@@ -44,7 +44,8 @@ class SplashScreenView extends PureComponent {
     ) {
       const { notification } = nextProps.pushNotification
       if (notification && notification.type === 'auth-req') {
-        handlePushNotification(this.props, splashScreenRoute)
+        //TODO: pass nextProps in place of this.props
+        handlePushNotification(this.props, notification, splashScreenRoute)
       } else {
         return
       }
@@ -61,27 +62,30 @@ class SplashScreenView extends PureComponent {
       if (nextProps.invitation.data) {
         // for invitation data
         // dont redirect manually let it resolve by default
+        // TODO: move push-notification-sent to a constant
         if (
-          nextProps.invitation.data.status &&
-          nextProps.invitation.data.status === 'push-notification-sent'
+          nextProps.invitation.data.statusMsg &&
+          nextProps.invitation.data.statusMsg === 'push-notification-sent'
         ) {
           return
         }
 
         // todo: separate connection-request store from invitation store
         // handle redirection when coming from deep-link
+        // TODO: move offer-sent to a constant
         if (
           this.props.invitation.data &&
-          nextProps.invitation.data.status === 'offer-sent' &&
-          this.props.invitation.data.status === nextProps.invitation.data.status
+          nextProps.invitation.data.statusMsg === 'offer-sent' &&
+          this.props.invitation.data.statusMsg ===
+            nextProps.invitation.data.statusMsg
         ) {
           return
         }
 
         // if we got the data, then check for status of connection request
-        if (nextProps.invitation.data.status) {
+        if (nextProps.invitation.data.statusMsg) {
           SplashScreen.hide()
-          if (nextProps.invitation.data.status === 'offer-sent') {
+          if (nextProps.invitation.data.statusMsg === 'offer-sent') {
             this.props.navigation.navigate(invitationRoute)
           } else {
             this.props.navigation.navigate(homeRoute)

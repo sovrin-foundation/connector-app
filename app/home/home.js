@@ -71,7 +71,8 @@ export class HomeScreenDrawer extends Component {
     ) {
       const { notification } = nextProps.pushNotification
       if (notification && notification.type === 'auth-req') {
-        handlePushNotification(this.props, homeRoute)
+        //TODO: pass nextProps in place of this.props
+        handlePushNotification(this.props, notification, homeRoute)
       }
     }
   }

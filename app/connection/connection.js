@@ -82,7 +82,8 @@ export class ConnectionHome extends PureComponent {
     ) {
       const { notification } = nextProps.pushNotification
       if (notification && notification.type === 'auth-req') {
-        handlePushNotification(this.props, connectionRoute)
+        //TODO: pass nextProps in place of this.props
+        handlePushNotification(this.props, notification, connectionRoute)
       }
     }
   }

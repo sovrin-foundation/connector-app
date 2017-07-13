@@ -1,12 +1,16 @@
 import { invitationRoute } from '../common/route-constants'
 
-export default function handlePushNotification(props, expectedScreen) {
+export default function handlePushNotification(
+  props,
+  notification,
+  expectedScreen
+) {
+  // TODO: change push-notification-sent to push-notification-recevied
   if (props.route.currentScreen == expectedScreen) {
-    // todo: remove hard coded data & get data from notification
     props.authenticationRequestReceived({
-      offerMsgTitle: 'Hi Drummond',
-      offerMsgText: 'Suncoast wants to connect with you',
-      status: 'push-notification-sent',
+      offerMsgTitle: notification.authNotifMsgTitle,
+      offerMsgText: notification.authNotifMsgText,
+      statusMsg: 'push-notification-sent',
     })
     props.navigation.navigate(invitationRoute)
     props.pushNotificationReceived(null)
