@@ -23,8 +23,6 @@ export class PushNotification extends PureComponent {
     FCM.setBadgeNumber(0)
     if (nextProps.deepLink.isLoading !== this.props.deepLink.isLoading) {
       if (nextProps.deepLink.isLoading === false) {
-        // push notification events
-        FCM.requestPermissions() // for iOS
         FCM.removeAllDeliveredNotifications()
         FCM.getFCMToken().then(token => {
           this.saveDeviceToken(token)
