@@ -18,6 +18,9 @@ export class PushNotification extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
+    // reset ios badge count to zero
+    // iOS only and there's no way to set it in Android, yet.
+    FCM.setBadgeNumber(0)
     if (nextProps.deepLink.isLoading !== this.props.deepLink.isLoading) {
       if (nextProps.deepLink.isLoading === false) {
         // push notification events
