@@ -18,6 +18,8 @@ const CustomText = props => {
     tertiary,
     quarternary,
     style = empty,
+    testID,
+    onPress,
   } = props
 
   const colorType = quarternary
@@ -31,7 +33,11 @@ const CustomText = props => {
     ...style,
   ]
 
-  return <Text style={textStyles}>{props.children}</Text>
+  return (
+    <Text style={textStyles} onPress={onPress} testID={testID}>
+      {props.children}
+    </Text>
+  )
 }
 
 export default CustomText

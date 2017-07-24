@@ -11,22 +11,43 @@ const InvitationText = ({
   invitation: { data: { offerMsgTitle, offerMsgText }, invitee },
   tapAvatar,
 }) => (
-  <Container useNativeDriver>
-    <Container bottom>
-      <AnimationView animation="bounceInDown" duration={1500} delay={100}>
-        <CustomView center style={[styles.invitationTextContainer]}>
-          <CustomText h1 bg={'primary'} style={[styles.invitationTitle]}>
+  <Container useNativeDriver testID={'invitation-text-container'}>
+    <Container bottom testID={'invitation-text-message-container'}>
+      <AnimationView
+        testID={'invitation-text-container-animation'}
+        animation="bounceInDown"
+        duration={1500}
+        delay={100}
+      >
+        <CustomView
+          center
+          style={[styles.invitationTextContainer]}
+          testID={'invitation-text-container-message-title'}
+        >
+          <CustomText
+            testID={'invitation-text-title'}
+            h1
+            bg={'primary'}
+            style={[styles.invitationTitle]}
+            testID={'invitation-text-container-title'}
+            onPress={tapAvatar}
+          >
             {offerMsgTitle}
           </CustomText>
-          <CustomText h3>
+          <CustomText h3 testID={'invitation-text-container-message'}>
             {offerMsgText}
           </CustomText>
         </CustomView>
       </AnimationView>
     </Container>
-    <Container>
-      <AnimationView animation="bounceInUp" delay={300} duration={1500}>
-        <InvitationAvatars tapAvatar={tapAvatar} />
+    <Container testID={'invitation-text-container-avatars'}>
+      <AnimationView
+        animation="bounceInUp"
+        delay={300}
+        duration={1500}
+        testID={'invitation-text-container-avatars-animation'}
+      >
+        <InvitationAvatars />
       </AnimationView>
     </Container>
   </Container>

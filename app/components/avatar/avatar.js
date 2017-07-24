@@ -16,6 +16,7 @@ export default class Avatar extends PureComponent {
       src,
       extraNode,
       onPress,
+      testID,
     } = this.props
     const size = small ? 'small' : medium ? 'medium' : 'large'
     const styles = [
@@ -32,9 +33,9 @@ export default class Avatar extends PureComponent {
     ]
 
     return (
-      <CustomView style={[...style]}>
+      <CustomView style={[...style]} testID={testID}>
         <TouchableWithoutFeedback onPress={onPress}>
-          <Image source={src} style={styles} />
+          <Image source={src} style={styles} testID={`${testID}-image`} />
         </TouchableWithoutFeedback>
         {extraNode && extraNode}
       </CustomView>

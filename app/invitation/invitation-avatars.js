@@ -3,15 +3,25 @@ import { StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import { RoundedImage } from '../styled-components/common-styled'
 import { Container } from '../components'
 import { ForwardArrow } from '../styled-components/invitation-styled'
+import { Avatar } from '../components/avatar'
 
-export default ({ tapAvatar }) => (
-  <Container row style={[styles.avatars]}>
-    {/*TODO:PS: Replace TouchableWithoutFeedback with RoundedImage component with Avatar component*/}
-    <TouchableWithoutFeedback onPress={tapAvatar}>
-      <RoundedImage size={'medium'} source={require('./images/invitee.png')} />
-    </TouchableWithoutFeedback>
+export default () => (
+  <Container
+    row
+    style={[styles.avatars]}
+    testID={'invitation-text-avatars-container'}
+  >
+    <Avatar
+      medium
+      src={require('./images/invitee.png')}
+      testID={'invitation-text-avatars-invitee'}
+    />
     <ForwardArrow source={require('./images/arrow-forward.png')} />
-    <RoundedImage size={'medium'} source={require('./images/inviter.jpeg')} />
+    <Avatar
+      medium
+      src={require('./images/inviter.jpeg')}
+      testID={'invitation-text-avatars-invitee'}
+    />
   </Container>
 )
 

@@ -20,6 +20,7 @@ import {
   UserInfoAddressSection,
   UserInfoPhoneSection,
   IdentifyingInfoSection,
+  CustomView,
 } from '../components'
 import ConnectionStatus from './connection-status'
 import ConnectionInfo from './connection-info'
@@ -62,12 +63,19 @@ export class ConnectionHome extends PureComponent {
     headerLeft: headerLeft,
     headerTitle: headerTitle,
     headerRight: (
-      <TouchableHighlight onPress={() => navigation.navigate(homeRoute)}>
-        <Image
-          style={[styles.right]}
-          source={require('../images/icon_Close.png')}
-        />
-      </TouchableHighlight>
+      <CustomView>
+        <TouchableHighlight
+          onPress={() => navigation.navigate(homeRoute)}
+          testID={'connection-header-close'}
+        >
+          <Image
+            testID="connection-header-close-image"
+            style={[styles.right]}
+            source={require('../images/icon_Close.png')}
+            onPress={() => navigation.navigate(homeRoute)}
+          />
+        </TouchableHighlight>
+      </CustomView>
     ),
     headerStyle: {
       backgroundColor: '#2A5270',
