@@ -37,7 +37,7 @@ public class GmailPage {
 
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, 90);
-			element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[@class='Il'])[1]")));	
+			element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='listitem']/div")));	
 			System.out.println("FirstEmail Link is displayed");
 
 			return element;

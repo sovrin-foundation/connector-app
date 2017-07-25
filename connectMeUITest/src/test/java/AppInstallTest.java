@@ -36,16 +36,16 @@ public class AppInstallTest {
 
 	public void main() throws Exception {
 		
-		String payload="{\"userName\":\"Ankur Mishra\"}";
-		String requestUrl="https://ea-sandbox.evernym.com/agent/phone/8327364896/connection-offer";
+		String payload="{\"name\":\"Ankur Mishra\"}";
+		String requestUrl="https://agency-ea.evernym.com/agent/phone/8327364896/connection-offer";
 		String requestType="PUT";
-		RestApi.sendPostRequest(requestUrl, payload,requestType);
+		RestApi.sendPostRequest(requestUrl, payload,requestType);//check response for API COMMENT BY Rajesh
 		driver.get("https://gmail.com");
 		GmailPage.UserNameText(driver).sendKeys("evernym.number@gmail.com");
 		GmailPage.UserNameNextButton(driver).click();
 		GmailPage.PasswordText(driver).sendKeys("evernym123");
 		GmailPage.PasswordNextButton(driver).click();
-    	Thread.sleep(10000);//used sleep which is not recommended as we have issue with synch of gmail opening 
+    	Thread.sleep(20000);//used sleep which is not recommended as we have issue with synch of gmail opening 
     	GmailPage.MobileGmailSiteLink(driver).click();
     	GmailPage.FirstEmailLink(driver).click();
     	String ConnectMeLink =GmailPage.ConnectMeLink(driver).getAttribute("href");
@@ -60,7 +60,6 @@ public class AppInstallTest {
     	driver.get(InstallConnectMeLink);
     	Thread.sleep(5000);//used sleep which is not recommended as we have issue with synch of alert box
     	driver.switchTo().alert().accept();
-
 
 
 	}
