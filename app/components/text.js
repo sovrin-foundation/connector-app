@@ -30,6 +30,7 @@ const CustomText = props => {
     styles[size],
     styles[`${bg}Bg${colorType}`],
     bold ? styles.bold : null,
+    center ? styles.center : null,
     ...style,
   ]
 
@@ -61,7 +62,13 @@ const styles = StyleSheet.create({
   bold: {
     fontWeight: 'bold',
   },
+  center: {
+    textAlign: 'center',
+  },
   primaryBgPrimary: {
     color: color.bg.primary.font.primary,
+  },
+  primaryBgSecondary: {
+    color: color.bg.primary.font.secondary,
   },
 })

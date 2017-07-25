@@ -6,7 +6,9 @@ import {
   invitationRoute,
   homeRoute,
   splashScreenRoute,
+  expiredTokenRoute,
 } from '../common/route-constants'
+import { TOKEN_EXPIRED_CODE } from '../common/api-constants'
 import {
   getInvitationDetailsRequest,
   authenticationRequestReceived,
@@ -15,10 +17,6 @@ import {
 import { handlePushNotification } from '../services'
 
 class SplashScreenView extends PureComponent {
-  constructor(props) {
-    super(props)
-  }
-
   componentWillReceiveProps(nextProps) {
     // check if deepLink is changed, then that means we either got token
     // or we got error or nothing happened with deep link
@@ -54,9 +52,17 @@ class SplashScreenView extends PureComponent {
     // check if invitation are the only props that are changed
     if (nextProps.invitation != this.props.invitation) {
       if (nextProps.invitation.error) {
-        // if we got error, then also redirect user to home page
         SplashScreen.hide()
-        this.props.navigation.navigate(homeRoute)
+
+        if (
+          nextProps.invitation.error.code &&
+          nextProps.invitation.error.code === TOKEN_EXPIRED_CODE
+        ) {
+          this.props.navigation.navigate(expiredTokenRoute)
+        } else {
+          // if we got error, then also redirect user to home page
+          this.props.navigation.navigate(homeRoute)
+        }
       }
 
       if (nextProps.invitation.data) {

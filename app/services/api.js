@@ -1,3 +1,5 @@
+import { SERVER_ERROR_CODE } from '../common/api-constants'
+
 const options = (method, body) => {
   return {
     method,
@@ -34,13 +36,44 @@ export const invitationDetailsRequest = (token, { agencyUrl }) => {
   // TODO: Remove fetch and use api method. Also, do not check status inside store
   return fetch(`${agencyUrl}/agent/token/${token}/connection-req`, {
     mode: 'cors',
-  }).then(res => {
-    if (res.status >= 200 && res.status < 300) {
-      return res.json()
-    } else {
-      throw new Error('Bad Request')
-    }
   })
+    .then(res => {
+      // TODO:KS create common method to return successful
+      // and unsuccessful api response
+      if (res.status >= 200 && res.status < 300) {
+        return res.json().then(response => ({
+          payload: response,
+        }))
+      } else {
+        // Fail with error code if status code is above 300
+        return res.text().then(response => ({
+          error: response,
+        }))
+      }
+    })
+    .then(response => {
+      // if response contains payload and no error, that means we got success
+      if (response.payload && !response.error) {
+        return response.payload
+      } else {
+        let errorResponse = {
+          status: 'Server error',
+          code: SERVER_ERROR_CODE,
+        }
+
+        try {
+          // try to convert error response to json, if it fails that means
+          // we did not get error code and message
+          errorResponse = JSON.parse(response.error)
+        } finally {
+          // since we did not get error code and message
+          // let's just use default that we assigned above,
+          // we don't need to do anything here
+        }
+
+        throw new Error(JSON.stringify(errorResponse))
+      }
+    })
 }
 
 export const sendInvitationConnectionRequest = ({

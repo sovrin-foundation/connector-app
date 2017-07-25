@@ -100,7 +100,7 @@ export function* callPendingConnectionRequest(action) {
     )
     yield put(pendingConnectionSuccess(pendingConnectionResponse))
   } catch (e) {
-    yield put(pendingConnectionFailure(e.message))
+    yield put(pendingConnectionFailure(JSON.parse(e.message)))
   }
 }
 

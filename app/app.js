@@ -6,6 +6,7 @@ import InvitationScreen from './invitation/invitation'
 import HomeScreen from './home/home'
 import ConnectionHome from './connection/connection'
 import SplashScreenView from './invitation/splash-screen'
+import ExpiredTokenScreen from './expired-token/expired-token'
 import store, { ROUTE_UPDATE } from './store'
 import { StatusBar, Container, PushNotification } from './components'
 import {
@@ -13,6 +14,7 @@ import {
   homeRoute,
   invitationRoute,
   connectionRoute,
+  expiredTokenRoute,
 } from './common/route-constants'
 import DeepLink from './deep-link'
 
@@ -31,6 +33,9 @@ const ConnectMeAppNavigator = StackNavigator(
     },
     [connectionRoute]: {
       screen: ConnectionHome,
+    },
+    [expiredTokenRoute]: {
+      screen: ExpiredTokenScreen,
     },
   },
   {
