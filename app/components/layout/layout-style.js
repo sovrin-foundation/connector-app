@@ -5,6 +5,8 @@ import {
   PADDING_HORIZONTAL,
   PADDING_VERTICAL,
   color,
+  LIST_OFFSET_1X,
+  LIST_OFFSET_2X,
 } from '../../common/styles/constant'
 
 export default StyleSheet.create({
@@ -57,5 +59,11 @@ export default StyleSheet.create({
   },
   columnBottom: {
     justifyContent: 'flex-end',
+  },
+  list: {
+    marginHorizontal: LIST_OFFSET_2X,
+  },
+  listItem: {
+    marginVertical: LIST_OFFSET_2X,
   },
 })

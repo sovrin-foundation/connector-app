@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import { resetInvitationStatus, sendUserInvitationResponse } from '../store'
 import InvitationText from './invitation-text'
 import InvitationActions from './invitation-actions'
-import { Container, CustomText } from '../components'
+import { Container } from '../components'
 
 class Invitation extends PureComponent {
   state = {

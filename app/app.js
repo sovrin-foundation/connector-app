@@ -6,6 +6,7 @@ import InvitationScreen from './invitation/invitation'
 import HomeScreen from './home/home'
 import ConnectionHome from './connection/connection'
 import SplashScreenView from './invitation/splash-screen'
+import { Settings } from './settings'
 import ExpiredTokenScreen from './expired-token/expired-token'
 import store, { ROUTE_UPDATE } from './store'
 import { StatusBar, Container, PushNotification } from './components'
@@ -14,9 +15,11 @@ import {
   homeRoute,
   invitationRoute,
   connectionRoute,
+  settingsRoute,
   expiredTokenRoute,
 } from './common/route-constants'
 import DeepLink from './deep-link'
+import { barStyleLight } from './common/styles/constant'
 
 // TODO:KS create a custom navigator to track page changes
 // for flows to support deep link, etc.
@@ -33,6 +36,9 @@ const ConnectMeAppNavigator = StackNavigator(
     },
     [connectionRoute]: {
       screen: ConnectionHome,
+    },
+    [settingsRoute]: {
+      screen: Settings,
     },
     [expiredTokenRoute]: {
       screen: ExpiredTokenScreen,
@@ -72,7 +78,7 @@ class ConnectMeApp extends Component {
     return (
       <Provider store={store}>
         <Container>
-          <StatusBar />
+          <StatusBar barStyle={barStyleLight} />
           <PushNotification />
           <DeepLink />
           <ConnectMeAppNavigator

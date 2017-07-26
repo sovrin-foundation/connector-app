@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, StatusBar, Platform, View } from 'react-native'
 
-export const AppStatusBar = _ => (
+export const AppStatusBar = props => (
   <View style={styles.statusBar}>
-    <StatusBar barStyle="light-content" />
+    <StatusBar {...props} />
   </View>
 )
 

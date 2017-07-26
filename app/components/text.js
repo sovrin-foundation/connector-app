@@ -11,6 +11,7 @@ const CustomText = props => {
     h4,
     h5,
     bold,
+    semiBold,
     center,
     bg = 'primary',
     primary,
@@ -29,6 +30,7 @@ const CustomText = props => {
   const textStyles = [
     styles[size],
     styles[`${bg}Bg${colorType}`],
+    bold ? styles.bold : semiBold ? styles.semiBold : null,
     bold ? styles.bold : null,
     center ? styles.center : null,
     ...style,
@@ -43,7 +45,7 @@ const CustomText = props => {
 
 export default CustomText
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   h1: {
     fontSize: font.size.XXL,
   },
@@ -59,6 +61,9 @@ const styles = StyleSheet.create({
   h5: {
     fontSize: font.size.M,
   },
+  semiBold: {
+    fontWeight: '500',
+  },
   bold: {
     fontWeight: 'bold',
   },
@@ -67,6 +72,9 @@ const styles = StyleSheet.create({
   },
   primaryBgPrimary: {
     color: color.bg.primary.font.primary,
+  },
+  fifthBgPrimary: {
+    color: color.bg.fifth.font.primary,
   },
   primaryBgSecondary: {
     color: color.bg.primary.font.secondary,
