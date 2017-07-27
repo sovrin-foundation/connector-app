@@ -50,13 +50,13 @@ const style = StyleSheet.create({
 })
 
 const userAvatar = (
-  <Avatar medium round src={require('./images/UserAvatar.png')} />
+  <Avatar medium round src={require('../images/UserAvatar.png')} />
 )
 const editIcon = (
   <Image
     style={style.editIcon}
     resizeMode={'contain'}
-    source={require('./images/edit.png')}
+    source={require('../images/edit.png')}
   />
 )
 
@@ -82,9 +82,11 @@ const touchId = (
   <CustomView row>
     <Image
       style={[style.labelImage, style.editIcon]}
-      source={require('./images/biometrics.png')}
+      source={require('../images/biometrics.png')}
     />
-    <SettingText testID={TOUCH_ID_TEST_ID}>Enable Touch ID</SettingText>
+    <CustomView center>
+      <SettingText testID={TOUCH_ID_TEST_ID}>Enable Touch ID</SettingText>
+    </CustomView>
   </CustomView>
 )
 const toggleSwitch = (
@@ -94,9 +96,11 @@ const history = (
   <CustomView row>
     <Image
       style={[style.labelImage, style.editIcon]}
-      source={require('./images/history.png')}
+      source={require('../images/history.png')}
     />
-    <SettingText testID={HISTORY_TEST_ID}>View History</SettingText>
+    <CustomView center>
+      <SettingText testID={HISTORY_TEST_ID}>View History</SettingText>
+    </CustomView>
   </CustomView>
 )
 
