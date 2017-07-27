@@ -10,7 +10,6 @@ import {
 } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { Icon } from 'react-native-elements'
-
 import {
   Badge,
   Divider,
@@ -34,27 +33,33 @@ import { handlePushNotification } from '../services'
 
 const styles = StyleSheet.create({
   left: {
+    width: 24,
+    height: 24,
     marginLeft: 15,
-    marginTop: 0,
   },
   right: {
-    marginRight: 16.5,
-    marginTop: 0,
+    width: 22,
+    height: 22,
+    marginRight: 15,
   },
   title: {
-    marginLeft: 34,
-    marginRight: 24,
+    width: 160,
   },
 })
 
 const headerLeft = (
-  <Image style={[styles.left]} source={require('../images/icon_Chat.png')} />
+  <Image
+    style={[styles.left]}
+    source={require('../images/icon_Chat.png')}
+    resizeMode="contain"
+  />
 )
 
 const headerTitle = (
   <Image
     style={[styles.title]}
-    source={require('../images/sovrinsecuredconnection.png')}
+    source={require('../images/SovrinSecuredConnection.png')}
+    resizeMode="contain"
   />
 )
 
@@ -71,7 +76,7 @@ export class ConnectionHome extends PureComponent {
           <Image
             testID="connection-header-close-image"
             style={[styles.right]}
-            source={require('../images/icon_Close.png')}
+            source={require('../images/icon_close.png')}
             onPress={() => navigation.navigate(homeRoute)}
           />
         </TouchableHighlight>

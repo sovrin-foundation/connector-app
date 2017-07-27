@@ -9,7 +9,11 @@ export default props => {
 
   return (
     <CustomView clearBg {...props}>
-      <Image source={src} style={[styles[size], ...iconStyle]} />
+      <Image
+        source={src}
+        style={[styles[size], ...iconStyle]}
+        resizeMode="contain"
+      />
     </CustomView>
   )
 }

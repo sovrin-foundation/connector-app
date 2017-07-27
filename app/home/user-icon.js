@@ -6,9 +6,8 @@ export default props => (
   <Container row pad hCenter bottom>
     <Container left>
       <Icon
-        medium
         onPress={props.changeServerEnvironmentToDemo}
-        iconStyle={[styles.iconStyle]}
+        iconStyle={[styles.iconStyle, styles.iconStyleMenu]}
         src={require('../images/mainMenu.png')}
       />
     </Container>
@@ -17,9 +16,8 @@ export default props => (
     </Container>
     <Container right>
       <Icon
-        medium
         onPress={props.changeServerEnvironmentToSandbox}
-        iconStyle={[styles.iconStyle]}
+        iconStyle={[styles.iconStyle, styles.iconStyleAdd]}
         src={require('../invitation/images/icon_addConnection.jpg')}
       />
     </Container>
@@ -34,9 +32,14 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   iconStyle: {
-    width: 25,
-    height: 25,
     marginBottom: 20,
-    marginLeft: 15,
+  },
+  iconStyleMenu: {
+    width: 24,
+    height: 24,
+  },
+  iconStyleAdd: {
+    width: 30,
+    height: 30,
   },
 })

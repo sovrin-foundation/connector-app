@@ -16,7 +16,7 @@ export default () => (
       src={require('./images/invitee.png')}
       testID={'invitation-text-avatars-invitee'}
     />
-    <ForwardArrow source={require('./images/arrow-forward.png')} />
+    <ForwardArrow source={require('../images/iconRArrow.png')} />
     <Avatar
       medium
       src={require('./images/inviter.jpeg')}

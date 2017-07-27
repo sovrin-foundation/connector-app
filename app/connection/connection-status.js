@@ -11,14 +11,9 @@ export default props => (
     <HeaderContainer>
       <Image
         style={[styles.image]}
-        source={require('../images/cbSuncoast.png')}
+        source={require('../images/cbSunCoast.png')}
       />
-      <InfoText
-        fontSize={16}
-        marginBottom={7}
-        marginLeft={121}
-        marginRight={121}
-      >
+      <InfoText fontSize={16} marginBottom={7}>
         Currently Talking With
       </InfoText>
       <InfoText fontWeight={500} fontSize={30} marginBottom={11}>
@@ -33,8 +28,8 @@ export default props => (
 
 const styles = StyleSheet.create({
   image: {
-    marginLeft: 155,
     marginBottom: 22,
-    marginRight: 148,
+    width: 104,
+    height: 104,
   },
 })

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components/native'
 
 export const HeaderContainer = styled.View`
-  height: 310;
+  height: 270;
   justify-content: center;
   align-items: center;
 `

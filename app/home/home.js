@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { ScrollView, Image, Animated } from 'react-native'
+import { ScrollView, Image, Animated, StyleSheet } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { Icon, Avatar } from 'react-native-elements'
 import { View as AnimationView } from 'react-native-animatable'
@@ -30,8 +30,19 @@ import {
 import { authenticationRequest } from '../invitation/invitation-store'
 import { handlePushNotification } from '../services'
 
+const style = StyleSheet.create({
+  headerIcon: {
+    width: 26,
+    height: 26,
+  },
+})
+
 const headerTitle = (
-  <Image source={require('../images/icon_connectorLogo.png')} />
+  <Image
+    source={require('../images/launchLogo.png')}
+    style={style.headerIcon}
+    resizeMode="contain"
+  />
 )
 
 export class HomeScreenDrawer extends Component {
@@ -97,7 +108,7 @@ export class HomeScreenDrawer extends Component {
         style={{ backgroundColor: '#3F4140' }}
       >
         <Bubbles height={bubblesHeight} connections={connections} />
-        <AnimationView style={{ marginTop: 420 }}>
+        <AnimationView style={{ marginTop: 402 }}>
           <User user={user} isSwiping={this.handleSwipe} {...this.props} />
         </AnimationView>
       </Animated.ScrollView>
