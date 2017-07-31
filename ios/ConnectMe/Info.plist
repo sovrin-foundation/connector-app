@@ -30,12 +30,12 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>34.210.167.140</key>
+			<key>https://agency-sandbox.evernym.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
-			<key>35.166.201.131</key>
+			<key>https://agency-ea-sandbox.evernym.com</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>

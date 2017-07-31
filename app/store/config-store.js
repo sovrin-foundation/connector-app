@@ -15,8 +15,8 @@ export const SERVER_ENVIRONMENT = {
 
 export const baseUrls = {
   [SERVER_ENVIRONMENT.SANDBOX]: {
-    agencyUrl: 'http://34.210.167.140',
-    callCenterUrl: 'http://35.166.201.131',
+    agencyUrl: 'https://agency-sandbox.evernym.com',
+    callCenterUrl: 'https://agency-ea-sandbox.evernym.com',
   },
   [SERVER_ENVIRONMENT.DEMO]: {
     agencyUrl: 'https://agency.evernym.com',
@@ -25,7 +25,7 @@ export const baseUrls = {
 }
 
 const initialState = {
-  ...baseUrls[SERVER_ENVIRONMENT.DEMO],
+  ...baseUrls[SERVER_ENVIRONMENT.SANDBOX],
   isAlreadyInstalled: false,
   // this flag is used to identify if we got the already stored data
   // from the phone and loaded in app

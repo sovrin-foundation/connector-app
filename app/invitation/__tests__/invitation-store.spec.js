@@ -8,6 +8,7 @@ import invitationReducer, {
 } from '../invitation-store'
 import { getKeyPairFromSeed, randomSeed } from '../../services/keys'
 import bs58 from 'bs58'
+import { PENDING_CONNECTION_REQUEST_CODE } from '../../common/api-constants'
 
 describe('user connection request should work fine', () => {
   let initialState = {}
@@ -50,7 +51,7 @@ describe('user connection request should work fine', () => {
     const data = {
       offerMsgTitle: 'Hi John',
       offerMsgText: 'CU ledger wants to connect with you',
-      statusMsg: 'offer-sent',
+      statusCode: PENDING_CONNECTION_REQUEST_CODE,
     }
     const type = 'PENDING_CONNECTION_REQUEST'
     expectedState = {

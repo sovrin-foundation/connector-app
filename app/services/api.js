@@ -34,7 +34,7 @@ export const sendUserInfo = (userInfo, { callCenterUrl }) => {
 
 export const invitationDetailsRequest = (token, { agencyUrl }) => {
   // TODO: Remove fetch and use api method. Also, do not check status inside store
-  return fetch(`${agencyUrl}/agent/token/${token}/connection-req`, {
+  return fetch(`${agencyUrl}/agent/token/${token}/connection`, {
     mode: 'cors',
   })
     .then(res => {
@@ -57,8 +57,8 @@ export const invitationDetailsRequest = (token, { agencyUrl }) => {
         return response.payload
       } else {
         let errorResponse = {
-          status: 'Server error',
-          code: SERVER_ERROR_CODE,
+          statusMsg: 'Server error',
+          statusCode: SERVER_ERROR_CODE,
         }
 
         try {
@@ -81,7 +81,7 @@ export const sendInvitationConnectionRequest = ({
   config: { agencyUrl },
   token,
 }) => {
-  return fetch(`${agencyUrl}/agent/token/${token}/connection-req`, {
+  return fetch(`${agencyUrl}/agent/token/${token}/connection`, {
     method: 'PUT',
     mode: 'cors',
     headers: {

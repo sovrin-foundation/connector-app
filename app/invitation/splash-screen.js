@@ -8,7 +8,11 @@ import {
   splashScreenRoute,
   expiredTokenRoute,
 } from '../common/route-constants'
-import { TOKEN_EXPIRED_CODE } from '../common/api-constants'
+import {
+  TOKEN_EXPIRED_CODE,
+  PENDING_CONNECTION_REQUEST_CODE,
+  PUSH_NOTIFICATION_SENT_CODE,
+} from '../common/api-constants'
 import {
   getInvitationDetailsRequest,
   authenticationRequestReceived,
@@ -55,8 +59,8 @@ class SplashScreenView extends PureComponent {
         SplashScreen.hide()
 
         if (
-          nextProps.invitation.error.code &&
-          nextProps.invitation.error.code === TOKEN_EXPIRED_CODE
+          nextProps.invitation.error.statusCode &&
+          nextProps.invitation.error.statusCode === TOKEN_EXPIRED_CODE
         ) {
           this.props.navigation.navigate(expiredTokenRoute)
         } else {
@@ -68,10 +72,9 @@ class SplashScreenView extends PureComponent {
       if (nextProps.invitation.data) {
         // for invitation data
         // dont redirect manually let it resolve by default
-        // TODO: move push-notification-sent to a constant
         if (
-          nextProps.invitation.data.statusMsg &&
-          nextProps.invitation.data.statusMsg === 'push-notification-sent'
+          nextProps.invitation.data.statusCode &&
+          nextProps.invitation.data.statusCode === PUSH_NOTIFICATION_SENT_CODE
         ) {
           return
         }
@@ -81,17 +84,21 @@ class SplashScreenView extends PureComponent {
         // TODO: move offer-sent to a constant
         if (
           this.props.invitation.data &&
-          nextProps.invitation.data.statusMsg === 'offer-sent' &&
-          this.props.invitation.data.statusMsg ===
-            nextProps.invitation.data.statusMsg
+          nextProps.invitation.data.statusCode ===
+            PENDING_CONNECTION_REQUEST_CODE &&
+          this.props.invitation.data.statusCode ===
+            nextProps.invitation.data.statusCode
         ) {
           return
         }
 
         // if we got the data, then check for status of connection request
-        if (nextProps.invitation.data.statusMsg) {
+        if (nextProps.invitation.data.statusCode) {
           SplashScreen.hide()
-          if (nextProps.invitation.data.statusMsg === 'offer-sent') {
+          if (
+            nextProps.invitation.data.statusCode ===
+            PENDING_CONNECTION_REQUEST_CODE
+          ) {
             this.props.navigation.navigate(invitationRoute)
           } else {
             this.props.navigation.navigate(homeRoute)

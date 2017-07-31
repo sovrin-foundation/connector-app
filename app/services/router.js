@@ -1,4 +1,5 @@
 import { invitationRoute } from '../common/route-constants'
+import { PUSH_NOTIFICATION_SENT_CODE } from '../common/api-constants'
 
 export default function handlePushNotification(
   props,
@@ -10,7 +11,7 @@ export default function handlePushNotification(
     props.authenticationRequestReceived({
       offerMsgTitle: notification.authNotifMsgTitle,
       offerMsgText: notification.authNotifMsgText,
-      statusMsg: 'push-notification-sent',
+      statusCode: PUSH_NOTIFICATION_SENT_CODE,
     })
     props.navigation.navigate(invitationRoute)
     props.pushNotificationReceived(null)
