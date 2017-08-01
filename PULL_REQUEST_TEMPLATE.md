@@ -9,6 +9,16 @@
 ## Link for jira ticket
 [Jira ticket](https://link.to.jira)
 
+### Is this PR to move code to stage
+
+- [ ] I have checked that default url in config store is pointing to SANDBOX
+- [ ] I have checked that api resources are using base urls from config and are not hard coded
+
+### Is this PR to move code to stable
+
+- [ ] I have checked that default url in config store is pointing to PRODUCTION
+- [ ] I have checked that api resources are using base urls from config and are not hard coded
+
 ## In case of Bug
 
 ### Root cause

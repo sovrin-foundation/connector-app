@@ -20,8 +20,17 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>connectme</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>115</string>
+	<string>116</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -40,6 +49,17 @@
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
+			<key>culedger.com</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSRequiresCertificateTransparency</key>
+				<false/>
+				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
+				<false/>
+			</dict>
 			<key>evernym.com</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
@@ -56,10 +76,8 @@
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
-			<key>culedger.com</key>
+			<key>sentry.io</key>
 			<dict>
-				<key>NSIncludesSubdomains</key>
-				<true/>
 				<key>NSRequiresCertificateTransparency</key>
 				<false/>
 				<key>NSThirdPartyExceptionAllowsInsecureHTTPLoads</key>
@@ -69,24 +87,8 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>branch_key</key>
-	<dict>
-		<key>live</key>
-		<string>***REMOVED***</string>
-		<key>test</key>
-		<string>***REMOVED***</string>
-	</dict>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>connectme</string>
-			</array>
-		</dict>
-	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
@@ -116,5 +118,12 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>branch_key</key>
+	<dict>
+		<key>live</key>
+		<string>***REMOVED***</string>
+		<key>test</key>
+		<string>***REMOVED***</string>
+	</dict>
 </dict>
 </plist>

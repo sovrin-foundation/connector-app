@@ -1,4 +1,5 @@
 // TODO:KS Add support for themes as well
+// Color name taken from http://www.htmlcsscolor.com/
 const zircon = '#ebebea'
 export const white = '#ffffff'
 export const mantis = '#85bf43'
@@ -12,6 +13,7 @@ const blackPearl = '#242b2d'
 const dimGrey = '#686868'
 const nobel = '#a0a0a0'
 const venetianRed = '#d0021b'
+export const veniceBlue = '#2A5270'
 
 export const color = {
   actions: {

@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import branch from 'react-native-branch'
-import once from 'lodash/once'
 import { deepLinkData, deepLinkEmpty, deepLinkError } from '../store'
 
 class DeepLink extends PureComponent {
@@ -14,25 +13,21 @@ class DeepLink extends PureComponent {
   // However, it will work if we kill the app and then open universal link
   // it will also work in case of fresh app installation, then also
   // we should be able to get the deep link data
-  onDeepLinkData = once(bundle => {
-    if (bundle) {
-      if (bundle.error) {
-        this.props.deepLinkError(bundle.error)
-      } else if (bundle.params) {
-        if (bundle.params['+clicked_branch_link'] === true) {
-          // update store with deep link params
-          this.props.deepLinkData(bundle.params.t)
-        } else {
-          // update store that deep link was not clicked
-          this.props.deepLinkEmpty()
-        }
+  onDeepLinkData = bundle => {
+    if (bundle.error) {
+      this.props.deepLinkError(bundle.error)
+    } else if (bundle.params) {
+      if (bundle.params['+clicked_branch_link'] === true) {
+        // update store with deep link params
+        this.props.deepLinkData(bundle.params.t)
       } else {
-        this.props.deepLinkEmpty()
+        // update store that deep link was not clicked
+        this.props.token === null && this.props.deepLinkEmpty()
       }
     } else {
-      this.props.deepLinkEmpty()
+      this.props.token === null && this.props.deepLinkEmpty()
     }
-  })
+  }
 
   componentDidMount() {
     branch.subscribe(this.onDeepLinkData)
@@ -42,6 +37,10 @@ class DeepLink extends PureComponent {
     return null
   }
 }
+
+const mapStateToProps = state => ({
+  token: state.deepLink.token,
+})
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
@@ -53,6 +52,6 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-const DeepLinkConnected = connect(null, mapDispatchToProps)(DeepLink)
+const DeepLinkConnected = connect(mapStateToProps, mapDispatchToProps)(DeepLink)
 
 export default DeepLinkConnected

@@ -25,6 +25,7 @@ import ConnectionStatus from './connection-status'
 import ConnectionInfo from './connection-info'
 import user from '../store/data/user'
 import { homeRoute, connectionRoute } from '../common/route-constants'
+import { veniceBlue } from '../common/styles/constant'
 import {
   authenticationRequestReceived,
   pushNotificationReceived,
@@ -72,6 +73,7 @@ export class ConnectionHome extends PureComponent {
         <TouchableHighlight
           onPress={() => navigation.navigate(homeRoute)}
           testID={'connection-header-close'}
+          underlayColor={veniceBlue}
         >
           <Image
             testID="connection-header-close-image"
@@ -83,7 +85,7 @@ export class ConnectionHome extends PureComponent {
       </CustomView>
     ),
     headerStyle: {
-      backgroundColor: '#2A5270',
+      backgroundColor: veniceBlue,
       height: 50,
     },
   })
