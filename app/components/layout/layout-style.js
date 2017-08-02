@@ -37,6 +37,9 @@ export default StyleSheet.create({
   quarternaryBg: {
     backgroundColor: color.bg.quarternary.color,
   },
+  fifthBg: {
+    backgroundColor: color.bg.fifth.color,
+  },
   left: {
     // this is assuming that we are aliging items in cloumn
     alignItems: 'flex-start',

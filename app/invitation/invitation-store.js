@@ -29,6 +29,7 @@ const initialState = {
   error: null,
   type: INVITATION_TYPE.NONE,
   status: INVITATION_STATUS.NONE,
+  connectionRequestCount: 0,
 }
 
 // const AUTHENTICATION_REQUEST = 'AUTHENTICATION_REQUEST'
@@ -146,18 +147,21 @@ export default function invitation(state = initialState, action) {
     case PENDING_CONNECTION_REQUEST:
       return {
         ...state,
+        connectionRequestCount: 0,
         status: INVITATION_STATUS.NONE,
         type: INVITATION_TYPE.PENDING_CONNECTION_REQUEST,
       }
     case PENDING_CONNECTION_SUCCESS:
       return {
         ...state,
+        connectionRequestCount: 1,
         data: action.data,
         type: INVITATION_TYPE.PENDING_CONNECTION_REQUEST,
       }
     case PENDING_CONNECTION_FAILURE:
       return {
         ...state,
+        connectionRequestCount: 0,
         error: action.error,
       }
     case SEND_USER_INVITATION_RESPONSE:

@@ -10,9 +10,10 @@ const grey = '#757575'
 const lightGrey = '#f0f0f0'
 const darkGrey = '#484848'
 const blackPearl = '#242b2d'
-const dimGrey = '#686868'
+const dimGray = '#686868'
 const nobel = '#a0a0a0'
 const venetianRed = '#d0021b'
+const whiteSmoke = '#F2F2F2'
 export const veniceBlue = '#2A5270'
 
 export const color = {
@@ -42,7 +43,7 @@ export const color = {
       color: zircon,
       font: {
         primary: blackPearl,
-        secondary: dimGrey,
+        secondary: dimGray,
       },
     },
     quarternary: {
@@ -52,7 +53,7 @@ export const color = {
       },
     },
     fifth: {
-      color: lightGrey,
+      color: whiteSmoke,
       font: {
         primary: darkGrey,
       },

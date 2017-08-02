@@ -35,9 +35,11 @@ const CustomText = props => {
     center ? styles.center : null,
     ...style,
   ]
+  //const numberOfLines = 4
 
   return (
     <Text style={textStyles} onPress={onPress} testID={testID}>
+
       {props.children}
     </Text>
   )
@@ -73,8 +75,12 @@ export const styles = StyleSheet.create({
   primaryBgPrimary: {
     color: color.bg.primary.font.primary,
   },
+  center: {
+    textAlign: 'center',
+  },
   fifthBgPrimary: {
     color: color.bg.fifth.font.primary,
+    backgroundColor: 'transparent',
   },
   primaryBgSecondary: {
     color: color.bg.primary.font.secondary,

@@ -8,6 +8,7 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
 import { StackNavigator } from 'react-navigation'
 import { Avatar, CustomText } from '../components'
 import { CustomList, CustomView } from '../components/layout'
@@ -15,6 +16,7 @@ import { settingsRoute } from '../common/route-constants'
 import {
   white,
   mantis,
+  darkGrey,
   LIST_OFFSET_1X,
   barStyleDark,
   color,
@@ -27,11 +29,13 @@ import {
   PASS_CODE_TEST_ID,
   TOUCH_ID_TEST_ID,
   USERNAME_TEST_ID,
+  SETTING_CONTAINER_HEIGHT,
 } from './settings-constant'
+import Footer from '../components/footer'
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: color.bg.fifth.color,
+    height: SETTING_CONTAINER_HEIGHT,
   },
   headerStyle: {
     backgroundColor: color.bg.fifth.color,
@@ -139,14 +143,19 @@ export class Settings extends PureComponent {
 
   render() {
     return (
-      <ScrollView style={style.container}>
-        <StatusBar barStyle={barStyleDark} />
-        <CustomList
-          data={itemList}
-          listStyle={style.list}
-          itemStyle={style.item}
-        />
-      </ScrollView>
+      <View>
+        <LinearGradient colors={['#f2f2f2', '#ededed']}>
+          <ScrollView style={style.container}>
+            <StatusBar barStyle={barStyleDark} />
+            <CustomList
+              data={itemList}
+              listStyle={style.list}
+              itemStyle={style.item}
+            />
+          </ScrollView>
+          <Footer navigation={this.props.navigation} />
+        </LinearGradient>
+      </View>
     )
   }
 }

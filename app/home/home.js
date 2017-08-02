@@ -1,14 +1,28 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { ScrollView, Image, Animated, StyleSheet } from 'react-native'
+import {
+  ScrollView,
+  Image,
+  Animated,
+  View,
+  StatusBar,
+  StyleSheet,
+} from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { Icon, Avatar } from 'react-native-elements'
-import { View as AnimationView } from 'react-native-animatable'
 
+import { CustomView } from '../components/layout'
+import { Container, CustomText } from '../components'
 import Bubbles from './bubbles'
 import User from './user'
 import { setItem, getItem } from '../services/secure-storage'
 import UserEnroll from '../components/user-enroll'
+import Footer from '../components/footer'
+import invitation from '../invitation/invitation-store'
+import { color, barStyleDark } from '../common/styles/constant'
+import { settingsRoute } from '../common/route-constants'
+import styles from '../components/layout/layout-style'
+
 import {
   getUserInfo,
   getConnections,
@@ -45,14 +59,18 @@ const headerTitle = (
   />
 )
 
+const dimGray = color.bg.tertiary.font.secondary
+const whiteSmoke = color.bg.fifth.color
+
 export class HomeScreenDrawer extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: headerTitle,
     headerStyle: {
-      backgroundColor: '#3F4140',
+      backgroundColor: whiteSmoke,
       borderBottomWidth: 0,
       height: 50,
       padding: 0,
+      shadowOpacity: 0,
     },
   })
 
@@ -62,6 +80,7 @@ export class HomeScreenDrawer extends Component {
       currentRoute: homeRoute,
       scrollY: new Animated.Value(0),
       isSwiping: false,
+      connectionRequestCount: 0,
     }
   }
 
@@ -97,22 +116,55 @@ export class HomeScreenDrawer extends Component {
 
     const { user, connections } = this.props
 
-    return (
-      <Animated.ScrollView
-        scrollEnabled={!this.state.isSwiping}
-        scrollEventThrottle={16}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
-          { useNativeDriver: true }
-        )}
-        style={{ backgroundColor: '#3F4140' }}
-      >
-        <Bubbles height={bubblesHeight} connections={connections} />
-        <AnimationView style={{ marginTop: 402 }}>
-          <User user={user} isSwiping={this.handleSwipe} {...this.props} />
-        </AnimationView>
-      </Animated.ScrollView>
-    )
+    if (this.state.connectionRequestCount === 0) {
+      return (
+        <View style={[styles.container, styles.fifthBg]}>
+          <StatusBar barStyle={barStyleDark} />
+          <Container backgroundColor={color.bg.fifth.color}>
+            <View style={[styles.container]}>
+              <View style={[styles.container, styles.center]}>
+                <CustomText
+                  h4
+                  bg={dimGray}
+                  center
+                  lineHeight={30}
+                  onPress={() => {
+                    this.setState({ connectionRequestCount: 1 })
+                  }}
+                >
+                  {"You don't have any"}
+                </CustomText>
+                <CustomText h4 bg={dimGray} center>
+                  {'connections set up yet.'}
+                </CustomText>
+                <CustomText h4 bg={dimGray} center>
+                  {'Call a participating Credit'}
+                </CustomText>
+                <CustomText h4 bg={dimGray} center>
+                  {'Union to get started'}
+                </CustomText>
+              </View>
+            </View>
+            <Footer navigation={this.props.navigation} />
+          </Container>
+        </View>
+      )
+    } else {
+      return (
+        // TODO: fix home screen with bubbles
+        (
+          <View style={[styles.container, styles.fifthBg]}>
+            <StatusBar barStyle={barStyleDark} />
+            <Container backgroundColor={color.bg.fifth.color}>
+              <View style={[styles.container]}>
+                <Bubbles height={bubblesHeight} connections={connections} />
+              </View>
+              <Footer navigation={this.props.navigation} />
+            </Container>
+          </View>
+        )
+      )
+    }
   }
 }
 

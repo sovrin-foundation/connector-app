@@ -5,3 +5,4 @@ export const PASS_CODE_TEST_ID = 'settings-pass-code-label'
 export const PASS_CODE_ASTERISK_TEST_ID = 'settings-pass-code-asterisk-label'
 export const TOUCH_ID_TEST_ID = 'settings-touch-id-label'
 export const HISTORY_TEST_ID = 'settings-history-label'
+export const SETTING_CONTAINER_HEIGHT = 318

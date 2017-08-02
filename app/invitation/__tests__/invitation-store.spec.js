@@ -58,6 +58,7 @@ describe('user connection request should work fine', () => {
       ...initialState,
       type,
       data,
+      connectionRequestCount: 1,
     }
 
     const actualState = invitationReducer(
