@@ -128,20 +128,36 @@ export class HomeScreenDrawer extends Component {
                   bg={dimGray}
                   center
                   lineHeight={30}
+                  testID="no-connection-text-1"
                   onPress={() => {
                     this.setState({ connectionRequestCount: 1 })
                   }}
                 >
                   {"You don't have any"}
                 </CustomText>
-                <CustomText h4 bg={dimGray} center>
+                <CustomText
+                  h4
+                  bg={dimGray}
+                  center
+                  testID="no-connection-text-2"
+                >
                   {'connections set up yet.'}
                 </CustomText>
-                <CustomText h4 bg={dimGray} center>
-                  {'Call a participating Credit'}
+                <CustomText
+                  h4
+                  bg={dimGray}
+                  center
+                  testID="no-connection-text-3"
+                >
+                  Call a participating Credit
                 </CustomText>
-                <CustomText h4 bg={dimGray} center>
-                  {'Union to get started'}
+                <CustomText
+                  h4
+                  bg={dimGray}
+                  center
+                  testID="no-connection-text-4"
+                >
+                  Union to get started
                 </CustomText>
               </View>
             </View>

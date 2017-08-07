@@ -4,7 +4,7 @@ import { CustomView } from './layout'
 import empty from '../common/empty'
 
 export default props => {
-  const { src, small, medium, large, iconStyle = empty } = props
+  const { src, small, medium, large, iconStyle = empty, testID } = props
   const size = small ? 'small' : medium ? 'medium' : 'large'
 
   return (
@@ -13,6 +13,7 @@ export default props => {
         source={src}
         style={[styles[size], ...iconStyle]}
         resizeMode="contain"
+        testID={testID}
       />
     </CustomView>
   )

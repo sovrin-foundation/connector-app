@@ -37,6 +37,7 @@ export default class Tabs extends PureComponent {
               small
               iconStyle={[styles.iconStyle, leftIconStyle]}
               src={require('../images/settings.png')}
+              testID="tab-settings-icon"
               onPress={
                 leftIconClick ? () => leftIconClick(settingsRoute) : undefined
               }
@@ -57,6 +58,7 @@ export default class Tabs extends PureComponent {
                 />
                 <Image
                   style={styles.activeTab}
+                  testID="tab-active-avatar-icon"
                   source={require('../images/UserAvatar.png')}
                 />
               </View>}
@@ -76,6 +78,7 @@ export default class Tabs extends PureComponent {
                 />
                 <Image
                   style={styles.activeTab}
+                  testID="tab-active-settings-icon"
                   source={require('../images/settings.png')}
                 />
               </View>}
@@ -83,6 +86,7 @@ export default class Tabs extends PureComponent {
             <Icon
               small
               iconStyle={[styles.iconStyle, styles.inactive]}
+              testID="tab-add-connection-icon"
               src={require('../images/addConnection.png')}
               onPress={
                 rightIconClick
@@ -100,9 +104,6 @@ export default class Tabs extends PureComponent {
 
 const styles = StyleSheet.create({
   outerContainer: {
-    // TODO:PS
-    // get exact background images from Designer
-    // and remove this undefined assignment
     width: CURVE_WIDTH,
     resizeMode: 'contain',
     backgroundColor: 'transparent',
