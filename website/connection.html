@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Connect Me: Scan QR code to connect with Evernym</title>
+</head>
+<style type="text/css">
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, Roboto, Helvetica, Arial, sans-serif;
+  }
+  
+  .qr-code-container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 100%;
+    height: 100vw;
+  }
+  
+  #qr-code {
+    margin-top: 20px;
+  }
+  
+  .scan-message {
+    text-align: center;
+  }
+</style>
+
+<body>
+  <div class="qr-code-container">
+    <p class="scan-message">Scan QR code with connect.me app to connect with Evernym</p>
+    <div id="qr-code"></div>
+  </div>
+  <script src="qrcode.min.js"></script>
+  <script src="vendor.min.js"></script>
+  <script>
+    var agencyUrl = '/agent/connection'
+    // fetch the data from server for QR code
+    // render the QR code on server
+    fetch(agencyUrl, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: 'Test User'
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        // get the qrcode from data
+        var qrcodeText = data.qrCode
+        var qrcode = new QRCode(document.getElementById("qr-code"), {
+          width: 200,
+          height: 200
+        });
+
+        qrcode.makeCode(qrcodeText);
+      })
+      .catch((error) => {
+        document.querySelector('#qr-code').innerText = 'Error! Could not get QR code data from evernym agent.'
+        console.error(error)
+      })
+  </script>
+</body>
+
+</html>

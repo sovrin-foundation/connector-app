@@ -22,6 +22,7 @@ export const color = {
     secondary: sirocco,
     tertiary: nobel,
     dangerous: venetianRed,
+    none: white,
   },
   bg: {
     primary: {
@@ -69,14 +70,15 @@ export const font = {
     ML: 17,
     L: 27,
     XL: 30,
-    XXL: 44,
+    XXL: 40,
+    XXXL: 44,
   },
 }
 
 export const PADDING_HORIZONTAL = 15
 export const PADDING_VERTICAL = 8
 export const MARGIN_BOTTOM = 4
-export const LIST_OFFSET_1X = 10
-export const LIST_OFFSET_2X = 20
+export const OFFSET_1X = 10
+export const OFFSET_2X = 20
 export const barStyleDark = 'dark-content'
 export const barStyleLight = 'light-content'

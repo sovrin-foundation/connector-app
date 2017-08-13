@@ -112,3 +112,31 @@ export const sendAuthenticationRequest = ({
     }
   })
 }
+
+export const sendQRInvitationResponse = ({ data, config: { agencyUrl } }) => {
+  return fetch(`${agencyUrl}/agent/connection`, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      challenge: data.challenge,
+      signature: data.signature,
+    }),
+  })
+    .then(res => {
+      if (res.status >= 200 && res.status < 300) {
+        try {
+          return res.json()
+        } catch (e) {
+          return {}
+        }
+      } else {
+        res.text().then(console.error)
+        throw new Error('QR invitation response failed')
+      }
+    })
+    .catch()
+}

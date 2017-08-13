@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QR Scanner validator should return data for valid schema 1`] = `
+Object {
+  "challenge": Object {
+    "en": "",
+    "ii": "",
+    "n": "",
+    "rci": "",
+    "un": "",
+  },
+  "qrData": Object {
+    "c": "{\\"n\\":\\"\\",\\"rci\\":\\"\\",\\"en\\":\\"\\",\\"un\\":\\"\\",\\"ii\\":\\"\\"}",
+    "s": "",
+  },
+  "signature": "",
+}
+`;

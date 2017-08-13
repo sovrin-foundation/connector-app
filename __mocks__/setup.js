@@ -1,4 +1,5 @@
 import fetch from './fetch-mock'
+import mockCamera from './camera-mock'
 
 // mock this module to allow react-navigation to mock Linking
 jest.mock('Linking', () => ({
@@ -49,6 +50,15 @@ jest.mock('react-native-sensitive-info', () => {
 
 jest.mock('react-native-animatable', () => ({
   View: 'Animatable.View',
+}))
+
+jest.mock('react-native-camera', () => mockCamera)
+
+jest.mock('Dimensions', () => ({
+  get: jest.fn(() => ({
+    width: 320,
+    height: 540,
+  })),
 }))
 
 global.fetch = fetch

@@ -24,14 +24,11 @@ import {
   DEVICE_ENROLLMENT_ERROR,
   PUSH_NOTIFICATION_PERMISSION_ERROR,
 } from '../common/message-constants'
+import { QR_CODE_CHALLENGE } from '../common/api-constants'
 import { ALLOW, DENY } from '../common/button-constants'
 import { INVITATION_TYPE, INVITATION_STATUS } from '../store'
 
 export default class actions extends PureComponent {
-  constructor(props) {
-    super(props)
-  }
-
   onUserResponse = newStatus => {
     // get Push Notification permission, for iOS
     FCM.requestPermissions()
@@ -83,7 +80,7 @@ export default class actions extends PureComponent {
                 this.props.deepLink.token
               )
             } else if (
-              invitationType == INVITATION_TYPE.AUTHENTICATION_REQUEST
+              invitationType === INVITATION_TYPE.AUTHENTICATION_REQUEST
             ) {
               const challenge = JSON.stringify({
                 newStatus,
@@ -98,6 +95,26 @@ export default class actions extends PureComponent {
                     signature,
                   },
                 },
+                this.props.config,
+                invitationType
+              )
+            } else if (
+              invitationType === INVITATION_TYPE.QR_CONNECTION_REQUEST
+            ) {
+              const apiData = {
+                remoteChallenge: this.props.invitation.data.payload.qrData[
+                  QR_CODE_CHALLENGE
+                ],
+                remoteSig: this.props.invitation.data.payload.signature,
+                newStatus,
+                identifier,
+                verKey,
+                pushComMethod: `FCM:${pushComMethod}`,
+              }
+              const challenge = JSON.stringify(apiData)
+              const signature = encode(getSignature(signingKey, challenge))
+              this.props.sendUserInvitationResponse(
+                { challenge, signature, ...apiData },
                 this.props.config,
                 invitationType
               )
@@ -126,7 +143,6 @@ export default class actions extends PureComponent {
   }
 
   render() {
-    const { type: invitationType } = this.props.invitation
     return (
       <View style={{ flexDirection: 'row' }}>
         <Container>

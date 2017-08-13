@@ -3,6 +3,7 @@ import {
   invitationDetailsRequest,
   sendAuthenticationRequest,
   sendInvitationConnectionRequest,
+  sendQRInvitationResponse,
 } from '../services/api'
 
 export const INVITATION_STATUS = {
@@ -15,16 +16,13 @@ export const INVITATION_TYPE = {
   NONE: 'NONE',
   PENDING_CONNECTION_REQUEST: 'PENDING_CONNECTION_REQUEST',
   AUTHENTICATION_REQUEST: 'AUTHENTICATION_REQUEST',
+  QR_CONNECTION_REQUEST: 'QR_CONNECTION_REQUEST',
 }
 
-// TODO: Add isLoading and isPrestine to check for user action call
+// TODO: Add isLoading and isPristine to check for user action call
 const initialState = {
-  inviter: {
-    image: '',
-  },
-  invitee: {
-    image: './images/inviter.jpeg',
-  },
+  inviter: { image: '' },
+  invitee: { image: './images/inviter.jpeg' },
   data: null,
   error: null,
   type: INVITATION_TYPE.NONE,
@@ -32,7 +30,6 @@ const initialState = {
   connectionRequestCount: 0,
 }
 
-// const AUTHENTICATION_REQUEST = 'AUTHENTICATION_REQUEST'
 const AUTHENTICATION_REQUEST_RECEIVED = 'AUTHENTICATION_REQUEST_RECEIVED'
 const PENDING_CONNECTION_REQUEST = 'PENDING_CONNECTION_REQUEST'
 const PENDING_CONNECTION_SUCCESS = 'PENDING_CONNECTION_SUCCESS'
@@ -43,6 +40,7 @@ const SEND_USER_INVITATION_RESPONSE_SUCCESS =
 const SEND_USER_INVITATION_RESPONSE_FAILURE =
   'SEND_USER_INVITATION_RESPONSE_FAILURE'
 const RESET_INVITATION_STATUS = 'RESET_INVITATION_STATUS'
+const QR_CONNECTION_REQUEST = 'QR_CONNECTION_REQUEST'
 
 export const getInvitationDetailsRequest = (token, config) => ({
   type: PENDING_CONNECTION_REQUEST,
@@ -88,6 +86,11 @@ export const authenticationRequestReceived = data => ({
   data,
 })
 
+export const qrConnectionRequestReceived = data => ({
+  type: QR_CONNECTION_REQUEST,
+  data,
+})
+
 export const resetInvitationStatus = () => ({
   type: RESET_INVITATION_STATUS,
 })
@@ -118,11 +121,15 @@ function* handleUserInvitationResponse(action) {
     let invitationActionResponse = null
     if (action.invitationType == INVITATION_TYPE.AUTHENTICATION_REQUEST) {
       invitationActionResponse = yield call(sendAuthenticationRequest, action)
-    } else {
+    } else if (
+      action.invitationType === INVITATION_TYPE.PENDING_CONNECTION_REQUEST
+    ) {
       invitationActionResponse = yield call(
         sendInvitationConnectionRequest,
         action
       )
+    } else {
+      invitationActionResponse = yield call(sendQRInvitationResponse, action)
     }
     yield put(sendUserInvitationResponseSuccess(invitationActionResponse))
   } catch (e) {
@@ -170,6 +177,8 @@ export default function invitation(state = initialState, action) {
         status: action.data.newStatus,
       }
     case SEND_USER_INVITATION_RESPONSE_SUCCESS:
+      // TODO:KS What is this happening here,
+      // why are we not considering anything from success response?
       const { authStatus } = action.data
       return {
         ...state,
@@ -195,6 +204,13 @@ export default function invitation(state = initialState, action) {
         status: INVITATION_STATUS.NONE,
         data: action.data,
         error: null,
+      }
+    case QR_CONNECTION_REQUEST:
+      return {
+        ...state,
+        data: action.data,
+        type: INVITATION_TYPE.QR_CONNECTION_REQUEST,
+        status: INVITATION_STATUS.NONE,
       }
     default:
       return state

@@ -17,7 +17,7 @@ import {
   white,
   mantis,
   darkGrey,
-  LIST_OFFSET_1X,
+  OFFSET_1X,
   barStyleDark,
   color,
 } from '../common/styles/constant'
@@ -46,7 +46,7 @@ const style = StyleSheet.create({
     height: EDIT_ICON_DIMENSIONS,
   },
   labelImage: {
-    marginRight: LIST_OFFSET_1X,
+    marginRight: OFFSET_1X,
   },
   labelPassCode: {
     marginTop: PASS_CODE_ASTERISK_TOP_OFFSET,

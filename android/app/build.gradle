@@ -141,6 +141,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-camera')
     compile project(':react-native-sentry')
     compile project(':react-native-branch')
     compile project(':react-native-splash-screen')

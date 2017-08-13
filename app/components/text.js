@@ -6,6 +6,7 @@ import { color, font } from '../common/styles/constant'
 const CustomText = props => {
   const {
     h1,
+    h01,
     h2,
     h3,
     h4,
@@ -21,25 +22,27 @@ const CustomText = props => {
     style = empty,
     testID,
     onPress,
+    transparentBg,
   } = props
 
   const colorType = quarternary
     ? 'Quarternary'
     : secondary ? 'Secondary' : tertiary ? 'Tertiary' : 'Primary'
-  const size = h1 ? 'h1' : h2 ? 'h2' : h3 ? 'h3' : h4 ? 'h4' : 'h5'
+  const size = h1
+    ? 'h1'
+    : h01 ? 'h01' : h2 ? 'h2' : h3 ? 'h3' : h4 ? 'h4' : 'h5'
   const textStyles = [
     styles[size],
     styles[`${bg}Bg${colorType}`],
     bold ? styles.bold : semiBold ? styles.semiBold : null,
     bold ? styles.bold : null,
     center ? styles.center : null,
+    transparentBg ? styles.transparentBg : null,
     ...style,
   ]
-  //const numberOfLines = 4
 
   return (
     <Text style={textStyles} onPress={onPress} testID={testID}>
-
       {props.children}
     </Text>
   )
@@ -49,6 +52,9 @@ export default CustomText
 
 export const styles = StyleSheet.create({
   h1: {
+    fontSize: font.size.XXXL,
+  },
+  h01: {
     fontSize: font.size.XXL,
   },
   h2: {
@@ -84,5 +90,8 @@ export const styles = StyleSheet.create({
   },
   primaryBgSecondary: {
     color: color.bg.primary.font.secondary,
+  },
+  transparentBg: {
+    backgroundColor: 'transparent',
   },
 })

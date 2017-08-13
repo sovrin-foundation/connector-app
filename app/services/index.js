@@ -13,3 +13,4 @@ export {
   getSignature,
 } from './keys'
 export { setItem, getItem } from './secure-storage'
+export { default as schemaValidator } from './schema-validator'

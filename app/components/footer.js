@@ -12,9 +12,6 @@ import { settingsRoute, homeRoute } from '../common/route-constants'
 import Tabs from './tabs'
 
 class Footer extends PureComponent {
-  constructor(props) {
-    super(props)
-  }
   _onClick = route => {
     this.props.navigation.navigate(route)
   }

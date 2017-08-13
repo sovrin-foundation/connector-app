@@ -25,6 +25,7 @@ export const CustomView = props => {
     vCenter,
     bottom,
     onPress,
+    spaceBetween,
   } = props
 
   const passedStyles = props.style || empty
@@ -47,6 +48,7 @@ export const CustomView = props => {
     vCenter ? style.vCenter : null,
     row && bottom ? style.rowBottom : null,
     bottom && !row ? style.columnBottom : null,
+    spaceBetween ? style.spaceBetween : null,
     ...passedStyles,
   ])
 

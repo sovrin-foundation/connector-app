@@ -9,6 +9,7 @@ import ConnectionHome from './connection/connection'
 import SplashScreenView from './invitation/splash-screen'
 import { Settings } from './settings'
 import ExpiredTokenScreen from './expired-token/expired-token'
+import QRCodeScanner from './qr-code/qr-code'
 import store, { ROUTE_UPDATE } from './store'
 import { StatusBar, Container, PushNotification } from './components'
 import {
@@ -18,6 +19,7 @@ import {
   connectionRoute,
   settingsRoute,
   expiredTokenRoute,
+  qrCodeScannerRoute,
 } from './common/route-constants'
 import DeepLink from './deep-link'
 import { barStyleLight } from './common/styles/constant'
@@ -43,6 +45,9 @@ const ConnectMeAppNavigator = StackNavigator(
     },
     [expiredTokenRoute]: {
       screen: ExpiredTokenScreen,
+    },
+    [qrCodeScannerRoute]: {
+      screen: QRCodeScanner,
     },
   },
   {

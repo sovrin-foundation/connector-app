@@ -121,7 +121,7 @@
         // send error occurred to sentry or somewhere
         console.error('Could not get token from deep link data')
       } else if (data && data.data_parsed && data.data_parsed.token) {
-        const agencyUrl = 'http://34.210.167.140'
+        var agencyUrl = 'http://34.210.167.140'
         // send it to backend to tell user does not have supported device
         fetch(agencyUrl + '/agent/token/' + data.data_parsed.token + '/unsupported-device', {
           method: 'POST',

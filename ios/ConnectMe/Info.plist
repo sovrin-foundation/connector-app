@@ -125,5 +125,7 @@
 		<key>test</key>
 		<string>***REMOVED***</string>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow us access to Camera so that we can scan QR code</string>
 </dict>
 </plist>

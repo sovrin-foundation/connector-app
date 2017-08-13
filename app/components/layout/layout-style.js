@@ -5,8 +5,8 @@ import {
   PADDING_HORIZONTAL,
   PADDING_VERTICAL,
   color,
-  LIST_OFFSET_1X,
-  LIST_OFFSET_2X,
+  OFFSET_1X,
+  OFFSET_2X,
 } from '../../common/styles/constant'
 
 export default StyleSheet.create({
@@ -41,7 +41,7 @@ export default StyleSheet.create({
     backgroundColor: color.bg.fifth.color,
   },
   left: {
-    // this is assuming that we are aliging items in cloumn
+    // this is assuming that we are aligning items in column
     alignItems: 'flex-start',
   },
   right: {
@@ -63,10 +63,13 @@ export default StyleSheet.create({
   columnBottom: {
     justifyContent: 'flex-end',
   },
+  spaceBetween: {
+    justifyContent: 'space-between',
+  },
   list: {
-    marginHorizontal: LIST_OFFSET_2X,
+    marginHorizontal: OFFSET_2X,
   },
   listItem: {
-    marginVertical: LIST_OFFSET_2X,
+    marginVertical: OFFSET_2X,
   },
 })
