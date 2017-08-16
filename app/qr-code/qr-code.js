@@ -32,6 +32,7 @@ export class QRCodeScannerScreen extends PureComponent {
       <Container>
         <StatusBar barStyle={barStyleLight} />
         <QRScanner onRead={this.onRead} />
+        <Footer navigation={this.props.navigation} />
       </Container>
     )
   }

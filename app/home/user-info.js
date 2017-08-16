@@ -25,10 +25,7 @@ class UserInfoItems extends PureComponent {
   render() {
     const {
       user: { isFetching, isPristine, data, error },
-      avatarTapped,
-      avatarTapCount,
       sendUserInfo,
-      resetAvatarTapCount,
       config,
     } = this.props
 
@@ -55,13 +52,7 @@ class UserInfoItems extends PureComponent {
     // data is fetched and there is no error, go ahead and render component
     return (
       <InfoSectionList>
-        <UserInfoAvatarSection
-          avatarTapped={avatarTapped}
-          avatarTapCount={avatarTapCount}
-          sendUserInfo={sendUserInfo}
-          resetAvatarTapCount={resetAvatarTapCount}
-          config={config}
-        />
+        <UserInfoAvatarSection sendUserInfo={sendUserInfo} config={config} />
         {identifyingInfo && <IdentifyingInfoSection infos={identifyingInfo} />}
         {addresses &&
           <UserInfoAddressSection

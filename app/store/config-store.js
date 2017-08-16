@@ -6,7 +6,8 @@
 
 import { AsyncStorage } from 'react-native'
 import { put, take, all, call } from 'redux-saga/effects'
-import { IS_ALREADY_INSTALLED } from '../common/secure-storage-constants'
+import { IS_ALREADY_INSTALLED } from '../common'
+import { hydrateApp } from '../store/hydration-store'
 
 export const SERVER_ENVIRONMENT = {
   DEMO: 'DEMO',
@@ -116,7 +117,8 @@ export function* hydrateConfig() {
     // or this is a new installation
     yield* alreadyInstalledNotFound()
   }
-
+  // hydrating connections and push token
+  yield put(hydrateApp())
   yield put(hydrated())
 }
 

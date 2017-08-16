@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PureComponent } from 'react'
 import {
   View,
   Animated,
@@ -9,40 +9,47 @@ import {
 } from 'react-native'
 import { View as AnimationView } from 'react-native-animatable'
 import { StyledImage } from '../styled-components/common-styled'
+import { generatePlaceholderConnection } from '../services'
+import { bubbleSize } from '../common/styles'
 
-const size = {
-  XS: 40,
-  S: 60,
-  M: 80,
-  L: 100,
-  XL: 120,
-  XXL: 140,
+export class Bubble extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.state = {
+      failed: false,
+    }
+  }
+
+  _onLoad = () => {
+    this.setState({ failed: false })
+  }
+
+  _onError = () => {
+    this.setState({ failed: true })
+  }
+
+  render() {
+    let { size, image } = this.props
+    const {
+      size: defaultSize,
+      image: defaultImage,
+    } = generatePlaceholderConnection().next().value
+    if (this.state.failed) {
+      size = defaultSize
+      image = defaultImage
+    }
+
+    return (
+      <StyledImage
+        size={[size, size]}
+        source={image}
+        resizeMode={'contain'}
+        onLoad={this._onLoad}
+        onError={this._onError}
+      />
+    )
+  }
 }
-
-const bubbles = [
-  { name: 'bh', image: require('../images/cbEDCU@3x.png'), size: size.L },
-  { name: 'dell', image: require('../images/cbDell@1x.png'), size: size.S },
-  { name: 'ebay', image: require('../images/cbEbay@1x.png'), size: size.M },
-  { name: 'target', image: require('../images/cbTarget.png'), size: size.M },
-  {
-    name: 'centuryLink',
-    image: require('../images/cbCenturyLink.png'),
-    size: size.S,
-  },
-  {
-    name: 'starbucks',
-    image: require('../images/cbStarbucks.png'),
-    size: size.XL,
-  },
-  {
-    name: 'suncoast',
-    image: require('../images/cbSunCoast.png'),
-    size: size.XL,
-  },
-  { name: 'amazon', image: require('../images/Amazon.png'), size: size.XL },
-  { name: 'dillard', image: require('../images/cbDillards.png'), size: size.M },
-  { name: 'verizon', image: require('../images/Verizon.png'), size: size.M },
-]
 
 export default class ConnectionBubbles extends Component {
   constructor(props) {
@@ -75,7 +82,7 @@ export default class ConnectionBubbles extends Component {
           { transform: [{ translateY: this.props.height }] },
         ]}
       >
-        {bubbles.map(({ name, image, size }) => (
+        {this.props.connections.map(({ identifier, name, image, size }) => (
           <AnimationView
             animation="zoomIn"
             duration={600}
@@ -85,13 +92,9 @@ export default class ConnectionBubbles extends Component {
               styles[name],
               styles[`${name}${deviceClass}`],
             ]}
-            key={name}
+            key={identifier}
           >
-            <StyledImage
-              size={[size, size]}
-              source={image}
-              resizeMode={'contain'}
-            />
+            <Bubble size={size} image={image} />
           </AnimationView>
         ))}
       </Animated.View>
@@ -181,5 +184,23 @@ const styles = (styles = StyleSheet.create({
   dillardIphonePlus: {
     top: 260,
     left: 160,
+  },
+
+  // multiple connections specific styles
+  evernym: {
+    top: 250,
+    right: 50,
+  },
+  evernymIphone5: {
+    top: 250,
+    right: 50,
+  },
+  edcu: {
+    bottom: 30,
+    left: 50,
+  },
+  edcuIphone5: {
+    bottom: 30,
+    left: 50,
   },
 }))

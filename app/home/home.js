@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import {
   ScrollView,
   Image,
@@ -8,6 +7,8 @@ import {
   StatusBar,
   StyleSheet,
 } from 'react-native'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { StackNavigator } from 'react-navigation'
 import { Icon, Avatar } from 'react-native-elements'
 
@@ -15,8 +16,6 @@ import { CustomView } from '../components/layout'
 import { Container, CustomText } from '../components'
 import Bubbles from './bubbles'
 import User from './user'
-import { setItem, getItem } from '../services/secure-storage'
-import UserEnroll from '../components/user-enroll'
 import Footer from '../components/footer'
 import invitation from '../invitation/invitation-store'
 import { color, barStyleDark } from '../common/styles/constant'
@@ -25,22 +24,13 @@ import styles from '../components/layout/layout-style'
 
 import {
   getUserInfo,
-  getConnections,
   pushNotificationReceived,
-  avatarTapped,
-  resetAvatarTapCount,
   sendUserInfo,
   changeServerEnvironmentToDemo,
   changeServerEnvironmentToSandbox,
   authenticationRequestReceived,
 } from '../store'
 import { homeRoute } from '../common/route-constants'
-import {
-  PUSH_COM_METHOD,
-  IDENTIFIER,
-  PHONE,
-  SEED,
-} from '../common/secure-storage-constants'
 import { authenticationRequest } from '../invitation/invitation-store'
 import { handlePushNotification } from '../services'
 
@@ -80,14 +70,12 @@ export class HomeScreenDrawer extends Component {
       currentRoute: homeRoute,
       scrollY: new Animated.Value(0),
       isSwiping: false,
-      connectionRequestCount: 0,
     }
   }
 
   componentWillMount() {
     // load data for home screen
-    this.props.loadUserInfo()
-    this.props.loadConnections()
+    this.props.getUserInfo()
   }
 
   handleSwipe = isSwiping => {
@@ -114,9 +102,10 @@ export class HomeScreenDrawer extends Component {
       extrapolate: 'clamp',
     })
 
-    const { user, connections } = this.props
+    const { user, connections: { data } } = this.props,
+      connectionsData = Object.values(data)
 
-    if (this.state.connectionRequestCount === 0) {
+    if (!connectionsData || (connectionsData && connectionsData.length <= 0)) {
       return (
         <View style={[styles.container, styles.fifthBg]}>
           <StatusBar barStyle={barStyleDark} />
@@ -133,30 +122,15 @@ export class HomeScreenDrawer extends Component {
                     this.setState({ connectionRequestCount: 1 })
                   }}
                 >
-                  {"You don't have any"}
+                  You don't have any
                 </CustomText>
-                <CustomText
-                  h4
-                  bg={dimGray}
-                  center
-                  testID="no-connection-text-2"
-                >
-                  {'connections set up yet.'}
+                <CustomText h4 bg={dimGray} center>
+                  connections set up yet
                 </CustomText>
-                <CustomText
-                  h4
-                  bg={dimGray}
-                  center
-                  testID="no-connection-text-3"
-                >
+                <CustomText h4 bg={dimGray} center>
                   Call a participating Credit
                 </CustomText>
-                <CustomText
-                  h4
-                  bg={dimGray}
-                  center
-                  testID="no-connection-text-4"
-                >
+                <CustomText h4 bg={dimGray} center>
                   Union to get started
                 </CustomText>
               </View>
@@ -173,7 +147,7 @@ export class HomeScreenDrawer extends Component {
             <StatusBar barStyle={barStyleDark} />
             <Container backgroundColor={color.bg.fifth.color}>
               <View style={[styles.container]}>
-                <Bubbles height={bubblesHeight} connections={connections} />
+                <Bubbles height={bubblesHeight} connections={connectionsData} />
               </View>
               <Footer navigation={this.props.navigation} />
             </Container>
@@ -188,25 +162,22 @@ const mapStateToProps = state => ({
   user: state.user,
   connections: state.connections,
   pushNotification: state.pushNotification,
-  avatarTapCount: state.home.avatarTapCount,
   config: state.config,
   route: state.route,
 })
 
-const mapDispatchToProps = dispatch => ({
-  loadUserInfo: () => dispatch(getUserInfo()),
-  loadConnections: () => dispatch(getConnections()),
-  changeServerEnvironmentToDemo: () =>
-    dispatch(changeServerEnvironmentToDemo()),
-  changeServerEnvironmentToSandbox: () =>
-    dispatch(changeServerEnvironmentToSandbox()),
-  pushNotificationReceived: data => dispatch(pushNotificationReceived(data)),
-  avatarTapped: () => dispatch(avatarTapped()),
-  resetAvatarTapCount: () => dispatch(resetAvatarTapCount()),
-  sendUserInfo: (context, config) => dispatch(sendUserInfo(context, config)),
-  authenticationRequestReceived: data =>
-    dispatch(authenticationRequestReceived(data)),
-})
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      getUserInfo,
+      changeServerEnvironmentToDemo,
+      changeServerEnvironmentToSandbox,
+      pushNotificationReceived,
+      sendUserInfo,
+      authenticationRequestReceived,
+    },
+    dispatch
+  )
 
 const mapsStateDispatch = connect(mapStateToProps, mapDispatchToProps)(
   HomeScreenDrawer

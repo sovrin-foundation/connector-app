@@ -4,12 +4,12 @@ import { all } from 'redux-saga/effects'
 import logger from 'redux-logger'
 import user, { watchUserInfo, watchSendUserInfo } from './user-store'
 import pushNotification from './push-notification-store'
-import connections, { watchLoadConnections } from './connections-store'
+import connections, { watchNewConnection } from './connections-store'
 import config, { watchConfig } from './config-store'
-import home, { watchEnrollUser } from '../home/home-store'
 import invitation, { watchInvitation } from '../invitation/invitation-store'
 import deepLink from '../deep-link/deep-link-store'
 import route from './route-store'
+import { watchAppHydration } from './hydration-store'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -18,7 +18,6 @@ const appReducer = combineReducers({
   pushNotification,
   connections,
   invitation,
-  home,
   config,
   deepLink,
   route,
@@ -28,12 +27,12 @@ const store = createStore(appReducer, applyMiddleware(logger, sagaMiddleware))
 
 sagaMiddleware.run(function*() {
   return yield all([
-    watchLoadConnections(),
+    watchNewConnection(),
     watchUserInfo(),
-    watchEnrollUser(),
     watchSendUserInfo(),
     watchConfig(),
     watchInvitation(),
+    watchAppHydration(),
   ])
 })
 
@@ -42,8 +41,8 @@ export * from './push-notification-store'
 export * from './connections-store'
 export * from './config-store'
 export * from './route-store'
+export * from './hydration-store'
 export * from '../invitation/invitation-store'
-export * from '../home/home-store'
 export * from '../deep-link/deep-link-store'
 
 // make default export as the store

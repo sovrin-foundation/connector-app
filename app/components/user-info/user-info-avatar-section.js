@@ -6,8 +6,7 @@ import { ListItem, ListItemData } from '../info-section-list'
 import { BadgeAvatar, Avatar } from '../avatar'
 import { ItemDividerLabel } from '../../styled-components/common-styled'
 import { addButtonText } from './user-info-common-components'
-import Alert from '../alert'
-import { avatarTapped, resetAvatarTapCount, sendUserInfo } from '../../store'
+import { sendUserInfo } from '../../store'
 
 /**
  * TODO:KS
@@ -24,12 +23,7 @@ export default class UserInfoAvatarSection extends PureComponent {
   }
 
   render() {
-    const {
-      avatarTapped,
-      avatarTapCount,
-      sendUserInfo,
-      resetAvatarTapCount,
-    } = this.props
+    const { sendUserInfo, config } = this.props
     return (
       <View>
         <Divider left={avatarDividerLeft} right={addButtonText} />
@@ -39,16 +33,9 @@ export default class UserInfoAvatarSection extends PureComponent {
               count={76}
               small
               src={require('../../invitation/images/inviter.jpeg')}
-              onPress={avatarTapped}
             />
           </ListItemData>
         </ListItem>
-        {avatarTapCount === 3 &&
-          <Alert
-            onClose={sendUserInfo}
-            reset={resetAvatarTapCount}
-            config={this.props.config}
-          />}
       </View>
     )
   }

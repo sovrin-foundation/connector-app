@@ -39,10 +39,16 @@ class Invitation extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ invitation, config, deepLink }) => ({
+const mapStateToProps = ({
   invitation,
   config,
   deepLink,
+  pushNotification,
+}) => ({
+  invitation,
+  config,
+  deepLink,
+  pushNotification,
 })
 
 const mapDispatchToProps = dispatch =>

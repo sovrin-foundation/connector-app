@@ -1,14 +1,5 @@
 import React, { PureComponent } from 'react'
-import {
-  View,
-  Image,
-  Text,
-  StyleSheet,
-  TouchableWithoutFeedback,
-} from 'react-native'
 import { connect } from 'react-redux'
-
-import { settingsRoute, homeRoute } from '../common/route-constants'
 import Tabs from './tabs'
 
 class Footer extends PureComponent {
@@ -17,11 +8,9 @@ class Footer extends PureComponent {
   }
 
   render() {
-    if (this.props.route.currentScreen == settingsRoute) {
-      return <Tabs type={settingsRoute} rightIconClick={this._onClick} />
-    } else {
-      return <Tabs type={homeRoute} leftIconClick={this._onClick} />
-    }
+    return (
+      <Tabs type={this.props.route.currentScreen} onTabClick={this._onClick} />
+    )
   }
 }
 

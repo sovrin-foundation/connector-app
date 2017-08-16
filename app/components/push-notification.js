@@ -3,14 +3,13 @@ import { View } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import FCM, { FCMEvent } from 'react-native-fcm'
-import { setItem } from '../services/secure-storage'
-import { PUSH_COM_METHOD } from '../common/secure-storage-constants'
-import UserEnroll from './user-enroll'
 import {
-  enroll,
   pushNotificationPermissionAction,
   pushNotificationReceived,
+  updatePushToken,
 } from '../store'
+import { PUSH_COM_METHOD } from '../common'
+import { setItem } from '../services'
 
 export class PushNotification extends PureComponent {
   constructor(props) {
@@ -60,6 +59,7 @@ export class PushNotification extends PureComponent {
       setItem(PUSH_COM_METHOD, token)
         .then(() => {
           this.props.pushNotificationPermissionAction(true)
+          this.props.updatePushToken(token)
         })
         .catch(function(error) {
           console.log('LOG: error saveDeviceToken setItem, ', error)
@@ -75,15 +75,6 @@ export class PushNotification extends PureComponent {
   }
 
   render() {
-    if (this.props.pushNotification.isAllowed) {
-      return (
-        <UserEnroll
-          enrollAction={this.props.enroll}
-          config={this.props.config}
-        />
-      )
-    }
-
     return null
   }
 }
@@ -97,9 +88,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      enroll,
       pushNotificationPermissionAction,
       pushNotificationReceived,
+      updatePushToken,
     },
     dispatch
   )

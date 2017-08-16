@@ -4,7 +4,8 @@ import {
   sendAuthenticationRequest,
   sendInvitationConnectionRequest,
   sendQRInvitationResponse,
-} from '../services/api'
+} from '../services'
+import { saveNewConnection } from '../store/connections-store'
 
 export const INVITATION_STATUS = {
   ACCEPTED: 'accepted',
@@ -19,7 +20,6 @@ export const INVITATION_TYPE = {
   QR_CONNECTION_REQUEST: 'QR_CONNECTION_REQUEST',
 }
 
-// TODO: Add isLoading and isPristine to check for user action call
 const initialState = {
   inviter: { image: '' },
   invitee: { image: './images/inviter.jpeg' },
@@ -27,7 +27,8 @@ const initialState = {
   error: null,
   type: INVITATION_TYPE.NONE,
   status: INVITATION_STATUS.NONE,
-  connectionRequestCount: 0,
+  isFetching: false,
+  isPristine: true,
 }
 
 const AUTHENTICATION_REQUEST_RECEIVED = 'AUTHENTICATION_REQUEST_RECEIVED'
@@ -62,13 +63,15 @@ export const sendUserInvitationResponse = (
   data,
   config,
   invitationType,
-  token
+  token,
+  newConnection
 ) => ({
   type: SEND_USER_INVITATION_RESPONSE,
   data,
   config,
   invitationType,
   token,
+  newConnection,
 })
 
 export const sendUserInvitationResponseSuccess = data => ({
@@ -117,21 +120,26 @@ export function* watchLoadInvitationDetailsRequest() {
 }
 
 function* handleUserInvitationResponse(action) {
+  const { invitationType } = action
   try {
     let invitationActionResponse = null
-    if (action.invitationType == INVITATION_TYPE.AUTHENTICATION_REQUEST) {
+    if (invitationType == INVITATION_TYPE.AUTHENTICATION_REQUEST) {
       invitationActionResponse = yield call(sendAuthenticationRequest, action)
-    } else if (
-      action.invitationType === INVITATION_TYPE.PENDING_CONNECTION_REQUEST
-    ) {
-      invitationActionResponse = yield call(
-        sendInvitationConnectionRequest,
-        action
-      )
+      yield put(sendUserInvitationResponseSuccess(action))
     } else {
-      invitationActionResponse = yield call(sendQRInvitationResponse, action)
+      if (
+        action.invitationType === INVITATION_TYPE.PENDING_CONNECTION_REQUEST
+      ) {
+        //TODO: separate out invitation and connection actions
+        invitationActionResponse = yield call(
+          sendInvitationConnectionRequest,
+          action
+        )
+      } else {
+        invitationActionResponse = yield call(sendQRInvitationResponse, action)
+      }
+      yield put(saveNewConnection(action))
     }
-    yield put(sendUserInvitationResponseSuccess(invitationActionResponse))
   } catch (e) {
     yield put(
       sendUserInvitationResponseFailure({
@@ -154,42 +162,46 @@ export default function invitation(state = initialState, action) {
     case PENDING_CONNECTION_REQUEST:
       return {
         ...state,
-        connectionRequestCount: 0,
         status: INVITATION_STATUS.NONE,
         type: INVITATION_TYPE.PENDING_CONNECTION_REQUEST,
       }
     case PENDING_CONNECTION_SUCCESS:
       return {
         ...state,
-        connectionRequestCount: 1,
         data: action.data,
         type: INVITATION_TYPE.PENDING_CONNECTION_REQUEST,
       }
     case PENDING_CONNECTION_FAILURE:
       return {
         ...state,
-        connectionRequestCount: 0,
         error: action.error,
       }
     case SEND_USER_INVITATION_RESPONSE:
       return {
         ...state,
-        status: action.data.newStatus,
+        isFetching: true,
+        isPristine: false,
       }
     case SEND_USER_INVITATION_RESPONSE_SUCCESS:
       // TODO:KS What is this happening here,
       // why are we not considering anything from success response?
-      const { authStatus } = action.data
       return {
         ...state,
+        isFetching: false,
+        status: action.data.newStatus,
       }
     case SEND_USER_INVITATION_RESPONSE_FAILURE:
       return {
         ...state,
-        error: action.error.invitationType ===
-          INVITATION_TYPE.PENDING_CONNECTION_REQUEST
-          ? action.error.message
-          : null,
+        isFetching: false,
+        //TODO:PS:Not sure why we conditionally setting error, disabled for now
+        //If you think we need it, mention reason and un-comment it
+
+        // error: action.error.invitationType ===
+        //   INVITATION_TYPE.PENDING_CONNECTION_REQUEST
+        //   ? action.error.message
+        //   : null,
+        error: action.error,
       }
     case RESET_INVITATION_STATUS:
       return {

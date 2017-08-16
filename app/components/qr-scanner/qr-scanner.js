@@ -187,7 +187,12 @@ const cameraMarkerStyles = StyleSheet.create({
 
 const cameraStyle = StyleSheet.create({
   camera: {
-    height: Dimensions.get('screen').height,
+    // magical number 72 is set here due to footer height
+    // we want our QR code to go behind the footer slightly
+    // but at the same time we want qr scan status to stay sufficient above footer
+    // without margin or padding, by setting height
+    // we automatically align qr scanner using flex
+    height: Dimensions.get('screen').height - 72,
     backgroundColor: 'transparent',
   },
 })

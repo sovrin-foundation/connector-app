@@ -11,21 +11,19 @@ import {
   getKeyPairFromSeed,
   getSignature,
   verifySignature,
+  randomSeed,
 } from '../services/keys'
 import {
-  PUSH_COM_METHOD,
-  SEED,
-  IDENTIFIER,
-} from '../common/secure-storage-constants'
-import { getItem } from '../services/secure-storage'
-import { connectionRoute, homeRoute } from '../common/route-constants'
-import {
+  connectionRoute,
+  homeRoute,
   TOUCH_ID_MESSAGE,
   DEVICE_ENROLLMENT_ERROR,
   PUSH_NOTIFICATION_PERMISSION_ERROR,
-} from '../common/message-constants'
-import { QR_CODE_CHALLENGE } from '../common/api-constants'
-import { ALLOW, DENY } from '../common/button-constants'
+  ALLOW,
+  DENY,
+  QR_CODE_CHALLENGE,
+  QR_CODE_REMOTE_CONNECTION_ID,
+} from '../common'
 import { INVITATION_TYPE, INVITATION_STATUS } from '../store'
 
 export default class actions extends PureComponent {
@@ -33,11 +31,7 @@ export default class actions extends PureComponent {
     // get Push Notification permission, for iOS
     FCM.requestPermissions()
       .then(res => {
-        const requiredProvisioningData = [
-          getItem(IDENTIFIER),
-          getItem(SEED),
-          getItem(PUSH_COM_METHOD),
-        ]
+        const requiredProvisioningData = []
 
         if (this.props.tapCount < 4) {
           // add touchId authentication
@@ -45,10 +39,14 @@ export default class actions extends PureComponent {
         }
 
         // device enrollment
-        Promise.all(
-          requiredProvisioningData
-        ).then(([identifier, seed, pushComMethod]) => {
-          if (identifier && seed && pushComMethod) {
+        Promise.all(requiredProvisioningData).then(() => {
+          const phoneNumber = (Math.random() * 1000000000000000000)
+            .toString()
+            .substring(0, 10)
+          const identifier = randomSeed(32).substring(0, 22)
+          const seed = randomSeed(32).substring(0, 32)
+          const { pushToken } = this.props.pushNotification
+          if (identifier && seed && pushToken) {
             // reset avatar tapCount
             this.props.resetTapCount()
             let {
@@ -57,15 +55,26 @@ export default class actions extends PureComponent {
             } = getKeyPairFromSeed(seed)
             verKey = encode(verKey)
 
-            const { type: invitationType } = this.props.invitation
+            let {
+              type: invitationType,
+              data: { remoteConnectionId },
+            } = this.props.invitation
             if (invitationType === INVITATION_TYPE.PENDING_CONNECTION_REQUEST) {
               const challenge = JSON.stringify({
                 newStatus,
                 identifier,
                 verKey,
-                pushComMethod: `FCM:${pushComMethod}`,
+                pushComMethod: `FCM:${pushToken}`,
               })
               const signature = encode(getSignature(signingKey, challenge))
+
+              const connectionChallenge = JSON.stringify({
+                remoteConnectionId,
+              })
+              const connectionChallengeSignature = encode(
+                getSignature(signingKey, connectionChallenge)
+              )
+
               this.props.sendUserInvitationResponse(
                 {
                   newStatus,
@@ -77,11 +86,21 @@ export default class actions extends PureComponent {
                 },
                 this.props.config,
                 invitationType,
-                this.props.deepLink.token
+                this.props.deepLink.token,
+                {
+                  identifier,
+                  connectionBody: {
+                    connectionChallenge,
+                    connectionChallengeSignature,
+                  },
+                  remoteConnectionId,
+                }
               )
             } else if (
               invitationType === INVITATION_TYPE.AUTHENTICATION_REQUEST
             ) {
+              //TODO:PS: need to fix identifier
+              //before marking multiple connections feature complete
               const challenge = JSON.stringify({
                 newStatus,
               })
@@ -109,14 +128,34 @@ export default class actions extends PureComponent {
                 newStatus,
                 identifier,
                 verKey,
-                pushComMethod: `FCM:${pushComMethod}`,
+                pushComMethod: `FCM:${pushToken}`,
               }
               const challenge = JSON.stringify(apiData)
               const signature = encode(getSignature(signingKey, challenge))
+
+              remoteConnectionId = this.props.invitation.data.payload.challenge[
+                QR_CODE_REMOTE_CONNECTION_ID
+              ]
+              const connectionChallenge = JSON.stringify({
+                remoteConnectionId,
+              })
+              const connectionChallengeSignature = encode(
+                getSignature(signingKey, connectionChallenge)
+              )
+
               this.props.sendUserInvitationResponse(
                 { challenge, signature, ...apiData },
                 this.props.config,
-                invitationType
+                invitationType,
+                null,
+                {
+                  identifier,
+                  connectionBody: {
+                    connectionChallenge,
+                    connectionChallengeSignature,
+                  },
+                  remoteConnectionId,
+                }
               )
             }
           } else {
@@ -130,14 +169,28 @@ export default class actions extends PureComponent {
       })
   }
 
+  clearInvitation = () => {
+    setTimeout(() => {
+      this.props.resetInvitationStatus()
+    }, 1000)
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.invitation.status != this.props.invitation.status) {
-      if (nextProps.invitation.status === INVITATION_STATUS.ACCEPTED) {
+      if (
+        !nextProps.invitation.isFetching &&
+        nextProps.invitation.status === INVITATION_STATUS.ACCEPTED &&
+        !nextProps.invitation.error
+      ) {
         this.props.navigation.navigate(connectionRoute)
-        this.props.resetInvitationStatus()
-      } else if (nextProps.invitation.status === INVITATION_STATUS.REJECTED) {
+        this.clearInvitation()
+      } else if (
+        !nextProps.invitation.isFetching &&
+        (nextProps.invitation.status === INVITATION_STATUS.REJECTED ||
+          nextProps.invitation.error)
+      ) {
         this.props.navigation.navigate(homeRoute)
-        this.props.resetInvitationStatus()
+        this.clearInvitation()
       }
     }
   }

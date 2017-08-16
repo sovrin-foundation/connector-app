@@ -82,3 +82,12 @@ export const OFFSET_1X = 10
 export const OFFSET_2X = 20
 export const barStyleDark = 'dark-content'
 export const barStyleLight = 'light-content'
+
+export const bubbleSize = {
+  XS: 40,
+  S: 60,
+  M: 80,
+  L: 100,
+  XL: 120,
+  XXL: 140,
+}

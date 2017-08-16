@@ -3,52 +3,63 @@ import 'react-native'
 import renderer from 'react-test-renderer'
 
 import connectionReducer, {
-  getConnections,
-  getConnectionsFailed,
-  getConnectionsSuccess,
+  saveNewConnection,
+  saveNewConnectionSuccess,
+  saveNewConnectionFailed,
 } from '../connections-store'
 
 describe('connections should update correctly', () => {
   let initialState = {}
+  const newConnection = {
+    identifier: '6789012345678906789012',
+    name: 'test',
+  }
 
   beforeAll(() => {
     // get initial state without any action
-    initialState = connectionReducer(undefined, { type: 'NOACTION' })
+    initialState = connectionReducer(undefined, { type: 'NO_ACTION' })
   })
 
-  it('should reflect get connections request started', () => {
+  it('should receive new connection request', () => {
     const expectedState = {
       ...initialState,
       isFetching: true,
       isPristine: false,
     }
-    const actualState = connectionReducer(initialState, getConnections())
-
-    expect(actualState).toMatchObject(expectedState)
-  })
-
-  it('should reflect connections received', () => {
-    const data = { did1: { name: 'Connection 1 name' } }
-    const expectedState = { ...initialState, data }
     const actualState = connectionReducer(
       initialState,
-      getConnectionsSuccess(data)
+      saveNewConnection(newConnection)
     )
-
     expect(actualState).toMatchObject(expectedState)
   })
 
-  it('should reflect get connections failed', () => {
-    const error = { code: '1234', message: 'connections fetch failed' }
+  it('should update connections and store new connection properly', () => {
     const expectedState = {
       ...initialState,
-      error,
+      isFetching: false,
+      data: {
+        ...initialState.data,
+        [newConnection.identifier]: newConnection,
+      },
     }
     const actualState = connectionReducer(
       initialState,
-      getConnectionsFailed(error)
+      saveNewConnectionSuccess(newConnection)
     )
+    expect(actualState).toMatchObject(expectedState)
+  })
 
+  it('should fail if new connection is not stored', () => {
+    const error = { code: '1234', message: 'new connection failed' },
+      expectedState = {
+        ...initialState,
+        isFetching: false,
+        error,
+      }
+    const actualState = connectionReducer(
+      initialState,
+      saveNewConnectionFailed(error)
+    )
     expect(actualState).toMatchObject(expectedState)
   })
 })

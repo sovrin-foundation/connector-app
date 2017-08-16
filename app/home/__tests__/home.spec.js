@@ -24,12 +24,9 @@ function props() {
     },
     connections: {},
     loadUserInfo: jest.fn(),
-    loadConnections: jest.fn(),
-    // invitationReceived: jest.fn(),
     pushNotificationPermissionAction: jest.fn(),
     pushNotification: { isPNAllowed: true },
     home: {
-      avatarTapCount: 0,
       enrollResponse: commonInitiaProps,
       userInfoResponse: commonInitiaProps,
     },

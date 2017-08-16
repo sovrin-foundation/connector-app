@@ -5,10 +5,7 @@ import UserInfoAvatarSection from '../user-info-avatar-section'
 
 function props() {
   return {
-    avatarTapped: jest.fn(),
-    avatarTapCount: 0,
     sendUserInfo: jest.fn(),
-    resetAvatarTapCount: jest.fn(),
     config: {
       isHydrated: true,
       isAlreadyInstalled: false,
