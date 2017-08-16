@@ -37,15 +37,12 @@ public class AuthRequestTest {
 	@org.testng.annotations.Test
 
 	public void main() throws Exception {
-    	
-		
-		System.out.println("check starbuck is displayed");
-		Log.info("Validating Starbuck image is displayed or not");
-		HomePage.Starbuck_Image(driver).isDisplayed();
+    			
+	    HomePage.Avatar_Photo(driver).click();
 		AppUtlis AppUtlisObj=new AppUtlis();
-		String Identifier=AppUtlisObj.getIdentifier(driver);
+		String Identifier=AppUtlisObj.getIdentifier();
     	String payload="{\"authRequesterName\":\"amit\"}";
-		String requestUrl="https://agency-ea.evernym.com/agent/id/"+Identifier+"/auth";
+		String requestUrl="https://agency-ea-sandbox.evernym.com/agent/id/"+Identifier+"/auth";
 		RestApi.sendPostRequest(requestUrl, payload, "POST");//check the response
 		System.out.println("Notification is send on phone");
 		AppUtlisObj.acceptRequest(driver);

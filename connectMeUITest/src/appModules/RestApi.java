@@ -17,9 +17,13 @@ public class RestApi {
 	        connection.setRequestMethod(requestType);
 	        connection.setRequestProperty("Accept", "application/json");
 	        connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+	        if (payload!="")
+	        {
 	        OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), "UTF-8");
 	        writer.write(payload);
 	        writer.close();
+	        }
+	        
 	        BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 	        String line;
 	        while ((line = br.readLine()) != null) {
@@ -32,6 +36,8 @@ public class RestApi {
 	    }
 	    return jsonString.toString();
 	}
+	
+	
 
 	
 }

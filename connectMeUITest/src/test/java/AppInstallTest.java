@@ -17,13 +17,13 @@ import pageObjects.HockeyAppPage;
 import pageObjects.HomePage;
 import utility.Setup;
 import utility.*;
-
+@Test
 public class AppInstallTest {
 
 	public AppiumDriver driver;
 
 
-	@BeforeMethod
+	@BeforeMethod //testng 
 
 	public void beforeMethod() throws Exception {
 
@@ -36,10 +36,10 @@ public class AppInstallTest {
 
 	public void main() throws Exception {
 		
-		String payload="{\"name\":\"Ankur Mishra\"}";
-		String requestUrl="https://agency-ea.evernym.com/agent/phone/8327364896/connection-offer";
+		String payload="{\"name\":\"Ankur Mishra\",\"phoneNumber\":\"8327364896\"}";
+		String requestUrl="https://agency-ea-sandbox.evernym.com/agent/internal-id/8327364896/connection";
 		String requestType="PUT";
-		RestApi.sendPostRequest(requestUrl, payload,requestType);//check response for API COMMENT BY Rajesh
+		RestApi.sendPostRequest(requestUrl, payload,requestType);
 		driver.get("https://gmail.com");
 		GmailPage.UserNameText(driver).sendKeys("evernym.number@gmail.com");
 		GmailPage.UserNameNextButton(driver).click();

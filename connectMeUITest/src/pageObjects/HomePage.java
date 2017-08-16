@@ -12,10 +12,10 @@ public class HomePage {
 
 	private static WebElement element = null;
 
-	public static WebElement AllowAlert_Button(AppiumDriver driver) throws Exception {
+	public static WebElement Setting_Button(AppiumDriver driver) throws Exception {
 
 		try {
-			element = driver.findElement(By.id("Allow"));
+			element = driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=' '])[2]/XCUIElementTypeOther[2]"));
 			System.out.println("Allow Button is displayed");
 			return element;
 		} catch (Exception e) {
@@ -28,10 +28,10 @@ public class HomePage {
 		}
 	}
 
-	public static WebElement avatar_photo(AppiumDriver driver) throws Exception {
+	public static WebElement Avatar_Photo(AppiumDriver driver) throws Exception {
 
 		try {
-			element = driver.findElement(By.xpath("(//XCUIElementTypeOther[@name=" + " 76" + "])[3]/XCUIElementTypeImage"));
+			element = driver.findElement(By.xpath("//XCUIElementTypeImage[@name='tab-active-avatar-icon']"));
 			return element;
 		} catch (Exception e) {
 
@@ -42,37 +42,21 @@ public class HomePage {
 
 	}
 
-	public static WebElement Starbuck_Image(AppiumDriver driver) throws Exception {
+	public static WebElement AddConnection_Button(AppiumDriver driver) throws Exception {
 		try {
 
-			element = driver.findElement(By.name("assets/app/images/cbStarbucks@2x.png"));
-			System.out.println("starbuck Image is displayed");
+			element = driver.findElement(By.xpath("//XCUIElementTypeImage[@name='tab-add-connection-icon']"));
+			System.out.println("Add connection button is displayed");
 			return element;
 
 		} catch (Exception e) {
-			Log.error("Starbuck Image  is not found.");
-			System.out.println("starbuck Image is not displayed");
+			Log.error("Add connection button  is not found.");
+			System.out.println("Add connection button is not displayed");
 
 			throw (e);
 
 		}
 	}
 
-	public static WebElement Alert_Box(AppiumDriver driver) throws Exception {
-
-		try {
-			element = driver.findElement(By.xpath("//XCUIElementTypeAlert"));
-			System.out.println("Alert is displayed");
-
-			return element;
-		    } catch (Exception e) {
-
-			Log.error("Alert is not found.");
-			System.out.println("Alert is not displayed");
-
-			throw (e);
-		}
-
-	}
 
 }

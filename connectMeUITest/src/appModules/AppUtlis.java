@@ -23,23 +23,13 @@ public class AppUtlis {
 		
 	}
 	
-	public String getIdentifier(AppiumDriver driver) throws Exception
+	public String getIdentifier() throws Exception
 	{
-		System.out.println("Scroll down");
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		HashMap<String, String> scrollObject = new HashMap<String, String>();
-		scrollObject.put("direction", "down");
-		js.executeScript("mobile: scroll", scrollObject);
-		System.out.println("Scroll down sucessfull");
-		AppiumUtils.nClick(3,HomePage.avatar_photo(driver));
-		System.out.println("tapped three type on avatar photo");
-		driver.switchTo().alert();
-		System.out.println("Switched to alert");
-		String Identifier = HomePage.Alert_Box(driver).getAttribute("name");
-		System.out.println("Getting the Identifier");
-		Identifier = Identifier.substring(13);
+		String requestUrl="https:/agency-ea-sandbox.evernym.com/agent/internal-id/8327364896/connection";
+		String requestType="GET";
+		String Identifier=RestApi.sendPostRequest(requestUrl, "",requestType);
+		Identifier=Identifier.substring(Identifier.indexOf("identifier") + 5 , Identifier.indexOf("identifier") + 27);
 		System.out.println("Identifier"+" "+"for installed app is "+Identifier);
-    	driver.switchTo().alert().accept();
 		return Identifier;
 		
 		
