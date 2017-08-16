@@ -170,9 +170,7 @@ export default class actions extends PureComponent {
   }
 
   clearInvitation = () => {
-    setTimeout(() => {
-      this.props.resetInvitationStatus()
-    }, 1000)
+    setTimeout(this.props.resetInvitationStatus, 3000)
   }
 
   componentWillReceiveProps(nextProps) {

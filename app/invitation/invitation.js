@@ -25,7 +25,8 @@ class Invitation extends PureComponent {
     return (
       <Container>
         <Container primary>
-          <InvitationText {...this.props} tapAvatar={this._tapAvatar} />
+          {this.props.invitation.data &&
+            <InvitationText {...this.props} tapAvatar={this._tapAvatar} />}
         </Container>
         <View>
           <InvitationActions

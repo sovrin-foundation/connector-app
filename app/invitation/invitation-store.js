@@ -208,6 +208,8 @@ export default function invitation(state = initialState, action) {
         ...state,
         type: INVITATION_TYPE.NONE,
         status: INVITATION_STATUS.NONE,
+        error: null,
+        data: null,
       }
     case AUTHENTICATION_REQUEST_RECEIVED:
       return {
