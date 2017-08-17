@@ -25,10 +25,10 @@ public class AppUtlis {
 	
 	public String getIdentifier() throws Exception
 	{
-		String requestUrl="https:/agency-ea-sandbox.evernym.com/agent/internal-id/8327364896/connection";
+		String requestUrl="https://agency-ea-sandbox.evernym.com/agent/internal-id/8327364896/connection";
 		String requestType="GET";
 		String Identifier=RestApi.sendPostRequest(requestUrl, "",requestType);
-		Identifier=Identifier.substring(Identifier.indexOf("identifier") + 5 , Identifier.indexOf("identifier") + 27);
+		Identifier=Identifier.substring(Identifier.indexOf("identifier") + 15 , Identifier.indexOf("identifier") + 37);
 		System.out.println("Identifier"+" "+"for installed app is "+Identifier);
 		return Identifier;
 		

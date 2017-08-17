@@ -46,7 +46,7 @@ public class AuthRequestTest {
 		RestApi.sendPostRequest(requestUrl, payload, "POST");//check the response
 		System.out.println("Notification is send on phone");
 		AppUtlisObj.acceptRequest(driver);
-		ConnectionDetailPage.Cross_Button(driver).click();
+	    ConnectionDetailPage.Cross_Button(driver).click();
 
 
 	}

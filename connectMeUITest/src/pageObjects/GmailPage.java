@@ -152,4 +152,39 @@ public class GmailPage {
 			}
 
 	}
+
+	public static WebElement Email_CheckBox(AppiumDriver driver) throws Exception {
+
+		try {
+			element = driver.findElement(By.xpath("(//div[@role='checkbox'])[1]"));
+			System.out.println("Email checkbox is displayed");
+
+			return element;
+		    } catch (Exception e) {
+
+			Log.error("Email checkbox is not found.");
+			System.out.println("Email checkbox is not displayed");
+
+			throw (e);
+		}
+
+}
+
+	public static WebElement Delete_Button(AppiumDriver driver) throws Exception {
+
+		try {
+			element = driver.findElement(By.xpath("//div[@aria-label='Delete']/div"));
+			System.out.println("Delete button is displayed");
+
+			return element;
+		    } catch (Exception e) {
+
+			Log.error("Signin is not found.");
+			System.out.println("Delete button is not displayed");
+
+			throw (e);
+		}
+
+}
+
 }

@@ -47,6 +47,11 @@ public class AppInstallTest {
 		GmailPage.PasswordNextButton(driver).click();
     	Thread.sleep(20000);//used sleep which is not recommended as we have issue with synch of gmail opening 
     	GmailPage.MobileGmailSiteLink(driver).click();
+    	GmailPage.Email_CheckBox(driver).click();
+    	GmailPage.Delete_Button(driver).click();
+		RestApi.sendPostRequest(requestUrl, payload,requestType);
+		Thread.sleep(5000);
+		driver.navigate().refresh();
     	GmailPage.FirstEmailLink(driver).click();
     	String ConnectMeLink =GmailPage.ConnectMeLink(driver).getAttribute("href");
 		System.out.println(ConnectMeLink);
