@@ -138,7 +138,16 @@ function* handleUserInvitationResponse(action) {
       } else {
         invitationActionResponse = yield call(sendQRInvitationResponse, action)
       }
-      yield put(saveNewConnection(action))
+      // if user accepted it, then save a new connection otherwise don't save a new connection
+      if (action.data.newStatus === INVITATION_STATUS.ACCEPTED) {
+        yield put(saveNewConnection(action))
+      } else {
+        yield put(
+          sendUserInvitationResponseSuccess({
+            newStatus: action.data.newStatus,
+          })
+        )
+      }
     }
   } catch (e) {
     yield put(

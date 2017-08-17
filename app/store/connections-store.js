@@ -76,7 +76,6 @@ export function* loadNewConnectionSaga(action) {
     yield put(
       sendUserInvitationResponseFailure({
         message: e.message,
-        invitationType: INVITATION_TYPE.PENDING_CONNECTION_REQUEST,
       })
     )
   }
