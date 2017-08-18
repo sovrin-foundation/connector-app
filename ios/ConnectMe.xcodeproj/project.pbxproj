@@ -578,22 +578,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		27D4F49C1F40D742000A6BBB /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				39C3C77055764123A3B45857 /* libRNVectorIcons.a */,
-				A4DCC6CAA1D2454C94A6DC1E /* libInteractable.a */,
-				3F42336402924E59927A5D19 /* libTouchID.a */,
-				D5195723B48F485BA8835F82 /* libBVLinearGradient.a */,
-				7231FE0734E346B8B6A3B2B7 /* libRNSensitiveInfo.a */,
-				F6B10A5D751F4CC6B4D91944 /* libRNFIRMessaging.a */,
-				9427435001634D8E9FD0A12B /* libreact-native-branch.a */,
-				6289865CCC3A4745A77A87B9 /* libSplashScreen.a */,
-				46386B5F434B41B89C5D33F6 /* libRNSentry.a */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		27E9216C1EF11EB00038B02F /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1624,7 +1608,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConnectMe/ConnectMe.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Evernym Automation (3XVZBU8VAE)";
-				CURRENT_PROJECT_VERSION = 129;
+				CURRENT_PROJECT_VERSION = 130;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = ES8QU3D2A4;
 				HEADER_SEARCH_PATHS = (
@@ -1663,7 +1647,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = ConnectMe/ConnectMe.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: EVERNYM, INC. (ES8QU3D2A4)";
-				CURRENT_PROJECT_VERSION = 129;
+				CURRENT_PROJECT_VERSION = 130;
 				DEVELOPMENT_TEAM = ES8QU3D2A4;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
