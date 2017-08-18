@@ -73,7 +73,7 @@ export function* loadNewConnectionSaga(action) {
     yield put(saveNewConnectionSuccess(connection))
     yield put(
       sendUserInvitationResponseSuccess({
-        newStatus,
+        newStatus: action.data.newStatus,
       })
     )
   } catch (e) {
