@@ -100,11 +100,9 @@ export function* alreadyInstalledNotFound() {
 }
 
 export function* hydrateConfig() {
+  let isAlreadyInstalled
   try {
-    const isAlreadyInstalled = yield call(
-      AsyncStorage.getItem,
-      IS_ALREADY_INSTALLED
-    )
+    isAlreadyInstalled = yield call(AsyncStorage.getItem, IS_ALREADY_INSTALLED)
     if (isAlreadyInstalled) {
       yield put(alreadyInstalledAction(true))
     } else {
@@ -117,8 +115,9 @@ export function* hydrateConfig() {
     // or this is a new installation
     yield* alreadyInstalledNotFound()
   }
+
   // hydrating connections and push token
-  yield put(hydrateApp())
+  yield put(hydrateApp(isAlreadyInstalled))
   yield put(hydrated())
 }
 

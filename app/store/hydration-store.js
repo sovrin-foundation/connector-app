@@ -1,5 +1,5 @@
 import { takeLatest, call, put } from 'redux-saga/effects'
-import { getItem } from '../services'
+import { getItem, deleteItem } from '../services'
 import { updatePushToken } from '../store/push-notification-store'
 import { hydrateConnections } from '../store/connections-store'
 import { CONNECTIONS, PUSH_COM_METHOD } from '../common'
@@ -17,8 +17,9 @@ const HYDRATE_APP = 'HYDRATE_APP'
 const HYDRATE_APP_SUCCESS = 'HYDRATE_APP_SUCCESS'
 const HYDRATE_APP_FAIL = 'HYDRATE_APP_FAIL'
 
-export const hydrateApp = () => ({
+export const hydrateApp = isAlreadyInstalled => ({
   type: HYDRATE_APP,
+  isAlreadyInstalled,
 })
 
 export const hydrateAppSuccess = () => ({
@@ -32,11 +33,20 @@ export const hydrateAppFail = error => ({
 
 function* appHydration(action) {
   try {
-    const token = yield call(getItem, PUSH_COM_METHOD)
-    yield put(updatePushToken(token))
+    let connections = {}
+    if (action.isAlreadyInstalled) {
+      // app was already installed and user is just opening the app again
+      // or waking up from background
+      const token = yield call(getItem, PUSH_COM_METHOD)
+      yield put(updatePushToken(token))
 
-    let connections = yield call(getItem, CONNECTIONS)
-    connections = connections ? JSON.parse(connections) : {}
+      let fetchedConnections = yield call(getItem, CONNECTIONS)
+      connections = fetchedConnections ? JSON.parse(fetchedConnections) : {}
+    } else {
+      // this is the fresh installation of app
+      // delete previous stored connections
+      yield call(deleteItem, CONNECTIONS)
+    }
     yield put(hydrateConnections(connections))
     yield put(hydrateAppSuccess())
   } catch (e) {

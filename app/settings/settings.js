@@ -56,6 +56,7 @@ const style = StyleSheet.create({
 const userAvatar = (
   <Avatar medium round src={require('../images/UserAvatar.png')} />
 )
+
 const editIcon = (
   <Image
     style={style.editIcon}
@@ -71,6 +72,7 @@ const SettingText = props => (
 )
 
 const userName = <SettingText testID={USERNAME_TEST_ID}>Your Name</SettingText>
+
 const passCode = (
   <CustomView row>
     <SettingText testID={PASS_CODE_TEST_ID}>Passcode: </SettingText>
@@ -82,6 +84,7 @@ const passCode = (
     </SettingText>
   </CustomView>
 )
+
 const touchId = (
   <CustomView row>
     <Image
@@ -93,9 +96,11 @@ const touchId = (
     </CustomView>
   </CustomView>
 )
+
 const toggleSwitch = (
   <Switch onTintColor={mantis} tintColor={white} value={true} />
 )
+
 const history = (
   <CustomView row>
     <Image
