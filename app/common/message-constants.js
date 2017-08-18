@@ -11,3 +11,8 @@ export const PUSH_NOTIFICATION_PERMISSION_ERROR = [
   'Permission Error',
   'Push Notification permission needed! Please enable it from Settings.',
 ]
+
+export const DUPLICATE_CONNECTION_ERROR = [
+  'Attention!',
+  'Duplicate Connection invitation!',
+]

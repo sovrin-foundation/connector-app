@@ -14,7 +14,7 @@ const NEW_CONNECTION_FAIL = 'NEW_CONNECTION_FAIL'
 const HYDRATE_CONNECTIONS = 'HYDRATE_CONNECTIONS'
 
 const initialState = {
-  data: {},
+  data: null,
   isFetching: false,
   isPristine: true,
   error: {
@@ -39,7 +39,11 @@ export const saveNewConnectionFailed = error => ({
 })
 
 export function* loadNewConnectionSaga(action) {
-  const { identifier, remoteConnectionId } = action.connection.newConnection
+  const {
+    identifier,
+    remoteConnectionId,
+    seed,
+  } = action.connection.newConnection
   try {
     let connection = {}
     try {
@@ -56,6 +60,7 @@ export function* loadNewConnectionSaga(action) {
       identifier,
       logoUrl: connection.logoUrl,
       remoteConnectionId,
+      seed,
     })
 
     //TODO:Add a middleware which will periodically save redux store to secure storage.
@@ -68,7 +73,7 @@ export function* loadNewConnectionSaga(action) {
     yield put(saveNewConnectionSuccess(connection))
     yield put(
       sendUserInvitationResponseSuccess({
-        newStatus: action.connection.data.newStatus,
+        newStatus,
       })
     )
   } catch (e) {
@@ -89,6 +94,19 @@ export const hydrateConnections = connections => ({
   type: HYDRATE_CONNECTIONS,
   connections,
 })
+
+export const getConnections = connectionsData =>
+  connectionsData ? Object.values(connectionsData) : []
+
+export const getConnection = (remoteConnectionId, connections) =>
+  Object.values(connections).filter(function(c) {
+    return c.remoteConnectionId === remoteConnectionId
+  })
+
+export const getConnectionLogo = connectionLogoUrl =>
+  connectionLogoUrl
+    ? { uri: connectionLogoUrl }
+    : require('../images/cb_evernym.png')
 
 export default function connections(state = initialState, action) {
   switch (action.type) {

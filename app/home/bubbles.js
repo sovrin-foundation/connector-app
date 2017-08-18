@@ -30,13 +30,8 @@ export class Bubble extends PureComponent {
 
   render() {
     let { size, image } = this.props
-    const {
-      size: defaultSize,
-      image: defaultImage,
-    } = generatePlaceholderConnection().next().value
     if (this.state.failed) {
-      size = defaultSize
-      image = defaultImage
+      image = require('../images/cb_evernym.png')
     }
 
     return (

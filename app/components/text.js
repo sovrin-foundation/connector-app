@@ -18,15 +18,15 @@ const CustomText = props => {
     primary,
     secondary,
     tertiary,
-    quarternary,
+    quaternary,
     style = empty,
     testID,
     onPress,
     transparentBg,
   } = props
 
-  const colorType = quarternary
-    ? 'Quarternary'
+  const colorType = quaternary
+    ? 'Quaternary'
     : secondary ? 'Secondary' : tertiary ? 'Tertiary' : 'Primary'
   const size = h1
     ? 'h1'

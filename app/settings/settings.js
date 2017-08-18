@@ -65,7 +65,7 @@ const editIcon = (
 )
 
 const SettingText = props => (
-  <CustomText bg="fifth" h4 semiBold {...props}>
+  <CustomText bg="fifth" h5 semiBold {...props}>
     {props.children}
   </CustomText>
 )

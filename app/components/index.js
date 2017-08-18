@@ -15,7 +15,7 @@ export {
 } from './user-info'
 export { Container, CustomView } from './layout'
 export { default as Icon } from './icon'
-export { default as CustomText } from './text'
+export { default as CustomText, styles as TextStyles } from './text'
 export { default as CustomButton } from './button'
 export { default as StatusBar } from './status-bar'
 export { default as PushNotification } from './push-notification'

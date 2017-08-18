@@ -6,11 +6,13 @@ import { bindActionCreators } from 'redux'
 import { resetInvitationStatus, sendUserInvitationResponse } from '../store'
 import InvitationText from './invitation-text'
 import InvitationActions from './invitation-actions'
-import { Container } from '../components'
+import { Container, CustomModal } from '../components'
+import ConnectionSuccessModal from './connection-success-modal'
 
 class Invitation extends PureComponent {
   state = {
     tapCount: 0,
+    isModalVisible: false,
   }
 
   _tapAvatar = () => {
@@ -21,11 +23,24 @@ class Invitation extends PureComponent {
     this.setState({ tapCount: 0 })
   }
 
+  _toggleModal = (isModalVisible, route) => {
+    this.setState({ isModalVisible })
+    if (route) {
+      this.props.navigation.navigate(route)
+    }
+  }
+
   render() {
+    const { data } = this.props.invitation
+    let connectionName, connectionLogoUrl
+    if (data) {
+      connectionName = data.connectionName
+      connectionLogoUrl = data.connectionLogoUrl
+    }
     return (
       <Container>
         <Container primary>
-          {this.props.invitation.data &&
+          {data &&
             <InvitationText {...this.props} tapAvatar={this._tapAvatar} />}
         </Container>
         <View>
@@ -33,8 +48,15 @@ class Invitation extends PureComponent {
             {...this.props}
             tapCount={this.state.tapCount}
             resetTapCount={this._resetTapCount}
+            toggleModal={this._toggleModal}
           />
         </View>
+        <ConnectionSuccessModal
+          isModalVisible={this.state.isModalVisible}
+          toggleModal={this._toggleModal}
+          connectionName={connectionName}
+          connectionLogoUrl={connectionLogoUrl}
+        />
       </Container>
     )
   }
@@ -45,11 +67,13 @@ const mapStateToProps = ({
   config,
   deepLink,
   pushNotification,
+  connections,
 }) => ({
   invitation,
   config,
   deepLink,
   pushNotification,
+  connections,
 })
 
 const mapDispatchToProps = dispatch =>

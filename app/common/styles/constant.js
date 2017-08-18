@@ -15,6 +15,7 @@ const nobel = '#a0a0a0'
 const venetianRed = '#d0021b'
 const whiteSmoke = '#F2F2F2'
 export const veniceBlue = '#2A5270'
+const dodgerBlue = '#0d8ffc'
 
 export const color = {
   actions: {
@@ -38,6 +39,7 @@ export const color = {
         primary: corduroy,
         secondary: matterhorn,
         tertiary: grey,
+        quaternary: dodgerBlue,
       },
     },
     tertiary: {
@@ -47,7 +49,7 @@ export const color = {
         secondary: dimGray,
       },
     },
-    quarternary: {
+    quaternary: {
       color: nobel,
       font: {
         primary: zircon,
@@ -66,8 +68,8 @@ export const font = {
   size: {
     XS: 12,
     S: 14,
-    M: 16,
-    ML: 17,
+    M: 17,
+    ML: 20,
     L: 27,
     XL: 30,
     XXL: 40,

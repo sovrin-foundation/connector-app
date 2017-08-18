@@ -12,7 +12,7 @@ import {
   getSignature,
   verifySignature,
   randomSeed,
-} from '../services/keys'
+} from '../services'
 import {
   connectionRoute,
   homeRoute,
@@ -23,11 +23,50 @@ import {
   DENY,
   QR_CODE_CHALLENGE,
   QR_CODE_REMOTE_CONNECTION_ID,
+  DUPLICATE_CONNECTION_ERROR,
 } from '../common'
-import { INVITATION_TYPE, INVITATION_STATUS } from '../store'
+import { INVITATION_TYPE, INVITATION_STATUS, getConnection } from '../store'
 
 export default class actions extends PureComponent {
+  componentWillMount() {
+    this.isDuplicateInvitation()
+  }
+
+  okayAction = () => {
+    this.props.resetInvitationStatus()
+    this.props.navigation.navigate(homeRoute)
+  }
+
+  isDuplicateInvitation = () => {
+    const { type: invitationType } = this.props.invitation
+    if (
+      invitationType === INVITATION_TYPE.PENDING_CONNECTION_REQUEST ||
+      invitationType === INVITATION_TYPE.QR_CONNECTION_REQUEST
+    ) {
+      const remoteConnectionId = invitationType ===
+        INVITATION_TYPE.PENDING_CONNECTION_REQUEST
+        ? this.props.invitation.data.remoteConnectionId
+        : this.props.invitation.data.payload.challenge[
+            QR_CODE_REMOTE_CONNECTION_ID
+          ]
+
+      const connection = getConnection(
+        remoteConnectionId,
+        this.props.connections.data
+      )
+      if (connection.length > 0) {
+        AlertIOS.alert(...DUPLICATE_CONNECTION_ERROR, [
+          {
+            onPress: () => this.okayAction(),
+          },
+        ])
+      }
+    }
+  }
+
   onUserResponse = newStatus => {
+    this.isDuplicateInvitation()
+
     // get Push Notification permission, for iOS
     FCM.requestPermissions()
       .then(res => {
@@ -43,8 +82,8 @@ export default class actions extends PureComponent {
           const phoneNumber = (Math.random() * 1000000000000000000)
             .toString()
             .substring(0, 10)
-          const identifier = randomSeed(32).substring(0, 22)
-          const seed = randomSeed(32).substring(0, 32)
+          let identifier = randomSeed(32).substring(0, 22)
+          let seed = randomSeed(32).substring(0, 32)
           const { pushToken } = this.props.pushNotification
           if (identifier && seed && pushToken) {
             // reset avatar tapCount
@@ -59,6 +98,7 @@ export default class actions extends PureComponent {
               type: invitationType,
               data: { remoteConnectionId },
             } = this.props.invitation
+
             if (invitationType === INVITATION_TYPE.PENDING_CONNECTION_REQUEST) {
               const challenge = JSON.stringify({
                 newStatus,
@@ -94,13 +134,21 @@ export default class actions extends PureComponent {
                     connectionChallengeSignature,
                   },
                   remoteConnectionId,
+                  seed,
                 }
               )
             } else if (
               invitationType === INVITATION_TYPE.AUTHENTICATION_REQUEST
             ) {
-              //TODO:PS: need to fix identifier
-              //before marking multiple connections feature complete
+              const { connections: { data: connectionsData } } = this.props
+              const connection = getConnection(
+                remoteConnectionId,
+                connectionsData
+              )
+              console.log(connection[0])
+              let { identifier, seed } = connection[0]
+              let { secretKey: signingKey } = getKeyPairFromSeed(seed)
+
               const challenge = JSON.stringify({
                 newStatus,
               })
@@ -120,22 +168,23 @@ export default class actions extends PureComponent {
             } else if (
               invitationType === INVITATION_TYPE.QR_CONNECTION_REQUEST
             ) {
+              const {
+                challenge: qrChallenge,
+                qrData,
+                signature: qrSignature,
+              } = this.props.invitation.data.payload
               const apiData = {
-                remoteChallenge: this.props.invitation.data.payload.qrData[
-                  QR_CODE_CHALLENGE
-                ],
-                remoteSig: this.props.invitation.data.payload.signature,
+                remoteChallenge: qrData[QR_CODE_CHALLENGE],
+                remoteSig: qrSignature,
                 newStatus,
                 identifier,
                 verKey,
                 pushComMethod: `FCM:${pushToken}`,
               }
+
               const challenge = JSON.stringify(apiData)
               const signature = encode(getSignature(signingKey, challenge))
-
-              remoteConnectionId = this.props.invitation.data.payload.challenge[
-                QR_CODE_REMOTE_CONNECTION_ID
-              ]
+              remoteConnectionId = qrChallenge[QR_CODE_REMOTE_CONNECTION_ID]
               const connectionChallenge = JSON.stringify({
                 remoteConnectionId,
               })
@@ -155,6 +204,7 @@ export default class actions extends PureComponent {
                     connectionChallengeSignature,
                   },
                   remoteConnectionId,
+                  seed,
                 }
               )
             }
@@ -180,7 +230,15 @@ export default class actions extends PureComponent {
         nextProps.invitation.status === INVITATION_STATUS.ACCEPTED &&
         !nextProps.invitation.error
       ) {
-        this.props.navigation.navigate(connectionRoute)
+        const { type: invitationType } = nextProps.invitation
+        if (
+          invitationType === INVITATION_TYPE.PENDING_CONNECTION_REQUEST ||
+          invitationType === INVITATION_TYPE.QR_CONNECTION_REQUEST
+        ) {
+          this.props.toggleModal(true)
+        } else {
+          this.props.navigation.navigate(connectionRoute)
+        }
         this.clearInvitation()
       } else if (
         !nextProps.invitation.isFetching &&

@@ -32,7 +32,7 @@ export default class UserInfoAvatarSection extends PureComponent {
             <BadgeAvatar
               count={76}
               small
-              src={require('../../invitation/images/inviter.jpeg')}
+              src={require('../../images/invitee.jpeg')}
             />
           </ListItemData>
         </ListItem>

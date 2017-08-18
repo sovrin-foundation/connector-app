@@ -17,7 +17,6 @@ import { Container, CustomText } from '../components'
 import Bubbles from './bubbles'
 import User from './user'
 import Footer from '../components/footer'
-import invitation from '../invitation/invitation-store'
 import { color, barStyleDark } from '../common/styles/constant'
 import { settingsRoute } from '../common/route-constants'
 import styles from '../components/layout/layout-style'
@@ -29,9 +28,9 @@ import {
   changeServerEnvironmentToDemo,
   changeServerEnvironmentToSandbox,
   authenticationRequestReceived,
+  getConnections,
 } from '../store'
-import { homeRoute } from '../common/route-constants'
-import { authenticationRequest } from '../invitation/invitation-store'
+import { homeRoute } from '../common'
 import { handlePushNotification } from '../services'
 
 const style = StyleSheet.create({
@@ -102,8 +101,8 @@ export class HomeScreenDrawer extends Component {
       extrapolate: 'clamp',
     })
 
-    const { user, connections: { data } } = this.props,
-      connectionsData = Object.values(data)
+    const { user, connections: { data } } = this.props
+    const connectionsData = getConnections(data)
 
     if (!connectionsData || (connectionsData && connectionsData.length <= 0)) {
       return (
@@ -113,7 +112,7 @@ export class HomeScreenDrawer extends Component {
             <View style={[styles.container]}>
               <View style={[styles.container, styles.center]}>
                 <CustomText
-                  h4
+                  h5
                   bg={dimGray}
                   center
                   lineHeight={30}
@@ -124,13 +123,13 @@ export class HomeScreenDrawer extends Component {
                 >
                   You don't have any
                 </CustomText>
-                <CustomText h4 bg={dimGray} center>
+                <CustomText h5 bg={dimGray} center>
                   connections set up yet
                 </CustomText>
-                <CustomText h4 bg={dimGray} center>
+                <CustomText h5 bg={dimGray} center>
                   Call a participating Credit
                 </CustomText>
-                <CustomText h4 bg={dimGray} center>
+                <CustomText h5 bg={dimGray} center>
                   Union to get started
                 </CustomText>
               </View>

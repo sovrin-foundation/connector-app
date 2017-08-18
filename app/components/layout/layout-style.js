@@ -34,8 +34,8 @@ export default StyleSheet.create({
   tertiaryBg: {
     backgroundColor: color.bg.tertiary.color,
   },
-  quarternaryBg: {
-    backgroundColor: color.bg.quarternary.color,
+  quaternaryBg: {
+    backgroundColor: color.bg.quaternary.color,
   },
   fifthBg: {
     backgroundColor: color.bg.fifth.color,

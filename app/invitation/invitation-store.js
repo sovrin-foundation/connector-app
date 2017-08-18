@@ -125,7 +125,7 @@ function* handleUserInvitationResponse(action) {
     let invitationActionResponse = null
     if (invitationType == INVITATION_TYPE.AUTHENTICATION_REQUEST) {
       invitationActionResponse = yield call(sendAuthenticationRequest, action)
-      yield put(sendUserInvitationResponseSuccess(action))
+      yield put(sendUserInvitationResponseSuccess(action.data))
     } else {
       if (
         action.invitationType === INVITATION_TYPE.PENDING_CONNECTION_REQUEST

@@ -12,6 +12,7 @@ export default function handlePushNotification(
       offerMsgTitle: notification.authNotifMsgTitle,
       offerMsgText: notification.authNotifMsgText,
       statusCode: PUSH_NOTIFICATION_SENT_CODE,
+      remoteConnectionId: notification.remoteConnectionId || null,
     })
     props.navigation.navigate(invitationRoute)
     props.pushNotificationReceived(null)
