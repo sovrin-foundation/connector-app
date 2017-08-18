@@ -8,8 +8,9 @@ export const connectionMapper = ({
   name,
   ...otherArgs
 }) => ({
-  image: logoUrl ? { uri: logoUrl } : require('../images/cb_evernym.png'),
+  logoUrl,
   size,
   name: name ? name.split(' ')[0] : 'evernym',
+  image: logoUrl ? { uri: logoUrl } : require('../images/cb_evernym.png'),
   ...otherArgs,
 })

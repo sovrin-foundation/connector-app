@@ -103,10 +103,8 @@ export const getConnection = (remoteConnectionId, connections) =>
     return c.remoteConnectionId === remoteConnectionId
   })
 
-export const getConnectionLogo = connectionLogoUrl =>
-  connectionLogoUrl
-    ? { uri: connectionLogoUrl }
-    : require('../images/cb_evernym.png')
+export const getConnectionLogo = logoUrl =>
+  logoUrl ? { uri: logoUrl } : require('../images/cb_evernym.png')
 
 export default function connections(state = initialState, action) {
   switch (action.type) {

@@ -26,8 +26,13 @@ import {
   DUPLICATE_CONNECTION_ERROR,
 } from '../common'
 import { INVITATION_TYPE, INVITATION_STATUS, getConnection } from '../store'
+import ConnectionSuccessModal from './connection-success-modal'
 
 export default class actions extends PureComponent {
+  state = {
+    isModalVisible: false,
+  }
+
   componentWillMount() {
     this.isDuplicateInvitation()
   }
@@ -85,6 +90,9 @@ export default class actions extends PureComponent {
           let identifier = randomSeed(32).substring(0, 22)
           let seed = randomSeed(32).substring(0, 32)
           const { pushToken } = this.props.pushNotification
+
+          this.setState({ identifier })
+
           if (identifier && seed && pushToken) {
             // reset avatar tapCount
             this.props.resetTapCount()
@@ -219,6 +227,13 @@ export default class actions extends PureComponent {
       })
   }
 
+  _showConnectionSuccessModal = (isModalVisible, route) => {
+    this.setState({ isModalVisible })
+    if (route) {
+      this.props.navigation.navigate(route)
+    }
+  }
+
   clearInvitation = () => {
     setTimeout(this.props.resetInvitationStatus, 3000)
   }
@@ -235,7 +250,7 @@ export default class actions extends PureComponent {
           invitationType === INVITATION_TYPE.PENDING_CONNECTION_REQUEST ||
           invitationType === INVITATION_TYPE.QR_CONNECTION_REQUEST
         ) {
-          this.props.toggleModal(true)
+          this._showConnectionSuccessModal(true)
         } else {
           this.props.navigation.navigate(connectionRoute)
         }
@@ -252,6 +267,14 @@ export default class actions extends PureComponent {
   }
 
   render() {
+    //TODO: get connection-name and connection-logoUrl from back-end
+    const data = this.props.invitation.data
+    let name, logoUrl
+    if (data) {
+      name = data.name
+      logoUrl = data.logoUrl
+    }
+
     return (
       <View style={{ flexDirection: 'row' }}>
         <Container>
@@ -270,6 +293,12 @@ export default class actions extends PureComponent {
             onPress={() => this.onUserResponse(INVITATION_STATUS.ACCEPTED)}
           />
         </Container>
+        <ConnectionSuccessModal
+          isModalVisible={this.state.isModalVisible}
+          showConnectionSuccessModal={this._showConnectionSuccessModal}
+          name={name}
+          logoUrl={logoUrl}
+        />
       </View>
     )
   }

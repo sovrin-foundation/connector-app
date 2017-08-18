@@ -6,8 +6,8 @@ import { ForwardArrow } from '../styled-components/invitation-styled'
 import { Avatar } from '../components/avatar'
 import { getConnectionLogo } from '../store'
 
-export default ({ connectionLogoUrl }) => {
-  const connectionAvatar = getConnectionLogo(connectionLogoUrl)
+export default ({ logoUrl }) => {
+  const connectionAvatar = getConnectionLogo(logoUrl)
   return (
     <Container
       row

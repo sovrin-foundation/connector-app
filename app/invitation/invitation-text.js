@@ -8,10 +8,7 @@ import InvitationAvatars from './invitation-avatars'
 import invitation from '../invitation/invitation-store'
 
 const InvitationText = ({
-  invitation: {
-    data: { offerMsgTitle, offerMsgText, connectionLogoUrl },
-    invitee,
-  },
+  invitation: { data: { offerMsgTitle, offerMsgText, logoUrl }, invitee },
   tapAvatar,
 }) => (
   <Container useNativeDriver testID={'invitation-text-container'}>
@@ -50,7 +47,7 @@ const InvitationText = ({
         duration={1500}
         testID={'invitation-text-container-avatars-animation'}
       >
-        <InvitationAvatars connectionLogoUrl={connectionLogoUrl} />
+        <InvitationAvatars logoUrl={logoUrl} />
       </AnimationView>
     </Container>
   </Container>

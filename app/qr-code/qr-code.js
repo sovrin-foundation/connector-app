@@ -9,6 +9,7 @@ import {
   PENDING_CONNECTION_REQUEST_CODE,
   QR_CODE_ENTERPRISE_AGENT_NAME,
   QR_CODE_USER_NAME,
+  QR_CODE_REMOTE_CONNECTION_LOGO,
 } from '../common/api-constants'
 import { invitationRoute } from '../common/route-constants'
 
@@ -19,6 +20,7 @@ export class QRCodeScannerScreen extends PureComponent {
       statusCode: PENDING_CONNECTION_REQUEST_CODE,
       offerMsgTitle: `Hi ${data.challenge[QR_CODE_USER_NAME]}`,
       offerMsgText: `${data.challenge[QR_CODE_ENTERPRISE_AGENT_NAME]} wants to connect with you`,
+      logoUrl: data.challenge[QR_CODE_REMOTE_CONNECTION_LOGO],
     }
 
     this.props.qrConnectionRequestReceived(qrConnectionRequest)

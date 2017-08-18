@@ -7,7 +7,6 @@ import { resetInvitationStatus, sendUserInvitationResponse } from '../store'
 import InvitationText from './invitation-text'
 import InvitationActions from './invitation-actions'
 import { Container, CustomModal } from '../components'
-import ConnectionSuccessModal from './connection-success-modal'
 
 class Invitation extends PureComponent {
   state = {
@@ -32,11 +31,6 @@ class Invitation extends PureComponent {
 
   render() {
     const { data } = this.props.invitation
-    let connectionName, connectionLogoUrl
-    if (data) {
-      connectionName = data.connectionName
-      connectionLogoUrl = data.connectionLogoUrl
-    }
     return (
       <Container>
         <Container primary>
