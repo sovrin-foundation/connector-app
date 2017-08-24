@@ -1,5 +1,6 @@
+// @flow
 import React, { PureComponent } from 'react'
-import { View, StatusBar } from 'react-native'
+import { StatusBar } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Container, Footer, QRScanner } from '../components'
@@ -9,24 +10,25 @@ import {
   PENDING_CONNECTION_REQUEST_CODE,
   QR_CODE_ENTERPRISE_AGENT_NAME,
   QR_CODE_USER_NAME,
-  QR_CODE_REMOTE_CONNECTION_LOGO,
 } from '../common/api-constants'
-import { invitationRoute } from '../common/route-constants'
+import { qrConnectionRequestRoute, qrCodeScannerRoute } from '../common/'
+import type {
+  QrConnectionPayload,
+} from '../qr-connection-request/type-qr-connection-request'
+import type { Store } from '../store/type-store'
 
 export class QRCodeScannerScreen extends PureComponent {
-  onRead = data => {
-    const qrConnectionRequest = {
-      payload: data,
-      statusCode: PENDING_CONNECTION_REQUEST_CODE,
-      offerMsgTitle: `Hi ${data.challenge[QR_CODE_USER_NAME]}`,
-      offerMsgText: `${data.challenge[QR_CODE_ENTERPRISE_AGENT_NAME]} wants to connect with you`,
-      logoUrl: data.challenge[QR_CODE_REMOTE_CONNECTION_LOGO],
-    }
+  onRead = (data: QrConnectionPayload) => {
+    if (this.props.currentScreen === qrCodeScannerRoute) {
+      const qrConnectionRequest = {
+        payload: data,
+        title: `Hi ${data.challenge[QR_CODE_USER_NAME]}`,
+        message: `${data.challenge[QR_CODE_ENTERPRISE_AGENT_NAME]} wants to connect with you`,
+      }
 
-    this.props.qrConnectionRequestReceived(qrConnectionRequest)
-    // user will be automatically navigated from here to invitations screen
-    // because splash-screen.js checks for any changes in invitation data
-    // and if invitation is available, user is redirected to invitation page
+      this.props.qrConnectionRequestReceived(qrConnectionRequest)
+      this.props.navigation.navigate(qrConnectionRequestRoute)
+    }
   }
 
   render() {
@@ -40,6 +42,10 @@ export class QRCodeScannerScreen extends PureComponent {
   }
 }
 
+const mapStateToProps = (state: Store) => ({
+  currentScreen: state.route.currentScreen,
+})
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
@@ -48,4 +54,4 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default connect(null, mapDispatchToProps)(QRCodeScannerScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(QRCodeScannerScreen)

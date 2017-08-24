@@ -1,3 +1,4 @@
+// @flow
 export const CURVE_WIDTH = 320
 export const CURVE_HEIGHT = 200
 export const ICON_WIDTH = 30

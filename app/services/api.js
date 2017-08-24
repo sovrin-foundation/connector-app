@@ -114,22 +114,13 @@ export const sendAuthenticationRequest = ({
     }
   })
 
-export const getProfile = (
-  {
-    identifier,
-    connectionBody: { connectionChallenge, connectionChallengeSignature },
-  },
-  { agencyUrl }
-) =>
+export const getProfile = ({ identifier, challenge, signature, agencyUrl }) =>
   api(
-    `${agencyUrl}/agent/id/${identifier}/remote/profile?challenge=${connectionChallenge}&signature=${connectionChallengeSignature}`
+    `${agencyUrl}/agent/id/${identifier}/remote/profile?challenge=${challenge}&signature=${signature}`
   )
 
-export const sendQRInvitationResponse = ({ data, config: { agencyUrl } }) =>
+export const sendQRInvitationResponse = ({ challenge, signature, agencyUrl }) =>
   api(
     `${agencyUrl}/agent/connection`,
-    options('POST', {
-      challenge: data.challenge,
-      signature: data.signature,
-    })
+    options('POST', { challenge, signature })
   )

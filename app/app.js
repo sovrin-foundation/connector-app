@@ -10,6 +10,8 @@ import SplashScreenView from './invitation/splash-screen'
 import { Settings } from './settings'
 import ExpiredTokenScreen from './expired-token/expired-token'
 import QRCodeScanner from './qr-code/qr-code'
+import QRConnectionRequestScreen
+  from './qr-connection-request/qr-connection-request'
 import store, { ROUTE_UPDATE } from './store'
 import { StatusBar, Container, PushNotification } from './components'
 import {
@@ -20,7 +22,8 @@ import {
   settingsRoute,
   expiredTokenRoute,
   qrCodeScannerRoute,
-} from './common/route-constants'
+  qrConnectionRequestRoute,
+} from './common/'
 import DeepLink from './deep-link'
 import { barStyleLight } from './common/styles/constant'
 
@@ -49,6 +52,9 @@ const ConnectMeAppNavigator = StackNavigator(
     [qrCodeScannerRoute]: {
       screen: QRCodeScanner,
     },
+    [qrConnectionRequestRoute]: {
+      screen: QRConnectionRequestScreen,
+    },
   },
   {
     headerMode: 'none',
@@ -58,6 +64,10 @@ const ConnectMeAppNavigator = StackNavigator(
     },
   }
 )
+
+// for now let's start adding flow type on file by file basis
+// once we have a lot of coverage for types
+// we will scan all files without any flow directive for each file
 
 class ConnectMeApp extends Component {
   // gets the current screen from navigation state

@@ -1,3 +1,4 @@
+// @flow
 import React from 'react'
 
 export { default as Divider } from './divider'
@@ -21,3 +22,5 @@ export { default as StatusBar } from './status-bar'
 export { default as PushNotification } from './push-notification'
 export { default as Footer } from './footer'
 export { default as QRScanner } from './qr-scanner/qr-scanner'
+export { default as TouchId } from './touch-id/touch-id'
+export { default as Request } from './request/request'

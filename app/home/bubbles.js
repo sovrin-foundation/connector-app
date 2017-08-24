@@ -30,14 +30,19 @@ export class Bubble extends PureComponent {
 
   render() {
     let { size, image } = this.props
-    if (this.state.failed) {
-      image = require('../images/cb_evernym.png')
+    let source
+    if (this.state.failed || Number.isInteger(image) || !image) {
+      source = require('../images/cb_evernym.png')
+    }
+
+    if (typeof image === 'string') {
+      source = { uri: image }
     }
 
     return (
       <StyledImage
         size={[size, size]}
-        source={image}
+        source={source}
         resizeMode={'contain'}
         onLoad={this._onLoad}
         onError={this._onError}
@@ -77,19 +82,19 @@ export default class ConnectionBubbles extends Component {
           { transform: [{ translateY: this.props.height }] },
         ]}
       >
-        {this.props.connections.map(({ identifier, name, image, size }) => (
+        {this.props.connections.map(({ identifier, name, logoUrl, size }) => (
           <AnimationView
             animation="zoomIn"
             duration={600}
             delay={200}
             style={[
               styles.avatar,
-              styles[name],
-              styles[`${name}${deviceClass}`],
+              styles[name.toLowerCase()],
+              styles[`${name.toLowerCase()}${deviceClass}`],
             ]}
             key={identifier}
           >
-            <Bubble size={size} image={image} />
+            <Bubble size={size} image={logoUrl} />
           </AnimationView>
         ))}
       </Animated.View>
@@ -184,11 +189,11 @@ const styles = (styles = StyleSheet.create({
   // multiple connections specific styles
   evernym: {
     top: 250,
-    right: 50,
+    left: 50,
   },
   evernymIphone5: {
     top: 250,
-    right: 50,
+    left: 50,
   },
   edcu: {
     bottom: 30,
@@ -197,5 +202,9 @@ const styles = (styles = StyleSheet.create({
   edcuIphone5: {
     bottom: 30,
     left: 50,
+  },
+  agency: {
+    bottom: 30,
+    left: 100,
   },
 }))

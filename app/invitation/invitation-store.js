@@ -1,9 +1,9 @@
 import { put, takeLatest, call, all } from 'redux-saga/effects'
+import { delay } from 'redux-saga'
 import {
   invitationDetailsRequest,
   sendAuthenticationRequest,
   sendInvitationConnectionRequest,
-  sendQRInvitationResponse,
 } from '../services'
 import { saveNewConnection } from '../store/connections-store'
 
@@ -17,7 +17,6 @@ export const INVITATION_TYPE = {
   NONE: 'NONE',
   PENDING_CONNECTION_REQUEST: 'PENDING_CONNECTION_REQUEST',
   AUTHENTICATION_REQUEST: 'AUTHENTICATION_REQUEST',
-  QR_CONNECTION_REQUEST: 'QR_CONNECTION_REQUEST',
 }
 
 const initialState = {
@@ -41,7 +40,6 @@ const SEND_USER_INVITATION_RESPONSE_SUCCESS =
 const SEND_USER_INVITATION_RESPONSE_FAILURE =
   'SEND_USER_INVITATION_RESPONSE_FAILURE'
 const RESET_INVITATION_STATUS = 'RESET_INVITATION_STATUS'
-const QR_CONNECTION_REQUEST = 'QR_CONNECTION_REQUEST'
 
 export const getInvitationDetailsRequest = (token, config) => ({
   type: PENDING_CONNECTION_REQUEST,
@@ -89,11 +87,6 @@ export const authenticationRequestReceived = data => ({
   data,
 })
 
-export const qrConnectionRequestReceived = data => ({
-  type: QR_CONNECTION_REQUEST,
-  data,
-})
-
 export const resetInvitationStatus = () => ({
   type: RESET_INVITATION_STATUS,
 })
@@ -135,19 +128,19 @@ function* handleUserInvitationResponse(action) {
           sendInvitationConnectionRequest,
           action
         )
-      } else {
-        invitationActionResponse = yield call(sendQRInvitationResponse, action)
       }
+
       // if user accepted it, then save a new connection otherwise don't save a new connection
       if (action.data.newStatus === INVITATION_STATUS.ACCEPTED) {
         yield put(saveNewConnection(action))
-      } else {
-        yield put(
-          sendUserInvitationResponseSuccess({
-            newStatus: action.data.newStatus,
-          })
-        )
       }
+      // raise success here, because new connection will be added
+      // by connection store
+      yield put(
+        sendUserInvitationResponseSuccess({
+          newStatus: action.data.newStatus,
+        })
+      )
     }
   } catch (e) {
     yield put(
@@ -157,6 +150,11 @@ function* handleUserInvitationResponse(action) {
       })
     )
   }
+
+  // once everything is done, we clear the invitation related data
+  // because it needs to be used for some other invitation as well
+  yield call(delay, 3000)
+  yield put(resetInvitationStatus())
 }
 
 export function* watchInvitation() {
@@ -192,8 +190,6 @@ export default function invitation(state = initialState, action) {
         isPristine: false,
       }
     case SEND_USER_INVITATION_RESPONSE_SUCCESS:
-      // TODO:KS What is this happening here,
-      // why are we not considering anything from success response?
       return {
         ...state,
         isFetching: false,
@@ -203,13 +199,6 @@ export default function invitation(state = initialState, action) {
       return {
         ...state,
         isFetching: false,
-        //TODO:PS:Not sure why we conditionally setting error, disabled for now
-        //If you think we need it, mention reason and un-comment it
-
-        // error: action.error.invitationType ===
-        //   INVITATION_TYPE.PENDING_CONNECTION_REQUEST
-        //   ? action.error.message
-        //   : null,
         error: action.error,
       }
     case RESET_INVITATION_STATUS:
@@ -228,13 +217,7 @@ export default function invitation(state = initialState, action) {
         data: action.data,
         error: null,
       }
-    case QR_CONNECTION_REQUEST:
-      return {
-        ...state,
-        data: action.data,
-        type: INVITATION_TYPE.QR_CONNECTION_REQUEST,
-        status: INVITATION_STATUS.NONE,
-      }
+
     default:
       return state
   }

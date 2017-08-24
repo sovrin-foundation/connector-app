@@ -21,8 +21,6 @@ import {
   PUSH_NOTIFICATION_PERMISSION_ERROR,
   ALLOW,
   DENY,
-  QR_CODE_CHALLENGE,
-  QR_CODE_REMOTE_CONNECTION_ID,
   DUPLICATE_CONNECTION_ERROR,
 } from '../common'
 import { INVITATION_TYPE, INVITATION_STATUS, getConnection } from '../store'
@@ -33,7 +31,7 @@ export default class actions extends PureComponent {
     isModalVisible: false,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.isDuplicateInvitation()
   }
 
@@ -44,17 +42,8 @@ export default class actions extends PureComponent {
 
   isDuplicateInvitation = () => {
     const { type: invitationType } = this.props.invitation
-    if (
-      invitationType === INVITATION_TYPE.PENDING_CONNECTION_REQUEST ||
-      invitationType === INVITATION_TYPE.QR_CONNECTION_REQUEST
-    ) {
-      const remoteConnectionId = invitationType ===
-        INVITATION_TYPE.PENDING_CONNECTION_REQUEST
-        ? this.props.invitation.data.remoteConnectionId
-        : this.props.invitation.data.payload.challenge[
-            QR_CODE_REMOTE_CONNECTION_ID
-          ]
-
+    if (invitationType === INVITATION_TYPE.PENDING_CONNECTION_REQUEST) {
+      const remoteConnectionId = this.props.invitation.data.remoteConnectionId
       const connection = getConnection(
         remoteConnectionId,
         this.props.connections.data
@@ -173,48 +162,6 @@ export default class actions extends PureComponent {
                 this.props.config,
                 invitationType
               )
-            } else if (
-              invitationType === INVITATION_TYPE.QR_CONNECTION_REQUEST
-            ) {
-              const {
-                challenge: qrChallenge,
-                qrData,
-                signature: qrSignature,
-              } = this.props.invitation.data.payload
-              const apiData = {
-                remoteChallenge: qrData[QR_CODE_CHALLENGE],
-                remoteSig: qrSignature,
-                newStatus,
-                identifier,
-                verKey,
-                pushComMethod: `FCM:${pushToken}`,
-              }
-
-              const challenge = JSON.stringify(apiData)
-              const signature = encode(getSignature(signingKey, challenge))
-              remoteConnectionId = qrChallenge[QR_CODE_REMOTE_CONNECTION_ID]
-              const connectionChallenge = JSON.stringify({
-                remoteConnectionId,
-              })
-              const connectionChallengeSignature = encode(
-                getSignature(signingKey, connectionChallenge)
-              )
-
-              this.props.sendUserInvitationResponse(
-                { challenge, signature, ...apiData },
-                this.props.config,
-                invitationType,
-                null,
-                {
-                  identifier,
-                  connectionBody: {
-                    connectionChallenge,
-                    connectionChallengeSignature,
-                  },
-                  remoteConnectionId,
-                  seed,
-                }
-              )
             }
           } else {
             AlertIOS.alert(...DEVICE_ENROLLMENT_ERROR)
@@ -234,10 +181,6 @@ export default class actions extends PureComponent {
     }
   }
 
-  clearInvitation = () => {
-    setTimeout(this.props.resetInvitationStatus, 3000)
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.invitation.status != this.props.invitation.status) {
       if (
@@ -246,22 +189,17 @@ export default class actions extends PureComponent {
         !nextProps.invitation.error
       ) {
         const { type: invitationType } = nextProps.invitation
-        if (
-          invitationType === INVITATION_TYPE.PENDING_CONNECTION_REQUEST ||
-          invitationType === INVITATION_TYPE.QR_CONNECTION_REQUEST
-        ) {
-          this._showConnectionSuccessModal(true)
+        if (invitationType === INVITATION_TYPE.PENDING_CONNECTION_REQUEST) {
+          this.props._showConnectionSuccessModal(true)
         } else {
           this.props.navigation.navigate(connectionRoute)
         }
-        this.clearInvitation()
       } else if (
         !nextProps.invitation.isFetching &&
         (nextProps.invitation.status === INVITATION_STATUS.REJECTED ||
           nextProps.invitation.error)
       ) {
         this.props.navigation.navigate(homeRoute)
-        this.clearInvitation()
       }
     }
   }

@@ -1,3 +1,4 @@
+// @flow
 // TODO:KS Add support for themes as well
 // Color name taken from http://www.htmlcsscolor.com/
 const zircon = '#ebebea'
@@ -16,6 +17,7 @@ const venetianRed = '#d0021b'
 const whiteSmoke = '#F2F2F2'
 export const veniceBlue = '#2A5270'
 const dodgerBlue = '#0d8ffc'
+const black = '#000000'
 
 export const color = {
   actions: {
@@ -59,6 +61,12 @@ export const color = {
       color: whiteSmoke,
       font: {
         primary: darkGrey,
+      },
+    },
+    sixth: {
+      color: black,
+      font: {
+        primary: white,
       },
     },
   },

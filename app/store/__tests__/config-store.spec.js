@@ -29,7 +29,7 @@ describe('server environment should change', () => {
       expect(gen.next().value).toEqual(take(SERVER_ENVIRONMENT_CHANGED_DEMO))
     }
 
-    // after 3 times, it should raise an action to change server enviornment to demo
+    // after 3 times, it should raise an action to change server environment to demo
     expect(gen.next().value).toEqual(
       put(changeServerEnvironment(SERVER_ENVIRONMENT.DEMO))
     )

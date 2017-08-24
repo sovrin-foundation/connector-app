@@ -1,6 +1,8 @@
+// @flow
 // for overall app message string, it can be error, success, warning etc.
 
 export const TOUCH_ID_MESSAGE = 'Please confirm with TouchID'
+export const TOUCH_ID_NOT_AVAILABLE = 'Touch ID is not supported on this device'
 
 export const DEVICE_ENROLLMENT_ERROR = [
   'Enrollment Error',

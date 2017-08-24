@@ -15,7 +15,7 @@ jest.mock('react-navigation', () => ({
 }))
 
 jest.mock('react-native-fcm', () => ({
-  requestPermissions: jest.fn(),
+  requestPermissions: jest.fn(() => Promise.resolve()),
   getFCMToken: jest.fn(() => Promise.resolve()),
   getInitialNotification: jest.fn(() => Promise.resolve()),
   on: jest.fn(),
@@ -60,5 +60,11 @@ jest.mock('Dimensions', () => ({
     height: 540,
   })),
 }))
+
+jest.mock('react-native-touch-id', () => {
+  return {
+    authenticate: jest.fn(message => Promise.resolve()),
+  }
+})
 
 global.fetch = fetch

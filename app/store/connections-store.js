@@ -1,12 +1,15 @@
-import { put, takeLatest, call } from 'redux-saga/effects'
-import { getProfile, connectionMapper, setItem, getItem } from '../services'
-import { CONNECTIONS } from '../common'
+import { put, takeLatest, call, select } from 'redux-saga/effects'
+import { encode } from 'bs58'
 import {
-  sendUserInvitationResponseSuccess,
-  sendUserInvitationResponseFailure,
-  INVITATION_STATUS,
-  INVITATION_TYPE,
-} from '../invitation/invitation-store'
+  getProfile,
+  connectionMapper,
+  setItem,
+  getItem,
+  getSignature,
+  getKeyPairFromSeed,
+} from '../services'
+import { CONNECTIONS } from '../common'
+import { getAgencyUrl } from './store-selector'
 
 const NEW_CONNECTION = 'NEW_CONNECTION'
 const NEW_CONNECTION_SUCCESS = 'NEW_CONNECTION_SUCCESS'
@@ -46,12 +49,19 @@ export function* loadNewConnectionSaga(action) {
   } = action.connection.newConnection
   try {
     let connection = {}
+
+    const agencyUrl = yield select(getAgencyUrl)
+    const challenge = JSON.stringify({ remoteConnectionId })
+    const { secretKey } = getKeyPairFromSeed(seed)
+    const signature = encode(getSignature(secretKey, challenge))
+
     try {
-      connection = yield call(
-        getProfile,
-        action.connection.newConnection,
-        action.connection.config
-      )
+      connection = yield call(getProfile, {
+        identifier,
+        challenge,
+        signature,
+        agencyUrl,
+      })
     } catch (e) {
       console.log(e)
       console.log('get profile call failed for ', identifier)
@@ -71,18 +81,8 @@ export function* loadNewConnectionSaga(action) {
 
     yield call(setItem, CONNECTIONS, JSON.stringify(connections))
     yield put(saveNewConnectionSuccess(connection))
-    yield put(
-      sendUserInvitationResponseSuccess({
-        newStatus: action.data.newStatus,
-      })
-    )
   } catch (e) {
     yield put(saveNewConnectionFailed(e))
-    yield put(
-      sendUserInvitationResponseFailure({
-        message: e.message,
-      })
-    )
   }
 }
 
