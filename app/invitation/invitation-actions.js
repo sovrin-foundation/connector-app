@@ -190,7 +190,7 @@ export default class actions extends PureComponent {
       ) {
         const { type: invitationType } = nextProps.invitation
         if (invitationType === INVITATION_TYPE.PENDING_CONNECTION_REQUEST) {
-          this.props._showConnectionSuccessModal(true)
+          this._showConnectionSuccessModal(true)
         } else {
           this.props.navigation.navigate(connectionRoute)
         }

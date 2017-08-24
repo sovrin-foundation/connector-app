@@ -45,12 +45,6 @@ class Invitation extends PureComponent {
             toggleModal={this._toggleModal}
           />
         </View>
-        <ConnectionSuccessModal
-          isModalVisible={this.state.isModalVisible}
-          toggleModal={this._toggleModal}
-          connectionName={connectionName}
-          connectionLogoUrl={connectionLogoUrl}
-        />
       </Container>
     )
   }

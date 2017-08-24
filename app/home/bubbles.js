@@ -196,15 +196,15 @@ const styles = (styles = StyleSheet.create({
     left: 50,
   },
   edcu: {
-    bottom: 30,
+    top: 30,
     left: 50,
   },
   edcuIphone5: {
-    bottom: 30,
+    top: 30,
     left: 50,
   },
   agency: {
-    bottom: 30,
+    top: 30,
     left: 100,
   },
 }))
