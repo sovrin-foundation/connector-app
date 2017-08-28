@@ -20,6 +20,7 @@ App to connect Sovrin with 3rd party authentication
 
 # Things to improve
 
+- [ ] Add one more property to check if app lock is set, then save that property once lock setup is success. Get it in `hydrateConfig` saga, then check this value in splashscreen.js. It will help in case user has not completed pin setup and kills the app for first time, next time user opens the app, he won't be asked to setup pin
 - [ ] Verify signature for after reading QR code. Once libindy is integrated
 - [ ] Move all user related data to user-store. As of now user permission, phone number, identifier are in separate store.
 - [ ] Response for API should be proxied via store and component should make use of `componentWillReceiveProps` method to subscribe for store changes.

@@ -23,9 +23,17 @@ import {
   expiredTokenRoute,
   qrCodeScannerRoute,
   qrConnectionRequestRoute,
+  lockEnterPinRoute,
+  lockSelectionRoute,
+  lockPinSetupRoute,
+  lockSetupSuccessRoute,
 } from './common/'
 import DeepLink from './deep-link'
 import { barStyleLight } from './common/styles/constant'
+import LockSelectionScreen from './lock/lock-selection'
+import LockEnterPinScreen from './lock/lock-enter-pin-code'
+import LockPinCodeSetupScreen from './lock/lock-pin-code-setup'
+import LockSetupSuccessScreen from './lock/lock-setup-success'
 
 // TODO:KS create a custom navigator to track page changes
 // for flows to support deep link, etc.
@@ -54,6 +62,18 @@ const ConnectMeAppNavigator = StackNavigator(
     },
     [qrConnectionRequestRoute]: {
       screen: QRConnectionRequestScreen,
+    },
+    [lockSelectionRoute]: {
+      screen: LockSelectionScreen,
+    },
+    [lockEnterPinRoute]: {
+      screen: LockEnterPinScreen,
+    },
+    [lockPinSetupRoute]: {
+      screen: LockPinCodeSetupScreen,
+    },
+    [lockSetupSuccessRoute]: {
+      screen: LockSetupSuccessScreen,
     },
   },
   {

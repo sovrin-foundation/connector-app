@@ -471,7 +471,7 @@ declare module 'redux-saga/effects' {
     take: TakeFn,
     takem: TakeFn,
     takeLatest: (...args: any) => Generator<*, *, *>,
-    all: (...args: any) =>  Generator<*, *, *>,
+    all: (sagas: Array<any>) =>  Generator<*, *, *>,
     put: PutFn,
     call: CallFn,
     apply: ApplyFn,

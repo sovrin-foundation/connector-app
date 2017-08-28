@@ -31,6 +31,12 @@ const initialState = {
   // this flag is used to identify if we got the already stored data
   // from the phone and loaded in app
   isHydrated: false,
+  // TODO:KS Need to add one more property to check if app lock is set
+  // and then save that property once lock setup is success
+  // and get in hydrateConfig saga, then check this value in splashscreen
+  // it will help in case user has not completed pin setup
+  // and kills the app for first time
+  // next time user opens the app, he won't be asked to setup pin
 }
 
 export const APP_INSTALLED = 'APP_INSTALLED'

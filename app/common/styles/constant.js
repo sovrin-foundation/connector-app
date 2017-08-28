@@ -18,6 +18,7 @@ const whiteSmoke = '#F2F2F2'
 export const veniceBlue = '#2A5270'
 const dodgerBlue = '#0d8ffc'
 const black = '#000000'
+const nightRider = '#2D2D2D'
 
 export const color = {
   actions: {
@@ -64,7 +65,7 @@ export const color = {
       },
     },
     sixth: {
-      color: black,
+      color: nightRider,
       font: {
         primary: white,
       },

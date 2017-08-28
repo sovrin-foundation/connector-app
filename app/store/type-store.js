@@ -2,6 +2,7 @@
 import type {
   QrConnectionRequestStore,
 } from '../qr-connection-request/type-qr-connection-request'
+import type { LockStore } from '../lock/type-lock'
 
 // TODO: Add type for each store here
 export type UserStore = {
@@ -53,4 +54,5 @@ export type Store = {
   qrConnection: QrConnectionRequestStore,
   route: RouteStore,
   user: UserStore,
+  lock: LockStore,
 }

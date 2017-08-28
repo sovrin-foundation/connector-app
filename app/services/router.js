@@ -4,9 +4,11 @@ import { PUSH_NOTIFICATION_SENT_CODE } from '../common/api-constants'
 export default function handlePushNotification(
   props,
   notification,
-  expectedScreen
+  expectedScreen,
+  isAppLocked,
+  pendingRedirectAction
 ) {
-  // TODO: change push-notification-sent to push-notification-recevied
+  // TODO: change push-notification-sent to push-notification-received
   if (props.route.currentScreen == expectedScreen) {
     props.authenticationRequestReceived({
       offerMsgTitle: notification.authNotifMsgTitle,
@@ -15,7 +17,11 @@ export default function handlePushNotification(
       logoUrl: notification.logoUrl,
       remoteConnectionId: notification.remoteConnectionId || null,
     })
-    props.navigation.navigate(invitationRoute)
+    if (!isAppLocked) {
+      props.navigation.navigate(invitationRoute)
+    } else {
+      pendingRedirectAction(invitationRoute)
+    }
     props.pushNotificationReceived(null)
   }
 }

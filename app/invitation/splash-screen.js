@@ -7,6 +7,8 @@ import {
   homeRoute,
   splashScreenRoute,
   expiredTokenRoute,
+  lockSelectionRoute,
+  lockEnterPinRoute,
 } from '../common/route-constants'
 import {
   TOKEN_EXPIRED_CODE,
@@ -17,11 +19,29 @@ import {
   getInvitationDetailsRequest,
   authenticationRequestReceived,
   pushNotificationReceived,
+  addPendingRedirection,
 } from '../store'
 import { handlePushNotification } from '../services'
 
 class SplashScreenView extends PureComponent {
   componentWillReceiveProps(nextProps) {
+    if (nextProps.config.isHydrated !== this.props.config.isHydrated) {
+      // hydrated is changed, and if it is changed to true,
+      // that means this is the only time we would get inside this if condition
+      if (nextProps.config.isHydrated) {
+        SplashScreen.hide()
+        // now we can safely check value of isAlreadyInstalled
+        if (nextProps.config.isAlreadyInstalled === false) {
+          // user is opening the app for first time after installing
+          this.props.navigation.navigate(lockSelectionRoute)
+        } else {
+          // not the first time user is opening app
+          // TODO:KS Change this to lockEnterPinRoute
+          this.props.navigation.navigate(lockEnterPinRoute)
+        }
+      }
+    }
+
     // check if deepLink is changed, then that means we either got token
     // or we got error or nothing happened with deep link
     if (nextProps.deepLink.isLoading != this.props.deepLink.isLoading) {
@@ -33,9 +53,13 @@ class SplashScreenView extends PureComponent {
             this.props.config
           )
         } else {
-          // we did not get any token and deepLink data loading is done
-          SplashScreen.hide()
-          this.props.navigation.navigate(homeRoute)
+          if (nextProps.lock.isAppLocked === false) {
+            // we did not get any token and deepLink data loading is done
+            SplashScreen.hide()
+            this.props.navigation.navigate(homeRoute)
+          } else {
+            this.props.addPendingRedirection(homeRoute)
+          }
         }
       }
     }
@@ -47,7 +71,13 @@ class SplashScreenView extends PureComponent {
       const { notification } = nextProps.pushNotification
       if (notification && notification.type === 'auth-req') {
         //TODO: pass nextProps in place of this.props
-        handlePushNotification(this.props, notification, splashScreenRoute)
+        handlePushNotification(
+          this.props,
+          notification,
+          splashScreenRoute,
+          nextProps.lock.isAppLocked,
+          this.props.addPendingRedirection
+        )
       } else {
         return
       }
@@ -62,10 +92,18 @@ class SplashScreenView extends PureComponent {
           nextProps.invitation.error.statusCode &&
           nextProps.invitation.error.statusCode === TOKEN_EXPIRED_CODE
         ) {
-          this.props.navigation.navigate(expiredTokenRoute)
+          if (nextProps.lock.isAppLocked === false) {
+            this.props.navigation.navigate(expiredTokenRoute)
+          } else {
+            this.props.addPendingRedirection(expiredTokenRoute)
+          }
         } else {
-          // if we got error, then also redirect user to home page
-          this.props.navigation.navigate(homeRoute)
+          if (nextProps.lock.isAppLocked === false) {
+            // if we got error, then also redirect user to home page
+            this.props.navigation.navigate(homeRoute)
+          } else {
+            this.props.addPendingRedirection(homeRoute)
+          }
         }
       }
 
@@ -99,13 +137,28 @@ class SplashScreenView extends PureComponent {
             nextProps.invitation.data.statusCode ===
             PENDING_CONNECTION_REQUEST_CODE
           ) {
-            this.props.navigation.navigate(invitationRoute)
+            if (nextProps.lock.isAppLocked === false) {
+              // if we got error, then also redirect user to home page
+              this.props.navigation.navigate(invitationRoute)
+            } else {
+              this.props.addPendingRedirection(invitationRoute)
+            }
           } else {
-            this.props.navigation.navigate(homeRoute)
+            if (nextProps.lock.isAppLocked === false) {
+              // if we got error, then also redirect user to home page
+              this.props.navigation.navigate(homeRoute)
+            } else {
+              this.props.addPendingRedirection(homeRoute)
+            }
           }
         } else {
-          SplashScreen.hide()
-          this.props.navigation.navigate(homeRoute)
+          if (nextProps.lock.isAppLocked === false) {
+            SplashScreen.hide()
+            // if we got error, then also redirect user to home page
+            this.props.navigation.navigate(homeRoute)
+          } else {
+            this.props.addPendingRedirection(homeRoute)
+          }
         }
       }
     }
@@ -122,12 +175,14 @@ const mapStateToProps = ({
   deepLink,
   pushNotification,
   route,
+  lock,
 }) => ({
   invitation,
   config,
   deepLink,
   pushNotification,
   route,
+  lock,
 })
 
 const mapDispatchToProps = dispatch =>
@@ -136,6 +191,7 @@ const mapDispatchToProps = dispatch =>
       getInvitationDetailsRequest,
       authenticationRequestReceived,
       pushNotificationReceived,
+      addPendingRedirection,
     },
     dispatch
   )

@@ -13,6 +13,7 @@ import { watchAppHydration } from './hydration-store'
 import qrConnection, {
   watchQrConnection,
 } from '../qr-connection-request/qr-connection-request-store'
+import lock, { watchLock } from '../lock/lock-store'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -25,6 +26,7 @@ const appReducer = combineReducers({
   qrConnection,
   route,
   user,
+  lock,
 })
 
 let middlewares = []
@@ -47,6 +49,7 @@ sagaMiddleware.run(function*() {
     watchInvitation(),
     watchAppHydration(),
     watchQrConnection(),
+    watchLock(),
   ])
 })
 
@@ -59,6 +62,7 @@ export * from './hydration-store'
 export * from '../invitation/invitation-store'
 export * from '../deep-link/deep-link-store'
 export * from '../qr-connection-request/qr-connection-request-store'
+export * from '../lock/lock-store'
 
 // make default export as the store
 export default store
