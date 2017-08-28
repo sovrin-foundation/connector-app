@@ -41,6 +41,7 @@ public class AppProvisioningTest {
 		AppUtlis AppUtlisObj=new AppUtlis();
 		AppUtlisObj.acceptRequest(driver);
 		driver.switchTo().alert().accept();
+		ConnectionDetailPage.Continue_Button(driver).click();
 		ConnectionDetailPage.Cross_Button(driver).click();
 
 	}

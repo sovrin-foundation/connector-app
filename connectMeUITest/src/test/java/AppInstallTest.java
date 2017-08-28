@@ -75,6 +75,8 @@ public class AppInstallTest {
 		Log.endTestCase("Install ConnectMe App");
 		System.out.println("Cleaning up Completed");
 		driver.quit();
+		
+		
 
 	}
 }

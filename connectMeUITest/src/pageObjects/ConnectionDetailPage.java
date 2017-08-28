@@ -24,5 +24,21 @@ public class ConnectionDetailPage {
 		}
 	}
 
+	public static WebElement Continue_Button(AppiumDriver driver) throws Exception {
+
+		try {
+			element =   driver.findElementByXPath("//XCUIElementTypeOther[@name='Continue']");
+			System.out.println("Cross Button is displayed");
+			return element;
+		} catch (Exception e) {
+
+			Log.error("Cross Button is not found.");
+			System.out.println("Cross Button is not displayed");
+			throw (e);
+		}
+	}
+
+	
+	
 
 }
