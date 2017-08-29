@@ -1,11 +1,10 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { StyleSheet, Image } from 'react-native'
-import { Icon } from 'react-native-elements'
+import { StyleSheet, Image, TouchableHighlight } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Container, CustomText, CustomButton } from '../components'
+import { Container, CustomText, CustomButton, CustomView } from '../components'
 import {
   lockSelectionRoute,
   lockPinSetupHomeRoute,
@@ -28,20 +27,33 @@ const styles = StyleSheet.create({
   },
 })
 
-const headerRight = <Icon name="help" color={color.bg.fifth.color} />
-
 export class LockPinSetup extends PureComponent {
   static navigationOptions = ({ navigation }) => ({
     headerLeft: (
-      <Image
-        style={styles.headerLeft}
-        source={require('../images/icon_backArrow.png')}
-        resizeMode="contain"
-        onPress={() => navigation.navigate(lockSelectionRoute)}
-      />
+      <CustomView>
+        <TouchableHighlight
+          testID={'back-button'}
+          onPress={() => navigation.navigate(lockSelectionRoute)}
+        >
+          <Image
+            testID={'back-arrow'}
+            style={styles.headerLeft}
+            source={require('../images/icon_backArrow.png')}
+            resizeMode="contain"
+            onPress={() => navigation.navigate(lockSelectionRoute)}
+          />
+        </TouchableHighlight>
+      </CustomView>
     ),
     headerTitle: <CustomText semiBold>App Security</CustomText>,
-    headerRight: headerRight,
+    headerRight: (
+      <Image
+        testID={'education-icon'}
+        style={styles.headerLeft}
+        source={require('../images/education.png')}
+        resizeMode="contain"
+      />
+    ),
     headerStyle: styles.header,
   })
 
@@ -52,7 +64,7 @@ export class LockPinSetup extends PureComponent {
 
   render() {
     return (
-      <Container primary center>
+      <Container senary center>
         <CustomButton
           primary
           title={'Set Pin Code'}

@@ -1,11 +1,14 @@
 // @flow
 import React, { PureComponent } from 'react'
+import { StyleSheet, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Container, CustomText, CustomView, CustomButton } from '../components'
 import { homeRoute } from '../common'
 import { unlockApp, clearPendingRedirect } from './lock-store'
 import type { Store } from '../store/type-store'
+import { OFFSET_1X, OFFSET_2X, OFFSET_4X, color } from '../common/styles'
+import layoutStyles from '../components/layout/layout-style'
 
 export class LockSetupSuccess extends PureComponent {
   onClose = () => {
@@ -19,16 +22,29 @@ export class LockSetupSuccess extends PureComponent {
 
   render() {
     return (
-      <Container>
-        <Container primary>
-          <CustomText h2>Your connect.me app is secured.</CustomText>
-          <CustomText>
-            From now on you'll need to use your PIN to unlock this app.
-          </CustomText>
-        </Container>
-        <CustomView>
-          <CustomButton primary title="Close" onPress={this.onClose} />
-        </CustomView>
+      <Container senary>
+        <Image
+          source={require('../images/bkg_connectMe.png')}
+          style={[layoutStyles.container, style.backgroundImage]}
+        >
+          <Container clearBg center style={[style.successContainer]}>
+            <CustomText h3 semiBold center style={[style.successMessage]}>
+              Your connect.me app is secured.
+            </CustomText>
+            <CustomText center style={[style.successInfo]}>
+              From now on you'll need to use your PIN to unlock this app.
+            </CustomText>
+          </Container>
+          <CustomView>
+            <CustomButton
+              primary
+              testID="close-button"
+              fontWeight="600"
+              title="Close"
+              onPress={this.onClose}
+            />
+          </CustomView>
+        </Image>
       </Container>
     )
   }
@@ -48,3 +64,20 @@ const mapDispatchToProps = dispatch =>
   )
 
 export default connect(mapStateToProps, mapDispatchToProps)(LockSetupSuccess)
+
+const style = StyleSheet.create({
+  successContainer: {
+    paddingHorizontal: OFFSET_2X,
+  },
+  successMessage: {
+    paddingVertical: OFFSET_4X,
+  },
+  successInfo: {
+    paddingHorizontal: OFFSET_1X,
+  },
+  backgroundImage: {
+    width: null,
+    height: null,
+    resizeMode: 'center',
+  },
+})

@@ -2,10 +2,10 @@
 
 exports[`app lock selection page should render properly 1`] = `
 <View
-  primary={true}
+  senary={true}
   style={
     Object {
-      "backgroundColor": "#3f4140",
+      "backgroundColor": "#2D2D2D",
       "flex": 1,
       "paddingHorizontal": 20,
       "paddingVertical": 50,
@@ -94,7 +94,20 @@ exports[`app lock selection page should render properly 1`] = `
     }
   >
     <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel={undefined}
+      accessibilityTraits={undefined}
+      accessible={true}
       center={true}
+      hitSlop={undefined}
+      onLayout={undefined}
+      onPress={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         Object {
           "alignItems": "center",
@@ -108,6 +121,7 @@ exports[`app lock selection page should render properly 1`] = `
         }
       }
       tertiary={true}
+      testID={undefined}
     >
       <Image
         source={1}
@@ -162,8 +176,12 @@ exports[`app lock selection page should render properly 1`] = `
             Object {
               "color": "#ffffff",
             },
-            null,
-            null,
+            Object {
+              "fontWeight": "bold",
+            },
+            Object {
+              "fontWeight": "bold",
+            },
             Object {
               "textAlign": "center",
             },
@@ -176,6 +194,19 @@ exports[`app lock selection page should render properly 1`] = `
       </Text>
     </View>
     <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel={undefined}
+      accessibilityTraits={undefined}
+      accessible={true}
+      hitSlop={undefined}
+      onLayout={undefined}
+      onPress={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
         Object {
           "backgroundColor": "#ebebea",
@@ -187,6 +218,7 @@ exports[`app lock selection page should render properly 1`] = `
         }
       }
       tertiary={true}
+      testID={undefined}
     >
       <View
         center={true}

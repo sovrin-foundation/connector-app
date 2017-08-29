@@ -13,7 +13,8 @@ import {
 
 export default class LockSelection extends PureComponent {
   goTouchIdSetup = () => {
-    this.props.navigation.navigate(lockPinSetupRoute)
+    //TODO:PS: not in use, will use later
+    // this.props.navigation.navigate(lockPinSetupRoute)
   }
 
   goPinCodeSetup = () => {
@@ -22,7 +23,7 @@ export default class LockSelection extends PureComponent {
 
   render() {
     return (
-      <Container primary style={[style.pinSelectionContainer]}>
+      <Container senary style={[style.pinSelectionContainer]}>
         <CustomView verticalSpace>
           <CustomText h4 bold center>Choose how to unlock this app</CustomText>
         </CustomView>
@@ -32,7 +33,13 @@ export default class LockSelection extends PureComponent {
           </CustomText>
         </CustomView>
         <Container>
-          <CustomView center tertiary style={[style.touchIdPinContainer]}>
+          <CustomView
+            center
+            tertiary
+            testID="touch-id-selection"
+            style={[style.touchIdPinContainer]}
+            onPress={this.goTouchIdSetup}
+          >
             <Image
               style={style.fingerPrintIcon}
               source={require('../images/icon_fingerPrint.png')}
@@ -48,11 +55,16 @@ export default class LockSelection extends PureComponent {
             </CustomText>
           </CustomView>
           <CustomView>
-            <CustomText h4 center>
+            <CustomText h4 bold center>
               or
             </CustomText>
           </CustomView>
-          <CustomView tertiary style={[style.touchIdPinContainer]}>
+          <CustomView
+            tertiary
+            testID="pin-code-selection"
+            style={[style.touchIdPinContainer]}
+            onPress={this.goPinCodeSetup}
+          >
             <CustomView row center style={[style.pinContainer]}>
               <CustomView style={[style.pin]}>
                 <CustomText h3 semiBold center bg="fifth">*</CustomText>
