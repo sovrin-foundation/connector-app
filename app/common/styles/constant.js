@@ -91,6 +91,7 @@ export const PADDING_VERTICAL = 8
 export const MARGIN_BOTTOM = 4
 export const OFFSET_1X = 10
 export const OFFSET_2X = 20
+export const OFFSET_5X = 50
 export const barStyleDark = 'dark-content'
 export const barStyleLight = 'light-content'
 
@@ -102,3 +103,5 @@ export const bubbleSize = {
   XL: 120,
   XXL: 140,
 }
+
+export const PIN_CODE_BORDER_BOTTOM = 4
