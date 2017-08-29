@@ -36,7 +36,6 @@ class SplashScreenView extends PureComponent {
           this.props.navigation.navigate(lockSelectionRoute)
         } else {
           // not the first time user is opening app
-          // TODO:KS Change this to lockEnterPinRoute
           this.props.navigation.navigate(lockEnterPinRoute)
         }
       }
@@ -160,6 +159,23 @@ class SplashScreenView extends PureComponent {
             this.props.addPendingRedirection(homeRoute)
           }
         }
+      }
+    }
+  }
+
+  componentDidMount() {
+    // It might be the case the hydration finishes
+    // even before component is mounted,
+    // so we need to check for pin code here as well
+    if (this.props.config.isHydrated) {
+      SplashScreen.hide()
+      // now we can safely check value of isAlreadyInstalled
+      if (this.props.config.isAlreadyInstalled === false) {
+        // user is opening the app for first time after installing
+        this.props.navigation.navigate(lockSelectionRoute)
+      } else {
+        // not the first time user is opening app
+        this.props.navigation.navigate(lockEnterPinRoute)
       }
     }
   }

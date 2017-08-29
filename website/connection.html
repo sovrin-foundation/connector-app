@@ -70,7 +70,7 @@
       .then(res => res.json())
       .then(data => {
         // get the qrcode from data
-        var qrcodeText = data.qrCode
+        var qrcodeText = JSON.stringify(data.qrCode)
         var qrcode = new QRCode(document.getElementById("qr-code"), {
           width: 200,
           height: 200
