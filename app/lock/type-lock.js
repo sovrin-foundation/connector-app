@@ -83,3 +83,16 @@ export type LockEnterPinProps = {
 export type LockEnterPinState = {
   interactionsDone: boolean,
 }
+
+export const PIN_SETUP_STATE = {
+  INITIAL: 'INITIAL',
+  REENTER: 'REENTER',
+  REENTER_FAIL: 'REENTER_FAIL',
+  REENTER_SUCCESS: 'REENTER_SUCCESS',
+}
+
+export type LockPinSetupState = {
+  pinSetupState: $Keys<typeof PIN_SETUP_STATE>,
+  interactionsDone: boolean,
+  enteredPin: ?string,
+}
