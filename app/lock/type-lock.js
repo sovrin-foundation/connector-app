@@ -45,6 +45,9 @@ export type CheckPinFailAction = {
 }
 
 export const CHECK_PIN_IDLE = 'CHECK_PIN_IDLE'
+export type CheckPinIdleAction = {
+  type: typeof CHECK_PIN_IDLE,
+}
 
 export const UNLOCK_APP = 'UNLOCK_APP'
 export type UnlockAppAction = {
@@ -72,6 +75,11 @@ export type LockActions =
 
 export type LockEnterPinProps = {
   checkPinAction: (pin: string) => CheckPinAction,
+  checkPinStatusIdle: () => CheckPinIdleAction,
   checkPinStatus: CheckPinStatus,
   pendingRedirection: string,
 } & ReactNavigation
+
+export type LockEnterPinState = {
+  interactionsDone: boolean,
+}

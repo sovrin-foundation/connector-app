@@ -15,6 +15,7 @@ import lockReducer, {
   checkPinSuccess,
   checkPinFail,
   setPinAction,
+  checkPinStatusIdle,
 } from '../lock-store'
 import { getItem, setItem } from '../../services'
 
@@ -68,5 +69,12 @@ describe('LockStore', () => {
     expect(gen.next().value).toEqual(call(getItem, PIN_STORAGE_KEY))
     expect(gen.next(wrongPin).value).toEqual(put(checkPinFail()))
     expect(gen.next().done).toBe(true)
+  })
+
+  it('should set checkPinStatus to idle', () => {
+    const failedState = lockReducer(initialState, checkPinFail())
+    expect(failedState).toMatchSnapshot()
+    const expectedState = lockReducer(failedState, checkPinStatusIdle())
+    expect(expectedState).toMatchSnapshot()
   })
 })

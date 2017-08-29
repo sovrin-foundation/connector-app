@@ -21,6 +21,7 @@ import type {
   CheckPinSuccessAction,
   LockActions,
   UnlockAppAction,
+  CheckPinIdleAction,
 } from './type-lock'
 import { getItem, setItem } from '../services'
 
@@ -91,6 +92,10 @@ export const unlockApp = (): UnlockAppAction => ({
   type: UNLOCK_APP,
 })
 
+export const checkPinStatusIdle = (): CheckPinIdleAction => ({
+  type: CHECK_PIN_IDLE,
+})
+
 export function* watchLock(): Generator<*, *, *> {
   yield all([watchCheckPin(), watchSetPin()])
 }
@@ -120,6 +125,11 @@ export default function lockReducer(
       return {
         ...state,
         checkPinStatus: CHECK_PIN_FAIL,
+      }
+    case CHECK_PIN_IDLE:
+      return {
+        ...state,
+        checkPinStatus: CHECK_PIN_IDLE,
       }
     case UNLOCK_APP:
       return {

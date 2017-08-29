@@ -1,16 +1,40 @@
 // @flow
 import React, { PureComponent } from 'react'
+import { InteractionManager } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { checkPinAction } from './lock-store'
-import { Container, CustomText, CustomButton } from '../components'
+import { checkPinAction, checkPinStatusIdle } from './lock-store'
+import { Container, CustomText, CustomButton, PinCodeBox } from '../components'
 import { CHECK_PIN_IDLE, CHECK_PIN_SUCCESS, CHECK_PIN_FAIL } from './type-lock'
 import type { Store } from '../store/type-store'
-import type { LockEnterPinProps } from './type-lock'
+import type { LockEnterPinProps, LockEnterPinState } from './type-lock'
 
-export class LockEnterPin extends PureComponent<void, LockEnterPinProps, void> {
-  onPinSubmit = () => {
-    this.props.checkPinAction('123456')
+export const TitleText = (
+  <CustomText h3>Enter pin code to unlock app</CustomText>
+)
+export const WrongPinText = (
+  <CustomText h3>Wrong pin! Please try again</CustomText>
+)
+
+export class LockEnterPin
+  extends PureComponent<void, LockEnterPinProps, LockEnterPinState> {
+  state = {
+    interactionsDone: false,
+  }
+
+  pinCodeBox = null
+
+  onPinComplete = (pin: string) => {
+    // user entered 6 digits in pin box
+    this.props.checkPinAction(pin)
+  }
+
+  clearFailStatus = () => {
+    this.props.checkPinStatusIdle()
+  }
+
+  clearFailStatusDelayed = () => {
+    setTimeout(this.clearFailStatus, 1000)
   }
 
   componentWillReceiveProps(nextProps: LockEnterPinProps) {
@@ -19,15 +43,33 @@ export class LockEnterPin extends PureComponent<void, LockEnterPinProps, void> {
         if (this.props.pendingRedirection) {
           this.props.navigation.navigate(this.props.pendingRedirection)
         }
+      } else if (nextProps.checkPinStatus === CHECK_PIN_FAIL) {
+        this.pinCodeBox && this.pinCodeBox.clear()
+        // set status back to idle so we can come to this else again
+        this.clearFailStatusDelayed()
       }
     }
   }
 
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ interactionsDone: true })
+    })
+  }
+
   render() {
+    const { checkPinStatus } = this.props
     return (
       <Container primary center>
-        <CustomText h3>Enter pin code to unlock app</CustomText>
-        <CustomButton primary title="Enter pin" onPress={this.onPinSubmit} />
+        {TitleText}
+        {checkPinStatus === CHECK_PIN_FAIL && WrongPinText}
+        {this.state.interactionsDone &&
+          <PinCodeBox
+            ref={pinCodeBox => {
+              this.pinCodeBox = pinCodeBox
+            }}
+            onPinComplete={this.onPinComplete}
+          />}
       </Container>
     )
   }
@@ -42,6 +84,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       checkPinAction,
+      checkPinStatusIdle,
     },
     dispatch
   )

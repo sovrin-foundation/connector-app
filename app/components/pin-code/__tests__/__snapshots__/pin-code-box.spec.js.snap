@@ -1,0 +1,257 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PinCodeBox /> should match snapshot 1`] = `
+<View
+  style={Object {}}
+>
+  <View
+    row={true}
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#636564",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+    />
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#636564",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+    />
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#636564",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+    />
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#636564",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+    />
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#636564",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+    />
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#636564",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+    />
+  </View>
+  <TextInput
+    autoCorrect={false}
+    autoFocus={true}
+    blurOnSubmit={false}
+    enablesReturnKeyAutomatically={false}
+    keyboardAppearance="dark"
+    keyboardType="number-pad"
+    maxLength={6}
+    onChangeText={[Function]}
+    style={
+      Object {
+        "position": "absolute",
+        "right": -999,
+      }
+    }
+    value=""
+  />
+</View>
+`;
+
+exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 1`] = `
+<View
+  style={Object {}}
+>
+  <View
+    row={true}
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#ffffff",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+    >
+      <Image
+        resizeMode="contain"
+        source={1}
+        style={
+          Object {
+            "height": 26,
+            "width": 26,
+          }
+        }
+      />
+    </View>
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#ffffff",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+    >
+      <Image
+        resizeMode="contain"
+        source={1}
+        style={
+          Object {
+            "height": 26,
+            "width": 26,
+          }
+        }
+      />
+    </View>
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#636564",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+    />
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#636564",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+    />
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#636564",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+    />
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#636564",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+    />
+  </View>
+  <TextInput
+    autoCorrect={false}
+    autoFocus={true}
+    blurOnSubmit={false}
+    enablesReturnKeyAutomatically={false}
+    keyboardAppearance="dark"
+    keyboardType="number-pad"
+    maxLength={6}
+    onChangeText={[Function]}
+    style={
+      Object {
+        "position": "absolute",
+        "right": -999,
+      }
+    }
+    value="12"
+  />
+</View>
+`;

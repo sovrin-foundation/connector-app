@@ -26,7 +26,7 @@ export const baseUrls = {
 }
 
 const initialState = {
-  ...baseUrls[SERVER_ENVIRONMENT.SANDBOX],
+  ...baseUrls[SERVER_ENVIRONMENT.DEMO],
   isAlreadyInstalled: false,
   // this flag is used to identify if we got the already stored data
   // from the phone and loaded in app
