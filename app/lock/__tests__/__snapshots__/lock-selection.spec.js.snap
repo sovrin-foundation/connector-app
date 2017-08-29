@@ -1,0 +1,469 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`app lock selection page should render properly 1`] = `
+<View
+  primary={true}
+  style={
+    Object {
+      "backgroundColor": "#3f4140",
+      "flex": 1,
+      "paddingHorizontal": 20,
+      "paddingVertical": 50,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "paddingVertical": 8,
+      }
+    }
+    verticalSpace={true}
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      onPress={undefined}
+      style={
+        Array [
+          Object {
+            "fontSize": 20,
+          },
+          Object {
+            "color": "#ffffff",
+          },
+          Object {
+            "fontWeight": "bold",
+          },
+          Object {
+            "fontWeight": "bold",
+          },
+          Object {
+            "textAlign": "center",
+          },
+          null,
+        ]
+      }
+      testID={undefined}
+    >
+      Choose how to unlock this app
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "paddingVertical": 8,
+      }
+    }
+    verticalSpace={true}
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      onPress={undefined}
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "color": "#ffffff",
+          },
+          Object {
+            "fontWeight": "500",
+          },
+          null,
+          Object {
+            "textAlign": "center",
+          },
+          null,
+        ]
+      }
+      testID={undefined}
+    >
+      This application must be protected by TouchId or a pin code at all times.
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#ebebea",
+          "borderRadius": 13,
+          "justifyContent": "center",
+          "margin": 10,
+          "minHeight": 130,
+          "paddingHorizontal": 20,
+          "paddingTop": 10,
+        }
+      }
+      tertiary={true}
+    >
+      <Image
+        source={1}
+        style={
+          Object {
+            "marginVertical": 10,
+          }
+        }
+      />
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        onPress={[Function]}
+        style={
+          Array [
+            Object {
+              "fontSize": 17,
+            },
+            Object {
+              "backgroundColor": "transparent",
+              "color": "#484848",
+            },
+            Object {
+              "fontWeight": "500",
+            },
+            null,
+            Object {
+              "textAlign": "center",
+            },
+            null,
+          ]
+        }
+        testID={undefined}
+      >
+        Use Touch ID for "connect.me"
+      </Text>
+    </View>
+    <View
+      style={Object {}}
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        onPress={undefined}
+        style={
+          Array [
+            Object {
+              "fontSize": 20,
+            },
+            Object {
+              "color": "#ffffff",
+            },
+            null,
+            null,
+            Object {
+              "textAlign": "center",
+            },
+            null,
+          ]
+        }
+        testID={undefined}
+      >
+        or
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "backgroundColor": "#ebebea",
+          "borderRadius": 13,
+          "margin": 10,
+          "minHeight": 130,
+          "paddingHorizontal": 20,
+          "paddingTop": 10,
+        }
+      }
+      tertiary={true}
+    >
+      <View
+        center={true}
+        row={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "marginVertical": 20,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "borderBottomColor": "#484848",
+              "borderBottomWidth": 4,
+              "marginRight": 5,
+              "paddingHorizontal": 5,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            onPress={undefined}
+            style={
+              Array [
+                Object {
+                  "fontSize": 27,
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#484848",
+                },
+                Object {
+                  "fontWeight": "500",
+                },
+                null,
+                Object {
+                  "textAlign": "center",
+                },
+                null,
+              ]
+            }
+            testID={undefined}
+          >
+            *
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "borderBottomColor": "#484848",
+              "borderBottomWidth": 4,
+              "marginRight": 5,
+              "paddingHorizontal": 5,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            onPress={undefined}
+            style={
+              Array [
+                Object {
+                  "fontSize": 27,
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#484848",
+                },
+                Object {
+                  "fontWeight": "500",
+                },
+                null,
+                Object {
+                  "textAlign": "center",
+                },
+                null,
+              ]
+            }
+            testID={undefined}
+          >
+            *
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "borderBottomColor": "#484848",
+              "borderBottomWidth": 4,
+              "marginRight": 5,
+              "paddingHorizontal": 5,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            onPress={undefined}
+            style={
+              Array [
+                Object {
+                  "fontSize": 27,
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#484848",
+                },
+                Object {
+                  "fontWeight": "500",
+                },
+                null,
+                Object {
+                  "textAlign": "center",
+                },
+                null,
+              ]
+            }
+            testID={undefined}
+          >
+            *
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "borderBottomColor": "#484848",
+              "borderBottomWidth": 4,
+              "marginRight": 5,
+              "paddingHorizontal": 5,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            onPress={undefined}
+            style={
+              Array [
+                Object {
+                  "fontSize": 27,
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#484848",
+                },
+                Object {
+                  "fontWeight": "500",
+                },
+                null,
+                Object {
+                  "textAlign": "center",
+                },
+                null,
+              ]
+            }
+            testID={undefined}
+          >
+            *
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "borderBottomColor": "#484848",
+              "borderBottomWidth": 4,
+              "marginRight": 5,
+              "paddingHorizontal": 5,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            onPress={undefined}
+            style={
+              Array [
+                Object {
+                  "fontSize": 27,
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#484848",
+                },
+                Object {
+                  "fontWeight": "500",
+                },
+                null,
+                Object {
+                  "textAlign": "center",
+                },
+                null,
+              ]
+            }
+            testID={undefined}
+          >
+            *
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "borderBottomColor": "#484848",
+              "borderBottomWidth": 4,
+              "marginRight": 5,
+              "paddingHorizontal": 5,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            onPress={undefined}
+            style={
+              Array [
+                Object {
+                  "fontSize": 27,
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#484848",
+                },
+                Object {
+                  "fontWeight": "500",
+                },
+                null,
+                Object {
+                  "textAlign": "center",
+                },
+                null,
+              ]
+            }
+            testID={undefined}
+          >
+            *
+          </Text>
+        </View>
+      </View>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        onPress={[Function]}
+        style={
+          Array [
+            Object {
+              "fontSize": 17,
+            },
+            Object {
+              "backgroundColor": "transparent",
+              "color": "#484848",
+            },
+            Object {
+              "fontWeight": "500",
+            },
+            null,
+            Object {
+              "textAlign": "center",
+            },
+            null,
+          ]
+        }
+        testID={undefined}
+      >
+        Use PIN Code for "connect.me"
+      </Text>
+    </View>
+  </View>
+</View>
+`;

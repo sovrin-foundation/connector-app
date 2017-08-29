@@ -1,12 +1,17 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Image } from 'react-native'
+import { Icon } from 'react-native-elements'
 import { StackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Container, CustomText, CustomButton } from '../components'
-import { lockPinSetupHomeRoute, lockSetupSuccessRoute } from '../common'
-import { color } from '../common/styles'
+import {
+  lockSelectionRoute,
+  lockPinSetupHomeRoute,
+  lockSetupSuccessRoute,
+} from '../common'
+import { color, OFFSET_2X } from '../common/styles'
 import { setPinAction } from './lock-store'
 
 const styles = StyleSheet.create({
@@ -15,13 +20,28 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
     height: 50,
     padding: 0,
+    paddingHorizontal: OFFSET_2X,
     shadowOpacity: 0,
+  },
+  headerLeft: {
+    width: 20,
   },
 })
 
+const headerRight = <Icon name="help" color={color.bg.fifth.color} />
+
 export class LockPinSetup extends PureComponent {
   static navigationOptions = ({ navigation }) => ({
-    headerTitle: <CustomText>App Security</CustomText>,
+    headerLeft: (
+      <Image
+        style={styles.headerLeft}
+        source={require('../images/icon_backArrow.png')}
+        resizeMode="contain"
+        onPress={() => navigation.navigate(lockSelectionRoute)}
+      />
+    ),
+    headerTitle: <CustomText semiBold>App Security</CustomText>,
+    headerRight: headerRight,
     headerStyle: styles.header,
   })
 

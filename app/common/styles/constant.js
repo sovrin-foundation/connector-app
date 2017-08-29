@@ -62,6 +62,7 @@ export const color = {
       color: whiteSmoke,
       font: {
         primary: darkGrey,
+        secondary: nightRider,
       },
     },
     sixth: {
