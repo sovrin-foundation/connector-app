@@ -1,19 +1,25 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { InteractionManager } from 'react-native'
+import { InteractionManager, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { checkPinAction, checkPinStatusIdle } from './lock-store'
-import { Container, CustomText, CustomButton, PinCodeBox } from '../components'
+import {
+  Container,
+  CustomText,
+  CustomButton,
+  PinCodeBox,
+  CustomView,
+} from '../components'
 import { CHECK_PIN_IDLE, CHECK_PIN_SUCCESS, CHECK_PIN_FAIL } from './type-lock'
 import type { Store } from '../store/type-store'
 import type { LockEnterPinProps, LockEnterPinState } from './type-lock'
 
 export const TitleText = (
-  <CustomText h3>Enter pin code to unlock app</CustomText>
+  <CustomText h4 center bold>Enter pin code to unlock app</CustomText>
 )
 export const WrongPinText = (
-  <CustomText h3>Wrong pin! Please try again</CustomText>
+  <CustomText h4 center>Wrong pin! Please try again</CustomText>
 )
 
 export class LockEnterPin
@@ -60,16 +66,20 @@ export class LockEnterPin
   render() {
     const { checkPinStatus } = this.props
     return (
-      <Container primary center>
-        {TitleText}
-        {checkPinStatus === CHECK_PIN_FAIL && WrongPinText}
-        {this.state.interactionsDone &&
-          <PinCodeBox
-            ref={pinCodeBox => {
-              this.pinCodeBox = pinCodeBox
-            }}
-            onPinComplete={this.onPinComplete}
-          />}
+      <Container primary>
+        <CustomView style={[styles.text]}>
+          {TitleText}
+          {checkPinStatus === CHECK_PIN_FAIL && WrongPinText}
+        </CustomView>
+        <CustomView center>
+          {this.state.interactionsDone &&
+            <PinCodeBox
+              ref={pinCodeBox => {
+                this.pinCodeBox = pinCodeBox
+              }}
+              onPinComplete={this.onPinComplete}
+            />}
+        </CustomView>
       </Container>
     )
   }
@@ -90,3 +100,10 @@ const mapDispatchToProps = dispatch =>
   )
 
 export default connect(mapStateToProps, mapDispatchToProps)(LockEnterPin)
+
+const styles = StyleSheet.create({
+  text: {
+    marginTop: 120,
+    marginBottom: 70,
+  },
+})
