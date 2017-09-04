@@ -11,7 +11,7 @@ app:
     GITHUB_USER_EMAIL: iosdev@evernym.com
   - opts:
       is_expand: false
-    FASTLANE_WORK_DIR: ios
+    FASTLANE_WORK_DIR: ios/fastlane
   - opts:
       is_expand: false
     FASTLANE_LANE: beta
