@@ -12,6 +12,8 @@ import ExpiredTokenScreen from './expired-token/expired-token'
 import QRCodeScanner from './qr-code/qr-code'
 import QRConnectionRequestScreen
   from './qr-connection-request/qr-connection-request'
+import SMSConnectionRequestScreen
+  from './sms-connection-request/sms-connection-request'
 import store, { ROUTE_UPDATE } from './store'
 import { StatusBar, Container, PushNotification } from './components'
 import {
@@ -23,6 +25,7 @@ import {
   expiredTokenRoute,
   qrCodeScannerRoute,
   qrConnectionRequestRoute,
+  smsConnectionRequestRoute,
   lockEnterPinRoute,
   lockSelectionRoute,
   lockPinSetupRoute,
@@ -62,6 +65,9 @@ const ConnectMeAppNavigator = StackNavigator(
     },
     [qrConnectionRequestRoute]: {
       screen: QRConnectionRequestScreen,
+    },
+    [smsConnectionRequestRoute]: {
+      screen: SMSConnectionRequestScreen,
     },
     [lockSelectionRoute]: {
       screen: LockSelectionScreen,

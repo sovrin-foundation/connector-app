@@ -75,24 +75,20 @@ export const sendUserInfo = (userInfo, { callCenterUrl }) =>
   // TODO: Remove fetch and use api method. Also, do not check status inside store
   fetch(`${callCenterUrl}/agent/app-context`, options('POST', userInfo))
 
-export const invitationDetailsRequest = (token, { agencyUrl }) =>
-  api(`${agencyUrl}/agent/token/${token}/connection`, options('GET'))
+export const invitationDetailsRequest = ({ smsToken, agencyUrl }) =>
+  api(`${agencyUrl}/agent/token/${smsToken}/connection`, options('GET'))
 
-export const sendInvitationConnectionRequest = ({
-  data: { identifier, dataBody },
-  config: { agencyUrl },
-  token,
-}) => {
-  return fetch(`${agencyUrl}/agent/token/${token}/connection`, {
-    method: 'PUT',
-    mode: 'cors',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(dataBody),
-  })
-}
+// Accept invitation from SMS received
+export const sendSMSInvitationResponse = ({
+  agencyUrl,
+  challenge,
+  signature,
+  smsToken,
+}) =>
+  api(
+    `${agencyUrl}/agent/token/${smsToken}/connection`,
+    options('PUT', { challenge, signature })
+  )
 
 export const sendAuthenticationRequest = ({
   data: { identifier, dataBody },

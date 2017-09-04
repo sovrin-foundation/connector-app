@@ -14,6 +14,9 @@ import qrConnection, {
   watchQrConnection,
 } from '../qr-connection-request/qr-connection-request-store'
 import lock, { watchLock } from '../lock/lock-store'
+import smsConnection, {
+  watchSMSConnectionSagas,
+} from '../sms-connection-request/sms-connection-request-store'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -25,6 +28,7 @@ const appReducer = combineReducers({
   pushNotification,
   qrConnection,
   route,
+  smsConnection,
   user,
   lock,
 })
@@ -50,6 +54,7 @@ sagaMiddleware.run(function*() {
     watchAppHydration(),
     watchQrConnection(),
     watchLock(),
+    watchSMSConnectionSagas(),
   ])
 })
 
@@ -63,6 +68,7 @@ export * from '../invitation/invitation-store'
 export * from '../deep-link/deep-link-store'
 export * from '../qr-connection-request/qr-connection-request-store'
 export * from '../lock/lock-store'
+export * from '../sms-connection-request/sms-connection-request-store'
 
 // make default export as the store
 export default store

@@ -3,12 +3,12 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import SplashScreen from 'react-native-splash-screen'
 import {
-  invitationRoute,
   homeRoute,
   splashScreenRoute,
   expiredTokenRoute,
   lockSelectionRoute,
   lockEnterPinRoute,
+  smsConnectionRequestRoute,
 } from '../common/route-constants'
 import {
   TOKEN_EXPIRED_CODE,
@@ -16,7 +16,7 @@ import {
   PUSH_NOTIFICATION_SENT_CODE,
 } from '../common/api-constants'
 import {
-  getInvitationDetailsRequest,
+  getSMSConnectionRequestDetails,
   authenticationRequestReceived,
   pushNotificationReceived,
   addPendingRedirection,
@@ -43,14 +43,11 @@ class SplashScreenView extends PureComponent {
 
     // check if deepLink is changed, then that means we either got token
     // or we got error or nothing happened with deep link
-    if (nextProps.deepLink.isLoading != this.props.deepLink.isLoading) {
+    if (nextProps.deepLink.isLoading !== this.props.deepLink.isLoading) {
       if (nextProps.deepLink.isLoading === false) {
         // loading deep link data is done
         if (nextProps.deepLink.token) {
-          this.props.getInvitationDetailsRequest(
-            nextProps.deepLink.token,
-            this.props.config
-          )
+          this.props.getSMSConnectionRequestDetails()
         } else {
           if (nextProps.lock.isAppLocked === false) {
             // we did not get any token and deepLink data loading is done
@@ -64,7 +61,7 @@ class SplashScreenView extends PureComponent {
     }
 
     if (
-      nextProps.pushNotification.notification !=
+      nextProps.pushNotification.notification !==
       this.props.pushNotification.notification
     ) {
       const { notification } = nextProps.pushNotification
@@ -83,7 +80,7 @@ class SplashScreenView extends PureComponent {
     }
 
     // check if invitation are the only props that are changed
-    if (nextProps.invitation != this.props.invitation) {
+    if (nextProps.invitation !== this.props.invitation) {
       if (nextProps.invitation.error) {
         SplashScreen.hide()
 
@@ -118,7 +115,6 @@ class SplashScreenView extends PureComponent {
 
         // todo: separate connection-request store from invitation store
         // handle redirection when coming from deep-link
-        // TODO: move offer-sent to a constant
         if (
           this.props.invitation.data &&
           nextProps.invitation.data.statusCode ===
@@ -128,36 +124,27 @@ class SplashScreenView extends PureComponent {
         ) {
           return
         }
+      }
+    }
 
-        // if we got the data, then check for status of connection request
-        if (nextProps.invitation.data.statusCode) {
-          SplashScreen.hide()
-          if (
-            nextProps.invitation.data.statusCode ===
-            PENDING_CONNECTION_REQUEST_CODE
-          ) {
-            if (nextProps.lock.isAppLocked === false) {
-              // if we got error, then also redirect user to home page
-              this.props.navigation.navigate(invitationRoute)
-            } else {
-              this.props.addPendingRedirection(invitationRoute)
-            }
-          } else {
-            if (nextProps.lock.isAppLocked === false) {
-              // if we got error, then also redirect user to home page
-              this.props.navigation.navigate(homeRoute)
-            } else {
-              this.props.addPendingRedirection(homeRoute)
-            }
-          }
+    // check if smsConnection payload are the only props that are changed
+    if (nextProps.smsConnection.payload !== this.props.smsConnection.payload) {
+      // if we got the data, then check for status of connection request
+      SplashScreen.hide()
+      if (
+        nextProps.smsConnection.payload.statusCode ===
+        PENDING_CONNECTION_REQUEST_CODE
+      ) {
+        if (nextProps.lock.isAppLocked === false) {
+          this.props.navigation.navigate(smsConnectionRequestRoute)
         } else {
-          if (nextProps.lock.isAppLocked === false) {
-            SplashScreen.hide()
-            // if we got error, then also redirect user to home page
-            this.props.navigation.navigate(homeRoute)
-          } else {
-            this.props.addPendingRedirection(homeRoute)
-          }
+          this.props.addPendingRedirection(smsConnectionRequestRoute)
+        }
+      } else {
+        if (nextProps.lock.isAppLocked === false) {
+          this.props.navigation.navigate(homeRoute)
+        } else {
+          this.props.addPendingRedirection(homeRoute)
         }
       }
     }
@@ -192,6 +179,7 @@ const mapStateToProps = ({
   pushNotification,
   route,
   lock,
+  smsConnection,
 }) => ({
   invitation,
   config,
@@ -199,12 +187,13 @@ const mapStateToProps = ({
   pushNotification,
   route,
   lock,
+  smsConnection,
 })
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getInvitationDetailsRequest,
+      getSMSConnectionRequestDetails,
       authenticationRequestReceived,
       pushNotificationReceived,
       addPendingRedirection,
