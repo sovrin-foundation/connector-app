@@ -10,11 +10,11 @@ const sovrinIcon = require('../../images/SovrinSymbol.png')
 export default class PinCodeDigit
   extends PureComponent<void, PinCodeDigitProps, void> {
   render() {
-    const { entered } = this.props
+    const { entered, testID = undefined } = this.props
     const style = entered ? styles.entered : null
 
     return (
-      <CustomView center style={[styles.digit, style]}>
+      <CustomView center style={[styles.digit, style]} testID={testID}>
         {entered &&
           <Image
             style={styles.icon}

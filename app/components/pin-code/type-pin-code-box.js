@@ -1,6 +1,7 @@
 // @flow
 export type PinCodeDigitProps = {
   entered: boolean,
+  testID?: ?string,
 }
 
 export type PinCodeBoxProps = {

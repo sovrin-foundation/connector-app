@@ -83,7 +83,7 @@ exports[`<QRScannerScreen /> should match snapshot 1`] = `
               "backgroundColor": "transparent",
             }
           }
-          testID={undefined}
+          testID="tab-settings-icon-touchable"
         >
           <Image
             resizeMode="contain"
@@ -180,7 +180,7 @@ exports[`<QRScannerScreen /> should match snapshot 1`] = `
               "backgroundColor": "transparent",
             }
           }
-          testID={undefined}
+          testID="tab-add-connection-icon-touchable"
         >
           <Image
             resizeMode="contain"

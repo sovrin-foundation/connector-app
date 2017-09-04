@@ -60,9 +60,11 @@ export const CustomView = props => {
     </View>
   )
 
+  const touchableTestId = props.testID ? `${props.testID}-touchable` : undefined
+
   if (onPress) {
     return (
-      <TouchableWithoutFeedback onPress={onPress}>
+      <TouchableWithoutFeedback testID={touchableTestId} onPress={onPress}>
         {customView}
       </TouchableWithoutFeedback>
     )

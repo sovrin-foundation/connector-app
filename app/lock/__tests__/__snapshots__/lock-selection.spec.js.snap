@@ -121,7 +121,7 @@ exports[`app lock selection page should render properly 1`] = `
         }
       }
       tertiary={true}
-      testID={undefined}
+      testID="touch-id-selection-touchable"
     >
       <Image
         source={1}
@@ -218,7 +218,7 @@ exports[`app lock selection page should render properly 1`] = `
         }
       }
       tertiary={true}
-      testID={undefined}
+      testID="pin-code-selection-touchable"
     >
       <View
         center={true}

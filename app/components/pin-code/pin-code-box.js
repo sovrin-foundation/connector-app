@@ -51,9 +51,15 @@ export default class PinCodeBox
     // filling only the ones which are typed
     let pinCodeDigits = []
     let isEntered = false
-    for (var i = 0; i < this.maxLength; i++) {
+    for (let i = 0; i < this.maxLength; i++) {
       isEntered = this.state.pin[i] !== undefined
-      pinCodeDigits.push(<PinCodeDigit key={i} entered={isEntered} />)
+      pinCodeDigits.push(
+        <PinCodeDigit
+          key={i}
+          entered={isEntered}
+          testID={`pin-code-digit-${i}`}
+        />
+      )
     }
 
     return (
@@ -74,6 +80,7 @@ export default class PinCodeBox
             this.inputBox = inputBox
           }}
           style={styles.input}
+          testID="pin-code-input-box"
           value={this.state.pin}
         />
       </CustomView>

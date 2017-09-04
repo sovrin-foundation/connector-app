@@ -25,6 +25,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
           "width": 38,
         }
       }
+      testID="pin-code-digit-0"
     />
     <View
       center={true}
@@ -39,6 +40,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
           "width": 38,
         }
       }
+      testID="pin-code-digit-1"
     />
     <View
       center={true}
@@ -53,6 +55,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
           "width": 38,
         }
       }
+      testID="pin-code-digit-2"
     />
     <View
       center={true}
@@ -67,6 +70,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
           "width": 38,
         }
       }
+      testID="pin-code-digit-3"
     />
     <View
       center={true}
@@ -81,6 +85,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
           "width": 38,
         }
       }
+      testID="pin-code-digit-4"
     />
     <View
       center={true}
@@ -95,6 +100,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
           "width": 38,
         }
       }
+      testID="pin-code-digit-5"
     />
   </View>
   <TextInput
@@ -112,6 +118,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
         "right": -999,
       }
     }
+    testID="pin-code-input-box"
     value=""
   />
 </View>
@@ -142,6 +149,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
           "width": 38,
         }
       }
+      testID="pin-code-digit-0"
     >
       <Image
         resizeMode="contain"
@@ -167,6 +175,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
           "width": 38,
         }
       }
+      testID="pin-code-digit-1"
     >
       <Image
         resizeMode="contain"
@@ -192,6 +201,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
           "width": 38,
         }
       }
+      testID="pin-code-digit-2"
     />
     <View
       center={true}
@@ -206,6 +216,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
           "width": 38,
         }
       }
+      testID="pin-code-digit-3"
     />
     <View
       center={true}
@@ -220,6 +231,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
           "width": 38,
         }
       }
+      testID="pin-code-digit-4"
     />
     <View
       center={true}
@@ -234,6 +246,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
           "width": 38,
         }
       }
+      testID="pin-code-digit-5"
     />
   </View>
   <TextInput
@@ -251,6 +264,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
         "right": -999,
       }
     }
+    testID="pin-code-input-box"
     value="12"
   />
 </View>
