@@ -13,3 +13,5 @@ export const getSMSToken = (state: Store) => state.deepLink.token
 
 export const getSMSRemoteConnectionId = (state: Store) =>
   state.smsConnection.payload.remoteConnectionId
+
+export const getAllConnection = (state: Store) => state.connections.data

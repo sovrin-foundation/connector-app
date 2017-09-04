@@ -21,5 +21,5 @@ export const invitationPayloadMapper = (payload: InvitationPayload) => ({
   message: payload.offerMsgText || payload.authNotifMsgText || payload.message,
   statusCode: payload.statusCode,
   senderLogoUrl: payload.senderLogoUrl || null,
-  remoteConnectionId: payload.remoteConnectionId || null,
+  remoteConnectionId: payload.remoteConnectionId,
 })

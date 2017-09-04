@@ -7,6 +7,7 @@ import {
   getAgencyUrl,
   getPushToken,
   getQrPayload,
+  getAllConnection,
 } from '../../store/store-selector'
 import { ResponseType } from '../../components/request/type-request'
 import qrConnectionRequestReducer, {
@@ -77,6 +78,7 @@ describe('Qr Connection Request store', () => {
 
     expect(gen.next(agencyUrl).value).toEqual(select(getPushToken))
     expect(gen.next().value).toEqual(select(getQrPayload))
+    expect(gen.next(payload).value).toEqual(select(getAllConnection))
 
     const challenge = 'challenge'
     const signature = 'signature'

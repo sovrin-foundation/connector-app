@@ -93,22 +93,7 @@ export const sendSMSInvitationResponse = ({
 export const sendAuthenticationRequest = ({
   data: { identifier, dataBody },
   config: { agencyUrl },
-}) =>
-  fetch(`${agencyUrl}/agent/id/${identifier}/auth`, {
-    method: 'PUT',
-    mode: 'cors',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(dataBody),
-  }).then(res => {
-    if (res.status >= 200 && res.status < 300) {
-      return res.status
-    } else {
-      throw new Error('Bad Request')
-    }
-  })
+}) => api(`${agencyUrl}/agent/id/${identifier}/auth`, options('PUT', dataBody))
 
 export const getProfile = ({ identifier, challenge, signature, agencyUrl }) =>
   api(

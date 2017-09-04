@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Mapper Service connectionMapper should return proper object 1`] = `
+Object {
+  "logoUrl": "https://test-agengy.com/logo",
+  "name": "test",
+  "remoteConnectionId": "5iZiu2aLYrQXSdon123456",
+  "size": 120,
+}
+`;
+
+exports[`Mapper Service invitationPayloadMapper should return proper object 1`] = `
+Object {
+  "message": "test body",
+  "remoteConnectionId": "5iZiu2aLYrQXSdon123456",
+  "senderLogoUrl": "http://test-agency.com/logo",
+  "statusCode": "OCS",
+  "title": "test",
+}
+`;

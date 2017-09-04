@@ -38,8 +38,9 @@ import {
   getPushToken,
   getSMSToken,
   getSMSRemoteConnectionId,
+  getAllConnection,
 } from '../store/store-selector'
-import { saveNewConnection } from '../store/connections-store'
+import { saveNewConnection, getConnection } from '../store/connections-store'
 
 const initialState = {
   payload: {},
@@ -121,37 +122,51 @@ export function* sendSMSResponse(
   const smsToken: string = yield select(getSMSToken)
   const remoteConnectionId: string = yield select(getSMSRemoteConnectionId)
 
-  const { publicKey: verKey, secretKey: signingKey } = getKeyPairFromSeed(seed)
-  const challenge = JSON.stringify({
-    newStatus: action.data.response,
-    identifier,
-    verKey: encode(verKey),
-    pushComMethod: `FCM:${pushToken}`,
-  })
-  const signature = encode(getSignature(signingKey, challenge))
+  const connections = yield select(getAllConnection)
+  const isDuplicateConnection =
+    getConnection(remoteConnectionId, connections).length > 0
 
-  try {
-    yield call(sendSMSInvitationResponse, {
-      agencyUrl,
-      challenge,
-      signature,
-      smsToken,
-    })
-    yield put(smsConnectionSuccess())
-    // TODO:PS:merge common code from this saga and qr connection response saga.
-    if (action.data.response === ResponseType.accepted) {
-      const connection = {
-        newConnection: {
-          identifier,
-          remoteConnectionId,
-          seed,
-        },
-      }
-      yield put(saveNewConnection(connection))
+  if (isDuplicateConnection) {
+    const error = {
+      code: 'OCS',
+      message: 'duplicate connection request',
     }
-  } catch (e) {
-    const error: Error = JSON.parse(e.message)
     yield put(smsConnectionFail(error))
+  } else {
+    const { publicKey: verKey, secretKey: signingKey } = getKeyPairFromSeed(
+      seed
+    )
+    const challenge = JSON.stringify({
+      newStatus: action.data.response,
+      identifier,
+      verKey: encode(verKey),
+      pushComMethod: `FCM:${pushToken}`,
+    })
+    const signature = encode(getSignature(signingKey, challenge))
+
+    try {
+      yield call(sendSMSInvitationResponse, {
+        agencyUrl,
+        challenge,
+        signature,
+        smsToken,
+      })
+      yield put(smsConnectionSuccess())
+      // TODO:PS:merge common code from this saga and qr connection response saga.
+      if (action.data.response === ResponseType.accepted) {
+        const connection = {
+          newConnection: {
+            identifier,
+            remoteConnectionId,
+            seed,
+          },
+        }
+        yield put(saveNewConnection(connection))
+      }
+    } catch (e) {
+      const error: Error = JSON.parse(e.message)
+      yield put(smsConnectionFail(error))
+    }
   }
 }
 

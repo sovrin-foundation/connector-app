@@ -31,36 +31,7 @@ export default class actions extends PureComponent {
     isModalVisible: false,
   }
 
-  componentDidMount() {
-    this.isDuplicateInvitation()
-  }
-
-  okayAction = () => {
-    this.props.resetInvitationStatus()
-    this.props.navigation.navigate(homeRoute)
-  }
-
-  isDuplicateInvitation = () => {
-    const { type: invitationType } = this.props.invitation
-    if (invitationType === INVITATION_TYPE.PENDING_CONNECTION_REQUEST) {
-      const remoteConnectionId = this.props.invitation.data.remoteConnectionId
-      const connection = getConnection(
-        remoteConnectionId,
-        this.props.connections.data
-      )
-      if (connection.length > 0) {
-        AlertIOS.alert(...DUPLICATE_CONNECTION_ERROR, [
-          {
-            onPress: () => this.okayAction(),
-          },
-        ])
-      }
-    }
-  }
-
   onUserResponse = newStatus => {
-    this.isDuplicateInvitation()
-
     // get Push Notification permission, for iOS
     FCM.requestPermissions()
       .then(res => {
@@ -71,100 +42,40 @@ export default class actions extends PureComponent {
           requiredProvisioningData.push(TouchId.authenticate(TOUCH_ID_MESSAGE))
         }
 
-        // device enrollment
         Promise.all(requiredProvisioningData).then(() => {
-          const phoneNumber = (Math.random() * 1000000000000000000)
-            .toString()
-            .substring(0, 10)
-          let identifier = randomSeed(32).substring(0, 22)
-          let seed = randomSeed(32).substring(0, 32)
-          const { pushToken } = this.props.pushNotification
+          // reset avatar tapCount
+          this.props.resetTapCount()
 
-          this.setState({ identifier })
+          let {
+            type: invitationType,
+            data: { remoteConnectionId },
+          } = this.props.invitation
 
-          if (identifier && seed && pushToken) {
-            // reset avatar tapCount
-            this.props.resetTapCount()
-            let {
-              publicKey: verKey,
-              secretKey: signingKey,
-            } = getKeyPairFromSeed(seed)
-            verKey = encode(verKey)
+          if (invitationType === INVITATION_TYPE.AUTHENTICATION_REQUEST) {
+            const { connections: { data: connectionsData } } = this.props
+            const connection = getConnection(
+              remoteConnectionId,
+              connectionsData
+            )
+            let { identifier, seed } = connection[0]
+            let { secretKey: signingKey } = getKeyPairFromSeed(seed)
 
-            let {
-              type: invitationType,
-              data: { remoteConnectionId },
-            } = this.props.invitation
-
-            if (invitationType === INVITATION_TYPE.PENDING_CONNECTION_REQUEST) {
-              const challenge = JSON.stringify({
+            const challenge = JSON.stringify({
+              newStatus,
+            })
+            const signature = encode(getSignature(signingKey, challenge))
+            this.props.sendUserInvitationResponse(
+              {
                 newStatus,
                 identifier,
-                verKey,
-                pushComMethod: `FCM:${pushToken}`,
-              })
-              const signature = encode(getSignature(signingKey, challenge))
-
-              const connectionChallenge = JSON.stringify({
-                remoteConnectionId,
-              })
-              const connectionChallengeSignature = encode(
-                getSignature(signingKey, connectionChallenge)
-              )
-
-              this.props.sendUserInvitationResponse(
-                {
-                  newStatus,
-                  identifier,
-                  dataBody: {
-                    challenge,
-                    signature,
-                  },
+                dataBody: {
+                  challenge,
+                  signature,
                 },
-                this.props.config,
-                invitationType,
-                this.props.deepLink.token,
-                {
-                  identifier,
-                  connectionBody: {
-                    connectionChallenge,
-                    connectionChallengeSignature,
-                  },
-                  remoteConnectionId,
-                  seed,
-                }
-              )
-            } else if (
-              invitationType === INVITATION_TYPE.AUTHENTICATION_REQUEST
-            ) {
-              const { connections: { data: connectionsData } } = this.props
-              const connection = getConnection(
-                remoteConnectionId,
-                connectionsData
-              )
-              console.log(connection[0])
-              let { identifier, seed } = connection[0]
-              let { secretKey: signingKey } = getKeyPairFromSeed(seed)
-
-              const challenge = JSON.stringify({
-                newStatus,
-              })
-              const signature = encode(getSignature(signingKey, challenge))
-              this.props.sendUserInvitationResponse(
-                {
-                  newStatus,
-                  identifier,
-                  dataBody: {
-                    challenge,
-                    signature,
-                  },
-                },
-                this.props.config,
-                invitationType
-              )
-            }
-          } else {
-            AlertIOS.alert(...DEVICE_ENROLLMENT_ERROR)
+              },
+              this.props.config,
+              invitationType
+            )
           }
         })
       })
@@ -188,12 +99,7 @@ export default class actions extends PureComponent {
         nextProps.invitation.status === INVITATION_STATUS.ACCEPTED &&
         !nextProps.invitation.error
       ) {
-        const { type: invitationType } = nextProps.invitation
-        if (invitationType === INVITATION_TYPE.PENDING_CONNECTION_REQUEST) {
-          this._showConnectionSuccessModal(true)
-        } else {
-          this.props.navigation.navigate(connectionRoute)
-        }
+        this.props.navigation.navigate(connectionRoute)
       } else if (
         !nextProps.invitation.isFetching &&
         (nextProps.invitation.status === INVITATION_STATUS.REJECTED ||

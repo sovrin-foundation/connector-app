@@ -33,8 +33,9 @@ import {
   getAgencyUrl,
   getPushToken,
   getQrPayload,
+  getAllConnection,
 } from '../store/store-selector'
-import { saveNewConnection } from '../store/connections-store'
+import { saveNewConnection, getConnection } from '../store/connections-store'
 
 export const initialState = {
   title: '',
@@ -82,33 +83,48 @@ export function* sendQrResponse(
   const pushToken: string = yield select(getPushToken)
   const qrPayload: QrConnectionPayload = yield select(getQrPayload)
 
-  const { publicKey: verKey, secretKey: signingKey } = getKeyPairFromSeed(seed)
-  const apiData = {
-    remoteChallenge: qrPayload.qrData[QR_CODE_CHALLENGE],
-    remoteSig: qrPayload.signature,
-    newStatus: action.data.response,
-    identifier,
-    verKey: encode(verKey),
-    pushComMethod: `FCM:${pushToken}`,
-  }
-  const challenge = JSON.stringify(apiData)
-  const signature = encode(getSignature(signingKey, challenge))
-  try {
-    yield call(sendQRInvitationResponse, { challenge, signature, agencyUrl })
-    yield put(qrConnectionSuccess())
-    if (action.data.response === ResponseType.accepted) {
-      const connection = {
-        newConnection: {
-          identifier,
-          remoteConnectionId: qrPayload.challenge[QR_CODE_REMOTE_CONNECTION_ID],
-          seed,
-        },
-      }
-      yield put(saveNewConnection(connection))
+  const remoteConnectionId = qrPayload.challenge[QR_CODE_REMOTE_CONNECTION_ID]
+  const connections = yield select(getAllConnection)
+  const isDuplicateConnection =
+    getConnection(remoteConnectionId, connections).length > 0
+
+  if (isDuplicateConnection) {
+    const error = {
+      code: 'OCS',
+      message: 'duplicate connection request',
     }
-  } catch (e) {
-    const error: Error = JSON.parse(e.message)
     yield put(qrConnectionFail(error))
+  } else {
+    const { publicKey: verKey, secretKey: signingKey } = getKeyPairFromSeed(
+      seed
+    )
+    const apiData = {
+      remoteChallenge: qrPayload.qrData[QR_CODE_CHALLENGE],
+      remoteSig: qrPayload.signature,
+      newStatus: action.data.response,
+      identifier,
+      verKey: encode(verKey),
+      pushComMethod: `FCM:${pushToken}`,
+    }
+    const challenge = JSON.stringify(apiData)
+    const signature = encode(getSignature(signingKey, challenge))
+    try {
+      yield call(sendQRInvitationResponse, { challenge, signature, agencyUrl })
+      yield put(qrConnectionSuccess())
+      if (action.data.response === ResponseType.accepted) {
+        const connection = {
+          newConnection: {
+            identifier,
+            remoteConnectionId: remoteConnectionId,
+            seed,
+          },
+        }
+        yield put(saveNewConnection(connection))
+      }
+    } catch (e) {
+      const error: Error = JSON.parse(e.message)
+      yield put(qrConnectionFail(error))
+    }
   }
 }
 

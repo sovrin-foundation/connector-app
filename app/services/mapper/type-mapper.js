@@ -8,10 +8,10 @@ export type Connection = {
 }
 
 export type InvitationPayload = {
-  title: String,
-  message: String,
-  senderLogoUrl?: String,
-  connectionName?: String,
-  remoteConnectionId: String,
-  statusCode: String,
+  title: string,
+  message: string,
+  senderLogoUrl?: string,
+  connectionName?: string,
+  remoteConnectionId: string,
+  statusCode: string,
 }

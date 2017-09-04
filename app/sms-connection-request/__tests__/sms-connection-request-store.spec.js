@@ -5,6 +5,7 @@ import {
   getPushToken,
   getSMSToken,
   getSMSRemoteConnectionId,
+  getAllConnection,
 } from '../../store/store-selector'
 import { ResponseType } from '../../components/request/type-request'
 import smsConnectionRequestReducer, {
@@ -111,6 +112,9 @@ describe('SMS Connection Request store', () => {
     const smsToken = 'fvWXvAx'
 
     expect(gen.next(smsToken).value).toEqual(select(getSMSRemoteConnectionId))
+    const remoteConnectionId = payload.remoteConnectionId
+
+    expect(gen.next(remoteConnectionId).value).toEqual(select(getAllConnection))
 
     const challenge = 'challenge'
     const signature = 'signature'
