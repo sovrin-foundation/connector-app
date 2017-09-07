@@ -24,7 +24,6 @@ import styles from '../components/layout/layout-style'
 import {
   getUserInfo,
   pushNotificationReceived,
-  sendUserInfo,
   changeServerEnvironmentToDemo,
   changeServerEnvironmentToSandbox,
   authenticationRequestReceived,
@@ -172,7 +171,6 @@ const mapDispatchToProps = dispatch =>
       changeServerEnvironmentToDemo,
       changeServerEnvironmentToSandbox,
       pushNotificationReceived,
-      sendUserInfo,
       authenticationRequestReceived,
     },
     dispatch

@@ -10,7 +10,7 @@ import type {
   QrConnectionRequestProps,
   QrConnectionRequestState,
 } from './type-qr-connection-request'
-import { homeRoute, QR_CODE_ENTERPRISE_AGENT_NAME } from '../common'
+import { homeRoute, QR_CODE_SENDER_NAME } from '../common'
 import { ResponseType } from '../components/request/type-request'
 import { sendQrConnectionResponse } from './qr-connection-request-store'
 import ConnectionSuccessModal from '../invitation/connection-success-modal'
@@ -68,7 +68,7 @@ export class QRConnectionRequest
     let connectionName
     const payload = this.props.request.payload
     if (payload) {
-      connectionName = payload.challenge[QR_CODE_ENTERPRISE_AGENT_NAME]
+      connectionName = payload.challenge[QR_CODE_SENDER_NAME]
     }
 
     return (

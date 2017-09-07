@@ -26,6 +26,7 @@ export type Error = {
 }
 
 export type SMSConnectionRequestStore = {
+  // TODO: Pradeep change this `any` to SMSConnectionPayload
   +payload: any,
   +status: ResponseTypes,
   +isFetching: boolean,

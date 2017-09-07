@@ -21,7 +21,7 @@ describe('Mapper Service', () => {
       message: 'test body',
       senderLogoUrl: 'http://test-agency.com/logo',
       connectionName: 'test enterprise',
-      remoteConnectionId: '5iZiu2aLYrQXSdon123456',
+      remotePairwiseDID: '5iZiu2aLYrQXSdon123456',
       statusCode: 'OCS',
     }
     const tree = invitationPayloadMapper(invitation)

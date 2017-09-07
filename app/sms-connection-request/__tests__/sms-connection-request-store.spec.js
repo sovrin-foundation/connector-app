@@ -6,6 +6,9 @@ import {
   getSMSToken,
   getSMSRemoteConnectionId,
   getAllConnection,
+  getSenderGeneratedUserDidSMSRequest,
+  getSMSConnectionRequestId,
+  getSMSConnectionRequestRemoteDID,
 } from '../../store/store-selector'
 import { ResponseType } from '../../components/request/type-request'
 import smsConnectionRequestReducer, {
@@ -38,6 +41,7 @@ describe('SMS Connection Request store', () => {
     message: 'Enterprise wants to connect with you',
     statusCode: PENDING_CONNECTION_REQUEST_CODE,
     senderLogoUrl: 'https://test-agency.com/logo',
+    remotePairwiseDID: '5iZiu2aLYrQXSdon123456',
     remoteConnectionId: '5iZiu2aLYrQXSdon123456',
   }
 
@@ -71,10 +75,11 @@ describe('SMS Connection Request store', () => {
     )
 
     const actualRequestReceived: any = gen.next(payload).value
+    const { remotePairwiseDID, ...expectedPayload } = payload
     expect(actualRequestReceived['PUT'].action).toEqual(
       expect.objectContaining({
         type: SMS_CONNECTION_REQUEST,
-        data: payload,
+        data: { ...expectedPayload, payload },
       })
     )
 
@@ -108,13 +113,25 @@ describe('SMS Connection Request store', () => {
     expect(gen.next(agencyUrl).value).toEqual(select(getPushToken))
     const pushToken = 'fvWXvAxQQL4:APA91bEKpfTu2IDhMDq6687'
 
-    expect(gen.next(pushToken).value).toEqual(select(getSMSToken))
-    const smsToken = 'fvWXvAx'
+    expect(gen.next(pushToken).value).toEqual(
+      select(getSenderGeneratedUserDidSMSRequest)
+    )
+    const senderGeneratedUserDid = 'DiDA91bEKpfTu2IDhMDq6687'
 
-    expect(gen.next(smsToken).value).toEqual(select(getSMSRemoteConnectionId))
+    expect(gen.next(senderGeneratedUserDid).value).toEqual(
+      select(getSMSConnectionRequestId)
+    )
+    const requestId = 'f5XKysZ'
+
+    expect(gen.next(requestId).value).toEqual(select(getSMSRemoteConnectionId))
     const remoteConnectionId = payload.remoteConnectionId
 
-    expect(gen.next(remoteConnectionId).value).toEqual(select(getAllConnection))
+    expect(gen.next(remoteConnectionId).value).toEqual(
+      select(getSMSConnectionRequestRemoteDID)
+    )
+    const remoteDID = 'DidRemoteAs868sdfSKHIYUDdfs5z'
+
+    expect(gen.next(remoteDID).value).toEqual(select(getAllConnection))
 
     const challenge = 'challenge'
     const signature = 'signature'
@@ -122,16 +139,18 @@ describe('SMS Connection Request store', () => {
       agencyUrl,
       challenge,
       signature,
-      smsToken,
+      requestId,
+      senderGeneratedUserDid,
     })
     const actualApiCall: any = gen.next(payload.remoteConnectionId).value
 
     expect(actualApiCall['CALL'].args[0]).toEqual(
       expect.objectContaining({
-        agencyUrl: expect.any(String),
+        agencyUrl: agencyUrl,
         challenge: expect.any(String),
         signature: expect.any(String),
-        smsToken: expect.any(String),
+        requestId,
+        senderGeneratedUserDid,
       })
     )
     // check if success was called after the Api call returns successfully
@@ -144,8 +163,9 @@ describe('SMS Connection Request store', () => {
         connection: {
           newConnection: {
             identifier: expect.any(String),
-            remoteConnectionId: expect.any(String),
+            remoteConnectionId: payload.remotePairwiseDID,
             seed: expect.any(String),
+            remoteDID,
           },
         },
       })

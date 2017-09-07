@@ -7,11 +7,12 @@ import type {
 
 export type QrConnectionPayload = {
   challenge: {
-    n: string,
-    rci: string,
-    en: string,
-    un: string,
-    ii: string,
+    tDID: string,
+    sn: string,
+    tn: string,
+    uid: string,
+    rhDID: string,
+    rpDID: string,
   },
   signature: string,
   qrData: {

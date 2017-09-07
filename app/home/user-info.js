@@ -23,11 +23,7 @@ class UserInfoItems extends PureComponent {
   }
 
   render() {
-    const {
-      user: { isFetching, isPristine, data, error },
-      sendUserInfo,
-      config,
-    } = this.props
+    const { user: { isFetching, isPristine, data, error }, config } = this.props
 
     if (isFetching || isPristine) {
       // loading is in progress
@@ -52,7 +48,7 @@ class UserInfoItems extends PureComponent {
     // data is fetched and there is no error, go ahead and render component
     return (
       <InfoSectionList>
-        <UserInfoAvatarSection sendUserInfo={sendUserInfo} config={config} />
+        <UserInfoAvatarSection config={config} />
         {identifyingInfo && <IdentifyingInfoSection infos={identifyingInfo} />}
         {addresses &&
           <UserInfoAddressSection

@@ -5,7 +5,6 @@ import UserInfoAvatarSection from '../user-info-avatar-section'
 
 function props() {
   return {
-    sendUserInfo: jest.fn(),
     config: {
       isHydrated: true,
       isAlreadyInstalled: false,

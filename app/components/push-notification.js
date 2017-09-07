@@ -48,8 +48,9 @@ export class PushNotification extends PureComponent {
   }
 
   onPushNotificationReceived(notification) {
-    // todo: handling 'auth-req', will handle others later if any
+    // handling 'auth-req', will handle others later if any
     if (notification && notification.type === 'auth-req') {
+      notification.remoteConnectionId = notification.remotePairwiseDID
       this.props.pushNotificationReceived(notification)
     }
   }

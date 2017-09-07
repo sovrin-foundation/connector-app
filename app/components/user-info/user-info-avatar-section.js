@@ -6,7 +6,6 @@ import { ListItem, ListItemData } from '../info-section-list'
 import { BadgeAvatar, Avatar } from '../avatar'
 import { ItemDividerLabel } from '../../styled-components/common-styled'
 import { addButtonText } from './user-info-common-components'
-import { sendUserInfo } from '../../store'
 
 /**
  * TODO:KS
@@ -23,7 +22,7 @@ export default class UserInfoAvatarSection extends PureComponent {
   }
 
   render() {
-    const { sendUserInfo, config } = this.props
+    const { config } = this.props
     return (
       <View>
         <Divider left={avatarDividerLeft} right={addButtonText} />

@@ -28,7 +28,11 @@ import {
   randomSeed,
   sendQRInvitationResponse,
 } from '../services'
-import { QR_CODE_CHALLENGE, QR_CODE_REMOTE_CONNECTION_ID } from '../common'
+import {
+  QR_CODE_CHALLENGE,
+  QR_CODE_REMOTE_PAIR_WISE_DID,
+  QR_CODE_REMOTE_HOSTING_DID,
+} from '../common'
 import {
   getAgencyUrl,
   getPushToken,
@@ -83,7 +87,7 @@ export function* sendQrResponse(
   const pushToken: string = yield select(getPushToken)
   const qrPayload: QrConnectionPayload = yield select(getQrPayload)
 
-  const remoteConnectionId = qrPayload.challenge[QR_CODE_REMOTE_CONNECTION_ID]
+  const remoteConnectionId = qrPayload.challenge[QR_CODE_REMOTE_PAIR_WISE_DID]
   const connections = yield select(getAllConnection)
   const isDuplicateConnection =
     getConnection(remoteConnectionId, connections).length > 0
@@ -117,6 +121,7 @@ export function* sendQrResponse(
             identifier,
             remoteConnectionId: remoteConnectionId,
             seed,
+            remoteDID: qrPayload.challenge[QR_CODE_REMOTE_HOSTING_DID],
           },
         }
         yield put(saveNewConnection(connection))

@@ -29,11 +29,12 @@ describe('QR Scanner validator', () => {
   it('should return data for valid schema', () => {
     const validSchema = {
       c: JSON.stringify({
-        n: '',
-        rci: '',
-        en: '',
-        un: '',
-        ii: '',
+        tDID: '',
+        sn: '',
+        tn: '',
+        uid: '',
+        rhDID: '',
+        rpDID: '',
       }),
       s: '',
     }

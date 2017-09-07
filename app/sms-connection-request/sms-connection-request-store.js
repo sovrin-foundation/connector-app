@@ -39,6 +39,9 @@ import {
   getSMSToken,
   getSMSRemoteConnectionId,
   getAllConnection,
+  getSenderGeneratedUserDidSMSRequest,
+  getSMSConnectionRequestId,
+  getSMSConnectionRequestRemoteDID,
 } from '../store/store-selector'
 import { saveNewConnection, getConnection } from '../store/connections-store'
 
@@ -119,9 +122,13 @@ export function* sendSMSResponse(
   // and will keep our actions clean
   const agencyUrl: string = yield select(getAgencyUrl)
   const pushToken: string = yield select(getPushToken)
-  const smsToken: string = yield select(getSMSToken)
+  const senderGeneratedUserDid: string = yield select(
+    getSenderGeneratedUserDidSMSRequest
+  )
+  const requestId: string = yield select(getSMSConnectionRequestId)
   const remoteConnectionId: string = yield select(getSMSRemoteConnectionId)
-
+  const remoteDID: string = yield select(getSMSConnectionRequestRemoteDID)
+  // TODO: Pradeep add type for connections
   const connections = yield select(getAllConnection)
   const isDuplicateConnection =
     getConnection(remoteConnectionId, connections).length > 0
@@ -141,6 +148,7 @@ export function* sendSMSResponse(
       identifier,
       verKey: encode(verKey),
       pushComMethod: `FCM:${pushToken}`,
+      uid: requestId,
     })
     const signature = encode(getSignature(signingKey, challenge))
 
@@ -149,16 +157,20 @@ export function* sendSMSResponse(
         agencyUrl,
         challenge,
         signature,
-        smsToken,
+        requestId,
+        senderGeneratedUserDid,
       })
       yield put(smsConnectionSuccess())
-      // TODO:PS:merge common code from this saga and qr connection response saga.
+      // TODO:PS:merge common code from this saga and qr connection response saga
       if (action.data.response === ResponseType.accepted) {
         const connection = {
           newConnection: {
             identifier,
+            // pairwise DID of sender, changes for each connection
             remoteConnectionId,
             seed,
+            // connection request sender's DID, stay same for each connection
+            remoteDID,
           },
         }
         yield put(saveNewConnection(connection))

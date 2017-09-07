@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { all } from 'redux-saga/effects'
 import logger from 'redux-logger'
-import user, { watchUserInfo, watchSendUserInfo } from './user-store'
+import user, { watchUserInfo } from './user-store'
 import pushNotification from './push-notification-store'
 import connections, { watchNewConnection } from './connections-store'
 import config, { watchConfig } from './config-store'
@@ -48,7 +48,6 @@ sagaMiddleware.run(function*() {
   return yield all([
     watchNewConnection(),
     watchUserInfo(),
-    watchSendUserInfo(),
     watchConfig(),
     watchInvitation(),
     watchAppHydration(),

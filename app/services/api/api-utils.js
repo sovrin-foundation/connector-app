@@ -1,6 +1,6 @@
-import { SERVER_ERROR_CODE } from '../common/api-constants'
+import { SERVER_ERROR_CODE } from '../../common/api-constants'
 
-const options = (method = 'GET', body) => {
+export const options = (method = 'GET', body) => {
   let data = {
     method,
     mode: 'cors',
@@ -17,7 +17,7 @@ const options = (method = 'GET', body) => {
 }
 
 // TODO: Write common code for API calling
-const api = (url, apiOptions) =>
+export const api = (url, apiOptions) =>
   fetch(url, apiOptions)
     .then(res => {
       // TODO:KS create common method to return successful
@@ -66,42 +66,3 @@ const api = (url, apiOptions) =>
         throw new Error(JSON.stringify(errorResponse))
       }
     })
-
-export const enrollUser = (device, { callCenterUrl }) =>
-  // TODO: Remove fetch and use api method. Also, do not check status inside store
-  fetch(`${callCenterUrl}/agent/enroll`, options('POST', device))
-
-export const sendUserInfo = (userInfo, { callCenterUrl }) =>
-  // TODO: Remove fetch and use api method. Also, do not check status inside store
-  fetch(`${callCenterUrl}/agent/app-context`, options('POST', userInfo))
-
-export const invitationDetailsRequest = ({ smsToken, agencyUrl }) =>
-  api(`${agencyUrl}/agent/token/${smsToken}/connection`, options('GET'))
-
-// Accept invitation from SMS received
-export const sendSMSInvitationResponse = ({
-  agencyUrl,
-  challenge,
-  signature,
-  smsToken,
-}) =>
-  api(
-    `${agencyUrl}/agent/token/${smsToken}/connection`,
-    options('PUT', { challenge, signature })
-  )
-
-export const sendAuthenticationRequest = ({
-  data: { identifier, dataBody },
-  config: { agencyUrl },
-}) => api(`${agencyUrl}/agent/id/${identifier}/auth`, options('PUT', dataBody))
-
-export const getProfile = ({ identifier, challenge, signature, agencyUrl }) =>
-  api(
-    `${agencyUrl}/agent/id/${identifier}/remote/profile?challenge=${challenge}&signature=${signature}`
-  )
-
-export const sendQRInvitationResponse = ({ challenge, signature, agencyUrl }) =>
-  api(
-    `${agencyUrl}/agent/connection`,
-    options('POST', { challenge, signature })
-  )

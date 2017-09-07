@@ -127,24 +127,46 @@ class SplashScreenView extends PureComponent {
       }
     }
 
-    // check if smsConnection payload are the only props that are changed
-    if (nextProps.smsConnection.payload !== this.props.smsConnection.payload) {
-      // if we got the data, then check for status of connection request
-      SplashScreen.hide()
-      if (
-        nextProps.smsConnection.payload.statusCode ===
-        PENDING_CONNECTION_REQUEST_CODE
-      ) {
-        if (nextProps.lock.isAppLocked === false) {
-          this.props.navigation.navigate(smsConnectionRequestRoute)
+    if (nextProps.smsConnection !== this.props.smsConnection) {
+      if (nextProps.smsConnection.error) {
+        if (
+          nextProps.smsConnection.error.statusCode &&
+          nextProps.smsConnection.error.statusCode === TOKEN_EXPIRED_CODE
+        ) {
+          if (nextProps.lock.isAppLocked === false) {
+            this.props.navigation.navigate(expiredTokenRoute)
+          } else {
+            this.props.addPendingRedirection(expiredTokenRoute)
+          }
         } else {
-          this.props.addPendingRedirection(smsConnectionRequestRoute)
+          if (nextProps.lock.isAppLocked === false) {
+            // if we got error, then also redirect user to home page
+            this.props.navigation.navigate(homeRoute)
+          } else {
+            this.props.addPendingRedirection(homeRoute)
+          }
         }
-      } else {
-        if (nextProps.lock.isAppLocked === false) {
-          this.props.navigation.navigate(homeRoute)
+      }
+
+      // check if smsConnection payload are the only props that are changed
+      if (
+        nextProps.smsConnection.payload !== this.props.smsConnection.payload
+      ) {
+        if (
+          nextProps.smsConnection.payload.statusCode ===
+          PENDING_CONNECTION_REQUEST_CODE
+        ) {
+          if (nextProps.lock.isAppLocked === false) {
+            this.props.navigation.navigate(smsConnectionRequestRoute)
+          } else {
+            this.props.addPendingRedirection(smsConnectionRequestRoute)
+          }
         } else {
-          this.props.addPendingRedirection(homeRoute)
+          if (nextProps.lock.isAppLocked === false) {
+            this.props.navigation.navigate(homeRoute)
+          } else {
+            this.props.addPendingRedirection(homeRoute)
+          }
         }
       }
     }

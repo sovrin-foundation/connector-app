@@ -45,13 +45,14 @@ export function* loadNewConnectionSaga(action) {
   const {
     identifier,
     remoteConnectionId,
+    remoteDID,
     seed,
   } = action.connection.newConnection
   try {
     let connection = {}
 
     const agencyUrl = yield select(getAgencyUrl)
-    const challenge = JSON.stringify({ remoteConnectionId })
+    const challenge = JSON.stringify({ remoteConnectionId: remoteDID })
     const { secretKey } = getKeyPairFromSeed(seed)
     const signature = encode(getSignature(secretKey, challenge))
 
@@ -71,6 +72,7 @@ export function* loadNewConnectionSaga(action) {
       logoUrl: connection.logoUrl,
       remoteConnectionId,
       seed,
+      remoteDID,
     })
 
     //TODO:Add a middleware which will periodically save redux store to secure storage.

@@ -12,6 +12,6 @@ export type InvitationPayload = {
   message: string,
   senderLogoUrl?: string,
   connectionName?: string,
-  remoteConnectionId: string,
   statusCode: string,
+  remotePairwiseDID: string,
 }

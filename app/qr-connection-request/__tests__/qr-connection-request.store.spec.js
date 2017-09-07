@@ -31,11 +31,12 @@ describe('Qr Connection Request store', () => {
 
   const payload = {
     challenge: {
-      n: 'nonce',
-      rci: 'remoteCId',
-      en: 'entName',
-      un: 'un',
-      ii: 'ii',
+      tDID: 'targetDiD',
+      sn: 'sender name',
+      tn: 'user name',
+      uid: 'requestId',
+      rhDID: 'remoteDid',
+      rpDID: 'remotePairwiseDid',
     },
     signature: 'sigQrData',
     qrData: { c: 'challengeQrData', s: 'sigQrData' },
@@ -91,7 +92,7 @@ describe('Qr Connection Request store', () => {
 
     expect(actualApiCall['CALL'].args[0]).toEqual(
       expect.objectContaining({
-        agencyUrl: expect.any(String),
+        agencyUrl,
         challenge: expect.any(String),
         signature: expect.any(String),
       })
@@ -106,8 +107,9 @@ describe('Qr Connection Request store', () => {
         connection: {
           newConnection: {
             identifier: expect.any(String),
-            remoteConnectionId: expect.any(String),
+            remoteConnectionId: payload.challenge.rpDID,
             seed: expect.any(String),
+            remoteDID: payload.challenge.rhDID,
           },
         },
       })

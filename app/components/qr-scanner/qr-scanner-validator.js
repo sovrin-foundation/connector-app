@@ -1,12 +1,13 @@
 import { schemaValidator } from '../../services/'
 import {
-  QR_CODE_ENTERPRISE_AGENT_NAME,
-  QR_CODE_INTERNAL_ID,
-  QR_CODE_NONCE,
-  QR_CODE_REMOTE_CONNECTION_ID,
+  QR_CODE_SENDER_NAME,
+  QR_CODE_UID,
+  QR_CODE_REMOTE_HOSTING_DID,
+  QR_CODE_REMOTE_PAIR_WISE_DID,
   QR_CODE_SIGNATURE,
-  QR_CODE_USER_NAME,
+  QR_CODE_TARGET_NAME,
   QR_CODE_CHALLENGE,
+  QR_CODE_TARGET_DID,
 } from '../../common/api-constants'
 
 const qrSchema = {
@@ -21,18 +22,20 @@ const qrSchema = {
 const qrChallengeSchema = {
   type: 'object',
   properties: {
-    [QR_CODE_NONCE]: { type: 'string' },
-    [QR_CODE_REMOTE_CONNECTION_ID]: { type: 'string' },
-    [QR_CODE_ENTERPRISE_AGENT_NAME]: { type: 'string' },
-    [QR_CODE_USER_NAME]: { type: 'string' },
-    [QR_CODE_INTERNAL_ID]: { type: 'string' },
+    [QR_CODE_UID]: { type: 'string' },
+    [QR_CODE_REMOTE_HOSTING_DID]: { type: 'string' },
+    [QR_CODE_REMOTE_PAIR_WISE_DID]: { type: 'string' },
+    [QR_CODE_SENDER_NAME]: { type: 'string' },
+    [QR_CODE_TARGET_NAME]: { type: 'string' },
+    [QR_CODE_TARGET_DID]: { type: 'string' },
   },
   required: [
-    QR_CODE_NONCE,
-    QR_CODE_REMOTE_CONNECTION_ID,
-    QR_CODE_ENTERPRISE_AGENT_NAME,
-    QR_CODE_USER_NAME,
-    QR_CODE_INTERNAL_ID,
+    QR_CODE_UID,
+    QR_CODE_REMOTE_HOSTING_DID,
+    QR_CODE_REMOTE_PAIR_WISE_DID,
+    QR_CODE_SENDER_NAME,
+    QR_CODE_TARGET_NAME,
+    QR_CODE_TARGET_DID,
   ],
 }
 

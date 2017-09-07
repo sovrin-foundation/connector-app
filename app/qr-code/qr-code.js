@@ -8,8 +8,8 @@ import { color, barStyleLight } from '../common/styles/constant'
 import { qrConnectionRequestReceived } from '../store'
 import {
   PENDING_CONNECTION_REQUEST_CODE,
-  QR_CODE_ENTERPRISE_AGENT_NAME,
-  QR_CODE_USER_NAME,
+  QR_CODE_SENDER_NAME,
+  QR_CODE_TARGET_NAME,
 } from '../common/api-constants'
 import { qrConnectionRequestRoute, qrCodeScannerRoute } from '../common/'
 import type {
@@ -22,8 +22,8 @@ export class QRCodeScannerScreen extends PureComponent {
     if (this.props.currentScreen === qrCodeScannerRoute) {
       const qrConnectionRequest = {
         payload: data,
-        title: `Hi ${data.challenge[QR_CODE_USER_NAME]}`,
-        message: `${data.challenge[QR_CODE_ENTERPRISE_AGENT_NAME]} wants to connect with you`,
+        title: `Hi ${data.challenge[QR_CODE_TARGET_NAME]}`,
+        message: `${data.challenge[QR_CODE_SENDER_NAME]} wants to connect with you`,
       }
 
       this.props.qrConnectionRequestReceived(qrConnectionRequest)
