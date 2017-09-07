@@ -6,7 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class RestApi {
-	public static String sendPostRequest(String requestUrl, String payload,String requestType) {
+	public  String sendPostRequest(String requestUrl, String payload,String requestType) {
         StringBuffer jsonString = new StringBuffer();
 
 	    try {
@@ -28,9 +28,9 @@ public class RestApi {
 	        String line;
 	        while ((line = br.readLine()) != null) {
 	                jsonString.append(line);
+	                System.out.println(jsonString);
 	        }
 	        br.close();
-	        connection.disconnect();
 	    } catch (Exception e) {
 	            throw new RuntimeException(e.getMessage());
 	    }

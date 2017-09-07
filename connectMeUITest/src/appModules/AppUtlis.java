@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import pageObjects.ConnectionDetailPage;
 import pageObjects.HomePage;
 import pageObjects.InvitationPage;
+import pageObjects.PincodePage;
 
 import java.util.HashMap;
 
@@ -14,7 +15,7 @@ import org.openqa.selenium.WebElement;
 
 public class AppUtlis {
 	
-
+	public static String  ResponseSendSms;
 	public  void acceptRequest(AppiumDriver driver) throws Exception
 	
 	{
@@ -23,17 +24,22 @@ public class AppUtlis {
 		
 	}
 	
-	public String getIdentifier() throws Exception
+	public void sendSmsRestApi()
 	{
-		String requestUrl="https://agency-ea-sandbox.evernym.com/agent/internal-id/8327364896/connection";
-		String requestType="GET";
-		String Identifier=RestApi.sendPostRequest(requestUrl, "",requestType);
-		Identifier=Identifier.substring(Identifier.indexOf("identifier") + 15 , Identifier.indexOf("identifier") + 37);
-		System.out.println("Identifier"+" "+"for installed app is "+Identifier);
-		return Identifier;
-		
+		String payload="{\"challenge\":\"{\\\"verKey\\\":\\\"EMHuvYYk5LwabvtB7LHm74T1yRN9zonwpxy6P9gQHCx1\\\",\\\"targetHostDID\\\":\\\"MbVrbbVfvu7duSJWG6XxwR\\\",\\\"phoneNumber\\\":\\\"8327364896\\\"}\",\"signature\":\"3yQmsaApcN8uPmaCicU61gZyZRwS93AxzbPnPHnCN8zVfopjNRsBvhfXsPViAqZiRmYncVtHH7pSWhtTCRDToioF\"}";
+		String requestUrl="https://agency-ea-sandbox.evernym.com/agent/5iZiu2aLYrQXSdonEtrTA2/connection-req";
+		String requestType="POST";
+		RestApi RestApiObj=new RestApi();
+		ResponseSendSms=RestApiObj.sendPostRequest(requestUrl, payload,requestType);	
 		
 	}
-
 	
-}
+	public void enterPincode(AppiumDriver driver) throws Exception
+	{
+		for(int i=0;i<6;i++)
+		{
+		PincodePage.PinCodeLock_TextBox(driver, i).sendKeys(String.valueOf(i));
+		}
+		
+	}
+	}

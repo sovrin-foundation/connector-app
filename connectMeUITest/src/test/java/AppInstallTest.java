@@ -11,6 +11,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.*;
+
+import appModules.AppUtlis;
 import appModules.RestApi;
 import pageObjects.GmailPage;
 import pageObjects.HockeyAppPage;
@@ -22,7 +24,8 @@ public class AppInstallTest {
 
 	public AppiumDriver driver;
 
-
+    static String  ConnectMeLink;
+    boolean Success=true;
 	@BeforeMethod //testng 
 
 	public void beforeMethod() throws Exception {
@@ -32,28 +35,34 @@ public class AppInstallTest {
 		Log.startTestCase("Install ConnectMe App");
 	}
 
-	@org.testng.annotations.Test
 
+    @Test
 	public void main() throws Exception {
 		
-		String payload="{\"name\":\"Ankur Mishra\",\"phoneNumber\":\"8327364896\"}";
-		String requestUrl="https://agency-ea-sandbox.evernym.com/agent/internal-id/8327364896/connection";
-		String requestType="PUT";
-		RestApi.sendPostRequest(requestUrl, payload,requestType);
-		driver.get("https://gmail.com");
+		do 
+		{
+	    driver.get("https://gmail.com");
 		GmailPage.UserNameText(driver).sendKeys("evernym.number@gmail.com");
 		GmailPage.UserNameNextButton(driver).click();
 		GmailPage.PasswordText(driver).sendKeys("evernym123");
 		GmailPage.PasswordNextButton(driver).click();
     	Thread.sleep(20000);//used sleep which is not recommended as we have issue with synch of gmail opening 
     	GmailPage.MobileGmailSiteLink(driver).click();
+    	if(GmailPage.Email_CheckBox(driver)!=null)
+    	{
     	GmailPage.Email_CheckBox(driver).click();
     	GmailPage.Delete_Button(driver).click();
-		RestApi.sendPostRequest(requestUrl, payload,requestType);
+		}
+    	AppUtlis AppUtlisObj=new AppUtlis();
+		AppUtlisObj.sendSmsRestApi();
+		String PairwiseDID= AppUtlis.ResponseSendSms;
+
+		PairwiseDID=PairwiseDID.substring(PairwiseDID.indexOf("PairwiseDID") + 15 , PairwiseDID.indexOf("PairwiseDID") + 37);
+
 		Thread.sleep(5000);
 		driver.navigate().refresh();
-    	GmailPage.FirstEmailLink(driver).click();
-    	String ConnectMeLink =GmailPage.ConnectMeLink(driver).getAttribute("href");
+	   	GmailPage.FirstEmailLink(driver).click();
+    	ConnectMeLink =GmailPage.ConnectMeLink(driver).getAttribute("href");
 		System.out.println(ConnectMeLink);
 		driver.get(ConnectMeLink);
 		HockeyAppPage.UserNameText(driver).sendKeys("ankur.mishra@evernym.com");
@@ -65,6 +74,9 @@ public class AppInstallTest {
     	driver.get(InstallConnectMeLink);
     	Thread.sleep(5000);//used sleep which is not recommended as we have issue with synch of alert box
     	driver.switchTo().alert().accept();
+    	Success=false;
+		}while(Success);
+	
 
 
 	}
@@ -73,10 +85,8 @@ public class AppInstallTest {
 	public void afterMethod() {
 
 		Log.endTestCase("Install ConnectMe App");
-		System.out.println("Cleaning up Completed");
 		driver.quit();
-		
-		
+		System.out.println("Cleaning up Completed");
 
 	}
 }

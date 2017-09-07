@@ -28,12 +28,12 @@ public class ConnectionDetailPage {
 
 		try {
 			element =   driver.findElementByXPath("//XCUIElementTypeOther[@name='Continue']");
-			System.out.println("Cross Button is displayed");
+			System.out.println("Continue Button is displayed");
 			return element;
 		} catch (Exception e) {
 
 			Log.error("Cross Button is not found.");
-			System.out.println("Cross Button is not displayed");
+			System.out.println("Continue Button is not displayed");
 			throw (e);
 		}
 	}

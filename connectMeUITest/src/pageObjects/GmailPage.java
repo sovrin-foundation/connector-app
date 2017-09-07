@@ -153,20 +153,20 @@ public class GmailPage {
 
 	}
 
-	public static WebElement Email_CheckBox(AppiumDriver driver) throws Exception {
+	public static WebElement Email_CheckBox(AppiumDriver driver)  {
 
 		try {
 			element = driver.findElement(By.xpath("(//div[@role='checkbox'])[1]"));
 			System.out.println("Email checkbox is displayed");
 
-			return element;
 		    } catch (Exception e) {
-
+            element =null;
 			Log.error("Email checkbox is not found.");
 			System.out.println("Email checkbox is not displayed");
 
-			throw (e);
 		}
+		return element;
+
 
 }
 
