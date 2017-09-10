@@ -1,6 +1,7 @@
 // @flow
 import { put, takeLatest, call, all, select } from 'redux-saga/effects'
 import { encode } from 'bs58'
+import type { Error } from '../common/type-common'
 import type {
   PendingConnectionRequestAction,
   PendingConnectionSuccessAction,
@@ -13,7 +14,6 @@ import type {
   SMSConnectionResponseSendAction,
   SMSConnectionSuccessAction,
   SMSConnectionFailAction,
-  Error,
 } from './type-sms-connection-request'
 import {
   PENDING_SMS_CONNECTION_REQUEST,

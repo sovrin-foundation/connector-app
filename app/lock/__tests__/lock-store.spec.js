@@ -6,18 +6,20 @@ import {
   PIN_STORAGE_KEY,
   CHECK_PIN,
   CHECK_PIN_IDLE,
+  LOCK_ENABLE,
 } from '../type-lock'
 import lockReducer, {
   addPendingRedirection,
   clearPendingRedirect,
   setPin,
+  lockEnable,
   checkPin,
   checkPinSuccess,
   checkPinFail,
   setPinAction,
   checkPinStatusIdle,
 } from '../lock-store'
-import { getItem, setItem } from '../../services'
+import { setItem, getItem } from '../../services'
 
 const initialState: LockStore = {
   pendingRedirection: null,
@@ -27,6 +29,7 @@ const initialState: LockStore = {
   // or user unlock the app every time user opens the app
   // this property needs to be set accordingly
   isAppLocked: true,
+  isLockEnabled: false,
 }
 
 describe('LockStore', () => {
@@ -51,6 +54,12 @@ describe('LockStore', () => {
     const pin = '123456'
     const gen = setPin(setPinAction(pin))
     expect(gen.next().value).toEqual(call(setItem, PIN_STORAGE_KEY, pin))
+    const lockEnableAction: any = gen.next(pin).value
+    expect(lockEnableAction['PUT'].action).toEqual(
+      expect.objectContaining({
+        type: LOCK_ENABLE,
+      })
+    )
     expect(gen.next().done).toBe(true)
   })
 

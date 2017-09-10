@@ -1,9 +1,12 @@
 // @flow
 import { put, takeLatest, call, all } from 'redux-saga/effects'
+import type { Error } from '../common/type-common'
 import {
   PENDING_REDIRECT,
   CLEAR_PENDING_REDIRECT,
   SET_PIN,
+  LOCK_ENABLE,
+  LOCK_FAIL,
   CHECK_PIN,
   CHECK_PIN_FAIL,
   CHECK_PIN_IDLE,
@@ -16,6 +19,8 @@ import type {
   AddPendingRedirectAction,
   ClearPendingRedirectAction,
   SetPinAction,
+  LockEnable,
+  LockFail,
   CheckPinAction,
   CheckPinFailAction,
   CheckPinSuccessAction,
@@ -33,6 +38,11 @@ const initialState: LockStore = {
   // or user unlock the app every time user opens the app
   // this property needs to be set accordingly
   isAppLocked: true,
+  isLockEnabled: false,
+  error: {
+    code: null,
+    message: null,
+  },
 }
 
 export function addPendingRedirection(
@@ -53,9 +63,23 @@ export const setPinAction = (pin: string): SetPinAction => ({
   pin,
 })
 
+export const lockEnable = (isLockEnable: boolean): LockEnable => ({
+  type: LOCK_ENABLE,
+  isLockEnable,
+})
+
+export const lockFail = (error: Error): LockFail => ({
+  type: LOCK_FAIL,
+  error,
+})
+
 export function* setPin(action: SetPinAction): Generator<*, *, *> {
-  // TODO: Add check for failure and update store accordingly
-  yield call(setItem, PIN_STORAGE_KEY, action.pin)
+  try {
+    yield call(setItem, PIN_STORAGE_KEY, action.pin)
+    yield put(lockEnable(true))
+  } catch (e) {
+    yield lockFail(e)
+  }
 }
 
 export function* watchSetPin(): Generator<*, *, *> {
@@ -109,6 +133,17 @@ export default function lockReducer(
       return {
         ...state,
         pendingRedirection: action.routeName,
+      }
+    case LOCK_ENABLE:
+      return {
+        ...state,
+        isLockEnabled: action.isLockEnable,
+      }
+    case LOCK_FAIL:
+      return {
+        ...state,
+        isLockEnabled: false,
+        error: action.error,
       }
     case CLEAR_PENDING_REDIRECT:
       return {

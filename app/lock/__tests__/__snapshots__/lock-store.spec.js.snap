@@ -4,6 +4,7 @@ exports[`LockStore add pending redirection change state correctly 1`] = `
 Object {
   "checkPinStatus": "CHECK_PIN_IDLE",
   "isAppLocked": true,
+  "isLockEnabled": false,
   "pendingRedirection": "home",
 }
 `;
@@ -12,6 +13,7 @@ exports[`LockStore clear pending redirect if clear action is raised 1`] = `
 Object {
   "checkPinStatus": "CHECK_PIN_IDLE",
   "isAppLocked": true,
+  "isLockEnabled": false,
   "pendingRedirection": null,
 }
 `;
@@ -20,6 +22,7 @@ exports[`LockStore should set checkPinStatus to idle 1`] = `
 Object {
   "checkPinStatus": "CHECK_PIN_FAIL",
   "isAppLocked": true,
+  "isLockEnabled": false,
   "pendingRedirection": null,
 }
 `;
@@ -28,6 +31,7 @@ exports[`LockStore should set checkPinStatus to idle 2`] = `
 Object {
   "checkPinStatus": "CHECK_PIN_IDLE",
   "isAppLocked": true,
+  "isLockEnabled": false,
   "pendingRedirection": null,
 }
 `;

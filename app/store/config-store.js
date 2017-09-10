@@ -8,6 +8,9 @@ import { AsyncStorage } from 'react-native'
 import { put, take, all, call } from 'redux-saga/effects'
 import { IS_ALREADY_INSTALLED } from '../common'
 import { hydrateApp } from '../store/hydration-store'
+import { setItem, getItem, deleteItem } from '../services'
+import { lockEnable } from '../lock/lock-store'
+import { PIN_STORAGE_KEY } from '../lock/type-lock'
 
 export const SERVER_ENVIRONMENT = {
   DEMO: 'DEMO',
@@ -96,6 +99,10 @@ export function* watchChangeEnvironmentToSandbox() {
 export function* alreadyInstalledNotFound() {
   yield put(alreadyInstalledAction(false))
 
+  // clear security setup flag
+  yield call(deleteItem, PIN_STORAGE_KEY)
+  yield put(lockEnable(false))
+
   // now save the key in user's default storage in phone
   try {
     yield call(AsyncStorage.setItem, IS_ALREADY_INSTALLED, 'true')
@@ -111,6 +118,16 @@ export function* hydrateConfig() {
     isAlreadyInstalled = yield call(AsyncStorage.getItem, IS_ALREADY_INSTALLED)
     if (isAlreadyInstalled) {
       yield put(alreadyInstalledAction(true))
+      try {
+        // restore app lock settings
+        const isLockEnabled = yield call(getItem, PIN_STORAGE_KEY)
+        if (isLockEnabled) {
+          yield put(lockEnable(true))
+        }
+      } catch (e) {
+        // somehow the secure storage failed, so we need to find someway to store
+        // maybe we fallback to file based storage
+      }
     } else {
       // if the value we got for isAlreadyInstalled as null
       yield* alreadyInstalledNotFound()

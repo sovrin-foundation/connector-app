@@ -31,7 +31,7 @@ class SplashScreenView extends PureComponent {
       if (nextProps.config.isHydrated) {
         SplashScreen.hide()
         // now we can safely check value of isAlreadyInstalled
-        if (nextProps.config.isAlreadyInstalled === false) {
+        if (nextProps.lock.isLockEnabled === false) {
           // user is opening the app for first time after installing
           this.props.navigation.navigate(lockSelectionRoute)
         } else {
@@ -179,7 +179,7 @@ class SplashScreenView extends PureComponent {
     if (this.props.config.isHydrated) {
       SplashScreen.hide()
       // now we can safely check value of isAlreadyInstalled
-      if (this.props.config.isAlreadyInstalled === false) {
+      if (this.props.lock.isLockEnabled === false) {
         // user is opening the app for first time after installing
         this.props.navigation.navigate(lockSelectionRoute)
       } else {

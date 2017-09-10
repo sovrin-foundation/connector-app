@@ -7,6 +7,7 @@ export const LOCK_TYPE = {
   FINGERPRINT: 'FINGERPRINT',
   PIN: 'PIN',
 }
+import type { Error } from '../common/type-common'
 
 export type lockType = $Keys<typeof LOCK_TYPE>
 
@@ -26,6 +27,18 @@ export const SET_PIN = 'SET_PIN'
 export type SetPinAction = {
   type: typeof SET_PIN,
   pin: string,
+}
+
+export const LOCK_ENABLE = 'LOCK_ENABLE'
+export type LockEnable = {
+  type: typeof LOCK_ENABLE,
+  isLockEnable: boolean,
+}
+
+export const LOCK_FAIL = 'LOCK_FAIL'
+export type LockFail = {
+  type: typeof LOCK_FAIL,
+  error: Error,
 }
 
 export const CHECK_PIN = 'CHECK_PIN'
@@ -63,6 +76,7 @@ export type LockStore = {
   pendingRedirection: ?string,
   checkPinStatus: CheckPinStatus,
   isAppLocked: boolean,
+  isLockEnabled: boolean,
 }
 
 export type LockActions =

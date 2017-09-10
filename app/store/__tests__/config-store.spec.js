@@ -58,6 +58,10 @@ describe('hydration should work correctly', () => {
     gen.next()
     // dispatch an action to tell app was not already installed
     gen.next()
+    // clear app setup settings
+    gen.next()
+    // clear app lock settings
+    gen.next()
     // hydrate connections and push token
     gen.next()
     // save data in async storage
