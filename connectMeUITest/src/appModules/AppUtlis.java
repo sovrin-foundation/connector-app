@@ -10,12 +10,14 @@ import java.util.HashMap;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.testng.SkipException;
 
 //import AppiumUtils;
 
 public class AppUtlis {
 	
 	public static String  ResponseSendSms;
+	public static boolean Success=false;
 	public  void acceptRequest(AppiumDriver driver) throws Exception
 	
 	{
@@ -26,8 +28,8 @@ public class AppUtlis {
 	
 	public void sendSmsRestApi()
 	{
-		String payload="{\"challenge\":\"{\\\"verKey\\\":\\\"EMHuvYYk5LwabvtB7LHm74T1yRN9zonwpxy6P9gQHCx1\\\",\\\"targetHostDID\\\":\\\"MbVrbbVfvu7duSJWG6XxwR\\\",\\\"phoneNumber\\\":\\\"8327364896\\\"}\",\"signature\":\"3yQmsaApcN8uPmaCicU61gZyZRwS93AxzbPnPHnCN8zVfopjNRsBvhfXsPViAqZiRmYncVtHH7pSWhtTCRDToioF\"}";
-		String requestUrl="https://agency-ea-sandbox.evernym.com/agent/5iZiu2aLYrQXSdonEtrTA2/connection-req";
+		String payload="{\"challenge\":\"{\\\"verKey\\\":\\\"HSqPoCoLwdgVFUgH6XHcVF5qA6ABr26swpJp9WJ7MCmf\\\",\\\"targetHostDID\\\":\\\"MbVrbbVfvu7duSJWG6XxwR\\\",\\\"phoneNumber\\\":\\\"8327364896\\\"}\",\"signature\":\"3vpG9pHhhAcfFWm1Dqa3aAV2ugYbaXY9BpRgKCiqdXRrSajYFGZs1wHadvJFwXzzZNxeF7MVconudEwFDdfSJBMd\"}";
+		String requestUrl="https://agency-ea.evernym.com/agent/5iZiu2aLYrQXSdonEtrTA2/connection-req";
 		String requestType="POST";
 		RestApi RestApiObj=new RestApi();
 		ResponseSendSms=RestApiObj.sendPostRequest(requestUrl, payload,requestType);	
@@ -42,4 +44,17 @@ public class AppUtlis {
 		}
 		
 	}
+	
+	public void CheckSkip() throws Exception
+	{	if(!AppUtlis.Success)
+		{
+	    throw new SkipException("Skipping this exception");
+		}
+	   AppUtlis.Success=false;
+
+		
+	}
+	
+	
+	
 	}

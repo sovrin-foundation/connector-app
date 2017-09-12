@@ -24,24 +24,20 @@ public class AppInstallTest {
 
 	public AppiumDriver driver;
 
-    static String  ConnectMeLink;
-    boolean Success=true;
+	static int Retry=0;
+	static boolean Success=false;
 	@BeforeMethod //testng 
 
 	public void beforeMethod() throws Exception {
 
-		DOMConfigurator.configure("log4j.xml");
 		driver = Setup.ConfigureDriver("Safari");
-		Log.startTestCase("Install ConnectMe App");
 	}
 
 
     @Test
-	public void main() throws Exception {
+	public void AppInstall() throws Exception {
 		
-		do 
-		{
-	    driver.get("https://gmail.com");
+		driver.get("https://gmail.com");
 		GmailPage.UserNameText(driver).sendKeys("evernym.number@gmail.com");
 		GmailPage.UserNameNextButton(driver).click();
 		GmailPage.PasswordText(driver).sendKeys("evernym123");
@@ -55,14 +51,10 @@ public class AppInstallTest {
 		}
     	AppUtlis AppUtlisObj=new AppUtlis();
 		AppUtlisObj.sendSmsRestApi();
-		String PairwiseDID= AppUtlis.ResponseSendSms;
-
-		PairwiseDID=PairwiseDID.substring(PairwiseDID.indexOf("PairwiseDID") + 15 , PairwiseDID.indexOf("PairwiseDID") + 37);
-
 		Thread.sleep(5000);
 		driver.navigate().refresh();
 	   	GmailPage.FirstEmailLink(driver).click();
-    	ConnectMeLink =GmailPage.ConnectMeLink(driver).getAttribute("href");
+    	String ConnectMeLink =GmailPage.ConnectMeLink(driver).getAttribute("href");
 		System.out.println(ConnectMeLink);
 		driver.get(ConnectMeLink);
 		HockeyAppPage.UserNameText(driver).sendKeys("ankur.mishra@evernym.com");
@@ -74,17 +66,12 @@ public class AppInstallTest {
     	driver.get(InstallConnectMeLink);
     	Thread.sleep(5000);//used sleep which is not recommended as we have issue with synch of alert box
     	driver.switchTo().alert().accept();
-    	Success=false;
-		}while(Success);
-	
-
-
-	}
+        AppUtlis.Success=true;
+    }
 
 	@AfterMethod
 	public void afterMethod() {
 
-		Log.endTestCase("Install ConnectMe App");
 		driver.quit();
 		System.out.println("Cleaning up Completed");
 

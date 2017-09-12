@@ -29,7 +29,7 @@ public class InvitationPage {
 	public static WebElement Inviation_Text_Container(AppiumDriver driver) throws Exception {
 
 		try {
-			element =  driver.findElement(By.xpath("//*[@name='invitation-text-container-title']"));
+			element =  driver.findElement(By.xpath("//XCUIElementTypeStaticText[@name='invitation-text-container-title']"));
 			System.out.println("Inviation_Text_Container is displayed");
 			return element;
 		} catch (Exception e) {
