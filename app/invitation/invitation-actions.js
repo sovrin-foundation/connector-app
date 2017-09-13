@@ -7,23 +7,16 @@ import { StyledButton } from '../styled-components/common-styled'
 import { Container, CustomButton } from '../components'
 import { encode } from 'bs58'
 
-import {
-  getKeyPairFromSeed,
-  getSignature,
-  verifySignature,
-  randomSeed,
-} from '../services'
+import { getKeyPairFromSeed, getSignature } from '../services'
 import {
   connectionRoute,
   homeRoute,
   TOUCH_ID_MESSAGE,
-  DEVICE_ENROLLMENT_ERROR,
   PUSH_NOTIFICATION_PERMISSION_ERROR,
   ALLOW,
   DENY,
-  DUPLICATE_CONNECTION_ERROR,
 } from '../common'
-import { INVITATION_TYPE, INVITATION_STATUS, getConnection } from '../store'
+import { INVITATION_STATUS, getConnection } from '../store'
 import ConnectionSuccessModal from './connection-success-modal'
 
 export default class actions extends PureComponent {
@@ -51,32 +44,27 @@ export default class actions extends PureComponent {
             data: { remoteConnectionId },
           } = this.props.invitation
 
-          if (invitationType === INVITATION_TYPE.AUTHENTICATION_REQUEST) {
-            const { connections: { data: connectionsData } } = this.props
-            const connection = getConnection(
-              remoteConnectionId,
-              connectionsData
-            )
-            let { identifier, seed } = connection[0]
-            let { secretKey: signingKey } = getKeyPairFromSeed(seed)
+          const { connections: { data: connectionsData } } = this.props
+          const connection = getConnection(remoteConnectionId, connectionsData)
+          let { identifier, seed } = connection[0]
+          let { secretKey: signingKey } = getKeyPairFromSeed(seed)
 
-            const challenge = JSON.stringify({
+          const challenge = JSON.stringify({
+            newStatus,
+          })
+          const signature = encode(getSignature(signingKey, challenge))
+          this.props.sendUserInvitationResponse(
+            {
               newStatus,
-            })
-            const signature = encode(getSignature(signingKey, challenge))
-            this.props.sendUserInvitationResponse(
-              {
-                newStatus,
-                identifier,
-                dataBody: {
-                  challenge,
-                  signature,
-                },
+              identifier,
+              dataBody: {
+                challenge,
+                signature,
               },
-              this.props.config,
-              invitationType
-            )
-          }
+            },
+            this.props.config,
+            invitationType
+          )
         })
       })
       .catch(e => {
@@ -100,12 +88,14 @@ export default class actions extends PureComponent {
         !nextProps.invitation.error
       ) {
         this.props.navigation.navigate(connectionRoute)
+        this.props.resetInvitationStatus()
       } else if (
         !nextProps.invitation.isFetching &&
         (nextProps.invitation.status === INVITATION_STATUS.REJECTED ||
           nextProps.invitation.error)
       ) {
         this.props.navigation.navigate(homeRoute)
+        this.props.resetInvitationStatus()
       }
     }
   }

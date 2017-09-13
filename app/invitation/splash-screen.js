@@ -60,6 +60,10 @@ class SplashScreenView extends PureComponent {
       }
     }
 
+    // TODO:PS: Refactor this with custom navigator
+    // Currently we have handPushNotification in all screen
+    // We need to refactor this and move to single place
+    // For that we need to create our own custom navigator
     if (
       nextProps.pushNotification.notification !==
       this.props.pushNotification.notification
@@ -70,7 +74,7 @@ class SplashScreenView extends PureComponent {
         handlePushNotification(
           this.props,
           notification,
-          splashScreenRoute,
+          lockEnterPinRoute,
           nextProps.lock.isAppLocked,
           this.props.addPendingRedirection
         )
