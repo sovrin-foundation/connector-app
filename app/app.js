@@ -37,6 +37,9 @@ import LockSelectionScreen from './lock/lock-selection'
 import LockEnterPinScreen from './lock/lock-enter-pin-code'
 import LockPinCodeSetupScreen from './lock/lock-pin-code-setup'
 import LockSetupSuccessScreen from './lock/lock-setup-success'
+import RNIndy, {
+  createWalletWithPoolName,
+} from './bridge/react-native-indy/RNIndyNativeModule'
 
 // TODO:KS create a custom navigator to track page changes
 // for flows to support deep link, etc.
@@ -90,6 +93,10 @@ const ConnectMeAppNavigator = StackNavigator(
     },
   }
 )
+;(async function() {
+  const wallet = await createWalletWithPoolName()
+})()
+console.log('called async create pool')
 
 // for now let's start adding flow type on file by file basis
 // once we have a lot of coverage for types

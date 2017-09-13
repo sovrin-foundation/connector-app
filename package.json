@@ -7,7 +7,8 @@
     "test": "jest",
     "lint": "flow",
     "precommit": "lint-staged",
-    "prepush": "npm test"
+    "prepush": "npm test",
+    "ios": "node node_modules/react-native/local-cli/cli.js run-ios"
   },
   "lint-staged": {
     "*.js": [
@@ -75,10 +76,9 @@
       "node_modules/(?!(jest-)?react-native|react-navigation|jest-fetch-mock)"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/asset-mock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+        "<rootDir>/__mocks__/asset-mock.js"
     },
-    "setupFiles": [
-      "<rootDir>/__mocks__/setup.js"
-    ]
+    "setupFiles": ["<rootDir>/__mocks__/setup.js"]
   }
 }

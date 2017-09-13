@@ -19,7 +19,7 @@
 #endif
 #import "RNFIRMessaging.h"
 #import "SplashScreen.h"
-
+#import <libindy/libindy.h>
 
 @implementation AppDelegate
 
@@ -51,6 +51,7 @@
   [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
 
   [SplashScreen show]; //show splash screen
+
   return YES;
 }
 

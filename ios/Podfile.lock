@@ -24,10 +24,12 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.1)
   - GoogleToolboxForMac/NSData+zlib (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
+  - indy-objc (0.1.1)
   - Protobuf (3.3.0)
 
 DEPENDENCIES:
   - Firebase/Messaging
+  - indy-objc
 
 SPEC CHECKSUMS:
   Firebase: 284eea779b73fdff309791817da7c68bff8dd572
@@ -36,8 +38,9 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 9fbf536668f4d3f0880e7438456dabd1376e294b
   FirebaseMessaging: 227406c05b0dc9290702d2e9f18ab5528f0c2cf2
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
+  indy-objc: 2d0d58b494b5343cee9c24e66b4696fa72d5c8bc
   Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
 
-PODFILE CHECKSUM: 158c047bd5a6faa65176037090dfade476e405cd
+PODFILE CHECKSUM: 5401837e0df4b6931f6ddd5170f26b6c114a6846
 
 COCOAPODS: 1.2.1
