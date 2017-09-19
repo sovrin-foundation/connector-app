@@ -7,7 +7,7 @@ import { StyledButton } from '../styled-components/common-styled'
 import { Container, CustomButton } from '../components'
 import { encode } from 'bs58'
 
-import { getKeyPairFromSeed, getSignature } from '../services'
+import { getKeyPairFromSeed, getSignature, captureError } from '../services'
 import {
   connectionRoute,
   homeRoute,
@@ -35,40 +35,47 @@ export default class actions extends PureComponent {
           requiredProvisioningData.push(TouchId.authenticate(TOUCH_ID_MESSAGE))
         }
 
-        Promise.all(requiredProvisioningData).then(() => {
-          // reset avatar tapCount
-          this.props.resetTapCount()
+        Promise.all(requiredProvisioningData)
+          .then(() => {
+            // reset avatar tapCount
+            this.props.resetTapCount()
 
-          let {
-            type: invitationType,
-            data: { remoteConnectionId },
-          } = this.props.invitation
+            let {
+              type: invitationType,
+              data: { remoteConnectionId },
+            } = this.props.invitation
 
-          const { connections: { data: connectionsData } } = this.props
-          const connection = getConnection(remoteConnectionId, connectionsData)
-          let { identifier, seed } = connection[0]
-          let { secretKey: signingKey } = getKeyPairFromSeed(seed)
+            const { connections: { data: connectionsData } } = this.props
+            const connection = getConnection(
+              remoteConnectionId,
+              connectionsData
+            )
+            let { identifier, seed } = connection[0]
+            let { secretKey: signingKey } = getKeyPairFromSeed(seed)
 
-          const challenge = JSON.stringify({
-            newStatus,
-          })
-          const signature = encode(getSignature(signingKey, challenge))
-          this.props.sendUserInvitationResponse(
-            {
+            const challenge = JSON.stringify({
               newStatus,
-              identifier,
-              dataBody: {
-                challenge,
-                signature,
+            })
+            const signature = encode(getSignature(signingKey, challenge))
+            this.props.sendUserInvitationResponse(
+              {
+                newStatus,
+                identifier,
+                dataBody: {
+                  challenge,
+                  signature,
+                },
               },
-            },
-            this.props.config,
-            invitationType
-          )
-        })
+              this.props.config,
+              invitationType
+            )
+          })
+          .catch(e => {
+            captureError(e)
+          })
       })
       .catch(e => {
-        console.debug(e)
+        captureError(e)
         AlertIOS.alert(...PUSH_NOTIFICATION_PERMISSION_ERROR)
       })
   }

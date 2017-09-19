@@ -8,7 +8,7 @@ import { AsyncStorage } from 'react-native'
 import { put, take, all, call } from 'redux-saga/effects'
 import { IS_ALREADY_INSTALLED } from '../common'
 import { hydrateApp } from '../store/hydration-store'
-import { setItem, getItem, deleteItem } from '../services'
+import { setItem, getItem, deleteItem, captureError } from '../services'
 import { lockEnable } from '../lock/lock-store'
 import { PIN_STORAGE_KEY } from '../lock/type-lock'
 
@@ -109,6 +109,9 @@ export function* alreadyInstalledNotFound() {
   } catch (e) {
     // somehow the storage failed, so we need to find someway to store
     // maybe we fallback to file based storage
+
+    // Capture AsyncStorage failed
+    captureError(e)
   }
 }
 
@@ -127,6 +130,9 @@ export function* hydrateConfig() {
       } catch (e) {
         // somehow the secure storage failed, so we need to find someway to store
         // maybe we fallback to file based storage
+
+        // Capture AsyncStorage failed
+        captureError(e)
       }
     } else {
       // if the value we got for isAlreadyInstalled as null

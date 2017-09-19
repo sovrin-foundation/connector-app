@@ -1,8 +1,9 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { View } from 'react-native'
+import { View, AlertIOS } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { captureError } from '../services'
 import type { Store } from '../store/type-store'
 import { Request, Container } from '../components'
 import type { ResponseTypes } from '../components/request/type-request'
@@ -46,6 +47,7 @@ export class QRConnectionRequest
       if (nextProps.request.isFetching === false) {
         if (nextProps.request.error) {
           // TODO:KS we got error from API response, what to do now
+          captureError(nextProps.request.error)
         } else {
           // api response was successful, but now we have to check
           // if user accepted or declined the request
@@ -58,6 +60,7 @@ export class QRConnectionRequest
         }
       } else {
         // TODO:KS show loading indicator, API request was sent
+        AlertIOS.alert('Api request sent!')
       }
     }
   }
