@@ -47,10 +47,9 @@ export default class Request
             .catch(error => {
               if (error.name === 'LAErrorTouchIDNotAvailable') {
                 AlertIOS.alert(TOUCH_ID_NOT_AVAILABLE)
-              } else {
-                // TODO: what to do if error is not `LAErrorTouchIDNotAvailable`
-                captureError(error)
               }
+              // TODO: what to do if error is not `LAErrorTouchIDNotAvailable`
+              captureError(error)
             })
         }
       })
