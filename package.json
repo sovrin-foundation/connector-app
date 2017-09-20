@@ -51,7 +51,6 @@
   "devDependencies": {
     "babel-jest": "19.0.0",
     "babel-preset-react-native": "1.9.1",
-    "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",
@@ -76,9 +75,10 @@
       "node_modules/(?!(jest-)?react-native|react-navigation|jest-fetch-mock)"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
-        "<rootDir>/__mocks__/asset-mock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/asset-mock.js"
     },
-    "setupFiles": ["<rootDir>/__mocks__/setup.js"]
+    "setupFiles": [
+      "<rootDir>/__mocks__/setup.js"
+    ]
   }
 }

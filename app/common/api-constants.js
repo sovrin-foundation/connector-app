@@ -14,3 +14,8 @@ export const QR_CODE_REMOTE_PAIR_WISE_DID = 'rpDID'
 export const QR_CODE_TARGET_NAME = 'tn'
 export const QR_CODE_SENDER_NAME = 'sn'
 export const QR_CODE_UID = 'uid'
+
+export const PUSH_NOTIFICATION_TYPE = {
+  AUTH: 'auth-req',
+  CLAIM_OFFER: 'claim-offer',
+}

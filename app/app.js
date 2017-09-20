@@ -30,6 +30,7 @@ import {
   lockSelectionRoute,
   lockPinSetupRoute,
   lockSetupSuccessRoute,
+  claimOfferRoute,
 } from './common/'
 import DeepLink from './deep-link'
 import { barStyleLight } from './common/styles/constant'
@@ -40,10 +41,9 @@ import LockSetupSuccessScreen from './lock/lock-setup-success'
 import RNIndy, {
   createWalletWithPoolName,
 } from './bridge/react-native-indy/RNIndyNativeModule'
+import ClaimOffer from './claim-offer/claim-offer'
 
-// TODO:KS create a custom navigator to track page changes
-// for flows to support deep link, etc.
-const ConnectMeAppNavigator = StackNavigator(
+const CardStack = StackNavigator(
   {
     [splashScreenRoute]: {
       screen: SplashScreenView,
@@ -89,14 +89,23 @@ const ConnectMeAppNavigator = StackNavigator(
     headerMode: 'none',
     initialRouteName: splashScreenRoute,
     navigationOptions: {
-      gesturesEnabled: false, // disable back gesture for ios
+      gesturesEnabled: false,
     },
   }
 )
-;(async function() {
-  const wallet = await createWalletWithPoolName()
-})()
-console.log('called async create pool')
+
+// TODO:KS create a custom navigator to track page changes
+// for flows to support deep link, etc.
+const ConnectMeAppNavigator = StackNavigator(
+  {
+    CardStack: { screen: CardStack },
+    [claimOfferRoute]: { screen: ClaimOffer },
+  },
+  {
+    mode: 'modal',
+    headerMode: 'none',
+  }
+)
 
 // for now let's start adding flow type on file by file basis
 // once we have a lot of coverage for types

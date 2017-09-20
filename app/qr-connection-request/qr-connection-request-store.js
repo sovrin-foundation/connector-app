@@ -41,7 +41,7 @@ import {
 } from '../store/store-selector'
 import { saveNewConnection, getConnection } from '../store/connections-store'
 
-export const initialState = {
+export const qrConnectionInitialState = {
   title: '',
   message: '',
   senderLogoUrl: null,
@@ -142,7 +142,7 @@ export function* watchQrConnection(): Generator<*, *, *> {
 }
 
 export default function qrConnectionRequestReducer(
-  state: QrConnectionRequestStore = initialState,
+  state: QrConnectionRequestStore = qrConnectionInitialState,
   action: QrConnectionAction
 ) {
   switch (action.type) {

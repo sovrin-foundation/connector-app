@@ -21,7 +21,7 @@ import {
   pushNotificationReceived,
   addPendingRedirection,
 } from '../store'
-import { handlePushNotification } from '../services'
+import handlePushNotification from '../services/router'
 
 class SplashScreenView extends PureComponent {
   componentWillReceiveProps(nextProps) {
@@ -69,18 +69,13 @@ class SplashScreenView extends PureComponent {
       this.props.pushNotification.notification
     ) {
       const { notification } = nextProps.pushNotification
-      if (notification && notification.type === 'auth-req') {
-        //TODO: pass nextProps in place of this.props
-        handlePushNotification(
-          this.props,
-          notification,
-          lockEnterPinRoute,
-          nextProps.lock.isAppLocked,
-          this.props.addPendingRedirection
-        )
-      } else {
-        return
-      }
+      handlePushNotification(
+        nextProps,
+        notification,
+        lockEnterPinRoute,
+        nextProps.lock.isAppLocked,
+        this.props.addPendingRedirection
+      )
     }
 
     // check if invitation are the only props that are changed

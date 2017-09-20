@@ -1,20 +1,16 @@
 import React from 'react'
-import { shallow } from 'enzyme'
-import Badge, { BadgeLabel } from '../badge'
-
-// Note: test renderer must be required after react-native.
+import 'react-native'
+import Badge from '../badge'
 import renderer from 'react-test-renderer'
 
 describe('<Badge />', () => {
   it('should render light colored badge', () => {
-    const center = true
-    const badge = shallow(<Badge count={10} center={center} />).dive()
-    expect(badge.find(BadgeLabel).props()).toMatchObject({ center })
+    const badge = renderer.create(<Badge count={10} center={true} />).toJSON()
+    expect(badge).toMatchSnapshot()
   })
 
   it('should render dark colored badge', () => {
-    const text = 10
-    const badge = shallow(<Badge count={10} text={text} />).dive()
-    expect(badge.find(BadgeLabel).props()).toMatchObject({ text })
+    const badge = renderer.create(<Badge count={10} text={10} />).toJSON()
+    expect(badge).toMatchSnapshot()
   })
 })

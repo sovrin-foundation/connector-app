@@ -8,7 +8,7 @@ import {
   pushNotificationReceived,
   updatePushToken,
 } from '../store'
-import { PUSH_COM_METHOD } from '../common'
+import { PUSH_COM_METHOD, PUSH_NOTIFICATION_TYPE } from '../common'
 import { setItem } from '../services'
 
 export class PushNotification extends PureComponent {
@@ -49,8 +49,10 @@ export class PushNotification extends PureComponent {
 
   onPushNotificationReceived(notification) {
     // handling 'auth-req', will handle others later if any
-    if (notification && notification.type === 'auth-req') {
-      notification.remoteConnectionId = notification.remotePairwiseDID
+    if (notification) {
+      if (notification.type === PUSH_NOTIFICATION_TYPE.AUTH) {
+        notification.remoteConnectionId = notification.remotePairwiseDID
+      }
       this.props.pushNotificationReceived(notification)
     }
   }

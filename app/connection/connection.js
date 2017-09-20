@@ -30,7 +30,7 @@ import {
   authenticationRequestReceived,
   pushNotificationReceived,
 } from '../store'
-import { handlePushNotification } from '../services'
+import handlePushNotification from '../services/router'
 
 const styles = StyleSheet.create({
   left: {
@@ -96,10 +96,7 @@ export class ConnectionHome extends PureComponent {
       this.props.pushNotification.notification
     ) {
       const { notification } = nextProps.pushNotification
-      if (notification && notification.type === 'auth-req') {
-        //TODO: pass nextProps in place of this.props
-        handlePushNotification(this.props, notification, connectionRoute)
-      }
+      handlePushNotification(nextProps, notification, connectionRoute)
     }
   }
 
@@ -120,9 +117,10 @@ export class ConnectionHome extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ route, pushNotification }) => ({
+const mapStateToProps = ({ route, pushNotification, claimOffer }) => ({
   route,
   pushNotification,
+  claimOfferStatus: claimOffer.status,
 })
 
 const mapDispatchToProps = dispatch =>

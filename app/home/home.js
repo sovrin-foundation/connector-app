@@ -29,8 +29,9 @@ import {
   authenticationRequestReceived,
   getConnections,
 } from '../store'
-import { homeRoute } from '../common'
-import { handlePushNotification } from '../services'
+import { homeRoute, claimOfferRoute } from '../common'
+import handlePushNotification from '../services/router'
+import { CLAIM_OFFER_STATUS } from '../claim-offer/type-claim-offer'
 
 const style = StyleSheet.create({
   headerIcon: {
@@ -71,13 +72,12 @@ export class HomeScreenDrawer extends Component {
     }
   }
 
-  componentWillMount() {
-    // load data for home screen
-    this.props.getUserInfo()
-  }
-
   handleSwipe = isSwiping => {
     this.setState({ isSwiping })
+  }
+
+  showClaimOffer = () => {
+    this.props.navigation.navigate(claimOfferRoute)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -86,10 +86,26 @@ export class HomeScreenDrawer extends Component {
       this.props.pushNotification.notification
     ) {
       const { notification } = nextProps.pushNotification
-      if (notification && notification.type === 'auth-req') {
-        //TODO: pass nextProps in place of this.props
-        handlePushNotification(this.props, notification, homeRoute)
-      }
+      handlePushNotification(nextProps, notification, homeRoute)
+    }
+  }
+
+  componentDidMount() {
+    // load data for home screen
+    this.props.getUserInfo()
+
+    // check if we have a claim offer with status as received
+    if (this.props.claimOfferStatus === CLAIM_OFFER_STATUS.RECEIVED) {
+      setTimeout(() => {
+        // once user has entered the pin code to unlock app
+        // user might have received push notification for claim offer
+        // we did not open claim offer view from lock screen
+        // because claim offer opens as a pop up modal which
+        // slides in from bottom and then slides back down once closed
+        // so, if we have pending claim offer to show
+        // load it after a second dashboard is loaded
+        this.props.navigation.navigate(claimOfferRoute)
+      }, 1000)
     }
   }
 
@@ -125,7 +141,12 @@ export class HomeScreenDrawer extends Component {
                 <CustomText h5 bg={dimGray} center>
                   connections set up yet
                 </CustomText>
-                <CustomText h5 bg={dimGray} center>
+                <CustomText
+                  h5
+                  bg={dimGray}
+                  center
+                  onPress={this.showClaimOffer}
+                >
                   Call a participating Credit
                 </CustomText>
                 <CustomText h5 bg={dimGray} center>
@@ -162,6 +183,7 @@ const mapStateToProps = state => ({
   pushNotification: state.pushNotification,
   config: state.config,
   route: state.route,
+  claimOfferStatus: state.claimOffer.status,
 })
 
 const mapDispatchToProps = dispatch =>

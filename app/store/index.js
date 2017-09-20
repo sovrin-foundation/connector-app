@@ -17,6 +17,7 @@ import lock, { watchLock } from '../lock/lock-store'
 import smsConnection, {
   watchSMSConnectionSagas,
 } from '../sms-connection-request/sms-connection-request-store'
+import claimOffer from '../claim-offer/claim-offer-store'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -31,6 +32,7 @@ const appReducer = combineReducers({
   smsConnection,
   user,
   lock,
+  claimOffer,
 })
 
 let middlewares = []
@@ -68,6 +70,7 @@ export * from '../deep-link/deep-link-store'
 export * from '../qr-connection-request/qr-connection-request-store'
 export * from '../lock/lock-store'
 export * from '../sms-connection-request/sms-connection-request-store'
+export * from '../claim-offer/claim-offer-store'
 
 // make default export as the store
 export default store
