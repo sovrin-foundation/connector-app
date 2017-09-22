@@ -48,7 +48,7 @@ export class SMSConnectionRequest
       if (nextProps.request.isFetching === false) {
         if (nextProps.request.error) {
           // TODO:KS we got error from API response, what to do now
-          captureError(nextProps.request.error)
+          captureError(nextProps.request.error, true)
         } else {
           // api response was successful, but now we have to check
           // if user accepted or declined the request

@@ -13,13 +13,15 @@ export const sendSMSInvitationResponse = ({
 }) =>
   api(
     `${agencyUrl}/agent/${senderGeneratedUserDid}/connection-req/${requestId}`,
-    options('PUT', { challenge, signature })
+    options('PUT', { challenge, signature }),
+    true
   )
 
 export const sendAuthenticationRequest = ({
   data: { identifier, dataBody },
   config: { agencyUrl },
-}) => api(`${agencyUrl}/agent/${identifier}/auth`, options('PUT', dataBody))
+}) =>
+  api(`${agencyUrl}/agent/${identifier}/auth`, options('PUT', dataBody), true)
 
 export const getProfile = ({ identifier, challenge, signature, agencyUrl }) =>
   api(
@@ -29,5 +31,6 @@ export const getProfile = ({ identifier, challenge, signature, agencyUrl }) =>
 export const sendQRInvitationResponse = ({ challenge, signature, agencyUrl }) =>
   api(
     `${agencyUrl}/agent/connection-req`,
-    options('POST', { challenge, signature })
+    options('POST', { challenge, signature }),
+    true
   )

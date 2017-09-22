@@ -18,7 +18,7 @@ export const options = (method = 'GET', body) => {
 }
 
 // TODO: Write common code for API calling
-export const api = (url, apiOptions) =>
+export const api = (url, apiOptions, showAlert) =>
   fetch(url, apiOptions)
     .then(res => {
       // TODO:KS create common method to return successful
@@ -65,7 +65,7 @@ export const api = (url, apiOptions) =>
         }
 
         // Alert api error
-        captureError(errorResponse)
+        captureError(errorResponse, showAlert)
 
         throw new Error(JSON.stringify(errorResponse))
       }

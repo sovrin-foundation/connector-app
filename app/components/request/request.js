@@ -45,18 +45,15 @@ export default class Request
               this.props.onAction(response)
             })
             .catch(error => {
-              if (error.name === 'LAErrorTouchIDNotAvailable') {
-                AlertIOS.alert(TOUCH_ID_NOT_AVAILABLE)
-              }
               // TODO: what to do if error is not `LAErrorTouchIDNotAvailable`
-              captureError(error)
+              captureError(error, true)
             })
         }
       })
       .catch(error => {
         // TODO: we did not get push token
         // now what should we do?
-        captureError(error)
+        captureError(error, true)
       })
   }
 

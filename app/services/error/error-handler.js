@@ -3,7 +3,7 @@
 import { AlertIOS } from 'react-native'
 import ErrorTracker from './error-tracker'
 
-export const captureError = (error: any) => {
+export const captureError = (error: any, showAlert: boolean = false) => {
   ErrorTracker.captureException(error)
-  AlertIOS.alert(JSON.stringify(error))
+  if (showAlert) AlertIOS.alert(JSON.stringify(error))
 }
