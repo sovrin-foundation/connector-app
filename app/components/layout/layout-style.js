@@ -22,6 +22,9 @@ export default StyleSheet.create({
   verticalSpaced: {
     paddingVertical: PADDING_VERTICAL,
   },
+  doubleVerticalSpaced: {
+    paddingVertical: PADDING_VERTICAL * 2,
+  },
   transparentBg: {
     backgroundColor: 'transparent',
   },
@@ -74,5 +77,15 @@ export default StyleSheet.create({
   },
   listItem: {
     marginVertical: OFFSET_2X,
+  },
+  absolute: {
+    position: 'absolute',
+  },
+  absoluteTopRight: {
+    top: 0,
+    right: 0,
+  },
+  absoluteFill: {
+    ...StyleSheet.absoluteFillObject,
   },
 })

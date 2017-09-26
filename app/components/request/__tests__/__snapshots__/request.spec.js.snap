@@ -68,7 +68,6 @@ exports[`<Request /> should match snapshot 1`] = `
                   null,
                   null,
                   null,
-                  null,
                   Object {
                     "marginBottom": 20,
                   },
@@ -91,7 +90,6 @@ exports[`<Request /> should match snapshot 1`] = `
                   Object {
                     "color": "#ffffff",
                   },
-                  null,
                   null,
                   null,
                   null,

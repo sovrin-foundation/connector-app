@@ -37,9 +37,6 @@ exports[`app lock selection page should render properly 1`] = `
             "fontWeight": "bold",
           },
           Object {
-            "fontWeight": "bold",
-          },
-          Object {
             "textAlign": "center",
           },
           null,
@@ -74,7 +71,6 @@ exports[`app lock selection page should render properly 1`] = `
           Object {
             "fontWeight": "500",
           },
-          null,
           Object {
             "textAlign": "center",
           },
@@ -148,7 +144,6 @@ exports[`app lock selection page should render properly 1`] = `
             Object {
               "fontWeight": "500",
             },
-            null,
             Object {
               "textAlign": "center",
             },
@@ -175,9 +170,6 @@ exports[`app lock selection page should render properly 1`] = `
             },
             Object {
               "color": "#ffffff",
-            },
-            Object {
-              "fontWeight": "bold",
             },
             Object {
               "fontWeight": "bold",
@@ -259,7 +251,6 @@ exports[`app lock selection page should render properly 1`] = `
                 Object {
                   "fontWeight": "500",
                 },
-                null,
                 Object {
                   "textAlign": "center",
                 },
@@ -298,7 +289,6 @@ exports[`app lock selection page should render properly 1`] = `
                 Object {
                   "fontWeight": "500",
                 },
-                null,
                 Object {
                   "textAlign": "center",
                 },
@@ -337,7 +327,6 @@ exports[`app lock selection page should render properly 1`] = `
                 Object {
                   "fontWeight": "500",
                 },
-                null,
                 Object {
                   "textAlign": "center",
                 },
@@ -376,7 +365,6 @@ exports[`app lock selection page should render properly 1`] = `
                 Object {
                   "fontWeight": "500",
                 },
-                null,
                 Object {
                   "textAlign": "center",
                 },
@@ -415,7 +403,6 @@ exports[`app lock selection page should render properly 1`] = `
                 Object {
                   "fontWeight": "500",
                 },
-                null,
                 Object {
                   "textAlign": "center",
                 },
@@ -454,7 +441,6 @@ exports[`app lock selection page should render properly 1`] = `
                 Object {
                   "fontWeight": "500",
                 },
-                null,
                 Object {
                   "textAlign": "center",
                 },
@@ -484,7 +470,6 @@ exports[`app lock selection page should render properly 1`] = `
             Object {
               "fontWeight": "500",
             },
-            null,
             Object {
               "textAlign": "center",
             },

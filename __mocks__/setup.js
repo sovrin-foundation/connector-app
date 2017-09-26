@@ -67,4 +67,21 @@ jest.mock('react-native-touch-id', () => {
   }
 })
 
+jest.mock('react-native-sentry', () => ({
+  Sentry: {
+    install() {},
+    config() {
+      return { install() {} }
+    },
+    captureException(error) {},
+  },
+  SentryLog: {
+    Debug: 1,
+  },
+}))
+
+jest.mock('AlertIOS', () => ({
+  alert() {},
+}))
+
 global.fetch = fetch

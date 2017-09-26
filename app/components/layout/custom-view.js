@@ -12,6 +12,7 @@ export const CustomView = props => {
     shadow,
     horizontalSpace,
     verticalSpace,
+    doubleVerticalSpace,
     pad,
     primary,
     secondary,
@@ -27,15 +28,21 @@ export const CustomView = props => {
     bottom,
     onPress,
     spaceBetween,
+    absolute,
+    absoluteFill,
   } = props
 
   const passedStyles = props.style || empty
+  const absoluteStyles = absolute
+    ? [style.absolute, style[`absolute${absolute}`]]
+    : empty
 
   // TODO:KS We can keep same name as style and use it directly with props
   const styles = StyleSheet.flatten([
     clearBg ? style.transparentBg : null,
     horizontalSpace ? style.horizontalSpaced : null,
     verticalSpace ? style.verticalSpaced : null,
+    doubleVerticalSpace ? style.doubleVerticalSpaced : null,
     pad ? [style.horizontalSpaced, style.verticalSpaced] : null,
     primary ? style.primaryBg : null,
     secondary ? style.secondaryBg : null,
@@ -51,6 +58,7 @@ export const CustomView = props => {
     row && bottom ? style.rowBottom : null,
     bottom && !row ? style.columnBottom : null,
     spaceBetween ? style.spaceBetween : null,
+    ...absoluteStyles,
     ...passedStyles,
   ])
 

@@ -1,19 +1,93 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`claim offer store should correctly calculate initial state 1`] = `
+exports[`claim offer store claim offer is accepted 1`] = `
 Object {
-  "status": "IDLE",
+  "claimRequestStatus": "NONE",
+  "payload": undefined,
+  "status": "ACCEPTED",
 }
 `;
 
-exports[`claim offer store should correctly calculate state after claim offer is received 1`] = `
+exports[`claim offer store claim offer is ignored 1`] = `
 Object {
+  "claimRequestStatus": "NONE",
+  "payload": undefined,
+  "status": "IGNORED",
+}
+`;
+
+exports[`claim offer store claim offer is received 1`] = `
+Object {
+  "claimRequestStatus": "NONE",
+  "payload": Object {
+    "claimOffer": Object {
+      "name": "Home Address",
+      "revealedAttributes": Array [
+        Object {
+          "data": "Address Address Address",
+          "label": "Address 1",
+        },
+        Object {
+          "data": "Address 2 Address 2 Address 2",
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "issuer": Object {
+      "logoUrl": "http://testissuer.com/logoUrl.png",
+      "name": "Test Issuer",
+      "pairwiseDID": "ha66899sadfjZJGINKN0770",
+    },
+  },
   "status": "RECEIVED",
 }
 `;
 
-exports[`claim offer store should correctly calculate state after claim offer is shown 1`] = `
+exports[`claim offer store claim offer is rejected 1`] = `
 Object {
+  "claimRequestStatus": "NONE",
+  "payload": undefined,
+  "status": "REJECTED",
+}
+`;
+
+exports[`claim offer store claim offer is shown 1`] = `
+Object {
+  "claimRequestStatus": "NONE",
+  "payload": undefined,
   "status": "SHOWN",
+}
+`;
+
+exports[`claim offer store claim request is fail 1`] = `
+Object {
+  "claimRequestStatus": "CLAIM_REQUEST_FAIL",
+  "payload": undefined,
+  "status": "IDLE",
+}
+`;
+
+exports[`claim offer store claim request is sent 1`] = `
+Object {
+  "claimRequestStatus": "SENDING_CLAIM_REQUEST",
+  "payload": undefined,
+  "status": "IDLE",
+}
+`;
+
+exports[`claim offer store claim request is success 1`] = `
+Object {
+  "claimRequestStatus": "CLAIM_REQUEST_SUCCESS",
+  "payload": undefined,
+  "status": "IDLE",
+}
+`;
+
+exports[`claim offer store should correctly calculate initial state 1`] = `
+Object {
+  "claimRequestStatus": "NONE",
+  "payload": undefined,
+  "status": "IDLE",
 }
 `;

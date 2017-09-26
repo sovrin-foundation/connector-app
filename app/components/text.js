@@ -11,6 +11,8 @@ const CustomText = props => {
     h3,
     h4,
     h5,
+    h6,
+    h7,
     bold,
     semiBold,
     center,
@@ -23,6 +25,7 @@ const CustomText = props => {
     testID,
     onPress,
     transparentBg,
+    uppercase,
   } = props
 
   const colorType = quaternary
@@ -30,12 +33,13 @@ const CustomText = props => {
     : secondary ? 'Secondary' : tertiary ? 'Tertiary' : 'Primary'
   const size = h1
     ? 'h1'
-    : h01 ? 'h01' : h2 ? 'h2' : h3 ? 'h3' : h4 ? 'h4' : 'h5'
+    : h01
+      ? 'h01'
+      : h2 ? 'h2' : h3 ? 'h3' : h4 ? 'h4' : h6 ? 'h6' : h7 ? 'h7' : 'h5'
   const textStyles = [
     styles[size],
     styles[`${bg}Bg${colorType}`],
     bold ? styles.bold : semiBold ? styles.semiBold : null,
-    bold ? styles.bold : null,
     center ? styles.center : null,
     transparentBg ? styles.transparentBg : null,
     ...style,
@@ -43,7 +47,11 @@ const CustomText = props => {
 
   return (
     <Text style={textStyles} onPress={onPress} testID={testID}>
-      {props.children}
+      {uppercase
+        ? props.children.toUpperCase
+          ? props.children.toUpperCase()
+          : props.children
+        : props.children}
     </Text>
   )
 }
@@ -68,6 +76,12 @@ export const styles = StyleSheet.create({
   },
   h5: {
     fontSize: font.size.M,
+  },
+  h6: {
+    fontSize: font.size.S,
+  },
+  h7: {
+    fontSize: font.size.XS,
   },
   semiBold: {
     fontWeight: '500',

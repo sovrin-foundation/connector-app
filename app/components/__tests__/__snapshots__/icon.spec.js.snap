@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Icon /> should match snapshot 1`] = `
+<View
+  center={true}
+  clearBg={true}
+  extraLarge={true}
+  halo={true}
+  iconStyle={
+    Array [
+      Object {
+        "width": 90,
+      },
+    ]
+  }
+  resizeMode="cover"
+  src={1}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "transparent",
+      "justifyContent": "center",
+    }
+  }
+  testID="test-icon-test"
+>
+  <View
+    center={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgba(0,0,0,0.07)",
+        "borderRadius": 45,
+        "height": 90,
+        "justifyContent": "center",
+        "width": 90,
+      }
+    }
+  >
+    <Image
+      resizeMode="cover"
+      source={1}
+      style={
+        Array [
+          Object {
+            "height": 80,
+            "width": 80,
+          },
+          Object {
+            "width": 90,
+          },
+        ]
+      }
+      testID="test-icon-test"
+    />
+  </View>
+</View>
+`;

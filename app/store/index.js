@@ -17,7 +17,7 @@ import lock, { watchLock } from '../lock/lock-store'
 import smsConnection, {
   watchSMSConnectionSagas,
 } from '../sms-connection-request/sms-connection-request-store'
-import claimOffer from '../claim-offer/claim-offer-store'
+import claimOffer, { watchClaimOffer } from '../claim-offer/claim-offer-store'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -56,6 +56,7 @@ sagaMiddleware.run(function*() {
     watchQrConnection(),
     watchLock(),
     watchSMSConnectionSagas(),
+    watchClaimOffer(),
   ])
 })
 
