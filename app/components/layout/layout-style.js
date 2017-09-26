@@ -7,6 +7,7 @@ import {
   color,
   OFFSET_1X,
   OFFSET_2X,
+  SHADOW_RADIUS,
 } from '../../common/styles/constant'
 
 export default StyleSheet.create({
@@ -77,6 +78,12 @@ export default StyleSheet.create({
   },
   listItem: {
     marginVertical: OFFSET_2X,
+  },
+  shadow: {
+    shadowColor: 'rgba(0, 0, 0, 0.25)',
+    shadowOpacity: 1,
+    shadowOffset: { width: 0, height: 5 },
+    shadowRadius: SHADOW_RADIUS,
   },
   absolute: {
     position: 'absolute',

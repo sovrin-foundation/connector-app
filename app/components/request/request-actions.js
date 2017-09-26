@@ -13,6 +13,7 @@ export default class RequestActions
           <CustomButton
             secondary
             raised
+            medium
             title={DENY}
             onPress={this.props.onDecline}
           />
@@ -21,6 +22,7 @@ export default class RequestActions
           <CustomButton
             primary
             raised
+            medium
             title={ALLOW}
             onPress={this.props.onAccept}
           />

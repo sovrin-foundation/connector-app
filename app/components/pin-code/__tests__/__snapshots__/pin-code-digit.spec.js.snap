@@ -18,7 +18,7 @@ exports[`<PinCodeDigit /> when digit is entered 1`] = `
 >
   <Image
     resizeMode="contain"
-    source={1}
+    source="static-asset-stub"
     style={
       Object {
         "height": 26,
@@ -35,7 +35,7 @@ exports[`<PinCodeDigit /> when digit is not entered 1`] = `
   style={
     Object {
       "alignItems": "center",
-      "borderBottomColor": "#636564",
+      "borderBottomColor": "#f79347",
       "borderBottomWidth": 5,
       "height": 66,
       "justifyContent": "center",

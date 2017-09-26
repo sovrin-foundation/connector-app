@@ -62,7 +62,7 @@ export default class Request
   render() {
     return (
       <Container>
-        <Container primary>
+        <Container fifth>
           <RequestDetail
             title={this.props.title}
             message={this.props.message}

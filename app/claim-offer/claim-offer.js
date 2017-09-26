@@ -145,24 +145,19 @@ export class ClaimOffer extends PureComponent {
       <Container>
         {payload &&
           payload.claimOffer &&
-          payload.issuer && (
-            <ClaimOfferHeader payload={payload} onClose={this.onIgnore} />
-          )}
-        {payload &&
-        payload.claimOffer &&
-        payload.claimOffer.revealedAttributes ? (
-          <Container style={[styles.claimOfferData]}>
-            <ClaimOfferAttributeList
-              list={payload.claimOffer.revealedAttributes}
-            />
-          </Container>
-        ) : (
-          <Container center>
-            <CustomText h5 bg="fifth">
-              Invalid claim offer. Please ignore.
-            </CustomText>
-          </Container>
-        )}
+          payload.issuer &&
+          <ClaimOfferHeader payload={payload} onClose={this.onIgnore} />}
+        {payload && payload.claimOffer && payload.claimOffer.revealedAttributes
+          ? <Container style={[styles.claimOfferData]}>
+              <ClaimOfferAttributeList
+                list={payload.claimOffer.revealedAttributes}
+              />
+            </Container>
+          : <Container center>
+              <CustomText h5 bg="fifth">
+                Invalid claim offer. Please ignore.
+              </CustomText>
+            </Container>}
         <CustomView row>
           <Container>
             <CustomButton

@@ -9,7 +9,6 @@ import style from './layout-style'
 export const CustomView = props => {
   const {
     clearBg,
-    shadow,
     horizontalSpace,
     verticalSpace,
     doubleVerticalSpace,
@@ -18,6 +17,7 @@ export const CustomView = props => {
     secondary,
     tertiary,
     quaternary,
+    fifth,
     senary,
     row,
     left,
@@ -28,6 +28,7 @@ export const CustomView = props => {
     bottom,
     onPress,
     spaceBetween,
+    shadow,
     absolute,
     absoluteFill,
   } = props
@@ -48,6 +49,7 @@ export const CustomView = props => {
     secondary ? style.secondaryBg : null,
     tertiary ? style.tertiaryBg : null,
     quaternary ? style.quaternaryBg : null,
+    fifth ? style.fifthBg : null,
     senary ? style.senaryBg : null,
     row ? style.row : null,
     left ? style.left : null,
@@ -58,6 +60,7 @@ export const CustomView = props => {
     row && bottom ? style.rowBottom : null,
     bottom && !row ? style.columnBottom : null,
     spaceBetween ? style.spaceBetween : null,
+    shadow ? style.shadow : null,
     ...absoluteStyles,
     ...passedStyles,
   ])

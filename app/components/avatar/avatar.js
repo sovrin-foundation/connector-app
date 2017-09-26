@@ -11,6 +11,7 @@ export default class Avatar extends PureComponent {
       medium,
       large,
       square,
+      shadow,
       style = empty,
       imageStyle = empty,
       src,
@@ -19,7 +20,13 @@ export default class Avatar extends PureComponent {
       testID,
     } = this.props
     const size = small ? 'small' : medium ? 'medium' : 'large'
-    const styles = [
+
+    const elementStyle = [
+      ...style,
+      square ? null : avatarStyle[`${size}Round`],
+      shadow ? avatarStyle.shadow : null,
+    ]
+    const elementContentStyle = [
       avatarStyle[size],
       // avatar style contains round styles on the basis of size of Image
       // if we passed size as small, then corresponding style for round image
@@ -33,9 +40,13 @@ export default class Avatar extends PureComponent {
     ]
 
     return (
-      <CustomView style={[...style]} testID={testID}>
+      <CustomView style={elementStyle} testID={testID}>
         <TouchableWithoutFeedback onPress={onPress}>
-          <Image source={src} style={styles} testID={`${testID}-image`} />
+          <Image
+            source={src}
+            style={elementContentStyle}
+            testID={`${testID}-image`}
+          />
         </TouchableWithoutFeedback>
         {extraNode && extraNode}
       </CustomView>

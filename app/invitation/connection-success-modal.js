@@ -1,10 +1,16 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet } from 'react-native'
-import { Button } from 'react-native-elements'
+import { View, Image, StyleSheet } from 'react-native'
 import Modal from 'react-native-modal'
 
-import { CustomView, CustomText, Avatar, TextStyles } from '../components'
-import { color, OFFSET_1X, OFFSET_2X, font } from '../common/styles'
+import {
+  Container,
+  CustomView,
+  CustomText,
+  CustomButton,
+  Avatar,
+  TextStyles,
+} from '../components'
+import { color, OFFSET_1X, OFFSET_2X } from '../common/styles'
 import { connectionRoute } from '../common'
 import { getConnectionLogo } from '../store'
 
@@ -16,52 +22,44 @@ export default class ConnectionSuccessModal extends PureComponent {
   }) => {
     const connectionAvatar = getConnectionLogo(logoUrl)
     return (
-      <CustomView secondary>
-        <View center style={[styles.container]}>
-          <CustomView center style={[styles.innerContent]}>
-            <CustomText
-              tertiary
-              h4
-              semiBold
-              center
-              style={[styles.textContent]}
-              testID={'modal-title'}
-            >
-              Successful Connection
-            </CustomText>
-
-            <CustomView row center>
-              <Avatar
-                medium
-                src={require('../images/invitee.jpeg')}
-                style={[styles.avatarImage]}
-              />
-              <CustomView primary style={[styles.connectorIcon]} />
-              <Avatar
-                medium
-                src={connectionAvatar}
-                style={[styles.avatarImage]}
-              />
-            </CustomView>
-
-            <CustomText
-              tertiary
-              h5
-              semiBold
-              center
-              style={[styles.textContent]}
-              testID={'modal-body'}
-            >
-              You are now connected to {name}!
-            </CustomText>
+      <CustomView fifth shadow style={[styles.container]}>
+        <CustomView hCenter style={[styles.innerContainer]}>
+          <CustomView
+            row
+            vCenter
+            spaceBetween
+            style={[styles.avatarsContainer]}
+            testID={'invitation-text-avatars-container'}
+          >
+            <Avatar
+              medium
+              shadow
+              src={require('../images/invitee.jpeg')}
+              testID={'invitation-text-avatars-invitee'}
+            />
+            <Image
+              style={styles.checMark}
+              source={require('../images/checMark.png')}
+            />
+            <Avatar
+              medium
+              src={connectionAvatar}
+              testID={'invitation-text-avatars-inviter'}
+            />
           </CustomView>
-        </View>
-
-        <Button
-          large
-          textStyle={styles.continueButton}
-          backgroundColor={'transparent'}
-          fontWeight={'bold'}
+          <CustomText
+            bg="fifth"
+            h5
+            semiBold
+            center
+            style={[styles.textContent]}
+            testID={'modal-body'}
+          >
+            You are now connected to {name}!
+          </CustomText>
+        </CustomView>
+        <CustomButton
+          fifth
           onPress={() => showConnectionSuccessModal(false, connectionRoute)}
           title="Continue"
           accessibilityLabel="Continue to see your new connection"
@@ -73,7 +71,11 @@ export default class ConnectionSuccessModal extends PureComponent {
 
   render() {
     return (
-      <Modal isVisible={this.props.isModalVisible}>
+      <Modal
+        backdropColor={color.bg.tertiary.color}
+        backdropOpacity={1}
+        isVisible={this.props.isModalVisible}
+      >
         {this._renderModalContent(this.props)}
       </Modal>
     )
@@ -82,27 +84,23 @@ export default class ConnectionSuccessModal extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomColor: color.bg.primary.color,
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    marginHorizontal: OFFSET_1X,
   },
-  innerContent: {
-    padding: OFFSET_1X,
+  innerContainer: {
+    borderBottomColor: color.bg.fifth.font.tertiary,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    paddingVertical: OFFSET_1X,
+  },
+  avatarsContainer: {
+    marginHorizontal: OFFSET_2X,
+    marginVertical: OFFSET_1X,
   },
   textContent: {
-    paddingVertical: OFFSET_2X,
+    margin: OFFSET_1X,
     color: color.bg.tertiary.font.secondary,
   },
-  connectorIcon: {
-    height: 8,
-    width: 50,
-  },
-  avatarImage: {
-    borderRadius: 45,
-    borderColor: color.bg.primary.color,
-    borderWidth: 5,
-  },
-  continueButton: {
-    fontSize: font.size.M,
-    color: color.bg.secondary.font.quaternary,
+  checMark: {
+    width: 30,
+    height: 22,
   },
 })

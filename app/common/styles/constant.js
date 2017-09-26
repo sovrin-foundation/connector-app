@@ -2,67 +2,82 @@
 // TODO:KS Add support for themes as well
 // Color name taken from http://www.htmlcsscolor.com/
 const zircon = '#ebebea'
-export const white = '#ffffff'
+export const nightRider = '#333333'
+export const grey = '#777777'
+export const whiteSmoke = '#f0f0f0'
 export const mantis = '#85bf43'
+export const white = '#ffffff'
+
 const sirocco = '#636564'
 const corduroy = '#3f4140'
+const eclipse = '#3f3f3f'
 const matterhorn = '#535353'
-const grey = '#757575'
-const lightGrey = '#f0f0f0'
-const darkGrey = '#484848'
 const blackPearl = '#242b2d'
 const dimGray = '#686868'
 const nobel = '#a0a0a0'
 const venetianRed = '#d0021b'
-const whiteSmoke = '#F2F2F2'
 export const veniceBlue = '#2A5270'
 const dodgerBlue = '#0d8ffc'
 const black = '#000000'
-const nightRider = '#2D2D2D'
+const seaBuckthorn = '#f79347'
+const pumpkin = '#F68127'
+const olivine = '#97C85F'
 
 export const color = {
   actions: {
-    primary: mantis,
-    secondary: sirocco,
-    tertiary: nobel,
+    primary: pumpkin,
+    secondary: seaBuckthorn,
+    tertiary: mantis,
+    quaternary: olivine,
+    fifth: white,
     dangerous: venetianRed,
     none: white,
+    font: {
+      primary: white,
+      secondary: white,
+      tertiary: white,
+      quaternary: white,
+      fifth: mantis,
+      dangerous: white,
+    },
   },
   bg: {
     primary: {
-      color: corduroy,
+      color: nightRider,
       font: {
         primary: white,
         secondary: zircon,
       },
     },
     secondary: {
-      color: white,
+      color: grey,
       font: {
-        primary: corduroy,
+        primary: white,
         secondary: matterhorn,
-        tertiary: grey,
+        tertiary: whiteSmoke,
         quaternary: dodgerBlue,
       },
     },
     tertiary: {
-      color: zircon,
+      color: whiteSmoke,
       font: {
-        primary: blackPearl,
+        primary: nightRider,
         secondary: dimGray,
+        tertiary: grey,
       },
     },
     quaternary: {
-      color: nobel,
+      color: mantis,
       font: {
-        primary: zircon,
+        primary: white,
       },
     },
     fifth: {
-      color: whiteSmoke,
+      color: white,
       font: {
-        primary: darkGrey,
-        secondary: nightRider,
+        primary: grey,
+        secondary: zircon,
+        tertiary: eclipse,
       },
     },
     sixth: {
@@ -77,13 +92,9 @@ export const color = {
 export const font = {
   size: {
     XS: 12,
-    S: 14,
+    S: 15,
     M: 17,
     ML: 20,
-    L: 27,
-    XL: 30,
-    XXL: 40,
-    XXXL: 44,
   },
 }
 
@@ -95,8 +106,11 @@ export const OFFSET_2X = 20
 export const OFFSET_3X = 30
 export const OFFSET_4X = 40
 export const OFFSET_5X = 50
+export const OFFSET_6X = 60
+export const OFFSET_9X = 95
 export const barStyleDark = 'dark-content'
 export const barStyleLight = 'light-content'
+export const SHADOW_RADIUS = 7
 
 export const bubbleSize = {
   XS: 40,

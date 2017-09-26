@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
-
+import { SHADOW_RADIUS } from '../../common/styles/constant'
 const size = {
   small: 50,
   medium: 76,
@@ -28,5 +28,12 @@ export default StyleSheet.create({
   },
   largeRound: {
     borderRadius: size.large / 2,
+  },
+  shadow: {
+    shadowColor: 'rgba(0, 0, 0, 0.25)',
+    shadowOpacity: 1,
+    shadowOffset: { width: 0, height: 5 },
+    shadowRadius: SHADOW_RADIUS,
+    backgroundColor: 'transparent',
   },
 })

@@ -14,7 +14,7 @@ exports[`<Icon /> should match snapshot 1`] = `
     ]
   }
   resizeMode="cover"
-  src={1}
+  src="static-asset-stub"
   style={
     Object {
       "alignItems": "center",
@@ -39,7 +39,7 @@ exports[`<Icon /> should match snapshot 1`] = `
   >
     <Image
       resizeMode="cover"
-      source={1}
+      source="static-asset-stub"
       style={
         Array [
           Object {

@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { StyleSheet } from 'react-native'
 import { View as AnimatedView } from 'react-native-animatable'
 import { CustomText, CustomView } from '../../components'
-import { OFFSET_2X } from '../../common/styles'
+import { OFFSET_1X } from '../../common/styles'
 import { noop } from '../../common'
 import type { RequestDetailTextProps } from './type-request'
 
@@ -20,15 +20,24 @@ export default class RequestDetailText
         <CustomView center testID={'invitation-text-container-message-title'}>
           <CustomText
             testID={'invitation-text-title'}
-            h1
-            bg={'primary'}
-            style={[styles.title]}
+            h4
+            center
+            thick
+            bg="fifth"
+            style={[styles.textContent]}
             testID={'invitation-text-container-title'}
             onPress={this.props.onTitlePress}
           >
             {this.props.title}
           </CustomText>
-          <CustomText h3 testID={'invitation-text-container-message'}>
+          <CustomText
+            h5
+            center
+            bold
+            bg="fifth"
+            style={[styles.textContent]}
+            testID={'invitation-text-container-message'}
+          >
             {this.props.message}
           </CustomText>
         </CustomView>
@@ -38,7 +47,7 @@ export default class RequestDetailText
 }
 
 const styles = StyleSheet.create({
-  title: {
-    marginBottom: OFFSET_2X,
+  textContent: {
+    marginVertical: OFFSET_1X,
   },
 })

@@ -33,7 +33,7 @@ class Invitation extends PureComponent {
     const { data } = this.props.invitation
     return (
       <Container>
-        <Container primary>
+        <Container fifth>
           {data &&
             <InvitationText {...this.props} tapAvatar={this._tapAvatar} />}
         </Container>

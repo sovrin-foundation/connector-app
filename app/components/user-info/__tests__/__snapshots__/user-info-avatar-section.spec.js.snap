@@ -7,7 +7,7 @@ exports[`user avatar section info should render properly 1`] = `
     row={true}
     style={
       Object {
-        "backgroundColor": "#ebebea",
+        "backgroundColor": "#f0f0f0",
         "flex": 1,
         "flexDirection": "row",
         "paddingHorizontal": 15,
@@ -70,7 +70,7 @@ exports[`user avatar section info should render properly 1`] = `
     secondary={true}
     style={
       Object {
-        "backgroundColor": "#ffffff",
+        "backgroundColor": "#777777",
         "flex": 1,
         "flexDirection": "row",
         "paddingHorizontal": 15,
@@ -88,7 +88,11 @@ exports[`user avatar section info should render properly 1`] = `
       }
     >
       <View
-        style={Object {}}
+        style={
+          Object {
+            "borderRadius": 25,
+          }
+        }
         testID={undefined}
       >
         <Image
@@ -104,7 +108,7 @@ exports[`user avatar section info should render properly 1`] = `
           onResponderTerminate={[Function]}
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
-          source={1}
+          source="static-asset-stub"
           style={
             Array [
               Object {
@@ -125,7 +129,7 @@ exports[`user avatar section info should render properly 1`] = `
               "backgroundColor": "transparent",
               "left": 0,
               "position": "absolute",
-              "shadowColor": "#3f4140",
+              "shadowColor": "#333333",
               "shadowOffset": Object {
                 "height": 1,
                 "width": 1,
@@ -151,7 +155,7 @@ exports[`user avatar section info should render properly 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             resizeMode="contain"
-            source={1}
+            source="static-asset-stub"
             style={
               Object {
                 "height": 26,

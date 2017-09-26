@@ -9,18 +9,20 @@ exports[`<Request /> should match snapshot 1`] = `
   }
 >
   <View
-    primary={true}
+    fifth={true}
     style={
       Object {
-        "backgroundColor": "#3f4140",
+        "backgroundColor": "#ffffff",
         "flex": 1,
       }
     }
   >
     <View
+      hCenter={true}
       style={
         Object {
           "flex": 1,
+          "justifyContent": "center",
         }
       }
       testID="invitation-text-container"
@@ -60,16 +62,21 @@ exports[`<Request /> should match snapshot 1`] = `
               style={
                 Array [
                   Object {
-                    "fontSize": 44,
+                    "fontSize": 20,
                   },
                   Object {
-                    "color": "#ffffff",
+                    "backgroundColor": "#ffffff",
+                    "color": "#777777",
+                  },
+                  Object {
+                    "fontWeight": "900",
+                  },
+                  Object {
+                    "textAlign": "center",
                   },
                   null,
-                  null,
-                  null,
                   Object {
-                    "marginBottom": 20,
+                    "marginVertical": 10,
                   },
                 ]
               }
@@ -85,14 +92,22 @@ exports[`<Request /> should match snapshot 1`] = `
               style={
                 Array [
                   Object {
-                    "fontSize": 27,
+                    "fontSize": 17,
                   },
                   Object {
-                    "color": "#ffffff",
+                    "backgroundColor": "#ffffff",
+                    "color": "#777777",
+                  },
+                  Object {
+                    "fontWeight": "bold",
+                  },
+                  Object {
+                    "textAlign": "center",
                   },
                   null,
-                  null,
-                  null,
+                  Object {
+                    "marginVertical": 10,
+                  },
                 ]
               }
               testID="invitation-text-container-message"
@@ -117,92 +132,129 @@ exports[`<Request /> should match snapshot 1`] = `
           testID="invitation-text-container-avatars-animation"
         >
           <View
-            row={true}
+            hCenter={true}
+            spaceBetween={true}
             style={
               Object {
-                "flex": 1,
-                "flexDirection": "row",
-                "justifyContent": "space-around",
-                "marginTop": 63,
+                "justifyContent": "space-between",
               }
             }
-            testID="invitation-text-avatars-container"
           >
             <View
-              style={Object {}}
-              testID="invitation-text-avatars-inviter"
-            >
-              <Image
-                accessibilityComponentType={undefined}
-                accessibilityLabel={undefined}
-                accessibilityTraits={undefined}
-                accessible={true}
-                hitSlop={undefined}
-                onLayout={undefined}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                source={
-                  Object {
-                    "uri": "https://image.url",
-                  }
-                }
-                style={
-                  Array [
-                    Object {
-                      "height": 76,
-                      "width": 76,
-                    },
-                    Object {
-                      "borderRadius": 38,
-                    },
-                  ]
-                }
-                testID={undefined}
-              />
-            </View>
-            <Image
-              source={1}
+              row={true}
+              spaceBetween={true}
               style={
                 Object {
-                  "marginTop": 30,
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "justifyContent": "space-between",
+                  "margin": 50,
                 }
               }
-            />
-            <View
-              style={Object {}}
-              testID="invitation-text-avatars-invitee"
+              testID="invitation-text-avatars-container"
+              vCenter={true}
             >
-              <Image
-                accessibilityComponentType={undefined}
-                accessibilityLabel={undefined}
-                accessibilityTraits={undefined}
-                accessible={true}
-                hitSlop={undefined}
-                onLayout={undefined}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                source={1}
+              <View
                 style={
-                  Array [
-                    Object {
-                      "height": 76,
-                      "width": 76,
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderRadius": 38,
+                    "shadowColor": "rgba(0, 0, 0, 0.25)",
+                    "shadowOffset": Object {
+                      "height": 5,
+                      "width": 0,
                     },
-                    Object {
-                      "borderRadius": 38,
-                    },
-                  ]
+                    "shadowOpacity": 1,
+                    "shadowRadius": 7,
+                  }
                 }
-                testID={undefined}
+                testID="invitation-text-avatars-invitee"
+              >
+                <Image
+                  accessibilityComponentType={undefined}
+                  accessibilityLabel={undefined}
+                  accessibilityTraits={undefined}
+                  accessible={true}
+                  hitSlop={undefined}
+                  onLayout={undefined}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  source="static-asset-stub"
+                  style={
+                    Array [
+                      Object {
+                        "height": 76,
+                        "width": 76,
+                      },
+                      Object {
+                        "borderRadius": 38,
+                      },
+                    ]
+                  }
+                  testID={undefined}
+                />
+              </View>
+              <Image
+                source="static-asset-stub"
+                style={
+                  Object {
+                    "height": 8,
+                    "width": 60,
+                  }
+                }
               />
+              <View
+                style={
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderRadius": 38,
+                    "shadowColor": "rgba(0, 0, 0, 0.25)",
+                    "shadowOffset": Object {
+                      "height": 5,
+                      "width": 0,
+                    },
+                    "shadowOpacity": 1,
+                    "shadowRadius": 7,
+                  }
+                }
+                testID="invitation-text-avatars-inviter"
+              >
+                <Image
+                  accessibilityComponentType={undefined}
+                  accessibilityLabel={undefined}
+                  accessibilityTraits={undefined}
+                  accessible={true}
+                  hitSlop={undefined}
+                  onLayout={undefined}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  source={
+                    Object {
+                      "uri": "https://image.url",
+                    }
+                  }
+                  style={
+                    Array [
+                      Object {
+                        "height": 76,
+                        "width": 76,
+                      },
+                      Object {
+                        "borderRadius": 38,
+                      },
+                    ]
+                  }
+                  testID={undefined}
+                />
+              </View>
             </View>
           </View>
         </Animatable.View>
@@ -271,7 +323,7 @@ exports[`<Request /> should match snapshot 1`] = `
                 undefined,
                 undefined,
                 Object {
-                  "backgroundColor": "#636564",
+                  "backgroundColor": "#f79347",
                 },
                 undefined,
                 Object {
@@ -290,6 +342,9 @@ exports[`<Request /> should match snapshot 1`] = `
                   Object {
                     "marginLeft": 0,
                     "marginRight": 0,
+                  },
+                  Object {
+                    "paddingVertical": 15,
                   },
                 ],
                 undefined,
@@ -318,13 +373,19 @@ exports[`<Request /> should match snapshot 1`] = `
                       "color": "white",
                       "fontSize": 16,
                     },
-                    undefined,
+                    Object {
+                      "color": "#ffffff",
+                    },
                     Object {
                       "fontSize": 14,
                     },
+                    Object {
+                      "fontSize": 17,
+                    },
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontWeight": "600",
+                    },
                     undefined,
                   ],
                 ]
@@ -386,7 +447,7 @@ exports[`<Request /> should match snapshot 1`] = `
                 undefined,
                 undefined,
                 Object {
-                  "backgroundColor": "#85bf43",
+                  "backgroundColor": "#F68127",
                 },
                 undefined,
                 Object {
@@ -405,6 +466,9 @@ exports[`<Request /> should match snapshot 1`] = `
                   Object {
                     "marginLeft": 0,
                     "marginRight": 0,
+                  },
+                  Object {
+                    "paddingVertical": 15,
                   },
                 ],
                 undefined,
@@ -433,13 +497,19 @@ exports[`<Request /> should match snapshot 1`] = `
                       "color": "white",
                       "fontSize": 16,
                     },
-                    undefined,
+                    Object {
+                      "color": "#ffffff",
+                    },
                     Object {
                       "fontSize": 14,
                     },
+                    Object {
+                      "fontSize": 17,
+                    },
                     undefined,
-                    undefined,
-                    undefined,
+                    Object {
+                      "fontWeight": "600",
+                    },
                     undefined,
                   ],
                 ]

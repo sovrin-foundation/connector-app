@@ -4,7 +4,7 @@ import type {
   RequestDetailTextPropsText,
   RequestDetailAvatarProps,
 } from '../components/request/type-request'
-
+import { Error } from '../common/type-common'
 import type {
   ReactNavigation,
   QrConnectionTestAction,
@@ -17,12 +17,6 @@ export type SMSConnectionPayload = {
   connectionName?: String,
   remoteConnectionId: String,
   statusCode: String,
-}
-
-// TODO:PS:Move to common types in one place
-export type Error = {
-  code: string,
-  message: string,
 }
 
 export type SMSConnectionRequestStore = {

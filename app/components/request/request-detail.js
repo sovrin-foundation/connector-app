@@ -9,7 +9,7 @@ export default class RequestDetail
   extends PureComponent<void, RequestDetailProps, void> {
   render() {
     return (
-      <Container useNativeDriver testID={'invitation-text-container'}>
+      <Container useNativeDriver hCenter testID={'invitation-text-container'}>
         <Container bottom testID={'invitation-text-message-container'}>
           <RequestDetailText
             title={this.props.title}

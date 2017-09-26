@@ -24,7 +24,7 @@ exports[`<Badge /> should render dark colored badge 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     resizeMode="contain"
-    source={1}
+    source="static-asset-stub"
     style={
       Object {
         "height": 26,
@@ -46,7 +46,7 @@ exports[`<Badge /> should render dark colored badge 1`] = `
           "fontWeight": "bold",
         },
         Object {
-          "color": "#757575",
+          "color": "#f0f0f0",
         },
         Object {
           "textAlign": "center",
@@ -86,7 +86,7 @@ exports[`<Badge /> should render light colored badge 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     resizeMode="contain"
-    source={1}
+    source="static-asset-stub"
     style={
       Object {
         "height": 26,
@@ -108,7 +108,7 @@ exports[`<Badge /> should render light colored badge 1`] = `
           "fontWeight": "bold",
         },
         Object {
-          "color": "#757575",
+          "color": "#f0f0f0",
         },
         Object {
           "textAlign": "center",

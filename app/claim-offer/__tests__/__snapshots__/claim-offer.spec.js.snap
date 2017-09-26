@@ -12,7 +12,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
     style={
       Object {
         "paddingTop": 34,
-        "shadowColor": "#757575",
+        "shadowColor": "#f0f0f0",
         "shadowOffset": Object {
           "height": 10,
           "width": 0,
@@ -57,7 +57,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         small={true}
-        src={1}
+        src="static-asset-stub"
         style={
           Object {
             "backgroundColor": "transparent",
@@ -71,7 +71,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
       >
         <Image
           resizeMode="contain"
-          source={1}
+          source="static-asset-stub"
           style={
             Array [
               Object {
@@ -89,7 +89,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
       <View
         style={
           Object {
-            "backgroundColor": "#636564",
+            "backgroundColor": "#f79347",
             "height": 20,
             "width": "100%",
             "zIndex": -1,
@@ -179,8 +179,8 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               "fontSize": 17,
             },
             Object {
-              "backgroundColor": "transparent",
-              "color": "#484848",
+              "backgroundColor": "#ffffff",
+              "color": "#777777",
             },
             null,
             null,
@@ -203,8 +203,8 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               "fontSize": 20,
             },
             Object {
-              "backgroundColor": "transparent",
-              "color": "#484848",
+              "backgroundColor": "#ffffff",
+              "color": "#777777",
             },
             Object {
               "fontWeight": "bold",
@@ -305,8 +305,8 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontSize": 12,
                     },
                     Object {
-                      "backgroundColor": "transparent",
-                      "color": "#484848",
+                      "backgroundColor": "#ffffff",
+                      "color": "#777777",
                     },
                     null,
                     null,
@@ -338,11 +338,11 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 style={
                   Array [
                     Object {
-                      "fontSize": 14,
+                      "fontSize": 15,
                     },
                     Object {
-                      "backgroundColor": "transparent",
-                      "color": "#484848",
+                      "backgroundColor": "#ffffff",
+                      "color": "#777777",
                     },
                     Object {
                       "fontWeight": "bold",
@@ -361,7 +361,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
         <View
           style={
             Object {
-              "backgroundColor": "#757575",
+              "backgroundColor": "#f0f0f0",
               "height": 1,
             }
           }
@@ -402,8 +402,8 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontSize": 12,
                     },
                     Object {
-                      "backgroundColor": "transparent",
-                      "color": "#484848",
+                      "backgroundColor": "#ffffff",
+                      "color": "#777777",
                     },
                     null,
                     null,
@@ -435,11 +435,11 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 style={
                   Array [
                     Object {
-                      "fontSize": 14,
+                      "fontSize": 15,
                     },
                     Object {
-                      "backgroundColor": "transparent",
-                      "color": "#484848",
+                      "backgroundColor": "#ffffff",
+                      "color": "#777777",
                     },
                     Object {
                       "fontWeight": "bold",
@@ -461,7 +461,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           <View
             style={
               Object {
-                "backgroundColor": "#757575",
+                "backgroundColor": "#f0f0f0",
                 "height": 1,
               }
             }
@@ -531,7 +531,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               undefined,
               undefined,
               Object {
-                "backgroundColor": "#636564",
+                "backgroundColor": "#f79347",
               },
               undefined,
               Object {
@@ -551,6 +551,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                   "marginLeft": 0,
                   "marginRight": 0,
                 },
+                null,
               ],
               undefined,
               undefined,
@@ -578,13 +579,19 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     "color": "white",
                     "fontSize": 16,
                   },
-                  undefined,
+                  Object {
+                    "color": "#ffffff",
+                  },
                   Object {
                     "fontSize": 14,
                   },
+                  Object {
+                    "fontSize": 17,
+                  },
                   undefined,
-                  undefined,
-                  undefined,
+                  Object {
+                    "fontWeight": "600",
+                  },
                   undefined,
                 ],
               ]
@@ -646,7 +653,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               undefined,
               undefined,
               Object {
-                "backgroundColor": "#85bf43",
+                "backgroundColor": "#F68127",
               },
               undefined,
               Object {
@@ -666,6 +673,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                   "marginLeft": 0,
                   "marginRight": 0,
                 },
+                null,
               ],
               undefined,
               undefined,
@@ -693,13 +701,19 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     "color": "white",
                     "fontSize": 16,
                   },
-                  undefined,
+                  Object {
+                    "color": "#ffffff",
+                  },
                   Object {
                     "fontSize": 14,
                   },
+                  Object {
+                    "fontSize": 17,
+                  },
                   undefined,
-                  undefined,
-                  undefined,
+                  Object {
+                    "fontWeight": "600",
+                  },
                   undefined,
                 ],
               ]
