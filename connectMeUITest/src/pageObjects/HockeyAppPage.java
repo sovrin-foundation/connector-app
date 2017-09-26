@@ -6,8 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import utility.Log;
-
 /**
  * Created by ankurmishra on 6/22/17.
  */
@@ -24,10 +22,7 @@ public class HockeyAppPage {
 			return element;
 		} catch (Exception e) {
 
-			Log.error("UserNameText is not found.");
 			System.out.println("UserNameText is not displayed");
-
-
 			throw (e);
 		}
 	}
@@ -41,10 +36,7 @@ public class HockeyAppPage {
 			return element;
 		} catch (Exception e) {
 
-			Log.error("PasswordText is not found.");
 			System.out.println("PasswordText not is displayed");
-
-
 			throw (e);
 		}
 	}
@@ -58,9 +50,7 @@ public class HockeyAppPage {
 				return element;
 			    } catch (Exception e) {
 
-				Log.error("Signin Button is not found.");
 				System.out.println("Signin Button is not displayed");
-
 				throw (e);
 			}
 
@@ -77,7 +67,6 @@ public class HockeyAppPage {
 				return element;
 			    } catch (Exception e) {
 
-				Log.error("QAConnect Icon is not displayed");
 				System.out.println("QAConnect Icon is not displayed");
 
 				throw (e);
@@ -95,10 +84,8 @@ public class HockeyAppPage {
 				return element;
 			    } catch (Exception e) {
 
-				Log.error("InstallButton is not found.");
-				System.out.println("InstallButton is not displayed");
-
-				throw (e);
+			    System.out.println("InstallButton is not displayed");
+     			throw (e);
 			}
 		}
 		

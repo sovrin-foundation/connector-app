@@ -3,7 +3,6 @@ package pageObjects;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import utility.Log;
 
 /**
  * Created by ankurmishra on 6/22/17.
@@ -19,15 +18,12 @@ public class PincodePage {
 			return element;
 		} catch (Exception e) {
 
-			Log.error("PinCodeLock_TextBox is not displayed");
 			System.out.println("PinCodeLock_TextBox"+i+"is not displayed");
-
-
 			throw (e);
 		}
 	}
 		
-		public static WebElement Close_Button(AppiumDriver driver) throws Exception {
+	public static WebElement Close_Button(AppiumDriver driver) throws Exception {
 
 			try {
 				element = driver.findElement(By.name(("Close")));
@@ -36,11 +32,23 @@ public class PincodePage {
 			} catch (Exception e) {
 
 				System.out.println(" Code Button is not displayed");
-
-
 				throw (e);
 			}
 	}
+	
+	public static WebElement Message_PinCodeSetup(AppiumDriver driver) throws Exception {
+
+		try {
+			element = driver.findElement(By.name(("Enter pin code to unlock app")));
+			System.out.println("Message_PinCodeSetup is displayed");
+			return element;
+		} catch (Exception e) {
+
+			System.out.println("Message_PinCodeSetup is not displayed");
+			throw (e);
+		}
+}
+
 
 
 

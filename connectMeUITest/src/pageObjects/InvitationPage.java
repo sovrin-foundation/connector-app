@@ -2,9 +2,7 @@ package pageObjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
 import io.appium.java_client.AppiumDriver;
-import utility.Log;
 
 public class InvitationPage {
 	
@@ -18,10 +16,7 @@ public class InvitationPage {
 			return element;
 		} catch (Exception e) {
 
-			Log.error("Allow Button is not found.");
 			System.out.println("Allow Button is not displayed");
-
-
 			throw (e);
 		}
 	}
@@ -34,10 +29,20 @@ public class InvitationPage {
 			return element;
 		} catch (Exception e) {
 
-			Log.error("Allow Button is not found.");
 			System.out.println("Inviation_Text_Container is not displayed");
+			throw (e);
+		}
+	}
+	
+	public static WebElement Deny_Button(AppiumDriver driver) throws Exception {
 
+		try {
+			element =  driver.findElementByXPath("(//XCUIElementTypeOther[@name='Deny'])[2]");
+			System.out.println("Allow Button is displayed");
+			return element;
+		} catch (Exception e) {
 
+			System.out.println("Allow Button is not displayed");
 			throw (e);
 		}
 	}

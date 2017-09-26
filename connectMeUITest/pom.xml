@@ -50,16 +50,6 @@
   			<artifactId>testng</artifactId>
   			<version>6.11</version>
   		</dependency>
-  		<dependency>
-  			<groupId>log4j</groupId>
-  			<artifactId>log4j</artifactId>
-  			<version>1.2.17</version>
-  		</dependency>
-  		<dependency>
-    <groupId>org.testobject</groupId>
-    <artifactId>testobject-java-api</artifactId>
-    <version>0.0.26</version>
-</dependency>
 <dependency>
     <groupId>org.json</groupId>
     <artifactId>json</artifactId>
@@ -74,6 +64,11 @@
     <groupId>javax.mail</groupId>
     <artifactId>mail</artifactId>
     <version>1.4</version>
+</dependency>
+<dependency>
+  <groupId>com.github.genium-framework</groupId>
+  <artifactId>Appium-Support</artifactId>
+  <version>1.0.2</version>
 </dependency>
 </dependencies>
 </project>

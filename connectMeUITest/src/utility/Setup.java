@@ -2,11 +2,7 @@ package utility;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
@@ -51,7 +47,6 @@ public class Setup {
 
 			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 			// Setting DefauLt time out to 60 seconds
-			Log.info("Mobile application launched successfully");
 			System.out.println("Mobile application launched successfully");
 
 
@@ -76,7 +71,6 @@ public class Setup {
 
 			driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 			// Setting DefauLt time out to 60 seconds
-			Log.info("Safari browser launched successfully");
 			System.out.println("Safari browser launched successfully");
 
 				
@@ -88,7 +82,7 @@ public class Setup {
 
 		{
 
-			Log.error("Class Setup | Method OpenBrowser | Exception desc : " + e.getMessage());
+			System.out.println("Class Setup | Method OpenBrowser | Exception desc : " + e.getMessage());
 
 		}
 

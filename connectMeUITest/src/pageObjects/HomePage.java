@@ -3,7 +3,6 @@ package pageObjects;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import utility.Log;
 
 /**
  * Created by ankurmishra on 6/22/17.
@@ -20,11 +19,8 @@ public class HomePage {
 			return element;
 		} catch (Exception e) {
 
-			Log.error("Allow Button is not found.");
-			System.out.println("Allow Button not   is displayed");
-
-
-			throw (e);
+			System.out.println("Allow Button not is displayed");
+    		throw (e);
 		}
 	}
 
@@ -34,11 +30,10 @@ public class HomePage {
 			element = driver.findElement(By.xpath("//XCUIElementTypeImage[@name='tab-active-avatar-icon']"));
 			return element;
 		} catch (Exception e) {
-
-			Log.error("Avatar Photo is not found.");
-
+			
 			throw (e);
 		}
+		
 
 	}
 
@@ -50,9 +45,8 @@ public class HomePage {
 			return element;
 
 		} catch (Exception e) {
-			Log.error("Add connection button  is not found.");
-			System.out.println("Add connection button is not displayed");
 
+			System.out.println("Add connection button is not displayed");
 			throw (e);
 
 		}

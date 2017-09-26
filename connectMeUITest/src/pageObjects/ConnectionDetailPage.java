@@ -2,9 +2,7 @@ package pageObjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
 import io.appium.java_client.AppiumDriver;
-import utility.Log;
 
 public class ConnectionDetailPage {
 	
@@ -17,8 +15,6 @@ public class ConnectionDetailPage {
 			System.out.println("Cross Button is displayed");
 			return element;
 		} catch (Exception e) {
-
-			Log.error("Cross Button is not found.");
 			System.out.println("Cross Button is not displayed");
 			throw (e);
 		}
@@ -32,7 +28,6 @@ public class ConnectionDetailPage {
 			return element;
 		} catch (Exception e) {
 
-			Log.error("Cross Button is not found.");
 			System.out.println("Continue Button is not displayed");
 			throw (e);
 		}

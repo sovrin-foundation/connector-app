@@ -3,11 +3,10 @@ package pageObjects;
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import utility.Log;
-
+  
 /**
  * Created by ankurmishra on 6/22/17.
  */
@@ -15,6 +14,10 @@ public class GmailPage {
 
 	private static WebElement element = null;
 
+	
+	@FindBy(name= "identifierId") 
+	public static WebElement userName;
+	
 	public static WebElement UserNameText(AppiumDriver driver) throws Exception {
 
 		try {
@@ -25,7 +28,6 @@ public class GmailPage {
 			return element;
 		} catch (Exception e) {
 
-			Log.error("UserNameText is not found.");
 			System.out.println("UserNameText  is not found.");
 
 
@@ -43,7 +45,6 @@ public class GmailPage {
 			return element;
 		} catch (Exception e) {
 
-			Log.error("FirstEmail Link is not found.");
 			System.out.println("FirstEmail Link  is not found.");
 
 
@@ -62,7 +63,6 @@ public class GmailPage {
 			return element;
 		} catch (Exception e) {
 
-			Log.error("ConnectMeLink is not found.");
 			System.out.println("ConnectMeLink  is not found.");
 
 
@@ -79,7 +79,6 @@ public class GmailPage {
 			return element;
 
 		} catch (Exception e) {
-			Log.error("Password Text  is not found.");
 			System.out.println("Password is not displayed");
 
 			throw (e);
@@ -96,7 +95,6 @@ public class GmailPage {
 			return element;
 		    } catch (Exception e) {
 
-			Log.error("NextButton is not found.");
 			System.out.println("NextButton is not displayed");
 
 			throw (e);
@@ -112,7 +110,6 @@ public class GmailPage {
 			return element;
 		    } catch (Exception e) {
 
-		    	Log.error("NextButton is not found.");
 				System.out.println("NextButton is not displayed");
 			throw (e);
 		}
@@ -121,15 +118,12 @@ public class GmailPage {
     public static WebElement MobileGmailSiteLink(AppiumDriver driver) throws Exception {
 
 			try {
-				
-				WebDriverWait wait = new WebDriverWait(driver, 120);
-				element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='mobile Gmail site']")));				
-				System.out.println("MobileGmailSite Link is displayed");
+				element =driver.findElement(By.xpath("//a[text()='mobile Gmail site']"));
+				System.out.println("MobileGmail Site Link is displayed");
 				return element;
 			    } catch (Exception e) {
 
-				Log.error("MobileGmailSite Link is not displayed.");
-				System.out.println("MobileGmailSite Link is displayed");
+				System.out.println("MobileGmailSite Link is not displayed");
 
 				throw (e);
 			}
@@ -145,7 +139,6 @@ public class GmailPage {
 				return element;
 			    } catch (Exception e) {
 
-				Log.error("Signin is not found.");
 				System.out.println("Signin is not displayed");
 
 				throw (e);
@@ -161,7 +154,6 @@ public class GmailPage {
 
 		    } catch (Exception e) {
             element =null;
-			Log.error("Email checkbox is not found.");
 			System.out.println("Email checkbox is not displayed");
 
 		}
@@ -179,7 +171,6 @@ public class GmailPage {
 			return element;
 		    } catch (Exception e) {
 
-			Log.error("Signin is not found.");
 			System.out.println("Delete button is not displayed");
 
 			throw (e);
