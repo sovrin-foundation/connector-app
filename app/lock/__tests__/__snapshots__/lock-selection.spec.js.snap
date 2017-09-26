@@ -122,7 +122,7 @@ exports[`app lock selection page should render properly 1`] = `
       testID="touch-id-selection-touchable"
     >
       <Image
-        source="static-asset-stub"
+        source={1}
         style={
           Object {
             "marginVertical": 10,

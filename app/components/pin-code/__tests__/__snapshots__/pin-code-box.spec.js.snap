@@ -153,7 +153,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
     >
       <Image
         resizeMode="contain"
-        source="static-asset-stub"
+        source={1}
         style={
           Object {
             "height": 26,
@@ -179,7 +179,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
     >
       <Image
         resizeMode="contain"
-        source="static-asset-stub"
+        source={1}
         style={
           Object {
             "height": 26,

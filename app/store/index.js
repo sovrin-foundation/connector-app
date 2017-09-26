@@ -3,7 +3,9 @@ import createSagaMiddleware from 'redux-saga'
 import { all } from 'redux-saga/effects'
 import logger from 'redux-logger'
 import user, { watchUserInfo } from './user-store'
-import pushNotification from './push-notification-store'
+import pushNotification, {
+  watchPushNotification,
+} from './push-notification-store'
 import connections, { watchNewConnection } from './connections-store'
 import config, { watchConfig } from './config-store'
 import invitation, { watchInvitation } from '../invitation/invitation-store'
@@ -57,6 +59,7 @@ sagaMiddleware.run(function*() {
     watchLock(),
     watchSMSConnectionSagas(),
     watchClaimOffer(),
+    watchPushNotification(),
   ])
 })
 

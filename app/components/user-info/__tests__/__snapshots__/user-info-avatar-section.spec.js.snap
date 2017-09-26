@@ -108,7 +108,7 @@ exports[`user avatar section info should render properly 1`] = `
           onResponderTerminate={[Function]}
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
-          source="static-asset-stub"
+          source={1}
           style={
             Array [
               Object {
@@ -155,7 +155,7 @@ exports[`user avatar section info should render properly 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             resizeMode="contain"
-            source="static-asset-stub"
+            source={1}
             style={
               Object {
                 "height": 26,

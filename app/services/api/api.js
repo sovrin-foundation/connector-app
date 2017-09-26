@@ -34,3 +34,14 @@ export const sendQRInvitationResponse = ({ challenge, signature, agencyUrl }) =>
     options('POST', { challenge, signature }),
     true
   )
+
+export const sendUpdatedPushToken = ({
+  challenge,
+  signature,
+  agencyUrl,
+  DID,
+}) =>
+  api(
+    `${agencyUrl}/agent/${DID}/push-com-method`,
+    options('PUT', { challenge, signature })
+  )

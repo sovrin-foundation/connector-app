@@ -24,7 +24,7 @@ exports[`<Badge /> should render dark colored badge 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     resizeMode="contain"
-    source="static-asset-stub"
+    source={1}
     style={
       Object {
         "height": 26,
@@ -86,7 +86,7 @@ exports[`<Badge /> should render light colored badge 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     resizeMode="contain"
-    source="static-asset-stub"
+    source={1}
     style={
       Object {
         "height": 26,

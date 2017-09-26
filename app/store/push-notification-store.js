@@ -1,3 +1,13 @@
+import { call, all, takeLatest, select } from 'redux-saga/effects'
+import { encode } from 'bs58'
+import {
+  sendUpdatedPushToken,
+  getKeyPairFromSeed,
+  getSignature,
+  captureError,
+} from '../services'
+import { getAgencyUrl, getAllConnection } from './store-selector'
+
 const initialState = {
   isAllowed: false,
   notification: null,
@@ -22,6 +32,38 @@ export const updatePushToken = token => ({
   type: PUSH_NOTIFICATION_TOKEN,
   token,
 })
+
+export function* onPushTokenUpdate(action) {
+  const { token } = action
+  const agencyUrl = yield select(getAgencyUrl)
+  const connections = yield select(getAllConnection)
+  let secretKey, challenge, signature
+  for (let DID in connections) {
+    if (connections.hasOwnProperty(DID)) {
+      secretKey = getKeyPairFromSeed(connections[DID].seed).secretKey
+      challenge = JSON.stringify({ pushComMethod: `FCM:${token}` })
+      signature = encode(getSignature(secretKey, challenge))
+      try {
+        yield call(sendUpdatedPushToken, {
+          challenge,
+          signature,
+          agencyUrl,
+          DID,
+        })
+      } catch (e) {
+        captureError(e)
+      }
+    }
+  }
+}
+
+function* watchPushTokenUpdate() {
+  yield takeLatest(PUSH_NOTIFICATION_TOKEN, onPushTokenUpdate)
+}
+
+export function* watchPushNotification() {
+  yield all([watchPushTokenUpdate()])
+}
 
 export default function pushNotification(state = initialState, action) {
   switch (action.type) {

@@ -57,7 +57,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         small={true}
-        src="static-asset-stub"
+        src={1}
         style={
           Object {
             "backgroundColor": "transparent",
@@ -71,7 +71,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
       >
         <Image
           resizeMode="contain"
-          source="static-asset-stub"
+          source={1}
           style={
             Array [
               Object {
