@@ -1,5 +1,4 @@
 import { SERVER_ERROR_CODE } from '../../common/api-constants'
-import { captureError } from '../error/error-handler'
 
 export const options = (method = 'GET', body) => {
   let data = {
@@ -63,9 +62,6 @@ export const api = (url, apiOptions, showAlert) =>
           // let's just use default that we assigned above,
           // we don't need to do anything here
         }
-
-        // Alert api error
-        captureError(errorResponse, showAlert)
 
         throw new Error(JSON.stringify(errorResponse))
       }

@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { View, AlertIOS } from 'react-native'
+import { View } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { captureError } from '../services'
@@ -48,7 +48,7 @@ export class SMSConnectionRequest
       if (nextProps.request.isFetching === false) {
         if (nextProps.request.error) {
           // TODO:KS we got error from API response, what to do now
-          captureError(nextProps.request.error, true)
+          captureError(nextProps.request.error)
         } else {
           // api response was successful, but now we have to check
           // if user accepted or declined the request
@@ -61,7 +61,6 @@ export class SMSConnectionRequest
         }
       } else {
         // TODO:KS show loading indicator, API request was sent
-        AlertIOS.alert('Api request sent!')
       }
     }
   }

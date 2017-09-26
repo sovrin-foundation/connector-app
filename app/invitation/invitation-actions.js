@@ -71,12 +71,12 @@ export default class actions extends PureComponent {
             )
           })
           .catch(e => {
-            captureError(e, true)
+            captureError(e)
           })
       })
       .catch(e => {
-        AlertIOS.alert(...PUSH_NOTIFICATION_PERMISSION_ERROR)
         captureError(e)
+        AlertIOS.alert(...PUSH_NOTIFICATION_PERMISSION_ERROR)
       })
   }
 

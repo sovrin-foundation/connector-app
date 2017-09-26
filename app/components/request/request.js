@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { View, AlertIOS } from 'react-native'
+import { View } from 'react-native'
 import FCM from 'react-native-fcm'
 import { Container, TouchId } from '../../components'
 import { TOUCH_ID_MESSAGE, TOUCH_ID_NOT_AVAILABLE } from '../../common'
@@ -45,15 +45,17 @@ export default class Request
               this.props.onAction(response)
             })
             .catch(error => {
-              // TODO: what to do if error is not `LAErrorTouchIDNotAvailable`
-              captureError(error, true)
+              if (error.name === 'LAErrorTouchIDNotAvailable') {
+                alert(TOUCH_ID_NOT_AVAILABLE)
+              }
+              captureError(error)
             })
         }
       })
       .catch(error => {
         // TODO: we did not get push token
         // now what should we do?
-        captureError(error, true)
+        captureError(error)
       })
   }
 
