@@ -88,6 +88,7 @@ export default function claimOffer(
         ...state,
         status: CLAIM_OFFER_STATUS.RECEIVED,
         payload: action.payload,
+        claimRequestStatus: CLAIM_REQUEST_STATUS.NONE,
       }
     case CLAIM_OFFER_SHOWN:
       return {

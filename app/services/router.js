@@ -6,7 +6,6 @@ import {
   claimOfferRoute,
   invitationRoute,
 } from '../common'
-import Store, { claimOfferReceived } from '../store'
 import { CLAIM_OFFER_STATUS } from '../claim-offer/type-claim-offer'
 
 // TODO:KS Add type for flow, before 461 is done, complete types
@@ -49,13 +48,6 @@ export default function handlePushNotification(
     // claim offer will slide down and back view will be shown
     // we need to somehow handle all push notification and redirection related
     // stuff in our own navigator which will be built on top of StackNavigator
-    let payload
-    try {
-      payload = JSON.parse(notification.data)
-    } catch (e) {
-      console.log('invalid claim offer payload', e)
-    }
-    Store.dispatch(claimOfferReceived(payload))
     if (expectedScreen !== lockEnterPinRoute) {
       props.navigation.navigate(claimOfferRoute)
     }
