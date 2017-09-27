@@ -32,6 +32,7 @@ export default function handlePushNotification(
       } else {
         pendingRedirectAction && pendingRedirectAction(invitationRoute)
       }
+      props.pushNotificationReceived(null)
     }
   }
 

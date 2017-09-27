@@ -92,8 +92,9 @@ export class ConnectionHome extends PureComponent {
 
   componentWillReceiveProps(nextProps) {
     if (
+      nextProps.pushNotification.notification &&
       nextProps.pushNotification.notification !=
-      this.props.pushNotification.notification
+        this.props.pushNotification.notification
     ) {
       const { notification } = nextProps.pushNotification
       handlePushNotification(nextProps, notification, connectionRoute)

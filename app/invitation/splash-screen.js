@@ -65,8 +65,9 @@ class SplashScreenView extends PureComponent {
     // We need to refactor this and move to single place
     // For that we need to create our own custom navigator
     if (
+      nextProps.pushNotification.notification &&
       nextProps.pushNotification.notification !==
-      this.props.pushNotification.notification
+        this.props.pushNotification.notification
     ) {
       const { notification } = nextProps.pushNotification
       handlePushNotification(
