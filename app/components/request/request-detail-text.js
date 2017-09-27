@@ -7,8 +7,11 @@ import { OFFSET_1X } from '../../common/styles'
 import { noop } from '../../common'
 import type { RequestDetailTextProps } from './type-request'
 
-export default class RequestDetailText
-  extends PureComponent<void, RequestDetailTextProps, void> {
+export default class RequestDetailText extends PureComponent<
+  void,
+  RequestDetailTextProps,
+  void
+> {
   render() {
     return (
       <AnimatedView
@@ -48,6 +51,6 @@ export default class RequestDetailText
 
 const styles = StyleSheet.create({
   textContent: {
-    marginVertical: OFFSET_1X,
+    margin: OFFSET_1X,
   },
 })

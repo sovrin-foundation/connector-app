@@ -76,7 +76,7 @@ exports[`<Request /> should match snapshot 1`] = `
                   },
                   null,
                   Object {
-                    "marginVertical": 10,
+                    "margin": 10,
                   },
                 ]
               }
@@ -106,7 +106,7 @@ exports[`<Request /> should match snapshot 1`] = `
                   },
                   null,
                   Object {
-                    "marginVertical": 10,
+                    "margin": 10,
                   },
                 ]
               }
