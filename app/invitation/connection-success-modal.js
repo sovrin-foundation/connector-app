@@ -38,8 +38,8 @@ export default class ConnectionSuccessModal extends PureComponent {
               testID={'invitation-text-avatars-invitee'}
             />
             <Image
-              style={styles.checMark}
-              source={require('../images/checMark.png')}
+              style={styles.checkMark}
+              source={require('../images/checkMark.png')}
             />
             <Avatar
               medium
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     margin: OFFSET_1X,
     color: color.bg.tertiary.font.secondary,
   },
-  checMark: {
+  checkMark: {
     width: 30,
     height: 22,
   },

@@ -30,10 +30,10 @@ exports[`<Icon /> should match snapshot 1`] = `
       Object {
         "alignItems": "center",
         "backgroundColor": "rgba(0,0,0,0.07)",
-        "borderRadius": 45,
-        "height": 90,
+        "borderRadius": 50,
+        "height": 100,
         "justifyContent": "center",
-        "width": 90,
+        "width": 100,
       }
     }
   >

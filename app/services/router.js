@@ -49,14 +49,15 @@ export default function handlePushNotification(
     // claim offer will slide down and back view will be shown
     // we need to somehow handle all push notification and redirection related
     // stuff in our own navigator which will be built on top of StackNavigator
-    Store.dispatch(claimOfferReceived())
+    let payload
+    try {
+      payload = JSON.parse(notification.data)
+    } catch (e) {
+      console.log('invalid claim offer payload', e)
+    }
+    Store.dispatch(claimOfferReceived(payload))
     if (expectedScreen !== lockEnterPinRoute) {
-      if (
-        props.claimOfferStatus &&
-        props.claimOfferStatus === CLAIM_OFFER_STATUS.RECEIVED
-      ) {
-        props.navigation.navigate(claimOfferRoute)
-      }
+      props.navigation.navigate(claimOfferRoute)
     }
   }
 }

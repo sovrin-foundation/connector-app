@@ -21,20 +21,23 @@ const CustomButton = props => {
     fifth,
     dangerous,
     medium,
+    disabled,
   } = props
   const buttonStyles = props.style || empty
   const style = [
     styles.button,
     medium ? styles.mediumVerticalPadding : null,
+    disabled ? styles.disabled : null,
     ...buttonStyles,
   ]
+
   const buttonType = primary
     ? 'primary'
     : secondary
-        ? 'secondary'
-        : tertiary
-            ? 'tertiary'
-            : quaternary ? 'quaternary' : dangerous ? 'dangerous' : 'fifth'
+      ? 'secondary'
+      : tertiary
+        ? 'tertiary'
+        : quaternary ? 'quaternary' : dangerous ? 'dangerous' : 'fifth'
   const buttonProps = getButtonProps(buttonType)
   return <Button {...props} {...buttonProps} buttonStyle={style} />
 }
@@ -48,5 +51,9 @@ const styles = StyleSheet.create({
   },
   mediumVerticalPadding: {
     paddingVertical: 15,
+  },
+  disabled: {
+    opacity: 0.2,
+    backgroundColor: color.actions.none,
   },
 })

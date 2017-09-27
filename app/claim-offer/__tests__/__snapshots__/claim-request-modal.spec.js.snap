@@ -1,0 +1,326 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ClaimRequestModal /> should match snapshot 1`] = `
+<Modal
+  backdropColor="#f0f0f0"
+  backdropOpacity={0.7}
+  isVisible={true}
+>
+  <View
+    fifth={true}
+    shadow={true}
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+        "marginHorizontal": 10,
+        "shadowColor": "rgba(0, 0, 0, 0.25)",
+        "shadowOffset": Object {
+          "height": 5,
+          "width": 0,
+        },
+        "shadowOpacity": 1,
+        "shadowRadius": 7,
+      }
+    }
+  >
+    <View
+      hCenter={true}
+      style={
+        Object {
+          "borderBottomColor": "#3f3f3f",
+          "borderBottomWidth": NaN,
+          "justifyContent": "center",
+          "paddingVertical": 10,
+        }
+      }
+    >
+      <View
+        row={true}
+        spaceBetween={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginHorizontal": 20,
+            "marginVertical": 10,
+          }
+        }
+        vCenter={true}
+      >
+        <View
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "borderRadius": 38,
+              "shadowColor": "rgba(0, 0, 0, 0.25)",
+              "shadowOffset": Object {
+                "height": 5,
+                "width": 0,
+              },
+              "shadowOpacity": 1,
+              "shadowRadius": 7,
+            }
+          }
+          testID="claim-request-avatars-invitee"
+        >
+          <Image
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hitSlop={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            source={1}
+            style={
+              Array [
+                Object {
+                  "height": 76,
+                  "width": 76,
+                },
+                Object {
+                  "borderRadius": 38,
+                },
+              ]
+            }
+            testID={undefined}
+          />
+        </View>
+        <Image
+          source={1}
+          style={
+            Object {
+              "height": 22,
+              "width": 30,
+            }
+          }
+        />
+        <View
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "borderRadius": 38,
+              "shadowColor": "rgba(0, 0, 0, 0.25)",
+              "shadowOffset": Object {
+                "height": 5,
+                "width": 0,
+              },
+              "shadowOpacity": 1,
+              "shadowRadius": 7,
+            }
+          }
+          testID="claim-request-avatars-inviter"
+        >
+          <Image
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hitSlop={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            source={
+              Object {
+                "uri": "http://testissuer.com/logoUrl.png",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 76,
+                  "width": 76,
+                },
+                Object {
+                  "borderRadius": 38,
+                },
+              ]
+            }
+            testID={undefined}
+          />
+        </View>
+      </View>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        onPress={undefined}
+        style={
+          Array [
+            Object {
+              "fontSize": 17,
+            },
+            Object {
+              "backgroundColor": "#ffffff",
+              "color": "#777777",
+            },
+            Object {
+              "fontWeight": "500",
+            },
+            Object {
+              "textAlign": "center",
+            },
+            null,
+            Object {
+              "color": "#686868",
+              "margin": 10,
+            },
+          ]
+        }
+        testID="claim-request-issuer-waiting"
+      >
+        Waiting for Test Issuer to issue
+      </Text>
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        onPress={undefined}
+        style={
+          Array [
+            Object {
+              "fontSize": 17,
+            },
+            Object {
+              "backgroundColor": "#ffffff",
+              "color": "#777777",
+            },
+            Object {
+              "fontWeight": "bold",
+            },
+            Object {
+              "textAlign": "center",
+            },
+            null,
+          ]
+        }
+        testID="claim-request-claim-name"
+      >
+        Home Address
+      </Text>
+    </View>
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel={undefined}
+      accessibilityTraits={undefined}
+      accessible={true}
+      hasTVPreferredFocus={undefined}
+      hitSlop={undefined}
+      isTVSelectable={true}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "backgroundColor": "transparent",
+          },
+          undefined,
+        ]
+      }
+      testID={undefined}
+      tvParallaxProperties={undefined}
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#9E9E9E",
+              "flexDirection": "row",
+              "justifyContent": "center",
+              "marginLeft": 15,
+              "marginRight": 15,
+              "padding": 19,
+            },
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            Object {
+              "backgroundColor": "#ffffff",
+            },
+            undefined,
+            undefined,
+            Object {
+              "padding": 12,
+            },
+            Array [
+              Object {
+                "marginLeft": 0,
+                "marginRight": 0,
+              },
+              null,
+              Object {
+                "backgroundColor": "#ffffff",
+                "opacity": 0.2,
+              },
+            ],
+            Object {
+              "backgroundColor": "#dadee0",
+            },
+            undefined,
+          ]
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {},
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              Array [
+                Object {
+                  "color": "white",
+                  "fontSize": 16,
+                },
+                Object {
+                  "color": "#85bf43",
+                },
+                Object {
+                  "fontSize": 14,
+                },
+                Object {
+                  "fontSize": 17,
+                },
+                undefined,
+                Object {
+                  "fontWeight": "600",
+                },
+                undefined,
+              ],
+            ]
+          }
+        >
+          Continue
+        </Text>
+      </View>
+    </View>
+  </View>
+</Modal>
+`;

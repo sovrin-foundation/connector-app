@@ -72,9 +72,9 @@ const styles = StyleSheet.create({
   },
   extraLargeHalo: {
     // we are assuming that halo will be at least 20pt larger than image
-    borderRadius: (size.extraLarge + 10) / 2,
-    width: size.extraLarge + 10,
-    height: size.extraLarge + 10,
+    borderRadius: (size.extraLarge + 20) / 2,
+    width: size.extraLarge + 20,
+    height: size.extraLarge + 20,
     backgroundColor: 'rgba(0,0,0,0.07)',
   },
 })

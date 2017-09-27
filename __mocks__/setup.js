@@ -1,5 +1,7 @@
+import React from 'react'
 import fetch from './fetch-mock'
 import mockCamera from './camera-mock'
+import mockModal from './modal-mock'
 
 // mock this module to allow react-navigation to mock Linking
 jest.mock('Linking', () => ({
@@ -85,3 +87,7 @@ jest.mock('AlertIOS', () => ({
 }))
 
 global.fetch = fetch
+
+jest.mock('Modal', () => mockModal)
+
+jest.mock('react-native-modal', () => mockModal)

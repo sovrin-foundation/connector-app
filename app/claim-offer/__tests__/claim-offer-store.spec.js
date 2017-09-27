@@ -88,7 +88,8 @@ describe('claim offer store', () => {
   it('claim request saga works fine after claim offer is accepted', () => {
     const gen = claimOfferAccepted(acceptClaimOffer())
     expect(gen.next().value).toMatchObject(put(sendClaimRequest()))
-    expect(gen.next().value).toMatchObject(call(delay, 3000))
+    expect(gen.next().value).toMatchObject(call(delay, 2000))
     expect(gen.next().value).toMatchObject(put(claimRequestSuccess()))
+    expect(gen.next().done).toBe(true)
   })
 })

@@ -20,6 +20,7 @@ import { homeRoute } from '../common/'
 import { OFFSET_2X, OFFSET_1X, color } from '../common/styles'
 import type { ClaimOfferPayload, Attribute } from './type-claim-offer'
 import type { Store } from '../store/type-store'
+import ClaimRequestModal from './claim-request-modal'
 
 class ClaimOfferHeader extends PureComponent {
   render() {
@@ -29,11 +30,11 @@ class ClaimOfferHeader extends PureComponent {
       : require('../images/cb_evernym.png')
 
     return (
-      <CustomView style={[styles.header]}>
-        <CustomView center style={[styles.headerStripLogoContainer]}>
+      <CustomView fifth style={[styles.header]}>
+        <CustomView fifth center style={[styles.headerStripLogoContainer]}>
           <Icon
             absolute="TopRight"
-            src={require('../images/icon_close.png')}
+            src={require('../images/close.png')}
             small
             testID="claim-offer-icon-close"
             onPress={this.props.onClose}
@@ -51,7 +52,7 @@ class ClaimOfferHeader extends PureComponent {
             testID="claim-offer-issuer-logo"
           />
         </CustomView>
-        <CustomView center style={[styles.issuerDetail]}>
+        <CustomView fifth center style={[styles.issuerDetail]}>
           <CustomText h5 bg="fifth">
             {issuer.name} is offering you
           </CustomText>
@@ -76,12 +77,13 @@ class ClaimOfferAttributeList extends PureComponent {
   renderItem = ({ item }: { item: Attribute }) => {
     return (
       <CustomView
+        fifth
         row
         horizontalSpace
         doubleVerticalSpace
         style={[styles.attributeListItem]}
       >
-        <CustomView right style={[styles.attributeListLabel]}>
+        <CustomView fifth right style={[styles.attributeListLabel]}>
           <CustomText
             h7
             uppercase
@@ -91,7 +93,7 @@ class ClaimOfferAttributeList extends PureComponent {
             {item.label}
           </CustomText>
         </CustomView>
-        <CustomView left style={[styles.attributeListValue]}>
+        <CustomView fifth left style={[styles.attributeListValue]}>
           <CustomText h6 bold bg="fifth">
             {item.data}
           </CustomText>
@@ -140,24 +142,30 @@ export class ClaimOffer extends PureComponent {
 
   render() {
     const { payload, claimRequestStatus } = this.props.claimOffer
+    const isValid =
+      payload &&
+      payload.claimOffer &&
+      payload.issuer &&
+      payload.claimOffer.revealedAttributes
 
     return (
-      <Container>
-        {payload &&
-          payload.claimOffer &&
-          payload.issuer &&
-          <ClaimOfferHeader payload={payload} onClose={this.onIgnore} />}
-        {payload && payload.claimOffer && payload.claimOffer.revealedAttributes
-          ? <Container style={[styles.claimOfferData]}>
-              <ClaimOfferAttributeList
-                list={payload.claimOffer.revealedAttributes}
-              />
-            </Container>
-          : <Container center>
-              <CustomText h5 bg="fifth">
-                Invalid claim offer. Please ignore.
-              </CustomText>
-            </Container>}
+      <Container fifth>
+        {isValid && (
+          <ClaimOfferHeader payload={payload} onClose={this.onIgnore} />
+        )}
+        {isValid ? (
+          <Container fifth style={[styles.claimOfferData]}>
+            <ClaimOfferAttributeList
+              list={payload.claimOffer.revealedAttributes}
+            />
+          </Container>
+        ) : (
+          <Container fifth center>
+            <CustomText h5 bg="fifth">
+              Invalid claim offer. Please ignore.
+            </CustomText>
+          </Container>
+        )}
         <CustomView row>
           <Container>
             <CustomButton
@@ -176,6 +184,13 @@ export class ClaimOffer extends PureComponent {
             />
           </Container>
         </CustomView>
+        {isValid && (
+          <ClaimRequestModal
+            claimRequestStatus={claimRequestStatus}
+            payload={payload}
+            onContinue={this.close}
+          />
+        )}
       </Container>
     )
   }
@@ -201,7 +216,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(ClaimOffer)
 const styles = StyleSheet.create({
   header: {
     paddingTop: (Platform.OS === 'ios' ? OFFSET_2X : 0) + 14,
-    shadowColor: color.bg.secondary.font.tertiary,
+    shadowColor: color.bg.secondary.color,
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.3,
     shadowRadius: 10,

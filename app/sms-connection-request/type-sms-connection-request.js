@@ -4,7 +4,7 @@ import type {
   RequestDetailTextPropsText,
   RequestDetailAvatarProps,
 } from '../components/request/type-request'
-import { Error } from '../common/type-common'
+import type { Error } from '../common/type-common'
 import type {
   ReactNavigation,
   QrConnectionTestAction,

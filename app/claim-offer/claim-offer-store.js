@@ -66,7 +66,7 @@ export function* claimOfferAccepted(
   action: ClaimOfferAcceptedAction
 ): Generator<*, *, *> {
   yield put(sendClaimRequest())
-  yield call(delay, 3000)
+  yield call(delay, 2000)
   yield put(claimRequestSuccess())
 }
 

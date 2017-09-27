@@ -93,3 +93,13 @@ export type ClaimOfferStore = {
   payload: ?ClaimOfferPayload,
   claimRequestStatus: ClaimRequestStatus,
 }
+
+export type ClaimRequestStatusModalProps = {
+  claimRequestStatus: ClaimRequestStatus,
+  payload: ClaimOfferPayload,
+  onContinue: () => void,
+}
+
+export type ClaimRequestStatusModalState = {
+  isVisible: boolean,
+}
