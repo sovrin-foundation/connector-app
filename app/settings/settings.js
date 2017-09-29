@@ -11,7 +11,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient'
 import { StackNavigator } from 'react-navigation'
 import { Avatar, CustomText } from '../components'
-import { CustomList, CustomView } from '../components/layout'
+import { CustomList, CustomView, Container } from '../components/layout'
 import { settingsRoute } from '../common/route-constants'
 import {
   white,
@@ -31,12 +31,8 @@ import {
   USERNAME_TEST_ID,
   SETTING_CONTAINER_HEIGHT,
 } from './settings-constant'
-import Footer from '../components/footer'
 
 const style = StyleSheet.create({
-  container: {
-    height: SETTING_CONTAINER_HEIGHT,
-  },
   headerStyle: {
     backgroundColor: color.bg.fifth.color,
     shadowOpacity: 0,
@@ -148,7 +144,7 @@ export class Settings extends PureComponent {
 
   render() {
     return (
-      <View>
+      <Container>
         <LinearGradient colors={['#f2f2f2', '#ededed']}>
           <ScrollView style={style.container}>
             <StatusBar barStyle={barStyleDark} />
@@ -158,9 +154,8 @@ export class Settings extends PureComponent {
               itemStyle={style.item}
             />
           </ScrollView>
-          <Footer navigation={this.props.navigation} />
         </LinearGradient>
-      </View>
+      </Container>
     )
   }
 }

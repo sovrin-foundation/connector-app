@@ -8,6 +8,7 @@ const Icon = props => {
     src,
     small,
     medium,
+    mediumLarge,
     large,
     extraLarge,
     iconStyle = empty,
@@ -17,7 +18,9 @@ const Icon = props => {
   } = props
   const size = small
     ? 'small'
-    : medium ? 'medium' : extraLarge ? 'extraLarge' : 'large'
+    : medium
+      ? 'medium'
+      : extraLarge ? 'extraLarge' : mediumLarge ? 'mediumLarge' : 'large'
 
   const iconImage = (
     <Image
@@ -49,6 +52,7 @@ export default Icon
 const size = {
   small: 20,
   medium: 30,
+  mediumLarge: 40,
   large: 50,
   extraLarge: 80,
 }
@@ -61,6 +65,10 @@ const styles = StyleSheet.create({
   medium: {
     width: size.medium,
     height: size.medium,
+  },
+  mediumLarge: {
+    width: size.mediumLarge,
+    height: size.mediumLarge,
   },
   large: {
     width: size.large,

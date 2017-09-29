@@ -89,7 +89,9 @@ export class CameraMarker extends PureComponent {
 
     return (
       <CustomView center style={[cameraMarkerStyles.container]}>
-        <CustomText h01 transparentBg>Scan QR Code</CustomText>
+        <CustomText h01 transparentBg>
+          Scan QR Code
+        </CustomText>
         <CustomView
           transparentBg
           spaceBetween
@@ -118,9 +120,10 @@ export class CameraMarker extends PureComponent {
 export class CornerBox extends PureComponent {
   render() {
     const { status } = this.props
-    const borderStyle = status === SCAN_STATUS.SUCCESS
-      ? cameraMarkerStyles.borderSuccess
-      : status === SCAN_STATUS.FAIL
+    const borderStyle =
+      status === SCAN_STATUS.SUCCESS
+        ? cameraMarkerStyles.borderSuccess
+        : status === SCAN_STATUS.FAIL
           ? cameraMarkerStyles.borderFail
           : cameraMarkerStyles.border
 
@@ -187,12 +190,12 @@ const cameraMarkerStyles = StyleSheet.create({
 
 const cameraStyle = StyleSheet.create({
   camera: {
-    // magical number 72 is set here due to footer height
+    // magical number 50 is set here due to footer height
     // we want our QR code to go behind the footer slightly
     // but at the same time we want qr scan status to stay sufficient above footer
     // without margin or padding, by setting height
     // we automatically align qr scanner using flex
-    height: Dimensions.get('screen').height - 72,
+    height: Dimensions.get('screen').height - 50,
     backgroundColor: 'transparent',
   },
 })

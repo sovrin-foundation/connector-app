@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import {
   ScrollView,
   Image,
@@ -10,17 +10,9 @@ import {
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { StackNavigator } from 'react-navigation'
-import { Icon, Avatar } from 'react-native-elements'
-
-import { CustomView } from '../components/layout'
-import { Container, CustomText } from '../components'
+import { Container, CustomText, CustomView } from '../components'
 import Bubbles from './bubbles'
-import User from './user'
-import Footer from '../components/footer'
-import { color, barStyleDark } from '../common/styles/constant'
-import { settingsRoute } from '../common/route-constants'
-import styles from '../components/layout/layout-style'
-
+import { color, barStyleDark } from '../common/styles'
 import {
   getUserInfo,
   pushNotificationReceived,
@@ -49,9 +41,36 @@ const headerTitle = (
 )
 
 const dimGray = color.bg.tertiary.font.secondary
-const whiteSmoke = color.bg.fifth.color
+const whiteSmoke = color.bg.tertiary.color
 
-export class HomeScreenDrawer extends Component {
+class NoConnectionsText extends PureComponent {
+  render() {
+    return (
+      <Container center>
+        <CustomText
+          h5
+          bg={dimGray}
+          center
+          lineHeight={30}
+          testID="no-connection-text-1"
+        >
+          You don't have any
+        </CustomText>
+        <CustomText h5 bg={dimGray} center>
+          connections set up yet
+        </CustomText>
+        <CustomText h5 bg={dimGray} center>
+          Call a participating Credit
+        </CustomText>
+        <CustomText h5 bg={dimGray} center>
+          Union to get started
+        </CustomText>
+      </Container>
+    )
+  }
+}
+
+export class HomeScreenDrawer extends PureComponent {
   static navigationOptions = ({ navigation }) => ({
     headerTitle: headerTitle,
     headerStyle: {
@@ -77,7 +96,7 @@ export class HomeScreenDrawer extends Component {
   }
 
   showClaimOffer = () => {
-    this.props.navigation.navigate(claimOfferRoute)
+    this.props.navigation.navigate(qrConnectionRequestRoute)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -118,63 +137,20 @@ export class HomeScreenDrawer extends Component {
     })
 
     const { user, connections: { data } } = this.props
-    const connectionsData = getConnections(data)
+    const connections = getConnections(data)
 
-    if (!connectionsData || (connectionsData && connectionsData.length <= 0)) {
-      return (
-        <View style={[styles.container, styles.fifthBg]}>
-          <StatusBar barStyle={barStyleDark} />
-          <Container backgroundColor={color.bg.fifth.color}>
-            <View style={[styles.container]}>
-              <View style={[styles.container, styles.center]}>
-                <CustomText
-                  h5
-                  bg={dimGray}
-                  center
-                  lineHeight={30}
-                  testID="no-connection-text-1"
-                  onPress={() => {
-                    this.setState({ connectionRequestCount: 1 })
-                  }}
-                >
-                  You don't have any
-                </CustomText>
-                <CustomText h5 bg={dimGray} center>
-                  connections set up yet
-                </CustomText>
-                <CustomText
-                  h5
-                  bg={dimGray}
-                  center
-                  onPress={this.showClaimOffer}
-                >
-                  Call a participating Credit
-                </CustomText>
-                <CustomText h5 bg={dimGray} center>
-                  Union to get started
-                </CustomText>
-              </View>
-            </View>
-            <Footer navigation={this.props.navigation} />
-          </Container>
-        </View>
-      )
-    } else {
-      return (
-        // TODO: fix home screen with bubbles
-        (
-          <View style={[styles.container, styles.fifthBg]}>
-            <StatusBar barStyle={barStyleDark} />
-            <Container backgroundColor={color.bg.fifth.color}>
-              <View style={[styles.container]}>
-                <Bubbles height={bubblesHeight} connections={connectionsData} />
-              </View>
-              <Footer navigation={this.props.navigation} />
-            </Container>
-          </View>
-        )
-      )
-    }
+    return (
+      <Container tertiary>
+        <StatusBar barStyle={barStyleDark} />
+        <Container tertiary>
+          {connections && connections.length > 0 ? (
+            <Bubbles height={bubblesHeight} connections={connections} />
+          ) : (
+            <NoConnectionsText />
+          )}
+        </Container>
+      </Container>
+    )
   }
 }
 

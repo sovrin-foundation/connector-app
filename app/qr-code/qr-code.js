@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { StatusBar } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Container, Footer, QRScanner } from '../components'
+import { Container, QRScanner } from '../components'
 import { color, barStyleLight } from '../common/styles/constant'
 import { qrConnectionRequestReceived } from '../store'
 import {
@@ -11,19 +11,19 @@ import {
   QR_CODE_SENDER_NAME,
   QR_CODE_TARGET_NAME,
 } from '../common/api-constants'
-import { qrConnectionRequestRoute, qrCodeScannerRoute } from '../common/'
-import type {
-  QrConnectionPayload,
-} from '../qr-connection-request/type-qr-connection-request'
+import { qrConnectionRequestRoute, qrCodeScannerTabRoute } from '../common/'
+import type { QrConnectionPayload } from '../qr-connection-request/type-qr-connection-request'
 import type { Store } from '../store/type-store'
 
 export class QRCodeScannerScreen extends PureComponent {
   onRead = (data: QrConnectionPayload) => {
-    if (this.props.currentScreen === qrCodeScannerRoute) {
+    if (this.props.currentScreen === qrCodeScannerTabRoute) {
       const qrConnectionRequest = {
         payload: data,
         title: `Hi ${data.challenge[QR_CODE_TARGET_NAME]}`,
-        message: `${data.challenge[QR_CODE_SENDER_NAME]} wants to connect with you`,
+        message: `${data.challenge[
+          QR_CODE_SENDER_NAME
+        ]} wants to connect with you`,
       }
 
       this.props.qrConnectionRequestReceived(qrConnectionRequest)
@@ -36,7 +36,6 @@ export class QRCodeScannerScreen extends PureComponent {
       <Container>
         <StatusBar barStyle={barStyleLight} />
         <QRScanner onRead={this.onRead} />
-        <Footer navigation={this.props.navigation} />
       </Container>
     )
   }
