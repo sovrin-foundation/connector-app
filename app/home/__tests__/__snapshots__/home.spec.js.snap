@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DashboardScreen /> should render Home and redirect user to claim offer modal 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#f0f0f0",
+      "flex": 1,
+    }
+  }
+  tertiary={true}
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#f0f0f0",
+        "flex": 1,
+      }
+    }
+    tertiary={true}
+  >
+    <View
+      style={
+        Object {
+          "height": 302,
+          "left": 0,
+          "overflow": "hidden",
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "transform": Array [
+            Object {
+              "translateY": 0,
+            },
+          ],
+        }
+      }
+    >
+      <Animatable.View
+        animation="zoomIn"
+        delay={200}
+        duration={600}
+        style={
+          Array [
+            Object {
+              "position": "absolute",
+            },
+            undefined,
+            undefined,
+          ]
+        }
+      >
+        <View
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "borderRadius": 50,
+              "shadowColor": "rgba(0, 0, 0, 0.25)",
+              "shadowOffset": Object {
+                "height": 5,
+                "width": 0,
+              },
+              "shadowOpacity": 1,
+              "shadowRadius": 7,
+            }
+          }
+          testID="bubble-3nj819kkjywdppuje79"
+        >
+          <Image
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hitSlop={undefined}
+            onError={[Function]}
+            onLayout={undefined}
+            onLoad={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            source={undefined}
+            style={
+              Array [
+                Object {
+                  "height": 100,
+                  "width": 100,
+                },
+                Object {
+                  "borderRadius": 50,
+                },
+              ]
+            }
+            testID={undefined}
+          />
+        </View>
+      </Animatable.View>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "marginVertical": 30,
+      }
+    }
+    vCenter={true}
+  >
+    <View
+      clearBg={true}
+      extraLarge={true}
+      src={1}
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+    >
+      <Image
+        resizeMode="contain"
+        source={1}
+        style={
+          Array [
+            Object {
+              "height": 80,
+              "width": 80,
+            },
+          ]
+        }
+        testID={undefined}
+      />
+    </View>
+  </View>
+</View>
+`;

@@ -1,6 +1,6 @@
-import React, { Component, PureComponent } from 'react'
+// @flow
+import React, { PureComponent } from 'react'
 import {
-  View,
   Animated,
   InteractionManager,
   Platform,
@@ -8,16 +8,12 @@ import {
   StyleSheet,
 } from 'react-native'
 import { View as AnimationView } from 'react-native-animatable'
-import { StyledImage } from '../styled-components/common-styled'
-import { generatePlaceholderConnection } from '../services'
+import { Avatar } from '../components'
 import { bubbleSize } from '../common/styles'
 
 export class Bubble extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.state = {
-      failed: false,
-    }
+  state = {
+    failed: false,
   }
 
   _onLoad = () => {
@@ -29,7 +25,7 @@ export class Bubble extends PureComponent {
   }
 
   render() {
-    let { size, image } = this.props
+    let { size, image, testID } = this.props
     let source
     if (this.state.failed || Number.isInteger(image) || !image) {
       source = require('../images/cb_evernym.png')
@@ -40,39 +36,26 @@ export class Bubble extends PureComponent {
     }
 
     return (
-      <StyledImage
-        size={[size, size]}
-        source={source}
-        resizeMode={'contain'}
+      <Avatar
+        large
+        shadow
+        src={source}
         onLoad={this._onLoad}
         onError={this._onError}
+        testID={testID}
       />
     )
   }
 }
 
-export default class ConnectionBubbles extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      showBubble: false,
-    }
-  }
-
-  componentDidMount() {
-    InteractionManager.runAfterInteractions(() => {
-      this.setState({ showBubble: true })
-    })
-  }
-
+export default class ConnectionBubbles extends PureComponent {
   render() {
     const { width } = Dimensions.get('window')
     let deviceClass = ''
 
     if (Platform.OS === 'ios') {
-      deviceClass = width === 320
-        ? 'Iphone5'
-        : width === 414 ? 'IphonePlus' : 'ios'
+      deviceClass =
+        width === 320 ? 'Iphone5' : width === 414 ? 'IphonePlus' : 'ios'
     }
 
     return (
@@ -94,7 +77,11 @@ export default class ConnectionBubbles extends Component {
             ]}
             key={identifier}
           >
-            <Bubble size={size} image={logoUrl} />
+            <Bubble
+              size={size}
+              image={logoUrl}
+              testID={`bubble-${identifier}`}
+            />
           </AnimationView>
         ))}
       </Animated.View>
@@ -102,14 +89,14 @@ export default class ConnectionBubbles extends Component {
   }
 }
 
-const styles = (styles = StyleSheet.create({
+const styles = StyleSheet.create({
   bubbleContainer: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     overflow: 'hidden',
-    height: 402,
+    height: 302,
   },
   avatar: {
     position: 'absolute',
@@ -207,4 +194,4 @@ const styles = (styles = StyleSheet.create({
     top: 30,
     left: 100,
   },
-}))
+})

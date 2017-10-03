@@ -1,63 +1,92 @@
+// @flow
 import 'react-native'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { mock as mockAsyncStorage } from 'mock-async-storage'
+import { CLAIM_OFFER_STATUS } from '../../claim-offer/type-claim-offer'
+import {
+  claimOfferRoute,
+  homeRoute,
+  invitationRoute,
+  PUSH_NOTIFICATION_TYPE,
+  PUSH_NOTIFICATION_SENT_CODE,
+} from '../../common'
+import { DashboardScreen } from '../home'
 
-mockAsyncStorage()
-
-import { HomeScreenDrawer } from '../home'
-
-function props() {
-  const commonInitiaProps = {
-    isFetching: false,
-    isPristine: true,
-    data: null,
-    error: null,
-  }
-
+function props(claimOfferStatus) {
   return {
-    user: {
-      isFetching: false,
-      isPrestine: true,
-      error: {},
-      data: {},
+    connections: {
+      data: {
+        '3nj819kkjywdppuje79': {
+          identifier: '3nj819kkjywdppuje79',
+          name: 'Test Connection',
+          remoteConnectionId: '70075yyojywdppuje79',
+          size: 100,
+          logoUrl: { uri: 'https://logourl.com/logo.png' },
+        },
+      },
     },
-    connections: {},
-    loadUserInfo: jest.fn(),
-    pushNotificationPermissionAction: jest.fn(),
-    pushNotification: { isPNAllowed: true },
-    home: {
-      enrollResponse: commonInitiaProps,
-      userInfoResponse: commonInitiaProps,
+    navigation: {
+      navigate: jest.fn(),
     },
+    claimOfferStatus: claimOfferStatus || CLAIM_OFFER_STATUS.RECEIVED,
+    route: {
+      currentScreen: homeRoute,
+    },
+    pushNotification: {
+      notification: null,
+    },
+    getUserInfo: jest.fn(),
+    pushNotificationReceived: jest.fn(),
+    authenticationRequestReceived: jest.fn(),
   }
 }
 
-describe('home page should', () => {
-  xit('redirect user to invitation page once invitation is receieved', () => {
-    const homeProps = props()
-    const okInit = { status: 200 }
+describe('<DashboardScreen />', () => {
+  jest.useFakeTimers()
 
-    // mock response for API calls
-    fetch.mockResponseOnce(
-      JSON.stringify({ status: 'NO_RESPONSE_YET' }),
-      okInit
+  it('should render Home and redirect user to claim offer modal', () => {
+    const dashboardProps = props()
+    const wrapper = renderer
+      .create(<DashboardScreen {...dashboardProps} />)
+      .toJSON()
+    expect(wrapper).toMatchSnapshot()
+    expect(dashboardProps.getUserInfo).toHaveBeenCalled()
+    jest.runAllTimers()
+    expect(dashboardProps.navigation.navigate).toHaveBeenCalled()
+    expect(dashboardProps.navigation.navigate).toHaveBeenCalledWith(
+      claimOfferRoute
     )
-    fetch.mockResponseOnce(
-      JSON.stringify({ status: 'NO_RESPONSE_YET' }),
-      okInit
+  })
+
+  it('should redirect to authentication screen if push is received', () => {
+    const dashboardProps = props(CLAIM_OFFER_STATUS.IDLE)
+    const instance = renderer
+      .create(<DashboardScreen {...dashboardProps} />)
+      .getInstance()
+    const nextProps = {
+      ...dashboardProps,
+      pushNotification: {
+        notification: {
+          type: PUSH_NOTIFICATION_TYPE.AUTH,
+          authNotifMsgTitle: 'Test title',
+          authNotifMsgText: 'Test authentication request message',
+          logoUrl: 'https://logourl.com/logoUrl.png',
+          remoteConnectionId: '70075yyojywdppuje79',
+        },
+      },
+    }
+    instance.componentWillReceiveProps(nextProps)
+    const { notification } = nextProps.pushNotification
+    expect(nextProps.authenticationRequestReceived).toHaveBeenCalledWith(
+      expect.objectContaining({
+        offerMsgTitle: notification && notification.authNotifMsgTitle,
+        offerMsgText: notification && notification.authNotifMsgText,
+        statusCode: PUSH_NOTIFICATION_SENT_CODE,
+        logoUrl: notification && notification.logoUrl,
+        remoteConnectionId: notification && notification.remoteConnectionId,
+      })
     )
-
-    const component = renderer.create(<HomeScreenDrawer {...homeProps} />)
-    component.pushNotificationPermissionAction = true
-
-    let tree = component.toJSON()
-
-    setTimeout(() => {
-      expect(tree).toMatchSnapshot()
-      // expect that fetch is called twice, once for enrollUser and once for poll
-      expect(fetch.mock.calls.length).toBeGreaterThan(1)
-      // TODO:KS Add more expect statements to check for other functionalities
-    }, 5000)
+    expect(nextProps.navigation.navigate).toHaveBeenCalledWith(invitationRoute)
+    expect(nextProps.pushNotificationReceived).toHaveBeenCalledWith(null)
   })
 })

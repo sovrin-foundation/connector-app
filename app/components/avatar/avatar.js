@@ -18,6 +18,8 @@ export default class Avatar extends PureComponent {
       extraNode,
       onPress,
       testID,
+      onLoad,
+      onError,
     } = this.props
     const size = small ? 'small' : medium ? 'medium' : 'large'
 
@@ -46,6 +48,8 @@ export default class Avatar extends PureComponent {
             source={src}
             style={elementContentStyle}
             testID={`${testID}-image`}
+            onLoad={onLoad}
+            onError={onError}
           />
         </TouchableWithoutFeedback>
         {extraNode && extraNode}
