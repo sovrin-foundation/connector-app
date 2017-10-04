@@ -37,7 +37,8 @@ export default function handlePushNotification(
 
   if (
     notification.type === PUSH_NOTIFICATION_TYPE.CLAIM_OFFER &&
-    props.route.currentScreen === expectedScreen
+    props.route.currentScreen === expectedScreen &&
+    expectedScreen !== lockEnterPinRoute
   ) {
     // if we receive claim-offer push notification while we are on lock screen
     // we won't redirect user, because claim offer is supposed to open
@@ -48,8 +49,6 @@ export default function handlePushNotification(
     // claim offer will slide down and back view will be shown
     // we need to somehow handle all push notification and redirection related
     // stuff in our own navigator which will be built on top of StackNavigator
-    if (expectedScreen !== lockEnterPinRoute) {
-      props.navigation.navigate(claimOfferRoute)
-    }
+    props.navigation.navigate(claimOfferRoute)
   }
 }

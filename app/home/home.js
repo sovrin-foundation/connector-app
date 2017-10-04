@@ -11,13 +11,12 @@ import {
   authenticationRequestReceived,
   getConnections,
 } from '../store'
-import { homeRoute, claimOfferRoute } from '../common'
+import { homeTabRoute, claimOfferRoute } from '../common'
 import handlePushNotification from '../services/router'
 import { CLAIM_OFFER_STATUS } from '../claim-offer/type-claim-offer'
 
 export class DashboardScreen extends PureComponent {
   state = {
-    currentRoute: homeRoute,
     scrollY: new Animated.Value(0),
   }
 
@@ -28,7 +27,7 @@ export class DashboardScreen extends PureComponent {
         this.props.pushNotification.notification
     ) {
       const { notification } = nextProps.pushNotification
-      handlePushNotification(nextProps, notification, homeRoute)
+      handlePushNotification(nextProps, notification, homeTabRoute)
     }
   }
 

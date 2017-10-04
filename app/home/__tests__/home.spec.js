@@ -5,7 +5,7 @@ import renderer from 'react-test-renderer'
 import { CLAIM_OFFER_STATUS } from '../../claim-offer/type-claim-offer'
 import {
   claimOfferRoute,
-  homeRoute,
+  homeTabRoute,
   invitationRoute,
   PUSH_NOTIFICATION_TYPE,
   PUSH_NOTIFICATION_SENT_CODE,
@@ -30,7 +30,7 @@ function props(claimOfferStatus) {
     },
     claimOfferStatus: claimOfferStatus || CLAIM_OFFER_STATUS.RECEIVED,
     route: {
-      currentScreen: homeRoute,
+      currentScreen: homeTabRoute,
     },
     pushNotification: {
       notification: null,
@@ -88,5 +88,22 @@ describe('<DashboardScreen />', () => {
     )
     expect(nextProps.navigation.navigate).toHaveBeenCalledWith(invitationRoute)
     expect(nextProps.pushNotificationReceived).toHaveBeenCalledWith(null)
+  })
+
+  it('should redirect to claim offer screen if push is received', () => {
+    const dashboardProps = props(CLAIM_OFFER_STATUS.IDLE)
+    const instance = renderer
+      .create(<DashboardScreen {...dashboardProps} />)
+      .getInstance()
+    const nextProps = {
+      ...dashboardProps,
+      pushNotification: {
+        notification: {
+          type: PUSH_NOTIFICATION_TYPE.CLAIM_OFFER,
+        },
+      },
+    }
+    instance.componentWillReceiveProps(nextProps)
+    expect(nextProps.navigation.navigate).toHaveBeenCalledWith(claimOfferRoute)
   })
 })
