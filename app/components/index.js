@@ -24,3 +24,9 @@ export { default as QRScanner } from './qr-scanner/qr-scanner'
 export { default as TouchId } from './touch-id/touch-id'
 export { default as Request } from './request/request'
 export { default as PinCodeBox } from './pin-code/pin-code-box'
+export {
+  default as ImageColorPicker,
+} from './image-color-picker/image-color-picker'
+export {
+  default as ConnectionTheme,
+} from './image-color-picker/connection-theme'

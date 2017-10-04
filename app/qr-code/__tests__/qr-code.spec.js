@@ -20,12 +20,17 @@ describe('<QRScannerScreen />', () => {
       subscribe() {
         return jest.fn()
       },
+      dispatch() {
+        return jest.fn()
+      },
     }
   })
 
   it('should match snapshot', () => {
     const component = renderer.create(
-      <Provider store={store}><QRCodeScannerScreen /></Provider>
+      <Provider store={store}>
+        <QRCodeScannerScreen />
+      </Provider>
     )
     let tree = component.toJSON()
     expect(tree).toMatchSnapshot()

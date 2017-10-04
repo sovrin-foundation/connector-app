@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { StyleSheet, Platform, FlatList } from 'react-native'
+import { StyleSheet, Platform, FlatList, View } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
@@ -15,6 +15,8 @@ import {
   CustomButton,
   CustomText,
   Icon,
+  ImageColorPicker,
+  ConnectionTheme,
 } from '../components'
 import { homeRoute } from '../common/'
 import { OFFSET_2X, OFFSET_1X, color } from '../common/styles'
@@ -41,7 +43,7 @@ class ClaimOfferHeader extends PureComponent {
             iconStyle={[styles.headerCloseIcon]}
             style={[styles.headerCloseIconContainer]}
           />
-          <CustomView style={[styles.strip]} />
+          <ConnectionTheme style={[styles.strip]} />
           <Icon
             center
             halo
@@ -60,6 +62,7 @@ class ClaimOfferHeader extends PureComponent {
             {claimOffer.name}
           </CustomText>
         </CustomView>
+        <ImageColorPicker imageUrl={issuer.logoUrl} />
       </CustomView>
     )
   }
@@ -148,6 +151,8 @@ export class ClaimOffer extends PureComponent {
       payload.issuer &&
       payload.claimOffer.revealedAttributes
 
+    const { issuer: { logoUrl } }: ClaimOfferPayload = payload
+
     return (
       <Container fifth>
         {isValid && (
@@ -168,20 +173,14 @@ export class ClaimOffer extends PureComponent {
         )}
         <CustomView row>
           <Container>
-            <CustomButton
-              secondary
-              raised
-              title="Ignore"
-              onPress={this.onReject}
-            />
+            <ConnectionTheme shade="0.5 ">
+              <CustomButton raised title="Ignore" onPress={this.onReject} />
+            </ConnectionTheme>
           </Container>
           <Container>
-            <CustomButton
-              primary
-              raised
-              title="Accept"
-              onPress={this.onAccept}
-            />
+            <ConnectionTheme>
+              <CustomButton raised title="Accept" onPress={this.onAccept} />
+            </ConnectionTheme>
           </Container>
         </CustomView>
         {isValid && (

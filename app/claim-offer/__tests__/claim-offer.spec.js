@@ -2,10 +2,29 @@
 import React from 'react'
 import 'react-native'
 import renderer from 'react-test-renderer'
+import { Provider } from 'react-redux'
 import { ClaimOffer } from '../claim-offer'
 import { CLAIM_OFFER_STATUS, CLAIM_REQUEST_STATUS } from '../type-claim-offer'
+import { color } from '../../common/styles'
 
 describe('<ClaimOffer />', () => {
+  let store = {}
+  beforeAll(() => {
+    store = {
+      getState() {
+        return {
+          connections: { activeConnectionColor: color.actions.primaryRGB },
+        }
+      },
+      subscribe() {
+        return jest.fn()
+      },
+      dispatch() {
+        return jest.fn()
+      },
+    }
+  })
+
   let wrapper
   let claimOfferShown
   let acceptClaimOffer
@@ -13,6 +32,7 @@ describe('<ClaimOffer />', () => {
   let claimOfferIgnored
   let tree
   let navigation
+  let componentInstance
   const claimOffer = {
     status: CLAIM_OFFER_STATUS.RECEIVED,
     payload: {
@@ -47,16 +67,20 @@ describe('<ClaimOffer />', () => {
       goBack: jest.fn(),
     }
     wrapper = renderer.create(
-      <ClaimOffer
-        claimOffer={claimOffer}
-        claimOfferShown={claimOfferShown}
-        acceptClaimOffer={acceptClaimOffer}
-        claimOfferIgnored={claimOfferIgnored}
-        claimOfferRejected={claimOfferRejected}
-        navigation={navigation}
-      />
+      <Provider store={store}>
+        <ClaimOffer
+          claimOffer={claimOffer}
+          claimOfferShown={claimOfferShown}
+          acceptClaimOffer={acceptClaimOffer}
+          claimOfferIgnored={claimOfferIgnored}
+          claimOfferRejected={claimOfferRejected}
+          navigation={navigation}
+        />
+      </Provider>
     )
     tree = wrapper.toJSON()
+    componentInstance = wrapper.getInstance()._reactInternalInstance.child
+      .stateNode
   })
 
   it('should call claimOfferShown on componentDidMount', () => {
@@ -65,18 +89,18 @@ describe('<ClaimOffer />', () => {
   })
 
   it('should call acceptClaimOffer if offer is accepted', () => {
-    wrapper.getInstance().onAccept()
+    componentInstance.onAccept()
     expect(acceptClaimOffer).toHaveBeenCalled()
   })
 
   it('should call claimOfferIgnored if close button is pressed', () => {
-    wrapper.getInstance().onIgnore()
+    componentInstance.onIgnore()
     expect(claimOfferIgnored).toHaveBeenCalled()
     expect(navigation.goBack).toHaveBeenCalled()
   })
 
   it('should call claimOfferRejected if ignore button is pressed', () => {
-    wrapper.getInstance().onReject()
+    componentInstance.onReject()
     expect(claimOfferRejected).toHaveBeenCalled()
     expect(navigation.goBack).toHaveBeenCalled()
   })

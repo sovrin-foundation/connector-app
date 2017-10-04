@@ -2,10 +2,32 @@
 import React from 'react'
 import 'react-native'
 import renderer from 'react-test-renderer'
+import { Provider } from 'react-redux'
 import Request from '../request'
 import type { RequestProps, ResponseTypes } from '../type-request'
+import { color } from '../../../common/styles/constant'
 
 describe('<Request />', () => {
+  let store = {}
+  beforeAll(() => {
+    store = {
+      getState() {
+        return {
+          connections: { activeConnectionColor: color.actions.primaryRGB },
+        }
+      },
+      subscribe() {
+        return jest.fn()
+      },
+      dispatch() {
+        return jest.fn()
+      },
+    }
+  })
+
+  let request
+  let requestComponent
+  let tree
   const defaultProps: RequestProps = {
     title: 'Hi Test User',
     message: 'Enterprise A agent wants to connect with you',
@@ -13,19 +35,23 @@ describe('<Request />', () => {
     onAction: jest.fn(),
   }
 
+  beforeEach(() => {
+    // onAction = jest.fn()
+    request = renderer.create(
+      <Provider store={store}>
+        <Request {...defaultProps} onAction={defaultProps.onAction} />
+      </Provider>
+    )
+    tree = request.toJSON()
+    requestComponent = request.getInstance()._reactInternalInstance.child
+      .stateNode
+  })
+
   it('should match snapshot', () => {
-    const request = renderer
-      .create(<Request {...defaultProps} onAction={defaultProps.onAction} />)
-      .toJSON()
-    expect(request).toMatchSnapshot()
+    expect(tree).toMatchSnapshot()
   })
 
   it('bypass touch id and calls onAction with accepted', async () => {
-    const onAction = jest.fn()
-    const request = renderer.create(
-      <Request {...defaultProps} onAction={onAction} />
-    )
-    const requestComponent = request.getInstance()
     // click title four times to disable touch id
     requestComponent.onTitlePress()
     requestComponent.onTitlePress()
@@ -34,16 +60,11 @@ describe('<Request />', () => {
     // click on accept button
     await requestComponent.onAccept()
     // check if passed onAction is called
-    expect(onAction).toBeCalled()
-    expect(onAction).toHaveBeenCalledWith('accepted')
+    expect(defaultProps.onAction).toBeCalled()
+    expect(defaultProps.onAction).toHaveBeenCalledWith('accepted')
   })
 
   it('bypass touch id and calls onAction with rejected', async () => {
-    const onAction = jest.fn()
-    const request = renderer.create(
-      <Request {...defaultProps} onAction={onAction} />
-    )
-    const requestComponent = request.getInstance()
     // click title four times to disable touch id
     requestComponent.onTitlePress()
     requestComponent.onTitlePress()
@@ -52,19 +73,14 @@ describe('<Request />', () => {
     // click on accept button
     await requestComponent.onDecline()
     // check if passed onAction is called
-    expect(onAction).toBeCalled()
-    expect(onAction).toHaveBeenCalledWith('rejected')
+    expect(defaultProps.onAction).toBeCalled()
+    expect(defaultProps.onAction).toHaveBeenCalledWith('rejected')
   })
 
   it('TouchId and calls onAction if Allow/Deny button is pressed', async () => {
-    const onAction = jest.fn()
-    const request = renderer.create(
-      <Request {...defaultProps} onAction={onAction} />
-    )
-    const requestComponent = request.getInstance()
     const touchIdAuth = await requestComponent.onAccept()
     await touchIdAuth
-    expect(onAction).toBeCalled()
-    expect(onAction).toHaveBeenCalledWith('accepted')
+    expect(defaultProps.onAction).toBeCalled()
+    expect(defaultProps.onAction).toHaveBeenCalledWith('accepted')
   })
 })

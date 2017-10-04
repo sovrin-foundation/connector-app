@@ -18,11 +18,12 @@ import type {
   ClaimRequestStatus,
 } from './type-claim-offer'
 
-export default class ClaimRequestStatusModal extends PureComponent<
-  void,
-  ClaimRequestStatusModalProps,
-  ClaimRequestStatusModalState
-> {
+export default class ClaimRequestStatusModal
+  extends PureComponent<
+    void,
+    ClaimRequestStatusModalProps,
+    ClaimRequestStatusModalState
+  > {
   state = {
     isVisible: false,
   }
@@ -91,19 +92,17 @@ export default class ClaimRequestStatusModal extends PureComponent<
                 testID={'claim-request-avatars-invitee'}
               />
               {claimRequestStatus ===
-                CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST && (
+                CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST &&
                 <Image
                   style={styles.checkMark}
                   source={require('../images/connectArrows.png')}
-                />
-              )}
+                />}
               {claimRequestStatus ===
-                CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS && (
+                CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS &&
                 <Image
                   style={styles.checkMark}
                   source={require('../images/checkMark.png')}
-                />
-              )}
+                />}
               <Avatar
                 medium
                 shadow

@@ -21,6 +21,7 @@ export type RequestDetailProps = RequestDetailTextProps &
   RequestDetailAvatarProps
 
 export type RequestActionsProps = {
+  senderLogoUrl?: ?string,
   onAccept: () => any,
   onDecline: () => any,
 }

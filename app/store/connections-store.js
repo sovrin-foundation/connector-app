@@ -10,7 +10,9 @@ import {
 } from '../services'
 import { CONNECTIONS } from '../common'
 import { getAgencyUrl } from './store-selector'
+import { color } from '../common/styles/constant'
 
+const UPDATE_ACTIVE_CONNECTION_THEME = 'UPDATE_ACTIVE_CONNECTION_THEME'
 const NEW_CONNECTION = 'NEW_CONNECTION'
 const NEW_CONNECTION_SUCCESS = 'NEW_CONNECTION_SUCCESS'
 const NEW_CONNECTION_FAIL = 'NEW_CONNECTION_FAIL'
@@ -20,11 +22,17 @@ const initialState = {
   data: null,
   isFetching: false,
   isPristine: true,
+  activeConnectionColor: color.actions.primaryRGB,
   error: {
     code: '',
     message: '',
   },
 }
+
+export const updateActiveConnectionTheme = color => ({
+  type: UPDATE_ACTIVE_CONNECTION_THEME,
+  color,
+})
 
 export const saveNewConnection = connection => ({
   type: NEW_CONNECTION,
@@ -110,6 +118,13 @@ export const getConnectionLogo = logoUrl =>
 
 export default function connections(state = initialState, action) {
   switch (action.type) {
+    case UPDATE_ACTIVE_CONNECTION_THEME:
+      return {
+        ...state,
+        isFetching: false,
+        isPristine: false,
+        activeConnectionColor: action.color,
+      }
     case NEW_CONNECTION:
       return {
         ...state,

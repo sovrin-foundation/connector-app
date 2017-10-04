@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ConnectionTheme /> should render default shade theme properly 1`] = `
+<View
+  style={
+    Array [
+      Object {},
+      Object {
+        "backgroundColor": "rgba(133,191,67,1.0)",
+      },
+    ]
+  }
+/>
+`;

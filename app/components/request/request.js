@@ -71,7 +71,11 @@ export default class Request
           />
         </Container>
         <View>
-          <RequestActions onAccept={this.onAccept} onDecline={this.onDecline} />
+          <RequestActions
+            onAccept={this.onAccept}
+            onDecline={this.onDecline}
+            senderLogoUrl={this.props.senderLogoUrl}
+          />
         </View>
       </Container>
     )

@@ -1,4 +1,4 @@
-import React, { PureComponent, PropTypes } from 'react'
+import React, { PureComponent } from 'react'
 import { FlatList, Text, View, Image } from 'react-native'
 import Avatar from '../avatar/avatar'
 import { Container } from './container'

@@ -9,8 +9,10 @@ import SplashScreenView from './invitation/splash-screen'
 import { Settings } from './settings'
 import ExpiredTokenScreen from './expired-token/expired-token'
 import QRCodeScanner from './qr-code/qr-code'
-import QRConnectionRequestScreen from './qr-connection-request/qr-connection-request'
-import SMSConnectionRequestScreen from './sms-connection-request/sms-connection-request'
+import QRConnectionRequestScreen
+  from './qr-connection-request/qr-connection-request'
+import SMSConnectionRequestScreen
+  from './sms-connection-request/sms-connection-request'
 import LockSelectionScreen from './lock/lock-selection'
 import LockEnterPinScreen from './lock/lock-enter-pin-code'
 import LockPinCodeSetupScreen from './lock/lock-pin-code-setup'
@@ -49,11 +51,9 @@ const Tabs = TabNavigator(
       screen: HomeScreen,
       navigationOptions: {
         tabBarIcon: ({ focused }) => {
-          return focused ? (
-            <Icon src={require('./images/dashboard_large.png')} mediumLarge />
-          ) : (
-            <Icon src={require('./images/dashboard.png')} medium />
-          )
+          return focused
+            ? <Icon src={require('./images/dashboard_large.png')} mediumLarge />
+            : <Icon src={require('./images/dashboard.png')} medium />
         },
       },
     },
@@ -61,11 +61,9 @@ const Tabs = TabNavigator(
       screen: Settings,
       navigationOptions: {
         tabBarIcon: ({ focused }) => {
-          return focused ? (
-            <Icon src={require('./images/settings_large.png')} mediumLarge />
-          ) : (
-            <Icon src={require('./images/settings.png')} medium />
-          )
+          return focused
+            ? <Icon src={require('./images/settings_large.png')} mediumLarge />
+            : <Icon src={require('./images/settings.png')} medium />
         },
       },
     },
@@ -73,11 +71,9 @@ const Tabs = TabNavigator(
       screen: QRCodeScanner,
       navigationOptions: {
         tabBarIcon: ({ focused }) => {
-          return focused ? (
-            <Icon src={require('./images/addConnection.png')} mediumLarge />
-          ) : (
-            <Icon src={require('./images/addConnection.png')} medium />
-          )
+          return focused
+            ? <Icon src={require('./images/addConnection.png')} mediumLarge />
+            : <Icon src={require('./images/addConnection.png')} medium />
         },
       },
     },

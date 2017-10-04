@@ -91,3 +91,9 @@ global.fetch = fetch
 jest.mock('Modal', () => mockModal)
 
 jest.mock('react-native-modal', () => mockModal)
+
+jest.mock('react-native-fetch-blob', () => ({
+  fetch: jest.fn((type, url) => Promise.resolve()),
+}))
+
+jest.mock('WebView', () => 'WebView')

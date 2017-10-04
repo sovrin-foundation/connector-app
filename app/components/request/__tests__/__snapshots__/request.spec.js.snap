@@ -266,266 +266,350 @@ exports[`<Request /> should match snapshot 1`] = `
     </View>
   </View>
   <View>
-    <View
-      row={true}
-      style={
-        Object {
-          "flexDirection": "row",
-        }
-      }
-    >
+    <View>
       <View
+        row={true}
         style={
           Object {
-            "flex": 1,
+            "flexDirection": "row",
           }
         }
       >
         <View
-          accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
-          accessibilityTraits={undefined}
-          accessible={true}
-          hasTVPreferredFocus={undefined}
-          hitSlop={undefined}
-          isTVSelectable={true}
-          onLayout={undefined}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
-            Array [
-              Object {
-                "backgroundColor": "transparent",
-              },
-              undefined,
-            ]
+            Object {
+              "flex": 1,
+            }
           }
-          testID={undefined}
-          tvParallaxProperties={undefined}
         >
           <View
             style={
               Array [
+                Object {},
                 Object {
-                  "alignItems": "center",
-                  "backgroundColor": "#9E9E9E",
-                  "flexDirection": "row",
-                  "justifyContent": "center",
-                  "marginLeft": 15,
-                  "marginRight": 15,
-                  "padding": 19,
+                  "backgroundColor": "rgba(133,191,67,0.5)",
                 },
-                Object {
-                  "backgroundColor": "#8F0CE8",
-                },
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                Object {
-                  "backgroundColor": "#f79347",
-                },
-                undefined,
-                Object {
-                  "shadowColor": "rgba(0,0,0, .4)",
-                  "shadowOffset": Object {
-                    "height": 1,
-                    "width": 1,
-                  },
-                  "shadowOpacity": 1,
-                  "shadowRadius": 1,
-                },
-                Object {
-                  "padding": 12,
-                },
-                Array [
-                  Object {
-                    "marginLeft": 0,
-                    "marginRight": 0,
-                  },
-                  Object {
-                    "paddingVertical": 15,
-                  },
-                  null,
-                ],
-                undefined,
-                undefined,
               ]
             }
           >
-            <Text
+            <View
+              accessibilityComponentType={undefined}
+              accessibilityLabel={undefined}
+              accessibilityTraits={undefined}
               accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
+              hasTVPreferredFocus={undefined}
+              hitSlop={undefined}
+              isTVSelectable={true}
+              onLayout={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
               style={
                 Array [
-                  Object {},
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
                   undefined,
-                  undefined,
-                  undefined,
-                  undefined,
-                  undefined,
-                  undefined,
-                  undefined,
-                  undefined,
-                  undefined,
-                  Array [
-                    Object {
-                      "color": "white",
-                      "fontSize": 16,
-                    },
-                    Object {
-                      "color": "#ffffff",
-                    },
-                    Object {
-                      "fontSize": 14,
-                    },
-                    Object {
-                      "fontSize": 17,
-                    },
-                    undefined,
-                    Object {
-                      "fontWeight": "600",
-                    },
-                    undefined,
-                  ],
                 ]
               }
+              testID={undefined}
+              tvParallaxProperties={undefined}
             >
-              Deny
-            </Text>
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#9E9E9E",
+                      "flexDirection": "row",
+                      "justifyContent": "center",
+                      "marginLeft": 15,
+                      "marginRight": 15,
+                      "padding": 19,
+                    },
+                    Object {
+                      "backgroundColor": "#8F0CE8",
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    Object {
+                      "backgroundColor": "rgba(133,191,67,0.5)",
+                    },
+                    undefined,
+                    Object {
+                      "shadowColor": "rgba(0,0,0, .4)",
+                      "shadowOffset": Object {
+                        "height": 1,
+                        "width": 1,
+                      },
+                      "shadowOpacity": 1,
+                      "shadowRadius": 1,
+                    },
+                    Object {
+                      "padding": 12,
+                    },
+                    Array [
+                      Object {
+                        "marginLeft": 0,
+                        "marginRight": 0,
+                      },
+                      Object {
+                        "paddingVertical": 15,
+                      },
+                      null,
+                    ],
+                    undefined,
+                    undefined,
+                  ]
+                }
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {},
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      Array [
+                        Object {
+                          "color": "white",
+                          "fontSize": 16,
+                        },
+                        undefined,
+                        Object {
+                          "fontSize": 14,
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                      ],
+                    ]
+                  }
+                >
+                  Deny
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "flex": 1,
+            }
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {},
+                Object {
+                  "backgroundColor": "rgba(133,191,67,1.0)",
+                },
+              ]
+            }
+          >
+            <View
+              accessibilityComponentType={undefined}
+              accessibilityLabel={undefined}
+              accessibilityTraits={undefined}
+              accessible={true}
+              hasTVPreferredFocus={undefined}
+              hitSlop={undefined}
+              isTVSelectable={true}
+              onLayout={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
+                  undefined,
+                ]
+              }
+              testID={undefined}
+              tvParallaxProperties={undefined}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#9E9E9E",
+                      "flexDirection": "row",
+                      "justifyContent": "center",
+                      "marginLeft": 15,
+                      "marginRight": 15,
+                      "padding": 19,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    Object {
+                      "backgroundColor": "rgba(133,191,67,1.0)",
+                    },
+                    undefined,
+                    Object {
+                      "shadowColor": "rgba(0,0,0, .4)",
+                      "shadowOffset": Object {
+                        "height": 1,
+                        "width": 1,
+                      },
+                      "shadowOpacity": 1,
+                      "shadowRadius": 1,
+                    },
+                    Object {
+                      "padding": 12,
+                    },
+                    Array [
+                      Object {
+                        "marginLeft": 0,
+                        "marginRight": 0,
+                      },
+                      Object {
+                        "paddingVertical": 15,
+                      },
+                      null,
+                    ],
+                    undefined,
+                    undefined,
+                  ]
+                }
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {},
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      Array [
+                        Object {
+                          "color": "white",
+                          "fontSize": 16,
+                        },
+                        undefined,
+                        Object {
+                          "fontSize": 14,
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                      ],
+                    ]
+                  }
+                >
+                  Allow
+                </Text>
+              </View>
+            </View>
           </View>
         </View>
       </View>
-      <View
-        style={
+      <WebView
+        javaScriptEnabled={true}
+        onMessage={[Function]}
+        source={
           Object {
-            "flex": 1,
+            "html": "
+                  <!DOCTYPE html>
+                  <html>
+                  <script>
+                  function fetchColorFromCanvas(){
+                    var rgb = getAverageRGB(document.getElementById(\\"canvasImage\\"));
+                    var message = {\\"message\\":'rgbValues',\\"payload\\":rgb};
+                    window.postMessage(JSON.stringify(message));
+                  }
+          
+                  function getAverageRGB(imgEl) {
+                    var blockSize = 5;
+                    var defaultRGB = {r:0,g:0,b:0};
+                    var canvas = document.createElement(\\"canvas\\");
+                    var context = canvas.getContext && canvas.getContext(\\"2d\\");
+                    var data, width, height;
+                    var i = -4;
+                    var length;
+                    var rgb = {r:0,g:0,b:0};
+                    var count = 0;
+                    if (context == undefined || context == null) {
+                        return defaultRGB;
+                    }
+                    height = canvas.height = imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height;
+                    width = canvas.width = imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width;
+                    context.drawImage(imgEl, 0, 0);
+                    try {
+                        data = context.getImageData(width/3, width/3 + 10, width/3, width/3 + 10);
+                    } catch(e) {
+                        return defaultRGB;
+                    }
+          
+                    length = data.data.length;  
+                    while ( (i += blockSize * 4) < length ) {
+                        ++count;
+                        rgb.r += data.data[i];
+                        rgb.g += data.data[i+1];
+                        rgb.b += data.data[i+2];              
+                    }
+                    rgb.r = ~~(rgb.r/count);
+                    rgb.g = ~~(rgb.g/count);
+                    rgb.b = ~~(rgb.b/count);
+                    return rgb;
+                  }
+          
+                  const interval = setInterval(function() {
+                    var img = document.getElementById('canvasImage');
+                    if(img.src.length != 0) {
+                      fetchColorFromCanvas();
+                      clearInterval(interval);
+                    }
+                  },10);
+          
+                  </script>
+                  <body style='position: absolute; bottom: -1000px;'>
+                    <img src='data:image/jpeg;base64,' id='canvasImage' onload='fetchColorFromCanvas()'/>
+                  </body>
+                  </html>",
           }
         }
-      >
-        <View
-          accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
-          accessibilityTraits={undefined}
-          accessible={true}
-          hasTVPreferredFocus={undefined}
-          hitSlop={undefined}
-          isTVSelectable={true}
-          onLayout={undefined}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Array [
-              Object {
-                "backgroundColor": "transparent",
-              },
-              undefined,
-            ]
+        style={
+          Object {
+            "position": "absolute",
+            "right": -1000,
           }
-          testID={undefined}
-          tvParallaxProperties={undefined}
-        >
-          <View
-            style={
-              Array [
-                Object {
-                  "alignItems": "center",
-                  "backgroundColor": "#9E9E9E",
-                  "flexDirection": "row",
-                  "justifyContent": "center",
-                  "marginLeft": 15,
-                  "marginRight": 15,
-                  "padding": 19,
-                },
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                Object {
-                  "backgroundColor": "#F68127",
-                },
-                undefined,
-                Object {
-                  "shadowColor": "rgba(0,0,0, .4)",
-                  "shadowOffset": Object {
-                    "height": 1,
-                    "width": 1,
-                  },
-                  "shadowOpacity": 1,
-                  "shadowRadius": 1,
-                },
-                Object {
-                  "padding": 12,
-                },
-                Array [
-                  Object {
-                    "marginLeft": 0,
-                    "marginRight": 0,
-                  },
-                  Object {
-                    "paddingVertical": 15,
-                  },
-                  null,
-                ],
-                undefined,
-                undefined,
-              ]
-            }
-          >
-            <Text
-              accessible={true}
-              allowFontScaling={true}
-              ellipsizeMode="tail"
-              style={
-                Array [
-                  Object {},
-                  undefined,
-                  undefined,
-                  undefined,
-                  undefined,
-                  undefined,
-                  undefined,
-                  undefined,
-                  undefined,
-                  undefined,
-                  Array [
-                    Object {
-                      "color": "white",
-                      "fontSize": 16,
-                    },
-                    Object {
-                      "color": "#ffffff",
-                    },
-                    Object {
-                      "fontSize": 14,
-                    },
-                    Object {
-                      "fontSize": 17,
-                    },
-                    undefined,
-                    Object {
-                      "fontWeight": "600",
-                    },
-                    undefined,
-                  ],
-                ]
-              }
-            >
-              Allow
-            </Text>
-          </View>
-        </View>
-      </View>
+        }
+      />
     </View>
   </View>
 </View>

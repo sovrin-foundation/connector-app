@@ -7,11 +7,8 @@ import { OFFSET_1X } from '../../common/styles'
 import { noop } from '../../common'
 import type { RequestDetailTextProps } from './type-request'
 
-export default class RequestDetailText extends PureComponent<
-  void,
-  RequestDetailTextProps,
-  void
-> {
+export default class RequestDetailText
+  extends PureComponent<void, RequestDetailTextProps, void> {
   render() {
     return (
       <AnimatedView

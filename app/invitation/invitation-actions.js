@@ -4,7 +4,12 @@ import FCM from 'react-native-fcm'
 import TouchId from 'react-native-touch-id'
 import { connect } from 'react-redux'
 import { StyledButton } from '../styled-components/common-styled'
-import { Container, CustomButton } from '../components'
+import {
+  Container,
+  CustomButton,
+  ImageColorPicker,
+  ConnectionTheme,
+} from '../components'
 import { encode } from 'bs58'
 
 import { getKeyPairFromSeed, getSignature, captureError } from '../services'
@@ -117,29 +122,36 @@ export default class actions extends PureComponent {
     }
 
     return (
-      <View style={{ flexDirection: 'row' }}>
-        <Container>
-          <CustomButton
-            secondary
-            raised
-            title={DENY}
-            onPress={() => this.onUserResponse(INVITATION_STATUS.REJECTED)}
+      <View>
+        <View style={{ flexDirection: 'row' }}>
+          <Container>
+            <ConnectionTheme shade="0.5">
+              <CustomButton
+                secondary
+                raised
+                title={DENY}
+                onPress={() => this.onUserResponse(INVITATION_STATUS.REJECTED)}
+              />
+            </ConnectionTheme>
+
+          </Container>
+          <Container>
+            <ConnectionTheme>
+              <CustomButton
+                raised
+                title={ALLOW}
+                onPress={() => this.onUserResponse(INVITATION_STATUS.ACCEPTED)}
+              />
+            </ConnectionTheme>
+          </Container>
+          <ConnectionSuccessModal
+            isModalVisible={this.state.isModalVisible}
+            showConnectionSuccessModal={this._showConnectionSuccessModal}
+            name={name}
+            logoUrl={logoUrl}
           />
-        </Container>
-        <Container>
-          <CustomButton
-            primary
-            raised
-            title={ALLOW}
-            onPress={() => this.onUserResponse(INVITATION_STATUS.ACCEPTED)}
-          />
-        </Container>
-        <ConnectionSuccessModal
-          isModalVisible={this.state.isModalVisible}
-          showConnectionSuccessModal={this._showConnectionSuccessModal}
-          name={name}
-          logoUrl={logoUrl}
-        />
+        </View>
+        <ImageColorPicker imageUrl={logoUrl} />
       </View>
     )
   }

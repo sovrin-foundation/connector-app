@@ -6,6 +6,11 @@ export const nightRider = '#333333'
 export const grey = '#777777'
 export const whiteSmoke = '#f0f0f0'
 export const mantis = '#85bf43'
+const mantisRGB = {
+  r: 133,
+  g: 191,
+  b: 67,
+}
 export const white = '#ffffff'
 
 const sirocco = '#636564'
@@ -32,6 +37,7 @@ export const color = {
     fifth: white,
     dangerous: venetianRed,
     none: white,
+    primaryRGB: mantisRGB,
     font: {
       primary: white,
       secondary: white,
