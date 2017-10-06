@@ -11,8 +11,11 @@ import {
 import { DENY, ALLOW } from '../../common'
 import type { RequestActionsProps } from './type-request'
 
-export default class RequestActions
-  extends PureComponent<void, RequestActionsProps, void> {
+export default class RequestActions extends PureComponent<
+  void,
+  RequestActionsProps,
+  void
+> {
   render() {
     return (
       <View>

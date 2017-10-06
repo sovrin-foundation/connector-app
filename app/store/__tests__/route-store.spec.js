@@ -1,5 +1,5 @@
 import routeReducer, { handleRouteUpdate } from '../route-store'
-import { invitationRoute } from '../../common/route-constants'
+import { authenticationRoute } from '../../common/route-constants'
 
 describe('route should update properly', () => {
   let initialState = {}
@@ -9,11 +9,11 @@ describe('route should update properly', () => {
 
   it('should update current screen route', () => {
     const expectedState = {
-      currentScreen: invitationRoute,
+      currentScreen: authenticationRoute,
     }
     const actualState = routeReducer(
       initialState,
-      handleRouteUpdate(invitationRoute)
+      handleRouteUpdate(authenticationRoute)
     )
     expect(actualState).toMatchObject(expectedState)
   })

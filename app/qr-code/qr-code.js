@@ -12,9 +12,7 @@ import {
   QR_CODE_TARGET_NAME,
 } from '../common/api-constants'
 import { qrConnectionRequestRoute, qrCodeScannerTabRoute } from '../common/'
-import type {
-  QrConnectionPayload,
-} from '../qr-connection-request/type-qr-connection-request'
+import type { QrConnectionPayload } from '../qr-connection-request/type-qr-connection-request'
 import type { Store } from '../store/type-store'
 
 export class QRCodeScannerScreen extends PureComponent {
@@ -23,7 +21,9 @@ export class QRCodeScannerScreen extends PureComponent {
       const qrConnectionRequest = {
         payload: data,
         title: `Hi ${data.challenge[QR_CODE_TARGET_NAME]}`,
-        message: `${data.challenge[QR_CODE_SENDER_NAME]} wants to connect with you`,
+        message: `${data.challenge[
+          QR_CODE_SENDER_NAME
+        ]} wants to connect with you`,
       }
 
       this.props.qrConnectionRequestReceived(qrConnectionRequest)

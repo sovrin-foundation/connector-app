@@ -8,7 +8,9 @@ import pushNotification, {
 } from './push-notification-store'
 import connections, { watchNewConnection } from './connections-store'
 import config, { watchConfig } from './config-store'
-import invitation, { watchInvitation } from '../invitation/invitation-store'
+import authentication, {
+  watchAuthentication,
+} from '../authentication/authentication-store'
 import deepLink from '../deep-link/deep-link-store'
 import route from './route-store'
 import { watchAppHydration } from './hydration-store'
@@ -27,7 +29,7 @@ const appReducer = combineReducers({
   config,
   connections,
   deepLink,
-  invitation,
+  authentication,
   pushNotification,
   qrConnection,
   route,
@@ -53,7 +55,7 @@ sagaMiddleware.run(function*() {
     watchNewConnection(),
     watchUserInfo(),
     watchConfig(),
-    watchInvitation(),
+    watchAuthentication(),
     watchAppHydration(),
     watchQrConnection(),
     watchLock(),
@@ -69,7 +71,7 @@ export * from './connections-store'
 export * from './config-store'
 export * from './route-store'
 export * from './hydration-store'
-export * from '../invitation/invitation-store'
+export * from '../authentication/authentication-store'
 export * from '../deep-link/deep-link-store'
 export * from '../qr-connection-request/qr-connection-request-store'
 export * from '../lock/lock-store'

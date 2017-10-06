@@ -6,7 +6,7 @@ import { CLAIM_OFFER_STATUS } from '../../claim-offer/type-claim-offer'
 import {
   claimOfferRoute,
   homeTabRoute,
-  invitationRoute,
+  authenticationRoute,
   PUSH_NOTIFICATION_TYPE,
   PUSH_NOTIFICATION_SENT_CODE,
 } from '../../common'
@@ -86,7 +86,9 @@ describe('<DashboardScreen />', () => {
         remoteConnectionId: notification && notification.remoteConnectionId,
       })
     )
-    expect(nextProps.navigation.navigate).toHaveBeenCalledWith(invitationRoute)
+    expect(nextProps.navigation.navigate).toHaveBeenCalledWith(
+      authenticationRoute
+    )
     expect(nextProps.pushNotificationReceived).toHaveBeenCalledWith(null)
   })
 

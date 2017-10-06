@@ -1,11 +1,8 @@
 // @flow
-import type {
-  QrConnectionRequestStore,
-} from '../qr-connection-request/type-qr-connection-request'
+import type { QrConnectionRequestStore } from '../qr-connection-request/type-qr-connection-request'
 import type { LockStore } from '../lock/type-lock'
-import type {
-  SMSConnectionRequestStore,
-} from '../sms-connection-request/type-sms-connection-request'
+import type { SMSConnectionRequestStore } from '../sms-connection-request/type-sms-connection-request'
+import type { AuthenticationStore } from '../authentication/type-authentication'
 import type { ClaimOfferStore } from '../claim-offer/type-claim-offer'
 
 // TODO: Add type for each store here
@@ -22,10 +19,6 @@ export type PushNotificationStore = {
 }
 
 export type ConnectionStore = {
-  [string]: any,
-}
-
-export type InvitationStore = {
   [string]: any,
 }
 
@@ -53,7 +46,7 @@ export type Store = {
   config: ConfigStore,
   connections: ConnectionStore,
   deepLink: DeepLinkStore,
-  invitation: InvitationStore,
+  authentication: AuthenticationStore,
   pushNotification: PushNotificationStore,
   qrConnection: QrConnectionRequestStore,
   route: RouteStore,
@@ -62,3 +55,5 @@ export type Store = {
   smsConnection: SMSConnectionRequestStore,
   claimOffer: ClaimOfferStore,
 }
+
+export type { AuthenticationStore } from '../authentication/type-authentication'

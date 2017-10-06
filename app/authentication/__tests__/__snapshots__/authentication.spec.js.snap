@@ -1,0 +1,913 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AuthenticationScreen /> should match snapshot 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <View
+      fifth={true}
+      style={
+        Object {
+          "backgroundColor": "#ffffff",
+          "flex": 1,
+        }
+      }
+    >
+      <View
+        hCenter={true}
+        style={
+          Object {
+            "flex": 1,
+            "justifyContent": "center",
+          }
+        }
+        testID="invitation-text-container"
+        useNativeDriver={true}
+      >
+        <View
+          bottom={true}
+          style={
+            Object {
+              "flex": 1,
+              "justifyContent": "flex-end",
+            }
+          }
+          testID="invitation-text-message-container"
+        >
+          <Animatable.View
+            animation="bounceInDown"
+            delay={100}
+            duration={1500}
+            testID="invitation-text-container-animation"
+          >
+            <View
+              center={true}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "justifyContent": "center",
+                }
+              }
+              testID="invitation-text-container-message-title"
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                onPress={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "fontSize": 20,
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                      "color": "#777777",
+                    },
+                    Object {
+                      "fontWeight": "900",
+                    },
+                    Object {
+                      "textAlign": "center",
+                    },
+                    null,
+                    Object {
+                      "margin": 10,
+                    },
+                  ]
+                }
+                testID="invitation-text-container-title"
+              >
+                Hi There
+              </Text>
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                onPress={undefined}
+                style={
+                  Array [
+                    Object {
+                      "fontSize": 17,
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                      "color": "#777777",
+                    },
+                    Object {
+                      "fontWeight": "bold",
+                    },
+                    Object {
+                      "textAlign": "center",
+                    },
+                    null,
+                    Object {
+                      "margin": 10,
+                    },
+                  ]
+                }
+                testID="invitation-text-container-message"
+              >
+                Suncoast Credit Union (sandbox) wants to connect with you
+              </Text>
+            </View>
+          </Animatable.View>
+        </View>
+        <View
+          style={
+            Object {
+              "flex": 1,
+            }
+          }
+          testID="invitation-text-container-avatars"
+        >
+          <Animatable.View
+            animation="bounceInUp"
+            delay={300}
+            duration={1500}
+            testID="invitation-text-container-avatars-animation"
+          >
+            <View
+              hCenter={true}
+              spaceBetween={true}
+              style={
+                Object {
+                  "justifyContent": "space-between",
+                }
+              }
+            >
+              <View
+                row={true}
+                spaceBetween={true}
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "justifyContent": "space-between",
+                    "margin": 50,
+                  }
+                }
+                testID="invitation-text-avatars-container"
+                vCenter={true}
+              >
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderRadius": 38,
+                      "shadowColor": "rgba(0, 0, 0, 0.25)",
+                      "shadowOffset": Object {
+                        "height": 5,
+                        "width": 0,
+                      },
+                      "shadowOpacity": 1,
+                      "shadowRadius": 7,
+                    }
+                  }
+                  testID="invitation-text-avatars-invitee"
+                >
+                  <Image
+                    accessibilityComponentType={undefined}
+                    accessibilityLabel={undefined}
+                    accessibilityTraits={undefined}
+                    accessible={true}
+                    hitSlop={undefined}
+                    onError={undefined}
+                    onLayout={undefined}
+                    onLoad={undefined}
+                    onResponderGrant={[Function]}
+                    onResponderMove={[Function]}
+                    onResponderRelease={[Function]}
+                    onResponderTerminate={[Function]}
+                    onResponderTerminationRequest={[Function]}
+                    onStartShouldSetResponder={[Function]}
+                    source={1}
+                    style={
+                      Array [
+                        Object {
+                          "height": 76,
+                          "width": 76,
+                        },
+                        Object {
+                          "borderRadius": 38,
+                        },
+                      ]
+                    }
+                    testID={undefined}
+                  />
+                </View>
+                <Image
+                  source={1}
+                  style={
+                    Object {
+                      "height": 8,
+                      "width": 60,
+                    }
+                  }
+                />
+                <View
+                  style={
+                    Object {
+                      "backgroundColor": "transparent",
+                      "borderRadius": 38,
+                      "shadowColor": "rgba(0, 0, 0, 0.25)",
+                      "shadowOffset": Object {
+                        "height": 5,
+                        "width": 0,
+                      },
+                      "shadowOpacity": 1,
+                      "shadowRadius": 7,
+                    }
+                  }
+                  testID="invitation-text-avatars-inviter"
+                >
+                  <Image
+                    accessibilityComponentType={undefined}
+                    accessibilityLabel={undefined}
+                    accessibilityTraits={undefined}
+                    accessible={true}
+                    hitSlop={undefined}
+                    onError={undefined}
+                    onLayout={undefined}
+                    onLoad={undefined}
+                    onResponderGrant={[Function]}
+                    onResponderMove={[Function]}
+                    onResponderRelease={[Function]}
+                    onResponderTerminate={[Function]}
+                    onResponderTerminationRequest={[Function]}
+                    onStartShouldSetResponder={[Function]}
+                    source={1}
+                    style={
+                      Array [
+                        Object {
+                          "height": 76,
+                          "width": 76,
+                        },
+                        Object {
+                          "borderRadius": 38,
+                        },
+                      ]
+                    }
+                    testID={undefined}
+                  />
+                </View>
+              </View>
+            </View>
+          </Animatable.View>
+        </View>
+      </View>
+    </View>
+    <View>
+      <View>
+        <View
+          row={true}
+          style={
+            Object {
+              "flexDirection": "row",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "flex": 1,
+              }
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {},
+                  Object {
+                    "backgroundColor": "rgba(133,191,67,0.5)",
+                  },
+                ]
+              }
+            >
+              <View
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
+                accessible={true}
+                hasTVPreferredFocus={undefined}
+                hitSlop={undefined}
+                isTVSelectable={true}
+                onLayout={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    undefined,
+                  ]
+                }
+                testID={undefined}
+                tvParallaxProperties={undefined}
+              >
+                <View
+                  style={
+                    Array [
+                      Object {
+                        "alignItems": "center",
+                        "backgroundColor": "#9E9E9E",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "marginLeft": 15,
+                        "marginRight": 15,
+                        "padding": 19,
+                      },
+                      Object {
+                        "backgroundColor": "#8F0CE8",
+                      },
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      Object {
+                        "backgroundColor": "rgba(133,191,67,0.5)",
+                      },
+                      undefined,
+                      Object {
+                        "shadowColor": "rgba(0,0,0, .4)",
+                        "shadowOffset": Object {
+                          "height": 1,
+                          "width": 1,
+                        },
+                        "shadowOpacity": 1,
+                        "shadowRadius": 1,
+                      },
+                      Object {
+                        "padding": 12,
+                      },
+                      Array [
+                        Object {
+                          "marginLeft": 0,
+                          "marginRight": 0,
+                        },
+                        Object {
+                          "paddingVertical": 15,
+                        },
+                        null,
+                      ],
+                      undefined,
+                      undefined,
+                    ]
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "white",
+                            "fontSize": 16,
+                          },
+                          undefined,
+                          Object {
+                            "fontSize": 14,
+                          },
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Deny
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "flex": 1,
+              }
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {},
+                  Object {
+                    "backgroundColor": "rgba(133,191,67,1.0)",
+                  },
+                ]
+              }
+            >
+              <View
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
+                accessible={true}
+                hasTVPreferredFocus={undefined}
+                hitSlop={undefined}
+                isTVSelectable={true}
+                onLayout={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    undefined,
+                  ]
+                }
+                testID={undefined}
+                tvParallaxProperties={undefined}
+              >
+                <View
+                  style={
+                    Array [
+                      Object {
+                        "alignItems": "center",
+                        "backgroundColor": "#9E9E9E",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "marginLeft": 15,
+                        "marginRight": 15,
+                        "padding": 19,
+                      },
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      Object {
+                        "backgroundColor": "rgba(133,191,67,1.0)",
+                      },
+                      undefined,
+                      Object {
+                        "shadowColor": "rgba(0,0,0, .4)",
+                        "shadowOffset": Object {
+                          "height": 1,
+                          "width": 1,
+                        },
+                        "shadowOpacity": 1,
+                        "shadowRadius": 1,
+                      },
+                      Object {
+                        "padding": 12,
+                      },
+                      Array [
+                        Object {
+                          "marginLeft": 0,
+                          "marginRight": 0,
+                        },
+                        Object {
+                          "paddingVertical": 15,
+                        },
+                        null,
+                      ],
+                      undefined,
+                      undefined,
+                    ]
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "white",
+                            "fontSize": 16,
+                          },
+                          undefined,
+                          Object {
+                            "fontSize": 14,
+                          },
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Allow
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <WebView
+          javaScriptEnabled={true}
+          onMessage={[Function]}
+          source={
+            Object {
+              "html": "
+                    <!DOCTYPE html>
+                    <html>
+                    <script>
+                    function fetchColorFromCanvas(){
+                      var rgb = getAverageRGB(document.getElementById(\\"canvasImage\\"));
+                      var message = {\\"message\\":'rgbValues',\\"payload\\":rgb};
+                      window.postMessage(JSON.stringify(message));
+                    }
+            
+                    function getAverageRGB(imgEl) {
+                      var blockSize = 5;
+                      var defaultRGB = {r:0,g:0,b:0};
+                      var canvas = document.createElement(\\"canvas\\");
+                      var context = canvas.getContext && canvas.getContext(\\"2d\\");
+                      var data, width, height;
+                      var i = -4;
+                      var length;
+                      var rgb = {r:0,g:0,b:0};
+                      var count = 0;
+                      if (context == undefined || context == null) {
+                          return defaultRGB;
+                      }
+                      height = canvas.height = imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height;
+                      width = canvas.width = imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width;
+                      context.drawImage(imgEl, 0, 0);
+                      try {
+                          data = context.getImageData(width/3, width/3 + 10, width/3, width/3 + 10);
+                      } catch(e) {
+                          return defaultRGB;
+                      }
+            
+                      length = data.data.length;  
+                      while ( (i += blockSize * 4) < length ) {
+                          ++count;
+                          rgb.r += data.data[i];
+                          rgb.g += data.data[i+1];
+                          rgb.b += data.data[i+2];              
+                      }
+                      rgb.r = ~~(rgb.r/count);
+                      rgb.g = ~~(rgb.g/count);
+                      rgb.b = ~~(rgb.b/count);
+                      return rgb;
+                    }
+            
+                    const interval = setInterval(function() {
+                      var img = document.getElementById('canvasImage');
+                      if(img.src.length != 0) {
+                        fetchColorFromCanvas();
+                        clearInterval(interval);
+                      }
+                    },10);
+            
+                    </script>
+                    <body style='position: absolute; bottom: -1000px;'>
+                      <img src='data:image/jpeg;base64,' id='canvasImage' onload='fetchColorFromCanvas()'/>
+                    </body>
+                    </html>",
+            }
+          }
+          style={
+            Object {
+              "position": "absolute",
+              "right": -1000,
+            }
+          }
+        />
+      </View>
+    </View>
+  </View>
+  <Modal
+    backdropColor="#f0f0f0"
+    backdropOpacity={1}
+    isVisible={false}
+  >
+    <View
+      fifth={true}
+      shadow={true}
+      style={
+        Object {
+          "backgroundColor": "#ffffff",
+          "marginHorizontal": 10,
+          "shadowColor": "rgba(0, 0, 0, 0.25)",
+          "shadowOffset": Object {
+            "height": 5,
+            "width": 0,
+          },
+          "shadowOpacity": 1,
+          "shadowRadius": 7,
+        }
+      }
+    >
+      <View
+        hCenter={true}
+        style={
+          Object {
+            "borderBottomColor": "#3f3f3f",
+            "borderBottomWidth": NaN,
+            "justifyContent": "center",
+            "paddingVertical": 10,
+          }
+        }
+      >
+        <View
+          row={true}
+          spaceBetween={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "space-between",
+              "marginHorizontal": 20,
+              "marginVertical": 10,
+            }
+          }
+          testID="invitation-text-avatars-container"
+          vCenter={true}
+        >
+          <View
+            style={
+              Object {
+                "backgroundColor": "transparent",
+                "borderRadius": 38,
+                "shadowColor": "rgba(0, 0, 0, 0.25)",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 0,
+                },
+                "shadowOpacity": 1,
+                "shadowRadius": 7,
+              }
+            }
+            testID="invitation-text-avatars-invitee"
+          >
+            <Image
+              accessibilityComponentType={undefined}
+              accessibilityLabel={undefined}
+              accessibilityTraits={undefined}
+              accessible={true}
+              hitSlop={undefined}
+              onError={undefined}
+              onLayout={undefined}
+              onLoad={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              source={1}
+              style={
+                Array [
+                  Object {
+                    "height": 76,
+                    "width": 76,
+                  },
+                  Object {
+                    "borderRadius": 38,
+                  },
+                ]
+              }
+              testID={undefined}
+            />
+          </View>
+          <Image
+            source={1}
+            style={
+              Object {
+                "height": 22,
+                "width": 30,
+              }
+            }
+          />
+          <View
+            style={
+              Object {
+                "backgroundColor": "transparent",
+                "borderRadius": 38,
+                "shadowColor": "rgba(0, 0, 0, 0.25)",
+                "shadowOffset": Object {
+                  "height": 5,
+                  "width": 0,
+                },
+                "shadowOpacity": 1,
+                "shadowRadius": 7,
+              }
+            }
+            testID="invitation-text-avatars-inviter"
+          >
+            <Image
+              accessibilityComponentType={undefined}
+              accessibilityLabel={undefined}
+              accessibilityTraits={undefined}
+              accessible={true}
+              hitSlop={undefined}
+              onError={undefined}
+              onLayout={undefined}
+              onLoad={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              source={1}
+              style={
+                Array [
+                  Object {
+                    "height": 76,
+                    "width": 76,
+                  },
+                  Object {
+                    "borderRadius": 38,
+                  },
+                ]
+              }
+              testID={undefined}
+            />
+          </View>
+        </View>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          onPress={undefined}
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "backgroundColor": "#ffffff",
+                "color": "#777777",
+              },
+              Object {
+                "fontWeight": "500",
+              },
+              Object {
+                "textAlign": "center",
+              },
+              null,
+              Object {
+                "color": "#686868",
+                "margin": 10,
+              },
+            ]
+          }
+          testID="modal-body"
+        >
+          You are now connected to 
+          Evernym
+          !
+        </Text>
+      </View>
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+            },
+            undefined,
+          ]
+        }
+        testID={undefined}
+        tvParallaxProperties={undefined}
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#9E9E9E",
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "marginLeft": 15,
+                "marginRight": 15,
+                "padding": 19,
+              },
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              Object {
+                "backgroundColor": "#ffffff",
+              },
+              undefined,
+              undefined,
+              Object {
+                "padding": 12,
+              },
+              Array [
+                Object {
+                  "marginLeft": 0,
+                  "marginRight": 0,
+                },
+                null,
+                null,
+              ],
+              undefined,
+              undefined,
+            ]
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {},
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                Array [
+                  Object {
+                    "color": "white",
+                    "fontSize": 16,
+                  },
+                  Object {
+                    "color": "#85bf43",
+                  },
+                  Object {
+                    "fontSize": 14,
+                  },
+                  Object {
+                    "fontSize": 17,
+                  },
+                  undefined,
+                  Object {
+                    "fontWeight": "600",
+                  },
+                  undefined,
+                ],
+              ]
+            }
+          >
+            Continue
+          </Text>
+        </View>
+      </View>
+    </View>
+  </Modal>
+</View>
+`;

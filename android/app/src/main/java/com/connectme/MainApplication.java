@@ -3,6 +3,7 @@ package com.connectme;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.horcrux.svg.SvgPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import io.sentry.RNSentryPackage;
@@ -40,6 +41,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new SvgPackage(),
             new RNFetchBlobPackage(),
             new RCTCameraPackage(),
             new RNSentryPackage(MainApplication.this),

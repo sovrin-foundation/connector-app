@@ -43,6 +43,7 @@ export default class ConnectionSuccessModal extends PureComponent {
             />
             <Avatar
               medium
+              shadow
               src={connectionAvatar}
               testID={'invitation-text-avatars-inviter'}
             />

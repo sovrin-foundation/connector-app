@@ -19,8 +19,8 @@ const Icon = props => {
   const size = small
     ? 'small'
     : medium
-        ? 'medium'
-        : extraLarge ? 'extraLarge' : mediumLarge ? 'mediumLarge' : 'large'
+      ? 'medium'
+      : extraLarge ? 'extraLarge' : mediumLarge ? 'mediumLarge' : 'large'
 
   const iconImage = (
     <Image

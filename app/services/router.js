@@ -4,7 +4,7 @@ import {
   PUSH_NOTIFICATION_TYPE,
   lockEnterPinRoute,
   claimOfferRoute,
-  invitationRoute,
+  authenticationRoute,
 } from '../common'
 import { CLAIM_OFFER_STATUS } from '../claim-offer/type-claim-offer'
 
@@ -27,9 +27,9 @@ export default function handlePushNotification(
         remoteConnectionId: notification.remoteConnectionId || null,
       })
       if (!isAppLocked) {
-        props.navigation.navigate(invitationRoute)
+        props.navigation.navigate(authenticationRoute)
       } else {
-        pendingRedirectAction && pendingRedirectAction(invitationRoute)
+        pendingRedirectAction && pendingRedirectAction(authenticationRoute)
       }
       props.pushNotificationReceived(null)
     }

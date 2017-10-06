@@ -9,8 +9,11 @@ import RequestActions from './request-actions'
 import type { RequestProps, RequestState, ResponseTypes } from './type-request'
 import { captureError } from '../../services'
 
-export default class Request
-  extends PureComponent<void, RequestProps, RequestState> {
+export default class Request extends PureComponent<
+  void,
+  RequestProps,
+  RequestState
+> {
   state = {
     tapCount: 0,
   }

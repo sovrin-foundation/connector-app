@@ -120,9 +120,10 @@ export class CameraMarker extends PureComponent {
 export class CornerBox extends PureComponent {
   render() {
     const { status } = this.props
-    const borderStyle = status === SCAN_STATUS.SUCCESS
-      ? cameraMarkerStyles.borderSuccess
-      : status === SCAN_STATUS.FAIL
+    const borderStyle =
+      status === SCAN_STATUS.SUCCESS
+        ? cameraMarkerStyles.borderSuccess
+        : status === SCAN_STATUS.FAIL
           ? cameraMarkerStyles.borderFail
           : cameraMarkerStyles.border
 

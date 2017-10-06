@@ -7,14 +7,8 @@ import styles from './layout-style'
 
 const Item = ({ item: { left, right }, itemStyle }) => (
   <Container vCenter row style={[styles.listItem]}>
-    {left &&
-      <Container left>
-        {left}
-      </Container>}
-    {right &&
-      <CustomView right>
-        {right}
-      </CustomView>}
+    {left && <Container left>{left}</Container>}
+    {right && <CustomView right>{right}</CustomView>}
   </Container>
 )
 
@@ -25,9 +19,5 @@ export default function CustomList(props) {
     <Item key={item.id} item={item} itemStyle={style.itemStyle} />
   ))
 
-  return (
-    <View style={[styles.list, style.listStyle]}>
-      {itemList}
-    </View>
-  )
+  return <View style={[styles.list, style.listStyle]}>{itemList}</View>
 }

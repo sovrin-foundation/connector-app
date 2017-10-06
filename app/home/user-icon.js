@@ -18,7 +18,7 @@ export default props => (
       <Icon
         onPress={props.changeServerEnvironmentToSandbox}
         iconStyle={[styles.iconStyle, styles.iconStyleAdd]}
-        src={require('../invitation/images/icon_addConnection.jpg')}
+        src={require('../images/icon_addConnection.jpg')}
       />
     </Container>
   </Container>

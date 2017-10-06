@@ -14,7 +14,7 @@ import type {
 import { homeRoute, QR_CODE_SENDER_NAME } from '../common'
 import { ResponseType } from '../components/request/type-request'
 import { sendQrConnectionResponse } from './qr-connection-request-store'
-import ConnectionSuccessModal from '../invitation/connection-success-modal'
+import ConnectionSuccessModal from '../authentication/connection-success-modal'
 
 export class QRConnectionRequest
   extends PureComponent<

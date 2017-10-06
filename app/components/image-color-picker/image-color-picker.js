@@ -10,8 +10,11 @@ import type { ImagePickerProps, ImagePickerStates } from './type-color-picker'
 import { color } from '../../common/styles/constant'
 import { captureError } from '../../services'
 
-export class ImageColorPicker
-  extends PureComponent<void, ImagePickerProps, ImagePickerStates> {
+export class ImageColorPicker extends PureComponent<
+  void,
+  ImagePickerProps,
+  ImagePickerStates
+> {
   state = {
     imageBlob: '',
     imageColor: color.actions.primaryRGB,
@@ -104,7 +107,8 @@ export class ImageColorPicker
 
         </script>
         <body style='position: absolute; bottom: -1000px;'>
-          <img src='data:image/${imageType};base64,${this.state.imageBlob}' id='canvasImage' onload='fetchColorFromCanvas()'/>
+          <img src='data:image/${imageType};base64,${this.state
+      .imageBlob}' id='canvasImage' onload='fetchColorFromCanvas()'/>
         </body>
         </html>`
 

@@ -79,14 +79,14 @@ class SplashScreenView extends PureComponent {
       )
     }
 
-    // check if invitation are the only props that are changed
-    if (nextProps.invitation !== this.props.invitation) {
-      if (nextProps.invitation.error) {
+    // check if authentication are the only props that are changed
+    if (nextProps.authentication !== this.props.authentication) {
+      if (nextProps.authentication.error) {
         SplashScreen.hide()
 
         if (
-          nextProps.invitation.error.statusCode &&
-          nextProps.invitation.error.statusCode === TOKEN_EXPIRED_CODE
+          nextProps.authentication.error.statusCode &&
+          nextProps.authentication.error.statusCode === TOKEN_EXPIRED_CODE
         ) {
           if (nextProps.lock.isAppLocked === false) {
             this.props.navigation.navigate(expiredTokenRoute)
@@ -103,24 +103,25 @@ class SplashScreenView extends PureComponent {
         }
       }
 
-      if (nextProps.invitation.data) {
-        // for invitation data
+      if (nextProps.authentication.data) {
+        // for authentication data
         // dont redirect manually let it resolve by default
         if (
-          nextProps.invitation.data.statusCode &&
-          nextProps.invitation.data.statusCode === PUSH_NOTIFICATION_SENT_CODE
+          nextProps.authentication.data.statusCode &&
+          nextProps.authentication.data.statusCode ===
+            PUSH_NOTIFICATION_SENT_CODE
         ) {
           return
         }
 
-        // todo: separate connection-request store from invitation store
+        // todo: separate connection-request store from authentication store
         // handle redirection when coming from deep-link
         if (
-          this.props.invitation.data &&
-          nextProps.invitation.data.statusCode ===
+          this.props.authentication.data &&
+          nextProps.authentication.data.statusCode ===
             PENDING_CONNECTION_REQUEST_CODE &&
-          this.props.invitation.data.statusCode ===
-            nextProps.invitation.data.statusCode
+          this.props.authentication.data.statusCode ===
+            nextProps.authentication.data.statusCode
         ) {
           return
         }
@@ -195,7 +196,7 @@ class SplashScreenView extends PureComponent {
 }
 
 const mapStateToProps = ({
-  invitation,
+  authentication,
   config,
   deepLink,
   pushNotification,
@@ -203,7 +204,7 @@ const mapStateToProps = ({
   lock,
   smsConnection,
 }) => ({
-  invitation,
+  authentication,
   config,
   deepLink,
   pushNotification,
