@@ -104,7 +104,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               },
             ],
             Object {
-              "backgroundColor": "rgba(133,191,67,1.0)",
+              "backgroundColor": "rgba(133, 191, 67, 1.0)",
             },
           ]
         }
@@ -587,14 +587,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
       }
     >
       <View
-        style={
-          Array [
-            Object {},
-            Object {
-              "backgroundColor": "rgba(133,191,67,0.5 )",
-            },
-          ]
-        }
+        style={Object {}}
       >
         <View
           accessibilityComponentType={undefined}
@@ -640,7 +633,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 undefined,
                 undefined,
                 Object {
-                  "backgroundColor": "rgba(133,191,67,0.5 )",
+                  "backgroundColor": "rgba(133, 191, 67, 0.5)",
                 },
                 undefined,
                 Object {
@@ -715,14 +708,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
       }
     >
       <View
-        style={
-          Array [
-            Object {},
-            Object {
-              "backgroundColor": "rgba(133,191,67,1.0)",
-            },
-          ]
-        }
+        style={Object {}}
       >
         <View
           accessibilityComponentType={undefined}
@@ -768,7 +754,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 undefined,
                 undefined,
                 Object {
-                  "backgroundColor": "rgba(133,191,67,1.0)",
+                  "backgroundColor": "rgba(133, 191, 67, 1.0)",
                 },
                 undefined,
                 Object {

@@ -8,7 +8,6 @@ import { encode } from 'bs58'
 
 import { getKeyPairFromSeed, getSignature, captureError } from '../services'
 import FCM from 'react-native-fcm'
-import TouchId from 'react-native-touch-id'
 import {
   connectionRoute,
   homeRoute,

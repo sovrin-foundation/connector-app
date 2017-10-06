@@ -286,14 +286,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
             }
           >
             <View
-              style={
-                Array [
-                  Object {},
-                  Object {
-                    "backgroundColor": "rgba(133,191,67,0.5)",
-                  },
-                ]
-              }
+              style={Object {}}
             >
               <View
                 accessibilityComponentType={undefined}
@@ -341,7 +334,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                       undefined,
                       undefined,
                       Object {
-                        "backgroundColor": "rgba(133,191,67,0.5)",
+                        "backgroundColor": "rgba(133, 191, 67, 0.5)",
                       },
                       undefined,
                       Object {
@@ -418,14 +411,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
             }
           >
             <View
-              style={
-                Array [
-                  Object {},
-                  Object {
-                    "backgroundColor": "rgba(133,191,67,1.0)",
-                  },
-                ]
-              }
+              style={Object {}}
             >
               <View
                 accessibilityComponentType={undefined}
@@ -471,7 +457,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                       undefined,
                       undefined,
                       Object {
-                        "backgroundColor": "rgba(133,191,67,1.0)",
+                        "backgroundColor": "rgba(133, 191, 67, 1.0)",
                       },
                       undefined,
                       Object {

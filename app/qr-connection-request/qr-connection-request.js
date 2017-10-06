@@ -16,12 +16,11 @@ import { ResponseType } from '../components/request/type-request'
 import { sendQrConnectionResponse } from './qr-connection-request-store'
 import ConnectionSuccessModal from '../authentication/connection-success-modal'
 
-export class QRConnectionRequest
-  extends PureComponent<
-    void,
-    QrConnectionRequestProps,
-    QrConnectionRequestState
-  > {
+export class QRConnectionRequest extends PureComponent<
+  void,
+  QrConnectionRequestProps,
+  QrConnectionRequestState
+> {
   state = {
     isSuccessModalVisible: false,
   }

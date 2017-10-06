@@ -21,7 +21,7 @@ export default class RequestActions extends PureComponent<
       <View>
         <CustomView row>
           <Container>
-            <ConnectionTheme shade="0.5">
+            <ConnectionTheme logoUrl={this.props.senderLogoUrl} secondary>
               <CustomButton
                 secondary
                 raised
@@ -32,7 +32,7 @@ export default class RequestActions extends PureComponent<
             </ConnectionTheme>
           </Container>
           <Container>
-            <ConnectionTheme>
+            <ConnectionTheme logoUrl={this.props.senderLogoUrl}>
               <CustomButton
                 primary
                 raised

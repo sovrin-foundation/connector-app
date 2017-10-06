@@ -13,7 +13,14 @@ describe('<ClaimOffer />', () => {
     store = {
       getState() {
         return {
-          connections: { activeConnectionColor: color.actions.primaryRGB },
+          connections: {
+            connectionThemes: {
+              default: {
+                primary: `rgba(${color.actions.button.primary.rgba})`,
+                secondary: `rgba(${color.actions.button.secondary.rgba})`,
+              },
+            },
+          },
         }
       },
       subscribe() {

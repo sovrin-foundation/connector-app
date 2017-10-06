@@ -1,24 +1,24 @@
 // @flow
-type ColorType = {
-  r: number,
-  g: number,
-  b: number,
+
+export type ConnectionTheme = {
+  primary: string,
+  secondary: string,
 }
 
 export type ImagePickerProps = {
   imageType: string,
   imageUrl: string,
-  updateActiveConnectionTheme: (color: ColorType) => void,
+  updateConnectionTheme: (logoUrl: string, color: string) => void,
 }
 
 export type ImagePickerStates = {
   imageBlob: string,
-  imageColor: ColorType,
 }
 
 export type ConnectionThemeProps = {
-  shade: string,
-  activeConnectionColor: ColorType,
+  logoUrl: string,
+  secondary: string,
+  connectionTheme: ConnectionTheme,
   children: any, //TODO:PS: import exact react children types
   backgroundColor: string,
   style: any,

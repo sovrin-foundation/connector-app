@@ -5,7 +5,7 @@ import RNFetchBlob from 'react-native-fetch-blob'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { updateActiveConnectionTheme } from '../../store'
+import { updateConnectionTheme } from '../../store'
 import type { ImagePickerProps, ImagePickerStates } from './type-color-picker'
 import { color } from '../../common/styles/constant'
 import { captureError } from '../../services'
@@ -17,7 +17,6 @@ export class ImageColorPicker extends PureComponent<
 > {
   state = {
     imageBlob: '',
-    imageColor: color.actions.primaryRGB,
   }
 
   getImage = async (imageUrl: string) => {
@@ -38,13 +37,19 @@ export class ImageColorPicker extends PureComponent<
   onBridgeMessage = (message: any) => {
     let payload = JSON.parse(message.nativeEvent.data)
     if (payload.message === 'rgbValues' && this.state.imageBlob) {
-      let imageColor = {
-        r: payload.payload.r,
-        g: payload.payload.g,
-        b: payload.payload.b,
-      }
-      this.setState({ imageColor })
-      this.props.updateActiveConnectionTheme(imageColor)
+      const imageColor = Object.values(payload.payload).join(',')
+      const primaryColor = `rgba(${imageColor +
+        ',' +
+        color.actions.button.primary.shade})`
+      const secondaryColor = `rgba(${imageColor +
+        ',' +
+        color.actions.button.secondary.shade})`
+
+      this.props.updateConnectionTheme(
+        this.props.imageUrl,
+        primaryColor,
+        secondaryColor
+      )
     }
   }
 
@@ -126,7 +131,7 @@ export class ImageColorPicker extends PureComponent<
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      updateActiveConnectionTheme,
+      updateConnectionTheme,
     },
     dispatch
   )

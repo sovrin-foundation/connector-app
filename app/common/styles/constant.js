@@ -6,11 +6,7 @@ export const nightRider = '#333333'
 export const grey = '#777777'
 export const whiteSmoke = '#f0f0f0'
 export const mantis = '#85bf43'
-const mantisRGB = {
-  r: 133,
-  g: 191,
-  b: 67,
-}
+const mantisRGB = '133, 191, 67'
 export const white = '#ffffff'
 
 const sirocco = '#636564'
@@ -28,6 +24,10 @@ const seaBuckthorn = '#f79347'
 const pumpkin = '#F68127'
 const olivine = '#97C85F'
 
+// color shades
+const primaryShade = '1.0'
+const secondaryShade = '0.5'
+
 export const color = {
   actions: {
     primary: pumpkin,
@@ -37,7 +37,16 @@ export const color = {
     fifth: white,
     dangerous: venetianRed,
     none: white,
-    primaryRGB: mantisRGB,
+    button: {
+      primary: {
+        rgba: mantisRGB + ', ' + primaryShade,
+        shade: primaryShade,
+      },
+      secondary: {
+        rgba: mantisRGB + ', ' + secondaryShade,
+        shade: secondaryShade,
+      },
+    },
     font: {
       primary: white,
       secondary: white,

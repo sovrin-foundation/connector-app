@@ -24,3 +24,7 @@ export const getSMSConnectionRequestId = (state: Store) =>
 
 export const getSMSConnectionRequestRemoteDID = (state: Store) =>
   state.smsConnection.payload.payload.remoteDID
+
+export const getConnectionTheme = (state: Store, logoUrl: string) =>
+  state.connections.connectionThemes[logoUrl] ||
+  state.connections.connectionThemes['default']

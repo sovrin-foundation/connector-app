@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 
 import empty from '../../common/empty'
 import type { ConnectionThemeProps } from './type-color-picker'
+import { getConnectionTheme } from '../../store/store-selector'
 
 export class ConnectionTheme extends Component<
   void,
@@ -12,33 +13,30 @@ export class ConnectionTheme extends Component<
   any
 > {
   render() {
-    const { shade, activeConnectionColor, children, style } = this.props
+    const { logoUrl, secondary, connectionTheme, children, style } = this.props
+    let styles = style || empty
 
-    const styles = style || empty
-    const colorShade = shade || '1.0'
-    const connectionThemeColor =
-      Object.values(activeConnectionColor).join(',') + ',' + colorShade
+    const themeType = secondary
+      ? connectionTheme.secondary
+      : connectionTheme.primary
 
     let childrenWithProps = React.Children.map(children, child =>
       React.cloneElement(child, {
         customColor: {
-          backgroundColor: `rgba(${connectionThemeColor})`,
+          backgroundColor: themeType,
         },
       })
     )
 
-    return (
-      <View
-        style={[styles, { backgroundColor: `rgba(${connectionThemeColor})` }]}
-      >
-        {childrenWithProps}
-      </View>
-    )
+    if (styles && styles != empty)
+      styles = [styles, { backgroundColor: themeType }]
+
+    return <View style={styles}>{childrenWithProps}</View>
   }
 }
 
-const mapStateToProps = ({ connections }) => ({
-  activeConnectionColor: connections.activeConnectionColor,
+const mapStateToProps = (store, { logoUrl }) => ({
+  connectionTheme: getConnectionTheme(store, logoUrl),
 })
 
 export default connect(mapStateToProps, null)(ConnectionTheme)

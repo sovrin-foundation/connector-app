@@ -5,11 +5,16 @@ import renderer from 'react-test-renderer'
 import { color } from '../../../common/styles/constant'
 
 function props() {
-  return { activeConnectionColor: color.actions.primaryRGB }
+  return {
+    connectionTheme: {
+      primary: `rgba(${color.actions.button.primary.rgba})`,
+      secondary: `rgba(${color.actions.button.secondary.rgba})`,
+    },
+  }
 }
 
 describe('<ConnectionTheme />', () => {
-  it('should render default shade theme properly', () => {
+  it('should render default theme properly', () => {
     const connectionTheme = renderer
       .create(<ConnectionTheme {...props()} />)
       .toJSON()

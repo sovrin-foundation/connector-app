@@ -8,7 +8,7 @@ function props() {
   return {
     imageType: 'jpeg',
     imageUrl: 'https://image.url',
-    updateActiveConnectionTheme: jest.fn(),
+    updateConnectionTheme: jest.fn(),
   }
 }
 

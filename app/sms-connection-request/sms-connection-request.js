@@ -17,12 +17,11 @@ import { ResponseType } from '../components/request/type-request'
 import { sendSMSConnectionResponse } from './sms-connection-request-store'
 import ConnectionSuccessModal from '../authentication/connection-success-modal'
 
-export class SMSConnectionRequest
-  extends PureComponent<
-    void,
-    SMSConnectionRequestProps,
-    SMSConnectionRequestState
-  > {
+export class SMSConnectionRequest extends PureComponent<
+  void,
+  SMSConnectionRequestProps,
+  SMSConnectionRequestState
+> {
   state = {
     isSuccessModalVisible: false,
   }

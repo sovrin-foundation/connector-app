@@ -43,7 +43,7 @@ class ClaimOfferHeader extends PureComponent {
             iconStyle={[styles.headerCloseIcon]}
             style={[styles.headerCloseIconContainer]}
           />
-          <ConnectionTheme style={[styles.strip]} />
+          <ConnectionTheme logoUrl={issuer.logoUrl} style={[styles.strip]} />
           <Icon
             center
             halo
@@ -173,12 +173,12 @@ export class ClaimOffer extends PureComponent {
         )}
         <CustomView row>
           <Container>
-            <ConnectionTheme shade="0.5 ">
+            <ConnectionTheme logoUrl={logoUrl} secondary>
               <CustomButton raised title="Ignore" onPress={this.onReject} />
             </ConnectionTheme>
           </Container>
           <Container>
-            <ConnectionTheme>
+            <ConnectionTheme logoUrl={logoUrl}>
               <CustomButton raised title="Accept" onPress={this.onAccept} />
             </ConnectionTheme>
           </Container>
