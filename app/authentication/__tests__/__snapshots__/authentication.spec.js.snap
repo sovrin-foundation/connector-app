@@ -72,6 +72,9 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                       "fontSize": 20,
                     },
                     Object {
+                      "fontFamily": "SF Pro Display",
+                    },
+                    Object {
                       "backgroundColor": "#ffffff",
                       "color": "#777777",
                     },
@@ -100,6 +103,9 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                   Array [
                     Object {
                       "fontSize": 17,
+                    },
+                    Object {
+                      "fontFamily": "SF Pro Display",
                     },
                     Object {
                       "backgroundColor": "#ffffff",
@@ -761,6 +767,9 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
             Array [
               Object {
                 "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "SF Pro Display",
               },
               Object {
                 "backgroundColor": "#ffffff",

@@ -194,6 +194,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               "fontSize": 17,
             },
             Object {
+              "fontFamily": "SF Pro Display",
+            },
+            Object {
               "backgroundColor": "#ffffff",
               "color": "#777777",
             },
@@ -216,6 +219,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           Array [
             Object {
               "fontSize": 20,
+            },
+            Object {
+              "fontFamily": "SF Pro Display",
             },
             Object {
               "backgroundColor": "#ffffff",
@@ -398,6 +404,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontSize": 12,
                     },
                     Object {
+                      "fontFamily": "SF Pro Display",
+                    },
+                    Object {
                       "backgroundColor": "#ffffff",
                       "color": "#777777",
                     },
@@ -434,6 +443,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                   Array [
                     Object {
                       "fontSize": 15,
+                    },
+                    Object {
+                      "fontFamily": "SF Pro Display",
                     },
                     Object {
                       "backgroundColor": "#ffffff",
@@ -501,6 +513,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontSize": 12,
                     },
                     Object {
+                      "fontFamily": "SF Pro Display",
+                    },
+                    Object {
                       "backgroundColor": "#ffffff",
                       "color": "#777777",
                     },
@@ -537,6 +552,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                   Array [
                     Object {
                       "fontSize": 15,
+                    },
+                    Object {
+                      "fontFamily": "SF Pro Display",
                     },
                     Object {
                       "backgroundColor": "#ffffff",
@@ -977,6 +995,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 "fontSize": 17,
               },
               Object {
+                "fontFamily": "SF Pro Display",
+              },
+              Object {
                 "backgroundColor": "#ffffff",
                 "color": "#777777",
               },
@@ -1004,6 +1025,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
             Array [
               Object {
                 "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "SF Pro Display",
               },
               Object {
                 "backgroundColor": "#ffffff",

@@ -16,6 +16,7 @@ const CustomText = props => {
     bg = 'primary',
     primary,
     secondary,
+    proText,
     tertiary,
     quaternary,
     style = empty,
@@ -29,8 +30,10 @@ const CustomText = props => {
     ? 'Quaternary'
     : secondary ? 'Secondary' : tertiary ? 'Tertiary' : 'Primary'
   const size = h4 ? 'h4' : h6 ? 'h6' : h7 ? 'h7' : 'h5'
+  const fontFamily = proText ? 'fontFamilySFProText' : 'fontFamilySFProDisplay'
   const textStyles = [
     styles[size],
+    styles[fontFamily],
     styles[`${bg}Bg${colorType}`],
     bold
       ? styles.bold
@@ -44,8 +47,8 @@ const CustomText = props => {
     <Text style={textStyles} onPress={onPress} testID={testID}>
       {uppercase
         ? props.children.toUpperCase
-            ? props.children.toUpperCase()
-            : props.children
+          ? props.children.toUpperCase()
+          : props.children
         : props.children}
     </Text>
   )
@@ -100,5 +103,11 @@ export const styles = StyleSheet.create({
   },
   transparentBg: {
     backgroundColor: 'transparent',
+  },
+  fontFamilySFProDisplay: {
+    fontFamily: 'SF Pro Display',
+  },
+  fontFamilySFProText: {
+    fontFamily: 'SF Pro Text',
   },
 })

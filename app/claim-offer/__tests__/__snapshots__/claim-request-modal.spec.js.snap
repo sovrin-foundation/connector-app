@@ -165,6 +165,9 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
               "fontSize": 17,
             },
             Object {
+              "fontFamily": "SF Pro Display",
+            },
+            Object {
               "backgroundColor": "#ffffff",
               "color": "#777777",
             },
@@ -194,6 +197,9 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
           Array [
             Object {
               "fontSize": 17,
+            },
+            Object {
+              "fontFamily": "SF Pro Display",
             },
             Object {
               "backgroundColor": "#ffffff",
