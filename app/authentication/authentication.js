@@ -24,6 +24,7 @@ import {
 import type { Store } from '../store/type-store'
 import { Container, Request } from '../components'
 import ConnectionSuccessModal from './connection-success-modal'
+import { AUTHENTICATION_STATUS } from './authentication-store'
 
 class Authentication extends PureComponent {
   state = {
@@ -34,6 +35,25 @@ class Authentication extends PureComponent {
     this.setState({ isModalVisible })
     if (route) {
       this.props.navigation.navigate(route)
+    }
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.authentication.status != this.props.authentication.status) {
+      if (
+        !nextProps.authentication.isFetching &&
+        nextProps.authentication.status === AUTHENTICATION_STATUS.ACCEPTED &&
+        !nextProps.authentication.error
+      ) {
+        this.props.navigation.navigate(connectionRoute)
+        this.props.resetAuthenticationStatus()
+      } else if (
+        !nextProps.authentication.isFetching &&
+        (nextProps.authentication.status === AUTHENTICATION_STATUS.REJECTED ||
+          nextProps.authentication.error)
+      ) {
+        this.props.navigation.navigate(homeRoute)
+        this.props.resetAuthenticationStatus()
+      }
     }
   }
   onUserResponse = (newStatus: string) => {
@@ -66,11 +86,16 @@ class Authentication extends PureComponent {
   }
 
   render() {
-    //TODO once authentication result is sent successfully,
-    // authentication.data will be reset to null which will break bellow statement when re-rendered.
-    const {
-      data: { offerMsgTitle, offerMsgText, logoUrl, name },
-    } = this.props.authentication
+    const { data } = this.props.authentication
+    let offerMsgTitle = '',
+      offerMsgText = '',
+      logoUrl = null,
+      name
+    if (data) {
+      offerMsgTitle = data.offerMsgTitle
+      offerMsgText = data.offerMsgText
+      logoUrl = data.logoUrl
+    }
     return (
       <Container>
         <Request
