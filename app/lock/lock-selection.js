@@ -1,6 +1,8 @@
 // @flow
 import React, { PureComponent } from 'react'
 import { Image, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { Container, CustomText, CustomView } from '../components'
 import { lockPinSetupRoute } from '../common/'
 import {
@@ -10,8 +12,9 @@ import {
   color,
   PIN_CODE_BORDER_BOTTOM,
 } from '../common/styles/constant'
+import { switchErrorAlerts } from '../store'
 
-export default class LockSelection extends PureComponent {
+export class LockSelection extends PureComponent {
   goTouchIdSetup = () => {
     //TODO:PS: not in use, will use later
     // this.props.navigation.navigate(lockPinSetupRoute)
@@ -24,12 +27,15 @@ export default class LockSelection extends PureComponent {
   render() {
     return (
       <Container senary style={[style.pinSelectionContainer]}>
-        <CustomView verticalSpace>
-          <CustomText h4 bold center>Choose how to unlock this app</CustomText>
+        <CustomView verticalSpace onPress={this.props.switchErrorAlerts}>
+          <CustomText h4 bold center>
+            Choose how to unlock this app
+          </CustomText>
         </CustomView>
         <CustomView verticalSpace>
           <CustomText h5 semiBold center>
-            This application must be protected by TouchId or a pin code at all times.
+            This application must be protected by TouchId or a pin code at all
+            times.
           </CustomText>
         </CustomView>
         <Container>
@@ -67,22 +73,34 @@ export default class LockSelection extends PureComponent {
           >
             <CustomView row center style={[style.pinContainer]}>
               <CustomView style={[style.pin]}>
-                <CustomText h3 semiBold center bg="fifth">*</CustomText>
+                <CustomText h3 semiBold center bg="fifth">
+                  *
+                </CustomText>
               </CustomView>
               <CustomView style={[style.pin]}>
-                <CustomText h3 semiBold center bg="fifth">*</CustomText>
+                <CustomText h3 semiBold center bg="fifth">
+                  *
+                </CustomText>
               </CustomView>
               <CustomView style={[style.pin]}>
-                <CustomText h3 semiBold center bg="fifth">*</CustomText>
+                <CustomText h3 semiBold center bg="fifth">
+                  *
+                </CustomText>
               </CustomView>
               <CustomView style={[style.pin]}>
-                <CustomText h3 semiBold center bg="fifth">*</CustomText>
+                <CustomText h3 semiBold center bg="fifth">
+                  *
+                </CustomText>
               </CustomView>
               <CustomView style={[style.pin]}>
-                <CustomText h3 semiBold center bg="fifth">*</CustomText>
+                <CustomText h3 semiBold center bg="fifth">
+                  *
+                </CustomText>
               </CustomView>
               <CustomView style={[style.pin]}>
-                <CustomText h3 semiBold center bg="fifth">*</CustomText>
+                <CustomText h3 semiBold center bg="fifth">
+                  *
+                </CustomText>
               </CustomView>
             </CustomView>
             <CustomText
@@ -100,6 +118,16 @@ export default class LockSelection extends PureComponent {
     )
   }
 }
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      switchErrorAlerts,
+    },
+    dispatch
+  )
+
+export default connect(null, mapDispatchToProps)(LockSelection)
 
 const style = StyleSheet.create({
   pinSelectionContainer: {

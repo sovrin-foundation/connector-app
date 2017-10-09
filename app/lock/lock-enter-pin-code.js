@@ -14,16 +14,24 @@ import {
 import { CHECK_PIN_IDLE, CHECK_PIN_SUCCESS, CHECK_PIN_FAIL } from './type-lock'
 import type { Store } from '../store/type-store'
 import type { LockEnterPinProps, LockEnterPinState } from './type-lock'
+import { switchErrorAlerts } from '../store'
 
 export const TitleText = (
-  <CustomText h4 center bold>Enter pin code to unlock app</CustomText>
+  <CustomText h4 center bold>
+    Enter pin code to unlock app
+  </CustomText>
 )
 export const WrongPinText = (
-  <CustomText h4 center>Wrong pin! Please try again</CustomText>
+  <CustomText h4 center>
+    Wrong pin! Please try again
+  </CustomText>
 )
 
-export class LockEnterPin
-  extends PureComponent<void, LockEnterPinProps, LockEnterPinState> {
+export class LockEnterPin extends PureComponent<
+  void,
+  LockEnterPinProps,
+  LockEnterPinState
+> {
   state = {
     interactionsDone: false,
   }
@@ -67,18 +75,22 @@ export class LockEnterPin
     const { checkPinStatus } = this.props
     return (
       <Container primary>
-        <CustomView style={[styles.text]}>
+        <CustomView
+          style={[styles.text]}
+          onPress={this.props.switchErrorAlerts}
+        >
           {TitleText}
           {checkPinStatus === CHECK_PIN_FAIL && WrongPinText}
         </CustomView>
         <CustomView center>
-          {this.state.interactionsDone &&
+          {this.state.interactionsDone && (
             <PinCodeBox
               ref={pinCodeBox => {
                 this.pinCodeBox = pinCodeBox
               }}
               onPinComplete={this.onPinComplete}
-            />}
+            />
+          )}
         </CustomView>
       </Container>
     )
@@ -95,6 +107,7 @@ const mapDispatchToProps = dispatch =>
     {
       checkPinAction,
       checkPinStatusIdle,
+      switchErrorAlerts,
     },
     dispatch
   )

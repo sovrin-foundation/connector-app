@@ -95,6 +95,7 @@ export type ReactNavigation = {
 export type QrConnectionRequestProps = {
   request: QrConnectionRequestStore,
   sendQrConnectionResponse: (data: QrConnectionResponseSendData) => void,
+  showErrorAlerts: boolean,
 } & ReactNavigation
 
 export type QrConnectionRequestState = {

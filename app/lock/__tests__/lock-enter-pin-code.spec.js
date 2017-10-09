@@ -4,9 +4,7 @@ import 'react-native'
 import renderer from 'react-test-renderer'
 import { CHECK_PIN_IDLE } from '../type-lock'
 import type { LockEnterPinProps } from '../type-lock'
-import type {
-  ReactNavigation,
-} from '../../qr-connection-request/type-qr-connection-request'
+import type { ReactNavigation } from '../../qr-connection-request/type-qr-connection-request'
 import { LockEnterPin } from '../lock-enter-pin-code'
 
 describe('<LockPinCodeEnter />', () => {
@@ -19,6 +17,7 @@ describe('<LockPinCodeEnter />', () => {
           checkPinStatusIdle={jest.fn()}
           checkPinStatus={CHECK_PIN_IDLE}
           pendingRedirection=""
+          switchErrorAlerts={jest.fn()}
           navigation={{
             navigate: jest.fn(() => (string): void => {}),
           }}

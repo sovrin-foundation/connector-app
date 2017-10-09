@@ -48,10 +48,8 @@ export default class Request extends PureComponent<
               this.props.onAction(response)
             })
             .catch(error => {
-              if (error.name === 'LAErrorTouchIDNotAvailable') {
-                alert(TOUCH_ID_NOT_AVAILABLE)
-              }
-              captureError(error)
+              // TouchId not supported or not available
+              captureError(error, this.props.showErrorAlerts)
             })
         }
       })

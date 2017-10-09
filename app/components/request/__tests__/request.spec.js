@@ -40,13 +40,18 @@ describe('<Request />', () => {
     message: 'Enterprise A agent wants to connect with you',
     senderLogoUrl: 'https://image.url',
     onAction: jest.fn(),
+    showErrorAlerts: false,
   }
 
   beforeEach(() => {
     // onAction = jest.fn()
     request = renderer.create(
       <Provider store={store}>
-        <Request {...defaultProps} onAction={defaultProps.onAction} />
+        <Request
+          {...defaultProps}
+          showErrorAlerts={defaultProps.showErrorAlerts}
+          onAction={defaultProps.onAction}
+        />
       </Provider>
     )
     tree = request.toJSON()

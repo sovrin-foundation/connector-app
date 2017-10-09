@@ -30,6 +30,7 @@ export type ApiUrls = {
 export type ConfigStore = {
   isAlreadyInstalled: boolean,
   isHydrated: boolean,
+  showErrorAlerts: boolean,
 } & ApiUrls
 
 export type DeepLinkStore = {

@@ -28,3 +28,6 @@ export const getSMSConnectionRequestRemoteDID = (state: Store) =>
 export const getConnectionTheme = (state: Store, logoUrl: string) =>
   state.connections.connectionThemes[logoUrl] ||
   state.connections.connectionThemes['default']
+
+export const getErrorAlertsSwitchValue = (state: Store) =>
+  state.config.showErrorAlerts

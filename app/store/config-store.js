@@ -5,12 +5,13 @@
  */
 
 import { AsyncStorage } from 'react-native'
-import { put, take, all, call } from 'redux-saga/effects'
+import { put, take, all, call, select } from 'redux-saga/effects'
 import { IS_ALREADY_INSTALLED } from '../common'
 import { hydrateApp } from '../store/hydration-store'
 import { setItem, getItem, deleteItem, captureError } from '../services'
 import { lockEnable } from '../lock/lock-store'
 import { PIN_STORAGE_KEY } from '../lock/type-lock'
+import { getErrorAlertsSwitchValue } from '../store/store-selector'
 
 export const SERVER_ENVIRONMENT = {
   DEMO: 'DEMO',
@@ -34,6 +35,8 @@ const initialState = {
   // this flag is used to identify if we got the already stored data
   // from the phone and loaded in app
   isHydrated: false,
+  // configurable error alert messages
+  showErrorAlerts: false,
   // TODO:KS Need to add one more property to check if app lock is set
   // and then save that property once lock setup is success
   // and get in hydrateConfig saga, then check this value in splashscreen
@@ -49,6 +52,8 @@ export const SERVER_ENVIRONMENT_CHANGED = 'SERVER_ENVIRONMENT_CHANGED'
 export const SERVER_ENVIRONMENT_CHANGED_DEMO = 'SERVER_ENVIRONMENT_CHANGED_DEMO'
 export const SERVER_ENVIRONMENT_CHANGED_SANDBOX =
   'SERVER_ENVIRONMENT_CHANGED_SANDBOX'
+export const SWITCH_ERROR_ALERTS = 'SWITCH_ERROR_ALERTS'
+export const TOGGLE_ERROR_ALERTS = 'TOGGLE_ERROR_ALERTS'
 
 export const hydrated = () => ({
   type: HYDRATED,
@@ -76,6 +81,15 @@ export const changeServerEnvironment = serverEnvironment => ({
   serverEnvironment,
 })
 
+export const switchErrorAlerts = () => ({
+  type: SWITCH_ERROR_ALERTS,
+})
+
+export const toggleErrorAlerts = isShowErrorAlert => ({
+  type: TOGGLE_ERROR_ALERTS,
+  isShowErrorAlert,
+})
+
 export function* watchChangeEnvironmentToDemo() {
   while (true) {
     for (let i = 0; i < 4; i++) {
@@ -93,6 +107,17 @@ export function* watchChangeEnvironmentToSandbox() {
     }
 
     yield put(changeServerEnvironment(SERVER_ENVIRONMENT.SANDBOX))
+  }
+}
+
+export function* watchSwitchErrorAlerts() {
+  while (true) {
+    for (let i = 0; i < 4; i++) {
+      yield take(SWITCH_ERROR_ALERTS)
+    }
+
+    const switchValue = yield select(getErrorAlertsSwitchValue)
+    yield put(toggleErrorAlerts(!switchValue))
   }
 }
 
@@ -154,6 +179,7 @@ export function* watchConfig() {
   yield all([
     watchChangeEnvironmentToDemo(),
     watchChangeEnvironmentToSandbox(),
+    watchSwitchErrorAlerts(),
     hydrateConfig(),
   ])
 }
@@ -180,6 +206,11 @@ export default function configReducer(state = initialState, action) {
       return {
         ...state,
         isAlreadyInstalled: true,
+      }
+    case TOGGLE_ERROR_ALERTS:
+      return {
+        ...state,
+        showErrorAlerts: action.isShowErrorAlert,
       }
     default:
       return state

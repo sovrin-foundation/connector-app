@@ -1,13 +1,12 @@
 // @flow
 // TODO:KS Move this type to common app types
-import type {
-  ReactNavigation,
-} from '../qr-connection-request/type-qr-connection-request'
+import type { ReactNavigation } from '../qr-connection-request/type-qr-connection-request'
 export const LOCK_TYPE = {
   FINGERPRINT: 'FINGERPRINT',
   PIN: 'PIN',
 }
 import type { Error } from '../common/type-common'
+import { SWITCH_ERROR_ALERTS } from '../store/config-store'
 
 export type lockType = $Keys<typeof LOCK_TYPE>
 
@@ -67,6 +66,10 @@ export type UnlockAppAction = {
   type: typeof UNLOCK_APP,
 }
 
+export type SwitchErrorAlerts = {
+  type: typeof SWITCH_ERROR_ALERTS,
+}
+
 export type CheckPinStatus =
   | typeof CHECK_PIN_SUCCESS
   | typeof CHECK_PIN_FAIL
@@ -86,12 +89,14 @@ export type LockActions =
   | CheckPinAction
   | CheckPinSuccessAction
   | CheckPinFailAction
+  | SwitchErrorAlerts
 
 export type LockEnterPinProps = {
   checkPinAction: (pin: string) => CheckPinAction,
   checkPinStatusIdle: () => CheckPinIdleAction,
   checkPinStatus: CheckPinStatus,
   pendingRedirection: string,
+  switchErrorAlerts: () => SwitchErrorAlerts,
 } & ReactNavigation
 
 export type LockEnterPinState = {

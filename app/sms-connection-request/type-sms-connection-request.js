@@ -101,6 +101,7 @@ export type SMSConnectionAction =
 export type SMSConnectionRequestProps = {
   request: SMSConnectionRequestStore,
   sendSMSConnectionResponse: (data: SMSConnectionResponseSendData) => void,
+  showErrorAlerts: boolean,
 } & ReactNavigation
 
 export type SMSConnectionRequestState = {

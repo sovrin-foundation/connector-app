@@ -103,6 +103,7 @@ class Authentication extends PureComponent {
           message={offerMsgText}
           senderLogoUrl={logoUrl}
           onAction={this.onUserResponse}
+          showErrorAlerts={this.props.config.showErrorAlerts}
         />
         <ConnectionSuccessModal
           isModalVisible={this.state.isModalVisible}

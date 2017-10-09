@@ -35,6 +35,9 @@ describe('<AuthenticationScreen />', () => {
               remoteConnectionId: 'B4Y9fhpeHdGHBKKtSgAYrB',
             },
           },
+          config: {
+            showErrorAlerts: false,
+          },
         }
       },
       subscribe() {
@@ -49,7 +52,7 @@ describe('<AuthenticationScreen />', () => {
   it('should match snapshot', () => {
     const component = renderer.create(
       <Provider store={store}>
-        <AuthenticationScreen />
+        <AuthenticationScreen showErrorAlerts />
       </Provider>
     )
     let tree = component.toJSON()

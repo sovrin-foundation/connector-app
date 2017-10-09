@@ -91,6 +91,7 @@ describe('Authentication request tests', () => {
         callCenterUrl: 'some call center url',
         isAlreadyInstalled: true,
         isHydrated: true,
+        showErrorAlerts: false,
       },
       AUTHENTICATION_TYPE.AUTHENTICATION_REQUEST
     )

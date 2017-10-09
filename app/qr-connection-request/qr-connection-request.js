@@ -46,7 +46,8 @@ export class QRConnectionRequest extends PureComponent<
       if (nextProps.request.isFetching === false) {
         if (nextProps.request.error) {
           // TODO:KS we got error from API response, what to do now
-          captureError(nextProps.request.error)
+          if (nextProps.request.error != this.props.request.error)
+            captureError(nextProps.request.error, this.props.showErrorAlerts)
         } else {
           // api response was successful, but now we have to check
           // if user accepted or declined the request
@@ -79,6 +80,7 @@ export class QRConnectionRequest extends PureComponent<
           message={message}
           senderLogoUrl={senderLogoUrl}
           onAction={this.onAction}
+          showErrorAlerts={this.props.showErrorAlerts}
         />
         <ConnectionSuccessModal
           isModalVisible={this.state.isSuccessModalVisible}
@@ -93,6 +95,7 @@ export class QRConnectionRequest extends PureComponent<
 
 const mapStateToProps = (state: Store) => ({
   request: state.qrConnection,
+  showErrorAlerts: state.config.showErrorAlerts,
 })
 
 const mapDispatchToProps = dispatch =>

@@ -4,11 +4,14 @@ import { put, take } from 'redux-saga/effects'
 import configReducer, {
   watchChangeEnvironmentToDemo,
   watchChangeEnvironmentToSandbox,
+  watchSwitchErrorAlerts,
   changeServerEnvironment,
+  toggleErrorAlerts,
   SERVER_ENVIRONMENT_CHANGED_DEMO,
   SERVER_ENVIRONMENT_CHANGED_SANDBOX,
   SERVER_ENVIRONMENT_CHANGED,
   SERVER_ENVIRONMENT,
+  SWITCH_ERROR_ALERTS,
   baseUrls,
   hydrateConfig,
   alreadyInstalledAction,
@@ -48,6 +51,17 @@ describe('server environment should change', () => {
         serverEnvironment: SERVER_ENVIRONMENT.DEMO,
       })
     ).toEqual(expectedConfig)
+  })
+
+  it('toggle showErrorAlerts if action is raised more than 3 times', () => {
+    const gen = watchSwitchErrorAlerts()
+    for (let i = 0; i < 4; i++) {
+      expect(gen.next().value).toEqual(take(SWITCH_ERROR_ALERTS))
+    }
+
+    // after 3 times, it should raise an action to toggle showErrorAlerts
+    gen.next()
+    expect(gen.next().value).toEqual(put(toggleErrorAlerts(true)))
   })
 })
 
