@@ -72,12 +72,9 @@ const Tabs = TabNavigator(
     [qrCodeScannerTabRoute]: {
       screen: QRCodeScanner,
       navigationOptions: {
-        tabBarIcon: ({ focused }) => {
-          return focused ? (
-            <Icon src={require('./images/addConnection.png')} mediumLarge />
-          ) : (
-            <Icon src={require('./images/addConnection.png')} medium />
-          )
+        tabBarVisible: false,
+        tabBarIcon: () => {
+          return <Icon src={require('./images/addConnection.png')} medium />
         },
       },
     },

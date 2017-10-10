@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react'
 import { Provider } from 'react-redux'
-import { AppRegistry } from 'react-native'
+import { AppRegistry, StatusBar } from 'react-native'
 import store, { ROUTE_UPDATE } from './store'
-import { StatusBar, Container, PushNotification } from './components'
+import { Container, PushNotification } from './components'
 import DeepLink from './deep-link'
-import { barStyleLight } from './common/styles/constant'
+import { barStyleLight, barStyleDark } from './common/styles/constant'
 import ConnectMeAppNavigator from './navigator'
+import { qrCodeScannerTabRoute } from './common'
 
 // for now let's start adding flow type on file by file basis
 // once we have a lot of coverage for types
@@ -29,6 +30,11 @@ class ConnectMeApp extends PureComponent {
         type: ROUTE_UPDATE,
         currentScreen,
       })
+      if (currentScreen === qrCodeScannerTabRoute) {
+        StatusBar.setBarStyle(barStyleLight, true)
+      } else {
+        StatusBar.setBarStyle(barStyleDark, true)
+      }
     }
   }
 
@@ -36,7 +42,6 @@ class ConnectMeApp extends PureComponent {
     return (
       <Provider store={store}>
         <Container>
-          <StatusBar barStyle={barStyleLight} />
           <PushNotification />
           <DeepLink />
           <ConnectMeAppNavigator

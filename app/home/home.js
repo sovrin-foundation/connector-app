@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Animated, StatusBar, StyleSheet } from 'react-native'
+import { Animated, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Container, CustomView, Icon } from '../components'
@@ -62,7 +62,6 @@ export class DashboardScreen extends PureComponent {
 
     return (
       <Container tertiary>
-        <StatusBar barStyle={barStyleDark} />
         <Container tertiary>
           {connections &&
             connections.length > 0 && (

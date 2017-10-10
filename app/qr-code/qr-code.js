@@ -1,6 +1,5 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { StatusBar } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Container, QRScanner } from '../components'
@@ -11,7 +10,11 @@ import {
   QR_CODE_SENDER_NAME,
   QR_CODE_TARGET_NAME,
 } from '../common/api-constants'
-import { qrConnectionRequestRoute, qrCodeScannerTabRoute } from '../common/'
+import {
+  qrConnectionRequestRoute,
+  qrCodeScannerTabRoute,
+  homeTabRoute,
+} from '../common/'
 import type { QrConnectionPayload } from '../qr-connection-request/type-qr-connection-request'
 import type { Store } from '../store/type-store'
 
@@ -31,11 +34,14 @@ export class QRCodeScannerScreen extends PureComponent {
     }
   }
 
+  onClose = () => {
+    this.props.navigation.navigate(homeTabRoute)
+  }
+
   render() {
     return (
       <Container>
-        <StatusBar barStyle={barStyleLight} />
-        <QRScanner onRead={this.onRead} />
+        <QRScanner onRead={this.onRead} onClose={this.onClose} />
       </Container>
     )
   }

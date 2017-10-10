@@ -1,13 +1,5 @@
 import React, { PureComponent } from 'react'
-import {
-  View,
-  Image,
-  Text,
-  Switch,
-  StyleSheet,
-  ScrollView,
-  StatusBar,
-} from 'react-native'
+import { View, Image, Text, Switch, StyleSheet, ScrollView } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { StackNavigator } from 'react-navigation'
 import { Avatar, CustomText } from '../components'
@@ -147,7 +139,6 @@ export class Settings extends PureComponent {
       <Container>
         <LinearGradient colors={['#f2f2f2', '#ededed']}>
           <ScrollView style={style.container}>
-            <StatusBar barStyle={barStyleDark} />
             <CustomList
               data={itemList}
               listStyle={style.list}

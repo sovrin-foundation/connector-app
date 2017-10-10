@@ -1,5 +1,12 @@
 import React, { PureComponent } from 'react'
-import { Vibration, StyleSheet, View, Dimensions } from 'react-native'
+import {
+  Vibration,
+  StyleSheet,
+  View,
+  Dimensions,
+  Image,
+  TouchableHighlight,
+} from 'react-native'
 import Camera from 'react-native-camera'
 import { CustomView, Container, CustomText } from '../../components/'
 import { color, OFFSET_2X } from '../../common/styles/constant'
@@ -76,7 +83,10 @@ export default class QRScanner extends PureComponent {
     return (
       <Container>
         <Camera onBarCodeRead={this.onRead} style={[cameraStyle.camera]}>
-          <CameraMarker status={this.state.scanStatus} />
+          <CameraMarker
+            status={this.state.scanStatus}
+            onClose={this.props.onClose}
+          />
         </Camera>
       </Container>
     )
@@ -85,7 +95,7 @@ export default class QRScanner extends PureComponent {
 
 export class CameraMarker extends PureComponent {
   render() {
-    const { status } = this.props
+    const { status, onClose } = this.props
 
     return (
       <CustomView center style={[cameraMarkerStyles.container]}>
@@ -109,6 +119,23 @@ export class CameraMarker extends PureComponent {
         <CustomText h2 transparentBg style={[scanStatusStyle[status]]}>
           {status}
         </CustomText>
+        <CustomView
+          row
+          center
+          style={[closeIconStyle.closeIcon]}
+          testID={'close-qr-scanner-container'}
+        >
+          <TouchableHighlight
+            onPress={onClose}
+            testID={'close-qr-scanner-button'}
+          >
+            <Image
+              source={require('../../images/close_white.png')}
+              testID={'close-qr-scanner-icon'}
+              onPress={onClose}
+            />
+          </TouchableHighlight>
+        </CustomView>
         <CustomView
           style={[cameraMarkerStyles.container, cameraMarkerStyles.overlay]}
         />
@@ -195,7 +222,7 @@ const cameraStyle = StyleSheet.create({
     // but at the same time we want qr scan status to stay sufficient above footer
     // without margin or padding, by setting height
     // we automatically align qr scanner using flex
-    height: Dimensions.get('screen').height - 50,
+    height: Dimensions.get('screen').height,
     backgroundColor: 'transparent',
   },
 })
@@ -209,5 +236,11 @@ const scanStatusStyle = StyleSheet.create({
   },
   [SCAN_STATUS.FAIL]: {
     color: color.actions.dangerous,
+  },
+})
+
+const closeIconStyle = StyleSheet.create({
+  closeIcon: {
+    marginVertical: OFFSET_2X,
   },
 })
