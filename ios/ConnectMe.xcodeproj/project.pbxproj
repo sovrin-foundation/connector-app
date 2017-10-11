@@ -893,6 +893,7 @@
 				6289865CCC3A4745A77A87B9 /* libSplashScreen.a */,
 				46386B5F434B41B89C5D33F6 /* libRNSentry.a */,
 				00DE7DCFB73E4DF8B1201CE9 /* libRCTCamera.a */,
+				66ACA94543464AB6BC1138FE /* libRNFetchBlob.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";

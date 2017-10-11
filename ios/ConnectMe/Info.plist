@@ -39,16 +39,6 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>https://agency-sandbox.evernym.com</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-			</dict>
-			<key>https://agency-ea-sandbox.evernym.com</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-			</dict>
 			<key>culedger.com</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
@@ -71,6 +61,16 @@
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
 				<false/>
 			</dict>
+			<key>https://agency-ea-sandbox.evernym.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+			<key>https://agency-sandbox.evernym.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
@@ -87,8 +87,10 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow us access to Camera so that we can scan QR code</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
@@ -155,7 +157,5 @@
 		<key>test</key>
 		<string>***REMOVED***</string>
 	</dict>
-	<key>NSCameraUsageDescription</key>
-	<string>Please allow us access to Camera so that we can scan QR code</string>
 </dict>
 </plist>
