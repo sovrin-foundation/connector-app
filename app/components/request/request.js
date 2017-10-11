@@ -56,7 +56,7 @@ export default class Request extends PureComponent<
       .catch(error => {
         // TODO: we did not get push token
         // now what should we do?
-        captureError(error)
+        captureError(error, this.props.showErrorAlerts)
       })
   }
 
