@@ -10,7 +10,13 @@ import {
   Avatar,
   TextStyles,
 } from '../components'
-import { color, OFFSET_1X, OFFSET_2X } from '../common/styles'
+import {
+  color,
+  OFFSET_1X,
+  OFFSET_2X,
+  OFFSET_3X,
+  HAIRLINE_WIDTH,
+} from '../common/styles'
 import { connectionRoute } from '../common'
 import { getConnectionLogo } from '../store'
 
@@ -23,18 +29,17 @@ export default class ConnectionSuccessModal extends PureComponent {
     const connectionAvatar = getConnectionLogo(logoUrl)
     return (
       <CustomView fifth shadow style={[styles.container]}>
-        <CustomView hCenter style={[styles.innerContainer]}>
+        <CustomView center style={[styles.innerContainer]}>
           <CustomView
             row
             vCenter
-            spaceBetween
             style={[styles.avatarsContainer]}
             testID={'invitation-text-avatars-container'}
           >
             <Avatar
               medium
               shadow
-              src={require('../images/invitee.jpeg')}
+              src={require('../images/invitee.png')}
               testID={'invitation-text-avatars-invitee'}
             />
             <Image
@@ -85,23 +90,24 @@ export default class ConnectionSuccessModal extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: OFFSET_1X,
+    marginHorizontal: OFFSET_3X,
   },
   innerContainer: {
     borderBottomColor: color.bg.fifth.font.tertiary,
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: HAIRLINE_WIDTH,
     paddingVertical: OFFSET_1X,
   },
   avatarsContainer: {
-    marginHorizontal: OFFSET_2X,
     marginVertical: OFFSET_1X,
   },
   textContent: {
     margin: OFFSET_1X,
-    color: color.bg.tertiary.font.secondary,
+    marginHorizontal: OFFSET_3X,
+    color: color.bg.tertiary.font.tertiary,
   },
   checkMark: {
     width: 30,
     height: 22,
+    marginHorizontal: OFFSET_2X,
   },
 })

@@ -89,7 +89,7 @@ describe('<Request />', () => {
     expect(defaultProps.onAction).toHaveBeenCalledWith('rejected')
   })
 
-  it('TouchId and calls onAction if Allow/Deny button is pressed', async () => {
+  it('TouchId and calls onAction if Connect/Deny button is pressed', async () => {
     const touchIdAuth = await requestComponent.onAccept()
     await touchIdAuth
     expect(defaultProps.onAction).toBeCalled()

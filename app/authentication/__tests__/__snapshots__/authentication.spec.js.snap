@@ -79,14 +79,16 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                       "color": "#777777",
                     },
                     Object {
-                      "fontWeight": "900",
+                      "fontWeight": "800",
                     },
                     Object {
                       "textAlign": "center",
                     },
                     null,
                     Object {
-                      "margin": 10,
+                      "lineHeight": 30,
+                      "marginHorizontal": 30,
+                      "marginVertical": 10,
                     },
                   ]
                 }
@@ -145,10 +147,11 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
             testID="invitation-text-container-avatars-animation"
           >
             <View
-              hCenter={true}
+              center={true}
               spaceBetween={true}
               style={
                 Object {
+                  "alignItems": "center",
                   "justifyContent": "space-between",
                 }
               }
@@ -161,24 +164,24 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                     "alignItems": "center",
                     "flexDirection": "row",
                     "justifyContent": "space-between",
-                    "margin": 50,
+                    "marginVertical": 40,
                   }
                 }
                 testID="invitation-text-avatars-container"
                 vCenter={true}
               >
                 <View
+                  imageShadow="imageShadow"
                   style={
                     Object {
-                      "backgroundColor": "transparent",
                       "borderRadius": 38,
                       "shadowColor": "rgba(0, 0, 0, 0.25)",
                       "shadowOffset": Object {
-                        "height": 5,
+                        "height": 3,
                         "width": 0,
                       },
                       "shadowOpacity": 1,
-                      "shadowRadius": 7,
+                      "shadowRadius": 8,
                     }
                   }
                   testID="invitation-text-avatars-invitee"
@@ -218,22 +221,23 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                   style={
                     Object {
                       "height": 8,
+                      "marginHorizontal": 5,
                       "width": 60,
                     }
                   }
                 />
                 <View
+                  imageShadow="imageShadow"
                   style={
                     Object {
-                      "backgroundColor": "transparent",
                       "borderRadius": 38,
                       "shadowColor": "rgba(0, 0, 0, 0.25)",
                       "shadowOffset": Object {
-                        "height": 5,
+                        "height": 3,
                         "width": 0,
                       },
                       "shadowOpacity": 1,
-                      "shadowRadius": 7,
+                      "shadowRadius": 8,
                     }
                   }
                   testID="invitation-text-avatars-inviter"
@@ -361,7 +365,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                           "marginRight": 0,
                         },
                         Object {
-                          "paddingVertical": 15,
+                          "paddingVertical": 17,
                         },
                         null,
                       ],
@@ -396,7 +400,10 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                             "fontSize": 14,
                           },
                           undefined,
-                          undefined,
+                          Object {
+                            "fontSize": 17,
+                            "fontWeight": "600",
+                          },
                           undefined,
                           undefined,
                         ],
@@ -484,7 +491,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                           "marginRight": 0,
                         },
                         Object {
-                          "paddingVertical": 15,
+                          "paddingVertical": 17,
                         },
                         null,
                       ],
@@ -519,14 +526,17 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                             "fontSize": 14,
                           },
                           undefined,
-                          undefined,
+                          Object {
+                            "fontSize": 17,
+                            "fontWeight": "600",
+                          },
                           undefined,
                           undefined,
                         ],
                       ]
                     }
                   >
-                    Allow
+                    Connect
                   </Text>
                 </View>
               </View>
@@ -619,21 +629,22 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
       style={
         Object {
           "backgroundColor": "#ffffff",
-          "marginHorizontal": 10,
-          "shadowColor": "rgba(0, 0, 0, 0.25)",
+          "marginHorizontal": 30,
+          "shadowColor": "rgba(0, 0, 0, 0.2)",
           "shadowOffset": Object {
-            "height": 5,
+            "height": 10,
             "width": 0,
           },
           "shadowOpacity": 1,
-          "shadowRadius": 7,
+          "shadowRadius": 30,
         }
       }
     >
       <View
-        hCenter={true}
+        center={true}
         style={
           Object {
+            "alignItems": "center",
             "borderBottomColor": "#3f3f3f",
             "borderBottomWidth": NaN,
             "justifyContent": "center",
@@ -643,13 +654,10 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
       >
         <View
           row={true}
-          spaceBetween={true}
           style={
             Object {
               "alignItems": "center",
               "flexDirection": "row",
-              "justifyContent": "space-between",
-              "marginHorizontal": 20,
               "marginVertical": 10,
             }
           }
@@ -657,17 +665,17 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
           vCenter={true}
         >
           <View
+            imageShadow="imageShadow"
             style={
               Object {
-                "backgroundColor": "transparent",
                 "borderRadius": 38,
                 "shadowColor": "rgba(0, 0, 0, 0.25)",
                 "shadowOffset": Object {
-                  "height": 5,
+                  "height": 3,
                   "width": 0,
                 },
                 "shadowOpacity": 1,
-                "shadowRadius": 7,
+                "shadowRadius": 8,
               }
             }
             testID="invitation-text-avatars-invitee"
@@ -707,22 +715,23 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
             style={
               Object {
                 "height": 22,
+                "marginHorizontal": 20,
                 "width": 30,
               }
             }
           />
           <View
+            imageShadow="imageShadow"
             style={
               Object {
-                "backgroundColor": "transparent",
                 "borderRadius": 38,
                 "shadowColor": "rgba(0, 0, 0, 0.25)",
                 "shadowOffset": Object {
-                  "height": 5,
+                  "height": 3,
                   "width": 0,
                 },
                 "shadowOpacity": 1,
-                "shadowRadius": 7,
+                "shadowRadius": 8,
               }
             }
             testID="invitation-text-avatars-inviter"
@@ -776,15 +785,16 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                 "color": "#777777",
               },
               Object {
-                "fontWeight": "500",
+                "fontWeight": "600",
               },
               Object {
                 "textAlign": "center",
               },
               null,
               Object {
-                "color": "#686868",
+                "color": "#777777",
                 "margin": 10,
+                "marginHorizontal": 30,
               },
             ]
           }
@@ -886,13 +896,12 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                   Object {
                     "fontSize": 14,
                   },
-                  Object {
-                    "fontSize": 17,
-                  },
                   undefined,
                   Object {
+                    "fontSize": 17,
                     "fontWeight": "600",
                   },
+                  undefined,
                   undefined,
                 ],
               ]

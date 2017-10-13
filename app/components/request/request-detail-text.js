@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { StyleSheet } from 'react-native'
 import { View as AnimatedView } from 'react-native-animatable'
 import { CustomText, CustomView } from '../../components'
-import { OFFSET_1X } from '../../common/styles'
+import { OFFSET_1X, OFFSET_3X } from '../../common/styles'
 import { noop } from '../../common'
 import type { RequestDetailTextProps } from './type-request'
 
@@ -27,7 +27,7 @@ export default class RequestDetailText extends PureComponent<
             center
             thick
             bg="fifth"
-            style={[styles.textContent]}
+            style={[styles.textTitle]}
             testID={'invitation-text-container-title'}
             onPress={this.props.onTitlePress}
           >
@@ -38,7 +38,7 @@ export default class RequestDetailText extends PureComponent<
             center
             bold
             bg="fifth"
-            style={[styles.textContent]}
+            style={[styles.textMessage]}
             testID={'invitation-text-container-message'}
           >
             {this.props.message}
@@ -50,7 +50,12 @@ export default class RequestDetailText extends PureComponent<
 }
 
 const styles = StyleSheet.create({
-  textContent: {
+  textMessage: {
     margin: OFFSET_1X,
+  },
+  textTitle: {
+    marginVertical: OFFSET_1X,
+    marginHorizontal: OFFSET_3X,
+    lineHeight: OFFSET_3X,
   },
 })

@@ -87,7 +87,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
               <Avatar
                 medium
                 shadow
-                src={require('../images/invitee.jpeg')}
+                src={require('../images/invitee.png')}
                 testID={'claim-request-avatars-invitee'}
               />
               {claimRequestStatus ===

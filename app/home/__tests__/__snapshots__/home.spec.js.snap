@@ -51,17 +51,17 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
         }
       >
         <View
+          imageShadow="imageShadow"
           style={
             Object {
-              "backgroundColor": "transparent",
               "borderRadius": 50,
               "shadowColor": "rgba(0, 0, 0, 0.25)",
               "shadowOffset": Object {
-                "height": 5,
+                "height": 3,
                 "width": 0,
               },
               "shadowOpacity": 1,
-              "shadowRadius": 7,
+              "shadowRadius": 8,
             }
           }
           testID="bubble-3nj819kkjywdppuje79"

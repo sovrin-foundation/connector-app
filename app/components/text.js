@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, StyleSheet } from 'react-native'
 import empty from '../common/empty'
 import { color, font } from '../common/styles/constant'
-
+//TODO: Default font color should be tertiary and background should also be tertiary.
 const CustomText = props => {
   const {
     h4,
@@ -70,13 +70,13 @@ export const styles = StyleSheet.create({
     fontSize: font.size.XS,
   },
   semiBold: {
-    fontWeight: '500',
+    fontWeight: '600',
   },
   bold: {
     fontWeight: 'bold',
   },
   thick: {
-    fontWeight: '900',
+    fontWeight: '800',
   },
   center: {
     textAlign: 'center',

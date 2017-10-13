@@ -8,7 +8,7 @@ import {
   ImageColorPicker,
   ConnectionTheme,
 } from '../../components'
-import { DENY, ALLOW } from '../../common'
+import { DENY, CONNECT } from '../../common'
 import type { RequestActionsProps } from './type-request'
 
 export default class RequestActions extends PureComponent<
@@ -37,7 +37,7 @@ export default class RequestActions extends PureComponent<
                 primary
                 raised
                 medium
-                title={ALLOW}
+                title={CONNECT}
                 onPress={this.props.onAccept}
               />
             </ConnectionTheme>

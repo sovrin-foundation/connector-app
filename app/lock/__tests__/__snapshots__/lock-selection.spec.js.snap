@@ -91,7 +91,7 @@ exports[`app lock selection page should render properly 1`] = `
             "color": "#ffffff",
           },
           Object {
-            "fontWeight": "500",
+            "fontWeight": "600",
           },
           Object {
             "textAlign": "center",
@@ -167,7 +167,7 @@ exports[`app lock selection page should render properly 1`] = `
               "color": "#777777",
             },
             Object {
-              "fontWeight": "500",
+              "fontWeight": "600",
             },
             Object {
               "textAlign": "center",
@@ -281,7 +281,7 @@ exports[`app lock selection page should render properly 1`] = `
                   "color": "#777777",
                 },
                 Object {
-                  "fontWeight": "500",
+                  "fontWeight": "600",
                 },
                 Object {
                   "textAlign": "center",
@@ -322,7 +322,7 @@ exports[`app lock selection page should render properly 1`] = `
                   "color": "#777777",
                 },
                 Object {
-                  "fontWeight": "500",
+                  "fontWeight": "600",
                 },
                 Object {
                   "textAlign": "center",
@@ -363,7 +363,7 @@ exports[`app lock selection page should render properly 1`] = `
                   "color": "#777777",
                 },
                 Object {
-                  "fontWeight": "500",
+                  "fontWeight": "600",
                 },
                 Object {
                   "textAlign": "center",
@@ -404,7 +404,7 @@ exports[`app lock selection page should render properly 1`] = `
                   "color": "#777777",
                 },
                 Object {
-                  "fontWeight": "500",
+                  "fontWeight": "600",
                 },
                 Object {
                   "textAlign": "center",
@@ -445,7 +445,7 @@ exports[`app lock selection page should render properly 1`] = `
                   "color": "#777777",
                 },
                 Object {
-                  "fontWeight": "500",
+                  "fontWeight": "600",
                 },
                 Object {
                   "textAlign": "center",
@@ -486,7 +486,7 @@ exports[`app lock selection page should render properly 1`] = `
                   "color": "#777777",
                 },
                 Object {
-                  "fontWeight": "500",
+                  "fontWeight": "600",
                 },
                 Object {
                   "textAlign": "center",
@@ -518,7 +518,7 @@ exports[`app lock selection page should render properly 1`] = `
               "color": "#777777",
             },
             Object {
-              "fontWeight": "500",
+              "fontWeight": "600",
             },
             Object {
               "textAlign": "center",

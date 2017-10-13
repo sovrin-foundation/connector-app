@@ -12,7 +12,7 @@ export default props => (
       />
     </Container>
     <Container center>
-      <Avatar large round src={require('../images/invitee.jpeg')} />
+      <Avatar large round src={require('../images/invitee.png')} />
     </Container>
     <Container right>
       <Icon

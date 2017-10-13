@@ -88,6 +88,7 @@ exports[`user avatar section info should render properly 1`] = `
       }
     >
       <View
+        imageShadow={null}
         style={
           Object {
             "borderRadius": 25,

@@ -1,4 +1,6 @@
 // @flow
+import {StyleSheet} from 'react-native'
+
 // TODO:KS Add support for themes as well
 // Color name taken from http://www.htmlcsscolor.com/
 const zircon = '#ebebea'
@@ -125,7 +127,8 @@ export const OFFSET_6X = 60
 export const OFFSET_9X = 95
 export const barStyleDark = 'dark-content'
 export const barStyleLight = 'light-content'
-export const SHADOW_RADIUS = 7
+export const SHADOW_RADIUS = 8
+export const HAIRLINE_WIDTH = StyleSheet.hairlineWidth / 2
 
 export const bubbleSize = {
   XS: 40,

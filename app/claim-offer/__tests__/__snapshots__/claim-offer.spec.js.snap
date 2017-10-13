@@ -705,7 +705,10 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontSize": 14,
                     },
                     undefined,
-                    undefined,
+                    Object {
+                      "fontSize": 17,
+                      "fontWeight": "600",
+                    },
                     undefined,
                     undefined,
                   ],
@@ -826,7 +829,10 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontSize": 14,
                     },
                     undefined,
-                    undefined,
+                    Object {
+                      "fontSize": 17,
+                      "fontWeight": "600",
+                    },
                     undefined,
                     undefined,
                   ],
@@ -852,13 +858,13 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
         Object {
           "backgroundColor": "#ffffff",
           "marginHorizontal": 10,
-          "shadowColor": "rgba(0, 0, 0, 0.25)",
+          "shadowColor": "rgba(0, 0, 0, 0.2)",
           "shadowOffset": Object {
-            "height": 5,
+            "height": 10,
             "width": 0,
           },
           "shadowOpacity": 1,
-          "shadowRadius": 7,
+          "shadowRadius": 30,
         }
       }
     >
@@ -888,17 +894,17 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           vCenter={true}
         >
           <View
+            imageShadow="imageShadow"
             style={
               Object {
-                "backgroundColor": "transparent",
                 "borderRadius": 38,
                 "shadowColor": "rgba(0, 0, 0, 0.25)",
                 "shadowOffset": Object {
-                  "height": 5,
+                  "height": 3,
                   "width": 0,
                 },
                 "shadowOpacity": 1,
-                "shadowRadius": 7,
+                "shadowRadius": 8,
               }
             }
             testID="claim-request-avatars-invitee"
@@ -934,17 +940,17 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
             />
           </View>
           <View
+            imageShadow="imageShadow"
             style={
               Object {
-                "backgroundColor": "transparent",
                 "borderRadius": 38,
                 "shadowColor": "rgba(0, 0, 0, 0.25)",
                 "shadowOffset": Object {
-                  "height": 5,
+                  "height": 3,
                   "width": 0,
                 },
                 "shadowOpacity": 1,
-                "shadowRadius": 7,
+                "shadowRadius": 8,
               }
             }
             testID="claim-request-avatars-inviter"
@@ -1002,7 +1008,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 "color": "#777777",
               },
               Object {
-                "fontWeight": "500",
+                "fontWeight": "600",
               },
               Object {
                 "textAlign": "center",
@@ -1143,13 +1149,12 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                   Object {
                     "fontSize": 14,
                   },
-                  Object {
-                    "fontSize": 17,
-                  },
                   undefined,
                   Object {
+                    "fontSize": 17,
                     "fontWeight": "600",
                   },
+                  undefined,
                   undefined,
                 ],
               ]

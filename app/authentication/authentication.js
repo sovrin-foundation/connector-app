@@ -7,15 +7,7 @@ import { bindActionCreators } from 'redux'
 import { encode } from 'bs58'
 
 import { getKeyPairFromSeed, getSignature, captureError } from '../services'
-import FCM from 'react-native-fcm'
-import {
-  connectionRoute,
-  homeRoute,
-  TOUCH_ID_MESSAGE,
-  PUSH_NOTIFICATION_PERMISSION_ERROR,
-  ALLOW,
-  DENY,
-} from '../common'
+import { connectionRoute, homeRoute } from '../common'
 import {
   resetAuthenticationStatus,
   sendUserAuthenticationResponse,

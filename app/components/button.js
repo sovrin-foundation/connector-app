@@ -7,9 +7,7 @@ import empty from '../common/empty'
 const getButtonProps = type => ({
   backgroundColor: color.actions[type],
   color: color.actions.font[type],
-  fontSize: font.size.M,
   textAlign: 'center',
-  fontWeight: '600',
 })
 
 const CustomButton = props => {
@@ -40,7 +38,14 @@ const CustomButton = props => {
         ? 'tertiary'
         : quaternary ? 'quaternary' : dangerous ? 'dangerous' : 'fifth'
   const buttonProps = customColor ? customColor : getButtonProps(buttonType)
-  return <Button {...props} {...buttonProps} buttonStyle={style} />
+  return (
+    <Button
+      {...props}
+      {...buttonProps}
+      buttonStyle={style}
+      textStyle={styles.text}
+    />
+  )
 }
 
 export default CustomButton
@@ -51,10 +56,14 @@ const styles = StyleSheet.create({
     marginLeft: 0,
   },
   mediumVerticalPadding: {
-    paddingVertical: 15,
+    paddingVertical: 17,
   },
   disabled: {
     opacity: 0.2,
     backgroundColor: color.actions.none,
+  },
+  text: {
+    fontWeight: '600',
+    fontSize: font.size.M,
   },
 })

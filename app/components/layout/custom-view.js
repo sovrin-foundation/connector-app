@@ -29,10 +29,10 @@ export const CustomView = props => {
     onPress,
     spaceBetween,
     shadow,
+    imageShadow,
     absolute,
     absoluteFill,
   } = props
-
   const passedStyles = props.style || empty
   const absoluteStyles = absolute
     ? [style.absolute, style[`absolute${absolute}`]]
@@ -61,6 +61,7 @@ export const CustomView = props => {
     bottom && !row ? style.columnBottom : null,
     spaceBetween ? style.spaceBetween : null,
     shadow ? style.shadow : null,
+    imageShadow ? style.imageShadow : null,
     ...absoluteStyles,
     ...passedStyles,
   ])

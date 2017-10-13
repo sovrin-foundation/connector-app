@@ -5,10 +5,13 @@ import { View as AnimatedView } from 'react-native-animatable'
 import { Container, CustomView, Avatar } from '../../components'
 import { getConnectionLogo } from '../../store'
 import type { RequestDetailAvatarProps } from './type-request'
-import { OFFSET_5X } from '../../common/styles'
+import { OFFSET_4X, OFFSET_1X } from '../../common/styles'
 
-export default class RequestDetailAvatars
-  extends PureComponent<void, RequestDetailAvatarProps, void> {
+export default class RequestDetailAvatars extends PureComponent<
+  void,
+  RequestDetailAvatarProps,
+  void
+> {
   render() {
     const senderAvatar = getConnectionLogo(this.props.senderLogoUrl)
 
@@ -19,7 +22,7 @@ export default class RequestDetailAvatars
         duration={1500}
         testID={'invitation-text-container-avatars-animation'}
       >
-        <CustomView hCenter spaceBetween>
+        <CustomView center spaceBetween>
           <CustomView
             row
             vCenter
@@ -30,7 +33,7 @@ export default class RequestDetailAvatars
             <Avatar
               medium
               shadow
-              src={require('../../images/invitee.jpeg')}
+              src={require('../../images/invitee.png')}
               testID={'invitation-text-avatars-invitee'}
             />
             <Image
@@ -52,10 +55,11 @@ export default class RequestDetailAvatars
 
 const styles = StyleSheet.create({
   avatarsContainer: {
-    margin: OFFSET_5X,
+    marginVertical: OFFSET_4X,
   },
   forwardArrow: {
     width: 60,
     height: 8,
+    marginHorizontal: OFFSET_1X / 2,
   },
 })
