@@ -36,6 +36,10 @@ import {
 } from './common/'
 import { color } from './common/styles'
 
+if (__DEV__) {
+  require('../tools/reactotron-config')
+}
+
 const styles = StyleSheet.create({
   tabBarContainer: {
     backgroundColor: color.bg.tertiary.color,
@@ -150,4 +154,13 @@ const ConnectMeAppNavigator = StackNavigator(
   }
 )
 
-export default ConnectMeAppNavigator
+let navigator = ConnectMeAppNavigator
+
+if (__DEV__) {
+  // Tried to extend console interface, but it didn't work
+  // need to fix, so ignoring error for now
+  // $FlowFixMe
+  navigator = console.tron.overlay(navigator)
+}
+
+export default navigator

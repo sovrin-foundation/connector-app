@@ -1,5 +1,5 @@
 // @flow
-import {StyleSheet} from 'react-native'
+import { StyleSheet } from 'react-native'
 
 // TODO:KS Add support for themes as well
 // Color name taken from http://www.htmlcsscolor.com/

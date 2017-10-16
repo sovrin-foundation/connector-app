@@ -27,6 +27,8 @@ import {
   sendSMSInvitationResponse,
 } from '../../services'
 import { PENDING_CONNECTION_REQUEST_CODE } from '../../common'
+import { addConnection, encrypt } from '../../bridge/react-native-cxs/RNCxs'
+import { saveNewConnection } from '../../store/connections-store'
 
 describe('SMS Connection Request store', () => {
   const initialState = {
@@ -44,6 +46,8 @@ describe('SMS Connection Request store', () => {
     remotePairwiseDID: '5iZiu2aLYrQXSdon123456',
     remoteConnectionId: '5iZiu2aLYrQXSdon123456',
   }
+  const identifier = 'jhad09375knkfob91rhvlsvy0q09sdnskv'
+  const verificationKey = 'jhad09375knkfob91rhvlsvy0q09sdnskv'
 
   it('should be correct initial state', () => {
     const actualInitialState = smsConnectionRequestReducer(undefined, {
@@ -133,42 +137,48 @@ describe('SMS Connection Request store', () => {
 
     expect(gen.next(remoteDID).value).toEqual(select(getAllConnection))
 
-    const challenge = 'challenge'
-    const signature = 'signature'
-    const expectedApiCall = call(sendSMSInvitationResponse, {
-      agencyUrl,
-      challenge,
-      signature,
-      requestId,
-      senderGeneratedUserDid,
+    const metadata = JSON.stringify({
+      remoteConnectionId,
     })
-    const actualApiCall: any = gen.next(payload.remoteConnectionId).value
+    expect(gen.next(remoteConnectionId).value).toEqual(
+      call(addConnection, remoteConnectionId, metadata)
+    )
 
-    expect(actualApiCall['CALL'].args[0]).toEqual(
-      expect.objectContaining({
-        agencyUrl: agencyUrl,
-        challenge: expect.any(String),
-        signature: expect.any(String),
+    const challenge = JSON.stringify({
+      newStatus: ResponseType.accepted,
+      identifier,
+      verKey: verificationKey,
+      pushComMethod: `FCM:${pushToken}`,
+      uid: requestId,
+    })
+    expect(gen.next({ identifier, verificationKey }).value).toEqual(
+      call(encrypt, remoteConnectionId, challenge)
+    )
+
+    const signature = 'signature'
+    expect(gen.next(signature).value).toEqual(
+      call(sendSMSInvitationResponse, {
+        agencyUrl,
+        challenge,
+        signature,
         requestId,
         senderGeneratedUserDid,
       })
     )
+
     // check if success was called after the Api call returns successfully
     expect(gen.next().value).toEqual(put(smsConnectionSuccess()))
 
-    const actualSaveConnection: any = gen.next().value
-    expect(actualSaveConnection['PUT'].action).toEqual(
-      expect.objectContaining({
-        type: 'NEW_CONNECTION',
-        connection: {
+    expect(gen.next().value).toEqual(
+      put(
+        saveNewConnection({
           newConnection: {
-            identifier: expect.any(String),
+            identifier,
             remoteConnectionId: payload.remotePairwiseDID,
-            seed: expect.any(String),
             remoteDID,
           },
-        },
-      })
+        })
+      )
     )
 
     expect(gen.next().done).toBe(true)

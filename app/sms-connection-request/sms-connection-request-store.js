@@ -44,6 +44,11 @@ import {
   getSMSConnectionRequestRemoteDID,
 } from '../store/store-selector'
 import { saveNewConnection, getConnection } from '../store/connections-store'
+import {
+  encrypt,
+  addConnection,
+  getConnectionMetadata,
+} from '../bridge/react-native-cxs/RNCxs'
 
 const initialState = {
   payload: {},
@@ -114,9 +119,6 @@ export const smsConnectionFail = (error: Error): SMSConnectionFailAction => ({
 export function* sendSMSResponse(
   action: SMSConnectionResponseSendAction
 ): Generator<*, *, *> {
-  const identifier = randomSeed(32).substring(0, 22)
-  const seed = randomSeed(32).substring(0, 32)
-
   // get data needed for agent api call from store
   // this will keep our components and screen to not pass data
   // and will keep our actions clean
@@ -140,17 +142,22 @@ export function* sendSMSResponse(
     }
     yield put(smsConnectionFail(error))
   } else {
-    const { publicKey: verKey, secretKey: signingKey } = getKeyPairFromSeed(
-      seed
+    const metadata = JSON.stringify({
+      remoteConnectionId,
+    })
+    const { identifier, verificationKey } = yield call(
+      addConnection,
+      remoteConnectionId,
+      metadata
     )
     const challenge = JSON.stringify({
       newStatus: action.data.response,
       identifier,
-      verKey: encode(verKey),
+      verKey: verificationKey,
       pushComMethod: `FCM:${pushToken}`,
       uid: requestId,
     })
-    const signature = encode(getSignature(signingKey, challenge))
+    const signature = yield call(encrypt, remoteConnectionId, challenge)
 
     try {
       yield call(sendSMSInvitationResponse, {
@@ -168,7 +175,6 @@ export function* sendSMSResponse(
             identifier,
             // pairwise DID of sender, changes for each connection
             remoteConnectionId,
-            seed,
             // connection request sender's DID, stay same for each connection
             remoteDID,
           },

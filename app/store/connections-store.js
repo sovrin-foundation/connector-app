@@ -1,16 +1,10 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
 import { encode } from 'bs58'
-import {
-  getProfile,
-  connectionMapper,
-  setItem,
-  getItem,
-  getSignature,
-  getKeyPairFromSeed,
-} from '../services'
+import { getProfile, connectionMapper, setItem, getItem } from '../services'
 import { CONNECTIONS } from '../common'
 import { getAgencyUrl } from './store-selector'
 import { color } from '../common/styles/constant'
+import { encrypt } from '../bridge/react-native-cxs/RNCxs'
 
 const UPDATE_CONNECTION_THEME = 'UPDATE_CONNECTION_THEME'
 const NEW_CONNECTION = 'NEW_CONNECTION'
@@ -65,15 +59,13 @@ export function* loadNewConnectionSaga(action) {
     identifier,
     remoteConnectionId,
     remoteDID,
-    seed,
   } = action.connection.newConnection
   try {
     let connection = {}
 
     const agencyUrl = yield select(getAgencyUrl)
     const challenge = JSON.stringify({ remoteConnectionId: remoteDID })
-    const { secretKey } = getKeyPairFromSeed(seed)
-    const signature = encode(getSignature(secretKey, challenge))
+    const signature = yield call(encrypt, remoteConnectionId, challenge)
 
     try {
       connection = yield call(getProfile, {
@@ -86,11 +78,11 @@ export function* loadNewConnectionSaga(action) {
       console.log(e)
       console.log('get profile call failed for ', identifier)
     }
+
     Object.assign(connection, {
       identifier,
       logoUrl: connection.logoUrl,
       remoteConnectionId,
-      seed,
       remoteDID,
     })
 

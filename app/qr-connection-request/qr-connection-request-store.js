@@ -40,6 +40,7 @@ import {
   getAllConnection,
 } from '../store/store-selector'
 import { saveNewConnection, getConnection } from '../store/connections-store'
+import { encrypt, addConnection } from '../bridge/react-native-cxs/RNCxs'
 
 export const qrConnectionInitialState = {
   title: '',
@@ -77,9 +78,6 @@ export const qrConnectionFail = (error: Error): QrConnectionFailAction => ({
 export function* sendQrResponse(
   action: QrConnectionResponseSendAction
 ): Generator<*, *, *> {
-  const identifier = randomSeed(32).substring(0, 22)
-  const seed = randomSeed(32).substring(0, 32)
-
   // get data needed for agent api call from store
   // this will keep our components and screen to not pass data
   // and will keep our actions lean
@@ -99,19 +97,21 @@ export function* sendQrResponse(
     }
     yield put(qrConnectionFail(error))
   } else {
-    const { publicKey: verKey, secretKey: signingKey } = getKeyPairFromSeed(
-      seed
+    const { identifier, verificationKey } = yield call(
+      addConnection,
+      remoteConnectionId
     )
     const apiData = {
       remoteChallenge: qrPayload.qrData[QR_CODE_CHALLENGE],
       remoteSig: qrPayload.signature,
       newStatus: action.data.response,
       identifier,
-      verKey: encode(verKey),
+      verKey: verificationKey,
       pushComMethod: `FCM:${pushToken}`,
     }
     const challenge = JSON.stringify(apiData)
-    const signature = encode(getSignature(signingKey, challenge))
+    const signature = yield call(encrypt, remoteConnectionId, challenge)
+
     try {
       yield call(sendQRInvitationResponse, { challenge, signature, agencyUrl })
       yield put(qrConnectionSuccess())
@@ -120,7 +120,6 @@ export function* sendQrResponse(
           newConnection: {
             identifier,
             remoteConnectionId: remoteConnectionId,
-            seed,
             remoteDID: qrPayload.challenge[QR_CODE_REMOTE_HOSTING_DID],
           },
         }

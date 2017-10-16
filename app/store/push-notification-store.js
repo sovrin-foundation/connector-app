@@ -7,6 +7,7 @@ import {
   captureError,
 } from '../services'
 import { getAgencyUrl, getAllConnection } from './store-selector'
+import { encrypt } from '../bridge/react-native-cxs/RNCxs'
 
 const initialState = {
   isAllowed: false,
@@ -40,9 +41,8 @@ export function* onPushTokenUpdate(action) {
   let secretKey, challenge, signature
   for (let DID in connections) {
     if (connections.hasOwnProperty(DID)) {
-      secretKey = getKeyPairFromSeed(connections[DID].seed).secretKey
       challenge = JSON.stringify({ pushComMethod: `FCM:${token}` })
-      signature = encode(getSignature(secretKey, challenge))
+      signature = yield call(encrypt, DID, challenge)
       try {
         yield call(sendUpdatedPushToken, {
           challenge,

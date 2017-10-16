@@ -58,7 +58,7 @@ export class LockEnterPin extends PureComponent<
           this.props.navigation.navigate(this.props.pendingRedirection)
         }
       } else if (nextProps.checkPinStatus === CHECK_PIN_FAIL) {
-        this.pinCodeBox && this.pinCodeBox.clear()
+        this.pinCodeBox && this.pinCodeBox.clear && this.pinCodeBox.clear()
         // set status back to idle so we can come to this else again
         this.clearFailStatusDelayed()
       }

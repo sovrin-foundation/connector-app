@@ -6,6 +6,8 @@ import pushNotificationReducer, {
   updatePushToken,
   onPushTokenUpdate,
 } from '../push-notification-store'
+import { encrypt } from '../../bridge/react-native-cxs/RNCxs'
+import { sendUpdatedPushToken } from '../../services'
 
 describe('push notification store should work properly', () => {
   let initialState = {}
@@ -59,8 +61,10 @@ describe('push notification store should work properly', () => {
     const agencyUrl = 'https://agencyurl.com'
 
     expect(gen.next(agencyUrl).value).toMatchObject(select(getAllConnection))
+    const DID1 = '3KEhz3HjghBmeiTpX4aN4n'
+    const DID2 = '3KEhz3HjghBmeiTpX4aN44'
     const connections = {
-      '3KEhz3HjghBmeiTpX4aN4n': {
+      [DID1]: {
         identifier: '3KEhz3HjghBmeiTpX4aN4n',
         logoUrl: 'https://agent.com/agent/profile/logo',
         name: 'Test',
@@ -68,7 +72,7 @@ describe('push notification store should work properly', () => {
         remoteDID: 'B4Y9fhpeHdGHBKKtSgAYrB',
         seed: '4g33i88Gd1jfKhhci611SNximzeFh61S',
       },
-      '3KEhz3HjghBmeiTpX4aN44': {
+      [DID2]: {
         identifier: '3KEhz3HjghBmeiTpX4aN44',
         logoUrl: 'https://agent.com/agent/profile/logo',
         name: 'Test',
@@ -78,24 +82,32 @@ describe('push notification store should work properly', () => {
       },
     }
 
-    const apiCall = gen.next(connections).value
     const challenge = JSON.stringify({ pushComMethod: `FCM:${pushToken}` })
-    expect(apiCall['CALL'].args[0]).toMatchObject(
-      expect.objectContaining({
+    const signature = 'signature'
+
+    expect(gen.next(connections).value).toMatchObject(
+      call(encrypt, DID1, challenge)
+    )
+
+    expect(gen.next(signature).value).toMatchObject(
+      call(sendUpdatedPushToken, {
         agencyUrl,
-        signature: expect.any(String),
+        signature,
         challenge,
-        DID: '3KEhz3HjghBmeiTpX4aN4n',
+        DID: DID1,
       })
     )
 
-    const nextApiCall = gen.next().value
-    expect(nextApiCall['CALL'].args[0]).toMatchObject(
-      expect.objectContaining({
+    expect(gen.next(connections).value).toMatchObject(
+      call(encrypt, DID2, challenge)
+    )
+
+    expect(gen.next(signature).value).toMatchObject(
+      call(sendUpdatedPushToken, {
         agencyUrl,
-        signature: expect.any(String),
+        signature,
         challenge,
-        DID: '3KEhz3HjghBmeiTpX4aN44',
+        DID: DID2,
       })
     )
 

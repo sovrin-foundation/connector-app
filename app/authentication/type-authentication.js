@@ -22,13 +22,16 @@ type Inviter = {
 }
 type DataBody = {
   challenge: string,
-  signature: string,
+  signature?: string,
 }
+
 export type AuthenticationSuccessData = {
   newStatus: string,
-  identifier?: string,
-  dataBody?: DataBody,
+  identifier: string,
+  dataBody: DataBody,
+  remoteConnectionId: string,
 }
+
 export type AuthenticationStore = {
   +inviter: Inviter,
   +invitee: Invitee,
@@ -39,6 +42,7 @@ export type AuthenticationStore = {
   +isFetching: boolean,
   +isPristine: boolean,
 }
+
 export type AuthenticationPayload =
   | {
       offerMsgTitle: string,
@@ -56,6 +60,7 @@ export type NewConnection = {
   seed: string,
   remoteDID: string,
 }
+
 export type AuthenticationAction =
   | SendUserAuthenticationResponse
   | SendUserAuthenticationResponseSuccess

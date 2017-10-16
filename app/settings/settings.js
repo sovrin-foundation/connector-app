@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import { View, Image, Text, Switch, StyleSheet, ScrollView } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient'
 import { StackNavigator } from 'react-navigation'
 import { Avatar, CustomText } from '../components'
 import { CustomList, CustomView, Container } from '../components/layout'
@@ -54,7 +53,7 @@ const editIcon = (
 )
 
 const SettingText = props => (
-  <CustomText bg="fifth" h5 semiBold {...props}>
+  <CustomText h5 bg={props.bg || 'tertiary'} semiBold {...props}>
     {props.children}
   </CustomText>
 )
@@ -130,22 +129,20 @@ const itemList = [
 
 export class Settings extends PureComponent {
   static navigationOptions = {
-    headerTitle: <SettingText>{settingsRoute}</SettingText>,
+    headerTitle: <SettingText bg="fifth">{settingsRoute}</SettingText>,
     headerStyle: style.headerStyle,
   }
 
   render() {
     return (
-      <Container>
-        <LinearGradient colors={['#f2f2f2', '#ededed']}>
-          <ScrollView style={style.container}>
-            <CustomList
-              data={itemList}
-              listStyle={style.list}
-              itemStyle={style.item}
-            />
-          </ScrollView>
-        </LinearGradient>
+      <Container tertiary>
+        <ScrollView style={style.container}>
+          <CustomList
+            data={itemList}
+            listStyle={style.list}
+            itemStyle={style.item}
+          />
+        </ScrollView>
       </Container>
     )
   }

@@ -68,6 +68,8 @@
     "react-devtools": "^2.1.7",
     "react-dom": "^15.5.4",
     "react-test-renderer": "16.0.0-alpha.6",
+    "reactotron-react-native": "^1.12.3",
+    "reactotron-redux": "^1.12.2",
     "remote-redux-devtools-on-debugger": "^0.7.1"
   },
   "jest": {
@@ -76,9 +78,10 @@
       "node_modules/(?!(jest-)?react-native|react-navigation|jest-fetch-mock)"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
-        "<rootDir>/__mocks__/asset-mock.js"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/asset-mock.js"
     },
-    "setupFiles": ["<rootDir>/__mocks__/setup.js"]
+    "setupFiles": [
+      "<rootDir>/__mocks__/setup.js"
+    ]
   }
 }

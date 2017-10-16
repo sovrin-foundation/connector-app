@@ -3,10 +3,8 @@ import React, { PureComponent } from 'react'
 import { View, Text, Image, AlertIOS } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-
 import { encode } from 'bs58'
-
-import { getKeyPairFromSeed, getSignature, captureError } from '../services'
+import { captureError } from '../services'
 import { connectionRoute, homeRoute } from '../common'
 import {
   resetAuthenticationStatus,
@@ -29,6 +27,7 @@ class Authentication extends PureComponent {
       this.props.navigation.navigate(route)
     }
   }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.authentication.status != this.props.authentication.status) {
       if (
@@ -48,6 +47,7 @@ class Authentication extends PureComponent {
       }
     }
   }
+
   onUserResponse = (newStatus: string) => {
     let {
       type: authenticationType,
@@ -56,20 +56,19 @@ class Authentication extends PureComponent {
 
     const { connections: { data: connectionsData } } = this.props
     const connection = getConnection(remoteConnectionId, connectionsData)
-    let { identifier, seed } = connection[0]
-    let { secretKey: signingKey } = getKeyPairFromSeed(seed)
+    let { identifier } = connection[0]
 
     const challenge = JSON.stringify({
       newStatus,
     })
-    const signature = encode(getSignature(signingKey, challenge))
+
     this.props.sendUserAuthenticationResponse(
       {
         newStatus,
         identifier,
+        remoteConnectionId,
         dataBody: {
           challenge,
-          signature,
         },
       },
       this.props.config,

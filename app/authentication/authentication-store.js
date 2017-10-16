@@ -8,7 +8,6 @@ import type {
   AuthenticationType,
   AuthenticationStore,
   AuthenticationPayload,
-  NewConnection,
   AuthenticationError,
   AuthenticationAction,
   SendUserAuthenticationResponse,
@@ -18,6 +17,7 @@ import type {
   ResetAuthenticationStatus,
   AuthenticationRequestReceived,
 } from './type-authentication'
+import { encrypt } from '../bridge/react-native-cxs/RNCxs'
 
 export const AUTHENTICATION_STATUS: AuthenticationStatus = {
   ACCEPTED: 'accepted',
@@ -52,16 +52,12 @@ const RESET_AUTHENTICATION_STATUS = 'RESET_AUTHENTICATION_STATUS'
 export const sendUserAuthenticationResponse = (
   data: AuthenticationSuccessData,
   config: ConfigStore,
-  authenticationType: string,
-  token?: string,
-  newConnection?: NewConnection
+  authenticationType: string
 ): SendUserAuthenticationResponse => ({
   type: SEND_USER_AUTHENTICATION_RESPONSE,
   data,
   config,
   authenticationType,
-  token,
-  newConnection,
 })
 
 export const sendUserAuthenticationResponseSuccess = (
@@ -103,6 +99,11 @@ function* handleUserAuthenticationResponse(
   try {
     let authenticationActionResponse = null
     if (authenticationType == AUTHENTICATION_TYPE.AUTHENTICATION_REQUEST) {
+      const { remoteConnectionId, dataBody: { challenge } } = action.data
+      const signature = yield call(encrypt, remoteConnectionId, challenge)
+      // add signature
+      action.data.dataBody.signature = signature
+
       authenticationActionResponse = yield call(
         sendAuthenticationRequest,
         action
@@ -117,11 +118,6 @@ function* handleUserAuthenticationResponse(
       })
     )
   }
-
-  // once everything is done, we clear the authentication related data
-  // because it needs to be used for some other authentication as well
-  yield call(delay, 3000)
-  yield put(resetAuthenticationStatus())
 }
 
 export function* watchAuthentication(): Generator<*, *, *> {

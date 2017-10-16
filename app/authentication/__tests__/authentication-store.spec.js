@@ -29,20 +29,29 @@ describe('Authentication request tests', () => {
   const initialAction: AuthenticationAction = {
     type: 'INITIAL_TEST_ACTION',
   }
+
   let initialState
   beforeEach(() => {
     initialState = authentication(undefined, initialAction)
   })
+
   it('should correctly match initial state', () => {
     expect(initialState).toMatchSnapshot()
   })
+
   it('send user authentication response success action should update store', () => {
-    const successData = { newStatus: AUTHENTICATION_STATUS.ACCEPTED }
+    const successData = {
+      newStatus: AUTHENTICATION_STATUS.ACCEPTED,
+      dataBody: { challenge: 'challenge', signature: 'signature' },
+      identifier: 'identifier',
+      remoteConnectionId: 'remoteConnectionId',
+    }
     const successAction: SendUserAuthenticationResponseSuccess = sendUserAuthenticationResponseSuccess(
       successData
     )
     expect(authentication(initialState, successAction)).toMatchSnapshot()
   })
+
   it('send user authentication response failure action should update store', () => {
     const error = {
       message: '',
@@ -53,10 +62,12 @@ describe('Authentication request tests', () => {
     )
     expect(authentication(initialState, errorAction)).toMatchSnapshot()
   })
+
   it('authentication status reset action should update store', () => {
     const resetAction: ResetAuthenticationStatus = resetAuthenticationStatus()
     expect(authentication(initialState, resetAction)).toMatchSnapshot()
   })
+
   it('send user authentication response received action should update store', () => {
     const receivedData = {
       offerMsgTitle: 'Hi There',
@@ -81,6 +92,7 @@ describe('Authentication request tests', () => {
       {
         newStatus,
         identifier,
+        remoteConnectionId: 'remoteConnectionId',
         dataBody: {
           challenge,
           signature,

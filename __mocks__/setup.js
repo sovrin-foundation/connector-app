@@ -97,3 +97,9 @@ jest.mock('react-native-fetch-blob', () => ({
 }))
 
 jest.mock('WebView', () => 'WebView')
+
+jest.mock('InteractionManager', () => ({
+  runAfterInteractions(fn) {
+    fn()
+  },
+}))
