@@ -17,13 +17,13 @@ import type { LockEnterPinProps, LockEnterPinState } from './type-lock'
 import { switchErrorAlerts } from '../store'
 
 export const TitleText = (
-  <CustomText h4 center bold>
-    Enter pin code to unlock app
+  <CustomText h4 bg="tertiary" tertiary center bold>
+    Enter pass code to unlock app
   </CustomText>
 )
 export const WrongPinText = (
-  <CustomText h4 center>
-    Wrong pin! Please try again
+  <CustomText h4 bg="tertiary" tertiary center>
+    Wrong pass code! Please try again
   </CustomText>
 )
 
@@ -74,7 +74,7 @@ export class LockEnterPin extends PureComponent<
   render() {
     const { checkPinStatus } = this.props
     return (
-      <Container primary>
+      <Container tertiary>
         <CustomView
           style={[styles.text]}
           onPress={this.props.switchErrorAlerts}

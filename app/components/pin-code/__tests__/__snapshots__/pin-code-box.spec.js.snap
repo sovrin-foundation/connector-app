@@ -17,7 +17,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "borderBottomColor": "#f79347",
+          "borderBottomColor": "#777777",
           "borderBottomWidth": 5,
           "height": 66,
           "justifyContent": "center",
@@ -32,7 +32,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "borderBottomColor": "#f79347",
+          "borderBottomColor": "#777777",
           "borderBottomWidth": 5,
           "height": 66,
           "justifyContent": "center",
@@ -47,7 +47,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "borderBottomColor": "#f79347",
+          "borderBottomColor": "#777777",
           "borderBottomWidth": 5,
           "height": 66,
           "justifyContent": "center",
@@ -62,7 +62,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "borderBottomColor": "#f79347",
+          "borderBottomColor": "#777777",
           "borderBottomWidth": 5,
           "height": 66,
           "justifyContent": "center",
@@ -77,7 +77,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "borderBottomColor": "#f79347",
+          "borderBottomColor": "#777777",
           "borderBottomWidth": 5,
           "height": 66,
           "justifyContent": "center",
@@ -92,7 +92,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "borderBottomColor": "#f79347",
+          "borderBottomColor": "#777777",
           "borderBottomWidth": 5,
           "height": 66,
           "justifyContent": "center",
@@ -141,7 +141,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
       style={
         Object {
           "alignItems": "center",
-          "borderBottomColor": "#ffffff",
+          "borderBottomColor": "#777777",
           "borderBottomWidth": 5,
           "height": 66,
           "justifyContent": "center",
@@ -167,7 +167,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
       style={
         Object {
           "alignItems": "center",
-          "borderBottomColor": "#ffffff",
+          "borderBottomColor": "#777777",
           "borderBottomWidth": 5,
           "height": 66,
           "justifyContent": "center",
@@ -193,7 +193,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
       style={
         Object {
           "alignItems": "center",
-          "borderBottomColor": "#f79347",
+          "borderBottomColor": "#777777",
           "borderBottomWidth": 5,
           "height": 66,
           "justifyContent": "center",
@@ -208,7 +208,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
       style={
         Object {
           "alignItems": "center",
-          "borderBottomColor": "#f79347",
+          "borderBottomColor": "#777777",
           "borderBottomWidth": 5,
           "height": 66,
           "justifyContent": "center",
@@ -223,7 +223,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
       style={
         Object {
           "alignItems": "center",
-          "borderBottomColor": "#f79347",
+          "borderBottomColor": "#777777",
           "borderBottomWidth": 5,
           "height": 66,
           "justifyContent": "center",
@@ -238,7 +238,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
       style={
         Object {
           "alignItems": "center",
-          "borderBottomColor": "#f79347",
+          "borderBottomColor": "#777777",
           "borderBottomWidth": 5,
           "height": 66,
           "justifyContent": "center",

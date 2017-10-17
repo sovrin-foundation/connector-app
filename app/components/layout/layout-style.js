@@ -99,4 +99,10 @@ export default StyleSheet.create({
   absoluteFill: {
     ...StyleSheet.absoluteFillObject,
   },
+  spaceAround: {
+    justifyContent: 'space-around',
+  },
+  flexGrow: {
+    flexGrow: 1,
+  },
 })

@@ -3,12 +3,17 @@ import React, { PureComponent } from 'react'
 import { StyleSheet, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Container, CustomText, CustomView, CustomButton } from '../components'
+import {
+  Container,
+  CustomText,
+  CustomView,
+  CustomButton,
+  Icon,
+} from '../components'
 import { homeRoute } from '../common'
 import { unlockApp, clearPendingRedirect } from './lock-store'
 import type { Store } from '../store/type-store'
 import { OFFSET_1X, OFFSET_2X, OFFSET_4X, color } from '../common/styles'
-import layoutStyles from '../components/layout/layout-style'
 
 export class LockSetupSuccess extends PureComponent {
   onClose = () => {
@@ -22,29 +27,36 @@ export class LockSetupSuccess extends PureComponent {
 
   render() {
     return (
-      <Container senary>
-        <Image
-          source={require('../images/bkg_connectMe.png')}
-          style={[layoutStyles.container, style.backgroundImage]}
-        >
-          <Container clearBg center style={[style.successContainer]}>
-            <CustomText h3 semiBold center style={[style.successMessage]}>
-              Your connect.me app is secured.
-            </CustomText>
-            <CustomText center style={[style.successInfo]}>
-              From now on you'll need to use your PIN to unlock this app.
-            </CustomText>
-          </Container>
-          <CustomView>
-            <CustomButton
-              primary
-              testID="close-button"
-              fontWeight="600"
-              title="Close"
-              onPress={this.onClose}
-            />
-          </CustomView>
-        </Image>
+      <Container tertiary>
+        <Container clearBg center style={[style.successContainer]}>
+          <Icon
+            extraLarge
+            resizeMode="cover"
+            src={require('../images/lock.png')}
+            testID="lock-success-lock-logo"
+          />
+          <CustomText
+            h4
+            bg="tertiary"
+            tertiary
+            thick
+            center
+            style={[style.successMessage]}
+          >
+            Your connect.me app is now secured
+          </CustomText>
+        </Container>
+        <CustomView>
+          <CustomButton
+            tertiary
+            raised
+            medium
+            testID="close-button"
+            fontWeight="600"
+            title="Close"
+            onPress={this.onClose}
+          />
+        </CustomView>
       </Container>
     )
   }
@@ -74,10 +86,5 @@ const style = StyleSheet.create({
   },
   successInfo: {
     paddingHorizontal: OFFSET_1X,
-  },
-  backgroundImage: {
-    width: null,
-    height: null,
-    resizeMode: 'center',
   },
 })

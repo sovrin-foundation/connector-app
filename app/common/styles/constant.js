@@ -64,6 +64,7 @@ export const color = {
       font: {
         primary: white,
         secondary: zircon,
+        tertiary: nightRider,
       },
     },
     secondary: {
@@ -124,6 +125,7 @@ export const OFFSET_3X = 30
 export const OFFSET_4X = 40
 export const OFFSET_5X = 50
 export const OFFSET_6X = 60
+export const OFFSET_7X = 70
 export const OFFSET_9X = 95
 export const barStyleDark = 'dark-content'
 export const barStyleLight = 'light-content'

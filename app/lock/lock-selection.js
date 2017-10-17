@@ -8,7 +8,10 @@ import { lockPinSetupRoute } from '../common/'
 import {
   OFFSET_1X,
   OFFSET_2X,
+  OFFSET_3X,
   OFFSET_5X,
+  OFFSET_6X,
+  OFFSET_7X,
   color,
   PIN_CODE_BORDER_BOTTOM,
 } from '../common/styles/constant'
@@ -26,22 +29,23 @@ export class LockSelection extends PureComponent {
 
   render() {
     return (
-      <Container senary style={[style.pinSelectionContainer]}>
-        <CustomView verticalSpace onPress={this.props.switchErrorAlerts}>
-          <CustomText h4 bold center>
-            Choose how to unlock this app
+      <Container tertiary style={[style.pinSelectionContainer]}>
+        <CustomView onPress={this.props.switchErrorAlerts}>
+          <CustomText h5 bg="tertiary" tertiary semiBold center>
+            Choose How To Unlock App
           </CustomText>
         </CustomView>
-        <CustomView verticalSpace>
-          <CustomText h5 semiBold center>
+        <CustomView style={[style.messageText]}>
+          <CustomText h5 bg="tertiary" tertiary bold center>
             This application must be protected by TouchId or a pin code at all
             times.
           </CustomText>
         </CustomView>
-        <Container>
+        <CustomView spaceAround flexGrow>
           <CustomView
             center
-            tertiary
+            fifth
+            shadow
             testID="touch-id-selection"
             style={[style.touchIdPinContainer]}
             onPress={this.goTouchIdSetup}
@@ -54,52 +58,54 @@ export class LockSelection extends PureComponent {
               h5
               semiBold
               center
-              bg="fifth"
+              tertiary
+              transparentBg
               onPress={this.goTouchIdSetup}
             >
               Use Touch ID for "connect.me"
             </CustomText>
           </CustomView>
-          <CustomView>
-            <CustomText h4 bold center>
+          <CustomView style={[style.dividerText]}>
+            <CustomText h4 bg="tertiary" tertiary transparentBg thick center>
               or
             </CustomText>
           </CustomView>
           <CustomView
-            tertiary
+            fifth
+            shadow
             testID="pin-code-selection"
             style={[style.touchIdPinContainer]}
             onPress={this.goPinCodeSetup}
           >
             <CustomView row center style={[style.pinContainer]}>
               <CustomView style={[style.pin]}>
-                <CustomText h3 semiBold center bg="fifth">
-                  *
+                <CustomText h4 thick center bg="fifth">
+                  1
                 </CustomText>
               </CustomView>
               <CustomView style={[style.pin]}>
-                <CustomText h3 semiBold center bg="fifth">
-                  *
+                <CustomText h4 thick center bg="fifth">
+                  2
                 </CustomText>
               </CustomView>
               <CustomView style={[style.pin]}>
-                <CustomText h3 semiBold center bg="fifth">
-                  *
+                <CustomText h4 thick center bg="fifth">
+                  3
                 </CustomText>
               </CustomView>
               <CustomView style={[style.pin]}>
-                <CustomText h3 semiBold center bg="fifth">
-                  *
+                <CustomText h4 thick center bg="fifth">
+                  4
                 </CustomText>
               </CustomView>
               <CustomView style={[style.pin]}>
-                <CustomText h3 semiBold center bg="fifth">
-                  *
+                <CustomText h4 thick center bg="fifth">
+                  5
                 </CustomText>
               </CustomView>
               <CustomView style={[style.pin]}>
-                <CustomText h3 semiBold center bg="fifth">
-                  *
+                <CustomText h4 thick center bg="fifth">
+                  6
                 </CustomText>
               </CustomView>
             </CustomView>
@@ -107,13 +113,15 @@ export class LockSelection extends PureComponent {
               h5
               semiBold
               center
-              bg="fifth"
+              tertiary
+              transparentBg
+              style={[style.usePinText]}
               onPress={this.goPinCodeSetup}
             >
               Use PIN Code for "connect.me"
             </CustomText>
           </CustomView>
-        </Container>
+        </CustomView>
       </Container>
     )
   }
@@ -131,26 +139,40 @@ export default connect(null, mapDispatchToProps)(LockSelection)
 
 const style = StyleSheet.create({
   pinSelectionContainer: {
-    paddingVertical: OFFSET_5X,
+    paddingTop: OFFSET_3X,
+    paddingBottom: OFFSET_6X,
     paddingHorizontal: OFFSET_2X,
+  },
+  messageText: {
+    paddingVertical: OFFSET_7X / 2,
+    paddingHorizontal: OFFSET_5X / 2,
+    paddingTop: OFFSET_5X,
   },
   touchIdPinContainer: {
-    minHeight: 130,
-    margin: OFFSET_1X,
-    paddingTop: OFFSET_1X,
+    paddingTop: OFFSET_1X / 2,
     paddingHorizontal: OFFSET_2X,
+    paddingBottom: OFFSET_2X,
     borderRadius: 13,
+    marginHorizontal: OFFSET_3X,
   },
   fingerPrintIcon: {
-    marginVertical: OFFSET_1X,
+    marginVertical: OFFSET_3X / 2,
+    height: 60,
+    width: 60,
   },
   pinContainer: {
-    marginVertical: OFFSET_2X,
+    marginVertical: OFFSET_3X,
+    marginBottom: OFFSET_5X / 2,
   },
   pin: {
     borderBottomColor: color.bg.fifth.font.primary,
     borderBottomWidth: PIN_CODE_BORDER_BOTTOM,
     marginRight: OFFSET_1X / 2,
     paddingHorizontal: OFFSET_1X / 2,
+    paddingBottom: OFFSET_1X,
+  },
+  usePinText: {
+    lineHeight: 22,
+    paddingBottom: OFFSET_1X / 2,
   },
 })

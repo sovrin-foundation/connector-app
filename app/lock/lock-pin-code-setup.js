@@ -21,34 +21,61 @@ import {
   lockPinSetupHomeRoute,
   lockSetupSuccessRoute,
 } from '../common'
-import { color, OFFSET_2X } from '../common/styles'
+import {
+  color,
+  OFFSET_1X,
+  OFFSET_2X,
+  OFFSET_6X,
+  OFFSET_7X,
+} from '../common/styles'
 import { setPinAction } from './lock-store'
 import type { LockPinSetupState } from './type-lock'
 import { PIN_SETUP_STATE } from './type-lock'
+import LinearGradient from 'react-native-linear-gradient'
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: color.bg.sixth.color,
+    backgroundColor: color.bg.tertiary.color,
     borderBottomWidth: 0,
-    height: 70,
+    height: 64,
     padding: 0,
     paddingHorizontal: OFFSET_2X,
+    shadowColor: 'transparent',
     shadowOpacity: 0,
+    shadowOffset: {
+      height: 0,
+    },
+    shadowRadius: 0,
   },
   headerLeft: {
-    width: 20,
+    width: OFFSET_2X,
   },
   title: {
-    marginTop: 50,
-    marginBottom: 70,
+    marginTop: OFFSET_6X,
+    marginBottom: OFFSET_7X,
+  },
+  titleText: {
+    lineHeight: 28,
+    letterSpacing: 0.5,
+  },
+  linearGradient: {
+    height: OFFSET_1X,
   },
 })
 
-const EnterPinText = <CustomText center h4 bold>Setup a pin code</CustomText>
-const ReEnterPinText = <CustomText center h4 bold>Re-enter pin code</CustomText>
+const EnterPinText = (
+  <CustomText style={[styles.titleText]} center h4 bg="tertiary" tertiary thick>
+    Setup a pass code
+  </CustomText>
+)
+const ReEnterPinText = (
+  <CustomText style={[styles.titleText]} center h4 bg="tertiary" tertiary thick>
+    Re-enter pass code
+  </CustomText>
+)
 const ReEnterPinFailText = (
-  <CustomText center h4 bold>
-    Your pin codes do not match. Please start over.
+  <CustomText style={[styles.titleText]} center h4 bg="tertiary" tertiary thick>
+    Your pass codes do not match, please start over.
   </CustomText>
 )
 
@@ -78,14 +105,10 @@ export class LockPinSetup extends PureComponent {
         </TouchableHighlight>
       </CustomView>
     ),
-    headerTitle: <CustomText semiBold>App Security</CustomText>,
-    headerRight: (
-      <Image
-        testID={'education-icon'}
-        style={styles.headerLeft}
-        source={require('../images/education.png')}
-        resizeMode="contain"
-      />
+    headerTitle: (
+      <CustomText bg="tertiary" tertiary transparentBg semiBold>
+        App Security
+      </CustomText>
     ),
     headerStyle: styles.header,
   })
@@ -150,20 +173,26 @@ export class LockPinSetup extends PureComponent {
   render() {
     const { pinSetupState, interactionsDone } = this.state
     return (
-      <Container senary>
+      <Container tertiary>
+        <LinearGradient
+          style={[styles.linearGradient]}
+          locations={[0.08, 1]}
+          colors={['#EAEAEA', 'rgba(240,240,240,0)']}
+        />
         <CustomView style={[styles.title]}>
           {pinSetupState === PIN_SETUP_STATE.INITIAL && EnterPinText}
           {pinSetupState === PIN_SETUP_STATE.REENTER && ReEnterPinText}
           {pinSetupState === PIN_SETUP_STATE.REENTER_FAIL && ReEnterPinFailText}
         </CustomView>
         <CustomView center>
-          {interactionsDone &&
+          {interactionsDone && (
             <PinCodeBox
               ref={pinCodeBox => {
                 this.pinCodeBox = pinCodeBox
               }}
               onPinComplete={this.onPinComplete}
-            />}
+            />
+          )}
         </CustomView>
       </Container>
     )

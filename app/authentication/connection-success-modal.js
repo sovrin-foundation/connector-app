@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
   },
   avatarsContainer: {
     marginVertical: OFFSET_1X,
+    width: 220,
   },
   textContent: {
     margin: OFFSET_1X,

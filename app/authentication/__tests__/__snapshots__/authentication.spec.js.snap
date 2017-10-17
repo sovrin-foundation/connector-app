@@ -659,6 +659,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
               "alignItems": "center",
               "flexDirection": "row",
               "marginVertical": 10,
+              "width": 220,
             }
           }
           testID="invitation-text-avatars-container"

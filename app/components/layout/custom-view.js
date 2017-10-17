@@ -32,6 +32,8 @@ export const CustomView = props => {
     imageShadow,
     absolute,
     absoluteFill,
+    spaceAround,
+    flexGrow,
   } = props
   const passedStyles = props.style || empty
   const absoluteStyles = absolute
@@ -62,6 +64,8 @@ export const CustomView = props => {
     spaceBetween ? style.spaceBetween : null,
     shadow ? style.shadow : null,
     imageShadow ? style.imageShadow : null,
+    spaceAround ? style.spaceAround : null,
+    flexGrow ? style.flexGrow : null,
     ...absoluteStyles,
     ...passedStyles,
   ])

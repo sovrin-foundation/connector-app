@@ -2,15 +2,16 @@
 
 exports[`app lock selection page should render properly 1`] = `
 <View
-  senary={true}
   style={
     Object {
-      "backgroundColor": "#333333",
+      "backgroundColor": "#f0f0f0",
       "flex": 1,
+      "paddingBottom": 60,
       "paddingHorizontal": 20,
-      "paddingVertical": 50,
+      "paddingTop": 30,
     }
   }
+  tertiary={true}
 >
   <View
     accessibilityComponentType={undefined}
@@ -26,52 +27,8 @@ exports[`app lock selection page should render properly 1`] = `
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    style={
-      Object {
-        "paddingVertical": 8,
-      }
-    }
+    style={Object {}}
     testID={undefined}
-    verticalSpace={true}
-  >
-    <Text
-      accessible={true}
-      allowFontScaling={true}
-      ellipsizeMode="tail"
-      onPress={undefined}
-      style={
-        Array [
-          Object {
-            "fontSize": 20,
-          },
-          Object {
-            "fontFamily": "SF Pro Display",
-          },
-          Object {
-            "backgroundColor": "#333333",
-            "color": "#ffffff",
-          },
-          Object {
-            "fontWeight": "bold",
-          },
-          Object {
-            "textAlign": "center",
-          },
-          null,
-        ]
-      }
-      testID={undefined}
-    >
-      Choose how to unlock this app
-    </Text>
-  </View>
-  <View
-    style={
-      Object {
-        "paddingVertical": 8,
-      }
-    }
-    verticalSpace={true}
   >
     <Text
       accessible={true}
@@ -87,11 +44,51 @@ exports[`app lock selection page should render properly 1`] = `
             "fontFamily": "SF Pro Display",
           },
           Object {
-            "backgroundColor": "#333333",
-            "color": "#ffffff",
+            "backgroundColor": "#f0f0f0",
+            "color": "#777777",
           },
           Object {
             "fontWeight": "600",
+          },
+          Object {
+            "textAlign": "center",
+          },
+          null,
+        ]
+      }
+      testID={undefined}
+    >
+      Choose How To Unlock App
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "paddingHorizontal": 25,
+        "paddingTop": 50,
+        "paddingVertical": 35,
+      }
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      onPress={undefined}
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "fontFamily": "SF Pro Display",
+          },
+          Object {
+            "backgroundColor": "#f0f0f0",
+            "color": "#777777",
+          },
+          Object {
+            "fontWeight": "bold",
           },
           Object {
             "textAlign": "center",
@@ -105,9 +102,12 @@ exports[`app lock selection page should render properly 1`] = `
     </Text>
   </View>
   <View
+    flexGrow={true}
+    spaceAround={true}
     style={
       Object {
-        "flex": 1,
+        "flexGrow": 1,
+        "justifyContent": "space-around",
       }
     }
   >
@@ -117,6 +117,7 @@ exports[`app lock selection page should render properly 1`] = `
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
+      fifth={true}
       hitSlop={undefined}
       onLayout={undefined}
       onPress={[Function]}
@@ -126,26 +127,35 @@ exports[`app lock selection page should render properly 1`] = `
       onResponderTerminate={[Function]}
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
+      shadow={true}
       style={
         Object {
           "alignItems": "center",
-          "backgroundColor": "#f0f0f0",
+          "backgroundColor": "#ffffff",
           "borderRadius": 13,
           "justifyContent": "center",
-          "margin": 10,
-          "minHeight": 130,
+          "marginHorizontal": 30,
+          "paddingBottom": 20,
           "paddingHorizontal": 20,
-          "paddingTop": 10,
+          "paddingTop": 5,
+          "shadowColor": "rgba(0, 0, 0, 0.2)",
+          "shadowOffset": Object {
+            "height": 10,
+            "width": 0,
+          },
+          "shadowOpacity": 1,
+          "shadowRadius": 30,
         }
       }
-      tertiary={true}
       testID="touch-id-selection-touchable"
     >
       <Image
         source={1}
         style={
           Object {
-            "marginVertical": 10,
+            "height": 60,
+            "marginVertical": 15,
+            "width": 60,
           }
         }
       />
@@ -163,8 +173,8 @@ exports[`app lock selection page should render properly 1`] = `
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#ffffff",
-              "color": "#777777",
+              "backgroundColor": "#333333",
+              "color": "#333333",
             },
             Object {
               "fontWeight": "600",
@@ -172,7 +182,9 @@ exports[`app lock selection page should render properly 1`] = `
             Object {
               "textAlign": "center",
             },
-            null,
+            Object {
+              "backgroundColor": "transparent",
+            },
           ]
         }
         testID={undefined}
@@ -197,16 +209,18 @@ exports[`app lock selection page should render properly 1`] = `
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#333333",
-              "color": "#ffffff",
+              "backgroundColor": "#f0f0f0",
+              "color": "#777777",
             },
             Object {
-              "fontWeight": "bold",
+              "fontWeight": "800",
             },
             Object {
               "textAlign": "center",
             },
-            null,
+            Object {
+              "backgroundColor": "transparent",
+            },
           ]
         }
         testID={undefined}
@@ -219,6 +233,7 @@ exports[`app lock selection page should render properly 1`] = `
       accessibilityLabel={undefined}
       accessibilityTraits={undefined}
       accessible={true}
+      fifth={true}
       hitSlop={undefined}
       onLayout={undefined}
       onPress={[Function]}
@@ -228,17 +243,24 @@ exports[`app lock selection page should render properly 1`] = `
       onResponderTerminate={[Function]}
       onResponderTerminationRequest={[Function]}
       onStartShouldSetResponder={[Function]}
+      shadow={true}
       style={
         Object {
-          "backgroundColor": "#f0f0f0",
+          "backgroundColor": "#ffffff",
           "borderRadius": 13,
-          "margin": 10,
-          "minHeight": 130,
+          "marginHorizontal": 30,
+          "paddingBottom": 20,
           "paddingHorizontal": 20,
-          "paddingTop": 10,
+          "paddingTop": 5,
+          "shadowColor": "rgba(0, 0, 0, 0.2)",
+          "shadowOffset": Object {
+            "height": 10,
+            "width": 0,
+          },
+          "shadowOpacity": 1,
+          "shadowRadius": 30,
         }
       }
-      tertiary={true}
       testID="pin-code-selection-touchable"
     >
       <View
@@ -249,7 +271,8 @@ exports[`app lock selection page should render properly 1`] = `
             "alignItems": "center",
             "flexDirection": "row",
             "justifyContent": "center",
-            "marginVertical": 20,
+            "marginBottom": 25,
+            "marginVertical": 30,
           }
         }
       >
@@ -259,6 +282,7 @@ exports[`app lock selection page should render properly 1`] = `
               "borderBottomColor": "#777777",
               "borderBottomWidth": 4,
               "marginRight": 5,
+              "paddingBottom": 10,
               "paddingHorizontal": 5,
             }
           }
@@ -271,7 +295,7 @@ exports[`app lock selection page should render properly 1`] = `
             style={
               Array [
                 Object {
-                  "fontSize": 17,
+                  "fontSize": 20,
                 },
                 Object {
                   "fontFamily": "SF Pro Display",
@@ -281,7 +305,7 @@ exports[`app lock selection page should render properly 1`] = `
                   "color": "#777777",
                 },
                 Object {
-                  "fontWeight": "600",
+                  "fontWeight": "800",
                 },
                 Object {
                   "textAlign": "center",
@@ -291,7 +315,7 @@ exports[`app lock selection page should render properly 1`] = `
             }
             testID={undefined}
           >
-            *
+            1
           </Text>
         </View>
         <View
@@ -300,6 +324,7 @@ exports[`app lock selection page should render properly 1`] = `
               "borderBottomColor": "#777777",
               "borderBottomWidth": 4,
               "marginRight": 5,
+              "paddingBottom": 10,
               "paddingHorizontal": 5,
             }
           }
@@ -312,7 +337,7 @@ exports[`app lock selection page should render properly 1`] = `
             style={
               Array [
                 Object {
-                  "fontSize": 17,
+                  "fontSize": 20,
                 },
                 Object {
                   "fontFamily": "SF Pro Display",
@@ -322,7 +347,7 @@ exports[`app lock selection page should render properly 1`] = `
                   "color": "#777777",
                 },
                 Object {
-                  "fontWeight": "600",
+                  "fontWeight": "800",
                 },
                 Object {
                   "textAlign": "center",
@@ -332,7 +357,7 @@ exports[`app lock selection page should render properly 1`] = `
             }
             testID={undefined}
           >
-            *
+            2
           </Text>
         </View>
         <View
@@ -341,6 +366,7 @@ exports[`app lock selection page should render properly 1`] = `
               "borderBottomColor": "#777777",
               "borderBottomWidth": 4,
               "marginRight": 5,
+              "paddingBottom": 10,
               "paddingHorizontal": 5,
             }
           }
@@ -353,7 +379,7 @@ exports[`app lock selection page should render properly 1`] = `
             style={
               Array [
                 Object {
-                  "fontSize": 17,
+                  "fontSize": 20,
                 },
                 Object {
                   "fontFamily": "SF Pro Display",
@@ -363,7 +389,7 @@ exports[`app lock selection page should render properly 1`] = `
                   "color": "#777777",
                 },
                 Object {
-                  "fontWeight": "600",
+                  "fontWeight": "800",
                 },
                 Object {
                   "textAlign": "center",
@@ -373,7 +399,7 @@ exports[`app lock selection page should render properly 1`] = `
             }
             testID={undefined}
           >
-            *
+            3
           </Text>
         </View>
         <View
@@ -382,6 +408,7 @@ exports[`app lock selection page should render properly 1`] = `
               "borderBottomColor": "#777777",
               "borderBottomWidth": 4,
               "marginRight": 5,
+              "paddingBottom": 10,
               "paddingHorizontal": 5,
             }
           }
@@ -394,7 +421,7 @@ exports[`app lock selection page should render properly 1`] = `
             style={
               Array [
                 Object {
-                  "fontSize": 17,
+                  "fontSize": 20,
                 },
                 Object {
                   "fontFamily": "SF Pro Display",
@@ -404,7 +431,7 @@ exports[`app lock selection page should render properly 1`] = `
                   "color": "#777777",
                 },
                 Object {
-                  "fontWeight": "600",
+                  "fontWeight": "800",
                 },
                 Object {
                   "textAlign": "center",
@@ -414,7 +441,7 @@ exports[`app lock selection page should render properly 1`] = `
             }
             testID={undefined}
           >
-            *
+            4
           </Text>
         </View>
         <View
@@ -423,6 +450,7 @@ exports[`app lock selection page should render properly 1`] = `
               "borderBottomColor": "#777777",
               "borderBottomWidth": 4,
               "marginRight": 5,
+              "paddingBottom": 10,
               "paddingHorizontal": 5,
             }
           }
@@ -435,7 +463,7 @@ exports[`app lock selection page should render properly 1`] = `
             style={
               Array [
                 Object {
-                  "fontSize": 17,
+                  "fontSize": 20,
                 },
                 Object {
                   "fontFamily": "SF Pro Display",
@@ -445,7 +473,7 @@ exports[`app lock selection page should render properly 1`] = `
                   "color": "#777777",
                 },
                 Object {
-                  "fontWeight": "600",
+                  "fontWeight": "800",
                 },
                 Object {
                   "textAlign": "center",
@@ -455,7 +483,7 @@ exports[`app lock selection page should render properly 1`] = `
             }
             testID={undefined}
           >
-            *
+            5
           </Text>
         </View>
         <View
@@ -464,6 +492,7 @@ exports[`app lock selection page should render properly 1`] = `
               "borderBottomColor": "#777777",
               "borderBottomWidth": 4,
               "marginRight": 5,
+              "paddingBottom": 10,
               "paddingHorizontal": 5,
             }
           }
@@ -476,7 +505,7 @@ exports[`app lock selection page should render properly 1`] = `
             style={
               Array [
                 Object {
-                  "fontSize": 17,
+                  "fontSize": 20,
                 },
                 Object {
                   "fontFamily": "SF Pro Display",
@@ -486,7 +515,7 @@ exports[`app lock selection page should render properly 1`] = `
                   "color": "#777777",
                 },
                 Object {
-                  "fontWeight": "600",
+                  "fontWeight": "800",
                 },
                 Object {
                   "textAlign": "center",
@@ -496,7 +525,7 @@ exports[`app lock selection page should render properly 1`] = `
             }
             testID={undefined}
           >
-            *
+            6
           </Text>
         </View>
       </View>
@@ -514,8 +543,8 @@ exports[`app lock selection page should render properly 1`] = `
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#ffffff",
-              "color": "#777777",
+              "backgroundColor": "#333333",
+              "color": "#333333",
             },
             Object {
               "fontWeight": "600",
@@ -523,7 +552,13 @@ exports[`app lock selection page should render properly 1`] = `
             Object {
               "textAlign": "center",
             },
-            null,
+            Object {
+              "backgroundColor": "transparent",
+            },
+            Object {
+              "lineHeight": 22,
+              "paddingBottom": 5,
+            },
           ]
         }
         testID={undefined}

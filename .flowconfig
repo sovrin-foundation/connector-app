@@ -23,6 +23,7 @@
 
 ; Ignore libraries to check
 .*/node_modules/react-native-touch-id/.*
+.*/node_modules/react-native-linear-gradient/.*
 .*/node_modules/react-navigation/.*
 .*/node_modules/eslint-plugin-jsx-a11y/.*
 .*/node_modules/mock-async-storage/.*
