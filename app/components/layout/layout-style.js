@@ -102,7 +102,4 @@ export default StyleSheet.create({
   spaceAround: {
     justifyContent: 'space-around',
   },
-  flexGrow: {
-    flexGrow: 1,
-  },
 })

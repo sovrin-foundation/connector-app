@@ -4,6 +4,7 @@ import { InteractionManager, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { checkPinAction, checkPinStatusIdle } from './lock-store'
+import { StackNavigator } from 'react-navigation'
 import {
   Container,
   CustomText,
@@ -11,16 +12,36 @@ import {
   PinCodeBox,
   CustomView,
 } from '../components'
+import { lockEnterPinRoute } from '../common'
+import { color, OFFSET_1X, OFFSET_2X } from '../common/styles'
 import { CHECK_PIN_IDLE, CHECK_PIN_SUCCESS, CHECK_PIN_FAIL } from './type-lock'
 import type { Store } from '../store/type-store'
 import type { LockEnterPinProps, LockEnterPinState } from './type-lock'
 import { switchErrorAlerts } from '../store'
+import LinearGradient from 'react-native-linear-gradient'
 
-export const TitleText = (
-  <CustomText h4 bg="tertiary" tertiary center bold>
-    Enter pass code to unlock app
-  </CustomText>
-)
+const styles = StyleSheet.create({
+  text: {
+    marginTop: 120,
+    marginBottom: 70,
+  },
+  header: {
+    backgroundColor: color.bg.tertiary.color,
+    borderBottomWidth: 0,
+    height: 64,
+    padding: 0,
+    paddingHorizontal: OFFSET_2X,
+    shadowColor: 'transparent',
+    shadowOpacity: 0,
+    shadowOffset: {
+      height: 0,
+    },
+    shadowRadius: 0,
+  },
+  linearGradient: {
+    height: OFFSET_1X,
+  },
+})
 export const WrongPinText = (
   <CustomText h4 bg="tertiary" tertiary center>
     Wrong pass code! Please try again
@@ -37,6 +58,15 @@ export class LockEnterPin extends PureComponent<
   }
 
   pinCodeBox = null
+
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: (
+      <CustomText bg="tertiary" tertiary transparentBg semiBold>
+        Enter Pass Code
+      </CustomText>
+    ),
+    headerStyle: styles.header,
+  })
 
   onPinComplete = (pin: string) => {
     // user entered 6 digits in pin box
@@ -75,11 +105,15 @@ export class LockEnterPin extends PureComponent<
     const { checkPinStatus } = this.props
     return (
       <Container tertiary>
+        <LinearGradient
+          style={[styles.linearGradient]}
+          locations={[0.08, 1]}
+          colors={['#EAEAEA', 'rgba(240,240,240,0)']}
+        />
         <CustomView
           style={[styles.text]}
           onPress={this.props.switchErrorAlerts}
         >
-          {TitleText}
           {checkPinStatus === CHECK_PIN_FAIL && WrongPinText}
         </CustomView>
         <CustomView center>
@@ -112,11 +146,8 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default connect(mapStateToProps, mapDispatchToProps)(LockEnterPin)
-
-const styles = StyleSheet.create({
-  text: {
-    marginTop: 120,
-    marginBottom: 70,
+export default StackNavigator({
+  [lockEnterPinRoute]: {
+    screen: connect(mapStateToProps, mapDispatchToProps)(LockEnterPin),
   },
 })

@@ -10,6 +10,29 @@ exports[`<LockPinCodeEnter /> should render pin code box 1`] = `
   }
   tertiary={true}
 >
+  <BVLinearGradient
+    colors={
+      Array [
+        4293585642,
+        15790320,
+      ]
+    }
+    end={undefined}
+    locations={
+      Array [
+        0.08,
+        1,
+      ]
+    }
+    start={undefined}
+    style={
+      Array [
+        Object {
+          "height": 10,
+        },
+      ]
+    }
+  />
   <View
     accessibilityComponentType={undefined}
     accessibilityLabel={undefined}
@@ -31,38 +54,7 @@ exports[`<LockPinCodeEnter /> should render pin code box 1`] = `
       }
     }
     testID={undefined}
-  >
-    <Text
-      accessible={true}
-      allowFontScaling={true}
-      ellipsizeMode="tail"
-      onPress={undefined}
-      style={
-        Array [
-          Object {
-            "fontSize": 20,
-          },
-          Object {
-            "fontFamily": "SF Pro Display",
-          },
-          Object {
-            "backgroundColor": "#f0f0f0",
-            "color": "#777777",
-          },
-          Object {
-            "fontWeight": "bold",
-          },
-          Object {
-            "textAlign": "center",
-          },
-          null,
-        ]
-      }
-      testID={undefined}
-    >
-      Enter pass code to unlock app
-    </Text>
-  </View>
+  />
   <View
     center={true}
     style={

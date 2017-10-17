@@ -102,11 +102,10 @@ exports[`app lock selection page should render properly 1`] = `
     </Text>
   </View>
   <View
-    flexGrow={true}
     spaceAround={true}
     style={
       Object {
-        "flexGrow": 1,
+        "flex": 1,
         "justifyContent": "space-around",
       }
     }

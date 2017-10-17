@@ -41,7 +41,7 @@ export class LockSelection extends PureComponent {
             times.
           </CustomText>
         </CustomView>
-        <CustomView spaceAround flexGrow>
+        <Container spaceAround>
           <CustomView
             center
             fifth
@@ -121,7 +121,7 @@ export class LockSelection extends PureComponent {
               Use PIN Code for "connect.me"
             </CustomText>
           </CustomView>
-        </CustomView>
+        </Container>
       </Container>
     )
   }
