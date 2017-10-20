@@ -98,7 +98,7 @@ exports[`app lock selection page should render properly 1`] = `
       }
       testID={undefined}
     >
-      This application must be protected by TouchId or a pin code at all times.
+      This application must be protected by TouchID or a pin code at all times.
     </Text>
   </View>
   <View
@@ -562,7 +562,7 @@ exports[`app lock selection page should render properly 1`] = `
         }
         testID={undefined}
       >
-        Use PIN Code for "connect.me"
+        Use Pass Code for "connect.me"
       </Text>
     </View>
   </View>

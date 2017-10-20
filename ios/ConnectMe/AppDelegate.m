@@ -49,7 +49,7 @@
 
   [FIRApp configure];
   [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
-
+  [[UIApplication sharedApplication] setStatusBarHidden:NO];
   [SplashScreen show]; //show splash screen
 
   return YES;

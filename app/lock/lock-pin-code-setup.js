@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
 
 const EnterPinText = (
   <CustomText style={[styles.titleText]} center h4 bg="tertiary" tertiary thick>
-    Setup a pass code
+    Set up a pass code
   </CustomText>
 )
 const ReEnterPinText = (

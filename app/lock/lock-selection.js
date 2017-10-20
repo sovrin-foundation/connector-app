@@ -37,7 +37,7 @@ export class LockSelection extends PureComponent {
         </CustomView>
         <CustomView style={[style.messageText]}>
           <CustomText h5 bg="tertiary" tertiary bold center>
-            This application must be protected by TouchId or a pin code at all
+            This application must be protected by TouchID or a pin code at all
             times.
           </CustomText>
         </CustomView>
@@ -118,7 +118,7 @@ export class LockSelection extends PureComponent {
               style={[style.usePinText]}
               onPress={this.goPinCodeSetup}
             >
-              Use PIN Code for "connect.me"
+              Use Pass Code for "connect.me"
             </CustomText>
           </CustomView>
         </Container>
