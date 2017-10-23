@@ -34,6 +34,13 @@
      
     </plugins>
   </build>
+  <repositories>
+   <repository>
+   	<id>hyperledger</id>
+   	<name>hyperledger</name>
+   	<url>https://repo.evernym.com/artifactory/libindy-maven-local</url>
+   </repository>
+  </repositories>
   <dependencies>
     		<dependency>
   			<groupId>io.appium</groupId>
@@ -70,5 +77,22 @@
   <artifactId>Appium-Support</artifactId>
   <version>1.0.2</version>
 </dependency>
+<dependency>
+    <groupId>org.abstractj.kalium</groupId>
+    <artifactId>kalium</artifactId>
+    <version>0.5.0</version>
+</dependency>
+<dependency>
+    <groupId>org.hyperledger</groupId>
+    <artifactId>indy</artifactId>
+    <version>1.0.0</version>
+</dependency>
+<dependency>
+    <groupId>org.bitcoinj</groupId>
+    <artifactId>bitcoinj-core</artifactId>
+    <version>0.12</version>
+</dependency>
+
+
 </dependencies>
 </project>

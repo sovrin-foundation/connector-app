@@ -12,7 +12,6 @@ public class App4NegativeTest {
 
 	public  AppiumDriver driver;
 
-    static String  ConnectMeLink;
 	AppUtlis AppUtlisObj=new AppUtlis();
 	LockModules LockModlesObj=new LockModules();
 	ConnectionModules ConnectionModulesObj =new ConnectionModules();
@@ -23,7 +22,6 @@ public class App4NegativeTest {
 		
     	Thread.sleep(20000);
 		driver = Setup.ConfigureDriver("App");
-
 
 	}
 	
@@ -52,7 +50,7 @@ public class App4NegativeTest {
 	public void App3ProvisoningDeny()throws Exception{
 		
 		AppUtlisObj.CheckSkip();
-		ConnectionModulesObj.AppProvisioningDeny(driver);
+		ConnectionModulesObj.AppProvisioningRequest("Deny",driver);
 		AppUtlis.Success=true;		
 
 		
@@ -68,13 +66,7 @@ public class App4NegativeTest {
 
 		
 	}
-	
-	
-	
-	
-	
-	
-	
+
     @AfterClass
 	public void afterClass() {
 		 driver.removeApp("com.evernym.connectme.callcenter");

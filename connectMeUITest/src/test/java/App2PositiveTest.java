@@ -4,6 +4,7 @@ package test.java;
 import io.appium.java_client.AppiumDriver;
 import org.testng.annotations.*;
 import appModules.AppUtlis;
+import funcModules.AuthRequestModules;
 import funcModules.ConnectionModules;
 import funcModules.LockModules;
 import pageObjects.ChooseLockPage;
@@ -12,12 +13,13 @@ import utility.*;
 @Test
 public class App2PositiveTest {
 
-	public AppiumDriver driver;
+	private AppiumDriver driver;
 
     static String  ConnectMeLink;
 	AppUtlis AppUtlisObj=new AppUtlis();
 	LockModules LockModlesObj=new LockModules();
 	ConnectionModules ConnectionModulesObj =new ConnectionModules();
+	AuthRequestModules AuthRequestModulesObj=new AuthRequestModules();
 
 
 	@BeforeClass //testng 
@@ -51,7 +53,7 @@ public class App2PositiveTest {
 	public void App3AuthRequestTest() throws Exception {
 	
 		AppUtlisObj.CheckSkip();
-		ConnectionModulesObj.AuthRequest(driver,"");
+		AuthRequestModulesObj.AuthRequest(driver,"Demo");
 		AppUtlis.Success=true;
 		
 	}
@@ -61,7 +63,6 @@ public class App2PositiveTest {
 		driver.quit();
 		driver = Setup.ConfigureDriver("App");
 	    AppUtlisObj.enterPincode(driver);
-		HomePage.Avatar_Photo(driver);
 		AppUtlis.Success=true;
 
 	}

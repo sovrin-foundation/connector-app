@@ -5,39 +5,29 @@ import io.appium.java_client.AppiumDriver;
 
 import org.testng.annotations.*;
 import appModules.AppUtlis;
+import funcModules.ConnectionModules;
 import utility.Setup;
 
 public class App3InstallTest {
 
-	public  AppiumDriver driver;
+	private AppiumDriver driver;
 	static boolean Success=false;
 	AppUtlis AppUtlisObj=new AppUtlis();
-	int retry=0;
+	ConnectionModules ConnectionModulesObj=new ConnectionModules();
 
 
 	@BeforeMethod
 
 	public void beforeMethod() throws Exception {
-
+        Thread.sleep(10000);
 		driver = Setup.ConfigureDriver("Safari");
 	}
 
 
     @Test (groups = {"Regression"})
 	public void AppInstall() throws Exception  {
-    	try {
-			AppUtlisObj.InstallApp(driver,"Sandbox");
-		     } catch (Exception e) {
-		    
-		    System.out.println("under catch block");
-			driver.quit();
-			Thread.sleep(5000);
-		    driver = Setup.ConfigureDriver("Safari");
-			AppUtlisObj.InstallApp(driver,"Sandbox");
-		    
-		     }
-            AppUtlis.Success=true;
-        
+    	ConnectionModulesObj.InstallApp(driver,"Sandbox");
+    		
     }
 
 	@AfterMethod

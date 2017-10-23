@@ -4,13 +4,15 @@ package test.java;
 import io.appium.java_client.AppiumDriver;
 import org.testng.annotations.*;
 import appModules.AppUtlis;
+import funcModules.ConnectionModules;
 import utility.Setup;
 
 public class App1InstallTest {
 
-	public AppiumDriver driver;
+	private AppiumDriver driver;
 	static boolean Success=false;
 	AppUtlis AppUtlisObj=new AppUtlis();
+	ConnectionModules ConnectionModulesObj=new ConnectionModules();
 
 	@BeforeMethod
 
@@ -22,17 +24,8 @@ public class App1InstallTest {
 
     @Test (groups = { "Smoke","Regression"})
 	public void AppInstall() throws Exception {
-    	try {
-			AppUtlisObj.InstallApp(driver,"Sandbox");
-		     } catch (Exception e) {
 
-		    System.out.println("under catch block");
-			driver.quit();
-			Thread.sleep(5000);
-			driver = Setup.ConfigureDriver("Safari");
-			AppUtlisObj.InstallApp(driver,"Sandbox");
-			
-		     }
+    	ConnectionModulesObj.InstallApp(driver,"Demo");
             AppUtlis.Success=true;
     }
 
