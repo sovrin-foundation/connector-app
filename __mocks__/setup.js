@@ -103,3 +103,5 @@ jest.mock('InteractionManager', () => ({
     fn()
   },
 }))
+
+jest.mock('TextInput', () => 'TextInput')
