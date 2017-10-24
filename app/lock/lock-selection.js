@@ -1,10 +1,11 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Image, StyleSheet } from 'react-native'
+import { Image, StyleSheet, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Container, CustomText, CustomView } from '../components'
 import { lockPinSetupRoute } from '../common/'
+
 import {
   OFFSET_1X,
   OFFSET_2X,
@@ -16,6 +17,9 @@ import {
   PIN_CODE_BORDER_BOTTOM,
 } from '../common/styles/constant'
 import { switchErrorAlerts } from '../store'
+
+const { width, height } = Dimensions.get('screen')
+const isPhone5 = width >= 320 && width < 375
 
 export class LockSelection extends PureComponent {
   goTouchIdSetup = () => {
@@ -62,7 +66,7 @@ export class LockSelection extends PureComponent {
               transparentBg
               onPress={this.goTouchIdSetup}
             >
-              Use Touch ID for "connect.me"
+              Use Touch ID
             </CustomText>
           </CustomView>
           <CustomView style={[style.dividerText]}>
@@ -118,7 +122,7 @@ export class LockSelection extends PureComponent {
               style={[style.usePinText]}
               onPress={this.goPinCodeSetup}
             >
-              Use Pass Code for "connect.me"
+              Use Pass Code
             </CustomText>
           </CustomView>
         </Container>
@@ -140,13 +144,13 @@ export default connect(null, mapDispatchToProps)(LockSelection)
 const style = StyleSheet.create({
   pinSelectionContainer: {
     paddingTop: OFFSET_3X,
-    paddingBottom: OFFSET_6X,
+    paddingBottom: isPhone5 ? OFFSET_2X : OFFSET_6X,
     paddingHorizontal: OFFSET_2X,
   },
   messageText: {
-    paddingVertical: OFFSET_7X / 2,
-    paddingHorizontal: OFFSET_5X / 2,
-    paddingTop: OFFSET_5X,
+    paddingHorizontal: isPhone5 ? 0 : OFFSET_5X / 2,
+    paddingTop: isPhone5 ? OFFSET_5X / 2 : OFFSET_5X,
+    paddingBottom: isPhone5 ? OFFSET_3X / 2 : OFFSET_7X / 2,
   },
   touchIdPinContainer: {
     paddingTop: OFFSET_1X / 2,

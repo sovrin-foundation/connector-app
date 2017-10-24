@@ -6,7 +6,7 @@ exports[`app lock selection page should render properly 1`] = `
     Object {
       "backgroundColor": "#f0f0f0",
       "flex": 1,
-      "paddingBottom": 60,
+      "paddingBottom": 20,
       "paddingHorizontal": 20,
       "paddingTop": 30,
     }
@@ -64,9 +64,10 @@ exports[`app lock selection page should render properly 1`] = `
   <View
     style={
       Object {
-        "paddingHorizontal": 25,
-        "paddingTop": 50,
-        "paddingVertical": 35,
+        "paddingBottom": 15,
+        "paddingHorizontal": 0,
+        "paddingTop": 25,
+        "paddingVertical": 0,
       }
     }
   >
@@ -188,7 +189,7 @@ exports[`app lock selection page should render properly 1`] = `
         }
         testID={undefined}
       >
-        Use Touch ID for "connect.me"
+        Use Touch ID
       </Text>
     </View>
     <View
@@ -562,7 +563,7 @@ exports[`app lock selection page should render properly 1`] = `
         }
         testID={undefined}
       >
-        Use Pass Code for "connect.me"
+        Use Pass Code
       </Text>
     </View>
   </View>
