@@ -2,6 +2,7 @@
 // TODO:KS Consider moving it to api folder
 export const TOKEN_EXPIRED_CODE = 'CRS-121'
 export const SERVER_ERROR_CODE = 'OCS-000'
+export const SERVER_API_CALL_ERROR = 'OCS-001'
 export const PENDING_CONNECTION_REQUEST_CODE = 'CRS-103'
 export const PUSH_NOTIFICATION_SENT_CODE = 'push-notification-sent'
 

@@ -7,11 +7,19 @@ import {
 } from '../../services'
 import { encode } from 'bs58'
 import { AsyncStorage } from 'react-native'
+import { NativeModules } from 'react-native'
+
+// get React native indy module from NativeModules
+const { RNIndy } = NativeModules
+
+type Metadata = {
+  [string]: string,
+}
 
 type Connection = {
-  metadata: string,
+  metadata: Metadata,
   seed: string,
-  identifier: string,
+  identifier?: string,
 }
 
 const savedConnectionKey = '@ConnectMe:SavedConnectionKey'
@@ -48,7 +56,13 @@ export async function encrypt(remoteDid: string, payload: string) {
   const { secretKey } = getKeyPairFromSeed(seed)
   const signature = encode(getSignature(secretKey, payload))
 
-  await wait()
+  try {
+    const metadataJson = await RNIndy.getConnectionForDid(remoteDid)
+    const metadata = JSON.parse(metadataJson)
+  } catch (e) {
+    // what to do with indy error and how to handle them
+    console.error(e)
+  }
 
   return signature
 }
@@ -61,23 +75,46 @@ export async function decrypt(remoteDid: string, payload: string) {
 
 export async function addConnection(
   remoteDid: string,
-  metadata: string = '{}'
+  metadata: Metadata = {}
 ) {
-  const identifier = randomSeed(32).substring(0, 22)
   const seed = randomSeed(32).substring(0, 32)
   const { publicKey } = getKeyPairFromSeed(seed)
+  const verificationKey = encode(publicKey)
+
+  let identifier
+  try {
+    const pairwiseInfo = await RNIndy.addConnection(
+      remoteDid,
+      verificationKey,
+      {
+        seed,
+        ...metadata,
+      }
+    )
+
+    try {
+      const pairwise = JSON.parse(pairwiseInfo)
+      identifier = pairwise.userDID
+    } catch (e) {
+      // what to do if indy-sdk doesn't give user did
+      console.error(e)
+    }
+  } catch (e) {
+    // what to do if indy sdk returns error
+    console.error(e)
+  }
+
   connections[remoteDid] = {
     seed,
     identifier,
     metadata,
   }
 
-  await wait()
   await save()
 
   return {
     identifier,
-    verificationKey: encode(publicKey),
+    verificationKey,
   }
 }
 

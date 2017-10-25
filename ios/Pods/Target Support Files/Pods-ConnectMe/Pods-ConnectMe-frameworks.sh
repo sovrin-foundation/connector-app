@@ -89,10 +89,10 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "${PODS_ROOT}/indy-objc/indy-objc/libindy.framework"
+  install_framework "${PODS_ROOT}/libindy-objc/libindy-objc/Indy.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "${PODS_ROOT}/indy-objc/indy-objc/libindy.framework"
+  install_framework "${PODS_ROOT}/libindy-objc/libindy-objc/Indy.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

@@ -1,0 +1,1 @@
+../../../../libindy-objc/libindy-objc/Indy.framework/Headers/IndyWalletProtocols.h

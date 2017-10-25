@@ -38,11 +38,12 @@
 
 # Uncomment the next line to define a global platform for your project
 platform :ios, '10.2'
-source 'https://github.com/hyperledger/indy-sdk.git'
+source 'git@github.com:evernym/connect-me-indy-wrapper.git'
+source 'git@github.com:hyperledger/indy-sdk.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
+pod 'ConnectMeIndy', '0.0.8'
 pod 'Firebase/Messaging'
-pod 'indy-objc'
 
 target 'ConnectMe' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks

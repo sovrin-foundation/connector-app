@@ -22,7 +22,7 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
     <View
       style={
         Object {
-          "height": 302,
+          "height": 380,
           "left": 0,
           "overflow": "hidden",
           "position": "absolute",

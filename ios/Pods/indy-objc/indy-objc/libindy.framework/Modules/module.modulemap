@@ -1,6 +1,0 @@
-framework module libindy {
-  umbrella header "libindy.h"
-
-  export *
-  module * { export * }
-}

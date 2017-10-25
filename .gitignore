@@ -52,6 +52,9 @@ buck-out/
 # ios specific files
 .DS_Store
 app/.DS_Store
+# Commenting this for now, Once we fix build without Pods directory
+# we will add Pods again to .gitignore
+# ios/Pods
 
 # vscode files
 .vscode

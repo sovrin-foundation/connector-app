@@ -44,11 +44,7 @@ import {
   getSMSConnectionRequestRemoteDID,
 } from '../store/store-selector'
 import { saveNewConnection, getConnection } from '../store/connections-store'
-import {
-  encrypt,
-  addConnection,
-  getConnectionMetadata,
-} from '../bridge/react-native-cxs/RNCxs'
+import { encrypt, addConnection } from '../bridge/react-native-cxs/RNCxs'
 
 const initialState = {
   payload: {},
@@ -142,9 +138,9 @@ export function* sendSMSResponse(
     }
     yield put(smsConnectionFail(error))
   } else {
-    const metadata = JSON.stringify({
+    const metadata = {
       remoteConnectionId,
-    })
+    }
     const { identifier, verificationKey } = yield call(
       addConnection,
       remoteConnectionId,

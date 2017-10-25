@@ -1,1 +1,0 @@
-../../../../indy-objc/indy-objc/libindy.framework/Headers/IndyAnoncreds.h

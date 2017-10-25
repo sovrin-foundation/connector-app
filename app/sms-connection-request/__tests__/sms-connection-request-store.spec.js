@@ -137,9 +137,9 @@ describe('SMS Connection Request store', () => {
 
     expect(gen.next(remoteDID).value).toEqual(select(getAllConnection))
 
-    const metadata = JSON.stringify({
+    const metadata = {
       remoteConnectionId,
-    })
+    }
     expect(gen.next(remoteConnectionId).value).toEqual(
       call(addConnection, remoteConnectionId, metadata)
     )

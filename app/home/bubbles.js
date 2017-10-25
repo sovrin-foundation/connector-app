@@ -96,7 +96,13 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     overflow: 'hidden',
-    height: 302,
+    // TODO this height should be calculated automatically
+    // these styles are in absolute position due to early stage design
+    // of home screen, we used to scroll on this screen,
+    // and this height was being animated as we scroll on page
+    // now we don't need to scroll and we can directly use <Container />
+    // for bubbles, for now fixing the height, but we need to fix this component
+    height: 380,
   },
   avatar: {
     position: 'absolute',

@@ -1,4 +1,7 @@
-import { SERVER_ERROR_CODE } from '../../common/api-constants'
+import {
+  SERVER_ERROR_CODE,
+  SERVER_API_CALL_ERROR,
+} from '../../common/api-constants'
 
 export const options = (method = 'GET', body) => {
   let data = {
@@ -65,4 +68,15 @@ export const api = (url, apiOptions, showAlert) =>
 
         throw new Error(JSON.stringify(errorResponse))
       }
+    })
+    .catch(error => {
+      // we don't want to throw JavaScript with simple message
+      // we want it to be JSON parse compatible, so that error handlers
+      // can parse and use this error
+      throw new Error(
+        JSON.stringify({
+          statusMsg: error.message,
+          statusCode: SERVER_API_CALL_ERROR,
+        })
+      )
     })

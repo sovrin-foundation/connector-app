@@ -9,7 +9,7 @@ platform :ios do
 
   lane :beta do
       reset_git_repo(force: true)
-      increment_build_number(xcodeproj: "ConnectMe.xcodeproj")
+      build_number = increment_build_number(xcodeproj: "ConnectMe.xcodeproj")
       app_identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
       match(
         type: "adhoc",
@@ -48,7 +48,8 @@ platform :ios do
   end
 
   after_all do |lane|
-     slack(channel: "connectme_build", message: "Successfully deployed new App update on hockeyapp.")
+     commitMessage = ENV["GIT_CLONE_COMMIT_MESSAGE_BODY"]
+     slack(channel: "connectme_build", message: "Success! #{commitMessage}")
   end
 
   error do |lane, exception|

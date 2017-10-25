@@ -67,7 +67,6 @@ exports[`app lock selection page should render properly 1`] = `
         "paddingBottom": 15,
         "paddingHorizontal": 0,
         "paddingTop": 25,
-        "paddingVertical": 0,
       }
     }
   >
