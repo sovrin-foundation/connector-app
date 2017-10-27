@@ -84,7 +84,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
         <AvatarsPair
           middleImage={middleImage}
           middleImageStyle={styles.connectedArrow}
-          avatarLeft={require('../images/invitee.jpeg')}
+          avatarLeft={require('../images/invitee.png')}
           avatarRight={avatarRight}
           testID={'claim-request'}
         />
