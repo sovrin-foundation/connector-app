@@ -49,8 +49,10 @@ exports[`<LockPinCodeEnter /> should render pin code box 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "marginBottom": 70,
-        "marginTop": 120,
+        "lineHeight": 30,
+        "marginBottom": 40,
+        "marginTop": 40,
+        "minHeight": 30,
       }
     }
     testID={undefined}

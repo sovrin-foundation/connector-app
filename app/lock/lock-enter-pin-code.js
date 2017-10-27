@@ -13,7 +13,13 @@ import {
   CustomView,
 } from '../components'
 import { lockEnterPinRoute } from '../common'
-import { color, OFFSET_1X, OFFSET_2X } from '../common/styles'
+import {
+  color,
+  OFFSET_1X,
+  OFFSET_2X,
+  OFFSET_3X,
+  OFFSET_4X,
+} from '../common/styles'
 import { CHECK_PIN_IDLE, CHECK_PIN_SUCCESS, CHECK_PIN_FAIL } from './type-lock'
 import type { Store } from '../store/type-store'
 import type { LockEnterPinProps, LockEnterPinState } from './type-lock'
@@ -21,9 +27,12 @@ import { switchErrorAlerts } from '../store'
 import LinearGradient from 'react-native-linear-gradient'
 
 const styles = StyleSheet.create({
+  //TODO : add animations when keyboard popups.
   text: {
-    marginTop: 120,
-    marginBottom: 70,
+    marginTop: OFFSET_4X,
+    minHeight: OFFSET_3X,
+    lineHeight: OFFSET_3X,
+    marginBottom: OFFSET_4X,
   },
   header: {
     backgroundColor: color.bg.tertiary.color,
