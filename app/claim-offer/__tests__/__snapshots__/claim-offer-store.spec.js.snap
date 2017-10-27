@@ -3,6 +3,9 @@
 exports[`claim offer store claim offer is accepted 1`] = `
 Object {
   "claimRequestStatus": "NONE",
+  "error": null,
+  "isFetching": false,
+  "isPristine": true,
   "payload": undefined,
   "status": "ACCEPTED",
 }
@@ -11,6 +14,9 @@ Object {
 exports[`claim offer store claim offer is ignored 1`] = `
 Object {
   "claimRequestStatus": "NONE",
+  "error": null,
+  "isFetching": false,
+  "isPristine": true,
   "payload": undefined,
   "status": "IGNORED",
 }
@@ -19,6 +25,9 @@ Object {
 exports[`claim offer store claim offer is received 1`] = `
 Object {
   "claimRequestStatus": "NONE",
+  "error": null,
+  "isFetching": false,
+  "isPristine": true,
   "payload": Object {
     "claimOffer": Object {
       "name": "Home Address",
@@ -47,6 +56,9 @@ Object {
 exports[`claim offer store claim offer is rejected 1`] = `
 Object {
   "claimRequestStatus": "NONE",
+  "error": null,
+  "isFetching": false,
+  "isPristine": true,
   "payload": undefined,
   "status": "REJECTED",
 }
@@ -55,6 +67,9 @@ Object {
 exports[`claim offer store claim offer is shown 1`] = `
 Object {
   "claimRequestStatus": "NONE",
+  "error": null,
+  "isFetching": false,
+  "isPristine": true,
   "payload": undefined,
   "status": "SHOWN",
 }
@@ -63,6 +78,9 @@ Object {
 exports[`claim offer store claim request is fail 1`] = `
 Object {
   "claimRequestStatus": "CLAIM_REQUEST_FAIL",
+  "error": null,
+  "isFetching": false,
+  "isPristine": true,
   "payload": undefined,
   "status": "IDLE",
 }
@@ -71,6 +89,9 @@ Object {
 exports[`claim offer store claim request is sent 1`] = `
 Object {
   "claimRequestStatus": "SENDING_CLAIM_REQUEST",
+  "error": null,
+  "isFetching": false,
+  "isPristine": true,
   "payload": undefined,
   "status": "IDLE",
 }
@@ -79,6 +100,9 @@ Object {
 exports[`claim offer store claim request is success 1`] = `
 Object {
   "claimRequestStatus": "CLAIM_REQUEST_SUCCESS",
+  "error": null,
+  "isFetching": false,
+  "isPristine": true,
   "payload": undefined,
   "status": "IDLE",
 }
@@ -87,6 +111,9 @@ Object {
 exports[`claim offer store should correctly calculate initial state 1`] = `
 Object {
   "claimRequestStatus": "NONE",
+  "error": null,
+  "isFetching": false,
+  "isPristine": true,
   "payload": undefined,
   "status": "IDLE",
 }

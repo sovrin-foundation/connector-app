@@ -3,7 +3,6 @@ import { put, takeLatest, call, all, select } from 'redux-saga/effects'
 import { encode } from 'bs58'
 import type {
   QrConnectionRequestStore,
-  QrConnectionPayload,
   QrConnectionReceivedAction,
   QrConnectionAction,
   QrConnectionReceivedActionData,
@@ -13,6 +12,7 @@ import type {
   QrConnectionFailAction,
   Error,
 } from './type-qr-connection-request'
+import type { QrCode } from '../components/qr-scanner/type-qr-scanner'
 import type { ConfigStore } from '../store/type-store'
 import {
   QR_CONNECTION_REQUEST,
@@ -27,12 +27,22 @@ import {
   verifySignature,
   randomSeed,
   sendQRInvitationResponse,
+  connectWithConsumerAgency,
+  registerWithConsumerAgency,
+  createAgentWithConsumerAgency,
+  sendInvitationResponse,
 } from '../services'
 import {
   QR_CODE_CHALLENGE,
-  QR_CODE_REMOTE_PAIR_WISE_DID,
-  QR_CODE_REMOTE_HOSTING_DID,
-} from '../common'
+  QR_CODE_SENDER_DID,
+  QR_CODE_REQUEST_ID,
+  QR_CODE_LOGO_URL,
+  QR_CODE_SENDER_NAME,
+  QR_CODE_AGENT_PROOF,
+  QR_CODE_SENDER_VERIFICATION_KEY,
+  QR_CODE_SENDER_ENDPOINT,
+  API_TYPE,
+} from '../services/api'
 import {
   getAgencyUrl,
   getPushToken,
@@ -78,17 +88,15 @@ export const qrConnectionFail = (error: Error): QrConnectionFailAction => ({
 export function* sendQrResponse(
   action: QrConnectionResponseSendAction
 ): Generator<*, *, *> {
-  // get data needed for agent api call from store
+  // get data needed for agent api call from store using selectors
   // this will keep our components and screen to not pass data
   // and will keep our actions lean
   const agencyUrl: string = yield select(getAgencyUrl)
   const pushToken: string = yield select(getPushToken)
-  const qrPayload: QrConnectionPayload = yield select(getQrPayload)
-
-  const remoteConnectionId = qrPayload.challenge[QR_CODE_REMOTE_PAIR_WISE_DID]
+  const qrCode: QrCode = yield select(getQrPayload)
   const connections = yield select(getAllConnection)
-  const isDuplicateConnection =
-    getConnection(remoteConnectionId, connections).length > 0
+  const senderDID = qrCode[QR_CODE_SENDER_DID]
+  const isDuplicateConnection = getConnection(senderDID, connections).length > 0
 
   if (isDuplicateConnection) {
     const error = {
@@ -97,30 +105,73 @@ export function* sendQrResponse(
     }
     yield put(qrConnectionFail(error))
   } else {
+    const logoUrl = qrCode[QR_CODE_LOGO_URL]
+    const senderEndpoint = qrCode[QR_CODE_SENDER_ENDPOINT]
+    const metadata = {
+      senderDID,
+    }
     const { identifier, verificationKey } = yield call(
       addConnection,
-      remoteConnectionId
+      senderDID,
+      metadata
     )
-    const apiData = {
-      remoteChallenge: qrPayload.qrData[QR_CODE_CHALLENGE],
-      remoteSig: qrPayload.signature,
-      newStatus: action.data.response,
-      identifier,
-      verKey: verificationKey,
-      pushComMethod: `FCM:${pushToken}`,
-    }
-    const challenge = JSON.stringify(apiData)
-    const signature = yield call(encrypt, remoteConnectionId, challenge)
 
     try {
-      yield call(sendQRInvitationResponse, { challenge, signature, agencyUrl })
+      // connect with consumer agency
+      const connectResponse = yield call(connectWithConsumerAgency, {
+        agencyUrl,
+        dataBody: {
+          type: API_TYPE.CONNECT,
+          fromDID: identifier,
+          fromDIDVerKey: verificationKey,
+        },
+      })
+      // register with consumer agency
+      const registerResponse = yield call(registerWithConsumerAgency, {
+        agencyUrl,
+        dataBody: {
+          type: API_TYPE.REGISTER,
+          fromDID: identifier,
+        },
+      })
+      // create agent
+      const createAgentResponse = yield call(createAgentWithConsumerAgency, {
+        agencyUrl,
+        dataBody: {
+          type: API_TYPE.CREATE_AGENT,
+          forDID: identifier,
+        },
+      })
+
+      const dataBody = {
+        to: identifier,
+        agentPayload: JSON.stringify({
+          type: API_TYPE.INVITE_ANSWERED,
+          uid: qrCode[QR_CODE_REQUEST_ID],
+          // TODO: get this data from agent registration
+          keyDlgProof: 'delegate to agent',
+          senderName: qrCode[QR_CODE_SENDER_NAME],
+          senderLogoUrl: logoUrl,
+          senderDID,
+          senderDIDVerKey: qrCode[QR_CODE_SENDER_VERIFICATION_KEY],
+          remoteAgentKeyDlgProof: qrCode[QR_CODE_AGENT_PROOF],
+          remoteEndpoint: senderEndpoint,
+          pushComMethod: `FCM:${pushToken}`,
+        }),
+      }
+
+      yield call(sendInvitationResponse, {
+        agencyUrl,
+        dataBody,
+      })
       yield put(qrConnectionSuccess())
       if (action.data.response === ResponseType.accepted) {
         const connection = {
           newConnection: {
             identifier,
-            remoteConnectionId: remoteConnectionId,
-            remoteDID: qrPayload.challenge[QR_CODE_REMOTE_HOSTING_DID],
+            senderDID,
+            logoUrl,
+            senderEndpoint,
           },
         }
         yield put(saveNewConnection(connection))

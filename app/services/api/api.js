@@ -1,21 +1,24 @@
 import { api, options } from './api-utils'
 
-export const invitationDetailsRequest = ({ smsToken, agencyUrl }) =>
-  api(`${agencyUrl}/agent/token/${smsToken}/connection-req`, options('GET'))
+export const getInvitationLink = ({ agencyUrl, smsToken }) =>
+  api(`${agencyUrl}/agency/url-mapper/${smsToken}`, options('GET'))
 
-// Accept/Deny invitation from SMS received
-export const sendSMSInvitationResponse = ({
-  agencyUrl,
-  challenge,
-  signature,
-  requestId,
-  senderGeneratedUserDid,
-}) =>
-  api(
-    `${agencyUrl}/agent/${senderGeneratedUserDid}/connection-req/${requestId}`,
-    options('PUT', { challenge, signature }),
-    true
-  )
+export const invitationDetailsRequest = ({ url }) => api(url, options('GET'))
+
+export const connectWithConsumerAgency = ({ agencyUrl, dataBody }) =>
+  api(`${agencyUrl}/agency/msg`, options('POST', dataBody))
+
+export const registerWithConsumerAgency = ({ agencyUrl, dataBody }) =>
+  api(`${agencyUrl}/agency/msg`, options('POST', dataBody))
+
+export const createAgentWithConsumerAgency = ({ agencyUrl, dataBody }) =>
+  api(`${agencyUrl}/agency/msg`, options('POST', dataBody))
+
+export const sendInvitationResponse = ({ agencyUrl, dataBody }) =>
+  api(`${agencyUrl}/agency/route`, options('POST', dataBody))
+
+export const fetchClaimOfferRequest = ({ agencyUrl, dataBody }) =>
+  api(`${agencyUrl}/agency/route`, options('POST', dataBody))
 
 export const sendAuthenticationRequest = ({
   data: { identifier, dataBody },
@@ -35,13 +38,5 @@ export const sendQRInvitationResponse = ({ challenge, signature, agencyUrl }) =>
     true
   )
 
-export const sendUpdatedPushToken = ({
-  challenge,
-  signature,
-  agencyUrl,
-  DID,
-}) =>
-  api(
-    `${agencyUrl}/agent/${DID}/push-com-method`,
-    options('PUT', { challenge, signature })
-  )
+export const sendUpdatedPushToken = ({ agencyUrl, dataBody }) =>
+  api(`${agencyUrl}/agency/route`, options('POST', dataBody))

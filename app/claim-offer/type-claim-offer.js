@@ -1,4 +1,5 @@
 // @flow
+import type { Error } from '../common/type-common'
 
 export const CLAIM_OFFER_STATUS = {
   IDLE: 'IDLE',
@@ -36,6 +37,25 @@ export type ClaimOfferPayload = {
     logoUrl: string,
     pairwiseDID: string,
   },
+}
+
+export type NotificationPayload = {
+  forDID: string,
+  uid: string,
+}
+
+export const FETCH_CLAIM_OFFER = 'FETCH_CLAIM_OFFER'
+export type FetchClaimOfferAction = {
+  type: typeof FETCH_CLAIM_OFFER,
+  notificationPayload: NotificationPayload,
+}
+
+export const FETCH_CLAIM_OFFER_ERROR = 'FETCH_CLAIM_OFFER_ERROR'
+export type FetchClaimOfferErrorAction = {
+  type: typeof FETCH_CLAIM_OFFER_ERROR,
+  isPristine: boolean,
+  isFetching: boolean,
+  error: Error,
 }
 
 export const CLAIM_OFFER_RECEIVED = 'CLAIM_OFFER_RECEIVED'

@@ -1798,7 +1798,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.evernym.connectme.callcenter;
 				PRODUCT_NAME = ConnectMe;
-				PROVISIONING_PROFILE = "b9821ddf-708c-41b0-9a4d-eb5fcda3d7aa";
+				PROVISIONING_PROFILE = "5d536e00-2c2a-4d62-bdd3-de1526c2ed68";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.evernym.connectme.callcenter";
 				VERSIONING_SYSTEM = "apple-generic";
 			};

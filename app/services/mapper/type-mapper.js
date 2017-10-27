@@ -8,10 +8,14 @@ export type Connection = {
 }
 
 export type InvitationPayload = {
-  title: string,
-  message: string,
+  connReqId: string,
+  targetName: string,
+  senderName: string,
   senderLogoUrl?: string,
   connectionName?: string,
-  statusCode: string,
-  remotePairwiseDID: string,
+  statusCode?: string,
+  senderDID: string,
+  senderEndpoint: string,
+  senderDIDVerKey: string,
+  targetName: string,
 }

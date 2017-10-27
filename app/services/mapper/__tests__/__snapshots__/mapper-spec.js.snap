@@ -11,18 +11,14 @@ Object {
 
 exports[`Mapper Service invitationPayloadMapper should return proper object 1`] = `
 Object {
-  "message": "test body",
-  "payload": Object {
-    "connectionName": "test enterprise",
-    "message": "test body",
-    "remotePairwiseDID": "5iZiu2aLYrQXSdon123456",
-    "senderLogoUrl": "http://test-agency.com/logo",
-    "statusCode": "OCS",
-    "title": "test",
-  },
-  "remoteConnectionId": "5iZiu2aLYrQXSdon123456",
+  "connReqId": "12asd",
+  "message": "test body wants to connect with you.",
+  "senderDID": "5iZiu2aLYrQXSdon123456",
+  "senderDIDVerKey": "12345rD1ybsSR9hKWBePkRSZdnYHAv4KQ8XxcWHHasdf",
+  "senderEndpoint": "192.168.1.1:80",
   "senderLogoUrl": "http://test-agency.com/logo",
-  "statusCode": "OCS",
-  "title": "test",
+  "senderName": "test body",
+  "targetName": "test",
+  "title": "Hi, test",
 }
 `;

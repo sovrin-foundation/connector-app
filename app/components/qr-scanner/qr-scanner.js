@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import {
   Vibration,
@@ -11,25 +12,19 @@ import Camera from 'react-native-camera'
 import { CustomView, Container, CustomText } from '../../components/'
 import { color, OFFSET_2X } from '../../common/styles/constant'
 import { isValidQrCode } from './qr-scanner-validator'
+import { SCAN_STATUS } from './type-qr-scanner'
+import type { QrScannerProps, QrScannerState } from './type-qr-scanner'
 
-const SCAN_STATUS = {
-  SCANNING: 'scanning...',
-  SUCCESS: 'Success!',
-  FAIL: 'Failed to scan QR code',
-}
-
-export default class QRScanner extends PureComponent {
-  constructor(props) {
-    super(props)
-
-    this.initialState = {
-      // this flag is used to restrict camera to keep on scanning QR codes
-      // if this is set to false, only then we
-      scanning: false,
-      scanStatus: SCAN_STATUS.SCANNING,
-    }
-
-    this.state = this.initialState
+export default class QRScanner extends PureComponent<
+  void,
+  QrScannerProps,
+  QrScannerState
+> {
+  state = {
+    // this flag is used to restrict camera to keep on scanning QR codes
+    // if this is set to false, only then we
+    scanning: false,
+    scanStatus: SCAN_STATUS.SCANNING,
   }
 
   reactivateScanning = () => {
@@ -54,12 +49,12 @@ export default class QRScanner extends PureComponent {
     setTimeout(() => this.reactivate(), 3000)
   }
 
-  onRead = event => {
+  onRead = (event: {| data: string |}) => {
     if (!this.state.scanning) {
       const qrData = isValidQrCode(event.data)
-      let nextState = { scanning: true }
+      let nextState = { scanning: true, scanStatus: SCAN_STATUS.SCANNING }
 
-      if (qrData) {
+      if (qrData && typeof qrData === 'object') {
         nextState.scanStatus = SCAN_STATUS.SUCCESS
         this.setState(nextState)
         this.props.onRead(qrData)
@@ -217,7 +212,7 @@ const cameraMarkerStyles = StyleSheet.create({
 
 const cameraStyle = StyleSheet.create({
   camera: {
-    // magical number 50 is set here due to footer height
+    // magical number 50 can be set here due to footer height
     // we want our QR code to go behind the footer slightly
     // but at the same time we want qr scan status to stay sufficient above footer
     // without margin or padding, by setting height

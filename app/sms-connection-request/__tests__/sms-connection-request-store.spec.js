@@ -6,9 +6,7 @@ import {
   getSMSToken,
   getSMSRemoteConnectionId,
   getAllConnection,
-  getSenderGeneratedUserDidSMSRequest,
-  getSMSConnectionRequestId,
-  getSMSConnectionRequestRemoteDID,
+  getSmsInvitationPayload,
 } from '../../store/store-selector'
 import { ResponseType } from '../../components/request/type-request'
 import smsConnectionRequestReducer, {
@@ -23,10 +21,14 @@ import smsConnectionRequestReducer, {
 } from '../sms-connection-request-store'
 import { SMS_CONNECTION_REQUEST } from '../type-sms-connection-request'
 import {
+  getInvitationLink,
   invitationDetailsRequest,
-  sendSMSInvitationResponse,
+  connectWithConsumerAgency,
+  registerWithConsumerAgency,
+  createAgentWithConsumerAgency,
+  sendInvitationResponse,
 } from '../../services'
-import { PENDING_CONNECTION_REQUEST_CODE } from '../../common'
+import { PENDING_CONNECTION_REQUEST_CODE, API_TYPE } from '../../services/api'
 import { addConnection, encrypt } from '../../bridge/react-native-cxs/RNCxs'
 import { saveNewConnection } from '../../store/connections-store'
 
@@ -39,13 +41,17 @@ describe('SMS Connection Request store', () => {
   }
 
   const payload = {
-    title: 'Hi Test',
-    message: 'Enterprise wants to connect with you',
-    statusCode: PENDING_CONNECTION_REQUEST_CODE,
-    senderLogoUrl: 'https://test-agency.com/logo',
-    remotePairwiseDID: '5iZiu2aLYrQXSdon123456',
-    remoteConnectionId: '5iZiu2aLYrQXSdon123456',
+    connReqId: '123asd',
+    targetName: 'Test',
+    senderName: 'Evernym, Inc',
+    title: 'Hi, Test',
+    message: 'Evernym, Inc wants to connect with you.',
+    senderLogoUrl: 'http://test-agency.com/logo',
+    senderDID: '5iZiu2aLYrQXSdon123456',
+    senderEndpoint: '192.168.1.1:80',
+    senderDIDVerKey: '12345rD1ybsSR9hKWBePkRSZdnYHAv4KQ8XxcWHHasdf',
   }
+
   const identifier = 'jhad09375knkfob91rhvlsvy0q09sdnskv'
   const verificationKey = 'jhad09375knkfob91rhvlsvy0q09sdnskv'
 
@@ -60,30 +66,42 @@ describe('SMS Connection Request store', () => {
     const gen = callPendingSMSConnectionRequest(getSMSConnectionRequestDetails)
 
     expect(gen.next().value).toEqual(select(getAgencyUrl))
-    const agencyUrl = 'https://test-agency.com'
+    const agencyUrl = 'http://test-agency.com'
 
     expect(gen.next(agencyUrl).value).toEqual(select(getSMSToken))
     const smsToken = 'fvWXvAx'
 
-    const expectedApiCall = call(invitationDetailsRequest, {
-      smsToken,
+    const expectedInvitationApiCall = call(getInvitationLink, {
       agencyUrl,
+      smsToken,
     })
 
-    const actualApiCall: any = gen.next(smsToken).value
+    const actualInvitationApiCall: any = gen.next(smsToken).value
+    expect(actualInvitationApiCall['CALL'].args[0]).toEqual(
+      expect.objectContaining({
+        agencyUrl,
+        smsToken,
+      })
+    )
+    const invitationData = { url: 'http://enterprise-agency.com' }
+
+    const expectedApiCall = call(invitationDetailsRequest, {
+      url: invitationData.url,
+    })
+
+    const actualApiCall: any = gen.next(invitationData).value
     expect(actualApiCall['CALL'].args[0]).toEqual(
       expect.objectContaining({
-        smsToken,
-        agencyUrl,
+        url: invitationData.url,
       })
     )
 
     const actualRequestReceived: any = gen.next(payload).value
-    const { remotePairwiseDID, ...expectedPayload } = payload
+    const { senderDID, ...expectedPayload } = payload
     expect(actualRequestReceived['PUT'].action).toEqual(
       expect.objectContaining({
         type: SMS_CONNECTION_REQUEST,
-        data: { ...expectedPayload, payload },
+        data: { ...expectedPayload, ...payload },
       })
     )
 
@@ -117,52 +135,68 @@ describe('SMS Connection Request store', () => {
     expect(gen.next(agencyUrl).value).toEqual(select(getPushToken))
     const pushToken = 'fvWXvAxQQL4:APA91bEKpfTu2IDhMDq6687'
 
-    expect(gen.next(pushToken).value).toEqual(
-      select(getSenderGeneratedUserDidSMSRequest)
-    )
-    const senderGeneratedUserDid = 'DiDA91bEKpfTu2IDhMDq6687'
+    expect(gen.next(pushToken).value).toEqual(select(getSmsInvitationPayload))
 
-    expect(gen.next(senderGeneratedUserDid).value).toEqual(
-      select(getSMSConnectionRequestId)
-    )
-    const requestId = 'f5XKysZ'
-
-    expect(gen.next(requestId).value).toEqual(select(getSMSRemoteConnectionId))
-    const remoteConnectionId = payload.remoteConnectionId
-
-    expect(gen.next(remoteConnectionId).value).toEqual(
-      select(getSMSConnectionRequestRemoteDID)
-    )
-    const remoteDID = 'DidRemoteAs868sdfSKHIYUDdfs5z'
-
-    expect(gen.next(remoteDID).value).toEqual(select(getAllConnection))
+    expect(gen.next(payload).value).toEqual(select(getAllConnection))
 
     const metadata = {
-      remoteConnectionId,
+      senderDID: payload.senderDID,
     }
-    expect(gen.next(remoteConnectionId).value).toEqual(
-      call(addConnection, remoteConnectionId, metadata)
+    expect(gen.next(payload.senderDID).value).toEqual(
+      call(addConnection, payload.senderDID, metadata)
     )
 
-    const challenge = JSON.stringify({
-      newStatus: ResponseType.accepted,
-      identifier,
-      verKey: verificationKey,
-      pushComMethod: `FCM:${pushToken}`,
-      uid: requestId,
-    })
     expect(gen.next({ identifier, verificationKey }).value).toEqual(
-      call(encrypt, remoteConnectionId, challenge)
+      call(connectWithConsumerAgency, {
+        agencyUrl,
+        dataBody: {
+          type: API_TYPE.CONNECT,
+          fromDID: identifier,
+          fromDIDVerKey: verificationKey,
+        },
+      })
     )
 
-    const signature = 'signature'
-    expect(gen.next(signature).value).toEqual(
-      call(sendSMSInvitationResponse, {
+    expect(gen.next({ identifier, verificationKey }).value).toEqual(
+      call(registerWithConsumerAgency, {
         agencyUrl,
-        challenge,
-        signature,
-        requestId,
-        senderGeneratedUserDid,
+        dataBody: {
+          type: API_TYPE.REGISTER,
+          fromDID: identifier,
+        },
+      })
+    )
+
+    expect(gen.next({ identifier, verificationKey }).value).toEqual(
+      call(createAgentWithConsumerAgency, {
+        agencyUrl,
+        dataBody: {
+          type: API_TYPE.CREATE_AGENT,
+          forDID: identifier,
+        },
+      })
+    )
+
+    const acceptInvitation = {
+      to: identifier,
+      agentPayload: JSON.stringify({
+        type: API_TYPE.INVITE_ANSWERED,
+        uid: payload.connReqId,
+        keyDlgProof: 'delegate to agent',
+        senderName: payload.senderName,
+        senderLogoUrl: payload.senderLogoUrl,
+        senderDID: payload.senderDID,
+        senderDIDVerKey: payload.senderDIDVerKey,
+        remoteAgentKeyDlgProof: 'delegated to agent',
+        remoteEndpoint: payload.senderEndpoint,
+        pushComMethod: `FCM:${pushToken}`,
+      }),
+    }
+
+    expect(gen.next().value).toEqual(
+      call(sendInvitationResponse, {
+        agencyUrl,
+        dataBody: acceptInvitation,
       })
     )
 
@@ -174,8 +208,9 @@ describe('SMS Connection Request store', () => {
         saveNewConnection({
           newConnection: {
             identifier,
-            remoteConnectionId: payload.remotePairwiseDID,
-            remoteDID,
+            logoUrl: payload.senderLogoUrl,
+            senderDID: payload.senderDID,
+            senderEndpoint: payload.senderEndpoint,
           },
         })
       )

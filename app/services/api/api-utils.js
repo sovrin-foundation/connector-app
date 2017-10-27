@@ -1,7 +1,5 @@
-import {
-  SERVER_ERROR_CODE,
-  SERVER_API_CALL_ERROR,
-} from '../../common/api-constants'
+import { SERVER_ERROR_CODE, SERVER_API_CALL_ERROR } from './api-constants'
+import { captureError } from '../error/error-handler'
 
 export const options = (method = 'GET', body) => {
   let data = {
@@ -19,7 +17,6 @@ export const options = (method = 'GET', body) => {
   return data
 }
 
-// TODO: Write common code for API calling
 export const api = (url, apiOptions, showAlert) =>
   fetch(url, apiOptions)
     .then(res => {
@@ -69,6 +66,7 @@ export const api = (url, apiOptions, showAlert) =>
         throw new Error(JSON.stringify(errorResponse))
       }
     })
+    .catch(captureError)
     .catch(error => {
       // we don't want to throw JavaScript with simple message
       // we want it to be JSON parse compatible, so that error handlers

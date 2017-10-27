@@ -5,6 +5,7 @@ import {
   getKeyPairFromSeed,
   getSignature,
   captureError,
+  PAYLOAD_TYPE,
 } from '../services'
 import { getAgencyUrl, getAllConnection } from './store-selector'
 import { encrypt } from '../bridge/react-native-cxs/RNCxs'
@@ -44,11 +45,17 @@ export function* onPushTokenUpdate(action) {
       challenge = JSON.stringify({ pushComMethod: `FCM:${token}` })
       signature = yield call(encrypt, DID, challenge)
       try {
+        const dataBody = {
+          to: DID,
+          agentPayload: JSON.stringify({
+            type: PAYLOAD_TYPE.UPDATE_PUSH_COM_METHOD,
+            pushComMethod: `FCM:${token}`,
+          }),
+        }
+
         yield call(sendUpdatedPushToken, {
-          challenge,
-          signature,
           agencyUrl,
-          DID,
+          dataBody,
         })
       } catch (e) {
         captureError(e)

@@ -36,7 +36,11 @@ export class SMSConnectionRequest extends PureComponent<
   }
 
   onAction = (response: ResponseTypes) => {
-    this.props.sendSMSConnectionResponse({ response })
+    if (response === ResponseType.rejected) {
+      this.props.navigation.navigate(homeRoute)
+    } else {
+      this.props.sendSMSConnectionResponse({ response })
+    }
   }
 
   componentWillReceiveProps(nextProps: SMSConnectionRequestProps) {

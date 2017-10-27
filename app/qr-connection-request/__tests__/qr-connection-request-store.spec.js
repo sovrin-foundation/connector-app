@@ -17,7 +17,13 @@ import qrConnectionRequestReducer, {
   sendQrConnectionResponse,
   sendQrResponse,
 } from '../qr-connection-request-store'
-import { sendQRInvitationResponse } from '../../services'
+import {
+  sendInvitationResponse,
+  connectWithConsumerAgency,
+  registerWithConsumerAgency,
+  createAgentWithConsumerAgency,
+} from '../../services'
+import { API_TYPE } from '../../services/api'
 import { addConnection, encrypt } from '../../bridge/react-native-cxs/RNCxs'
 import { saveNewConnection } from '../../store/connections-store'
 
@@ -33,16 +39,14 @@ describe('Qr Connection Request store', () => {
   }
 
   const payload = {
-    challenge: {
-      tDID: 'targetDiD',
-      sn: 'sender name',
-      tn: 'user name',
-      uid: 'requestId',
-      rhDID: 'remoteDid',
-      rpDID: 'remotePairwiseDid',
-    },
-    signature: 'sigQrData',
-    qrData: { c: 'challengeQrData', s: 'sigQrData' },
+    lu: 'https://logourl.com/logo.png',
+    rid: 'requestUniqueId',
+    sakdp: 'senderAgentkeyDelegationProof',
+    sn: 'sender name',
+    tn: 'target name',
+    sD: 'senderDID',
+    sVk: 'senderVerificationKey',
+    e: 'https://remoteagentendpoint.com/agent',
   }
 
   const title = 'Hi Test'
@@ -67,7 +71,7 @@ describe('Qr Connection Request store', () => {
     )
     expect(stateAfterQrReceived).toEqual({
       ...expectedInitialState,
-      payload: payload,
+      payload,
       title,
       message,
     })
@@ -85,29 +89,66 @@ describe('Qr Connection Request store', () => {
     expect(gen.next(pushToken).value).toEqual(select(getQrPayload))
     expect(gen.next(payload).value).toEqual(select(getAllConnection))
 
-    const remoteConnectionId = payload.challenge.rpDID
-    expect(gen.next({}).value).toEqual(call(addConnection, remoteConnectionId))
+    const senderDID = payload.sD
+    const metadata = {
+      senderDID,
+    }
+    expect(gen.next({}).value).toEqual(call(addConnection, senderDID, metadata))
+
     const identifier = '3akhf906816kahfadhfas85'
     const verificationKey = '3akhf906816kahfadhfas853akhf906816kahfadhfas85'
 
-    const challenge = JSON.stringify({
-      remoteChallenge: payload.qrData.c,
-      remoteSig: payload.signature,
-      newStatus: ResponseType.accepted,
-      identifier,
-      verKey: verificationKey,
-      pushComMethod: `FCM:${pushToken}`,
-    })
-    const signature = 'signature'
     expect(gen.next({ identifier, verificationKey }).value).toEqual(
-      call(encrypt, remoteConnectionId, challenge)
+      call(connectWithConsumerAgency, {
+        agencyUrl,
+        dataBody: {
+          type: API_TYPE.CONNECT,
+          fromDID: identifier,
+          fromDIDVerKey: verificationKey,
+        },
+      })
     )
 
-    expect(gen.next(signature).value).toEqual(
-      call(sendQRInvitationResponse, {
+    expect(gen.next({ identifier, verificationKey }).value).toEqual(
+      call(registerWithConsumerAgency, {
         agencyUrl,
-        challenge,
-        signature,
+        dataBody: {
+          type: API_TYPE.REGISTER,
+          fromDID: identifier,
+        },
+      })
+    )
+
+    expect(gen.next({ identifier, verificationKey }).value).toEqual(
+      call(createAgentWithConsumerAgency, {
+        agencyUrl,
+        dataBody: {
+          type: API_TYPE.CREATE_AGENT,
+          forDID: identifier,
+        },
+      })
+    )
+
+    const dataBody = {
+      to: identifier,
+      agentPayload: JSON.stringify({
+        type: API_TYPE.INVITE_ANSWERED,
+        uid: payload.rid,
+        keyDlgProof: 'delegate to agent',
+        senderName: payload.sn,
+        senderLogoUrl: payload.lu,
+        senderDID,
+        senderDIDVerKey: payload.sVk,
+        remoteAgentKeyDlgProof: payload.sakdp,
+        remoteEndpoint: payload.e,
+        pushComMethod: `FCM:${pushToken}`,
+      }),
+    }
+
+    expect(gen.next().value).toEqual(
+      call(sendInvitationResponse, {
+        agencyUrl,
+        dataBody,
       })
     )
 
@@ -119,8 +160,9 @@ describe('Qr Connection Request store', () => {
         saveNewConnection({
           newConnection: {
             identifier,
-            remoteConnectionId,
-            remoteDID: payload.challenge.rhDID,
+            senderDID,
+            logoUrl: payload.lu,
+            senderEndpoint: payload.e,
           },
         })
       )
@@ -141,29 +183,66 @@ describe('Qr Connection Request store', () => {
     expect(gen.next(pushToken).value).toEqual(select(getQrPayload))
     expect(gen.next(payload).value).toEqual(select(getAllConnection))
 
-    const remoteConnectionId = payload.challenge.rpDID
-    expect(gen.next({}).value).toEqual(call(addConnection, remoteConnectionId))
+    const senderDID = payload.sD
+    const metadata = {
+      senderDID,
+    }
+    expect(gen.next({}).value).toEqual(call(addConnection, senderDID, metadata))
+
     const identifier = '3akhf906816kahfadhfas85'
     const verificationKey = '3akhf906816kahfadhfas853akhf906816kahfadhfas85'
 
-    const challenge = JSON.stringify({
-      remoteChallenge: payload.qrData.c,
-      remoteSig: payload.signature,
-      newStatus: ResponseType.accepted,
-      identifier,
-      verKey: verificationKey,
-      pushComMethod: `FCM:${pushToken}`,
-    })
-    const signature = 'signature'
     expect(gen.next({ identifier, verificationKey }).value).toEqual(
-      call(encrypt, remoteConnectionId, challenge)
+      call(connectWithConsumerAgency, {
+        agencyUrl,
+        dataBody: {
+          type: API_TYPE.CONNECT,
+          fromDID: identifier,
+          fromDIDVerKey: verificationKey,
+        },
+      })
     )
 
-    expect(gen.next(signature).value).toEqual(
-      call(sendQRInvitationResponse, {
+    expect(gen.next({ identifier, verificationKey }).value).toEqual(
+      call(registerWithConsumerAgency, {
         agencyUrl,
-        challenge,
-        signature,
+        dataBody: {
+          type: API_TYPE.REGISTER,
+          fromDID: identifier,
+        },
+      })
+    )
+
+    expect(gen.next({ identifier, verificationKey }).value).toEqual(
+      call(createAgentWithConsumerAgency, {
+        agencyUrl,
+        dataBody: {
+          type: API_TYPE.CREATE_AGENT,
+          forDID: identifier,
+        },
+      })
+    )
+
+    const dataBody = {
+      to: identifier,
+      agentPayload: JSON.stringify({
+        type: API_TYPE.INVITE_ANSWERED,
+        uid: payload.rid,
+        keyDlgProof: 'delegate to agent',
+        senderName: payload.sn,
+        senderLogoUrl: payload.lu,
+        senderDID,
+        senderDIDVerKey: payload.sVk,
+        remoteAgentKeyDlgProof: payload.sakdp,
+        remoteEndpoint: payload.e,
+        pushComMethod: `FCM:${pushToken}`,
+      }),
+    }
+
+    expect(gen.next().value).toEqual(
+      call(sendInvitationResponse, {
+        agencyUrl,
+        dataBody,
       })
     )
 

@@ -14,7 +14,7 @@ import {
   TOKEN_EXPIRED_CODE,
   PENDING_CONNECTION_REQUEST_CODE,
   PUSH_NOTIFICATION_SENT_CODE,
-} from '../common/api-constants'
+} from '../services/api'
 import {
   getSMSConnectionRequestDetails,
   authenticationRequestReceived,
@@ -141,7 +141,6 @@ class SplashScreenView extends PureComponent {
           }
         } else {
           if (nextProps.lock.isAppLocked === false) {
-            // if we got error, then also redirect user to home page
             this.props.navigation.navigate(homeRoute)
           } else {
             this.props.addPendingRedirection(homeRoute)
@@ -153,10 +152,7 @@ class SplashScreenView extends PureComponent {
       if (
         nextProps.smsConnection.payload !== this.props.smsConnection.payload
       ) {
-        if (
-          nextProps.smsConnection.payload.statusCode ===
-          PENDING_CONNECTION_REQUEST_CODE
-        ) {
+        if (nextProps.smsConnection.payload.connReqId) {
           if (nextProps.lock.isAppLocked === false) {
             this.props.navigation.navigate(smsConnectionRequestRoute)
           } else {

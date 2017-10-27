@@ -1,6 +1,5 @@
 // @flow
 import { put, takeLatest, call, all, select } from 'redux-saga/effects'
-import { encode } from 'bs58'
 import type { Error } from '../common/type-common'
 import type {
   PendingConnectionRequestAction,
@@ -29,19 +28,23 @@ import {
   getKeyPairFromSeed,
   getSignature,
   randomSeed,
-  sendSMSInvitationResponse,
+  connectWithConsumerAgency,
+  registerWithConsumerAgency,
+  createAgentWithConsumerAgency,
+  sendInvitationResponse,
   invitationDetailsRequest,
   invitationPayloadMapper,
+  getInvitationLink,
 } from '../services'
+import type { InvitationPayload } from '../services/mapper/type-mapper'
+import { API_TYPE } from '../services/api'
 import {
   getAgencyUrl,
   getPushToken,
   getSMSToken,
   getSMSRemoteConnectionId,
   getAllConnection,
-  getSenderGeneratedUserDidSMSRequest,
-  getSMSConnectionRequestId,
-  getSMSConnectionRequestRemoteDID,
+  getSmsInvitationPayload,
 } from '../store/store-selector'
 import { saveNewConnection, getConnection } from '../store/connections-store'
 import { encrypt, addConnection } from '../bridge/react-native-cxs/RNCxs'
@@ -68,9 +71,15 @@ export function* callPendingSMSConnectionRequest(): Generator<*, *, *> {
   const agencyUrl: string = yield select(getAgencyUrl)
   const smsToken: string = yield select(getSMSToken)
   try {
-    const pendingConnectionResponse = yield call(invitationDetailsRequest, {
-      smsToken,
+    // get invitation link
+    const invitationData = yield call(getInvitationLink, {
       agencyUrl,
+      smsToken,
+    })
+
+    // get pending invitation data
+    const pendingConnectionResponse = yield call(invitationDetailsRequest, {
+      url: invitationData.url,
     })
     yield put(
       smsConnectionRequestReceived(
@@ -115,21 +124,16 @@ export const smsConnectionFail = (error: Error): SMSConnectionFailAction => ({
 export function* sendSMSResponse(
   action: SMSConnectionResponseSendAction
 ): Generator<*, *, *> {
-  // get data needed for agent api call from store
+  // get data needed for agent api call from store using selectors
   // this will keep our components and screen to not pass data
   // and will keep our actions clean
   const agencyUrl: string = yield select(getAgencyUrl)
   const pushToken: string = yield select(getPushToken)
-  const senderGeneratedUserDid: string = yield select(
-    getSenderGeneratedUserDidSMSRequest
-  )
-  const requestId: string = yield select(getSMSConnectionRequestId)
-  const remoteConnectionId: string = yield select(getSMSRemoteConnectionId)
-  const remoteDID: string = yield select(getSMSConnectionRequestRemoteDID)
+  const smsPayload: InvitationPayload = yield select(getSmsInvitationPayload)
   // TODO: Pradeep add type for connections
   const connections = yield select(getAllConnection)
   const isDuplicateConnection =
-    getConnection(remoteConnectionId, connections).length > 0
+    getConnection(smsPayload.senderDID, connections).length > 0
 
   if (isDuplicateConnection) {
     const error = {
@@ -139,40 +143,70 @@ export function* sendSMSResponse(
     yield put(smsConnectionFail(error))
   } else {
     const metadata = {
-      remoteConnectionId,
+      senderDID: smsPayload.senderDID,
     }
     const { identifier, verificationKey } = yield call(
       addConnection,
-      remoteConnectionId,
+      smsPayload.senderDID,
       metadata
     )
-    const challenge = JSON.stringify({
-      newStatus: action.data.response,
-      identifier,
-      verKey: verificationKey,
-      pushComMethod: `FCM:${pushToken}`,
-      uid: requestId,
-    })
-    const signature = yield call(encrypt, remoteConnectionId, challenge)
 
     try {
-      yield call(sendSMSInvitationResponse, {
+      // connect with consumer agency
+      const connectResponse = yield call(connectWithConsumerAgency, {
         agencyUrl,
-        challenge,
-        signature,
-        requestId,
-        senderGeneratedUserDid,
+        dataBody: {
+          type: API_TYPE.CONNECT,
+          fromDID: identifier,
+          fromDIDVerKey: verificationKey,
+        },
       })
+      // register with consumer agency
+      const registerResponse = yield call(registerWithConsumerAgency, {
+        agencyUrl,
+        dataBody: {
+          type: API_TYPE.REGISTER,
+          fromDID: identifier,
+        },
+      })
+      // create agent
+      const createAgentResponse = yield call(createAgentWithConsumerAgency, {
+        agencyUrl,
+        dataBody: {
+          type: API_TYPE.CREATE_AGENT,
+          forDID: identifier,
+        },
+      })
+
+      const dataBody = {
+        to: identifier,
+        agentPayload: JSON.stringify({
+          type: API_TYPE.INVITE_ANSWERED,
+          uid: smsPayload.connReqId,
+          keyDlgProof: 'delegate to agent',
+          senderName: smsPayload.senderName,
+          senderLogoUrl: smsPayload.senderLogoUrl,
+          senderDID: smsPayload.senderDID,
+          senderDIDVerKey: smsPayload.senderDIDVerKey,
+          remoteAgentKeyDlgProof: 'delegated to agent',
+          remoteEndpoint: smsPayload.senderEndpoint,
+          pushComMethod: `FCM:${pushToken}`,
+        }),
+      }
+      const acceptInvitationResponse = yield call(sendInvitationResponse, {
+        agencyUrl,
+        dataBody,
+      })
+
       yield put(smsConnectionSuccess())
       // TODO:PS:merge common code from this saga and qr connection response saga
       if (action.data.response === ResponseType.accepted) {
         const connection = {
           newConnection: {
             identifier,
-            // pairwise DID of sender, changes for each connection
-            remoteConnectionId,
-            // connection request sender's DID, stay same for each connection
-            remoteDID,
+            logoUrl: smsPayload.senderLogoUrl,
+            senderDID: smsPayload.senderDID,
+            senderEndpoint: smsPayload.senderEndpoint,
           },
         }
         yield put(saveNewConnection(connection))

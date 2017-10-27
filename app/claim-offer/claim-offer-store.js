@@ -1,8 +1,10 @@
 // @flow
-import { put, takeLatest, call, all } from 'redux-saga/effects'
+import { put, takeLatest, call, all, select } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import {
   CLAIM_OFFER_STATUS,
+  FETCH_CLAIM_OFFER,
+  FETCH_CLAIM_OFFER_ERROR,
   CLAIM_OFFER_RECEIVED,
   CLAIM_OFFER_SHOWN,
   CLAIM_OFFER_ACCEPTED,
@@ -19,12 +21,56 @@ import type {
   ClaimOfferShownAction,
   ClaimOfferPayload,
   ClaimOfferAcceptedAction,
+  FetchClaimOfferAction,
 } from './type-claim-offer'
+import type { Error } from '../common/type-common'
+import { getAgencyUrl } from '../store/store-selector'
+import { fetchClaimOfferRequest, PAYLOAD_TYPE } from '../services'
 
 const claimOfferInitialState = {
   status: CLAIM_OFFER_STATUS.IDLE,
   payload: undefined,
   claimRequestStatus: CLAIM_REQUEST_STATUS.NONE,
+  isPristine: true,
+  isFetching: false,
+  error: null,
+}
+
+export const fetchClaimOffer = (notificationPayload: any) => ({
+  type: FETCH_CLAIM_OFFER,
+  notificationPayload,
+})
+
+export const fetchClaimOfferError = (error: string) => ({
+  type: FETCH_CLAIM_OFFER_ERROR,
+  error,
+})
+
+export function* claimOfferFetching(
+  action: FetchClaimOfferAction
+): Generator<*, *, *> {
+  const agencyUrl: string = yield select(getAgencyUrl)
+  const { forDID, uid } = action.notificationPayload
+  try {
+    const claimOffer = yield call(fetchClaimOfferRequest, {
+      agencyUrl,
+      dataBody: {
+        to: forDID,
+        agentPayload: JSON.stringify({
+          uid,
+          type: PAYLOAD_TYPE.GET_MSGS,
+          includeEdgePayload: 'Y',
+        }),
+      },
+    })
+    yield put(claimOfferReceived(claimOffer))
+  } catch (e) {
+    yield put(fetchClaimOfferError(e))
+  }
+}
+
+function* watchFetchClaimOffer() {
+  yield takeLatest(FETCH_CLAIM_OFFER, claimOfferFetching)
 }
 
 export const claimOfferReceived = (payload: ClaimOfferPayload) => ({
@@ -75,7 +121,7 @@ function* watchClaimOfferAccepted() {
 }
 
 export function* watchClaimOffer(): Generator<*, *, *> {
-  yield all([watchClaimOfferAccepted()])
+  yield all([watchFetchClaimOffer(), watchClaimOfferAccepted()])
 }
 
 export default function claimOffer(
@@ -83,12 +129,25 @@ export default function claimOffer(
   action: ClaimOfferAction
 ) {
   switch (action.type) {
+    case FETCH_CLAIM_OFFER:
+      return {
+        ...state,
+        isPristine: false,
+        isFetching: true,
+      }
+    case FETCH_CLAIM_OFFER_ERROR:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error,
+      }
     case CLAIM_OFFER_RECEIVED:
       return {
         ...state,
         status: CLAIM_OFFER_STATUS.RECEIVED,
         payload: action.payload,
         claimRequestStatus: CLAIM_REQUEST_STATUS.NONE,
+        isFetching: false,
       }
     case CLAIM_OFFER_SHOWN:
       return {

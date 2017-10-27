@@ -84,7 +84,7 @@
 				<true/>
 				<key>NSThirdPartyExceptionRequiresForwardSecrecy</key>
 				<false/>
-			</dict>
+			</dict>	
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>

@@ -9,24 +9,24 @@ import {
   PENDING_CONNECTION_REQUEST_CODE,
   QR_CODE_SENDER_NAME,
   QR_CODE_TARGET_NAME,
-} from '../common/api-constants'
+  QR_CODE_LOGO_URL,
+} from '../services/api'
 import {
   qrConnectionRequestRoute,
   qrCodeScannerTabRoute,
   homeTabRoute,
 } from '../common/'
-import type { QrConnectionPayload } from '../qr-connection-request/type-qr-connection-request'
+import type { QrCode } from '../components/qr-scanner/type-qr-scanner'
 import type { Store } from '../store/type-store'
 
 export class QRCodeScannerScreen extends PureComponent {
-  onRead = (data: QrConnectionPayload) => {
+  onRead = (qrCode: QrCode) => {
     if (this.props.currentScreen === qrCodeScannerTabRoute) {
       const qrConnectionRequest = {
-        payload: data,
-        title: `Hi ${data.challenge[QR_CODE_TARGET_NAME]}`,
-        message: `${data.challenge[
-          QR_CODE_SENDER_NAME
-        ]} wants to connect with you`,
+        payload: qrCode,
+        title: `Hi ${qrCode[QR_CODE_TARGET_NAME]}`,
+        message: `${qrCode[QR_CODE_SENDER_NAME]} wants to connect with you`,
+        senderLogoUrl: qrCode[QR_CODE_LOGO_URL],
       }
 
       this.props.qrConnectionRequestReceived(qrConnectionRequest)

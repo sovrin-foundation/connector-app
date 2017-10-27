@@ -4,6 +4,7 @@ import type {
   RequestDetailTextPropsText,
   RequestDetailAvatarProps,
 } from '../components/request/type-request'
+import type { QrCode } from '../components/qr-scanner/type-qr-scanner'
 
 export type QrConnectionPayload = {
   challenge: {
@@ -28,7 +29,7 @@ export type Error = {
 
 export type QrConnectionRequestStore = RequestDetailTextPropsText &
   RequestDetailAvatarProps & {
-    +payload?: ?QrConnectionPayload,
+    +payload: ?QrCode,
     +status: ResponseTypes,
     +isFetching: boolean,
     +error: ?Error,
@@ -37,9 +38,10 @@ export type QrConnectionRequestStore = RequestDetailTextPropsText &
 export const QR_CONNECTION_REQUEST: 'QR_CONNECTION_REQUEST' =
   'QR_CONNECTION_REQUEST'
 
-export type QrConnectionReceivedActionData = RequestDetailTextPropsText & {
-  payload: QrConnectionPayload,
-}
+export type QrConnectionReceivedActionData = RequestDetailTextPropsText &
+  RequestDetailAvatarProps & {
+    payload: QrCode,
+  }
 
 export type QrConnectionReceivedAction = {
   type: typeof QR_CONNECTION_REQUEST,

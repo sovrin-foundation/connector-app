@@ -23,7 +23,7 @@ import type {
   SendUserAuthenticationResponseFailure,
   AuthenticationRequestReceived,
 } from '../type-authentication'
-import { PUSH_NOTIFICATION_SENT_CODE } from '../../common'
+import { PUSH_NOTIFICATION_SENT_CODE } from '../../services/api'
 
 describe('Authentication request tests', () => {
   const initialAction: AuthenticationAction = {

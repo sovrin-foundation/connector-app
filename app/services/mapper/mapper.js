@@ -17,10 +17,13 @@ export const connectionMapper = ({
 })
 
 export const invitationPayloadMapper = (payload: InvitationPayload) => ({
-  title: payload.offerMsgTitle || payload.authNotifMsgTitle || payload.title,
-  message: payload.offerMsgText || payload.authNotifMsgText || payload.message,
-  statusCode: payload.statusCode,
+  connReqId: payload.connReqId,
+  title: `Hi, ${payload.targetName}`,
+  message: `${payload.senderName} wants to connect with you.`,
+  senderName: payload.senderName,
   senderLogoUrl: payload.senderLogoUrl || null,
-  remoteConnectionId: payload.remotePairwiseDID,
-  payload: payload,
+  senderDID: payload.senderDID,
+  senderEndpoint: payload.senderEndpoint,
+  senderDIDVerKey: payload.senderDIDVerKey,
+  targetName: payload.targetName,
 })

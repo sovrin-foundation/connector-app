@@ -4,7 +4,6 @@ import { View, Text, Image, AlertIOS } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { encode } from 'bs58'
-import { captureError } from '../services'
 import { connectionRoute, homeRoute } from '../common'
 import {
   resetAuthenticationStatus,

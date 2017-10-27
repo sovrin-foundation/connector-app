@@ -1,11 +1,14 @@
 // @flow
 import {
-  PUSH_NOTIFICATION_SENT_CODE,
-  PUSH_NOTIFICATION_TYPE,
   lockEnterPinRoute,
   claimOfferRoute,
   authenticationRoute,
 } from '../common'
+
+import {
+  PUSH_NOTIFICATION_SENT_CODE,
+  PUSH_NOTIFICATION_TYPE,
+} from '../services/api'
 import { CLAIM_OFFER_STATUS } from '../claim-offer/type-claim-offer'
 
 // TODO:KS Add type for flow, before 461 is done, complete types

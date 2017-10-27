@@ -57,40 +57,25 @@ export const saveNewConnectionFailed = error => ({
 export function* loadNewConnectionSaga(action) {
   const {
     identifier,
-    remoteConnectionId,
-    remoteDID,
+    logoUrl,
+    senderDID,
+    senderEndpoint,
   } = action.connection.newConnection
   try {
-    let connection = {}
-
-    const agencyUrl = yield select(getAgencyUrl)
-    const challenge = JSON.stringify({ remoteConnectionId: remoteDID })
-    const signature = yield call(encrypt, remoteConnectionId, challenge)
-
-    try {
-      connection = yield call(getProfile, {
-        identifier,
-        challenge,
-        signature,
-        agencyUrl,
-      })
-    } catch (e) {
-      console.log(e)
-      console.log('get profile call failed for ', identifier)
-    }
-
-    Object.assign(connection, {
+    const connection = {
       identifier,
-      logoUrl: connection.logoUrl,
-      remoteConnectionId,
-      remoteDID,
-    })
+      logoUrl,
+      senderDID,
+      senderEndpoint,
+    }
 
     //TODO:Add a middleware which will periodically save redux store to secure storage.
     let connections = yield call(getItem, CONNECTIONS)
     connections = connections ? JSON.parse(connections) : {}
 
-    Object.assign(connections, { [identifier]: connectionMapper(connection) })
+    Object.assign(connections, {
+      [identifier]: connectionMapper(connection),
+    })
 
     yield call(setItem, CONNECTIONS, JSON.stringify(connections))
     yield put(saveNewConnectionSuccess(connection))

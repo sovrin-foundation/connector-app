@@ -8,6 +8,7 @@ import {
   pushNotificationReceived,
   updatePushToken,
   claimOfferReceived,
+  fetchClaimOffer,
 } from '../store'
 import { PUSH_COM_METHOD, PUSH_NOTIFICATION_TYPE } from '../common'
 import { setItem } from '../services'
@@ -49,7 +50,6 @@ export class PushNotification extends PureComponent {
   }
 
   onPushNotificationReceived(notification) {
-    // handling 'auth-req', will handle others later if any
     if (notification) {
       if (notification.type === PUSH_NOTIFICATION_TYPE.AUTH) {
         notification.remoteConnectionId = notification.remotePairwiseDID
@@ -106,6 +106,7 @@ const mapDispatchToProps = dispatch =>
       pushNotificationReceived,
       updatePushToken,
       claimOfferReceived,
+      fetchClaimOffer,
     },
     dispatch
   )

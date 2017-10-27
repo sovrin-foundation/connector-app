@@ -29,7 +29,7 @@ const olivine = '#97C85F'
 
 // color shades
 const primaryShade = '1.0'
-const secondaryShade = '0.5'
+const secondaryShade = '0.6'
 
 export const color = {
   actions: {

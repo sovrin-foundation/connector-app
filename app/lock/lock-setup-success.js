@@ -14,6 +14,7 @@ import { homeRoute } from '../common'
 import { unlockApp, clearPendingRedirect } from './lock-store'
 import type { Store } from '../store/type-store'
 import { OFFSET_1X, OFFSET_2X, OFFSET_4X, color } from '../common/styles'
+import { captureError } from '../services'
 
 export class LockSetupSuccess extends PureComponent {
   onClose = () => {
@@ -23,6 +24,7 @@ export class LockSetupSuccess extends PureComponent {
       this.props.navigation.navigate(this.props.pendingRedirection)
       this.props.clearPendingRedirect()
     }
+    captureError(this.props.pendingRedirection)
   }
 
   render() {

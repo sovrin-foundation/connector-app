@@ -7,7 +7,7 @@ import pushNotificationReducer, {
   onPushTokenUpdate,
 } from '../push-notification-store'
 import { encrypt } from '../../bridge/react-native-cxs/RNCxs'
-import { sendUpdatedPushToken } from '../../services'
+import { sendUpdatedPushToken, PAYLOAD_TYPE } from '../../services'
 
 describe('push notification store should work properly', () => {
   let initialState = {}
@@ -89,12 +89,18 @@ describe('push notification store should work properly', () => {
       call(encrypt, DID1, challenge)
     )
 
+    const dataBody = {
+      to: DID1,
+      agentPayload: JSON.stringify({
+        type: PAYLOAD_TYPE.UPDATE_PUSH_COM_METHOD,
+        pushComMethod: `FCM:${pushToken}`,
+      }),
+    }
+
     expect(gen.next(signature).value).toMatchObject(
       call(sendUpdatedPushToken, {
         agencyUrl,
-        signature,
-        challenge,
-        DID: DID1,
+        dataBody,
       })
     )
 
@@ -102,12 +108,18 @@ describe('push notification store should work properly', () => {
       call(encrypt, DID2, challenge)
     )
 
+    const dataBody2 = {
+      to: DID2,
+      agentPayload: JSON.stringify({
+        type: PAYLOAD_TYPE.UPDATE_PUSH_COM_METHOD,
+        pushComMethod: `FCM:${pushToken}`,
+      }),
+    }
+
     expect(gen.next(signature).value).toMatchObject(
       call(sendUpdatedPushToken, {
         agencyUrl,
-        signature,
-        challenge,
-        DID: DID2,
+        dataBody: dataBody2,
       })
     )
 

@@ -7,9 +7,11 @@ import {
   claimOfferRoute,
   homeTabRoute,
   authenticationRoute,
+} from '../../common'
+import {
   PUSH_NOTIFICATION_TYPE,
   PUSH_NOTIFICATION_SENT_CODE,
-} from '../../common'
+} from '../../services/api'
 import { DashboardScreen } from '../home'
 
 function props(claimOfferStatus) {

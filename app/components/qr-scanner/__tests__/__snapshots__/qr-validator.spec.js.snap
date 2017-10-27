@@ -2,18 +2,13 @@
 
 exports[`QR Scanner validator should return data for valid schema 1`] = `
 Object {
-  "challenge": Object {
-    "rhDID": "",
-    "rpDID": "",
-    "sn": "",
-    "tDID": "",
-    "tn": "",
-    "uid": "",
-  },
-  "qrData": Object {
-    "c": "{\\"tDID\\":\\"\\",\\"sn\\":\\"\\",\\"tn\\":\\"\\",\\"uid\\":\\"\\",\\"rhDID\\":\\"\\",\\"rpDID\\":\\"\\"}",
-    "s": "",
-  },
-  "signature": "",
+  "e": "",
+  "lu": "",
+  "rid": "",
+  "sD": "",
+  "sVk": "",
+  "sakdp": "",
+  "sn": "",
+  "tn": "",
 }
 `;

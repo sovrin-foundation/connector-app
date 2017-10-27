@@ -16,14 +16,8 @@ export const getSMSRemoteConnectionId = (state: Store) =>
 
 export const getAllConnection = (state: Store) => state.connections.data
 
-export const getSenderGeneratedUserDidSMSRequest = (state: Store) =>
-  state.smsConnection.payload.payload.pairwiseDID
-
-export const getSMSConnectionRequestId = (state: Store) =>
-  state.smsConnection.payload.payload.uid
-
-export const getSMSConnectionRequestRemoteDID = (state: Store) =>
-  state.smsConnection.payload.payload.remoteDID
+export const getSmsInvitationPayload = (state: Store) =>
+  state.smsConnection.payload
 
 export const getConnectionTheme = (state: Store, logoUrl: string) =>
   state.connections.connectionThemes[logoUrl] ||

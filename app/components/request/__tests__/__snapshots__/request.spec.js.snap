@@ -341,7 +341,7 @@ exports[`<Request /> should match snapshot 1`] = `
                     undefined,
                     undefined,
                     Object {
-                      "backgroundColor": "rgba(133, 191, 67, 0.5)",
+                      "backgroundColor": "rgba(133, 191, 67, 0.6)",
                     },
                     undefined,
                     Object {
@@ -544,65 +544,153 @@ exports[`<Request /> should match snapshot 1`] = `
         source={
           Object {
             "html": "
-                  <!DOCTYPE html>
-                  <html>
-                  <script>
-                  function fetchColorFromCanvas(){
-                    var rgb = getAverageRGB(document.getElementById(\\"canvasImage\\"));
-                    var message = {\\"message\\":'rgbValues',\\"payload\\":rgb};
-                    window.postMessage(JSON.stringify(message));
-                  }
-                  function getAverageRGB(imgEl) {
-                    var blockSize = 5;
-                    var defaultRGB = {r:0,g:0,b:0};
-                    var canvas = document.createElement(\\"canvas\\");
-                    var context = canvas.getContext && canvas.getContext(\\"2d\\");
-                    var data, width, height;
-                    var i = -4;
-                    var length;
-                    var rgb = {r:0,g:0,b:0};
-                    var count = 0;
-                    if (context == undefined || context == null) {
-                        return defaultRGB;
-                    }
-                    height = canvas.height = imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height;
-                    width = canvas.width = imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width;
-                    context.drawImage(imgEl, 0, 0);
+              <!DOCTYPE html>
+              <html>
+              <script>
+              function fetchColorFromCanvas() {
+                const options = {
+                  imageElement: document.getElementById(\\"__colorPickerCanvasImage\\")
+                }
+                var rgba = getColorPalettes(options);
+                var message = {\\"message\\":'rgbValues',\\"payload\\":rgba};
+                window.postMessage(JSON.stringify(message));
+              }
+          
+              function getColorPalettes({imageElement, 
+                  count=3, 
+                  defaultPalette=[0, 0, 0, 1], 
+                  paletteType='dominant', 
+                  colorType='rgba'}
+                ) {       
+                const canvas = document.createElement('canvas');
+                const	canvasContext = canvas.getContext && canvas.getContext('2d');
+          
+                if (!canvasContext) return defaultPalette;
+                
+                let imageWidth = canvas.width = imageElement.naturalWidth 
+                  || imageElement.offsetWidth 
+                  || imageElement.width;                
+          
+                const imageHeight = canvas.height = imageElement.naturalHeight 
+                  || imageElement.offsetHeight 
+                  || imageElement.height;                   
+          
+                canvasContext.drawImage(imageElement, 0, 0);
+                if (paletteType === 'average')
+                  return getAveragePalette({imageWidth, imageHeight, canvasContext, colorType});
+                else
+                  return getDominantPalettes(getAllPalettes(imageWidth, imageHeight, canvasContext), count, colorType);
+              }
+          
+              function getAveragePalette({imageWidth, imageHeight, canvasContext, colorType = 'rgb'}) {
+                const blockSize = 5
+                let i = -4;
+                let rgb = {r:0,g:0,b:0,a:1};
+                let count = 0;
+                
+                try {
+                  data = canvasContext.getImageData(0, 0, imageWidth, imageHeight);
+                } catch(e) {
+                  console.log(e);
+                }
+              
+                while ((i += blockSize * 4) < data.data.length) {
+                  ++count;
+                  rgb.r += data.data[i];
+                  rgb.g += data.data[i+1];
+                  rgb.b += data.data[i+2];
+                }
+                rgb.r = ~~(rgb.r/count);
+                rgb.g = ~~(rgb.g/count);
+                rgb.b = ~~(rgb.b/count);
+                if (colorType === 'hex')
+                  return [[rgbToHex([rgb.r, rgb.g, rgb.b])]]
+                else
+                  return [[rgb.r, rgb.g, rgb.b, rgb.a]];
+              }
+          
+              function rgbToHex(rgba) {
+                let hexColor = '#';
+                rgba.slice(0, 3).forEach(c => {
+                  let hex = c.toString(16);
+                  hexColor += hex.length == 1 ? \\"0\\" + hex : hex;  
+                });
+                return hexColor
+              }
+          
+              function getAllPalettes(width, height, context) {
+                let distinctPalettes = [];        
+                for (var i=0; i<=height; i++) { 
+                  for (var j=0; j<=width; j++) { 
                     try {
-                        data = context.getImageData(width/3, width/3 + 10, width/3, width/3 + 10);
+                      data = context.getImageData(i, j, 1, 1);
+                      if (data.data.toString().trim() != \\"0,0,0,0\\") {
+                        distinctPalettes.push(data.data);
+                      }
                     } catch(e) {
-                        return defaultRGB;
+                      console.log(e);
                     }
-                    length = data.data.length;  
-                    while ( (i += blockSize * 4) < length ) {
-                        ++count;
-                        rgb.r += data.data[i];
-                        rgb.g += data.data[i+1];
-                        rgb.b += data.data[i+2];              
-                    }
-                    rgb.r = ~~(rgb.r/count);
-                    rgb.g = ~~(rgb.g/count);
-                    rgb.b = ~~(rgb.b/count);
-                    return rgb;
                   }
-                  const interval = setInterval(function() {
-                    var img = document.getElementById('canvasImage');
-                    if(img.src.length != 0) {
-                      fetchColorFromCanvas();
-                      clearInterval(interval);
+                }  
+                return distinctPalettes;
+              }
+          
+              function getDominantPalettes(allPalettes, distinctCount, colorType = 'rgb') {
+                const combinations = getPaletteOccurrences(allPalettes);
+                let palettes = combinations[0];
+                let occurrences = combinations[1];
+                const dominantPalettes = [];
+          
+                while (distinctCount) {               
+                  let dominant = 0, dominantKey = 0;  
+                  occurrences.forEach((v, k) => {           
+                    if (v > dominant) {
+                      dominant = v;              
+                      dominantKey = k;                               
                     }
-                  },10);
-                  </script>
-                  <body style='position: absolute; bottom: -1000px;'>
-                    <img src='data:image/jpeg;base64,' id='canvasImage' onload='fetchColorFromCanvas()'/>
-                  </body>
-                  </html>",
-          }
-        }
-        style={
-          Object {
-            "position": "absolute",
-            "right": -1000,
+                  });
+                  if (colorType === 'hex')
+                    dominantPalettes.push(rgbToHex(palettes[dominantKey]));
+                  else
+                    dominantPalettes.push(palettes[dominantKey]);
+                    
+                  palettes.splice(dominantKey, 1);            
+                  occurrences.splice(dominantKey, 1);
+                  distinctCount--;
+                }
+                return dominantPalettes;
+              }        
+          
+              function getPaletteOccurrences(palettes) {
+                let paletteList = [], occurrenceList = [], previousPalette;
+                palettes.sort();
+                palettes.forEach((palette, key) => {
+                  if (palette.toString() !== previousPalette) {
+                    paletteList.push(palette);
+                    occurrenceList.push(1);
+                  } else {
+                    occurrenceList[occurrenceList.length-1]++;
+                  }
+                  previousPalette = palettes[key].toString();
+                });
+                return [paletteList, occurrenceList];
+              }
+          
+              const interval = setInterval(() => {
+                var img = document.getElementById('__colorPickerCanvasImage');
+                if (img.src.length !== 0) {
+                  fetchColorFromCanvas();
+                  clearInterval(interval);
+                }
+              },10);        
+          
+              </script>
+              <body>
+                <img src='data:image/jpeg;base64,' 
+                  id='__colorPickerCanvasImage' onload='fetchColorFromCanvas()'/>
+              </body>
+              </html>
+            ",
           }
         }
       />
