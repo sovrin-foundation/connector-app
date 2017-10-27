@@ -114,6 +114,13 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
         clearBg={true}
         extraLarge={true}
         halo={true}
+        iconStyle={
+          Array [
+            Object {
+              "borderRadius": 40,
+            },
+          ]
+        }
         resizeMode="cover"
         src={
           Object {
@@ -163,6 +170,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                   "height": 80,
                   "width": 80,
                 },
+                Object {
+                  "borderRadius": 40,
+                },
               ]
             }
             testID="claim-offer-issuer-logo"
@@ -179,7 +189,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           "backgroundColor": "#ffffff",
           "justifyContent": "center",
           "marginTop": 5,
-          "paddingBottom": 10,
+          "paddingBottom": 25,
         }
       }
     >
@@ -200,7 +210,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               "backgroundColor": "#ffffff",
               "color": "#777777",
             },
-            null,
+            Object {
+              "fontWeight": "600",
+            },
             null,
             null,
           ]
@@ -228,7 +240,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               "color": "#777777",
             },
             Object {
-              "fontWeight": "bold",
+              "fontWeight": "800",
             },
             null,
             null,
@@ -256,7 +268,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                   var message = {\\"message\\":'rgbValues',\\"payload\\":rgb};
                   window.postMessage(JSON.stringify(message));
                 }
-        
                 function getAverageRGB(imgEl) {
                   var blockSize = 5;
                   var defaultRGB = {r:0,g:0,b:0};
@@ -278,7 +289,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                   } catch(e) {
                       return defaultRGB;
                   }
-        
                   length = data.data.length;  
                   while ( (i += blockSize * 4) < length ) {
                       ++count;
@@ -291,7 +301,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                   rgb.b = ~~(rgb.b/count);
                   return rgb;
                 }
-        
                 const interval = setInterval(function() {
                   var img = document.getElementById('canvasImage');
                   if(img.src.length != 0) {
@@ -299,7 +308,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     clearInterval(interval);
                   }
                 },10);
-        
                 </script>
                 <body style='position: absolute; bottom: -1000px;'>
                   <img src='data:image/jpeg;base64,' id='canvasImage' onload='fetchColorFromCanvas()'/>
@@ -388,8 +396,8 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 Object {
                   "alignItems": "flex-end",
                   "backgroundColor": "#ffffff",
-                  "flex": 1,
-                  "paddingRight": 10,
+                  "flex": 4,
+                  "paddingRight": 15,
                 }
               }
             >
@@ -407,14 +415,18 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontFamily": "SF Pro Display",
                     },
                     Object {
-                      "backgroundColor": "#ffffff",
-                      "color": "#777777",
+                      "backgroundColor": "#f0f0f0",
+                      "color": "#333333",
+                    },
+                    Object {
+                      "fontWeight": "600",
                     },
                     null,
-                    null,
-                    null,
                     Object {
-                      "lineHeight": 14,
+                      "backgroundColor": "transparent",
+                    },
+                    Object {
+                      "lineHeight": 19,
                     },
                   ]
                 }
@@ -430,7 +442,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 Object {
                   "alignItems": "flex-start",
                   "backgroundColor": "#ffffff",
-                  "flex": 2,
+                  "flex": 6,
                 }
               }
             >
@@ -448,14 +460,16 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontFamily": "SF Pro Display",
                     },
                     Object {
-                      "backgroundColor": "#ffffff",
-                      "color": "#777777",
+                      "backgroundColor": "#f0f0f0",
+                      "color": "#333333",
                     },
                     Object {
-                      "fontWeight": "bold",
+                      "fontWeight": "600",
                     },
                     null,
-                    null,
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
                   ]
                 }
                 testID={undefined}
@@ -469,7 +483,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           style={
             Object {
               "backgroundColor": "#f0f0f0",
-              "height": 1,
+              "height": 2,
             }
           }
         />
@@ -497,8 +511,8 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 Object {
                   "alignItems": "flex-end",
                   "backgroundColor": "#ffffff",
-                  "flex": 1,
-                  "paddingRight": 10,
+                  "flex": 4,
+                  "paddingRight": 15,
                 }
               }
             >
@@ -516,14 +530,18 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontFamily": "SF Pro Display",
                     },
                     Object {
-                      "backgroundColor": "#ffffff",
-                      "color": "#777777",
+                      "backgroundColor": "#f0f0f0",
+                      "color": "#333333",
+                    },
+                    Object {
+                      "fontWeight": "600",
                     },
                     null,
-                    null,
-                    null,
                     Object {
-                      "lineHeight": 14,
+                      "backgroundColor": "transparent",
+                    },
+                    Object {
+                      "lineHeight": 19,
                     },
                   ]
                 }
@@ -539,7 +557,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 Object {
                   "alignItems": "flex-start",
                   "backgroundColor": "#ffffff",
-                  "flex": 2,
+                  "flex": 6,
                 }
               }
             >
@@ -557,14 +575,16 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontFamily": "SF Pro Display",
                     },
                     Object {
-                      "backgroundColor": "#ffffff",
-                      "color": "#777777",
+                      "backgroundColor": "#f0f0f0",
+                      "color": "#333333",
                     },
                     Object {
-                      "fontWeight": "bold",
+                      "fontWeight": "600",
                     },
                     null,
-                    null,
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
                   ]
                 }
                 testID={undefined}
@@ -581,7 +601,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
             style={
               Object {
                 "backgroundColor": "#f0f0f0",
-                "height": 1,
+                "height": 2,
               }
             }
           />
@@ -671,7 +691,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     "marginLeft": 0,
                     "marginRight": 0,
                   },
-                  null,
+                  Object {
+                    "paddingVertical": 17,
+                  },
                   null,
                 ],
                 undefined,
@@ -700,15 +722,14 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "color": "white",
                       "fontSize": 16,
                     },
-                    undefined,
+                    Object {
+                      "color": "#ffffff",
+                    },
                     Object {
                       "fontSize": 14,
                     },
                     undefined,
-                    Object {
-                      "fontSize": 17,
-                      "fontWeight": "600",
-                    },
+                    undefined,
                     undefined,
                     undefined,
                   ],
@@ -795,7 +816,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     "marginLeft": 0,
                     "marginRight": 0,
                   },
-                  null,
+                  Object {
+                    "paddingVertical": 17,
+                  },
                   null,
                 ],
                 undefined,
@@ -824,15 +847,14 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "color": "white",
                       "fontSize": 16,
                     },
-                    undefined,
+                    Object {
+                      "color": "#ffffff",
+                    },
                     Object {
                       "fontSize": 14,
                     },
                     undefined,
-                    Object {
-                      "fontSize": 17,
-                      "fontWeight": "600",
-                    },
+                    undefined,
                     undefined,
                     undefined,
                   ],
@@ -848,7 +870,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
   </View>
   <Modal
     backdropColor="#f0f0f0"
-    backdropOpacity={0.7}
+    backdropOpacity={1}
     isVisible={false}
   >
     <View
@@ -869,11 +891,12 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
       }
     >
       <View
-        hCenter={true}
+        center={true}
         style={
           Object {
+            "alignItems": "center",
             "borderBottomColor": "#3f3f3f",
-            "borderBottomWidth": NaN,
+            "borderBottomWidth": 0.2,
             "justifyContent": "center",
             "paddingVertical": 10,
           }
@@ -881,16 +904,14 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
       >
         <View
           row={true}
-          spaceBetween={true}
           style={
             Object {
               "alignItems": "center",
               "flexDirection": "row",
-              "justifyContent": "space-between",
-              "marginHorizontal": 20,
               "marginVertical": 10,
             }
           }
+          testID="claim-request-text-avatars-container"
           vCenter={true}
         >
           <View
@@ -907,7 +928,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 "shadowRadius": 8,
               }
             }
-            testID="claim-request-avatars-invitee"
+            testID="claim-request-text-avatars-invitee"
           >
             <Image
               accessibilityComponentType={undefined}
@@ -939,6 +960,24 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               testID={undefined}
             />
           </View>
+          <Image
+            source={1}
+            style={
+              Array [
+                Object {
+                  "height": 22,
+                  "width": 30,
+                },
+                Object {
+                  "height": 20,
+                  "right": 4,
+                  "width": 75,
+                  "zIndex": -1,
+                },
+              ]
+            }
+            testID="claim-request-check-mark"
+          />
           <View
             imageShadow="imageShadow"
             style={
@@ -953,7 +992,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 "shadowRadius": 8,
               }
             }
-            testID="claim-request-avatars-inviter"
+            testID="claim-request-text-avatars-inviter"
           >
             <Image
               accessibilityComponentType={undefined}
@@ -998,13 +1037,13 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           style={
             Array [
               Object {
-                "fontSize": 17,
+                "fontSize": 15,
               },
               Object {
                 "fontFamily": "SF Pro Display",
               },
               Object {
-                "backgroundColor": "#ffffff",
+                "backgroundColor": "#f0f0f0",
                 "color": "#777777",
               },
               Object {
@@ -1013,15 +1052,19 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               Object {
                 "textAlign": "center",
               },
-              null,
               Object {
-                "color": "#686868",
-                "margin": 10,
+                "backgroundColor": "transparent",
+              },
+              Object {
+                "marginBottom": 5,
+                "paddingTop": 10,
               },
             ]
           }
-          testID="claim-request-issuer-waiting"
-        />
+          testID="claim-request-message"
+        >
+          Successfully issued
+        </Text>
         <Text
           accessible={true}
           allowFontScaling={true}
@@ -1036,7 +1079,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 "fontFamily": "SF Pro Display",
               },
               Object {
-                "backgroundColor": "#ffffff",
+                "backgroundColor": "#f0f0f0",
                 "color": "#777777",
               },
               Object {
@@ -1045,7 +1088,12 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               Object {
                 "textAlign": "center",
               },
-              null,
+              Object {
+                "backgroundColor": "transparent",
+              },
+              Object {
+                "marginBottom": 10,
+              },
             ]
           }
           testID="claim-request-claim-name"
@@ -1118,7 +1166,11 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               Object {
                 "backgroundColor": "#dadee0",
               },
-              undefined,
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                },
+              ],
             ]
           }
         >
@@ -1150,10 +1202,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     "fontSize": 14,
                   },
                   undefined,
-                  Object {
-                    "fontSize": 17,
-                    "fontWeight": "600",
-                  },
+                  undefined,
                   undefined,
                   undefined,
                 ],

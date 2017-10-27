@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Image, StyleSheet, Dimensions } from 'react-native'
+import { Image, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Container, CustomText, CustomView } from '../components'
@@ -14,12 +14,10 @@ import {
   OFFSET_6X,
   OFFSET_7X,
   color,
+  isiPhone5,
   PIN_CODE_BORDER_BOTTOM,
 } from '../common/styles/constant'
 import { switchErrorAlerts } from '../store'
-
-const { width, height } = Dimensions.get('screen')
-const isPhone5 = width >= 320 && width < 375
 
 export class LockSelection extends PureComponent {
   goTouchIdSetup = () => {
@@ -144,13 +142,13 @@ export default connect(null, mapDispatchToProps)(LockSelection)
 const style = StyleSheet.create({
   pinSelectionContainer: {
     paddingTop: OFFSET_3X,
-    paddingBottom: isPhone5 ? OFFSET_2X : OFFSET_6X,
+    paddingBottom: isiPhone5 ? OFFSET_2X : OFFSET_6X,
     paddingHorizontal: OFFSET_2X,
   },
   messageText: {
-    paddingHorizontal: isPhone5 ? 0 : OFFSET_5X / 2,
-    paddingTop: isPhone5 ? OFFSET_5X / 2 : OFFSET_5X,
-    paddingBottom: isPhone5 ? OFFSET_3X / 2 : OFFSET_7X / 2,
+    paddingHorizontal: isiPhone5 ? 0 : OFFSET_5X / 2,
+    paddingTop: isiPhone5 ? OFFSET_5X / 2 : OFFSET_5X,
+    paddingBottom: isiPhone5 ? OFFSET_3X / 2 : OFFSET_7X / 2,
   },
   touchIdPinContainer: {
     paddingTop: OFFSET_1X / 2,

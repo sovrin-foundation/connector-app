@@ -3,14 +3,8 @@ import React, { PureComponent } from 'react'
 import { View, StyleSheet, Image } from 'react-native'
 import { Button } from 'react-native-elements'
 import Modal from 'react-native-modal'
-import {
-  CustomView,
-  CustomText,
-  Avatar,
-  TextStyles,
-  CustomButton,
-} from '../components'
-import { color, OFFSET_1X, OFFSET_2X, font } from '../common/styles'
+import { CustomModal, AvatarsPair, CustomText } from '../components'
+import { color, font, OFFSET_1X } from '../common/styles'
 import { CLAIM_REQUEST_STATUS } from './type-claim-offer'
 import type {
   ClaimRequestStatusModalProps,
@@ -66,111 +60,74 @@ export default class ClaimRequestStatusModal extends PureComponent<
 
   render() {
     const { claimRequestStatus, payload: { issuer, claimOffer } } = this.props
-    const logoUrl = issuer.logoUrl
+    const avatarRight = issuer.logoUrl
       ? { uri: issuer.logoUrl }
       : require('../images/cb_evernym.png')
-
+    const middleImage =
+      claimRequestStatus === CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS
+        ? require('../images/checkMark.png')
+        : require('../images/connectArrows.png')
+    const message =
+      claimRequestStatus === CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST
+        ? `Waiting for ${issuer.name} to issue`
+        : 'Successfully issued'
     return (
-      <Modal
-        backdropColor={color.bg.tertiary.color}
-        backdropOpacity={0.7}
+      <CustomModal
+        disabled={
+          claimRequestStatus !== CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS
+        }
+        onPress={this.onContinue}
+        buttonText="Continue"
+        testID={'claim-request'}
         isVisible={this.state.isVisible}
       >
-        <CustomView fifth shadow style={[styles.container]}>
-          <CustomView hCenter style={[styles.innerContainer]}>
-            <CustomView
-              row
-              vCenter
-              spaceBetween
-              style={[styles.avatarsContainer]}
-            >
-              <Avatar
-                medium
-                shadow
-                src={require('../images/invitee.png')}
-                testID={'claim-request-avatars-invitee'}
-              />
-              {claimRequestStatus ===
-                CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST && (
-                <Image
-                  style={styles.checkMark}
-                  source={require('../images/connectArrows.png')}
-                />
-              )}
-              {claimRequestStatus ===
-                CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS && (
-                <Image
-                  style={styles.checkMark}
-                  source={require('../images/checkMark.png')}
-                />
-              )}
-              <Avatar
-                medium
-                shadow
-                src={logoUrl}
-                testID={'claim-request-avatars-inviter'}
-              />
-            </CustomView>
-            <CustomText
-              bg="fifth"
-              h5
-              semiBold
-              center
-              style={[styles.textContent]}
-              testID={'claim-request-issuer-waiting'}
-            >
-              {claimRequestStatus ===
-                CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST &&
-                `Waiting for ${issuer.name} to issue`}
-              {claimRequestStatus ===
-                CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS &&
-                'Successfully issued'}
-            </CustomText>
-            <CustomText
-              bg="fifth"
-              h5
-              bold
-              center
-              testID="claim-request-claim-name"
-            >
-              {claimOffer.name}
-            </CustomText>
-          </CustomView>
-          <CustomButton
-            disabled={
-              claimRequestStatus !== CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS
-            }
-            fifth
-            onPress={this.onContinue}
-            title="Continue"
-            accessibilityLabel="Continue to home screen"
-            testID="claim-request-success-continue"
-          />
-        </CustomView>
-      </Modal>
+        <AvatarsPair
+          middleImage={middleImage}
+          middleImageStyle={styles.connectedArrow}
+          avatarLeft={require('../images/invitee.jpeg')}
+          avatarRight={avatarRight}
+          testID={'claim-request'}
+        />
+        <CustomText
+          h6
+          demiBold
+          center
+          tertiary
+          bg="tertiary"
+          transparentBg
+          style={[styles.message]}
+          testID={`claim-request-message`}
+        >
+          {message}
+        </CustomText>
+        <CustomText
+          h5
+          bold
+          center
+          tertiary
+          bg="tertiary"
+          transparentBg
+          style={[styles.title]}
+          testID={`claim-request-claim-name`}
+        >
+          {claimOffer.name}
+        </CustomText>
+      </CustomModal>
     )
   }
 }
-
 const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: OFFSET_1X,
+  connectedArrow: {
+    height: 20,
+    width: 75,
+    zIndex: -1,
+    right: 4,
   },
-  innerContainer: {
-    borderBottomColor: color.bg.fifth.font.tertiary,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    paddingVertical: OFFSET_1X,
+  message: {
+    paddingTop: OFFSET_1X,
+    marginBottom: OFFSET_1X / 2,
   },
-  avatarsContainer: {
-    marginHorizontal: OFFSET_2X,
-    marginVertical: OFFSET_1X,
-  },
-  textContent: {
-    margin: OFFSET_1X,
-    color: color.bg.tertiary.font.secondary,
-  },
-  checkMark: {
-    width: 30,
-    height: 22,
+  title: {
+    marginBottom: OFFSET_1X,
   },
 })

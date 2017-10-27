@@ -66,7 +66,6 @@ export class ImageColorPicker extends PureComponent<
           var message = {"message":'rgbValues',"payload":rgb};
           window.postMessage(JSON.stringify(message));
         }
-
         function getAverageRGB(imgEl) {
           var blockSize = 5;
           var defaultRGB = {r:0,g:0,b:0};
@@ -88,7 +87,6 @@ export class ImageColorPicker extends PureComponent<
           } catch(e) {
               return defaultRGB;
           }
-
           length = data.data.length;  
           while ( (i += blockSize * 4) < length ) {
               ++count;
@@ -101,7 +99,6 @@ export class ImageColorPicker extends PureComponent<
           rgb.b = ~~(rgb.b/count);
           return rgb;
         }
-
         const interval = setInterval(function() {
           var img = document.getElementById('canvasImage');
           if(img.src.length != 0) {
@@ -109,7 +106,6 @@ export class ImageColorPicker extends PureComponent<
             clearInterval(interval);
           }
         },10);
-
         </script>
         <body style='position: absolute; bottom: -1000px;'>
           <img src='data:image/${imageType};base64,${this.state

@@ -27,6 +27,11 @@ jest.mock('react-native-fcm', () => ({
   },
 }))
 
+jest.mock('PixelRatio', () => ({
+  get: jest.fn(() => 3), //PixelRatio.get() === 3 then iPhone 6 plus
+  roundToNearestPixel: jest.fn(num => num),
+}))
+
 jest.mock('react-native-sensitive-info', () => {
   // todo: need to handle empty key-chain case
   const secureStorage = {

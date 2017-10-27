@@ -30,3 +30,5 @@ export {
 export {
   default as ConnectionTheme,
 } from './image-color-picker/connection-theme'
+export { default as AvatarsPair } from './AvatarsPair'
+export { default as CustomModal } from './CustomModal'

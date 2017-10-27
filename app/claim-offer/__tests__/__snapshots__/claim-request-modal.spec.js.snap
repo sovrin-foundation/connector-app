@@ -3,7 +3,7 @@
 exports[`<ClaimRequestModal /> should match snapshot 1`] = `
 <Modal
   backdropColor="#f0f0f0"
-  backdropOpacity={0.7}
+  backdropOpacity={1}
   isVisible={true}
 >
   <View
@@ -24,11 +24,12 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
     }
   >
     <View
-      hCenter={true}
+      center={true}
       style={
         Object {
+          "alignItems": "center",
           "borderBottomColor": "#3f3f3f",
-          "borderBottomWidth": NaN,
+          "borderBottomWidth": 0.2,
           "justifyContent": "center",
           "paddingVertical": 10,
         }
@@ -36,16 +37,14 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
     >
       <View
         row={true}
-        spaceBetween={true}
         style={
           Object {
             "alignItems": "center",
             "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginHorizontal": 20,
             "marginVertical": 10,
           }
         }
+        testID="claim-request-text-avatars-container"
         vCenter={true}
       >
         <View
@@ -62,7 +61,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
               "shadowRadius": 8,
             }
           }
-          testID="claim-request-avatars-invitee"
+          testID="claim-request-text-avatars-invitee"
         >
           <Image
             accessibilityComponentType={undefined}
@@ -97,11 +96,20 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
         <Image
           source={1}
           style={
-            Object {
-              "height": 22,
-              "width": 30,
-            }
+            Array [
+              Object {
+                "height": 22,
+                "width": 30,
+              },
+              Object {
+                "height": 20,
+                "right": 4,
+                "width": 75,
+                "zIndex": -1,
+              },
+            ]
           }
+          testID="claim-request-check-mark"
         />
         <View
           imageShadow="imageShadow"
@@ -117,7 +125,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
               "shadowRadius": 8,
             }
           }
-          testID="claim-request-avatars-inviter"
+          testID="claim-request-text-avatars-inviter"
         >
           <Image
             accessibilityComponentType={undefined}
@@ -162,13 +170,13 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
         style={
           Array [
             Object {
-              "fontSize": 17,
+              "fontSize": 15,
             },
             Object {
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#ffffff",
+              "backgroundColor": "#f0f0f0",
               "color": "#777777",
             },
             Object {
@@ -177,14 +185,16 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
             Object {
               "textAlign": "center",
             },
-            null,
             Object {
-              "color": "#686868",
-              "margin": 10,
+              "backgroundColor": "transparent",
+            },
+            Object {
+              "marginBottom": 5,
+              "paddingTop": 10,
             },
           ]
         }
-        testID="claim-request-issuer-waiting"
+        testID="claim-request-message"
       >
         Waiting for Test Issuer to issue
       </Text>
@@ -202,7 +212,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#ffffff",
+              "backgroundColor": "#f0f0f0",
               "color": "#777777",
             },
             Object {
@@ -211,7 +221,12 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
             Object {
               "textAlign": "center",
             },
-            null,
+            Object {
+              "backgroundColor": "transparent",
+            },
+            Object {
+              "marginBottom": 10,
+            },
           ]
         }
         testID="claim-request-claim-name"
@@ -284,7 +299,11 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
             Object {
               "backgroundColor": "#dadee0",
             },
-            undefined,
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+              },
+            ],
           ]
         }
       >
@@ -316,10 +335,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
                   "fontSize": 14,
                 },
                 undefined,
-                Object {
-                  "fontSize": 17,
-                  "fontWeight": "600",
-                },
+                undefined,
                 undefined,
                 undefined,
               ],

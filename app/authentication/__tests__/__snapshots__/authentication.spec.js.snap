@@ -395,15 +395,14 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                             "color": "white",
                             "fontSize": 16,
                           },
-                          undefined,
+                          Object {
+                            "color": "#ffffff",
+                          },
                           Object {
                             "fontSize": 14,
                           },
                           undefined,
-                          Object {
-                            "fontSize": 17,
-                            "fontWeight": "600",
-                          },
+                          undefined,
                           undefined,
                           undefined,
                         ],
@@ -521,15 +520,14 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                             "color": "white",
                             "fontSize": 16,
                           },
-                          undefined,
+                          Object {
+                            "color": "#ffffff",
+                          },
                           Object {
                             "fontSize": 14,
                           },
                           undefined,
-                          Object {
-                            "fontSize": 17,
-                            "fontWeight": "600",
-                          },
+                          undefined,
                           undefined,
                           undefined,
                         ],
@@ -557,7 +555,6 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                       var message = {\\"message\\":'rgbValues',\\"payload\\":rgb};
                       window.postMessage(JSON.stringify(message));
                     }
-            
                     function getAverageRGB(imgEl) {
                       var blockSize = 5;
                       var defaultRGB = {r:0,g:0,b:0};
@@ -579,7 +576,6 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                       } catch(e) {
                           return defaultRGB;
                       }
-            
                       length = data.data.length;  
                       while ( (i += blockSize * 4) < length ) {
                           ++count;
@@ -592,7 +588,6 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                       rgb.b = ~~(rgb.b/count);
                       return rgb;
                     }
-            
                     const interval = setInterval(function() {
                       var img = document.getElementById('canvasImage');
                       if(img.src.length != 0) {
@@ -600,7 +595,6 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                         clearInterval(interval);
                       }
                     },10);
-            
                     </script>
                     <body style='position: absolute; bottom: -1000px;'>
                       <img src='data:image/jpeg;base64,' id='canvasImage' onload='fetchColorFromCanvas()'/>
@@ -629,7 +623,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
       style={
         Object {
           "backgroundColor": "#ffffff",
-          "marginHorizontal": 30,
+          "marginHorizontal": 10,
           "shadowColor": "rgba(0, 0, 0, 0.2)",
           "shadowOffset": Object {
             "height": 10,
@@ -646,7 +640,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
           Object {
             "alignItems": "center",
             "borderBottomColor": "#3f3f3f",
-            "borderBottomWidth": NaN,
+            "borderBottomWidth": 0.2,
             "justifyContent": "center",
             "paddingVertical": 10,
           }
@@ -659,7 +653,6 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
               "alignItems": "center",
               "flexDirection": "row",
               "marginVertical": 10,
-              "width": 220,
             }
           }
           testID="invitation-text-avatars-container"
@@ -714,12 +707,15 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
           <Image
             source={1}
             style={
-              Object {
-                "height": 22,
-                "marginHorizontal": 20,
-                "width": 30,
-              }
+              Array [
+                Object {
+                  "height": 22,
+                  "width": 30,
+                },
+                undefined,
+              ]
             }
+            testID="invitation-check-mark"
           />
           <View
             imageShadow="imageShadow"
@@ -782,7 +778,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                 "fontFamily": "SF Pro Display",
               },
               Object {
-                "backgroundColor": "#ffffff",
+                "backgroundColor": "#f0f0f0",
                 "color": "#777777",
               },
               Object {
@@ -791,19 +787,18 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
               Object {
                 "textAlign": "center",
               },
-              null,
               Object {
-                "color": "#777777",
-                "margin": 10,
-                "marginHorizontal": 30,
+                "backgroundColor": "transparent",
+              },
+              Object {
+                "marginBottom": 10,
+                "paddingTop": 10,
               },
             ]
           }
-          testID="modal-body"
+          testID="invitation-message"
         >
-          You are now connected to 
-          Evernym
-          !
+          You are now connected to Evernym!
         </Text>
       </View>
       <View
@@ -898,10 +893,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                     "fontSize": 14,
                   },
                   undefined,
-                  Object {
-                    "fontSize": 17,
-                    "fontWeight": "600",
-                  },
+                  undefined,
                   undefined,
                   undefined,
                 ],

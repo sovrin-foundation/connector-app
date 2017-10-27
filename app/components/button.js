@@ -19,7 +19,7 @@ const CustomButton = props => {
     fifth,
     dangerous,
     medium,
-    customColor,
+    customColor = {},
     disabled,
   } = props
   const buttonStyles = props.style || empty
@@ -37,15 +37,8 @@ const CustomButton = props => {
       : tertiary
         ? 'tertiary'
         : quaternary ? 'quaternary' : dangerous ? 'dangerous' : 'fifth'
-  const buttonProps = customColor ? customColor : getButtonProps(buttonType)
-  return (
-    <Button
-      {...props}
-      {...buttonProps}
-      buttonStyle={style}
-      textStyle={styles.text}
-    />
-  )
+  const buttonProps = { ...getButtonProps(buttonType), ...customColor }
+  return <Button {...props} {...buttonProps} buttonStyle={style} />
 }
 
 export default CustomButton

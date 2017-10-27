@@ -1,5 +1,6 @@
 // @flow
 import { StyleSheet } from 'react-native'
+import { Dimensions } from 'react-native'
 
 // TODO:KS Add support for themes as well
 // Color name taken from http://www.htmlcsscolor.com/
@@ -142,3 +143,6 @@ export const bubbleSize = {
 }
 
 export const PIN_CODE_BORDER_BOTTOM = 4
+
+const { width, height } = Dimensions.get('screen')
+export const isiPhone5 = width >= 320 && width < 375

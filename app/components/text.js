@@ -12,6 +12,7 @@ const CustomText = props => {
     bold,
     thick,
     semiBold,
+    demiBold,
     center,
     bg = 'primary',
     primary,
@@ -37,7 +38,9 @@ const CustomText = props => {
     styles[`${bg}Bg${colorType}`],
     bold
       ? styles.bold
-      : semiBold ? styles.semiBold : thick ? styles.thick : null,
+      : semiBold
+        ? styles.semiBold
+        : thick ? styles.thick : demiBold ? styles.demiBold : null,
     center ? styles.center : null,
     transparentBg ? styles.transparentBg : null,
     ...style,
@@ -70,6 +73,9 @@ export const styles = StyleSheet.create({
     fontSize: font.size.XS,
   },
   semiBold: {
+    fontWeight: '600',
+  },
+  demiBold: {
     fontWeight: '600',
   },
   bold: {

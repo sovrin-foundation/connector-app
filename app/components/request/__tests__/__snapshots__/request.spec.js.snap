@@ -392,15 +392,14 @@ exports[`<Request /> should match snapshot 1`] = `
                           "color": "white",
                           "fontSize": 16,
                         },
-                        undefined,
+                        Object {
+                          "color": "#ffffff",
+                        },
                         Object {
                           "fontSize": 14,
                         },
                         undefined,
-                        Object {
-                          "fontSize": 17,
-                          "fontWeight": "600",
-                        },
+                        undefined,
                         undefined,
                         undefined,
                       ],
@@ -518,15 +517,14 @@ exports[`<Request /> should match snapshot 1`] = `
                           "color": "white",
                           "fontSize": 16,
                         },
-                        undefined,
+                        Object {
+                          "color": "#ffffff",
+                        },
                         Object {
                           "fontSize": 14,
                         },
                         undefined,
-                        Object {
-                          "fontSize": 17,
-                          "fontWeight": "600",
-                        },
+                        undefined,
                         undefined,
                         undefined,
                       ],
@@ -554,7 +552,6 @@ exports[`<Request /> should match snapshot 1`] = `
                     var message = {\\"message\\":'rgbValues',\\"payload\\":rgb};
                     window.postMessage(JSON.stringify(message));
                   }
-          
                   function getAverageRGB(imgEl) {
                     var blockSize = 5;
                     var defaultRGB = {r:0,g:0,b:0};
@@ -576,7 +573,6 @@ exports[`<Request /> should match snapshot 1`] = `
                     } catch(e) {
                         return defaultRGB;
                     }
-          
                     length = data.data.length;  
                     while ( (i += blockSize * 4) < length ) {
                         ++count;
@@ -589,7 +585,6 @@ exports[`<Request /> should match snapshot 1`] = `
                     rgb.b = ~~(rgb.b/count);
                     return rgb;
                   }
-          
                   const interval = setInterval(function() {
                     var img = document.getElementById('canvasImage');
                     if(img.src.length != 0) {
@@ -597,7 +592,6 @@ exports[`<Request /> should match snapshot 1`] = `
                       clearInterval(interval);
                     }
                   },10);
-          
                   </script>
                   <body style='position: absolute; bottom: -1000px;'>
                     <img src='data:image/jpeg;base64,' id='canvasImage' onload='fetchColorFromCanvas()'/>

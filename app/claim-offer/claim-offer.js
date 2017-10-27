@@ -19,7 +19,13 @@ import {
   ConnectionTheme,
 } from '../components'
 import { homeRoute } from '../common/'
-import { OFFSET_2X, OFFSET_1X, color } from '../common/styles'
+import {
+  OFFSET_2X,
+  OFFSET_1X,
+  color,
+  OFFSET_3X,
+  OFFSET_5X,
+} from '../common/styles'
 import type { ClaimOfferPayload, Attribute } from './type-claim-offer'
 import type { Store } from '../store/type-store'
 import ClaimRequestModal from './claim-request-modal'
@@ -51,14 +57,15 @@ class ClaimOfferHeader extends PureComponent {
             resizeMode="cover"
             src={logoUrl}
             style={[styles.issuerLogo]}
+            iconStyle={[styles.issuerLogoIcon]}
             testID="claim-offer-issuer-logo"
           />
         </CustomView>
         <CustomView fifth center style={[styles.issuerDetail]}>
-          <CustomText h5 bg="fifth">
+          <CustomText h5 demiBold bg="fifth">
             {issuer.name} is offering you
           </CustomText>
-          <CustomText h4 bold bg="fifth" style={[styles.claimOfferName]}>
+          <CustomText h4 thick bg="fifth" style={[styles.claimOfferName]}>
             {claimOffer.name}
           </CustomText>
         </CustomView>
@@ -90,14 +97,16 @@ class ClaimOfferAttributeList extends PureComponent {
           <CustomText
             h7
             uppercase
-            bg="fifth"
+            semiBold
+            bg="tertiary"
+            transparentBg
             style={[styles.attributeListLabelText]}
           >
             {item.label}
           </CustomText>
         </CustomView>
         <CustomView fifth left style={[styles.attributeListValue]}>
-          <CustomText h6 bold bg="fifth">
+          <CustomText h6 demiBold bg="tertiary" transparentBg>
             {item.data}
           </CustomText>
         </CustomView>
@@ -174,12 +183,24 @@ export class ClaimOffer extends PureComponent {
         <CustomView row>
           <Container>
             <ConnectionTheme logoUrl={logoUrl} secondary>
-              <CustomButton raised title="Ignore" onPress={this.onReject} />
+              <CustomButton
+                primary
+                medium
+                raised
+                title="Ignore"
+                onPress={this.onReject}
+              />
             </ConnectionTheme>
           </Container>
           <Container>
             <ConnectionTheme logoUrl={logoUrl}>
-              <CustomButton raised title="Accept" onPress={this.onAccept} />
+              <CustomButton
+                primary
+                medium
+                raised
+                title="Accept"
+                onPress={this.onAccept}
+              />
             </ConnectionTheme>
           </Container>
         </CustomView>
@@ -242,9 +263,12 @@ const styles = StyleSheet.create({
     height: 80,
     zIndex: 1,
   },
+  issuerLogoIcon: {
+    borderRadius: 40,
+  },
   issuerDetail: {
     marginTop: OFFSET_1X / 2,
-    paddingBottom: OFFSET_1X,
+    paddingBottom: OFFSET_5X / 2,
   },
   claimOfferName: {
     marginTop: OFFSET_1X / 2,
@@ -253,17 +277,17 @@ const styles = StyleSheet.create({
     zIndex: 3,
   },
   attributeListLabel: {
-    flex: 1,
-    paddingRight: OFFSET_1X,
+    flex: 4,
+    paddingRight: OFFSET_3X / 2,
   },
   attributeListLabelText: {
-    lineHeight: 14,
+    lineHeight: 19,
   },
   attributeListValue: {
-    flex: 2,
+    flex: 6,
   },
   separator: {
-    height: 1,
+    height: 2,
     backgroundColor: color.bg.secondary.font.tertiary,
   },
 })
