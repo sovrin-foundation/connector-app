@@ -979,23 +979,25 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
       }
     >
       <View
-        center={true}
+        spaceBetween={true}
         style={
           Object {
-            "alignItems": "center",
             "borderBottomColor": "#3f3f3f",
             "borderBottomWidth": 0.2,
-            "justifyContent": "center",
+            "justifyContent": "space-between",
             "paddingVertical": 10,
           }
         }
       >
         <View
           row={true}
+          spaceBetween={true}
           style={
             Object {
               "alignItems": "center",
               "flexDirection": "row",
+              "justifyContent": "space-between",
+              "marginHorizontal": 20,
               "marginVertical": 10,
             }
           }

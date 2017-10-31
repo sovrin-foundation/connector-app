@@ -28,4 +28,7 @@ export default StyleSheet.create({
   largeRound: {
     borderRadius: size.large / 2,
   },
+  clearBg: {
+    backgroundColor: 'transparent',
+  },
 })

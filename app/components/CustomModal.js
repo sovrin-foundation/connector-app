@@ -27,7 +27,7 @@ export default class CustomModal extends PureComponent {
         isVisible={isVisible}
       >
         <CustomView fifth shadow style={[styles.container]}>
-          <CustomView center style={[styles.innerContainer]}>
+          <CustomView spaceBetween style={[styles.innerContainer]}>
             {this.props.children}
           </CustomView>
           <CustomButton

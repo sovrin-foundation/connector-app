@@ -20,10 +20,15 @@ export default class Avatar extends PureComponent {
       testID,
       onLoad,
       onError,
+      clearBg,
     } = this.props
     const size = small ? 'small' : medium ? 'medium' : 'large'
     const imageShadow = shadow ? 'imageShadow' : null
-    const elementStyle = [...style, square ? null : avatarStyle[`${size}Round`]]
+    const elementStyle = [
+      ...style,
+      square ? null : avatarStyle[`${size}Round`],
+      clearBg ? avatarStyle['clearBg'] : null,
+    ]
     const elementContentStyle = [
       avatarStyle[size],
       // avatar style contains round styles on the basis of size of Image

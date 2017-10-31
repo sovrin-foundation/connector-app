@@ -723,23 +723,25 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
       }
     >
       <View
-        center={true}
+        spaceBetween={true}
         style={
           Object {
-            "alignItems": "center",
             "borderBottomColor": "#3f3f3f",
             "borderBottomWidth": 0.2,
-            "justifyContent": "center",
+            "justifyContent": "space-between",
             "paddingVertical": 10,
           }
         }
       >
         <View
           row={true}
+          spaceBetween={true}
           style={
             Object {
               "alignItems": "center",
               "flexDirection": "row",
+              "justifyContent": "space-between",
+              "marginHorizontal": 20,
               "marginVertical": 10,
             }
           }
@@ -880,6 +882,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
               },
               Object {
                 "marginBottom": 10,
+                "marginHorizontal": 5,
                 "paddingTop": 10,
               },
             ]

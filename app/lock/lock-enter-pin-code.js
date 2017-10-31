@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
   text: {
     marginTop: OFFSET_4X,
     minHeight: OFFSET_3X,
-    lineHeight: OFFSET_3X,
     marginBottom: OFFSET_4X,
   },
   header: {

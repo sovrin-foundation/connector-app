@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { View, Image, StyleSheet } from 'react-native'
 
 import { CustomModal, AvatarsPair, CustomText } from '../components'
-import { color, OFFSET_1X } from '../common/styles'
+import { color, OFFSET_1X, OFFSET_2X, isiPhone } from '../common/styles'
 import { connectionRoute } from '../common'
 import { getConnectionLogo } from '../store'
 
@@ -48,5 +48,6 @@ const styles = StyleSheet.create({
   message: {
     paddingTop: OFFSET_1X,
     marginBottom: OFFSET_1X,
+    marginHorizontal: OFFSET_1X / 2,
   },
 })

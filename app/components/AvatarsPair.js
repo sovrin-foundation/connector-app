@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { Image, StyleSheet } from 'react-native'
 import Modal from 'react-native-modal'
 import { Avatar, CustomView } from '../components'
-import { color, OFFSET_1X, OFFSET_2X } from '../common/styles'
+import { color, OFFSET_1X, OFFSET_2X, isiPhone } from '../common/styles'
 
 export default class AvatarsPair extends PureComponent {
   render() {
@@ -17,6 +17,7 @@ export default class AvatarsPair extends PureComponent {
       <CustomView
         row
         vCenter
+        spaceBetween
         style={[styles.avatarsContainer]}
         testID={`${testID}-text-avatars-container`}
       >
@@ -50,6 +51,7 @@ export default class AvatarsPair extends PureComponent {
 const styles = StyleSheet.create({
   avatarsContainer: {
     marginVertical: OFFSET_1X,
+    marginHorizontal: isiPhone ? OFFSET_1X : OFFSET_2X,
   },
   checkMark: {
     width: 30,
