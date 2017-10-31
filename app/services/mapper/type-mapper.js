@@ -19,3 +19,8 @@ export type InvitationPayload = {
   senderDIDVerKey: string,
   targetName: string,
 }
+
+export type ClaimOfferPayloadMapper = {
+  claimOffer: string,
+  issuer: string,
+}

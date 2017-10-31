@@ -33,6 +33,6 @@ export const API_TYPE = {
 }
 
 export const PAYLOAD_TYPE = {
-  GET_MSGS: 'getMsgs',
+  GET_MESSAGE: 'GET_MSGS',
   UPDATE_PUSH_COM_METHOD: 'UPDATE_PUSH_COM_METHOD',
 }

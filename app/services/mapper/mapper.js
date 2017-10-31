@@ -1,8 +1,11 @@
 // @flow
 import { bubbleSize } from '../../common/styles'
-import type { Connection, InvitationPayload } from './type-mapper'
-
-export const stringToLower = (str: String) => str.toLowerCase()
+import type {
+  Connection,
+  InvitationPayload,
+  ClaimOfferPayloadMapper,
+} from './type-mapper'
+import type { ClaimOfferPayload } from '../../claim-offer/type-claim-offer'
 
 export const connectionMapper = ({
   logoUrl,
@@ -26,4 +29,13 @@ export const invitationPayloadMapper = (payload: InvitationPayload) => ({
   senderEndpoint: payload.senderEndpoint,
   senderDIDVerKey: payload.senderDIDVerKey,
   targetName: payload.targetName,
+})
+
+export const claimOfferPayloadMapper = (
+  payload: ClaimOfferPayloadMapper,
+  statusMsg: string
+): ClaimOfferPayload => ({
+  claimOffer: JSON.parse(payload.claimOffer),
+  issuer: JSON.parse(payload.issuer),
+  statusMsg,
 })

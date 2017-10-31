@@ -22,10 +22,15 @@ import type {
   ClaimOfferPayload,
   ClaimOfferAcceptedAction,
   FetchClaimOfferAction,
+  ClaimOfferResponse,
 } from './type-claim-offer'
 import type { Error } from '../common/type-common'
 import { getAgencyUrl } from '../store/store-selector'
-import { fetchClaimOfferRequest, PAYLOAD_TYPE } from '../services'
+import {
+  fetchClaimOfferRequest,
+  PAYLOAD_TYPE,
+  claimOfferPayloadMapper,
+} from '../services'
 
 const claimOfferInitialState = {
   status: CLAIM_OFFER_STATUS.IDLE,
@@ -41,7 +46,7 @@ export const fetchClaimOffer = (notificationPayload: any) => ({
   notificationPayload,
 })
 
-export const fetchClaimOfferError = (error: string) => ({
+export const fetchClaimOfferError = (error: Error) => ({
   type: FETCH_CLAIM_OFFER_ERROR,
   error,
 })
@@ -52,20 +57,40 @@ export function* claimOfferFetching(
   const agencyUrl: string = yield select(getAgencyUrl)
   const { forDID, uid } = action.notificationPayload
   try {
-    const claimOffer = yield call(fetchClaimOfferRequest, {
-      agencyUrl,
-      dataBody: {
-        to: forDID,
-        agentPayload: JSON.stringify({
-          uid,
-          type: PAYLOAD_TYPE.GET_MSGS,
-          includeEdgePayload: 'Y',
-        }),
-      },
-    })
-    yield put(claimOfferReceived(claimOffer))
+    const claimOfferResponse: ClaimOfferResponse = yield call(
+      fetchClaimOfferRequest,
+      {
+        agencyUrl,
+        dataBody: {
+          to: forDID,
+          agentPayload: JSON.stringify({
+            uid,
+            type: PAYLOAD_TYPE.GET_MESSAGE,
+            includeEdgePayload: 'Y',
+          }),
+        },
+      }
+    )
+
+    try {
+      const parsedData = JSON.parse(claimOfferResponse.msgs[0].edgeAgentPayload)
+      const claimOfferStatusMsg = claimOfferResponse.msgs[0].statusMsg
+
+      const claimOfferData: ClaimOfferPayload = claimOfferPayloadMapper(
+        parsedData,
+        claimOfferStatusMsg
+      )
+      yield put(claimOfferReceived(claimOfferData))
+    } catch (e) {
+      put(fetchClaimOfferError(e))
+    }
   } catch (e) {
-    yield put(fetchClaimOfferError(e))
+    yield put(
+      fetchClaimOfferError({
+        code: 'OCS-000',
+        message: 'Invalid claim offer payload',
+      })
+    )
   }
 }
 
@@ -124,7 +149,7 @@ export function* watchClaimOffer(): Generator<*, *, *> {
   yield all([watchFetchClaimOffer(), watchClaimOfferAccepted()])
 }
 
-export default function claimOffer(
+export default function claimOfferReducer(
   state: ClaimOfferStore = claimOfferInitialState,
   action: ClaimOfferAction
 ) {

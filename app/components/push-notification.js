@@ -7,7 +7,6 @@ import {
   pushNotificationPermissionAction,
   pushNotificationReceived,
   updatePushToken,
-  claimOfferReceived,
   fetchClaimOffer,
 } from '../store'
 import { PUSH_COM_METHOD, PUSH_NOTIFICATION_TYPE } from '../common'
@@ -56,13 +55,11 @@ export class PushNotification extends PureComponent {
       }
 
       if (notification.type === PUSH_NOTIFICATION_TYPE.CLAIM_OFFER) {
-        let payload
-        try {
-          payload = JSON.parse(notification.data)
-        } catch (e) {
-          console.log('invalid claim offer payload', e)
-        }
-        this.props.claimOfferReceived(payload)
+        const { forDID, uid } = notification
+        this.props.fetchClaimOffer({
+          forDID,
+          uid,
+        })
       }
       this.props.pushNotificationReceived(notification)
     }
@@ -105,7 +102,6 @@ const mapDispatchToProps = dispatch =>
       pushNotificationPermissionAction,
       pushNotificationReceived,
       updatePushToken,
-      claimOfferReceived,
       fetchClaimOffer,
     },
     dispatch

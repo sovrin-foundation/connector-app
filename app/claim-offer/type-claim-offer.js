@@ -37,6 +37,7 @@ export type ClaimOfferPayload = {
     logoUrl: string,
     pairwiseDID: string,
   },
+  statusMsg?: string,
 }
 
 export type NotificationPayload = {
@@ -112,6 +113,9 @@ export type ClaimOfferStore = {
   status: ClaimOfferStatus,
   payload: ?ClaimOfferPayload,
   claimRequestStatus: ClaimRequestStatus,
+  isPristine: boolean,
+  isFetching: boolean,
+  error: ?Error,
 }
 
 export type ClaimRequestStatusModalProps = {
@@ -122,4 +126,16 @@ export type ClaimRequestStatusModalProps = {
 
 export type ClaimRequestStatusModalState = {
   isVisible: boolean,
+}
+
+export type ClaimOfferResponse = {
+  msgs: [
+    {
+      statusCode: string,
+      edgeAgentPayload: string,
+      typ: string,
+      statusMsg: string,
+      uid: string,
+    },
+  ],
 }
