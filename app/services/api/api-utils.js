@@ -1,8 +1,11 @@
+// @flow
 import { SERVER_ERROR_CODE, SERVER_API_CALL_ERROR } from './api-constants'
 import { captureError } from '../error/error-handler'
+import type { CustomError } from '../../common/type-common'
+import type { ApiData, BackendError } from './type-api'
 
-export const options = (method = 'GET', body) => {
-  let data = {
+export const options = (method: string = 'GET', body: ?{ [string]: any }) => {
+  let data: ApiData = {
     method,
     mode: 'cors',
     headers: {
@@ -10,6 +13,7 @@ export const options = (method = 'GET', body) => {
       'Content-Type': 'application/json',
     },
   }
+
   if (body) {
     data.body = JSON.stringify(body)
   }
@@ -17,7 +21,7 @@ export const options = (method = 'GET', body) => {
   return data
 }
 
-export const api = (url, apiOptions, showAlert) =>
+export const api = (url: string, apiOptions: ApiData, showAlert: boolean) =>
   fetch(url, apiOptions)
     .then(res => {
       // TODO:KS create common method to return successful
@@ -28,7 +32,7 @@ export const api = (url, apiOptions, showAlert) =>
           .then(response => ({
             payload: response,
           }))
-          .catch(error => ({
+          .catch((error: Error) => ({
             // our api call was successful,
             // however server did not return any json response
             // Ideally server should send such response with status code 204
@@ -38,7 +42,7 @@ export const api = (url, apiOptions, showAlert) =>
           }))
       } else {
         // Fail with error code if status code is above 300
-        return res.text().then(response => ({
+        return res.text().then((response: string) => ({
           error: response,
         }))
       }
@@ -48,15 +52,19 @@ export const api = (url, apiOptions, showAlert) =>
       if (response.payload && !response.error) {
         return response.payload
       } else {
-        let errorResponse = {
-          statusMsg: 'Server error',
-          statusCode: SERVER_ERROR_CODE,
+        let errorResponse: CustomError = {
+          message: 'Server error',
+          code: SERVER_ERROR_CODE,
         }
 
         try {
           // try to convert error response to json, if it fails that means
           // we did not get error code and message
-          errorResponse = JSON.parse(response.error)
+          const backendError = (JSON.parse(response.error): BackendError)
+          errorResponse = {
+            message: backendError.statusMsg,
+            code: backendError.statusCode,
+          }
         } finally {
           // since we did not get error code and message
           // let's just use default that we assigned above,
@@ -66,15 +74,23 @@ export const api = (url, apiOptions, showAlert) =>
         throw new Error(JSON.stringify(errorResponse))
       }
     })
-    .catch(captureError)
-    .catch(error => {
+    // .catch(captureError) Commenting this for now, it is not returning errors back to saga as of now, Fix this
+    .catch((e: Error) => {
       // we don't want to throw JavaScript with simple message
       // we want it to be JSON parse compatible, so that error handlers
       // can parse and use this error
-      throw new Error(
-        JSON.stringify({
-          statusMsg: error.message,
-          statusCode: SERVER_API_CALL_ERROR,
-        })
-      )
+      // Here we are handling network and other http status code errors
+      let error = {
+        message: e.message,
+        code: SERVER_API_CALL_ERROR,
+      }
+
+      try {
+        // if we already converted JavaScript error to CustomError
+        // then pass through same error
+        error = JSON.parse(e.message)
+      } finally {
+      }
+
+      throw new Error(JSON.stringify(error))
     })

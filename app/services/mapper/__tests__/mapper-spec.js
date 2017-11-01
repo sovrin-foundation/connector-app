@@ -1,6 +1,5 @@
 // @flow
-
-import { connectionMapper, invitationPayloadMapper } from '../mapper'
+import { connectionMapper } from '../mapper'
 import { bubbleSize } from '../../../common/styles'
 
 describe('Mapper Service', () => {
@@ -12,22 +11,6 @@ describe('Mapper Service', () => {
       remoteConnectionId: '5iZiu2aLYrQXSdon123456',
     }
     const tree = connectionMapper(connection)
-    expect(tree).toMatchSnapshot()
-  })
-
-  it('invitationPayloadMapper should return proper object', () => {
-    const invitation = {
-      connReqId: '12asd',
-      targetName: 'test',
-      senderName: 'test body',
-      senderLogoUrl: 'http://test-agency.com/logo',
-      connectionName: 'test enterprise',
-      senderDID: '5iZiu2aLYrQXSdon123456',
-      senderEndpoint: '192.168.1.1:80',
-      senderDIDVerKey: '12345rD1ybsSR9hKWBePkRSZdnYHAv4KQ8XxcWHHasdf',
-      targetName: 'test',
-    }
-    const tree = invitationPayloadMapper(invitation)
     expect(tree).toMatchSnapshot()
   })
 })

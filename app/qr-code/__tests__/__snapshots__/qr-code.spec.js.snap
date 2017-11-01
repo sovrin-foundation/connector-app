@@ -1,5 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<QRScannerScreen /> should convert qr code to invitation 1`] = `
+Object {
+  "requestId": "requestid",
+  "senderAgentKeyDelegationProof": "senderAgentKeyDlgProof",
+  "senderDID": "senderDID",
+  "senderEndpoint": "https://endpoint.com",
+  "senderLogoUrl": "http://logourl.com",
+  "senderName": "senderName",
+  "senderVerificationKey": "senderVerificationKey",
+  "targetName": "targetName",
+}
+`;
+
 exports[`<QRScannerScreen /> should match snapshot 1`] = `
 <View
   style={

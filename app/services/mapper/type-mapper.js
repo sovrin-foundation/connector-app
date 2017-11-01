@@ -7,19 +7,6 @@ export type Connection = {
   [string]: any,
 }
 
-export type InvitationPayload = {
-  connReqId: string,
-  targetName: string,
-  senderName: string,
-  senderLogoUrl?: string,
-  connectionName?: string,
-  statusCode?: string,
-  senderDID: string,
-  senderEndpoint: string,
-  senderDIDVerKey: string,
-  targetName: string,
-}
-
 export type ClaimOfferPayloadMapper = {
   claimOffer: string,
   issuer: string,

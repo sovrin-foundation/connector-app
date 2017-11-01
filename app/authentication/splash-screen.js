@@ -8,7 +8,7 @@ import {
   expiredTokenRoute,
   lockSelectionRoute,
   lockEnterPinRoute,
-  smsConnectionRequestRoute,
+  invitationRoute,
 } from '../common/route-constants'
 import {
   TOKEN_EXPIRED_CODE,
@@ -16,12 +16,12 @@ import {
   PUSH_NOTIFICATION_SENT_CODE,
 } from '../services/api'
 import {
-  getSMSConnectionRequestDetails,
   authenticationRequestReceived,
   pushNotificationReceived,
   addPendingRedirection,
 } from '../store'
 import handlePushNotification from '../services/router'
+import { getSmsPendingInvitation } from '../sms-pending-invitation/sms-pending-invitation-store'
 
 class SplashScreenView extends PureComponent {
   componentWillReceiveProps(nextProps) {
@@ -47,7 +47,7 @@ class SplashScreenView extends PureComponent {
       if (nextProps.deepLink.isLoading === false) {
         // loading deep link data is done
         if (nextProps.deepLink.token) {
-          this.props.getSMSConnectionRequestDetails()
+          this.props.getSmsPendingInvitation(nextProps.deepLink.token)
         } else {
           if (nextProps.lock.isAppLocked === false) {
             // we did not get any token and deepLink data loading is done
@@ -85,8 +85,8 @@ class SplashScreenView extends PureComponent {
         SplashScreen.hide()
 
         if (
-          nextProps.authentication.error.statusCode &&
-          nextProps.authentication.error.statusCode === TOKEN_EXPIRED_CODE
+          nextProps.authentication.error.code &&
+          nextProps.authentication.error.code === TOKEN_EXPIRED_CODE
         ) {
           if (nextProps.lock.isAppLocked === false) {
             this.props.navigation.navigate(expiredTokenRoute)
@@ -128,11 +128,11 @@ class SplashScreenView extends PureComponent {
       }
     }
 
-    if (nextProps.smsConnection !== this.props.smsConnection) {
-      if (nextProps.smsConnection.error) {
+    if (nextProps.smsPendingInvitation !== this.props.smsPendingInvitation) {
+      if (nextProps.smsPendingInvitation.error) {
         if (
-          nextProps.smsConnection.error.statusCode &&
-          nextProps.smsConnection.error.statusCode === TOKEN_EXPIRED_CODE
+          nextProps.smsPendingInvitation.error.code &&
+          nextProps.smsPendingInvitation.error.code === TOKEN_EXPIRED_CODE
         ) {
           if (nextProps.lock.isAppLocked === false) {
             this.props.navigation.navigate(expiredTokenRoute)
@@ -148,15 +148,17 @@ class SplashScreenView extends PureComponent {
         }
       }
 
-      // check if smsConnection payload are the only props that are changed
+      // check if smsPendingInvitation payload are the only props that are changed
       if (
-        nextProps.smsConnection.payload !== this.props.smsConnection.payload
+        nextProps.smsPendingInvitation.payload !==
+        this.props.smsPendingInvitation.payload
       ) {
-        if (nextProps.smsConnection.payload.connReqId) {
+        const { senderDID } = nextProps.smsPendingInvitation.payload
+        if (senderDID) {
           if (nextProps.lock.isAppLocked === false) {
-            this.props.navigation.navigate(smsConnectionRequestRoute)
+            this.props.navigation.navigate(invitationRoute, { senderDID })
           } else {
-            this.props.addPendingRedirection(smsConnectionRequestRoute)
+            this.props.addPendingRedirection(invitationRoute, { senderDID })
           }
         } else {
           if (nextProps.lock.isAppLocked === false) {
@@ -198,7 +200,7 @@ const mapStateToProps = ({
   pushNotification,
   route,
   lock,
-  smsConnection,
+  smsPendingInvitation,
 }) => ({
   authentication,
   config,
@@ -206,13 +208,13 @@ const mapStateToProps = ({
   pushNotification,
   route,
   lock,
-  smsConnection,
+  smsPendingInvitation,
 })
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      getSMSConnectionRequestDetails,
+      getSmsPendingInvitation,
       authenticationRequestReceived,
       pushNotificationReceived,
       addPendingRedirection,

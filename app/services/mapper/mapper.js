@@ -1,10 +1,6 @@
 // @flow
 import { bubbleSize } from '../../common/styles'
-import type {
-  Connection,
-  InvitationPayload,
-  ClaimOfferPayloadMapper,
-} from './type-mapper'
+import type { Connection, ClaimOfferPayloadMapper } from './type-mapper'
 import type { ClaimOfferPayload } from '../../claim-offer/type-claim-offer'
 
 export const connectionMapper = ({
@@ -17,18 +13,6 @@ export const connectionMapper = ({
   size,
   name: name ? name.split(' ')[0] : 'evernym',
   ...otherArgs,
-})
-
-export const invitationPayloadMapper = (payload: InvitationPayload) => ({
-  connReqId: payload.connReqId,
-  title: `Hi, ${payload.targetName}`,
-  message: `${payload.senderName} wants to connect with you.`,
-  senderName: payload.senderName,
-  senderLogoUrl: payload.senderLogoUrl || null,
-  senderDID: payload.senderDID,
-  senderEndpoint: payload.senderEndpoint,
-  senderDIDVerKey: payload.senderDIDVerKey,
-  targetName: payload.targetName,
 })
 
 export const claimOfferPayloadMapper = (

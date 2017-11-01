@@ -16,14 +16,19 @@ import type { Store } from '../store/type-store'
 import { OFFSET_1X, OFFSET_2X, OFFSET_4X, color } from '../common/styles'
 import { captureError } from '../services'
 
+// TODO:KS define type of props for this component
 export class LockSetupSuccess extends PureComponent {
   onClose = () => {
     this.props.unlockApp()
     if (this.props.pendingRedirection) {
       // if there is a redirection pending, then redirect and clear it
-      this.props.navigation.navigate(this.props.pendingRedirection)
+      this.props.navigation.navigate(
+        this.props.pendingRedirection,
+        this.props.pendingRedirectionParams
+      )
       this.props.clearPendingRedirect()
     }
+    // Pradeep? Why are we doing this?
     captureError(this.props.pendingRedirection)
   }
 
@@ -66,6 +71,7 @@ export class LockSetupSuccess extends PureComponent {
 
 const mapStateToProps = (state: Store) => ({
   pendingRedirection: state.lock.pendingRedirection,
+  pendingRedirectionParams: state.lock.pendingRedirectionParams || {},
 })
 
 const mapDispatchToProps = dispatch =>

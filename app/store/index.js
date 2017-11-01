@@ -14,14 +14,12 @@ import authentication, {
 import deepLink from '../deep-link/deep-link-store'
 import route from './route-store'
 import { watchAppHydration } from './hydration-store'
-import qrConnection, {
-  watchQrConnection,
-} from '../qr-connection-request/qr-connection-request-store'
 import lock, { watchLock } from '../lock/lock-store'
-import smsConnection, {
-  watchSMSConnectionSagas,
-} from '../sms-connection-request/sms-connection-request-store'
+import smsPendingInvitation, {
+  watchSmsPendingInvitationSaga,
+} from '../sms-pending-invitation/sms-pending-invitation-store'
 import claimOffer, { watchClaimOffer } from '../claim-offer/claim-offer-store'
+import invitation, { watchInvitation } from '../invitation/invitation-store'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -31,12 +29,12 @@ const appReducer = combineReducers({
   deepLink,
   authentication,
   pushNotification,
-  qrConnection,
   route,
-  smsConnection,
+  smsPendingInvitation,
   user,
   lock,
   claimOffer,
+  invitation,
 })
 
 let middlewares = []
@@ -57,11 +55,11 @@ sagaMiddleware.run(function*() {
     watchConfig(),
     watchAuthentication(),
     watchAppHydration(),
-    watchQrConnection(),
     watchLock(),
-    watchSMSConnectionSagas(),
+    watchSmsPendingInvitationSaga(),
     watchClaimOffer(),
     watchPushNotification(),
+    watchInvitation(),
   ])
 })
 
@@ -73,10 +71,10 @@ export * from './route-store'
 export * from './hydration-store'
 export * from '../authentication/authentication-store'
 export * from '../deep-link/deep-link-store'
-export * from '../qr-connection-request/qr-connection-request-store'
 export * from '../lock/lock-store'
-export * from '../sms-connection-request/sms-connection-request-store'
+export * from '../sms-pending-invitation/sms-pending-invitation-store'
 export * from '../claim-offer/claim-offer-store'
+export * from '../invitation/invitation-store'
 
 // make default export as the store
 export default store

@@ -5,15 +5,28 @@ import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 import {
   qrCodeScannerTabRoute,
-  qrConnectionRequestRoute,
+  invitationRoute,
   homeTabRoute,
 } from '../../common/'
-import ConnectedQRCodeScannerScreen, { QRCodeScannerScreen } from '../qr-code'
+import ConnectedQRCodeScannerScreen, {
+  QRCodeScannerScreen,
+  convertQrCodeToInvitation,
+} from '../qr-code'
 
 describe('<QRScannerScreen />', () => {
   let store = {}
   let dispatch
   let navigation
+  const qrData = {
+    lu: 'http://logourl.com',
+    rid: 'requestid',
+    sakdp: 'senderAgentKeyDlgProof',
+    sn: 'senderName',
+    tn: 'targetName',
+    sD: 'senderDID',
+    sVk: 'senderVerificationKey',
+    e: 'https://endpoint.com',
+  }
 
   beforeAll(() => {
     dispatch = jest.fn()
@@ -45,37 +58,31 @@ describe('<QRScannerScreen />', () => {
     expect(tree).toMatchSnapshot()
   })
 
-  it('should redirect user to qr-connection-request screen on success read', () => {
-    const qrConnectionRequestReceived = jest.fn()
+  it('should convert qr code to invitation', () => {
+    expect(convertQrCodeToInvitation(qrData)).toMatchSnapshot()
+  })
+
+  it('should redirect user to invitation screen on success read', () => {
+    const invitationReceived = jest.fn()
     const instance = renderer
       .create(
         <QRCodeScannerScreen
-          qrConnectionRequestReceived={qrConnectionRequestReceived}
+          invitationReceived={invitationReceived}
           navigation={navigation}
           currentScreen={qrCodeScannerTabRoute}
         />
       )
       .getInstance()
 
-    const qrData = {
-      lu: 'http://logourl.com',
-      rid: 'requestid',
-      sakdp: 'senderAgentKeyDlgProof',
-      sn: 'senderName',
-      tn: 'targetName',
-      sD: 'senderDID',
-      sVk: 'senderVerificationKey',
-    }
-
     instance.onRead(qrData)
-    expect(qrConnectionRequestReceived).toHaveBeenCalledWith(
+    expect(invitationReceived).toHaveBeenCalledWith(
       expect.objectContaining({
-        payload: qrData,
-        title: `Hi ${qrData['tn']}`,
-        message: `${qrData['sn']} wants to connect with you`,
+        payload: convertQrCodeToInvitation(qrData),
       })
     )
-    expect(navigation.navigate).toHaveBeenCalledWith(qrConnectionRequestRoute)
+    expect(navigation.navigate).toHaveBeenCalledWith(invitationRoute, {
+      senderDID: qrData.sD,
+    })
   })
 
   it('should navigate back to home if qr code scanner is closed', () => {

@@ -93,7 +93,10 @@ export class LockEnterPin extends PureComponent<
     if (this.props.checkPinStatus !== nextProps.checkPinStatus) {
       if (nextProps.checkPinStatus === CHECK_PIN_SUCCESS) {
         if (this.props.pendingRedirection) {
-          this.props.navigation.navigate(this.props.pendingRedirection)
+          this.props.navigation.navigate(
+            this.props.pendingRedirection,
+            this.props.pendingRedirectionParams
+          )
         }
       } else if (nextProps.checkPinStatus === CHECK_PIN_FAIL) {
         this.pinCodeBox && this.pinCodeBox.clear && this.pinCodeBox.clear()
@@ -142,6 +145,7 @@ export class LockEnterPin extends PureComponent<
 const mapStateToProps = (state: Store) => ({
   checkPinStatus: state.lock.checkPinStatus,
   pendingRedirection: state.lock.pendingRedirection,
+  pendingRedirectionParams: state.lock.pendingRedirectionParams || {},
 })
 
 const mapDispatchToProps = dispatch =>

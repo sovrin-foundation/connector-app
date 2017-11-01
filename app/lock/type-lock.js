@@ -1,19 +1,18 @@
 // @flow
-// TODO:KS Move this type to common app types
-import type { ReactNavigation } from '../qr-connection-request/type-qr-connection-request'
+import type { CustomError, ReactNavigation } from '../common/type-common'
+import { SWITCH_ERROR_ALERTS } from '../store/config-store'
+
 export const LOCK_TYPE = {
   FINGERPRINT: 'FINGERPRINT',
   PIN: 'PIN',
 }
-import type { Error } from '../common/type-common'
-import { SWITCH_ERROR_ALERTS } from '../store/config-store'
-
 export type lockType = $Keys<typeof LOCK_TYPE>
 
 export const PENDING_REDIRECT = 'SET_PENDING_REDIRECT'
 export type AddPendingRedirectAction = {
   type: typeof PENDING_REDIRECT,
   routeName: string,
+  pendingRedirectionParams?: ?{ [string]: any },
 }
 
 export const CLEAR_PENDING_REDIRECT = 'CLEAR_PENDING_REDIRECT'
@@ -37,7 +36,7 @@ export type LockEnable = {
 export const LOCK_FAIL = 'LOCK_FAIL'
 export type LockFail = {
   type: typeof LOCK_FAIL,
-  error: Error,
+  error: CustomError,
 }
 
 export const CHECK_PIN = 'CHECK_PIN'
@@ -77,6 +76,7 @@ export type CheckPinStatus =
 
 export type LockStore = {
   pendingRedirection: ?string,
+  pendingRedirectionParams?: ?{ [string]: any },
   checkPinStatus: CheckPinStatus,
   isAppLocked: boolean,
   isLockEnabled: boolean,
@@ -96,6 +96,7 @@ export type LockEnterPinProps = {
   checkPinStatusIdle: () => CheckPinIdleAction,
   checkPinStatus: CheckPinStatus,
   pendingRedirection: string,
+  pendingRedirectionParams: { [string]: any },
   switchErrorAlerts: () => SwitchErrorAlerts,
 } & ReactNavigation
 

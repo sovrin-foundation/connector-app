@@ -9,13 +9,12 @@ import SplashScreenView from './authentication/splash-screen'
 import { Settings } from './settings'
 import ExpiredTokenScreen from './expired-token/expired-token'
 import QRCodeScanner from './qr-code/qr-code'
-import QRConnectionRequestScreen from './qr-connection-request/qr-connection-request'
-import SMSConnectionRequestScreen from './sms-connection-request/sms-connection-request'
 import LockSelectionScreen from './lock/lock-selection'
 import LockEnterPinScreen from './lock/lock-enter-pin-code'
 import LockPinCodeSetupScreen from './lock/lock-pin-code-setup'
 import LockSetupSuccessScreen from './lock/lock-setup-success'
 import ClaimOffer from './claim-offer/claim-offer'
+import InvitationScreen from './invitation/invitation'
 import { Icon } from './components'
 import {
   splashScreenRoute,
@@ -23,8 +22,6 @@ import {
   authenticationRoute,
   connectionRoute,
   expiredTokenRoute,
-  qrConnectionRequestRoute,
-  smsConnectionRequestRoute,
   lockEnterPinRoute,
   lockSelectionRoute,
   lockPinSetupRoute,
@@ -33,6 +30,7 @@ import {
   homeTabRoute,
   settingsTabRoute,
   qrCodeScannerTabRoute,
+  invitationRoute,
 } from './common/'
 import { color } from './common/styles'
 
@@ -113,11 +111,8 @@ const CardStack = StackNavigator(
     [expiredTokenRoute]: {
       screen: ExpiredTokenScreen,
     },
-    [qrConnectionRequestRoute]: {
-      screen: QRConnectionRequestScreen,
-    },
-    [smsConnectionRequestRoute]: {
-      screen: SMSConnectionRequestScreen,
+    [invitationRoute]: {
+      screen: InvitationScreen,
     },
     [lockSelectionRoute]: {
       screen: LockSelectionScreen,

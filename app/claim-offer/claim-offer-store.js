@@ -24,7 +24,7 @@ import type {
   FetchClaimOfferAction,
   ClaimOfferResponse,
 } from './type-claim-offer'
-import type { Error } from '../common/type-common'
+import type { CustomError } from '../common/type-common'
 import { getAgencyUrl } from '../store/store-selector'
 import {
   fetchClaimOfferRequest,
@@ -46,7 +46,7 @@ export const fetchClaimOffer = (notificationPayload: any) => ({
   notificationPayload,
 })
 
-export const fetchClaimOfferError = (error: Error) => ({
+export const fetchClaimOfferError = (error: CustomError) => ({
   type: FETCH_CLAIM_OFFER_ERROR,
   error,
 })

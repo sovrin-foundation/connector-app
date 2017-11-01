@@ -1,6 +1,6 @@
 // @flow
 import { put, takeLatest, call, all } from 'redux-saga/effects'
-import type { Error } from '../common/type-common'
+import type { CustomError } from '../common/type-common'
 import {
   PENDING_REDIRECT,
   CLEAR_PENDING_REDIRECT,
@@ -46,11 +46,13 @@ const initialState: LockStore = {
 }
 
 export function addPendingRedirection(
-  routeName: string
+  routeName: string,
+  pendingRedirectionParams?: ?{ [string]: any }
 ): AddPendingRedirectAction {
   return {
     type: PENDING_REDIRECT,
     routeName,
+    pendingRedirectionParams,
   }
 }
 
@@ -68,7 +70,7 @@ export const lockEnable = (isLockEnable: boolean): LockEnable => ({
   isLockEnable,
 })
 
-export const lockFail = (error: Error): LockFail => ({
+export const lockFail = (error: CustomError): LockFail => ({
   type: LOCK_FAIL,
   error,
 })
@@ -133,6 +135,7 @@ export default function lockReducer(
       return {
         ...state,
         pendingRedirection: action.routeName,
+        pendingRedirectionParams: action.pendingRedirectionParams,
       }
     case LOCK_ENABLE:
       return {
@@ -149,6 +152,7 @@ export default function lockReducer(
       return {
         ...state,
         pendingRedirection: null,
+        pendingRedirectionParams: null,
       }
     case CHECK_PIN_SUCCESS:
       return {

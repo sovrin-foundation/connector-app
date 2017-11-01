@@ -8,17 +8,3 @@ Object {
   "size": 120,
 }
 `;
-
-exports[`Mapper Service invitationPayloadMapper should return proper object 1`] = `
-Object {
-  "connReqId": "12asd",
-  "message": "test body wants to connect with you.",
-  "senderDID": "5iZiu2aLYrQXSdon123456",
-  "senderDIDVerKey": "12345rD1ybsSR9hKWBePkRSZdnYHAv4KQ8XxcWHHasdf",
-  "senderEndpoint": "192.168.1.1:80",
-  "senderLogoUrl": "http://test-agency.com/logo",
-  "senderName": "test body",
-  "targetName": "test",
-  "title": "Hi, test",
-}
-`;

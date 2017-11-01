@@ -1,9 +1,9 @@
 // @flow
-import type { QrConnectionRequestStore } from '../qr-connection-request/type-qr-connection-request'
 import type { LockStore } from '../lock/type-lock'
-import type { SMSConnectionRequestStore } from '../sms-connection-request/type-sms-connection-request'
+import type { SMSPendingInvitationStore } from '../sms-pending-invitation/type-sms-pending-invitation'
 import type { AuthenticationStore } from '../authentication/type-authentication'
 import type { ClaimOfferStore } from '../claim-offer/type-claim-offer'
+import type { InvitationStore } from '../invitation/type-invitation'
 
 // TODO: Add type for each store here
 export type UserStore = {
@@ -18,8 +18,21 @@ export type PushNotificationStore = {
   pushToken: ?string,
 }
 
+export type Connection = {
+  identifier: string,
+  logoUrl: string,
+  senderDID: string,
+  senderEndpoint: string,
+  size: number,
+  name: string,
+}
+
+export type Connections = { [senderDID: string]: Connection }
+
 export type ConnectionStore = {
+  // TODO:PS Add specific keys in connection store
   [string]: any,
+  data: ?Connections,
 }
 
 export type ApiUrls = {
@@ -49,12 +62,12 @@ export type Store = {
   deepLink: DeepLinkStore,
   authentication: AuthenticationStore,
   pushNotification: PushNotificationStore,
-  qrConnection: QrConnectionRequestStore,
   route: RouteStore,
   user: UserStore,
   lock: LockStore,
-  smsConnection: SMSConnectionRequestStore,
+  smsPendingInvitation: SMSPendingInvitationStore,
   claimOffer: ClaimOfferStore,
+  invitation: InvitationStore,
 }
 
 export type { AuthenticationStore } from '../authentication/type-authentication'

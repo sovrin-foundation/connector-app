@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Invitation Store invitation is rejected 1`] = `
+Object {
+  "senderDID1": Object {
+    "error": null,
+    "isFetching": false,
+    "payload": Object {
+      "requestId": "requestId1",
+      "senderAgentKeyDelegationProof": "proof",
+      "senderDID": "senderDID1",
+      "senderEndpoint": "endpoint",
+      "senderLogoUrl": "lu",
+      "senderName": "sender1",
+      "senderVerificationKey": "sVk",
+      "targetName": "target name",
+    },
+    "status": "rejected",
+  },
+}
+`;
+
+exports[`Invitation Store invitation response is sent 1`] = `
+Object {
+  "senderDID1": Object {
+    "error": null,
+    "isFetching": true,
+    "payload": Object {
+      "requestId": "requestId1",
+      "senderAgentKeyDelegationProof": "proof",
+      "senderDID": "senderDID1",
+      "senderEndpoint": "endpoint",
+      "senderLogoUrl": "lu",
+      "senderName": "sender1",
+      "senderVerificationKey": "sVk",
+      "targetName": "target name",
+    },
+    "status": "accepted",
+  },
+}
+`;
+
+exports[`Invitation Store invitation response is sent successfully 1`] = `
+Object {
+  "senderDID1": Object {
+    "error": null,
+    "isFetching": false,
+    "payload": Object {
+      "requestId": "requestId1",
+      "senderAgentKeyDelegationProof": "proof",
+      "senderDID": "senderDID1",
+      "senderEndpoint": "endpoint",
+      "senderLogoUrl": "lu",
+      "senderName": "sender1",
+      "senderVerificationKey": "sVk",
+      "targetName": "target name",
+    },
+    "status": "none",
+  },
+}
+`;
+
+exports[`Invitation Store invitation response sending failed 1`] = `
+Object {
+  "senderDID1": Object {
+    "error": Object {
+      "code": "TEST-INVITATION-FAIL",
+      "message": "Invitation sending failed from test",
+    },
+    "isFetching": false,
+    "payload": Object {
+      "requestId": "requestId1",
+      "senderAgentKeyDelegationProof": "proof",
+      "senderDID": "senderDID1",
+      "senderEndpoint": "endpoint",
+      "senderLogoUrl": "lu",
+      "senderName": "sender1",
+      "senderVerificationKey": "sVk",
+      "targetName": "target name",
+    },
+    "status": "none",
+  },
+}
+`;
+
+exports[`Invitation Store multiple invitations are received 1`] = `
+Object {
+  "senderDID1": Object {
+    "error": null,
+    "isFetching": false,
+    "payload": Object {
+      "requestId": "requestId1",
+      "senderAgentKeyDelegationProof": "proof",
+      "senderDID": "senderDID1",
+      "senderEndpoint": "endpoint",
+      "senderLogoUrl": "lu",
+      "senderName": "sender1",
+      "senderVerificationKey": "sVk",
+      "targetName": "target name",
+    },
+    "status": "none",
+  },
+  "senderDID2": Object {
+    "error": null,
+    "isFetching": false,
+    "payload": Object {
+      "requestId": "requestId2",
+      "senderAgentKeyDelegationProof": "proof",
+      "senderDID": "senderDID2",
+      "senderEndpoint": "endpoint",
+      "senderLogoUrl": "lu",
+      "senderName": "sender2",
+      "senderVerificationKey": "sVk 2",
+      "targetName": "target name",
+    },
+    "status": "none",
+  },
+}
+`;
+
+exports[`Invitation Store one invitation is received 1`] = `
+Object {
+  "senderDID1": Object {
+    "error": null,
+    "isFetching": false,
+    "payload": Object {
+      "requestId": "requestId1",
+      "senderAgentKeyDelegationProof": "proof",
+      "senderDID": "senderDID1",
+      "senderEndpoint": "endpoint",
+      "senderLogoUrl": "lu",
+      "senderName": "sender1",
+      "senderVerificationKey": "sVk",
+      "targetName": "target name",
+    },
+    "status": "none",
+  },
+}
+`;

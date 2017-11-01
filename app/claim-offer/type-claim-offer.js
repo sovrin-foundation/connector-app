@@ -1,5 +1,5 @@
 // @flow
-import type { Error } from '../common/type-common'
+import type { CustomError } from '../common/type-common'
 
 export const CLAIM_OFFER_STATUS = {
   IDLE: 'IDLE',
@@ -56,7 +56,7 @@ export type FetchClaimOfferErrorAction = {
   type: typeof FETCH_CLAIM_OFFER_ERROR,
   isPristine: boolean,
   isFetching: boolean,
-  error: Error,
+  error: CustomError,
 }
 
 export const CLAIM_OFFER_RECEIVED = 'CLAIM_OFFER_RECEIVED'
@@ -115,7 +115,7 @@ export type ClaimOfferStore = {
   claimRequestStatus: ClaimRequestStatus,
   isPristine: boolean,
   isFetching: boolean,
-  error: ?Error,
+  error: ?CustomError,
 }
 
 export type ClaimRequestStatusModalProps = {

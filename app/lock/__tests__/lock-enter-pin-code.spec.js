@@ -11,6 +11,7 @@ describe('<LockPinCodeEnter />', () => {
     checkPinStatusIdle: jest.fn(),
     checkPinStatus: pinStatus,
     pendingRedirection: 'Home',
+    pendingRedirectionParams: {},
     switchErrorAlerts: jest.fn(),
     navigation: {
       navigate: jest.fn(),
@@ -52,7 +53,8 @@ describe('<LockPinCodeEnter />', () => {
     const pinSuccessProps = getProps(CHECK_PIN_SUCCESS)
     component.update(<LockEnterPin {...pinSuccessProps} />)
     expect(props.navigation.navigate).toHaveBeenCalledWith(
-      props.pendingRedirection
+      props.pendingRedirection,
+      {}
     )
   })
 })

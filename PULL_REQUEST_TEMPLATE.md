@@ -3,15 +3,13 @@
 - [ ] Bug fix
 - [ ] Feature/Change request
 - [ ] Refactoring
-- [ ] UI Automation test
-- [ ] Other
 
 ## Link for jira ticket
-[Jira ticket](https://link.to.jira)
+[CO-](http://evernym.atlassian.net/browse/CO-)
 
 ### Is this PR to move code to stage
 
-- [ ] I have checked that default url in config store is pointing to SANDBOX
+- [ ] I have checked that default url in config store is pointing to DEMO
 - [ ] I have checked that api resources are using base urls from config and are not hard coded
 
 ### Is this PR to move code to stable
@@ -38,5 +36,4 @@
 
 ## Checklist
 
-- [ ] I ran UI automation tests on a physical device in my development environment
 - [ ] I went through my PR once by myself and contain no unnecessary changes

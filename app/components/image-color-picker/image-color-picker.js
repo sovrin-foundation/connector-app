@@ -26,8 +26,8 @@ export class ImageColorPicker extends PureComponent<
         .then(res => {
           this.setState({ imageBlob: res.base64() })
         })
-        .catch((errorMessage, statusCode) => {
-          captureError(errorMessage)
+        .catch(e => {
+          captureError(e)
         })
     } catch (e) {
       captureError(e)
