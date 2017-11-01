@@ -23,9 +23,11 @@ import type {
   ClaimOfferAcceptedAction,
   FetchClaimOfferAction,
   ClaimOfferResponse,
+  NotificationPayload,
 } from './type-claim-offer'
 import type { CustomError } from '../common/type-common'
 import { getAgencyUrl } from '../store/store-selector'
+import { pushNotificationReceived } from '../store/push-notification-store'
 import {
   fetchClaimOfferRequest,
   PAYLOAD_TYPE,
@@ -41,7 +43,7 @@ const claimOfferInitialState = {
   error: null,
 }
 
-export const fetchClaimOffer = (notificationPayload: any) => ({
+export const fetchClaimOffer = (notificationPayload: NotificationPayload) => ({
   type: FETCH_CLAIM_OFFER,
   notificationPayload,
 })
@@ -55,7 +57,7 @@ export function* claimOfferFetching(
   action: FetchClaimOfferAction
 ): Generator<*, *, *> {
   const agencyUrl: string = yield select(getAgencyUrl)
-  const { forDID, uid } = action.notificationPayload
+  const { forDID, uid, type } = action.notificationPayload
   try {
     const claimOfferResponse: ClaimOfferResponse = yield call(
       fetchClaimOfferRequest,
@@ -81,6 +83,7 @@ export function* claimOfferFetching(
         claimOfferStatusMsg
       )
       yield put(claimOfferReceived(claimOfferData))
+      yield put(pushNotificationReceived({ forDID, uid, type }))
     } catch (e) {
       put(fetchClaimOfferError(e))
     }

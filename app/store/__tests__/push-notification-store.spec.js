@@ -82,13 +82,6 @@ describe('push notification store should work properly', () => {
       },
     }
 
-    const challenge = JSON.stringify({ pushComMethod: `FCM:${pushToken}` })
-    const signature = 'signature'
-
-    expect(gen.next(connections).value).toMatchObject(
-      call(encrypt, DID1, challenge)
-    )
-
     const dataBody = {
       to: DID1,
       agentPayload: JSON.stringify({
@@ -97,15 +90,11 @@ describe('push notification store should work properly', () => {
       }),
     }
 
-    expect(gen.next(signature).value).toMatchObject(
+    expect(gen.next(connections).value).toMatchObject(
       call(sendUpdatedPushToken, {
         agencyUrl,
         dataBody,
       })
-    )
-
-    expect(gen.next(connections).value).toMatchObject(
-      call(encrypt, DID2, challenge)
     )
 
     const dataBody2 = {
@@ -116,7 +105,7 @@ describe('push notification store should work properly', () => {
       }),
     }
 
-    expect(gen.next(signature).value).toMatchObject(
+    expect(gen.next(connections).value).toMatchObject(
       call(sendUpdatedPushToken, {
         agencyUrl,
         dataBody: dataBody2,

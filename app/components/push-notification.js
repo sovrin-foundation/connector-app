@@ -9,8 +9,8 @@ import {
   updatePushToken,
   fetchClaimOffer,
 } from '../store'
-import { PUSH_COM_METHOD, PUSH_NOTIFICATION_TYPE } from '../common'
-import { setItem } from '../services'
+import { PUSH_COM_METHOD } from '../common'
+import { setItem, PUSH_NOTIFICATION_TYPE } from '../services'
 
 export class PushNotification extends PureComponent {
   constructor(props) {
@@ -52,16 +52,17 @@ export class PushNotification extends PureComponent {
     if (notification) {
       if (notification.type === PUSH_NOTIFICATION_TYPE.AUTH) {
         notification.remoteConnectionId = notification.remotePairwiseDID
+        this.props.pushNotificationReceived(notification)
       }
 
       if (notification.type === PUSH_NOTIFICATION_TYPE.CLAIM_OFFER) {
-        const { forDID, uid } = notification
+        const { forDID, uid, type } = notification
         this.props.fetchClaimOffer({
           forDID,
           uid,
+          type,
         })
       }
-      this.props.pushNotificationReceived(notification)
     }
   }
 

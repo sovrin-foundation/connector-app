@@ -43,6 +43,7 @@ export type ClaimOfferPayload = {
 export type NotificationPayload = {
   forDID: string,
   uid: string,
+  type: string,
 }
 
 export const FETCH_CLAIM_OFFER = 'FETCH_CLAIM_OFFER'

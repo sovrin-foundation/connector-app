@@ -42,8 +42,6 @@ export function* onPushTokenUpdate(action) {
   let secretKey, challenge, signature
   for (let DID in connections) {
     if (connections.hasOwnProperty(DID)) {
-      challenge = JSON.stringify({ pushComMethod: `FCM:${token}` })
-      signature = yield call(encrypt, DID, challenge)
       try {
         const dataBody = {
           to: DID,
