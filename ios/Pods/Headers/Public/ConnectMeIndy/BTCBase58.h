@@ -1,1 +1,0 @@
-../../../ConnectMeIndy/ios/ConnectMeIndy/ConnectMeIndy/Core/Utils/Base58/BTCBase58.h

@@ -1,1 +1,0 @@
-../../../ConnectMeIndy/ios/ConnectMeIndy/ConnectMeIndy/Core/Protocols/CMUserDefaultsStorable.h

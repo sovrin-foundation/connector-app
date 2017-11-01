@@ -1,1 +1,0 @@
-../../../ConnectMeIndy/ios/ConnectMeIndy/ConnectMeIndy/Core/CMPoolObject.h
