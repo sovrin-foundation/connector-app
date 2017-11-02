@@ -23,7 +23,7 @@ import type {
   ClaimOfferAcceptedAction,
   FetchClaimOfferAction,
   ClaimOfferResponse,
-  NotificationPayload,
+  ClaimOfferNotificationPayload,
 } from './type-claim-offer'
 import type { CustomError } from '../common/type-common'
 import { getAgencyUrl } from '../store/store-selector'
@@ -43,7 +43,9 @@ const claimOfferInitialState = {
   error: null,
 }
 
-export const fetchClaimOffer = (notificationPayload: NotificationPayload) => ({
+export const fetchClaimOffer = (
+  notificationPayload: ClaimOfferNotificationPayload
+) => ({
   type: FETCH_CLAIM_OFFER,
   notificationPayload,
 })

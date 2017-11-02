@@ -40,7 +40,7 @@ export type ClaimOfferPayload = {
   statusMsg?: string,
 }
 
-export type NotificationPayload = {
+export type ClaimOfferNotificationPayload = {
   forDID: string,
   uid: string,
   type: string,
@@ -49,7 +49,7 @@ export type NotificationPayload = {
 export const FETCH_CLAIM_OFFER = 'FETCH_CLAIM_OFFER'
 export type FetchClaimOfferAction = {
   type: typeof FETCH_CLAIM_OFFER,
-  notificationPayload: NotificationPayload,
+  notificationPayload: ClaimOfferNotificationPayload,
 }
 
 export const FETCH_CLAIM_OFFER_ERROR = 'FETCH_CLAIM_OFFER_ERROR'

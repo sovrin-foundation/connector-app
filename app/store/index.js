@@ -19,6 +19,9 @@ import smsPendingInvitation, {
   watchSmsPendingInvitationSaga,
 } from '../sms-pending-invitation/sms-pending-invitation-store'
 import claimOffer, { watchClaimOffer } from '../claim-offer/claim-offer-store'
+import proofRequest, {
+  watchProofRequest,
+} from '../proof-request/proof-request-store'
 import invitation, { watchInvitation } from '../invitation/invitation-store'
 
 const sagaMiddleware = createSagaMiddleware()
@@ -34,6 +37,7 @@ const appReducer = combineReducers({
   user,
   lock,
   claimOffer,
+  proofRequest,
   invitation,
 })
 
@@ -59,6 +63,7 @@ sagaMiddleware.run(function*() {
     watchSmsPendingInvitationSaga(),
     watchClaimOffer(),
     watchPushNotification(),
+    watchProofRequest(),
     watchInvitation(),
   ])
 })
@@ -74,6 +79,7 @@ export * from '../deep-link/deep-link-store'
 export * from '../lock/lock-store'
 export * from '../sms-pending-invitation/sms-pending-invitation-store'
 export * from '../claim-offer/claim-offer-store'
+export * from '../proof-request/proof-request-store'
 export * from '../invitation/invitation-store'
 
 // make default export as the store
