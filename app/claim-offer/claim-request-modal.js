@@ -63,10 +63,16 @@ export default class ClaimRequestStatusModal extends PureComponent<
     const avatarRight = issuer.logoUrl
       ? { uri: issuer.logoUrl }
       : require('../images/cb_evernym.png')
-    const middleImage =
+    const { middleImage, middleImageStyle } =
       claimRequestStatus === CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS
-        ? require('../images/checkMark.png')
-        : require('../images/connectArrows.png')
+        ? {
+            middleImage: require('../images/checkMark.png'),
+            middleImageStyle: null,
+          }
+        : {
+            middleImage: require('../images/connectArrows.png'),
+            middleImageStyle: styles.connectedArrow,
+          }
     const message =
       claimRequestStatus === CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST
         ? `Waiting for ${issuer.name} to issue`
@@ -83,7 +89,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
       >
         <AvatarsPair
           middleImage={middleImage}
-          middleImageStyle={styles.connectedArrow}
+          middleImageStyle={middleImageStyle}
           avatarLeft={require('../images/invitee.png')}
           avatarRight={avatarRight}
           testID={'claim-request'}
