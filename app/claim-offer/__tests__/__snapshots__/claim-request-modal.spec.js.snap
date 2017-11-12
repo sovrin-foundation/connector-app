@@ -105,8 +105,8 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
               },
               Object {
                 "height": 20,
-                "right": 4,
-                "width": 75,
+                "right": 7,
+                "width": 80,
                 "zIndex": -1,
               },
             ]

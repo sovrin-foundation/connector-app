@@ -2,11 +2,13 @@ import React, { PureComponent } from 'react'
 import { Provider } from 'react-redux'
 import { AppRegistry, StatusBar } from 'react-native'
 import store, { ROUTE_UPDATE } from './store'
-import { Container, PushNotification } from './components'
+import { Container } from './components'
+import { PushNotification } from './push-notification'
 import DeepLink from './deep-link'
 import { barStyleLight, barStyleDark } from './common/styles/constant'
 import ConnectMeAppNavigator from './navigator'
 import { qrCodeScannerTabRoute } from './common'
+import { NavigationActions } from 'react-navigation'
 
 // for now let's start adding flow type on file by file basis
 // once we have a lot of coverage for types
@@ -38,13 +40,22 @@ class ConnectMeApp extends PureComponent {
     }
   }
 
+  navigateToRoute = (routeName, params = {}) => {
+    const navigateAction = NavigationActions.navigate({
+      routeName,
+      params,
+    })
+    this.navigatorRef.dispatch(navigateAction)
+  }
+
   render() {
     return (
       <Provider store={store}>
         <Container>
-          <PushNotification />
+          <PushNotification navigateToRoute={this.navigateToRoute} />
           <DeepLink />
           <ConnectMeAppNavigator
+            ref={navigatorRef => (this.navigatorRef = navigatorRef)}
             onNavigationStateChange={this.navigationChangeHandler}
           />
         </Container>

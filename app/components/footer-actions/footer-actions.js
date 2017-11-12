@@ -9,41 +9,51 @@ import {
   ConnectionTheme,
 } from '../../components'
 import { DENY, CONNECT } from '../../common'
-import type { RequestActionsProps } from './type-request'
+import type { FooterActionsProps } from './type-footer-actions'
 
-export default class RequestActions extends PureComponent<
+export default class FooterActions extends PureComponent<
   void,
-  RequestActionsProps,
+  FooterActionsProps,
   void
 > {
   render() {
+    const {
+      denyTitle = DENY,
+      acceptTitle = CONNECT,
+      logoUrl,
+      onDecline,
+      onAccept,
+      testID,
+    } = this.props
     return (
       <View>
         <CustomView row>
           <Container>
-            <ConnectionTheme logoUrl={this.props.senderLogoUrl} secondary>
+            <ConnectionTheme logoUrl={logoUrl} secondary>
               <CustomButton
                 secondary
                 raised
                 medium
-                title={DENY}
-                onPress={this.props.onDecline}
+                title={denyTitle}
+                onPress={onDecline}
+                testID={`${testID}-deny`}
               />
             </ConnectionTheme>
           </Container>
           <Container>
-            <ConnectionTheme logoUrl={this.props.senderLogoUrl}>
+            <ConnectionTheme logoUrl={logoUrl}>
               <CustomButton
                 primary
                 raised
                 medium
-                title={CONNECT}
-                onPress={this.props.onAccept}
+                title={acceptTitle}
+                onPress={onAccept}
+                testID={`${testID}-accept`}
               />
             </ConnectionTheme>
           </Container>
         </CustomView>
-        <ImageColorPicker imageUrl={this.props.senderLogoUrl} />
+        <ImageColorPicker imageUrl={logoUrl} />
       </View>
     )
   }

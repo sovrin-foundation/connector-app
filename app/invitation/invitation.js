@@ -96,6 +96,7 @@ export class Invitation extends PureComponent<
           message={message}
           senderLogoUrl={senderLogoUrl}
           onAction={this.onAction}
+          testID={'invitation'}
           showErrorAlerts={this.props.showErrorAlerts}
         />
         <ConnectionSuccessModal

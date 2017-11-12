@@ -5,7 +5,7 @@ import logger from 'redux-logger'
 import user, { watchUserInfo } from './user-store'
 import pushNotification, {
   watchPushNotification,
-} from './push-notification-store'
+} from '../push-notification/push-notification-store'
 import connections, { watchNewConnection } from './connections-store'
 import config, { watchConfig } from './config-store'
 import authentication, {
@@ -19,9 +19,7 @@ import smsPendingInvitation, {
   watchSmsPendingInvitationSaga,
 } from '../sms-pending-invitation/sms-pending-invitation-store'
 import claimOffer, { watchClaimOffer } from '../claim-offer/claim-offer-store'
-import proofRequest, {
-  watchProofRequest,
-} from '../proof-request/proof-request-store'
+import proofRequest from '../proof-request/proof-request-store'
 import invitation, { watchInvitation } from '../invitation/invitation-store'
 
 const sagaMiddleware = createSagaMiddleware()
@@ -63,13 +61,12 @@ sagaMiddleware.run(function*() {
     watchSmsPendingInvitationSaga(),
     watchClaimOffer(),
     watchPushNotification(),
-    watchProofRequest(),
     watchInvitation(),
   ])
 })
 
 export * from './user-store'
-export * from './push-notification-store'
+export * from '../push-notification/push-notification-store'
 export * from './connections-store'
 export * from './config-store'
 export * from './route-store'

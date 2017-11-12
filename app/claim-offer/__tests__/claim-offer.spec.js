@@ -40,31 +40,33 @@ describe('<ClaimOffer />', () => {
   let tree
   let navigation
   let componentInstance
-  const claimOffer = {
-    status: CLAIM_OFFER_STATUS.RECEIVED,
-    payload: {
-      claimOffer: {
-        name: 'Home Address',
-        version: '1.0.0',
-        revealedAttributes: [
-          {
-            label: 'Address 1',
-            data: 'An Address',
-          },
-          {
-            label: 'Address 2',
-            data: 'An Address 2',
-          },
-        ],
-      },
-      issuer: {
-        name: 'Test Issuer',
-        logoUrl: 'http://testissuer.com/logoUrl.png',
-        pairwiseDID: 'ha66899sadfjZJGINKN0770',
-      },
+  const claimOfferData = {
+    data: {
+      name: 'Home Address',
+      version: '1.0.0',
+      revealedAttributes: [
+        {
+          label: 'Address 1',
+          data: 'An Address',
+        },
+        {
+          label: 'Address 2',
+          data: 'An Address 2',
+        },
+      ],
     },
+    issuer: {
+      name: 'Test Issuer',
+    },
+    uid: 'asd123',
+    senderLogoUrl: 'http://testissuer.com/logoUrl.png',
+    remotePairwiseDID: 'ha66899sadfjZJGINKN0770',
+    status: CLAIM_OFFER_STATUS.RECEIVED,
     claimRequestStatus: CLAIM_REQUEST_STATUS.NONE,
+    error: null,
   }
+  const isValid = true
+
   beforeEach(() => {
     claimOfferShown = jest.fn()
     acceptClaimOffer = jest.fn()
@@ -72,16 +74,23 @@ describe('<ClaimOffer />', () => {
     claimOfferIgnored = jest.fn()
     navigation = {
       goBack: jest.fn(),
+      state: {
+        params: {
+          uid: 'asd123',
+        },
+      },
     }
     wrapper = renderer.create(
       <Provider store={store}>
         <ClaimOffer
-          claimOffer={claimOffer}
+          claimOfferData={claimOfferData}
           claimOfferShown={claimOfferShown}
           acceptClaimOffer={acceptClaimOffer}
           claimOfferIgnored={claimOfferIgnored}
           claimOfferRejected={claimOfferRejected}
           navigation={navigation}
+          uid={navigation.state.params.uid}
+          isValid={isValid}
         />
       </Provider>
     )

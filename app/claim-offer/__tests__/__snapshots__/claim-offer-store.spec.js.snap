@@ -2,34 +2,9 @@
 
 exports[`claim offer store claim offer is accepted 1`] = `
 Object {
-  "claimRequestStatus": "NONE",
-  "error": null,
-  "isFetching": false,
-  "isPristine": true,
-  "payload": undefined,
-  "status": "ACCEPTED",
-}
-`;
-
-exports[`claim offer store claim offer is ignored 1`] = `
-Object {
-  "claimRequestStatus": "NONE",
-  "error": null,
-  "isFetching": false,
-  "isPristine": true,
-  "payload": undefined,
-  "status": "IGNORED",
-}
-`;
-
-exports[`claim offer store claim offer is received 1`] = `
-Object {
-  "claimRequestStatus": "NONE",
-  "error": null,
-  "isFetching": false,
-  "isPristine": true,
-  "payload": Object {
-    "claimOffer": Object {
+  "usd123": Object {
+    "claimRequestStatus": "NONE",
+    "data": Object {
       "name": "Home Address",
       "revealedAttributes": Array [
         Object {
@@ -43,78 +18,234 @@ Object {
       ],
       "version": "1.0.0",
     },
+    "error": null,
     "issuer": Object {
-      "logoUrl": "http://testissuer.com/logoUrl.png",
       "name": "Test Issuer",
-      "pairwiseDID": "ha66899sadfjZJGINKN0770",
     },
+    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "status": "ACCEPTED",
+    "statusMsg": "pending",
+    "uid": "usd123",
   },
-  "status": "RECEIVED",
+}
+`;
+
+exports[`claim offer store claim offer is ignored 1`] = `
+Object {
+  "usd123": Object {
+    "claimRequestStatus": "NONE",
+    "data": Object {
+      "name": "Home Address",
+      "revealedAttributes": Array [
+        Object {
+          "data": "Address Address Address",
+          "label": "Address 1",
+        },
+        Object {
+          "data": "Address 2 Address 2 Address 2",
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "error": null,
+    "issuer": Object {
+      "name": "Test Issuer",
+    },
+    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "status": "IGNORED",
+    "statusMsg": "pending",
+    "uid": "usd123",
+  },
+}
+`;
+
+exports[`claim offer store claim offer is received 1`] = `
+Object {
+  "usd123": Object {
+    "claimRequestStatus": "NONE",
+    "data": Object {
+      "name": "Home Address",
+      "revealedAttributes": Array [
+        Object {
+          "data": "Address Address Address",
+          "label": "Address 1",
+        },
+        Object {
+          "data": "Address 2 Address 2 Address 2",
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "error": null,
+    "issuer": Object {
+      "name": "Test Issuer",
+    },
+    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "status": "RECEIVED",
+    "statusMsg": "pending",
+    "uid": "usd123",
+  },
 }
 `;
 
 exports[`claim offer store claim offer is rejected 1`] = `
 Object {
-  "claimRequestStatus": "NONE",
-  "error": null,
-  "isFetching": false,
-  "isPristine": true,
-  "payload": undefined,
-  "status": "REJECTED",
+  "usd123": Object {
+    "claimRequestStatus": "NONE",
+    "data": Object {
+      "name": "Home Address",
+      "revealedAttributes": Array [
+        Object {
+          "data": "Address Address Address",
+          "label": "Address 1",
+        },
+        Object {
+          "data": "Address 2 Address 2 Address 2",
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "error": null,
+    "issuer": Object {
+      "name": "Test Issuer",
+    },
+    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "status": "REJECTED",
+    "statusMsg": "pending",
+    "uid": "usd123",
+  },
 }
 `;
 
 exports[`claim offer store claim offer is shown 1`] = `
 Object {
-  "claimRequestStatus": "NONE",
-  "error": null,
-  "isFetching": false,
-  "isPristine": true,
-  "payload": undefined,
-  "status": "SHOWN",
+  "usd123": Object {
+    "claimRequestStatus": "NONE",
+    "data": Object {
+      "name": "Home Address",
+      "revealedAttributes": Array [
+        Object {
+          "data": "Address Address Address",
+          "label": "Address 1",
+        },
+        Object {
+          "data": "Address 2 Address 2 Address 2",
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "error": null,
+    "issuer": Object {
+      "name": "Test Issuer",
+    },
+    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "status": "SHOWN",
+    "statusMsg": "pending",
+    "uid": "usd123",
+  },
 }
 `;
 
 exports[`claim offer store claim request is fail 1`] = `
 Object {
-  "claimRequestStatus": "CLAIM_REQUEST_FAIL",
-  "error": null,
-  "isFetching": false,
-  "isPristine": true,
-  "payload": undefined,
-  "status": "IDLE",
+  "usd123": Object {
+    "claimRequestStatus": "CLAIM_REQUEST_FAIL",
+    "data": Object {
+      "name": "Home Address",
+      "revealedAttributes": Array [
+        Object {
+          "data": "Address Address Address",
+          "label": "Address 1",
+        },
+        Object {
+          "data": "Address 2 Address 2 Address 2",
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "error": null,
+    "issuer": Object {
+      "name": "Test Issuer",
+    },
+    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "status": "ACCEPTED",
+    "statusMsg": "pending",
+    "uid": "usd123",
+  },
 }
 `;
 
 exports[`claim offer store claim request is sent 1`] = `
 Object {
-  "claimRequestStatus": "SENDING_CLAIM_REQUEST",
-  "error": null,
-  "isFetching": false,
-  "isPristine": true,
-  "payload": undefined,
-  "status": "IDLE",
+  "usd123": Object {
+    "claimRequestStatus": "SENDING_CLAIM_REQUEST",
+    "data": Object {
+      "name": "Home Address",
+      "revealedAttributes": Array [
+        Object {
+          "data": "Address Address Address",
+          "label": "Address 1",
+        },
+        Object {
+          "data": "Address 2 Address 2 Address 2",
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "error": null,
+    "issuer": Object {
+      "name": "Test Issuer",
+    },
+    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "status": "ACCEPTED",
+    "statusMsg": "pending",
+    "uid": "usd123",
+  },
 }
 `;
 
 exports[`claim offer store claim request is success 1`] = `
 Object {
-  "claimRequestStatus": "CLAIM_REQUEST_SUCCESS",
-  "error": null,
-  "isFetching": false,
-  "isPristine": true,
-  "payload": undefined,
-  "status": "IDLE",
+  "usd123": Object {
+    "claimRequestStatus": "CLAIM_REQUEST_SUCCESS",
+    "data": Object {
+      "name": "Home Address",
+      "revealedAttributes": Array [
+        Object {
+          "data": "Address Address Address",
+          "label": "Address 1",
+        },
+        Object {
+          "data": "Address 2 Address 2 Address 2",
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "error": null,
+    "issuer": Object {
+      "name": "Test Issuer",
+    },
+    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "status": "ACCEPTED",
+    "statusMsg": "pending",
+    "uid": "usd123",
+  },
 }
 `;
 
-exports[`claim offer store should correctly calculate initial state 1`] = `
-Object {
-  "claimRequestStatus": "NONE",
-  "error": null,
-  "isFetching": false,
-  "isPristine": true,
-  "payload": undefined,
-  "status": "IDLE",
-}
-`;
+exports[`claim offer store should correctly calculate initial state 1`] = `Object {}`;

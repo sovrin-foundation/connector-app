@@ -14,6 +14,7 @@ import LockEnterPinScreen from './lock/lock-enter-pin-code'
 import LockPinCodeSetupScreen from './lock/lock-pin-code-setup'
 import LockSetupSuccessScreen from './lock/lock-setup-success'
 import ClaimOffer from './claim-offer/claim-offer'
+import ProofRequestScreen from './proof-request/proof-request'
 import InvitationScreen from './invitation/invitation'
 import { Icon } from './components'
 import {
@@ -30,6 +31,7 @@ import {
   homeTabRoute,
   settingsTabRoute,
   qrCodeScannerTabRoute,
+  proofRequestRoute,
   invitationRoute,
 } from './common/'
 import { color } from './common/styles'
@@ -126,6 +128,9 @@ const CardStack = StackNavigator(
     [lockSetupSuccessRoute]: {
       screen: LockSetupSuccessScreen,
     },
+    [proofRequestRoute]: {
+      screen: ProofRequestScreen,
+    },
   },
   {
     headerMode: 'none',
@@ -151,11 +156,15 @@ const ConnectMeAppNavigator = StackNavigator(
 
 let navigator = ConnectMeAppNavigator
 
+// Temporary disabled
+// Reason:
+// Ref to ConnectMeAppNavigator on App component was not working as expected
+
 if (__DEV__) {
   // Tried to extend console interface, but it didn't work
   // need to fix, so ignoring error for now
-  // $FlowFixMe
-  navigator = console.tron.overlay(navigator)
+  // `FlowFixMe`
+  // navigator = console.tron.overlay(navigator)
 }
 
 export default navigator

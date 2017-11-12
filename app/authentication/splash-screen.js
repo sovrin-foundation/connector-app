@@ -13,14 +13,8 @@ import {
 import {
   TOKEN_EXPIRED_CODE,
   PENDING_CONNECTION_REQUEST_CODE,
-  PUSH_NOTIFICATION_SENT_CODE,
 } from '../services/api'
-import {
-  authenticationRequestReceived,
-  pushNotificationReceived,
-  addPendingRedirection,
-} from '../store'
-import handlePushNotification from '../services/router'
+import { addPendingRedirection } from '../store'
 import { getSmsPendingInvitation } from '../sms-pending-invitation/sms-pending-invitation-store'
 
 class SplashScreenView extends PureComponent {
@@ -56,74 +50,6 @@ class SplashScreenView extends PureComponent {
           } else {
             this.props.addPendingRedirection(homeRoute)
           }
-        }
-      }
-    }
-
-    // TODO:PS: Refactor this with custom navigator
-    // Currently we have handPushNotification in all screen
-    // We need to refactor this and move to single place
-    // For that we need to create our own custom navigator
-    if (
-      nextProps.pushNotification.notification &&
-      nextProps.pushNotification.notification !==
-        this.props.pushNotification.notification
-    ) {
-      const { notification } = nextProps.pushNotification
-      handlePushNotification(
-        nextProps,
-        notification,
-        lockEnterPinRoute,
-        nextProps.lock.isAppLocked,
-        this.props.addPendingRedirection
-      )
-    }
-
-    // check if authentication are the only props that are changed
-    if (nextProps.authentication !== this.props.authentication) {
-      if (nextProps.authentication.error) {
-        SplashScreen.hide()
-
-        if (
-          nextProps.authentication.error.code &&
-          nextProps.authentication.error.code === TOKEN_EXPIRED_CODE
-        ) {
-          if (nextProps.lock.isAppLocked === false) {
-            this.props.navigation.navigate(expiredTokenRoute)
-          } else {
-            this.props.addPendingRedirection(expiredTokenRoute)
-          }
-        } else {
-          if (nextProps.lock.isAppLocked === false) {
-            // if we got error, then also redirect user to home page
-            this.props.navigation.navigate(homeRoute)
-          } else {
-            this.props.addPendingRedirection(homeRoute)
-          }
-        }
-      }
-
-      if (nextProps.authentication.data) {
-        // for authentication data
-        // dont redirect manually let it resolve by default
-        if (
-          nextProps.authentication.data.statusCode &&
-          nextProps.authentication.data.statusCode ===
-            PUSH_NOTIFICATION_SENT_CODE
-        ) {
-          return
-        }
-
-        // todo: separate connection-request store from authentication store
-        // handle redirection when coming from deep-link
-        if (
-          this.props.authentication.data &&
-          nextProps.authentication.data.statusCode ===
-            PENDING_CONNECTION_REQUEST_CODE &&
-          this.props.authentication.data.statusCode ===
-            nextProps.authentication.data.statusCode
-        ) {
-          return
         }
       }
     }
@@ -193,20 +119,9 @@ class SplashScreenView extends PureComponent {
   }
 }
 
-const mapStateToProps = ({
-  authentication,
+const mapStateToProps = ({ config, deepLink, lock, smsPendingInvitation }) => ({
   config,
   deepLink,
-  pushNotification,
-  route,
-  lock,
-  smsPendingInvitation,
-}) => ({
-  authentication,
-  config,
-  deepLink,
-  pushNotification,
-  route,
   lock,
   smsPendingInvitation,
 })
@@ -215,8 +130,6 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       getSmsPendingInvitation,
-      authenticationRequestReceived,
-      pushNotificationReceived,
       addPendingRedirection,
     },
     dispatch

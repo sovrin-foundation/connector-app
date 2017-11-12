@@ -19,7 +19,6 @@ export { default as Icon } from './icon'
 export { default as CustomText, styles as TextStyles } from './text'
 export { default as CustomButton } from './button'
 export { default as StatusBar } from './status-bar'
-export { default as PushNotification } from './push-notification'
 export { default as QRScanner } from './qr-scanner/qr-scanner'
 export { default as TouchId } from './touch-id/touch-id'
 export { default as Request } from './request/request'
@@ -32,3 +31,8 @@ export {
 } from './image-color-picker/connection-theme'
 export { default as AvatarsPair } from './AvatarsPair'
 export { default as CustomModal } from './CustomModal'
+export {
+  default as ClaimProofHeader,
+} from './claim-proof-header/claim-proof-header'
+export { default as Separator } from './separator'
+export { default as FooterActions } from './footer-actions/footer-actions'

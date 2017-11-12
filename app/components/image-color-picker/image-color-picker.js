@@ -43,8 +43,12 @@ export class ImageColorPicker extends PureComponent<
     ) {
       const imageColor = Object.values(messageData.payload[0])
       // ignore white color
-      const whiteColor = '255,255,255,255'
-      if (imageColor.join(',') !== whiteColor) {
+      const whiteColorPalette = {
+        ['255,255,255,255']: '255,255,255,255',
+        ['255,255,254,255']: '255,255,254,255',
+      }
+
+      if (!whiteColorPalette[imageColor.join(',')]) {
         const primaryColor = `rgba(${imageColor.join(',')})`
         const secondaryColor = `rgba(${imageColor.splice(0, 3).join(',')},
         ${color.actions.button.secondary.shade})`

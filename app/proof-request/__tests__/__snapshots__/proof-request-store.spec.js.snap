@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`proof request store proof request is received 1`] = `
+Object {
+  "usd123": Object {
+    "data": Object {
+      "name": "Home Address",
+      "revealedAttributes": Array [
+        Object {
+          "label": "Address 1",
+        },
+        Object {
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "issuer": Object {
+      "name": "Test Issuer",
+    },
+    "proofStatus": "NONE",
+    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "status": "RECEIVED",
+    "statusMsg": "pending",
+    "uid": "usd123",
+  },
+}
+`;
+
+exports[`proof request store should correctly calculate initial state 1`] = `Object {}`;

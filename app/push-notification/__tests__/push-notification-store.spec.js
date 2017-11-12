@@ -1,5 +1,5 @@
 import { call, select } from 'redux-saga/effects'
-import { getAgencyUrl, getAllConnection } from '../store-selector'
+import { getAgencyUrl, getAllConnection } from '../../store/store-selector'
 import pushNotificationReducer, {
   pushNotificationPermissionAction,
   pushNotificationReceived,

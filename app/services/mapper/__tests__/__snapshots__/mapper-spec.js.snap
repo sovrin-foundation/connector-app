@@ -2,9 +2,12 @@
 
 exports[`Mapper Service connectionMapper should return proper object 1`] = `
 Object {
+  "identifier": "3nj819kkjywdppuje79",
   "logoUrl": "https://test-agengy.com/logo",
   "name": "test",
   "remoteConnectionId": "5iZiu2aLYrQXSdon123456",
+  "senderDID": "123819kkjywdppuj987",
+  "senderEndpoint": "https://test-endpoint.com",
   "size": 120,
 }
 `;

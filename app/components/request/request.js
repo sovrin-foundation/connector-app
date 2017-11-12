@@ -5,7 +5,7 @@ import FCM from 'react-native-fcm'
 import { Container, TouchId } from '../../components'
 import { TOUCH_ID_MESSAGE, TOUCH_ID_NOT_AVAILABLE } from '../../common'
 import RequestDetail from './request-detail'
-import RequestActions from './request-actions'
+import FooterActions from '../footer-actions/footer-actions'
 import type { RequestProps, RequestState, ResponseTypes } from './type-request'
 import { captureError } from '../../services'
 
@@ -61,23 +61,24 @@ export default class Request extends PureComponent<
   }
 
   render() {
+    const { title, message, senderLogoUrl, testID }: RequestProps = this.props
     return (
       <Container>
         <Container fifth>
           <RequestDetail
-            title={this.props.title}
-            message={this.props.message}
+            title={title}
+            message={message}
             onTitlePress={this.onTitlePress}
-            senderLogoUrl={this.props.senderLogoUrl}
+            senderLogoUrl={senderLogoUrl}
+            testID={testID}
           />
         </Container>
-        <View>
-          <RequestActions
-            onAccept={this.onAccept}
-            onDecline={this.onDecline}
-            senderLogoUrl={this.props.senderLogoUrl}
-          />
-        </View>
+        <FooterActions
+          onAccept={this.onAccept}
+          onDecline={this.onDecline}
+          logoUrl={senderLogoUrl}
+          testID={testID}
+        />
       </Container>
     )
   }

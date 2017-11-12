@@ -23,6 +23,7 @@ export const QR_CODE_REMOTE_HOSTING_DID = 'rhDID'
 export const PUSH_NOTIFICATION_TYPE = {
   AUTH: 'auth-req',
   CLAIM_OFFER: 'claimOffer',
+  PROOF_REQUEST: 'proofReq',
 }
 
 export const API_TYPE = {

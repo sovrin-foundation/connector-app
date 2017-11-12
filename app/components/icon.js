@@ -15,6 +15,7 @@ const Icon = props => {
     testID,
     resizeMode = 'contain',
     halo,
+    haloStyle = empty,
   } = props
   const size = small
     ? 'small'
@@ -34,7 +35,7 @@ const Icon = props => {
   let haloView
   if (halo) {
     haloView = (
-      <CustomView center style={[styles[`${size}Halo`]]}>
+      <CustomView center style={[styles[`${size}Halo`], haloStyle]}>
         {iconImage}
       </CustomView>
     )

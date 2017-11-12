@@ -17,6 +17,9 @@ import {
   Icon,
   ImageColorPicker,
   ConnectionTheme,
+  ClaimProofHeader,
+  Separator,
+  FooterActions,
 } from '../components'
 import { homeRoute } from '../common/'
 import {
@@ -26,60 +29,13 @@ import {
   OFFSET_3X,
   OFFSET_5X,
 } from '../common/styles'
-import type { ClaimOfferPayload, Attribute } from './type-claim-offer'
+import type {
+  AdditionalDataPayload,
+  Attribute,
+} from '../push-notification/type-push-notification'
+import type { ClaimOfferProps, ClaimOfferPayload } from './type-claim-offer'
 import type { Store } from '../store/type-store'
 import ClaimRequestModal from './claim-request-modal'
-
-class ClaimOfferHeader extends PureComponent {
-  render() {
-    const { issuer, claimOffer }: ClaimOfferPayload = this.props.payload
-    const logoUrl = issuer.logoUrl
-      ? { uri: issuer.logoUrl }
-      : require('../images/cb_evernym.png')
-
-    return (
-      <CustomView fifth style={[styles.header]}>
-        <CustomView fifth center style={[styles.headerStripLogoContainer]}>
-          <Icon
-            absolute="TopRight"
-            src={require('../images/close.png')}
-            small
-            testID="claim-offer-icon-close"
-            onPress={this.props.onClose}
-            iconStyle={[styles.headerCloseIcon]}
-            style={[styles.headerCloseIconContainer]}
-          />
-          <ConnectionTheme logoUrl={issuer.logoUrl} style={[styles.strip]} />
-          <Icon
-            center
-            halo
-            extraLarge
-            resizeMode="cover"
-            src={logoUrl}
-            style={[styles.issuerLogo]}
-            iconStyle={[styles.issuerLogoIcon]}
-            testID="claim-offer-issuer-logo"
-          />
-        </CustomView>
-        <CustomView fifth center style={[styles.issuerDetail]}>
-          <CustomText h5 demiBold bg="fifth">
-            {issuer.name} is offering you
-          </CustomText>
-          <CustomText h4 thick bg="fifth" style={[styles.claimOfferName]}>
-            {claimOffer.name}
-          </CustomText>
-        </CustomView>
-        <ImageColorPicker imageUrl={issuer.logoUrl} />
-      </CustomView>
-    )
-  }
-}
-
-class Separator extends PureComponent {
-  render() {
-    return <CustomView style={[styles.separator]} />
-  }
-}
 
 class ClaimOfferAttributeList extends PureComponent {
   keyExtractor = (_, index: number) => index
@@ -117,62 +73,92 @@ class ClaimOfferAttributeList extends PureComponent {
   render() {
     const attributes: Array<Attribute> = this.props.list
     return (
-      <FlatList
-        data={attributes}
-        ItemSeparatorComponent={Separator}
-        keyExtractor={this.keyExtractor}
-        ListFooterComponent={Separator}
-        renderItem={this.renderItem}
-      />
+      <Container fifth style={[styles.claimOfferData]}>
+        <FlatList
+          data={attributes}
+          ItemSeparatorComponent={Separator}
+          keyExtractor={this.keyExtractor}
+          ListFooterComponent={Separator}
+          renderItem={this.renderItem}
+        />
+      </Container>
     )
   }
 }
 
-export class ClaimOffer extends PureComponent {
+export class ClaimOffer extends PureComponent<void, ClaimOfferProps, void> {
   close = () => {
     this.props.navigation.goBack()
   }
 
   onIgnore = () => {
-    this.props.claimOfferIgnored()
+    this.props.claimOfferIgnored(this.props.uid)
     this.close()
   }
 
   onReject = () => {
-    this.props.claimOfferRejected()
+    this.props.claimOfferRejected(this.props.uid)
     this.close()
   }
 
   onAccept = () => {
-    this.props.acceptClaimOffer()
+    this.props.acceptClaimOffer(this.props.uid)
   }
 
   componentDidMount() {
     // update store that offer is shown to user
-    this.props.claimOfferShown()
+    this.props.claimOfferShown(this.props.uid)
   }
 
   render() {
-    const { payload, claimRequestStatus } = this.props.claimOffer
-    const isValid =
-      payload &&
-      payload.claimOffer &&
-      payload.issuer &&
-      payload.claimOffer.revealedAttributes
+    const { claimOfferData, isValid } = this.props
 
-    const { issuer: { logoUrl } }: ClaimOfferPayload = payload
-
+    const {
+      claimRequestStatus,
+      senderLogoUrl: logoUrl,
+      issuer,
+      data,
+    }: ClaimOfferPayload = claimOfferData
+    const logoUri = logoUrl
+      ? { uri: logoUrl }
+      : require('../images/cb_evernym.png')
+    const testID = 'claim-offer'
     return (
       <Container fifth>
         {isValid && (
-          <ClaimOfferHeader payload={payload} onClose={this.onIgnore} />
+          <ClaimProofHeader
+            message={`${issuer.name} is offering you`}
+            title={data.name}
+            onClose={this.onIgnore}
+            logoUrl={logoUrl}
+            testID={testID}
+          >
+            <CustomView fifth hCenter style={[styles.headerStripLogoContainer]}>
+              <Icon
+                absolute="TopRight"
+                src={require('../images/close.png')}
+                small
+                testID={`${testID}-icon-close`}
+                onPress={this.close}
+                iconStyle={[styles.headerCloseIcon]}
+                style={[styles.headerCloseIconContainer]}
+              />
+              <ConnectionTheme logoUrl={logoUrl} style={[styles.strip]} />
+              <Icon
+                center
+                halo
+                extraLarge
+                resizeMode="cover"
+                src={logoUri}
+                style={[styles.issuerLogo]}
+                iconStyle={[styles.issuerLogoIcon]}
+                testID={`${testID}-issuer-logo`}
+              />
+            </CustomView>
+          </ClaimProofHeader>
         )}
         {isValid ? (
-          <Container fifth style={[styles.claimOfferData]}>
-            <ClaimOfferAttributeList
-              list={payload.claimOffer.revealedAttributes}
-            />
-          </Container>
+          <ClaimOfferAttributeList list={data.revealedAttributes} />
         ) : (
           <Container fifth center>
             <CustomText h5 bg="fifth">
@@ -180,34 +166,18 @@ export class ClaimOffer extends PureComponent {
             </CustomText>
           </Container>
         )}
-        <CustomView row>
-          <Container>
-            <ConnectionTheme logoUrl={logoUrl} secondary>
-              <CustomButton
-                primary
-                medium
-                raised
-                title="Ignore"
-                onPress={this.onReject}
-              />
-            </ConnectionTheme>
-          </Container>
-          <Container>
-            <ConnectionTheme logoUrl={logoUrl}>
-              <CustomButton
-                primary
-                medium
-                raised
-                title="Accept"
-                onPress={this.onAccept}
-              />
-            </ConnectionTheme>
-          </Container>
-        </CustomView>
+        <FooterActions
+          logoUrl={logoUrl}
+          onAccept={this.onAccept}
+          onDecline={this.onReject}
+          denyTitle="Ignore"
+          acceptTitle="Accept"
+          testID={`${testID}-footer`}
+        />
         {isValid && (
           <ClaimRequestModal
             claimRequestStatus={claimRequestStatus}
-            payload={payload}
+            payload={claimOfferData}
             onContinue={this.close}
           />
         )}
@@ -216,9 +186,22 @@ export class ClaimOffer extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ claimOffer }: Store) => ({
-  claimOffer,
-})
+const mapStateToProps = ({ claimOffer }: Store, props: ClaimOfferProps) => {
+  const { uid } = props.navigation.state.params
+  const claimOfferData = claimOffer[uid]
+
+  const isValid =
+    claimOfferData &&
+    claimOfferData.data &&
+    claimOfferData.issuer &&
+    claimOfferData.data.revealedAttributes
+
+  return {
+    uid,
+    claimOfferData,
+    isValid,
+  }
+}
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
@@ -234,14 +217,6 @@ const mapDispatchToProps = dispatch =>
 export default connect(mapStateToProps, mapDispatchToProps)(ClaimOffer)
 
 const styles = StyleSheet.create({
-  header: {
-    paddingTop: (Platform.OS === 'ios' ? OFFSET_2X : 0) + 14,
-    shadowColor: color.bg.secondary.color,
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    zIndex: 4,
-  },
   headerCloseIcon: {
     marginRight: 15,
   },
@@ -266,13 +241,6 @@ const styles = StyleSheet.create({
   issuerLogoIcon: {
     borderRadius: 40,
   },
-  issuerDetail: {
-    marginTop: OFFSET_1X / 2,
-    paddingBottom: OFFSET_5X / 2,
-  },
-  claimOfferName: {
-    marginTop: OFFSET_1X / 2,
-  },
   claimOfferData: {
     zIndex: 3,
   },
@@ -285,9 +253,5 @@ const styles = StyleSheet.create({
   },
   attributeListValue: {
     flex: 6,
-  },
-  separator: {
-    height: 2,
-    backgroundColor: color.bg.secondary.font.tertiary,
   },
 })

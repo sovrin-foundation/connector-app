@@ -94,6 +94,7 @@ class Authentication extends PureComponent {
           senderLogoUrl={logoUrl}
           onAction={this.onUserResponse}
           showErrorAlerts={this.props.config.showErrorAlerts}
+          testID="authentication-request"
         />
         <ConnectionSuccessModal
           isModalVisible={this.state.isModalVisible}

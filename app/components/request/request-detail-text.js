@@ -13,22 +13,23 @@ export default class RequestDetailText extends PureComponent<
   void
 > {
   render() {
+    const { testID } = this.props
     return (
       <AnimatedView
-        testID={'invitation-text-container-animation'}
+        testID={`${testID}-text-container-animation`}
         animation="bounceInDown"
         duration={1500}
         delay={100}
       >
-        <CustomView center testID={'invitation-text-container-message-title'}>
+        <CustomView center testID={`${testID}-text-container-message-title`}>
           <CustomText
-            testID={'invitation-text-title'}
+            testID={`${testID}-text-title`}
             h4
             center
             thick
             bg="fifth"
             style={[styles.textTitle]}
-            testID={'invitation-text-container-title'}
+            testID={`${testID}-text-container-title`}
             onPress={this.props.onTitlePress}
           >
             {this.props.title}
@@ -39,7 +40,7 @@ export default class RequestDetailText extends PureComponent<
             bold
             bg="fifth"
             style={[styles.textMessage]}
-            testID={'invitation-text-container-message'}
+            testID={`${testID}-text-container-message`}
           >
             {this.props.message}
           </CustomText>

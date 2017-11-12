@@ -13,22 +13,18 @@ import claimOfferStore, {
   acceptClaimOffer,
 } from '../claim-offer-store'
 import { CLAIM_OFFER_ACCEPTED } from '../type-claim-offer'
+import { INITIAL_TEST_ACTION } from '../../common/type-common'
 import type { ClaimOfferAcceptedAction } from '../type-claim-offer'
 
 describe('claim offer store', () => {
   const initialAction = { type: 'INITIAL_TEST_ACTION' }
-  let initialState
-  beforeEach(() => {
-    initialState = claimOfferStore(undefined, initialAction)
-  })
+  let initialState = {}
+  let newState = {}
+  const uid = 'usd123'
 
-  it('should correctly calculate initial state', () => {
-    expect(initialState).toMatchSnapshot()
-  })
-
-  it('claim offer is received', () => {
-    const claimOffer = {
-      claimOffer: {
+  const claimOffer = {
+    payload: {
+      data: {
         name: 'Home Address',
         version: '1.0.0',
         revealedAttributes: [
@@ -44,52 +40,72 @@ describe('claim offer store', () => {
       },
       issuer: {
         name: 'Test Issuer',
-        logoUrl: 'http://testissuer.com/logoUrl.png',
-        pairwiseDID: 'ha66899sadfjZJGINKN0770',
       },
-    }
-    expect(
-      claimOfferStore(initialState, claimOfferReceived(claimOffer))
-    ).toMatchSnapshot()
+      statusMsg: 'pending',
+    },
+    payloadInfo: {
+      uid: 'usd123',
+      senderLogoUrl: 'http://testissuer.com/logoUrl.png',
+      remotePairwiseDID: 'ha66899sadfjZJGINKN0770',
+    },
+  }
+
+  beforeEach(() => {
+    initialState = claimOfferStore(undefined, initialAction)
+  })
+
+  it('should correctly calculate initial state', () => {
+    expect(initialState).toMatchSnapshot()
+  })
+
+  it('claim offer is received', () => {
+    newState = claimOfferStore(
+      initialState,
+      claimOfferReceived(claimOffer.payload, claimOffer.payloadInfo)
+    )
+    expect(newState).toMatchSnapshot()
   })
 
   it('claim offer is shown', () => {
-    expect(claimOfferStore(initialState, claimOfferShown())).toMatchSnapshot()
+    newState = claimOfferStore(newState, claimOfferShown(uid))
+    expect(newState).toMatchSnapshot()
   })
 
   it('claim offer is ignored', () => {
-    expect(claimOfferStore(initialState, claimOfferIgnored())).toMatchSnapshot()
+    newState = claimOfferStore(newState, claimOfferIgnored(uid))
+    expect(newState).toMatchSnapshot()
   })
 
   it('claim offer is rejected', () => {
-    expect(
-      claimOfferStore(initialState, claimOfferRejected())
-    ).toMatchSnapshot()
+    newState = claimOfferStore(newState, claimOfferRejected(uid))
+    expect(newState).toMatchSnapshot()
   })
 
   it('claim offer is accepted', () => {
-    expect(claimOfferStore(initialState, acceptClaimOffer())).toMatchSnapshot()
+    newState = claimOfferStore(newState, acceptClaimOffer(uid))
+    expect(newState).toMatchSnapshot()
   })
 
   it('claim request is sent', () => {
-    expect(claimOfferStore(initialState, sendClaimRequest())).toMatchSnapshot()
+    newState = claimOfferStore(newState, sendClaimRequest(uid))
+    expect(newState).toMatchSnapshot()
   })
 
   it('claim request is success', () => {
-    expect(
-      claimOfferStore(initialState, claimRequestSuccess())
-    ).toMatchSnapshot()
+    newState = claimOfferStore(newState, claimRequestSuccess(uid))
+    expect(newState).toMatchSnapshot()
   })
 
   it('claim request is fail', () => {
-    expect(claimOfferStore(initialState, claimRequestFail())).toMatchSnapshot()
+    newState = claimOfferStore(newState, claimRequestFail(uid))
+    expect(newState).toMatchSnapshot()
   })
 
   it('claim request saga works fine after claim offer is accepted', () => {
-    const gen = claimOfferAccepted(acceptClaimOffer())
-    expect(gen.next().value).toMatchObject(put(sendClaimRequest()))
+    const gen = claimOfferAccepted(acceptClaimOffer(uid))
+    expect(gen.next().value).toMatchObject(put(sendClaimRequest(uid)))
     expect(gen.next().value).toMatchObject(call(delay, 2000))
-    expect(gen.next().value).toMatchObject(put(claimRequestSuccess()))
+    expect(gen.next().value).toMatchObject(put(claimRequestSuccess(uid)))
     expect(gen.next().done).toBe(true)
   })
 })

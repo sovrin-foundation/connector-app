@@ -1,6 +1,4 @@
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import {
   View,
   ScrollView,
@@ -26,11 +24,6 @@ import ConnectionInfo from './connection-info'
 import user from '../store/data/user'
 import { homeRoute, connectionRoute } from '../common/route-constants'
 import { veniceBlue } from '../common/styles/constant'
-import {
-  authenticationRequestReceived,
-  pushNotificationReceived,
-} from '../store'
-import handlePushNotification from '../services/router'
 
 const styles = StyleSheet.create({
   left: {
@@ -90,17 +83,6 @@ export class ConnectionHome extends PureComponent {
     },
   })
 
-  componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.pushNotification.notification &&
-      nextProps.pushNotification.notification !=
-        this.props.pushNotification.notification
-    ) {
-      const { notification } = nextProps.pushNotification
-      handlePushNotification(nextProps, notification, connectionRoute)
-    }
-  }
-
   render() {
     return (
       <ScrollView>
@@ -118,27 +100,8 @@ export class ConnectionHome extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ route, pushNotification, claimOffer }) => ({
-  route,
-  pushNotification,
-  claimOfferStatus: claimOffer.status,
-})
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      authenticationRequestReceived,
-      pushNotificationReceived,
-    },
-    dispatch
-  )
-
-const ConnectedConnection = connect(mapStateToProps, mapDispatchToProps)(
-  ConnectionHome
-)
-
 export default StackNavigator({
   [connectionRoute]: {
-    screen: ConnectedConnection,
+    screen: ConnectionHome,
   },
 })

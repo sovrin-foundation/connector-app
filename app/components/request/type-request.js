@@ -4,6 +4,7 @@ export type noop = () => any
 export type RequestDetailTextPropsText = {
   title: string,
   message: string,
+  testID: string,
 }
 
 export type RequestDetailActionProps = {
@@ -19,12 +20,6 @@ export type RequestDetailAvatarProps = {
 
 export type RequestDetailProps = RequestDetailTextProps &
   RequestDetailAvatarProps
-
-export type RequestActionsProps = {
-  senderLogoUrl?: ?string,
-  onAccept: () => any,
-  onDecline: () => any,
-}
 
 export const ResponseType = {
   accepted: 'accepted',

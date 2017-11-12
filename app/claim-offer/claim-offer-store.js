@@ -3,8 +3,6 @@ import { put, takeLatest, call, all, select } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import {
   CLAIM_OFFER_STATUS,
-  FETCH_CLAIM_OFFER,
-  FETCH_CLAIM_OFFER_ERROR,
   CLAIM_OFFER_RECEIVED,
   CLAIM_OFFER_SHOWN,
   CLAIM_OFFER_ACCEPTED,
@@ -19,131 +17,74 @@ import type {
   ClaimOfferStore,
   ClaimOfferAction,
   ClaimOfferShownAction,
-  ClaimOfferPayload,
   ClaimOfferAcceptedAction,
-  FetchClaimOfferAction,
   ClaimOfferResponse,
-  ClaimOfferNotificationPayload,
 } from './type-claim-offer'
+import type {
+  AdditionalDataPayload,
+  NotificationPayloadInfo,
+} from '../push-notification/type-push-notification'
 import type { CustomError } from '../common/type-common'
 import { getAgencyUrl } from '../store/store-selector'
-import { pushNotificationReceived } from '../store/push-notification-store'
-import {
-  fetchClaimOfferRequest,
-  PAYLOAD_TYPE,
-  claimOfferPayloadMapper,
-} from '../services'
+import { claimOfferPayloadMapper } from '../services'
 
-const claimOfferInitialState = {
-  status: CLAIM_OFFER_STATUS.IDLE,
-  payload: undefined,
-  claimRequestStatus: CLAIM_REQUEST_STATUS.NONE,
-  isPristine: true,
-  isFetching: false,
-  error: null,
-}
+const claimOfferInitialState = {}
 
-export const fetchClaimOffer = (
-  notificationPayload: ClaimOfferNotificationPayload
+// TODO:PS: data structure for claim offer received should be flat
+// It should not have only payload
+// Merge payload and payloadInfo
+export const claimOfferReceived = (
+  payload: AdditionalDataPayload,
+  payloadInfo: NotificationPayloadInfo
 ) => ({
-  type: FETCH_CLAIM_OFFER,
-  notificationPayload,
-})
-
-export const fetchClaimOfferError = (error: CustomError) => ({
-  type: FETCH_CLAIM_OFFER_ERROR,
-  error,
-})
-
-export function* claimOfferFetching(
-  action: FetchClaimOfferAction
-): Generator<*, *, *> {
-  const agencyUrl: string = yield select(getAgencyUrl)
-  const { forDID, uid, type } = action.notificationPayload
-  try {
-    const claimOfferResponse: ClaimOfferResponse = yield call(
-      fetchClaimOfferRequest,
-      {
-        agencyUrl,
-        dataBody: {
-          to: forDID,
-          agentPayload: JSON.stringify({
-            uid,
-            type: PAYLOAD_TYPE.GET_MESSAGE,
-            includeEdgePayload: 'Y',
-          }),
-        },
-      }
-    )
-
-    try {
-      const parsedData = JSON.parse(claimOfferResponse.msgs[0].edgeAgentPayload)
-      const claimOfferStatusMsg = claimOfferResponse.msgs[0].statusMsg
-
-      const claimOfferData: ClaimOfferPayload = claimOfferPayloadMapper(
-        parsedData,
-        claimOfferStatusMsg
-      )
-      yield put(claimOfferReceived(claimOfferData))
-      yield put(pushNotificationReceived({ forDID, uid, type }))
-    } catch (e) {
-      put(fetchClaimOfferError(e))
-    }
-  } catch (e) {
-    yield put(
-      fetchClaimOfferError({
-        code: 'OCS-000',
-        message: 'Invalid claim offer payload',
-      })
-    )
-  }
-}
-
-function* watchFetchClaimOffer() {
-  yield takeLatest(FETCH_CLAIM_OFFER, claimOfferFetching)
-}
-
-export const claimOfferReceived = (payload: ClaimOfferPayload) => ({
   type: CLAIM_OFFER_RECEIVED,
   payload,
+  payloadInfo,
 })
 
 // this action is used because we don't want to show claim offer again to user
 // we set claim offer status as shown, so another code path doesn't show it
-export const claimOfferShown = () => ({
+export const claimOfferShown = (uid: string) => ({
   type: CLAIM_OFFER_SHOWN,
+  uid,
 })
 
-export const claimOfferIgnored = () => ({
+export const claimOfferIgnored = (uid: string) => ({
   type: CLAIM_OFFER_IGNORED,
+  uid,
 })
 
-export const claimOfferRejected = () => ({
+export const claimOfferRejected = (uid: string) => ({
   type: CLAIM_OFFER_REJECTED,
+  uid,
 })
 
-export const sendClaimRequest = () => ({
+export const sendClaimRequest = (uid: string) => ({
   type: SEND_CLAIM_REQUEST,
+  uid,
 })
 
-export const claimRequestSuccess = () => ({
+export const claimRequestSuccess = (uid: string) => ({
   type: CLAIM_REQUEST_SUCCESS,
+  uid,
 })
 
-export const claimRequestFail = () => ({
+export const claimRequestFail = (uid: string) => ({
   type: CLAIM_REQUEST_FAIL,
+  uid,
 })
 
-export const acceptClaimOffer = () => ({
+export const acceptClaimOffer = (uid: string) => ({
   type: CLAIM_OFFER_ACCEPTED,
+  uid,
 })
 
 export function* claimOfferAccepted(
   action: ClaimOfferAcceptedAction
 ): Generator<*, *, *> {
-  yield put(sendClaimRequest())
+  yield put(sendClaimRequest(action.uid))
   yield call(delay, 2000)
-  yield put(claimRequestSuccess())
+  yield put(claimRequestSuccess(action.uid))
 }
 
 function* watchClaimOfferAccepted() {
@@ -151,7 +92,7 @@ function* watchClaimOfferAccepted() {
 }
 
 export function* watchClaimOffer(): Generator<*, *, *> {
-  yield all([watchFetchClaimOffer(), watchClaimOfferAccepted()])
+  yield all([watchClaimOfferAccepted()])
 }
 
 export default function claimOfferReducer(
@@ -159,60 +100,72 @@ export default function claimOfferReducer(
   action: ClaimOfferAction
 ) {
   switch (action.type) {
-    case FETCH_CLAIM_OFFER:
-      return {
-        ...state,
-        isPristine: false,
-        isFetching: true,
-      }
-    case FETCH_CLAIM_OFFER_ERROR:
-      return {
-        ...state,
-        isFetching: false,
-        error: action.error,
-      }
     case CLAIM_OFFER_RECEIVED:
       return {
         ...state,
-        status: CLAIM_OFFER_STATUS.RECEIVED,
-        payload: action.payload,
-        claimRequestStatus: CLAIM_REQUEST_STATUS.NONE,
-        isFetching: false,
+        [action.payloadInfo.uid]: {
+          ...action.payload,
+          ...action.payloadInfo,
+          status: CLAIM_OFFER_STATUS.RECEIVED,
+          claimRequestStatus: CLAIM_REQUEST_STATUS.NONE,
+          error: null,
+        },
       }
     case CLAIM_OFFER_SHOWN:
       return {
         ...state,
-        status: CLAIM_OFFER_STATUS.SHOWN,
+        [action.uid]: {
+          ...state[action.uid],
+          status: CLAIM_OFFER_STATUS.SHOWN,
+        },
       }
     case CLAIM_OFFER_ACCEPTED:
       return {
         ...state,
-        status: CLAIM_OFFER_STATUS.ACCEPTED,
+        [action.uid]: {
+          ...state[action.uid],
+          status: CLAIM_OFFER_STATUS.ACCEPTED,
+        },
       }
     case CLAIM_OFFER_IGNORED:
       return {
         ...state,
-        status: CLAIM_OFFER_STATUS.IGNORED,
+        [action.uid]: {
+          ...state[action.uid],
+          status: CLAIM_OFFER_STATUS.IGNORED,
+        },
       }
     case CLAIM_OFFER_REJECTED:
       return {
         ...state,
-        status: CLAIM_OFFER_STATUS.REJECTED,
+        [action.uid]: {
+          ...state[action.uid],
+          status: CLAIM_OFFER_STATUS.REJECTED,
+        },
       }
     case SEND_CLAIM_REQUEST:
       return {
         ...state,
-        claimRequestStatus: CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST,
+        [action.uid]: {
+          ...state[action.uid],
+          claimRequestStatus: CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST,
+        },
       }
     case CLAIM_REQUEST_SUCCESS:
       return {
         ...state,
-        claimRequestStatus: CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS,
+        [action.uid]: {
+          ...state[action.uid],
+          claimRequestStatus: CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS,
+        },
       }
     case CLAIM_REQUEST_FAIL:
       return {
         ...state,
-        claimRequestStatus: CLAIM_REQUEST_STATUS.CLAIM_REQUEST_FAIL,
+        [action.uid]: {
+          ...state[action.uid],
+          claimRequestStatus: CLAIM_REQUEST_STATUS.CLAIM_REQUEST_FAIL,
+        },
       }
     default:
       return state

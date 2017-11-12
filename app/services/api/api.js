@@ -17,7 +17,7 @@ export const createAgentWithConsumerAgency = ({ agencyUrl, dataBody }) =>
 export const sendInvitationResponse = ({ agencyUrl, dataBody }) =>
   api(`${agencyUrl}/agency/route`, options('POST', dataBody))
 
-export const fetchClaimOfferRequest = ({ agencyUrl, dataBody }) =>
+export const getAdditionalData = ({ agencyUrl, dataBody }) =>
   api(`${agencyUrl}/agency/route`, options('POST', dataBody))
 
 export const sendAuthenticationRequest = ({

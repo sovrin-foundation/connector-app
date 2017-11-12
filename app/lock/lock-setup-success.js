@@ -14,7 +14,6 @@ import { homeRoute } from '../common'
 import { unlockApp, clearPendingRedirect } from './lock-store'
 import type { Store } from '../store/type-store'
 import { OFFSET_1X, OFFSET_2X, OFFSET_4X, color } from '../common/styles'
-import { captureError } from '../services'
 
 // TODO:KS define type of props for this component
 export class LockSetupSuccess extends PureComponent {
@@ -28,8 +27,6 @@ export class LockSetupSuccess extends PureComponent {
       )
       this.props.clearPendingRedirect()
     }
-    // Pradeep? Why are we doing this?
-    captureError(this.props.pendingRedirection)
   }
 
   render() {

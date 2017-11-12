@@ -3,6 +3,7 @@ import type { LockStore } from '../lock/type-lock'
 import type { SMSPendingInvitationStore } from '../sms-pending-invitation/type-sms-pending-invitation'
 import type { AuthenticationStore } from '../authentication/type-authentication'
 import type { ClaimOfferStore } from '../claim-offer/type-claim-offer'
+import type { ProofRequestStore } from '../proof-request/type-proof-request'
 import type { InvitationStore } from '../invitation/type-invitation'
 
 // TODO: Add type for each store here
@@ -67,6 +68,7 @@ export type Store = {
   lock: LockStore,
   smsPendingInvitation: SMSPendingInvitationStore,
   claimOffer: ClaimOfferStore,
+  proofRequest: ProofRequestStore,
   invitation: InvitationStore,
 }
 

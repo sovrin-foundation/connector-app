@@ -8,7 +8,7 @@ import { CLAIM_REQUEST_STATUS } from '../type-claim-offer'
 describe('<ClaimRequestModal />', () => {
   it('should match snapshot', () => {
     const payload = {
-      claimOffer: {
+      data: {
         name: 'Home Address',
         version: '1.0.0',
         revealedAttributes: [

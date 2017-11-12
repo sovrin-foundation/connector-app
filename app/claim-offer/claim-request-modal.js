@@ -59,7 +59,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
   }
 
   render() {
-    const { claimRequestStatus, payload: { issuer, claimOffer } } = this.props
+    const { claimRequestStatus, payload: { issuer, data } } = this.props
     const avatarRight = issuer.logoUrl
       ? { uri: issuer.logoUrl }
       : require('../images/cb_evernym.png')
@@ -116,7 +116,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
           style={[styles.title]}
           testID={`claim-request-claim-name`}
         >
-          {claimOffer.name}
+          {data.name}
         </CustomText>
       </CustomModal>
     )
@@ -125,9 +125,9 @@ export default class ClaimRequestStatusModal extends PureComponent<
 const styles = StyleSheet.create({
   connectedArrow: {
     height: 20,
-    width: 75,
+    width: 80,
     zIndex: -1,
-    right: 4,
+    right: 7,
   },
   message: {
     paddingTop: OFFSET_1X,

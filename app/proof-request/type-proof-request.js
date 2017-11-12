@@ -1,56 +1,111 @@
 // @flow
+import { INITIAL_TEST_ACTION } from '../common/type-common'
 import type { CustomError } from '../common/type-common'
-import type { ClaimOfferNotificationPayload as ProofRequestNotificationPayload } from '../claim-offer/type-claim-offer'
+import type {
+  AdditionalDataPayload,
+  AdditionalData,
+  ClaimProofNavigation,
+  NotificationPayload,
+  Attribute,
+  NotificationPayloadInfo,
+} from '../push-notification/type-push-notification'
 
-export type Attribute = {
-  label: string,
-  type?: string,
+export type ProofRequestAttributeListProp = {
+  list: Array<Attribute>,
 }
 
-export type ProofRequest = {
-  proofRequest: {
-    name: string,
-    version: string,
-    revealedAttributes: Array<Attribute>,
-  },
-  issuer: {
-    name: string,
-    logoUrl: string,
-    pairwiseDID: string,
-  },
-  statusMessage?: string,
+export type ProofRequestPayload = AdditionalDataPayload & {
+  status: ProofRequestStatus,
+  sendProofStatus: SendProofStatus,
+  uid: string,
+  senderLogoUrl?: ?string,
+  remotePairwiseDID: string,
 }
-
-export type ProofRequestPayload = {
-  +[string]: ProofRequest,
+export type ProofRequestProps = {
+  isValid: boolean,
+  data: AdditionalData,
+  logoUrl: string,
+  issuerName: string,
+  uid: string,
+  navigation: ClaimProofNavigation,
 }
-
-export const FETCH_PROOF_REQUEST = 'FETCH_PROOF_REQUEST'
-export type FetchProofRequestAction = {
-  type: typeof FETCH_PROOF_REQUEST,
-  notificationPayload: ProofRequestNotificationPayload,
-}
-
-export const FETCH_PROOF_REQUEST_ERROR = 'FETCH_PROOF_REQUEST_ERROR'
-export type FetchProofRequestErrorAction = {
-  type: typeof FETCH_PROOF_REQUEST_ERROR,
-  error: CustomError,
-}
-
 export const PROOF_REQUEST_RECEIVED = 'PROOF_REQUEST_RECEIVED'
 export type ProofRequestReceivedAction = {
   type: typeof PROOF_REQUEST_RECEIVED,
-  payload: ProofRequestPayload,
+  payload: AdditionalDataPayload,
+  payloadInfo: NotificationPayloadInfo,
+}
+
+export const PROOF_REQUEST_STATUS = {
+  IDLE: 'IDLE',
+  RECEIVED: 'RECEIVED',
+  SHOWN: 'SHOWN',
+  ACCEPTED: 'ACCEPTED',
+  IGNORED: 'IGNORED',
+  REJECTED: 'REJECTED',
+}
+export const SEND_PROOF_STATUS = {
+  NONE: 'NONE',
+  SENDING_PROOF: 'SENDING_PROOF',
+  SEND_PROOF_FAIL: 'SEND_PROOF_FAIL',
+  SEND_PROOF_SUCCESS: 'SEND_PROOF_SUCCESS',
+}
+
+export type ProofRequestStatus = $Keys<typeof PROOF_REQUEST_STATUS>
+export type SendProofStatus = $Keys<typeof SEND_PROOF_STATUS>
+
+export const PROOF_REQUEST_SHOWN = 'PROOF_REQUEST_SHOWN'
+export type ProofRequestShownAction = {
+  type: typeof PROOF_REQUEST_SHOWN,
+  uid: string,
+}
+
+export const SEND_PROOF_SUCCESS = 'SEND_PROOF_SUCCESS'
+export type SendProofSuccessAction = {
+  type: typeof SEND_PROOF_SUCCESS,
+  uid: string,
+}
+export const SEND_PROOF_FAIL = 'SEND_PROOF_FAIL'
+export type SendProofFailAction = {
+  type: typeof SEND_PROOF_FAIL,
+  uid: string,
+}
+export const SEND_PROOF = 'SEND_PROOF'
+export type SendProofAction = {
+  type: typeof SEND_PROOF,
+  uid: string,
+}
+export const PROOF_REQUEST_IGNORED = 'PROOF_REQUEST_IGNORED'
+export type ProofRequestIgnoredAction = {
+  type: typeof PROOF_REQUEST_IGNORED,
+  uid: string,
+}
+export const PROOF_REQUEST_REJECTED = 'PROOF_REQUEST_REJECTED'
+export type ProofRequestRejectedAction = {
+  type: typeof PROOF_REQUEST_REJECTED,
+  uid: string,
+}
+export const PROOF_REQUEST_ACCEPTED = 'PROOF_REQUEST_ACCEPTED'
+export type ProofRequestAcceptedAction = {
+  type: typeof PROOF_REQUEST_ACCEPTED,
+  uid: string,
+}
+
+export type ProofRequestInitialAction = {
+  type: typeof INITIAL_TEST_ACTION,
 }
 
 export type ProofRequestAction =
-  | FetchProofRequestAction
-  | FetchProofRequestErrorAction
   | ProofRequestReceivedAction
+  | SendProofSuccessAction
+  | SendProofFailAction
+  | SendProofAction
+  | ProofRequestIgnoredAction
+  | ProofRequestAcceptedAction
+  | ProofRequestShownAction
+  | ProofRequestInitialAction
+  | ProofRequestRejectedAction
 
 export type ProofRequestStore = {
-  +payload: ?ProofRequestPayload,
-  isPristine: boolean,
-  isFetching: boolean,
-  error: ?CustomError,
+  +[string]: ProofRequestPayload,
 }

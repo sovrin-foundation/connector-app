@@ -8,7 +8,7 @@ import connectionsReducer, {
 } from '../../store/connections-store'
 import pushNotificationReducer, {
   updatePushToken,
-} from '../../store/push-notification-store'
+} from '../../push-notification/push-notification-store'
 
 describe('hydration store should update dependant store correctly', () => {
   let initialState = (initialConnectionsState = initialPushNotificationState = {})

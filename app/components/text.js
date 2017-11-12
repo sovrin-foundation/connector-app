@@ -25,6 +25,7 @@ const CustomText = props => {
     onPress,
     transparentBg,
     uppercase,
+    heavy,
   } = props
 
   const colorType = quaternary
@@ -40,7 +41,9 @@ const CustomText = props => {
       ? styles.bold
       : semiBold
         ? styles.semiBold
-        : thick ? styles.thick : demiBold ? styles.demiBold : null,
+        : thick
+          ? styles.thick
+          : demiBold ? styles.demiBold : heavy ? styles.heavy : null,
     center ? styles.center : null,
     transparentBg ? styles.transparentBg : null,
     ...style,
@@ -83,6 +86,9 @@ export const styles = StyleSheet.create({
   },
   thick: {
     fontWeight: '800',
+  },
+  heavy: {
+    fontWeight: '900',
   },
   center: {
     textAlign: 'center',
