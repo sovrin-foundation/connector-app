@@ -34,6 +34,7 @@ import {
 import { sendClaimRequest as sendClaimRequestApi } from '../api/api'
 import type { IndyClaimOffer } from '../bridge/react-native-cxs/type-cxs'
 import { generateClaimRequest } from '../bridge/react-native-cxs/RNCxs'
+import type { IndyClaimRequest } from '../bridge/react-native-cxs/type-cxs'
 
 const claimOfferInitialState = {}
 
@@ -111,11 +112,18 @@ export function* claimOfferAccepted(
     try {
       const agencyUrl: string = yield select(getAgencyUrl)
       const messageId: string = action.uid
-      const claimRequest = yield call(
+      const claimRequestJson: string = yield call(
         generateClaimRequest,
         remoteDid,
         indyClaimOffer
       )
+      // TODO:KS Add error handling if claim request parse fails
+      const parsedClaimRequest: IndyClaimRequest = JSON.parse(claimRequestJson)
+      const claimRequest = {
+        ...parsedClaimRequest,
+        remoteDid,
+        userPairwiseDid,
+      }
 
       try {
         const apiData = {

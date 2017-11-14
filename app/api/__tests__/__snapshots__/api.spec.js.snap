@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`convertClaimRequestToEdgeClaimRequest should convert correctly 1`] = `
+Object {
+  "blinded_ms": Object {
+    "prover_did": "userPairwiseDid",
+    "u": "u",
+    "ur": "ur",
+  },
+  "from_did": "userPairwiseDid",
+  "issuer_did": "issuer_did",
+  "mid": "1",
+  "msg_type": "claimReq",
+  "schema_seq_no": 12,
+  "tid": "1",
+  "to_did": "remoteDid",
+  "version": "0.1",
+}
+`;

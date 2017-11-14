@@ -1,5 +1,7 @@
 // @flow
 import type { GenericObject } from '../common/type-common'
+import { MESSAGE_TYPE } from './api-constants'
+import type { IndyClaimRequest } from '../bridge/react-native-cxs/type-cxs'
 
 export type ApiData = {
   method: string,
@@ -50,10 +52,23 @@ export type SendMessageApiData = {
   agentPayload: GenericObject,
 }
 
+export type ApiClaimRequest = {
+  userPairwiseDid: string,
+  remoteDid: string,
+} & IndyClaimRequest
+
 export type SendClaimRequestApiData = {
   agencyUrl: string,
   userPairwiseDid: string,
   responseMsgId: string,
-  // TODO: Change this to an object and it should be stringified inside API
-  claimRequest: string,
+  claimRequest: ApiClaimRequest,
 }
+
+export type EdgeClaimRequest = {
+  msg_type: typeof MESSAGE_TYPE.CLAIM_REQUEST,
+  version: string,
+  to_did: string,
+  from_did: string,
+  tid: string,
+  mid: string,
+} & IndyClaimRequest

@@ -8,6 +8,8 @@ import type {
   GetProfileApiData,
   SendMessageApiData,
   SendClaimRequestApiData,
+  ApiClaimRequest,
+  EdgeClaimRequest,
 } from './type-api'
 import { PAYLOAD_TYPE, MESSAGE_TYPE, STATUS_CODE } from './api-constants'
 
@@ -83,6 +85,25 @@ export const sendMessage = ({
     })
   )
 
+export function convertClaimRequestToEdgeClaimRequest(
+  claimRequest: ApiClaimRequest
+): EdgeClaimRequest {
+  const { blinded_ms, schema_seq_no, issuer_did } = claimRequest
+
+  return {
+    blinded_ms,
+    issuer_did,
+    schema_seq_no,
+    msg_type: MESSAGE_TYPE.CLAIM_REQUEST,
+    // hard coded version as of now, update once versioning is implemented
+    version: '0.1',
+    to_did: claimRequest.remoteDid,
+    from_did: claimRequest.userPairwiseDid,
+    tid: '1',
+    mid: '1',
+  }
+}
+
 export const sendClaimRequest = ({
   agencyUrl,
   userPairwiseDid,
@@ -95,7 +116,9 @@ export const sendClaimRequest = ({
     agentPayload: {
       type: PAYLOAD_TYPE.SEND_MESSAGE,
       msgType: MESSAGE_TYPE.CLAIM_REQUEST,
-      edgeAgentPayload: claimRequest,
+      edgeAgentPayload: JSON.stringify(
+        convertClaimRequestToEdgeClaimRequest(claimRequest)
+      ),
       refMsgId: responseMsgId,
       // just accept for now, we are not sending rejection as of now
       statusCode: STATUS_CODE.ACCEPT,

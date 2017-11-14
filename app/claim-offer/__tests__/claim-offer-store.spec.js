@@ -144,14 +144,26 @@ describe('claim offer store', () => {
       call(generateClaimRequest, remoteDid, expectedIndyClaimOffer)
     )
 
-    const claimRequest = 'claim request'
+    const claimRequest = {
+      blinded_ms: {
+        prover_did: userPairwiseDid,
+        u: 'u',
+        ur: 'ur',
+      },
+      schema_seq_no: 12,
+      issuer_did: 'issuer_did',
+    }
     const expectedApiData = {
-      claimRequest,
+      claimRequest: {
+        ...claimRequest,
+        remoteDid,
+        userPairwiseDid,
+      },
       agencyUrl,
       userPairwiseDid,
       responseMsgId: uid,
     }
-    expect(gen.next(claimRequest).value).toEqual(
+    expect(gen.next(JSON.stringify(claimRequest)).value).toEqual(
       call(sendClaimRequestApi, expectedApiData)
     )
     expect(gen.next().value).toMatchObject(put(claimRequestSuccess(uid)))
