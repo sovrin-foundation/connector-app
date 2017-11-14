@@ -21,10 +21,14 @@ export class LockSetupSuccess extends PureComponent {
     this.props.unlockApp()
     if (this.props.pendingRedirection) {
       // if there is a redirection pending, then redirect and clear it
-      this.props.navigation.navigate(
-        this.props.pendingRedirection,
-        this.props.pendingRedirectionParams
-      )
+      this.props.pendingRedirection.forEach(pendingRedirection => {
+        setTimeout(() => {
+          this.props.navigation.navigate(
+            pendingRedirection.routeName,
+            pendingRedirection.params
+          )
+        }, 0)
+      })
       this.props.clearPendingRedirect()
     }
   }

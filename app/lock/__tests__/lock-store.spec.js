@@ -36,7 +36,7 @@ describe('LockStore', () => {
   it('add pending redirection change state correctly', () => {
     const expectedState = lockReducer(
       initialState,
-      addPendingRedirection('home')
+      addPendingRedirection([{ routeName: 'home' }])
     )
     expect(expectedState).toMatchSnapshot()
   })
@@ -44,7 +44,7 @@ describe('LockStore', () => {
   it('clear pending redirect if clear action is raised', () => {
     const pendingState = lockReducer(
       initialState,
-      addPendingRedirection('home')
+      addPendingRedirection([{ routeName: 'home' }])
     )
     const expectedState = lockReducer(pendingState, clearPendingRedirect())
     expect(expectedState).toMatchSnapshot()

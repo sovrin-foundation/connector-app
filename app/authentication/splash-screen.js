@@ -48,7 +48,7 @@ class SplashScreenView extends PureComponent {
             SplashScreen.hide()
             this.props.navigation.navigate(homeRoute)
           } else {
-            this.props.addPendingRedirection(homeRoute)
+            this.props.addPendingRedirection([{ routeName: homeRoute }])
           }
         }
       }
@@ -63,13 +63,13 @@ class SplashScreenView extends PureComponent {
           if (nextProps.lock.isAppLocked === false) {
             this.props.navigation.navigate(expiredTokenRoute)
           } else {
-            this.props.addPendingRedirection(expiredTokenRoute)
+            this.props.addPendingRedirection([{ routeName: expiredTokenRoute }])
           }
         } else {
           if (nextProps.lock.isAppLocked === false) {
             this.props.navigation.navigate(homeRoute)
           } else {
-            this.props.addPendingRedirection(homeRoute)
+            this.props.addPendingRedirection([{ routeName: homeRoute }])
           }
         }
       }
@@ -84,13 +84,18 @@ class SplashScreenView extends PureComponent {
           if (nextProps.lock.isAppLocked === false) {
             this.props.navigation.navigate(invitationRoute, { senderDID })
           } else {
-            this.props.addPendingRedirection(invitationRoute, { senderDID })
+            this.props.addPendingRedirection([
+              {
+                routeName: invitationRoute,
+                params: { senderDID },
+              },
+            ])
           }
         } else {
           if (nextProps.lock.isAppLocked === false) {
             this.props.navigation.navigate(homeRoute)
           } else {
-            this.props.addPendingRedirection(homeRoute)
+            this.props.addPendingRedirection([{ routeName: homeRoute }])
           }
         }
       }

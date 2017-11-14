@@ -15,6 +15,7 @@ import {
   UNLOCK_APP,
 } from './type-lock'
 import type {
+  PendingRedirection,
   LockStore,
   AddPendingRedirectAction,
   ClearPendingRedirectAction,
@@ -46,13 +47,11 @@ const initialState: LockStore = {
 }
 
 export function addPendingRedirection(
-  routeName: string,
-  pendingRedirectionParams?: ?{ [string]: any }
+  pendingRedirection: Array<PendingRedirection>
 ): AddPendingRedirectAction {
   return {
     type: PENDING_REDIRECT,
-    routeName,
-    pendingRedirectionParams,
+    pendingRedirection,
   }
 }
 
@@ -134,8 +133,7 @@ export default function lockReducer(
     case PENDING_REDIRECT:
       return {
         ...state,
-        pendingRedirection: action.routeName,
-        pendingRedirectionParams: action.pendingRedirectionParams,
+        pendingRedirection: action.pendingRedirection,
       }
     case LOCK_ENABLE:
       return {
@@ -152,7 +150,6 @@ export default function lockReducer(
       return {
         ...state,
         pendingRedirection: null,
-        pendingRedirectionParams: null,
       }
     case CHECK_PIN_SUCCESS:
       return {

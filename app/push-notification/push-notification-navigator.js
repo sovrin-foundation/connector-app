@@ -17,6 +17,7 @@ import {
   invitationRoute,
   proofRequestRoute,
   qrCodeScannerTabRoute,
+  homeTabRoute,
 } from '../common'
 
 import type {
@@ -24,6 +25,8 @@ import type {
   PushNotificationNavigatorProps,
   NextPropsPushNotificationNavigator,
 } from './type-push-notification'
+
+import type { NavigationParams } from '../common/type-common'
 
 const blackListedRoute = {
   [invitationRoute]: invitationRoute,
@@ -81,10 +84,12 @@ export class PushNotificationNavigator extends PureComponent<
     }
   }
 
-  //TODO:PS: write type for params
-  handleRedirection = (routeName: string, params: any) => {
+  handleRedirection = (routeName: string, params: NavigationParams) => {
     if (this.props.isAppLocked)
-      this.props.addPendingRedirection(routeName, params)
+      this.props.addPendingRedirection([
+        { routeName: homeTabRoute },
+        { routeName, params },
+      ])
     else this.props.navigateToRoute(routeName, params)
   }
 

@@ -1,6 +1,7 @@
 // @flow
 
 import type { CustomError } from '../common/type-common'
+import type { PendingRedirection } from '../lock/type-lock'
 
 export type NotificationPayload = {
   forDID: string,
@@ -116,7 +117,9 @@ export type PushNotificationNavigatorProps = {
   authenticationRequestReceived: (data: DownloadedNotification) => void,
   claimOfferReceived: (payload: AdditionalDataPayload) => void,
   proofRequestReceived: (payload: AdditionalDataPayload) => void,
-  addPendingRedirection: (routeName: string) => void,
+  addPendingRedirection: (
+    pendingRedirection: Array<PendingRedirection>
+  ) => void,
   navigateToRoute: (routeName: string) => void,
 } & NextPropsPushNotificationNavigator
 

@@ -8,11 +8,15 @@ export const LOCK_TYPE = {
 }
 export type lockType = $Keys<typeof LOCK_TYPE>
 
+export type PendingRedirection = {
+  routeName: string,
+  params?: ?{ [string]: any },
+}
+
 export const PENDING_REDIRECT = 'SET_PENDING_REDIRECT'
 export type AddPendingRedirectAction = {
   type: typeof PENDING_REDIRECT,
-  routeName: string,
-  pendingRedirectionParams?: ?{ [string]: any },
+  pendingRedirection: Array<PendingRedirection>,
 }
 
 export const CLEAR_PENDING_REDIRECT = 'CLEAR_PENDING_REDIRECT'
@@ -75,8 +79,7 @@ export type CheckPinStatus =
   | typeof CHECK_PIN_IDLE
 
 export type LockStore = {
-  pendingRedirection: ?string,
-  pendingRedirectionParams?: ?{ [string]: any },
+  pendingRedirection: ?Array<PendingRedirection>,
   checkPinStatus: CheckPinStatus,
   isAppLocked: boolean,
   isLockEnabled: boolean,
@@ -95,9 +98,9 @@ export type LockEnterPinProps = {
   checkPinAction: (pin: string) => CheckPinAction,
   checkPinStatusIdle: () => CheckPinIdleAction,
   checkPinStatus: CheckPinStatus,
-  pendingRedirection: string,
-  pendingRedirectionParams: { [string]: any },
+  pendingRedirection: Array<PendingRedirection>,
   switchErrorAlerts: () => SwitchErrorAlerts,
+  clearPendingRedirect: () => void,
 } & ReactNavigation
 
 export type LockEnterPinState = {

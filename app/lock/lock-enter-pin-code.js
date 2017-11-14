@@ -23,7 +23,7 @@ import {
 import { CHECK_PIN_IDLE, CHECK_PIN_SUCCESS, CHECK_PIN_FAIL } from './type-lock'
 import type { Store } from '../store/type-store'
 import type { LockEnterPinProps, LockEnterPinState } from './type-lock'
-import { switchErrorAlerts } from '../store'
+import { switchErrorAlerts, clearPendingRedirect } from '../store'
 import LinearGradient from 'react-native-linear-gradient'
 
 const styles = StyleSheet.create({
@@ -93,10 +93,15 @@ export class LockEnterPin extends PureComponent<
     if (this.props.checkPinStatus !== nextProps.checkPinStatus) {
       if (nextProps.checkPinStatus === CHECK_PIN_SUCCESS) {
         if (this.props.pendingRedirection) {
-          this.props.navigation.navigate(
-            this.props.pendingRedirection,
-            this.props.pendingRedirectionParams
-          )
+          this.props.pendingRedirection.forEach(pendingRedirection => {
+            setTimeout(() => {
+              this.props.navigation.navigate(
+                pendingRedirection.routeName,
+                pendingRedirection.params
+              )
+            }, 0)
+          })
+          this.props.clearPendingRedirect()
         }
       } else if (nextProps.checkPinStatus === CHECK_PIN_FAIL) {
         this.pinCodeBox && this.pinCodeBox.clear && this.pinCodeBox.clear()
@@ -154,6 +159,7 @@ const mapDispatchToProps = dispatch =>
       checkPinAction,
       checkPinStatusIdle,
       switchErrorAlerts,
+      clearPendingRedirect,
     },
     dispatch
   )

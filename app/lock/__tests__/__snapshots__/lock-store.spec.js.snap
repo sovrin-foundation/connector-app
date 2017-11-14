@@ -5,8 +5,11 @@ Object {
   "checkPinStatus": "CHECK_PIN_IDLE",
   "isAppLocked": true,
   "isLockEnabled": false,
-  "pendingRedirection": "home",
-  "pendingRedirectionParams": undefined,
+  "pendingRedirection": Array [
+    Object {
+      "routeName": "home",
+    },
+  ],
 }
 `;
 
@@ -16,7 +19,6 @@ Object {
   "isAppLocked": true,
   "isLockEnabled": false,
   "pendingRedirection": null,
-  "pendingRedirectionParams": null,
 }
 `;
 

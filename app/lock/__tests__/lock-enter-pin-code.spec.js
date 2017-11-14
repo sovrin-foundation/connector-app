@@ -4,18 +4,22 @@ import 'react-native'
 import renderer from 'react-test-renderer'
 import { CHECK_PIN_IDLE, CHECK_PIN_FAIL, CHECK_PIN_SUCCESS } from '../type-lock'
 import { LockEnterPin } from '../lock-enter-pin-code'
+import { homeRoute, claimOfferRoute } from '../../common'
 
 describe('<LockPinCodeEnter />', () => {
   const getProps = (pinStatus = CHECK_PIN_IDLE) => ({
     checkPinAction: jest.fn(),
     checkPinStatusIdle: jest.fn(),
     checkPinStatus: pinStatus,
-    pendingRedirection: 'Home',
-    pendingRedirectionParams: {},
+    pendingRedirection: [
+      { routeName: homeRoute, params: {} },
+      { routeName: claimOfferRoute, params: { uid: 'asd123' } },
+    ],
     switchErrorAlerts: jest.fn(),
     navigation: {
       navigate: jest.fn(),
     },
+    clearPendingRedirect: jest.fn(),
   })
 
   let component
@@ -50,11 +54,10 @@ describe('<LockPinCodeEnter />', () => {
   })
 
   it('should redirect to pendingRedirection after pin is success', () => {
+    jest.useFakeTimers()
     const pinSuccessProps = getProps(CHECK_PIN_SUCCESS)
     component.update(<LockEnterPin {...pinSuccessProps} />)
-    expect(props.navigation.navigate).toHaveBeenCalledWith(
-      props.pendingRedirection,
-      {}
-    )
+    jest.runAllTimers()
+    expect(pinSuccessProps.navigation.navigate).toHaveBeenCalledTimes(2)
   })
 })
