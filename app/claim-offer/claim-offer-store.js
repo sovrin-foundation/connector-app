@@ -19,14 +19,21 @@ import type {
   ClaimOfferShownAction,
   ClaimOfferAcceptedAction,
   ClaimOfferResponse,
+  ClaimOfferPayload,
 } from './type-claim-offer'
 import type {
   AdditionalDataPayload,
   NotificationPayloadInfo,
 } from '../push-notification/type-push-notification'
 import type { CustomError } from '../common/type-common'
-import { getAgencyUrl } from '../store/store-selector'
-import { claimOfferPayloadMapper } from '../services'
+import {
+  getAgencyUrl,
+  getClaimOffer,
+  getUserPairwiseDid,
+} from '../store/store-selector'
+import { sendClaimRequest as sendClaimRequestApi } from '../api/api'
+import type { IndyClaimOffer } from '../bridge/react-native-cxs/type-cxs'
+import { generateClaimRequest } from '../bridge/react-native-cxs/RNCxs'
 
 const claimOfferInitialState = {}
 
@@ -69,8 +76,9 @@ export const claimRequestSuccess = (uid: string) => ({
   uid,
 })
 
-export const claimRequestFail = (uid: string) => ({
+export const claimRequestFail = (uid: string, error: CustomError) => ({
   type: CLAIM_REQUEST_FAIL,
+  error,
   uid,
 })
 
@@ -82,9 +90,59 @@ export const acceptClaimOffer = (uid: string) => ({
 export function* claimOfferAccepted(
   action: ClaimOfferAcceptedAction
 ): Generator<*, *, *> {
-  yield put(sendClaimRequest(action.uid))
-  yield call(delay, 2000)
-  yield put(claimRequestSuccess(action.uid))
+  const claimOfferPayload: ClaimOfferPayload = yield select(
+    getClaimOffer,
+    action.uid
+  )
+  const indyClaimOffer: IndyClaimOffer = {
+    issuerDid: claimOfferPayload.issuer.did,
+    schemaSequenceNumber:
+      claimOfferPayload.data.claimDefinitionSchemaSequenceNumber,
+  }
+  const remoteDid = claimOfferPayload.remotePairwiseDID
+  const userPairwiseDid: string | null = yield select(
+    getUserPairwiseDid,
+    remoteDid
+  )
+
+  if (userPairwiseDid) {
+    // set status that we are generating and sending claim request
+    yield put(sendClaimRequest(action.uid))
+    try {
+      const agencyUrl: string = yield select(getAgencyUrl)
+      const messageId: string = action.uid
+      const claimRequest = yield call(
+        generateClaimRequest,
+        remoteDid,
+        indyClaimOffer
+      )
+
+      try {
+        const apiData = {
+          claimRequest,
+          agencyUrl,
+          userPairwiseDid,
+          responseMsgId: messageId,
+        }
+        const sendClaimRequestStatus = yield call(sendClaimRequestApi, apiData)
+        yield put(claimRequestSuccess(action.uid))
+      } catch (e) {
+        // TODO: Need to know what to do if claim request fails
+        // sending claim request failed, what to do now?
+        yield put(claimRequestFail(action.uid, e))
+      }
+    } catch (e) {
+      // generation of claim request failed, what to do now?
+      yield put(claimRequestFail(action.uid, e))
+    }
+  } else {
+    yield put(
+      claimRequestFail(action.uid, {
+        code: 'OCS-002',
+        message: 'No pairwise connection found',
+      })
+    )
+  }
 }
 
 function* watchClaimOfferAccepted() {

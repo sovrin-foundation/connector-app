@@ -7,7 +7,7 @@ import { TOUCH_ID_MESSAGE, TOUCH_ID_NOT_AVAILABLE } from '../../common'
 import RequestDetail from './request-detail'
 import FooterActions from '../footer-actions/footer-actions'
 import type { RequestProps, RequestState, ResponseTypes } from './type-request'
-import { captureError } from '../../services'
+import { captureError } from '../../services/error/error-handler'
 
 export default class Request extends PureComponent<
   void,

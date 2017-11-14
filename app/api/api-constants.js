@@ -1,5 +1,5 @@
 // @flow
-// export const TOKEN_EXPIRED_CODE = 'CRS-121'
+
 export const TOKEN_EXPIRED_CODE = 'MS-107'
 export const SERVER_ERROR_CODE = 'OCS-000'
 export const SERVER_API_CALL_ERROR = 'OCS-001'
@@ -15,14 +15,10 @@ export const QR_CODE_SENDER_NAME = 'sn'
 export const QR_CODE_TARGET_NAME = 'tn'
 export const QR_CODE_SENDER_ENDPOINT = 'e'
 
-// TODO: Delete these constants once QR Code is fixed as per new schema
-export const QR_CODE_CHALLENGE = 'c'
-export const QR_CODE_REMOTE_PAIR_WISE_DID = 'rpDID'
-export const QR_CODE_REMOTE_HOSTING_DID = 'rhDID'
-
-export const PUSH_NOTIFICATION_TYPE = {
+export const MESSAGE_TYPE = {
   AUTH: 'auth-req',
   CLAIM_OFFER: 'claimOffer',
+  CLAIM_REQUEST: 'claimReq',
   PROOF_REQUEST: 'proofReq',
 }
 
@@ -31,11 +27,17 @@ export const API_TYPE = {
   REGISTER: 'REGISTER',
   CREATE_AGENT: 'CREATE_AGENT',
   INVITE_ANSWERED: 'INVITE_ANSWERED',
+  CREATE_KEY: 'CREATE_KEY',
 }
 
 export const PAYLOAD_TYPE = {
   GET_MESSAGE: 'GET_MSGS',
   UPDATE_PUSH_COM_METHOD: 'UPDATE_PUSH_COM_METHOD',
+  SEND_MESSAGE: 'SEND_MSG',
+}
+
+export const STATUS_CODE = {
+  ACCEPT: 'MS-104',
 }
 
 export const ERROR_ALREADY_EXIST = {

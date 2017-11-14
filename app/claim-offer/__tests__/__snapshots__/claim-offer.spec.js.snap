@@ -1261,7 +1261,11 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               onResponderTerminate={[Function]}
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
-              source={1}
+              source={
+                Object {
+                  "uri": "http://testissuer.com/logoUrl.png",
+                }
+              }
               style={
                 Array [
                   Object {

@@ -6,15 +6,18 @@ App to connect Sovrin with 3rd party authentication
 - Mac machine
 - [React native setup](http://facebook.github.io/react-native/docs/getting-started.html). Use tab `Building Projects with Native Code`
 - XCode 9
+- Ruby
+- Node 8+
 
 # Steps to run
 
 - `yarn install`
 
 ## For ios
-- `cd ios`
-- `match development`. DO NOT use `--force` with this command
-- `pod install`
+- `cd ios/fastlane`
+- `gem install`
+- `bundle exec match development`. DO NOT use `--force` with this command. Do not use XCode automatic code signing.
+- `cd .. && pod install`
 - `cd .. && npm run ios`
 
 # To Read

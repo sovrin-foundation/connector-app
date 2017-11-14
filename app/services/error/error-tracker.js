@@ -9,7 +9,6 @@ Sentry.install = () => {
 }
 
 function configureSentryErrorHandler() {
-  console.log('configured our sentry error handler')
   let sentryErrorHandler =
     (ErrorUtils.getGlobalHandler && ErrorUtils.getGlobalHandler()) ||
     ErrorUtils._globalHandler

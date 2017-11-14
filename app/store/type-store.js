@@ -5,6 +5,8 @@ import type { AuthenticationStore } from '../authentication/type-authentication'
 import type { ClaimOfferStore } from '../claim-offer/type-claim-offer'
 import type { ProofRequestStore } from '../proof-request/type-proof-request'
 import type { InvitationStore } from '../invitation/type-invitation'
+import type { ConnectionStore } from './type-connection-store'
+import type { ConfigStore } from './type-config-store'
 
 // TODO: Add type for each store here
 export type UserStore = {
@@ -18,34 +20,6 @@ export type PushNotificationStore = {
   },
   pushToken: ?string,
 }
-
-export type Connection = {
-  identifier: string,
-  logoUrl: string,
-  senderDID: string,
-  senderEndpoint: string,
-  size: number,
-  name: string,
-}
-
-export type Connections = { [senderDID: string]: Connection }
-
-export type ConnectionStore = {
-  // TODO:PS Add specific keys in connection store
-  [string]: any,
-  data: ?Connections,
-}
-
-export type ApiUrls = {
-  agencyUrl: string,
-  callCenterUrl: string,
-}
-
-export type ConfigStore = {
-  isAlreadyInstalled: boolean,
-  isHydrated: boolean,
-  showErrorAlerts: boolean,
-} & ApiUrls
 
 export type DeepLinkStore = {
   token: ?string,

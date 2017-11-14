@@ -7,7 +7,8 @@ import pushNotificationReducer, {
   onPushTokenUpdate,
 } from '../push-notification-store'
 import { encrypt } from '../../bridge/react-native-cxs/RNCxs'
-import { sendUpdatedPushToken, PAYLOAD_TYPE } from '../../services'
+import { sendUpdatedPushToken } from '../../api/api'
+import { PAYLOAD_TYPE } from '../../api/api-constants'
 
 describe('push notification store should work properly', () => {
   let initialState = {}

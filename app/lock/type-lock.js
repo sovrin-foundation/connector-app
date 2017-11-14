@@ -1,6 +1,6 @@
 // @flow
 import type { CustomError, ReactNavigation } from '../common/type-common'
-import { SWITCH_ERROR_ALERTS } from '../store/config-store'
+import { SWITCH_ERROR_ALERTS } from '../store/type-config-store'
 
 export const LOCK_TYPE = {
   FINGERPRINT: 'FINGERPRINT',

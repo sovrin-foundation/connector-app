@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux'
 import { updateConnectionTheme } from '../../store'
 import type { ImagePickerProps, ImagePickerStates } from './type-color-picker'
 import { color } from '../../common/styles/constant'
-import { captureError } from '../../services'
+import { captureError } from '../../services/error/error-handler'
 import { canvasHtml } from './canvas-html'
 
 export class ImageColorPicker extends PureComponent<

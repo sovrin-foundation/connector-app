@@ -2,14 +2,14 @@
 
 import { call, all, takeLatest, select, put } from 'redux-saga/effects'
 import { encode } from 'bs58'
+import { sendUpdatedPushToken, getAdditionalData } from '../api/api'
+import { PAYLOAD_TYPE } from '../api/api-constants'
+import { captureError } from '../services/error/error-handler'
 import {
-  sendUpdatedPushToken,
-  captureError,
-  PAYLOAD_TYPE,
-  getAdditionalData,
-  PUSH_NOTIFICATION_TYPE,
-} from '../services'
-import { getAgencyUrl, getAllConnection } from '../store/store-selector'
+  getAgencyUrl,
+  getAllConnection,
+  getRemotePairwiseDid,
+} from '../store/store-selector'
 import { encrypt } from '../bridge/react-native-cxs/RNCxs'
 import {
   PUSH_NOTIFICATION_PERMISSION,
@@ -31,6 +31,7 @@ import type {
   PushNotificationAction,
   PushNotificationStore,
   DownloadedNotification,
+  ClaimOfferPushPayload,
 } from './type-push-notification'
 import type { Connections } from '../connection/type-connection'
 
@@ -112,46 +113,61 @@ export function* additionalDataFetching(
   action: FetchAdditionalDataAction
 ): Generator<*, *, *> {
   const agencyUrl: string = yield select(getAgencyUrl)
-  const {
-    forDID,
-    uid,
-    type,
-    senderLogoUrl,
-    remotePairwiseDID,
-  } = action.notificationPayload
-  try {
-    const additionalDataResponse: AdditionalDataResponse = yield call(
-      getAdditionalData,
-      {
-        agencyUrl,
-        dataBody: {
-          to: forDID,
-          agentPayload: JSON.stringify({
-            uid,
-            type: PAYLOAD_TYPE.GET_MESSAGE,
-            includeEdgePayload: 'Y',
-          }),
-        },
-      }
-    )
+  const { forDID, uid, type, senderLogoUrl } = action.notificationPayload
 
-    const additionalData = JSON.parse(
-      additionalDataResponse.msgs[0].edgeAgentPayload
-    )
-    yield put(
-      pushNotificationReceived({
-        type,
-        additionalData,
-        uid,
-        senderLogoUrl,
-        remotePairwiseDID,
-      })
-    )
-  } catch (e) {
+  if (forDID) {
+    const remotePairwiseDID = yield select(getRemotePairwiseDid, forDID)
+
+    if (remotePairwiseDID) {
+      try {
+        const additionalDataResponse: AdditionalDataResponse = yield call(
+          getAdditionalData,
+          {
+            agencyUrl,
+            dataBody: {
+              to: forDID,
+              agentPayload: JSON.stringify({
+                uid,
+                type: PAYLOAD_TYPE.GET_MESSAGE,
+                includeEdgePayload: 'Y',
+              }),
+            },
+          }
+        )
+
+        const additionalData = JSON.parse(
+          additionalDataResponse.msgs[0].edgeAgentPayload
+        )
+        yield put(
+          pushNotificationReceived({
+            type,
+            additionalData,
+            uid,
+            senderLogoUrl,
+            remotePairwiseDID,
+          })
+        )
+      } catch (e) {
+        yield put(
+          fetchAdditionalDataError({
+            code: 'OCS-000',
+            message: 'Invalid claim offer additional data',
+          })
+        )
+      }
+    } else {
+      yield put(
+        fetchAdditionalDataError({
+          code: 'OCS-002',
+          message: 'No pairwise connection found',
+        })
+      )
+    }
+  } else {
     yield put(
       fetchAdditionalDataError({
-        code: 'OCS-000',
-        message: 'Invalid claim offer additional data',
+        code: 'OCS-001',
+        message: 'Missing forDID in claim offer data',
       })
     )
   }

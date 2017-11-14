@@ -1,25 +1,30 @@
 // @flow
-import type { ConfigStore } from '../store/type-store'
+import type { ConfigStore } from '../store/type-config-store'
 
 export type AuthenticationStatus = {
   ACCEPTED: string,
   REJECTED: string,
   NONE: string,
 }
+
 export type AuthenticationType = {
   NONE: string,
   AUTHENTICATION_REQUEST: string,
 }
+
 export type AuthenticationError = {
   message: string,
   authenticationType: string,
 }
+
 type Invitee = {
   +image: string,
 }
+
 type Inviter = {
   +image: string,
 }
+
 type DataBody = {
   challenge: string,
   signature?: string,

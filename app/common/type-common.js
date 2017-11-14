@@ -27,3 +27,11 @@ export type ReactNavigation = {
     },
   },
 }
+
+export type GenericObject = {
+  [string]: any,
+}
+
+export type GenericStringObject = {
+  [string]: string,
+}

@@ -21,12 +21,18 @@ describe('<ClaimRequestModal />', () => {
             data: 'An Address 2',
           },
         ],
+        claimDefinitionSchemaSequenceNumber: 36,
       },
       issuer: {
         name: 'Test Issuer',
-        logoUrl: 'http://testissuer.com/logoUrl.png',
-        pairwiseDID: 'ha66899sadfjZJGINKN0770',
+        did: 'issuerDid',
       },
+      statusMsg: 'pending',
+      senderLogoUrl: 'http://testissuer.com/logoUrl.png',
+      remotePairwiseDID: 'remotePairwiseDID',
+      uid: 'asd123',
+      status: 'SHOWN',
+      claimRequestStatus: 'NONE',
     }
     const onContinue = jest.fn()
     const wrapper = renderer

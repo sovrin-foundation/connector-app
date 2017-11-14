@@ -1,3 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PushNotificationNavigator /> should render PushNotification components properly 1`] = `null`;
+
+exports[`convertClaimOfferPushPayloadToAppClaimOffer should convert push payload to claim offer format correctly 1`] = `
+Object {
+  "data": Object {
+    "claimDefinitionSchemaSequenceNumber": 12,
+    "name": "Profile detail",
+    "revealedAttributes": Array [
+      Object {
+        "data": "Alice",
+        "label": "name",
+      },
+      Object {
+        "data": "2000-05-17",
+        "label": "date_of_birth",
+      },
+      Object {
+        "data": "175",
+        "label": "height",
+      },
+    ],
+    "version": "0.1",
+  },
+  "issuer": Object {
+    "did": "V4SGRU86Z58d6TV7PBUe6f",
+    "name": "Test Enterprise",
+  },
+}
+`;

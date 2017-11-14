@@ -12,12 +12,15 @@ import {
   connectWithConsumerAgency,
   registerWithConsumerAgency,
   createAgentWithConsumerAgency,
+  createAgentPairwiseKey,
   sendInvitationResponse as sendInvitationResponseApi,
+} from '../api/api'
+import {
   API_TYPE,
   ERROR_ALREADY_EXIST,
   ERROR_INVITATION_RESPONSE_PARSE_CODE,
   ERROR_INVITATION_RESPONSE_PARSE,
-} from '../services'
+} from '../api/api-constants'
 import {
   getAgencyUrl,
   getPushToken,
@@ -85,14 +88,18 @@ export function* sendResponse(
     const metadata = {
       ...payload,
     }
+    // TODO: This will remain hard coded and it should come from config store
+    // we need to switch this as well while switching environment
+    const agencyDid = '5qiK8KZQ86XjcnLmy5S2Tn'
+    const agencyVerificationKey = '3dzsPMyBeJiGtsxWoyrfXZL6mqj3iXxdJ75vewJ1jSwn'
     const { identifier, verificationKey } = yield call(
       addConnection,
-      senderDID,
+      agencyDid,
+      agencyVerificationKey,
       metadata
     )
 
     try {
-      // connect with consumer agency
       const connectResponse = yield call(connectWithConsumerAgency, {
         agencyUrl,
         dataBody: {
@@ -101,7 +108,7 @@ export function* sendResponse(
           fromDIDVerKey: verificationKey,
         },
       })
-      // register with consumer agency
+
       const registerResponse = yield call(registerWithConsumerAgency, {
         agencyUrl,
         dataBody: {
@@ -109,7 +116,7 @@ export function* sendResponse(
           fromDID: identifier,
         },
       })
-      // create agent
+
       const createAgentResponse = yield call(createAgentWithConsumerAgency, {
         agencyUrl,
         dataBody: {
@@ -118,8 +125,28 @@ export function* sendResponse(
         },
       })
 
+      const pairwiseConnection = yield call(
+        addConnection,
+        senderDID,
+        payload.senderVerificationKey,
+        metadata
+      )
+
+      const createPairwiseKey = yield call(createAgentPairwiseKey, {
+        agencyUrl,
+        dataBody: {
+          to: identifier,
+          agentPayload: JSON.stringify({
+            type: API_TYPE.CREATE_KEY,
+            forDID: pairwiseConnection.identifier,
+            forDIDVerKey: pairwiseConnection.verificationKey,
+            nonce: '12121212',
+          }),
+        },
+      })
+
       const dataBody = {
-        to: identifier,
+        to: pairwiseConnection.identifier,
         agentPayload: JSON.stringify({
           type: API_TYPE.INVITE_ANSWERED,
           uid: payload.requestId,
@@ -146,7 +173,7 @@ export function* sendResponse(
       if (action.data.response === ResponseType.accepted) {
         const connection = {
           newConnection: {
-            identifier,
+            identifier: pairwiseConnection.identifier,
             logoUrl: payload.senderLogoUrl,
             ...payload,
           },

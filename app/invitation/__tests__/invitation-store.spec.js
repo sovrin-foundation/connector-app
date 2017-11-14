@@ -27,17 +27,22 @@ import {
   registerWithConsumerAgency,
   createAgentWithConsumerAgency,
   sendInvitationResponse as sendInvitationResponseApi,
+  createAgentPairwiseKey,
+} from '../../api/api'
+import {
   API_TYPE,
   ERROR_ALREADY_EXIST,
   ERROR_INVITATION_RESPONSE_PARSE_CODE,
   ERROR_INVITATION_RESPONSE_PARSE,
-} from '../../services'
+} from '../../api/api-constants'
 
 describe('Invitation Store', () => {
   let initialState
   let afterOneInvitationState
   let propsGenerator
   let firstInvitation
+  const agencyDid = '5qiK8KZQ86XjcnLmy5S2Tn'
+  const agencyVerificationKey = '3dzsPMyBeJiGtsxWoyrfXZL6mqj3iXxdJ75vewJ1jSwn'
 
   function* getInvitation() {
     yield {
@@ -176,7 +181,7 @@ describe('Invitation Store', () => {
         ...payload,
       }
       expect(gen.next(alreadyExist).value).toEqual(
-        call(addConnection, senderDID, metadata)
+        call(addConnection, agencyDid, agencyVerificationKey, metadata)
       )
 
       const identifier = '3akhf906816kahfadhfas85'
@@ -213,8 +218,31 @@ describe('Invitation Store', () => {
         })
       )
 
+      expect(gen.next().value).toEqual(
+        call(addConnection, senderDID, payload.senderVerificationKey, metadata)
+      )
+      const pairwiseConnection = {
+        identifier: 'pairwiseIdentifier1',
+        verificationKey: 'pairwiseVerificationKey1',
+      }
+
+      expect(gen.next(pairwiseConnection).value).toEqual(
+        call(createAgentPairwiseKey, {
+          agencyUrl,
+          dataBody: {
+            to: identifier,
+            agentPayload: JSON.stringify({
+              type: API_TYPE.CREATE_KEY,
+              forDID: pairwiseConnection.identifier,
+              forDIDVerKey: pairwiseConnection.verificationKey,
+              nonce: '12121212',
+            }),
+          },
+        })
+      )
+
       const dataBody = {
-        to: identifier,
+        to: pairwiseConnection.identifier,
         agentPayload: JSON.stringify({
           type: API_TYPE.INVITE_ANSWERED,
           uid: payload.requestId,
@@ -243,7 +271,7 @@ describe('Invitation Store', () => {
         put(
           saveNewConnection({
             newConnection: {
-              identifier,
+              identifier: pairwiseConnection.identifier,
               logoUrl: payload.senderLogoUrl,
               ...payload,
             },
@@ -280,7 +308,7 @@ describe('Invitation Store', () => {
         ...payload,
       }
       expect(gen.next(alreadyExist).value).toEqual(
-        call(addConnection, senderDID, metadata)
+        call(addConnection, agencyDid, agencyVerificationKey, metadata)
       )
 
       const identifier = '3akhf906816kahfadhfas85'
@@ -317,8 +345,31 @@ describe('Invitation Store', () => {
         })
       )
 
+      expect(gen.next().value).toEqual(
+        call(addConnection, senderDID, payload.senderVerificationKey, metadata)
+      )
+      const pairwiseConnection = {
+        identifier: 'pairwiseIdentifier1',
+        verificationKey: 'pairwiseVerificationKey1',
+      }
+
+      expect(gen.next(pairwiseConnection).value).toEqual(
+        call(createAgentPairwiseKey, {
+          agencyUrl,
+          dataBody: {
+            to: identifier,
+            agentPayload: JSON.stringify({
+              type: API_TYPE.CREATE_KEY,
+              forDID: pairwiseConnection.identifier,
+              forDIDVerKey: pairwiseConnection.verificationKey,
+              nonce: '12121212',
+            }),
+          },
+        })
+      )
+
       const dataBody = {
-        to: identifier,
+        to: pairwiseConnection.identifier,
         agentPayload: JSON.stringify({
           type: API_TYPE.INVITE_ANSWERED,
           uid: payload.requestId,

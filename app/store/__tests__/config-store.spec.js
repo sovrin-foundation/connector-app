@@ -1,3 +1,4 @@
+// @flow
 import 'react-native'
 import renderer from 'react-test-renderer'
 import { put, take } from 'redux-saga/effects'
@@ -7,19 +8,21 @@ import configReducer, {
   watchSwitchErrorAlerts,
   changeServerEnvironment,
   toggleErrorAlerts,
-  SERVER_ENVIRONMENT_CHANGED_DEMO,
-  SERVER_ENVIRONMENT_CHANGED_SANDBOX,
-  SERVER_ENVIRONMENT_CHANGED,
-  SERVER_ENVIRONMENT,
-  SWITCH_ERROR_ALERTS,
   baseUrls,
   hydrateConfig,
   alreadyInstalledAction,
   hydrated,
 } from '../config-store'
+import {
+  SERVER_ENVIRONMENT_CHANGED_DEMO,
+  SERVER_ENVIRONMENT_CHANGED_SANDBOX,
+  SERVER_ENVIRONMENT_CHANGED,
+  SERVER_ENVIRONMENT,
+  SWITCH_ERROR_ALERTS,
+} from '../type-config-store'
 
 describe('server environment should change', () => {
-  let initialConfig = {}
+  let initialConfig = null
 
   beforeAll(() => {
     initialConfig = configReducer(undefined, { type: 'INITIAL_TEST_ACTION' })
@@ -45,12 +48,17 @@ describe('server environment should change', () => {
       callCenterUrl: baseUrls[SERVER_ENVIRONMENT.DEMO].callCenterUrl,
     }
 
-    expect(
-      configReducer(initialConfig, {
-        type: SERVER_ENVIRONMENT_CHANGED,
-        serverEnvironment: SERVER_ENVIRONMENT.DEMO,
-      })
-    ).toEqual(expectedConfig)
+    if (initialConfig) {
+      expect(
+        configReducer(
+          initialConfig,
+          changeServerEnvironment(SERVER_ENVIRONMENT.DEMO)
+        )
+      ).toEqual(expectedConfig)
+    } else {
+      // we fail the test if we don't get any initial state
+      expect(1).toBe(2)
+    }
   })
 
   it('toggle showErrorAlerts if action is raised more than 3 times', () => {

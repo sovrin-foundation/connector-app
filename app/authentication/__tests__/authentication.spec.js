@@ -4,7 +4,7 @@ import 'react-native'
 import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 import { authenticationRoute } from '../../common/'
-import { PUSH_NOTIFICATION_SENT_CODE } from '../../services/api'
+import { PUSH_NOTIFICATION_SENT_CODE } from '../../api/api-constants'
 import AuthenticationScreen from '../authentication'
 import { color } from '../../common/styles'
 

@@ -16,11 +16,11 @@ import {
   SMS_PENDING_INVITATION_SEEN,
   SMSPendingInvitationStatus,
 } from './type-sms-pending-invitation'
-import { invitationDetailsRequest, getInvitationLink } from '../services'
+import { invitationDetailsRequest, getInvitationLink } from '../api/api'
 import {
   ERROR_PENDING_INVITATION_RESPONSE_PARSE,
   ERROR_PENDING_INVITATION_RESPONSE_PARSE_CODE,
-} from '../services/api'
+} from '../api/api-constants'
 import { getAgencyUrl } from '../store/store-selector'
 import { invitationReceived } from '../invitation/invitation-store'
 

@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { captureError } from '../services'
+import { captureError } from '../services/error/error-handler'
 import { Request, Container } from '../components'
 import { homeRoute } from '../common'
 import { ResponseType } from '../components/request/type-request'
@@ -59,7 +59,7 @@ export class Invitation extends PureComponent<
             // TODO: captureError should only accept Error object or only json
             // as of now it would fail for JSON objects, as we are using
             // captureException of Sentry which is supposed to take only Error object
-            captureError(nextProps.invitation.error, this.props.showErrorAlerts)
+            // captureError(nextProps.invitation.error, this.props.showErrorAlerts)
           }
         } else {
           // api response was successful, but now we have to check

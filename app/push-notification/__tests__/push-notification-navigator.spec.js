@@ -4,7 +4,10 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 import { homeTabRoute } from '../../common'
-import { PushNotificationNavigator } from '../push-notification-navigator'
+import {
+  PushNotificationNavigator,
+  convertClaimOfferPushPayloadToAppClaimOffer,
+} from '../push-notification-navigator'
 
 describe('<PushNotificationNavigator />', () => {
   let store = {}
@@ -26,9 +29,11 @@ describe('<PushNotificationNavigator />', () => {
                 data: 'Address 2 Address 2 Address 2',
               },
             ],
+            claimDefinitionSchemaSequenceNumber: 36,
           },
           issuer: {
             name: 'Test Issuer',
+            did: 'issuerDid',
           },
           statusMsg: 'pending',
         },
@@ -80,5 +85,33 @@ describe('<PushNotificationNavigator />', () => {
       )
       .toJSON()
     expect(wrapper).toMatchSnapshot()
+  })
+})
+
+describe('convertClaimOfferPushPayloadToAppClaimOffer', () => {
+  it('should convert push payload to claim offer format correctly', () => {
+    const claimOfferPushPayload = {
+      msg_type: 'CLAIM_OFFER',
+      version: '0.1',
+      to_did: 'BnRXf8yDMUwGyZVDkSENeq',
+      from_did: 'GxtnGN6ypZYgEqcftSQFnC',
+      iid: 'cCanHnpFAD',
+      mid: '',
+      claim: {
+        name: ['Alice'],
+        date_of_birth: ['2000-05-17'],
+        height: ['175'],
+      },
+      schema_seq_no: 12,
+      issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
+      nonce: '351590',
+      claim_name: 'Profile detail',
+      issuer_name: 'Test Enterprise',
+      optional_data: { terms_of_service: '<Large block of text>', price: 6 },
+    }
+
+    expect(
+      convertClaimOfferPushPayloadToAppClaimOffer(claimOfferPushPayload)
+    ).toMatchSnapshot()
   })
 })

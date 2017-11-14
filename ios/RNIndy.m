@@ -52,7 +52,7 @@ RCT_EXPORT_MODULE();
 // Export methods to a native module
 // https://facebook.github.io/react-native/docs/native-modules-ios.html
 
-#pragma mark - Abstracted methods
+#pragma mark - React Native exposed methods
 
 RCT_EXPORT_METHOD(addConnection: (NSString *) remoteDID
                   remoteVerKey: (NSString *) remoteVerificationKey
@@ -73,7 +73,8 @@ RCT_EXPORT_METHOD(addConnection: (NSString *) remoteDID
 
 RCT_EXPORT_METHOD(getConnectionForDid: (NSString *) remoteDID
                   resolver: (RCTPromiseResolveBlock) resolve
-                  rejecter: (RCTPromiseRejectBlock) reject) {
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
   ConnectMeIndy *indy = [RNIndy sharedIndyInstance];
   [indy getConnectionForDid:remoteDID completion:^(NSError *error, NSString *did, NSString *metadata) {
     if (error != nil) {
@@ -84,14 +85,31 @@ RCT_EXPORT_METHOD(getConnectionForDid: (NSString *) remoteDID
   }];
 }
 
-RCT_EXPORT_METHOD(sign)
+RCT_EXPORT_METHOD(encrypt)
 {
   // sign the string for passed remote did
 }
 
-RCT_EXPORT_METHOD(verify)
+RCT_EXPORT_METHOD(decrypt)
 {
   // verify data for given remote did
+}
+
+RCT_EXPORT_METHOD(generateClaimRequest: (NSString *) remoteDID
+                  withClaimOffer: (NSString *) claimOffer
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+    ConnectMeIndy *indy = [RNIndy sharedIndyInstance];
+    [indy generateClaimRequestForRemoteDid:remoteDID
+                                claimOffer:claimOffer
+                                completion:^(NSError *error, NSString *generatedClaimReqJSON) {
+        if (error != nil) {
+            reject(@"Error_generateClaimRequest", @"Error occurred while generating claim request", error);
+        } else {
+            resolve(generatedClaimReqJSON);
+        }
+    }];
 }
 
 RCT_EXPORT_METHOD(getClaim)

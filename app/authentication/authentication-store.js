@@ -1,8 +1,8 @@
 // @flow
 import { put, takeLatest, call, all } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
-import { sendAuthenticationRequest } from '../services'
-import type { ConfigStore } from '../store/type-store'
+import { sendAuthenticationRequest } from '../api/api'
+import type { ConfigStore } from '../store/type-config-store'
 import type {
   AuthenticationStatus,
   AuthenticationType,
@@ -104,11 +104,12 @@ function* handleUserAuthenticationResponse(
       // add signature
       action.data.dataBody.signature = signature
 
-      authenticationActionResponse = yield call(
-        sendAuthenticationRequest,
-        action
-      )
-      yield put(sendUserAuthenticationResponseSuccess(action.data))
+      // TODO: Fix this while fixing authentication flow
+      // authenticationActionResponse = yield call(
+      //   sendAuthenticationRequest,
+      //   action
+      // )
+      // yield put(sendUserAuthenticationResponseSuccess(action.data))
     }
   } catch (e) {
     yield put(

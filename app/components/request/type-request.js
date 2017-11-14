@@ -31,7 +31,7 @@ export const ResponseType = {
 export type ResponseTypes = $Keys<typeof ResponseType>
 
 export type RequestProps = RequestDetailProps & {
-  onAction: (response: ResponseTypes) => any,
+  onAction: (response: ResponseTypes) => void,
   showErrorAlerts: boolean,
 }
 

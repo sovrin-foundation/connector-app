@@ -1,5 +1,5 @@
 import { takeLatest, call, put } from 'redux-saga/effects'
-import { getItem, deleteItem } from '../services'
+import { getItem, deleteItem } from '../services/secure-storage'
 import { updatePushToken } from '../push-notification/push-notification-store'
 import { hydrateConnections } from '../store/connections-store'
 import { CONNECTIONS, PUSH_COM_METHOD } from '../common'

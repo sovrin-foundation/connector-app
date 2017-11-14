@@ -1,12 +1,29 @@
 import 'react-native'
-// Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer'
 
 import connectionReducer, {
   saveNewConnection,
   saveNewConnectionSuccess,
   saveNewConnectionFailed,
+  connectionMapper,
 } from '../connections-store'
+import { bubbleSize } from '../../common/styles'
+
+describe('Mapper', () => {
+  it('connectionMapper should return proper object', () => {
+    const connection = {
+      identifier: '3nj819kkjywdppuje79',
+      logoUrl: 'https://test-agengy.com/logo',
+      size: bubbleSize.XL,
+      name: 'test',
+      senderDID: '123819kkjywdppuj987',
+      senderEndpoint: 'https://test-endpoint.com',
+      remoteConnectionId: '5iZiu2aLYrQXSdon123456',
+    }
+    const tree = connectionMapper(connection)
+    expect(tree).toMatchSnapshot()
+  })
+})
 
 describe('connections should update correctly', () => {
   let initialState = {}

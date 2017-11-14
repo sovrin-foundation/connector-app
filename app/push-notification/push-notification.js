@@ -9,7 +9,7 @@ import {
   fetchAdditionalData,
 } from '../store'
 import { PUSH_COM_METHOD } from '../common'
-import { setItem } from '../services'
+import { setItem } from '../services/secure-storage'
 import PushNotificationNavigator from './push-notification-navigator'
 
 export class PushNotification extends PureComponent {

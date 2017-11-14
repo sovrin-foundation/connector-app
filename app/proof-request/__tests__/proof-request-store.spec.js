@@ -21,9 +21,11 @@ describe('proof request store', () => {
             label: 'Address 2',
           },
         ],
+        claimDefinitionSchemaSequenceNumber: 36,
       },
       issuer: {
         name: 'Test Issuer',
+        did: 'issuerDid',
       },
       statusMsg: 'pending',
     },

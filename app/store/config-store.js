@@ -1,3 +1,4 @@
+// @flow
 /**
  * this contains configuration which is changed only from user action
  * this store should not contain any configuration
@@ -8,15 +9,27 @@ import { AsyncStorage } from 'react-native'
 import { put, take, all, call, select } from 'redux-saga/effects'
 import { IS_ALREADY_INSTALLED } from '../common'
 import { hydrateApp } from '../store/hydration-store'
-import { setItem, getItem, deleteItem, captureError } from '../services'
+import { setItem, getItem, deleteItem } from '../services/secure-storage'
+import { captureError } from '../services/error/error-handler'
 import { lockEnable } from '../lock/lock-store'
 import { PIN_STORAGE_KEY } from '../lock/type-lock'
 import { getErrorAlertsSwitchValue } from '../store/store-selector'
-
-export const SERVER_ENVIRONMENT = {
-  DEMO: 'DEMO',
-  SANDBOX: 'SANDBOX',
-}
+import {
+  SERVER_ENVIRONMENT,
+  HYDRATED,
+  APP_INSTALLED,
+  ALREADY_INSTALLED_RESULT,
+  SERVER_ENVIRONMENT_CHANGED,
+  SERVER_ENVIRONMENT_CHANGED_DEMO,
+  SERVER_ENVIRONMENT_CHANGED_SANDBOX,
+  SWITCH_ERROR_ALERTS,
+  TOGGLE_ERROR_ALERTS,
+} from './type-config-store'
+import type {
+  ServerEnvironment,
+  ConfigStore,
+  ConfigAction,
+} from './type-config-store'
 
 export const baseUrls = {
   [SERVER_ENVIRONMENT.SANDBOX]: {
@@ -29,7 +42,7 @@ export const baseUrls = {
   },
 }
 
-const initialState = {
+const initialState: ConfigStore = {
   ...baseUrls[SERVER_ENVIRONMENT.SANDBOX],
   isAlreadyInstalled: false,
   // this flag is used to identify if we got the already stored data
@@ -45,21 +58,11 @@ const initialState = {
   // next time user opens the app, he won't be asked to setup pin
 }
 
-export const APP_INSTALLED = 'APP_INSTALLED'
-export const HYDRATED = 'HYDRATED'
-export const ALREADY_INSTALLED_RESULT = 'ALREADY_INSTALLED_RESULT'
-export const SERVER_ENVIRONMENT_CHANGED = 'SERVER_ENVIRONMENT_CHANGED'
-export const SERVER_ENVIRONMENT_CHANGED_DEMO = 'SERVER_ENVIRONMENT_CHANGED_DEMO'
-export const SERVER_ENVIRONMENT_CHANGED_SANDBOX =
-  'SERVER_ENVIRONMENT_CHANGED_SANDBOX'
-export const SWITCH_ERROR_ALERTS = 'SWITCH_ERROR_ALERTS'
-export const TOGGLE_ERROR_ALERTS = 'TOGGLE_ERROR_ALERTS'
-
 export const hydrated = () => ({
   type: HYDRATED,
 })
 
-export const alreadyInstalledAction = isAlreadyInstalled => ({
+export const alreadyInstalledAction = (isAlreadyInstalled: boolean) => ({
   type: ALREADY_INSTALLED_RESULT,
   isAlreadyInstalled,
 })
@@ -76,7 +79,9 @@ export const changeServerEnvironmentToSandbox = () => ({
   type: SERVER_ENVIRONMENT_CHANGED_SANDBOX,
 })
 
-export const changeServerEnvironment = serverEnvironment => ({
+export const changeServerEnvironment = (
+  serverEnvironment: ServerEnvironment
+) => ({
   type: SERVER_ENVIRONMENT_CHANGED,
   serverEnvironment,
 })
@@ -85,12 +90,12 @@ export const switchErrorAlerts = () => ({
   type: SWITCH_ERROR_ALERTS,
 })
 
-export const toggleErrorAlerts = isShowErrorAlert => ({
+export const toggleErrorAlerts = (isShowErrorAlert: boolean) => ({
   type: TOGGLE_ERROR_ALERTS,
   isShowErrorAlert,
 })
 
-export function* watchChangeEnvironmentToDemo() {
+export function* watchChangeEnvironmentToDemo(): Generator<*, *, *> {
   while (true) {
     for (let i = 0; i < 4; i++) {
       yield take(SERVER_ENVIRONMENT_CHANGED_DEMO)
@@ -100,7 +105,7 @@ export function* watchChangeEnvironmentToDemo() {
   }
 }
 
-export function* watchChangeEnvironmentToSandbox() {
+export function* watchChangeEnvironmentToSandbox(): Generator<*, *, *> {
   while (true) {
     for (let i = 0; i < 4; i++) {
       yield take(SERVER_ENVIRONMENT_CHANGED_SANDBOX)
@@ -110,7 +115,7 @@ export function* watchChangeEnvironmentToSandbox() {
   }
 }
 
-export function* watchSwitchErrorAlerts() {
+export function* watchSwitchErrorAlerts(): Generator<*, *, *> {
   while (true) {
     for (let i = 0; i < 4; i++) {
       yield take(SWITCH_ERROR_ALERTS)
@@ -121,7 +126,7 @@ export function* watchSwitchErrorAlerts() {
   }
 }
 
-export function* alreadyInstalledNotFound() {
+export function* alreadyInstalledNotFound(): Generator<*, *, *> {
   yield put(alreadyInstalledAction(false))
 
   // clear security setup flag
@@ -140,7 +145,7 @@ export function* alreadyInstalledNotFound() {
   }
 }
 
-export function* hydrateConfig() {
+export function* hydrateConfig(): Generator<*, *, *> {
   let isAlreadyInstalled
   try {
     isAlreadyInstalled = yield call(AsyncStorage.getItem, IS_ALREADY_INSTALLED)
@@ -175,7 +180,7 @@ export function* hydrateConfig() {
   yield put(hydrated())
 }
 
-export function* watchConfig() {
+export function* watchConfig(): Generator<*, *, *> {
   yield all([
     watchChangeEnvironmentToDemo(),
     watchChangeEnvironmentToSandbox(),
@@ -184,7 +189,10 @@ export function* watchConfig() {
   ])
 }
 
-export default function configReducer(state = initialState, action) {
+export default function configReducer(
+  state: ConfigStore = initialState,
+  action: ConfigAction
+) {
   switch (action.type) {
     case SERVER_ENVIRONMENT_CHANGED:
       const urls = baseUrls[action.serverEnvironment]

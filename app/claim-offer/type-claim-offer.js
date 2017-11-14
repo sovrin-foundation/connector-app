@@ -99,16 +99,16 @@ export type ClaimOfferAction =
   | ClaimRequestFailAction
   | ClaimRequestInitialAction
 
-export type ClaimOfferStore = {
-  +[string]: AdditionalDataPayload,
-}
-
 export type ClaimOfferPayload = AdditionalDataPayload & {
   uid: string,
   senderLogoUrl?: ?string,
   remotePairwiseDID: string,
   status: ClaimOfferStatus,
   claimRequestStatus: ClaimRequestStatus,
+}
+
+export type ClaimOfferStore = {
+  +[string]: ClaimOfferPayload,
 }
 
 export type ClaimOfferProps = {
@@ -124,7 +124,7 @@ export type ClaimOfferProps = {
 
 export type ClaimRequestStatusModalProps = {
   claimRequestStatus: ClaimRequestStatus,
-  payload: AdditionalDataPayload,
+  payload: ClaimOfferPayload,
   onContinue: () => void,
 }
 

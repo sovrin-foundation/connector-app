@@ -54,9 +54,11 @@ describe('<ClaimOffer />', () => {
           data: 'An Address 2',
         },
       ],
+      claimDefinitionSchemaSequenceNumber: 36,
     },
     issuer: {
       name: 'Test Issuer',
+      did: 'issuerDid',
     },
     uid: 'asd123',
     senderLogoUrl: 'http://testissuer.com/logoUrl.png',

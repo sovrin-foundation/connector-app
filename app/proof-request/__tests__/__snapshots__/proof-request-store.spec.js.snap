@@ -4,6 +4,7 @@ exports[`proof request store proof request is received 1`] = `
 Object {
   "usd123": Object {
     "data": Object {
+      "claimDefinitionSchemaSequenceNumber": 36,
       "name": "Home Address",
       "revealedAttributes": Array [
         Object {
@@ -16,6 +17,7 @@ Object {
       "version": "1.0.0",
     },
     "issuer": Object {
+      "did": "issuerDid",
       "name": "Test Issuer",
     },
     "proofStatus": "NONE",

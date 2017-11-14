@@ -20,7 +20,6 @@ import {
   PASS_CODE_TEST_ID,
   TOUCH_ID_TEST_ID,
   USERNAME_TEST_ID,
-  SETTING_CONTAINER_HEIGHT,
 } from './settings-constant'
 
 const style = StyleSheet.create({

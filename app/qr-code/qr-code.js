@@ -15,7 +15,7 @@ import {
   QR_CODE_AGENT_PROOF,
   QR_CODE_SENDER_DID,
   QR_CODE_SENDER_VERIFICATION_KEY,
-} from '../services/api'
+} from '../api/api-constants'
 import {
   invitationRoute,
   qrCodeScannerTabRoute,

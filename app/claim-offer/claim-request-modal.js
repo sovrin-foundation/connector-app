@@ -59,9 +59,12 @@ export default class ClaimRequestStatusModal extends PureComponent<
   }
 
   render() {
-    const { claimRequestStatus, payload: { issuer, data } } = this.props
-    const avatarRight = issuer.logoUrl
-      ? { uri: issuer.logoUrl }
+    const {
+      claimRequestStatus,
+      payload: { issuer, data, senderLogoUrl },
+    }: ClaimRequestStatusModalProps = this.props
+    const avatarRight = senderLogoUrl
+      ? { uri: senderLogoUrl }
       : require('../images/cb_evernym.png')
     const { middleImage, middleImageStyle } =
       claimRequestStatus === CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS
@@ -77,6 +80,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
       claimRequestStatus === CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST
         ? `Waiting for ${issuer.name} to issue`
         : 'Successfully issued'
+
     return (
       <CustomModal
         disabled={
@@ -122,6 +126,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
     )
   }
 }
+
 const styles = StyleSheet.create({
   connectedArrow: {
     height: 20,

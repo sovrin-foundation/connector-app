@@ -1,5 +1,5 @@
 // @flow
-import { schemaValidator } from '../../services/'
+import schemaValidator from '../../services/schema-validator'
 import {
   QR_CODE_SENDER_DID,
   QR_CODE_SENDER_VERIFICATION_KEY,
@@ -9,7 +9,7 @@ import {
   QR_CODE_SENDER_NAME,
   QR_CODE_TARGET_NAME,
   QR_CODE_SENDER_ENDPOINT,
-} from '../../services/api'
+} from '../../api/api-constants'
 import type { QrCode } from './type-qr-scanner'
 
 const qrSchema = {

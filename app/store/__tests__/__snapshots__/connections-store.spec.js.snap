@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Mapper Service connectionMapper should return proper object 1`] = `
+exports[`Mapper connectionMapper should return proper object 1`] = `
 Object {
   "identifier": "3nj819kkjywdppuje79",
   "logoUrl": "https://test-agengy.com/logo",

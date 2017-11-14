@@ -8,7 +8,7 @@ import {
   acceptClaimOffer,
   claimOfferRejected,
   claimOfferIgnored,
-} from '../store'
+} from './claim-offer-store'
 import {
   Container,
   CustomView,
@@ -119,10 +119,12 @@ export class ClaimOffer extends PureComponent<void, ClaimOfferProps, void> {
       issuer,
       data,
     }: ClaimOfferPayload = claimOfferData
+
     const logoUri = logoUrl
       ? { uri: logoUrl }
       : require('../images/cb_evernym.png')
     const testID = 'claim-offer'
+
     return (
       <Container fifth>
         {isValid && (

@@ -19,7 +19,7 @@ import lockReducer, {
   setPinAction,
   checkPinStatusIdle,
 } from '../lock-store'
-import { setItem, getItem } from '../../services'
+import { setItem, getItem } from '../../services/secure-storage'
 
 const initialState: LockStore = {
   pendingRedirection: null,

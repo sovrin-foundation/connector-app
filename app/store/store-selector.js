@@ -1,5 +1,6 @@
 // @flow
-import type { Store, Connections, Connection } from './type-store'
+import type { Store } from './type-store'
+import type { Connections, Connection } from './type-connection-store'
 
 export const getConfig = (state: Store) => state.config
 
@@ -26,7 +27,7 @@ export const getInvitationPayload = (
   invitationSenderDID: string
 ) => state.invitation[invitationSenderDID].payload
 
-export const isDuplicateConnection = (state: Store, senderDID: string) => {
+const getConnection = (state: Store, senderDID: string): Array<Connection> => {
   const connections = getAllConnection(state)
   if (connections) {
     // Had to use `any` type here even though we know `Array<Connection>`
@@ -37,12 +38,44 @@ export const isDuplicateConnection = (state: Store, senderDID: string) => {
     // key in advance which is not the case here because we don't know DIDs
     // with which we will make connections
     const savedConnections: Array<any> = Object.values(connections)
-    return (
-      savedConnections.filter(
-        (connection: Connection) => connection.senderDID === senderDID
-      ).length > 0
+    return savedConnections.filter(
+      (connection: Connection) => connection.senderDID === senderDID
     )
-  } else {
-    return false
   }
+
+  return []
+}
+
+export const isDuplicateConnection = (state: Store, senderDID: string) => {
+  const connections = getConnection(state, senderDID)
+
+  return connections.length > 0
+}
+
+export const getClaimOffer = (state: Store, claimOfferId: string) =>
+  state.claimOffer[claimOfferId]
+
+export const getUserPairwiseDid = (state: Store, senderDID: string) => {
+  const connections = getConnection(state, senderDID)
+  if (connections.length > 0) {
+    return connections[0].identifier
+  }
+
+  return null
+}
+
+export const getRemotePairwiseDid = (
+  state: Store,
+  userDid: string
+): string | null => {
+  if (state.connections.data) {
+    const connection = state.connections.data[userDid]
+    if (connection) {
+      return connection.senderDID
+    }
+
+    return null
+  }
+
+  return null
 }

@@ -10,9 +10,12 @@ import smsPendingInvitationReducer, {
   smsPendingInvitationSeen,
 } from '../sms-pending-invitation-store'
 import { SMSPendingInvitationStatus } from '../type-sms-pending-invitation'
-import { getInvitationLink, invitationDetailsRequest } from '../../services'
-import { PENDING_CONNECTION_REQUEST_CODE, API_TYPE } from '../../services/api'
-import { addConnection, encrypt } from '../../bridge/react-native-cxs/RNCxs'
+import { getInvitationLink, invitationDetailsRequest } from '../../api/api'
+import {
+  PENDING_CONNECTION_REQUEST_CODE,
+  API_TYPE,
+} from '../../api/api-constants'
+import { encrypt } from '../../bridge/react-native-cxs/RNCxs'
 import { initialTestAction } from '../../common/type-common'
 import { invitationReceived } from '../../invitation/invitation-store'
 

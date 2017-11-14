@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { PUSH_NOTIFICATION_TYPE } from '../services'
+import { MESSAGE_TYPE } from '../api/api-constants'
 import {
   fetchAdditionalData,
   authenticationRequestReceived,
@@ -24,6 +24,8 @@ import type {
   NotificationPayload,
   PushNotificationNavigatorProps,
   NextPropsPushNotificationNavigator,
+  ClaimOfferPushPayload,
+  AdditionalDataPayload,
 } from './type-push-notification'
 
 import type { NavigationParams } from '../common/type-common'
@@ -31,6 +33,42 @@ import type { NavigationParams } from '../common/type-common'
 const blackListedRoute = {
   [invitationRoute]: invitationRoute,
   [qrCodeScannerTabRoute]: qrCodeScannerTabRoute,
+}
+
+export function convertClaimOfferPushPayloadToAppClaimOffer(
+  pushPayload: ClaimOfferPushPayload
+): AdditionalDataPayload {
+  /**
+   * Below expression Converts this format
+   * {
+   *  name: ["Test"],
+   *  height: ["170"]
+   * }
+   * TO
+   * [
+   *  {label: "name", data: "Test"},
+   *  {label: "height", data: "170"},
+   * ]
+   */
+  const revealedAttributes = Object.keys(
+    pushPayload.claim
+  ).map(attributeName => ({
+    label: attributeName,
+    data: pushPayload.claim[attributeName][0],
+  }))
+
+  return {
+    issuer: {
+      name: pushPayload.issuer_name,
+      did: pushPayload.issuer_did,
+    },
+    data: {
+      name: pushPayload.claim_name,
+      version: pushPayload.version,
+      revealedAttributes,
+      claimDefinitionSchemaSequenceNumber: pushPayload.schema_seq_no,
+    },
+  }
 }
 
 export class PushNotificationNavigator extends PureComponent<
@@ -55,22 +93,25 @@ export class PushNotificationNavigator extends PureComponent<
       if (type)
         if (!blackListedRoute[this.props.currentScreen])
           switch (type) {
-            case PUSH_NOTIFICATION_TYPE.AUTH:
+            case MESSAGE_TYPE.AUTH:
               // TODO:PS: handle auth request
               break
 
-            case PUSH_NOTIFICATION_TYPE.CLAIM_OFFER:
-              this.props.claimOfferReceived(additionalData, {
-                uid,
-                senderLogoUrl,
-                remotePairwiseDID,
-              })
+            case MESSAGE_TYPE.CLAIM_OFFER:
+              this.props.claimOfferReceived(
+                convertClaimOfferPushPayloadToAppClaimOffer(additionalData),
+                {
+                  uid,
+                  senderLogoUrl,
+                  remotePairwiseDID,
+                }
+              )
               this.handleRedirection(claimOfferRoute, {
                 uid,
               })
               break
 
-            case PUSH_NOTIFICATION_TYPE.PROOF_REQUEST:
+            case MESSAGE_TYPE.PROOF_REQUEST:
               this.props.proofRequestReceived(additionalData, {
                 uid,
                 senderLogoUrl,

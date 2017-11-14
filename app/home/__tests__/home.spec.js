@@ -9,9 +9,9 @@ import {
   authenticationRoute,
 } from '../../common'
 import {
-  PUSH_NOTIFICATION_TYPE,
+  MESSAGE_TYPE,
   PUSH_NOTIFICATION_SENT_CODE,
-} from '../../services/api'
+} from '../../api/api-constants'
 import { DashboardScreen } from '../home'
 
 function props(claimOfferStatus) {
@@ -66,7 +66,7 @@ describe('<DashboardScreen />', () => {
   //     ...dashboardProps,
   //     pushNotification: {
   //       notification: {
-  //         type: PUSH_NOTIFICATION_TYPE.AUTH,
+  //         type: MESSAGE_TYPE.AUTH,
   //         authNotifMsgTitle: 'Test title',
   //         authNotifMsgText: 'Test authentication request message',
   //         logoUrl: 'https://logourl.com/logoUrl.png',
@@ -100,7 +100,7 @@ describe('<DashboardScreen />', () => {
   //     ...dashboardProps,
   //     pushNotification: {
   //       notification: {
-  //         type: PUSH_NOTIFICATION_TYPE.CLAIM_OFFER,
+  //         type: MESSAGE_TYPE.CLAIM_OFFER,
   //       },
   //     },
   //   }

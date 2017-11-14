@@ -29,7 +29,7 @@ import type {
   UnlockAppAction,
   CheckPinIdleAction,
 } from './type-lock'
-import { getItem, setItem } from '../services'
+import { getItem, setItem } from '../services/secure-storage'
 
 const initialState: LockStore = {
   pendingRedirection: null,

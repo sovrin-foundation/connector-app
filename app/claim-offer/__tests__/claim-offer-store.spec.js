@@ -1,5 +1,5 @@
 // @flow
-import { put, call } from 'redux-saga/effects'
+import { put, call, select } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import claimOfferStore, {
   claimOfferReceived,
@@ -15,6 +15,13 @@ import claimOfferStore, {
 import { CLAIM_OFFER_ACCEPTED } from '../type-claim-offer'
 import { INITIAL_TEST_ACTION } from '../../common/type-common'
 import type { ClaimOfferAcceptedAction } from '../type-claim-offer'
+import {
+  getClaimOffer,
+  getUserPairwiseDid,
+  getAgencyUrl,
+} from '../../store/store-selector'
+import { generateClaimRequest } from '../../bridge/react-native-cxs/RNCxs'
+import { sendClaimRequest as sendClaimRequestApi } from '../../api/api'
 
 describe('claim offer store', () => {
   const initialAction = { type: 'INITIAL_TEST_ACTION' }
@@ -37,9 +44,11 @@ describe('claim offer store', () => {
             data: 'Address 2 Address 2 Address 2',
           },
         ],
+        claimDefinitionSchemaSequenceNumber: 36,
       },
       issuer: {
         name: 'Test Issuer',
+        did: 'issuerDid',
       },
       statusMsg: 'pending',
     },
@@ -97,15 +106,56 @@ describe('claim offer store', () => {
   })
 
   it('claim request is fail', () => {
-    newState = claimOfferStore(newState, claimRequestFail(uid))
+    newState = claimOfferStore(
+      newState,
+      claimRequestFail(uid, {
+        code: 'TEST-100',
+        message: 'Claim request failed',
+      })
+    )
     expect(newState).toMatchSnapshot()
   })
 
   it('claim request saga works fine after claim offer is accepted', () => {
+    const afterClaimOfferReceived = {
+      ...claimOffer.payload,
+      ...claimOffer.payloadInfo,
+    }
     const gen = claimOfferAccepted(acceptClaimOffer(uid))
-    expect(gen.next().value).toMatchObject(put(sendClaimRequest(uid)))
-    expect(gen.next().value).toMatchObject(call(delay, 2000))
+
+    expect(gen.next().value).toEqual(select(getClaimOffer, uid))
+
+    const remoteDid = claimOffer.payloadInfo.remotePairwiseDID
+    expect(gen.next(afterClaimOfferReceived).value).toEqual(
+      select(getUserPairwiseDid, remoteDid)
+    )
+
+    const userPairwiseDid = 'userPairwiseDID1'
+    expect(gen.next(userPairwiseDid).value).toEqual(put(sendClaimRequest(uid)))
+    expect(gen.next().value).toEqual(select(getAgencyUrl))
+
+    const agencyUrl = 'https://agencyUrl.com'
+    const expectedIndyClaimOffer = {
+      issuerDid: claimOffer.payload.issuer.did,
+      schemaSequenceNumber:
+        claimOffer.payload.data.claimDefinitionSchemaSequenceNumber,
+    }
+    expect(gen.next(agencyUrl).value).toEqual(
+      call(generateClaimRequest, remoteDid, expectedIndyClaimOffer)
+    )
+
+    const claimRequest = 'claim request'
+    const expectedApiData = {
+      claimRequest,
+      agencyUrl,
+      userPairwiseDid,
+      responseMsgId: uid,
+    }
+    expect(gen.next(claimRequest).value).toEqual(
+      call(sendClaimRequestApi, expectedApiData)
+    )
     expect(gen.next().value).toMatchObject(put(claimRequestSuccess(uid)))
+
     expect(gen.next().done).toBe(true)
   })
 })

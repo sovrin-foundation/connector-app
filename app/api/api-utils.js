@@ -1,10 +1,13 @@
 // @flow
 import { SERVER_ERROR_CODE, SERVER_API_CALL_ERROR } from './api-constants'
-import { captureError } from '../error/error-handler'
-import type { CustomError } from '../../common/type-common'
+import { captureError } from '../services/error/error-handler'
+import type { CustomError } from '../common/type-common'
 import type { ApiData, BackendError } from './type-api'
 
-export const options = (method: string = 'GET', body: ?{ [string]: any }) => {
+export const options = (
+  method: string = 'GET',
+  body: ?{ [string]: any } = null
+) => {
   let data: ApiData = {
     method,
     mode: 'cors',
@@ -21,7 +24,11 @@ export const options = (method: string = 'GET', body: ?{ [string]: any }) => {
   return data
 }
 
-export const api = (url: string, apiOptions: ApiData, showAlert: boolean) =>
+export const api = (
+  url: string,
+  apiOptions: ApiData,
+  showAlert: boolean = false
+) =>
   fetch(url, apiOptions)
     .then(res => {
       // TODO:KS create common method to return successful
@@ -53,7 +60,7 @@ export const api = (url: string, apiOptions: ApiData, showAlert: boolean) =>
         return response.payload
       } else {
         let errorResponse: CustomError = {
-          message: 'Server error',
+          message: response.error,
           code: SERVER_ERROR_CODE,
         }
 
@@ -65,7 +72,7 @@ export const api = (url: string, apiOptions: ApiData, showAlert: boolean) =>
             message: backendError.statusMsg,
             code: backendError.statusCode,
           }
-        } finally {
+        } catch (e) {
           // since we did not get error code and message
           // let's just use default that we assigned above,
           // we don't need to do anything here

@@ -13,7 +13,7 @@ import {
 import {
   TOKEN_EXPIRED_CODE,
   PENDING_CONNECTION_REQUEST_CODE,
-} from '../services/api'
+} from '../api/api-constants'
 import { addPendingRedirection } from '../store'
 import { getSmsPendingInvitation } from '../sms-pending-invitation/sms-pending-invitation-store'
 
