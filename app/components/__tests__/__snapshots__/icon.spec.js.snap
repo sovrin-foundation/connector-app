@@ -47,6 +47,9 @@ exports[`<Icon /> should match snapshot 1`] = `
             "width": 80,
           },
           Object {
+            "borderRadius": 40,
+          },
+          Object {
             "width": 90,
           },
         ]

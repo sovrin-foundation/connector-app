@@ -21,7 +21,6 @@ describe('proof request store', () => {
             label: 'Address 2',
           },
         ],
-        claimDefinitionSchemaSequenceNumber: 36,
       },
       issuer: {
         name: 'Test Issuer',
@@ -36,11 +35,8 @@ describe('proof request store', () => {
     },
   }
 
-  beforeEach(() => {
-    initialState = proofRequestStore(undefined, initialAction)
-  })
-
   it('should correctly calculate initial state', () => {
+    initialState = proofRequestStore(undefined, initialAction)
     expect(initialState).toMatchSnapshot()
   })
 

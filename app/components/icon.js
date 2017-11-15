@@ -15,6 +15,7 @@ const Icon = props => {
     testID,
     resizeMode = 'contain',
     halo,
+    round,
     haloStyle = empty,
   } = props
   const size = small
@@ -22,11 +23,11 @@ const Icon = props => {
     : medium
       ? 'medium'
       : extraLarge ? 'extraLarge' : mediumLarge ? 'mediumLarge' : 'large'
-
+  const roundImageStyle = halo || round ? styles[`${size}RoundIcon`] : null
   const iconImage = (
     <Image
       source={src}
-      style={[styles[size], ...iconStyle]}
+      style={[styles[size], roundImageStyle, ...iconStyle]}
       resizeMode={resizeMode}
       testID={testID}
     />
@@ -78,6 +79,21 @@ const styles = StyleSheet.create({
   extraLarge: {
     width: size.extraLarge,
     height: size.extraLarge,
+  },
+  smallRoundIcon: {
+    borderRadius: size.small / 2,
+  },
+  mediumRoundIcon: {
+    borderRadius: size.medium / 2,
+  },
+  largeRoundIcon: {
+    borderRadius: size.large / 2,
+  },
+  mediumLargeRoundIcon: {
+    borderRadius: size.mediumLarge / 2,
+  },
+  extraLargeRoundIcon: {
+    borderRadius: size.extraLarge / 2,
   },
   extraLargeHalo: {
     // we are assuming that halo will be at least 20pt larger than image

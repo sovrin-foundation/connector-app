@@ -41,7 +41,7 @@ describe('<Request />', () => {
     senderLogoUrl: 'https://image.url',
     onAction: jest.fn(),
     showErrorAlerts: false,
-    testID: 'invitation',
+    testID: 'request',
   }
 
   beforeEach(() => {
@@ -52,7 +52,6 @@ describe('<Request />', () => {
           {...defaultProps}
           showErrorAlerts={defaultProps.showErrorAlerts}
           onAction={defaultProps.onAction}
-          testID={'request'}
         />
       </Provider>
     )

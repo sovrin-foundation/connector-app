@@ -29,7 +29,6 @@ describe('<PushNotificationNavigator />', () => {
                 data: 'Address 2 Address 2 Address 2',
               },
             ],
-            claimDefinitionSchemaSequenceNumber: 36,
           },
           issuer: {
             name: 'Test Issuer',

@@ -127,6 +127,7 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
               "height": 80,
               "width": 80,
             },
+            null,
           ]
         }
         testID={undefined}

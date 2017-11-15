@@ -2,8 +2,8 @@
 import { INITIAL_TEST_ACTION } from '../common/type-common'
 import type { CustomError } from '../common/type-common'
 import type {
-  AdditionalDataPayload,
-  AdditionalData,
+  AdditionalProofDataPayload,
+  AdditionalProofData,
   ClaimProofNavigation,
   NotificationPayload,
   Attribute,
@@ -13,26 +13,41 @@ import type {
 export type ProofRequestAttributeListProp = {
   list: Array<Attribute>,
 }
+export type ProofModalState = {
+  isVisible: boolean,
+}
+export type ProofModalProps = {
+  proofStatus: ProofStatus,
+  name: string,
+  title: string,
+  logoUrl: string,
+  onContinue: () => void,
+}
 
-export type ProofRequestPayload = AdditionalDataPayload & {
+export type ProofRequestPayload = AdditionalProofDataPayload & {
   status: ProofRequestStatus,
-  sendProofStatus: SendProofStatus,
+  proofStatus: ProofStatus,
   uid: string,
   senderLogoUrl?: ?string,
   remotePairwiseDID: string,
 }
 export type ProofRequestProps = {
   isValid: boolean,
-  data: AdditionalData,
+  data: AdditionalProofData,
   logoUrl: string,
-  issuerName: string,
+  proofStatus: ProofStatus,
+  name: string,
+  ignoreProofRequest: (uid: string) => void,
+  rejectProofRequest: (uid: string) => void,
+  acceptProofRequest: (uid: string) => void,
+  proofRequestShown: (uid: string) => void,
   uid: string,
   navigation: ClaimProofNavigation,
 }
 export const PROOF_REQUEST_RECEIVED = 'PROOF_REQUEST_RECEIVED'
 export type ProofRequestReceivedAction = {
   type: typeof PROOF_REQUEST_RECEIVED,
-  payload: AdditionalDataPayload,
+  payload: AdditionalProofDataPayload,
   payloadInfo: NotificationPayloadInfo,
 }
 
@@ -44,7 +59,7 @@ export const PROOF_REQUEST_STATUS = {
   IGNORED: 'IGNORED',
   REJECTED: 'REJECTED',
 }
-export const SEND_PROOF_STATUS = {
+export const PROOF_STATUS = {
   NONE: 'NONE',
   SENDING_PROOF: 'SENDING_PROOF',
   SEND_PROOF_FAIL: 'SEND_PROOF_FAIL',
@@ -52,7 +67,7 @@ export const SEND_PROOF_STATUS = {
 }
 
 export type ProofRequestStatus = $Keys<typeof PROOF_REQUEST_STATUS>
-export type SendProofStatus = $Keys<typeof SEND_PROOF_STATUS>
+export type ProofStatus = $Keys<typeof PROOF_STATUS>
 
 export const PROOF_REQUEST_SHOWN = 'PROOF_REQUEST_SHOWN'
 export type ProofRequestShownAction = {

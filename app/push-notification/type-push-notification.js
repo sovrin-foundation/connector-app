@@ -90,6 +90,20 @@ export type AdditionalData = {
   revealedAttributes: Array<Attribute>,
   claimDefinitionSchemaSequenceNumber: number,
 }
+export type AdditionalProofData = {
+  name: string,
+  version: string,
+  revealedAttributes: Array<Attribute>,
+}
+
+export type AdditionalProofDataPayload = {
+  data: AdditionalProofData,
+  issuer: {
+    name: string,
+    did: string,
+  },
+  statusMsg?: string,
+}
 
 export type AdditionalDataPayload = {
   data: AdditionalData,

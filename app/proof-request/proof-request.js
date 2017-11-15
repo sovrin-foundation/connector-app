@@ -28,12 +28,19 @@ import {
   isiPhone5,
 } from '../common/styles'
 import type {
-  AdditionalDataPayload,
+  AdditionalProofDataPayload,
   Attribute,
 } from '../push-notification/type-push-notification'
 import type { ProofRequestAttributeListProp } from './type-proof-request'
 import type { Store } from '../store/type-store'
 import type { ProofRequestProps } from './type-proof-request'
+import ProofModal from './proof-modal'
+import {
+  rejectProofRequest,
+  acceptProofRequest,
+  ignoreProofRequest,
+  proofRequestShown,
+} from './proof-request-store'
 
 class ProofRequestAttributeList extends PureComponent<
   void,
@@ -76,9 +83,10 @@ class ProofRequestAttributeList extends PureComponent<
         <Icon
           center
           medium
+          round
           resizeMode="cover"
           src={require('../images/cb_evernym.png')}
-          testID={`proof-request-issuer-logo-${index}`}
+          testID={`proof-issuer-logo-${index}`}
         />
       </Container>
     )
@@ -106,22 +114,27 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
   }
 
   onIgnore = () => {
+    this.props.ignoreProofRequest(this.props.uid)
     this.close()
   }
 
   onReject = () => {
+    this.props.rejectProofRequest(this.props.uid)
     this.close()
   }
 
-  // TODO : need to bind store actions
-  onAccept = () => {}
+  onSend = () => {
+    this.props.acceptProofRequest(this.props.uid)
+  }
 
-  // TODO : need to bind store actions
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.proofRequestShown(this.props.uid)
+  }
 
   render() {
-    const { data, issuerName, logoUrl, uid, isValid } = this.props
+    const { data, name, logoUrl, uid, isValid, proofStatus } = this.props
     const testID = 'proof-request'
+    const { name: title } = data
     const logoUri = logoUrl
       ? { uri: logoUrl }
       : require('../images/cb_evernym.png')
@@ -129,8 +142,8 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
       <Container fifth>
         {isValid && (
           <ClaimProofHeader
-            message={`${issuerName} would like you to prove:`}
-            title={data.name}
+            message={`${name} would like you to prove:`}
+            title={title}
             onClose={this.onIgnore}
             logoUrl={logoUrl}
             testID={testID}
@@ -159,10 +172,10 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
                   extraLarge
                   resizeMode="cover"
                   src={require('../images/invitee.png')}
-                  style={[styles.issuerLogo]}
-                  iconStyle={[styles.issuerLogoIcon]}
+                  style={[styles.verifierLogo]}
+                  iconStyle={[styles.verifierLogoIcon]}
                   haloStyle={styles.logoHaloStyle}
-                  testID={`${testID}-issuer-logo`}
+                  testID={`${testID}-verifier-logo`}
                 />
                 <Image
                   style={[styles.checkMark]}
@@ -176,9 +189,9 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
                   resizeMode="cover"
                   src={logoUri}
                   haloStyle={styles.logoHaloStyle}
-                  style={[styles.issuerLogo]}
-                  iconStyle={[styles.issuerLogoIcon]}
-                  testID={`${testID}-issuer-logo`}
+                  style={[styles.verifierLogo]}
+                  iconStyle={[styles.verifierLogoIcon]}
+                  testID={`${testID}-verifier-logo`}
                 />
               </CustomView>
             </CustomView>
@@ -195,12 +208,21 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
         )}
         <FooterActions
           logoUrl={logoUrl}
-          onAccept={this.onAccept}
+          onAccept={this.onSend}
           onDecline={this.onReject}
           denyTitle="Ignore"
           acceptTitle="Accept"
           testID={testID}
         />
+        {isValid && (
+          <ProofModal
+            proofStatus={proofStatus}
+            title={title}
+            name={name}
+            onContinue={this.close}
+            logoUrl={logoUrl}
+          />
+        )}
       </Container>
     )
   }
@@ -209,22 +231,38 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
 // this.props.navigation.navigate(proofRequestRoute,{'proofRequestId':'CRM2M28')
 const mapStateToProps = (store: Store, props) => {
   const { uid } = props.navigation.state.params
-
   const proofRequest = store.proofRequest[uid]
-  const { senderLogoUrl: logoUrl, issuer: { name: issuerName }, data } =
+  const {
+    payload: { data, issuer },
+    payloadInfo: { senderLogoUrl: logoUrl },
+    proofStatus,
+    status,
+  } =
     proofRequest || {}
+  const { name } = issuer || {}
   const isValid = proofRequest && data && data.revealedAttributes
 
   return {
     isValid,
     data,
     logoUrl,
-    issuerName,
+    name,
     uid,
+    proofStatus,
   }
 }
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      proofRequestShown,
+      acceptProofRequest,
+      ignoreProofRequest,
+      rejectProofRequest,
+    },
+    dispatch
+  )
 
-export default connect(mapStateToProps)(ProofRequest)
+export default connect(mapStateToProps, mapDispatchToProps)(ProofRequest)
 
 const styles = StyleSheet.create({
   headerStripLogoContainer: {
@@ -239,11 +277,11 @@ const styles = StyleSheet.create({
     backgroundColor: color.actions.secondary,
     zIndex: -1,
   },
-  issuerLogo: {
+  verifierLogo: {
     height: 70,
     zIndex: 1,
   },
-  issuerLogoIcon: {
+  verifierLogoIcon: {
     borderRadius: 10,
     height: 70,
     width: 70,

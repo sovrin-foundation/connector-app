@@ -37,7 +37,7 @@ export default class ClaimProofHeader extends PureComponent<
           <CustomText h5 center demiBold bg="fifth">
             {message}
           </CustomText>
-          <CustomText h4 heavy bg="fifth" style={[styles.titleName]}>
+          <CustomText h4 heavy bg="fifth" style={[styles.title]}>
             {title}
           </CustomText>
         </CustomView>
@@ -56,16 +56,12 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     zIndex: 4,
   },
-  headerCloseIcon: {
-    marginRight: 15,
-  },
-
   message: {
     marginTop: OFFSET_1X / 2,
     paddingBottom: OFFSET_2X,
     marginHorizontal: OFFSET_1X,
   },
-  titleName: {
+  title: {
     marginTop: OFFSET_1X / 2,
   },
 })

@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Container, CustomView, Icon } from '../components'
 import Bubbles from './bubbles'
 import { barStyleDark, OFFSET_3X } from '../common/styles'
-import { getUserInfo, getConnections } from '../store'
+import { getConnections } from '../store'
 import { CLAIM_OFFER_STATUS } from '../claim-offer/type-claim-offer'
 
 export class DashboardScreen extends PureComponent {
@@ -42,14 +42,6 @@ export class DashboardScreen extends PureComponent {
 const mapStateToProps = state => ({
   connections: state.connections,
 })
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      getUserInfo,
-    },
-    dispatch
-  )
 
 export default connect(mapStateToProps, null)(DashboardScreen)
 
