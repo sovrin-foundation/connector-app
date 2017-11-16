@@ -20,6 +20,7 @@ export const MESSAGE_TYPE = {
   CLAIM_OFFER: 'claimOffer',
   CLAIM_REQUEST: 'claimReq',
   PROOF_REQUEST: 'proofReq',
+  CLAIM: 'claim',
 }
 
 export const API_TYPE = {

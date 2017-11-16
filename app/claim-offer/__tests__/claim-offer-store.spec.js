@@ -1,6 +1,5 @@
 // @flow
-import { put, call, select } from 'redux-saga/effects'
-import { delay } from 'redux-saga'
+import { put, call, select, race, take } from 'redux-saga/effects'
 import claimOfferStore, {
   claimOfferReceived,
   claimOfferShown,
@@ -22,6 +21,10 @@ import {
 } from '../../store/store-selector'
 import { generateClaimRequest } from '../../bridge/react-native-cxs/RNCxs'
 import { sendClaimRequest as sendClaimRequestApi } from '../../api/api'
+import {
+  CLAIM_STORAGE_FAIL,
+  CLAIM_STORAGE_SUCCESS,
+} from '../../claim/type-claim'
 
 describe('claim offer store', () => {
   const initialAction = { type: 'INITIAL_TEST_ACTION' }
@@ -166,7 +169,17 @@ describe('claim offer store', () => {
     expect(gen.next(JSON.stringify(claimRequest)).value).toEqual(
       call(sendClaimRequestApi, expectedApiData)
     )
-    expect(gen.next().value).toMatchObject(put(claimRequestSuccess(uid)))
+
+    expect(gen.next().value).toEqual(
+      race({
+        success: take(CLAIM_STORAGE_SUCCESS),
+        fail: take(CLAIM_STORAGE_FAIL),
+      })
+    )
+
+    expect(gen.next({ success: { messageId: uid } }).value).toMatchObject(
+      put(claimRequestSuccess(uid))
+    )
 
     expect(gen.next().done).toBe(true)
   })

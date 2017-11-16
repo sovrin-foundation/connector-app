@@ -29,3 +29,32 @@ Object {
   },
 }
 `;
+
+exports[`convertClaimPushPayloadToAppClaim should match snapshot 1`] = `
+Object {
+  "claim": Object {
+    "name": Array [
+      "Test",
+      "12",
+    ],
+  },
+  "claim_offer_id": "7TNw2k5",
+  "from_did": "3KFuh4jmMC5Agsy5HcCwFB",
+  "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+  "messageId": "7TNw2k5",
+  "msg_type": "claim",
+  "remoteDid": "3KFuh4jmMC5Agsy5HcCwFB",
+  "schema_seq_no": 12,
+  "signature": Object {
+    "primary_claim": Object {
+      "a": "a",
+      "e": "e",
+      "m2": "m2",
+      "v": "v",
+    },
+  },
+  "to_did": "5RHwxmBrGxaEskHcBnLKve",
+  "uid": "1",
+  "version": "0.1",
+}
+`;

@@ -1,5 +1,13 @@
 // @flow
-import { put, takeLatest, call, all, select } from 'redux-saga/effects'
+import {
+  put,
+  takeLatest,
+  take,
+  race,
+  call,
+  all,
+  select,
+} from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import {
   CLAIM_OFFER_STATUS,
@@ -35,6 +43,8 @@ import { sendClaimRequest as sendClaimRequestApi } from '../api/api'
 import type { IndyClaimOffer } from '../bridge/react-native-cxs/type-cxs'
 import { generateClaimRequest } from '../bridge/react-native-cxs/RNCxs'
 import type { IndyClaimRequest } from '../bridge/react-native-cxs/type-cxs'
+import { CLAIM_STORAGE_FAIL, CLAIM_STORAGE_SUCCESS } from '../claim/type-claim'
+import { CLAIM_STORAGE_ERROR } from '../services/error/error-code'
 
 const claimOfferInitialState = {}
 
@@ -112,13 +122,15 @@ export function* claimOfferAccepted(
     try {
       const agencyUrl: string = yield select(getAgencyUrl)
       const messageId: string = action.uid
-      const claimRequestJson: string = yield call(
+      const stringifiedClaimRequest: string = yield call(
         generateClaimRequest,
         remoteDid,
         indyClaimOffer
       )
       // TODO:KS Add error handling if claim request parse fails
-      const parsedClaimRequest: IndyClaimRequest = JSON.parse(claimRequestJson)
+      const parsedClaimRequest: IndyClaimRequest = JSON.parse(
+        stringifiedClaimRequest
+      )
       const claimRequest = {
         ...parsedClaimRequest,
         remoteDid,
@@ -133,7 +145,17 @@ export function* claimOfferAccepted(
           responseMsgId: messageId,
         }
         const sendClaimRequestStatus = yield call(sendClaimRequestApi, apiData)
-        yield put(claimRequestSuccess(action.uid))
+
+        const { success, fail } = yield race({
+          success: take(CLAIM_STORAGE_SUCCESS),
+          fail: take(CLAIM_STORAGE_FAIL),
+        })
+
+        if (success) {
+          yield put(claimRequestSuccess(action.uid))
+        } else {
+          yield put(claimRequestFail(action.uid, CLAIM_STORAGE_ERROR()))
+        }
       } catch (e) {
         // TODO: Need to know what to do if claim request fails
         // sending claim request failed, what to do now?

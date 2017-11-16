@@ -19,6 +19,7 @@ import {
   qrCodeScannerTabRoute,
   homeTabRoute,
 } from '../common'
+import { claimReceived } from '../claim/claim-store'
 
 import type {
   NotificationPayload,
@@ -26,9 +27,10 @@ import type {
   NextPropsPushNotificationNavigator,
   ClaimOfferPushPayload,
   AdditionalDataPayload,
+  ClaimPushPayload,
 } from './type-push-notification'
-
 import type { NavigationParams } from '../common/type-common'
+import type { Claim } from '../claim/type-claim'
 
 const blackListedRoute = {
   [invitationRoute]: invitationRoute,
@@ -68,6 +70,18 @@ export function convertClaimOfferPushPayloadToAppClaimOffer(
       revealedAttributes,
       claimDefinitionSchemaSequenceNumber: pushPayload.schema_seq_no,
     },
+  }
+}
+
+export function convertClaimPushPayloadToAppClaim(
+  pushPayload: ClaimPushPayload,
+  uid: string
+): Claim {
+  return {
+    ...pushPayload,
+    messageId: pushPayload.claim_offer_id,
+    remoteDid: pushPayload.from_did,
+    uid,
   }
 }
 
@@ -121,6 +135,12 @@ export class PushNotificationNavigator extends PureComponent<
                 uid,
               })
               break
+
+            case MESSAGE_TYPE.CLAIM:
+              this.props.claimReceived(
+                convertClaimPushPayloadToAppClaim(additionalData, uid)
+              )
+              break
           }
     }
   }
@@ -154,6 +174,7 @@ const mapDispatchToProps = dispatch =>
       proofRequestReceived,
       pushNotificationReceived,
       addPendingRedirection,
+      claimReceived,
     },
     dispatch
   )

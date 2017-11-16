@@ -2,6 +2,7 @@
 
 import type { CustomError, GenericObject } from '../common/type-common'
 import type { PendingRedirection } from '../lock/type-lock'
+import type { Claim } from '../claim/type-claim'
 
 export type NotificationPayload = {
   forDID: string,
@@ -140,6 +141,27 @@ export type NotificationPayloadInfo = {
   remotePairwiseDID: string,
 }
 
+export type ClaimPushPayload = {
+  msg_type: string,
+  version: string,
+  claim_offer_id: string,
+  from_did: string,
+  to_did: string,
+  claim: { [string]: Array<string> },
+  schema_seq_no: number,
+  issuer_did: string,
+  signature: {
+    primary_claim: {
+      m2: string,
+      a: string,
+      e: string,
+      v: string,
+    },
+    non_revocation_claim?: GenericObject,
+  },
+  optional_data?: GenericObject,
+}
+
 export type NextPropsPushNotificationNavigator = {
   pushNotification: {
     notification: DownloadedNotification,
@@ -158,6 +180,7 @@ export type PushNotificationNavigatorProps = {
     pendingRedirection: Array<PendingRedirection>
   ) => void,
   navigateToRoute: (routeName: string) => void,
+  claimReceived: (claim: Claim) => void,
 } & NextPropsPushNotificationNavigator
 
 export type ClaimProofNavigation = {

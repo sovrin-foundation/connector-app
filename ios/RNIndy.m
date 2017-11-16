@@ -112,6 +112,15 @@ RCT_EXPORT_METHOD(generateClaimRequest: (NSString *) remoteDID
     }];
 }
 
+RCT_EXPORT_METHOD(addClaim: (NSString *) remoteDID
+                  withClaim: (NSString *) claim
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  // TODO: Call libindy to actually save claim in wallet
+  resolve(@"{}");
+}
+
 RCT_EXPORT_METHOD(getClaim)
 {
   // get claim from did and store it, with given claim name and version

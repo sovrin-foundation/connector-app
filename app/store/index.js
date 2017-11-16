@@ -21,6 +21,7 @@ import smsPendingInvitation, {
 import claimOffer, { watchClaimOffer } from '../claim-offer/claim-offer-store'
 import proofRequest from '../proof-request/proof-request-store'
 import invitation, { watchInvitation } from '../invitation/invitation-store'
+import claim, { watchClaim } from '../claim/claim-store'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -37,6 +38,7 @@ const appReducer = combineReducers({
   claimOffer,
   proofRequest,
   invitation,
+  claim,
 })
 
 let middlewares = []
@@ -62,6 +64,7 @@ sagaMiddleware.run(function*() {
     watchClaimOffer(),
     watchPushNotification(),
     watchInvitation(),
+    watchClaim(),
   ])
 })
 

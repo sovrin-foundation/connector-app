@@ -85,7 +85,9 @@ export async function generateClaimRequest(
   return claimRequest
 }
 
-export async function addClaim(remoteDid: string, claim: string) {}
+export async function addClaim(remoteDid: string, claim: string) {
+  return await RNIndy.addClaim(remoteDid, claim)
+}
 
 export async function getClaim(claimUuid: string) {}
 
