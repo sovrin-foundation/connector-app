@@ -43,7 +43,7 @@ export function* claimReceivedSaga(
   action: ClaimReceivedAction
 ): Generator<*, *, *> {
   try {
-    yield call(addClaim, action.claim.remoteDid, JSON.stringify(action.claim))
+    yield call(addClaim, JSON.stringify(action.claim))
     yield put(claimStorageSuccess(action.claim.messageId))
   } catch (e) {
     // we got error while saving claim in wallet, what to do now?

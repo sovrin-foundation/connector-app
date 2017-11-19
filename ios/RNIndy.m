@@ -112,13 +112,19 @@ RCT_EXPORT_METHOD(generateClaimRequest: (NSString *) remoteDID
     }];
 }
 
-RCT_EXPORT_METHOD(addClaim: (NSString *) remoteDID
-                  withClaim: (NSString *) claim
+RCT_EXPORT_METHOD(addClaim: (NSString *) claim
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
-  // TODO: Call libindy to actually save claim in wallet
-  resolve(@"{}");
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance];
+  [indy addClaim:claim completion:^(NSError *error, NSString *filterJson) {
+    if (error != nil) {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while saving calim to wallet", error);
+    } else {
+      resolve(filterJson);
+    }
+  }];
 }
 
 RCT_EXPORT_METHOD(getClaim)

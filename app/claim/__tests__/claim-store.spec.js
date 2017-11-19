@@ -62,9 +62,7 @@ describe('Claim Store', () => {
   it('claim storage workflow should work fine if storage is success', () => {
     const gen = claimReceivedSaga(claimReceived(claim))
 
-    expect(gen.next().value).toEqual(
-      call(addClaim, claim.remoteDid, JSON.stringify(claim))
-    )
+    expect(gen.next().value).toEqual(call(addClaim, JSON.stringify(claim)))
     expect(gen.next().value).toEqual(put(claimStorageSuccess(claim.messageId)))
 
     expect(gen.next().done).toBe(true)
@@ -73,9 +71,7 @@ describe('Claim Store', () => {
   it('claim storage workflow works fine if storage fails', () => {
     const gen = claimReceivedSaga(claimReceived(claim))
 
-    expect(gen.next().value).toEqual(
-      call(addClaim, claim.remoteDid, JSON.stringify(claim))
-    )
+    expect(gen.next().value).toEqual(call(addClaim, JSON.stringify(claim)))
 
     const error = new Error('claim storage Indy failure')
     expect(gen.throw(error).value).toEqual(
