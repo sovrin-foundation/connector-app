@@ -1,5 +1,5 @@
 PODS:
-  - ConnectMeIndy (0.0.14):
+  - ConnectMeIndy (0.0.15):
     - libindy-objc (~> 0.2.0)
     - OpenSSL-Universal (~> 1.0.1.16)
   - Firebase/Core (4.0.0):
@@ -32,11 +32,11 @@ PODS:
   - Protobuf (3.3.0)
 
 DEPENDENCIES:
-  - ConnectMeIndy (= 0.0.14)
+  - ConnectMeIndy (= 0.0.15)
   - Firebase/Messaging
 
 SPEC CHECKSUMS:
-  ConnectMeIndy: 9fdd122e795342cbd16b0677b612afe1060d9959
+  ConnectMeIndy: 31fe2c54d32a9e50f3727d529756ec27677578b8
   Firebase: 284eea779b73fdff309791817da7c68bff8dd572
   FirebaseAnalytics: 6f08e746f7d66f5452931bc2e822b5df9c66b64a
   FirebaseCore: 85ad466044c2f013cdb167f85d426d15b128114a
@@ -47,6 +47,6 @@ SPEC CHECKSUMS:
   OpenSSL-Universal: 71f2c4b2ae758e2218090f905e95ca0ac5c01be7
   Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
 
-PODFILE CHECKSUM: 3a75c19f9dbef21840bb7c1bdf1508ff6fc65f26
+PODFILE CHECKSUM: bdb6999dfc2548093502471ac74de508f3ddf9ca
 
 COCOAPODS: 1.2.1
