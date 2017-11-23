@@ -8,7 +8,7 @@ import { captureError } from '../services/error/error-handler'
 import {
   getAgencyUrl,
   getAllConnection,
-  getRemotePairwiseDid,
+  getRemotePairwiseDidAndName,
 } from '../store/store-selector'
 import { encrypt } from '../bridge/react-native-cxs/RNCxs'
 import {
@@ -116,7 +116,10 @@ export function* additionalDataFetching(
   const { forDID, uid, type, senderLogoUrl } = action.notificationPayload
 
   if (forDID) {
-    const remotePairwiseDID = yield select(getRemotePairwiseDid, forDID)
+    const { remotePairwiseDID, remoteName } = yield select(
+      getRemotePairwiseDidAndName,
+      forDID
+    )
 
     if (remotePairwiseDID) {
       try {
@@ -141,7 +144,10 @@ export function* additionalDataFetching(
         yield put(
           pushNotificationReceived({
             type,
-            additionalData,
+            additionalData: {
+              remoteName,
+              ...additionalData,
+            },
             uid,
             senderLogoUrl,
             remotePairwiseDID,

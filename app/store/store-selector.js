@@ -64,18 +64,18 @@ export const getUserPairwiseDid = (state: Store, senderDID: string) => {
   return null
 }
 
-export const getRemotePairwiseDid = (
-  state: Store,
-  userDid: string
-): string | null => {
+export const getRemotePairwiseDidAndName = (state: Store, userDid: string) => {
   if (state.connections.data) {
     const connection = state.connections.data[userDid]
     if (connection) {
-      return connection.senderDID
+      return {
+        remotePairwiseDID: connection.senderDID,
+        remoteName: connection.name,
+      }
     }
 
-    return null
+    return {}
   }
 
-  return null
+  return {}
 }

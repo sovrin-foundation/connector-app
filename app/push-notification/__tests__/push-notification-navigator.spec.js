@@ -109,6 +109,7 @@ describe('convertClaimOfferPushPayloadToAppClaimOffer', () => {
       claim_name: 'Profile detail',
       issuer_name: 'Test Enterprise',
       optional_data: { terms_of_service: '<Large block of text>', price: 6 },
+      remoteName: 'Test remote name',
     }
 
     expect(

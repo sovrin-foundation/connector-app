@@ -61,7 +61,7 @@ export function convertClaimOfferPushPayloadToAppClaimOffer(
 
   return {
     issuer: {
-      name: pushPayload.issuer_name,
+      name: pushPayload.issuer_name || pushPayload.remoteName,
       did: pushPayload.issuer_did,
     },
     data: {

@@ -133,6 +133,7 @@ export type ClaimOfferPushPayload = {
   issuer_name: string,
   nonce: string,
   optional_data: GenericObject,
+  remoteName: string,
 }
 
 export type NotificationPayloadInfo = {
