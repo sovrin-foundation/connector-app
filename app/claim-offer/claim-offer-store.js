@@ -146,15 +146,26 @@ export function* claimOfferAccepted(
         }
         const sendClaimRequestStatus = yield call(sendClaimRequestApi, apiData)
 
-        const { success, fail } = yield race({
-          success: take(CLAIM_STORAGE_SUCCESS),
-          fail: take(CLAIM_STORAGE_FAIL),
-        })
+        // keep the race open b/w success and fail for claim storage
+        // until success and fail is fired for same claim offer id
+        // for which we are running this saga, i.e. showing waiting pop up
+        while (true) {
+          const { success, fail } = yield race({
+            success: take(CLAIM_STORAGE_SUCCESS),
+            fail: take(CLAIM_STORAGE_FAIL),
+          })
 
-        if (success) {
-          yield put(claimRequestSuccess(action.uid))
-        } else {
-          yield put(claimRequestFail(action.uid, CLAIM_STORAGE_ERROR()))
+          if (success) {
+            if (success.messageId === action.uid) {
+              yield put(claimRequestSuccess(action.uid))
+              break
+            }
+          } else {
+            if (fail.messageId === action.uid) {
+              yield put(claimRequestFail(action.uid, CLAIM_STORAGE_ERROR()))
+              break
+            }
+          }
         }
       } catch (e) {
         // TODO: Need to know what to do if claim request fails

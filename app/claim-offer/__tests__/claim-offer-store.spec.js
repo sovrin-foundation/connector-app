@@ -177,6 +177,17 @@ describe('claim offer store', () => {
       })
     )
 
+    // race should go on if message id does not match
+    expect(
+      gen.next({ success: { messageId: 'non matching' } }).value
+    ).toMatchObject(
+      race({
+        success: take(CLAIM_STORAGE_SUCCESS),
+        fail: take(CLAIM_STORAGE_FAIL),
+      })
+    )
+
+    // if message id matches then, saga should stop and put success action
     expect(gen.next({ success: { messageId: uid } }).value).toMatchObject(
       put(claimRequestSuccess(uid))
     )
