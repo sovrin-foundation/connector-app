@@ -20,6 +20,7 @@ import {
   lockSelectionRoute,
   lockPinSetupHomeRoute,
   lockSetupSuccessRoute,
+  settingsRoute,
 } from '../common'
 import {
   color,
@@ -63,16 +64,6 @@ const styles = StyleSheet.create({
   },
 })
 
-const EnterPinText = (
-  <CustomText style={[styles.titleText]} center h4 bg="tertiary" tertiary thick>
-    Set up a pass code
-  </CustomText>
-)
-const ReEnterPinText = (
-  <CustomText style={[styles.titleText]} center h4 bg="tertiary" tertiary thick>
-    Re-enter pass code
-  </CustomText>
-)
 const ReEnterPinFailText = (
   <CustomText style={[styles.titleText]} center h4 bg="tertiary" tertiary thick>
     Your pass codes do not match, please start over.
@@ -123,7 +114,12 @@ export class LockPinSetup extends PureComponent {
 
   onPinSetup = (pin: string) => {
     this.props.setPinAction(pin)
-    this.props.navigation.navigate(lockSetupSuccessRoute)
+    this.props.navigation.state.params &&
+    this.props.navigation.state.params.existingPin === true
+      ? this.props.navigation.navigate(lockSetupSuccessRoute, {
+          changePin: true,
+        })
+      : this.props.navigation.navigate(lockSetupSuccessRoute)
   }
 
   onPinReEnterFail = () => {
@@ -172,6 +168,36 @@ export class LockPinSetup extends PureComponent {
 
   render() {
     const { pinSetupState, interactionsDone } = this.state
+    const EnterPinText = (
+      <CustomText
+        style={[styles.titleText]}
+        center
+        h4
+        bg="tertiary"
+        tertiary
+        thick
+      >
+        {this.props.navigation.state.params &&
+        this.props.navigation.state.params.existingPin === true
+          ? 'Set up a new pass code'
+          : 'Set up a pass code'}
+      </CustomText>
+    )
+    const ReEnterPinText = (
+      <CustomText
+        style={[styles.titleText]}
+        center
+        h4
+        bg="tertiary"
+        tertiary
+        thick
+      >
+        {this.props.navigation.state.params &&
+        this.props.navigation.state.params.existingPin === true
+          ? 'Re-enter new pass code'
+          : 'Re-enter pass code'}
+      </CustomText>
+    )
     return (
       <Container tertiary>
         <LinearGradient

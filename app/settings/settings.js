@@ -1,9 +1,18 @@
 import React, { PureComponent } from 'react'
-import { View, Image, Text, Switch, StyleSheet, ScrollView } from 'react-native'
+import {
+  View,
+  Image,
+  Text,
+  Switch,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { Avatar, CustomText } from '../components'
 import { CustomList, CustomView, Container } from '../components/layout'
-import { settingsRoute } from '../common/route-constants'
+import { settingsRoute, lockEnterPinRoute } from '../common/route-constants'
+
 import {
   white,
   mantis,
@@ -21,7 +30,6 @@ import {
   TOUCH_ID_TEST_ID,
   USERNAME_TEST_ID,
 } from './settings-constant'
-
 const style = StyleSheet.create({
   headerStyle: {
     backgroundColor: color.bg.fifth.color,
@@ -39,100 +47,116 @@ const style = StyleSheet.create({
   },
 })
 
-const userAvatar = (
-  <Avatar medium round src={require('../images/UserAvatar.png')} />
-)
-
-const editIcon = (
-  <Image
-    style={style.editIcon}
-    resizeMode={'contain'}
-    source={require('../images/edit.png')}
-  />
-)
-
-const SettingText = props => (
-  <CustomText h5 bg={props.bg || 'tertiary'} semiBold {...props}>
-    {props.children}
-  </CustomText>
-)
-
-const userName = <SettingText testID={USERNAME_TEST_ID}>Your Name</SettingText>
-
-const passCode = (
-  <CustomView row>
-    <SettingText testID={PASS_CODE_TEST_ID}>Passcode: </SettingText>
-    <SettingText
-      testID={PASS_CODE_ASTERISK_TEST_ID}
-      style={[style.labelPassCode]}
-    >
-      *******
-    </SettingText>
-  </CustomView>
-)
-
-const touchId = (
-  <CustomView row>
-    <Image
-      style={[style.labelImage, style.editIcon]}
-      source={require('../images/biometrics.png')}
-    />
-    <CustomView center>
-      <SettingText testID={TOUCH_ID_TEST_ID}>Enable Touch ID</SettingText>
-    </CustomView>
-  </CustomView>
-)
-
-const toggleSwitch = (
-  <Switch onTintColor={mantis} tintColor={white} value={true} />
-)
-
-const history = (
-  <CustomView row>
-    <Image
-      style={[style.labelImage, style.editIcon]}
-      source={require('../images/history.png')}
-    />
-    <CustomView center>
-      <SettingText testID={HISTORY_TEST_ID}>View History</SettingText>
-    </CustomView>
-  </CustomView>
-)
-
-const itemList = [
-  {
-    id: 0,
-    left: userAvatar,
-    right: editIcon,
-  },
-  {
-    id: 1,
-    left: userName,
-    right: editIcon,
-  },
-  {
-    id: 2,
-    left: passCode,
-    right: editIcon,
-  },
-  {
-    id: 3,
-    left: touchId,
-    right: toggleSwitch,
-  },
-  {
-    id: 4,
-    left: history,
-  },
-]
-
 export class Settings extends PureComponent {
+  onChangePinClick = () => {
+    this.props.navigation.navigate(lockEnterPinRoute, {
+      existingPin: true,
+    })
+  }
+
   static navigationOptions = {
-    headerTitle: <SettingText bg="fifth">{settingsRoute}</SettingText>,
+    headerTitle: <CustomText bg="fifth"> {settingsRoute} </CustomText>,
     headerStyle: style.headerStyle,
   }
 
   render() {
+    const userAvatar = (
+      <Avatar medium round src={require('../images/UserAvatar.png')} />
+    )
+    const editIcon = (
+      <Image
+        style={style.editIcon}
+        resizeMode={'contain'}
+        source={require('../images/edit.png')}
+      />
+    )
+
+    const editIconChangePin = (
+      <TouchableOpacity onPress={this.onChangePinClick}>
+        <Image
+          style={[style.editIcon, { tintColor: 'black' }]}
+          resizeMode={'contain'}
+          source={require('../images/edit.png')}
+        />
+      </TouchableOpacity>
+    )
+
+    const SettingText = props => (
+      <CustomText h5 bg={props.bg || 'tertiary'} semiBold {...props}>
+        {props.children}
+      </CustomText>
+    )
+
+    const userName = (
+      <SettingText testID={USERNAME_TEST_ID}>Your Name</SettingText>
+    )
+
+    const passCode = (
+      <CustomView row>
+        <SettingText testID={PASS_CODE_TEST_ID} onPress={this.onChangePinClick}>
+          Passcode:{' '}
+        </SettingText>
+        <SettingText
+          onPress={this.onChangePinClick}
+          testID={PASS_CODE_ASTERISK_TEST_ID}
+          style={[style.labelPassCode]}
+        >
+          *******
+        </SettingText>
+      </CustomView>
+    )
+    const touchId = (
+      <CustomView row>
+        <Image
+          style={[style.labelImage, style.editIcon]}
+          source={require('../images/biometrics.png')}
+        />
+        <CustomView center>
+          <SettingText testID={TOUCH_ID_TEST_ID}>Enable Touch ID</SettingText>
+        </CustomView>
+      </CustomView>
+    )
+    const toggleSwitch = (
+      <Switch onTintColor={mantis} tintColor={white} value={true} />
+    )
+    const history = (
+      <CustomView row>
+        <Image
+          style={[style.labelImage, style.editIcon]}
+          source={require('../images/history.png')}
+        />
+        <CustomView center>
+          <SettingText testID={HISTORY_TEST_ID}>View History</SettingText>
+        </CustomView>
+      </CustomView>
+    )
+    const itemList = [
+      {
+        id: 0,
+        left: userAvatar,
+        right: editIcon,
+      },
+      {
+        id: 1,
+        left: userName,
+        right: editIcon,
+      },
+      {
+        id: 2,
+        left: passCode,
+        right: editIconChangePin,
+      },
+      {
+        id: 3,
+        left: touchId,
+        right: toggleSwitch,
+      },
+      {
+        id: 4,
+        left: history,
+      },
+    ]
+
     return (
       <Container tertiary>
         <ScrollView style={style.container}>

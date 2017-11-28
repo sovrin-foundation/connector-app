@@ -112,6 +112,7 @@ export const PIN_SETUP_STATE = {
   REENTER: 'REENTER',
   REENTER_FAIL: 'REENTER_FAIL',
   REENTER_SUCCESS: 'REENTER_SUCCESS',
+  ENTER_NEW_PIN: 'ENTER_NEW_PIN',
 }
 
 export type LockPinSetupState = {

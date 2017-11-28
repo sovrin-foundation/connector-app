@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { StyleSheet, Image } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
@@ -10,7 +10,7 @@ import {
   CustomButton,
   Icon,
 } from '../components'
-import { homeRoute } from '../common'
+import { settingsTabRoute } from '../common'
 import { unlockApp, clearPendingRedirect } from './lock-store'
 import type { Store } from '../store/type-store'
 import { OFFSET_1X, OFFSET_2X, OFFSET_4X, color } from '../common/styles'
@@ -19,7 +19,12 @@ import { OFFSET_1X, OFFSET_2X, OFFSET_4X, color } from '../common/styles'
 export class LockSetupSuccess extends PureComponent {
   onClose = () => {
     this.props.unlockApp()
-    if (this.props.pendingRedirection) {
+    if (
+      this.props.navigation.state.params &&
+      this.props.navigation.state.params.changePin === true
+    ) {
+      this.props.navigation.navigate(settingsTabRoute)
+    } else if (this.props.pendingRedirection) {
       // if there is a redirection pending, then redirect and clear it
       this.props.pendingRedirection.forEach(pendingRedirection => {
         setTimeout(() => {
@@ -34,15 +39,26 @@ export class LockSetupSuccess extends PureComponent {
   }
 
   render() {
+    let lockSuccessIcon
+    if (
+      this.props.navigation.state.params &&
+      this.props.navigation.state.params.changePin === true
+    ) {
+      lockSuccessIcon = null
+    } else {
+      lockSuccessIcon = (
+        <Icon
+          extraLarge
+          resizeMode="cover"
+          src={require('../images/lock.png')}
+          testID="lock-success-lock-logo"
+        />
+      )
+    }
     return (
       <Container tertiary>
         <Container clearBg center style={[style.successContainer]}>
-          <Icon
-            extraLarge
-            resizeMode="cover"
-            src={require('../images/lock.png')}
-            testID="lock-success-lock-logo"
-          />
+          {lockSuccessIcon}
           <CustomText
             h4
             bg="tertiary"
@@ -51,7 +67,23 @@ export class LockSetupSuccess extends PureComponent {
             center
             style={[style.successMessage]}
           >
-            Your connect.me app is now secured
+            {this.props.navigation.state.params &&
+            this.props.navigation.state.params.existingPin === true
+              ? 'Your connect.me app is now secured'
+              : 'Your connect.me app is secured'}
+          </CustomText>
+          <CustomText
+            h6
+            bg="tertiary"
+            tertiary
+            thick
+            center
+            style={[style.successMessage]}
+          >
+            {this.props.navigation.state.params &&
+            this.props.navigation.state.params.existingPin === true
+              ? ' '
+              : "From now on you'll need to use your PIN to unlock this app."}
           </CustomText>
         </Container>
         <CustomView>

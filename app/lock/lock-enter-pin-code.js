@@ -12,7 +12,7 @@ import {
   PinCodeBox,
   CustomView,
 } from '../components'
-import { lockEnterPinRoute } from '../common'
+import { lockEnterPinRoute, lockPinSetupRoute } from '../common'
 import {
   color,
   OFFSET_1X,
@@ -70,7 +70,9 @@ export class LockEnterPin extends PureComponent<
   static navigationOptions = ({ navigation }) => ({
     headerTitle: (
       <CustomText bg="tertiary" tertiary transparentBg semiBold>
-        Enter Pass Code
+        {navigation.state.params && navigation.state.params.existingPin === true
+          ? 'Enter your pass code'
+          : 'Enter Pass Code'}
       </CustomText>
     ),
     headerStyle: styles.header,
@@ -92,7 +94,14 @@ export class LockEnterPin extends PureComponent<
   componentWillReceiveProps(nextProps: LockEnterPinProps) {
     if (this.props.checkPinStatus !== nextProps.checkPinStatus) {
       if (nextProps.checkPinStatus === CHECK_PIN_SUCCESS) {
-        if (this.props.pendingRedirection) {
+        if (
+          this.props.navigation.state.params &&
+          this.props.navigation.state.params.existingPin === true
+        ) {
+          this.props.navigation.navigate(lockPinSetupRoute, {
+            existingPin: true,
+          })
+        } else if (this.props.pendingRedirection) {
           this.props.pendingRedirection.forEach(pendingRedirection => {
             setTimeout(() => {
               this.props.navigation.navigate(
@@ -112,6 +121,9 @@ export class LockEnterPin extends PureComponent<
   }
 
   componentDidMount() {
+    if (this.props.checkPinStatus === CHECK_PIN_SUCCESS) {
+      this.clearFailStatus()
+    }
     InteractionManager.runAfterInteractions(() => {
       this.setState({ interactionsDone: true })
     })
