@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PushNotificationNavigator /> should render PushNotification components properly 1`] = `null`;
+exports[`<PushNotificationNavigator /> should render PushNotification Navigator components properly 1`] = `null`;
 
 exports[`convertClaimOfferPushPayloadToAppClaimOffer should convert push payload to claim offer format correctly 1`] = `
 Object {
@@ -56,5 +56,35 @@ Object {
   "to_did": "5RHwxmBrGxaEskHcBnLKve",
   "uid": "1",
   "version": "0.1",
+}
+`;
+
+exports[`convertProofRequestPushPayloadToAppProofRequest should convert push payload to proof request format correctly 1`] = `
+Object {
+  "data": Object {
+    "name": "Home Address",
+    "requested_attrs": Array [
+      Object {
+        "label": "address_1",
+      },
+      Object {
+        "label": "address_2",
+      },
+      Object {
+        "label": "city",
+      },
+      Object {
+        "label": "state",
+      },
+      Object {
+        "label": "zip",
+      },
+    ],
+    "version": "0.1",
+  },
+  "requester": Object {
+    "did": "V4SGRU86Z58d6TV7PBUe6f",
+    "name": "Evernym",
+  },
 }
 `;

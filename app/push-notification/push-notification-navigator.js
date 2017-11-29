@@ -31,6 +31,10 @@ import type {
 } from './type-push-notification'
 import type { NavigationParams } from '../common/type-common'
 import type { Claim } from '../claim/type-claim'
+import type {
+  ProofRequestPushPayload,
+  AdditionalProofDataPayload,
+} from '../proof-request/type-proof-request'
 
 const blackListedRoute = {
   [invitationRoute]: invitationRoute,
@@ -69,6 +73,26 @@ export function convertClaimOfferPushPayloadToAppClaimOffer(
       version: pushPayload.version,
       revealedAttributes,
       claimDefinitionSchemaSequenceNumber: pushPayload.schema_seq_no,
+    },
+  }
+}
+
+export function convertProofRequestPushPayloadToAppProofRequest(
+  pushPayload: ProofRequestPushPayload
+): AdditionalProofDataPayload {
+  const requested_attrs = pushPayload.requested_attrs.map(attributeName => ({
+    label: attributeName,
+  }))
+
+  return {
+    data: {
+      name: pushPayload.proof_request_name,
+      version: pushPayload.version,
+      requested_attrs,
+    },
+    requester: {
+      name: pushPayload.remoteName,
+      did: pushPayload.requester_did,
     },
   }
 }
@@ -126,11 +150,14 @@ export class PushNotificationNavigator extends PureComponent<
               break
 
             case MESSAGE_TYPE.PROOF_REQUEST:
-              this.props.proofRequestReceived(additionalData, {
-                uid,
-                senderLogoUrl,
-                remotePairwiseDID,
-              })
+              this.props.proofRequestReceived(
+                convertProofRequestPushPayloadToAppProofRequest(additionalData),
+                {
+                  uid,
+                  senderLogoUrl,
+                  remotePairwiseDID,
+                }
+              )
               this.handleRedirection(proofRequestRoute, {
                 uid,
               })

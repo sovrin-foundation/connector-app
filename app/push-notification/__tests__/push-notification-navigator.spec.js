@@ -8,6 +8,7 @@ import {
   PushNotificationNavigator,
   convertClaimOfferPushPayloadToAppClaimOffer,
   convertClaimPushPayloadToAppClaim,
+  convertProofRequestPushPayloadToAppProofRequest,
 } from '../push-notification-navigator'
 
 describe('<PushNotificationNavigator />', () => {
@@ -77,7 +78,7 @@ describe('<PushNotificationNavigator />', () => {
     }
   }
 
-  it('should render PushNotification components properly', () => {
+  it('should render PushNotification Navigator components properly', () => {
     const wrapper = renderer
       .create(
         <Provider store={store}>
@@ -86,6 +87,51 @@ describe('<PushNotificationNavigator />', () => {
       )
       .toJSON()
     expect(wrapper).toMatchSnapshot()
+  })
+})
+
+describe('convertProofRequestPushPayloadToAppProofRequest', () => {
+  it('should convert push payload to proof request format correctly', () => {
+    const proofRequestPushPayload = {
+      msg_type: 'PROOF_REQUEST',
+      version: '0.1',
+      expires: '2018-05-22T03:25:17Z',
+      nonce: '1234567',
+      to_did: 'BnRXf8yDMUwGyZVDkSENeq',
+      from_did: 'GxtnGN6ypZYgEqcftSQFnC',
+      remoteName: 'Evernym',
+      requester_did: 'V4SGRU86Z58d6TV7PBUe6f',
+      intended_use: 'Verify Home Address',
+      proof_request_name: 'Home Address',
+      claim_def: [12, 13, 201, 111, 213],
+      requested_attrs: ['address_1', 'address_2', 'city', 'state', 'zip'],
+      requested_predicates: ['age'],
+      tid: 'cCanHnpFAD',
+      mid: '1',
+      optional_data: { terms_and_conditions: 'https://evernym.com/tnc.pdf' },
+    }
+
+    expect(
+      convertProofRequestPushPayloadToAppProofRequest(proofRequestPushPayload)
+    ).toMatchSnapshot()
+  })
+})
+
+describe('convertClaimPushPayloadToAppClaim', () => {
+  it('should match snapshot', () => {
+    const claimPushPayload = {
+      msg_type: 'claim',
+      version: '0.1',
+      claim_offer_id: '7TNw2k5',
+      from_did: '3KFuh4jmMC5Agsy5HcCwFB',
+      to_did: '5RHwxmBrGxaEskHcBnLKve',
+      claim: { name: ['Test', '12'] },
+      schema_seq_no: 12,
+      issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
+      signature: { primary_claim: { m2: 'm2', a: 'a', e: 'e', v: 'v' } },
+    }
+    const claim = convertClaimPushPayloadToAppClaim(claimPushPayload, '1')
+    expect(claim).toMatchSnapshot()
   })
 })
 
@@ -115,23 +161,5 @@ describe('convertClaimOfferPushPayloadToAppClaimOffer', () => {
     expect(
       convertClaimOfferPushPayloadToAppClaimOffer(claimOfferPushPayload)
     ).toMatchSnapshot()
-  })
-})
-
-describe('convertClaimPushPayloadToAppClaim', () => {
-  it('should match snapshot', () => {
-    const claimPushPayload = {
-      msg_type: 'claim',
-      version: '0.1',
-      claim_offer_id: '7TNw2k5',
-      from_did: '3KFuh4jmMC5Agsy5HcCwFB',
-      to_did: '5RHwxmBrGxaEskHcBnLKve',
-      claim: { name: ['Test', '12'] },
-      schema_seq_no: 12,
-      issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
-      signature: { primary_claim: { m2: 'm2', a: 'a', e: 'e', v: 'v' } },
-    }
-    const claim = convertClaimPushPayloadToAppClaim(claimPushPayload, '1')
-    expect(claim).toMatchSnapshot()
   })
 })

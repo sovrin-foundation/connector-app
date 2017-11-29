@@ -27,13 +27,13 @@ import {
   OFFSET_5X,
   isiPhone5,
 } from '../common/styles'
-import type {
-  AdditionalProofDataPayload,
-  Attribute,
-} from '../push-notification/type-push-notification'
+import type { Attribute } from '../push-notification/type-push-notification'
 import type { ProofRequestAttributeListProp } from './type-proof-request'
 import type { Store } from '../store/type-store'
-import type { ProofRequestProps } from './type-proof-request'
+import type {
+  ProofRequestProps,
+  AdditionalProofDataPayload,
+} from './type-proof-request'
 import ProofModal from './proof-modal'
 import {
   rejectProofRequest,
@@ -50,9 +50,9 @@ class ProofRequestAttributeList extends PureComponent<
   keyExtractor = (_, index: number) => index
 
   renderItem = ({ item, index }) => {
-    //TODO: need to replace below hard coded string with a logic to get
-    //      relevant data for the item.label and claim issuer logo from claimOffer store.
-    //      need to finalise what needs to be displayed if there was no proof available for that perticular label.
+    // TODO: need to replace below hard coded string with a logic to get
+    // relevant data for the item.label and proof requester logo from claimOffer store.
+    // need to finalize what needs to be displayed if there was no proof available for that particular label.
     const labelData = '11509 142345nd Ave KP N'
     return (
       <Container
@@ -86,7 +86,7 @@ class ProofRequestAttributeList extends PureComponent<
           round
           resizeMode="cover"
           src={require('../images/cb_evernym.png')}
-          testID={`proof-issuer-logo-${index}`}
+          testID={`proof-requester-logo-${index}`}
         />
       </Container>
     )
@@ -198,7 +198,7 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
           </ClaimProofHeader>
         )}
         {isValid ? (
-          <ProofRequestAttributeList list={data.revealedAttributes} />
+          <ProofRequestAttributeList list={data.requested_attrs} />
         ) : (
           <Container fifth center>
             <CustomText h5 bg="fifth">
@@ -229,18 +229,18 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
 }
 // we need to navigate to this screen only by passing "proofRequestId"  in the props like below.
 // this.props.navigation.navigate(proofRequestRoute,{'proofRequestId':'CRM2M28')
-const mapStateToProps = (store: Store, props) => {
+const mapStateToProps = ({ proofRequest }: Store, props) => {
   const { uid } = props.navigation.state.params
-  const proofRequest = store.proofRequest[uid]
+  const proofRequestData = proofRequest[uid] || {}
   const {
-    payload: { data, issuer },
-    payloadInfo: { senderLogoUrl: logoUrl },
+    data,
+    requester = {},
+    senderLogoUrl: logoUrl,
     proofStatus,
     status,
-  } =
-    proofRequest || {}
-  const { name } = issuer || {}
-  const isValid = proofRequest && data && data.revealedAttributes
+  } = proofRequestData
+  const { name } = requester
+  const isValid = proofRequestData && data && data.requested_attrs
 
   return {
     isValid,

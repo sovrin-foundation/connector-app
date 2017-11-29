@@ -157,7 +157,7 @@ export function* additionalDataFetching(
         yield put(
           fetchAdditionalDataError({
             code: 'OCS-000',
-            message: 'Invalid claim offer additional data',
+            message: 'Invalid additional data',
           })
         )
       }
@@ -173,7 +173,7 @@ export function* additionalDataFetching(
     yield put(
       fetchAdditionalDataError({
         code: 'OCS-001',
-        message: 'Missing forDID in claim offer data',
+        message: 'Missing forDID in notification payload',
       })
     )
   }

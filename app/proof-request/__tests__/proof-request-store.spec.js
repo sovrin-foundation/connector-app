@@ -13,7 +13,7 @@ describe('proof request store', () => {
       data: {
         name: 'Home Address',
         version: '1.0.0',
-        revealedAttributes: [
+        requested_attrs: [
           {
             label: 'Address 1',
           },
@@ -22,7 +22,7 @@ describe('proof request store', () => {
           },
         ],
       },
-      issuer: {
+      requester: {
         name: 'Test Issuer',
         did: 'issuerDid',
       },

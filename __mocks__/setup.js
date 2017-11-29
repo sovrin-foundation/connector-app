@@ -17,6 +17,8 @@ jest.mock('react-navigation', () => ({
 }))
 
 jest.mock('react-native-fcm', () => ({
+  setBadgeNumber: jest.fn(),
+  removeAllDeliveredNotifications: jest.fn(),
   requestPermissions: jest.fn(() => Promise.resolve()),
   getFCMToken: jest.fn(() => Promise.resolve()),
   getInitialNotification: jest.fn(() => Promise.resolve()),

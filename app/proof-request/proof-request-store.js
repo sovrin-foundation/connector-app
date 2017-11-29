@@ -4,6 +4,7 @@ import type { CustomError } from '../common/type-common'
 import type {
   ProofRequestStore,
   ProofRequestAction,
+  AdditionalProofDataPayload,
 } from './type-proof-request'
 
 import {
@@ -15,10 +16,7 @@ import {
   PROOF_REQUEST_ACCEPTED,
   PROOF_REQUEST_REJECTED,
 } from './type-proof-request'
-import type {
-  AdditionalProofDataPayload,
-  NotificationPayloadInfo,
-} from '../push-notification/type-push-notification'
+import type { NotificationPayloadInfo } from '../push-notification/type-push-notification'
 
 const proofRequestInitialState = {}
 

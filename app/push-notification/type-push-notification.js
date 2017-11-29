@@ -3,6 +3,7 @@
 import type { CustomError, GenericObject } from '../common/type-common'
 import type { PendingRedirection } from '../lock/type-lock'
 import type { Claim } from '../claim/type-claim'
+import type { AdditionalProofDataPayload } from '../proof-request/type-proof-request'
 
 export type NotificationPayload = {
   forDID: string,
@@ -91,20 +92,6 @@ export type AdditionalData = {
   revealedAttributes: Array<Attribute>,
   claimDefinitionSchemaSequenceNumber: number,
 }
-export type AdditionalProofData = {
-  name: string,
-  version: string,
-  revealedAttributes: Array<Attribute>,
-}
-
-export type AdditionalProofDataPayload = {
-  data: AdditionalProofData,
-  issuer: {
-    name: string,
-    did: string,
-  },
-  statusMsg?: string,
-}
 
 export type AdditionalDataPayload = {
   data: AdditionalData,
@@ -176,7 +163,7 @@ export type PushNotificationNavigatorProps = {
   fetchAdditionalData: (notificationPayload: NotificationPayload) => void,
   authenticationRequestReceived: (data: DownloadedNotification) => void,
   claimOfferReceived: (payload: AdditionalDataPayload) => void,
-  proofRequestReceived: (payload: AdditionalDataPayload) => void,
+  proofRequestReceived: (payload: AdditionalProofDataPayload) => void,
   addPendingRedirection: (
     pendingRedirection: Array<PendingRedirection>
   ) => void,

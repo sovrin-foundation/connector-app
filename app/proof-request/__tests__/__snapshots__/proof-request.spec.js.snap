@@ -690,7 +690,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                   "justifyContent": "center",
                 }
               }
-              testID="proof-issuer-logo-0"
+              testID="proof-requester-logo-0"
             >
               <Image
                 resizeMode="cover"
@@ -706,7 +706,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                     },
                   ]
                 }
-                testID="proof-issuer-logo-0"
+                testID="proof-requester-logo-0"
               />
             </View>
           </View>
@@ -845,7 +845,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                   "justifyContent": "center",
                 }
               }
-              testID="proof-issuer-logo-1"
+              testID="proof-requester-logo-1"
             >
               <Image
                 resizeMode="cover"
@@ -861,7 +861,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                     },
                   ]
                 }
-                testID="proof-issuer-logo-1"
+                testID="proof-requester-logo-1"
               />
             </View>
           </View>

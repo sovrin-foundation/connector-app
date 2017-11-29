@@ -25,7 +25,7 @@ describe('<ProofRequest />', () => {
               data: {
                 name: 'Home Address',
                 version: '1.0.0',
-                revealedAttributes: [
+                requested_attrs: [
                   {
                     label: 'Address 1',
                   },
@@ -34,8 +34,8 @@ describe('<ProofRequest />', () => {
                   },
                 ],
               },
-              issuer: {
-                name: 'Test Issuer',
+              requester: {
+                name: 'Test Requester',
               },
               statusMsg: 'pending',
             },
@@ -73,7 +73,7 @@ describe('<ProofRequest />', () => {
   const data = {
     name: 'Home Address',
     version: '1.0.0',
-    revealedAttributes: [
+    requested_attrs: [
       {
         label: 'Address 1',
       },

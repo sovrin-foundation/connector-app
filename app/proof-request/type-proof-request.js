@@ -1,14 +1,46 @@
 // @flow
 import { INITIAL_TEST_ACTION } from '../common/type-common'
-import type { CustomError } from '../common/type-common'
+import type { CustomError, GenericObject } from '../common/type-common'
 import type {
-  AdditionalProofDataPayload,
-  AdditionalProofData,
   ClaimProofNavigation,
   NotificationPayload,
   Attribute,
   NotificationPayloadInfo,
 } from '../push-notification/type-push-notification'
+
+export type ProofRequestPushPayload = {
+  msg_type: string,
+  version: string,
+  expires: string,
+  nonce: string,
+  to_did: string,
+  from_did: string,
+  remoteName: string,
+  requester_did: string,
+  intended_use: string,
+  proof_request_name: string,
+  claim_def: Array<number>,
+  requested_attrs: Array<string>,
+  requested_predicates?: ?Array<string>,
+  tid: string,
+  mid: string,
+  optional_data: GenericObject,
+}
+
+export type AdditionalProofData = {
+  name: string,
+  version: string,
+  requested_attrs: Array<Attribute>,
+}
+
+export type AdditionalProofDataPayload = {
+  data: AdditionalProofData,
+  requester: {
+    name: string,
+    did: string,
+  },
+  statusMsg?: string,
+}
 
 export type ProofRequestAttributeListProp = {
   list: Array<Attribute>,

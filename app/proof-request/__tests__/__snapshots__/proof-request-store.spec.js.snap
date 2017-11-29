@@ -5,7 +5,7 @@ Object {
   "usd123": Object {
     "data": Object {
       "name": "Home Address",
-      "revealedAttributes": Array [
+      "requested_attrs": Array [
         Object {
           "label": "Address 1",
         },
@@ -15,12 +15,12 @@ Object {
       ],
       "version": "1.0.0",
     },
-    "issuer": Object {
+    "proofStatus": "NONE",
+    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "requester": Object {
       "did": "issuerDid",
       "name": "Test Issuer",
     },
-    "proofStatus": "NONE",
-    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
     "senderLogoUrl": "http://testissuer.com/logoUrl.png",
     "status": "RECEIVED",
     "statusMsg": "pending",
