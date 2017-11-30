@@ -208,7 +208,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                 accessible={true}
                 allowFontScaling={true}
                 ellipsizeMode="tail"
-                onPress={undefined}
+                onPress={[Function]}
                 style={
                   Array [
                     Object {
@@ -230,13 +230,14 @@ exports[`user settings screen should render properly and snapshot should match 1
                 }
                 testID="settings-pass-code-label"
               >
-                Passcode: 
+                Passcode:
+                 
               </Text>
               <Text
                 accessible={true}
                 allowFontScaling={true}
                 ellipsizeMode="tail"
-                onPress={undefined}
+                onPress={[Function]}
                 style={
                   Array [
                     Object {
@@ -273,16 +274,44 @@ exports[`user settings screen should render properly and snapshot should match 1
               }
             }
           >
-            <Image
-              resizeMode="contain"
-              source={1}
+            <View
+              accessibilityComponentType={undefined}
+              accessibilityLabel={undefined}
+              accessibilityTraits={undefined}
+              accessible={true}
+              hitSlop={undefined}
+              isTVSelectable={true}
+              onLayout={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
               style={
                 Object {
-                  "height": 22,
-                  "width": 22,
+                  "opacity": 1,
                 }
               }
-            />
+              testID={undefined}
+              tvParallaxProperties={undefined}
+            >
+              <Image
+                resizeMode="contain"
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "height": 22,
+                      "width": 22,
+                    },
+                    Object {
+                      "tintColor": "black",
+                    },
+                  ]
+                }
+              />
+            </View>
           </View>
         </View>
         <View

@@ -20,6 +20,7 @@ export class LockSetupSuccess extends PureComponent {
   onClose = () => {
     this.props.unlockApp()
     if (
+      this.props.navigation.state &&
       this.props.navigation.state.params &&
       this.props.navigation.state.params.changePin === true
     ) {

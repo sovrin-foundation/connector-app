@@ -25,7 +25,7 @@ describe('<ProofRequest />', () => {
               data: {
                 name: 'Home Address',
                 version: '1.0.0',
-                requested_attrs: [
+                requestedAttributes: [
                   {
                     label: 'Address 1',
                   },
@@ -73,7 +73,7 @@ describe('<ProofRequest />', () => {
   const data = {
     name: 'Home Address',
     version: '1.0.0',
-    requested_attrs: [
+    requestedAttributes: [
       {
         label: 'Address 1',
       },

@@ -13,7 +13,7 @@ describe('proof request store', () => {
       data: {
         name: 'Home Address',
         version: '1.0.0',
-        requested_attrs: [
+        requestedAttributes: [
           {
             label: 'Address 1',
           },

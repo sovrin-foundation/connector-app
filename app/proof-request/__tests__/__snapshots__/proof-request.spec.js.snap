@@ -671,9 +671,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                     ]
                   }
                   testID={undefined}
-                >
-                  11509 142345nd Ave KP N
-                </Text>
+                />
               </View>
             </View>
             <View
@@ -826,9 +824,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                     ]
                   }
                   testID={undefined}
-                >
-                  11509 142345nd Ave KP N
-                </Text>
+                />
               </View>
             </View>
             <View

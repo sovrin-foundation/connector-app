@@ -63,7 +63,7 @@ exports[`convertProofRequestPushPayloadToAppProofRequest should convert push pay
 Object {
   "data": Object {
     "name": "Home Address",
-    "requested_attrs": Array [
+    "requestedAttributes": Array [
       Object {
         "label": "address_1",
       },

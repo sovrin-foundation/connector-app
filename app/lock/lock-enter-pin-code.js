@@ -95,6 +95,7 @@ export class LockEnterPin extends PureComponent<
     if (this.props.checkPinStatus !== nextProps.checkPinStatus) {
       if (nextProps.checkPinStatus === CHECK_PIN_SUCCESS) {
         if (
+          this.props.navigation.state &&
           this.props.navigation.state.params &&
           this.props.navigation.state.params.existingPin === true
         ) {

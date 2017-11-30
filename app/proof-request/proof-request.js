@@ -50,10 +50,7 @@ class ProofRequestAttributeList extends PureComponent<
   keyExtractor = (_, index: number) => index
 
   renderItem = ({ item, index }) => {
-    // TODO: need to replace below hard coded string with a logic to get
-    // relevant data for the item.label and proof requester logo from claimOffer store.
-    // need to finalize what needs to be displayed if there was no proof available for that particular label.
-    const labelData = '11509 142345nd Ave KP N'
+    const labelData = null
     return (
       <Container
         fifth
@@ -198,7 +195,7 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
           </ClaimProofHeader>
         )}
         {isValid ? (
-          <ProofRequestAttributeList list={data.requested_attrs} />
+          <ProofRequestAttributeList list={data.requestedAttributes} />
         ) : (
           <Container fifth center>
             <CustomText h5 bg="fifth">
@@ -240,7 +237,7 @@ const mapStateToProps = ({ proofRequest }: Store, props) => {
     status,
   } = proofRequestData
   const { name } = requester
-  const isValid = proofRequestData && data && data.requested_attrs
+  const isValid = proofRequestData && data && data.requestedAttributes
 
   return {
     isValid,

@@ -80,15 +80,17 @@ export function convertClaimOfferPushPayloadToAppClaimOffer(
 export function convertProofRequestPushPayloadToAppProofRequest(
   pushPayload: ProofRequestPushPayload
 ): AdditionalProofDataPayload {
-  const requested_attrs = pushPayload.requested_attrs.map(attributeName => ({
-    label: attributeName,
-  }))
+  const requestedAttributes = pushPayload.requestedAttributes.map(
+    attributeName => ({
+      label: attributeName,
+    })
+  )
 
   return {
     data: {
       name: pushPayload.proof_request_name,
       version: pushPayload.version,
-      requested_attrs,
+      requestedAttributes,
     },
     requester: {
       name: pushPayload.remoteName,

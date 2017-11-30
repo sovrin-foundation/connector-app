@@ -20,7 +20,7 @@ export type ProofRequestPushPayload = {
   intended_use: string,
   proof_request_name: string,
   claim_def: Array<number>,
-  requested_attrs: Array<string>,
+  requestedAttributes: Array<string>,
   requested_predicates?: ?Array<string>,
   tid: string,
   mid: string,
@@ -30,7 +30,7 @@ export type ProofRequestPushPayload = {
 export type AdditionalProofData = {
   name: string,
   version: string,
-  requested_attrs: Array<Attribute>,
+  requestedAttributes: Array<Attribute>,
 }
 
 export type AdditionalProofDataPayload = {

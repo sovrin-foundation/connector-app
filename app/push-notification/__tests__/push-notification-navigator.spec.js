@@ -104,7 +104,7 @@ describe('convertProofRequestPushPayloadToAppProofRequest', () => {
       intended_use: 'Verify Home Address',
       proof_request_name: 'Home Address',
       claim_def: [12, 13, 201, 111, 213],
-      requested_attrs: ['address_1', 'address_2', 'city', 'state', 'zip'],
+      requestedAttributes: ['address_1', 'address_2', 'city', 'state', 'zip'],
       requested_predicates: ['age'],
       tid: 'cCanHnpFAD',
       mid: '1',
