@@ -34,6 +34,7 @@ import type { Claim } from '../claim/type-claim'
 import type {
   ProofRequestPushPayload,
   AdditionalProofDataPayload,
+  RequestedAttribute,
 } from '../proof-request/type-proof-request'
 
 const blackListedRoute = {
@@ -80,21 +81,22 @@ export function convertClaimOfferPushPayloadToAppClaimOffer(
 export function convertProofRequestPushPayloadToAppProofRequest(
   pushPayload: ProofRequestPushPayload
 ): AdditionalProofDataPayload {
-  const requestedAttributes = pushPayload.requestedAttributes.map(
-    attributeName => ({
-      label: attributeName,
-    })
-  )
+  const { proof_request_data, remoteName } = pushPayload
+  const { requested_attrs, name, version } = proof_request_data
+  const requestedAttributes = Object.keys(
+    requested_attrs
+  ).map(attributeKey => ({
+    label: requested_attrs[attributeKey].name,
+  }))
 
   return {
     data: {
-      name: pushPayload.proof_request_name,
-      version: pushPayload.version,
+      name,
+      version,
       requestedAttributes,
     },
     requester: {
-      name: pushPayload.remoteName,
-      did: pushPayload.requester_did,
+      name: remoteName,
     },
   }
 }

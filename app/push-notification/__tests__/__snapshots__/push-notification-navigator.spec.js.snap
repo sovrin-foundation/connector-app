@@ -65,6 +65,9 @@ Object {
     "name": "Home Address",
     "requestedAttributes": Array [
       Object {
+        "label": "your_name",
+      },
+      Object {
         "label": "address_1",
       },
       Object {
@@ -83,7 +86,6 @@ Object {
     "version": "0.1",
   },
   "requester": Object {
-    "did": "V4SGRU86Z58d6TV7PBUe6f",
     "name": "Evernym",
   },
 }

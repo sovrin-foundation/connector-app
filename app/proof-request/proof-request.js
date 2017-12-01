@@ -279,7 +279,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   verifierLogoIcon: {
-    borderRadius: 10,
+    borderRadius: 35,
     height: 70,
     width: 70,
   },
