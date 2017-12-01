@@ -83,11 +83,11 @@ export function convertProofRequestPushPayloadToAppProofRequest(
 ): AdditionalProofDataPayload {
   const { proof_request_data, remoteName } = pushPayload
   const { requested_attrs, name, version } = proof_request_data
-  const requestedAttributes = Object.keys(requested_attrs).map(attributeKey => {
-    return {
-      label: requested_attrs[attributeKey].name,
-    }
-  })
+  const requestedAttributes = Object.keys(
+    requested_attrs
+  ).map(attributeKey => ({
+    label: requested_attrs[attributeKey].name,
+  }))
 
   return {
     data: {
