@@ -1,6 +1,11 @@
 // @flow
 import { INITIAL_TEST_ACTION } from '../common/type-common'
-import type { CustomError, GenericObject } from '../common/type-common'
+import type {
+  CustomError,
+  GenericObject,
+  MessageAnnotation,
+  TopicAnnotation,
+} from '../common/type-common'
 import type {
   ClaimProofNavigation,
   NotificationPayload,
@@ -8,23 +13,36 @@ import type {
   NotificationPayloadInfo,
 } from '../push-notification/type-push-notification'
 
+export type RequestedAttribute = {
+  schema_seq_no?: number,
+  issuer_did?: string,
+  name: string,
+}
+
+export type RequestedPredicates = {
+  attr_name: string,
+  p_type: string,
+  value: number,
+  schema_seq_no?: number,
+  issuer_did?: string,
+}
+
 export type ProofRequestPushPayload = {
-  msg_type: string,
-  version: string,
-  expires: string,
-  nonce: string,
-  to_did: string,
-  from_did: string,
+  '@type': MessageAnnotation,
+  '@topic': TopicAnnotation,
+  intended_use?: string,
+  proof_request_data: {
+    nonce: string,
+    name: string,
+    version: string,
+    requested_attrs: {
+      +[string]: RequestedAttribute,
+    },
+    requested_predicates?: ?{
+      +[string]: RequestedPredicates,
+    },
+  },
   remoteName: string,
-  requester_did: string,
-  intended_use: string,
-  proof_request_name: string,
-  claim_def: Array<number>,
-  requestedAttributes: Array<string>,
-  requested_predicates?: ?Array<string>,
-  tid: string,
-  mid: string,
-  optional_data: GenericObject,
 }
 
 export type AdditionalProofData = {
@@ -37,7 +55,6 @@ export type AdditionalProofDataPayload = {
   data: AdditionalProofData,
   requester: {
     name: string,
-    did: string,
   },
   statusMsg?: string,
 }

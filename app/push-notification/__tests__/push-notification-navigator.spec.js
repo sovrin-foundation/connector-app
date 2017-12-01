@@ -93,22 +93,56 @@ describe('<PushNotificationNavigator />', () => {
 describe('convertProofRequestPushPayloadToAppProofRequest', () => {
   it('should convert push payload to proof request format correctly', () => {
     const proofRequestPushPayload = {
-      msg_type: 'PROOF_REQUEST',
-      version: '0.1',
-      expires: '2018-05-22T03:25:17Z',
-      nonce: '1234567',
-      to_did: 'BnRXf8yDMUwGyZVDkSENeq',
-      from_did: 'GxtnGN6ypZYgEqcftSQFnC',
-      remoteName: 'Evernym',
-      requester_did: 'V4SGRU86Z58d6TV7PBUe6f',
+      '@type': {
+        name: 'PROOF_REQUEST',
+        version: '1.0',
+      },
+      '@topic': {
+        tid: 1,
+        mid: 9,
+      },
       intended_use: 'Verify Home Address',
-      proof_request_name: 'Home Address',
-      claim_def: [12, 13, 201, 111, 213],
-      requestedAttributes: ['address_1', 'address_2', 'city', 'state', 'zip'],
-      requested_predicates: ['age'],
-      tid: 'cCanHnpFAD',
-      mid: '1',
-      optional_data: { terms_and_conditions: 'https://evernym.com/tnc.pdf' },
+      proof_request_data: {
+        nonce: '123432421212',
+        name: 'Home Address',
+        version: '0.1',
+        requested_attrs: {
+          '<attr1_uuid>': {
+            name: 'your_name',
+          },
+          '<attr2_uuid>': {
+            schema_seq_no: 1,
+            name: 'address_1',
+          },
+          '<attr3_uuid>': {
+            schema_seq_no: 2,
+            issuer_did: 'ISSUER_DID2',
+            name: 'address_2',
+          },
+          '<attr4_uuid>': {
+            schema_seq_no: 1,
+            name: 'city',
+          },
+          '<attr5_uuid>': {
+            schema_seq_no: 1,
+            name: 'state',
+          },
+          '<attr6_uuid>': {
+            schema_seq_no: 1,
+            name: 'zip',
+          },
+        },
+        requested_predicates: {
+          predicate1_uuid: {
+            attr_name: 'age',
+            p_type: 'GE',
+            value: 18,
+            schema_seq_no: 1,
+            issuer_did: 'DID1',
+          },
+        },
+      },
+      remoteName: 'Evernym',
     }
 
     expect(

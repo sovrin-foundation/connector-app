@@ -35,3 +35,13 @@ export type GenericObject = {
 export type GenericStringObject = {
   [string]: string,
 }
+
+export type MessageAnnotation = {
+  name: string,
+  version: string,
+}
+
+export type TopicAnnotation = {
+  tid: number,
+  mid: number,
+}

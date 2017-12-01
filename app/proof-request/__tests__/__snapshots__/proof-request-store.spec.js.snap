@@ -18,7 +18,6 @@ Object {
     "proofStatus": "NONE",
     "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
     "requester": Object {
-      "did": "issuerDid",
       "name": "Test Issuer",
     },
     "senderLogoUrl": "http://testissuer.com/logoUrl.png",

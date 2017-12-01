@@ -24,7 +24,6 @@ describe('proof request store', () => {
       },
       requester: {
         name: 'Test Issuer',
-        did: 'issuerDid',
       },
       statusMsg: 'pending',
     },
