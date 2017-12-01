@@ -138,7 +138,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
           iconStyle={
             Array [
               Object {
-                "borderRadius": 10,
+                "borderRadius": 35,
                 "height": 70,
                 "width": 70,
               },
@@ -183,7 +183,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                     "borderRadius": 40,
                   },
                   Object {
-                    "borderRadius": 10,
+                    "borderRadius": 35,
                     "height": 70,
                     "width": 70,
                   },
@@ -219,7 +219,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
           iconStyle={
             Array [
               Object {
-                "borderRadius": 10,
+                "borderRadius": 35,
                 "height": 70,
                 "width": 70,
               },
@@ -272,7 +272,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                     "borderRadius": 40,
                   },
                   Object {
-                    "borderRadius": 10,
+                    "borderRadius": 35,
                     "height": 70,
                     "width": 70,
                   },
