@@ -62,7 +62,7 @@
     <artifactId>json</artifactId>
     <version>20170516</version>
 </dependency>
-<dependency>
+<dependency> 
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-collections4</artifactId>
     <version>4.1</version>
@@ -92,7 +92,11 @@
     <artifactId>bitcoinj-core</artifactId>
     <version>0.12</version>
 </dependency>
-
-
+ <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>3.0.0</version>
+      <scope>test</scope>
+    </dependency>
 </dependencies>
 </project>

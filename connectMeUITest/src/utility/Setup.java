@@ -24,13 +24,12 @@ public class Setup {
 
 			if (DeviceType == "App") {
 				capabilities.setCapability("automationName", "XCUITest");
-				capabilities.setCapability("platformVersion", "10.0");
+				capabilities.setCapability("platformVersion", "10.3");
 				capabilities.setCapability("platformName", "iOS");
+				capabilities.setCapability("useNewWDA", "true");
 				capabilities.setCapability("bundleId", "com.evernym.connectme.callcenter");
-				capabilities.setCapability("deviceName", "Evernym iPhone");//device name
-				capabilities.setCapability("udid", "09be62db9da627a1f8d4ab4733cb8d88c6a1b0f8");//udid of device
-				// capa bilities.setCapability("udid",
-				// "b78a49129d22c79c81e303b812d14abaa6fc817d");
+				capabilities.setCapability("deviceName", "Ankur's iPhone");//device name
+				capabilities.setCapability("udid", "42d9657d87b56203d1c4c5eb22fde827ca2c0090");//udid of device
 				capabilities.setCapability("xcodeOrgId", "ES8QU3D2A4");
 				capabilities.setCapability("xcodeSigningId", "iPhone Developer");
 				driver = new IOSDriver(new URL("http://183.82.106.249:4723/wd/hub"), capabilities);
@@ -53,10 +52,11 @@ public class Setup {
 		}
 			else
 			{
-				capabilities.setCapability("platformVersion", "10.0");
+				capabilities.setCapability("platformVersion", "10.3");
 				capabilities.setCapability("platformName", "iOS");
-				capabilities.setCapability("deviceName", "Evernym iPhone");//device name
-				capabilities.setCapability("udid", "09be62db9da627a1f8d4ab4733cb8d88c6a1b0f8");//udid of device
+				capabilities.setCapability("useNewWDA", "true");
+				capabilities.setCapability("deviceName", "Ankur's iPhone");//device name
+				capabilities.setCapability("udid", "42d9657d87b56203d1c4c5eb22fde827ca2c0090");//udid of device
 				capabilities.setCapability("browserName", "Safari");
 				driver = new IOSDriver(new URL("http://183.82.106.249:4723/wd/hub"), capabilities);
              	/*driver = new IOSDriver(new URL("http://127.0.0.1:4723/wd/hub"),

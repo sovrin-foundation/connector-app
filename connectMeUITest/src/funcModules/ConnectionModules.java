@@ -1,6 +1,13 @@
 package funcModules;
 
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import appModules.AppUtlis;
+import appModules.ReadMail;
 import appModules.RestApi;
 import io.appium.java_client.AppiumDriver;
 import pageObjects.ChooseLockPage;
@@ -8,44 +15,31 @@ import pageObjects.ConnectionDetailPage;
 import pageObjects.GmailPage;
 import pageObjects.HockeyAppPage;
 import pageObjects.PincodePage;
+import utility.Setup;
 
 public class ConnectionModules {
 	
 
 	AppUtlis AppUtlisObj=new AppUtlis();
 	RestApi RestApiObj=new RestApi();
+	private AppiumDriver driver;
 
 	
 	
-	public void InstallApp(AppiumDriver driver,String Env)throws Exception
+	public void InstallApp(AppiumDriver driver,String Link)throws Exception
 	{
-
-		driver.get("https://gmail.com");
-		GmailPage.UserNameText(driver).sendKeys("evernym.number@gmail.com");
-		GmailPage.UserNameNextButton(driver).click();
-	    GmailPage.PasswordText(driver).sendKeys("evernym123");
-		GmailPage.PasswordNextButton(driver).click();
-        Thread.sleep(20000);//used sleep which is not recommended as we have issue with synch of gmail opening 
-        GmailPage.MobileGmailSiteLink(driver).click();
-    	if(GmailPage.Email_CheckBox(driver)!=null)
-    	{
-    	GmailPage.Email_CheckBox(driver).click();
-    	GmailPage.Delete_Button(driver).click();
-		}
-      	RestApiObj.sendSmsRestApi(Env);
-		Thread.sleep(50000);
-		driver.navigate().refresh();
-	   	GmailPage.FirstEmailLink(driver).click();
-    	String ConnectMeLink =GmailPage.ConnectMeLink(driver).getAttribute("href");
-		System.out.println(ConnectMeLink);
-		driver.get(ConnectMeLink);
+		
+		Thread.sleep(3000);
+		driver.get(Link);
 		HockeyAppPage.UserNameText(driver).sendKeys("ankur.mishra@evernym.com");
 		HockeyAppPage.PasswordText(driver).sendKeys("Password12$");
 		HockeyAppPage.SigninButton(driver).click();    	
-     	HockeyAppPage.QAConnectIcon(driver).click();  	
-    	String InstallConnectMeLink =HockeyAppPage.InstallButton(driver).getAttribute("href");
-    	driver.get(InstallConnectMeLink);
-    	Thread.sleep(5000);//used sleep which is not recommended as we have issue with synch of alert box
+     	HockeyAppPage.QAConnectIcon(driver).click(); 
+     	String InstallConnectMeLink =HockeyAppPage.InstallButton(driver).getAttribute("href");
+     	System.out.println(InstallConnectMeLink);
+        driver.get(InstallConnectMeLink);
+        Thread.sleep(10000);
+        //used sleep which is not recommended as we have issue with synch of alert box
     	driver.switchTo().alert().accept();
 		
 	}
@@ -57,16 +51,15 @@ public class ConnectionModules {
 	      AppUtlisObj.RequestProvisioning(driver,"Accept");
 		  driver.switchTo().alert().accept();
 
-	   }
+	      }
 		
-	 else{
+	 else {
 		   AppUtlisObj.RequestProvisioning(driver,"Deny");
 		   driver.switchTo().alert().accept(); 
    	      }
-	  Thread.sleep(5000);
+	   Thread.sleep(5000);
 	   ConnectionDetailPage.Continue_Button(driver).click();
 	}
 	
-
 
 }

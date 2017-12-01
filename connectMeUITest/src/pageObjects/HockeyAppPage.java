@@ -17,7 +17,9 @@ public class HockeyAppPage {
 
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, 90);
-			element = wait.until(ExpectedConditions.elementToBeClickable(By.id("user_email")));				
+			element = driver.findElement(By.id("user_email"));
+
+			//element = wait.until(ExpectedConditions.elementToBeClickable(By.id("user_email")));				
 			System.out.println("UserNameText is displayed");
 			return element;
 		} catch (Exception e) {
@@ -61,7 +63,9 @@ public class HockeyAppPage {
 			try {
 				
 				WebDriverWait wait = new WebDriverWait(driver, 120);
-				element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//img[@title='QA ConnectMe']")));				
+				element = driver.findElement(By.xpath("//img[@title='QA ConnectMe']"));
+
+			//	element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//img[@title='QA ConnectMe']")));				
 				System.out.println("QAConnect Icon is displayed");
 
 				return element;
@@ -78,7 +82,9 @@ public class HockeyAppPage {
 			try {
 				
 				WebDriverWait wait = new WebDriverWait(driver, 90);
-				element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='install pull-right']/a")));	
+				element = driver.findElement(By.xpath("//div[@class='install pull-right']/a"));
+
+			//	element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='install pull-right']/a")));	
 				System.out.println("InstallButton is displayed");
 
 				return element;

@@ -11,7 +11,7 @@ public class InvitationPage {
 	public static WebElement Allow_Button(AppiumDriver driver) throws Exception {
 
 		try {
-			element =  driver.findElementByXPath("(//XCUIElementTypeOther[@name='Allow'])[2]");
+			element =  driver.findElementByXPath("(//XCUIElementTypeOther[@name='Connect'])[2]");
 			System.out.println("Allow Button is displayed");
 			return element;
 		} catch (Exception e) {

@@ -23,7 +23,9 @@ public class GmailPage {
 		try {
 			
 			WebDriverWait wait = new WebDriverWait(driver, 120);
-			element = wait.until(ExpectedConditions.elementToBeClickable(By.id("identifierId")));
+			element = driver.findElement(By.id("identifierId"));
+
+			//element = wait.until(ExpectedConditions.elementToBeClickable(By.id("identifierId")));
 			System.out.println("UserNameText is displayed");
 			return element;
 		} catch (Exception e) {
@@ -39,7 +41,9 @@ public class GmailPage {
 
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, 90);
-			element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='listitem']/div")));	
+			element = driver.findElement(By.xpath("//div[@role='listitem']/div"));
+
+			//element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='listitem']/div")));	
 			System.out.println("FirstEmail Link is displayed");
 
 			return element;

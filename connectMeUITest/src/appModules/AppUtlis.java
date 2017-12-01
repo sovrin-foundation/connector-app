@@ -9,7 +9,6 @@ import utility.ErrorCodeMatcher;
 import utility.InMemWalletType;
 import utility.InitHelper;
 import utility.StorageUtils;
-import static org.junit.Assert.assertEquals;
 import java.util.HashSet;
 import org.bitcoinj.core.Base58;
 import org.hyperledger.indy.sdk.pool.Pool;
@@ -17,10 +16,6 @@ import org.hyperledger.indy.sdk.signus.Signus;
 import org.hyperledger.indy.sdk.signus.SignusJSONParameters;
 import org.hyperledger.indy.sdk.signus.SignusResults.CreateAndStoreMyDidResult;
 import org.hyperledger.indy.sdk.wallet.Wallet;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.Timeout;
 import org.testng.SkipException;
 import org.hyperledger.indy.sdk.ErrorCode;
 import java.util.concurrent.ExecutionException;
@@ -30,7 +25,9 @@ import java.util.concurrent.TimeUnit;
 public class AppUtlis {
 	
 	public static boolean Success=false;
-	
+	LibIndy libindyObj=new LibIndy();
+	RestApi restApiObj=new RestApi();
+	public static String pairwiseVerkey,pairwiseDID;
 
 	public  void RequestProvisioning(AppiumDriver driver,String Requestype) throws Exception
 	
@@ -75,6 +72,32 @@ public class AppUtlis {
 		
 	}
 	
+	public String sendSmsRestApi() throws Exception
+    {
+		
+		 String pairwiseVerkey,pairwiseDID;
+	     String result[];
+	     result=libindyObj.createMyDid();
+	     pairwiseVerkey=result[0];
+	     pairwiseDID=result[1];
+	     restApiObj.createPairwiseKey(pairwiseDID, pairwiseVerkey);
+	     restApiObj.setProfileData(pairwiseDID,"Ankur Mishra");
+	     restApiObj.sendInvite(pairwiseDID, "D1234", "8327364896");
+	     return pairwiseDID;
+	}
+	
+	public void sendClaimofferRestApi(String pairwiseDID) throws Exception
+    {
+		
+		restApiObj.sendClaimOffer(pairwiseDID);
+	}
+	public void sendClaimRestApi(String pairwiseDID) throws Exception
+    {
+		
+		restApiObj.sendClaim(pairwiseDID);
+	}
+
+
 
 	}
 
