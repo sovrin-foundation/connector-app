@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import 'react-native'
+import { AsyncStorage } from 'react-native'
 import renderer from 'react-test-renderer'
 import { put, call, select } from 'redux-saga/effects'
 import invitationReducer, {
@@ -17,6 +17,8 @@ import { ResponseType } from '../../components/request/type-request'
 import {
   getAgencyUrl,
   getPushToken,
+  getAgencyDID,
+  getAgencyVerificationKey,
   getInvitationPayload,
   isDuplicateConnection,
 } from '../../store/store-selector'
@@ -35,6 +37,7 @@ import {
   ERROR_INVITATION_RESPONSE_PARSE_CODE,
   ERROR_INVITATION_RESPONSE_PARSE,
 } from '../../api/api-constants'
+import { IS_CONSUMER_AGENT_ALREADY_CREATED } from '../../common'
 
 describe('Invitation Store', () => {
   let initialState
@@ -159,7 +162,7 @@ describe('Invitation Store', () => {
   it('should work fine for accept invitation workflow success', () => {
     if (firstInvitation) {
       const { payload } = firstInvitation
-      const senderDID = firstInvitation.payload.senderDID
+      const { senderDID, senderVerificationKey } = payload
       const data = {
         senderDID,
         response: ResponseType.accepted,
@@ -170,22 +173,35 @@ describe('Invitation Store', () => {
       const alreadyExist = false
       expect(gen.next().value).toEqual(select(getAgencyUrl))
       expect(gen.next(agencyUrl).value).toEqual(select(getPushToken))
-      expect(gen.next(pushToken).value).toEqual(
-        select(getInvitationPayload, senderDID)
-      )
-      expect(gen.next(payload).value).toEqual(
-        select(isDuplicateConnection, senderDID)
+      expect(gen.next(pushToken).value).toEqual(select(getAgencyDID))
+      expect(gen.next(agencyDid).value).toEqual(
+        select(getAgencyVerificationKey)
       )
 
+      expect(gen.next(agencyVerificationKey).value).toEqual(
+        select(getInvitationPayload, senderDID)
+      )
       const metadata = {
         ...payload,
       }
-      expect(gen.next(alreadyExist).value).toEqual(
+      expect(gen.next(payload).value).toEqual(
         call(addConnection, agencyDid, agencyVerificationKey, metadata)
       )
-
       const identifier = '3akhf906816kahfadhfas85'
       const verificationKey = '3akhf906816kahfadhfas853akhf906816kahfadhfas85'
+
+      expect(gen.next({ identifier, verificationKey }).value).toEqual(
+        select(isDuplicateConnection, senderDID)
+      )
+      expect(gen.next().value).toEqual(
+        call(AsyncStorage.getItem, IS_CONSUMER_AGENT_ALREADY_CREATED)
+      )
+      expect(gen.next(senderDID).value).toEqual(select(getAgencyUrl))
+      expect(gen.next(agencyUrl).value).toEqual(select(getPushToken))
+      expect(gen.next().value).toEqual(select(getAgencyDID))
+      expect(gen.next(agencyDid).value).toEqual(
+        select(getAgencyVerificationKey)
+      )
 
       expect(gen.next({ identifier, verificationKey }).value).toEqual(
         call(connectWithConsumerAgency, {
@@ -217,8 +233,10 @@ describe('Invitation Store', () => {
           },
         })
       )
-
       expect(gen.next().value).toEqual(
+        call(AsyncStorage.setItem, IS_CONSUMER_AGENT_ALREADY_CREATED, 'true')
+      )
+      expect(gen.next(senderDID).value).toEqual(
         call(addConnection, senderDID, payload.senderVerificationKey, metadata)
       )
       const pairwiseConnection = {
@@ -297,22 +315,35 @@ describe('Invitation Store', () => {
       const alreadyExist = false
       expect(gen.next().value).toEqual(select(getAgencyUrl))
       expect(gen.next(agencyUrl).value).toEqual(select(getPushToken))
-      expect(gen.next(pushToken).value).toEqual(
+      expect(gen.next(pushToken).value).toEqual(select(getAgencyDID))
+      expect(gen.next(agencyDid).value).toEqual(
+        select(getAgencyVerificationKey)
+      )
+      expect(gen.next(agencyVerificationKey).value).toEqual(
         select(getInvitationPayload, senderDID)
       )
-      expect(gen.next(payload).value).toEqual(
-        select(isDuplicateConnection, senderDID)
-      )
-
       const metadata = {
         ...payload,
       }
-      expect(gen.next(alreadyExist).value).toEqual(
+      expect(gen.next(payload).value).toEqual(
         call(addConnection, agencyDid, agencyVerificationKey, metadata)
       )
-
       const identifier = '3akhf906816kahfadhfas85'
       const verificationKey = '3akhf906816kahfadhfas853akhf906816kahfadhfas85'
+
+      expect(gen.next({ identifier, verificationKey }).value).toEqual(
+        select(isDuplicateConnection, senderDID)
+      )
+      expect(gen.next().value).toEqual(
+        call(AsyncStorage.getItem, IS_CONSUMER_AGENT_ALREADY_CREATED)
+      )
+
+      expect(gen.next(senderDID).value).toEqual(select(getAgencyUrl))
+      expect(gen.next(agencyUrl).value).toEqual(select(getPushToken))
+      expect(gen.next().value).toEqual(select(getAgencyDID))
+      expect(gen.next(agencyDid).value).toEqual(
+        select(getAgencyVerificationKey)
+      )
 
       expect(gen.next({ identifier, verificationKey }).value).toEqual(
         call(connectWithConsumerAgency, {
@@ -344,7 +375,9 @@ describe('Invitation Store', () => {
           },
         })
       )
-
+      expect(gen.next().value).toEqual(
+        call(AsyncStorage.setItem, IS_CONSUMER_AGENT_ALREADY_CREATED, 'true')
+      )
       expect(gen.next().value).toEqual(
         call(addConnection, senderDID, payload.senderVerificationKey, metadata)
       )

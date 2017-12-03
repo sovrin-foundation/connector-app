@@ -1,4 +1,5 @@
 // @flow
+import { AsyncStorage } from 'react-native'
 import { put, takeLatest, call, all, select } from 'redux-saga/effects'
 import {
   INVITATION_RECEIVED,
@@ -23,6 +24,8 @@ import {
 } from '../api/api-constants'
 import {
   getAgencyUrl,
+  getAgencyDID,
+  getAgencyVerificationKey,
   getPushToken,
   getInvitationPayload,
   isDuplicateConnection,
@@ -38,6 +41,8 @@ import type {
   InvitationAction,
 } from './type-invitation'
 import type { CustomError } from '../common/type-common'
+import { captureError } from '../services/error/error-handler'
+import { IS_CONSUMER_AGENT_ALREADY_CREATED } from '../common'
 
 export const invitationInitialState = {}
 
@@ -66,6 +71,73 @@ export const invitationRejected = (senderDID: string) => ({
   type: INVITATION_REJECTED,
   senderDID,
 })
+function* createConsumerAgencyAgent(
+  senderDID: string,
+  identifier: string,
+  verificationKey: string,
+  payload: InvitationPayload
+): Generator<*, *, *> {
+  // get data needed for agent api call from store using selectors
+  // this will keep our components and screen to not pass data
+  // and will keep our actions lean
+  const agencyUrl: string = yield select(getAgencyUrl)
+  const pushToken: string = yield select(getPushToken)
+  const agencyDid: string = yield select(getAgencyDID)
+  const agencyVerificationKey: string = yield select(getAgencyVerificationKey)
+
+  const metadata = {
+    ...payload,
+  }
+  try {
+    const connectResponse = yield call(connectWithConsumerAgency, {
+      agencyUrl,
+      dataBody: {
+        type: API_TYPE.CONNECT,
+        fromDID: identifier,
+        fromDIDVerKey: verificationKey,
+      },
+    })
+    const registerResponse = yield call(registerWithConsumerAgency, {
+      agencyUrl,
+      dataBody: {
+        type: API_TYPE.REGISTER,
+        fromDID: identifier,
+      },
+    })
+
+    const createAgentResponse = yield call(createAgentWithConsumerAgency, {
+      agencyUrl,
+      dataBody: {
+        type: API_TYPE.CREATE_AGENT,
+        forDID: identifier,
+      },
+    })
+
+    // now save the key in user's default storage in phone
+    try {
+      yield call(
+        AsyncStorage.setItem,
+        IS_CONSUMER_AGENT_ALREADY_CREATED,
+        'true'
+      )
+    } catch (e) {
+      // somehow the storage failed, so we need to find someway to store
+      // maybe we fallback to file based storage
+
+      // Capture AsyncStorage failed
+      captureError(e)
+    }
+  } catch (e) {
+    let error: CustomError = {
+      code: ERROR_INVITATION_RESPONSE_PARSE_CODE,
+      message: ERROR_INVITATION_RESPONSE_PARSE,
+    }
+    try {
+      error = JSON.parse(e.message)
+    } catch (_) {}
+    yield put(invitationFail(error, senderDID))
+  }
+}
 
 export function* sendResponse(
   action: InvitationResponseSendAction
@@ -76,62 +148,48 @@ export function* sendResponse(
   // and will keep our actions lean
   const agencyUrl: string = yield select(getAgencyUrl)
   const pushToken: string = yield select(getPushToken)
+  const agencyDid: string = yield select(getAgencyDID)
+  const agencyVerificationKey: string = yield select(getAgencyVerificationKey)
   const payload: InvitationPayload = yield select(
     getInvitationPayload,
     senderDID
   )
+  const metadata = {
+    ...payload,
+  }
+  const { identifier, verificationKey } = yield call(
+    addConnection,
+    agencyDid,
+    agencyVerificationKey,
+    metadata
+  )
   const alreadyExist: boolean = yield select(isDuplicateConnection, senderDID)
-
   if (alreadyExist) {
     yield put(invitationFail(ERROR_ALREADY_EXIST, senderDID))
   } else {
     const metadata = {
       ...payload,
     }
-    // TODO: This will remain hard coded and it should come from config store
-    // we need to switch this as well while switching environment
-    const agencyDid = '5qiK8KZQ86XjcnLmy5S2Tn'
-    const agencyVerificationKey = '3dzsPMyBeJiGtsxWoyrfXZL6mqj3iXxdJ75vewJ1jSwn'
-    const { identifier, verificationKey } = yield call(
-      addConnection,
-      agencyDid,
-      agencyVerificationKey,
-      metadata
+    const isConsumerAgentCreated = yield call(
+      AsyncStorage.getItem,
+      IS_CONSUMER_AGENT_ALREADY_CREATED
     )
+    if (isConsumerAgentCreated !== 'true') {
+      yield* createConsumerAgencyAgent(
+        senderDID,
+        identifier,
+        verificationKey,
+        payload
+      )
+    }
 
     try {
-      const connectResponse = yield call(connectWithConsumerAgency, {
-        agencyUrl,
-        dataBody: {
-          type: API_TYPE.CONNECT,
-          fromDID: identifier,
-          fromDIDVerKey: verificationKey,
-        },
-      })
-
-      const registerResponse = yield call(registerWithConsumerAgency, {
-        agencyUrl,
-        dataBody: {
-          type: API_TYPE.REGISTER,
-          fromDID: identifier,
-        },
-      })
-
-      const createAgentResponse = yield call(createAgentWithConsumerAgency, {
-        agencyUrl,
-        dataBody: {
-          type: API_TYPE.CREATE_AGENT,
-          forDID: identifier,
-        },
-      })
-
       const pairwiseConnection = yield call(
         addConnection,
         senderDID,
         payload.senderVerificationKey,
         metadata
       )
-
       const createPairwiseKey = yield call(createAgentPairwiseKey, {
         agencyUrl,
         dataBody: {
@@ -161,13 +219,11 @@ export function* sendResponse(
           pushComMethod: `FCM:${pushToken}`,
         }),
       }
-
       // TODO:KS Check errors from backend in api utils
       yield call(sendInvitationResponseApi, {
         agencyUrl,
         dataBody,
       })
-
       yield put(invitationSuccess(senderDID))
 
       if (action.data.response === ResponseType.accepted) {

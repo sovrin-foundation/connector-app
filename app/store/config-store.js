@@ -56,6 +56,8 @@ const initialState: ConfigStore = {
   // it will help in case user has not completed pin setup
   // and kills the app for first time
   // next time user opens the app, he won't be asked to setup pin
+  agencyDID: '5qiK8KZQ86XjcnLmy5S2Tn',
+  agencyVerificationKey: '3dzsPMyBeJiGtsxWoyrfXZL6mqj3iXxdJ75vewJ1jSwn',
 }
 
 export const hydrated = () => ({

@@ -101,6 +101,8 @@ describe('Authentication request tests', () => {
       {
         agencyUrl: 'some agency url',
         callCenterUrl: 'some call center url',
+        agencyDID: 'some DID',
+        agencyVerificationKey: 'some VerificationKey',
         isAlreadyInstalled: true,
         isHydrated: true,
         showErrorAlerts: false,

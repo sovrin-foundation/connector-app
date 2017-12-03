@@ -6,6 +6,11 @@ export const getConfig = (state: Store) => state.config
 
 export const getAgencyUrl = (state: Store) => state.config.agencyUrl
 
+export const getAgencyDID = (state: Store) => state.config.agencyDID
+
+export const getAgencyVerificationKey = (state: Store) =>
+  state.config.agencyVerificationKey
+
 export const getPushToken = (state: Store) => state.pushNotification.pushToken
 
 export const getSMSToken = (state: Store) => state.deepLink.token

@@ -67,4 +67,6 @@ export type ConfigStore = {
   showErrorAlerts: boolean,
   agencyUrl: string,
   callCenterUrl: string,
+  agencyDID: string,
+  agencyVerificationKey: string,
 }
