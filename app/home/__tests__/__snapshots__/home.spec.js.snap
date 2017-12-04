@@ -45,8 +45,14 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
             Object {
               "position": "absolute",
             },
-            undefined,
-            undefined,
+            Object {
+              "left": 15,
+              "top": 180,
+            },
+            Object {
+              "left": 15,
+              "top": 180,
+            },
           ]
         }
       >

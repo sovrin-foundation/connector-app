@@ -57,7 +57,21 @@ export default class ConnectionBubbles extends PureComponent {
       deviceClass =
         width === 320 ? 'Iphone5' : width === 414 ? 'IphonePlus' : 'ios'
     }
-
+    const enterprises = [
+      'evernym',
+      'ebay',
+      'verizon',
+      'suncoast',
+      'dell',
+      'bh',
+      'dillard',
+      'edcu',
+      'agency',
+    ]
+    const connections = this.props.connections.map((connection, index) => ({
+      ...connection,
+      name: enterprises[index] || 'verizon',
+    }))
     return (
       <Animated.View
         style={[
@@ -65,7 +79,7 @@ export default class ConnectionBubbles extends PureComponent {
           { transform: [{ translateY: this.props.height }] },
         ]}
       >
-        {this.props.connections.map(({ identifier, name, logoUrl, size }) => (
+        {connections.map(({ identifier, name, logoUrl, size }) => (
           <AnimationView
             animation="zoomIn"
             duration={600}
@@ -115,12 +129,12 @@ const styles = StyleSheet.create({
     left: 2,
   },
   dell: {
-    top: 20,
-    left: 125,
+    top: 5,
+    left: 115,
   },
   ebay: {
     top: 30,
-    left: 210,
+    left: 250,
   },
   target: {
     top: 90,
@@ -143,12 +157,12 @@ const styles = StyleSheet.create({
     left: 5,
   },
   dillard: {
-    top: 260,
+    top: 130,
     left: 150,
   },
   verizon: {
-    top: 310,
-    right: 30,
+    top: 255,
+    left: 150,
   },
   dellIphone5: {
     top: 20,
@@ -167,26 +181,26 @@ const styles = StyleSheet.create({
     right: 2,
   },
   dillardIphone5: {
-    top: 260,
-    left: 120,
+    top: 130,
+    left: 150,
   },
   starbucksIphonePlus: {
     top: 110,
     left: 150,
   },
   dillardIphonePlus: {
-    top: 260,
-    left: 160,
+    top: 130,
+    left: 150,
   },
 
   // multiple connections specific styles
   evernym: {
-    top: 250,
-    left: 50,
+    top: 180,
+    left: 15,
   },
   evernymIphone5: {
-    top: 250,
-    left: 50,
+    top: 180,
+    left: 15,
   },
   edcu: {
     top: 30,
