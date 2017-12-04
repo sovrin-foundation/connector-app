@@ -208,7 +208,7 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
           onAccept={this.onSend}
           onDecline={this.onReject}
           denyTitle="Ignore"
-          acceptTitle="Accept"
+          acceptTitle="Send"
           testID={testID}
         />
         {isValid && (

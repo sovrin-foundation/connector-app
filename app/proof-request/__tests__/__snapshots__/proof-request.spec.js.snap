@@ -1132,7 +1132,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                   ]
                 }
               >
-                Accept
+                Send
               </Text>
             </View>
           </View>
