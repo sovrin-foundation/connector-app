@@ -69,9 +69,9 @@ export class LockSetupSuccess extends PureComponent {
             style={[style.successMessage]}
           >
             {this.props.navigation.state.params &&
-            this.props.navigation.state.params.existingPin === true
-              ? 'Your connect.me app is now secured'
-              : 'Your connect.me app is secured'}
+            this.props.navigation.state.params.changePin === true
+              ? 'Your connect.me app is secured.'
+              : 'Your connect.me app is now secured'}
           </CustomText>
           <CustomText
             h6
@@ -82,9 +82,9 @@ export class LockSetupSuccess extends PureComponent {
             style={[style.successMessage]}
           >
             {this.props.navigation.state.params &&
-            this.props.navigation.state.params.existingPin === true
-              ? ' '
-              : "From now on you'll need to use your PIN to unlock this app."}
+            this.props.navigation.state.params.changePin === true
+              ? "From now on you'll need to use your PIN to unlock this app."
+              : ' '}
           </CustomText>
         </Container>
         <CustomView>

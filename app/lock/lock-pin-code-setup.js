@@ -20,7 +20,8 @@ import {
   lockSelectionRoute,
   lockPinSetupHomeRoute,
   lockSetupSuccessRoute,
-  settingsRoute,
+  settingsTabRoute,
+  lockEnterPinRoute,
 } from '../common'
 import {
   color,
@@ -84,14 +85,22 @@ export class LockPinSetup extends PureComponent {
       <CustomView>
         <TouchableHighlight
           testID={'back-button'}
-          onPress={() => navigation.navigate(lockSelectionRoute)}
+          onPress={() =>
+            navigation.state.params &&
+            navigation.state.params.existingPin === true
+              ? navigation.navigate(settingsTabRoute)
+              : navigation.navigate(lockSelectionRoute)}
         >
           <Image
             testID={'back-arrow'}
             style={styles.headerLeft}
             source={require('../images/icon_backArrow.png')}
             resizeMode="contain"
-            onPress={() => navigation.navigate(lockSelectionRoute)}
+            onPress={() =>
+              navigation.state.params &&
+              navigation.state.params.existingPin === true
+                ? navigation.navigate(settingsTabRoute)
+                : navigation.navigate(lockSelectionRoute)}
           />
         </TouchableHighlight>
       </CustomView>
