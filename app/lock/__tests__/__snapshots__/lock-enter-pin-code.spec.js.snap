@@ -34,10 +34,20 @@ exports[`<LockPinCodeEnter /> should render pin code box 1`] = `
     }
   />
   <View
+    style={
+      Object {
+        "marginBottom": 40,
+        "marginTop": 40,
+        "minHeight": 30,
+      }
+    }
+  />
+  <View
     accessibilityComponentType={undefined}
     accessibilityLabel={undefined}
     accessibilityTraits={undefined}
     accessible={true}
+    center={true}
     hitSlop={undefined}
     onLayout={undefined}
     onPress={[Function]}
@@ -49,21 +59,11 @@ exports[`<LockPinCodeEnter /> should render pin code box 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "marginBottom": 40,
-        "marginTop": 40,
-        "minHeight": 30,
-      }
-    }
-    testID={undefined}
-  />
-  <View
-    center={true}
-    style={
-      Object {
         "alignItems": "center",
         "justifyContent": "center",
       }
     }
+    testID="pin-code-input-boxes-touchable"
   >
     <View
       style={Object {}}

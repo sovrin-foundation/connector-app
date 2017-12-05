@@ -139,13 +139,14 @@ export class LockEnterPin extends PureComponent<
           locations={[0.08, 1]}
           colors={['#EAEAEA', 'rgba(240,240,240,0)']}
         />
-        <CustomView
-          style={[styles.text]}
-          onPress={this.props.switchErrorAlerts}
-        >
+        <CustomView style={[styles.text]}>
           {checkPinStatus === CHECK_PIN_FAIL && WrongPinText}
         </CustomView>
-        <CustomView center>
+        <CustomView
+          center
+          onPress={this.props.switchErrorAlerts}
+          testID="pin-code-input-boxes"
+        >
           {this.state.interactionsDone && (
             <PinCodeBox
               ref={pinCodeBox => {
