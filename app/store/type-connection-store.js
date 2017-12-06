@@ -6,7 +6,7 @@ export type Connection = {
   senderDID: string,
   senderEndpoint: string,
   size: number,
-  name: string,
+  senderName?: string,
 }
 
 export type Connections = { [senderDID: string]: Connection }

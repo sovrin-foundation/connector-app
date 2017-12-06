@@ -75,7 +75,7 @@ export const getRemotePairwiseDidAndName = (state: Store, userDid: string) => {
     if (connection) {
       return {
         remotePairwiseDID: connection.senderDID,
-        remoteName: connection.name,
+        remoteName: connection.senderName,
       }
     }
 

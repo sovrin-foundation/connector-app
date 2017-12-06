@@ -40,12 +40,12 @@ const initialState: ConnectionStore = {
 export const connectionMapper = ({
   logoUrl,
   size = bubbleSize.XL,
-  name,
+  senderName = 'Evernym',
   ...otherArgs
 }: GenericObject) => ({
   logoUrl,
   size,
-  name: name ? name.split(' ')[0] : 'evernym',
+  senderName,
   ...otherArgs,
 })
 
@@ -78,8 +78,8 @@ export const saveNewConnectionFailed = (error: CustomError) => ({
 export function* loadNewConnectionSaga(
   action: GenericObject
 ): Generator<*, *, *> {
-  const { identifier, logoUrl, senderDID, senderEndpoint } = (action.connection
-    .newConnection: Connection)
+  const { identifier, logoUrl, senderDID, senderEndpoint, senderName } = (action
+    .connection.newConnection: Connection)
 
   try {
     const connection = {
@@ -87,6 +87,7 @@ export function* loadNewConnectionSaga(
       logoUrl,
       senderDID,
       senderEndpoint,
+      senderName,
     }
 
     //TODO:Add a middleware which will periodically save redux store to secure storage.
