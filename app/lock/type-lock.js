@@ -31,10 +31,23 @@ export type SetPinAction = {
   pin: string,
 }
 
+export const TOUCHID_STORAGE_KEY = 'APP_PIN_LOCK'
+export const SET_TOUCHID = 'SET_TOUCHID'
+export type SetTouchIdAction = {
+  type: typeof SET_TOUCHID,
+  isTouchIdEnabled: boolean,
+}
+
 export const LOCK_ENABLE = 'LOCK_ENABLE'
 export type LockEnable = {
   type: typeof LOCK_ENABLE,
   isLockEnable: boolean,
+}
+
+export const TOUCHID_ENABLE = 'TOUCHID_ENABLE'
+export type TouchIdEnable = {
+  type: typeof TOUCHID_ENABLE,
+  isTouchIdEnabled: boolean,
 }
 
 export const LOCK_FAIL = 'LOCK_FAIL'
@@ -83,12 +96,14 @@ export type LockStore = {
   checkPinStatus: CheckPinStatus,
   isAppLocked: boolean,
   isLockEnabled: boolean,
+  isTouchIdEnabled: boolean,
 }
 
 export type LockActions =
   | AddPendingRedirectAction
   | ClearPendingRedirectAction
   | SetPinAction
+  | SetTouchIdAction
   | CheckPinAction
   | CheckPinSuccessAction
   | CheckPinFailAction

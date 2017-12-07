@@ -30,6 +30,7 @@ const initialState: LockStore = {
   // this property needs to be set accordingly
   isAppLocked: true,
   isLockEnabled: false,
+  isTouchIdEnabled: false,
 }
 
 describe('LockStore', () => {

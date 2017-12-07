@@ -21,7 +21,6 @@ import {
   lockPinSetupHomeRoute,
   lockSetupSuccessRoute,
   settingsTabRoute,
-  lockEnterPinRoute,
 } from '../common'
 import {
   color,
@@ -30,7 +29,7 @@ import {
   OFFSET_6X,
   OFFSET_7X,
 } from '../common/styles'
-import { setPinAction } from './lock-store'
+import { setPinAction, setTouchIdAction } from './lock-store'
 import type { LockPinSetupState } from './type-lock'
 import { PIN_SETUP_STATE } from './type-lock'
 import LinearGradient from 'react-native-linear-gradient'
@@ -131,6 +130,10 @@ export class LockPinSetup extends PureComponent {
       : this.props.navigation.navigate(lockSetupSuccessRoute)
   }
 
+  onTouchIdSetup = () => {
+    this.props.setTouchIdAction()
+  }
+
   onPinReEnterFail = () => {
     this.setState({
       pinSetupState: PIN_SETUP_STATE.REENTER_FAIL,
@@ -170,6 +173,13 @@ export class LockPinSetup extends PureComponent {
   }
 
   componentDidMount() {
+    if (
+      this.props.navigation.state.params &&
+      this.props.navigation.state.params.touchIDActive === true
+    ) {
+      this.onTouchIdSetup()
+    }
+
     InteractionManager.runAfterInteractions(() => {
       this.setState({ interactionsDone: true })
     })
@@ -177,6 +187,13 @@ export class LockPinSetup extends PureComponent {
 
   render() {
     const { pinSetupState, interactionsDone } = this.state
+
+    const passCodeSetupText =
+      this.props.navigation.state &&
+      this.props.navigation.state.params &&
+      this.props.navigation.state.params.touchIDActive === true
+        ? 'Pincode is required in case touch ID fails'
+        : 'Set up a pass code'
     const EnterPinText = (
       <CustomText
         style={[styles.titleText]}
@@ -186,10 +203,11 @@ export class LockPinSetup extends PureComponent {
         tertiary
         thick
       >
-        {this.props.navigation.state.params &&
+        {this.props.navigation.state &&
+        this.props.navigation.state.params &&
         this.props.navigation.state.params.existingPin === true
           ? 'Set up a new pass code'
-          : 'Set up a pass code'}
+          : passCodeSetupText}
       </CustomText>
     )
     const ReEnterPinText = (
@@ -238,6 +256,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       setPinAction,
+      setTouchIdAction,
     },
     dispatch
   )

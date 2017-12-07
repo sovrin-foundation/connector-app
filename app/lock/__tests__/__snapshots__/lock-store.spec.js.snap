@@ -5,6 +5,7 @@ Object {
   "checkPinStatus": "CHECK_PIN_IDLE",
   "isAppLocked": true,
   "isLockEnabled": false,
+  "isTouchIdEnabled": false,
   "pendingRedirection": Array [
     Object {
       "routeName": "home",
@@ -18,6 +19,7 @@ Object {
   "checkPinStatus": "CHECK_PIN_IDLE",
   "isAppLocked": true,
   "isLockEnabled": false,
+  "isTouchIdEnabled": false,
   "pendingRedirection": null,
 }
 `;
@@ -27,6 +29,7 @@ Object {
   "checkPinStatus": "CHECK_PIN_FAIL",
   "isAppLocked": true,
   "isLockEnabled": false,
+  "isTouchIdEnabled": false,
   "pendingRedirection": null,
 }
 `;
@@ -36,6 +39,7 @@ Object {
   "checkPinStatus": "CHECK_PIN_IDLE",
   "isAppLocked": true,
   "isLockEnabled": false,
+  "isTouchIdEnabled": false,
   "pendingRedirection": null,
 }
 `;

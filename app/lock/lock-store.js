@@ -6,13 +6,16 @@ import {
   CLEAR_PENDING_REDIRECT,
   SET_PIN,
   LOCK_ENABLE,
+  TOUCHID_ENABLE,
   LOCK_FAIL,
   CHECK_PIN,
   CHECK_PIN_FAIL,
   CHECK_PIN_IDLE,
   CHECK_PIN_SUCCESS,
   PIN_STORAGE_KEY,
+  TOUCHID_STORAGE_KEY,
   UNLOCK_APP,
+  SET_TOUCHID,
 } from './type-lock'
 import type {
   PendingRedirection,
@@ -20,6 +23,7 @@ import type {
   AddPendingRedirectAction,
   ClearPendingRedirectAction,
   SetPinAction,
+  SetTouchIdAction,
   LockEnable,
   LockFail,
   CheckPinAction,
@@ -40,6 +44,7 @@ const initialState: LockStore = {
   // this property needs to be set accordingly
   isAppLocked: true,
   isLockEnabled: false,
+  isTouchIdEnabled: false,
   error: {
     code: null,
     message: null,
@@ -64,6 +69,13 @@ export const setPinAction = (pin: string): SetPinAction => ({
   pin,
 })
 
+export const setTouchIdAction = (
+  isTouchIdEnabled: boolean
+): SetTouchIdAction => ({
+  type: SET_TOUCHID,
+  isTouchIdEnabled,
+})
+
 export const lockEnable = (isLockEnable: boolean): LockEnable => ({
   type: LOCK_ENABLE,
   isLockEnable,
@@ -77,6 +89,15 @@ export const lockFail = (error: CustomError): LockFail => ({
 export function* setPin(action: SetPinAction): Generator<*, *, *> {
   try {
     yield call(setItem, PIN_STORAGE_KEY, action.pin)
+    yield put(lockEnable(true))
+  } catch (e) {
+    yield lockFail(e)
+  }
+}
+
+export function* setTouchId(action: SetTouchIdAction): Generator<*, *, *> {
+  try {
+    yield call(setItem, TOUCHID_STORAGE_KEY, 'true')
     yield put(lockEnable(true))
   } catch (e) {
     yield lockFail(e)
@@ -171,6 +192,11 @@ export default function lockReducer(
       return {
         ...state,
         isAppLocked: false,
+      }
+    case TOUCHID_ENABLE:
+      return {
+        ...state,
+        isTouchIdEnabled: true,
       }
     default:
       return state

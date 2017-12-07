@@ -11,6 +11,7 @@ import ExpiredTokenScreen from './expired-token/expired-token'
 import QRCodeScanner from './qr-code/qr-code'
 import LockSelectionScreen from './lock/lock-selection'
 import LockEnterPinScreen from './lock/lock-enter-pin-code'
+import LockTouchIdSetupScreen from './lock/lock-fingerprint-setup'
 import LockPinCodeSetupScreen from './lock/lock-pin-code-setup'
 import LockSetupSuccessScreen from './lock/lock-setup-success'
 import ClaimOffer from './claim-offer/claim-offer'
@@ -26,6 +27,7 @@ import {
   lockEnterPinRoute,
   lockSelectionRoute,
   lockPinSetupRoute,
+  lockTouchIdSetupRoute,
   lockSetupSuccessRoute,
   claimOfferRoute,
   homeTabRoute,
@@ -124,6 +126,9 @@ const CardStack = StackNavigator(
     },
     [lockPinSetupRoute]: {
       screen: LockPinCodeSetupScreen,
+    },
+    [lockTouchIdSetupRoute]: {
+      screen: LockTouchIdSetupScreen,
     },
     [lockSetupSuccessRoute]: {
       screen: LockSetupSuccessScreen,

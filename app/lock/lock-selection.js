@@ -4,7 +4,7 @@ import { Image, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Container, CustomText, CustomView } from '../components'
-import { lockPinSetupRoute } from '../common/'
+import { lockPinSetupRoute, lockTouchIdSetupRoute } from '../common/'
 
 import {
   OFFSET_1X,
@@ -21,8 +21,7 @@ import { switchErrorAlerts } from '../store'
 
 export class LockSelection extends PureComponent {
   goTouchIdSetup = () => {
-    //TODO:PS: not in use, will use later
-    // this.props.navigation.navigate(lockPinSetupRoute)
+    this.props.navigation.navigate(lockTouchIdSetupRoute)
   }
 
   goPinCodeSetup = () => {
