@@ -46,6 +46,10 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 0,
   },
+  titleText: {
+    lineHeight: 28,
+    letterSpacing: 0.5,
+  },
   linearGradient: {
     height: OFFSET_1X,
   },
@@ -70,9 +74,7 @@ export class LockEnterPin extends PureComponent<
   static navigationOptions = ({ navigation }) => ({
     headerTitle: (
       <CustomText bg="tertiary" tertiary transparentBg semiBold>
-        {navigation.state.params && navigation.state.params.existingPin === true
-          ? 'Enter your pass code'
-          : 'Enter Pass Code'}
+        App Security
       </CustomText>
     ),
     headerStyle: styles.header,
@@ -93,12 +95,11 @@ export class LockEnterPin extends PureComponent<
 
   componentWillReceiveProps(nextProps: LockEnterPinProps) {
     if (this.props.checkPinStatus !== nextProps.checkPinStatus) {
-      if (nextProps.checkPinStatus === CHECK_PIN_SUCCESS) {
-        if (
-          this.props.navigation.state &&
-          this.props.navigation.state.params &&
-          this.props.navigation.state.params.existingPin === true
-        ) {
+      if (
+        nextProps.checkPinStatus === CHECK_PIN_SUCCESS &&
+        nextProps.currentScreen !== 'PinSetupHome'
+      ) {
+        if (this.props.existingPin === true) {
           this.props.navigation.navigate(lockPinSetupRoute, {
             existingPin: true,
           })
@@ -132,6 +133,23 @@ export class LockEnterPin extends PureComponent<
 
   render() {
     const { checkPinStatus } = this.props
+
+    const EnterPinText = (
+      <CustomText
+        style={[styles.titleText]}
+        center
+        h4
+        bg="tertiary"
+        tertiary
+        thick
+        testID="pass-code-input-text"
+      >
+        {this.props.existingPin === true
+          ? 'Enter your pass code'
+          : 'Enter pass code'}
+      </CustomText>
+    )
+
     return (
       <Container tertiary>
         <LinearGradient
@@ -139,14 +157,16 @@ export class LockEnterPin extends PureComponent<
           locations={[0.08, 1]}
           colors={['#EAEAEA', 'rgba(240,240,240,0)']}
         />
-        <CustomView style={[styles.text]}>
-          {checkPinStatus === CHECK_PIN_FAIL && WrongPinText}
-        </CustomView>
         <CustomView
+          style={[styles.text]}
           center
           onPress={this.props.switchErrorAlerts}
           testID="pin-code-input-boxes"
         >
+          {checkPinStatus === CHECK_PIN_IDLE && EnterPinText}
+          {checkPinStatus === CHECK_PIN_FAIL && WrongPinText}
+        </CustomView>
+        <CustomView center>
           {this.state.interactionsDone && (
             <PinCodeBox
               ref={pinCodeBox => {
@@ -161,10 +181,15 @@ export class LockEnterPin extends PureComponent<
   }
 }
 
-const mapStateToProps = (state: Store) => ({
+const mapStateToProps = (state: Store, props) => ({
   checkPinStatus: state.lock.checkPinStatus,
   pendingRedirection: state.lock.pendingRedirection,
   pendingRedirectionParams: state.lock.pendingRedirectionParams || {},
+  existingPin:
+    props.navigation.state.params !== undefined
+      ? props.navigation.state.params.existingPin
+      : false,
+  currentScreen: state.route.currentScreen,
 })
 
 const mapDispatchToProps = dispatch =>

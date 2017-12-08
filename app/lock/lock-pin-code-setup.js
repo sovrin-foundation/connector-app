@@ -21,6 +21,7 @@ import {
   lockPinSetupHomeRoute,
   lockSetupSuccessRoute,
   settingsTabRoute,
+  lockEnterPinRoute,
 } from '../common'
 import {
   color,

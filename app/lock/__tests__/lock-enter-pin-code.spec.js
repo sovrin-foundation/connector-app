@@ -11,6 +11,8 @@ describe('<LockPinCodeEnter />', () => {
     checkPinAction: jest.fn(),
     checkPinStatusIdle: jest.fn(),
     checkPinStatus: pinStatus,
+    currentScreen: {},
+    existingPin: true,
     pendingRedirection: [
       { routeName: homeRoute, params: {} },
       { routeName: claimOfferRoute, params: { uid: 'asd123' } },
@@ -18,6 +20,9 @@ describe('<LockPinCodeEnter />', () => {
     switchErrorAlerts: jest.fn(),
     navigation: {
       navigate: jest.fn(),
+      state: {
+        params: {},
+      },
     },
     clearPendingRedirect: jest.fn(),
   })
@@ -53,11 +58,11 @@ describe('<LockPinCodeEnter />', () => {
     expect(pinFailProps.checkPinStatusIdle).toHaveBeenCalled()
   })
 
-  it('should redirect to pendingRedirection after pin is success', () => {
+  it('should redirect after pin is success', () => {
     jest.useFakeTimers()
     const pinSuccessProps = getProps(CHECK_PIN_SUCCESS)
     component.update(<LockEnterPin {...pinSuccessProps} />)
     jest.runAllTimers()
-    expect(pinSuccessProps.navigation.navigate).toHaveBeenCalledTimes(2)
+    expect(props.navigation.navigate).toHaveBeenCalledTimes(1)
   })
 })

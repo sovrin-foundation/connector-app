@@ -40,26 +40,15 @@ export class LockSetupSuccess extends PureComponent {
   }
 
   render() {
-    let lockSuccessIcon
-    if (
-      this.props.navigation.state.params &&
-      this.props.navigation.state.params.changePin === true
-    ) {
-      lockSuccessIcon = null
-    } else {
-      lockSuccessIcon = (
-        <Icon
-          extraLarge
-          resizeMode="cover"
-          src={require('../images/lock.png')}
-          testID="lock-success-lock-logo"
-        />
-      )
-    }
     return (
       <Container tertiary>
         <Container clearBg center style={[style.successContainer]}>
-          {lockSuccessIcon}
+          <Icon
+            extraLarge
+            resizeMode="cover"
+            src={require('../images/lock.png')}
+            testID="lock-success-lock-logo"
+          />
           <CustomText
             h4
             bg="tertiary"
@@ -103,9 +92,13 @@ export class LockSetupSuccess extends PureComponent {
   }
 }
 
-const mapStateToProps = (state: Store) => ({
+const mapStateToProps = (state: Store, props) => ({
   pendingRedirection: state.lock.pendingRedirection,
   pendingRedirectionParams: state.lock.pendingRedirectionParams || {},
+  changePin:
+    props.navigation.state.params !== undefined
+      ? props.navigation.state.params.changePin
+      : false,
 })
 
 const mapDispatchToProps = dispatch =>

@@ -116,6 +116,8 @@ export type LockEnterPinProps = {
   pendingRedirection: Array<PendingRedirection>,
   switchErrorAlerts: () => SwitchErrorAlerts,
   clearPendingRedirect: () => void,
+  currentScreen: {},
+  existingPin: boolean,
 } & ReactNavigation
 
 export type LockEnterPinState = {
