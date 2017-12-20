@@ -42,7 +42,7 @@ source 'git@github.com:evernym/connect-me-indy-wrapper.git'
 source 'git@github.com:hyperledger/indy-sdk.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
-pod 'ConnectMeIndy', '0.0.15'
+pod 'ConnectMeIndy', '0.0.17'
 pod 'Firebase/Messaging'
 
 target 'ConnectMe' do

@@ -91,9 +91,22 @@ export async function addClaim(claim: string) {
 
 export async function getClaim(claimUuid: string) {}
 
-export async function prepareProof(proofRequest: string) {}
+export async function prepareProof(proofRequest: string) {
+  const prepareProofJSON: string = await RNIndy.prepareProof(proofRequest)
+  return prepareProofJSON
+}
 
 export async function generateProof(
+  proofRequest: string,
   remoteDid: string,
-  preparedClaimsProof: string
-) {}
+  prepareProof: string,
+  requestedClaims: string
+) {
+  const proof: string = await RNIndy.getProof(
+    proofRequest,
+    remoteDid,
+    prepareProof,
+    requestedClaims
+  )
+  return proof
+}

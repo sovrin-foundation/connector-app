@@ -98,6 +98,7 @@ export function convertProofRequestPushPayloadToAppProofRequest(
     requester: {
       name: remoteName,
     },
+    originalProofRequestData: proof_request_data,
   }
 }
 

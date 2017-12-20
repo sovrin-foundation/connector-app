@@ -8,6 +8,7 @@ import type { InvitationStore } from '../invitation/type-invitation'
 import type { ConnectionStore } from './type-connection-store'
 import type { ConfigStore } from './type-config-store'
 import type { ClaimStore } from '../claim/type-claim'
+import type { ProofStore } from '../proof/type-proof'
 
 // TODO: Add type for each store here
 export type UserStore = {
@@ -46,6 +47,7 @@ export type Store = {
   proofRequest: ProofRequestStore,
   invitation: InvitationStore,
   claim: ClaimStore,
+  proof: ProofStore,
 }
 
 export type { AuthenticationStore } from '../authentication/type-authentication'

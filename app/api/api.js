@@ -10,6 +10,7 @@ import type {
   SendClaimRequestApiData,
   ApiClaimRequest,
   EdgeClaimRequest,
+  SendProofApiData,
 } from './type-api'
 import { PAYLOAD_TYPE, MESSAGE_TYPE, STATUS_CODE } from './api-constants'
 
@@ -121,6 +122,24 @@ export const sendClaimRequest = ({
       ),
       refMsgId: responseMsgId,
       // just accept for now, we are not sending rejection as of now
+      statusCode: STATUS_CODE.ACCEPT,
+    },
+  })
+
+export const sendProof = ({
+  proof,
+  agencyUrl,
+  userPairwiseDid,
+  responseMsgId,
+}: SendProofApiData) =>
+  sendMessage({
+    agencyUrl,
+    userPairwiseDid,
+    agentPayload: {
+      type: PAYLOAD_TYPE.SEND_MESSAGE,
+      msgType: MESSAGE_TYPE.PROOF,
+      edgeAgentPayload: JSON.stringify(proof),
+      refMsgId: responseMsgId,
       statusCode: STATUS_CODE.ACCEPT,
     },
   })

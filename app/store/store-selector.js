@@ -60,6 +60,22 @@ export const isDuplicateConnection = (state: Store, senderDID: string) => {
 export const getClaimOffer = (state: Store, claimOfferId: string) =>
   state.claimOffer[claimOfferId]
 
+export const getProofRequest = (state: Store, proofRequestId: string) =>
+  state.proofRequest[proofRequestId]
+
+export const getOriginalProofRequestData = (
+  state: Store,
+  proofRequestId: string
+) => state.proofRequest[proofRequestId].originalProofRequestData
+
+export const getProofRequestPairwiseDid = (
+  state: Store,
+  proofRequestId: string
+) => state.proofRequest[proofRequestId].remotePairwiseDID
+
+export const getProof = (state: Store, proofRequestId: string) =>
+  state.proof[proofRequestId]
+
 export const getUserPairwiseDid = (state: Store, senderDID: string) => {
   const connections = getConnection(state, senderDID)
   if (connections.length > 0) {

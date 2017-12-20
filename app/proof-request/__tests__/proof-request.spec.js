@@ -65,6 +65,7 @@ describe('<ProofRequest />', () => {
   let acceptProofRequest
   let rejectProofRequest
   let ignoreProofRequest
+  let getProof
   let tree
   let navigation
   let componentInstance
@@ -83,6 +84,26 @@ describe('<ProofRequest />', () => {
     ],
   }
 
+  const originalProofRequestData = {
+    nonce: '123432421212',
+    name: 'proof_req_1',
+    version: '0.1',
+    requested_attrs: {
+      attr1_uuid: {
+        schema_seq_no: 103,
+        issuer_did: '58d6TV7PBUe6fV4SGRU86Z',
+        name: 'address1',
+      },
+      attr2_uuid: {
+        schema_seq_no: 103,
+        issuer_did: '58d6TV7PBUe6fV4SGRU86Z',
+        name: 'address2',
+      },
+    },
+    requested_predicates: {},
+  }
+
+  const remotePairwiseDID = 'qweasU86Z58d6TV7PBUe6f'
   const name = 'Test Issuer'
   const uid = 'usd123'
   let proofStatus = PROOF_STATUS.NONE
@@ -92,6 +113,7 @@ describe('<ProofRequest />', () => {
     acceptProofRequest = jest.fn()
     rejectProofRequest = jest.fn()
     ignoreProofRequest = jest.fn()
+    getProof = jest.fn()
     navigation = {
       goBack: jest.fn(),
       state: {
@@ -105,12 +127,15 @@ describe('<ProofRequest />', () => {
         <ProofRequest
           data={data}
           proofStatus={proofStatus}
+          originalProofRequestData={originalProofRequestData}
+          remotePairwiseDID={remotePairwiseDID}
           logoUrl={logoUrl}
           name={name}
           proofRequestShown={proofRequestShown}
           acceptProofRequest={acceptProofRequest}
           ignoreProofRequest={ignoreProofRequest}
           rejectProofRequest={rejectProofRequest}
+          getProof={getProof}
           navigation={navigation}
           uid={navigation.state.params.uid}
           isValid={isValid}

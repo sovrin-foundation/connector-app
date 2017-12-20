@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Proof Store should match snapshot for proof received action 1`] = `
+Object {
+  "1234": Object {
+    "name": "proof_req_1",
+    "nonce": "123432421212",
+    "requested_attrs": Object {
+      "attr1_uuid": Object {
+        "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+        "name": "name",
+        "schema_seq_no": 103,
+      },
+    },
+    "requested_predicates": Object {},
+    "version": "0.1",
+  },
+}
+`;

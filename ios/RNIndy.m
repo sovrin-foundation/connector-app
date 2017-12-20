@@ -133,9 +133,42 @@ RCT_EXPORT_METHOD(getClaim)
   // return claim in json format to JavaScript
 }
 
-RCT_EXPORT_METHOD(getProof)
+RCT_EXPORT_METHOD(prepareProof: (NSString *) proofRequest
+                      resolver: (RCTPromiseResolveBlock) resolve
+                      rejecter: (RCTPromiseRejectBlock) reject)
+{
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance];
+  [indy prepareProofForRequest:proofRequest completion:^(NSError *error, NSString *claimsJSON) {
+    if (error != nil) {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while preparing proof", error);
+    } else {
+      resolve(claimsJSON);
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(getProof: (NSString *) proofRequest
+                 remoteDid: (NSString *) remoteDid
+       requestedClaimsJson: (NSString *) requestedClaimsJson
+                    claims: (NSString *) claims
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
 {
   // generate proof for proof request passed
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance];
+  [indy generateProofForRequest:proofRequest
+                      remoteDid:remoteDid
+            requestedClaimsJson: requestedClaimsJson
+                         claims: claims
+                     completion: ^(NSError *error, NSString *proofJSON) {
+    if (error.code != 0) {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while getting proof", error);
+    } else {
+      resolve(proofJSON);
+    }
+  }];
 }
 
 // List all your events here

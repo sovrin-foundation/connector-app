@@ -40,7 +40,8 @@ import {
   acceptProofRequest,
   ignoreProofRequest,
   proofRequestShown,
-} from './proof-request-store'
+  getProof,
+} from '../store'
 
 class ProofRequestAttributeList extends PureComponent<
   void,
@@ -50,7 +51,6 @@ class ProofRequestAttributeList extends PureComponent<
   keyExtractor = (_, index: number) => index
 
   renderItem = ({ item, index }) => {
-    const labelData = null
     return (
       <Container
         fifth
@@ -73,7 +73,7 @@ class ProofRequestAttributeList extends PureComponent<
           </CustomView>
           <CustomView fifth style={[styles.attributeListValue]}>
             <CustomText h6 demiBold bg="tertiary" transparentBg>
-              {labelData}
+              {item.value}
             </CustomText>
           </CustomView>
         </Container>
@@ -126,6 +126,7 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
 
   componentDidMount() {
     this.props.proofRequestShown(this.props.uid)
+    this.props.getProof(this.props.uid)
   }
 
   render() {
@@ -224,6 +225,7 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
     )
   }
 }
+
 // we need to navigate to this screen only by passing "proofRequestId"  in the props like below.
 // this.props.navigation.navigate(proofRequestRoute,{'proofRequestId':'CRM2M28')
 const mapStateToProps = ({ proofRequest }: Store, props) => {
@@ -248,6 +250,7 @@ const mapStateToProps = ({ proofRequest }: Store, props) => {
     proofStatus,
   }
 }
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
@@ -255,6 +258,7 @@ const mapDispatchToProps = dispatch =>
       acceptProofRequest,
       ignoreProofRequest,
       rejectProofRequest,
+      getProof,
     },
     dispatch
   )

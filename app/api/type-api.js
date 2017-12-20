@@ -2,6 +2,7 @@
 import type { GenericObject } from '../common/type-common'
 import { MESSAGE_TYPE } from './api-constants'
 import type { IndyClaimRequest } from '../bridge/react-native-cxs/type-cxs'
+import type { ProofApiData } from '../proof-request/type-proof-request'
 
 export type ApiData = {
   method: string,
@@ -62,6 +63,12 @@ export type SendClaimRequestApiData = {
   userPairwiseDid: string,
   responseMsgId: string,
   claimRequest: ApiClaimRequest,
+}
+export type SendProofApiData = {
+  agencyUrl: string,
+  userPairwiseDid: string,
+  responseMsgId: string,
+  proof: ProofApiData,
 }
 
 export type EdgeClaimRequest = {
