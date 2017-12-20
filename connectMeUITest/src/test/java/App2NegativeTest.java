@@ -35,8 +35,8 @@ public class App2NegativeTest {
     	Thread.sleep(3000);
     	driver = Setup.ConfigureDriver("Safari");
      	connectionModulesObj.InstallApp(driver,InstallConnectMeLink);
-		driver.quit();
-        AppUtlis.Success=true;
+		  driver.quit();
+      AppUtlis.Success=true;
         
 
     }
@@ -76,7 +76,7 @@ public class App2NegativeTest {
     
     @Test (groups = {"Regression"})
 	public void App4EnterInvalidPincode()throws Exception{
-    	driver.quit();
+    driver.quit();
 		driver = Setup.ConfigureDriver("App");
 		appUtlisObj.enterPincodeReverse(driver);
 		AppUtlis.Success=true;		

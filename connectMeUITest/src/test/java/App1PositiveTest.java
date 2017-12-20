@@ -4,7 +4,7 @@ package test.java;
 import io.appium.java_client.AppiumDriver;
 import pageObjects.ChooseLockPage;
 import pageObjects.ClaimOfferPage;
-
+import pageObjects.ProofRequestPage;
 import org.testng.annotations.*;
 import appModules.AppUtlis;
 import appModules.ReadMail;
@@ -49,7 +49,7 @@ public class App1PositiveTest {
     @Test (groups = { "Smoke","Regression"})
     public void App1PincodeSetup() throws Exception {
     	
-      	Thread.sleep(60000);
+      	Thread.sleep(40000);
 		driver = Setup.ConfigureDriver("App");
 		System.out.println("pin setup tc");
 		ChooseLockPage.PinCodeLock_Button(driver).click();
@@ -70,7 +70,7 @@ public class App1PositiveTest {
     
     @Test (enabled = true,groups = { "Smoke","Regression"})
    	public void App4ClaimOfferTest() throws Exception {
-        
+		
     	appUtlisObj.sendClaimofferRestApi(pairwiseDID);
     	ClaimOfferPage.Accept_Button(driver).click();
    		appUtlisObj.CheckSkip();
@@ -80,17 +80,28 @@ public class App1PositiveTest {
     
     @Test (enabled = true,groups = { "Smoke","Regression"})
    	public void App5ClaimTest() throws Exception {
-       
-    	Thread.sleep(5000);
+		
     	appUtlisObj.sendClaimRestApi(pairwiseDID);
     	ClaimOfferPage.Continue_Button(driver).click();
    		appUtlisObj.CheckSkip();
    		AppUtlis.Success=true;
    		
    	}
+    
+    @Test (enabled = true,groups = { "Smoke","Regression"})
+   	public void App5proofRequestTest() throws Exception {
+	
+    	Thread.sleep(3000);
+    	appUtlisObj.sendProofRequestRestApi(pairwiseDID);
+    	ProofRequestPage.Send_Button(driver).click();;
+    	ProofRequestPage.Continue_Button(driver).click();
+   		appUtlisObj.CheckSkip();
+   		AppUtlis.Success=true;
+   		
+   	}
     @Test (groups = { "Smoke","Regression"})
-	public void App5PincodeCheck() throws Exception {
-
+	public void App6PincodeCheck() throws Exception {
+	
 		driver.quit();
 		driver = Setup.ConfigureDriver("App");
 	    appUtlisObj.enterPincode(driver);

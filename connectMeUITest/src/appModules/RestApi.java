@@ -77,10 +77,10 @@ public  String post(String bodyParam) throws Exception
 	 System.out.println(bodyParam);
      String response=post(bodyParam);
 	 System.out.println("claim send");
-  }
+    }
 	
 	public void sendClaim(String pairwiseDID) throws Exception
- {	 
+	{	 
      Thread.sleep(10000);
      String bodyParam="{\"to\":\""+pairwiseDID+"\",\"agentPayload\":\"{\\\"type\\\":\\\"GET_MSGS\\\",\\\"uid\\\":\\\"D1234\\\",\\\"msgType\\\":\\\"\\\",\\\"statusCode\\\":\\\"\\\",\\\"includeEdgePayload\\\":\\\"\\\"}\"}";
 	 System.out.println(bodyParam);
@@ -91,7 +91,16 @@ public  String post(String bodyParam) throws Exception
 	 System.out.println(bodyParam1);
      String response1=post(bodyParam1);
 
-   }
+    }
+	
+	public void sendProofReq(String pairwiseDID) throws Exception
+	{	 
+     Thread.sleep(10000);
+     String bodyParam="{\"to\":\""+pairwiseDID+"\",\"agentPayload\":\"{\\\"type\\\":\\\"SEND_MSG\\\",\\\"uid\\\":\\\"\\\",\\\"msgType\\\":\\\"proofReq\\\",\\\"statusCode\\\":\\\"\\\",\\\"edgeAgentPayload\\\":\\\"{\\\\\\\"@type\\\\\\\": {\\\\\\\"name\\\\\\\": \\\\\\\"PROOF_REQUEST\\\\\\\",\\\\\\\"version\\\\\\\": \\\\\\\"1.0\\\\\\\"},\\\\\\\"@topic\\\\\\\": {\\\\\\\"tid\\\\\\\": 1,\\\\\\\"mid\\\\\\\": 9},\\\\\\\"proof_request_data\\\\\\\": {\\\\\\\"nonce\\\\\\\": \\\\\\\"123432421212\\\\\\\",\\\\\\\"name\\\\\\\": \\\\\\\"Home Address\\\\\\\",\\\\\\\"version\\\\\\\": \\\\\\\"0.1\\\\\\\",\\\\\\\"requested_attrs\\\\\\\": {\\\\\\\"<attr1_uuid>\\\\\\\": {\\\\\\\"name\\\\\\\": \\\\\\\"person name\\\\\\\"},\\\\\\\"<attr2_uuid>\\\\\\\": {\\\\\\\"schema_seq_no\\\\\\\": 1,\\\\\\\"name\\\\\\\": \\\\\\\"address_1\\\\\\\"},\\\\\\\"<attr3_uuid>\\\\\\\": {\\\\\\\"schema_seq_no\\\\\\\": 2,\\\\\\\"issuer_did\\\\\\\": \\\\\\\"ISSUER_DID2\\\\\\\",\\\\\\\"name\\\\\\\": \\\\\\\"address_2\\\\\\\"},\\\\\\\"<attr4_uuid>\\\\\\\": {\\\\\\\"schema_seq_no\\\\\\\": 1,\\\\\\\"name\\\\\\\": \\\\\\\"city\\\\\\\"},\\\\\\\"<attr5_uuid>\\\\\\\": {\\\\\\\"schema_seq_no\\\\\\\": 1,\\\\\\\"name\\\\\\\": \\\\\\\"state\\\\\\\"},\\\\\\\"<attr6_uuid>\\\\\\\": {\\\\\\\"schema_seq_no\\\\\\\": 1,\\\\\\\"name\\\\\\\": \\\\\\\"zip\\\\\\\"}},\\\\\\\"requested_predicates\\\\\\\": {\\\\\\\"predicate1_uuid\\\\\\\": {\\\\\\\"attr_name\\\\\\\": \\\\\\\"age\\\\\\\",\\\\\\\"p_type\\\\\\\": \\\\\\\"GE\\\\\\\",\\\\\\\"value\\\\\\\": 18,\\\\\\\"schema_seq_no\\\\\\\": 1,\\\\\\\"issuer_did\\\\\\\": \\\\\\\"DID1\\\\\\\"}}}}\\\",\\\"refMsgId\\\":\\\"\\\"}\"}";
+     System.out.println(bodyParam);
+     String response=post(bodyParam);
+     System.out.println("Proof Request is send");
+     }
 
 	
 }

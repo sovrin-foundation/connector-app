@@ -96,10 +96,11 @@ public class AppUtlis {
 		
 		restApiObj.sendClaim(pairwiseDID);
 	}
-
-
-
-	}
-
 	
-	
+	public void sendProofRequestRestApi(String pairwiseDID) throws Exception
+    {
+		restApiObj.sendProofReq(pairwiseDID);
+
+    }
+
+}
