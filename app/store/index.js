@@ -14,7 +14,11 @@ import authentication, {
 import deepLink from '../deep-link/deep-link-store'
 import route from './route-store'
 import { watchAppHydration } from './hydration-store'
-import lock, { watchLock } from '../lock/lock-store'
+import lock, {
+  watchLock,
+  watchEnableTouchId,
+  watchDisableTouchId,
+} from '../lock/lock-store'
 import smsPendingInvitation, {
   watchSmsPendingInvitationSaga,
 } from '../sms-pending-invitation/sms-pending-invitation-store'
@@ -69,6 +73,8 @@ sagaMiddleware.run(function*() {
     watchPushNotification(),
     watchInvitation(),
     watchClaim(),
+    watchEnableTouchId(),
+    watchDisableTouchId(),
     watchProof(),
     watchProofRequestAccepted(),
   ])

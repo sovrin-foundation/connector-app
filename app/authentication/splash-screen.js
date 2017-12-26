@@ -8,6 +8,7 @@ import {
   expiredTokenRoute,
   lockSelectionRoute,
   lockEnterPinRoute,
+  lockEnterFingerprintRoute,
   invitationRoute,
 } from '../common/route-constants'
 import {
@@ -30,7 +31,11 @@ class SplashScreenView extends PureComponent {
           this.props.navigation.navigate(lockSelectionRoute)
         } else {
           // not the first time user is opening app
-          this.props.navigation.navigate(lockEnterPinRoute)
+          if (nextProps.lock.isTouchIdEnabled) {
+            this.props.navigation.navigate(lockEnterFingerprintRoute)
+          } else {
+            this.props.navigation.navigate(lockEnterPinRoute)
+          }
         }
       }
     }
@@ -114,7 +119,11 @@ class SplashScreenView extends PureComponent {
         this.props.navigation.navigate(lockSelectionRoute)
       } else {
         // not the first time user is opening app
-        this.props.navigation.navigate(lockEnterPinRoute)
+        if (this.props.lock.isTouchIdEnabled) {
+          this.props.navigation.navigate(lockEnterFingerprintRoute)
+        } else {
+          this.props.navigation.navigate(lockEnterPinRoute)
+        }
       }
     }
   }

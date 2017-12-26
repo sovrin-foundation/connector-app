@@ -31,10 +31,19 @@ export type SetPinAction = {
   pin: string,
 }
 
-export const TOUCHID_STORAGE_KEY = 'APP_PIN_LOCK'
-export const SET_TOUCHID = 'SET_TOUCHID'
-export type SetTouchIdAction = {
-  type: typeof SET_TOUCHID,
+export const TOUCHID_STORAGE_KEY = 'APP_TOUCHID_LOCK'
+export const ENABLE_TOUCHID = 'ENABLE_TOUCHID'
+export type EnableTouchIdAction = {
+  type: typeof ENABLE_TOUCHID,
+}
+export const DISABLE_TOUCHID = 'DISABLE_TOUCHID'
+export type DisableTouchIdAction = {
+  type: typeof DISABLE_TOUCHID,
+}
+
+export const CHECK_TOUCHID = 'CHECK_TOUCHID'
+export type CheckTouchIdAction = {
+  type: typeof CHECK_TOUCHID,
   isTouchIdEnabled: boolean,
 }
 
@@ -42,12 +51,6 @@ export const LOCK_ENABLE = 'LOCK_ENABLE'
 export type LockEnable = {
   type: typeof LOCK_ENABLE,
   isLockEnable: boolean,
-}
-
-export const TOUCHID_ENABLE = 'TOUCHID_ENABLE'
-export type TouchIdEnable = {
-  type: typeof TOUCHID_ENABLE,
-  isTouchIdEnabled: boolean,
 }
 
 export const LOCK_FAIL = 'LOCK_FAIL'
@@ -103,7 +106,9 @@ export type LockActions =
   | AddPendingRedirectAction
   | ClearPendingRedirectAction
   | SetPinAction
-  | SetTouchIdAction
+  | EnableTouchIdAction
+  | DisableTouchIdAction
+  | CheckTouchIdAction
   | CheckPinAction
   | CheckPinSuccessAction
   | CheckPinFailAction
@@ -111,6 +116,7 @@ export type LockActions =
 
 export type LockEnterPinProps = {
   checkPinAction: (pin: string) => CheckPinAction,
+  checkTouchIdAction: (pin: string) => CheckTouchIdAction,
   checkPinStatusIdle: () => CheckPinIdleAction,
   checkPinStatus: CheckPinStatus,
   pendingRedirection: Array<PendingRedirection>,

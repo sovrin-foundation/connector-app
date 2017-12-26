@@ -3,7 +3,7 @@ import 'react-native'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
-import LockSelection from '../lock-selection'
+import { LockEnterFingerprint } from '../lock-enter-fingerprint'
 
 function props() {
   return {
@@ -27,7 +27,7 @@ describe('app lock selection page should', () => {
   it('render properly', () => {
     const component = renderer.create(
       <Provider store={store}>
-        <LockSelection {...props()} />
+        <LockEnterFingerprint {...props()} />
       </Provider>
     )
     let tree = component.toJSON()

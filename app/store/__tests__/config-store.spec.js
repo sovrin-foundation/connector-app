@@ -86,6 +86,8 @@ describe('hydration should work correctly', () => {
     gen.next()
     // hydrate connections and push token
     gen.next()
+    // hydrate lock settings
+    gen.next()
     // save data in async storage
     gen.next()
     // now we should get hydrated action

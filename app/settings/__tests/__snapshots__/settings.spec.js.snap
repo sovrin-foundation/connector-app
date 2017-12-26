@@ -370,7 +370,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                   accessible={true}
                   allowFontScaling={true}
                   ellipsizeMode="tail"
-                  onPress={undefined}
+                  onPress={[Function]}
                   style={
                     Array [
                       Object {
@@ -411,6 +411,7 @@ exports[`user settings screen should render properly and snapshot should match 1
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
               onTintColor="#85bf43"
+              onValueChange={[Function]}
               style={
                 Array [
                   Object {
@@ -421,7 +422,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                 ]
               }
               tintColor="#ffffff"
-              value={true}
+              value={false}
             />
           </View>
         </View>

@@ -12,8 +12,9 @@ import { hydrateApp } from '../store/hydration-store'
 import { setItem, getItem, deleteItem } from '../services/secure-storage'
 import { captureError } from '../services/error/error-handler'
 import { lockEnable } from '../lock/lock-store'
-import { PIN_STORAGE_KEY } from '../lock/type-lock'
+import { PIN_STORAGE_KEY, TOUCHID_STORAGE_KEY } from '../lock/type-lock'
 import { getErrorAlertsSwitchValue } from '../store/store-selector'
+import { enableTouchIdAction, disableTouchIdAction } from '../lock/lock-store'
 import {
   SERVER_ENVIRONMENT,
   HYDRATED,
@@ -133,6 +134,7 @@ export function* alreadyInstalledNotFound(): Generator<*, *, *> {
 
   // clear security setup flag
   yield call(deleteItem, PIN_STORAGE_KEY)
+  yield call(deleteItem, TOUCHID_STORAGE_KEY)
   yield put(lockEnable(false))
 
   // now save the key in user's default storage in phone
@@ -158,6 +160,12 @@ export function* hydrateConfig(): Generator<*, *, *> {
         const isLockEnabled = yield call(getItem, PIN_STORAGE_KEY)
         if (isLockEnabled) {
           yield put(lockEnable(true))
+        }
+        const isTouchIdEnabled = yield call(getItem, TOUCHID_STORAGE_KEY)
+        if (isTouchIdEnabled === 'true') {
+          yield put(enableTouchIdAction())
+        } else {
+          yield put(disableTouchIdAction())
         }
       } catch (e) {
         // somehow the secure storage failed, so we need to find someway to store

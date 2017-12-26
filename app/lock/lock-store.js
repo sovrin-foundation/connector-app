@@ -6,16 +6,17 @@ import {
   CLEAR_PENDING_REDIRECT,
   SET_PIN,
   LOCK_ENABLE,
-  TOUCHID_ENABLE,
   LOCK_FAIL,
   CHECK_PIN,
   CHECK_PIN_FAIL,
   CHECK_PIN_IDLE,
   CHECK_PIN_SUCCESS,
   PIN_STORAGE_KEY,
-  TOUCHID_STORAGE_KEY,
   UNLOCK_APP,
-  SET_TOUCHID,
+  ENABLE_TOUCHID,
+  DISABLE_TOUCHID,
+  CHECK_TOUCHID,
+  TOUCHID_STORAGE_KEY,
 } from './type-lock'
 import type {
   PendingRedirection,
@@ -23,7 +24,6 @@ import type {
   AddPendingRedirectAction,
   ClearPendingRedirectAction,
   SetPinAction,
-  SetTouchIdAction,
   LockEnable,
   LockFail,
   CheckPinAction,
@@ -32,8 +32,11 @@ import type {
   LockActions,
   UnlockAppAction,
   CheckPinIdleAction,
+  CheckTouchIdAction,
+  EnableTouchIdAction,
+  DisableTouchIdAction,
 } from './type-lock'
-import { getItem, setItem } from '../services/secure-storage'
+import { getItem, setItem, deleteItem } from '../services/secure-storage'
 
 const initialState: LockStore = {
   pendingRedirection: null,
@@ -69,13 +72,6 @@ export const setPinAction = (pin: string): SetPinAction => ({
   pin,
 })
 
-export const setTouchIdAction = (
-  isTouchIdEnabled: boolean
-): SetTouchIdAction => ({
-  type: SET_TOUCHID,
-  isTouchIdEnabled,
-})
-
 export const lockEnable = (isLockEnable: boolean): LockEnable => ({
   type: LOCK_ENABLE,
   isLockEnable,
@@ -95,13 +91,37 @@ export function* setPin(action: SetPinAction): Generator<*, *, *> {
   }
 }
 
-export function* setTouchId(action: SetTouchIdAction): Generator<*, *, *> {
+export const enableTouchIdAction = (): EnableTouchIdAction => ({
+  type: ENABLE_TOUCHID,
+})
+export const disableTouchIdAction = (): DisableTouchIdAction => ({
+  type: DISABLE_TOUCHID,
+})
+
+export function* enableTouchId(
+  action: EnableTouchIdAction
+): Generator<*, *, *> {
   try {
     yield call(setItem, TOUCHID_STORAGE_KEY, 'true')
-    yield put(lockEnable(true))
   } catch (e) {
-    yield lockFail(e)
+    yield e
   }
+}
+export function* disableTouchId(
+  action: DisableTouchIdAction
+): Generator<*, *, *> {
+  try {
+    yield call(setItem, TOUCHID_STORAGE_KEY, 'false')
+  } catch (e) {
+    yield e
+  }
+}
+
+export function* watchEnableTouchId(): Generator<*, *, *> {
+  yield takeLatest(ENABLE_TOUCHID, enableTouchId)
+}
+export function* watchDisableTouchId(): Generator<*, *, *> {
+  yield takeLatest(DISABLE_TOUCHID, disableTouchId)
 }
 
 export function* watchSetPin(): Generator<*, *, *> {
@@ -130,6 +150,22 @@ export function* checkPin(action: CheckPinAction): Generator<*, *, *> {
   }
 }
 
+export const checkTouchIdAction = (
+  isTouchIdEnabled: boolean
+): CheckTouchIdAction => ({
+  type: CHECK_TOUCHID,
+  isTouchIdEnabled,
+})
+
+export function* checkTouchId(action: CheckTouchIdAction): Generator<*, *, *> {
+  const isTouchIdEnabled = yield call(getItem, TOUCHID_STORAGE_KEY)
+  if (isTouchIdEnabled === true) {
+    yield put(checkPinSuccess())
+  } else {
+    yield put(checkPinFail())
+  }
+}
+
 export function* watchCheckPin(): Generator<*, *, *> {
   yield takeLatest(CHECK_PIN, checkPin)
 }
@@ -143,7 +179,12 @@ export const checkPinStatusIdle = (): CheckPinIdleAction => ({
 })
 
 export function* watchLock(): Generator<*, *, *> {
-  yield all([watchCheckPin(), watchSetPin()])
+  yield all([
+    watchCheckPin(),
+    watchSetPin(),
+    watchEnableTouchId(),
+    watchEnableTouchId(),
+  ])
 }
 
 export default function lockReducer(
@@ -193,10 +234,20 @@ export default function lockReducer(
         ...state,
         isAppLocked: false,
       }
-    case TOUCHID_ENABLE:
+    case ENABLE_TOUCHID:
       return {
         ...state,
         isTouchIdEnabled: true,
+      }
+    case DISABLE_TOUCHID:
+      return {
+        ...state,
+        isTouchIdEnabled: false,
+      }
+    case CHECK_TOUCHID:
+      return {
+        ...state,
+        isTouchIdEnabled: action.isTouchIdEnabled,
       }
     default:
       return state

@@ -14,6 +14,7 @@ import LockEnterPinScreen from './lock/lock-enter-pin-code'
 import LockTouchIdSetupScreen from './lock/lock-fingerprint-setup'
 import LockPinCodeSetupScreen from './lock/lock-pin-code-setup'
 import LockSetupSuccessScreen from './lock/lock-setup-success'
+import LockEnterFingerprintScreen from './lock/lock-enter-fingerprint'
 import ClaimOffer from './claim-offer/claim-offer'
 import ProofRequestScreen from './proof-request/proof-request'
 import InvitationScreen from './invitation/invitation'
@@ -29,6 +30,7 @@ import {
   lockPinSetupRoute,
   lockTouchIdSetupRoute,
   lockSetupSuccessRoute,
+  lockEnterFingerprintRoute,
   claimOfferRoute,
   homeTabRoute,
   settingsTabRoute,
@@ -132,6 +134,9 @@ const CardStack = StackNavigator(
     },
     [lockSetupSuccessRoute]: {
       screen: LockSetupSuccessScreen,
+    },
+    [lockEnterFingerprintRoute]: {
+      screen: LockEnterFingerprintScreen,
     },
     [proofRequestRoute]: {
       screen: ProofRequestScreen,

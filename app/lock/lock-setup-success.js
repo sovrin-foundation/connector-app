@@ -71,8 +71,8 @@ export class LockSetupSuccess extends PureComponent {
             style={[style.successMessage]}
           >
             {this.props.navigation.state.params &&
-            this.props.navigation.state.params.changePin === true
-              ? "From now on you'll need to use your PIN to unlock this app."
+            this.props.navigation.state.params.changePin
+              ? "From now on you'll need to use your pass code to unlock this app."
               : ' '}
           </CustomText>
         </Container>

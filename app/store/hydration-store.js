@@ -3,6 +3,7 @@ import { getItem, deleteItem } from '../services/secure-storage'
 import { updatePushToken } from '../push-notification/push-notification-store'
 import { hydrateConnections } from '../store/connections-store'
 import { CONNECTIONS, PUSH_COM_METHOD } from '../common'
+import { TOUCHID_STORAGE_KEY } from '../lock/type-lock'
 
 const initialState = {
   error: {

@@ -30,7 +30,7 @@ import {
   OFFSET_6X,
   OFFSET_7X,
 } from '../common/styles'
-import { setPinAction, setTouchIdAction } from './lock-store'
+import { setPinAction, enableTouchIdAction } from './lock-store'
 import type { LockPinSetupState } from './type-lock'
 import { PIN_SETUP_STATE } from './type-lock'
 import LinearGradient from 'react-native-linear-gradient'
@@ -132,7 +132,7 @@ export class LockPinSetup extends PureComponent {
   }
 
   onTouchIdSetup = () => {
-    this.props.setTouchIdAction()
+    this.props.enableTouchIdAction()
   }
 
   onPinReEnterFail = () => {
@@ -257,7 +257,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       setPinAction,
-      setTouchIdAction,
+      enableTouchIdAction,
     },
     dispatch
   )

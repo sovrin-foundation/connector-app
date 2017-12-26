@@ -10,6 +10,7 @@ describe('<LockPinCodeEnter />', () => {
   const getProps = (pinStatus = CHECK_PIN_IDLE) => ({
     checkPinAction: jest.fn(),
     checkPinStatusIdle: jest.fn(),
+    checkTouchIdAction: jest.fn(),
     checkPinStatus: pinStatus,
     currentScreen: {},
     existingPin: true,

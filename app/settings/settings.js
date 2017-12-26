@@ -7,12 +7,18 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { Avatar, CustomText } from '../components'
 import { CustomList, CustomView, Container } from '../components/layout'
-import { settingsRoute, lockEnterPinRoute } from '../common/route-constants'
-
+import {
+  settingsRoute,
+  lockEnterPinRoute,
+  lockTouchIdSetupRoute,
+} from '../common/route-constants'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import {
   white,
   mantis,
@@ -54,6 +60,12 @@ export class Settings extends PureComponent {
     })
   }
 
+  onChangeTouchId = () => {
+    this.props.navigation.navigate(lockTouchIdSetupRoute, {
+      fromSettings: true,
+    })
+  }
+
   static navigationOptions = {
     headerTitle: <CustomText bg="fifth"> {settingsRoute} </CustomText>,
     headerStyle: style.headerStyle,
@@ -70,6 +82,15 @@ export class Settings extends PureComponent {
         source={require('../images/edit.png')}
       />
     )
+
+    const touchIdOffAlert =
+      !this.props.touchIdActive && this.props.touchIdToggledOff
+        ? Alert.alert(
+            '',
+            "You'll need to use your pass code to unlock this app from now on",
+            [{ text: 'OK' }]
+          )
+        : null
 
     const editIconChangePin = (
       <TouchableOpacity onPress={this.onChangePinClick}>
@@ -112,12 +133,19 @@ export class Settings extends PureComponent {
           source={require('../images/biometrics.png')}
         />
         <CustomView center>
-          <SettingText testID={TOUCH_ID_TEST_ID}>Enable Touch ID</SettingText>
+          <SettingText onPress={this.onChangeTouchId} testID={TOUCH_ID_TEST_ID}>
+            Enable Touch ID
+          </SettingText>
         </CustomView>
       </CustomView>
     )
     const toggleSwitch = (
-      <Switch onTintColor={mantis} tintColor={white} value={true} />
+      <Switch
+        onTintColor={mantis}
+        tintColor={white}
+        onValueChange={this.onChangeTouchId}
+        value={this.props.touchIdActive}
+      />
     )
     const history = (
       <CustomView row>
@@ -165,14 +193,25 @@ export class Settings extends PureComponent {
             listStyle={style.list}
             itemStyle={style.item}
           />
+          {!this.props.touchIdActive && this.props.touchIdToggledOff
+            ? touchIdOffAlert
+            : null}
         </ScrollView>
       </Container>
     )
   }
 }
 
+const mapStateToProps = (state: Store, props) => ({
+  touchIdActive: state.lock.isTouchIdEnabled,
+  touchIdToggledOff:
+    props.navigation.state.params !== undefined
+      ? props.navigation.state.params.touchIdToggledOff
+      : false,
+})
+
 export default StackNavigator({
   [settingsRoute]: {
-    screen: Settings,
+    screen: connect(mapStateToProps, null)(Settings),
   },
 })
