@@ -30,7 +30,6 @@ import {
 import {
   EDIT_ICON_DIMENSIONS,
   PASS_CODE_ASTERISK_TOP_OFFSET,
-  HISTORY_TEST_ID,
   PASS_CODE_ASTERISK_TEST_ID,
   PASS_CODE_TEST_ID,
   TOUCH_ID_TEST_ID,
@@ -147,17 +146,6 @@ export class Settings extends PureComponent {
         value={this.props.touchIdActive}
       />
     )
-    const history = (
-      <CustomView row>
-        <Image
-          style={[style.labelImage, style.editIcon]}
-          source={require('../images/history.png')}
-        />
-        <CustomView center>
-          <SettingText testID={HISTORY_TEST_ID}>View History</SettingText>
-        </CustomView>
-      </CustomView>
-    )
     const itemList = [
       {
         id: 0,
@@ -178,10 +166,6 @@ export class Settings extends PureComponent {
         id: 3,
         left: touchId,
         right: toggleSwitch,
-      },
-      {
-        id: 4,
-        left: history,
       },
     ]
 

@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
   titleText: {
     lineHeight: 28,
     letterSpacing: 0.5,
+    paddingHorizontal: OFFSET_1X,
   },
   linearGradient: {
     height: OFFSET_1X,
@@ -193,7 +194,7 @@ export class LockPinSetup extends PureComponent {
       this.props.navigation.state &&
       this.props.navigation.state.params &&
       this.props.navigation.state.params.touchIDActive === true
-        ? 'Pincode is required in case touch ID fails'
+        ? 'Set up a pass code in case TouchID/FaceID fails'
         : 'Set up a pass code'
     const EnterPinText = (
       <CustomText
