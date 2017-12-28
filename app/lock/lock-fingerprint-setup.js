@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { captureError } from '../services/error/error-handler'
 import type { Store } from '../store/type-store'
+import { Alert } from 'react-native'
 
 import {
   lockPinSetupHomeRoute,
@@ -27,10 +28,24 @@ export class LockFingerprintSetup extends PureComponent {
   onTouchToggle = (route: string) => {
     if (this.props.touchIdActive) {
       this.props.disableTouchIdAction()
+      this.props.navigation.navigate(route)
     } else {
       this.props.enableTouchIdAction()
+      if (route !== lockPinSetupRoute) {
+        Alert.alert(
+          `You'll need to use your pass code to unlock this app from now on?`,
+          null,
+          [
+            {
+              text: 'OK',
+              onPress: () => this.props.navigation.navigate(route),
+            },
+          ]
+        )
+      } else {
+        this.props.navigation.navigate(route)
+      }
     }
-    this.props.navigation.navigate(route)
   }
 
   touchIdHandler = () => {
