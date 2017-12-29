@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { StyleSheet } from 'react-native'
 import { Container, Avatar, Icon } from '../components'
-
+//TODO verify the file is in use or not , if not remove
 export default props => (
   <Container row pad hCenter bottom>
     <Container left>
@@ -12,7 +12,7 @@ export default props => (
       />
     </Container>
     <Container center>
-      <Avatar large round src={require('../images/invitee.png')} />
+      <Avatar large round src={require('../images/UserAvatar.png')} />
     </Container>
     <Container right>
       <Icon

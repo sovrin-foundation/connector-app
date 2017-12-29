@@ -85,7 +85,7 @@ export default class ProofModal extends PureComponent<
         <AvatarsPair
           middleImage={middleImage}
           middleImageStyle={middleImageStyle}
-          avatarLeft={require('../images/invitee.png')}
+          avatarLeft={require('../images/UserAvatar.png')}
           avatarRight={avatarRight}
           testID={'send-proof'}
         />

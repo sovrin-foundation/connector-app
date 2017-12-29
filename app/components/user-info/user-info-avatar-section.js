@@ -15,7 +15,7 @@ import { addButtonText } from './user-info-common-components'
  *    when we wrap photos in multiple lines, we get desired spacing from everyside
  */
 const avatarDividerLeft = <ItemDividerLabel>AVATAR PHOTOS</ItemDividerLabel>
-
+//TODO verify the file is in use or not , if not remove
 export default class UserInfoAvatarSection extends PureComponent {
   constructor(props) {
     super(props)
@@ -31,7 +31,7 @@ export default class UserInfoAvatarSection extends PureComponent {
             <BadgeAvatar
               count={76}
               small
-              src={require('../../images/invitee.png')}
+              src={require('../../images/UserAvatar.png')}
             />
           </ListItemData>
         </ListItem>

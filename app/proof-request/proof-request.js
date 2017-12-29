@@ -169,7 +169,7 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
                   halo
                   extraLarge
                   resizeMode="cover"
-                  src={require('../images/invitee.png')}
+                  src={require('../images/UserAvatar.png')}
                   style={[styles.verifierLogo]}
                   iconStyle={[styles.verifierLogoIcon]}
                   haloStyle={styles.logoHaloStyle}

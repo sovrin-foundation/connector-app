@@ -33,7 +33,7 @@ export default class RequestDetailAvatars extends PureComponent<
             <Avatar
               medium
               shadow
-              src={require('../../images/invitee.png')}
+              src={require('../../images/UserAvatar.png')}
               testID={'invitation-text-avatars-invitee'}
             />
             <Image
