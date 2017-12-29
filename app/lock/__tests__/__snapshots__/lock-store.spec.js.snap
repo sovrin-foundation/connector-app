@@ -11,6 +11,7 @@ Object {
       "routeName": "home",
     },
   ],
+  "showDevMode": false,
 }
 `;
 
@@ -21,6 +22,7 @@ Object {
   "isLockEnabled": false,
   "isTouchIdEnabled": false,
   "pendingRedirection": null,
+  "showDevMode": false,
 }
 `;
 
@@ -31,6 +33,7 @@ Object {
   "isLockEnabled": false,
   "isTouchIdEnabled": false,
   "pendingRedirection": null,
+  "showDevMode": false,
 }
 `;
 
@@ -41,5 +44,6 @@ Object {
   "isLockEnabled": false,
   "isTouchIdEnabled": false,
   "pendingRedirection": null,
+  "showDevMode": false,
 }
 `;

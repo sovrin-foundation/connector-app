@@ -1,11 +1,23 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Image, StyleSheet } from 'react-native'
+import {
+  Image,
+  View,
+  StyleSheet,
+  TouchableHighlight,
+  Alert,
+} from 'react-native'
 import { connect } from 'react-redux'
+import { select } from 'redux-saga/effects'
 import { bindActionCreators } from 'redux'
+import type { Store } from '../store/type-store'
 import { Container, CustomText, CustomView } from '../components'
-import { lockPinSetupRoute, lockTouchIdSetupRoute } from '../common/'
-
+import {
+  lockPinSetupRoute,
+  lockTouchIdSetupRoute,
+  switchEnvironmentRoute,
+} from '../common/'
+import type { LockSelectionProps } from './type-lock'
 import {
   OFFSET_1X,
   OFFSET_2X,
@@ -17,21 +29,58 @@ import {
   isiPhone5,
   PIN_CODE_BORDER_BOTTOM,
 } from '../common/styles/constant'
-import { switchErrorAlerts } from '../store'
+import {
+  switchErrorAlerts,
+  longPressedInLockSelectionScreen,
+  pressedOnOrInLockSelectionScreen,
+  disableDevMode,
+} from '../store'
 
 export class LockSelection extends PureComponent {
   goTouchIdSetup = () => {
     this.props.navigation.navigate(lockTouchIdSetupRoute)
   }
-
   goPinCodeSetup = () => {
     this.props.navigation.navigate(lockPinSetupRoute)
   }
-
+  _onLongPressButton = () => {
+    this.props.longPressedInLockSelectionScreen()
+  }
+  _onTextPressButton = () => {
+    this.props.pressedOnOrInLockSelectionScreen()
+  }
+  componentWillReceiveProps(nextProps: LockSelectionProps) {
+    if (nextProps.showDevMode) {
+      Alert.alert(
+        'Developer Mode',
+        'you are enabling developer mode and it will delete all existing data. Are you sure?',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+            onPress: () => nextProps.disableDevMode(),
+          },
+          {
+            text: 'OK',
+            onPress: () =>
+              nextProps.navigation.navigate(switchEnvironmentRoute),
+          },
+        ]
+      )
+    }
+  }
   render() {
     return (
-      <Container tertiary style={[style.pinSelectionContainer]}>
-        <CustomView onPress={this.props.switchErrorAlerts}>
+      <Container
+        tertiary
+        testID="lock-selection-view"
+        style={[style.pinSelectionContainer]}
+        onLongPress={this._onLongPressButton}
+      >
+        <CustomView
+          onPress={this.props.switchErrorAlerts}
+          onLongPress={this._onLongPressButton}
+        >
           <CustomText h5 bg="tertiary" tertiary semiBold center>
             Choose How To Unlock App
           </CustomText>
@@ -50,6 +99,7 @@ export class LockSelection extends PureComponent {
             testID="touch-id-selection"
             style={[style.touchIdPinContainer]}
             onPress={this.goTouchIdSetup}
+            onLongPress={this._onLongPressButton}
           >
             <Image
               style={style.fingerPrintIcon}
@@ -61,12 +111,19 @@ export class LockSelection extends PureComponent {
               center
               tertiary
               transparentBg
+              testID="use-touch-id-text"
               onPress={this.goTouchIdSetup}
+              onLongPress={this._onLongPressButton}
             >
               Use Touch ID
             </CustomText>
           </CustomView>
-          <CustomView style={[style.dividerText]}>
+          <CustomView
+            testID="lock-selection-or-text"
+            onLongPress={this._onLongPressButton}
+            onPress={this._onTextPressButton}
+            style={[style.dividerText]}
+          >
             <CustomText h4 bg="tertiary" tertiary transparentBg thick center>
               or
             </CustomText>
@@ -77,6 +134,7 @@ export class LockSelection extends PureComponent {
             testID="pin-code-selection"
             style={[style.touchIdPinContainer]}
             onPress={this.goPinCodeSetup}
+            onLongPress={this._onLongPressButton}
           >
             <CustomView row center style={[style.pinContainer]}>
               <CustomView style={[style.pin]}>
@@ -118,6 +176,8 @@ export class LockSelection extends PureComponent {
               transparentBg
               style={[style.usePinText]}
               onPress={this.goPinCodeSetup}
+              testID="use-pass-code-text"
+              onLongPress={this._onLongPressButton}
             >
               Use Pass Code
             </CustomText>
@@ -127,16 +187,23 @@ export class LockSelection extends PureComponent {
     )
   }
 }
-
+const mapStateToProps = ({ lock }: Store) => {
+  return {
+    showDevMode: lock.showDevMode,
+  }
+}
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       switchErrorAlerts,
+      longPressedInLockSelectionScreen,
+      pressedOnOrInLockSelectionScreen,
+      disableDevMode,
     },
     dispatch
   )
 
-export default connect(null, mapDispatchToProps)(LockSelection)
+export default connect(mapStateToProps, mapDispatchToProps)(LockSelection)
 
 const style = StyleSheet.create({
   pinSelectionContainer: {

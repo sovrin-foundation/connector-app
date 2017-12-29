@@ -55,7 +55,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           ]
         }
         onLayout={undefined}
-        onPress={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
         onResponderRelease={[Function]}
@@ -202,7 +201,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
-        onPress={undefined}
         style={
           Array [
             Object {
@@ -224,7 +222,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
             null,
           ]
         }
-        testID={undefined}
       >
         Test Issuer is offering you
       </Text>
@@ -232,7 +229,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
-        onPress={undefined}
         style={
           Array [
             Object {
@@ -255,7 +251,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
             },
           ]
         }
-        testID={undefined}
       >
         Home Address
       </Text>
@@ -499,7 +494,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 accessible={true}
                 allowFontScaling={true}
                 ellipsizeMode="tail"
-                onPress={undefined}
                 style={
                   Array [
                     Object {
@@ -524,7 +518,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     },
                   ]
                 }
-                testID={undefined}
               >
                 ADDRESS 1
               </Text>
@@ -544,7 +537,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 accessible={true}
                 allowFontScaling={true}
                 ellipsizeMode="tail"
-                onPress={undefined}
                 style={
                   Array [
                     Object {
@@ -566,7 +558,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     },
                   ]
                 }
-                testID={undefined}
               >
                 An Address
               </Text>
@@ -614,7 +605,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 accessible={true}
                 allowFontScaling={true}
                 ellipsizeMode="tail"
-                onPress={undefined}
                 style={
                   Array [
                     Object {
@@ -639,7 +629,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     },
                   ]
                 }
-                testID={undefined}
               >
                 ADDRESS 2
               </Text>
@@ -659,7 +648,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 accessible={true}
                 allowFontScaling={true}
                 ellipsizeMode="tail"
-                onPress={undefined}
                 style={
                   Array [
                     Object {
@@ -681,7 +669,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     },
                   ]
                 }
-                testID={undefined}
               >
                 An Address 2
               </Text>
@@ -1289,7 +1276,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           accessible={true}
           allowFontScaling={true}
           ellipsizeMode="tail"
-          onPress={undefined}
           style={
             Array [
               Object {
@@ -1325,7 +1311,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           accessible={true}
           allowFontScaling={true}
           ellipsizeMode="tail"
-          onPress={undefined}
           style={
             Array [
               Object {

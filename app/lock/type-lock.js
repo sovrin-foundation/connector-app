@@ -85,6 +85,23 @@ export type UnlockAppAction = {
   type: typeof UNLOCK_APP,
 }
 
+export const PRESSED_ON_OR_IN_LOCK_SELECTION_SCREEN =
+  'PRESSED_ON_OR_IN_LOCK_SELECTION_SCREEN'
+export type PressedOnOrInLockSelectionScreen = {
+  type: typeof PRESSED_ON_OR_IN_LOCK_SELECTION_SCREEN,
+}
+
+export const LONG_PRESSED_IN_LOCK_SELECTION_SCREEN =
+  'LONG_PRESSED_IN_LOCK_SELECTION_SCREEN'
+export type LongPressedInLockSelectionScreen = {
+  type: typeof LONG_PRESSED_IN_LOCK_SELECTION_SCREEN,
+}
+
+export const RESET_TOUCH_EVENT_VARIABLES = 'RESET_TOUCH_EVENT_VARIABLES'
+export type ResetTouchEventVariables = {
+  type: typeof RESET_TOUCH_EVENT_VARIABLES,
+}
+
 export type SwitchErrorAlerts = {
   type: typeof SWITCH_ERROR_ALERTS,
 }
@@ -100,8 +117,12 @@ export type LockStore = {
   isAppLocked: boolean,
   isLockEnabled: boolean,
   isTouchIdEnabled: boolean,
+  showDevMode: boolean,
 }
-
+export type LockSelectionProps = {
+  showDevMode: boolean,
+  disableDevMode: () => DisableDevMode,
+} & ReactNavigation
 export type LockActions =
   | AddPendingRedirectAction
   | ClearPendingRedirectAction
@@ -142,4 +163,14 @@ export type LockPinSetupState = {
   pinSetupState: $Keys<typeof PIN_SETUP_STATE>,
   interactionsDone: boolean,
   enteredPin: ?string,
+}
+
+export const SHOW_DEV_MODE = 'SHOW_DEV_MODE'
+export type EnableDevMode = {
+  type: typeof SHOW_DEV_MODE,
+}
+
+export const HIDE_DEV_MODE = 'HIDE_DEV_MODE'
+export type DisableDevMode = {
+  type: typeof HIDE_DEV_MODE,
 }

@@ -1,6 +1,6 @@
 // @flow
 export type FooterActionsProps = {
-  logoUrl: ?string,
+  logoUrl?: ?string,
   onAccept: () => void,
   onDecline: () => void,
   denyTitle?: string,

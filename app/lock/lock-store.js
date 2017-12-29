@@ -1,5 +1,5 @@
 // @flow
-import { put, takeLatest, call, all } from 'redux-saga/effects'
+import { put, takeLatest, take, select, call, all } from 'redux-saga/effects'
 import type { CustomError } from '../common/type-common'
 import {
   PENDING_REDIRECT,
@@ -13,6 +13,11 @@ import {
   CHECK_PIN_SUCCESS,
   PIN_STORAGE_KEY,
   UNLOCK_APP,
+  LONG_PRESSED_IN_LOCK_SELECTION_SCREEN,
+  PRESSED_ON_OR_IN_LOCK_SELECTION_SCREEN,
+  RESET_TOUCH_EVENT_VARIABLES,
+  SHOW_DEV_MODE,
+  HIDE_DEV_MODE,
   ENABLE_TOUCHID,
   DISABLE_TOUCHID,
   CHECK_TOUCHID,
@@ -32,6 +37,11 @@ import type {
   LockActions,
   UnlockAppAction,
   CheckPinIdleAction,
+  LongPressedInLockSelectionScreen,
+  PressedOnOrInLockSelectionScreen,
+  ResetTouchEventVariables,
+  EnableDevMode,
+  DisableDevMode,
   CheckTouchIdAction,
   EnableTouchIdAction,
   DisableTouchIdAction,
@@ -48,6 +58,7 @@ const initialState: LockStore = {
   isAppLocked: true,
   isLockEnabled: false,
   isTouchIdEnabled: false,
+  showDevMode: false,
   error: {
     code: null,
     message: null,
@@ -141,6 +152,13 @@ export const checkPinAction = (pin: string): CheckPinAction => ({
   pin,
 })
 
+export const enableDevMode = (): EnableDevMode => ({
+  type: SHOW_DEV_MODE,
+})
+export const disableDevMode = (): DisableDevMode => ({
+  type: HIDE_DEV_MODE,
+})
+
 export function* checkPin(action: CheckPinAction): Generator<*, *, *> {
   const expectedPin = yield call(getItem, PIN_STORAGE_KEY)
   if (expectedPin === action.pin) {
@@ -149,6 +167,14 @@ export function* checkPin(action: CheckPinAction): Generator<*, *, *> {
     yield put(checkPinFail())
   }
 }
+
+export const longPressedInLockSelectionScreen = (): LongPressedInLockSelectionScreen => ({
+  type: LONG_PRESSED_IN_LOCK_SELECTION_SCREEN,
+})
+
+export const pressedOnOrInLockSelectionScreen = (): PressedOnOrInLockSelectionScreen => ({
+  type: PRESSED_ON_OR_IN_LOCK_SELECTION_SCREEN,
+})
 
 export const checkTouchIdAction = (
   isTouchIdEnabled: boolean
@@ -169,7 +195,15 @@ export function* checkTouchId(action: CheckTouchIdAction): Generator<*, *, *> {
 export function* watchCheckPin(): Generator<*, *, *> {
   yield takeLatest(CHECK_PIN, checkPin)
 }
-
+export function* watchPressEventInLockSelectionScreen(): Generator<*, *, *> {
+  while (true) {
+    yield take('LONG_PRESSED_IN_LOCK_SELECTION_SCREEN')
+    for (var i = 1; i <= 10; i++) {
+      yield take('PRESSED_ON_OR_IN_LOCK_SELECTION_SCREEN')
+    }
+    yield put(enableDevMode())
+  }
+}
 export const unlockApp = (): UnlockAppAction => ({
   type: UNLOCK_APP,
 })
@@ -238,6 +272,16 @@ export default function lockReducer(
       return {
         ...state,
         isTouchIdEnabled: true,
+      }
+    case SHOW_DEV_MODE:
+      return {
+        ...state,
+        showDevMode: true,
+      }
+    case HIDE_DEV_MODE:
+      return {
+        ...state,
+        showDevMode: false,
       }
     case DISABLE_TOUCHID:
       return {

@@ -168,7 +168,6 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
-        onPress={undefined}
         style={
           Array [
             Object {
@@ -204,7 +203,6 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
-        onPress={undefined}
         style={
           Array [
             Object {
@@ -515,7 +513,6 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
-        onPress={undefined}
         style={
           Array [
             Object {
@@ -551,7 +548,6 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
-        onPress={undefined}
         style={
           Array [
             Object {
@@ -858,7 +854,6 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
-        onPress={undefined}
         style={
           Array [
             Object {
@@ -894,7 +889,6 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
-        onPress={undefined}
         style={
           Array [
             Object {

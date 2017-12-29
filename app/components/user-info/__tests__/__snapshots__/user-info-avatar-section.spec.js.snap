@@ -94,7 +94,6 @@ exports[`user avatar section info should render properly 1`] = `
             "borderRadius": 25,
           }
         }
-        testID={undefined}
       >
         <Image
           accessibilityComponentType={undefined}

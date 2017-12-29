@@ -23,6 +23,7 @@ const CustomText = props => {
     style = empty,
     testID,
     onPress,
+    onLongPress,
     transparentBg,
     uppercase,
     heavy,
@@ -48,9 +49,18 @@ const CustomText = props => {
     transparentBg ? styles.transparentBg : null,
     ...style,
   ]
-
+  let filteredProps = {}
+  if (typeof onLongPress !== 'undefined') {
+    filteredProps.onLongPress = onLongPress
+  }
+  if (typeof testID !== 'undefined') {
+    filteredProps.testID = testID
+  }
+  if (typeof onPress !== 'undefined') {
+    filteredProps.onPress = onPress
+  }
   return (
-    <Text style={textStyles} onPress={onPress} testID={testID}>
+    <Text style={textStyles} {...filteredProps}>
       {uppercase
         ? props.children.toUpperCase
           ? props.children.toUpperCase()

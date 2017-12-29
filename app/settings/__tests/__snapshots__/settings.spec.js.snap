@@ -52,7 +52,6 @@ exports[`user settings screen should render properly and snapshot should match 1
                   "borderRadius": 38,
                 }
               }
-              testID={undefined}
             >
               <Image
                 accessibilityComponentType={undefined}
@@ -130,7 +129,6 @@ exports[`user settings screen should render properly and snapshot should match 1
               accessible={true}
               allowFontScaling={true}
               ellipsizeMode="tail"
-              onPress={undefined}
               style={
                 Array [
                   Object {

@@ -28,10 +28,7 @@ export class LockFingerprintSetup extends PureComponent {
   onTouchToggle = (route: string) => {
     if (this.props.touchIdActive) {
       this.props.disableTouchIdAction()
-      this.props.navigation.navigate(route)
-    } else {
-      this.props.enableTouchIdAction()
-      if (route !== lockPinSetupRoute) {
+      if (route === settingsTabRoute) {
         Alert.alert(
           `You'll need to use your pass code to unlock this app from now on?`,
           null,
@@ -45,6 +42,9 @@ export class LockFingerprintSetup extends PureComponent {
       } else {
         this.props.navigation.navigate(route)
       }
+    } else {
+      this.props.enableTouchIdAction()
+      this.props.navigation.navigate(route)
     }
   }
 

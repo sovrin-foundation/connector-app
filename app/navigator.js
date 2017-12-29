@@ -18,6 +18,7 @@ import LockEnterFingerprintScreen from './lock/lock-enter-fingerprint'
 import ClaimOffer from './claim-offer/claim-offer'
 import ProofRequestScreen from './proof-request/proof-request'
 import InvitationScreen from './invitation/invitation'
+import SwitchEnvironmentScreen from './switch-environment/switch-environment'
 import { Icon } from './components'
 import {
   splashScreenRoute,
@@ -37,6 +38,7 @@ import {
   qrCodeScannerTabRoute,
   proofRequestRoute,
   invitationRoute,
+  switchEnvironmentRoute,
 } from './common/'
 import { color } from './common/styles'
 
@@ -140,6 +142,9 @@ const CardStack = StackNavigator(
     },
     [proofRequestRoute]: {
       screen: ProofRequestScreen,
+    },
+    [switchEnvironmentRoute]: {
+      screen: SwitchEnvironmentScreen,
     },
   },
   {

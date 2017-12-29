@@ -21,6 +21,7 @@ import {
   getAgencyVerificationKey,
   getInvitationPayload,
   isDuplicateConnection,
+  getPoolConfig,
 } from '../../store/store-selector'
 import { saveNewConnection } from '../../store/connections-store'
 import { encrypt, addConnection } from '../../bridge/react-native-cxs/RNCxs'
@@ -46,6 +47,7 @@ describe('Invitation Store', () => {
   let firstInvitation
   const agencyDid = '5qiK8KZQ86XjcnLmy5S2Tn'
   const agencyVerificationKey = '3dzsPMyBeJiGtsxWoyrfXZL6mqj3iXxdJ75vewJ1jSwn'
+  const poolConfig = 'sandboxPool'
 
   function* getInvitation() {
     yield {
@@ -181,11 +183,18 @@ describe('Invitation Store', () => {
       expect(gen.next(agencyVerificationKey).value).toEqual(
         select(getInvitationPayload, senderDID)
       )
+      expect(gen.next(payload).value).toEqual(select(getPoolConfig))
       const metadata = {
         ...payload,
       }
-      expect(gen.next(payload).value).toEqual(
-        call(addConnection, agencyDid, agencyVerificationKey, metadata)
+      expect(gen.next(poolConfig).value).toEqual(
+        call(
+          addConnection,
+          agencyDid,
+          agencyVerificationKey,
+          metadata,
+          poolConfig
+        )
       )
       const identifier = '3akhf906816kahfadhfas85'
       const verificationKey = '3akhf906816kahfadhfas853akhf906816kahfadhfas85'
@@ -237,7 +246,13 @@ describe('Invitation Store', () => {
         call(AsyncStorage.setItem, IS_CONSUMER_AGENT_ALREADY_CREATED, 'true')
       )
       expect(gen.next(senderDID).value).toEqual(
-        call(addConnection, senderDID, payload.senderVerificationKey, metadata)
+        call(
+          addConnection,
+          senderDID,
+          payload.senderVerificationKey,
+          metadata,
+          poolConfig
+        )
       )
       const pairwiseConnection = {
         identifier: 'pairwiseIdentifier1',
@@ -322,11 +337,18 @@ describe('Invitation Store', () => {
       expect(gen.next(agencyVerificationKey).value).toEqual(
         select(getInvitationPayload, senderDID)
       )
+      expect(gen.next(payload).value).toEqual(select(getPoolConfig))
       const metadata = {
         ...payload,
       }
-      expect(gen.next(payload).value).toEqual(
-        call(addConnection, agencyDid, agencyVerificationKey, metadata)
+      expect(gen.next(poolConfig).value).toEqual(
+        call(
+          addConnection,
+          agencyDid,
+          agencyVerificationKey,
+          metadata,
+          poolConfig
+        )
       )
       const identifier = '3akhf906816kahfadhfas85'
       const verificationKey = '3akhf906816kahfadhfas853akhf906816kahfadhfas85'
@@ -379,7 +401,13 @@ describe('Invitation Store', () => {
         call(AsyncStorage.setItem, IS_CONSUMER_AGENT_ALREADY_CREATED, 'true')
       )
       expect(gen.next().value).toEqual(
-        call(addConnection, senderDID, payload.senderVerificationKey, metadata)
+        call(
+          addConnection,
+          senderDID,
+          payload.senderVerificationKey,
+          metadata,
+          poolConfig
+        )
       )
       const pairwiseConnection = {
         identifier: 'pairwiseIdentifier1',

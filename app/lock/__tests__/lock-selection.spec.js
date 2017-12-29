@@ -3,17 +3,29 @@ import 'react-native'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
-import LockSelection from '../lock-selection'
+import { LockSelection } from '../lock-selection'
 
+const switchErrorAlerts = jest.fn()
+const longPressedInLockSelectionScreen = jest.fn()
+const pressedOnOrInLockSelectionScreen = jest.fn()
 function props() {
   return {
-    switchErrorAlerts: jest.fn(),
+    switchErrorAlerts,
+    longPressedInLockSelectionScreen: longPressedInLockSelectionScreen,
+    pressedOnOrInLockSelectionScreen: pressedOnOrInLockSelectionScreen,
   }
 }
-
+const navigation = {
+  navigate: jest.fn(),
+  state: {
+    params: {},
+  },
+}
 const store = {
   getState() {
-    return jest.fn()
+    return {
+      lock: {},
+    }
   },
   subscribe() {
     return jest.fn()
@@ -22,15 +34,32 @@ const store = {
     return jest.fn()
   },
 }
-
+let componentInstance, tree, wrapper
 describe('app lock selection page should', () => {
-  it('render properly', () => {
-    const component = renderer.create(
+  beforeEach(() => {
+    wrapper = renderer.create(
       <Provider store={store}>
-        <LockSelection {...props()} />
+        <LockSelection
+          {...props()}
+          navigation={navigation}
+          longPressedInLockSelectionScreen={longPressedInLockSelectionScreen}
+          pressedOnOrInLockSelectionScreen={pressedOnOrInLockSelectionScreen}
+        />
       </Provider>
     )
-    let tree = component.toJSON()
+    tree = wrapper.toJSON()
+    componentInstance = wrapper.getInstance()._reactInternalInstance.child
+      .stateNode
+  })
+  it('render properly', () => {
     expect(tree).toMatchSnapshot()
+  })
+  it('should be abel to call longPressedInLockSelectionScreen action', () => {
+    componentInstance._onLongPressButton()
+    expect(longPressedInLockSelectionScreen).toHaveBeenCalled()
+  })
+  it('should be abel to call pressedOnOrInLockSelectionScreen press action', () => {
+    componentInstance._onTextPressButton()
+    expect(pressedOnOrInLockSelectionScreen).toHaveBeenCalled()
   })
 })

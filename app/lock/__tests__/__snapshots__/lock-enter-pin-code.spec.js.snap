@@ -41,7 +41,6 @@ exports[`<LockPinCodeEnter /> should render pin code box 1`] = `
     center={true}
     hitSlop={undefined}
     onLayout={undefined}
-    onPress={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
     onResponderRelease={[Function]}
@@ -63,7 +62,6 @@ exports[`<LockPinCodeEnter /> should render pin code box 1`] = `
       accessible={true}
       allowFontScaling={true}
       ellipsizeMode="tail"
-      onPress={undefined}
       style={
         Array [
           Object {

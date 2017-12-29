@@ -29,6 +29,7 @@ const initialState: LockStore = {
   // or user unlock the app every time user opens the app
   // this property needs to be set accordingly
   isAppLocked: true,
+  showDevMode: false,
   isLockEnabled: false,
   isTouchIdEnabled: false,
 }

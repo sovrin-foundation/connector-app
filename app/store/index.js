@@ -16,6 +16,7 @@ import route from './route-store'
 import { watchAppHydration } from './hydration-store'
 import lock, {
   watchLock,
+  watchPressEventInLockSelectionScreen,
   watchEnableTouchId,
   watchDisableTouchId,
 } from '../lock/lock-store'
@@ -73,6 +74,7 @@ sagaMiddleware.run(function*() {
     watchPushNotification(),
     watchInvitation(),
     watchClaim(),
+    watchPressEventInLockSelectionScreen(),
     watchEnableTouchId(),
     watchDisableTouchId(),
     watchProof(),

@@ -25,11 +25,13 @@ import {
   SERVER_ENVIRONMENT_CHANGED_SANDBOX,
   SWITCH_ERROR_ALERTS,
   TOGGLE_ERROR_ALERTS,
+  SWITCH_ENVIRONMENT,
 } from './type-config-store'
 import type {
   ServerEnvironment,
   ConfigStore,
   ConfigAction,
+  ServerEnvironmentChangedAction,
 } from './type-config-store'
 
 export const baseUrls = {
@@ -59,8 +61,8 @@ const initialState: ConfigStore = {
   // next time user opens the app, he won't be asked to setup pin
   agencyDID: '5qiK8KZQ86XjcnLmy5S2Tn',
   agencyVerificationKey: '3dzsPMyBeJiGtsxWoyrfXZL6mqj3iXxdJ75vewJ1jSwn',
+  poolConfig: null,
 }
-
 export const hydrated = () => ({
   type: HYDRATED,
 })
@@ -81,10 +83,22 @@ export const changeServerEnvironmentToDemo = () => ({
 export const changeServerEnvironmentToSandbox = () => ({
   type: SERVER_ENVIRONMENT_CHANGED_SANDBOX,
 })
+export const changeEnvironment = (
+  agencyUrl: string,
+  agencyDID: string,
+  agencyVerificationKey: string,
+  poolConfig: string
+) => ({
+  type: SWITCH_ENVIRONMENT,
+  poolConfig,
+  agencyDID,
+  agencyVerificationKey,
+  agencyUrl,
+})
 
 export const changeServerEnvironment = (
   serverEnvironment: ServerEnvironment
-) => ({
+): ServerEnvironmentChangedAction => ({
   type: SERVER_ENVIRONMENT_CHANGED,
   serverEnvironment,
 })
@@ -229,6 +243,14 @@ export default function configReducer(
       return {
         ...state,
         showErrorAlerts: action.isShowErrorAlert,
+      }
+    case SWITCH_ENVIRONMENT:
+      return {
+        ...state,
+        poolConfig: action.poolConfig,
+        agencyDID: action.agencyDID,
+        agencyVerificationKey: action.agencyVerificationKey,
+        agencyUrl: action.agencyUrl,
       }
     default:
       return state

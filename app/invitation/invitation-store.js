@@ -29,6 +29,7 @@ import {
   getPushToken,
   getInvitationPayload,
   isDuplicateConnection,
+  getPoolConfig,
 } from '../store/store-selector'
 import { saveNewConnection } from '../store/connections-store'
 import { encrypt, addConnection } from '../bridge/react-native-cxs/RNCxs'
@@ -154,6 +155,7 @@ export function* sendResponse(
     getInvitationPayload,
     senderDID
   )
+  const poolConfig: string = yield select(getPoolConfig)
   const metadata = {
     ...payload,
   }
@@ -161,7 +163,8 @@ export function* sendResponse(
     addConnection,
     agencyDid,
     agencyVerificationKey,
-    metadata
+    metadata,
+    poolConfig
   )
   const alreadyExist: boolean = yield select(isDuplicateConnection, senderDID)
   if (alreadyExist) {
@@ -188,7 +191,8 @@ export function* sendResponse(
         addConnection,
         senderDID,
         payload.senderVerificationKey,
-        metadata
+        metadata,
+        poolConfig
       )
       const createPairwiseKey = yield call(createAgentPairwiseKey, {
         agencyUrl,

@@ -45,7 +45,6 @@ exports[`<LockPinCodeSetup /> should render pin code box 1`] = `
       accessible={true}
       allowFontScaling={true}
       ellipsizeMode="tail"
-      onPress={undefined}
       style={
         Array [
           Object {
@@ -72,7 +71,6 @@ exports[`<LockPinCodeSetup /> should render pin code box 1`] = `
           },
         ]
       }
-      testID={undefined}
     >
       Set up a pass code
     </Text>
@@ -256,7 +254,6 @@ exports[`<LockPinCodeSetup /> should show "pass code mismatch ..." message and r
       accessible={true}
       allowFontScaling={true}
       ellipsizeMode="tail"
-      onPress={undefined}
       style={
         Array [
           Object {
@@ -283,7 +280,6 @@ exports[`<LockPinCodeSetup /> should show "pass code mismatch ..." message and r
           },
         ]
       }
-      testID={undefined}
     >
       Your pass codes do not match, please start over.
     </Text>
@@ -467,7 +463,6 @@ exports[`<LockPinCodeSetup /> should show re enter pass code after first entry 1
       accessible={true}
       allowFontScaling={true}
       ellipsizeMode="tail"
-      onPress={undefined}
       style={
         Array [
           Object {
@@ -494,7 +489,6 @@ exports[`<LockPinCodeSetup /> should show re enter pass code after first entry 1
           },
         ]
       }
-      testID={undefined}
     >
       Re-enter pass code
     </Text>

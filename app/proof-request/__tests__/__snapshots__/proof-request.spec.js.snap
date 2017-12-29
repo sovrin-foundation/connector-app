@@ -42,7 +42,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
         ]
       }
       onLayout={undefined}
-      onPress={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -302,7 +301,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
-        onPress={undefined}
         style={
           Array [
             Object {
@@ -324,7 +322,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
             null,
           ]
         }
-        testID={undefined}
       >
         Test Issuer would like you to prove:
       </Text>
@@ -332,7 +329,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
-        onPress={undefined}
         style={
           Array [
             Object {
@@ -355,7 +351,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
             },
           ]
         }
-        testID={undefined}
       >
         Home Address
       </Text>
@@ -605,7 +600,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                   accessible={true}
                   allowFontScaling={true}
                   ellipsizeMode="tail"
-                  onPress={undefined}
                   style={
                     Array [
                       Object {
@@ -630,7 +624,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                       },
                     ]
                   }
-                  testID={undefined}
                 >
                   ADDRESS 1
                 </Text>
@@ -648,7 +641,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                   accessible={true}
                   allowFontScaling={true}
                   ellipsizeMode="tail"
-                  onPress={undefined}
                   style={
                     Array [
                       Object {
@@ -670,7 +662,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                       },
                     ]
                   }
-                  testID={undefined}
                 />
               </View>
             </View>
@@ -758,7 +749,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                   accessible={true}
                   allowFontScaling={true}
                   ellipsizeMode="tail"
-                  onPress={undefined}
                   style={
                     Array [
                       Object {
@@ -783,7 +773,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                       },
                     ]
                   }
-                  testID={undefined}
                 >
                   ADDRESS 2
                 </Text>
@@ -801,7 +790,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                   accessible={true}
                   allowFontScaling={true}
                   ellipsizeMode="tail"
-                  onPress={undefined}
                   style={
                     Array [
                       Object {
@@ -823,7 +811,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                       },
                     ]
                   }
-                  testID={undefined}
                 />
               </View>
             </View>
@@ -1463,7 +1450,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
           accessible={true}
           allowFontScaling={true}
           ellipsizeMode="tail"
-          onPress={undefined}
           style={
             Array [
               Object {
@@ -1499,7 +1485,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
           accessible={true}
           allowFontScaling={true}
           ellipsizeMode="tail"
-          onPress={undefined}
           style={
             Array [
               Object {

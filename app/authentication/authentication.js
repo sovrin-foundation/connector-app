@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { View, Text, Image, AlertIOS } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { encode } from 'bs58'

@@ -27,6 +27,7 @@ export const CustomView = props => {
     vCenter,
     bottom,
     onPress,
+    onLongPress,
     spaceBetween,
     shadow,
     imageShadow,
@@ -67,18 +68,30 @@ export const CustomView = props => {
     ...absoluteStyles,
     ...passedStyles,
   ])
-
+  let filteredProps = { ...props }
+  delete filteredProps.onLongPress
+  delete filteredProps.onPress
+  if (typeof props.testID === 'undefined') {
+    delete filteredProps.testID
+  }
   const customView = (
-    <View {...props} style={styles}>
-      {props.children}
+    <View {...filteredProps} style={styles}>
+      {filteredProps.children}
     </View>
   )
-
-  const touchableTestId = props.testID ? `${props.testID}-touchable` : undefined
-
-  if (onPress) {
+  if (onPress || onLongPress) {
+    let touchProps = {}
+    if (typeof props.testID !== 'undefined') {
+      touchProps.testID = `${props.testID}-touchable`
+    }
+    if (typeof onPress !== 'undefined') {
+      touchProps.onPress = onPress
+    }
+    if (typeof onLongPress !== 'undefined') {
+      touchProps.onLongPress = onLongPress
+    }
     return (
-      <TouchableWithoutFeedback testID={touchableTestId} onPress={onPress}>
+      <TouchableWithoutFeedback {...touchProps}>
         {customView}
       </TouchableWithoutFeedback>
     )

@@ -34,6 +34,14 @@ export type ServerEnvironmentChangedDemoAction = {
   type: typeof SERVER_ENVIRONMENT_CHANGED_DEMO,
 }
 
+export const SWITCH_ENVIRONMENT = 'SWITCH_ENVIRONMENT'
+export type ChangeEnvironment = {
+  agencyUrl: string,
+  poolConfig: string,
+  agencyDID: string,
+  agencyVerificationKey: string,
+}
+
 export const SERVER_ENVIRONMENT_CHANGED_SANDBOX =
   'SERVER_ENVIRONMENT_CHANGED_SANDBOX'
 export type ServerEnvironmentChangedSandboxAction = {
@@ -69,4 +77,5 @@ export type ConfigStore = {
   callCenterUrl: string,
   agencyDID: string,
   agencyVerificationKey: string,
+  poolConfig: ?string,
 }

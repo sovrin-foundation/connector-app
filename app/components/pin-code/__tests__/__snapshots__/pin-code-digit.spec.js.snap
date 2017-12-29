@@ -14,7 +14,6 @@ exports[`<PinCodeDigit /> when digit is entered 1`] = `
       "width": 38,
     }
   }
-  testID={undefined}
 >
   <Image
     resizeMode="contain"
@@ -43,6 +42,5 @@ exports[`<PinCodeDigit /> when digit is not entered 1`] = `
       "width": 38,
     }
   }
-  testID={undefined}
 />
 `;

@@ -2,6 +2,18 @@
 
 exports[`app lock selection page should render properly 1`] = `
 <View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  hitSlop={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
   style={
     Object {
       "backgroundColor": "#f0f0f0",
@@ -12,6 +24,7 @@ exports[`app lock selection page should render properly 1`] = `
     }
   }
   tertiary={true}
+  testID="lock-selection-view-touchable"
 >
   <View
     accessibilityComponentType={undefined}
@@ -20,7 +33,6 @@ exports[`app lock selection page should render properly 1`] = `
     accessible={true}
     hitSlop={undefined}
     onLayout={undefined}
-    onPress={[Function]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
     onResponderRelease={[Function]}
@@ -34,7 +46,6 @@ exports[`app lock selection page should render properly 1`] = `
       accessible={true}
       allowFontScaling={true}
       ellipsizeMode="tail"
-      onPress={undefined}
       style={
         Array [
           Object {
@@ -56,7 +67,6 @@ exports[`app lock selection page should render properly 1`] = `
           null,
         ]
       }
-      testID={undefined}
     >
       Choose How To Unlock App
     </Text>
@@ -74,7 +84,6 @@ exports[`app lock selection page should render properly 1`] = `
       accessible={true}
       allowFontScaling={true}
       ellipsizeMode="tail"
-      onPress={undefined}
       style={
         Array [
           Object {
@@ -96,7 +105,6 @@ exports[`app lock selection page should render properly 1`] = `
           null,
         ]
       }
-      testID={undefined}
     >
       This application must be protected by TouchID or a pin code at all times.
     </Text>
@@ -119,7 +127,6 @@ exports[`app lock selection page should render properly 1`] = `
       fifth={true}
       hitSlop={undefined}
       onLayout={undefined}
-      onPress={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -162,6 +169,7 @@ exports[`app lock selection page should render properly 1`] = `
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
+        onLongPress={[Function]}
         onPress={[Function]}
         style={
           Array [
@@ -186,19 +194,31 @@ exports[`app lock selection page should render properly 1`] = `
             },
           ]
         }
-        testID={undefined}
+        testID="use-touch-id-text"
       >
         Use Touch ID
       </Text>
     </View>
     <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel={undefined}
+      accessibilityTraits={undefined}
+      accessible={true}
+      hitSlop={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={Object {}}
+      testID="lock-selection-or-text-touchable"
     >
       <Text
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
-        onPress={undefined}
         style={
           Array [
             Object {
@@ -222,7 +242,6 @@ exports[`app lock selection page should render properly 1`] = `
             },
           ]
         }
-        testID={undefined}
       >
         or
       </Text>
@@ -235,7 +254,6 @@ exports[`app lock selection page should render properly 1`] = `
       fifth={true}
       hitSlop={undefined}
       onLayout={undefined}
-      onPress={[Function]}
       onResponderGrant={[Function]}
       onResponderMove={[Function]}
       onResponderRelease={[Function]}
@@ -290,7 +308,6 @@ exports[`app lock selection page should render properly 1`] = `
             accessible={true}
             allowFontScaling={true}
             ellipsizeMode="tail"
-            onPress={undefined}
             style={
               Array [
                 Object {
@@ -312,7 +329,6 @@ exports[`app lock selection page should render properly 1`] = `
                 null,
               ]
             }
-            testID={undefined}
           >
             1
           </Text>
@@ -332,7 +348,6 @@ exports[`app lock selection page should render properly 1`] = `
             accessible={true}
             allowFontScaling={true}
             ellipsizeMode="tail"
-            onPress={undefined}
             style={
               Array [
                 Object {
@@ -354,7 +369,6 @@ exports[`app lock selection page should render properly 1`] = `
                 null,
               ]
             }
-            testID={undefined}
           >
             2
           </Text>
@@ -374,7 +388,6 @@ exports[`app lock selection page should render properly 1`] = `
             accessible={true}
             allowFontScaling={true}
             ellipsizeMode="tail"
-            onPress={undefined}
             style={
               Array [
                 Object {
@@ -396,7 +409,6 @@ exports[`app lock selection page should render properly 1`] = `
                 null,
               ]
             }
-            testID={undefined}
           >
             3
           </Text>
@@ -416,7 +428,6 @@ exports[`app lock selection page should render properly 1`] = `
             accessible={true}
             allowFontScaling={true}
             ellipsizeMode="tail"
-            onPress={undefined}
             style={
               Array [
                 Object {
@@ -438,7 +449,6 @@ exports[`app lock selection page should render properly 1`] = `
                 null,
               ]
             }
-            testID={undefined}
           >
             4
           </Text>
@@ -458,7 +468,6 @@ exports[`app lock selection page should render properly 1`] = `
             accessible={true}
             allowFontScaling={true}
             ellipsizeMode="tail"
-            onPress={undefined}
             style={
               Array [
                 Object {
@@ -480,7 +489,6 @@ exports[`app lock selection page should render properly 1`] = `
                 null,
               ]
             }
-            testID={undefined}
           >
             5
           </Text>
@@ -500,7 +508,6 @@ exports[`app lock selection page should render properly 1`] = `
             accessible={true}
             allowFontScaling={true}
             ellipsizeMode="tail"
-            onPress={undefined}
             style={
               Array [
                 Object {
@@ -522,7 +529,6 @@ exports[`app lock selection page should render properly 1`] = `
                 null,
               ]
             }
-            testID={undefined}
           >
             6
           </Text>
@@ -532,6 +538,7 @@ exports[`app lock selection page should render properly 1`] = `
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
+        onLongPress={[Function]}
         onPress={[Function]}
         style={
           Array [
@@ -560,7 +567,7 @@ exports[`app lock selection page should render properly 1`] = `
             },
           ]
         }
-        testID={undefined}
+        testID="use-pass-code-text"
       >
         Use Pass Code
       </Text>

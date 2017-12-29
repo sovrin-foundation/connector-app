@@ -29,7 +29,8 @@ export async function decrypt(remoteDid: string, payload: string) {
 export async function addConnection(
   remoteDid: string,
   senderVerificationKey: string,
-  metadata: Metadata = {}
+  metadata: Metadata = {},
+  poolConfig: string
 ) {
   let identifier
   let verificationKey
@@ -39,7 +40,8 @@ export async function addConnection(
       senderVerificationKey,
       {
         ...metadata,
-      }
+      },
+      poolConfig
     )
 
     try {

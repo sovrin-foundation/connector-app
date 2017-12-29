@@ -106,6 +106,8 @@ describe('Authentication request tests', () => {
         isAlreadyInstalled: true,
         isHydrated: true,
         showErrorAlerts: false,
+        showDevMode: false,
+        poolConfig: 'some text',
       },
       AUTHENTICATION_TYPE.AUTHENTICATION_REQUEST
     )

@@ -22,6 +22,6 @@
 
 @interface RNIndy : RCTEventEmitter <RCTBridgeModule>
 
-+ (ConnectMeIndy *)sharedIndyInstance;
++ (ConnectMeIndy *)sharedIndyInstance:(NSString *)config;
 
 @end
