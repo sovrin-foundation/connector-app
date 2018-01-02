@@ -28,9 +28,6 @@ export class LockFingerprintSetup extends PureComponent {
   goToSettingsScreen = () => {
     if (this.props.touchIdActive) {
       this.props.disableTouchIdAction()
-      this.props.navigation.navigate(settingsTabRoute)
-    } else {
-      this.props.enableTouchIdAction()
       Alert.alert(
         `You'll need to use your pass code to unlock this app from now on`,
         null,
@@ -41,6 +38,9 @@ export class LockFingerprintSetup extends PureComponent {
           },
         ]
       )
+    } else {
+      this.props.enableTouchIdAction()
+      this.props.navigation.navigate(settingsTabRoute)
     }
   }
   goToPinSetupScreen = () => {
