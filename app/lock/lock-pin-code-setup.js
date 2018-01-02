@@ -175,13 +175,6 @@ export class LockPinSetup extends PureComponent {
   }
 
   componentDidMount() {
-    if (
-      this.props.navigation.state.params &&
-      this.props.navigation.state.params.touchIDActive === true
-    ) {
-      this.onTouchIdSetup()
-    }
-
     InteractionManager.runAfterInteractions(() => {
       this.setState({ interactionsDone: true })
     })
@@ -189,11 +182,9 @@ export class LockPinSetup extends PureComponent {
 
   render() {
     const { pinSetupState, interactionsDone } = this.state
-
     const passCodeSetupText =
-      this.props.navigation.state &&
-      this.props.navigation.state.params &&
-      this.props.navigation.state.params.touchIDActive === true
+      typeof this.props.navigation.state.params !== 'undefined' &&
+      this.props.navigation.state.params.touchIdActive === true
         ? 'Set up a pass code in case TouchID/FaceID fails'
         : 'Set up a pass code'
     const EnterPinText = (

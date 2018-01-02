@@ -25,35 +25,35 @@ import { disableTouchIdAction, enableTouchIdAction } from '../lock/lock-store'
 import { StyleSheet } from 'react-native'
 
 export class LockFingerprintSetup extends PureComponent {
-  onTouchToggle = (route: string) => {
+  goToSettingsScreen = () => {
     if (this.props.touchIdActive) {
       this.props.disableTouchIdAction()
-      if (route === settingsTabRoute) {
-        Alert.alert(
-          `You'll need to use your pass code to unlock this app from now on?`,
-          null,
-          [
-            {
-              text: 'OK',
-              onPress: () => this.props.navigation.navigate(route),
-            },
-          ]
-        )
-      } else {
-        this.props.navigation.navigate(route)
-      }
+      this.props.navigation.navigate(settingsTabRoute)
     } else {
       this.props.enableTouchIdAction()
-      this.props.navigation.navigate(route)
+      Alert.alert(
+        `You'll need to use your pass code to unlock this app from now on`,
+        null,
+        [
+          {
+            text: 'OK',
+            onPress: () => this.props.navigation.navigate(settingsTabRoute),
+          },
+        ]
+      )
     }
+  }
+  goToPinSetupScreen = () => {
+    this.props.enableTouchIdAction()
+    this.props.navigation.navigate(lockPinSetupRoute, { touchIdActive: true })
   }
 
   touchIdHandler = () => {
     TouchID.authenticate('')
       .then(success => {
         this.props.fromSettings
-          ? this.onTouchToggle(settingsTabRoute)
-          : this.onTouchToggle(lockPinSetupRoute)
+          ? this.goToSettingsScreen()
+          : this.goToPinSetupScreen()
       })
       .catch(error => {
         captureError(error)

@@ -82,15 +82,6 @@ export class Settings extends PureComponent {
       />
     )
 
-    const touchIdOffAlert =
-      !this.props.touchIdActive && this.props.touchIdToggledOff
-        ? Alert.alert(
-            '',
-            "You'll need to use your pass code to unlock this app from now on",
-            [{ text: 'OK' }]
-          )
-        : null
-
     const editIconChangePin = (
       <TouchableOpacity onPress={this.onChangePinClick}>
         <Image
@@ -177,21 +168,14 @@ export class Settings extends PureComponent {
             listStyle={style.list}
             itemStyle={style.item}
           />
-          {!this.props.touchIdActive && this.props.touchIdToggledOff
-            ? touchIdOffAlert
-            : null}
         </ScrollView>
       </Container>
     )
   }
 }
 
-const mapStateToProps = (state: Store, props) => ({
+const mapStateToProps = (state: Store) => ({
   touchIdActive: state.lock.isTouchIdEnabled,
-  touchIdToggledOff:
-    props.navigation.state.params !== undefined
-      ? props.navigation.state.params.touchIdToggledOff
-      : false,
 })
 
 export default StackNavigator({

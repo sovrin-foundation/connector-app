@@ -11,9 +11,7 @@ describe('<LockPinCodeSetup />', () => {
     setPinAction: jest.fn(),
     pinSetupState: PIN_SETUP_STATE.INITIAL,
     navigation: {
-      state: {
-        params: null,
-      },
+      state: {},
       navigate: jest.fn(),
     },
   })
