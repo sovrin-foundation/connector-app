@@ -41,7 +41,7 @@ export async function addConnection(
       {
         ...metadata,
       },
-      poolConfig
+      poolConfig.split('\\n').join('\n')
     )
 
     try {
