@@ -27,6 +27,9 @@ export class LockEnterFingerprint extends PureComponent {
         }
       })
       .catch(error => {
+        if (error.name === 'LAErrorSystemCancel') {
+          setTimeout(this.touchIdHandler, 1000)
+        }
         captureError(error)
         // not sure what to do if finger print authentication failed
       })
