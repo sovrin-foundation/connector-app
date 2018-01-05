@@ -40,6 +40,7 @@ describe('<ClaimOffer />', () => {
   let tree
   let navigation
   let componentInstance
+  const logoUrl = 'http://testissuer.com/logoUrl.png'
   const claimOfferData = {
     data: {
       name: 'Home Address',
@@ -61,7 +62,6 @@ describe('<ClaimOffer />', () => {
       did: 'issuerDid',
     },
     uid: 'asd123',
-    senderLogoUrl: 'http://testissuer.com/logoUrl.png',
     remotePairwiseDID: 'ha66899sadfjZJGINKN0770',
     status: CLAIM_OFFER_STATUS.RECEIVED,
     claimRequestStatus: CLAIM_REQUEST_STATUS.NONE,
@@ -93,6 +93,7 @@ describe('<ClaimOffer />', () => {
           navigation={navigation}
           uid={navigation.state.params.uid}
           isValid={isValid}
+          logoUrl={logoUrl}
         />
       </Provider>
     )

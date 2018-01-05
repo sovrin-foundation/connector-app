@@ -120,12 +120,14 @@ export type ClaimOfferProps = {
   uid: string,
   claimOfferData: ClaimOfferPayload,
   isValid: boolean,
+  logoUrl?: string,
 }
 
 export type ClaimRequestStatusModalProps = {
   claimRequestStatus: ClaimRequestStatus,
   payload: ClaimOfferPayload,
   onContinue: () => void,
+  senderLogoUrl: string,
 }
 
 export type ClaimRequestStatusModalState = {

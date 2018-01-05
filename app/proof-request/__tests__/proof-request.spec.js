@@ -129,7 +129,6 @@ describe('<ProofRequest />', () => {
           proofStatus={proofStatus}
           originalProofRequestData={originalProofRequestData}
           remotePairwiseDID={remotePairwiseDID}
-          logoUrl={logoUrl}
           name={name}
           proofRequestShown={proofRequestShown}
           acceptProofRequest={acceptProofRequest}
@@ -139,6 +138,7 @@ describe('<ProofRequest />', () => {
           navigation={navigation}
           uid={navigation.state.params.uid}
           isValid={isValid}
+          logoUrl={logoUrl}
         />
       </Provider>
     )

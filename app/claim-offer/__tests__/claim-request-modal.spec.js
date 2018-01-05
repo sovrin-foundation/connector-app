@@ -28,12 +28,12 @@ describe('<ClaimRequestModal />', () => {
         did: 'issuerDid',
       },
       statusMsg: 'pending',
-      senderLogoUrl: 'http://testissuer.com/logoUrl.png',
       remotePairwiseDID: 'remotePairwiseDID',
       uid: 'asd123',
       status: 'SHOWN',
       claimRequestStatus: 'NONE',
     }
+    const senderLogoUrl = 'http://testissuer.com/logoUrl.png'
     const onContinue = jest.fn()
     const wrapper = renderer
       .create(
@@ -41,6 +41,7 @@ describe('<ClaimRequestModal />', () => {
           claimRequestStatus={CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST}
           payload={payload}
           onContinue={onContinue}
+          senderLogoUrl={senderLogoUrl}
         />
       )
       .toJSON()

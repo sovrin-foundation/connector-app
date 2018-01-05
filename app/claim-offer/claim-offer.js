@@ -36,6 +36,8 @@ import type {
 import type { ClaimOfferProps, ClaimOfferPayload } from './type-claim-offer'
 import type { Store } from '../store/type-store'
 import ClaimRequestModal from './claim-request-modal'
+import { getConnectionLogoUrl } from '../store/store-selector'
+import type { ReactNavigation } from '../common/type-common'
 
 class ClaimOfferAttributeList extends PureComponent {
   keyExtractor = (_, index: number) => index
@@ -111,15 +113,12 @@ export class ClaimOffer extends PureComponent<void, ClaimOfferProps, void> {
   }
 
   render() {
-    const { claimOfferData, isValid } = this.props
-
+    const { claimOfferData, isValid, logoUrl } = this.props
     const {
       claimRequestStatus,
-      senderLogoUrl: logoUrl,
       issuer,
       data,
     }: ClaimOfferPayload = claimOfferData
-
     const logoUri = logoUrl
       ? { uri: logoUrl }
       : require('../images/cb_evernym.png')
@@ -181,6 +180,7 @@ export class ClaimOffer extends PureComponent<void, ClaimOfferProps, void> {
             claimRequestStatus={claimRequestStatus}
             payload={claimOfferData}
             onContinue={this.close}
+            senderLogoUrl={logoUrl}
           />
         )}
       </Container>
@@ -188,10 +188,14 @@ export class ClaimOffer extends PureComponent<void, ClaimOfferProps, void> {
   }
 }
 
-const mapStateToProps = ({ claimOffer }: Store, props: ClaimOfferProps) => {
-  const { uid } = props.navigation.state.params
+const mapStateToProps = (state: Store, props: ReactNavigation) => {
+  const { claimOffer } = state
+  const { uid } =
+    props.navigation.state && props.navigation.state.params
+      ? props.navigation.state.params
+      : { uid: '' }
   const claimOfferData = claimOffer[uid]
-
+  const logoUrl = getConnectionLogoUrl(state, claimOfferData.remotePairwiseDID)
   const isValid =
     claimOfferData &&
     claimOfferData.data &&
@@ -202,6 +206,7 @@ const mapStateToProps = ({ claimOffer }: Store, props: ClaimOfferProps) => {
     uid,
     claimOfferData,
     isValid,
+    logoUrl,
   }
 }
 

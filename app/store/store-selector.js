@@ -34,6 +34,15 @@ export const getInvitationPayload = (
   invitationSenderDID: string
 ) => state.invitation[invitationSenderDID].payload
 
+export const getConnectionLogoUrl = (
+  state: Store,
+  remotePairwiseDid: string
+): string => {
+  const { logoUrl } = getConnection(state, remotePairwiseDid)[0]
+
+  return logoUrl
+}
+
 const getConnection = (state: Store, senderDID: string): Array<Connection> => {
   const connections = getAllConnection(state)
   if (connections) {

@@ -42,6 +42,7 @@ import {
   proofRequestShown,
   getProof,
 } from '../store'
+import { getConnectionLogoUrl } from '../store/store-selector'
 
 class ProofRequestAttributeList extends PureComponent<
   void,
@@ -130,7 +131,15 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
   }
 
   render() {
-    const { data, name, logoUrl, uid, isValid, proofStatus } = this.props
+    const {
+      data,
+      name,
+      uid,
+      isValid,
+      proofStatus,
+      remotePairwiseDID,
+      logoUrl,
+    } = this.props
     const testID = 'proof-request'
     const { name: title } = data
     const logoUri = logoUrl
@@ -228,15 +237,16 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
 
 // we need to navigate to this screen only by passing "proofRequestId"  in the props like below.
 // this.props.navigation.navigate(proofRequestRoute,{'proofRequestId':'CRM2M28')
-const mapStateToProps = ({ proofRequest }: Store, props) => {
+const mapStateToProps = (state: Store, props) => {
+  const { proofRequest } = state
   const { uid } = props.navigation.state.params
   const proofRequestData = proofRequest[uid] || {}
   const {
     data,
     requester = {},
-    senderLogoUrl: logoUrl,
     proofStatus,
     status,
+    remotePairwiseDID,
   } = proofRequestData
   const { name } = requester
   const isValid = proofRequestData && data && data.requestedAttributes
@@ -244,7 +254,7 @@ const mapStateToProps = ({ proofRequest }: Store, props) => {
   return {
     isValid,
     data,
-    logoUrl,
+    logoUrl: getConnectionLogoUrl(state, remotePairwiseDID),
     name,
     uid,
     proofStatus,

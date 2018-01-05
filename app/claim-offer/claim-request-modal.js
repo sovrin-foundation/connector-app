@@ -61,7 +61,8 @@ export default class ClaimRequestStatusModal extends PureComponent<
   render() {
     const {
       claimRequestStatus,
-      payload: { issuer, data, senderLogoUrl },
+      payload: { issuer, data },
+      senderLogoUrl,
     }: ClaimRequestStatusModalProps = this.props
     const avatarRight = senderLogoUrl
       ? { uri: senderLogoUrl }
