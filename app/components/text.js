@@ -119,6 +119,10 @@ export const styles = StyleSheet.create({
     color: color.bg.fifth.font.primary,
     backgroundColor: color.bg.fifth.color,
   },
+  fifthBgTertiary: {
+    color: color.bg.fifth.font.primary,
+    backgroundColor: color.bg.tertiary.color,
+  },
   tertiaryBgPrimary: {
     color: color.bg.tertiary.font.primary,
     backgroundColor: color.bg.tertiary.color,

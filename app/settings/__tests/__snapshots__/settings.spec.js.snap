@@ -96,10 +96,15 @@ exports[`user settings screen should render properly and snapshot should match 1
               resizeMode="contain"
               source={1}
               style={
-                Object {
-                  "height": 22,
-                  "width": 22,
-                }
+                Array [
+                  Object {
+                    "height": 30,
+                    "width": 30,
+                  },
+                  Object {
+                    "tintColor": "grey",
+                  },
+                ]
               }
             />
           </View>
@@ -139,7 +144,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                   },
                   Object {
                     "backgroundColor": "#f0f0f0",
-                    "color": "#333333",
+                    "color": "#777777",
                   },
                   Object {
                     "fontWeight": "600",
@@ -150,7 +155,7 @@ exports[`user settings screen should render properly and snapshot should match 1
               }
               testID="settings-user-name-label"
             >
-              Your Name
+              Name: Anonymous
             </Text>
           </View>
           <View
@@ -165,10 +170,15 @@ exports[`user settings screen should render properly and snapshot should match 1
               resizeMode="contain"
               source={1}
               style={
-                Object {
-                  "height": 22,
-                  "width": 22,
-                }
+                Array [
+                  Object {
+                    "height": 30,
+                    "width": 30,
+                  },
+                  Object {
+                    "tintColor": "grey",
+                  },
+                ]
               }
             />
           </View>
@@ -217,7 +227,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                     },
                     Object {
                       "backgroundColor": "#f0f0f0",
-                      "color": "#333333",
+                      "color": "#777777",
                     },
                     Object {
                       "fontWeight": "600",
@@ -228,7 +238,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                 }
                 testID="settings-pass-code-label"
               >
-                Passcode:
+                Pass code:
                  
               </Text>
               <Text
@@ -246,7 +256,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                     },
                     Object {
                       "backgroundColor": "#f0f0f0",
-                      "color": "#333333",
+                      "color": "#777777",
                     },
                     Object {
                       "fontWeight": "600",
@@ -300,11 +310,11 @@ exports[`user settings screen should render properly and snapshot should match 1
                 style={
                   Array [
                     Object {
-                      "height": 22,
-                      "width": 22,
+                      "height": 30,
+                      "width": 30,
                     },
                     Object {
-                      "tintColor": "black",
+                      "tintColor": "grey",
                     },
                   ]
                 }
@@ -349,8 +359,11 @@ exports[`user settings screen should render properly and snapshot should match 1
                       "marginRight": 10,
                     },
                     Object {
-                      "height": 22,
-                      "width": 22,
+                      "height": 30,
+                      "width": 30,
+                    },
+                    Object {
+                      "tintColor": "#85bf43",
                     },
                   ]
                 }
@@ -379,7 +392,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                       },
                       Object {
                         "backgroundColor": "#f0f0f0",
-                        "color": "#333333",
+                        "color": "#777777",
                       },
                       Object {
                         "fontWeight": "600",

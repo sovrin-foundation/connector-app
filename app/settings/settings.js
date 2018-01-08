@@ -76,7 +76,7 @@ export class Settings extends PureComponent {
     )
     const editIcon = (
       <Image
-        style={style.editIcon}
+        style={[style.editIcon, { tintColor: 'grey' }]}
         resizeMode={'contain'}
         source={require('../images/edit.png')}
       />
@@ -85,7 +85,7 @@ export class Settings extends PureComponent {
     const editIconChangePin = (
       <TouchableOpacity onPress={this.onChangePinClick}>
         <Image
-          style={[style.editIcon, { tintColor: 'black' }]}
+          style={[style.editIcon, { tintColor: 'grey' }]}
           resizeMode={'contain'}
           source={require('../images/edit.png')}
         />
@@ -93,19 +93,19 @@ export class Settings extends PureComponent {
     )
 
     const SettingText = props => (
-      <CustomText h5 bg={props.bg || 'tertiary'} semiBold {...props}>
+      <CustomText h5 bg="fifth" tertiary semiBold {...props}>
         {props.children}
       </CustomText>
     )
 
     const userName = (
-      <SettingText testID={USERNAME_TEST_ID}>Your Name</SettingText>
+      <SettingText testID={USERNAME_TEST_ID}>Name: Anonymous</SettingText>
     )
 
     const passCode = (
       <CustomView row>
         <SettingText testID={PASS_CODE_TEST_ID} onPress={this.onChangePinClick}>
-          Passcode:{' '}
+          Pass code:{' '}
         </SettingText>
         <SettingText
           onPress={this.onChangePinClick}
@@ -119,7 +119,7 @@ export class Settings extends PureComponent {
     const touchId = (
       <CustomView row>
         <Image
-          style={[style.labelImage, style.editIcon]}
+          style={[style.labelImage, style.editIcon, { tintColor: mantis }]}
           source={require('../images/biometrics.png')}
         />
         <CustomView center>
