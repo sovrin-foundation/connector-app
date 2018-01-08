@@ -10,7 +10,12 @@ import {
 } from 'react-native'
 import Camera from 'react-native-camera'
 import { CustomView, Container, CustomText } from '../../components/'
-import { color, OFFSET_2X } from '../../common/styles/constant'
+import {
+  color,
+  OFFSET_2X,
+  OFFSET_3X,
+  OFFSET_5X,
+} from '../../common/styles/constant'
 import { isValidQrCode } from './qr-scanner-validator'
 import { SCAN_STATUS } from './type-qr-scanner'
 import type { QrScannerProps, QrScannerState } from './type-qr-scanner'
@@ -94,7 +99,7 @@ export class CameraMarker extends PureComponent {
 
     return (
       <CustomView center style={[cameraMarkerStyles.container]}>
-        <CustomText h01 transparentBg>
+        <CustomText h4 semiBold transparentBg>
           Scan QR Code
         </CustomText>
         <CustomView
@@ -111,7 +116,12 @@ export class CameraMarker extends PureComponent {
             <CornerBox status={status} position="bottomRight" />
           </CustomView>
         </CustomView>
-        <CustomText h2 transparentBg style={[scanStatusStyle[status]]}>
+        <CustomText
+          h5
+          semiBold
+          transparentBg
+          style={[scanStatusStyle[status], scanStatusStyle.scanStatusOffset]}
+        >
           {status}
         </CustomText>
         <CustomView
@@ -123,6 +133,7 @@ export class CameraMarker extends PureComponent {
           <TouchableHighlight
             onPress={onClose}
             testID={'close-qr-scanner-button'}
+            hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}
           >
             <Image
               source={require('../../images/close_white.png')}
@@ -163,7 +174,7 @@ export class CornerBox extends PureComponent {
 }
 
 const markerSize = 250
-const cornerBoxSize = 50
+const cornerBoxSize = 70
 const cornerBoxBorderSize = 5
 
 const cameraMarkerStyles = StyleSheet.create({
@@ -177,7 +188,7 @@ const cameraMarkerStyles = StyleSheet.create({
   cameraMarker: {
     width: markerSize,
     height: markerSize,
-    marginVertical: OFFSET_2X,
+    marginVertical: OFFSET_5X,
   },
   border: {
     borderColor: color.bg.primary.font.primary,
@@ -231,6 +242,9 @@ const scanStatusStyle = StyleSheet.create({
   },
   [SCAN_STATUS.FAIL]: {
     color: color.actions.dangerous,
+  },
+  scanStatusOffset: {
+    marginVertical: OFFSET_3X,
   },
 })
 

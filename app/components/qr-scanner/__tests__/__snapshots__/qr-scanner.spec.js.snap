@@ -30,7 +30,7 @@ exports[`<QRScanner /> should match snapshot 1`] = `
         style={
           Array [
             Object {
-              "fontSize": 17,
+              "fontSize": 20,
             },
             Object {
               "fontFamily": "SF Pro Display",
@@ -39,7 +39,9 @@ exports[`<QRScanner /> should match snapshot 1`] = `
               "backgroundColor": "#333333",
               "color": "#ffffff",
             },
-            null,
+            Object {
+              "fontWeight": "600",
+            },
             null,
             Object {
               "backgroundColor": "transparent",
@@ -55,7 +57,7 @@ exports[`<QRScanner /> should match snapshot 1`] = `
           Object {
             "height": 250,
             "justifyContent": "space-between",
-            "marginVertical": 20,
+            "marginVertical": 50,
             "width": 250,
           }
         }
@@ -77,8 +79,8 @@ exports[`<QRScanner /> should match snapshot 1`] = `
                 "borderColor": "#ffffff",
                 "borderLeftWidth": 5,
                 "borderTopWidth": 5,
-                "height": 50,
-                "width": 50,
+                "height": 70,
+                "width": 70,
               }
             }
             transparentBg={true}
@@ -89,8 +91,8 @@ exports[`<QRScanner /> should match snapshot 1`] = `
                 "borderColor": "#ffffff",
                 "borderRightWidth": 5,
                 "borderTopWidth": 5,
-                "height": 50,
-                "width": 50,
+                "height": 70,
+                "width": 70,
               }
             }
             transparentBg={true}
@@ -112,8 +114,8 @@ exports[`<QRScanner /> should match snapshot 1`] = `
                 "borderBottomWidth": 5,
                 "borderColor": "#ffffff",
                 "borderLeftWidth": 5,
-                "height": 50,
-                "width": 50,
+                "height": 70,
+                "width": 70,
               }
             }
             transparentBg={true}
@@ -124,8 +126,8 @@ exports[`<QRScanner /> should match snapshot 1`] = `
                 "borderBottomWidth": 5,
                 "borderColor": "#ffffff",
                 "borderRightWidth": 5,
-                "height": 50,
-                "width": 50,
+                "height": 70,
+                "width": 70,
               }
             }
             transparentBg={true}
@@ -148,13 +150,18 @@ exports[`<QRScanner /> should match snapshot 1`] = `
               "backgroundColor": "#333333",
               "color": "#ffffff",
             },
-            null,
+            Object {
+              "fontWeight": "600",
+            },
             null,
             Object {
               "backgroundColor": "transparent",
             },
             Object {
               "color": "#ffffff",
+            },
+            Object {
+              "marginVertical": 30,
             },
           ]
         }
@@ -180,7 +187,14 @@ exports[`<QRScanner /> should match snapshot 1`] = `
           accessibilityTraits={undefined}
           accessible={true}
           hasTVPreferredFocus={undefined}
-          hitSlop={undefined}
+          hitSlop={
+            Object {
+              "bottom": 30,
+              "left": 30,
+              "right": 30,
+              "top": 30,
+            }
+          }
           isTVSelectable={true}
           onLayout={undefined}
           onResponderGrant={[Function]}

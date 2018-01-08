@@ -112,7 +112,7 @@ export class Settings extends PureComponent {
           testID={PASS_CODE_ASTERISK_TEST_ID}
           style={[style.labelPassCode]}
         >
-          *******
+          ******
         </SettingText>
       </CustomView>
     )

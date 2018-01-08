@@ -270,7 +270,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                 }
                 testID="settings-pass-code-asterisk-label"
               >
-                *******
+                ******
               </Text>
             </View>
           </View>
