@@ -37,7 +37,7 @@ import {
 } from './settings-constant'
 const style = StyleSheet.create({
   headerStyle: {
-    backgroundColor: color.bg.fifth.color,
+    backgroundColor: color.bg.tertiary.color,
     shadowOpacity: 0,
   },
   editIcon: {
@@ -66,7 +66,12 @@ export class Settings extends PureComponent {
   }
 
   static navigationOptions = {
-    headerTitle: <CustomText bg="fifth"> {settingsRoute} </CustomText>,
+    headerTitle: (
+      <CustomText bg="fifth" h5 semiBold tertiary>
+        {' '}
+        {settingsRoute}{' '}
+      </CustomText>
+    ),
     headerStyle: style.headerStyle,
   }
 
