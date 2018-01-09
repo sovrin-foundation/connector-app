@@ -26,6 +26,7 @@ import {
   OFFSET_1X,
   barStyleDark,
   color,
+  hitSlop,
 } from '../common/styles/constant'
 import {
   EDIT_ICON_DIMENSIONS,
@@ -88,7 +89,7 @@ export class Settings extends PureComponent {
     )
 
     const editIconChangePin = (
-      <TouchableOpacity onPress={this.onChangePinClick}>
+      <TouchableOpacity onPress={this.onChangePinClick} hitSlop={hitSlop}>
         <Image
           style={[style.editIcon, { tintColor: 'grey' }]}
           resizeMode={'contain'}

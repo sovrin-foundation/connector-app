@@ -29,6 +29,7 @@ import {
   OFFSET_2X,
   OFFSET_6X,
   OFFSET_7X,
+  hitSlop,
 } from '../common/styles'
 import { setPinAction, enableTouchIdAction } from './lock-store'
 import type { LockPinSetupState } from './type-lock'
@@ -91,6 +92,7 @@ export class LockPinSetup extends PureComponent {
             navigation.state.params.existingPin === true
               ? navigation.navigate(settingsTabRoute)
               : navigation.navigate(lockSelectionRoute)}
+          hitSlop={hitSlop}
         >
           <Image
             testID={'back-arrow'}
