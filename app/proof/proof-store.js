@@ -10,7 +10,12 @@ import type {
   ProofFailAction,
 } from './type-proof'
 import type { ProofRequestData } from '../proof-request/type-proof-request'
-import { GENERATE_PROOF, PROOF_SUCCESS, PROOF_FAIL } from './type-proof'
+import {
+  GENERATE_PROOF,
+  PROOF_SUCCESS,
+  PROOF_FAIL,
+  ERROR_MISSING_ATTRIBUTE_IN_CLAIMS,
+} from './type-proof'
 import type { CustomError } from '../common/type-common'
 import { prepareProof, generateProof } from '../bridge/react-native-cxs/RNCxs'
 import { proofRequestAutoFill } from '../proof-request/proof-request-store'
@@ -56,13 +61,29 @@ export function* generateProofSaga(
 
     // generate proof
     const preparedProofJSON = JSON.parse(preparedProof)
-    const requestedAttrsJson = Object.keys(proofRequest.requested_attrs).reduce(
-      (acc, attrKey) => ({
-        ...acc,
-        [attrKey]: [preparedProofJSON.attrs[attrKey][0].claim_uuid, true],
-      }),
-      {}
-    )
+    let requestedAttrsJson
+    try {
+      requestedAttrsJson = Object.keys(
+        proofRequest.requested_attrs
+      ).reduce((acc, attrKey) => {
+        const attributeClaimData = preparedProofJSON.attrs[attrKey]
+        if (!attributeClaimData || !attributeClaimData[0]) {
+          // if we don't get any claim for any attribute
+          // that was asked in proof request
+          // we raise an error and we fail proof generation
+          throw new Error(JSON.stringify(ERROR_MISSING_ATTRIBUTE_IN_CLAIMS))
+        }
+
+        return {
+          ...acc,
+          [attrKey]: [attributeClaimData[0].claim_uuid, true],
+        }
+      }, {})
+    } catch (e) {
+      yield put(proofFail(action.uid, JSON.parse(e.message)))
+
+      return
+    }
 
     const requestedClaimsJson = {
       self_attested_attributes: {},

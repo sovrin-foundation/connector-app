@@ -1,6 +1,13 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { StyleSheet, Platform, Image, FlatList, View } from 'react-native'
+import {
+  StyleSheet,
+  Platform,
+  Image,
+  FlatList,
+  View,
+  Alert,
+} from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -43,6 +50,7 @@ import {
   getProof,
 } from '../store'
 import { getConnectionLogoUrl } from '../store/store-selector'
+import { ERROR_CODE_MISSING_ATTRIBUTE } from '../proof/type-proof'
 
 class ProofRequestAttributeList extends PureComponent<
   void,
@@ -123,6 +131,20 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
 
   onSend = () => {
     this.props.acceptProofRequest(this.props.uid)
+  }
+
+  componentWillReceiveProps(nextProps: ProofRequestProps) {
+    if (nextProps.proofGenerationError !== this.props.proofGenerationError) {
+      if (
+        nextProps.proofGenerationError &&
+        nextProps.proofGenerationError.code === ERROR_CODE_MISSING_ATTRIBUTE
+      ) {
+        Alert.alert(
+          'Error fulfilling proof',
+          nextProps.proofGenerationError.message
+        )
+      }
+    }
   }
 
   componentDidMount() {
@@ -250,6 +272,7 @@ const mapStateToProps = (state: Store, props) => {
   } = proofRequestData
   const { name } = requester
   const isValid = proofRequestData && data && data.requestedAttributes
+  const proofGenerationError = state.proof[uid] ? state.proof[uid].error : null
 
   return {
     isValid,
@@ -258,6 +281,7 @@ const mapStateToProps = (state: Store, props) => {
     name,
     uid,
     proofStatus,
+    proofGenerationError,
   }
 }
 

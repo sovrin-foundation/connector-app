@@ -173,4 +173,9 @@ describe('<ProofRequest />', () => {
     componentInstance.close()
     expect(navigation.goBack).toHaveBeenCalled()
   })
+
+  xit('proof generation error should show error alert', () => {
+    // TODO:KS skipping for now, once changes from
+    // history test refactoring are merged, will fix it
+  })
 })

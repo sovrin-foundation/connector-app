@@ -28,6 +28,13 @@ export type ProofFailAction = {
   error: CustomError,
 }
 
+export const ERROR_CODE_MISSING_ATTRIBUTE = 'P000'
+export const ERROR_MISSING_ATTRIBUTE_IN_CLAIMS: CustomError = {
+  code: ERROR_CODE_MISSING_ATTRIBUTE,
+  message:
+    'Proof request cannot be fulfilled. Missing one or more asked attributes',
+}
+
 export type ProofAction =
   | GenerateProofAction
   | ProofSuccessAction

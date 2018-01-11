@@ -39,4 +39,9 @@ describe('Proof Store', () => {
   it('should match snapshot for proof received action', () => {
     expect(afterProofSuccess).toMatchSnapshot()
   })
+
+  xit('show fail if attributes are missing from claims', () => {
+    // TODO:KS Add implementation once connection history test related
+    // changes are available, want to avoid bit of rework
+  })
 })

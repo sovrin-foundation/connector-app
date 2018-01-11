@@ -115,7 +115,9 @@ export type ProofRequestProps = {
   ) => void,
   uid: string,
   navigation: ClaimProofNavigation,
+  proofGenerationError?: ?CustomError,
 }
+
 export const PROOF_REQUEST_RECEIVED = 'PROOF_REQUEST_RECEIVED'
 export type ProofRequestReceivedAction = {
   type: typeof PROOF_REQUEST_RECEIVED,
