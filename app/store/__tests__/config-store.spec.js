@@ -91,6 +91,11 @@ describe('hydration should work correctly', () => {
     // save data in async storage
     gen.next()
     // now we should get hydrated action
+
+    gen.next()
+    gen.next()
+    gen.next()
+
     expect(gen.next().value).toEqual(put(hydrated()))
   })
 })

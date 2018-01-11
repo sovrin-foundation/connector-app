@@ -6,7 +6,7 @@
  */
 
 import { AsyncStorage } from 'react-native'
-import { put, take, all, call, select } from 'redux-saga/effects'
+import { put, take, race, all, call, select } from 'redux-saga/effects'
 import { IS_ALREADY_INSTALLED } from '../common'
 import { hydrateApp } from '../store/hydration-store'
 import { setItem, getItem, deleteItem } from '../services/secure-storage'
@@ -33,6 +33,7 @@ import type {
   ConfigAction,
   ServerEnvironmentChangedAction,
 } from './type-config-store'
+import { appHydration } from './hydration-store'
 
 export const baseUrls = {
   [SERVER_ENVIRONMENT.SANDBOX]: {
@@ -201,6 +202,7 @@ export function* hydrateConfig(): Generator<*, *, *> {
 
   // hydrating connections and push token
   yield put(hydrateApp(isAlreadyInstalled))
+  yield* appHydration({ isAlreadyInstalled })
   yield put(hydrated())
 }
 

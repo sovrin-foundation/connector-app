@@ -67,6 +67,7 @@ export const isDuplicateConnection = (state: Store, senderDID: string) => {
 
   return connections.length > 0
 }
+export const getHydrationState = (state: Store) => state.config.isHydrated
 
 export const getClaimOffer = (state: Store, claimOfferId: string) =>
   state.claimOffer[claimOfferId]

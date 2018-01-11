@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import TouchID from 'react-native-touch-id'
+import { TouchId } from '../components/touch-id/touch-id'
 import { Container } from '../components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -49,7 +49,7 @@ export class LockFingerprintSetup extends PureComponent {
   }
 
   touchIdHandler = () => {
-    TouchID.authenticate('')
+    TouchId.authenticate('', this.touchIdHandler)
       .then(success => {
         this.props.fromSettings
           ? this.goToSettingsScreen()
@@ -57,9 +57,14 @@ export class LockFingerprintSetup extends PureComponent {
       })
       .catch(error => {
         captureError(error)
-        this.props.fromSettings
-          ? this.props.navigation.navigate(settingsTabRoute)
-          : this.props.navigation.navigate(lockSelectionRoute)
+        if (
+          error.name === 'LAErrorAuthenticationFailed' ||
+          error.name === 'LAErrorUserCancel'
+        ) {
+          this.props.fromSettings
+            ? this.props.navigation.navigate(settingsTabRoute)
+            : this.props.navigation.navigate(lockSelectionRoute)
+        }
       })
   }
 

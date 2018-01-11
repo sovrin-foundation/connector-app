@@ -1,6 +1,6 @@
 // @flow
 
-import { call, all, takeLatest, select, put } from 'redux-saga/effects'
+import { call, all, takeLatest, take, select, put } from 'redux-saga/effects'
 import { encode } from 'bs58'
 import { sendUpdatedPushToken, getAdditionalData } from '../api/api'
 import { PAYLOAD_TYPE } from '../api/api-constants'
@@ -9,6 +9,7 @@ import {
   getAgencyUrl,
   getAllConnection,
   getRemotePairwiseDidAndName,
+  getHydrationState,
 } from '../store/store-selector'
 import { encrypt } from '../bridge/react-native-cxs/RNCxs'
 import {
@@ -34,6 +35,7 @@ import type {
   ClaimOfferPushPayload,
 } from './type-push-notification'
 import type { Connections } from '../connection/type-connection'
+import { HYDRATED } from '../store/type-config-store'
 
 // TODO:PS: handle other/multiple Push Notification while
 // one Push Notification is already downloading
@@ -114,7 +116,10 @@ export function* additionalDataFetching(
 ): Generator<*, *, *> {
   const agencyUrl: string = yield select(getAgencyUrl)
   const { forDID, uid, type, senderLogoUrl } = action.notificationPayload
-
+  const isHydrated = yield select(getHydrationState)
+  if (!isHydrated) {
+    yield take(HYDRATED)
+  }
   if (forDID) {
     const { remotePairwiseDID, remoteName } = yield select(
       getRemotePairwiseDidAndName,

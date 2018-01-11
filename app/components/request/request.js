@@ -43,6 +43,7 @@ export default class Request extends PureComponent<
           this.setState({ tapCount: 0 })
           this.props.onAction(response)
         } else {
+          // TODO using the real TouchId here, need to use the common TouchId
           return TouchId.authenticate(TOUCH_ID_MESSAGE)
             .then(() => {
               this.props.onAction(response)

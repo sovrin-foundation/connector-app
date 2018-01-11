@@ -14,9 +14,9 @@ const initialState = {
   isPristine: true,
 }
 
-const HYDRATE_APP = 'HYDRATE_APP'
-const HYDRATE_APP_SUCCESS = 'HYDRATE_APP_SUCCESS'
-const HYDRATE_APP_FAIL = 'HYDRATE_APP_FAIL'
+export const HYDRATE_APP = 'HYDRATE_APP'
+export const HYDRATE_APP_SUCCESS = 'HYDRATE_APP_SUCCESS'
+export const HYDRATE_APP_FAIL = 'HYDRATE_APP_FAIL'
 
 export const hydrateApp = isAlreadyInstalled => ({
   type: HYDRATE_APP,
@@ -32,7 +32,7 @@ export const hydrateAppFail = error => ({
   error,
 })
 
-function* appHydration(action) {
+export function* appHydration(action) {
   try {
     let connections = {}
     if (action.isAlreadyInstalled) {
@@ -53,10 +53,6 @@ function* appHydration(action) {
   } catch (e) {
     yield put(hydrateAppFail(e))
   }
-}
-
-export function* watchAppHydration() {
-  yield takeLatest(HYDRATE_APP, appHydration)
 }
 
 export default function hydration(state = initialState, action) {

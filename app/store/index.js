@@ -13,7 +13,6 @@ import authentication, {
 } from '../authentication/authentication-store'
 import deepLink from '../deep-link/deep-link-store'
 import route from './route-store'
-import { watchAppHydration } from './hydration-store'
 import lock, {
   watchLock,
   watchPressEventInLockSelectionScreen,
@@ -67,7 +66,6 @@ sagaMiddleware.run(function*() {
     watchUserInfo(),
     watchConfig(),
     watchAuthentication(),
-    watchAppHydration(),
     watchLock(),
     watchSmsPendingInvitationSaga(),
     watchClaimOffer(),
