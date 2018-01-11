@@ -207,6 +207,7 @@ export default function proofRequestReducer(
         [action.uid]: {
           ...state[action.uid],
           data: {
+            ...state[action.uid].data,
             requestedAttributes: [...action.requestedAttributes],
           },
         },
