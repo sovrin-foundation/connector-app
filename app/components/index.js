@@ -14,7 +14,7 @@ export {
   UserInfoPhoneSection,
   UserInfoSectionList,
 } from './user-info'
-export { Container, CustomView, HeaderStyles } from './layout'
+export { Container, CustomView, headerStyles } from './layout'
 export { default as Icon } from './icon'
 export { default as CustomText, styles as TextStyles } from './text'
 export { default as CustomButton } from './button'

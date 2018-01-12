@@ -9,6 +9,7 @@ import { color } from '../../common/styles'
 describe('<ConnectionHistory />', () => {
   let store = {}
 
+  // TODO:PS: Move this to static-data
   beforeAll(() => {
     store = {
       getState() {
@@ -32,6 +33,7 @@ describe('<ConnectionHistory />', () => {
     }
   })
 
+  // TODO:PS: Move this to static-data
   function props() {
     return {
       navigation: {

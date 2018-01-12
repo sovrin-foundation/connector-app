@@ -65,7 +65,7 @@ Object {
         "type": "INVITATION",
       },
       Object {
-        "action": "RECEIVED OFFER",
+        "action": "RECEIVED",
         "data": Array [
           Object {
             "data": "Address Address Address",
@@ -109,12 +109,12 @@ Object {
           "type": "CLAIM_OFFER_RECEIVED",
         },
         "remoteDid": "ha66899sadfjZJGINKN0770",
-        "status": "RECEIVED OFFER",
+        "status": "RECEIVED",
         "timestamp": "2018-01-10T04:32:43+05:30",
         "type": "CLAIM",
       },
       Object {
-        "action": "RECEIVED",
+        "action": "PROOF RECEIVED",
         "data": Array [
           Object {
             "label": "Address 1",
@@ -170,7 +170,7 @@ Object {
           "type": "PROOF_REQUEST_RECEIVED",
         },
         "remoteDid": "senderDID1",
-        "status": "RECEIVED",
+        "status": "PROOF RECEIVED",
         "timestamp": "2018-01-10T04:32:43+05:30",
         "type": "PROOF",
       },

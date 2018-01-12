@@ -30,20 +30,26 @@ import {
 import type {
   ProofRequestReceivedAction,
   ProofRequestAutoFillAction,
+  AdditionalProofDataPayload,
 } from '../proof-request/type-proof-request'
 import { NEW_CONNECTION_SUCCESS } from '../store/connections-store'
 import { PROOF_SUCCESS } from '../proof/type-proof'
+import type {
+  Attribute,
+  AdditionalDataPayload,
+  NotificationPayloadInfo,
+} from '../push-notification/type-push-notification'
 
 export const HISTORY_EVENT_STATUS = {
   [INVITATION_RECEIVED]: 'CONNECTION REQUEST',
   [NEW_CONNECTION_SUCCESS]: 'CONNECTED',
   [INVITATION_REJECTED]: 'CONNECTION REJECTED',
-  [CLAIM_OFFER_RECEIVED]: 'RECEIVED OFFER',
+  [CLAIM_OFFER_RECEIVED]: 'RECEIVED',
   [CLAIM_OFFER_ACCEPTED]: 'ACCEPTED OFFER',
   [CLAIM_OFFER_IGNORED]: 'IGNORED OFFER',
   [CLAIM_OFFER_REJECTED]: 'REJECTED OFFER',
   [CLAIM_RECEIVED]: 'ACCEPTED & SAVED',
-  [PROOF_REQUEST_RECEIVED]: 'RECEIVED',
+  [PROOF_REQUEST_RECEIVED]: 'PROOF RECEIVED',
   [PROOF_REQUEST_IGNORED]: 'IGNORED',
   [PROOF_REQUEST_REJECTED]: 'REJECTED',
   [PROOF_REQUEST_AUTO_FILL]: 'SHARED',
@@ -93,6 +99,22 @@ export type ConnectionHistoryEvent = {
   originalPayload: GenericObject,
 }
 
+export type ConnectionHistoryItem = {
+  action: string,
+  data: Array<Attribute>,
+  id: string,
+  name: string,
+  originalPayload: {
+    type: typeof CLAIM_OFFER_RECEIVED | typeof PROOF_REQUEST_RECEIVED,
+    payload: AdditionalDataPayload | AdditionalProofDataPayload,
+    payloadInfo: NotificationPayloadInfo,
+  },
+  remoteDid: string,
+  status: string,
+  timestamp: string,
+  type: string,
+}
+
 export type ConnectionHistoryDetailsProps = {
   navigation: {
     state: {
@@ -103,7 +125,7 @@ export type ConnectionHistoryDetailsProps = {
         icon?: string,
         action?: string,
         status?: string,
-        date?: string,
+        timestamp?: string,
         data?: Array<Item>,
       },
     },

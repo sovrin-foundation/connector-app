@@ -9,7 +9,7 @@ import {
   CustomView,
   CustomText,
   CustomList,
-  HeaderStyles,
+  headerStyles,
   ConnectionTheme,
   CustomDate,
 } from '../components'
@@ -48,7 +48,7 @@ export class ConnectionHistoryDetails extends PureComponent<
         >
           <Image
             testID={'history-details-back-arrow'}
-            style={HeaderStyles.headerLeft}
+            style={headerStyles.headerLeft}
             source={require('../images/icon_backArrow_white.png')}
             resizeMode="contain"
             onPress={() =>
@@ -81,12 +81,12 @@ export class ConnectionHistoryDetails extends PureComponent<
         )}
       </CustomView>
     ),
-    headerStyle: [HeaderStyles.header, { backgroundColor: theme }],
+    headerStyle: [headerStyles.header, { backgroundColor: theme }],
   })
 
   render() {
     const { type, data } = this.props.navigation.state.params
-    const listType = type === 'claim' ? 'center' : 'end'
+    const listType = type === 'CLAIM' ? 'center' : 'end'
     return (
       <Container>
         <CustomList items={data} type={listType} />

@@ -17,6 +17,7 @@ import {
 } from '../api/api-constants'
 import { addPendingRedirection } from '../store'
 import { getSmsPendingInvitation } from '../sms-pending-invitation/sms-pending-invitation-store'
+import { loadHistory } from '../connection-history/connection-history-store'
 
 class SplashScreenView extends PureComponent {
   componentWillReceiveProps(nextProps) {
@@ -126,6 +127,9 @@ class SplashScreenView extends PureComponent {
         }
       }
     }
+
+    // load connection history
+    this.props.loadHistory()
   }
 
   render() {
@@ -145,6 +149,7 @@ const mapDispatchToProps = dispatch =>
     {
       getSmsPendingInvitation,
       addPendingRedirection,
+      loadHistory,
     },
     dispatch
   )

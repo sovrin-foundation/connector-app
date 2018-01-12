@@ -7,6 +7,8 @@ import {
   call,
   select,
 } from 'redux-saga/effects'
+import merge from 'lodash.merge'
+
 import {
   LOAD_HISTORY,
   LOAD_HISTORY_SUCCESS,
@@ -258,8 +260,7 @@ export default function connectionHistoryReducer(
       return {
         ...state,
         data: {
-          ...state.data,
-          ...action.data,
+          ...merge(state.data, action.data),
         },
         isLoading: false,
       }

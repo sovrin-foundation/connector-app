@@ -99,7 +99,6 @@ export const color = {
         primary: grey,
         secondary: zircon,
         tertiary: eclipse,
-        quaternary: denim,
         fifth: nightRider,
       },
     },

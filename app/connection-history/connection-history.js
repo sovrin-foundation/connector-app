@@ -26,21 +26,21 @@ import {
 import { homeRoute } from '../common/index'
 import { color, OFFSET_1X, OFFSET_3X } from '../common/styles/constant'
 import type { Store } from '../store/type-store'
-import type { ConnectionHistoryData } from './type-connection-history'
+import type { ConnectionHistoryItem } from './type-connection-history'
 
 const statusMsg = {
   ['CONNECTED']: 'Established on',
-  ['RECEIVED OFFER']: 'Received on',
+  ['RECEIVED']: 'Accepted on',
   ['ACCEPTED & SAVED']: 'Accepted on',
-  ['RECEIVED']: 'Requested on',
+  ['PROOF RECEIVED']: 'Requested on',
   ['SHARED']: 'Sent on',
 }
 
 const historyIcons = {
   ['CONNECTED']: require('../images/linked.png'),
-  ['RECEIVED OFFER']: require('../images/received.png'),
+  ['RECEIVED']: require('../images/received.png'),
   ['ACCEPTED & SAVED']: require('../images/received.png'),
-  ['RECEIVED']: require('../images/sent.png'),
+  ['PROOF RECEIVED']: require('../images/sent.png'),
   ['SHARED']: require('../images/sent.png'),
 }
 
@@ -80,7 +80,6 @@ export class ConnectionHistory extends PureComponent {
   connectionDetailHandler = (history: any) => {
     this.props.navigation.navigate(connectionHistoryDetailsRoute, {
       ...history.h,
-      type: history.h.action === 'RECEIVED OFFER' ? 'claim' : 'other',
       theme: history.activeConnectionThemePrimary,
       senderName: history.senderName,
       image: history.image,
@@ -99,8 +98,7 @@ export class ConnectionHistory extends PureComponent {
     const logoUri = image ? { uri: image } : require('../images/cb_evernym.png')
 
     const historySenderDIDs = Object.keys(connectionHistory)
-    let historyList = []
-    historySenderDIDs.forEach((sdid, i) => {
+    const historyList = historySenderDIDs.map((sdid, i) => {
       const historyItems = connectionHistory[sdid].map((h, i) => {
         return (
           <ListItem
@@ -130,8 +128,7 @@ export class ConnectionHistory extends PureComponent {
           {historyItems}
         </CustomView>
       )
-
-      historyList.push(history)
+      return history
     })
 
     return (
