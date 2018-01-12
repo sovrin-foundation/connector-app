@@ -62,3 +62,5 @@ jsconfig.json
 connectMeUITest/test-output
 connectMeUITest/*.log
 connectMeUITest/target
+ios/ConnectMe.app.dSYM.zip
+ios/fastlane/report.xml

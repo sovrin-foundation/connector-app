@@ -1,8 +1,4 @@
 source "https://rubygems.org"
 
-gem 'match'
-gem 'gym'
-gem 'hockey'
-gem 'pem'
 gem "fastlane"
 gem "cocoapods"
