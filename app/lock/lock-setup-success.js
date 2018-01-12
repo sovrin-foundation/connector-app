@@ -38,8 +38,16 @@ export class LockSetupSuccess extends PureComponent {
       this.props.clearPendingRedirect()
     }
   }
-
   render() {
+    const { isFetchingInvitation } = this.props
+    let message =
+      this.props.navigation.state.params &&
+      this.props.navigation.state.params.changePin === true
+        ? 'Your connect.me app is secured.'
+        : 'Your connect.me app is now secured'
+    if (isFetchingInvitation === true) {
+      message = 'Loading...'
+    }
     return (
       <Container tertiary>
         <Container clearBg center style={[style.successContainer]}>
@@ -57,10 +65,7 @@ export class LockSetupSuccess extends PureComponent {
             center
             style={[style.successMessage]}
           >
-            {this.props.navigation.state.params &&
-            this.props.navigation.state.params.changePin === true
-              ? 'Your connect.me app is secured.'
-              : 'Your connect.me app is now secured'}
+            {message}
           </CustomText>
           <CustomText
             h6
@@ -81,6 +86,7 @@ export class LockSetupSuccess extends PureComponent {
             tertiary
             raised
             medium
+            disabled={isFetchingInvitation}
             testID="close-button"
             fontWeight="600"
             title="Close"
@@ -95,6 +101,7 @@ export class LockSetupSuccess extends PureComponent {
 const mapStateToProps = (state: Store, props) => ({
   pendingRedirection: state.lock.pendingRedirection,
   pendingRedirectionParams: state.lock.pendingRedirectionParams || {},
+  isFetchingInvitation: state.smsPendingInvitation.isFetching,
   changePin:
     props.navigation.state.params !== undefined
       ? props.navigation.state.params.changePin
