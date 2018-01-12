@@ -18,6 +18,8 @@ import LockEnterFingerprintScreen from './lock/lock-enter-fingerprint'
 import ClaimOffer from './claim-offer/claim-offer'
 import ProofRequestScreen from './proof-request/proof-request'
 import InvitationScreen from './invitation/invitation'
+import ConnectionHistoryScreen from './connection-history/connection-history'
+import ConnectionHistoryDetailsScreen from './connection-history/connection-history-details'
 import SwitchEnvironmentScreen from './switch-environment/switch-environment'
 import { Icon } from './components'
 import {
@@ -25,6 +27,7 @@ import {
   homeRoute,
   authenticationRoute,
   connectionRoute,
+  connectionHistoryRoute,
   expiredTokenRoute,
   lockEnterPinRoute,
   lockSelectionRoute,
@@ -38,6 +41,7 @@ import {
   qrCodeScannerTabRoute,
   proofRequestRoute,
   invitationRoute,
+  connectionHistoryDetailsRoute,
   switchEnvironmentRoute,
 } from './common/'
 import { color } from './common/styles'
@@ -142,6 +146,12 @@ const CardStack = StackNavigator(
     },
     [proofRequestRoute]: {
       screen: ProofRequestScreen,
+    },
+    [connectionHistoryRoute]: {
+      screen: ConnectionHistoryScreen,
+    },
+    [connectionHistoryDetailsRoute]: {
+      screen: ConnectionHistoryDetailsScreen,
     },
     [switchEnvironmentRoute]: {
       screen: SwitchEnvironmentScreen,

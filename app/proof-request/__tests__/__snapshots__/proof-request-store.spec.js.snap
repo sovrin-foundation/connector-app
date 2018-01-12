@@ -2,7 +2,7 @@
 
 exports[`proof request store proof request is accepted 1`] = `
 Object {
-  "usd123": Object {
+  "pid123": Object {
     "data": Object {
       "name": "Home Address",
       "requestedAttributes": Array [
@@ -20,35 +20,35 @@ Object {
       "nonce": "123432421212",
       "requested_attrs": Object {
         "attr1_uuid": Object {
-          "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+          "issuer_did": "issuerDid",
           "name": "address1",
-          "schema_seq_no": 103,
+          "schema_seq_no": 36,
         },
         "attr2_uuid": Object {
-          "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+          "issuer_did": "issuerDid",
           "name": "address2",
-          "schema_seq_no": 103,
+          "schema_seq_no": 36,
         },
       },
       "requested_predicates": Object {},
       "version": "0.1",
     },
     "proofStatus": "NONE",
-    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "remotePairwiseDID": "senderDID1",
     "requester": Object {
       "name": "Test Issuer",
     },
     "senderLogoUrl": "http://testissuer.com/logoUrl.png",
     "status": "ACCEPTED",
     "statusMsg": "pending",
-    "uid": "usd123",
+    "uid": "pid123",
   },
 }
 `;
 
 exports[`proof request store proof request is ignored 1`] = `
 Object {
-  "usd123": Object {
+  "pid123": Object {
     "data": Object {
       "name": "Home Address",
       "requestedAttributes": Array [
@@ -66,35 +66,35 @@ Object {
       "nonce": "123432421212",
       "requested_attrs": Object {
         "attr1_uuid": Object {
-          "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+          "issuer_did": "issuerDid",
           "name": "address1",
-          "schema_seq_no": 103,
+          "schema_seq_no": 36,
         },
         "attr2_uuid": Object {
-          "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+          "issuer_did": "issuerDid",
           "name": "address2",
-          "schema_seq_no": 103,
+          "schema_seq_no": 36,
         },
       },
       "requested_predicates": Object {},
       "version": "0.1",
     },
     "proofStatus": "NONE",
-    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "remotePairwiseDID": "senderDID1",
     "requester": Object {
       "name": "Test Issuer",
     },
     "senderLogoUrl": "http://testissuer.com/logoUrl.png",
     "status": "IGNORED",
     "statusMsg": "pending",
-    "uid": "usd123",
+    "uid": "pid123",
   },
 }
 `;
 
 exports[`proof request store proof request is ignored 2`] = `
 Object {
-  "usd123": Object {
+  "pid123": Object {
     "data": Object {
       "name": "Home Address",
       "requestedAttributes": Array [
@@ -112,35 +112,35 @@ Object {
       "nonce": "123432421212",
       "requested_attrs": Object {
         "attr1_uuid": Object {
-          "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+          "issuer_did": "issuerDid",
           "name": "address1",
-          "schema_seq_no": 103,
+          "schema_seq_no": 36,
         },
         "attr2_uuid": Object {
-          "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+          "issuer_did": "issuerDid",
           "name": "address2",
-          "schema_seq_no": 103,
+          "schema_seq_no": 36,
         },
       },
       "requested_predicates": Object {},
       "version": "0.1",
     },
     "proofStatus": "NONE",
-    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "remotePairwiseDID": "senderDID1",
     "requester": Object {
       "name": "Test Issuer",
     },
     "senderLogoUrl": "http://testissuer.com/logoUrl.png",
     "status": "IGNORED",
     "statusMsg": "pending",
-    "uid": "usd123",
+    "uid": "pid123",
   },
 }
 `;
 
 exports[`proof request store proof request is received 1`] = `
 Object {
-  "usd123": Object {
+  "pid123": Object {
     "data": Object {
       "name": "Home Address",
       "requestedAttributes": Array [
@@ -158,35 +158,35 @@ Object {
       "nonce": "123432421212",
       "requested_attrs": Object {
         "attr1_uuid": Object {
-          "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+          "issuer_did": "issuerDid",
           "name": "address1",
-          "schema_seq_no": 103,
+          "schema_seq_no": 36,
         },
         "attr2_uuid": Object {
-          "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+          "issuer_did": "issuerDid",
           "name": "address2",
-          "schema_seq_no": 103,
+          "schema_seq_no": 36,
         },
       },
       "requested_predicates": Object {},
       "version": "0.1",
     },
     "proofStatus": "NONE",
-    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "remotePairwiseDID": "senderDID1",
     "requester": Object {
       "name": "Test Issuer",
     },
     "senderLogoUrl": "http://testissuer.com/logoUrl.png",
     "status": "RECEIVED",
     "statusMsg": "pending",
-    "uid": "usd123",
+    "uid": "pid123",
   },
 }
 `;
 
 exports[`proof request store proof request is rejected 1`] = `
 Object {
-  "usd123": Object {
+  "pid123": Object {
     "data": Object {
       "name": "Home Address",
       "requestedAttributes": Array [
@@ -204,35 +204,35 @@ Object {
       "nonce": "123432421212",
       "requested_attrs": Object {
         "attr1_uuid": Object {
-          "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+          "issuer_did": "issuerDid",
           "name": "address1",
-          "schema_seq_no": 103,
+          "schema_seq_no": 36,
         },
         "attr2_uuid": Object {
-          "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+          "issuer_did": "issuerDid",
           "name": "address2",
-          "schema_seq_no": 103,
+          "schema_seq_no": 36,
         },
       },
       "requested_predicates": Object {},
       "version": "0.1",
     },
     "proofStatus": "NONE",
-    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "remotePairwiseDID": "senderDID1",
     "requester": Object {
       "name": "Test Issuer",
     },
     "senderLogoUrl": "http://testissuer.com/logoUrl.png",
     "status": "REJECTED",
     "statusMsg": "pending",
-    "uid": "usd123",
+    "uid": "pid123",
   },
 }
 `;
 
 exports[`proof request store proof request is shown 1`] = `
 Object {
-  "usd123": Object {
+  "pid123": Object {
     "data": Object {
       "name": "Home Address",
       "requestedAttributes": Array [
@@ -250,35 +250,35 @@ Object {
       "nonce": "123432421212",
       "requested_attrs": Object {
         "attr1_uuid": Object {
-          "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+          "issuer_did": "issuerDid",
           "name": "address1",
-          "schema_seq_no": 103,
+          "schema_seq_no": 36,
         },
         "attr2_uuid": Object {
-          "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+          "issuer_did": "issuerDid",
           "name": "address2",
-          "schema_seq_no": 103,
+          "schema_seq_no": 36,
         },
       },
       "requested_predicates": Object {},
       "version": "0.1",
     },
     "proofStatus": "NONE",
-    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "remotePairwiseDID": "senderDID1",
     "requester": Object {
       "name": "Test Issuer",
     },
     "senderLogoUrl": "http://testissuer.com/logoUrl.png",
     "status": "SHOWN",
     "statusMsg": "pending",
-    "uid": "usd123",
+    "uid": "pid123",
   },
 }
 `;
 
 exports[`proof request store sending proof 1`] = `
 Object {
-  "usd123": Object {
+  "pid123": Object {
     "data": Object {
       "name": "Home Address",
       "requestedAttributes": Array [
@@ -296,35 +296,35 @@ Object {
       "nonce": "123432421212",
       "requested_attrs": Object {
         "attr1_uuid": Object {
-          "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+          "issuer_did": "issuerDid",
           "name": "address1",
-          "schema_seq_no": 103,
+          "schema_seq_no": 36,
         },
         "attr2_uuid": Object {
-          "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+          "issuer_did": "issuerDid",
           "name": "address2",
-          "schema_seq_no": 103,
+          "schema_seq_no": 36,
         },
       },
       "requested_predicates": Object {},
       "version": "0.1",
     },
     "proofStatus": "SENDING_PROOF",
-    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "remotePairwiseDID": "senderDID1",
     "requester": Object {
       "name": "Test Issuer",
     },
     "senderLogoUrl": "http://testissuer.com/logoUrl.png",
     "status": "IGNORED",
     "statusMsg": "pending",
-    "uid": "usd123",
+    "uid": "pid123",
   },
 }
 `;
 
 exports[`proof request store sending proof failed 1`] = `
 Object {
-  "usd123": Object {
+  "pid123": Object {
     "data": Object {
       "name": "Home Address",
       "requestedAttributes": Array [
@@ -342,35 +342,35 @@ Object {
       "nonce": "123432421212",
       "requested_attrs": Object {
         "attr1_uuid": Object {
-          "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+          "issuer_did": "issuerDid",
           "name": "address1",
-          "schema_seq_no": 103,
+          "schema_seq_no": 36,
         },
         "attr2_uuid": Object {
-          "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+          "issuer_did": "issuerDid",
           "name": "address2",
-          "schema_seq_no": 103,
+          "schema_seq_no": 36,
         },
       },
       "requested_predicates": Object {},
       "version": "0.1",
     },
     "proofStatus": "SEND_PROOF_FAIL",
-    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "remotePairwiseDID": "senderDID1",
     "requester": Object {
       "name": "Test Issuer",
     },
     "senderLogoUrl": "http://testissuer.com/logoUrl.png",
     "status": "IGNORED",
     "statusMsg": "pending",
-    "uid": "usd123",
+    "uid": "pid123",
   },
 }
 `;
 
 exports[`proof request store sending proof success 1`] = `
 Object {
-  "usd123": Object {
+  "pid123": Object {
     "data": Object {
       "name": "Home Address",
       "requestedAttributes": Array [
@@ -388,28 +388,28 @@ Object {
       "nonce": "123432421212",
       "requested_attrs": Object {
         "attr1_uuid": Object {
-          "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+          "issuer_did": "issuerDid",
           "name": "address1",
-          "schema_seq_no": 103,
+          "schema_seq_no": 36,
         },
         "attr2_uuid": Object {
-          "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
+          "issuer_did": "issuerDid",
           "name": "address2",
-          "schema_seq_no": 103,
+          "schema_seq_no": 36,
         },
       },
       "requested_predicates": Object {},
       "version": "0.1",
     },
     "proofStatus": "SEND_PROOF_SUCCESS",
-    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "remotePairwiseDID": "senderDID1",
     "requester": Object {
       "name": "Test Issuer",
     },
     "senderLogoUrl": "http://testissuer.com/logoUrl.png",
     "status": "IGNORED",
     "statusMsg": "pending",
-    "uid": "usd123",
+    "uid": "pid123",
   },
 }
 `;

@@ -14,10 +14,10 @@ Object {
           "anon cred test",
         ],
       },
-      "issuer_did": "issuer_did",
+      "issuer_did": "issuerDid",
       "messageId": "1",
       "remoteDid": "remoteDid",
-      "schema_seq_no": 12,
+      "schema_seq_no": 36,
       "signature": Object {
         "primary_claim": Object {
           "a": "a",
@@ -26,7 +26,7 @@ Object {
           "v": "v",
         },
       },
-      "uid": "uid1",
+      "uid": "usd123",
     },
   },
 }
@@ -46,10 +46,10 @@ Object {
           "anon cred test",
         ],
       },
-      "issuer_did": "issuer_did",
+      "issuer_did": "issuerDid",
       "messageId": "1",
       "remoteDid": "remoteDid",
-      "schema_seq_no": 12,
+      "schema_seq_no": 36,
       "signature": Object {
         "primary_claim": Object {
           "a": "a",
@@ -58,7 +58,7 @@ Object {
           "v": "v",
         },
       },
-      "uid": "uid1",
+      "uid": "usd123",
     },
     "error": Object {
       "code": "C-20001",

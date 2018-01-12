@@ -17,7 +17,7 @@ App to connect Sovrin with 3rd party authentication
 - `cd ios/fastlane`
 - `bundle install`
 - `bundle exec fastlane match development`. DO NOT use `--force` with this command. Do not use XCode automatic code signing.
-- `cd .. && pod install`
+- `cd .. && pod install` (Make sure `pod` is installed or `sudo gem install cocoapods`)
 - `cd .. && npm run ios`
 
 # To Read

@@ -2,6 +2,7 @@ import { takeLatest, call, put } from 'redux-saga/effects'
 import { getItem, deleteItem } from '../services/secure-storage'
 import { updatePushToken } from '../push-notification/push-notification-store'
 import { hydrateConnections } from '../store/connections-store'
+// import { loadHistory } from '../connection-history/connection-history-store'
 import { CONNECTIONS, PUSH_COM_METHOD } from '../common'
 import { TOUCHID_STORAGE_KEY } from '../lock/type-lock'
 
@@ -50,6 +51,7 @@ export function* appHydration(action) {
     }
     yield put(hydrateConnections(connections))
     yield put(hydrateAppSuccess())
+    // yield put(loadHistory())
   } catch (e) {
     yield put(hydrateAppFail(e))
   }

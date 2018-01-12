@@ -83,7 +83,6 @@ export type AdditionalDataResponse = {
 export type Attribute = {
   label: string,
   data?: string,
-  type?: string,
 }
 
 export type AdditionalData = {

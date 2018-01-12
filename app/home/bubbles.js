@@ -10,6 +10,8 @@ import {
 import { View as AnimationView } from 'react-native-animatable'
 import { Avatar } from '../components'
 import { bubbleSize } from '../common/styles'
+import { connectionHistoryRoute } from '../common/route-constants'
+import { StackNavigator } from 'react-navigation'
 
 export class Bubble extends PureComponent {
   state = {
@@ -24,8 +26,16 @@ export class Bubble extends PureComponent {
     this.setState({ failed: true })
   }
 
+  goHistoryView = (senderName: string, image: string, senderDID: string) => {
+    this.props.navigation.navigate(connectionHistoryRoute, {
+      senderName,
+      image,
+      senderDID,
+    })
+  }
+
   render() {
-    let { size, image, testID } = this.props
+    let { size, image, testID, senderName, senderDID } = this.props
     let source
     if (this.state.failed || Number.isInteger(image) || !image) {
       source = require('../images/cb_evernym.png')
@@ -43,6 +53,7 @@ export class Bubble extends PureComponent {
         onLoad={this._onLoad}
         onError={this._onError}
         testID={testID}
+        onPress={() => this.goHistoryView(senderName, image, senderDID)}
       />
     )
   }
@@ -79,25 +90,30 @@ export default class ConnectionBubbles extends PureComponent {
           { transform: [{ translateY: this.props.height }] },
         ]}
       >
-        {connections.map(({ identifier, name, logoUrl, size }) => (
-          <AnimationView
-            animation="zoomIn"
-            duration={600}
-            delay={200}
-            style={[
-              styles.avatar,
-              styles[name.toLowerCase()],
-              styles[`${name.toLowerCase()}${deviceClass}`],
-            ]}
-            key={identifier}
-          >
-            <Bubble
-              size={size}
-              image={logoUrl}
-              testID={`bubble-${identifier}`}
-            />
-          </AnimationView>
-        ))}
+        {connections.map(
+          ({ identifier, name, logoUrl, size, senderName, senderDID }) => (
+            <AnimationView
+              animation="zoomIn"
+              duration={600}
+              delay={200}
+              style={[
+                styles.avatar,
+                styles[name.toLowerCase()],
+                styles[`${name.toLowerCase()}${deviceClass}`],
+              ]}
+              key={identifier}
+            >
+              <Bubble
+                size={size}
+                image={logoUrl}
+                testID={`bubble-${identifier}`}
+                senderName={senderName}
+                senderDID={senderDID}
+                navigation={this.props.navigation}
+              />
+            </AnimationView>
+          )
+        )}
       </Animated.View>
     )
   }

@@ -27,6 +27,7 @@ const black = '#000000'
 const seaBuckthorn = '#f79347'
 const pumpkin = '#F68127'
 const olivine = '#97C85F'
+const denim = '#1159A9'
 
 // color shades
 const primaryShade = '1.0'
@@ -98,6 +99,8 @@ export const color = {
         primary: grey,
         secondary: zircon,
         tertiary: eclipse,
+        quaternary: denim,
+        fifth: nightRider,
       },
     },
     sixth: {

@@ -14,7 +14,7 @@ export {
   UserInfoPhoneSection,
   UserInfoSectionList,
 } from './user-info'
-export { Container, CustomView } from './layout'
+export { Container, CustomView, HeaderStyles } from './layout'
 export { default as Icon } from './icon'
 export { default as CustomText, styles as TextStyles } from './text'
 export { default as CustomButton } from './button'
@@ -36,3 +36,5 @@ export {
 } from './claim-proof-header/claim-proof-header'
 export { default as Separator } from './separator'
 export { default as FooterActions } from './footer-actions/footer-actions'
+export { default as CustomList } from './custom-list/custom-list'
+export { default as CustomDate } from './custom-date/custom-date'

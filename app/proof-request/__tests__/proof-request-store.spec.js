@@ -20,55 +20,15 @@ import {
   getProof,
 } from '../../store/store-selector'
 import { sendProof as sendProofApi } from '../../api/api'
+import {
+  proofRequest,
+  proofRequestId as uid,
+} from '../../../__mocks__/static-data'
 
 describe('proof request store', () => {
   const initialAction = { type: 'INITIAL_TEST_ACTION' }
   let initialState = {}
-  const uid = 'usd123'
   let newState
-  const proofRequest = {
-    payload: {
-      data: {
-        name: 'Home Address',
-        version: '1.0.0',
-        requestedAttributes: [
-          {
-            label: 'Address 1',
-          },
-          {
-            label: 'Address 2',
-          },
-        ],
-      },
-      requester: {
-        name: 'Test Issuer',
-      },
-      originalProofRequestData: {
-        nonce: '123432421212',
-        name: 'proof_req_1',
-        version: '0.1',
-        requested_attrs: {
-          attr1_uuid: {
-            schema_seq_no: 103,
-            issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
-            name: 'address1',
-          },
-          attr2_uuid: {
-            schema_seq_no: 103,
-            issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
-            name: 'address2',
-          },
-        },
-        requested_predicates: {},
-      },
-      statusMsg: 'pending',
-    },
-    payloadInfo: {
-      uid: 'usd123',
-      senderLogoUrl: 'http://testissuer.com/logoUrl.png',
-      remotePairwiseDID: 'ha66899sadfjZJGINKN0770',
-    },
-  }
 
   it('should correctly calculate initial state', () => {
     initialState = proofRequestStore(undefined, initialAction)
@@ -82,34 +42,42 @@ describe('proof request store', () => {
     )
     expect(newState).toMatchSnapshot()
   })
+
   it('proof request is shown', () => {
     newState = proofRequestStore(newState, proofRequestShown(uid))
     expect(newState).toMatchSnapshot()
   })
+
   it('proof request is ignored', () => {
     newState = proofRequestStore(newState, ignoreProofRequest(uid))
     expect(newState).toMatchSnapshot()
   })
+
   it('proof request is rejected', () => {
     newState = proofRequestStore(newState, rejectProofRequest(uid))
     expect(newState).toMatchSnapshot()
   })
+
   it('proof request is accepted', () => {
     newState = proofRequestStore(newState, acceptProofRequest(uid))
     expect(newState).toMatchSnapshot()
   })
+
   it('proof request is ignored', () => {
     newState = proofRequestStore(newState, ignoreProofRequest(uid))
     expect(newState).toMatchSnapshot()
   })
+
   it('sending proof', () => {
     newState = proofRequestStore(newState, sendProof(uid))
     expect(newState).toMatchSnapshot()
   })
+
   it('sending proof success', () => {
     newState = proofRequestStore(newState, sendProofSuccess(uid))
     expect(newState).toMatchSnapshot()
   })
+
   it('sending proof failed', () => {
     newState = proofRequestStore(
       newState,

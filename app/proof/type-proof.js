@@ -1,10 +1,52 @@
 // @flow
 
-import type { CustomError, InitialTestAction } from '../common/type-common'
+import type {
+  CustomError,
+  InitialTestAction,
+  GenericStringObject,
+  GenericObject,
+} from '../common/type-common'
 import type { ProofRequestData } from '../proof-request/type-proof-request'
 
 export type PrepareProof = any
-export type Proof = any
+
+export type ProofRevealedDetails = {
+  primary_proof: {
+    eq_proof: {
+      revealed_attrs: GenericStringObject,
+      a_prime: string,
+      e: string,
+      v: string,
+      m: GenericObject,
+      m1: string,
+      m2: string,
+    },
+    ge_proofs: Array<string>,
+  },
+  non_revoc_proof: ?GenericObject,
+}
+
+export type Proof = {
+  proofs: {
+    [string]: {
+      proof: ProofRevealedDetails,
+      schema_seq_no: number,
+      issuer_did: string,
+    },
+  },
+  aggregated_proof: {
+    c_hash: string,
+    c_list: Array<Array<number>>,
+  },
+  requested_proof: {
+    revealed_attrs: {
+      [string]: Array<string>,
+    },
+    unrevealed_attrs: GenericObject,
+    self_attested_attrs: GenericObject,
+    predicates: GenericObject,
+  },
+}
 
 export const GENERATE_PROOF = 'GENERATE_PROOF'
 export type GenerateProofAction = {

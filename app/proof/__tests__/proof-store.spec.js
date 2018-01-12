@@ -8,32 +8,17 @@ import {
   prepareProof,
   generateProof,
 } from '../../bridge/react-native-cxs/RNCxs'
+import { proofRequest, proof } from '../../../__mocks__/static-data'
 
 describe('Proof Store', () => {
-  const proofRequest = {
-    nonce: '123432421212',
-    name: 'proof_req_1',
-    version: '0.1',
-    requested_attrs: {
-      attr1_uuid: {
-        schema_seq_no: 103,
-        issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
-        name: 'name',
-      },
-    },
-    requested_predicates: {},
-  }
-  const remoteDid = 'LXemRr9feto7vMRcaoby7f'
-  const uid = '1234'
+  const remoteDid = proofRequest.payloadInfo.remotePairwiseDID
+  const uid = proofRequest.payloadInfo.uid
 
   let initialState
   let afterProofSuccess
   beforeEach(() => {
     initialState = proofReducer(undefined, initialTestAction())
-    afterProofSuccess = proofReducer(
-      initialState,
-      proofSuccess(proofRequest, uid)
-    )
+    afterProofSuccess = proofReducer(initialState, proofSuccess(proof, uid))
   })
 
   it('should match snapshot for proof received action', () => {

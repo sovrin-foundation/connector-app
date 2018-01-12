@@ -320,6 +320,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
               "textAlign": "center",
             },
             null,
+            Array [],
           ]
         }
       >
@@ -349,6 +350,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
             Object {
               "marginTop": 5,
             },
+            Object {},
           ]
         }
       >

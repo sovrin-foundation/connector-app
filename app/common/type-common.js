@@ -1,5 +1,7 @@
 // @flow
 
+import type { Element } from 'react'
+
 export type CustomError = {
   code: string,
   message: string,
@@ -45,3 +47,5 @@ export type TopicAnnotation = {
   tid: number,
   mid: number,
 }
+
+export type ReactChildren = Element<*>

@@ -40,6 +40,7 @@ function props(claimOfferStatus) {
     getUserInfo: jest.fn(),
     pushNotificationReceived: jest.fn(),
     authenticationRequestReceived: jest.fn(),
+    loadHistory: jest.fn(),
   }
 }
 

@@ -10,30 +10,12 @@ import claimReducer, {
 } from '../claim-store'
 import { CLAIM_STORAGE_ERROR } from '../../services/error/error-code'
 import { addClaim } from '../../bridge/react-native-cxs/RNCxs'
+import { claim } from '../../../__mocks__/static-data'
 
 describe('Claim Store', () => {
-  const claim = {
-    messageId: '1',
-    claim: {
-      name: ['test', 'anon cred test'],
-      date_of_birth: ['20-2-1800', 'anon cred date'],
-    },
-    schema_seq_no: 12,
-    issuer_did: 'issuer_did',
-    signature: {
-      primary_claim: {
-        m2: 'm2',
-        a: 'a',
-        e: 'e',
-        v: 'v',
-      },
-    },
-    remoteDid: 'remoteDid',
-    uid: 'uid1',
-  }
-
   let initialState
   let afterClaimReceived
+
   beforeEach(() => {
     initialState = claimReducer(undefined, initialTestAction())
     afterClaimReceived = claimReducer(initialState, claimReceived(claim))

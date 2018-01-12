@@ -112,3 +112,19 @@ jest.mock('InteractionManager', () => ({
 }))
 
 jest.mock('TextInput', () => 'TextInput')
+
+jest.mock('moment', () =>
+  jest.fn(date => ({
+    format(format) {
+      if (format === 'MM/DD/YYYY') {
+        return '01/10/2018'
+      }
+
+      if (format === 'MMMM YYYY') {
+        return 'January 2018'
+      }
+
+      return '2018-01-10T04:32:43+05:30'
+    },
+  }))
+)

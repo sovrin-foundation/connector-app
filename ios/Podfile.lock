@@ -3,21 +3,22 @@ PODS:
     - libindy-objc (~> 1.1.1)
     - MPMessagePack (~> 1.4.3)
     - OpenSSL-Universal (~> 1.0.1.16)
-  - Firebase/Core (4.0.0):
-    - FirebaseAnalytics (= 4.0.0)
-    - FirebaseCore (= 4.0.0)
-  - Firebase/Messaging (4.0.0):
+  - Firebase/Core (4.8.0):
+    - FirebaseAnalytics (= 4.0.5)
+    - FirebaseCore (= 4.0.13)
+  - Firebase/Messaging (4.8.0):
     - Firebase/Core
-    - FirebaseMessaging (= 2.0.0)
-  - FirebaseAnalytics (4.0.0):
+    - FirebaseMessaging (= 2.0.8)
+  - FirebaseAnalytics (4.0.5):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseCore (4.0.0):
+    - nanopb (~> 0.3)
+  - FirebaseCore (4.0.13):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseInstanceID (2.0.0):
+  - FirebaseInstanceID (2.0.8):
     - FirebaseCore (~> 4.0)
-  - FirebaseMessaging (2.0.0):
+  - FirebaseMessaging (2.0.8):
     - FirebaseAnalytics (~> 4.0)
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
@@ -33,7 +34,7 @@ PODS:
   - MPMessagePack (1.4.3):
     - GHODictionary
   - OpenSSL-Universal (1.0.1.20)
-  - Protobuf (3.3.0)
+  - Protobuf (3.5.0)
 
 DEPENDENCIES:
   - ConnectMeIndy (= 0.0.24)
@@ -51,7 +52,7 @@ SPEC CHECKSUMS:
   libindy-objc: bee1cfce0d4183e6f515a8d0b78916a09f42d304
   MPMessagePack: 6dc3a4b93bfdc7cdafcb64de62e2adc50cd99880
   OpenSSL-Universal: 71f2c4b2ae758e2218090f905e95ca0ac5c01be7
-  Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
+  Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
 
 PODFILE CHECKSUM: 37a6d07514a9f8d5cdabb77b6f03655413043ff5
 

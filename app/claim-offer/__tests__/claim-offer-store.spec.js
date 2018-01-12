@@ -25,42 +25,17 @@ import {
   CLAIM_STORAGE_FAIL,
   CLAIM_STORAGE_SUCCESS,
 } from '../../claim/type-claim'
+import {
+  claimOffer,
+  claimOfferId as uid,
+  pairwiseConnection,
+  claimRequest,
+} from '../../../__mocks__/static-data'
 
 describe('claim offer store', () => {
   const initialAction = { type: 'INITIAL_TEST_ACTION' }
   let initialState = {}
   let newState = {}
-  const uid = 'usd123'
-
-  const claimOffer = {
-    payload: {
-      data: {
-        name: 'Home Address',
-        version: '1.0.0',
-        revealedAttributes: [
-          {
-            label: 'Address 1',
-            data: 'Address Address Address',
-          },
-          {
-            label: 'Address 2',
-            data: 'Address 2 Address 2 Address 2',
-          },
-        ],
-        claimDefinitionSchemaSequenceNumber: 36,
-      },
-      issuer: {
-        name: 'Test Issuer',
-        did: 'issuerDid',
-      },
-      statusMsg: 'pending',
-    },
-    payloadInfo: {
-      uid: 'usd123',
-      senderLogoUrl: 'http://testissuer.com/logoUrl.png',
-      remotePairwiseDID: 'ha66899sadfjZJGINKN0770',
-    },
-  }
 
   beforeEach(() => {
     initialState = claimOfferStore(undefined, initialAction)
@@ -133,7 +108,7 @@ describe('claim offer store', () => {
       select(getUserPairwiseDid, remoteDid)
     )
 
-    const userPairwiseDid = 'userPairwiseDID1'
+    const userPairwiseDid = pairwiseConnection.identifier
     expect(gen.next(userPairwiseDid).value).toEqual(put(sendClaimRequest(uid)))
     expect(gen.next().value).toEqual(select(getAgencyUrl))
 
@@ -147,15 +122,6 @@ describe('claim offer store', () => {
       call(generateClaimRequest, remoteDid, expectedIndyClaimOffer)
     )
 
-    const claimRequest = {
-      blinded_ms: {
-        prover_did: userPairwiseDid,
-        u: 'u',
-        ur: 'ur',
-      },
-      schema_seq_no: 12,
-      issuer_did: 'issuer_did',
-    }
     const expectedApiData = {
       claimRequest: {
         ...claimRequest,

@@ -2,18 +2,56 @@
 
 exports[`Proof Store should match snapshot for proof received action 1`] = `
 Object {
-  "1234": Object {
-    "name": "proof_req_1",
-    "nonce": "123432421212",
-    "requested_attrs": Object {
-      "attr1_uuid": Object {
-        "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
-        "name": "name",
-        "schema_seq_no": 103,
+  "pid123": Object {
+    "aggregated_proof": Object {
+      "c_hash": "31",
+      "c_list": Array [
+        Array [
+          36,
+        ],
+      ],
+    },
+    "proofs": Object {
+      "claim::f760213b-e719-47fb-9669-b72c5c410e8c": Object {
+        "issuer_did": "issuerDid",
+        "proof": Object {
+          "non_revoc_proof": null,
+          "primary_proof": Object {
+            "eq_proof": Object {
+              "a_prime": "13",
+              "e": "51",
+              "m": Object {},
+              "m1": "67",
+              "m2": "60",
+              "revealed_attrs": Object {
+                "name": "11",
+                "sex": "59",
+              },
+              "v": "13",
+            },
+            "ge_proofs": Array [],
+          },
+        },
+        "schema_seq_no": 36,
       },
     },
-    "requested_predicates": Object {},
-    "version": "0.1",
+    "requested_proof": Object {
+      "predicates": Object {},
+      "revealed_attrs": Object {
+        "attr1_uuid": Array [
+          "claim::f760213b-e719-47fb-9669-b72c5c410e8c",
+          "Alex",
+          "11",
+        ],
+        "attr2_uuid": Array [
+          "claim::f760213b-e719-47fb-9669-b72c5c410e8c",
+          "male",
+          "59",
+        ],
+      },
+      "self_attested_attrs": Object {},
+      "unrevealed_attrs": Object {},
+    },
   },
 }
 `;

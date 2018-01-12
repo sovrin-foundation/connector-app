@@ -109,7 +109,7 @@ export function* generateProofSaga(
       requested_attrs
     ).map(attributeKey => ({
       label: requested_attrs[attributeKey].name,
-      value: proof.requested_proof.revealed_attrs[attributeKey][1],
+      data: proof.requested_proof.revealed_attrs[attributeKey][1],
     }))
     yield put(proofRequestAutoFill(uid, requestedAttributes))
   } catch (e) {

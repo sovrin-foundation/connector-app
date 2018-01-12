@@ -9,6 +9,11 @@ export type IndyClaimOffer = {
   schemaSequenceNumber: number,
 }
 
+export type IndyConnectionHistory = {
+  issuerDid: string,
+  schemaSequenceNumber: number,
+}
+
 export type IndyClaimRequest = {
   blinded_ms: {
     prover_did: string,

@@ -82,7 +82,7 @@ class ProofRequestAttributeList extends PureComponent<
           </CustomView>
           <CustomView fifth style={[styles.attributeListValue]}>
             <CustomText h6 demiBold bg="tertiary" transparentBg>
-              {item.value}
+              {item.data}
             </CustomText>
           </CustomView>
         </Container>

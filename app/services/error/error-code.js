@@ -33,3 +33,8 @@ export const CLAIM_STORAGE_ERROR = (e?: Error) => ({
   code: 'C-20001',
   message: `Failed to store claim ${e ? e.message : ''}`,
 })
+
+export const CONNECTION_HISTORY_STORAGE_ERROR = (e?: Error) => ({
+  code: 'C-20002',
+  message: `Failed to store connection history ${e ? e.message : ''}`,
+})

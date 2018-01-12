@@ -29,6 +29,10 @@ import proofRequest, {
 import invitation, { watchInvitation } from '../invitation/invitation-store'
 import claim, { watchClaim } from '../claim/claim-store'
 import proof, { watchProof } from '../proof/proof-store'
+import history, {
+  watchConnectionHistory,
+} from '../connection-history/connection-history-store'
+import historyRecorder from '../connection-history/history-middleware'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -47,9 +51,10 @@ const appReducer = combineReducers({
   invitation,
   claim,
   proof,
+  history,
 })
 
-let middlewares = []
+let middlewares = [historyRecorder]
 
 if (process.env.NODE_ENV !== 'test') {
   // skip logger middleware if we are running tests
@@ -77,12 +82,14 @@ sagaMiddleware.run(function*() {
     watchDisableTouchId(),
     watchProof(),
     watchProofRequestAccepted(),
+    watchConnectionHistory(),
   ])
 })
 
 export * from './user-store'
 export * from '../push-notification/push-notification-store'
 export * from './connections-store'
+export * from '../connection-history/connection-history-store'
 export * from './config-store'
 export * from './route-store'
 export * from './hydration-store'

@@ -15,6 +15,7 @@ import {
   OFFSET_3X,
   isiPhone5,
 } from '../../common/styles'
+import empty from '../../common/empty'
 import type { ClaimProofHeaderProps } from './type-claim-proof-header'
 
 export default class ClaimProofHeader extends PureComponent<
@@ -28,18 +29,30 @@ export default class ClaimProofHeader extends PureComponent<
       title,
       logoUrl,
       testID,
+      containerStyle = empty,
+      textContainerStyle = [],
+      messageStyle = [],
+      titleStyle = empty,
     }: ClaimProofHeaderProps = this.props
 
     return (
-      <CustomView testID={`${testID}-header`} fifth style={[styles.header]}>
+      <CustomView
+        testID={`${testID}-header`}
+        fifth
+        style={[styles.header, containerStyle]}
+      >
         {this.props.children}
-        <CustomView fifth center style={[styles.message]}>
-          <CustomText h5 center demiBold bg="fifth">
-            {message}
-          </CustomText>
-          <CustomText h4 heavy bg="fifth" style={[styles.title]}>
-            {title}
-          </CustomText>
+        <CustomView fifth center style={[styles.message, textContainerStyle]}>
+          {message && (
+            <CustomText h5 center demiBold bg="fifth" style={[messageStyle]}>
+              {message}
+            </CustomText>
+          )}
+          {title && (
+            <CustomText h4 heavy bg="fifth" style={[styles.title, titleStyle]}>
+              {title}
+            </CustomText>
+          )}
         </CustomView>
         <ImageColorPicker imageUrl={logoUrl} />
       </CustomView>

@@ -39,43 +39,28 @@ import {
   ERROR_INVITATION_RESPONSE_PARSE,
 } from '../../api/api-constants'
 import { IS_CONSUMER_AGENT_ALREADY_CREATED } from '../../common'
+import {
+  getTestInvitationPayload,
+  successConnectionData,
+  pairwiseConnection,
+} from '../../../__mocks__/static-data'
+
+// TODO:KS These should be moved to a separate file that handles
+// all of the static data of whole app, so that if we change
+// one type of data, we will immediately know which other part of app it breaks
+const agencyDid = '5qiK8KZQ86XjcnLmy5S2Tn'
+const agencyVerificationKey = '3dzsPMyBeJiGtsxWoyrfXZL6mqj3iXxdJ75vewJ1jSwn'
+const poolConfig = 'sandboxPool'
+const agencyUrl = 'https://test-agency.com'
+const pushToken = 'jadkfjhaofuoet93tnklvansdvlq92'
+const identifier = '3akhf906816kahfadhfas85'
+const verificationKey = '3akhf906816kahfadhfas853akhf906816kahfadhfas85'
 
 describe('Invitation Store', () => {
   let initialState
   let afterOneInvitationState
   let propsGenerator
   let firstInvitation
-  const agencyDid = '5qiK8KZQ86XjcnLmy5S2Tn'
-  const agencyVerificationKey = '3dzsPMyBeJiGtsxWoyrfXZL6mqj3iXxdJ75vewJ1jSwn'
-  const poolConfig = 'sandboxPool'
-
-  function* getInvitation() {
-    yield {
-      payload: {
-        senderEndpoint: 'endpoint',
-        requestId: 'requestId1',
-        senderAgentKeyDelegationProof: 'proof',
-        senderName: 'sender1',
-        senderDID: 'senderDID1',
-        senderLogoUrl: 'lu',
-        senderVerificationKey: 'sVk',
-        targetName: 'target name',
-      },
-    }
-
-    yield {
-      payload: {
-        senderEndpoint: 'endpoint',
-        requestId: 'requestId2',
-        senderAgentKeyDelegationProof: 'proof',
-        senderName: 'sender2',
-        senderDID: 'senderDID2',
-        senderLogoUrl: 'lu',
-        senderVerificationKey: 'sVk 2',
-        targetName: 'target name',
-      },
-    }
-  }
 
   function fail() {
     // we can use this function if we specifically want to fail a test
@@ -84,7 +69,7 @@ describe('Invitation Store', () => {
 
   beforeEach(() => {
     initialState = invitationReducer(undefined, initialTestAction())
-    propsGenerator = getInvitation()
+    propsGenerator = getTestInvitationPayload()
     firstInvitation = propsGenerator.next().value
     if (firstInvitation) {
       afterOneInvitationState = invitationReducer(
@@ -170,8 +155,6 @@ describe('Invitation Store', () => {
         response: ResponseType.accepted,
       }
       const gen = sendResponse(sendInvitationResponse(data))
-      const agencyUrl = 'https://test-agency.com'
-      const pushToken = 'jadkfjhaofuoet93tnklvansdvlq92'
       const alreadyExist = false
       expect(gen.next().value).toEqual(select(getAgencyUrl))
       expect(gen.next(agencyUrl).value).toEqual(select(getPushToken))
@@ -196,8 +179,6 @@ describe('Invitation Store', () => {
           poolConfig
         )
       )
-      const identifier = '3akhf906816kahfadhfas85'
-      const verificationKey = '3akhf906816kahfadhfas853akhf906816kahfadhfas85'
 
       expect(gen.next({ identifier, verificationKey }).value).toEqual(
         select(isDuplicateConnection, senderDID)
@@ -254,10 +235,6 @@ describe('Invitation Store', () => {
           poolConfig
         )
       )
-      const pairwiseConnection = {
-        identifier: 'pairwiseIdentifier1',
-        verificationKey: 'pairwiseVerificationKey1',
-      }
 
       expect(gen.next(pairwiseConnection).value).toEqual(
         call(createAgentPairwiseKey, {
@@ -301,15 +278,7 @@ describe('Invitation Store', () => {
       expect(gen.next().value).toEqual(put(invitationSuccess(senderDID)))
 
       expect(gen.next().value).toEqual(
-        put(
-          saveNewConnection({
-            newConnection: {
-              identifier: pairwiseConnection.identifier,
-              logoUrl: payload.senderLogoUrl,
-              ...payload,
-            },
-          })
-        )
+        put(saveNewConnection(successConnectionData))
       )
 
       expect(gen.next().done).toBe(true)

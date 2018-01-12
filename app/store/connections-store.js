@@ -7,14 +7,11 @@ import { color } from '../common/styles/constant'
 import { bubbleSize } from '../common/styles'
 import { encrypt } from '../bridge/react-native-cxs/RNCxs'
 import type { CustomError, GenericObject } from '../common/type-common'
-import type {
-  ConnectionStore,
-  Connection,
-} from '../store/type-connection-store'
+import type { ConnectionStore, Connection } from './type-connection-store'
+import { NEW_CONNECTION } from './type-connection-store'
 
 const UPDATE_CONNECTION_THEME = 'UPDATE_CONNECTION_THEME'
-const NEW_CONNECTION = 'NEW_CONNECTION'
-const NEW_CONNECTION_SUCCESS = 'NEW_CONNECTION_SUCCESS'
+export const NEW_CONNECTION_SUCCESS = 'NEW_CONNECTION_SUCCESS'
 const NEW_CONNECTION_FAIL = 'NEW_CONNECTION_FAIL'
 const HYDRATE_CONNECTIONS = 'HYDRATE_CONNECTIONS'
 
@@ -24,6 +21,10 @@ const initialState: ConnectionStore = {
   isPristine: true,
   connectionThemes: {
     default: {
+      primary: `rgba(${color.actions.button.primary.rgba})`,
+      secondary: `rgba(${color.actions.button.secondary.rgba})`,
+    },
+    active: {
       primary: `rgba(${color.actions.button.primary.rgba})`,
       secondary: `rgba(${color.actions.button.secondary.rgba})`,
     },
@@ -139,6 +140,10 @@ export default function connections(
         connectionThemes: {
           ...state.connectionThemes,
           [action.logoUrl]: {
+            primary: action.primaryColor,
+            secondary: action.secondaryColor,
+          },
+          active: {
             primary: action.primaryColor,
             secondary: action.secondaryColor,
           },
