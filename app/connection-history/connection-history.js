@@ -27,12 +27,12 @@ import { homeRoute } from '../common/index'
 import { color, OFFSET_1X, OFFSET_3X } from '../common/styles/constant'
 import type { Store } from '../store/type-store'
 import type { ConnectionHistoryItem } from './type-connection-history'
+import { HISTORY_EVENT_STATUS } from './type-connection-history'
 
 const statusMsg = {
   ['CONNECTED']: 'Established on',
   ['RECEIVED']: 'Accepted on',
   ['ACCEPTED & SAVED']: 'Accepted on',
-  ['PROOF RECEIVED']: 'Requested on',
   ['SHARED']: 'Sent on',
 }
 
@@ -40,7 +40,6 @@ const historyIcons = {
   ['CONNECTED']: require('../images/linked.png'),
   ['RECEIVED']: require('../images/received.png'),
   ['ACCEPTED & SAVED']: require('../images/received.png'),
-  ['PROOF RECEIVED']: require('../images/sent.png'),
   ['SHARED']: require('../images/sent.png'),
 }
 
@@ -66,10 +65,13 @@ const HistoryTitle = ({ action, name, theme }) => (
 const HistoryBody = ({ action, date }) => {
   return (
     <CustomView row>
-      <CustomText h7 uppercase bg="fifth" style={[styles.listItemBody]}>
-        {`${statusMsg[action]} `}
-      </CustomText>
-      <CustomDate format="MM/DD/YYYY" h7 uppercase bg="fifth">
+      <CustomDate
+        format="MM/DD/YYYY | h:mm A"
+        h7
+        uppercase
+        bg="fifth"
+        style={[styles.listItemBody]}
+      >
         {date}
       </CustomDate>
     </CustomView>
@@ -100,25 +102,32 @@ export class ConnectionHistory extends PureComponent {
     const historySenderDIDs = Object.keys(connectionHistory)
     const historyList = historySenderDIDs.map((sdid, i) => {
       const historyItems = connectionHistory[sdid].map((h, i) => {
-        return (
-          <ListItem
-            avatar={historyIcons[h.action]}
-            key={h.id}
-            title={<HistoryTitle {...h} theme={activeConnectionThemePrimary} />}
-            subtitle={<HistoryBody {...h} />}
-            chevronColor={color.bg.fifth.font.fifth}
-            avatarStyle={styles.avatarStyle}
-            containerStyle={styles.listItemContainer}
-            onPress={() =>
-              this.connectionDetailHandler({
-                h,
-                activeConnectionThemePrimary,
-                senderName,
-                image,
-                senderDID,
-              })}
-          />
-        )
+        const itemProps = {
+          avatar: historyIcons[h.action],
+          key: h.id,
+          title: <HistoryTitle {...h} theme={activeConnectionThemePrimary} />,
+          subtitle: <HistoryBody {...h} />,
+          chevronColor: color.bg.fifth.font.fifth,
+          avatarStyle: styles.avatarStyle,
+          containerStyle: styles.listItemContainer,
+          hideChevron: false,
+          onPress: () => {
+            this.connectionDetailHandler({
+              h,
+              activeConnectionThemePrimary,
+              senderName,
+              image,
+              senderDID,
+            })
+          },
+        }
+
+        if (h.action === 'CONNECTED') {
+          itemProps.hideChevron = true
+          delete itemProps.onPress
+        }
+
+        return <ListItem {...itemProps} />
       })
       const history = (
         <CustomView key={i}>

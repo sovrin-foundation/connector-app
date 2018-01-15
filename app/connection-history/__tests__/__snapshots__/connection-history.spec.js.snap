@@ -446,42 +446,24 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
             September 2017
           </Text>
           <View
-            accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
-            accessibilityTraits={undefined}
-            accessible={true}
-            hasTVPreferredFocus={undefined}
-            hitSlop={undefined}
-            isTVSelectable={true}
-            onLayout={undefined}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
+            onLongPress={undefined}
+            onPress={undefined}
             style={
               Array [
                 Object {
                   "backgroundColor": "transparent",
+                  "borderBottomColor": "#ededed",
+                  "borderBottomWidth": 1,
+                  "paddingBottom": 10,
+                  "paddingRight": 10,
+                  "paddingTop": 10,
                 },
-                Array [
-                  Object {
-                    "backgroundColor": "transparent",
-                    "borderBottomColor": "#ededed",
-                    "borderBottomWidth": 1,
-                    "paddingBottom": 10,
-                    "paddingRight": 10,
-                    "paddingTop": 10,
-                  },
-                  Object {
-                    "borderBottomWidth": 2,
-                  },
-                ],
+                Object {
+                  "borderBottomWidth": 2,
+                },
               ]
             }
-            testID={undefined}
-            tvParallaxProperties={undefined}
+            underlayColor="white"
           >
             <View
               style={
@@ -605,92 +587,10 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                           ]
                         }
                       >
-                        ESTABLISHED ON 
-                      </Text>
-                      <Text
-                        accessible={true}
-                        allowFontScaling={true}
-                        ellipsizeMode="tail"
-                        style={
-                          Array [
-                            Object {
-                              "fontSize": 12,
-                            },
-                            Object {
-                              "fontFamily": "SF Pro Display",
-                            },
-                            Object {
-                              "backgroundColor": "#ffffff",
-                              "color": "#777777",
-                            },
-                            null,
-                            null,
-                            null,
-                          ]
-                        }
-                      >
-                        01/10/2018
+                        2018-01-10T04:32:43+05:30
                       </Text>
                     </View>
                   </View>
-                </View>
-              </View>
-              <View
-                style={
-                  Object {
-                    "alignItems": "flex-end",
-                    "flex": 0.15,
-                    "justifyContent": "center",
-                  }
-                }
-              >
-                <View
-                  onLongPress={undefined}
-                  onPress={undefined}
-                  style={
-                    Array [
-                      false,
-                      false,
-                      false,
-                      Object {
-                        "alignItems": "center",
-                        "backgroundColor": "transparent",
-                        "justifyContent": "center",
-                      },
-                      undefined,
-                    ]
-                  }
-                  underlayColor="white"
-                >
-                  <Text
-                    accessible={true}
-                    allowFontScaling={false}
-                    ellipsizeMode="tail"
-                    style={
-                      Array [
-                        Object {
-                          "color": "#333333",
-                          "fontSize": 28,
-                        },
-                        Array [
-                          Object {
-                            "backgroundColor": "transparent",
-                          },
-                          Array [
-                            Object {},
-                            undefined,
-                          ],
-                        ],
-                        Object {
-                          "fontFamily": "Material Icons",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                      ]
-                    }
-                  >
-                    
-                  </Text>
                 </View>
               </View>
             </View>

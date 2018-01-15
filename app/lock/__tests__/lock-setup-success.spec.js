@@ -24,6 +24,7 @@ describe('<LockSetupSuccess />', () => {
   }
   let component
   let props
+  let cleared
 
   it('should render Lock setup success Screen', () => {
     props = getProps(false)

@@ -70,7 +70,7 @@ export class ConnectionHistoryDetails extends PureComponent<
         )}
         {timestamp && (
           <CustomDate
-            format="MM/DD/YYY | hh:mm A"
+            format="MM/DD/YYYY | hh:mm A"
             transparentBg
             h7
             center

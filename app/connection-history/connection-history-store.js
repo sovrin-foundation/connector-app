@@ -279,7 +279,9 @@ export default function connectionHistoryReducer(
         data: {
           ...(state.data ? state.data : {}),
           [remoteDid]: [
-            ...(state.data ? state.data[remoteDid] : []),
+            ...(state.data && state.data[remoteDid]
+              ? state.data[remoteDid]
+              : []),
             action.historyEvent,
           ],
         },
