@@ -116,7 +116,7 @@ export class LockEnter extends PureComponent<
         thick
         testID="pass-code-input-text"
       >
-        {this.props.message}
+        {message}
       </CustomText>
     )
 
