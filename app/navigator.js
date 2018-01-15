@@ -21,6 +21,7 @@ import InvitationScreen from './invitation/invitation'
 import ConnectionHistoryScreen from './connection-history/connection-history'
 import ConnectionHistoryDetailsScreen from './connection-history/connection-history-details'
 import SwitchEnvironmentScreen from './switch-environment/switch-environment'
+import { LockAuthorization } from './lock/lock-authorization'
 import { Icon } from './components'
 import {
   splashScreenRoute,
@@ -43,6 +44,7 @@ import {
   invitationRoute,
   connectionHistoryDetailsRoute,
   switchEnvironmentRoute,
+  lockAuthorizationRoute,
 } from './common/'
 import { color } from './common/styles'
 
@@ -172,6 +174,7 @@ const ConnectMeAppNavigator = StackNavigator(
   {
     CardStack: { screen: CardStack },
     [claimOfferRoute]: { screen: ClaimOffer },
+    [lockAuthorizationRoute]: { screen: LockAuthorization },
   },
   {
     mode: 'modal',

@@ -1,4 +1,6 @@
 // @flow
+import type { ReactNavigation } from '../../common/type-common'
+
 export type noop = () => any
 
 export type RequestDetailTextPropsText = {
@@ -33,7 +35,7 @@ export type ResponseTypes = $Keys<typeof ResponseType>
 export type RequestProps = RequestDetailProps & {
   onAction: (response: ResponseTypes) => void,
   showErrorAlerts: boolean,
-}
+} & ReactNavigation
 
 export type RequestState = {
   tapCount: number,

@@ -27,6 +27,7 @@ export type ReactNavigation = {
     state?: {
       params: NavigationParams,
     },
+    goBack: (route?: ?string) => void,
   },
 }
 

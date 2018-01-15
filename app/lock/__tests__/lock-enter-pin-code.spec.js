@@ -2,28 +2,21 @@
 import React from 'react'
 import 'react-native'
 import renderer from 'react-test-renderer'
+import { Provider } from 'react-redux'
 import { CHECK_PIN_IDLE, CHECK_PIN_FAIL, CHECK_PIN_SUCCESS } from '../type-lock'
 import { LockEnterPin } from '../lock-enter-pin-code'
-import { homeRoute, claimOfferRoute } from '../../common'
+import { homeRoute, claimOfferRoute, lockPinSetupRoute } from '../../common'
+import { getStore, getNavigation } from '../../../__mocks__/static-data'
 
 describe('<LockPinCodeEnter />', () => {
   const getProps = (pinStatus = CHECK_PIN_IDLE) => ({
-    checkPinAction: jest.fn(),
-    checkPinStatusIdle: jest.fn(),
-    checkTouchIdAction: jest.fn(),
-    checkPinStatus: pinStatus,
-    currentScreen: {},
     existingPin: true,
     pendingRedirection: [
       { routeName: homeRoute, params: {} },
       { routeName: claimOfferRoute, params: { uid: 'asd123' } },
     ],
-    switchErrorAlerts: jest.fn(),
     navigation: {
-      navigate: jest.fn(),
-      state: {
-        params: {},
-      },
+      ...getNavigation(),
     },
     clearPendingRedirect: jest.fn(),
   })
@@ -31,6 +24,8 @@ describe('<LockPinCodeEnter />', () => {
   let component
   let props
   let cleared
+  let store
+  let componentInstance
 
   const options = {
     createNodeMock: element => {
@@ -44,26 +39,39 @@ describe('<LockPinCodeEnter />', () => {
 
   beforeEach(() => {
     props = getProps()
-    component = renderer.create(<LockEnterPin {...props} />, options)
+    store = getStore()
+
+    component = renderer.create(
+      <Provider store={store}>
+        <LockEnterPin {...props} />
+      </Provider>,
+      options
+    )
+    componentInstance = component.getInstance()._reactInternalInstance.child
+      .stateNode
   })
 
   it('should render pin code box', () => {
     expect(component.toJSON()).toMatchSnapshot()
   })
 
-  it('should show wrong pin, if pin does not match', () => {
-    jest.useFakeTimers()
-    const pinFailProps = getProps(CHECK_PIN_FAIL)
-    component.update(<LockEnterPin {...pinFailProps} />, options)
-    jest.runAllTimers()
-    expect(pinFailProps.checkPinStatusIdle).toHaveBeenCalled()
+  it('should navigate to pin setup onSuccess', () => {
+    componentInstance.onSuccess()
+    expect(props.navigation.navigate).toHaveBeenCalledWith(lockPinSetupRoute, {
+      existingPin: true,
+    })
   })
 
-  it('should redirect after pin is success', () => {
+  it('redirect to pendingRedirection', () => {
+    component.update(
+      <Provider store={store}>
+        <LockEnterPin {...props} existingPin={false} />
+      </Provider>
+    )
     jest.useFakeTimers()
-    const pinSuccessProps = getProps(CHECK_PIN_SUCCESS)
-    component.update(<LockEnterPin {...pinSuccessProps} />)
+    componentInstance.onSuccess()
     jest.runAllTimers()
-    expect(props.navigation.navigate).toHaveBeenCalledTimes(1)
+    expect(props.navigation.navigate).toHaveBeenCalledTimes(2)
+    expect(props.clearPendingRedirect).toHaveBeenCalled()
   })
 })

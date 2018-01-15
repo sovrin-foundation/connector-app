@@ -8,22 +8,38 @@ import {
   color,
   OFFSET_1X,
   OFFSET_3X,
+  OFFSET_2X,
 } from '../../common/styles/constant'
+
+// TODO:KS Move this file to common/styles
+
+const commonStyles = {
+  borderBottomWidth: 0,
+  padding: 0,
+  shadowColor: 'transparent',
+  shadowOpacity: 0,
+  shadowOffset: {
+    height: 0,
+  },
+  shadowRadius: 0,
+}
 
 export default StyleSheet.create({
   header: {
     backgroundColor: color.bg.secondary.color,
-    borderBottomWidth: 0,
     minHeight: 75,
-    padding: 0,
-    shadowColor: 'transparent',
-    shadowOpacity: 0,
-    shadowOffset: {
-      height: 0,
-    },
-    shadowRadius: 0,
+    ...commonStyles,
   },
   headerLeft: {
     marginLeft: OFFSET_3X / 2,
+  },
+})
+
+export const tertiaryHeaderStyles = StyleSheet.create({
+  header: {
+    backgroundColor: color.bg.tertiary.color,
+    height: 64,
+    paddingHorizontal: OFFSET_2X,
+    ...commonStyles,
   },
 })

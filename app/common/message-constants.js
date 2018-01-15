@@ -18,3 +18,7 @@ export const DUPLICATE_CONNECTION_ERROR = [
   'Attention!',
   'Duplicate Connection invitation!',
 ]
+
+export const ENTER_PASS_CODE_MESSAGE = 'Enter pass code'
+
+export const ENTER_YOUR_PASS_CODE_MESSAGE = 'Enter your pass code'

@@ -9,7 +9,6 @@ import type { Store } from '../store/type-store'
 import { Alert } from 'react-native'
 
 import {
-  lockPinSetupHomeRoute,
   lockPinSetupRoute,
   lockSelectionRoute,
   settingsTabRoute,

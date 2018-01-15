@@ -7,6 +7,7 @@ import ConnectedInvitation, { Invitation } from '../invitation'
 import { color } from '../../common/styles'
 import { ResponseType } from '../../components/request/type-request'
 import { homeRoute } from '../../common'
+import { getNavigation } from '../../../__mocks__/static-data'
 
 describe('<Invitation />', () => {
   let store
@@ -64,12 +65,9 @@ describe('<Invitation />', () => {
       },
     }
     navigation = {
-      navigate: jest.fn(),
-      state: {
-        params: {
-          senderDID: firstInvitation.senderDID,
-        },
-      },
+      ...getNavigation({
+        senderDID: firstInvitation.senderDID,
+      }),
     }
     const props = getState()
     invitation = props.invitation.senderDID1

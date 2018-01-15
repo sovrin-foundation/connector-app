@@ -8,6 +8,7 @@ import RequestDetail from './request-detail'
 import FooterActions from '../footer-actions/footer-actions'
 import type { RequestProps, RequestState, ResponseTypes } from './type-request'
 import { captureError } from '../../services/error/error-handler'
+import { lockAuthorizationRoute } from '../../common/route-constants'
 
 export default class Request extends PureComponent<
   void,
@@ -34,6 +35,10 @@ export default class Request extends PureComponent<
     return this.onAction('rejected')
   }
 
+  onSuccessfulAuthorization = (response: ResponseTypes) => {
+    this.props.onAction(response)
+  }
+
   onAction = (response: ResponseTypes) => {
     return FCM.requestPermissions()
       .then(() => {
@@ -49,8 +54,12 @@ export default class Request extends PureComponent<
               this.props.onAction(response)
             })
             .catch(error => {
+              this.props.navigation.navigate(lockAuthorizationRoute, {
+                onSuccess: () => this.onSuccessfulAuthorization(response),
+              })
+              // TODO:KS Need to remove this
               // TouchId not supported or not available
-              captureError(error, this.props.showErrorAlerts)
+              //captureError(error, this.props.showErrorAlerts)
             })
         }
       })

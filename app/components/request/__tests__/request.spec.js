@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import Request from '../request'
 import type { RequestProps, ResponseTypes } from '../type-request'
 import { color } from '../../../common/styles/constant'
+import { getNavigation } from '../../../../__mocks__/static-data'
 
 describe('<Request />', () => {
   let store = {}
@@ -35,7 +36,7 @@ describe('<Request />', () => {
   let request
   let requestComponent
   let tree
-  const defaultProps: RequestProps = {
+  const defaultProps = {
     title: 'Hi Test User',
     message: 'Enterprise A agent wants to connect with you',
     senderLogoUrl: 'https://image.url',
@@ -43,15 +44,19 @@ describe('<Request />', () => {
     showErrorAlerts: false,
     testID: 'request',
   }
+  let navigation
 
   beforeEach(() => {
+    navigation = getNavigation({ onSuccess: jest.fn() })
+
     // onAction = jest.fn()
     request = renderer.create(
       <Provider store={store}>
         <Request
           {...defaultProps}
-          showErrorAlerts={defaultProps.showErrorAlerts}
           onAction={defaultProps.onAction}
+          navigation={navigation}
+          showErrorAlerts={defaultProps.showErrorAlerts}
         />
       </Provider>
     )

@@ -119,10 +119,12 @@ export type LockStore = {
   isTouchIdEnabled: boolean,
   showDevMode: boolean,
 }
+
 export type LockSelectionProps = {
   showDevMode: boolean,
   disableDevMode: () => DisableDevMode,
 } & ReactNavigation
+
 export type LockActions =
   | AddPendingRedirectAction
   | ClearPendingRedirectAction
@@ -136,14 +138,8 @@ export type LockActions =
   | SwitchErrorAlerts
 
 export type LockEnterPinProps = {
-  checkPinAction: (pin: string) => CheckPinAction,
-  checkTouchIdAction: (pin: string) => CheckTouchIdAction,
-  checkPinStatusIdle: () => CheckPinIdleAction,
-  checkPinStatus: CheckPinStatus,
   pendingRedirection: Array<PendingRedirection>,
-  switchErrorAlerts: () => SwitchErrorAlerts,
   clearPendingRedirect: () => void,
-  currentScreen: {},
   existingPin: boolean,
 } & ReactNavigation
 
@@ -174,3 +170,17 @@ export const HIDE_DEV_MODE = 'HIDE_DEV_MODE'
 export type DisableDevMode = {
   type: typeof HIDE_DEV_MODE,
 }
+
+export type LockEnterProps = {
+  checkPinAction: (pin: string) => void,
+  checkPinStatusIdle: () => void,
+  switchErrorAlerts: () => void,
+  onSuccess: () => void,
+  message?: string,
+  checkPinStatus: CheckPinStatus,
+}
+
+export type LockAuthorizationProps = {
+  onSuccess: () => void,
+  onFail: () => void,
+} & ReactNavigation

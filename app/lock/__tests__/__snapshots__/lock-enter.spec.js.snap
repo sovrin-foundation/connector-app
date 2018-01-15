@@ -1,0 +1,227 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LockEnter /> should match snapshot 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#f0f0f0",
+      "flex": 1,
+    }
+  }
+  tertiary={true}
+>
+  <BVLinearGradient
+    colors={
+      Array [
+        4293585642,
+        15790320,
+      ]
+    }
+    end={undefined}
+    locations={
+      Array [
+        0.08,
+        1,
+      ]
+    }
+    start={undefined}
+    style={
+      Array [
+        Object {
+          "height": 10,
+        },
+      ]
+    }
+  />
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    center={true}
+    hitSlop={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "justifyContent": "center",
+        "marginBottom": 40,
+        "marginTop": 40,
+        "minHeight": 30,
+      }
+    }
+    testID="pin-code-input-boxes-touchable"
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 20,
+          },
+          Object {
+            "fontFamily": "SF Pro Display",
+          },
+          Object {
+            "backgroundColor": "#f0f0f0",
+            "color": "#777777",
+          },
+          Object {
+            "fontWeight": "800",
+          },
+          Object {
+            "textAlign": "center",
+          },
+          null,
+          Object {
+            "letterSpacing": 0.5,
+            "lineHeight": 28,
+          },
+        ]
+      }
+      testID="pass-code-input-text"
+    >
+      Enter your pass code
+    </Text>
+  </View>
+  <View
+    center={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <View
+      style={Object {}}
+    >
+      <View
+        row={true}
+        style={
+          Object {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          center={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "borderBottomColor": "#777777",
+              "borderBottomWidth": 5,
+              "height": 66,
+              "justifyContent": "center",
+              "marginHorizontal": 5,
+              "width": 38,
+            }
+          }
+          testID="pin-code-digit-0"
+        />
+        <View
+          center={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "borderBottomColor": "#777777",
+              "borderBottomWidth": 5,
+              "height": 66,
+              "justifyContent": "center",
+              "marginHorizontal": 5,
+              "width": 38,
+            }
+          }
+          testID="pin-code-digit-1"
+        />
+        <View
+          center={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "borderBottomColor": "#777777",
+              "borderBottomWidth": 5,
+              "height": 66,
+              "justifyContent": "center",
+              "marginHorizontal": 5,
+              "width": 38,
+            }
+          }
+          testID="pin-code-digit-2"
+        />
+        <View
+          center={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "borderBottomColor": "#777777",
+              "borderBottomWidth": 5,
+              "height": 66,
+              "justifyContent": "center",
+              "marginHorizontal": 5,
+              "width": 38,
+            }
+          }
+          testID="pin-code-digit-3"
+        />
+        <View
+          center={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "borderBottomColor": "#777777",
+              "borderBottomWidth": 5,
+              "height": 66,
+              "justifyContent": "center",
+              "marginHorizontal": 5,
+              "width": 38,
+            }
+          }
+          testID="pin-code-digit-4"
+        />
+        <View
+          center={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "borderBottomColor": "#777777",
+              "borderBottomWidth": 5,
+              "height": 66,
+              "justifyContent": "center",
+              "marginHorizontal": 5,
+              "width": 38,
+            }
+          }
+          testID="pin-code-digit-5"
+        />
+      </View>
+      <TextInput
+        autoCorrect={false}
+        autoFocus={true}
+        blurOnSubmit={false}
+        enablesReturnKeyAutomatically={false}
+        keyboardAppearance="dark"
+        keyboardType="number-pad"
+        maxLength={6}
+        onChangeText={[Function]}
+        style={
+          Object {
+            "position": "absolute",
+            "right": -999,
+          }
+        }
+        testID="pin-code-input-box"
+        value=""
+      />
+    </View>
+  </View>
+</View>
+`;

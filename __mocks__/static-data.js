@@ -1,4 +1,7 @@
 // @flow
+import type { NavigationParams } from '../app/common/type-common'
+import type { Store } from '../app/store/type-store'
+import { CHECK_PIN_IDLE } from '../app/lock/type-lock'
 
 export const senderDid1 = 'senderDID1'
 
@@ -203,7 +206,7 @@ export const proof = {
   },
 }
 
-const proofWithTwoClaims = {
+export const proofWithTwoClaims = {
   proofs: {
     'claim::0f165ac3-97a7-40c0-a06a-c0330cc78e3c': {
       proof: {
@@ -265,7 +268,7 @@ const proofWithTwoClaims = {
   },
 }
 
-const preparedProofWithMissingAttribute = {
+export const preparedProofWithMissingAttribute = {
   attrs: {
     attr1_uuid: [
       {
@@ -286,4 +289,30 @@ const preparedProofWithMissingAttribute = {
     attr2_uuid: [],
   },
   predicates: {},
+}
+
+export function getNavigation(params?: NavigationParams) {
+  return {
+    navigate: jest.fn(),
+    state: {
+      params: params || {},
+    },
+    goBack: jest.fn(),
+  }
+}
+
+export function getStore(store?: Store) {
+  return {
+    getState() {
+      return {
+        config: {},
+        lock: {
+          checkPinStatus: CHECK_PIN_IDLE,
+        },
+        ...(store || {}),
+      }
+    },
+    dispatch() {},
+    subscribe() {},
+  }
 }

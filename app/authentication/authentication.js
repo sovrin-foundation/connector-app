@@ -93,6 +93,7 @@ class Authentication extends PureComponent {
           message={offerMsgText}
           senderLogoUrl={logoUrl}
           onAction={this.onUserResponse}
+          navigation={this.props.navigation}
           showErrorAlerts={this.props.config.showErrorAlerts}
           testID="authentication-request"
         />
