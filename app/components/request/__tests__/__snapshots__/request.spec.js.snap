@@ -58,7 +58,6 @@ exports[`<Request /> should match snapshot 1`] = `
               accessible={true}
               allowFontScaling={true}
               ellipsizeMode="tail"
-              onPress={[Function]}
               style={
                 Array [
                   Object {

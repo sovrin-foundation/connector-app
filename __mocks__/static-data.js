@@ -2,6 +2,7 @@
 import type { NavigationParams } from '../app/common/type-common'
 import type { Store } from '../app/store/type-store'
 import { CHECK_PIN_IDLE } from '../app/lock/type-lock'
+import { color } from '../app/common/styles/constant'
 
 export const senderDid1 = 'senderDID1'
 
@@ -309,10 +310,22 @@ export function getStore(store?: Store) {
         lock: {
           checkPinStatus: CHECK_PIN_IDLE,
         },
+        connections: {
+          connectionThemes: {
+            default: {
+              primary: `rgba(${color.actions.button.primary.rgba})`,
+              secondary: `rgba(${color.actions.button.secondary.rgba})`,
+            },
+          },
+        },
         ...(store || {}),
       }
     },
-    dispatch() {},
-    subscribe() {},
+    dispatch() {
+      return jest.fn()
+    },
+    subscribe() {
+      return jest.fn()
+    },
   }
 }

@@ -18,7 +18,6 @@ export default class RequestDetail extends PureComponent<
           <RequestDetailText
             title={this.props.title}
             message={this.props.message}
-            onTitlePress={this.props.onTitlePress}
             testID={testID}
           />
         </Container>

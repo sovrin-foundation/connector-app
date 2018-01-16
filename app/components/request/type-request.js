@@ -9,12 +9,7 @@ export type RequestDetailTextPropsText = {
   testID: string,
 }
 
-export type RequestDetailActionProps = {
-  onTitlePress?: noop,
-}
-
-export type RequestDetailTextProps = RequestDetailTextPropsText &
-  RequestDetailActionProps
+export type RequestDetailTextProps = RequestDetailTextPropsText
 
 export type RequestDetailAvatarProps = {
   senderLogoUrl?: ?string,

@@ -3,39 +3,21 @@ import React from 'react'
 import 'react-native'
 import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
+import TouchId from 'react-native-touch-id'
+import FCM from 'react-native-fcm'
 import Request from '../request'
 import type { RequestProps, ResponseTypes } from '../type-request'
 import { color } from '../../../common/styles/constant'
-import { getNavigation } from '../../../../__mocks__/static-data'
+import { lockAuthorizationRoute } from '../../../common/route-constants'
+import { getNavigation, getStore } from '../../../../__mocks__/static-data'
 
 describe('<Request />', () => {
-  let store = {}
-  beforeAll(() => {
-    store = {
-      getState() {
-        return {
-          connections: {
-            connectionThemes: {
-              default: {
-                primary: `rgba(${color.actions.button.primary.rgba})`,
-                secondary: `rgba(${color.actions.button.secondary.rgba})`,
-              },
-            },
-          },
-        }
-      },
-      subscribe() {
-        return jest.fn()
-      },
-      dispatch() {
-        return jest.fn()
-      },
-    }
-  })
-
+  let store
   let request
   let requestComponent
   let tree
+  const accepted = 'accepted'
+  const rejected = 'rejected'
   const defaultProps = {
     title: 'Hi Test User',
     message: 'Enterprise A agent wants to connect with you',
@@ -45,6 +27,10 @@ describe('<Request />', () => {
     testID: 'request',
   }
   let navigation
+
+  beforeAll(() => {
+    store = getStore()
+  })
 
   beforeEach(() => {
     navigation = getNavigation({ onSuccess: jest.fn() })
@@ -69,36 +55,29 @@ describe('<Request />', () => {
     expect(tree).toMatchSnapshot()
   })
 
-  it('bypass touch id and calls onAction with accepted', async () => {
-    // click title four times to disable touch id
-    requestComponent.onTitlePress()
-    requestComponent.onTitlePress()
-    requestComponent.onTitlePress()
-    requestComponent.onTitlePress()
-    // click on accept button
-    await requestComponent.onAccept()
-    // check if passed onAction is called
-    expect(defaultProps.onAction).toBeCalled()
-    expect(defaultProps.onAction).toHaveBeenCalledWith('accepted')
-  })
-
-  it('bypass touch id and calls onAction with rejected', async () => {
-    // click title four times to disable touch id
-    requestComponent.onTitlePress()
-    requestComponent.onTitlePress()
-    requestComponent.onTitlePress()
-    requestComponent.onTitlePress()
-    // click on accept button
-    await requestComponent.onDecline()
-    // check if passed onAction is called
-    expect(defaultProps.onAction).toBeCalled()
-    expect(defaultProps.onAction).toHaveBeenCalledWith('rejected')
-  })
-
   it('TouchId and calls onAction if Connect/Deny button is pressed', async () => {
     const touchIdAuth = await requestComponent.onAccept()
     await touchIdAuth
     expect(defaultProps.onAction).toBeCalled()
-    expect(defaultProps.onAction).toHaveBeenCalledWith('accepted')
+    expect(defaultProps.onAction).toHaveBeenCalledWith(accepted)
+  })
+
+  it('redirect user to lock authorization page if TouchId fails', async () => {
+    TouchId.authenticate.mockImplementation(message => Promise.reject())
+    await requestComponent.authenticate(accepted)
+    expect(navigation.navigate).toHaveBeenCalledWith(lockAuthorizationRoute, {
+      onSuccess: expect.any(Function),
+    })
+  })
+
+  it('call authenticate even if user allow push notification', async () => {
+    await requestComponent.onAction(accepted)
+    expect(defaultProps.onAction).toHaveBeenCalledWith(accepted)
+  })
+
+  it('call authenticate even if user does not allow push notification', async () => {
+    FCM.requestPermissions.mockImplementation(() => Promise.reject())
+    await requestComponent.onAction(accepted)
+    expect(defaultProps.onAction).toHaveBeenCalledWith(accepted)
   })
 })

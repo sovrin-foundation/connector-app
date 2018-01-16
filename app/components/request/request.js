@@ -10,21 +10,7 @@ import type { RequestProps, RequestState, ResponseTypes } from './type-request'
 import { captureError } from '../../services/error/error-handler'
 import { lockAuthorizationRoute } from '../../common/route-constants'
 
-export default class Request extends PureComponent<
-  void,
-  RequestProps,
-  RequestState
-> {
-  state = {
-    tapCount: 0,
-  }
-
-  onTitlePress = () => {
-    this.setState({
-      tapCount: this.state.tapCount + 1,
-    })
-  }
-
+export default class Request extends PureComponent<void, RequestProps, void> {
   onAccept = () => {
     // Move these values to enum, we are not doing it now because of TODO in type file
     return this.onAction('accepted')
@@ -39,31 +25,28 @@ export default class Request extends PureComponent<
     this.props.onAction(response)
   }
 
+  authenticate = (response: ResponseTypes) => {
+    return TouchId.authenticate(TOUCH_ID_MESSAGE)
+      .then(() => this.onSuccessfulAuthorization(response))
+      .catch(() => {
+        this.props.navigation.navigate(lockAuthorizationRoute, {
+          onSuccess: () => this.onSuccessfulAuthorization(response),
+        })
+      })
+  }
+
   onAction = (response: ResponseTypes) => {
     return FCM.requestPermissions()
-      .then(() => {
-        // TODO: need to remove this once the PIN code story is done
-        if (this.state.tapCount > 3) {
-          // reset once any action is done by user
-          this.setState({ tapCount: 0 })
-          this.props.onAction(response)
-        } else {
-          // TODO using the real TouchId here, need to use the common TouchId
-          return TouchId.authenticate(TOUCH_ID_MESSAGE)
-            .then(() => {
-              this.props.onAction(response)
-            })
-            .catch(error => {
-              this.props.navigation.navigate(lockAuthorizationRoute, {
-                onSuccess: () => this.onSuccessfulAuthorization(response),
-              })
-              // TODO:KS Need to remove this
-              // TouchId not supported or not available
-              //captureError(error, this.props.showErrorAlerts)
-            })
-        }
-      })
+      .then(() => this.authenticate(response))
       .catch(error => {
+        // astute readers will notice that we are calling authenticate
+        // in success and fail both, so we can move it outside of promise
+        // but we need to authenticate after user take allow/deny action
+        // for push notification, after user allows/denies push notification
+        // we need to authenticate user either with TouchId or pass code
+        // unfortunately React-Native's (ES6's as well) Promise implementation
+        // does not have finally block
+        this.authenticate(response)
         // TODO: we did not get push token
         // now what should we do?
         captureError(error, this.props.showErrorAlerts)
@@ -72,13 +55,13 @@ export default class Request extends PureComponent<
 
   render() {
     const { title, message, senderLogoUrl, testID }: RequestProps = this.props
+
     return (
       <Container>
         <Container fifth>
           <RequestDetail
             title={title}
             message={message}
-            onTitlePress={this.onTitlePress}
             senderLogoUrl={senderLogoUrl}
             testID={testID}
           />

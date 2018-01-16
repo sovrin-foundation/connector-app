@@ -30,7 +30,6 @@ export default class RequestDetailText extends PureComponent<
             bg="fifth"
             style={[styles.textTitle]}
             testID={`${testID}-text-container-title`}
-            onPress={this.props.onTitlePress}
           >
             {this.props.title}
           </CustomText>
