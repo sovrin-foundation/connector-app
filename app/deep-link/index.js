@@ -14,7 +14,6 @@ class DeepLink extends PureComponent {
   // it will also work in case of fresh app installation, then also
   // we should be able to get the deep link data
   onDeepLinkData = bundle => {
-    // this.props.deepLinkData('47e05837')
     if (bundle.error) {
       this.props.deepLinkError(bundle.error)
     } else if (bundle.params) {

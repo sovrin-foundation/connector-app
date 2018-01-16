@@ -62,7 +62,7 @@ const HistoryTitle = ({ action, name, theme }) => (
   </CustomView>
 )
 
-const HistoryBody = ({ action, date }) => {
+const HistoryBody = ({ action, timestamp }) => {
   return (
     <CustomView row>
       <CustomDate
@@ -72,7 +72,7 @@ const HistoryBody = ({ action, date }) => {
         bg="fifth"
         style={[styles.listItemBody]}
       >
-        {date}
+        {timestamp}
       </CustomDate>
     </CustomView>
   )
@@ -219,8 +219,11 @@ const mapStateToProps = (state: Store, props: any) => {
       state.connections.connectionThemes.active.primary,
     activeConnectionThemeSecondary:
       state.connections.connectionThemes.active.secondary,
-    connectionHistory: groupBy(connectionHistory, history =>
-      moment(history.timestamp).format('MMMM YYYY')
+    connectionHistory: groupBy(
+      connectionHistory.sort((a, b) => {
+        return new Date(b.timestamp) - new Date(a.timestamp)
+      }),
+      history => moment(history.timestamp).format('MMMM YYYY')
     ),
   }
 }

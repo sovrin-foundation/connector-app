@@ -151,9 +151,15 @@ const CardStack = StackNavigator(
     },
     [connectionHistoryRoute]: {
       screen: ConnectionHistoryScreen,
+      navigationOptions: {
+        gesturesEnabled: true,
+      },
     },
     [connectionHistoryDetailsRoute]: {
       screen: ConnectionHistoryDetailsScreen,
+      navigationOptions: {
+        gesturesEnabled: true,
+      },
     },
     [switchEnvironmentRoute]: {
       screen: SwitchEnvironmentScreen,
