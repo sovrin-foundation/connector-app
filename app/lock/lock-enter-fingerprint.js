@@ -6,12 +6,15 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { captureError } from '../services/error/error-handler'
 import { homeRoute } from '../common'
+import { unlockApp } from './lock-store'
 import { clearPendingRedirect } from '../store'
 import type { Store } from '../store/type-store'
+
 export class LockEnterFingerprint extends PureComponent {
   touchIdHandler = () => {
     TouchId.authenticate('', this.touchIdHandler)
       .then(success => {
+        this.props.unlockApp()
         if (this.props.pendingRedirection) {
           this.props.pendingRedirection.forEach(pendingRedirection => {
             setTimeout(() => {
@@ -47,6 +50,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       clearPendingRedirect,
+      unlockApp,
     },
     dispatch
   )
