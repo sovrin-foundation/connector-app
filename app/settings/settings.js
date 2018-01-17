@@ -1,14 +1,6 @@
+// @flow
 import React, { PureComponent } from 'react'
-import {
-  View,
-  Image,
-  Text,
-  Switch,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Alert,
-} from 'react-native'
+import { Image, Text, Switch, StyleSheet, TouchableOpacity } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { Avatar, CustomText } from '../components'
 import { CustomList, CustomView, Container } from '../components/layout'
@@ -22,9 +14,7 @@ import { bindActionCreators } from 'redux'
 import {
   white,
   mantis,
-  darkGrey,
   OFFSET_1X,
-  barStyleDark,
   color,
   hitSlop,
 } from '../common/styles/constant'
@@ -36,7 +26,13 @@ import {
   TOUCH_ID_TEST_ID,
   USERNAME_TEST_ID,
 } from './settings-constant'
+
+import type { Store } from '../store/type-store'
+
 const style = StyleSheet.create({
+  container: {
+    overflow: 'scroll',
+  },
   headerStyle: {
     backgroundColor: color.bg.tertiary.color,
     shadowOpacity: 0,
@@ -168,13 +164,9 @@ export class Settings extends PureComponent {
 
     return (
       <Container tertiary>
-        <ScrollView style={style.container}>
-          <CustomList
-            data={itemList}
-            listStyle={style.list}
-            itemStyle={style.item}
-          />
-        </ScrollView>
+        <CustomView style={[style.container]}>
+          <CustomList data={itemList} />
+        </CustomView>
       </Container>
     )
   }

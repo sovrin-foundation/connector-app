@@ -10,123 +10,208 @@ exports[`user settings screen should render properly and snapshot should match 1
   }
   tertiary={true}
 >
-  <RCTScrollView
-    style={undefined}
+  <View
+    style={
+      Object {
+        "overflow": "scroll",
+      }
+    }
   >
-    <View>
+    <View
+      style={
+        Array [
+          Object {
+            "marginHorizontal": 20,
+          },
+          undefined,
+        ]
+      }
+    >
       <View
+        row={true}
         style={
-          Array [
-            Object {
-              "marginHorizontal": 20,
-            },
-            undefined,
-          ]
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "flexDirection": "row",
+            "marginVertical": 20,
+          }
         }
+        vCenter={true}
       >
         <View
-          row={true}
+          left={true}
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "flex": 1,
-              "flexDirection": "row",
-              "marginVertical": 20,
             }
           }
-          vCenter={true}
         >
           <View
-            left={true}
+            imageShadow={null}
             style={
               Object {
-                "alignItems": "flex-start",
-                "flex": 1,
-              }
-            }
-          >
-            <View
-              imageShadow={null}
-              style={
-                Object {
-                  "borderRadius": 38,
-                }
-              }
-            >
-              <Image
-                accessibilityComponentType={undefined}
-                accessibilityLabel={undefined}
-                accessibilityTraits={undefined}
-                accessible={true}
-                hitSlop={undefined}
-                onError={undefined}
-                onLayout={undefined}
-                onLoad={undefined}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                source={1}
-                style={
-                  Array [
-                    Object {
-                      "height": 76,
-                      "width": 76,
-                    },
-                    Object {
-                      "borderRadius": 38,
-                    },
-                  ]
-                }
-                testID={undefined}
-              />
-            </View>
-          </View>
-          <View
-            right={true}
-            style={
-              Object {
-                "alignItems": "flex-end",
+                "borderRadius": 38,
               }
             }
           >
             <Image
-              resizeMode="contain"
+              accessibilityComponentType={undefined}
+              accessibilityLabel={undefined}
+              accessibilityTraits={undefined}
+              accessible={true}
+              hitSlop={undefined}
+              onError={undefined}
+              onLayout={undefined}
+              onLoad={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
               source={1}
               style={
                 Array [
                   Object {
-                    "height": 30,
-                    "width": 30,
+                    "height": 76,
+                    "width": 76,
                   },
                   Object {
-                    "tintColor": "grey",
+                    "borderRadius": 38,
                   },
                 ]
               }
+              testID={undefined}
             />
           </View>
         </View>
         <View
-          row={true}
+          right={true}
           style={
             Object {
-              "alignItems": "center",
-              "flex": 1,
-              "flexDirection": "row",
-              "marginVertical": 20,
+              "alignItems": "flex-end",
             }
           }
-          vCenter={true}
+        >
+          <Image
+            resizeMode="contain"
+            source={1}
+            style={
+              Array [
+                Object {
+                  "height": 30,
+                  "width": 30,
+                },
+                Object {
+                  "tintColor": "grey",
+                },
+              ]
+            }
+          />
+        </View>
+      </View>
+      <View
+        row={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "flexDirection": "row",
+            "marginVertical": 20,
+          }
+        }
+        vCenter={true}
+      >
+        <View
+          left={true}
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "flex": 1,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "fontSize": 17,
+                },
+                Object {
+                  "fontFamily": "SF Pro Display",
+                },
+                Object {
+                  "backgroundColor": "#f0f0f0",
+                  "color": "#777777",
+                },
+                Object {
+                  "fontWeight": "600",
+                },
+                null,
+                null,
+              ]
+            }
+            testID="settings-user-name-label"
+          >
+            Name: Anonymous
+          </Text>
+        </View>
+        <View
+          right={true}
+          style={
+            Object {
+              "alignItems": "flex-end",
+            }
+          }
+        >
+          <Image
+            resizeMode="contain"
+            source={1}
+            style={
+              Array [
+                Object {
+                  "height": 30,
+                  "width": 30,
+                },
+                Object {
+                  "tintColor": "grey",
+                },
+              ]
+            }
+          />
+        </View>
+      </View>
+      <View
+        row={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "flexDirection": "row",
+            "marginVertical": 20,
+          }
+        }
+        vCenter={true}
+      >
+        <View
+          left={true}
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "flex": 1,
+            }
+          }
         >
           <View
-            left={true}
+            row={true}
             style={
               Object {
-                "alignItems": "flex-start",
-                "flex": 1,
+                "flexDirection": "row",
               }
             }
           >
@@ -134,6 +219,7 @@ exports[`user settings screen should render properly and snapshot should match 1
               accessible={true}
               allowFontScaling={true}
               ellipsizeMode="tail"
+              onPress={[Function]}
               style={
                 Array [
                   Object {
@@ -153,18 +239,80 @@ exports[`user settings screen should render properly and snapshot should match 1
                   null,
                 ]
               }
-              testID="settings-user-name-label"
+              testID="settings-pass-code-label"
             >
-              Name: Anonymous
+              Pass code:
+               
+            </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              onPress={[Function]}
+              style={
+                Array [
+                  Object {
+                    "fontSize": 17,
+                  },
+                  Object {
+                    "fontFamily": "SF Pro Display",
+                  },
+                  Object {
+                    "backgroundColor": "#f0f0f0",
+                    "color": "#777777",
+                  },
+                  Object {
+                    "fontWeight": "600",
+                  },
+                  null,
+                  null,
+                  Object {
+                    "marginTop": 5,
+                  },
+                ]
+              }
+              testID="settings-pass-code-asterisk-label"
+            >
+              ******
             </Text>
           </View>
+        </View>
+        <View
+          right={true}
+          style={
+            Object {
+              "alignItems": "flex-end",
+            }
+          }
+        >
           <View
-            right={true}
-            style={
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hitSlop={
               Object {
-                "alignItems": "flex-end",
+                "bottom": 15,
+                "left": 15,
+                "right": 15,
+                "top": 15,
               }
             }
+            isTVSelectable={true}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+            testID={undefined}
+            tvParallaxProperties={undefined}
           >
             <Image
               resizeMode="contain"
@@ -183,269 +331,123 @@ exports[`user settings screen should render properly and snapshot should match 1
             />
           </View>
         </View>
+      </View>
+      <View
+        row={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "flexDirection": "row",
+            "marginVertical": 20,
+          }
+        }
+        vCenter={true}
+      >
         <View
-          row={true}
+          left={true}
           style={
             Object {
-              "alignItems": "center",
+              "alignItems": "flex-start",
               "flex": 1,
-              "flexDirection": "row",
-              "marginVertical": 20,
             }
           }
-          vCenter={true}
         >
           <View
-            left={true}
+            row={true}
             style={
               Object {
-                "alignItems": "flex-start",
-                "flex": 1,
+                "flexDirection": "row",
               }
             }
           >
-            <View
-              row={true}
-              style={
-                Object {
-                  "flexDirection": "row",
-                }
-              }
-            >
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                ellipsizeMode="tail"
-                onPress={[Function]}
-                style={
-                  Array [
-                    Object {
-                      "fontSize": 17,
-                    },
-                    Object {
-                      "fontFamily": "SF Pro Display",
-                    },
-                    Object {
-                      "backgroundColor": "#f0f0f0",
-                      "color": "#777777",
-                    },
-                    Object {
-                      "fontWeight": "600",
-                    },
-                    null,
-                    null,
-                  ]
-                }
-                testID="settings-pass-code-label"
-              >
-                Pass code:
-                 
-              </Text>
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                ellipsizeMode="tail"
-                onPress={[Function]}
-                style={
-                  Array [
-                    Object {
-                      "fontSize": 17,
-                    },
-                    Object {
-                      "fontFamily": "SF Pro Display",
-                    },
-                    Object {
-                      "backgroundColor": "#f0f0f0",
-                      "color": "#777777",
-                    },
-                    Object {
-                      "fontWeight": "600",
-                    },
-                    null,
-                    null,
-                    Object {
-                      "marginTop": 5,
-                    },
-                  ]
-                }
-                testID="settings-pass-code-asterisk-label"
-              >
-                ******
-              </Text>
-            </View>
-          </View>
-          <View
-            right={true}
-            style={
-              Object {
-                "alignItems": "flex-end",
-              }
-            }
-          >
-            <View
-              accessibilityComponentType={undefined}
-              accessibilityLabel={undefined}
-              accessibilityTraits={undefined}
-              accessible={true}
-              hitSlop={
-                Object {
-                  "bottom": 15,
-                  "left": 15,
-                  "right": 15,
-                  "top": 15,
-                }
-              }
-              isTVSelectable={true}
-              onLayout={undefined}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                Object {
-                  "opacity": 1,
-                }
-              }
-              testID={undefined}
-              tvParallaxProperties={undefined}
-            >
-              <Image
-                resizeMode="contain"
-                source={1}
-                style={
-                  Array [
-                    Object {
-                      "height": 30,
-                      "width": 30,
-                    },
-                    Object {
-                      "tintColor": "grey",
-                    },
-                  ]
-                }
-              />
-            </View>
-          </View>
-        </View>
-        <View
-          row={true}
-          style={
-            Object {
-              "alignItems": "center",
-              "flex": 1,
-              "flexDirection": "row",
-              "marginVertical": 20,
-            }
-          }
-          vCenter={true}
-        >
-          <View
-            left={true}
-            style={
-              Object {
-                "alignItems": "flex-start",
-                "flex": 1,
-              }
-            }
-          >
-            <View
-              row={true}
-              style={
-                Object {
-                  "flexDirection": "row",
-                }
-              }
-            >
-              <Image
-                source={1}
-                style={
-                  Array [
-                    Object {
-                      "marginRight": 10,
-                    },
-                    Object {
-                      "height": 30,
-                      "width": 30,
-                    },
-                    Object {
-                      "tintColor": "#85bf43",
-                    },
-                  ]
-                }
-              />
-              <View
-                center={true}
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "justifyContent": "center",
-                  }
-                }
-              >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  ellipsizeMode="tail"
-                  onPress={[Function]}
-                  style={
-                    Array [
-                      Object {
-                        "fontSize": 17,
-                      },
-                      Object {
-                        "fontFamily": "SF Pro Display",
-                      },
-                      Object {
-                        "backgroundColor": "#f0f0f0",
-                        "color": "#777777",
-                      },
-                      Object {
-                        "fontWeight": "600",
-                      },
-                      null,
-                      null,
-                    ]
-                  }
-                  testID="settings-touch-id-label"
-                >
-                  Enable Touch ID
-                </Text>
-              </View>
-            </View>
-          </View>
-          <View
-            right={true}
-            style={
-              Object {
-                "alignItems": "flex-end",
-              }
-            }
-          >
-            <RCTSwitch
-              disabled={false}
-              onChange={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              onTintColor="#85bf43"
-              onValueChange={[Function]}
+            <Image
+              source={1}
               style={
                 Array [
                   Object {
-                    "height": 31,
-                    "width": 51,
+                    "marginRight": 10,
                   },
-                  undefined,
+                  Object {
+                    "height": 30,
+                    "width": 30,
+                  },
+                  Object {
+                    "tintColor": "#85bf43",
+                  },
                 ]
               }
-              tintColor="#ffffff"
-              value={false}
             />
+            <View
+              center={true}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                onPress={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "fontSize": 17,
+                    },
+                    Object {
+                      "fontFamily": "SF Pro Display",
+                    },
+                    Object {
+                      "backgroundColor": "#f0f0f0",
+                      "color": "#777777",
+                    },
+                    Object {
+                      "fontWeight": "600",
+                    },
+                    null,
+                    null,
+                  ]
+                }
+                testID="settings-touch-id-label"
+              >
+                Enable Touch ID
+              </Text>
+            </View>
           </View>
+        </View>
+        <View
+          right={true}
+          style={
+            Object {
+              "alignItems": "flex-end",
+            }
+          }
+        >
+          <RCTSwitch
+            disabled={false}
+            onChange={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            onTintColor="#85bf43"
+            onValueChange={[Function]}
+            style={
+              Array [
+                Object {
+                  "height": 31,
+                  "width": 51,
+                },
+                undefined,
+              ]
+            }
+            tintColor="#ffffff"
+            value={false}
+          />
         </View>
       </View>
     </View>
-  </RCTScrollView>
+  </View>
 </View>
 `;
