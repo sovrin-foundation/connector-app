@@ -2,6 +2,23 @@
 import type { NavigationParams } from '../app/common/type-common'
 import type { Store } from '../app/store/type-store'
 import { CHECK_PIN_IDLE } from '../app/lock/type-lock'
+import {
+  PROOF_REQUEST_RECEIVED,
+  PROOF_REQUEST_AUTO_FILL,
+} from '../app/proof-request/type-proof-request'
+import { INVITATION_RECEIVED } from '../app/invitation/type-invitation'
+import {
+  NEW_CONNECTION_SUCCESS,
+  saveNewConnection,
+} from '../app/store/connections-store'
+import { CLAIM_OFFER_ACCEPTED } from '../app/claim-offer/type-claim-offer'
+import { invitationReceived } from '../app/invitation/invitation-store'
+import { claimOfferReceived } from '../app/claim-offer/claim-offer-store'
+import { saveNewConnectionSuccess } from '../app/store/connections-store'
+import {
+  proofRequestReceived,
+  proofRequestAutoFill,
+} from '../app/proof-request/proof-request-store'
 import { color } from '../app/common/styles/constant'
 
 export const senderDid1 = 'senderDID1'
@@ -55,7 +72,37 @@ export const successConnectionData = {
 export const claimOfferId = 'usd123'
 const claimDefinitionSchemaSequenceNumber = 36
 const issuerDid = 'issuerDid'
+const senderLogoUrl = 'http://testissuer.com/logoUrl.png'
 
+const requestedAttributes = [
+  {
+    label: 'address1',
+    data: 'address1',
+  },
+  {
+    label: 'address2',
+    data: 'address2',
+  },
+]
+
+const originalProofRequestData = {
+  nonce: '123432421212',
+  name: 'proof_req_1',
+  version: '0.1',
+  requested_attrs: {
+    attr1_uuid: {
+      schema_seq_no: claimDefinitionSchemaSequenceNumber,
+      issuer_did: issuerDid,
+      name: 'address1',
+    },
+    attr2_uuid: {
+      schema_seq_no: claimDefinitionSchemaSequenceNumber,
+      issuer_did: issuerDid,
+      name: 'address2',
+    },
+  },
+  requested_predicates: {},
+}
 export const claimOffer = {
   payload: {
     data: {
@@ -135,24 +182,7 @@ export const proofRequest = {
     requester: {
       name: 'Test Issuer',
     },
-    originalProofRequestData: {
-      nonce: '123432421212',
-      name: 'proof_req_1',
-      version: '0.1',
-      requested_attrs: {
-        attr1_uuid: {
-          schema_seq_no: claimDefinitionSchemaSequenceNumber,
-          issuer_did: issuerDid,
-          name: 'address1',
-        },
-        attr2_uuid: {
-          schema_seq_no: claimDefinitionSchemaSequenceNumber,
-          issuer_did: issuerDid,
-          name: 'address2',
-        },
-      },
-      requested_predicates: {},
-    },
+    originalProofRequestData,
     statusMsg: 'pending',
   },
   payloadInfo: {
@@ -328,4 +358,45 @@ export function getStore(store?: Store) {
       return jest.fn()
     },
   }
+}
+
+export const invitationReceivedEvent = invitationReceived({
+  ...firstInvitationPayload,
+})
+
+export const newConnectionSuccessEvent = saveNewConnectionSuccess(
+  successConnectionData ? successConnectionData.newConnection : {}
+)
+
+export const claimOfferReceivedEvent = claimOfferReceived(
+  claimOffer.payload,
+  claimOffer.payloadInfo
+)
+
+export const proofRequestReceivedEvent = proofRequestReceived(
+  proofRequest.payload,
+  proofRequest.payloadInfo
+)
+
+export const proofRequestAutofillEvent = proofRequestAutoFill(
+  proofRequestId,
+  requestedAttributes
+)
+
+export const proofRequestAutofill = {
+  status: 'proofRequestStatus',
+  proofStatus: 'NONE',
+  uid: proofRequestId,
+  senderLogoUrl,
+  remotePairwiseDID: 'remotePairWiseDID',
+  data: {
+    name: 'name',
+    version: 'version',
+    requestedAttributes,
+  },
+  requester: {
+    name: 'reqeusterName',
+  },
+  originalProofRequestData,
+  statusMsg: 'statusMsg',
 }

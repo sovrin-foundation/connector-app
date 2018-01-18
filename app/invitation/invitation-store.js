@@ -34,12 +34,12 @@ import {
 import { saveNewConnection } from '../store/connections-store'
 import { encrypt, addConnection } from '../bridge/react-native-cxs/RNCxs'
 import type {
-  InvitationReceivedActionData,
   InvitationResponseSendData,
   InvitationResponseSendAction,
   InvitationPayload,
   InvitationStore,
   InvitationAction,
+  InvitationReceivedActionData,
 } from './type-invitation'
 import type { CustomError } from '../common/type-common'
 import { captureError } from '../services/error/error-handler'

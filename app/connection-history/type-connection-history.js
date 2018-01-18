@@ -150,6 +150,7 @@ export type LoadHistorySuccessAction = {
 }
 
 export const LOAD_HISTORY_FAIL = 'LOAD_HISTORY_FAIL'
+export const LOAD_HISTORY_EVENT_OCCURED_FAIL = 'LOAD_HISTORY_EVENT_OCCURED_FAIL'
 
 export type LoadHistoryFailAction = {
   type: typeof LOAD_HISTORY_FAIL,
@@ -180,6 +181,11 @@ export type RecordHistoryEventAction = {
 export const ERROR_LOADING_HISTORY = {
   code: 'CN002',
   message: 'Error while loading connection history data',
+}
+
+export const ERROR_HISTORY_EVENT_OCCURED = {
+  code: 'CN003',
+  message: 'Error while history event occured',
 }
 
 export type ConnectionHistoryAction =

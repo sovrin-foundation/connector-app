@@ -44,6 +44,21 @@ import {
   sendProof,
   proofRequestAutoFill,
 } from '../../proof-request/proof-request-store'
+import {
+  HISTORY_EVENT_STORAGE_KEY,
+  ERROR_LOADING_HISTORY,
+  ERROR_HISTORY_EVENT_OCCURED,
+} from '../type-connection-history'
+import { getProofRequest } from '../../store/store-selector'
+import { getItem } from '../../services/secure-storage'
+import {
+  invitationReceivedEvent,
+  newConnectionSuccessEvent,
+  claimOfferReceivedEvent,
+  proofRequestReceivedEvent,
+  proofRequestAutofillEvent,
+  proofRequestAutofill,
+} from '../../../__mocks__/static-data'
 
 jest.mock('../../services/uuid')
 
@@ -119,11 +134,150 @@ describe('Store: ConnectionHistory', () => {
     ).toMatchSnapshot()
   })
 
-  xit('loadHistorySaga should raise success for correct data', () => {
-    // TODO:KS Fix this test
+  it('match loadHistoryFail', () => {
+    expect(
+      connectionHistoryReducer(
+        initialState,
+        loadHistoryFail({
+          code: 'TEST 101',
+          message: 'Load History failed',
+        })
+      )
+    ).toMatchSnapshot()
   })
 
-  xit('should raise failure in case data getItem fails', () => {
-    // TODO:KS Fix this test
+  it('match record history event', () => {
+    expect(
+      connectionHistoryReducer(
+        initialState,
+        recordHistoryEvent(
+          convertClaimOfferToHistoryEvent(
+            claimOfferReceived(claimOffer.payload, claimOffer.payloadInfo)
+          )
+        )
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('historyEventOccurredSaga should raise success for correct invitation received ', () => {
+    let historyEvent
+    const gen = historyEventOccurredSaga(
+      historyEventOccurred(invitationReceivedEvent)
+    )
+    historyEvent = convertInvitationToHistoryEvent(
+      invitationReceivedEvent.data.payload
+    )
+
+    expect(gen.next().value).toEqual(put(recordHistoryEvent(historyEvent)))
+  })
+
+  it('historyEventOccurredSaga should raise success for correct new connection ', () => {
+    let historyEvent
+    const gen = historyEventOccurredSaga(
+      historyEventOccurred(newConnectionSuccessEvent)
+    )
+    historyEvent = convertConnectionSuccessToHistoryEvent(
+      newConnectionSuccessEvent
+    )
+
+    expect(gen.next().value).toEqual(put(recordHistoryEvent(historyEvent)))
+  })
+
+  it('historyEventOccurredSaga should raise success for correct claim offer received', () => {
+    let historyEvent
+    const gen = historyEventOccurredSaga(
+      historyEventOccurred(claimOfferReceivedEvent)
+    )
+    historyEvent = convertClaimOfferToHistoryEvent(claimOfferReceivedEvent)
+    expect(gen.next().value).toEqual(put(recordHistoryEvent(historyEvent)))
+  })
+
+  it('historyEventOccurredSaga should raise success for correct proof request received', () => {
+    let historyEvent
+    const gen = historyEventOccurredSaga(
+      historyEventOccurred(proofRequestReceivedEvent)
+    )
+    historyEvent = convertProofRequestToHistoryEvent(proofRequestReceivedEvent)
+    expect(gen.next().value).toEqual(put(recordHistoryEvent(historyEvent)))
+  })
+
+  it('historyEventOccurredSaga should raise success for proof autofill', () => {
+    let historyEvent
+    const gen = historyEventOccurredSaga(
+      historyEventOccurred(proofRequestAutofillEvent)
+    )
+    expect(gen.next().value).toEqual(
+      select(getProofRequest, proofRequestAutofillEvent.uid)
+    )
+    historyEvent = convertProofAutoFillToHistoryEvent(
+      proofRequestAutofillEvent,
+      proofRequestAutofill.originalProofRequestData.name,
+      proofRequestAutofill.remotePairwiseDID
+    )
+  })
+
+  it('historyEventOccuredSaga should raise failure in case anything fails', () => {
+    const gen = historyEventOccurredSaga(
+      historyEventOccurred(proofRequestAutofillEvent)
+    )
+    expect(gen.next().value).toEqual(
+      select(getProofRequest, proofRequestAutofillEvent.uid)
+    )
+    const error = new Error()
+    expect(gen.throw(error).value).toEqual(
+      put(
+        loadHistoryFail({
+          ...ERROR_HISTORY_EVENT_OCCURED,
+          message: `${ERROR_HISTORY_EVENT_OCCURED.message} ${error.message}`,
+        })
+      )
+    )
+  })
+
+  it('convertInvitationToHistoryEvent should raise success', () => {
+    expect(
+      convertInvitationToHistoryEvent(invitationReceivedEvent.data.payload)
+    ).toMatchSnapshot()
+  })
+
+  it('convertConnectionSuccessToHistoryEvent should raise success', () => {
+    expect(
+      convertConnectionSuccessToHistoryEvent(newConnectionSuccessEvent)
+    ).toMatchSnapshot()
+  })
+  it('convertClaimOfferToHistoryEvent should raise success', () => {
+    expect(
+      convertClaimOfferToHistoryEvent(claimOfferReceivedEvent)
+    ).toMatchSnapshot()
+  })
+
+  it('convertProofRequestToHistoryEvent should raise success', () => {
+    expect(
+      convertProofRequestToHistoryEvent(proofRequestReceivedEvent)
+    ).toMatchSnapshot()
+  })
+  it('convertProofAutoFillToHistoryEvent should raise success', () => {
+    expect(
+      convertProofAutoFillToHistoryEvent(
+        proofRequestAutofillEvent,
+        proofRequestAutofill.originalProofRequestData.name,
+        proofRequestAutofill.remotePairwiseDID
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('should raise failure in case data getItem fails', () => {
+    const gen = loadHistorySaga()
+    expect(gen.next().value).toEqual(call(getItem, HISTORY_EVENT_STORAGE_KEY))
+    const error = new Error()
+    expect(gen.throw(error).value).toEqual(
+      put(
+        loadHistoryFail({
+          ...ERROR_LOADING_HISTORY,
+          message: `${ERROR_LOADING_HISTORY.message} ${error.message}`,
+        })
+      )
+    )
+    expect(gen.next().done).toBe(true)
   })
 })

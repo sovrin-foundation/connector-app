@@ -20,6 +20,7 @@ import {
   HISTORY_EVENT_STATUS,
   HISTORY_EVENT_TYPE,
   HISTORY_EVENT_STORAGE_KEY,
+  ERROR_HISTORY_EVENT_OCCURED,
 } from './type-connection-history'
 import type {
   HistoryEventType,
@@ -204,36 +205,45 @@ export function* historyEventOccurredSaga(
   const { event, type } = action
   let historyEvent: ConnectionHistoryEvent
 
-  if (event.type === INVITATION_RECEIVED) {
-    historyEvent = convertInvitationToHistoryEvent(event.data.payload)
-  }
+  try {
+    if (event.type === INVITATION_RECEIVED) {
+      historyEvent = convertInvitationToHistoryEvent(event.data.payload)
+    }
 
-  if (event.type === NEW_CONNECTION_SUCCESS) {
-    historyEvent = convertConnectionSuccessToHistoryEvent(event)
-  }
+    if (event.type === NEW_CONNECTION_SUCCESS) {
+      historyEvent = convertConnectionSuccessToHistoryEvent(event)
+    }
 
-  if (event.type === CLAIM_OFFER_RECEIVED) {
-    historyEvent = convertClaimOfferToHistoryEvent(event)
-  }
+    if (event.type === CLAIM_OFFER_RECEIVED) {
+      historyEvent = convertClaimOfferToHistoryEvent(event)
+    }
 
-  if (event.type === PROOF_REQUEST_RECEIVED) {
-    historyEvent = convertProofRequestToHistoryEvent(event)
-  }
+    if (event.type === PROOF_REQUEST_RECEIVED) {
+      historyEvent = convertProofRequestToHistoryEvent(event)
+    }
 
-  if (event.type === PROOF_REQUEST_AUTO_FILL) {
-    const proofRequest: ProofRequestPayload = yield select(
-      getProofRequest,
-      event.uid
+    if (event.type === PROOF_REQUEST_AUTO_FILL) {
+      const proofRequest: ProofRequestPayload = yield select(
+        getProofRequest,
+        event.uid
+      )
+      historyEvent = convertProofAutoFillToHistoryEvent(
+        event,
+        proofRequest.originalProofRequestData.name,
+        proofRequest.remotePairwiseDID
+      )
+    }
+
+    if (historyEvent) {
+      yield put(recordHistoryEvent(historyEvent))
+    }
+  } catch (e) {
+    yield put(
+      loadHistoryFail({
+        ...ERROR_HISTORY_EVENT_OCCURED,
+        message: `${ERROR_HISTORY_EVENT_OCCURED.message} ${e.message}`,
+      })
     )
-    historyEvent = convertProofAutoFillToHistoryEvent(
-      event,
-      proofRequest.originalProofRequestData.name,
-      proofRequest.remotePairwiseDID
-    )
-  }
-
-  if (historyEvent) {
-    yield put(recordHistoryEvent(historyEvent))
   }
 }
 
