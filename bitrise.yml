@@ -30,7 +30,7 @@ trigger_map:
 workflows:
   primary:
   envs:
-  - BITRISE_GIT_BRANCH: master
+#  - BITRISE_GIT_BRANCH: master
     steps:
     - activate-ssh-key@3.1.1:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
