@@ -37,10 +37,7 @@ import type {
   RequestedAttribute,
 } from '../proof-request/type-proof-request'
 
-const blackListedRoute = {
-  [invitationRoute]: invitationRoute,
-  [qrCodeScannerTabRoute]: qrCodeScannerTabRoute,
-}
+const blackListedRoute = {}
 
 export function convertClaimOfferPushPayloadToAppClaimOffer(
   pushPayload: ClaimOfferPushPayload
