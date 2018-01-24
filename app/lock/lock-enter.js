@@ -22,7 +22,7 @@ import {
 import { CHECK_PIN_IDLE, CHECK_PIN_SUCCESS, CHECK_PIN_FAIL } from './type-lock'
 import type {
   LockEnterPinProps,
-  LockEnterPinState,
+  LockEnterState,
   CheckPinStatus,
   LockEnterProps,
 } from './type-lock'
@@ -57,7 +57,7 @@ export const WrongPinText = (
 export class LockEnter extends PureComponent<
   void,
   LockEnterProps,
-  LockEnterPinState
+  LockEnterState
 > {
   state = {
     interactionsDone: false,
@@ -134,6 +134,7 @@ export class LockEnter extends PureComponent<
           testID="pin-code-input-boxes"
         >
           {checkPinStatus === CHECK_PIN_IDLE && EnterPinText}
+          {checkPinStatus === CHECK_PIN_SUCCESS && EnterPinText}
           {checkPinStatus === CHECK_PIN_FAIL && WrongPinText}
         </CustomView>
         <CustomView center>

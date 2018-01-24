@@ -20,6 +20,7 @@ import {
   proofRequestAutoFill,
 } from '../app/proof-request/proof-request-store'
 import { color } from '../app/common/styles/constant'
+import { homeRoute, claimOfferRoute } from '../app/common'
 
 export const senderDid1 = 'senderDID1'
 
@@ -236,6 +237,11 @@ export const proof = {
     predicates: {},
   },
 }
+
+export const pendingRedirection = [
+  { routeName: homeRoute, params: {} },
+  { routeName: claimOfferRoute, params: { uid: 'asd123' } },
+]
 
 export const proofWithTwoClaims = {
   proofs: {

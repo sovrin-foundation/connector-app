@@ -14,6 +14,7 @@ import { settingsTabRoute } from '../common'
 import { unlockApp, clearPendingRedirect } from './lock-store'
 import type { Store } from '../store/type-store'
 import { OFFSET_1X, OFFSET_2X, OFFSET_4X, color } from '../common/styles'
+import { UNLOCKING_APP_WAIT_MESSAGE } from '../common/message-constants'
 
 // TODO:KS define type of props for this component
 export class LockSetupSuccess extends PureComponent {
@@ -46,7 +47,7 @@ export class LockSetupSuccess extends PureComponent {
         ? 'Your connect.me app is secured.'
         : 'Your connect.me app is now secured'
     if (isFetchingInvitation === true) {
-      message = 'Loading...'
+      message = UNLOCKING_APP_WAIT_MESSAGE
     }
     return (
       <Container tertiary>

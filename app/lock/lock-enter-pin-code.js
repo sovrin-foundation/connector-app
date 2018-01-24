@@ -18,8 +18,16 @@ import {
   ENTER_YOUR_PASS_CODE_MESSAGE,
 } from '../common/message-constants'
 import { tertiaryHeaderStyles } from '../components/layout/header-styles'
+import { UNLOCKING_APP_WAIT_MESSAGE } from '../common/message-constants'
 
-export class LockEnterPin extends PureComponent<void, LockEnterPinProps, void> {
+export class LockEnterPin extends PureComponent<
+  void,
+  LockEnterPinProps,
+  LockEnterPinState
+> {
+  state = {
+    authenticationSuccess: false,
+  }
   static navigationOptions = () => ({
     headerTitle: (
       <CustomText bg="tertiary" tertiary transparentBg semiBold>
@@ -29,39 +37,63 @@ export class LockEnterPin extends PureComponent<void, LockEnterPinProps, void> {
     headerStyle: tertiaryHeaderStyles.header,
   })
 
+  componentWillReceiveProps(nextProps: LockEnterPinProps) {
+    if (
+      this.props.isFetchingInvitation !== nextProps.isFetchingInvitation &&
+      nextProps.isFetchingInvitation === false &&
+      nextProps.pendingRedirection
+    ) {
+      if (this.state.authenticationSuccess) {
+        this.redirect()
+      }
+    }
+  }
+
+  redirect = () => {
+    this.props.pendingRedirection.forEach(pendingRedirection => {
+      setTimeout(() => {
+        this.props.navigation.navigate(
+          pendingRedirection.routeName,
+          pendingRedirection.params
+        )
+      }, 0)
+    })
+    this.props.clearPendingRedirect()
+  }
+
   onSuccess = () => {
+    this.setState({ authenticationSuccess: true })
     // if we reach at this screen from settings page
     // then user is trying to enable/disable touch id
     if (this.props.existingPin) {
       this.props.navigation.navigate(lockPinSetupRoute, {
         existingPin: true,
       })
-    } else if (this.props.pendingRedirection) {
+    } else if (
+      this.props.pendingRedirection &&
+      this.props.isFetchingInvitation === false
+    ) {
       // user is trying to unlock the app
       // check if user has some pending action, so redirect to those
-      this.props.pendingRedirection.forEach(pendingRedirection => {
-        setTimeout(() => {
-          this.props.navigation.navigate(
-            pendingRedirection.routeName,
-            pendingRedirection.params
-          )
-        }, 0)
-      })
-      this.props.clearPendingRedirect()
+      this.redirect()
     }
   }
 
   render() {
-    const message = this.props.existingPin
+    const { isFetchingInvitation } = this.props
+    let message = this.props.existingPin
       ? ENTER_YOUR_PASS_CODE_MESSAGE
       : ENTER_PASS_CODE_MESSAGE
-
+    if (isFetchingInvitation && this.state.authenticationSuccess) {
+      message = UNLOCKING_APP_WAIT_MESSAGE
+    }
     return <LockEnter onSuccess={this.onSuccess} message={message} />
   }
 }
 
 const mapStateToProps = (state: Store, { navigation }: ReactNavigation) => ({
   pendingRedirection: state.lock.pendingRedirection,
+  isFetchingInvitation: state.smsPendingInvitation.isFetching,
   existingPin: navigation.state
     ? navigation.state.params ? navigation.state.params.existingPin : false
     : false,

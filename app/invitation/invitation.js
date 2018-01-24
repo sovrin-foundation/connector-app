@@ -48,7 +48,11 @@ export class Invitation extends PureComponent<
   }
 
   componentWillReceiveProps(nextProps: InvitationProps) {
-    if (nextProps.invitation.payload !== this.props.invitation.payload) {
+    // If invitation itself not generated then don't check payload
+    if (
+      this.props.invitation !== undefined &&
+      nextProps.invitation.payload !== this.props.invitation.payload
+    ) {
       // a new invitation was received
       this._hideModal()
     } else {
@@ -75,39 +79,43 @@ export class Invitation extends PureComponent<
   }
 
   render() {
-    const { payload } = this.props.invitation
+    if (this.props.invitation == null) {
+      return <Container />
+    } else {
+      const { payload } = this.props.invitation
 
-    let senderName = ''
-    let title = 'Hi'
-    let message = 'You have received a connection request'
-    let senderLogoUrl = undefined
+      let senderName = ''
+      let title = 'Hi'
+      let message = 'You have received a connection request'
+      let senderLogoUrl = undefined
 
-    if (payload) {
-      senderName = payload.senderName
-      title = `Hi ${payload.targetName}`
-      message = `${senderName} wants to connect with you.`
-      senderLogoUrl = payload.senderLogoUrl
+      if (payload) {
+        senderName = payload.senderName
+        title = `Hi ${payload.targetName}`
+        message = `${senderName} wants to connect with you.`
+        senderLogoUrl = payload.senderLogoUrl
+      }
+
+      return (
+        <Container>
+          <Request
+            title={title}
+            message={message}
+            senderLogoUrl={senderLogoUrl}
+            onAction={this.onAction}
+            testID={'invitation'}
+            navigation={this.props.navigation}
+            showErrorAlerts={this.props.showErrorAlerts}
+          />
+          <ConnectionSuccessModal
+            isModalVisible={this.state.isSuccessModalVisible}
+            showConnectionSuccessModal={this.onSuccessModalContinue}
+            name={senderName}
+            logoUrl={senderLogoUrl}
+          />
+        </Container>
+      )
     }
-
-    return (
-      <Container>
-        <Request
-          title={title}
-          message={message}
-          senderLogoUrl={senderLogoUrl}
-          onAction={this.onAction}
-          testID={'invitation'}
-          navigation={this.props.navigation}
-          showErrorAlerts={this.props.showErrorAlerts}
-        />
-        <ConnectionSuccessModal
-          isModalVisible={this.state.isSuccessModalVisible}
-          showConnectionSuccessModal={this.onSuccessModalContinue}
-          name={senderName}
-          logoUrl={senderLogoUrl}
-        />
-      </Container>
-    )
   }
 }
 

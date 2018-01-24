@@ -6,19 +6,21 @@ import { Provider } from 'react-redux'
 import { CHECK_PIN_IDLE, CHECK_PIN_FAIL, CHECK_PIN_SUCCESS } from '../type-lock'
 import { LockEnterPin } from '../lock-enter-pin-code'
 import { homeRoute, claimOfferRoute, lockPinSetupRoute } from '../../common'
-import { getStore, getNavigation } from '../../../__mocks__/static-data'
+import {
+  getStore,
+  getNavigation,
+  pendingRedirection,
+} from '../../../__mocks__/static-data'
 
 describe('<LockPinCodeEnter />', () => {
   const getProps = (pinStatus = CHECK_PIN_IDLE) => ({
     existingPin: true,
-    pendingRedirection: [
-      { routeName: homeRoute, params: {} },
-      { routeName: claimOfferRoute, params: { uid: 'asd123' } },
-    ],
+    pendingRedirection,
     navigation: {
       ...getNavigation(),
     },
     clearPendingRedirect: jest.fn(),
+    isFetchingInvitation: false,
   })
 
   let component
@@ -42,7 +44,7 @@ describe('<LockPinCodeEnter />', () => {
     store = getStore()
 
     component = renderer.create(
-      <Provider store={store}>
+      <Provider store={getStore()}>
         <LockEnterPin {...props} />
       </Provider>,
       options
@@ -64,7 +66,7 @@ describe('<LockPinCodeEnter />', () => {
 
   it('redirect to pendingRedirection', () => {
     component.update(
-      <Provider store={store}>
+      <Provider store={getStore()}>
         <LockEnterPin {...props} existingPin={false} />
       </Provider>
     )

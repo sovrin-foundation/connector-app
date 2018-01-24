@@ -139,11 +139,25 @@ export type LockActions =
 
 export type LockEnterPinProps = {
   pendingRedirection: Array<PendingRedirection>,
+  isFetchingInvitation?: boolean,
   clearPendingRedirect: () => void,
   existingPin: boolean,
 } & ReactNavigation
 
+export type LockEnterFingerProps = {
+  pendingRedirection: Array<PendingRedirection>,
+  isFetchingInvitation?: boolean,
+  clearPendingRedirect: () => void,
+  unlockApp: () => void,
+} & ReactNavigation
+
 export type LockEnterPinState = {
+  authenticationSuccess: boolean,
+}
+export type LockEnterFingerState = {
+  authenticationSuccess: boolean,
+}
+export type LockEnterState = {
   interactionsDone: boolean,
 }
 
