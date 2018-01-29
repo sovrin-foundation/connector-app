@@ -9,7 +9,6 @@ function props() {
       isHydrated: true,
       isAlreadyInstalled: false,
       agencyUrl: 'https://agency.evernym.com',
-      callCenterUrl: 'https://cua.culedger.com',
     },
   }
 }

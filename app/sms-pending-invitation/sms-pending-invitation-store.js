@@ -55,14 +55,17 @@ export const smsPendingInvitationSeen = () => ({
 export const convertSmsPayloadToInvitation = (
   pendingInvitation: SMSPendingInvitationPayload
 ): InvitationPayload => ({
-  senderEndpoint: pendingInvitation.senderEndpoint,
+  senderEndpoint: pendingInvitation.senderAgencyDetail.endpoint,
   requestId: pendingInvitation.connReqId,
-  senderAgentKeyDelegationProof: pendingInvitation.senderAgentKeyDlgProof,
-  senderName: pendingInvitation.senderName,
-  senderDID: pendingInvitation.senderDID,
-  senderLogoUrl: pendingInvitation.senderLogoUrl,
-  senderVerificationKey: pendingInvitation.senderDIDVerKey,
+  senderAgentKeyDelegationProof:
+    pendingInvitation.senderDetail.agentKeyDlgProof,
+  senderName: pendingInvitation.senderDetail.name,
+  senderDID: pendingInvitation.senderDetail.DID,
+  senderLogoUrl: pendingInvitation.senderDetail.logoUrl,
+  senderVerificationKey: pendingInvitation.senderDetail.verKey,
   targetName: pendingInvitation.targetName,
+  senderAgencyDetail: pendingInvitation.senderAgencyDetail,
+  senderDetail: pendingInvitation.senderDetail,
 })
 
 export function* callSmsPendingInvitationRequest(
@@ -84,6 +87,7 @@ export function* callSmsPendingInvitationRequest(
     const pendingInvitationPayload = yield call(invitationDetailsRequest, {
       url: invitationLink.url,
     })
+
     yield put(smsPendingInvitationReceived(pendingInvitationPayload))
     yield put(
       invitationReceived({

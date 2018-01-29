@@ -45,7 +45,6 @@ describe('server environment should change', () => {
     const expectedConfig = {
       ...initialConfig,
       agencyUrl: baseUrls[SERVER_ENVIRONMENT.DEMO].agencyUrl,
-      callCenterUrl: baseUrls[SERVER_ENVIRONMENT.DEMO].callCenterUrl,
     }
 
     if (initialConfig) {
@@ -94,6 +93,13 @@ describe('hydration should work correctly', () => {
 
     gen.next()
     gen.next()
+    gen.next()
+
+    // hydrate user store
+    gen.next()
+    gen.next()
+
+    // hydrate app success
     gen.next()
 
     expect(gen.next().value).toEqual(put(hydrated()))

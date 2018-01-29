@@ -12,7 +12,7 @@ class DeepLink extends PureComponent {
   // and we will not be able to load connections
   // However, it will work if we kill the app and then open universal link
   // it will also work in case of fresh app installation, then also
-  // we should be able to get the deep link data
+  // we will get the deep link data
   onDeepLinkData = bundle => {
     if (bundle.error) {
       this.props.deepLinkError(bundle.error)

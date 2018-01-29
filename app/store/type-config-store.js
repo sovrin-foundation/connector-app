@@ -74,7 +74,6 @@ export type ConfigStore = {
   isHydrated: boolean,
   showErrorAlerts: boolean,
   agencyUrl: string,
-  callCenterUrl: string,
   agencyDID: string,
   agencyVerificationKey: string,
   poolConfig: ?string,

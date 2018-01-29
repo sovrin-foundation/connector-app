@@ -7,14 +7,24 @@ export const SCAN_STATUS = {
 }
 
 export type QrCode = {
-  lu: string,
-  rid: string,
-  sakdp: string,
-  sn: string,
-  tn: string,
-  sD: string,
-  sVk: string,
-  e: string,
+  id: string,
+  s: {
+    n: string,
+    dp: {
+      d: string,
+      k: string,
+      s: string,
+    },
+    d: string,
+    l: string,
+    v: string,
+  },
+  sa: {
+    d: string,
+    v: string,
+    e: string,
+  },
+  t: string,
 }
 
 type ValuesType = <V>(v: V) => V

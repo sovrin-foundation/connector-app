@@ -7,8 +7,28 @@ Object {
     "isFetching": false,
     "payload": Object {
       "requestId": "requestId1",
-      "senderAgentKeyDelegationProof": "proof",
+      "senderAgencyDetail": Object {
+        "DID": "senderDID1",
+        "endpoint": "endpoint",
+        "verKey": "senderVerificationKey1",
+      },
+      "senderAgentKeyDelegationProof": Object {
+        "agentDID": "senderAgentDID1",
+        "agentDelegatedKey": "agentDelegatedKey",
+        "signature": "signature",
+      },
       "senderDID": "senderDID1",
+      "senderDetail": Object {
+        "DID": "senderDID1",
+        "agentKeyDlgProof": Object {
+          "agentDID": "senderAgentDID1",
+          "agentDelegatedKey": "agentDelegatedKey",
+          "signature": "signature",
+        },
+        "logoUrl": "http://testissuer.com/logoUrl.png",
+        "name": "sender1",
+        "verKey": "senderVerificationKey1",
+      },
       "senderEndpoint": "endpoint",
       "senderLogoUrl": "lu",
       "senderName": "sender1",
@@ -27,8 +47,28 @@ Object {
     "isFetching": true,
     "payload": Object {
       "requestId": "requestId1",
-      "senderAgentKeyDelegationProof": "proof",
+      "senderAgencyDetail": Object {
+        "DID": "senderDID1",
+        "endpoint": "endpoint",
+        "verKey": "senderVerificationKey1",
+      },
+      "senderAgentKeyDelegationProof": Object {
+        "agentDID": "senderAgentDID1",
+        "agentDelegatedKey": "agentDelegatedKey",
+        "signature": "signature",
+      },
       "senderDID": "senderDID1",
+      "senderDetail": Object {
+        "DID": "senderDID1",
+        "agentKeyDlgProof": Object {
+          "agentDID": "senderAgentDID1",
+          "agentDelegatedKey": "agentDelegatedKey",
+          "signature": "signature",
+        },
+        "logoUrl": "http://testissuer.com/logoUrl.png",
+        "name": "sender1",
+        "verKey": "senderVerificationKey1",
+      },
       "senderEndpoint": "endpoint",
       "senderLogoUrl": "lu",
       "senderName": "sender1",
@@ -47,8 +87,28 @@ Object {
     "isFetching": false,
     "payload": Object {
       "requestId": "requestId1",
-      "senderAgentKeyDelegationProof": "proof",
+      "senderAgencyDetail": Object {
+        "DID": "senderDID1",
+        "endpoint": "endpoint",
+        "verKey": "senderVerificationKey1",
+      },
+      "senderAgentKeyDelegationProof": Object {
+        "agentDID": "senderAgentDID1",
+        "agentDelegatedKey": "agentDelegatedKey",
+        "signature": "signature",
+      },
       "senderDID": "senderDID1",
+      "senderDetail": Object {
+        "DID": "senderDID1",
+        "agentKeyDlgProof": Object {
+          "agentDID": "senderAgentDID1",
+          "agentDelegatedKey": "agentDelegatedKey",
+          "signature": "signature",
+        },
+        "logoUrl": "http://testissuer.com/logoUrl.png",
+        "name": "sender1",
+        "verKey": "senderVerificationKey1",
+      },
       "senderEndpoint": "endpoint",
       "senderLogoUrl": "lu",
       "senderName": "sender1",
@@ -70,8 +130,28 @@ Object {
     "isFetching": false,
     "payload": Object {
       "requestId": "requestId1",
-      "senderAgentKeyDelegationProof": "proof",
+      "senderAgencyDetail": Object {
+        "DID": "senderDID1",
+        "endpoint": "endpoint",
+        "verKey": "senderVerificationKey1",
+      },
+      "senderAgentKeyDelegationProof": Object {
+        "agentDID": "senderAgentDID1",
+        "agentDelegatedKey": "agentDelegatedKey",
+        "signature": "signature",
+      },
       "senderDID": "senderDID1",
+      "senderDetail": Object {
+        "DID": "senderDID1",
+        "agentKeyDlgProof": Object {
+          "agentDID": "senderAgentDID1",
+          "agentDelegatedKey": "agentDelegatedKey",
+          "signature": "signature",
+        },
+        "logoUrl": "http://testissuer.com/logoUrl.png",
+        "name": "sender1",
+        "verKey": "senderVerificationKey1",
+      },
       "senderEndpoint": "endpoint",
       "senderLogoUrl": "lu",
       "senderName": "sender1",
@@ -90,8 +170,28 @@ Object {
     "isFetching": false,
     "payload": Object {
       "requestId": "requestId1",
-      "senderAgentKeyDelegationProof": "proof",
+      "senderAgencyDetail": Object {
+        "DID": "senderDID1",
+        "endpoint": "endpoint",
+        "verKey": "senderVerificationKey1",
+      },
+      "senderAgentKeyDelegationProof": Object {
+        "agentDID": "senderAgentDID1",
+        "agentDelegatedKey": "agentDelegatedKey",
+        "signature": "signature",
+      },
       "senderDID": "senderDID1",
+      "senderDetail": Object {
+        "DID": "senderDID1",
+        "agentKeyDlgProof": Object {
+          "agentDID": "senderAgentDID1",
+          "agentDelegatedKey": "agentDelegatedKey",
+          "signature": "signature",
+        },
+        "logoUrl": "http://testissuer.com/logoUrl.png",
+        "name": "sender1",
+        "verKey": "senderVerificationKey1",
+      },
       "senderEndpoint": "endpoint",
       "senderLogoUrl": "lu",
       "senderName": "sender1",
@@ -105,8 +205,28 @@ Object {
     "isFetching": false,
     "payload": Object {
       "requestId": "requestId2",
-      "senderAgentKeyDelegationProof": "proof",
+      "senderAgencyDetail": Object {
+        "DID": "senderDID1",
+        "endpoint": "endpoint",
+        "verKey": "senderVerificationKey1",
+      },
+      "senderAgentKeyDelegationProof": Object {
+        "agentDID": "senderAgentDID1",
+        "agentDelegatedKey": "agentDelegatedKey",
+        "signature": "signature",
+      },
       "senderDID": "senderDID2",
+      "senderDetail": Object {
+        "DID": "senderDID1",
+        "agentKeyDlgProof": Object {
+          "agentDID": "senderAgentDID1",
+          "agentDelegatedKey": "agentDelegatedKey",
+          "signature": "signature",
+        },
+        "logoUrl": "http://testissuer.com/logoUrl.png",
+        "name": "sender1",
+        "verKey": "senderVerificationKey1",
+      },
       "senderEndpoint": "endpoint",
       "senderLogoUrl": "lu",
       "senderName": "sender2",
@@ -125,8 +245,28 @@ Object {
     "isFetching": false,
     "payload": Object {
       "requestId": "requestId1",
-      "senderAgentKeyDelegationProof": "proof",
+      "senderAgencyDetail": Object {
+        "DID": "senderDID1",
+        "endpoint": "endpoint",
+        "verKey": "senderVerificationKey1",
+      },
+      "senderAgentKeyDelegationProof": Object {
+        "agentDID": "senderAgentDID1",
+        "agentDelegatedKey": "agentDelegatedKey",
+        "signature": "signature",
+      },
       "senderDID": "senderDID1",
+      "senderDetail": Object {
+        "DID": "senderDID1",
+        "agentKeyDlgProof": Object {
+          "agentDID": "senderAgentDID1",
+          "agentDelegatedKey": "agentDelegatedKey",
+          "signature": "signature",
+        },
+        "logoUrl": "http://testissuer.com/logoUrl.png",
+        "name": "sender1",
+        "verKey": "senderVerificationKey1",
+      },
       "senderEndpoint": "endpoint",
       "senderLogoUrl": "lu",
       "senderName": "sender1",

@@ -93,6 +93,7 @@ const mapStateToProps = (state: Store) => ({
   pendingRedirectionParams: state.lock.pendingRedirectionParams || {},
   isFetchingInvitation: state.smsPendingInvitation.isFetching,
 })
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {

@@ -48,6 +48,7 @@ export default class AvatarsPair extends PureComponent {
     )
   }
 }
+
 const styles = StyleSheet.create({
   avatarsContainer: {
     marginVertical: OFFSET_1X,

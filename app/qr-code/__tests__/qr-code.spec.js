@@ -2,60 +2,41 @@
 import React from 'react'
 import 'react-native'
 import renderer from 'react-test-renderer'
-import { Provider } from 'react-redux'
 import {
   qrCodeScannerTabRoute,
   invitationRoute,
   homeTabRoute,
 } from '../../common/'
-import ConnectedQRCodeScannerScreen, {
-  QRCodeScannerScreen,
-  convertQrCodeToInvitation,
-} from '../qr-code'
+import { QRCodeScannerScreen, convertQrCodeToInvitation } from '../qr-code'
+import { getNavigation, qrData } from '../../../__mocks__/static-data'
 
 describe('<QRScannerScreen />', () => {
-  let store = {}
-  let dispatch
   let navigation
-  const qrData = {
-    lu: 'http://logourl.com',
-    rid: 'requestid',
-    sakdp: 'senderAgentKeyDlgProof',
-    sn: 'senderName',
-    tn: 'targetName',
-    sD: 'senderDID',
-    sVk: 'senderVerificationKey',
-    e: 'https://endpoint.com',
-  }
+  let invitationReceived
+  let component
 
-  beforeAll(() => {
-    dispatch = jest.fn()
-    store = {
-      getState() {
-        return {
-          route: {
-            currentScreen: qrCodeScannerTabRoute,
-          },
-        }
-      },
-      subscribe() {
-        return jest.fn()
-      },
-      dispatch,
-    }
-    navigation = {
-      navigate: jest.fn(),
-    }
+  beforeEach(() => {
+    navigation = getNavigation()
+    invitationReceived = jest.fn()
+    component = renderer.create(
+      <QRCodeScannerScreen
+        invitationReceived={invitationReceived}
+        navigation={navigation}
+        currentScreen={qrCodeScannerTabRoute}
+      />
+    )
   })
 
   it('should match snapshot', () => {
-    const component = renderer.create(
-      <Provider store={store}>
-        <ConnectedQRCodeScannerScreen />
-      </Provider>
-    )
+    const instance = component.getInstance()
+    instance.setState({ isCameraAuthorized: true })
+
     let tree = component.toJSON()
     expect(tree).toMatchSnapshot()
+  })
+
+  it('match snapshot when camera is not authorized', () => {
+    expect(component.toJSON()).toMatchSnapshot()
   })
 
   it('should convert qr code to invitation', () => {
@@ -63,16 +44,7 @@ describe('<QRScannerScreen />', () => {
   })
 
   it('should redirect user to invitation screen on success read', () => {
-    const invitationReceived = jest.fn()
-    const instance = renderer
-      .create(
-        <QRCodeScannerScreen
-          invitationReceived={invitationReceived}
-          navigation={navigation}
-          currentScreen={qrCodeScannerTabRoute}
-        />
-      )
-      .getInstance()
+    const instance = component.getInstance()
 
     instance.onRead(qrData)
     expect(invitationReceived).toHaveBeenCalledWith(
@@ -81,14 +53,12 @@ describe('<QRScannerScreen />', () => {
       })
     )
     expect(navigation.navigate).toHaveBeenCalledWith(invitationRoute, {
-      senderDID: qrData.sD,
+      senderDID: qrData.s.d,
     })
   })
 
   it('should navigate back to home if qr code scanner is closed', () => {
-    const instance = renderer
-      .create(<QRCodeScannerScreen navigation={navigation} />)
-      .getInstance()
+    const instance = component.getInstance()
     instance.onClose()
     expect(navigation.navigate).toHaveBeenCalledWith(homeTabRoute)
   })

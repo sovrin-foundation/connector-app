@@ -1,15 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<QRScannerScreen /> match snapshot when camera is not authorized 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+/>
+`;
+
 exports[`<QRScannerScreen /> should convert qr code to invitation 1`] = `
 Object {
-  "requestId": "requestid",
-  "senderAgentKeyDelegationProof": "senderAgentKeyDlgProof",
-  "senderDID": "senderDID",
-  "senderEndpoint": "https://endpoint.com",
-  "senderLogoUrl": "http://logourl.com",
-  "senderName": "senderName",
-  "senderVerificationKey": "senderVerificationKey",
-  "targetName": "targetName",
+  "requestId": "yta2odh",
+  "senderAgencyDetail": Object {
+    "DID": "BDSmVkzxRYGE4HKyMKxd1H",
+    "endpoint": "52.38.32.107:80/agency/msg",
+    "verKey": "6yUatReYWNSUfEtC2ABgRXmmLaxCyQqsjLwv2BomxsxD",
+  },
+  "senderAgentKeyDelegationProof": Object {
+    "agentDID": "N2Uyi6SVsHZq1VWXuA3EMg",
+    "agentDelegatedKey": "CTfF2sZ5q4oPcBvTP75pgx3WGzYiLSTwHGg9zUsJJegi",
+    "signature": "/FxHMzX8JaH461k1SI5PfyxF5KwBAe6VlaYBNLI2aSZU3APsiWBfvSC+mxBYJ/zAhX9IUeTEX67fj+FCXZZ2Cg==",
+  },
+  "senderDID": "F2axeahCaZfbUYUcKefc3j",
+  "senderDetail": Object {
+    "DID": "F2axeahCaZfbUYUcKefc3j",
+    "agentKeyDlgProof": Object {
+      "agentDID": "N2Uyi6SVsHZq1VWXuA3EMg",
+      "agentDelegatedKey": "CTfF2sZ5q4oPcBvTP75pgx3WGzYiLSTwHGg9zUsJJegi",
+      "signature": "/FxHMzX8JaH461k1SI5PfyxF5KwBAe6VlaYBNLI2aSZU3APsiWBfvSC+mxBYJ/zAhX9IUeTEX67fj+FCXZZ2Cg==",
+    },
+    "logoUrl": "ent-logo-url",
+    "name": "ent-name",
+    "verKey": "74xeXSEac5QTWzQmh84JqzjuXc8yvXLzWKeiqyUnYokx",
+  },
+  "senderEndpoint": "52.38.32.107:80/agency/msg",
+  "senderLogoUrl": "ent-logo-url",
+  "senderName": "ent-name",
+  "senderVerificationKey": "74xeXSEac5QTWzQmh84JqzjuXc8yvXLzWKeiqyUnYokx",
+  "targetName": "there",
 }
 `;
 

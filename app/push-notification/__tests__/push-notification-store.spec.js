@@ -1,14 +1,20 @@
-import { call, select } from 'redux-saga/effects'
-import { getAgencyUrl, getAllConnection } from '../../store/store-selector'
+import { call, select, take } from 'redux-saga/effects'
+import {
+  getAgencyUrl,
+  getAgencyVerificationKey,
+  getHydrationState,
+  getUserOneTimeInfo,
+} from '../../store/store-selector'
 import pushNotificationReducer, {
   pushNotificationPermissionAction,
   pushNotificationReceived,
   updatePushToken,
   onPushTokenUpdate,
 } from '../push-notification-store'
-import { encrypt } from '../../bridge/react-native-cxs/RNCxs'
-import { sendUpdatedPushToken } from '../../api/api'
+import { updatePushToken as updatePushTokenApi } from '../../bridge/react-native-cxs/RNCxs'
 import { PAYLOAD_TYPE } from '../../api/api-constants'
+import { userOneTimeInfo } from '../../../__mocks__/static-data'
+import { CONNECT_REGISTER_CREATE_AGENT_DONE } from '../../store/user/type-user-store'
 
 describe('push notification store should work properly', () => {
   let initialState = {}
@@ -59,57 +65,30 @@ describe('push notification store should work properly', () => {
     const pushToken = 'test:APA91bFOyY3at1DzdKO-Z4G_5dG12cXvKC1GuICX3jH'
     const gen = onPushTokenUpdate(updatePushToken(pushToken))
     expect(gen.next().value).toMatchObject(select(getAgencyUrl))
+
     const agencyUrl = 'https://agencyurl.com'
+    expect(gen.next(agencyUrl).value).toEqual(select(getHydrationState))
 
-    expect(gen.next(agencyUrl).value).toMatchObject(select(getAllConnection))
-    const DID1 = '3KEhz3HjghBmeiTpX4aN4n'
-    const DID2 = '3KEhz3HjghBmeiTpX4aN44'
-    const connections = {
-      [DID1]: {
-        identifier: '3KEhz3HjghBmeiTpX4aN4n',
-        logoUrl: 'https://agent.com/agent/profile/logo',
-        name: 'Test',
-        remoteConnectionId: 'XENwK1yyikGG9iMMutnsjB',
-        remoteDID: 'B4Y9fhpeHdGHBKKtSgAYrB',
-        seed: '4g33i88Gd1jfKhhci611SNximzeFh61S',
-      },
-      [DID2]: {
-        identifier: '3KEhz3HjghBmeiTpX4aN44',
-        logoUrl: 'https://agent.com/agent/profile/logo',
-        name: 'Test',
-        remoteConnectionId: 'XENwK1yyikGG9iMMutnsjC',
-        remoteDID: 'B4Y9fhpeHdGHBKKtSgAYrB',
-        seed: '4g33i88Gd1jfKhhci611SNximzeFh61Z',
-      },
-    }
+    const hydrationState = true
+    expect(gen.next(hydrationState).value).toEqual(select(getUserOneTimeInfo))
 
-    const dataBody = {
-      to: DID1,
-      agentPayload: JSON.stringify({
-        type: PAYLOAD_TYPE.UPDATE_PUSH_COM_METHOD,
-        pushComMethod: `FCM:${pushToken}`,
-      }),
-    }
-
-    expect(gen.next(connections).value).toMatchObject(
-      call(sendUpdatedPushToken, {
-        agencyUrl,
-        dataBody,
-      })
+    expect(gen.next().value).toMatchObject(
+      take(CONNECT_REGISTER_CREATE_AGENT_DONE)
     )
 
-    const dataBody2 = {
-      to: DID2,
-      agentPayload: JSON.stringify({
-        type: PAYLOAD_TYPE.UPDATE_PUSH_COM_METHOD,
-        pushComMethod: `FCM:${pushToken}`,
-      }),
-    }
+    expect(gen.next({ userOneTimeInfo }).value).toEqual(
+      select(getAgencyVerificationKey)
+    )
 
-    expect(gen.next(connections).value).toMatchObject(
-      call(sendUpdatedPushToken, {
-        agencyUrl,
-        dataBody: dataBody2,
+    const agencyVerificationKey = 'agencyVerificationKey'
+    expect(gen.next(agencyVerificationKey).value).toEqual(
+      call(updatePushTokenApi, {
+        url: `${agencyUrl}/agency/msg`,
+        token: `FCM:${pushToken}`,
+        myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
+        myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
+        myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
+        myAgencyVerKey: agencyVerificationKey,
       })
     )
 

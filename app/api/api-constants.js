@@ -1,19 +1,26 @@
 // @flow
 
-export const TOKEN_EXPIRED_CODE = 'MS-107'
+export const TOKEN_EXPIRED_CODE = 'VES-101'
 export const SERVER_ERROR_CODE = 'OCS-000'
 export const SERVER_API_CALL_ERROR = 'OCS-001'
 export const PENDING_CONNECTION_REQUEST_CODE = 'CRS-103'
 export const PUSH_NOTIFICATION_SENT_CODE = 'push-notification-sent'
 
-export const QR_CODE_SENDER_DID = 'sD'
-export const QR_CODE_SENDER_VERIFICATION_KEY = 'sVk'
-export const QR_CODE_LOGO_URL = 'lu'
-export const QR_CODE_REQUEST_ID = 'rid'
-export const QR_CODE_AGENT_PROOF = 'sakdp'
-export const QR_CODE_SENDER_NAME = 'sn'
-export const QR_CODE_TARGET_NAME = 'tn'
-export const QR_CODE_SENDER_ENDPOINT = 'e'
+export const QR_CODE_REQUEST_ID = 'id'
+export const QR_CODE_SENDER_DETAIL = 's'
+export const QR_CODE_SENDER_DID = 'd'
+export const QR_CODE_SENDER_NAME = 'n'
+export const QR_CODE_LOGO_URL = 'l'
+export const QR_CODE_SENDER_VERIFICATION_KEY = 'v'
+export const QR_CODE_SENDER_KEY_DELEGATION = 'dp'
+export const QR_CODE_DELEGATION_DID = 'd'
+export const QR_CODE_DELEGATION_KEY = 'k'
+export const QR_CODE_DELEGATION_SIGNATURE = 's'
+export const QR_CODE_SENDER_AGENCY = 'sa'
+export const QR_CODE_SENDER_AGENCY_DID = 'd'
+export const QR_CODE_SENDER_AGENCY_KEY = 'v'
+export const QR_CODE_SENDER_AGENCY_ENDPOINT = 'e'
+export const QR_CODE_TARGET_NAME = 't'
 
 export const MESSAGE_TYPE = {
   AUTH: 'auth-req',
@@ -22,14 +29,6 @@ export const MESSAGE_TYPE = {
   PROOF_REQUEST: 'proofReq',
   PROOF: 'proof',
   CLAIM: 'claim',
-}
-
-export const API_TYPE = {
-  CONNECT: 'CONNECT',
-  REGISTER: 'REGISTER',
-  CREATE_AGENT: 'CREATE_AGENT',
-  INVITE_ANSWERED: 'INVITE_ANSWERED',
-  CREATE_KEY: 'CREATE_KEY',
 }
 
 export const PAYLOAD_TYPE = {

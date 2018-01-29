@@ -12,17 +12,32 @@ export type SMSPendingInvitationStatusType = $Keys<
   typeof SMSPendingInvitationStatus
 >
 
+export type AgentKeyDelegationProof = {
+  agentDID: string,
+  agentDelegatedKey: string,
+  signature: string,
+}
+
+export type InvitationSenderDetail = {
+  name: string,
+  agentKeyDlgProof: AgentKeyDelegationProof,
+  DID: string,
+  logoUrl: string,
+  verKey: string,
+}
+
+export type InvitationSenderAgencyDetail = {
+  DID: string,
+  verKey: string,
+  endpoint: string,
+}
+
 export type SMSPendingInvitationPayload = {
   connReqId: string,
-  targetName: string,
-  senderName: string,
-  senderLogoUrl: string,
   statusCode: string,
-  senderDID: string,
-  senderEndpoint: string,
-  senderDIDVerKey: string,
+  senderDetail: InvitationSenderDetail,
+  senderAgencyDetail: InvitationSenderAgencyDetail,
   targetName: string,
-  senderAgentKeyDlgProof: string,
 }
 
 export type SMSPendingInvitationStore = {

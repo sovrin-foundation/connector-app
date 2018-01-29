@@ -5,9 +5,12 @@ import { CONNECTIONS } from '../common'
 import { getAgencyUrl } from './store-selector'
 import { color } from '../common/styles/constant'
 import { bubbleSize } from '../common/styles'
-import { encrypt } from '../bridge/react-native-cxs/RNCxs'
 import type { CustomError, GenericObject } from '../common/type-common'
-import type { ConnectionStore, Connection } from './type-connection-store'
+import type {
+  ConnectionStore,
+  Connection,
+  Connections,
+} from './type-connection-store'
 import { NEW_CONNECTION } from './type-connection-store'
 
 const UPDATE_CONNECTION_THEME = 'UPDATE_CONNECTION_THEME'
@@ -79,8 +82,18 @@ export const saveNewConnectionFailed = (error: CustomError) => ({
 export function* loadNewConnectionSaga(
   action: GenericObject
 ): Generator<*, *, *> {
-  const { identifier, logoUrl, senderDID, senderEndpoint, senderName } = (action
-    .connection.newConnection: Connection)
+  const {
+    identifier,
+    logoUrl,
+    senderDID,
+    senderEndpoint,
+    senderName,
+    myPairwiseDid,
+    myPairwiseVerKey,
+    myPairwiseAgentDid,
+    myPairwiseAgentVerKey,
+    myPairwisePeerVerKey,
+  }: Connection = action.connection.newConnection
 
   try {
     const connection = {
@@ -89,6 +102,11 @@ export function* loadNewConnectionSaga(
       senderDID,
       senderEndpoint,
       senderName,
+      myPairwiseDid,
+      myPairwiseVerKey,
+      myPairwiseAgentDid,
+      myPairwiseAgentVerKey,
+      myPairwisePeerVerKey,
     }
 
     //TODO:Add a middleware which will periodically save redux store to secure storage.
@@ -110,7 +128,7 @@ export function* watchNewConnection(): Generator<*, *, *> {
   yield takeLatest(NEW_CONNECTION, loadNewConnectionSaga)
 }
 
-export const hydrateConnections = (connections: Array<Connection>) => ({
+export const hydrateConnections = (connections: Connections) => ({
   type: HYDRATE_CONNECTIONS,
   connections,
 })

@@ -18,8 +18,13 @@ import {
   getUserPairwiseDid,
   getAgencyUrl,
   getProof,
+  getUserOneTimeInfo,
+  getAgencyVerificationKey,
+  getRemotePairwiseDidAndName,
 } from '../../store/store-selector'
-import { sendProof as sendProofApi } from '../../api/api'
+
+import { MESSAGE_TYPE } from '../../api/api-constants'
+import { sendMessage } from '../../bridge/react-native-cxs/RNCxs'
 import {
   proofRequest,
   proofRequestId as uid,
@@ -119,13 +124,52 @@ describe('proof request store', () => {
       remoteDid,
       userPairwiseDid,
     }
-    const expectedApiData = {
-      proof,
-      agencyUrl,
-      userPairwiseDid,
-      responseMsgId: uid,
+
+    expect(gen.next(payload).value).toEqual(select(getAgencyVerificationKey))
+
+    const agencyVerificationKey = 'agencyVerificationKey'
+    expect(gen.next(agencyVerificationKey).value).toEqual(
+      select(getRemotePairwiseDidAndName, userPairwiseDid)
+    )
+
+    const connection = {
+      identifier: userPairwiseDid,
+      senderDID: remoteDid,
+      myPairwiseDid: userPairwiseDid,
+      myPairwiseVerKey: 'myPairwiseVerKey',
+      myPairwiseAgentDid: 'myPairwiseAgentDid',
+      myPairwiseAgentVerKey: 'myPairwiseAgentVerKey',
+      myPairwisePeerVerKey: 'myPairwisePeerVerKey',
     }
-    expect(gen.next(payload).value).toEqual(call(sendProofApi, expectedApiData))
+    expect(gen.next(connection).value).toEqual(select(getUserOneTimeInfo))
+
+    const userOneTimeInfo = {
+      oneTimeAgencyDid: 'oneTimeAgencyDid',
+      oneTimeAgencyVerificationKey: 'oneTimeAgencyVerificationKey',
+      myOneTimeDid: 'myOneTimeDid',
+      myOneTimeVerificationKey: 'myOneTimeVerificationKey',
+      myOneTimeAgentDid: 'myOneTimeAgentDid',
+      myOneTimeAgentVerificationKey: 'myOneTimeAgentVerificationKey',
+    }
+    const url = `${agencyUrl}/agency/msg`
+    expect(gen.next(userOneTimeInfo).value).toEqual(
+      call(sendMessage, {
+        url,
+        messageType: MESSAGE_TYPE.PROOF,
+        messageReplyId: uid,
+        message: JSON.stringify(proof),
+        myPairwiseDid: connection.myPairwiseDid,
+        myPairwiseVerKey: connection.myPairwiseVerKey,
+        myPairwiseAgentDid: connection.myPairwiseAgentDid,
+        myPairwiseAgentVerKey: connection.myPairwiseAgentVerKey,
+        myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
+        myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
+        myOneTimeDid: userOneTimeInfo.myOneTimeDid,
+        myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
+        myAgencyVerKey: agencyVerificationKey,
+        myPairwisePeerVerKey: connection.myPairwisePeerVerKey,
+      })
+    )
 
     // if message id matches then, saga should stop and put success action
     expect(gen.next().value).toMatchObject(put(sendProofSuccess(uid)))

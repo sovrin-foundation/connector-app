@@ -10,6 +10,7 @@ import claimOfferStore, {
   claimRequestFail,
   claimOfferAccepted,
   acceptClaimOffer,
+  convertClaimRequestToEdgeClaimRequest,
 } from '../claim-offer-store'
 import { CLAIM_OFFER_ACCEPTED } from '../type-claim-offer'
 import { INITIAL_TEST_ACTION } from '../../common/type-common'
@@ -18,13 +19,19 @@ import {
   getClaimOffer,
   getUserPairwiseDid,
   getAgencyUrl,
+  getUserOneTimeInfo,
+  getAgencyVerificationKey,
+  getRemotePairwiseDidAndName,
 } from '../../store/store-selector'
-import { generateClaimRequest } from '../../bridge/react-native-cxs/RNCxs'
-import { sendClaimRequest as sendClaimRequestApi } from '../../api/api'
+import {
+  generateClaimRequest,
+  sendMessage,
+} from '../../bridge/react-native-cxs/RNCxs'
 import {
   CLAIM_STORAGE_FAIL,
   CLAIM_STORAGE_SUCCESS,
 } from '../../claim/type-claim'
+import { MESSAGE_TYPE } from '../../api/api-constants'
 import {
   claimOffer,
   claimOfferId as uid,
@@ -122,19 +129,72 @@ describe('claim offer store', () => {
       call(generateClaimRequest, remoteDid, expectedIndyClaimOffer)
     )
 
-    const expectedApiData = {
-      claimRequest: {
-        ...claimRequest,
-        remoteDid,
-        userPairwiseDid,
+    const claimRequest = {
+      blinded_ms: {
+        prover_did: userPairwiseDid,
+        u: 'u',
+        ur: 'ur',
       },
-      agencyUrl,
-      userPairwiseDid,
-      responseMsgId: uid,
+      schema_seq_no: 12,
+      issuer_did: 'issuer_did',
     }
+
     expect(gen.next(JSON.stringify(claimRequest)).value).toEqual(
-      call(sendClaimRequestApi, expectedApiData)
+      select(getUserOneTimeInfo)
     )
+
+    const userOneTimeInfo = {
+      oneTimeAgencyDid: 'oneTimeAgencyDid',
+      oneTimeAgencyVerificationKey: 'oneTimeAgencyVerificationKey',
+      myOneTimeDid: 'myOneTimeDid',
+      myOneTimeVerificationKey: 'myOneTimeVerificationKey',
+      myOneTimeAgentDid: 'myOneTimeAgentDid',
+      myOneTimeAgentVerificationKey: 'myOneTimeAgentVerificationKey',
+    }
+    expect(gen.next(userOneTimeInfo).value).toEqual(
+      select(getAgencyVerificationKey)
+    )
+
+    const agencyVerificationKey = 'agencyVerificationKey'
+    expect(gen.next(agencyVerificationKey).value).toEqual(
+      select(getRemotePairwiseDidAndName, userPairwiseDid)
+    )
+
+    const connection = {
+      identifier: userPairwiseDid,
+      senderDID: remoteDid,
+      myPairwiseDid: userPairwiseDid,
+      myPairwiseVerKey: 'myPairwiseVerKey',
+      myPairwiseAgentDid: 'myPairwiseAgentDid',
+      myPairwiseAgentVerKey: 'myPairwiseAgentVerKey',
+      myPairwisePeerVerKey: 'myPairwisePeerVerKey',
+    }
+
+    const url = `${agencyUrl}/agency/msg`
+    const expectedData = {
+      url,
+      messageType: MESSAGE_TYPE.CLAIM_REQUEST,
+      messageReplyId: uid,
+      message: JSON.stringify(
+        convertClaimRequestToEdgeClaimRequest({
+          ...claimRequest,
+          remoteDid,
+          userPairwiseDid,
+        })
+      ),
+      myPairwiseDid: connection.myPairwiseDid,
+      myPairwiseVerKey: connection.myPairwiseVerKey,
+      myPairwiseAgentDid: connection.myPairwiseAgentDid,
+      myPairwiseAgentVerKey: connection.myPairwiseAgentVerKey,
+      myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
+      myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
+      myOneTimeDid: userOneTimeInfo.myOneTimeDid,
+      myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
+      myAgencyVerKey: agencyVerificationKey,
+      myPairwisePeerVerKey: connection.myPairwisePeerVerKey,
+    }
+
+    expect(gen.next(connection).value).toEqual(call(sendMessage, expectedData))
 
     expect(gen.next().value).toEqual(
       race({
@@ -159,5 +219,22 @@ describe('claim offer store', () => {
     )
 
     expect(gen.next().done).toBe(true)
+  })
+})
+
+describe('convertClaimRequestToEdgeClaimRequest', () => {
+  it('should convert correctly', () => {
+    const edgeClaimRequest = convertClaimRequestToEdgeClaimRequest({
+      blinded_ms: {
+        prover_did: 'userPairwiseDid',
+        u: 'u',
+        ur: 'ur',
+      },
+      schema_seq_no: 12,
+      issuer_did: 'issuer_did',
+      remoteDid: 'remoteDid',
+      userPairwiseDid: 'userPairwiseDid',
+    })
+    expect(edgeClaimRequest).toMatchSnapshot()
   })
 })

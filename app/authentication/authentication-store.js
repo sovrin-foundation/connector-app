@@ -17,7 +17,6 @@ import type {
   ResetAuthenticationStatus,
   AuthenticationRequestReceived,
 } from './type-authentication'
-import { encrypt } from '../bridge/react-native-cxs/RNCxs'
 
 export const AUTHENTICATION_STATUS: AuthenticationStatus = {
   ACCEPTED: 'accepted',
@@ -100,7 +99,8 @@ function* handleUserAuthenticationResponse(
     let authenticationActionResponse = null
     if (authenticationType == AUTHENTICATION_TYPE.AUTHENTICATION_REQUEST) {
       const { remoteConnectionId, dataBody: { challenge } } = action.data
-      const signature = yield call(encrypt, remoteConnectionId, challenge)
+      // TODO: Fix authentication flow
+      const signature = ''
       // add signature
       action.data.dataBody.signature = signature
 

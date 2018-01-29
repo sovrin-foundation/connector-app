@@ -44,14 +44,25 @@ describe('QR Scanner validator', () => {
 
   it('should return data for valid schema', () => {
     const validSchema = {
-      lu: '',
-      rid: '',
-      sakdp: '',
-      sn: '',
-      tn: '',
-      sD: '',
-      sVk: '',
-      e: '',
+      id: 'yta2odh',
+      s: {
+        n: 'ent-name',
+        dp: {
+          d: 'N2Uyi6SVsHZq1VWXuA3EMg',
+          k: 'CTfF2sZ5q4oPcBvTP75pgx3WGzYiLSTwHGg9zUsJJegi',
+          s:
+            '/FxHMzX8JaH461k1SI5PfyxF5KwBAe6VlaYBNLI2aSZU3APsiWBfvSC+mxBYJ/zAhX9IUeTEX67fj+FCXZZ2Cg==',
+        },
+        d: 'F2axeahCaZfbUYUcKefc3j',
+        l: 'ent-logo-url',
+        v: '74xeXSEac5QTWzQmh84JqzjuXc8yvXLzWKeiqyUnYokx',
+      },
+      sa: {
+        d: 'BDSmVkzxRYGE4HKyMKxd1H',
+        v: '6yUatReYWNSUfEtC2ABgRXmmLaxCyQqsjLwv2BomxsxD',
+        e: '52.38.32.107:80/agency/msg',
+      },
+      t: 'there',
     }
 
     expect(isValidQrCode(JSON.stringify(validSchema))).toMatchSnapshot()

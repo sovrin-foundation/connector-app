@@ -79,6 +79,7 @@ export const CustomView = props => {
       {filteredProps.children}
     </View>
   )
+
   if (onPress || onLongPress) {
     let touchProps = {}
     if (typeof props.testID !== 'undefined') {

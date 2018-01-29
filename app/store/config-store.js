@@ -37,12 +37,10 @@ import { appHydration } from './hydration-store'
 
 export const baseUrls = {
   [SERVER_ENVIRONMENT.SANDBOX]: {
-    agencyUrl: 'https://agency-sandbox.evernym.com',
-    callCenterUrl: 'https://agency-ea-sandbox.evernym.com',
+    agencyUrl: 'https://cagency.pdev.evernym.com',
   },
   [SERVER_ENVIRONMENT.DEMO]: {
-    agencyUrl: 'https://agency.evernym.com',
-    callCenterUrl: 'https://cua.culedger.com',
+    agencyUrl: 'https://agency-sandbox.evernym.com',
   },
 }
 
@@ -60,8 +58,8 @@ const initialState: ConfigStore = {
   // it will help in case user has not completed pin setup
   // and kills the app for first time
   // next time user opens the app, he won't be asked to setup pin
-  agencyDID: '5qiK8KZQ86XjcnLmy5S2Tn',
-  agencyVerificationKey: '3dzsPMyBeJiGtsxWoyrfXZL6mqj3iXxdJ75vewJ1jSwn',
+  agencyDID: 'U5okhuLX1vtfPfpEh1W2GR',
+  agencyVerificationKey: 'Fm9H5zDJpLtWTFa3YtxpnRThrzr5dT7sPtq15mJ4bhin',
   poolConfig: null,
 }
 export const hydrated = () => ({
@@ -165,7 +163,7 @@ export function* alreadyInstalledNotFound(): Generator<*, *, *> {
 }
 
 export function* hydrateConfig(): Generator<*, *, *> {
-  let isAlreadyInstalled
+  let isAlreadyInstalled = false
   try {
     isAlreadyInstalled = yield call(AsyncStorage.getItem, IS_ALREADY_INSTALLED)
     if (isAlreadyInstalled) {

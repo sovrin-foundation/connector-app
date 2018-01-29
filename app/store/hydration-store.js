@@ -1,25 +1,29 @@
+// @flow
 import { takeLatest, call, put } from 'redux-saga/effects'
 import { getItem, deleteItem } from '../services/secure-storage'
 import { updatePushToken } from '../push-notification/push-notification-store'
 import { hydrateConnections } from '../store/connections-store'
-// import { loadHistory } from '../connection-history/connection-history-store'
-import { CONNECTIONS, PUSH_COM_METHOD } from '../common'
+import {
+  CONNECTIONS,
+  PUSH_COM_METHOD,
+  IS_CONSUMER_AGENT_ALREADY_CREATED,
+} from '../common'
 import { TOUCHID_STORAGE_KEY } from '../lock/type-lock'
+import type { CustomError } from '../common/type-common'
+import {
+  HYDRATE_APP,
+  HYDRATE_APP_FAIL,
+  HYDRATE_APP_SUCCESS,
+  hydrationInitialState as initialState,
+} from './type-hydration-store'
+import type {
+  HydrationStoreAction,
+  HydrationStore,
+} from './type-hydration-store'
+import { hydrateUserStoreSaga } from './user/user-store'
+import { STORAGE_KEY_USER_ONE_TIME_INFO } from './user/type-user-store'
 
-const initialState = {
-  error: {
-    code: '',
-    message: '',
-  },
-  isFetching: false,
-  isPristine: true,
-}
-
-export const HYDRATE_APP = 'HYDRATE_APP'
-export const HYDRATE_APP_SUCCESS = 'HYDRATE_APP_SUCCESS'
-export const HYDRATE_APP_FAIL = 'HYDRATE_APP_FAIL'
-
-export const hydrateApp = isAlreadyInstalled => ({
+export const hydrateApp = (isAlreadyInstalled: boolean) => ({
   type: HYDRATE_APP,
   isAlreadyInstalled,
 })
@@ -28,12 +32,14 @@ export const hydrateAppSuccess = () => ({
   type: HYDRATE_APP_SUCCESS,
 })
 
-export const hydrateAppFail = error => ({
+export const hydrateAppFail = (error: CustomError) => ({
   type: HYDRATE_APP_FAIL,
   error,
 })
 
-export function* appHydration(action) {
+export function* appHydration(action: {
+  isAlreadyInstalled: boolean,
+}): Generator<*, *, *> {
   try {
     let connections = {}
     if (action.isAlreadyInstalled) {
@@ -48,16 +54,21 @@ export function* appHydration(action) {
       // this is the fresh installation of app
       // delete previous stored connections
       yield call(deleteItem, CONNECTIONS)
+      yield call(deleteItem, IS_CONSUMER_AGENT_ALREADY_CREATED)
+      yield call(deleteItem, STORAGE_KEY_USER_ONE_TIME_INFO)
     }
     yield put(hydrateConnections(connections))
+    yield* hydrateUserStoreSaga()
     yield put(hydrateAppSuccess())
-    // yield put(loadHistory())
   } catch (e) {
     yield put(hydrateAppFail(e))
   }
 }
 
-export default function hydration(state = initialState, action) {
+export default function hydration(
+  state: HydrationStore = initialState,
+  action: HydrationStoreAction
+) {
   switch (action.type) {
     case HYDRATE_APP:
       return {

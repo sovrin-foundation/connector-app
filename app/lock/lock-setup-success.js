@@ -46,9 +46,11 @@ export class LockSetupSuccess extends PureComponent {
       this.props.navigation.state.params.changePin === true
         ? 'Your connect.me app is secured.'
         : 'Your connect.me app is now secured'
+
     if (isFetchingInvitation === true) {
       message = UNLOCKING_APP_WAIT_MESSAGE
     }
+
     return (
       <Container tertiary>
         <Container clearBg center style={[style.successContainer]}>

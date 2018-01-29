@@ -11,11 +11,7 @@ import smsPendingInvitationReducer, {
 } from '../sms-pending-invitation-store'
 import { SMSPendingInvitationStatus } from '../type-sms-pending-invitation'
 import { getInvitationLink, invitationDetailsRequest } from '../../api/api'
-import {
-  PENDING_CONNECTION_REQUEST_CODE,
-  API_TYPE,
-} from '../../api/api-constants'
-import { encrypt } from '../../bridge/react-native-cxs/RNCxs'
+import { PENDING_CONNECTION_REQUEST_CODE } from '../../api/api-constants'
 import { initialTestAction } from '../../common/type-common'
 import { invitationReceived } from '../../invitation/invitation-store'
 
@@ -29,15 +25,27 @@ describe('SMS Connection Request store', () => {
   const smsToken = 'gm76ku'
 
   const payload = {
-    connReqId: '123asd',
-    targetName: 'Test',
-    senderName: 'Evernym, Inc',
-    senderLogoUrl: 'http://test-agency.com/logo',
-    senderDID: '5iZiu2aLYrQXSdon123456',
-    senderEndpoint: '192.168.1.1:80',
-    senderDIDVerKey: '12345rD1ybsSR9hKWBePkRSZdnYHAv4KQ8XxcWHHasdf',
-    senderAgentKeyDlgProof: 'delegate proof',
-    statusCode: 'MS-000',
+    statusCode: 'MS-102',
+    connReqId: 'nzc5ztz',
+    senderDetail: {
+      name: 'default',
+      agentKeyDlgProof: {
+        agentDID: 'EHNMj5FNjA3xBo8HUKQTZv',
+        agentDelegatedKey: '8Esrno7vguYbwVJDa31aMCdWJTu2tC7tke8u2iKUUvgB',
+        signature:
+          'OXtzqX9LJJsBY/Mrhjff6b9L79Pdg8U4B7dI/3RR65BJr5jktAGMwpMLe1aQRQT0FlplZfNy8QtUd4KNPd+ZAg==',
+      },
+      DID: '3Bb6zCYMoGnMTho97HGDrn',
+      logoUrl: 'http://www.evernym.com',
+      verKey: '2BzhMgbLXbECPPYiLtSEd36Boxt1oquuGJeS1ofhPoEr',
+    },
+    senderAgencyDetail: {
+      DID: 'BDSmVkzxRYGE4HKyMKxd1H',
+      verKey: '6yUatReYWNSUfEtC2ABgRXmmLaxCyQqsjLwv2BomxsxD',
+      endpoint: '52.38.32.107:80/agency/msg',
+    },
+    targetName: 'there',
+    statusMsg: 'message sent',
   }
 
   const getPendingInvitationState = state =>

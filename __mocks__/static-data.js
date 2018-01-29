@@ -20,21 +20,52 @@ import {
   proofRequestAutoFill,
 } from '../app/proof-request/proof-request-store'
 import { color } from '../app/common/styles/constant'
-import { homeRoute, claimOfferRoute } from '../app/common'
+import {
+  qrCodeScannerTabRoute,
+  homeRoute,
+  claimOfferRoute,
+} from '../app/common/route-constants'
 
 export const senderDid1 = 'senderDID1'
+export const senderName1 = 'sender1'
+export const senderLogoUrl1 = 'http://testissuer.com/logoUrl.png'
+export const senderVerKey1 = 'senderVerificationKey1'
+export const senderAgentDID1 = 'senderAgentDID1'
+export const endpoint = 'endpoint'
+
+export const senderAgentKeyDelegationProof = {
+  agentDID: senderAgentDID1,
+  agentDelegatedKey: 'agentDelegatedKey',
+  signature: 'signature',
+}
+
+export const senderDetail = {
+  name: senderName1,
+  agentKeyDlgProof: senderAgentKeyDelegationProof,
+  DID: senderDid1,
+  logoUrl: senderLogoUrl1,
+  verKey: senderVerKey1,
+}
+
+export const senderAgencyDetail = {
+  DID: senderDid1,
+  verKey: senderVerKey1,
+  endpoint: endpoint,
+}
 
 export function* getTestInvitationPayload(): Generator<*, *, *> {
   yield {
     payload: {
       senderEndpoint: 'endpoint',
       requestId: 'requestId1',
-      senderAgentKeyDelegationProof: 'proof',
+      senderAgentKeyDelegationProof,
       senderName: 'sender1',
       senderDID: senderDid1,
       senderLogoUrl: 'lu',
       senderVerificationKey: 'sVk',
       targetName: 'target name',
+      senderDetail,
+      senderAgencyDetail,
     },
   }
 
@@ -42,12 +73,14 @@ export function* getTestInvitationPayload(): Generator<*, *, *> {
     payload: {
       senderEndpoint: 'endpoint',
       requestId: 'requestId2',
-      senderAgentKeyDelegationProof: 'proof',
+      senderAgentKeyDelegationProof,
       senderName: 'sender2',
       senderDID: 'senderDID2',
       senderLogoUrl: 'lu',
       senderVerificationKey: 'sVk 2',
       targetName: 'target name',
+      senderDetail,
+      senderAgencyDetail,
     },
   }
 }
@@ -60,6 +93,14 @@ export const pairwiseConnection = {
   verificationKey: 'pairwiseVerificationKey1',
 }
 
+export const myPairWiseConnectionDetails = {
+  myPairwiseAgentDid: 'myPairwiseAgentDID',
+  myPairwiseAgentVerKey: 'myPairwiseAgentVerKey',
+  myPairwiseDid: 'pairwiseIdentifier1',
+  myPairwisePeerVerKey: 'senderVerificationKey1',
+  myPairwiseVerKey: 'pairwiseVerificationKey1',
+}
+
 export const successConnectionData = {
   newConnection: {
     identifier: pairwiseConnection.identifier,
@@ -67,6 +108,7 @@ export const successConnectionData = {
       ? firstInvitationPayload.payload.senderLogoUrl
       : '',
     ...(firstInvitationPayload ? firstInvitationPayload.payload : {}),
+    ...myPairWiseConnectionDetails,
   },
 }
 
@@ -354,6 +396,9 @@ export function getStore(store?: Store) {
             },
           },
         },
+        route: {
+          currentScreen: qrCodeScannerTabRoute,
+        },
         ...(store || {}),
       }
     },
@@ -405,4 +450,35 @@ export const proofRequestAutofill = {
   },
   originalProofRequestData,
   statusMsg: 'statusMsg',
+}
+
+export const userOneTimeInfo = {
+  oneTimeAgencyDid: 'oneTimeAgencyDid',
+  oneTimeAgencyVerificationKey: 'oneTimeAgencyVerKey',
+  myOneTimeDid: 'myOneTimeDid',
+  myOneTimeVerificationKey: 'myOneTimeVerificationKey',
+  myOneTimeAgentDid: 'myOneTimeAgentDid',
+  myOneTimeAgentVerificationKey: 'myOneTimeAgentVerificationKey',
+}
+
+export const qrData = {
+  id: 'yta2odh',
+  s: {
+    n: 'ent-name',
+    dp: {
+      d: 'N2Uyi6SVsHZq1VWXuA3EMg',
+      k: 'CTfF2sZ5q4oPcBvTP75pgx3WGzYiLSTwHGg9zUsJJegi',
+      s:
+        '/FxHMzX8JaH461k1SI5PfyxF5KwBAe6VlaYBNLI2aSZU3APsiWBfvSC+mxBYJ/zAhX9IUeTEX67fj+FCXZZ2Cg==',
+    },
+    d: 'F2axeahCaZfbUYUcKefc3j',
+    l: 'ent-logo-url',
+    v: '74xeXSEac5QTWzQmh84JqzjuXc8yvXLzWKeiqyUnYokx',
+  },
+  sa: {
+    d: 'BDSmVkzxRYGE4HKyMKxd1H',
+    v: '6yUatReYWNSUfEtC2ABgRXmmLaxCyQqsjLwv2BomxsxD',
+    e: '52.38.32.107:80/agency/msg',
+  },
+  t: 'there',
 }

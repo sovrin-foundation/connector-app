@@ -10,14 +10,6 @@ import {
 } from './type-invitation'
 import { ResponseType } from '../components/request/type-request'
 import {
-  connectWithConsumerAgency,
-  registerWithConsumerAgency,
-  createAgentWithConsumerAgency,
-  createAgentPairwiseKey,
-  sendInvitationResponse as sendInvitationResponseApi,
-} from '../api/api'
-import {
-  API_TYPE,
   ERROR_ALREADY_EXIST,
   ERROR_INVITATION_RESPONSE_PARSE_CODE,
   ERROR_INVITATION_RESPONSE_PARSE,
@@ -29,10 +21,19 @@ import {
   getPushToken,
   getInvitationPayload,
   isDuplicateConnection,
+  getUserOneTimeInfo,
   getPoolConfig,
 } from '../store/store-selector'
 import { saveNewConnection } from '../store/connections-store'
-import { encrypt, addConnection } from '../bridge/react-native-cxs/RNCxs'
+import {
+  addConnection,
+  connectToAgency,
+  registerWithAgency,
+  createOneTimeAgent,
+  createPairwiseAgent,
+  acceptInvitation,
+  updatePushToken,
+} from '../bridge/react-native-cxs/RNCxs'
 import type {
   InvitationResponseSendData,
   InvitationResponseSendAction,
@@ -44,6 +45,15 @@ import type {
 import type { CustomError } from '../common/type-common'
 import { captureError } from '../services/error/error-handler'
 import { IS_CONSUMER_AGENT_ALREADY_CREATED } from '../common'
+import type {
+  ConnectAgencyResponse,
+  RegisterAgencyResponse,
+  CreateOneTimeAgentResponse,
+  CreatePairwiseAgentResponse,
+  AcceptInvitationResponse,
+} from '../bridge/react-native-cxs/type-cxs'
+import type { UserOneTimeInfo } from '../store/user/type-user-store'
+import { connectRegisterCreateAgentDone } from '../store/user/user-store'
 
 export const invitationInitialState = {}
 
@@ -72,6 +82,7 @@ export const invitationRejected = (senderDID: string) => ({
   type: INVITATION_REJECTED,
   senderDID,
 })
+
 function* createConsumerAgencyAgent(
   senderDID: string,
   identifier: string,
@@ -89,30 +100,58 @@ function* createConsumerAgencyAgent(
   const metadata = {
     ...payload,
   }
+
   try {
-    const connectResponse = yield call(connectWithConsumerAgency, {
-      agencyUrl,
-      dataBody: {
-        type: API_TYPE.CONNECT,
-        fromDID: identifier,
-        fromDIDVerKey: verificationKey,
-      },
-    })
-    const registerResponse = yield call(registerWithConsumerAgency, {
-      agencyUrl,
-      dataBody: {
-        type: API_TYPE.REGISTER,
-        fromDID: identifier,
-      },
+    const url = `${agencyUrl}/agency/msg`
+    const connectResponse: ConnectAgencyResponse = yield call(connectToAgency, {
+      url,
+      myDid: identifier,
+      agencyDid,
+      myVerKey: verificationKey,
+      agencyVerKey: agencyVerificationKey,
     })
 
-    const createAgentResponse = yield call(createAgentWithConsumerAgency, {
-      agencyUrl,
-      dataBody: {
-        type: API_TYPE.CREATE_AGENT,
-        forDID: identifier,
-      },
-    })
+    const oneTimeAgencyDid = connectResponse.withPairwiseDID
+    const oneTimeAgencyVerificationKey = connectResponse.withPairwiseDIDVerKey
+    const myOneTimeDid = identifier
+    const myOneTimeVerificationKey = verificationKey
+
+    const registerResponse: RegisterAgencyResponse = yield call(
+      registerWithAgency,
+      {
+        url,
+        oneTimeAgencyVerKey: oneTimeAgencyVerificationKey,
+        oneTimeAgencyDid: oneTimeAgencyDid,
+        myOneTimeVerKey: myOneTimeVerificationKey,
+        agencyVerKey: agencyVerificationKey,
+      }
+    )
+
+    const createAgentResponse: CreateOneTimeAgentResponse = yield call(
+      createOneTimeAgent,
+      {
+        url,
+        oneTimeAgencyVerKey: oneTimeAgencyVerificationKey,
+        oneTimeAgencyDid: oneTimeAgencyDid,
+        myOneTimeVerKey: myOneTimeVerificationKey,
+        agencyVerKey: agencyVerificationKey,
+      }
+    )
+
+    const myOneTimeAgentDid = createAgentResponse.withPairwiseDID
+    const myOneTimeAgentVerificationKey =
+      createAgentResponse.withPairwiseDIDVerKey
+
+    const userOneTimeInfo = {
+      oneTimeAgencyDid,
+      oneTimeAgencyVerificationKey,
+      myOneTimeDid,
+      myOneTimeVerificationKey,
+      myOneTimeAgentDid,
+      myOneTimeAgentVerificationKey,
+    }
+
+    yield put(connectRegisterCreateAgentDone(userOneTimeInfo))
 
     // now save the key in user's default storage in phone
     try {
@@ -129,6 +168,7 @@ function* createConsumerAgencyAgent(
       captureError(e)
     }
   } catch (e) {
+    console.log(e)
     let error: CustomError = {
       code: ERROR_INVITATION_RESPONSE_PARSE_CODE,
       message: ERROR_INVITATION_RESPONSE_PARSE,
@@ -159,6 +199,7 @@ export function* sendResponse(
   const metadata = {
     ...payload,
   }
+
   const { identifier, verificationKey } = yield call(
     addConnection,
     agencyDid,
@@ -166,6 +207,7 @@ export function* sendResponse(
     metadata,
     poolConfig
   )
+
   const alreadyExist: boolean = yield select(isDuplicateConnection, senderDID)
   if (alreadyExist) {
     yield put(invitationFail(ERROR_ALREADY_EXIST, senderDID))
@@ -194,39 +236,37 @@ export function* sendResponse(
         metadata,
         poolConfig
       )
-      const createPairwiseKey = yield call(createAgentPairwiseKey, {
-        agencyUrl,
-        dataBody: {
-          to: identifier,
-          agentPayload: JSON.stringify({
-            type: API_TYPE.CREATE_KEY,
-            forDID: pairwiseConnection.identifier,
-            forDIDVerKey: pairwiseConnection.verificationKey,
-            nonce: '12121212',
-          }),
-        },
-      })
 
-      const dataBody = {
-        to: pairwiseConnection.identifier,
-        agentPayload: JSON.stringify({
-          type: API_TYPE.INVITE_ANSWERED,
-          uid: payload.requestId,
-          // TODO: get this data from agent registration
-          keyDlgProof: 'delegate to agent',
-          senderName: payload.senderName,
-          senderLogoUrl: payload.senderLogoUrl,
-          senderDID,
-          senderDIDVerKey: payload.senderVerificationKey,
-          remoteAgentKeyDlgProof: payload.senderAgentKeyDelegationProof,
-          remoteEndpoint: payload.senderEndpoint,
-          pushComMethod: `FCM:${pushToken}`,
-        }),
-      }
+      const url = `${agencyUrl}/agency/msg`
+      const userOneTimeInfo: UserOneTimeInfo = yield select(getUserOneTimeInfo)
+
+      const createPairwiseKeyResponse: CreatePairwiseAgentResponse = yield call(
+        createPairwiseAgent,
+        {
+          url,
+          myPairwiseDid: pairwiseConnection.identifier,
+          myPairwiseVerKey: pairwiseConnection.verificationKey,
+          oneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
+          oneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
+          myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
+          agencyVerKey: agencyVerificationKey,
+        }
+      )
+
       // TODO:KS Check errors from backend in api utils
-      yield call(sendInvitationResponseApi, {
-        agencyUrl,
-        dataBody,
+      yield call(acceptInvitation, {
+        url,
+        requestId: payload.requestId,
+        myPairwiseDid: pairwiseConnection.identifier,
+        myPairwiseVerKey: pairwiseConnection.verificationKey,
+        invitation: payload,
+        myPairwiseAgentDid: createPairwiseKeyResponse.withPairwiseDID,
+        myPairwiseAgentVerKey: createPairwiseKeyResponse.withPairwiseDIDVerKey,
+        myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
+        myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
+        myOneTimeDid: userOneTimeInfo.myOneTimeDid,
+        myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
+        myAgencyVerKey: agencyVerificationKey,
       })
       yield put(invitationSuccess(senderDID))
 
@@ -235,6 +275,12 @@ export function* sendResponse(
           newConnection: {
             identifier: pairwiseConnection.identifier,
             logoUrl: payload.senderLogoUrl,
+            myPairwiseDid: pairwiseConnection.identifier,
+            myPairwiseVerKey: pairwiseConnection.verificationKey,
+            myPairwiseAgentDid: createPairwiseKeyResponse.withPairwiseDID,
+            myPairwiseAgentVerKey:
+              createPairwiseKeyResponse.withPairwiseDIDVerKey,
+            myPairwisePeerVerKey: payload.senderDetail.verKey,
             ...payload,
           },
         }

@@ -38,13 +38,22 @@ import {
   getAgencyUrl,
   getClaimOffer,
   getUserPairwiseDid,
+  getUserOneTimeInfo,
+  getAgencyVerificationKey,
+  getRemotePairwiseDidAndName,
 } from '../store/store-selector'
-import { sendClaimRequest as sendClaimRequestApi } from '../api/api'
 import type { IndyClaimOffer } from '../bridge/react-native-cxs/type-cxs'
-import { generateClaimRequest } from '../bridge/react-native-cxs/RNCxs'
+import {
+  generateClaimRequest,
+  sendMessage,
+} from '../bridge/react-native-cxs/RNCxs'
 import type { IndyClaimRequest } from '../bridge/react-native-cxs/type-cxs'
 import { CLAIM_STORAGE_FAIL, CLAIM_STORAGE_SUCCESS } from '../claim/type-claim'
 import { CLAIM_STORAGE_ERROR } from '../services/error/error-code'
+import { MESSAGE_TYPE } from '../api/api-constants'
+import type { ApiClaimRequest, EdgeClaimRequest } from '../api/type-api'
+import type { UserOneTimeInfo } from '../store/user/type-user-store'
+import type { Connection } from '../store/type-connection-store'
 
 const claimOfferInitialState = {}
 
@@ -98,6 +107,25 @@ export const acceptClaimOffer = (uid: string) => ({
   uid,
 })
 
+export function convertClaimRequestToEdgeClaimRequest(
+  claimRequest: ApiClaimRequest
+): EdgeClaimRequest {
+  const { blinded_ms, schema_seq_no, issuer_did } = claimRequest
+
+  return {
+    blinded_ms,
+    issuer_did,
+    schema_seq_no,
+    msg_type: MESSAGE_TYPE.CLAIM_REQUEST,
+    // hard coded version as of now, update once versioning is implemented
+    version: '0.1',
+    to_did: claimRequest.remoteDid,
+    from_did: claimRequest.userPairwiseDid,
+    tid: '1',
+    mid: '1',
+  }
+}
+
 export function* claimOfferAccepted(
   action: ClaimOfferAcceptedAction
 ): Generator<*, *, *> {
@@ -136,15 +164,35 @@ export function* claimOfferAccepted(
         remoteDid,
         userPairwiseDid,
       }
+      const userOneTimeInfo: UserOneTimeInfo = yield select(getUserOneTimeInfo)
+      const agencyVerificationKey: string = yield select(
+        getAgencyVerificationKey
+      )
+      const connection: Connection = yield select(
+        getRemotePairwiseDidAndName,
+        userPairwiseDid
+      )
 
+      const url = `${agencyUrl}/agency/msg`
       try {
-        const apiData = {
-          claimRequest,
-          agencyUrl,
-          userPairwiseDid,
-          responseMsgId: messageId,
-        }
-        const sendClaimRequestStatus = yield call(sendClaimRequestApi, apiData)
+        const sendClaimRequestStatus = yield call(sendMessage, {
+          url,
+          messageType: MESSAGE_TYPE.CLAIM_REQUEST,
+          messageReplyId: messageId,
+          message: JSON.stringify(
+            convertClaimRequestToEdgeClaimRequest(claimRequest)
+          ),
+          myPairwiseDid: connection.myPairwiseDid,
+          myPairwiseVerKey: connection.myPairwiseVerKey,
+          myPairwiseAgentDid: connection.myPairwiseAgentDid,
+          myPairwiseAgentVerKey: connection.myPairwiseAgentVerKey,
+          myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
+          myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
+          myOneTimeDid: userOneTimeInfo.myOneTimeDid,
+          myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
+          myAgencyVerKey: agencyVerificationKey,
+          myPairwisePeerVerKey: connection.myPairwisePeerVerKey,
+        })
 
         // keep the race open b/w success and fail for claim storage
         // until success and fail is fired for same claim offer id

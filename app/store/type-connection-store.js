@@ -8,6 +8,11 @@ export type Connection = {
   senderEndpoint: string,
   size: number,
   senderName?: string,
+  myPairwiseDid: string,
+  myPairwiseVerKey: string,
+  myPairwiseAgentDid: string,
+  myPairwiseAgentVerKey: string,
+  myPairwisePeerVerKey: string,
 }
 
 export type Connections = { [senderDID: string]: Connection }

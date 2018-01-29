@@ -69,15 +69,11 @@ export type PushNotificationStore = {
 }
 
 export type AdditionalDataResponse = {
-  msgs: [
-    {
-      statusCode: string,
-      edgeAgentPayload: string,
-      typ: string,
-      statusMsg: string,
-      uid: string,
-    },
-  ],
+  statusCode: string,
+  payload: string,
+  type: string,
+  uid: string,
+  senderDID: string,
 }
 
 export type Attribute = {

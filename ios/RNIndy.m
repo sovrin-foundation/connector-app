@@ -36,7 +36,7 @@
       xNodesConfig = nodesConfig;
     } else
     {
-      xNodesConfig = @"{\"data\":{\"alias\":\"Node1\",\"blskey\":\"4N8aUNHSgjQVgkpm8nhNEfDf6txHznoYREg9kirmJrkivgL4oSEimFF6nsQ6M41QvhM2Z33nves5vfSn9n1UwNFJBYtWVnHYMATn76vLuL3zU88KyeAYcHfsih3He6UHcXDxcaecHVz6jhCYz1P2UZn2bDVruL5wXpehgBfBaLKm3Ba\",\"client_ip\":\"34.212.206.9\",\"client_port\":9702,\"node_ip\":\"34.212.206.9\",\"node_port\":9701,\"services\":[\"VALIDATOR\"]},\"dest\":\"Gw6pDLhcBcoQesN72qfotTgFa7cbuqZpkX3Xo6pLhPhv\",\"identifier\":\"Th7MpTaRZVRYnPiabds81Y\",\"txnId\":\"fea82e10e894419fe2bea7d96296a6d46f50f93f9eeda954ec461b2ed2950b62\",\"type\":\"0\"}\n{\"data\":{\"alias\":\"Node2\",\"blskey\":\"37rAPpXVoxzKhz7d9gkUe52XuXryuLXoM6P6LbWDB7LSbG62Lsb33sfG7zqS8TK1MXwuCHj1FKNzVpsnafmqLG1vXN88rt38mNFs9TENzm4QHdBzsvCuoBnPH7rpYYDo9DZNJePaDvRvqJKByCabubJz3XXKbEeshzpz4Ma5QYpJqjk\",\"client_ip\":\"34.212.206.9\",\"client_port\":9704,\"node_ip\":\"34.212.206.9\",\"node_port\":9703,\"services\":[\"VALIDATOR\"]},\"dest\":\"8ECVSk179mjsjKRLWiQtssMLgp6EPhWXtaYyStWPSGAb\",\"identifier\":\"EbP4aYNeTHL6q385GuVpRV\",\"txnId\":\"1ac8aece2a18ced660fef8694b61aac3af08ba875ce3026a160acbc3a3af35fc\",\"type\":\"0\"}\n{\"data\":{\"alias\":\"Node3\",\"blskey\":\"3WFpdbg7C5cnLYZwFZevJqhubkFALBfCBBok15GdrKMUhUjGsk3jV6QKj6MZgEubF7oqCafxNdkm7eswgA4sdKTRc82tLGzZBd6vNqU8dupzup6uYUf32KTHTPQbuUM8Yk4QFXjEf2Usu2TJcNkdgpyeUSX42u5LqdDDpNSWUK5deC5\",\"client_ip\":\"34.212.206.9\",\"client_port\":9706,\"node_ip\":\"34.212.206.9\",\"node_port\":9705,\"services\":[\"VALIDATOR\"]},\"dest\":\"DKVxG2fXXTU8yT5N7hGEbXB3dfdAnYv1JczDUHpmDxya\",\"identifier\":\"4cU41vWW82ArfxJxHkzXPG\",\"txnId\":\"7e9f355dffa78ed24668f0e0e369fd8c224076571c51e2ea8be5f26479edebe4\",\"type\":\"0\"}\n{\"data\":{\"alias\":\"Node4\",\"blskey\":\"2zN3bHM1m4rLz54MJHYSwvqzPchYp8jkHswveCLAEJVcX6Mm1wHQD1SkPYMzUDTZvWvhuE6VNAkK3KxVeEmsanSmvjVkReDeBEMxeDaayjcZjFGPydyey1qxBHmTvAnBKoPydvuTAqx5f7YNNRAdeLmUi99gERUU7TD8KfAa6MpQ9bw\",\"client_ip\":\"34.212.206.9\",\"client_port\":9708,\"node_ip\":\"34.212.206.9\",\"node_port\":9707,\"services\":[\"VALIDATOR\"]},\"dest\":\"4PS3EDQ3dW1tci1Bp6543CfuuebjFrg36kLAUcskGfaA\",\"identifier\":\"TWwCRQRZ2ZHMJFn9TzLp7W\",\"txnId\":\"aa5e817d7cc626170eca175822029339a444eb0ee8f0bd20d3b0b76e566fb008\",\"type\":\"0\"}";
+      xNodesConfig = @"{\"data\":{\"alias\":\"Node1\",\"blskey\":\"4N8aUNHSgjQVgkpm8nhNEfDf6txHznoYREg9kirmJrkivgL4oSEimFF6nsQ6M41QvhM2Z33nves5vfSn9n1UwNFJBYtWVnHYMATn76vLuL3zU88KyeAYcHfsih3He6UHcXDxcaecHVz6jhCYz1P2UZn2bDVruL5wXpehgBfBaLKm3Ba\",\"client_ip\":\"35.164.240.131\",\"client_port\":9702,\"node_ip\":\"35.164.240.131\",\"node_port\":9701,\"services\":[\"VALIDATOR\"]},\"dest\":\"Gw6pDLhcBcoQesN72qfotTgFa7cbuqZpkX3Xo6pLhPhv\",\"identifier\":\"Th7MpTaRZVRYnPiabds81Y\",\"txnId\":\"fea82e10e894419fe2bea7d96296a6d46f50f93f9eeda954ec461b2ed2950b62\",\"type\":\"0\"}\n{\"data\":{\"alias\":\"Node2\",\"blskey\":\"37rAPpXVoxzKhz7d9gkUe52XuXryuLXoM6P6LbWDB7LSbG62Lsb33sfG7zqS8TK1MXwuCHj1FKNzVpsnafmqLG1vXN88rt38mNFs9TENzm4QHdBzsvCuoBnPH7rpYYDo9DZNJePaDvRvqJKByCabubJz3XXKbEeshzpz4Ma5QYpJqjk\",\"client_ip\":\"35.164.240.131\",\"client_port\":9704,\"node_ip\":\"35.164.240.131\",\"node_port\":9703,\"services\":[\"VALIDATOR\"]},\"dest\":\"8ECVSk179mjsjKRLWiQtssMLgp6EPhWXtaYyStWPSGAb\",\"identifier\":\"EbP4aYNeTHL6q385GuVpRV\",\"txnId\":\"1ac8aece2a18ced660fef8694b61aac3af08ba875ce3026a160acbc3a3af35fc\",\"type\":\"0\"}\n{\"data\":{\"alias\":\"Node3\",\"blskey\":\"3WFpdbg7C5cnLYZwFZevJqhubkFALBfCBBok15GdrKMUhUjGsk3jV6QKj6MZgEubF7oqCafxNdkm7eswgA4sdKTRc82tLGzZBd6vNqU8dupzup6uYUf32KTHTPQbuUM8Yk4QFXjEf2Usu2TJcNkdgpyeUSX42u5LqdDDpNSWUK5deC5\",\"client_ip\":\"35.164.240.131\",\"client_port\":9706,\"node_ip\":\"35.164.240.131\",\"node_port\":9705,\"services\":[\"VALIDATOR\"]},\"dest\":\"DKVxG2fXXTU8yT5N7hGEbXB3dfdAnYv1JczDUHpmDxya\",\"identifier\":\"4cU41vWW82ArfxJxHkzXPG\",\"txnId\":\"7e9f355dffa78ed24668f0e0e369fd8c224076571c51e2ea8be5f26479edebe4\",\"type\":\"0\"}\n{\"data\":{\"alias\":\"Node4\",\"blskey\":\"2zN3bHM1m4rLz54MJHYSwvqzPchYp8jkHswveCLAEJVcX6Mm1wHQD1SkPYMzUDTZvWvhuE6VNAkK3KxVeEmsanSmvjVkReDeBEMxeDaayjcZjFGPydyey1qxBHmTvAnBKoPydvuTAqx5f7YNNRAdeLmUi99gERUU7TD8KfAa6MpQ9bw\",\"client_ip\":\"35.164.240.131\",\"client_port\":9708,\"node_ip\":\"35.164.240.131\",\"node_port\":9707,\"services\":[\"VALIDATOR\"]},\"dest\":\"4PS3EDQ3dW1tci1Bp6543CfuuebjFrg36kLAUcskGfaA\",\"identifier\":\"TWwCRQRZ2ZHMJFn9TzLp7W\",\"txnId\":\"aa5e817d7cc626170eca175822029339a444eb0ee8f0bd20d3b0b76e566fb008\",\"type\":\"0\"}";
     }
     indy.pool = [[CMPoolObject alloc] initWithName:@"sandboxPool" nodesConfig:xNodesConfig];
   });
@@ -166,6 +166,272 @@ RCT_EXPORT_METHOD(getProof: (NSString *) proofRequest
       reject(indyErrorCode, @"Error occurred while getting proof", error);
     } else {
       resolve(proofJSON);
+    }
+  }];
+}
+
+#pragma mark msg pack apis
+// CONNECT
+RCT_EXPORT_METHOD(connectToAgency: (NSString *)url
+                  withMyDid: (NSString *)myDid
+                  withAgencyDid: (NSString *)agencyDid
+                  withMyVerKey: (NSString *)myVerKey
+                  withAgencyVerKey: (NSString *)agencyVerKey
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  [indy sendConnectRequestWithUrl:url
+                        withMyDid:myDid
+                    withAgencyDid:agencyDid
+                     withMyVerKey:myVerKey
+                 withAgencyVerKey:agencyVerKey
+                   withCompletion:^(NSError *error, NSDictionary *dataFromServer)
+  {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while connect to agency", error);
+    } else {
+      resolve(dataFromServer);
+    }
+  }];
+}
+
+// REGISTER/SIGNUP
+RCT_EXPORT_METHOD(signupWithAgency: (NSString *)url
+                  withOneTimeAgentVerKey: (NSString *)oneTimeAgencyVerKey
+                  withOneTimeAgentDid: (NSString *)oneTimeAgencyDid
+                  withMyOneTimeVerKey: (NSString *)myOneTimeVerKey
+                  withAgencyVerKey: (NSString *)agencyVerKey
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  [indy sendSignupRequestWithUrl:url
+          withOneTimeAgentVerKey:oneTimeAgencyVerKey
+             withOneTimeAgentDid:oneTimeAgencyDid
+             withMyOneTimeVerKey:myOneTimeVerKey
+                withAgencyVerKey:agencyVerKey
+                  withCompletion:^(NSError *error, NSDictionary *dataFromServer)
+  {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while signup to agency", error);
+    } else {
+      resolve(dataFromServer);
+    }
+  }];
+}
+
+// CREATE ONE TIME AGENT
+RCT_EXPORT_METHOD(createOneTimeAgent: (NSString *)url
+                  withOneTimeAgentVerKey:(NSString *)oneTimeAgencyVerKey
+                  withOneTimeAgentDid:(NSString *)oneTimeAgencyDid
+                  withMyOneTimeVerKey:(NSString *)myOneTimeVerKey
+                  withAgencyVerKey:(NSString *)agencyVerKey
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  [indy sendCreateAgentRequestWithUrl:url
+               withOneTimeAgentVerKey:oneTimeAgencyVerKey
+                  withOneTimeAgentDid:oneTimeAgencyDid
+                  withMyOneTimeVerKey:myOneTimeVerKey
+                     withAgencyVerKey:agencyVerKey
+                       withCompletion:^(NSError *error, NSDictionary *dataFromServer)
+  {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while creating one time agent", error);
+    } else {
+      resolve(dataFromServer);
+    }
+  }];
+}
+
+// CREATE PAIRWISE AGENT
+RCT_EXPORT_METHOD(createPairwiseAgent: (NSString *)url
+                  withMyPairwiseDid: (NSString *)myPairwiseDid
+                  withMyPairwiseVerKey: (NSString *)myPairwiseVerKey
+                  withOneTimeAgentVerKey: (NSString *)oneTimeAgentVerKey
+                  withOneTimeAgentDid: (NSString *)oneTimeAgentDid
+                  myVerKey: (NSString *)myOneTimeVerKey
+                  agencyVerKey: (NSString *)agencyVerKey
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  [indy sendCreateKeyRequestWithUrl:url
+                  withMyPairwiseDid:myPairwiseDid
+               withMyPairwiseVerKey:myPairwiseVerKey
+             withOneTimeAgentVerKey:oneTimeAgentVerKey
+                withOneTimeAgentDid:oneTimeAgentDid
+                           myVerKey:myOneTimeVerKey
+                       agencyVerKey:agencyVerKey
+                     withCompletion:^(NSError *error, NSDictionary *dataFromServer)
+  {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while creating pairwise agent", error);
+    } else {
+      resolve(dataFromServer);
+    }
+  }];
+}
+
+// Accept Invitation
+RCT_EXPORT_METHOD(acceptInvitation: (NSString *)url
+                  withRequestId: (NSString *)requestId
+                  withMyPairwiseDid: (NSString *)myPairwiseDid
+                  withMyPairwiseVerKey: (NSString *)myPairwiseVerKey
+                  withInvitation: (NSDictionary *)invitation
+                  withMyPairwiseAgentDid: (NSString *)myPairwiseAgentDid
+                  withMyPairwiseAgentVerKey: (NSString *)myPairwiseAgentVerKey
+                  withMyOneTimeAgentDid: (NSString *)myOneTimeAgentDid
+                  withMyOneTimeAgentVerKey: (NSString *)myOneTimeAgentVerKey
+                  withMyOneTimeDid: (NSString *)myOneTimeDid
+                  withMyOneTimeVerKey: (NSString *)myOneTimeVerKey
+                  withMyAgencyVerKey: (NSString *)myAgencyVerKey
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  [indy sendAcceptInvitationWithUrl:url
+                      withRequestId:requestId
+                  withMyPairwiseDid:myPairwiseDid
+               withMyPairwiseVerKey:myPairwiseVerKey
+                     withInvitation:invitation
+             withMyPairwiseAgentDid:myPairwiseAgentDid
+          withMyPairwiseAgentVerKey:myPairwiseAgentVerKey
+              withMyOneTimeAgentDid:myOneTimeAgentDid
+           withMyOneTimeAgentVerKey:myOneTimeAgentVerKey
+                   withMyOneTimeDid:myOneTimeDid
+                withMyOneTimeVerKey:myOneTimeVerKey
+                 withMyAgencyVerKey:myAgencyVerKey
+                     withCompletion:^(NSError *error, NSDictionary *dataFromServer)
+  {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while accepting connection", error);
+    } else {
+      resolve(dataFromServer);
+    }
+  }];
+}
+
+// Update push token
+RCT_EXPORT_METHOD(updatePushToken: (NSString *)url
+                  withToken: (NSString *)token
+                  withMyOneTimeAgentDid: (NSString *)myOneTimeAgentDid
+                  withMyOneTimeAgentVerKey: (NSString *)myOneTimeAgentVerKey
+                  withMyOneTimeVerKey: (NSString *)myOneTimeVerKey
+                  withAgencyVerKey: (NSString *)myAgencyVerKey
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  [indy sendPushTokenWithUrl:url
+                   withToken:token
+       withMyOneTimeAgentDid:myOneTimeAgentDid
+    withMyOneTimeAgentVerKey:myOneTimeAgentVerKey
+         withMyOneTimeVerKey:myOneTimeVerKey
+            withAgencyVerKey:myAgencyVerKey
+              withCompletion:^(NSError *error, NSDictionary *dataFromServer)
+  {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while sending push token", error);
+    } else {
+      resolve(dataFromServer);
+    }
+  }];
+}
+
+// download message
+RCT_EXPORT_METHOD(getMessage: (NSString *)url
+                  withRequestId: (NSString *)requestId
+                  withMyPairwiseDid: (NSString *)myPairwiseDid
+                  withMyPairwiseVerKey: (NSString *)myPairwiseVerKey
+                  withMyPairwiseAgentDid: (NSString *)myPairwiseAgentDid
+                  withMyPairwiseAgentVerKey: (NSString *)myPairwiseAgentVerKey
+                  withMyOneTimeAgentDid: (NSString *)myOneTimeAgentDid
+                  withMyOneTimeAgentVerKey: (NSString *)myOneTimeAgentVerKey
+                  withMyOneTimeDid: (NSString *)myOneTimeDid
+                  withMyOneTimeVerKey: (NSString *)myOneTimeVerKey
+                  withMyAgencyVerKey: (NSString *)myAgencyVerKey
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  [indy getMessageWithUrl:url
+            withRequestId:requestId
+        withMyPairwiseDid:myPairwiseDid
+     withMyPairwiseVerKey:myPairwiseVerKey
+   withMyPairwiseAgentDid:myPairwiseAgentDid
+withMyPairwiseAgentVerKey:myPairwiseAgentVerKey
+    withMyOneTimeAgentDid:myOneTimeAgentDid
+ withMyOneTimeAgentVerKey:myOneTimeAgentVerKey
+         withMyOneTimeDid:myOneTimeDid
+      withMyOneTimeVerKey:myOneTimeVerKey
+       withMyAgencyVerKey:myAgencyVerKey
+           withCompletion:^(NSError *error, NSDictionary *dataFromServer)
+  {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while downloading message", error);
+    } else {
+      resolve(dataFromServer);
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(sendMessage: (NSString *)url
+                  WithType: (NSString *)messageType
+                  withMessageReplyId: (NSString *)messageReplyId
+                  withMessage: (NSString *)message
+                  withMyPairwiseDid: (NSString *)myPairwiseDid
+                  withMyPairwiseVerKey: (NSString *)myPairwiseVerKey
+                  withMyPairwiseAgentDid: (NSString *)myPairwiseAgentDid
+                  withMyPairwiseAgentVerKey: (NSString *)myPairwiseAgentVerKey
+                  withMyOneTimeAgentDid: (NSString *)myOneTimeAgentDid
+                  withMyOneTimeAgentVerKey: (NSString *)myOneTimeAgentVerKey
+                  withMyOneTimeDid: (NSString *)myOneTimeDid
+                  withMyOneTimeVerKey: (NSString *)myOneTimeVerKey
+                  withMyAgencyVerKey: (NSString *)myAgencyVerKey
+                  withMyPairwisePeerVerKey: (NSString *)myPairwisePeerVerKey
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  [indy sendMessageWithUrl:url
+                  WithType:messageType
+        withMessageReplyId:messageReplyId
+               withMessage:message
+         withMyPairwiseDid:myPairwiseDid
+      withMyPairwiseVerKey:myPairwiseVerKey
+    withMyPairwiseAgentDid:myPairwiseAgentDid
+ withMyPairwiseAgentVerKey:myPairwiseAgentVerKey
+     withMyOneTimeAgentDid:myOneTimeAgentDid
+  withMyOneTimeAgentVerKey:myOneTimeAgentVerKey
+          withMyOneTimeDid:myOneTimeDid
+       withMyOneTimeVerKey:myOneTimeVerKey
+        withMyAgencyVerKey:myAgencyVerKey
+  withMyPairwisePeerVerKey:myPairwisePeerVerKey
+            withCompletion:^(NSError *error, NSDictionary *dataFromServer)
+  {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while sending message", error);
+    } else {
+      resolve(dataFromServer);
     }
   }];
 }

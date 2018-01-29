@@ -22,14 +22,37 @@ describe('<Invitation />', () => {
 
   const firstInvitation = {
     requestId: 'requestId1',
-    senderAgentKeyDelegationProof: 'proof',
+    senderAgentKeyDelegationProof: {
+      agentDID: 'EHNMj5FNjA3xBo8HUKQTZv',
+      agentDelegatedKey: '8Esrno7vguYbwVJDa31aMCdWJTu2tC7tke8u2iKUUvgB',
+      signature:
+        'OXtzqX9LJJsBY/Mrhjff6b9L79Pdg8U4B7dI/3RR65BJr5jktAGMwpMLe1aQRQT0FlplZfNy8QtUd4KNPd+ZAg==',
+    },
     senderDID: 'senderDID1',
     senderEndpoint: 'endpoint',
     senderLogoUrl: 'lu',
     senderName: 'sender1',
     senderVerificationKey: 'sVk',
     targetName: 'target name',
+    senderDetail: {
+      name: 'default',
+      agentKeyDlgProof: {
+        agentDID: 'EHNMj5FNjA3xBo8HUKQTZv',
+        agentDelegatedKey: '8Esrno7vguYbwVJDa31aMCdWJTu2tC7tke8u2iKUUvgB',
+        signature:
+          'OXtzqX9LJJsBY/Mrhjff6b9L79Pdg8U4B7dI/3RR65BJr5jktAGMwpMLe1aQRQT0FlplZfNy8QtUd4KNPd+ZAg==',
+      },
+      DID: '3Bb6zCYMoGnMTho97HGDrn',
+      logoUrl: 'http://www.evernym.com',
+      verKey: '2BzhMgbLXbECPPYiLtSEd36Boxt1oquuGJeS1ofhPoEr',
+    },
+    senderAgencyDetail: {
+      DID: 'BDSmVkzxRYGE4HKyMKxd1H',
+      verKey: '6yUatReYWNSUfEtC2ABgRXmmLaxCyQqsjLwv2BomxsxD',
+      endpoint: '52.38.32.107:80/agency/msg',
+    },
   }
+
   const getState = () => ({
     invitation: {
       senderDID1: {

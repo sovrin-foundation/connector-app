@@ -85,7 +85,8 @@ class SplashScreenView extends PureComponent {
         nextProps.smsPendingInvitation.payload !==
         this.props.smsPendingInvitation.payload
       ) {
-        const { senderDID } = nextProps.smsPendingInvitation.payload
+        const senderDID =
+          nextProps.smsPendingInvitation.payload.senderDetail.DID
         if (senderDID) {
           if (nextProps.lock.isAppLocked === false) {
             this.props.navigation.navigate(invitationRoute, { senderDID })

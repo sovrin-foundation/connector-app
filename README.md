@@ -49,6 +49,9 @@ App to connect Sovrin with 3rd party authentication
 - [X] API requests should use a common function to call API and return response
 - [X] Fix all skipped tests
 - [ ] Handle all API errors while downloading url, downloading data, accepting/rejecting as per new changes. As of now we are not doing that
+- [ ] Connections key should be remote DID and not user identifier
+- [ ] Remove passing newConnection while saving new connection
+- [ ] Save whole payload in connection instead of choosing selected props in connection store
 
 # Frequently Encountered Problems (FEP)
 

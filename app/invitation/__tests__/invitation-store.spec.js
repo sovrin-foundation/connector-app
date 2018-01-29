@@ -21,19 +21,20 @@ import {
   getAgencyVerificationKey,
   getInvitationPayload,
   isDuplicateConnection,
+  getUserOneTimeInfo,
   getPoolConfig,
 } from '../../store/store-selector'
 import { saveNewConnection } from '../../store/connections-store'
-import { encrypt, addConnection } from '../../bridge/react-native-cxs/RNCxs'
 import {
-  connectWithConsumerAgency,
-  registerWithConsumerAgency,
-  createAgentWithConsumerAgency,
-  sendInvitationResponse as sendInvitationResponseApi,
-  createAgentPairwiseKey,
-} from '../../api/api'
+  addConnection,
+  connectToAgency,
+  registerWithAgency,
+  createOneTimeAgent,
+  createPairwiseAgent,
+  acceptInvitation,
+  updatePushToken,
+} from '../../bridge/react-native-cxs/RNCxs'
 import {
-  API_TYPE,
   ERROR_ALREADY_EXIST,
   ERROR_INVITATION_RESPONSE_PARSE_CODE,
   ERROR_INVITATION_RESPONSE_PARSE,
@@ -44,6 +45,7 @@ import {
   successConnectionData,
   pairwiseConnection,
 } from '../../../__mocks__/static-data'
+import { connectRegisterCreateAgentDone } from '../../store/user/user-store'
 
 // TODO:KS These should be moved to a separate file that handles
 // all of the static data of whole app, so that if we change
@@ -193,39 +195,68 @@ describe('Invitation Store', () => {
         select(getAgencyVerificationKey)
       )
 
-      expect(gen.next({ identifier, verificationKey }).value).toEqual(
-        call(connectWithConsumerAgency, {
-          agencyUrl,
-          dataBody: {
-            type: API_TYPE.CONNECT,
-            fromDID: identifier,
-            fromDIDVerKey: verificationKey,
-          },
+      const url = `${agencyUrl}/agency/msg`
+      expect(gen.next(agencyVerificationKey).value).toEqual(
+        call(connectToAgency, {
+          url,
+          myDid: identifier,
+          agencyDid,
+          myVerKey: verificationKey,
+          agencyVerKey: agencyVerificationKey,
         })
       )
 
-      expect(gen.next({ identifier, verificationKey }).value).toEqual(
-        call(registerWithConsumerAgency, {
-          agencyUrl,
-          dataBody: {
-            type: API_TYPE.REGISTER,
-            fromDID: identifier,
-          },
+      const connectResponse = {
+        withPairwiseDID: 'oneTimeAgencyDid',
+        withPairwiseDIDVerKey: 'oneTimeAgencyVerKey',
+      }
+      const oneTimeAgencyDid = connectResponse.withPairwiseDID
+      const oneTimeAgencyVerificationKey = connectResponse.withPairwiseDIDVerKey
+      const myOneTimeDid = identifier
+      const myOneTimeVerificationKey = verificationKey
+      expect(gen.next(connectResponse).value).toEqual(
+        call(registerWithAgency, {
+          url,
+          oneTimeAgencyVerKey: oneTimeAgencyVerificationKey,
+          oneTimeAgencyDid: oneTimeAgencyDid,
+          myOneTimeVerKey: myOneTimeVerificationKey,
+          agencyVerKey: agencyVerificationKey,
         })
       )
 
-      expect(gen.next({ identifier, verificationKey }).value).toEqual(
-        call(createAgentWithConsumerAgency, {
-          agencyUrl,
-          dataBody: {
-            type: API_TYPE.CREATE_AGENT,
-            forDID: identifier,
-          },
+      expect(gen.next().value).toEqual(
+        call(createOneTimeAgent, {
+          url,
+          oneTimeAgencyVerKey: oneTimeAgencyVerificationKey,
+          oneTimeAgencyDid: oneTimeAgencyDid,
+          myOneTimeVerKey: myOneTimeVerificationKey,
+          agencyVerKey: agencyVerificationKey,
         })
       )
+
+      const createAgentResponse = {
+        withPairwiseDID: 'oneTimeAgentDid',
+        withPairwiseDIDVerKey: 'oneTimeAgentVerKey',
+      }
+      const myOneTimeAgentDid = createAgentResponse.withPairwiseDID
+      const myOneTimeAgentVerificationKey =
+        createAgentResponse.withPairwiseDIDVerKey
+      const userOneTimeInfo = {
+        oneTimeAgencyDid,
+        oneTimeAgencyVerificationKey,
+        myOneTimeDid,
+        myOneTimeVerificationKey,
+        myOneTimeAgentDid,
+        myOneTimeAgentVerificationKey,
+      }
+      expect(gen.next(createAgentResponse).value).toEqual(
+        put(connectRegisterCreateAgentDone(userOneTimeInfo))
+      )
+
       expect(gen.next().value).toEqual(
         call(AsyncStorage.setItem, IS_CONSUMER_AGENT_ALREADY_CREATED, 'true')
       )
+
       expect(gen.next(senderDID).value).toEqual(
         call(
           addConnection,
@@ -237,40 +268,39 @@ describe('Invitation Store', () => {
       )
 
       expect(gen.next(pairwiseConnection).value).toEqual(
-        call(createAgentPairwiseKey, {
-          agencyUrl,
-          dataBody: {
-            to: identifier,
-            agentPayload: JSON.stringify({
-              type: API_TYPE.CREATE_KEY,
-              forDID: pairwiseConnection.identifier,
-              forDIDVerKey: pairwiseConnection.verificationKey,
-              nonce: '12121212',
-            }),
-          },
+        select(getUserOneTimeInfo)
+      )
+
+      expect(gen.next(userOneTimeInfo).value).toEqual(
+        call(createPairwiseAgent, {
+          url,
+          myPairwiseDid: pairwiseConnection.identifier,
+          myPairwiseVerKey: pairwiseConnection.verificationKey,
+          oneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
+          oneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
+          myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
+          agencyVerKey: agencyVerificationKey,
         })
       )
 
-      const dataBody = {
-        to: pairwiseConnection.identifier,
-        agentPayload: JSON.stringify({
-          type: API_TYPE.INVITE_ANSWERED,
-          uid: payload.requestId,
-          keyDlgProof: 'delegate to agent',
-          senderName: payload.senderName,
-          senderLogoUrl: payload.senderLogoUrl,
-          senderDID,
-          senderDIDVerKey: payload.senderVerificationKey,
-          remoteAgentKeyDlgProof: payload.senderAgentKeyDelegationProof,
-          remoteEndpoint: payload.senderEndpoint,
-          pushComMethod: `FCM:${pushToken}`,
-        }),
+      const pairwiseAgentResponse = {
+        withPairwiseDID: 'myPairwiseAgentDID',
+        withPairwiseDIDVerKey: 'myPairwiseAgentVerKey',
       }
-
-      expect(gen.next().value).toEqual(
-        call(sendInvitationResponseApi, {
-          agencyUrl,
-          dataBody,
+      expect(gen.next(pairwiseAgentResponse).value).toEqual(
+        call(acceptInvitation, {
+          url,
+          requestId: payload.requestId,
+          myPairwiseDid: pairwiseConnection.identifier,
+          myPairwiseVerKey: pairwiseConnection.verificationKey,
+          invitation: payload,
+          myPairwiseAgentDid: pairwiseAgentResponse.withPairwiseDID,
+          myPairwiseAgentVerKey: pairwiseAgentResponse.withPairwiseDIDVerKey,
+          myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
+          myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
+          myOneTimeDid: userOneTimeInfo.myOneTimeDid,
+          myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
+          myAgencyVerKey: agencyVerificationKey,
         })
       )
 
@@ -336,39 +366,69 @@ describe('Invitation Store', () => {
         select(getAgencyVerificationKey)
       )
 
-      expect(gen.next({ identifier, verificationKey }).value).toEqual(
-        call(connectWithConsumerAgency, {
-          agencyUrl,
-          dataBody: {
-            type: API_TYPE.CONNECT,
-            fromDID: identifier,
-            fromDIDVerKey: verificationKey,
-          },
+      const url = `${agencyUrl}/agency/msg`
+      expect(gen.next(agencyVerificationKey).value).toEqual(
+        call(connectToAgency, {
+          url,
+          myDid: identifier,
+          agencyDid,
+          myVerKey: verificationKey,
+          agencyVerKey: agencyVerificationKey,
         })
       )
 
-      expect(gen.next({ identifier, verificationKey }).value).toEqual(
-        call(registerWithConsumerAgency, {
-          agencyUrl,
-          dataBody: {
-            type: API_TYPE.REGISTER,
-            fromDID: identifier,
-          },
+      const connectResponse = {
+        withPairwiseDID: 'oneTimeAgencyDid',
+        withPairwiseDIDVerKey: 'oneTimeAgencyVerKey',
+      }
+      const oneTimeAgencyDid = connectResponse.withPairwiseDID
+      const oneTimeAgencyVerificationKey = connectResponse.withPairwiseDIDVerKey
+      const myOneTimeDid = identifier
+      const myOneTimeVerificationKey = verificationKey
+      expect(gen.next(connectResponse).value).toEqual(
+        call(registerWithAgency, {
+          url,
+          oneTimeAgencyVerKey: oneTimeAgencyVerificationKey,
+          oneTimeAgencyDid: oneTimeAgencyDid,
+          myOneTimeVerKey: myOneTimeVerificationKey,
+          agencyVerKey: agencyVerificationKey,
         })
       )
 
-      expect(gen.next({ identifier, verificationKey }).value).toEqual(
-        call(createAgentWithConsumerAgency, {
-          agencyUrl,
-          dataBody: {
-            type: API_TYPE.CREATE_AGENT,
-            forDID: identifier,
-          },
+      expect(gen.next().value).toEqual(
+        call(createOneTimeAgent, {
+          url,
+          oneTimeAgencyVerKey: oneTimeAgencyVerificationKey,
+          oneTimeAgencyDid: oneTimeAgencyDid,
+          myOneTimeVerKey: myOneTimeVerificationKey,
+          agencyVerKey: agencyVerificationKey,
         })
       )
+
+      const createAgentResponse = {
+        withPairwiseDID: 'oneTimeAgentDid',
+        withPairwiseDIDVerKey: 'oneTimeAgentVerKey',
+      }
+      const myOneTimeAgentDid = createAgentResponse.withPairwiseDID
+      const myOneTimeAgentVerificationKey =
+        createAgentResponse.withPairwiseDIDVerKey
+
+      const userOneTimeInfo = {
+        oneTimeAgencyDid,
+        oneTimeAgencyVerificationKey,
+        myOneTimeDid,
+        myOneTimeVerificationKey,
+        myOneTimeAgentDid,
+        myOneTimeAgentVerificationKey,
+      }
+      expect(gen.next(createAgentResponse).value).toEqual(
+        put(connectRegisterCreateAgentDone(userOneTimeInfo))
+      )
+
       expect(gen.next().value).toEqual(
         call(AsyncStorage.setItem, IS_CONSUMER_AGENT_ALREADY_CREATED, 'true')
       )
+
       expect(gen.next().value).toEqual(
         call(
           addConnection,
@@ -382,42 +442,40 @@ describe('Invitation Store', () => {
         identifier: 'pairwiseIdentifier1',
         verificationKey: 'pairwiseVerificationKey1',
       }
-
       expect(gen.next(pairwiseConnection).value).toEqual(
-        call(createAgentPairwiseKey, {
-          agencyUrl,
-          dataBody: {
-            to: identifier,
-            agentPayload: JSON.stringify({
-              type: API_TYPE.CREATE_KEY,
-              forDID: pairwiseConnection.identifier,
-              forDIDVerKey: pairwiseConnection.verificationKey,
-              nonce: '12121212',
-            }),
-          },
+        select(getUserOneTimeInfo)
+      )
+
+      expect(gen.next(userOneTimeInfo).value).toEqual(
+        call(createPairwiseAgent, {
+          url,
+          myPairwiseDid: pairwiseConnection.identifier,
+          myPairwiseVerKey: pairwiseConnection.verificationKey,
+          oneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
+          oneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
+          myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
+          agencyVerKey: agencyVerificationKey,
         })
       )
 
-      const dataBody = {
-        to: pairwiseConnection.identifier,
-        agentPayload: JSON.stringify({
-          type: API_TYPE.INVITE_ANSWERED,
-          uid: payload.requestId,
-          keyDlgProof: 'delegate to agent',
-          senderName: payload.senderName,
-          senderLogoUrl: payload.senderLogoUrl,
-          senderDID,
-          senderDIDVerKey: payload.senderVerificationKey,
-          remoteAgentKeyDlgProof: payload.senderAgentKeyDelegationProof,
-          remoteEndpoint: payload.senderEndpoint,
-          pushComMethod: `FCM:${pushToken}`,
-        }),
+      const pairwiseAgentResponse = {
+        withPairwiseDID: 'myPairwiseAgentDID',
+        withPairwiseDIDVerKey: 'myPairwiseAgentVerKey',
       }
-
-      expect(gen.next().value).toEqual(
-        call(sendInvitationResponseApi, {
-          agencyUrl,
-          dataBody,
+      expect(gen.next(pairwiseAgentResponse).value).toEqual(
+        call(acceptInvitation, {
+          url,
+          requestId: payload.requestId,
+          myPairwiseDid: pairwiseConnection.identifier,
+          myPairwiseVerKey: pairwiseConnection.verificationKey,
+          invitation: payload,
+          myPairwiseAgentDid: pairwiseAgentResponse.withPairwiseDID,
+          myPairwiseAgentVerKey: pairwiseAgentResponse.withPairwiseDIDVerKey,
+          myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
+          myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
+          myOneTimeDid: userOneTimeInfo.myOneTimeDid,
+          myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
+          myAgencyVerKey: agencyVerificationKey,
         })
       )
 

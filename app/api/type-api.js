@@ -40,13 +40,6 @@ export type SendAuthenticationResponseApiData = {
   },
 }
 
-export type GetProfileApiData = {
-  identifier: string,
-  challenge: string,
-  signature: string,
-  agencyUrl: string,
-}
-
 export type SendMessageApiData = {
   agencyUrl: string,
   userPairwiseDid: string,

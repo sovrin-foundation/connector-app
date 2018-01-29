@@ -19,6 +19,9 @@ import {
   getAgencyUrl,
   getProof,
   getProofRequestPairwiseDid,
+  getUserOneTimeInfo,
+  getAgencyVerificationKey,
+  getRemotePairwiseDidAndName,
 } from '../store/store-selector'
 import {
   PROOF_REQUEST_RECEIVED,
@@ -37,8 +40,10 @@ import type {
   NotificationPayloadInfo,
   Attribute,
 } from '../push-notification/type-push-notification'
-import { sendProof as sendProofApi } from '../api/api'
-import { prepareProof } from '../bridge/react-native-cxs/RNCxs'
+import { prepareProof, sendMessage } from '../bridge/react-native-cxs/RNCxs'
+import type { Connection } from '../store/type-connection-store'
+import type { UserOneTimeInfo } from '../store/user/type-user-store'
+import { MESSAGE_TYPE } from '../api/api-constants'
 
 const proofRequestInitialState = {}
 
@@ -105,15 +110,33 @@ export function* proofAccepted(
         remoteDid,
         userPairwiseDid,
       }
+      const agencyVerificationKey: string = yield select(
+        getAgencyVerificationKey
+      )
+      const connection: Connection = yield select(
+        getRemotePairwiseDidAndName,
+        userPairwiseDid
+      )
+      const userOneTimeInfo: UserOneTimeInfo = yield select(getUserOneTimeInfo)
 
+      const url = `${agencyUrl}/agency/msg`
       try {
-        const apiData = {
-          proof,
-          agencyUrl,
-          userPairwiseDid,
-          responseMsgId: messageId,
-        }
-        const sendProofStatus = yield call(sendProofApi, apiData)
+        const sendProofStatus = yield call(sendMessage, {
+          url,
+          messageType: MESSAGE_TYPE.PROOF,
+          messageReplyId: messageId,
+          message: JSON.stringify(proof),
+          myPairwiseDid: connection.myPairwiseDid,
+          myPairwiseVerKey: connection.myPairwiseVerKey,
+          myPairwiseAgentDid: connection.myPairwiseAgentDid,
+          myPairwiseAgentVerKey: connection.myPairwiseAgentVerKey,
+          myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
+          myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
+          myOneTimeDid: userOneTimeInfo.myOneTimeDid,
+          myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
+          myAgencyVerKey: agencyVerificationKey,
+          myPairwisePeerVerKey: connection.myPairwisePeerVerKey,
+        })
         yield put(sendProofSuccess(action.uid))
       } catch (e) {
         yield put(sendProofFail(action.uid, e))
