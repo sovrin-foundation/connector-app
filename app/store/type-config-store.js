@@ -3,6 +3,8 @@
 export const SERVER_ENVIRONMENT = {
   DEMO: 'DEMO',
   SANDBOX: 'SANDBOX',
+  STAGING: 'STAGING',
+  DEVELOPMENT: 'DEVELOPMENT',
 }
 
 export type ServerEnvironment = $Keys<typeof SERVER_ENVIRONMENT>

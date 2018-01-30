@@ -44,7 +44,7 @@ describe('server environment should change', () => {
   it('to demo if previously it was set to sandbox', () => {
     const expectedConfig = {
       ...initialConfig,
-      agencyUrl: baseUrls[SERVER_ENVIRONMENT.DEMO].agencyUrl,
+      ...baseUrls[SERVER_ENVIRONMENT.DEMO],
     }
 
     if (initialConfig) {

@@ -36,11 +36,29 @@ import type {
 import { appHydration } from './hydration-store'
 
 export const baseUrls = {
-  [SERVER_ENVIRONMENT.SANDBOX]: {
+  [SERVER_ENVIRONMENT.DEVELOPMENT]: {
     agencyUrl: 'https://cagency.pdev.evernym.com',
+    agencyDID: 'U5okhuLX1vtfPfpEh1W2GR',
+    agencyVerificationKey: 'Fm9H5zDJpLtWTFa3YtxpnRThrzr5dT7sPtq15mJ4bhin',
+    poolConfig: null,
+  },
+  [SERVER_ENVIRONMENT.SANDBOX]: {
+    agencyUrl: 'https://agency-sandbox.evernym.com',
+    agencyDID: 'tjVxL8raUsG5s5ZzGhYV1',
+    agencyVerificationKey: 'VCNhKASjLU5tVWnZpjcyEsoV1QC3adrPVMCCjeKMobn',
+    poolConfig: null,
+  },
+  [SERVER_ENVIRONMENT.STAGING]: {
+    agencyUrl: 'https://agency.pstg.evernym.com',
+    agencyDID: 'TGonT1VYWMWEoY29Sid1xC',
+    agencyVerificationKey: 'FKXXoXCeqP3C15xVbGktcFru5DyG9VfqbcJgyeRCs2Wi',
+    poolConfig: null,
   },
   [SERVER_ENVIRONMENT.DEMO]: {
-    agencyUrl: 'https://agency-sandbox.evernym.com',
+    agencyUrl: 'https://agency.pstg.evernym.com',
+    agencyDID: 'TGonT1VYWMWEoY29Sid1xC',
+    agencyVerificationKey: 'FKXXoXCeqP3C15xVbGktcFru5DyG9VfqbcJgyeRCs2Wi',
+    poolConfig: null,
   },
 }
 
@@ -58,10 +76,8 @@ const initialState: ConfigStore = {
   // it will help in case user has not completed pin setup
   // and kills the app for first time
   // next time user opens the app, he won't be asked to setup pin
-  agencyDID: 'U5okhuLX1vtfPfpEh1W2GR',
-  agencyVerificationKey: 'Fm9H5zDJpLtWTFa3YtxpnRThrzr5dT7sPtq15mJ4bhin',
-  poolConfig: null,
 }
+
 export const hydrated = () => ({
   type: HYDRATED,
 })
