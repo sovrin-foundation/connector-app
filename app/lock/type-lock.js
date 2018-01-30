@@ -198,3 +198,9 @@ export type LockAuthorizationProps = {
   onSuccess: () => void,
   onFail: () => void,
 } & ReactNavigation
+
+export const TOUCH_ID_ERROR_NAME = [
+  'LAErrorAuthenticationFailed',
+  'LAErrorAuthenticationFailed',
+  'RCTTouchIDNotSupported',
+]
