@@ -101,13 +101,15 @@ export function convertProofRequestPushPayloadToAppProofRequest(
 
 export function convertClaimPushPayloadToAppClaim(
   pushPayload: ClaimPushPayload,
-  uid: string
+  uid: string,
+  forDID: string
 ): Claim {
   return {
     ...pushPayload,
     messageId: pushPayload.claim_offer_id,
     remoteDid: pushPayload.from_did,
     uid,
+    forDID,
   }
 }
 
@@ -128,6 +130,7 @@ export class PushNotificationNavigator extends PureComponent<
         uid,
         senderLogoUrl,
         remotePairwiseDID,
+        forDID,
       } = nextProps.pushNotification.notification
 
       if (type)
@@ -167,7 +170,7 @@ export class PushNotificationNavigator extends PureComponent<
 
             case MESSAGE_TYPE.CLAIM:
               this.props.claimReceived(
-                convertClaimPushPayloadToAppClaim(additionalData, uid)
+                convertClaimPushPayloadToAppClaim(additionalData, uid, forDID)
               )
               break
           }

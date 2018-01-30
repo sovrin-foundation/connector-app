@@ -200,6 +200,7 @@ export function* additionalDataFetching(
             uid,
             senderLogoUrl,
             remotePairwiseDID,
+            forDID,
           })
         )
       } catch (e) {

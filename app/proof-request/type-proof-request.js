@@ -13,6 +13,7 @@ import type {
   NotificationPayloadInfo,
 } from '../push-notification/type-push-notification'
 import type { Proof } from '../proof/type-proof'
+import type { ClaimMap } from '../claim/type-claim'
 
 export type RequestedAttribute = {
   schema_seq_no?: number,
@@ -77,6 +78,7 @@ export type AdditionalProofDataPayload = {
 
 export type ProofRequestAttributeListProp = {
   list: Array<Attribute>,
+  claimMap?: ?ClaimMap,
 }
 
 export type ProofModalState = {
@@ -119,6 +121,7 @@ export type ProofRequestProps = {
   uid: string,
   navigation: ClaimProofNavigation,
   proofGenerationError?: ?CustomError,
+  claimMap?: ?ClaimMap,
 }
 
 export const PROOF_REQUEST_RECEIVED = 'PROOF_REQUEST_RECEIVED'

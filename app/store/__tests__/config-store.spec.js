@@ -97,6 +97,8 @@ describe('hydration should work correctly', () => {
 
     // hydrate user store
     gen.next()
+    // hydrate claimMap from claim store
+    gen.next()
     gen.next()
 
     // hydrate app success

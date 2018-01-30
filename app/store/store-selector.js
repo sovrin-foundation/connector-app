@@ -112,3 +112,8 @@ export const getRemotePairwiseDidAndName = (state: Store, userDid: string) => {
 }
 
 export const getUserOneTimeInfo = (state: Store) => state.user.userOneTimeInfo
+
+export const getClaimIssuerLogo = (state: Store, claimUuid: string) => {
+  const senderDID = state.connections.claimMap[claimUuid]
+  return getConnectionLogoUrl(state, senderDID)
+}

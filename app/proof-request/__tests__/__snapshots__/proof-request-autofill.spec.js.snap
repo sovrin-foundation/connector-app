@@ -530,12 +530,10 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
       data={
         Array [
           Object {
-            "data": "address1",
-            "label": "address1",
+            "label": "Address 1",
           },
           Object {
-            "data": "address2",
-            "label": "address2",
+            "label": "Address 2",
           },
         ]
       }
@@ -629,7 +627,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                     ]
                   }
                 >
-                  ADDRESS1
+                  ADDRESS 1
                 </Text>
               </View>
               <View
@@ -666,9 +664,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                       },
                     ]
                   }
-                >
-                  address1
-                </Text>
+                />
               </View>
             </View>
             <View
@@ -677,7 +673,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
               medium={true}
               resizeMode="cover"
               round={true}
-              src={1}
+              src={null}
               style={
                 Object {
                   "alignItems": "center",
@@ -689,7 +685,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
             >
               <Image
                 resizeMode="cover"
-                source={1}
+                source={null}
                 style={
                   Array [
                     Object {
@@ -780,7 +776,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                     ]
                   }
                 >
-                  ADDRESS2
+                  ADDRESS 2
                 </Text>
               </View>
               <View
@@ -817,9 +813,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                       },
                     ]
                   }
-                >
-                  address2
-                </Text>
+                />
               </View>
             </View>
             <View
@@ -828,7 +822,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
               medium={true}
               resizeMode="cover"
               round={true}
-              src={1}
+              src={null}
               style={
                 Object {
                   "alignItems": "center",
@@ -840,7 +834,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
             >
               <Image
                 resizeMode="cover"
-                source={1}
+                source={null}
                 style={
                   Array [
                     Object {

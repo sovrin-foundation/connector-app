@@ -14,6 +14,8 @@ Object {
           "anon cred test",
         ],
       },
+      "forDID": "forDID",
+      "from_did": "from_did",
       "issuer_did": "issuerDid",
       "messageId": "1",
       "remoteDid": "remoteDid",
@@ -29,6 +31,7 @@ Object {
       "uid": "usd123",
     },
   },
+  "claimMap": Object {},
 }
 `;
 
@@ -46,6 +49,8 @@ Object {
           "anon cred test",
         ],
       },
+      "forDID": "forDID",
+      "from_did": "from_did",
       "issuer_did": "issuerDid",
       "messageId": "1",
       "remoteDid": "remoteDid",
@@ -65,7 +70,12 @@ Object {
       "message": "Failed to store claim ",
     },
   },
+  "claimMap": Object {},
 }
 `;
 
-exports[`Claim Store should match snapshot when claim storage is success 1`] = `Object {}`;
+exports[`Claim Store should match snapshot when claim storage is success 1`] = `
+Object {
+  "claimMap": Object {},
+}
+`;

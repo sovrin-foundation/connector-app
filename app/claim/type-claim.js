@@ -23,6 +23,8 @@ export type Claim = {
   optional_data?: GenericObject,
   remoteDid: string,
   uid: string,
+  from_did: string,
+  forDID: string,
 }
 
 export const CLAIM_RECEIVED = 'CLAIM_RECEIVED'
@@ -44,10 +46,42 @@ export type ClaimStorageFailAction = {
   error: CustomError,
 }
 
+export const MAP_CLAIM_TO_SENDER = 'MAP_CLAIM_TO_SENDER'
+export type MapClaimToSenderAction = {
+  type: typeof MAP_CLAIM_TO_SENDER,
+  claimUuid: string,
+  senderDID: string,
+  myPairwiseDID: string,
+  logoUrl: string,
+}
+
+export type ClaimMap = {
+  +[claimUuid: string]: {
+    senderDID: string,
+    myPairwiseDID: string,
+    logoUrl: string,
+  },
+}
+
+export const HYDRATE_CLAIM_MAP = 'HYDRATE_CLAIM_MAP'
+export type HydrateClaimMapAction = {
+  type: typeof HYDRATE_CLAIM_MAP,
+  claimMap: ClaimMap,
+}
+
+export const HYDRATE_CLAIM_MAP_FAIL = 'HYDRATE_CLAIM_MAP_FAIL'
+export type HydrateClaimMapFailAction = {
+  type: typeof HYDRATE_CLAIM_MAP_FAIL,
+  error: CustomError,
+}
+
 export type ClaimAction =
   | ClaimReceivedAction
   | ClaimStorageSuccessAction
   | ClaimStorageFailAction
+  | MapClaimToSenderAction
+  | HydrateClaimMapAction
+  | HydrateClaimMapFailAction
   | InitialTestAction
 
 export type ClaimStore = {
@@ -55,4 +89,10 @@ export type ClaimStore = {
     claim: Claim,
     error?: CustomError,
   },
+  claimMap: ClaimMap,
+}
+
+export const ERROR_CLAIM_HYDRATE_FAIL = {
+  message: 'Failed to hydrate claim map',
+  code: 'CL-001',
 }

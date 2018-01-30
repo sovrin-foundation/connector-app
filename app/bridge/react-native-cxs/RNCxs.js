@@ -73,7 +73,9 @@ export async function addClaim(claim: string) {
   return await RNIndy.addClaim(claim)
 }
 
-export async function getClaim(claimUuid: string) {}
+export async function getClaim(filterJSON: string) {
+  return await RNIndy.getClaim(JSON.stringify(filterJSON))
+}
 
 export async function prepareProof(proofRequest: string) {
   const prepareProofJSON: string = await RNIndy.prepareProof(proofRequest)

@@ -46,6 +46,15 @@ export default class CustomList extends PureComponent<
         </CustomView>
       )
     } else {
+      const logoUrl = item.data
+        ? item.claimUuid &&
+          this.props.claimMap &&
+          this.props.claimMap[item.claimUuid] &&
+          this.props.claimMap[item.claimUuid].logoUrl
+          ? { uri: this.props.claimMap[item.claimUuid].logoUrl }
+          : require('../../images/cb_evernym.png')
+        : null
+
       return (
         <Container fifth style={[styles.list]} row>
           <Container fifth verticalSpace>
@@ -74,13 +83,7 @@ export default class CustomList extends PureComponent<
               </CustomText>
             </CustomView>
           </Container>
-          <Icon
-            center
-            medium
-            round
-            resizeMode="cover"
-            src={require('../../images/cb_evernym.png')}
-          />
+          <Icon center medium round resizeMode="cover" src={logoUrl} />
         </Container>
       )
     }

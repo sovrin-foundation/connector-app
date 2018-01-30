@@ -86,6 +86,7 @@ export class ConnectionHistory extends PureComponent {
       senderName: history.senderName,
       image: history.image,
       senderDID: history.senderDID,
+      claimMap: this.props.claimMap,
     })
   }
 
@@ -225,6 +226,7 @@ const mapStateToProps = (state: Store, props: any) => {
       }),
       history => moment(history.timestamp).format('MMMM YYYY')
     ),
+    claimMap: state.claim.claimMap,
   }
 }
 

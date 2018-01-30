@@ -32,6 +32,7 @@ export const senderLogoUrl1 = 'http://testissuer.com/logoUrl.png'
 export const senderVerKey1 = 'senderVerificationKey1'
 export const senderAgentDID1 = 'senderAgentDID1'
 export const endpoint = 'endpoint'
+export const uid = 'uid'
 
 export const senderAgentKeyDelegationProof = {
   agentDID: senderAgentDID1,
@@ -113,7 +114,7 @@ export const successConnectionData = {
 }
 
 export const claimOfferId = 'usd123'
-const claimDefinitionSchemaSequenceNumber = 36
+export const claimDefinitionSchemaSequenceNumber = 36
 const issuerDid = 'issuerDid'
 const senderLogoUrl = 'http://testissuer.com/logoUrl.png'
 
@@ -128,7 +129,7 @@ const requestedAttributes = [
   },
 ]
 
-const originalProofRequestData = {
+export const originalProofRequestData = {
   nonce: '123432421212',
   name: 'proof_req_1',
   version: '0.1',
@@ -146,6 +147,13 @@ const originalProofRequestData = {
   },
   requested_predicates: {},
 }
+
+export const proofRequestData = {
+  name: 'Home Address',
+  version: '1.0.0',
+  requestedAttributes,
+}
+
 export const claimOffer = {
   payload: {
     data: {
@@ -204,6 +212,8 @@ export const claim = {
   },
   remoteDid: 'remoteDid',
   uid: claimOfferId,
+  from_did: 'from_did',
+  forDID: 'forDID',
 }
 
 export const proofRequestId = 'pid123'
@@ -400,6 +410,10 @@ export function getStore(store?: Store) {
           currentScreen: qrCodeScannerTabRoute,
         },
         ...(store || {}),
+        claim: {
+          [uid]: claim,
+          claimMap: claimMap,
+        },
       }
     },
     dispatch() {
@@ -481,4 +495,25 @@ export const qrData = {
     e: '52.38.32.107:80/agency/msg',
   },
   t: 'there',
+}
+
+export const getClaimFormat = {
+  issuer_did: senderDid1,
+  schema_seq_no: claimDefinitionSchemaSequenceNumber,
+  attrs: {
+    address1: 'address1',
+    address2: 'address2',
+    state: 'state',
+    city: 'city',
+    zip: 'zip',
+  },
+  claim_uuid: 'claim_uuid',
+}
+
+export const claimMap = {
+  claimUuid1: {
+    logoUrl: senderLogoUrl,
+    myPairwiseDID: myPairWiseConnectionDetails.myPairwiseDid,
+    senderDID: senderDid1,
+  },
 }

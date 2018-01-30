@@ -22,6 +22,7 @@ import { proofRequestAutoFill } from '../proof-request/proof-request-store'
 import {
   getOriginalProofRequestData,
   getProofRequestPairwiseDid,
+  getClaimIssuerLogo,
 } from '../store/store-selector'
 
 export const getProof = (uid: string) => ({
@@ -110,6 +111,7 @@ export function* generateProofSaga(
     ).map(attributeKey => ({
       label: requested_attrs[attributeKey].name,
       data: proof.requested_proof.revealed_attrs[attributeKey][1],
+      claimUuid: proof.requested_proof.revealed_attrs[attributeKey][0],
     }))
     yield put(proofRequestAutoFill(uid, requestedAttributes))
   } catch (e) {

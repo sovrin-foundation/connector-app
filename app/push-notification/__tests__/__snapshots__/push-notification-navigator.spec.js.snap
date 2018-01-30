@@ -39,6 +39,7 @@ Object {
     ],
   },
   "claim_offer_id": "7TNw2k5",
+  "forDID": "5RHwxmBrGxaEskHcBnLKve",
   "from_did": "3KFuh4jmMC5Agsy5HcCwFB",
   "issuer_did": "V4SGRU86Z58d6TV7PBUe6f",
   "messageId": "7TNw2k5",

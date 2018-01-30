@@ -42,6 +42,7 @@ describe('<PushNotificationNavigator />', () => {
         uid: 'usd123',
         senderLogoUrl: 'http://testissuer.com/logoUrl.png',
         remotePairwiseDID: 'ha66899sadfjZJGINKN0770',
+        forDID: 'forDID',
       },
     },
     currentScreen: homeTabRoute,
@@ -164,7 +165,11 @@ describe('convertClaimPushPayloadToAppClaim', () => {
       issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
       signature: { primary_claim: { m2: 'm2', a: 'a', e: 'e', v: 'v' } },
     }
-    const claim = convertClaimPushPayloadToAppClaim(claimPushPayload, '1')
+    const claim = convertClaimPushPayloadToAppClaim(
+      claimPushPayload,
+      '1',
+      claimPushPayload.to_did
+    )
     expect(claim).toMatchSnapshot()
   })
 })

@@ -3,10 +3,12 @@ import { takeLatest, call, put } from 'redux-saga/effects'
 import { getItem, deleteItem } from '../services/secure-storage'
 import { updatePushToken } from '../push-notification/push-notification-store'
 import { hydrateConnections } from '../store/connections-store'
+import { hydrateClaimMapSaga } from '../claim/claim-store'
 import {
   CONNECTIONS,
   PUSH_COM_METHOD,
   IS_CONSUMER_AGENT_ALREADY_CREATED,
+  CLAIM_MAP,
 } from '../common'
 import { TOUCHID_STORAGE_KEY } from '../lock/type-lock'
 import type { CustomError } from '../common/type-common'
@@ -59,6 +61,9 @@ export function* appHydration(action: {
     }
     yield put(hydrateConnections(connections))
     yield* hydrateUserStoreSaga()
+
+    // restore claimMap
+    yield* hydrateClaimMapSaga()
     yield put(hydrateAppSuccess())
   } catch (e) {
     yield put(hydrateAppFail(e))

@@ -1,19 +1,29 @@
 // @flow
 import renderer from 'react-test-renderer'
-import { put, call } from 'redux-saga/effects'
+import { put, call, select } from 'redux-saga/effects'
 import { initialTestAction } from '../../common/type-common'
 import claimReducer, {
   claimReceived,
   claimStorageFail,
   claimStorageSuccess,
   claimReceivedSaga,
+  mapClaimToSender,
 } from '../claim-store'
 import { CLAIM_STORAGE_ERROR } from '../../services/error/error-code'
-import { addClaim } from '../../bridge/react-native-cxs/RNCxs'
-import { claim } from '../../../__mocks__/static-data'
+import { addClaim, getClaim } from '../../bridge/react-native-cxs/RNCxs'
+import { getConnectionLogoUrl } from '../../store/store-selector'
+import {
+  claim,
+  senderDid1,
+  claimDefinitionSchemaSequenceNumber,
+  getClaimFormat,
+  senderLogoUrl1,
+  myPairWiseConnectionDetails,
+} from '../../../__mocks__/static-data'
+import { getItem, setItem } from '../../services/secure-storage'
 
 describe('Claim Store', () => {
-  let initialState
+  let initialState = { claimMap: {} }
   let afterClaimReceived
 
   beforeEach(() => {
@@ -46,6 +56,31 @@ describe('Claim Store', () => {
 
     expect(gen.next().value).toEqual(call(addClaim, JSON.stringify(claim)))
     expect(gen.next().value).toEqual(put(claimStorageSuccess(claim.messageId)))
+    expect(gen.next().value).toEqual(
+      call(
+        getClaim,
+        JSON.stringify({
+          issuer_DID: senderDid1,
+          schema_seq_no: claimDefinitionSchemaSequenceNumber,
+        })
+      )
+    )
+    expect(gen.next(getClaimFormat).value).toEqual(
+      select(getConnectionLogoUrl, senderDid1)
+    )
+    expect(gen.next(senderLogoUrl1).value).toEqual(
+      put(
+        mapClaimToSender(
+          getClaimFormat.claim_uuid,
+          senderDid1,
+          myPairWiseConnectionDetails.myPairwiseDid,
+          senderLogoUrl1
+        )
+      )
+    )
+    // TODO: Fix this
+    gen.next()
+    gen.next()
 
     expect(gen.next().done).toBe(true)
   })

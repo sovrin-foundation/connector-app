@@ -32,6 +32,7 @@ const initialState: ConnectionStore = {
       secondary: `rgba(${color.actions.button.secondary.rgba})`,
     },
   },
+  claimMap: null,
   error: {
     code: '',
     message: '',

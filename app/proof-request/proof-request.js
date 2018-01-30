@@ -60,6 +60,14 @@ class ProofRequestAttributeList extends PureComponent<
   keyExtractor = (_, index: number) => index
 
   renderItem = ({ item, index }) => {
+    const logoUrl = item.data
+      ? item.claimUuid &&
+        this.props.claimMap &&
+        this.props.claimMap[item.claimUuid] &&
+        this.props.claimMap[item.claimUuid].logoUrl
+        ? { uri: this.props.claimMap[item.claimUuid].logoUrl }
+        : require('../images/cb_evernym.png')
+      : null
     return (
       <Container
         fifth
@@ -91,7 +99,7 @@ class ProofRequestAttributeList extends PureComponent<
           medium
           round
           resizeMode="cover"
-          src={require('../images/cb_evernym.png')}
+          src={logoUrl}
           testID={`proof-requester-logo-${index}`}
         />
       </Container>
@@ -161,6 +169,7 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
       proofStatus,
       remotePairwiseDID,
       logoUrl,
+      claimMap,
     } = this.props
     const testID = 'proof-request'
     const { name: title } = data
@@ -227,7 +236,10 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
           </ClaimProofHeader>
         )}
         {isValid ? (
-          <ProofRequestAttributeList list={data.requestedAttributes} />
+          <ProofRequestAttributeList
+            list={data.requestedAttributes}
+            claimMap={claimMap}
+          />
         ) : (
           <Container fifth center>
             <CustomText h5 bg="fifth">
@@ -282,6 +294,7 @@ const mapStateToProps = (state: Store, props) => {
     uid,
     proofStatus,
     proofGenerationError,
+    claimMap: state.claim.claimMap,
   }
 }
 

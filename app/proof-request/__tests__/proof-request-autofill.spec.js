@@ -5,12 +5,10 @@ import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 import { ProofRequest } from '../proof-request'
 import { PROOF_REQUEST_STATUS, PROOF_STATUS } from '../type-proof-request'
-import { color } from '../../common/styles'
 import {
   getStore,
-  claimMap,
   originalProofRequestData,
-  proofRequestData,
+  proofRequest,
   senderDid1,
   senderName1,
   senderLogoUrl1,
@@ -48,7 +46,7 @@ describe('<ProofRequest />', () => {
     wrapper = renderer.create(
       <Provider store={store}>
         <ProofRequest
-          data={proofRequestData}
+          data={proofRequest.payload.data}
           proofStatus={proofStatus}
           originalProofRequestData={originalProofRequestData}
           remotePairwiseDID={senderDid1}
@@ -62,7 +60,6 @@ describe('<ProofRequest />', () => {
           uid={navigation.state.params.uid}
           isValid={isValid}
           logoUrl={senderLogoUrl1}
-          claimMap={claimMap}
         />
       </Provider>
     )
@@ -74,32 +71,5 @@ describe('<ProofRequest />', () => {
   it('should call proofRequestShown on componentDidMount', () => {
     expect(tree).toMatchSnapshot()
     expect(proofRequestShown).toHaveBeenCalledWith(uid)
-  })
-
-  it('should call acceptproofRequest if offer is accepted', () => {
-    componentInstance.onSend()
-    expect(acceptProofRequest).toHaveBeenCalledWith(uid)
-  })
-
-  it('should call proofRequestIgnored if close button is pressed', () => {
-    componentInstance.onIgnore()
-    expect(ignoreProofRequest).toHaveBeenCalledWith(uid)
-    expect(navigation.goBack).toHaveBeenCalled()
-  })
-
-  it('should call proofRequestRejected if ignore button is pressed', () => {
-    componentInstance.onReject()
-    expect(rejectProofRequest).toHaveBeenCalledWith(uid)
-    expect(navigation.goBack).toHaveBeenCalled()
-  })
-
-  it('should go back on close action', () => {
-    componentInstance.close()
-    expect(navigation.goBack).toHaveBeenCalled()
-  })
-
-  xit('proof generation error should show error alert', () => {
-    // TODO:KS skipping for now, once changes from
-    // history test refactoring are merged, will fix it
   })
 })

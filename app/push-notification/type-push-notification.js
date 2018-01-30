@@ -57,6 +57,7 @@ export type DownloadedNotification = {
   uid: string,
   senderLogoUrl?: ?string,
   remotePairwiseDID?: ?string,
+  forDID: string,
 }
 
 export type PushNotificationStore = {
@@ -79,6 +80,8 @@ export type AdditionalDataResponse = {
 export type Attribute = {
   label: string,
   data?: string,
+  logoUrl?: string,
+  claimUuid?: string,
 }
 
 export type AdditionalData = {

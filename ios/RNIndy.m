@@ -126,10 +126,21 @@ RCT_EXPORT_METHOD(addClaim: (NSString *) claim
   }];
 }
 
-RCT_EXPORT_METHOD(getClaim)
+RCT_EXPORT_METHOD(getClaim: (NSString *) filterJson
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
 {
   // get claim from did and store it, with given claim name and version
   // return claim in json format to JavaScript
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];    
+  [indy getClaimForFilter:filterJson completion:^(NSError *error, NSString *claimsJSON) {
+    if (claimsJSON == nil) {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while preparing proof", error);
+    } else {
+      resolve(claimsJSON);
+    }
+  }];  
 }
 
 RCT_EXPORT_METHOD(prepareProof: (NSString *) proofRequest
