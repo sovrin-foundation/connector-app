@@ -43,6 +43,7 @@ export default class FooterActions extends PureComponent<
           <Container>
             <ConnectionTheme logoUrl={logoUrl}>
               <CustomButton
+                disabled={this.props.disableAccept}
                 primary
                 raised
                 medium

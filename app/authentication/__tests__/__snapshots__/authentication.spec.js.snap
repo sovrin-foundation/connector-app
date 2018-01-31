@@ -491,8 +491,8 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                       },
                       null,
                     ],
-                    undefined,
-                    undefined,
+                    false,
+                    false,
                   ]
                 }
               >

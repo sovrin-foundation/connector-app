@@ -33,5 +33,5 @@ export type RequestProps = RequestDetailProps & {
 } & ReactNavigation
 
 export type RequestState = {
-  tapCount: number,
+  disableAccept: boolean,
 }

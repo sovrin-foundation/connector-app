@@ -10,8 +10,17 @@ import type { RequestProps, RequestState, ResponseTypes } from './type-request'
 import { captureError } from '../../services/error/error-handler'
 import { lockAuthorizationRoute } from '../../common/route-constants'
 
-export default class Request extends PureComponent<void, RequestProps, void> {
+export default class Request extends PureComponent<
+  void,
+  RequestProps,
+  RequestState
+> {
+  state = {
+    disableAccept: false,
+  }
+
   onAccept = () => {
+    this.setState({ disableAccept: true })
     // Move these values to enum, we are not doing it now because of TODO in type file
     return this.onAction('accepted')
   }
@@ -67,6 +76,7 @@ export default class Request extends PureComponent<void, RequestProps, void> {
           />
         </Container>
         <FooterActions
+          disableAccept={this.state.disableAccept}
           onAccept={this.onAccept}
           onDecline={this.onDecline}
           logoUrl={senderLogoUrl}
