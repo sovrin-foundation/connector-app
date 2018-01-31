@@ -25,7 +25,7 @@ export class ConnectionHistoryDetails extends PureComponent<
 > {
   static navigationOptions = ({
     navigation: {
-      navigate,
+      goBack,
       state: {
         params: {
           action,
@@ -43,20 +43,15 @@ export class ConnectionHistoryDetails extends PureComponent<
       <CustomView>
         <TouchableHighlight
           testID={'history-details-back-button'}
-          onPress={() =>
-            navigate(connectionHistoryRoute, { senderName, image, senderDID })}
+          //goBack from current screen works when null is added
+          onPress={() => goBack(null)}
         >
           <Image
             testID={'history-details-back-arrow'}
             style={headerStyles.headerLeft}
             source={require('../images/icon_backArrow_white.png')}
             resizeMode="contain"
-            onPress={() =>
-              navigate(connectionHistoryRoute, {
-                senderName,
-                image,
-                senderDID,
-              })}
+            onPress={() => goBack(null)}
           />
         </TouchableHighlight>
       </CustomView>
