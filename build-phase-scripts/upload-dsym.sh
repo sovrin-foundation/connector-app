@@ -26,6 +26,3 @@ nodejs_not_found()
 }
 
 type $NODE_BINARY >/dev/null 2>&1 || nodejs_not_found
-
-# Run sentry cli script to upload debug symbols
-$NODE_BINARY ../node_modules/sentry-cli-binary/bin/sentry-cli upload-dsym
