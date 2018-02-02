@@ -136,7 +136,7 @@ RCT_EXPORT_METHOD(getClaim: (NSString *) filterJson
   [indy getClaimForFilter:filterJson completion:^(NSError *error, NSString *claimsJSON) {
     if (claimsJSON == nil) {
       NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
-      reject(indyErrorCode, @"Error occurred while preparing proof", error);
+      reject(indyErrorCode, @"Error occurred while getting claim", error);
     } else {
       resolve(claimsJSON);
     }

@@ -39,6 +39,7 @@ import type {
   AdditionalDataPayload,
   NotificationPayloadInfo,
 } from '../push-notification/type-push-notification'
+import type { ClaimMap } from '../claim/type-claim'
 
 export const HISTORY_EVENT_STATUS = {
   [INVITATION_RECEIVED]: 'CONNECTION REQUEST',
@@ -127,6 +128,7 @@ export type ConnectionHistoryDetailsProps = {
         status?: string,
         timestamp?: string,
         data?: Array<Item>,
+        claimMap?: ?ClaimMap,
       },
     },
   },

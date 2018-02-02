@@ -80,11 +80,11 @@ export class ConnectionHistoryDetails extends PureComponent<
   })
 
   render() {
-    const { type, data } = this.props.navigation.state.params
+    const { type, data, claimMap } = this.props.navigation.state.params
     const listType = type === 'CLAIM' ? 'center' : 'end'
     return (
       <Container>
-        <CustomList items={data} type={listType} />
+        <CustomList items={data} type={listType} claimMap={claimMap} />
       </Container>
     )
   }

@@ -54,20 +54,10 @@ export function* claimReceivedSaga(
   action: ClaimReceivedAction
 ): Generator<*, *, *> {
   try {
-    const {
-      claim: {
-        issuer_did: issuer_DID,
-        schema_seq_no,
-        from_did: senderDID,
-        forDID: myPairwiseDid,
-      },
-    } = action
-    yield call(addClaim, JSON.stringify(action.claim))
+    const { claim: { from_did: senderDID, forDID: myPairwiseDid } } = action
+    const claimFilterJSON = yield call(addClaim, JSON.stringify(action.claim))
     yield put(claimStorageSuccess(action.claim.messageId))
-    const claimString = yield call(
-      getClaim,
-      JSON.stringify({ issuer_DID, schema_seq_no })
-    )
+    const claimString = yield call(getClaim, claimFilterJSON)
     const { claim_uuid: claimUuid } = JSON.parse(claimString)
     const logoUrl = yield select(getConnectionLogoUrl, senderDID)
     yield put(mapClaimToSender(claimUuid, senderDID, myPairwiseDid, logoUrl))

@@ -74,7 +74,7 @@ export async function addClaim(claim: string) {
 }
 
 export async function getClaim(filterJSON: string) {
-  return await RNIndy.getClaim(JSON.stringify(filterJSON))
+  return await RNIndy.getClaim(filterJSON)
 }
 
 export async function prepareProof(proofRequest: string) {
