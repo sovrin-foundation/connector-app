@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "lint": "flow",
+    "lint": "glow",
     "precommit": "lint-staged",
     "prepush": "npm test && npm run lint",
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios"
@@ -60,6 +60,8 @@
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.0.0",
     "flow-bin": "0.42.0",
+    "flow-typed": "^2.3.0",
+    "glow": "^1.2.2",
     "husky": "^0.13.3",
     "jest": "19.0.2",
     "lint-staged": "^3.4.1",

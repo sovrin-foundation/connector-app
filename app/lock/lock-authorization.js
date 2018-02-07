@@ -50,17 +50,19 @@ export class LockAuthorization extends PureComponent<
   })
 
   onSuccess = () => {
-    this.props.navigation.goBack()
-    this.props.navigation.state
-      ? this.props.navigation.state.params.onSuccess()
-      : ''
+    this.props.navigation.goBack(null)
+    setTimeout(() => {
+      this.props.navigation.state &&
+        this.props.navigation.state.params.onSuccess()
+    })
   }
 
   onClose = () => {
-    this.props.navigation.goBack()
-    this.props.navigation.state
-      ? this.props.navigation.state.params.onFail()
-      : ''
+    this.props.navigation.goBack(null)
+    setTimeout(() => {
+      this.props.navigation.state &&
+        this.props.navigation.state.params.onAvoid()
+    })
   }
 
   render() {

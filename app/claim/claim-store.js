@@ -1,5 +1,4 @@
 // @flow
-
 import { put, takeLatest, call, all, select } from 'redux-saga/effects'
 import type {
   Claim,
@@ -25,7 +24,7 @@ import {
 import type { CustomError } from '../common/type-common'
 import { addClaim, getClaim } from '../bridge/react-native-cxs/RNCxs'
 import { CLAIM_STORAGE_ERROR } from '../services/error/error-code'
-import { getConnectionLogoUrl } from '../store/store-selector'
+import { getConnectionLogoUrl, getPoolConfig } from '../store/store-selector'
 import { setItem, getItem } from '../services/secure-storage'
 import { CLAIM_MAP } from '../common/secure-storage-constants'
 
@@ -55,9 +54,14 @@ export function* claimReceivedSaga(
 ): Generator<*, *, *> {
   try {
     const { claim: { from_did: senderDID, forDID: myPairwiseDid } } = action
-    const claimFilterJSON = yield call(addClaim, JSON.stringify(action.claim))
+    const poolConfig: string = yield select(getPoolConfig)
+    const claimFilterJSON = yield call(
+      addClaim,
+      JSON.stringify(action.claim),
+      poolConfig
+    )
     yield put(claimStorageSuccess(action.claim.messageId))
-    const claimString = yield call(getClaim, claimFilterJSON)
+    const claimString = yield call(getClaim, claimFilterJSON, poolConfig)
     const { claim_uuid: claimUuid } = JSON.parse(claimString)
     const logoUrl = yield select(getConnectionLogoUrl, senderDID)
     yield put(mapClaimToSender(claimUuid, senderDID, myPairwiseDid, logoUrl))

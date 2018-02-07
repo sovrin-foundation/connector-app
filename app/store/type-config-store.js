@@ -1,4 +1,5 @@
 // @flow
+import type { CustomError } from '../common/type-common'
 
 export const SERVER_ENVIRONMENT = {
   DEMO: 'DEMO',
@@ -44,6 +45,10 @@ export type ChangeEnvironment = {
   agencyVerificationKey: string,
 }
 
+export type SwitchEnvironmentAction = {
+  type: typeof SWITCH_ENVIRONMENT,
+} & ChangeEnvironment
+
 export const SERVER_ENVIRONMENT_CHANGED_SANDBOX =
   'SERVER_ENVIRONMENT_CHANGED_SANDBOX'
 export type ServerEnvironmentChangedSandboxAction = {
@@ -61,6 +66,20 @@ export type ToggleErrorAlertsAction = {
   isShowErrorAlert: boolean,
 }
 
+export const SAVE_SWITCH_ENVIRONMENT_DETAIL_FAIL =
+  'SAVE_SWITCH_ENVIRONMENT_DETAIL_FAIL'
+export type SaveSwitchEnvironmentDetailFailAction = {
+  type: typeof SAVE_SWITCH_ENVIRONMENT_DETAIL_FAIL,
+  error: CustomError,
+}
+
+export const HYDRATE_SWITCH_ENVIRONMENT_DETAIL_FAIL =
+  'HYDRATE_SWITCH_ENVIRONMENT_DETAIL_FAIL'
+export type HydrateSwitchEnvironmentDetailFailAction = {
+  type: typeof HYDRATE_SWITCH_ENVIRONMENT_DETAIL_FAIL,
+  error: CustomError,
+}
+
 export type ConfigAction =
   | HydratedAction
   | AppInstalledSuccessAction
@@ -70,6 +89,9 @@ export type ConfigAction =
   | ServerEnvironmentChangedSandboxAction
   | SwitchErrorAlertsAction
   | ToggleErrorAlertsAction
+  | SwitchEnvironmentAction
+  | SaveSwitchEnvironmentDetailFailAction
+  | HydrateSwitchEnvironmentDetailFailAction
 
 export type ConfigStore = {
   isAlreadyInstalled: boolean,
@@ -78,5 +100,18 @@ export type ConfigStore = {
   agencyUrl: string,
   agencyDID: string,
   agencyVerificationKey: string,
-  poolConfig: ?string,
+  poolConfig: string,
+}
+
+export const STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL =
+  'STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL'
+
+export const ERROR_SAVE_SWITCH_ENVIRONMENT = {
+  code: 'CS-000',
+  message: 'Failed to store switched environment details: ',
+}
+
+export const ERROR_HYDRATE_SWITCH_ENVIRONMENT = {
+  code: 'CS-001',
+  message: 'Failed to hydrate switched environment details: ',
 }

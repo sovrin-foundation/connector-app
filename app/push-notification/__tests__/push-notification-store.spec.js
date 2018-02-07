@@ -1,9 +1,11 @@
+// @flow
 import { call, select, take } from 'redux-saga/effects'
 import {
   getAgencyUrl,
   getAgencyVerificationKey,
   getHydrationState,
   getUserOneTimeInfo,
+  getPoolConfig,
 } from '../../store/store-selector'
 import pushNotificationReducer, {
   pushNotificationPermissionAction,
@@ -13,13 +15,26 @@ import pushNotificationReducer, {
 } from '../push-notification-store'
 import { updatePushToken as updatePushTokenApi } from '../../bridge/react-native-cxs/RNCxs'
 import { PAYLOAD_TYPE } from '../../api/api-constants'
-import { userOneTimeInfo } from '../../../__mocks__/static-data'
+import {
+  userOneTimeInfo,
+  poolConfig,
+  claimOfferPushNotification,
+} from '../../../__mocks__/static-data'
 import { CONNECT_REGISTER_CREATE_AGENT_DONE } from '../../store/user/type-user-store'
+import { initialTestAction } from '../../common/type-common'
 
 describe('push notification store should work properly', () => {
-  let initialState = {}
+  let initialState = {
+    isAllowed: false,
+    notification: null,
+    pushToken: null,
+    isPristine: true,
+    isFetching: false,
+    error: null,
+  }
+
   beforeAll(() => {
-    initialState = pushNotificationReducer(undefined, { type: 'NOACTION' })
+    initialState = pushNotificationReducer(undefined, initialTestAction())
   })
 
   it('should set push notification permission accepted', () => {
@@ -39,11 +54,11 @@ describe('push notification store should work properly', () => {
     const expectedState = {
       ...initialState,
       isAllowed: false,
-      notification: { type: 'auth-req' },
+      notification: claimOfferPushNotification,
     }
     const actualState = pushNotificationReducer(
       initialState,
-      pushNotificationReceived({ type: 'auth-req' })
+      pushNotificationReceived(claimOfferPushNotification)
     )
     expect(actualState).toMatchObject(expectedState)
   })
@@ -64,10 +79,8 @@ describe('push notification store should work properly', () => {
   it('should send updated push token for each connection', () => {
     const pushToken = 'test:APA91bFOyY3at1DzdKO-Z4G_5dG12cXvKC1GuICX3jH'
     const gen = onPushTokenUpdate(updatePushToken(pushToken))
-    expect(gen.next().value).toMatchObject(select(getAgencyUrl))
 
-    const agencyUrl = 'https://agencyurl.com'
-    expect(gen.next(agencyUrl).value).toEqual(select(getHydrationState))
+    expect(gen.next().value).toEqual(select(getHydrationState))
 
     const hydrationState = true
     expect(gen.next(hydrationState).value).toEqual(select(getUserOneTimeInfo))
@@ -76,9 +89,14 @@ describe('push notification store should work properly', () => {
       take(CONNECT_REGISTER_CREATE_AGENT_DONE)
     )
 
-    expect(gen.next({ userOneTimeInfo }).value).toEqual(
-      select(getAgencyVerificationKey)
+    expect(gen.next({ userOneTimeInfo }).value).toMatchObject(
+      select(getAgencyUrl)
     )
+
+    const agencyUrl = 'https://agencyurl.com'
+    expect(gen.next(agencyUrl).value).toEqual(select(getPoolConfig))
+
+    expect(gen.next(poolConfig).value).toEqual(select(getAgencyVerificationKey))
 
     const agencyVerificationKey = 'agencyVerificationKey'
     expect(gen.next(agencyVerificationKey).value).toEqual(
@@ -89,6 +107,7 @@ describe('push notification store should work properly', () => {
         myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
         myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
         myAgencyVerKey: agencyVerificationKey,
+        poolConfig,
       })
     )
 

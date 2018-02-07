@@ -11,7 +11,7 @@ describe('<LockAuthorization />', () => {
       onSuccess: jest.fn(),
       onFail: jest.fn(),
       navigation: {
-        ...getNavigation({ onSuccess: jest.fn(), onFail: jest.fn() }),
+        ...getNavigation({ onSuccess: jest.fn(), onAvoid: jest.fn() }),
       },
     }
   }
@@ -38,8 +38,10 @@ describe('<LockAuthorization />', () => {
   })
 
   it('go back and call success onSuccess', () => {
+    jest.useFakeTimers()
     componentInstance.onSuccess()
     expect(props.navigation.goBack).toHaveBeenCalled()
+    jest.runAllTimers()
     // Ignoring flow error inside test, we need to create type
     // that understand return type for navigation props
     expect(
@@ -50,12 +52,14 @@ describe('<LockAuthorization />', () => {
     ).toHaveBeenCalled()
   })
 
-  it('go back and call fail for onFail', () => {
+  it('go back and call onAvoid', () => {
+    jest.useFakeTimers()
     componentInstance.onClose()
     expect(props.navigation.goBack).toHaveBeenCalled()
+    jest.runAllTimers()
     expect(
       // $FlowFixMe
-      props.navigation.state && props.navigation.state.params.onFail
+      props.navigation.state && props.navigation.state.params.onAvoid
     ).toHaveBeenCalled()
   })
 })

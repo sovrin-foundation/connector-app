@@ -81,10 +81,11 @@ RCT_EXPORT_METHOD(addConnection: (NSString *) remoteDID
 }
 
 RCT_EXPORT_METHOD(getConnectionForDid: (NSString *) remoteDID
+                  withNodesConfig:(NSString *)nodesConfig
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
-  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
   [indy getConnectionForDid:remoteDID completion:^(NSError *error, NSString *did, NSString *metadata) {
     if (error != nil) {
       reject(@"Error_getConnection", @"Error occurred while getting connection", error);
@@ -96,10 +97,11 @@ RCT_EXPORT_METHOD(getConnectionForDid: (NSString *) remoteDID
 
 RCT_EXPORT_METHOD(generateClaimRequest: (NSString *) remoteDID
                   withClaimOffer: (NSString *) claimOffer
+                  withNodesConfig:(NSString *)nodesConfig
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
-  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
     [indy generateClaimRequestForRemoteDid:remoteDID
                                 claimOffer:claimOffer
                                 completion:^(NSError *error, NSString *generatedClaimReqJSON) {
@@ -112,10 +114,11 @@ RCT_EXPORT_METHOD(generateClaimRequest: (NSString *) remoteDID
 }
 
 RCT_EXPORT_METHOD(addClaim: (NSString *) claim
+                  withNodesConfig:(NSString *)nodesConfig
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
-  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
   [indy addClaim:claim completion:^(NSError *error, NSString *filterJson) {
     if (error != nil) {
       NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
@@ -127,12 +130,13 @@ RCT_EXPORT_METHOD(addClaim: (NSString *) claim
 }
 
 RCT_EXPORT_METHOD(getClaim: (NSString *) filterJson
+                  withNodesConfig:(NSString *)nodesConfig
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
   // get claim from did and store it, with given claim name and version
   // return claim in json format to JavaScript
-  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];    
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
   [indy getClaimForFilter:filterJson completion:^(NSError *error, NSString *claimsJSON) {
     if (claimsJSON == nil) {
       NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
@@ -144,10 +148,11 @@ RCT_EXPORT_METHOD(getClaim: (NSString *) filterJson
 }
 
 RCT_EXPORT_METHOD(prepareProof: (NSString *) proofRequest
+                  withNodesConfig:(NSString *)nodesConfig
                       resolver: (RCTPromiseResolveBlock) resolve
                       rejecter: (RCTPromiseRejectBlock) reject)
 {
-  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
   [indy prepareProofForRequest:proofRequest completion:^(NSError *error, NSString *claimsJSON) {
     if (error != nil) {
       NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
@@ -162,11 +167,12 @@ RCT_EXPORT_METHOD(getProof: (NSString *) proofRequest
                  remoteDid: (NSString *) remoteDid
        requestedClaimsJson: (NSString *) requestedClaimsJson
                     claims: (NSString *) claims
+                  withNodesConfig:(NSString *)nodesConfig
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
   // generate proof for proof request passed
-  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
   [indy generateProofForRequest:proofRequest
                       remoteDid:remoteDid
             requestedClaimsJson: requestedClaimsJson
@@ -188,10 +194,11 @@ RCT_EXPORT_METHOD(connectToAgency: (NSString *)url
                   withAgencyDid: (NSString *)agencyDid
                   withMyVerKey: (NSString *)myVerKey
                   withAgencyVerKey: (NSString *)agencyVerKey
+                  withNodesConfig:(NSString *)nodesConfig
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
-  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
   [indy sendConnectRequestWithUrl:url
                         withMyDid:myDid
                     withAgencyDid:agencyDid
@@ -215,10 +222,11 @@ RCT_EXPORT_METHOD(signupWithAgency: (NSString *)url
                   withOneTimeAgentDid: (NSString *)oneTimeAgencyDid
                   withMyOneTimeVerKey: (NSString *)myOneTimeVerKey
                   withAgencyVerKey: (NSString *)agencyVerKey
+                  withNodesConfig:(NSString *)nodesConfig
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
-  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
   [indy sendSignupRequestWithUrl:url
           withOneTimeAgentVerKey:oneTimeAgencyVerKey
              withOneTimeAgentDid:oneTimeAgencyDid
@@ -242,10 +250,11 @@ RCT_EXPORT_METHOD(createOneTimeAgent: (NSString *)url
                   withOneTimeAgentDid:(NSString *)oneTimeAgencyDid
                   withMyOneTimeVerKey:(NSString *)myOneTimeVerKey
                   withAgencyVerKey:(NSString *)agencyVerKey
+                  withNodesConfig:(NSString *)nodesConfig
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
-  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
   [indy sendCreateAgentRequestWithUrl:url
                withOneTimeAgentVerKey:oneTimeAgencyVerKey
                   withOneTimeAgentDid:oneTimeAgencyDid
@@ -271,10 +280,11 @@ RCT_EXPORT_METHOD(createPairwiseAgent: (NSString *)url
                   withOneTimeAgentDid: (NSString *)oneTimeAgentDid
                   myVerKey: (NSString *)myOneTimeVerKey
                   agencyVerKey: (NSString *)agencyVerKey
+                  withNodesConfig:(NSString *)nodesConfig
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
-  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
   [indy sendCreateKeyRequestWithUrl:url
                   withMyPairwiseDid:myPairwiseDid
                withMyPairwiseVerKey:myPairwiseVerKey
@@ -307,10 +317,11 @@ RCT_EXPORT_METHOD(acceptInvitation: (NSString *)url
                   withMyOneTimeDid: (NSString *)myOneTimeDid
                   withMyOneTimeVerKey: (NSString *)myOneTimeVerKey
                   withMyAgencyVerKey: (NSString *)myAgencyVerKey
+                  withNodesConfig:(NSString *)nodesConfig
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
-  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
   [indy sendAcceptInvitationWithUrl:url
                       withRequestId:requestId
                   withMyPairwiseDid:myPairwiseDid
@@ -342,10 +353,11 @@ RCT_EXPORT_METHOD(updatePushToken: (NSString *)url
                   withMyOneTimeAgentVerKey: (NSString *)myOneTimeAgentVerKey
                   withMyOneTimeVerKey: (NSString *)myOneTimeVerKey
                   withAgencyVerKey: (NSString *)myAgencyVerKey
+                  withNodesConfig:(NSString *)nodesConfig
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
-  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
   [indy sendPushTokenWithUrl:url
                    withToken:token
        withMyOneTimeAgentDid:myOneTimeAgentDid
@@ -376,10 +388,11 @@ RCT_EXPORT_METHOD(getMessage: (NSString *)url
                   withMyOneTimeDid: (NSString *)myOneTimeDid
                   withMyOneTimeVerKey: (NSString *)myOneTimeVerKey
                   withMyAgencyVerKey: (NSString *)myAgencyVerKey
+                  withNodesConfig:(NSString *)nodesConfig
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
-  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
   [indy getMessageWithUrl:url
             withRequestId:requestId
         withMyPairwiseDid:myPairwiseDid
@@ -417,10 +430,11 @@ RCT_EXPORT_METHOD(sendMessage: (NSString *)url
                   withMyOneTimeVerKey: (NSString *)myOneTimeVerKey
                   withMyAgencyVerKey: (NSString *)myAgencyVerKey
                   withMyPairwisePeerVerKey: (NSString *)myPairwisePeerVerKey
+                  withNodesConfig:(NSString *)nodesConfig
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
-  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nil];
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
   [indy sendMessageWithUrl:url
                   WithType:messageType
         withMessageReplyId:messageReplyId

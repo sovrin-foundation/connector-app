@@ -41,6 +41,7 @@ import {
   getUserOneTimeInfo,
   getAgencyVerificationKey,
   getRemotePairwiseDidAndName,
+  getPoolConfig,
 } from '../store/store-selector'
 import type { IndyClaimOffer } from '../bridge/react-native-cxs/type-cxs'
 import {
@@ -149,11 +150,13 @@ export function* claimOfferAccepted(
     yield put(sendClaimRequest(action.uid))
     try {
       const agencyUrl: string = yield select(getAgencyUrl)
+      const poolConfig: string = yield select(getPoolConfig)
       const messageId: string = action.uid
       const stringifiedClaimRequest: string = yield call(
         generateClaimRequest,
         remoteDid,
-        indyClaimOffer
+        indyClaimOffer,
+        poolConfig
       )
       // TODO:KS Add error handling if claim request parse fails
       const parsedClaimRequest: IndyClaimRequest = JSON.parse(
@@ -192,6 +195,7 @@ export function* claimOfferAccepted(
           myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
           myAgencyVerKey: agencyVerificationKey,
           myPairwisePeerVerKey: connection.myPairwisePeerVerKey,
+          poolConfig,
         })
 
         // keep the race open b/w success and fail for claim storage

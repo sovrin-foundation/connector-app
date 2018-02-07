@@ -4,62 +4,60 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 import { LockSelection } from '../lock-selection'
+import { getStore, getNavigation } from '../../../__mocks__/static-data'
 
-const switchErrorAlerts = jest.fn()
-const longPressedInLockSelectionScreen = jest.fn()
-const pressedOnOrInLockSelectionScreen = jest.fn()
-function props() {
+function getLockSelectionProps() {
   return {
-    switchErrorAlerts,
-    longPressedInLockSelectionScreen: longPressedInLockSelectionScreen,
-    pressedOnOrInLockSelectionScreen: pressedOnOrInLockSelectionScreen,
+    switchErrorAlerts: jest.fn(),
+    longPressedInLockSelectionScreen: jest.fn(),
+    pressedOnOrInLockSelectionScreen: jest.fn(),
+    disableDevMode: jest.fn(),
+    safeToDownloadSmsInvitation: jest.fn(),
   }
 }
-const navigation = {
-  navigate: jest.fn(),
-  state: {
-    params: {},
-  },
-}
-const store = {
-  getState() {
-    return {
-      lock: {},
-    }
-  },
-  subscribe() {
-    return jest.fn()
-  },
-  dispatch() {
-    return jest.fn()
-  },
-}
-let componentInstance, tree, wrapper
+
+const navigation = getNavigation()
+const store = getStore()
+
+let componentInstance: LockSelection
+let tree
+let wrapper
+let props
+
 describe('app lock selection page should', () => {
   beforeEach(() => {
+    props = getLockSelectionProps()
     wrapper = renderer.create(
       <Provider store={store}>
-        <LockSelection
-          {...props()}
-          navigation={navigation}
-          longPressedInLockSelectionScreen={longPressedInLockSelectionScreen}
-          pressedOnOrInLockSelectionScreen={pressedOnOrInLockSelectionScreen}
-        />
+        <LockSelection {...props} showDevMode={false} navigation={navigation} />
       </Provider>
     )
     tree = wrapper.toJSON()
     componentInstance = wrapper.getInstance()._reactInternalInstance.child
       .stateNode
   })
+
   it('render properly', () => {
     expect(tree).toMatchSnapshot()
   })
-  it('should be abel to call longPressedInLockSelectionScreen action', () => {
+
+  it('should be able to call longPressedInLockSelectionScreen action', () => {
     componentInstance._onLongPressButton()
-    expect(longPressedInLockSelectionScreen).toHaveBeenCalled()
+    expect(props.longPressedInLockSelectionScreen).toHaveBeenCalled()
   })
-  it('should be abel to call pressedOnOrInLockSelectionScreen press action', () => {
+
+  it('should be able to call pressedOnOrInLockSelectionScreen press action', () => {
     componentInstance._onTextPressButton()
-    expect(pressedOnOrInLockSelectionScreen).toHaveBeenCalled()
+    expect(props.pressedOnOrInLockSelectionScreen).toHaveBeenCalled()
+  })
+
+  it('call safeToDownloadSmsInvitation if setup touchId', () => {
+    componentInstance.goTouchIdSetup()
+    expect(props.safeToDownloadSmsInvitation).toHaveBeenCalled()
+  })
+
+  it('call safeToDownloadSmsInvitation if setup pass code', () => {
+    componentInstance.goPinCodeSetup()
+    expect(props.safeToDownloadSmsInvitation).toHaveBeenCalled()
   })
 })

@@ -67,6 +67,7 @@ describe('<Request />', () => {
     await requestComponent.authenticate(accepted)
     expect(navigation.navigate).toHaveBeenCalledWith(lockAuthorizationRoute, {
       onSuccess: expect.any(Function),
+      onAvoid: expect.any(Function),
     })
   })
 

@@ -11,6 +11,7 @@ import {
   getUserOneTimeInfo,
   getAgencyVerificationKey,
   getHydrationState,
+  getPoolConfig,
 } from '../store/store-selector'
 import {
   PUSH_NOTIFICATION_PERMISSION,
@@ -68,7 +69,6 @@ export function* onPushTokenUpdate(
   action: PushNotificationUpdateTokenAction
 ): Generator<*, *, *> {
   const { token } = action
-  const agencyUrl: string = yield select(getAgencyUrl)
   // We can come to this point in code from several paths
   // 1. this is called when user is trying to accept connection first time
   // 2. this can be called when we are hydrating app data and we put push token
@@ -106,6 +106,8 @@ export function* onPushTokenUpdate(
   // so for both scenario 2 & 3, we will get user one time info
   // as soon as hydrated is success
 
+  const agencyUrl: string = yield select(getAgencyUrl)
+  const poolConfig: string = yield select(getPoolConfig)
   const agencyVerificationKey: string = yield select(getAgencyVerificationKey)
   const pushComMethod = `FCM:${token}`
 
@@ -118,6 +120,7 @@ export function* onPushTokenUpdate(
       myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
       myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
       myAgencyVerKey: agencyVerificationKey,
+      poolConfig,
     })
   } catch (e) {
     captureError(e)
@@ -150,7 +153,6 @@ export const fetchAdditionalDataError = (error: CustomError) => ({
 export function* additionalDataFetching(
   action: FetchAdditionalDataAction
 ): Generator<*, *, *> {
-  const agencyUrl: string = yield select(getAgencyUrl)
   const { forDID, uid, type, senderLogoUrl } = action.notificationPayload
   const isHydrated = yield select(getHydrationState)
   if (!isHydrated) {
@@ -168,6 +170,8 @@ export function* additionalDataFetching(
         const userOneTimeInfo: UserOneTimeInfo = yield select(
           getUserOneTimeInfo
         )
+        const agencyUrl: string = yield select(getAgencyUrl)
+        const poolConfig: string = yield select(getPoolConfig)
         const agencyVerificationKey: string = yield select(
           getAgencyVerificationKey
         )
@@ -186,6 +190,7 @@ export function* additionalDataFetching(
             myOneTimeDid: userOneTimeInfo.myOneTimeDid,
             myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
             myAgencyVerKey: agencyVerificationKey,
+            poolConfig,
           }
         )
 

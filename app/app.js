@@ -22,10 +22,11 @@ class ConnectMeApp extends PureComponent {
     if (route.routes) {
       return this.getCurrentRouteName(route)
     }
+
     return route.routeName
   }
 
-  navigationChangeHandler = (prevState, currentState) => {
+  navigationChangeHandler = (previousState, currentState) => {
     if (currentState) {
       const currentScreen = this.getCurrentRouteName(currentState)
       store.dispatch({

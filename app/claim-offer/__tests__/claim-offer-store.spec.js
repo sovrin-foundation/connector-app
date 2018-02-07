@@ -22,6 +22,7 @@ import {
   getUserOneTimeInfo,
   getAgencyVerificationKey,
   getRemotePairwiseDidAndName,
+  getPoolConfig,
 } from '../../store/store-selector'
 import {
   generateClaimRequest,
@@ -37,6 +38,7 @@ import {
   claimOfferId as uid,
   pairwiseConnection,
   claimRequest,
+  poolConfig,
 } from '../../../__mocks__/static-data'
 
 describe('claim offer store', () => {
@@ -120,13 +122,15 @@ describe('claim offer store', () => {
     expect(gen.next().value).toEqual(select(getAgencyUrl))
 
     const agencyUrl = 'https://agencyUrl.com'
+    expect(gen.next(agencyUrl).value).toEqual(select(getPoolConfig))
+
     const expectedIndyClaimOffer = {
       issuerDid: claimOffer.payload.issuer.did,
       schemaSequenceNumber:
         claimOffer.payload.data.claimDefinitionSchemaSequenceNumber,
     }
-    expect(gen.next(agencyUrl).value).toEqual(
-      call(generateClaimRequest, remoteDid, expectedIndyClaimOffer)
+    expect(gen.next(poolConfig).value).toEqual(
+      call(generateClaimRequest, remoteDid, expectedIndyClaimOffer, poolConfig)
     )
 
     const claimRequest = {
@@ -192,6 +196,7 @@ describe('claim offer store', () => {
       myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
       myAgencyVerKey: agencyVerificationKey,
       myPairwisePeerVerKey: connection.myPairwisePeerVerKey,
+      poolConfig,
     }
 
     expect(gen.next(connection).value).toEqual(call(sendMessage, expectedData))

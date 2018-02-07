@@ -32,7 +32,6 @@ import {
   createOneTimeAgent,
   createPairwiseAgent,
   acceptInvitation,
-  updatePushToken,
 } from '../bridge/react-native-cxs/RNCxs'
 import type {
   InvitationResponseSendData,
@@ -96,6 +95,7 @@ function* createConsumerAgencyAgent(
   const pushToken: string = yield select(getPushToken)
   const agencyDid: string = yield select(getAgencyDID)
   const agencyVerificationKey: string = yield select(getAgencyVerificationKey)
+  const poolConfig: string = yield select(getPoolConfig)
 
   const metadata = {
     ...payload,
@@ -109,6 +109,7 @@ function* createConsumerAgencyAgent(
       agencyDid,
       myVerKey: verificationKey,
       agencyVerKey: agencyVerificationKey,
+      poolConfig,
     })
 
     const oneTimeAgencyDid = connectResponse.withPairwiseDID
@@ -124,6 +125,7 @@ function* createConsumerAgencyAgent(
         oneTimeAgencyDid: oneTimeAgencyDid,
         myOneTimeVerKey: myOneTimeVerificationKey,
         agencyVerKey: agencyVerificationKey,
+        poolConfig,
       }
     )
 
@@ -135,6 +137,7 @@ function* createConsumerAgencyAgent(
         oneTimeAgencyDid: oneTimeAgencyDid,
         myOneTimeVerKey: myOneTimeVerificationKey,
         agencyVerKey: agencyVerificationKey,
+        poolConfig,
       }
     )
 
@@ -250,6 +253,7 @@ export function* sendResponse(
           oneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
           myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
           agencyVerKey: agencyVerificationKey,
+          poolConfig,
         }
       )
 
@@ -267,6 +271,7 @@ export function* sendResponse(
         myOneTimeDid: userOneTimeInfo.myOneTimeDid,
         myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
         myAgencyVerKey: agencyVerificationKey,
+        poolConfig,
       })
       yield put(invitationSuccess(senderDID))
 

@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -16,11 +17,20 @@ import {
   PENDING_CONNECTION_REQUEST_CODE,
 } from '../api/api-constants'
 import { addPendingRedirection } from '../store'
-import { getSmsPendingInvitation } from '../sms-pending-invitation/sms-pending-invitation-store'
+import {
+  getSmsPendingInvitation,
+  safeToDownloadSmsInvitation,
+} from '../sms-pending-invitation/sms-pending-invitation-store'
 import { loadHistory } from '../connection-history/connection-history-store'
+import type { SplashScreenProps } from './type-splash-screen'
+import type { Store } from '../store/type-store'
 
-class SplashScreenView extends PureComponent {
-  componentWillReceiveProps(nextProps) {
+export class SplashScreenView extends PureComponent<
+  void,
+  SplashScreenProps,
+  void
+> {
+  componentWillReceiveProps(nextProps: SplashScreenProps) {
     if (nextProps.config.isHydrated !== this.props.config.isHydrated) {
       // hydrated is changed, and if it is changed to true,
       // that means this is the only time we would get inside this if condition
@@ -37,6 +47,12 @@ class SplashScreenView extends PureComponent {
           } else {
             this.props.navigation.navigate(lockEnterPinRoute)
           }
+
+          // if we are redirecting user to either of authentication screen
+          // we are sure that now user can't change the environment
+          // so we need to raise an action for safe to download invitation
+          // from environment information available after app is hydrated
+          this.props.safeToDownloadSmsInvitation()
         }
       }
     }
@@ -85,8 +101,10 @@ class SplashScreenView extends PureComponent {
         nextProps.smsPendingInvitation.payload !==
         this.props.smsPendingInvitation.payload
       ) {
-        const senderDID =
-          nextProps.smsPendingInvitation.payload.senderDetail.DID
+        const senderDID = nextProps.smsPendingInvitation.payload
+          ? nextProps.smsPendingInvitation.payload.senderDetail.DID
+          : null
+
         if (senderDID) {
           if (nextProps.lock.isAppLocked === false) {
             this.props.navigation.navigate(invitationRoute, { senderDID })
@@ -126,6 +144,12 @@ class SplashScreenView extends PureComponent {
         } else {
           this.props.navigation.navigate(lockEnterPinRoute)
         }
+
+        // if we are redirecting user to either of authentication screen
+        // we are sure that now user can't change the environment
+        // so we need to raise an action for safe to download invitation
+        // from environment information available after app is hydrated
+        this.props.safeToDownloadSmsInvitation()
       }
     }
 
@@ -138,7 +162,12 @@ class SplashScreenView extends PureComponent {
   }
 }
 
-const mapStateToProps = ({ config, deepLink, lock, smsPendingInvitation }) => ({
+const mapStateToProps = ({
+  config,
+  deepLink,
+  lock,
+  smsPendingInvitation,
+}: Store) => ({
   config,
   deepLink,
   lock,
@@ -151,11 +180,9 @@ const mapDispatchToProps = dispatch =>
       getSmsPendingInvitation,
       addPendingRedirection,
       loadHistory,
+      safeToDownloadSmsInvitation,
     },
     dispatch
   )
 
-export default (mapStateDispatchConnection = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SplashScreenView))
+export default connect(mapStateToProps, mapDispatchToProps)(SplashScreenView)

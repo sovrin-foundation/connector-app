@@ -64,6 +64,7 @@ export const isDuplicateConnection = (state: Store, senderDID: string) => {
 
   return connections.length > 0
 }
+
 export const getHydrationState = (state: Store) => state.config.isHydrated
 
 export const getClaimOffer = (state: Store, claimOfferId: string) =>
@@ -117,3 +118,5 @@ export const getClaimIssuerLogo = (state: Store, claimUuid: string) => {
   const senderDID = state.connections.claimMap[claimUuid]
   return getConnectionLogoUrl(state, senderDID)
 }
+
+export const getCurrentScreen = (state: Store) => state.route.currentScreen

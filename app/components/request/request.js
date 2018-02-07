@@ -34,12 +34,23 @@ export default class Request extends PureComponent<
     this.props.onAction(response)
   }
 
+  onAvoidAuthorization = () => {
+    /**
+     * User can choose to avoid entering pass code either by canceling
+     * or by pressing back button and choose to ignore pass code
+     * then once user comes back, we need to re-enable button
+     * so that user can press accept or decline button again
+     */
+    this.setState({ disableAccept: false })
+  }
+
   authenticate = (response: ResponseTypes) => {
     return TouchId.authenticate(TOUCH_ID_MESSAGE)
       .then(() => this.onSuccessfulAuthorization(response))
       .catch(() => {
         this.props.navigation.navigate(lockAuthorizationRoute, {
           onSuccess: () => this.onSuccessfulAuthorization(response),
+          onAvoid: () => this.onAvoidAuthorization(),
         })
       })
   }

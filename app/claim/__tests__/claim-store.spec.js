@@ -11,7 +11,7 @@ import claimReducer, {
 } from '../claim-store'
 import { CLAIM_STORAGE_ERROR } from '../../services/error/error-code'
 import { addClaim, getClaim } from '../../bridge/react-native-cxs/RNCxs'
-import { getConnectionLogoUrl } from '../../store/store-selector'
+import { getConnectionLogoUrl, getPoolConfig } from '../../store/store-selector'
 import {
   claim,
   senderDid1,
@@ -19,6 +19,7 @@ import {
   getClaimFormat,
   senderLogoUrl1,
   myPairWiseConnectionDetails,
+  poolConfig,
 } from '../../../__mocks__/static-data'
 import { getItem, setItem } from '../../services/secure-storage'
 
@@ -89,7 +90,11 @@ describe('Claim Store', () => {
   it('claim storage workflow works fine if storage fails', () => {
     const gen = claimReceivedSaga(claimReceived(claim))
 
-    expect(gen.next().value).toEqual(call(addClaim, JSON.stringify(claim)))
+    expect(gen.next().value).toEqual(select(getPoolConfig))
+
+    expect(gen.next(poolConfig).value).toEqual(
+      call(addClaim, JSON.stringify(claim), poolConfig)
+    )
 
     const error = new Error('claim storage Indy failure')
     expect(gen.throw(error).value).toEqual(

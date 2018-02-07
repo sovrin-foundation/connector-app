@@ -78,9 +78,16 @@ export type SMSPendingInvitationSeenAction = {
   type: typeof SMS_PENDING_INVITATION_SEEN,
 }
 
+export const SAFE_TO_DOWNLOAD_SMS_INVITATION = 'SAFE_TO_DOWNLOAD_SMS_INVITATION'
+
+export type SafeToDownloadSmsInvitationAction = {
+  type: typeof SAFE_TO_DOWNLOAD_SMS_INVITATION,
+}
+
 export type SMSPendingInvitationAction =
   | SMSPendingInvitationRequestAction
   | SMSPendingInvitationReceivedAction
   | SMSPendingInvitationFailAction
   | SMSPendingInvitationSeenAction
+  | SafeToDownloadSmsInvitationAction
   | InitialTestAction

@@ -1,6 +1,10 @@
 // @flow
 
-import type { CustomError, GenericObject } from '../common/type-common'
+import type {
+  CustomError,
+  GenericObject,
+  InitialTestAction,
+} from '../common/type-common'
 import type { PendingRedirection } from '../lock/type-lock'
 import type { Claim } from '../claim/type-claim'
 import type { AdditionalProofDataPayload } from '../proof-request/type-proof-request'
@@ -50,6 +54,7 @@ export type PushNotificationAction =
   | PushNotificationUpdateTokenAction
   | FetchAdditionalDataAction
   | FetchAdditionalDataErrorAction
+  | InitialTestAction
 
 export type DownloadedNotification = {
   additionalData: GenericObject,

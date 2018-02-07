@@ -12,5 +12,5 @@ export type Item = {
 export type CustomListProps = {
   items: Array<Item>,
   type?: string,
-  claimMap?: ClaimMap,
+  claimMap?: ?ClaimMap,
 }

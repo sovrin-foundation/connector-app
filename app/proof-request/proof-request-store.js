@@ -22,6 +22,7 @@ import {
   getUserOneTimeInfo,
   getAgencyVerificationKey,
   getRemotePairwiseDidAndName,
+  getPoolConfig,
 } from '../store/store-selector'
 import {
   PROOF_REQUEST_RECEIVED,
@@ -40,7 +41,7 @@ import type {
   NotificationPayloadInfo,
   Attribute,
 } from '../push-notification/type-push-notification'
-import { prepareProof, sendMessage } from '../bridge/react-native-cxs/RNCxs'
+import { sendMessage } from '../bridge/react-native-cxs/RNCxs'
 import type { Connection } from '../store/type-connection-store'
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
 import { MESSAGE_TYPE } from '../api/api-constants'
@@ -103,6 +104,7 @@ export function* proofAccepted(
     yield put(sendProof(action.uid))
     try {
       const agencyUrl: string = yield select(getAgencyUrl)
+      const poolConfig: string = yield select(getPoolConfig)
       const messageId: string = action.uid
       const payload = yield select(getProof, messageId)
       const proof = {
@@ -136,6 +138,7 @@ export function* proofAccepted(
           myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
           myAgencyVerKey: agencyVerificationKey,
           myPairwisePeerVerKey: connection.myPairwisePeerVerKey,
+          poolConfig,
         })
         yield put(sendProofSuccess(action.uid))
       } catch (e) {

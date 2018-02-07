@@ -25,6 +25,8 @@ export type ReactNavigation = {
   navigation: {
     navigate: (route: string, params?: any) => void,
     state?: {
+      // TODO:KS This has to accept a Generic and every where we are using
+      // react navigation params, we have to pass a generic for type safety
       params: NavigationParams,
     },
     goBack: (route?: ?string) => void,

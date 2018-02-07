@@ -5,26 +5,26 @@ Object {
   "error": null,
   "isFetching": false,
   "payload": Object {
-    "connReqId": "nzc5ztz",
+    "connReqId": "requestId1",
     "senderAgencyDetail": Object {
-      "DID": "BDSmVkzxRYGE4HKyMKxd1H",
-      "endpoint": "52.38.32.107:80/agency/msg",
-      "verKey": "6yUatReYWNSUfEtC2ABgRXmmLaxCyQqsjLwv2BomxsxD",
+      "DID": "senderDID1",
+      "endpoint": "endpoint",
+      "verKey": "senderVerificationKey1",
     },
     "senderDetail": Object {
-      "DID": "3Bb6zCYMoGnMTho97HGDrn",
+      "DID": "senderDID1",
       "agentKeyDlgProof": Object {
-        "agentDID": "EHNMj5FNjA3xBo8HUKQTZv",
-        "agentDelegatedKey": "8Esrno7vguYbwVJDa31aMCdWJTu2tC7tke8u2iKUUvgB",
-        "signature": "OXtzqX9LJJsBY/Mrhjff6b9L79Pdg8U4B7dI/3RR65BJr5jktAGMwpMLe1aQRQT0FlplZfNy8QtUd4KNPd+ZAg==",
+        "agentDID": "senderAgentDID1",
+        "agentDelegatedKey": "agentDelegatedKey",
+        "signature": "signature",
       },
-      "logoUrl": "http://www.evernym.com",
-      "name": "default",
-      "verKey": "2BzhMgbLXbECPPYiLtSEd36Boxt1oquuGJeS1ofhPoEr",
+      "logoUrl": "http://testissuer.com/logoUrl.png",
+      "name": "sender1",
+      "verKey": "senderVerificationKey1",
     },
     "statusCode": "MS-102",
     "statusMsg": "message sent",
-    "targetName": "there",
+    "targetName": "target name",
   },
   "status": "SEEN",
 }
@@ -47,26 +47,26 @@ Object {
   "error": null,
   "isFetching": false,
   "payload": Object {
-    "connReqId": "nzc5ztz",
+    "connReqId": "requestId1",
     "senderAgencyDetail": Object {
-      "DID": "BDSmVkzxRYGE4HKyMKxd1H",
-      "endpoint": "52.38.32.107:80/agency/msg",
-      "verKey": "6yUatReYWNSUfEtC2ABgRXmmLaxCyQqsjLwv2BomxsxD",
+      "DID": "senderDID1",
+      "endpoint": "endpoint",
+      "verKey": "senderVerificationKey1",
     },
     "senderDetail": Object {
-      "DID": "3Bb6zCYMoGnMTho97HGDrn",
+      "DID": "senderDID1",
       "agentKeyDlgProof": Object {
-        "agentDID": "EHNMj5FNjA3xBo8HUKQTZv",
-        "agentDelegatedKey": "8Esrno7vguYbwVJDa31aMCdWJTu2tC7tke8u2iKUUvgB",
-        "signature": "OXtzqX9LJJsBY/Mrhjff6b9L79Pdg8U4B7dI/3RR65BJr5jktAGMwpMLe1aQRQT0FlplZfNy8QtUd4KNPd+ZAg==",
+        "agentDID": "senderAgentDID1",
+        "agentDelegatedKey": "agentDelegatedKey",
+        "signature": "signature",
       },
-      "logoUrl": "http://www.evernym.com",
-      "name": "default",
-      "verKey": "2BzhMgbLXbECPPYiLtSEd36Boxt1oquuGJeS1ofhPoEr",
+      "logoUrl": "http://testissuer.com/logoUrl.png",
+      "name": "sender1",
+      "verKey": "senderVerificationKey1",
     },
     "statusCode": "MS-102",
     "statusMsg": "message sent",
-    "targetName": "there",
+    "targetName": "target name",
   },
   "status": "RECEIVED",
 }
@@ -80,3 +80,11 @@ Object {
   "status": "NONE",
 }
 `;
+
+exports[`SMS Connection Request store sms invitation download error should raise fail action 1`] = `"TabQRCodeScanner"`;
+
+exports[`SMS Connection Request store sms invitation download error should raise fail action 2`] = `false`;
+
+exports[`SMS Connection Request store sms invitation download workflow should work fine if api returns success 1`] = `"TabQRCodeScanner"`;
+
+exports[`SMS Connection Request store sms invitation download workflow should work fine if api returns success 2`] = `false`;

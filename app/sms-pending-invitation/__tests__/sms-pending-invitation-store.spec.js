@@ -1,6 +1,10 @@
 // @flow
-import { call, select, put } from 'redux-saga/effects'
-import { getAgencyUrl } from '../../store/store-selector'
+import { call, select, put, take } from 'redux-saga/effects'
+import {
+  getAgencyUrl,
+  getCurrentScreen,
+  getHydrationState,
+} from '../../store/store-selector'
 import smsPendingInvitationReducer, {
   callSmsPendingInvitationRequest,
   convertSmsPayloadToInvitation,
@@ -9,11 +13,21 @@ import smsPendingInvitationReducer, {
   getSmsPendingInvitation,
   smsPendingInvitationSeen,
 } from '../sms-pending-invitation-store'
-import { SMSPendingInvitationStatus } from '../type-sms-pending-invitation'
+import {
+  SMSPendingInvitationStatus,
+  SAFE_TO_DOWNLOAD_SMS_INVITATION,
+} from '../type-sms-pending-invitation'
 import { getInvitationLink, invitationDetailsRequest } from '../../api/api'
 import { PENDING_CONNECTION_REQUEST_CODE } from '../../api/api-constants'
 import { initialTestAction } from '../../common/type-common'
 import { invitationReceived } from '../../invitation/invitation-store'
+import {
+  smsDownloadedPayload as payload,
+  smsToken,
+  getStore,
+} from '../../../__mocks__/static-data'
+import { HYDRATED } from '../../store/type-config-store'
+import { lockSelectionRoute } from '../../common/route-constants'
 
 describe('SMS Connection Request store', () => {
   const initialState = {
@@ -22,31 +36,7 @@ describe('SMS Connection Request store', () => {
     isFetching: false,
     error: null,
   }
-  const smsToken = 'gm76ku'
-
-  const payload = {
-    statusCode: 'MS-102',
-    connReqId: 'nzc5ztz',
-    senderDetail: {
-      name: 'default',
-      agentKeyDlgProof: {
-        agentDID: 'EHNMj5FNjA3xBo8HUKQTZv',
-        agentDelegatedKey: '8Esrno7vguYbwVJDa31aMCdWJTu2tC7tke8u2iKUUvgB',
-        signature:
-          'OXtzqX9LJJsBY/Mrhjff6b9L79Pdg8U4B7dI/3RR65BJr5jktAGMwpMLe1aQRQT0FlplZfNy8QtUd4KNPd+ZAg==',
-      },
-      DID: '3Bb6zCYMoGnMTho97HGDrn',
-      logoUrl: 'http://www.evernym.com',
-      verKey: '2BzhMgbLXbECPPYiLtSEd36Boxt1oquuGJeS1ofhPoEr',
-    },
-    senderAgencyDetail: {
-      DID: 'BDSmVkzxRYGE4HKyMKxd1H',
-      verKey: '6yUatReYWNSUfEtC2ABgRXmmLaxCyQqsjLwv2BomxsxD',
-      endpoint: '52.38.32.107:80/agency/msg',
-    },
-    targetName: 'there',
-    statusMsg: 'message sent',
-  }
+  const store = getStore()
 
   const getPendingInvitationState = state =>
     smsPendingInvitationReducer(state, getSmsPendingInvitation(smsToken))
@@ -107,6 +97,23 @@ describe('SMS Connection Request store', () => {
       getSmsPendingInvitation(smsToken)
     )
 
+    expect(gen.next().value).toEqual(select(getCurrentScreen))
+    // we are explicitly adding test dependency on getCurrentScreen
+    // so that if someone changes this selector or store state/structure
+    // they should know that this part of app breaks if we change this selector
+    expect(getCurrentScreen(store.getState())).toMatchSnapshot()
+
+    expect(gen.next(lockSelectionRoute).value).toEqual(
+      take(SAFE_TO_DOWNLOAD_SMS_INVITATION)
+    )
+
+    expect(gen.next().value).toEqual(select(getHydrationState))
+    // again add explicit test dependency on selector, so that this test breaks
+    // if any change is done for selector or store/structure
+    expect(getHydrationState(store.getState())).toMatchSnapshot()
+
+    expect(gen.next(false).value).toEqual(take(HYDRATED))
+
     expect(gen.next().value).toEqual(select(getAgencyUrl))
     const agencyUrl = 'http://test-agency.com'
 
@@ -147,6 +154,26 @@ describe('SMS Connection Request store', () => {
     const gen = callSmsPendingInvitationRequest(
       getSmsPendingInvitation(smsToken)
     )
+
+    // Need to find better way to share common tests for sagas
+    // and common way forward
+
+    expect(gen.next().value).toEqual(select(getCurrentScreen))
+    // we are explicitly adding test dependency on getCurrentScreen
+    // so that if someone changes this selector or store state/structure
+    // they should know that this part of app breaks if we change this selector
+    expect(getCurrentScreen(store.getState())).toMatchSnapshot()
+
+    expect(gen.next(lockSelectionRoute).value).toEqual(
+      take(SAFE_TO_DOWNLOAD_SMS_INVITATION)
+    )
+
+    expect(gen.next().value).toEqual(select(getHydrationState))
+    // again add explicit test dependency on selector, so that this test breaks
+    // if any change is done for selector or store/structure
+    expect(getHydrationState(store.getState())).toMatchSnapshot()
+
+    expect(gen.next(false).value).toEqual(take(HYDRATED))
 
     expect(gen.next().value).toEqual(select(getAgencyUrl))
     const agencyUrl = 'http://test-agency.com'

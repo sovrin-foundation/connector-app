@@ -23,6 +23,7 @@ import {
   getOriginalProofRequestData,
   getProofRequestPairwiseDid,
   getClaimIssuerLogo,
+  getPoolConfig,
 } from '../store/store-selector'
 
 export const getProof = (uid: string) => ({
@@ -58,7 +59,12 @@ export function* generateProofSaga(
       uid
     )
     const remoteDid: string = yield select(getProofRequestPairwiseDid, uid)
-    const preparedProof = yield call(prepareProof, JSON.stringify(proofRequest))
+    const poolConfig: string = yield select(getPoolConfig)
+    const preparedProof = yield call(
+      prepareProof,
+      JSON.stringify(proofRequest),
+      poolConfig
+    )
 
     // generate proof
     const preparedProofJSON = JSON.parse(preparedProof)
@@ -98,7 +104,8 @@ export function* generateProofSaga(
       JSON.stringify(proofRequest),
       remoteDid,
       JSON.stringify(requestedClaimsJson),
-      preparedProof
+      preparedProof,
+      poolConfig
     )
     const proof = JSON.parse(proofJson)
 

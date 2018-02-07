@@ -1,7 +1,8 @@
 // @flow
 import 'react-native'
 import renderer from 'react-test-renderer'
-import { put, take } from 'redux-saga/effects'
+import { AsyncStorage } from 'react-native'
+import { put, take, call } from 'redux-saga/effects'
 import configReducer, {
   watchChangeEnvironmentToDemo,
   watchChangeEnvironmentToSandbox,
@@ -12,6 +13,9 @@ import configReducer, {
   hydrateConfig,
   alreadyInstalledAction,
   hydrated,
+  onEnvironmentSwitch,
+  hydrateSwitchedEnvironmentDetails,
+  changeEnvironment,
 } from '../config-store'
 import {
   SERVER_ENVIRONMENT_CHANGED_DEMO,
@@ -19,12 +23,25 @@ import {
   SERVER_ENVIRONMENT_CHANGED,
   SERVER_ENVIRONMENT,
   SWITCH_ERROR_ALERTS,
+  STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL,
 } from '../type-config-store'
+import {
+  agencyDID,
+  agencyUrl,
+  agencyVerificationKey,
+  poolConfig,
+} from '../../../__mocks__/static-data'
 
 describe('server environment should change', () => {
   let initialConfig = null
+  const serializedEnvironmentDetail = JSON.stringify({
+    poolConfig,
+    agencyDID,
+    agencyVerificationKey,
+    agencyUrl,
+  })
 
-  beforeAll(() => {
+  beforeEach(() => {
     initialConfig = configReducer(undefined, { type: 'INITIAL_TEST_ACTION' })
   })
 
@@ -70,6 +87,36 @@ describe('server environment should change', () => {
     gen.next()
     expect(gen.next().value).toEqual(put(toggleErrorAlerts(true)))
   })
+
+  it('should store switched environment details', () => {
+    const gen = onEnvironmentSwitch(
+      changeEnvironment(agencyUrl, agencyDID, agencyVerificationKey, poolConfig)
+    )
+    expect(gen.next().value).toEqual(
+      call(
+        AsyncStorage.setItem,
+        STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL,
+        serializedEnvironmentDetail
+      )
+    )
+  })
+
+  it('should hydrate switched environment details', () => {
+    const gen = hydrateSwitchedEnvironmentDetails()
+    expect(gen.next().value).toEqual(
+      call(AsyncStorage.getItem, STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL)
+    )
+    expect(gen.next(serializedEnvironmentDetail).value).toEqual(
+      put(
+        changeEnvironment(
+          agencyUrl,
+          agencyDID,
+          agencyVerificationKey,
+          poolConfig
+        )
+      )
+    )
+  })
 })
 
 describe('hydration should work correctly', () => {
@@ -102,6 +149,9 @@ describe('hydration should work correctly', () => {
     gen.next()
 
     // hydrate app success
+    gen.next()
+    // hydrate user switched environment details
+    gen.next()
     gen.next()
 
     expect(gen.next().value).toEqual(put(hydrated()))

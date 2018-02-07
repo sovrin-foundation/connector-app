@@ -29,7 +29,7 @@ export async function addConnection(
       {
         ...metadata,
       },
-      poolConfig ? poolConfig.split('\\n').join('\n') : null
+      poolConfig
     )
 
     try {
@@ -54,7 +54,8 @@ export async function addConnection(
 
 export async function generateClaimRequest(
   remoteDid: string,
-  claimOffer: IndyClaimOffer
+  claimOffer: IndyClaimOffer,
+  poolConfig: string
 ) {
   const indyClaimOffer = {
     issuer_did: claimOffer.issuerDid,
@@ -63,22 +64,27 @@ export async function generateClaimRequest(
 
   const claimRequest: string = await RNIndy.generateClaimRequest(
     remoteDid,
-    JSON.stringify(indyClaimOffer)
+    JSON.stringify(indyClaimOffer),
+    poolConfig
   )
 
   return claimRequest
 }
 
-export async function addClaim(claim: string) {
-  return await RNIndy.addClaim(claim)
+export async function addClaim(claim: string, poolConfig: string) {
+  return await RNIndy.addClaim(claim, poolConfig)
 }
 
-export async function getClaim(filterJSON: string) {
-  return await RNIndy.getClaim(filterJSON)
+export async function getClaim(filterJSON: string, poolConfig: string) {
+  return await RNIndy.getClaim(filterJSON, poolConfig)
 }
 
-export async function prepareProof(proofRequest: string) {
-  const prepareProofJSON: string = await RNIndy.prepareProof(proofRequest)
+export async function prepareProof(proofRequest: string, poolConfig: string) {
+  const prepareProofJSON: string = await RNIndy.prepareProof(
+    proofRequest,
+    poolConfig
+  )
+
   return prepareProofJSON
 }
 
@@ -86,14 +92,17 @@ export async function generateProof(
   proofRequest: string,
   remoteDid: string,
   prepareProof: string,
-  requestedClaims: string
+  requestedClaims: string,
+  poolConfig: string
 ) {
   const proof: string = await RNIndy.getProof(
     proofRequest,
     remoteDid,
     prepareProof,
-    requestedClaims
+    requestedClaims,
+    poolConfig
   )
+
   return proof
 }
 
@@ -103,19 +112,22 @@ export async function connectToAgency({
   agencyDid,
   myVerKey,
   agencyVerKey,
+  poolConfig,
 }: {
   url: string,
   myDid: string,
   agencyDid: string,
   myVerKey: string,
   agencyVerKey: string,
+  poolConfig: string,
 }) {
   const connectResponse: ConnectAgencyResponse = await RNIndy.connectToAgency(
     url,
     myDid,
     agencyDid,
     myVerKey,
-    agencyVerKey
+    agencyVerKey,
+    poolConfig
   )
 
   return connectResponse
@@ -127,19 +139,22 @@ export async function registerWithAgency({
   oneTimeAgencyDid,
   myOneTimeVerKey,
   agencyVerKey,
+  poolConfig,
 }: {
   url: string,
   oneTimeAgencyVerKey: string,
   oneTimeAgencyDid: string,
   myOneTimeVerKey: string,
   agencyVerKey: string,
+  poolConfig: string,
 }) {
   const registerResponse: RegisterAgencyResponse = await RNIndy.signupWithAgency(
     url,
     oneTimeAgencyVerKey,
     oneTimeAgencyDid,
     myOneTimeVerKey,
-    agencyVerKey
+    agencyVerKey,
+    poolConfig
   )
 
   return registerResponse
@@ -151,19 +166,22 @@ export async function createOneTimeAgent({
   oneTimeAgencyDid,
   myOneTimeVerKey,
   agencyVerKey,
+  poolConfig,
 }: {
   url: string,
   oneTimeAgencyVerKey: string,
   oneTimeAgencyDid: string,
   myOneTimeVerKey: string,
   agencyVerKey: string,
+  poolConfig: string,
 }) {
   const createOneTimeAgentResponse: CreateOneTimeAgentResponse = await RNIndy.createOneTimeAgent(
     url,
     oneTimeAgencyVerKey,
     oneTimeAgencyDid,
     myOneTimeVerKey,
-    agencyVerKey
+    agencyVerKey,
+    poolConfig
   )
 
   return createOneTimeAgentResponse
@@ -177,6 +195,7 @@ export async function createPairwiseAgent({
   oneTimeAgentDid,
   myOneTimeVerKey,
   agencyVerKey,
+  poolConfig,
 }: {
   url: string,
   myPairwiseDid: string,
@@ -185,6 +204,7 @@ export async function createPairwiseAgent({
   oneTimeAgentDid: string,
   myOneTimeVerKey: string,
   agencyVerKey: string,
+  poolConfig: string,
 }) {
   const createPairwiseAgentResponse: CreatePairwiseAgentResponse = await RNIndy.createPairwiseAgent(
     url,
@@ -193,7 +213,8 @@ export async function createPairwiseAgent({
     oneTimeAgentVerKey,
     oneTimeAgentDid,
     myOneTimeVerKey,
-    agencyVerKey
+    agencyVerKey,
+    poolConfig
   )
 
   return createPairwiseAgentResponse
@@ -212,6 +233,7 @@ export async function acceptInvitation({
   myOneTimeDid,
   myOneTimeVerKey,
   myAgencyVerKey,
+  poolConfig,
 }: {
   url: string,
   requestId: string,
@@ -225,6 +247,7 @@ export async function acceptInvitation({
   myOneTimeDid: string,
   myOneTimeVerKey: string,
   myAgencyVerKey: string,
+  poolConfig: string,
 }) {
   const acceptInvitationResponse: AcceptInvitationResponse = await RNIndy.acceptInvitation(
     url,
@@ -238,7 +261,8 @@ export async function acceptInvitation({
     myOneTimeAgentVerKey,
     myOneTimeDid,
     myOneTimeVerKey,
-    myAgencyVerKey
+    myAgencyVerKey,
+    poolConfig
   )
 
   return acceptInvitationResponse
@@ -251,6 +275,7 @@ export async function updatePushToken({
   myOneTimeAgentVerKey,
   myOneTimeVerKey,
   myAgencyVerKey,
+  poolConfig,
 }: {
   url: string,
   token: string,
@@ -258,6 +283,7 @@ export async function updatePushToken({
   myOneTimeAgentVerKey: string,
   myOneTimeVerKey: string,
   myAgencyVerKey: string,
+  poolConfig: string,
 }) {
   return await RNIndy.updatePushToken(
     url,
@@ -265,7 +291,8 @@ export async function updatePushToken({
     myOneTimeAgentDid,
     myOneTimeAgentVerKey,
     myOneTimeVerKey,
-    myAgencyVerKey
+    myAgencyVerKey,
+    poolConfig
   )
 }
 
@@ -281,6 +308,7 @@ export async function getMessage({
   myOneTimeDid,
   myOneTimeVerKey,
   myAgencyVerKey,
+  poolConfig,
 }: {
   url: string,
   requestId: string,
@@ -293,6 +321,7 @@ export async function getMessage({
   myOneTimeDid: string,
   myOneTimeVerKey: string,
   myAgencyVerKey: string,
+  poolConfig: string,
 }) {
   return await RNIndy.getMessage(
     url,
@@ -305,7 +334,8 @@ export async function getMessage({
     myOneTimeAgentVerKey,
     myOneTimeDid,
     myOneTimeVerKey,
-    myAgencyVerKey
+    myAgencyVerKey,
+    poolConfig
   )
 }
 
@@ -324,6 +354,7 @@ export async function sendMessage({
   myOneTimeVerKey,
   myAgencyVerKey,
   myPairwisePeerVerKey,
+  poolConfig,
 }: {
   url: string,
   messageType: string,
@@ -339,6 +370,7 @@ export async function sendMessage({
   myOneTimeVerKey: string,
   myAgencyVerKey: string,
   myPairwisePeerVerKey: string,
+  poolConfig: string,
 }) {
   return await RNIndy.sendMessage(
     url,
@@ -354,6 +386,7 @@ export async function sendMessage({
     myOneTimeDid,
     myOneTimeVerKey,
     myAgencyVerKey,
-    myPairwisePeerVerKey
+    myPairwisePeerVerKey,
+    poolConfig
   )
 }

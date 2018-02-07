@@ -194,15 +194,19 @@ describe('Invitation Store', () => {
       expect(gen.next(agencyDid).value).toEqual(
         select(getAgencyVerificationKey)
       )
+      expect(gen.next(agencyVerificationKey).value).toEqual(
+        select(getPoolConfig)
+      )
 
       const url = `${agencyUrl}/agency/msg`
-      expect(gen.next(agencyVerificationKey).value).toEqual(
+      expect(gen.next(poolConfig).value).toEqual(
         call(connectToAgency, {
           url,
           myDid: identifier,
           agencyDid,
           myVerKey: verificationKey,
           agencyVerKey: agencyVerificationKey,
+          poolConfig,
         })
       )
 
@@ -221,6 +225,7 @@ describe('Invitation Store', () => {
           oneTimeAgencyDid: oneTimeAgencyDid,
           myOneTimeVerKey: myOneTimeVerificationKey,
           agencyVerKey: agencyVerificationKey,
+          poolConfig,
         })
       )
 
@@ -231,6 +236,7 @@ describe('Invitation Store', () => {
           oneTimeAgencyDid: oneTimeAgencyDid,
           myOneTimeVerKey: myOneTimeVerificationKey,
           agencyVerKey: agencyVerificationKey,
+          poolConfig,
         })
       )
 
@@ -280,6 +286,7 @@ describe('Invitation Store', () => {
           oneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
           myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
           agencyVerKey: agencyVerificationKey,
+          poolConfig,
         })
       )
 
@@ -301,6 +308,7 @@ describe('Invitation Store', () => {
           myOneTimeDid: userOneTimeInfo.myOneTimeDid,
           myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
           myAgencyVerKey: agencyVerificationKey,
+          poolConfig,
         })
       )
 
@@ -365,15 +373,19 @@ describe('Invitation Store', () => {
       expect(gen.next(agencyDid).value).toEqual(
         select(getAgencyVerificationKey)
       )
+      expect(gen.next(agencyVerificationKey).value).toEqual(
+        select(getPoolConfig)
+      )
 
       const url = `${agencyUrl}/agency/msg`
-      expect(gen.next(agencyVerificationKey).value).toEqual(
+      expect(gen.next(poolConfig).value).toEqual(
         call(connectToAgency, {
           url,
           myDid: identifier,
           agencyDid,
           myVerKey: verificationKey,
           agencyVerKey: agencyVerificationKey,
+          poolConfig,
         })
       )
 
@@ -392,6 +404,7 @@ describe('Invitation Store', () => {
           oneTimeAgencyDid: oneTimeAgencyDid,
           myOneTimeVerKey: myOneTimeVerificationKey,
           agencyVerKey: agencyVerificationKey,
+          poolConfig,
         })
       )
 
@@ -402,6 +415,7 @@ describe('Invitation Store', () => {
           oneTimeAgencyDid: oneTimeAgencyDid,
           myOneTimeVerKey: myOneTimeVerificationKey,
           agencyVerKey: agencyVerificationKey,
+          poolConfig,
         })
       )
 
@@ -455,6 +469,7 @@ describe('Invitation Store', () => {
           oneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
           myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
           agencyVerKey: agencyVerificationKey,
+          poolConfig,
         })
       )
 
@@ -476,6 +491,7 @@ describe('Invitation Store', () => {
           myOneTimeDid: userOneTimeInfo.myOneTimeDid,
           myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
           myAgencyVerKey: agencyVerificationKey,
+          poolConfig,
         })
       )
 

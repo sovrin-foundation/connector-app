@@ -123,6 +123,10 @@ export type LockStore = {
 export type LockSelectionProps = {
   showDevMode: boolean,
   disableDevMode: () => DisableDevMode,
+  longPressedInLockSelectionScreen: () => void,
+  pressedOnOrInLockSelectionScreen: () => void,
+  switchErrorAlerts: () => void,
+  safeToDownloadSmsInvitation: () => void,
 } & ReactNavigation
 
 export type LockActions =

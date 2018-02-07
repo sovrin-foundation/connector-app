@@ -10,40 +10,14 @@ import {
   convertClaimPushPayloadToAppClaim,
   convertProofRequestPushPayloadToAppProofRequest,
 } from '../push-notification-navigator'
+import { claimOfferPushNotification } from '../../../__mocks__/static-data'
 
 describe('<PushNotificationNavigator />', () => {
   let store = {}
 
   const storeToProps = {
     pushNotification: {
-      notification: {
-        additionalData: {
-          data: {
-            name: 'Home Address',
-            version: '1.0.0',
-            revealedAttributes: [
-              {
-                label: 'Address 1',
-                data: 'Address Address Address',
-              },
-              {
-                label: 'Address 2',
-                data: 'Address 2 Address 2 Address 2',
-              },
-            ],
-          },
-          issuer: {
-            name: 'Test Issuer',
-            did: 'issuerDid',
-          },
-          statusMsg: 'pending',
-        },
-        type: 'claimOffer',
-        uid: 'usd123',
-        senderLogoUrl: 'http://testissuer.com/logoUrl.png',
-        remotePairwiseDID: 'ha66899sadfjZJGINKN0770',
-        forDID: 'forDID',
-      },
+      notification: claimOfferPushNotification,
     },
     currentScreen: homeTabRoute,
     isAppLocked: false,

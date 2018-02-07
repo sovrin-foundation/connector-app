@@ -35,20 +35,31 @@ import {
   pressedOnOrInLockSelectionScreen,
   disableDevMode,
 } from '../store'
+import { safeToDownloadSmsInvitation } from '../sms-pending-invitation/sms-pending-invitation-store'
 
-export class LockSelection extends PureComponent {
+export class LockSelection extends PureComponent<
+  void,
+  LockSelectionProps,
+  void
+> {
   goTouchIdSetup = () => {
     this.props.navigation.navigate(lockTouchIdSetupRoute)
+    this.props.safeToDownloadSmsInvitation()
   }
+
   goPinCodeSetup = () => {
     this.props.navigation.navigate(lockPinSetupRoute)
+    this.props.safeToDownloadSmsInvitation()
   }
+
   _onLongPressButton = () => {
     this.props.longPressedInLockSelectionScreen()
   }
+
   _onTextPressButton = () => {
     this.props.pressedOnOrInLockSelectionScreen()
   }
+
   componentWillReceiveProps(nextProps: LockSelectionProps) {
     if (nextProps.showDevMode) {
       Alert.alert(
@@ -69,6 +80,7 @@ export class LockSelection extends PureComponent {
       )
     }
   }
+
   render() {
     return (
       <Container
@@ -187,11 +199,13 @@ export class LockSelection extends PureComponent {
     )
   }
 }
+
 const mapStateToProps = ({ lock }: Store) => {
   return {
     showDevMode: lock.showDevMode,
   }
 }
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
@@ -199,6 +213,7 @@ const mapDispatchToProps = dispatch =>
       longPressedInLockSelectionScreen,
       pressedOnOrInLockSelectionScreen,
       disableDevMode,
+      safeToDownloadSmsInvitation,
     },
     dispatch
   )

@@ -24,6 +24,7 @@ import type {
 } from './type-hydration-store'
 import { hydrateUserStoreSaga } from './user/user-store'
 import { STORAGE_KEY_USER_ONE_TIME_INFO } from './user/type-user-store'
+import { STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL } from './type-config-store'
 
 export const hydrateApp = (isAlreadyInstalled: boolean) => ({
   type: HYDRATE_APP,
@@ -58,6 +59,7 @@ export function* appHydration(action: {
       yield call(deleteItem, CONNECTIONS)
       yield call(deleteItem, IS_CONSUMER_AGENT_ALREADY_CREATED)
       yield call(deleteItem, STORAGE_KEY_USER_ONE_TIME_INFO)
+      yield call(deleteItem, STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL)
     }
     yield put(hydrateConnections(connections))
     yield* hydrateUserStoreSaga()

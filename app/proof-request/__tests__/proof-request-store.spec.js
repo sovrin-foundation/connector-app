@@ -21,6 +21,7 @@ import {
   getUserOneTimeInfo,
   getAgencyVerificationKey,
   getRemotePairwiseDidAndName,
+  getPoolConfig,
 } from '../../store/store-selector'
 
 import { MESSAGE_TYPE } from '../../api/api-constants'
@@ -28,6 +29,7 @@ import { sendMessage } from '../../bridge/react-native-cxs/RNCxs'
 import {
   proofRequest,
   proofRequestId as uid,
+  poolConfig,
 } from '../../../__mocks__/static-data'
 
 describe('proof request store', () => {
@@ -118,7 +120,9 @@ describe('proof request store', () => {
     expect(gen.next(userPairwiseDid).value).toEqual(put(sendProof(uid)))
     expect(gen.next().value).toEqual(select(getAgencyUrl))
     const agencyUrl = 'https://agencyUrl.com'
-    expect(gen.next(agencyUrl).value).toEqual(select(getProof, uid))
+    expect(gen.next(agencyUrl).value).toEqual(select(getPoolConfig))
+
+    expect(gen.next(poolConfig).value).toEqual(select(getProof, uid))
     const proof = {
       ...payload,
       remoteDid,
@@ -168,6 +172,7 @@ describe('proof request store', () => {
         myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
         myAgencyVerKey: agencyVerificationKey,
         myPairwisePeerVerKey: connection.myPairwisePeerVerKey,
+        poolConfig,
       })
     )
 

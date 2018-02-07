@@ -1,5 +1,5 @@
 // @flow
-import { put, takeLatest, call, all, select } from 'redux-saga/effects'
+import { put, takeLatest, take, call, all, select } from 'redux-saga/effects'
 import type { CustomError } from '../common/type-common'
 import type {
   SMSPendingInvitationStore,
@@ -15,14 +15,25 @@ import {
   SMS_PENDING_INVITATION_FAIL,
   SMS_PENDING_INVITATION_SEEN,
   SMSPendingInvitationStatus,
+  SAFE_TO_DOWNLOAD_SMS_INVITATION,
 } from './type-sms-pending-invitation'
 import { invitationDetailsRequest, getInvitationLink } from '../api/api'
 import {
   ERROR_PENDING_INVITATION_RESPONSE_PARSE,
   ERROR_PENDING_INVITATION_RESPONSE_PARSE_CODE,
 } from '../api/api-constants'
-import { getAgencyUrl } from '../store/store-selector'
+import {
+  getAgencyUrl,
+  getCurrentScreen,
+  getHydrationState,
+} from '../store/store-selector'
 import { invitationReceived } from '../invitation/invitation-store'
+import {
+  splashScreenRoute,
+  lockSelectionRoute,
+  switchEnvironmentRoute,
+} from '../common/route-constants'
+import { HYDRATED } from '../store/type-config-store'
 
 const initialState = {
   payload: null,
@@ -52,6 +63,13 @@ export const smsPendingInvitationSeen = () => ({
   type: SMS_PENDING_INVITATION_SEEN,
 })
 
+// Below action tells that now user can't change the environment
+// and so whatever environment we have available now, we can go ahead and
+// start downloading SMS invitation from that environment
+export const safeToDownloadSmsInvitation = () => ({
+  type: SAFE_TO_DOWNLOAD_SMS_INVITATION,
+})
+
 export const convertSmsPayloadToInvitation = (
   pendingInvitation: SMSPendingInvitationPayload
 ): InvitationPayload => ({
@@ -68,9 +86,53 @@ export const convertSmsPayloadToInvitation = (
   senderDetail: pendingInvitation.senderDetail,
 })
 
+export const UNSAFE_SCREENS_TO_DOWNLOAD_SMS = [
+  splashScreenRoute,
+  lockSelectionRoute,
+  switchEnvironmentRoute,
+]
+
 export function* callSmsPendingInvitationRequest(
   action: SMSPendingInvitationRequestAction
 ): Generator<*, *, *> {
+  // we wait to download SMS invitation till we know that we are safe
+  // because user can still change the environment and point to something else
+  // to download sms invitation from updated environment
+  // if a user is gone past lock selection screen, then we know we are safe
+  // or user has already setup lock and is now coming for second SMS invitation
+  // or user is not on one of these screens
+  // splash screen, lock selection, dev environment switch
+  const currentScreen: string = yield select(getCurrentScreen)
+  if (UNSAFE_SCREENS_TO_DOWNLOAD_SMS.indexOf(currentScreen) > -1) {
+    // user is on screens where he has chance to change environment details
+    // so we wait for event which tells that we are safe
+    yield take(SAFE_TO_DOWNLOAD_SMS_INVITATION)
+  }
+
+  // if we reach this point, that means either user was not on some unsafe screen
+  // or we waited till safe action was raised, either way
+  // we can now go ahead and start downloading SMS invitation
+
+  // I lied a bit in above statement that we can start downloading SMS now
+  // there is one more scenario that we need to consider before we can start
+  // downloading sms, this saga can also be triggered if already has an app
+  // and user switched environments while setting up the app first time
+  // so now we need to maintain that environment for the lifetime of app
+  // so we store those environment details in phone storage and
+  // hydrate them when app is killed and run again
+  // now, when user starts the app second time, user's updated config
+  // might still not be fetched or app is not fully hydrated yet,
+  // so, we wait for app to be hydrated if not already hydrated
+  const isAppHydrated: boolean = yield select(getHydrationState)
+  if (!isAppHydrated) {
+    yield take(HYDRATED)
+  }
+
+  // now we are sure that user can't change the environment for first time app
+  // and also we are sure that if user did update the environment first time
+  // then we have got the updated config
+  // and now, we can go ahead and start downloading SMS pending invitation
+
   const agencyUrl: string = yield select(getAgencyUrl)
   const { smsToken } = action
 
