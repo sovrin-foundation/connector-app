@@ -98,7 +98,7 @@ export function* setPin(action: SetPinAction): Generator<*, *, *> {
     yield call(setItem, PIN_STORAGE_KEY, action.pin)
     yield put(lockEnable(true))
   } catch (e) {
-    yield lockFail(e)
+    yield put(lockFail(e))
   }
 }
 
@@ -128,14 +128,14 @@ export function* disableTouchId(
   }
 }
 
-export function* watchEnableTouchId(): Generator<*, *, *> {
+export function* watchEnableTouchId(): any {
   yield takeLatest(ENABLE_TOUCHID, enableTouchId)
 }
-export function* watchDisableTouchId(): Generator<*, *, *> {
+export function* watchDisableTouchId(): any {
   yield takeLatest(DISABLE_TOUCHID, disableTouchId)
 }
 
-export function* watchSetPin(): Generator<*, *, *> {
+export function* watchSetPin(): any {
   yield takeLatest(SET_PIN, setPin)
 }
 
@@ -192,9 +192,10 @@ export function* checkTouchId(action: CheckTouchIdAction): Generator<*, *, *> {
   }
 }
 
-export function* watchCheckPin(): Generator<*, *, *> {
+export function* watchCheckPin(): any {
   yield takeLatest(CHECK_PIN, checkPin)
 }
+
 export function* watchPressEventInLockSelectionScreen(): Generator<*, *, *> {
   while (true) {
     yield take('LONG_PRESSED_IN_LOCK_SELECTION_SCREEN')
@@ -204,6 +205,7 @@ export function* watchPressEventInLockSelectionScreen(): Generator<*, *, *> {
     yield put(enableDevMode())
   }
 }
+
 export const unlockApp = (): UnlockAppAction => ({
   type: UNLOCK_APP,
 })
@@ -217,7 +219,7 @@ export function* watchLock(): Generator<*, *, *> {
     watchCheckPin(),
     watchSetPin(),
     watchEnableTouchId(),
-    watchEnableTouchId(),
+    watchDisableTouchId(),
   ])
 }
 

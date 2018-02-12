@@ -198,9 +198,9 @@ export const ERROR_LOADING_HISTORY = {
   message: 'Error while loading connection history data',
 }
 
-export const ERROR_HISTORY_EVENT_OCCURED = {
+export const ERROR_HISTORY_EVENT_OCCURRED = {
   code: 'CN003',
-  message: 'Error while history event occured',
+  message: 'Error while history event occurred',
 }
 
 export type ConnectionHistoryAction =
@@ -218,3 +218,12 @@ export type ConnectionHistoryStore = {
 }
 
 export const HISTORY_EVENT_STORAGE_KEY = 'HISTORY_EVENT_STORAGE_KEY'
+
+export type ConnectionHistoryProps = {
+  claimMap: ?ClaimMap,
+  activeConnectionThemePrimary: string,
+  activeConnectionThemeSecondary: string,
+  connectionHistory: {
+    [string]: ConnectionHistoryEvent[],
+  },
+} & ReactNavigation

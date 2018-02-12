@@ -1,3 +1,4 @@
+// @flow
 export const EDIT_ICON_DIMENSIONS = 30
 export const PASS_CODE_ASTERISK_TOP_OFFSET = 5
 export const USERNAME_TEST_ID = 'settings-user-name-label'

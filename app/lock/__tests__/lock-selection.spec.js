@@ -33,8 +33,7 @@ describe('app lock selection page should', () => {
       </Provider>
     )
     tree = wrapper.toJSON()
-    componentInstance = wrapper.getInstance()._reactInternalInstance.child
-      .stateNode
+    componentInstance = wrapper.root.findByType(LockSelection).instance
   })
 
   it('render properly', () => {

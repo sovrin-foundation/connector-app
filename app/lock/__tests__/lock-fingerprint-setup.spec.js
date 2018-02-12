@@ -5,16 +5,17 @@ import renderer from 'react-test-renderer'
 import { PIN_SETUP_STATE } from '../type-lock'
 import { LockFingerprintSetup } from '../lock-fingerprint-setup'
 import { lockPinSetupRoute } from '../../common'
+import { getNavigation } from '../../../__mocks__/static-data'
 
 describe('<LockFingerprintSetup />', () => {
   const getProps = () => ({
-    navigation: {
-      state: {
-        params: { touchIdActive: true },
-      },
-      navigate: jest.fn(),
-    },
+    navigation: getNavigation({ touchIdActive: true }),
+    touchIdActive: true,
+    fromSettings: false,
+    disableTouchIdAction: jest.fn(),
+    enableTouchIdAction: jest.fn(),
   })
+
   const options = {
     createNodeMock: element => {
       return {
@@ -24,9 +25,11 @@ describe('<LockFingerprintSetup />', () => {
       }
     },
   }
+
   let component
   let props
   let cleared
+
   beforeEach(() => {
     props = getProps()
     component = renderer.create(<LockFingerprintSetup {...props} />, options)

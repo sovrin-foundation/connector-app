@@ -1,14 +1,15 @@
+// @flow
 import React, { PureComponent } from 'react'
 import { View, Image, StyleSheet } from 'react-native'
 import { Container, CustomView, CustomText } from '../components'
 
-export default class ExpiredToken extends PureComponent {
+export default class ExpiredToken extends PureComponent<void, void> {
   render() {
     return (
       <Container primary style={[styles.expiredTokenContainer]}>
         <CustomView vCenter>
           <Image
-            source={require('../images/App%20Icon.png')}
+            source={require('../images/appIcon.png')}
             style={styles.sovrinLogo}
             resizeMode="contain"
           />
@@ -21,7 +22,9 @@ export default class ExpiredToken extends PureComponent {
           />
         </CustomView>
         <CustomView vCenter style={[styles.textContainer]}>
-          <CustomText h1 style={[styles.sorryText]}>Sorry!</CustomText>
+          <CustomText h1 style={[styles.sorryText]}>
+            Sorry!
+          </CustomText>
           <CustomText h3 secondary bold center>
             This invitation has expired!
           </CustomText>

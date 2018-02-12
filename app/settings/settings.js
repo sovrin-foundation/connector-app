@@ -28,6 +28,7 @@ import {
 } from './settings-constant'
 
 import type { Store } from '../store/type-store'
+import type { SettingsProps } from './type-settings'
 
 const style = StyleSheet.create({
   container: {
@@ -49,7 +50,13 @@ const style = StyleSheet.create({
   },
 })
 
-export class Settings extends PureComponent {
+const SettingText = props => (
+  <CustomText h5 bg="fifth" tertiary semiBold {...props}>
+    {props.children}
+  </CustomText>
+)
+
+export class Settings extends PureComponent<SettingsProps, void> {
   onChangePinClick = () => {
     this.props.navigation.navigate(lockEnterPinRoute, {
       existingPin: true,
@@ -92,12 +99,6 @@ export class Settings extends PureComponent {
           source={require('../images/edit.png')}
         />
       </TouchableOpacity>
-    )
-
-    const SettingText = props => (
-      <CustomText h5 bg="fifth" tertiary semiBold {...props}>
-        {props.children}
-      </CustomText>
     )
 
     const userName = (

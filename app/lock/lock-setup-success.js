@@ -15,9 +15,12 @@ import { unlockApp, clearPendingRedirect } from './lock-store'
 import type { Store } from '../store/type-store'
 import { OFFSET_1X, OFFSET_2X, OFFSET_4X, color } from '../common/styles'
 import { UNLOCKING_APP_WAIT_MESSAGE } from '../common/message-constants'
+import type { LockSetupSuccessProps } from './type-lock'
 
-// TODO:KS define type of props for this component
-export class LockSetupSuccess extends PureComponent {
+export class LockSetupSuccess extends PureComponent<
+  LockSetupSuccessProps,
+  void
+> {
   onClose = () => {
     this.props.unlockApp()
     if (
@@ -39,9 +42,11 @@ export class LockSetupSuccess extends PureComponent {
       this.props.clearPendingRedirect()
     }
   }
+
   render() {
     const { isFetchingInvitation } = this.props
     let message =
+      this.props.navigation.state &&
       this.props.navigation.state.params &&
       this.props.navigation.state.params.changePin === true
         ? 'Your connect.me app is secured.'
@@ -78,7 +83,8 @@ export class LockSetupSuccess extends PureComponent {
             center
             style={[style.successMessage]}
           >
-            {this.props.navigation.state.params &&
+            {this.props.navigation.state &&
+            this.props.navigation.state.params &&
             this.props.navigation.state.params.changePin
               ? "From now on you'll need to use your pass code to unlock this app."
               : ' '}

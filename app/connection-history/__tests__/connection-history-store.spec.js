@@ -48,7 +48,7 @@ import {
 import {
   HISTORY_EVENT_STORAGE_KEY,
   ERROR_LOADING_HISTORY,
-  ERROR_HISTORY_EVENT_OCCURED,
+  ERROR_HISTORY_EVENT_OCCURRED,
 } from '../type-connection-history'
 import { getProofRequest, getClaimOffer } from '../../store/store-selector'
 import { getItem } from '../../services/secure-storage'
@@ -196,10 +196,7 @@ describe('Store: ConnectionHistory', () => {
   })
 
   //TODO : fix this test
-  xit(
-    'historyEventOccurredSaga should raise success for claim received ',
-    () => {}
-  )
+  xit('historyEventOccurredSaga should raise success for claim received ', () => {})
 
   it('historyEventOccurredSaga should raise success for correct proof request received', () => {
     let historyEvent
@@ -225,7 +222,7 @@ describe('Store: ConnectionHistory', () => {
     )
   })
 
-  it('historyEventOccuredSaga should raise failure in case anything fails', () => {
+  it('historyEventOccurredSaga should raise failure in case anything fails', () => {
     const gen = historyEventOccurredSaga(
       historyEventOccurred(proofRequestAutofillEvent)
     )
@@ -236,8 +233,8 @@ describe('Store: ConnectionHistory', () => {
     expect(gen.throw(error).value).toEqual(
       put(
         loadHistoryFail({
-          ...ERROR_HISTORY_EVENT_OCCURED,
-          message: `${ERROR_HISTORY_EVENT_OCCURED.message} ${error.message}`,
+          ...ERROR_HISTORY_EVENT_OCCURRED,
+          message: `${ERROR_HISTORY_EVENT_OCCURRED.message} ${error.message}`,
         })
       )
     )

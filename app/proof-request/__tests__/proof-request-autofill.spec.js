@@ -64,8 +64,7 @@ describe('<ProofRequest />', () => {
       </Provider>
     )
     tree = wrapper.toJSON()
-    componentInstance = wrapper.getInstance()._reactInternalInstance.child
-      .stateNode
+    componentInstance = wrapper.root.findByType(ProofRequest).instance
   })
 
   it('should call proofRequestShown on componentDidMount', () => {

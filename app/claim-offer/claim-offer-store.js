@@ -239,7 +239,7 @@ export function* claimOfferAccepted(
   }
 }
 
-function* watchClaimOfferAccepted() {
+function* watchClaimOfferAccepted(): any {
   yield takeLatest(CLAIM_OFFER_ACCEPTED, claimOfferAccepted)
 }
 

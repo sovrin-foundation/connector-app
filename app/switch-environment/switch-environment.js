@@ -1,7 +1,7 @@
 //@flow
 import React, { PureComponent } from 'react'
 import { TouchableHighlight, Image, StyleSheet, TextInput } from 'react-native'
-import { StackNavigator, NavigationActions } from 'react-navigation'
+import { StackNavigator } from 'react-navigation'
 import { Container, CustomView, CustomText } from '../components'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -16,6 +16,10 @@ import {
 } from '../common/styles'
 import { switchEnvironmentRoute, lockSelectionRoute } from '../common'
 import { changeEnvironment, disableDevMode } from '../store'
+import type {
+  SwitchEnvironmentState,
+  SwitchEnvironmentProps,
+} from './type-switch-environment'
 
 const styles = StyleSheet.create({
   TextInput: {
@@ -29,15 +33,18 @@ const styles = StyleSheet.create({
     marginHorizontal: OFFSET_1X,
   },
 })
-const backAction = NavigationActions.back()
 
-class SwitchEnvironment extends PureComponent {
+class SwitchEnvironment extends PureComponent<
+  SwitchEnvironmentProps,
+  SwitchEnvironmentState
+> {
   state = {
-    agencyDID: null,
-    agencyVerificationKey: null,
-    agencyUrl: null,
-    poolConfig: null,
+    agencyDID: '',
+    agencyVerificationKey: '',
+    agencyUrl: '',
+    poolConfig: '',
   }
+
   onSave = () => {
     const {
       agencyDID,
@@ -45,17 +52,20 @@ class SwitchEnvironment extends PureComponent {
       agencyUrl,
       poolConfig,
     } = this.state
+
     this.props.changeEnvironment(
       agencyUrl,
       agencyDID,
       agencyVerificationKey,
       poolConfig
     )
-    this.props.navigation.dispatch(backAction)
+    this.props.navigation.goBack(null)
   }
+
   onCancel = () => {
-    this.props.navigation.dispatch(backAction)
+    this.props.navigation.goBack(null)
   }
+
   componentDidMount() {
     const {
       agencyDID,
@@ -118,7 +128,8 @@ class SwitchEnvironment extends PureComponent {
           <TextInput
             style={styles.TextInput}
             onChangeText={agencyVerificationKey =>
-              this.setState({ agencyVerificationKey })}
+              this.setState({ agencyVerificationKey })
+            }
             value={this.state.agencyVerificationKey}
             testID="text-input-agencyVerificationKey"
           />
@@ -159,6 +170,7 @@ const mapStateToProps = ({ config }: Store) => {
     poolConfig: config.poolConfig,
   }
 }
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {

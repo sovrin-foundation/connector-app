@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
 })
 
 export class LockAuthorization extends PureComponent<
-  void,
   LockAuthorizationProps,
   void
 > {

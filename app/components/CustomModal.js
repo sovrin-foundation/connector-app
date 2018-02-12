@@ -44,6 +44,7 @@ export default class CustomModal extends PureComponent {
     )
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: isiPhone5 ? OFFSET_1X : OFFSET_3X,

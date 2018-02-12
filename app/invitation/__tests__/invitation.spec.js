@@ -116,7 +116,7 @@ describe('<Invitation />', () => {
         />
       </Provider>
     )
-    instance = component.getInstance()._reactInternalInstance.child.stateNode
+    instance = component.root.findByType(Invitation).instance
   })
 
   it('should match snapshot', () => {

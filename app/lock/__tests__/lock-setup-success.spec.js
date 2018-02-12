@@ -4,14 +4,18 @@ import 'react-native'
 import renderer from 'react-test-renderer'
 import { LockSetupSuccess } from '../lock-setup-success'
 import { lockSetupSuccessRoute } from '../../common'
+import {
+  getNavigation,
+  pendingRedirection,
+} from '../../../__mocks__/static-data'
 
 describe('<LockSetupSuccess />', () => {
   const getProps = (isFetchingInvitation = false) => ({
     isFetchingInvitation,
-    navigation: {
-      state: {},
-      navigate: jest.fn(),
-    },
+    navigation: getNavigation(),
+    pendingRedirection,
+    unlockApp: jest.fn(),
+    clearPendingRedirect: jest.fn(),
   })
   const options = {
     createNodeMock: element => {
@@ -22,6 +26,7 @@ describe('<LockSetupSuccess />', () => {
       }
     },
   }
+
   let component
   let props
   let cleared

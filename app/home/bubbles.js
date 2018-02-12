@@ -8,12 +8,13 @@ import {
   StyleSheet,
 } from 'react-native'
 import { View as AnimationView } from 'react-native-animatable'
+import { StackNavigator } from 'react-navigation'
 import { Avatar } from '../components'
 import { bubbleSize } from '../common/styles'
 import { connectionHistoryRoute } from '../common/route-constants'
-import { StackNavigator } from 'react-navigation'
+import type { BubbleState, BubbleProps, BubblesProps } from './type-home'
 
-export class Bubble extends PureComponent {
+export class Bubble extends PureComponent<BubbleProps, BubbleState> {
   state = {
     failed: false,
   }
@@ -26,7 +27,7 @@ export class Bubble extends PureComponent {
     this.setState({ failed: true })
   }
 
-  goHistoryView = (senderName: string, image: string, senderDID: string) => {
+  goHistoryView = (senderName: string, image: ?string, senderDID: string) => {
     this.props.navigation.navigate(connectionHistoryRoute, {
       senderName,
       image,
@@ -35,13 +36,14 @@ export class Bubble extends PureComponent {
   }
 
   render() {
-    let { size, image, testID, senderName, senderDID } = this.props
+    const { image, testID, senderName, senderDID } = this.props
     let source
+
     if (this.state.failed || Number.isInteger(image) || !image) {
       source = require('../images/cb_evernym.png')
     }
 
-    if (typeof image === 'string') {
+    if (typeof this.props.image === 'string') {
       source = { uri: image }
     }
 
@@ -59,7 +61,10 @@ export class Bubble extends PureComponent {
   }
 }
 
-export default class ConnectionBubbles extends PureComponent {
+export default class ConnectionBubbles extends PureComponent<
+  BubblesProps,
+  void
+> {
   render() {
     const { width } = Dimensions.get('window')
     let deviceClass = ''
@@ -68,6 +73,7 @@ export default class ConnectionBubbles extends PureComponent {
       deviceClass =
         width === 320 ? 'Iphone5' : width === 414 ? 'IphonePlus' : 'ios'
     }
+
     const enterprises = [
       'evernym',
       'ebay',
@@ -83,6 +89,7 @@ export default class ConnectionBubbles extends PureComponent {
       ...connection,
       name: enterprises[index] || 'verizon',
     }))
+
     return (
       <Animated.View
         style={[
@@ -98,7 +105,9 @@ export default class ConnectionBubbles extends PureComponent {
               delay={200}
               style={[
                 styles.avatar,
+                // $FlowFixMe
                 styles[name.toLowerCase()],
+                // $FlowFixMe
                 styles[`${name.toLowerCase()}${deviceClass}`],
               ]}
               key={identifier}

@@ -17,7 +17,6 @@ import { smsPendingInvitationSeen } from '../sms-pending-invitation/sms-pending-
 import { SMSPendingInvitationStatus } from '../sms-pending-invitation/type-sms-pending-invitation'
 
 export class Invitation extends PureComponent<
-  void,
   InvitationProps,
   InvitationState
 > {

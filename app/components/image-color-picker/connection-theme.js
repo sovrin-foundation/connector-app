@@ -7,11 +7,7 @@ import empty from '../../common/empty'
 import type { ConnectionThemeProps } from './type-color-picker'
 import { getConnectionTheme } from '../../store/store-selector'
 
-export class ConnectionTheme extends Component<
-  void,
-  ConnectionThemeProps,
-  any
-> {
+export class ConnectionTheme extends Component<ConnectionThemeProps, any> {
   render() {
     const { logoUrl, secondary, connectionTheme, children, style } = this.props
     let styles = style || empty

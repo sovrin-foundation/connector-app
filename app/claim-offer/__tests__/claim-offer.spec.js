@@ -98,8 +98,7 @@ describe('<ClaimOffer />', () => {
       </Provider>
     )
     tree = wrapper.toJSON()
-    componentInstance = wrapper.getInstance()._reactInternalInstance.child
-      .stateNode
+    componentInstance = wrapper.root.findByType(ClaimOffer).instance
   })
 
   it('should call claimOfferShown on componentDidMount', () => {

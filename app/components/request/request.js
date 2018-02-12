@@ -10,11 +10,7 @@ import type { RequestProps, RequestState, ResponseTypes } from './type-request'
 import { captureError } from '../../services/error/error-handler'
 import { lockAuthorizationRoute } from '../../common/route-constants'
 
-export default class Request extends PureComponent<
-  void,
-  RequestProps,
-  RequestState
-> {
+export default class Request extends PureComponent<RequestProps, RequestState> {
   state = {
     disableAccept: false,
   }

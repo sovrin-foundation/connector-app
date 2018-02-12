@@ -8,14 +8,8 @@ import { Container, CustomView, CustomText, Separator, Icon } from '../index'
 import { OFFSET_1X, OFFSET_3X } from '../../common/styles'
 import type { CustomListProps, Item } from './type-custom-list'
 
-export default class CustomList extends PureComponent<
-  void,
-  CustomListProps,
-  void
-> {
-  keyExtractor = (_: any, index: number) => index
-
-  renderListType1Item = ({ item, index }: { item: Item, index: string }) => {
+export default class CustomList extends PureComponent<CustomListProps, void> {
+  renderListType1Item = ({ item, index }: { item: Item, index: number }) => {
     if (this.props.type === 'center') {
       return (
         <CustomView fifth row horizontalSpace doubleVerticalSpace>
@@ -58,7 +52,7 @@ export default class CustomList extends PureComponent<
       return (
         <Container fifth style={[styles.list]} row>
           <Container fifth verticalSpace>
-            <CustomView fifth style={[styles.list2Label]}>
+            <CustomView fifth>
               <CustomText
                 h7
                 uppercase
@@ -96,7 +90,6 @@ export default class CustomList extends PureComponent<
         <FlatList
           data={items}
           ItemSeparatorComponent={Separator}
-          keyExtractor={this.keyExtractor}
           ListFooterComponent={Separator}
           renderItem={this.renderListType1Item}
         />

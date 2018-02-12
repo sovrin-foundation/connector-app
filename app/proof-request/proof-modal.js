@@ -13,7 +13,6 @@ import type {
 } from './type-proof-request'
 
 export default class ProofModal extends PureComponent<
-  void,
   ProofModalProps,
   ProofModalState
 > {
@@ -70,10 +69,12 @@ export default class ProofModal extends PureComponent<
             middleImage: require('../images/connectArrows.png'),
             middleImageStyle: styles.connectedArrow,
           }
+
     const { message, subject } =
       proofStatus === PROOF_STATUS.SENDING_PROOF
         ? { message: `Sending Proof to`, subject: name }
         : { message: 'Successfully Sent', subject: title }
+
     return (
       <CustomModal
         disabled={proofStatus !== PROOF_STATUS.SEND_PROOF_SUCCESS}
@@ -117,6 +118,7 @@ export default class ProofModal extends PureComponent<
     )
   }
 }
+
 const styles = StyleSheet.create({
   connectedArrow: {
     height: 20,

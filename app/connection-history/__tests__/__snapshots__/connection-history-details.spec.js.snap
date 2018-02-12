@@ -7,58 +7,5 @@ exports[`<ConnectionHistoryDetails /> should ConnectionHistoryDetails render pro
       "flex": 1,
     }
   }
->
-  <View
-    fifth={true}
-    style={
-      Object {
-        "backgroundColor": "#ffffff",
-        "flex": 1,
-      }
-    }
-  >
-    <RCTScrollView
-      ItemSeparatorComponent={[Function]}
-      ListFooterComponent={[Function]}
-      data={undefined}
-      disableVirtualization={false}
-      getItem={[Function]}
-      getItemCount={[Function]}
-      horizontal={false}
-      initialNumToRender={10}
-      keyExtractor={[Function]}
-      maxToRenderPerBatch={10}
-      numColumns={1}
-      onContentSizeChange={[Function]}
-      onEndReached={[Function]}
-      onEndReachedThreshold={2}
-      onLayout={[Function]}
-      onScroll={[Function]}
-      onScrollBeginDrag={[Function]}
-      onViewableItemsChanged={undefined}
-      removeClippedSubviews={true}
-      renderItem={[Function]}
-      renderScrollComponent={[Function]}
-      scrollEventThrottle={50}
-      stickyHeaderIndices={Array []}
-      updateCellsBatchingPeriod={50}
-      windowSize={21}
-    >
-      <View>
-        <View
-          onLayout={[Function]}
-        >
-          <View
-            style={
-              Object {
-                "backgroundColor": "#f0f0f0",
-                "height": 2,
-              }
-            }
-          />
-        </View>
-      </View>
-    </RCTScrollView>
-  </View>
-</View>
+/>
 `;

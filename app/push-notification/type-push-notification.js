@@ -4,6 +4,7 @@ import type {
   CustomError,
   GenericObject,
   InitialTestAction,
+  NavigationParams,
 } from '../common/type-common'
 import type { PendingRedirection } from '../lock/type-lock'
 import type { Claim } from '../claim/type-claim'
@@ -162,15 +163,27 @@ export type NextPropsPushNotificationNavigator = {
   isAppLocked: boolean,
 }
 
+export type PairwiseIdentifyingInfo = {
+  uid: string,
+  senderLogoUrl?: ?string,
+  remotePairwiseDID?: ?string,
+}
+
 export type PushNotificationNavigatorProps = {
   fetchAdditionalData: (notificationPayload: NotificationPayload) => void,
   authenticationRequestReceived: (data: DownloadedNotification) => void,
-  claimOfferReceived: (payload: AdditionalDataPayload) => void,
-  proofRequestReceived: (payload: AdditionalProofDataPayload) => void,
+  claimOfferReceived: (
+    payload: AdditionalDataPayload,
+    info: PairwiseIdentifyingInfo
+  ) => void,
+  proofRequestReceived: (
+    payload: AdditionalProofDataPayload,
+    info: PairwiseIdentifyingInfo
+  ) => void,
   addPendingRedirection: (
     pendingRedirection: Array<PendingRedirection>
   ) => void,
-  navigateToRoute: (routeName: string) => void,
+  navigateToRoute: (routeName: string, params: NavigationParams) => void,
   claimReceived: (claim: Claim) => void,
 } & NextPropsPushNotificationNavigator
 

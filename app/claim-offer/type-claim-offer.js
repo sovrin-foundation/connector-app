@@ -128,7 +128,7 @@ export type ClaimRequestStatusModalProps = {
   claimRequestStatus: ClaimRequestStatus,
   payload: ClaimOfferPayload,
   onContinue: () => void,
-  senderLogoUrl: string,
+  senderLogoUrl?: string,
 }
 
 export type ClaimRequestStatusModalState = {
@@ -145,4 +145,8 @@ export type ClaimOfferResponse = {
       uid: string,
     },
   ],
+}
+
+export type ClaimOfferAttributeListProps = {
+  list: Array<Attribute>,
 }

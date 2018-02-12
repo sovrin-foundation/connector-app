@@ -4,7 +4,8 @@ import RNTouchId from 'react-native-touch-id'
 export default RNTouchId
 
 export const TouchId = {
-  authenticate(message: string, callback: () => void) {
+  // TODO: Fix type of promise return value from here
+  authenticate(message: string, callback: () => void): Promise<any> {
     return new Promise((resolve, reject) => {
       RNTouchId.authenticate(message)
         .then(resolve)

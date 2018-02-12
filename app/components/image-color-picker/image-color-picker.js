@@ -12,7 +12,6 @@ import { captureError } from '../../services/error/error-handler'
 import { canvasHtml } from './canvas-html'
 
 export class ImageColorPicker extends PureComponent<
-  void,
   ImagePickerProps,
   ImagePickerStates
 > {

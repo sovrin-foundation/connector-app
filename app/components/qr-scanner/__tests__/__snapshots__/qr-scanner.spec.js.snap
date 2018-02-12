@@ -196,6 +196,7 @@ exports[`<QRScanner /> should match snapshot 1`] = `
             }
           }
           isTVSelectable={true}
+          nativeID={undefined}
           onLayout={undefined}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
@@ -215,7 +216,7 @@ exports[`<QRScanner /> should match snapshot 1`] = `
           tvParallaxProperties={undefined}
         >
           <Image
-            onPress={[Function]}
+            onPress={[MockFunction]}
             source={1}
             testID="close-qr-scanner-icon"
           />

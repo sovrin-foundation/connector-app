@@ -29,8 +29,7 @@ describe('<LockAuthorization />', () => {
         <LockAuthorization {...props} />
       </Provider>
     )
-    componentInstance = component.getInstance()._reactInternalInstance.child
-      .stateNode
+    componentInstance = component.root.findByType(LockAuthorization).instance
   })
 
   it('should match snapshot', () => {

@@ -1,6 +1,7 @@
 // @flow
 import { put, takeLatest, call, all } from 'redux-saga/effects'
 import { setItem, getItem, deleteItem } from '../../services/secure-storage'
+import type { Saga } from 'redux-saga'
 
 import {
   CONNECT_REGISTER_CREATE_AGENT_DONE,
@@ -39,7 +40,7 @@ export const saveUserOneTimeInfoFail = (error: CustomError) => ({
 
 export function* saveUserOneTimeInfoSaga(
   action: ConnectRegisterCreateAgentDoneAction
-): Generator<*, *, *> {
+): Saga<void> {
   const { userOneTimeInfo } = action
   try {
     yield call(
@@ -59,7 +60,7 @@ export function* saveUserOneTimeInfoSaga(
   }
 }
 
-function* watchConnectRegisterCreateAgent(): Generator<*, *, *> {
+function* watchConnectRegisterCreateAgent(): any {
   yield takeLatest(CONNECT_REGISTER_CREATE_AGENT_DONE, saveUserOneTimeInfoSaga)
 }
 
@@ -90,7 +91,7 @@ export function* hydrateUserStoreSaga(): Generator<*, *, *> {
   }
 }
 
-export function* watchUserStore(): Generator<*, *, *> {
+export function* watchUserStore(): Saga<void> {
   yield all([watchConnectRegisterCreateAgent()])
 }
 

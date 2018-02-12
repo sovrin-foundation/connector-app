@@ -28,5 +28,5 @@ export type CustomTextProps = {
 
 export type CustomDateProps = {
   format: string,
-  children?: ReactChildren,
+  children: string,
 }

@@ -182,11 +182,11 @@ export function* onEnvironmentSwitch(
   }
 }
 
-export function* watchSwitchEnvironment(): Generator<*, *, *> {
+export function* watchSwitchEnvironment(): any {
   yield takeLatest(SWITCH_ENVIRONMENT, onEnvironmentSwitch)
 }
 
-export function* hydrateSwitchedEnvironmentDetails(): Generator<*, *, *> {
+export function* hydrateSwitchedEnvironmentDetails(): any {
   try {
     const switchedEnvironmentDetail = yield call(
       AsyncStorage.getItem,
@@ -239,7 +239,7 @@ export const toggleErrorAlerts = (isShowErrorAlert: boolean) => ({
   isShowErrorAlert,
 })
 
-export function* watchChangeEnvironmentToDemo(): Generator<*, *, *> {
+export function* watchChangeEnvironmentToDemo(): any {
   while (true) {
     for (let i = 0; i < 4; i++) {
       yield take(SERVER_ENVIRONMENT_CHANGED_DEMO)
@@ -249,7 +249,7 @@ export function* watchChangeEnvironmentToDemo(): Generator<*, *, *> {
   }
 }
 
-export function* watchChangeEnvironmentToSandbox(): Generator<*, *, *> {
+export function* watchChangeEnvironmentToSandbox(): any {
   while (true) {
     for (let i = 0; i < 4; i++) {
       yield take(SERVER_ENVIRONMENT_CHANGED_SANDBOX)
@@ -259,7 +259,7 @@ export function* watchChangeEnvironmentToSandbox(): Generator<*, *, *> {
   }
 }
 
-export function* watchSwitchErrorAlerts(): Generator<*, *, *> {
+export function* watchSwitchErrorAlerts(): any {
   while (true) {
     for (let i = 0; i < 4; i++) {
       yield take(SWITCH_ERROR_ALERTS)
@@ -290,7 +290,7 @@ export function* alreadyInstalledNotFound(): Generator<*, *, *> {
   }
 }
 
-export function* hydrateConfig(): Generator<*, *, *> {
+export function* hydrateConfig(): any {
   let isAlreadyInstalled = false
   try {
     isAlreadyInstalled = yield call(AsyncStorage.getItem, IS_ALREADY_INSTALLED)

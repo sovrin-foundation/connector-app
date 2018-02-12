@@ -17,14 +17,14 @@ exports[`<LockPinCodeSetup /> should render pin code box 1`] = `
         15790320,
       ]
     }
-    end={undefined}
+    endPoint={undefined}
     locations={
       Array [
         0.08,
         1,
       ]
     }
-    start={undefined}
+    startPoint={undefined}
     style={
       Array [
         Object {
@@ -226,14 +226,14 @@ exports[`<LockPinCodeSetup /> should show "pass code mismatch ..." message and r
         15790320,
       ]
     }
-    end={undefined}
+    endPoint={undefined}
     locations={
       Array [
         0.08,
         1,
       ]
     }
-    start={undefined}
+    startPoint={undefined}
     style={
       Array [
         Object {
@@ -435,14 +435,14 @@ exports[`<LockPinCodeSetup /> should show re enter pass code after first entry 1
         15790320,
       ]
     }
-    end={undefined}
+    endPoint={undefined}
     locations={
       Array [
         0.08,
         1,
       ]
     }
-    start={undefined}
+    startPoint={undefined}
     style={
       Array [
         Object {

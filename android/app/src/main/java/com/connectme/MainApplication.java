@@ -3,6 +3,7 @@ package com.connectme;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.rnfingerprint.FingerprintAuthPackage;
 import com.horcrux.svg.SvgPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
@@ -41,6 +42,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new FingerprintAuthPackage(),
             new SvgPackage(),
             new RNFetchBlobPackage(),
             new RCTCameraPackage(),
@@ -59,6 +61,11 @@ public class MainApplication extends Application implements ReactApplication {
             new VectorIconsPackage(),
             new RNIndyPackage()
       );
+    }
+
+    @Override
+    protected String getJSMainModuleName() {
+      return "index";
     }
   };
 

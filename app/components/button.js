@@ -24,7 +24,6 @@ const CustomButton = props => {
   } = props
   const buttonStyles = props.style || empty
   const style = [
-    styles.button,
     medium ? styles.mediumVerticalPadding : null,
     disabled ? styles.disabled : null,
     ...buttonStyles,
@@ -38,13 +37,21 @@ const CustomButton = props => {
         ? 'tertiary'
         : quaternary ? 'quaternary' : dangerous ? 'dangerous' : 'fifth'
   const buttonProps = { ...getButtonProps(buttonType), ...customColor }
-  return <Button {...props} {...buttonProps} buttonStyle={style} />
+
+  return (
+    <Button
+      {...props}
+      {...buttonProps}
+      buttonStyle={style}
+      containerViewStyle={styles.buttonContainer}
+    />
+  )
 }
 
 export default CustomButton
 
 const styles = StyleSheet.create({
-  button: {
+  buttonContainer: {
     marginRight: 0,
     marginLeft: 0,
   },

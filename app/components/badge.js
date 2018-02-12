@@ -5,7 +5,7 @@ import { color, font } from '../common/styles/constant'
 
 // We need both type of ribbon and it is better to load them once
 const whiteRibbon = require('../images/ribbon_white.png')
-const grayRibbbon = require('../images/ribbon.png')
+const grayRibbon = require('../images/ribbon.png')
 
 export const BadgeLabel = props => {
   const textColor = props.secondary ? styles.secondary : styles.primary
@@ -22,7 +22,7 @@ const Badge = ({ count, secondary, badgeStyle, shadow, onPress }) => {
   const badgeColor = secondary
     ? color.bg.primary.font.primary
     : color.bg.secondary.font.primary
-  const ribbon = secondary ? whiteRibbon : grayRibbbon
+  const ribbon = secondary ? whiteRibbon : grayRibbon
   const style = shadow ? styles.shadow : null
 
   return (

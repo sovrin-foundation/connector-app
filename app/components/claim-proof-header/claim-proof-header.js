@@ -19,7 +19,6 @@ import empty from '../../common/empty'
 import type { ClaimProofHeaderProps } from './type-claim-proof-header'
 
 export default class ClaimProofHeader extends PureComponent<
-  void,
   ClaimProofHeaderProps,
   void
 > {

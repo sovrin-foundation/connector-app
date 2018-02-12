@@ -8,7 +8,6 @@ import type { RequestDetailAvatarProps } from './type-request'
 import { OFFSET_4X, OFFSET_1X } from '../../common/styles'
 
 export default class RequestDetailAvatars extends PureComponent<
-  void,
   RequestDetailAvatarProps,
   void
 > {

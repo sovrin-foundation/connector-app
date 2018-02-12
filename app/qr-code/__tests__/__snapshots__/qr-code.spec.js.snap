@@ -246,6 +246,7 @@ exports[`<QRScannerScreen /> should match snapshot 1`] = `
               }
             }
             isTVSelectable={true}
+            nativeID={undefined}
             onLayout={undefined}
             onResponderGrant={[Function]}
             onResponderMove={[Function]}

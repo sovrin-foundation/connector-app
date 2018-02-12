@@ -14,7 +14,9 @@ const constants = {
   TorchMode: {},
 }
 
-class MockCamera extends React.Component {
+// We don't need to type check external library
+// and we don't need types for mock test stub
+class MockCamera extends React.Component<any, void> {
   static constants = constants
   static checkVideoAuthorizationStatus = jest.fn(() => Promise.resolve(true))
 

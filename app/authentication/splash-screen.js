@@ -29,11 +29,7 @@ import { SMSPendingInvitationStatus } from '../sms-pending-invitation/type-sms-p
 import { deepLinkProcessed } from '../deep-link/deep-link-store'
 import { DEEP_LINK_STATUS } from '../deep-link/type-deep-link'
 
-export class SplashScreenView extends PureComponent<
-  void,
-  SplashScreenProps,
-  void
-> {
+export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
   componentWillReceiveProps(nextProps: SplashScreenProps) {
     if (nextProps.config.isHydrated !== this.props.config.isHydrated) {
       // hydrated is changed, and if it is changed to true,

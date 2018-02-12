@@ -23,8 +23,12 @@ import {
 } from '../common/styles/constant'
 import { disableTouchIdAction, enableTouchIdAction } from '../lock/lock-store'
 import { TOUCH_ID_ERROR_NAME } from './type-lock'
+import type { LockFingerprintSetupProps } from './type-lock'
 
-export class LockFingerprintSetup extends PureComponent {
+export class LockFingerprintSetup extends PureComponent<
+  LockFingerprintSetupProps,
+  void
+> {
   goToSettingsScreen = () => {
     if (this.props.touchIdActive) {
       this.props.disableTouchIdAction()
@@ -43,6 +47,7 @@ export class LockFingerprintSetup extends PureComponent {
       this.props.navigation.navigate(settingsTabRoute)
     }
   }
+
   goToPinSetupScreen = () => {
     this.props.enableTouchIdAction()
     this.props.navigation.navigate(lockPinSetupRoute, { touchIdActive: true })

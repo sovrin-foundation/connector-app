@@ -1,35 +1,32 @@
+// @flow
 import React from 'react'
-import LinearGradient from 'react-native-linear-gradient'
-import {
-  HeaderContainer,
-  InfoText,
-} from '../styled-components/connection-styled'
 import { StyleSheet, Image } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
+import { Container, CustomText } from '../components'
 
-export default props => (
+const ConnectionStatus = () => (
   <LinearGradient colors={['#295373', '#12293F']}>
-    <HeaderContainer>
+    <Container center style={[styles.headerContainer]}>
       <Image
         style={[styles.image]}
         source={require('../images/cbSunCoast.png')}
       />
-      <InfoText fontSize={16} marginBottom={7}>
-        Currently Talking With
-      </InfoText>
-      <InfoText fontWeight={500} fontSize={30} marginBottom={11}>
-        JOHN BEST
-      </InfoText>
-      <InfoText fontSize={13}>
-        CUSTOMER SERVICE SPECIALIST
-      </InfoText>
-    </HeaderContainer>
+      <CustomText>Currently Talking With</CustomText>
+      <CustomText>JOHN BEST</CustomText>
+      <CustomText>CUSTOMER SERVICE SPECIALIST</CustomText>
+    </Container>
   </LinearGradient>
 )
+
+export default ConnectionStatus
 
 const styles = StyleSheet.create({
   image: {
     marginBottom: 22,
     width: 104,
     height: 104,
+  },
+  headerContainer: {
+    height: 270,
   },
 })

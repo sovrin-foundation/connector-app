@@ -54,12 +54,12 @@ export function convertClaimOfferPushPayloadToAppClaimOffer(
    *  {label: "height", data: "170"},
    * ]
    */
-  const revealedAttributes = Object.keys(
-    pushPayload.claim
-  ).map(attributeName => ({
-    label: attributeName,
-    data: pushPayload.claim[attributeName][0],
-  }))
+  const revealedAttributes = Object.keys(pushPayload.claim).map(
+    attributeName => ({
+      label: attributeName,
+      data: pushPayload.claim[attributeName][0],
+    })
+  )
 
   return {
     issuer: {
@@ -80,11 +80,11 @@ export function convertProofRequestPushPayloadToAppProofRequest(
 ): AdditionalProofDataPayload {
   const { proof_request_data, remoteName } = pushPayload
   const { requested_attrs, name, version } = proof_request_data
-  const requestedAttributes = Object.keys(
-    requested_attrs
-  ).map(attributeKey => ({
-    label: requested_attrs[attributeKey].name,
-  }))
+  const requestedAttributes = Object.keys(requested_attrs).map(
+    attributeKey => ({
+      label: requested_attrs[attributeKey].name,
+    })
+  )
 
   return {
     data: {
@@ -114,7 +114,6 @@ export function convertClaimPushPayloadToAppClaim(
 }
 
 export class PushNotificationNavigator extends PureComponent<
-  void,
   PushNotificationNavigatorProps,
   void
 > {

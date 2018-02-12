@@ -6,11 +6,7 @@ import moment from 'moment'
 import { CustomText } from '../index'
 import type { CustomDateProps } from './type-custom-date'
 
-export default class CustomDate extends PureComponent<
-  void,
-  CustomDateProps,
-  void
-> {
+export default class CustomDate extends PureComponent<CustomDateProps, void> {
   render() {
     const { format, children } = this.props
     const customDate = moment(children).format(format)

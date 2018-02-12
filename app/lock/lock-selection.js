@@ -37,11 +37,7 @@ import {
 } from '../store'
 import { safeToDownloadSmsInvitation } from '../sms-pending-invitation/sms-pending-invitation-store'
 
-export class LockSelection extends PureComponent<
-  void,
-  LockSelectionProps,
-  void
-> {
+export class LockSelection extends PureComponent<LockSelectionProps, void> {
   goTouchIdSetup = () => {
     this.props.navigation.navigate(lockTouchIdSetupRoute)
     this.props.safeToDownloadSmsInvitation()
@@ -134,7 +130,6 @@ export class LockSelection extends PureComponent<
             testID="lock-selection-or-text"
             onLongPress={this._onLongPressButton}
             onPress={this._onTextPressButton}
-            style={[style.dividerText]}
           >
             <CustomText h4 bg="tertiary" tertiary transparentBg thick center>
               or

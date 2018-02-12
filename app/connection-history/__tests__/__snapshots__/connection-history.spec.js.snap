@@ -17,14 +17,14 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
         4286955331,
       ]
     }
-    end={undefined}
+    endPoint={undefined}
     locations={
       Array [
         0.1,
         1,
       ]
     }
-    start={undefined}
+    startPoint={undefined}
   >
     <View
       fifth={true}
@@ -70,6 +70,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
               },
             ]
           }
+          nativeID={undefined}
           onLayout={undefined}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
@@ -241,153 +242,153 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
         source={
           Object {
             "html": "
-              <!DOCTYPE html>
-              <html>
-              <script>
-              function fetchColorFromCanvas() {
-                const options = {
-                  imageElement: document.getElementById(\\"__colorPickerCanvasImage\\")
-                }
-                var rgba = getColorPalettes(options);
-                var message = {\\"message\\":'rgbValues',\\"payload\\":rgba};
-                window.postMessage(JSON.stringify(message));
-              }
+    <!DOCTYPE html>
+    <html>
+    <script>
+    function fetchColorFromCanvas() {
+      const options = {
+        imageElement: document.getElementById(\\"__colorPickerCanvasImage\\")
+      }
+      var rgba = getColorPalettes(options);
+      var message = {\\"message\\":'rgbValues',\\"payload\\":rgba};
+      window.postMessage(JSON.stringify(message));
+    }
+
+    function getColorPalettes({imageElement, 
+        count=3, 
+        defaultPalette=[0, 0, 0, 1], 
+        paletteType='dominant', 
+        colorType='rgba'}
+      ) {       
+      const canvas = document.createElement('canvas');
+      const	canvasContext = canvas.getContext && canvas.getContext('2d');
+
+      if (!canvasContext) return defaultPalette;
+      
+      let imageWidth = canvas.width = imageElement.naturalWidth 
+        || imageElement.offsetWidth 
+        || imageElement.width;                
+
+      const imageHeight = canvas.height = imageElement.naturalHeight 
+        || imageElement.offsetHeight 
+        || imageElement.height;                   
+
+      canvasContext.drawImage(imageElement, 0, 0);
+      if (paletteType === 'average')
+        return getAveragePalette({imageWidth, imageHeight, canvasContext, colorType});
+      else
+        return getDominantPalettes(getAllPalettes(imageWidth, imageHeight, canvasContext), count, colorType);
+    }
+
+    function getAveragePalette({imageWidth, imageHeight, canvasContext, colorType = 'rgb'}) {
+      const blockSize = 5
+      let i = -4;
+      let rgb = {r:0,g:0,b:0,a:1};
+      let count = 0;
+      
+      try {
+        data = canvasContext.getImageData(0, 0, imageWidth, imageHeight);
+      } catch(e) {
+        console.log(e);
+      }
+    
+      while ((i += blockSize * 4) < data.data.length) {
+        ++count;
+        rgb.r += data.data[i];
+        rgb.g += data.data[i+1];
+        rgb.b += data.data[i+2];
+      }
+      rgb.r = ~~(rgb.r/count);
+      rgb.g = ~~(rgb.g/count);
+      rgb.b = ~~(rgb.b/count);
+      if (colorType === 'hex')
+        return [[rgbToHex([rgb.r, rgb.g, rgb.b])]]
+      else
+        return [[rgb.r, rgb.g, rgb.b, rgb.a]];
+    }
+
+    function rgbToHex(rgba) {
+      let hexColor = '#';
+      rgba.slice(0, 3).forEach(c => {
+        let hex = c.toString(16);
+        hexColor += hex.length == 1 ? \\"0\\" + hex : hex;  
+      });
+      return hexColor
+    }
+
+    function getAllPalettes(width, height, context) {
+      let distinctPalettes = [];        
+      for (var i=0; i<=height; i++) { 
+        for (var j=0; j<=width; j++) { 
+          try {
+            data = context.getImageData(i, j, 1, 1);
+            if (data.data.toString().trim() != \\"0,0,0,0\\") {
+              distinctPalettes.push(data.data);
+            }
+          } catch(e) {
+            console.log(e);
+          }
+        }
+      }  
+      return distinctPalettes;
+    }
+
+    function getDominantPalettes(allPalettes, distinctCount, colorType = 'rgb') {
+      const combinations = getPaletteOccurrences(allPalettes);
+      let palettes = combinations[0];
+      let occurrences = combinations[1];
+      const dominantPalettes = [];
+
+      while (distinctCount) {               
+        let dominant = 0, dominantKey = 0;  
+        occurrences.forEach((v, k) => {           
+          if (v > dominant) {
+            dominant = v;              
+            dominantKey = k;                               
+          }
+        });
+        if (colorType === 'hex')
+          dominantPalettes.push(rgbToHex(palettes[dominantKey]));
+        else
+          dominantPalettes.push(palettes[dominantKey]);
           
-              function getColorPalettes({imageElement, 
-                  count=3, 
-                  defaultPalette=[0, 0, 0, 1], 
-                  paletteType='dominant', 
-                  colorType='rgba'}
-                ) {       
-                const canvas = document.createElement('canvas');
-                const	canvasContext = canvas.getContext && canvas.getContext('2d');
-          
-                if (!canvasContext) return defaultPalette;
-                
-                let imageWidth = canvas.width = imageElement.naturalWidth 
-                  || imageElement.offsetWidth 
-                  || imageElement.width;                
-          
-                const imageHeight = canvas.height = imageElement.naturalHeight 
-                  || imageElement.offsetHeight 
-                  || imageElement.height;                   
-          
-                canvasContext.drawImage(imageElement, 0, 0);
-                if (paletteType === 'average')
-                  return getAveragePalette({imageWidth, imageHeight, canvasContext, colorType});
-                else
-                  return getDominantPalettes(getAllPalettes(imageWidth, imageHeight, canvasContext), count, colorType);
-              }
-          
-              function getAveragePalette({imageWidth, imageHeight, canvasContext, colorType = 'rgb'}) {
-                const blockSize = 5
-                let i = -4;
-                let rgb = {r:0,g:0,b:0,a:1};
-                let count = 0;
-                
-                try {
-                  data = canvasContext.getImageData(0, 0, imageWidth, imageHeight);
-                } catch(e) {
-                  console.log(e);
-                }
-              
-                while ((i += blockSize * 4) < data.data.length) {
-                  ++count;
-                  rgb.r += data.data[i];
-                  rgb.g += data.data[i+1];
-                  rgb.b += data.data[i+2];
-                }
-                rgb.r = ~~(rgb.r/count);
-                rgb.g = ~~(rgb.g/count);
-                rgb.b = ~~(rgb.b/count);
-                if (colorType === 'hex')
-                  return [[rgbToHex([rgb.r, rgb.g, rgb.b])]]
-                else
-                  return [[rgb.r, rgb.g, rgb.b, rgb.a]];
-              }
-          
-              function rgbToHex(rgba) {
-                let hexColor = '#';
-                rgba.slice(0, 3).forEach(c => {
-                  let hex = c.toString(16);
-                  hexColor += hex.length == 1 ? \\"0\\" + hex : hex;  
-                });
-                return hexColor
-              }
-          
-              function getAllPalettes(width, height, context) {
-                let distinctPalettes = [];        
-                for (var i=0; i<=height; i++) { 
-                  for (var j=0; j<=width; j++) { 
-                    try {
-                      data = context.getImageData(i, j, 1, 1);
-                      if (data.data.toString().trim() != \\"0,0,0,0\\") {
-                        distinctPalettes.push(data.data);
-                      }
-                    } catch(e) {
-                      console.log(e);
-                    }
-                  }
-                }  
-                return distinctPalettes;
-              }
-          
-              function getDominantPalettes(allPalettes, distinctCount, colorType = 'rgb') {
-                const combinations = getPaletteOccurrences(allPalettes);
-                let palettes = combinations[0];
-                let occurrences = combinations[1];
-                const dominantPalettes = [];
-          
-                while (distinctCount) {               
-                  let dominant = 0, dominantKey = 0;  
-                  occurrences.forEach((v, k) => {           
-                    if (v > dominant) {
-                      dominant = v;              
-                      dominantKey = k;                               
-                    }
-                  });
-                  if (colorType === 'hex')
-                    dominantPalettes.push(rgbToHex(palettes[dominantKey]));
-                  else
-                    dominantPalettes.push(palettes[dominantKey]);
-                    
-                  palettes.splice(dominantKey, 1);            
-                  occurrences.splice(dominantKey, 1);
-                  distinctCount--;
-                }
-                return dominantPalettes;
-              }        
-          
-              function getPaletteOccurrences(palettes) {
-                let paletteList = [], occurrenceList = [], previousPalette;
-                palettes.sort();
-                palettes.forEach((palette, key) => {
-                  if (palette.toString() !== previousPalette) {
-                    paletteList.push(palette);
-                    occurrenceList.push(1);
-                  } else {
-                    occurrenceList[occurrenceList.length-1]++;
-                  }
-                  previousPalette = palettes[key].toString();
-                });
-                return [paletteList, occurrenceList];
-              }
-          
-              const interval = setInterval(() => {
-                var img = document.getElementById('__colorPickerCanvasImage');
-                if (img.src.length !== 0) {
-                  fetchColorFromCanvas();
-                  clearInterval(interval);
-                }
-              },10);        
-          
-              </script>
-              <body>
-                <img src='data:image/jpeg;base64,' 
-                  id='__colorPickerCanvasImage' onload='fetchColorFromCanvas()'/>
-              </body>
-              </html>
-            ",
+        palettes.splice(dominantKey, 1);            
+        occurrences.splice(dominantKey, 1);
+        distinctCount--;
+      }
+      return dominantPalettes;
+    }        
+
+    function getPaletteOccurrences(palettes) {
+      let paletteList = [], occurrenceList = [], previousPalette;
+      palettes.sort();
+      palettes.forEach((palette, key) => {
+        if (palette.toString() !== previousPalette) {
+          paletteList.push(palette);
+          occurrenceList.push(1);
+        } else {
+          occurrenceList[occurrenceList.length-1]++;
+        }
+        previousPalette = palettes[key].toString();
+      });
+      return [paletteList, occurrenceList];
+    }
+
+    const interval = setInterval(() => {
+      var img = document.getElementById('__colorPickerCanvasImage');
+      if (img.src.length !== 0) {
+        fetchColorFromCanvas();
+        clearInterval(interval);
+      }
+    },10);        
+
+    </script>
+    <body>
+      <img src='data:image/jpeg;base64,' 
+        id='__colorPickerCanvasImage' onload='fetchColorFromCanvas()'/>
+    </body>
+    </html>
+  ",
           }
         }
       />
@@ -400,8 +401,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
           Array [
             Object {
               "backgroundColor": "#ffffff",
-              "borderBottomWidth": 1,
-              "borderColor": "#cbd2d9",
+              "borderColor": "#bbb",
               "borderTopWidth": 1,
               "marginTop": 20,
             },
@@ -446,13 +446,15 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
             September 2017
           </Text>
           <View
+            avatar={1}
+            disabled={false}
             onLongPress={undefined}
             onPress={undefined}
             style={
               Array [
                 Object {
                   "backgroundColor": "transparent",
-                  "borderBottomColor": "#ededed",
+                  "borderBottomColor": "#bbb",
                   "borderBottomWidth": 1,
                   "paddingBottom": 10,
                   "paddingRight": 10,
@@ -461,6 +463,8 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                 Object {
                   "borderBottomWidth": 2,
                 },
+                false,
+                false,
               ]
             }
             underlayColor="white"
@@ -469,6 +473,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
               style={
                 Array [
                   Object {
+                    "alignItems": "center",
                     "flexDirection": "row",
                     "marginLeft": 10,
                   },
@@ -476,24 +481,65 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                 ]
               }
             >
-              <Image
-                source={1}
+              <View
+                activeOpacity={undefined}
+                onLongPress={undefined}
+                onPress={undefined}
                 style={
                   Array [
                     Object {
+                      "backgroundColor": "transparent",
                       "height": 34,
+                      "paddingBottom": 10,
+                      "paddingRight": 10,
+                      "paddingTop": 10,
                       "width": 34,
                     },
                     false,
-                    Object {
-                      "height": 17,
-                      "marginVertical": 10,
-                      "resizeMode": "contain",
-                      "width": 17,
-                    },
+                    undefined,
                   ]
                 }
-              />
+              >
+                <View
+                  style={
+                    Array [
+                      Object {
+                        "alignItems": "center",
+                        "alignSelf": "stretch",
+                        "backgroundColor": "rgba(0,0,0,0.2)",
+                        "bottom": 0,
+                        "flex": 1,
+                        "justifyContent": "center",
+                        "left": 0,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
+                      },
+                      false,
+                      undefined,
+                    ]
+                  }
+                >
+                  <Image
+                    source={1}
+                    style={
+                      Array [
+                        Object {
+                          "height": 34,
+                          "width": 34,
+                        },
+                        false,
+                        Object {
+                          "height": 17,
+                          "marginVertical": 10,
+                          "resizeMode": "contain",
+                          "width": 17,
+                        },
+                      ]
+                    }
+                  />
+                </View>
+              </View>
               <View
                 style={
                   Object {
@@ -546,6 +592,35 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                         }
                       >
                         CONNECTED
+                      </Text>
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                            },
+                            Object {
+                              "fontFamily": "SF Pro Display",
+                            },
+                            Object {
+                              "backgroundColor": "#ffffff",
+                              "color": "#777777",
+                            },
+                            Object {
+                              "fontWeight": "600",
+                            },
+                            null,
+                            null,
+                            Object {
+                              "color": "#333333",
+                            },
+                          ]
+                        }
+                      >
+                         - Enterprise name
                       </Text>
                     </View>
                   </View>

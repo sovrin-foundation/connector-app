@@ -20,6 +20,7 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
     tertiary={true}
   >
     <View
+      collapsable={undefined}
       style={
         Object {
           "height": 380,
@@ -78,6 +79,7 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
             accessibilityTraits={undefined}
             accessible={true}
             hitSlop={undefined}
+            nativeID={undefined}
             onError={[Function]}
             onLayout={undefined}
             onLoad={[Function]}

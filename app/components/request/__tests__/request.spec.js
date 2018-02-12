@@ -47,8 +47,7 @@ describe('<Request />', () => {
       </Provider>
     )
     tree = request.toJSON()
-    requestComponent = request.getInstance()._reactInternalInstance.child
-      .stateNode
+    requestComponent = request.root.findByType(Request).instance
   })
 
   it('should match snapshot', () => {

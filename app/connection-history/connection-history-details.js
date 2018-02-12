@@ -19,7 +19,6 @@ import {
 } from '../common'
 
 export class ConnectionHistoryDetails extends PureComponent<
-  void,
   ConnectionHistoryDetailsProps,
   void
 > {
@@ -80,13 +79,21 @@ export class ConnectionHistoryDetails extends PureComponent<
   })
 
   render() {
-    const { type, data, claimMap } = this.props.navigation.state.params
-    const listType = type === 'CLAIM' ? 'center' : 'end'
-    return (
-      <Container>
-        <CustomList items={data} type={listType} claimMap={claimMap} />
-      </Container>
-    )
+    if (this.props.navigation.state) {
+      const { type, data, claimMap } = this.props.navigation.state.params
+      const listType = type === 'CLAIM' ? 'center' : 'end'
+
+      return (
+        <Container>
+          {data && (
+            <CustomList items={data} type={listType} claimMap={claimMap} />
+          )}
+        </Container>
+      )
+    }
+
+    // TODO: Handle scenario if no navigation props are passed
+    return <Container />
   }
 }
 

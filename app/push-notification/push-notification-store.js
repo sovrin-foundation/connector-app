@@ -1,7 +1,6 @@
 // @flow
 
 import { call, all, takeLatest, take, select, put } from 'redux-saga/effects'
-import { encode } from 'bs58'
 import { PAYLOAD_TYPE } from '../api/api-constants'
 import { captureError } from '../services/error/error-handler'
 import {
@@ -127,7 +126,7 @@ export function* onPushTokenUpdate(
   }
 }
 
-function* watchPushTokenUpdate() {
+function* watchPushTokenUpdate(): any {
   yield takeLatest(PUSH_NOTIFICATION_UPDATE_TOKEN, onPushTokenUpdate)
 }
 
@@ -234,7 +233,7 @@ export function* additionalDataFetching(
   }
 }
 
-function* watchFetchAdditionalData(): Generator<*, *, *> {
+function* watchFetchAdditionalData(): any {
   yield takeLatest(FETCH_ADDITIONAL_DATA, additionalDataFetching)
 }
 

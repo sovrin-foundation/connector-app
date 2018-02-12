@@ -53,12 +53,9 @@ import { getConnectionLogoUrl } from '../store/store-selector'
 import { ERROR_CODE_MISSING_ATTRIBUTE } from '../proof/type-proof'
 
 class ProofRequestAttributeList extends PureComponent<
-  void,
   ProofRequestAttributeListProp,
   void
 > {
-  keyExtractor = (_, index: number) => index
-
   renderItem = ({ item, index }) => {
     const logoUrl = item.data
       ? item.claimUuid &&
@@ -68,6 +65,7 @@ class ProofRequestAttributeList extends PureComponent<
         ? { uri: this.props.claimMap[item.claimUuid].logoUrl }
         : require('../images/cb_evernym.png')
       : null
+
     return (
       <Container
         fifth
@@ -113,7 +111,6 @@ class ProofRequestAttributeList extends PureComponent<
         <FlatList
           data={attributes}
           ItemSeparatorComponent={Separator}
-          keyExtractor={this.keyExtractor}
           ListFooterComponent={Separator}
           renderItem={this.renderItem}
         />
@@ -122,7 +119,7 @@ class ProofRequestAttributeList extends PureComponent<
   }
 }
 
-export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
+export class ProofRequest extends PureComponent<ProofRequestProps, void> {
   close = () => {
     this.props.navigation.goBack()
   }
@@ -176,6 +173,7 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
     const logoUri = logoUrl
       ? { uri: logoUrl }
       : require('../images/cb_evernym.png')
+
     return (
       <Container fifth>
         {isValid && (
@@ -192,7 +190,6 @@ export class ProofRequest extends PureComponent<void, ProofRequestProps, void> {
               small
               testID={`${testID}-icon-close`}
               onPress={this.close}
-              iconStyle={[styles.headerCloseIcon]}
               style={[styles.headerCloseIconContainer]}
             />
             <CustomView fifth hCenter style={[styles.headerStripLogoContainer]}>

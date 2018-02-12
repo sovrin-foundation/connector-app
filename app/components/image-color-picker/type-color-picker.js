@@ -8,7 +8,11 @@ export type ConnectionTheme = {
 export type ImagePickerProps = {
   imageType: string,
   imageUrl: string,
-  updateConnectionTheme: (logoUrl: string, color: string) => void,
+  updateConnectionTheme: (
+    logoUrl: string,
+    color: string,
+    secondaryColor: string
+  ) => void,
 }
 
 export type ImagePickerStates = {

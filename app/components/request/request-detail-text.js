@@ -8,7 +8,6 @@ import { noop } from '../../common'
 import type { RequestDetailTextProps } from './type-request'
 
 export default class RequestDetailText extends PureComponent<
-  void,
   RequestDetailTextProps,
   void
 > {

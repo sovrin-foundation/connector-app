@@ -55,7 +55,7 @@ export function* claimReceivedSaga(
   try {
     const { claim: { from_did: senderDID, forDID: myPairwiseDid } } = action
     const poolConfig: string = yield select(getPoolConfig)
-    const claimFilterJSON = yield call(
+    const claimFilterJSON: string = yield call(
       addClaim,
       JSON.stringify(action.claim),
       poolConfig
@@ -126,7 +126,7 @@ export function* hydrateClaimMapSaga(): Generator<*, *, *> {
   }
 }
 
-export function* watchClaimReceived(): Generator<*, *, *> {
+export function* watchClaimReceived(): any {
   yield takeLatest(CLAIM_RECEIVED, claimReceivedSaga)
 }
 

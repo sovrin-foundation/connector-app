@@ -56,7 +56,9 @@ describe('Claim Store', () => {
   xit('claim storage workflow should work fine if storage is success', () => {
     const gen = claimReceivedSaga(claimReceived(claim))
 
-    expect(gen.next().value).toEqual(call(addClaim, JSON.stringify(claim)))
+    expect(gen.next().value).toEqual(
+      call(addClaim, JSON.stringify(claim), poolConfig)
+    )
     expect(gen.next().value).toEqual(put(claimStorageSuccess(claim.messageId)))
     expect(gen.next().value).toEqual(
       call(
@@ -64,7 +66,8 @@ describe('Claim Store', () => {
         JSON.stringify({
           issuer_DID: senderDid1,
           schema_seq_no: claimDefinitionSchemaSequenceNumber,
-        })
+        }),
+        poolConfig
       )
     )
     expect(gen.next(getClaimFormat).value).toEqual(

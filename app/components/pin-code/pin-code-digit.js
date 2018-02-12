@@ -8,7 +8,6 @@ import type { PinCodeDigitProps } from './type-pin-code-box'
 const sovrinIcon = require('../../images/icon_sovrin.png')
 
 export default class PinCodeDigit extends PureComponent<
-  void,
   PinCodeDigitProps,
   void
 > {

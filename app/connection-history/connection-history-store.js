@@ -21,7 +21,7 @@ import {
   HISTORY_EVENT_STATUS,
   HISTORY_EVENT_TYPE,
   HISTORY_EVENT_STORAGE_KEY,
-  ERROR_HISTORY_EVENT_OCCURED,
+  ERROR_HISTORY_EVENT_OCCURRED,
 } from './type-connection-history'
 import type {
   HistoryEventType,
@@ -102,7 +102,7 @@ export function* loadHistorySaga(): Generator<*, *, *> {
   }
 }
 
-export function* watchLoadHistory(): Generator<*, *, *> {
+export function* watchLoadHistory(): any {
   yield takeLatest(LOAD_HISTORY, loadHistorySaga)
 }
 
@@ -235,7 +235,7 @@ export function* historyEventOccurredSaga(
   action: HistoryEventOccurredAction
 ): Generator<*, *, *> {
   const { event, type } = action
-  let historyEvent: ConnectionHistoryEvent
+  let historyEvent: ?ConnectionHistoryEvent = null
 
   try {
     if (event.type === INVITATION_RECEIVED) {
@@ -282,14 +282,14 @@ export function* historyEventOccurredSaga(
   } catch (e) {
     yield put(
       loadHistoryFail({
-        ...ERROR_HISTORY_EVENT_OCCURED,
-        message: `${ERROR_HISTORY_EVENT_OCCURED.message} ${e.message}`,
+        ...ERROR_HISTORY_EVENT_OCCURRED,
+        message: `${ERROR_HISTORY_EVENT_OCCURRED.message} ${e.message}`,
       })
     )
   }
 }
 
-export function* watchHistoryEventOccurred(): Generator<*, *, *> {
+export function* watchHistoryEventOccurred(): any {
   yield takeEvery(HISTORY_EVENT_OCCURRED, historyEventOccurredSaga)
 }
 

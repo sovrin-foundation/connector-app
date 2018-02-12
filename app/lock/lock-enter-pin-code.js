@@ -21,13 +21,13 @@ import { tertiaryHeaderStyles } from '../components/layout/header-styles'
 import { UNLOCKING_APP_WAIT_MESSAGE } from '../common/message-constants'
 
 export class LockEnterPin extends PureComponent<
-  void,
   LockEnterPinProps,
   LockEnterPinState
 > {
   state = {
     authenticationSuccess: false,
   }
+
   static navigationOptions = () => ({
     headerTitle: (
       <CustomText bg="tertiary" tertiary transparentBg semiBold>
@@ -81,12 +81,15 @@ export class LockEnterPin extends PureComponent<
 
   render() {
     const { isFetchingInvitation } = this.props
+
     let message = this.props.existingPin
       ? ENTER_YOUR_PASS_CODE_MESSAGE
       : ENTER_PASS_CODE_MESSAGE
+
     if (isFetchingInvitation && this.state.authenticationSuccess) {
       message = UNLOCKING_APP_WAIT_MESSAGE
     }
+
     return <LockEnter onSuccess={this.onSuccess} message={message} />
   }
 }

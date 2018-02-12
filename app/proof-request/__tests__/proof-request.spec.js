@@ -67,8 +67,7 @@ describe('<ProofRequest />', () => {
       </Provider>
     )
     tree = wrapper.toJSON()
-    componentInstance = wrapper.getInstance()._reactInternalInstance.child
-      .stateNode
+    componentInstance = wrapper.root.findByType(ProofRequest).instance
   })
 
   it('should call proofRequestShown on componentDidMount', () => {
@@ -76,7 +75,7 @@ describe('<ProofRequest />', () => {
     expect(proofRequestShown).toHaveBeenCalledWith(uid)
   })
 
-  it('should call acceptproofRequest if offer is accepted', () => {
+  it('should call acceptProofRequest if offer is accepted', () => {
     componentInstance.onSend()
     expect(acceptProofRequest).toHaveBeenCalledWith(uid)
   })

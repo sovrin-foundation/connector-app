@@ -41,5 +41,24 @@ export type QrScannerState = {
 
 export type QrScannerProps = {
   onRead: QrCode => void,
-  onClose: any => void,
+  onClose: () => void,
+}
+
+export type CameraMarkerProps = {
+  status: QR_SCAN_STATUS,
+  onClose: () => void,
+}
+
+export const TOP_LEFT = 'topLeft'
+export const TOP_RIGHT = 'topRight'
+export const BOTTOM_LEFT = 'bottomLeft'
+export const BOTTOM_RIGHT = 'bottomRight'
+
+export type CornerBoxProps = {
+  status: QR_SCAN_STATUS,
+  position:
+    | typeof TOP_LEFT
+    | typeof TOP_RIGHT
+    | typeof BOTTOM_LEFT
+    | typeof BOTTOM_RIGHT,
 }

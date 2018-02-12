@@ -208,3 +208,22 @@ export const TOUCH_ID_ERROR_NAME = [
   'LAErrorAuthenticationFailed',
   'RCTTouchIDNotSupported',
 ]
+
+export type LockFingerprintSetupProps = {
+  touchIdActive: boolean,
+  fromSettings: boolean,
+  disableTouchIdAction: () => void,
+  enableTouchIdAction: () => void,
+} & ReactNavigation
+
+export type LockPinCodeSetupProps = {
+  setPinAction: (pin: string) => void,
+  enableTouchIdAction: () => void,
+} & ReactNavigation
+
+export type LockSetupSuccessProps = {
+  pendingRedirection: Array<PendingRedirection>,
+  unlockApp: () => void,
+  clearPendingRedirect: () => void,
+  isFetchingInvitation: boolean,
+} & ReactNavigation

@@ -62,6 +62,7 @@ exports[`user settings screen should render properly and snapshot should match 1
               accessibilityTraits={undefined}
               accessible={true}
               hitSlop={undefined}
+              nativeID={undefined}
               onError={undefined}
               onLayout={undefined}
               onLoad={undefined}
@@ -290,6 +291,8 @@ exports[`user settings screen should render properly and snapshot should match 1
             accessibilityLabel={undefined}
             accessibilityTraits={undefined}
             accessible={true}
+            collapsable={undefined}
+            hasTVPreferredFocus={undefined}
             hitSlop={
               Object {
                 "bottom": 15,
@@ -299,6 +302,7 @@ exports[`user settings screen should render properly and snapshot should match 1
               }
             }
             isTVSelectable={true}
+            nativeID={undefined}
             onLayout={undefined}
             onResponderGrant={[Function]}
             onResponderMove={[Function]}

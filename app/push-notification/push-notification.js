@@ -13,10 +13,6 @@ import { setItem } from '../services/secure-storage'
 import PushNotificationNavigator from './push-notification-navigator'
 
 export class PushNotification extends PureComponent {
-  constructor(props) {
-    super(props)
-  }
-
   componentDidMount() {
     // reset ios badge count to zero
     // iOS only and there's no way to set it in Android, yet.

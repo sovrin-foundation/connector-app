@@ -18,7 +18,6 @@ import type {
 } from './type-lock'
 
 export class LockEnterFingerprint extends PureComponent<
-  void,
   LockEnterFingerProps,
   LockEnterFingerState
 > {

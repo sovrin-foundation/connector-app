@@ -149,7 +149,7 @@ export function* callSmsPendingInvitationRequest(
   try {
     // get invitation link
     // TODO:KS Handle error for this API, all business logic and API related
-    const invitationLink = yield call(getInvitationLink, {
+    const invitationLink: { url: string } = yield call(getInvitationLink, {
       agencyUrl,
       smsToken,
     })
@@ -167,7 +167,6 @@ export function* callSmsPendingInvitationRequest(
       })
     )
   } catch (e) {
-    console.log(e)
     let error: CustomError = {
       code: ERROR_PENDING_INVITATION_RESPONSE_PARSE_CODE,
       message: ERROR_PENDING_INVITATION_RESPONSE_PARSE,
@@ -181,7 +180,7 @@ export function* callSmsPendingInvitationRequest(
   }
 }
 
-function* watchSmsPendingInvitationRequest(): Generator<*, *, *> {
+function* watchSmsPendingInvitationRequest(): any {
   yield takeEvery(
     SMS_PENDING_INVITATION_REQUEST,
     callSmsPendingInvitationRequest

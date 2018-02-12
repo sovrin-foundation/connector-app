@@ -436,10 +436,12 @@ export const preparedProofWithMissingAttribute = {
 
 export function getNavigation(params?: NavigationParams) {
   return {
+    // $FlowFixMe Don't why this is failing, may be we upgrade to flow 0.63
     navigate: jest.fn(),
     state: {
       params: params || {},
     },
+    // $FlowFixMe Don't why this is failing, may be we upgrade to flow 0.63
     goBack: jest.fn(),
   }
 }
@@ -487,9 +489,11 @@ export function getStore(store?: Store) {
       }
     },
     dispatch() {
+      // $FlowFixMe Don't why this is failing, may be we upgrade to flow 0.63
       return jest.fn()
     },
     subscribe() {
+      // $FlowFixMe Don't why this is failing, may be we upgrade to flow 0.63
       return jest.fn()
     },
   }

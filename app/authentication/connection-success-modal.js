@@ -1,12 +1,27 @@
+// @flow
 import React, { PureComponent } from 'react'
 import { View, Image, StyleSheet } from 'react-native'
 
 import { CustomModal, AvatarsPair, CustomText } from '../components'
-import { color, OFFSET_1X, OFFSET_2X, isiPhone } from '../common/styles'
+import { color, OFFSET_1X, OFFSET_2X } from '../common/styles'
 import { connectionRoute } from '../common'
 import { getConnectionLogo } from '../store'
 
-export default class ConnectionSuccessModal extends PureComponent {
+// TODO:KS Move these props to type-* file
+// we will move this file as well to components directory
+// and create tests, type and component in separate folder
+// Trying to avoid as many conflicts as possible
+export type ConnectionSuccessModalProps = {
+  name: string,
+  logoUrl: ?string,
+  showConnectionSuccessModal: (boolean, string) => void,
+  isModalVisible: boolean,
+}
+
+export default class ConnectionSuccessModal extends PureComponent<
+  ConnectionSuccessModalProps,
+  void
+> {
   render() {
     const {
       name = 'Evernym',
@@ -15,6 +30,7 @@ export default class ConnectionSuccessModal extends PureComponent {
       isModalVisible,
     } = this.props
     const connectionAvatar = getConnectionLogo(logoUrl)
+
     return (
       <CustomModal
         onPress={() => showConnectionSuccessModal(false, connectionRoute)}
@@ -44,6 +60,7 @@ export default class ConnectionSuccessModal extends PureComponent {
     )
   }
 }
+
 const styles = StyleSheet.create({
   message: {
     paddingTop: OFFSET_1X,

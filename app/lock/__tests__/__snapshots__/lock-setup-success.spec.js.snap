@@ -117,123 +117,139 @@ exports[`<LockSetupSuccess /> should display Loading while fetching the invitati
     style={Object {}}
   >
     <View
-      accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
-      accessibilityTraits={undefined}
-      accessible={true}
-      hasTVPreferredFocus={undefined}
-      hitSlop={undefined}
-      isTVSelectable={true}
-      onLayout={undefined}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         Array [
           Object {
-            "backgroundColor": "transparent",
+            "marginLeft": 15,
+            "marginRight": 15,
+          },
+          Object {
+            "shadowColor": "rgba(0,0,0, .4)",
+            "shadowOffset": Object {
+              "height": 1,
+              "width": 1,
+            },
+            "shadowOpacity": 1,
+            "shadowRadius": 1,
+          },
+          Object {
+            "marginLeft": 0,
+            "marginRight": 0,
           },
           undefined,
         ]
       }
-      testID={undefined}
-      tvParallaxProperties={undefined}
     >
       <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Array [
             Object {
-              "alignItems": "center",
-              "backgroundColor": "#9E9E9E",
-              "flexDirection": "row",
-              "justifyContent": "center",
-              "marginLeft": 15,
-              "marginRight": 15,
-              "padding": 19,
-            },
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            Object {
-              "backgroundColor": "#85bf43",
-            },
-            undefined,
-            Object {
-              "shadowColor": "rgba(0,0,0, .4)",
-              "shadowOffset": Object {
-                "height": 1,
-                "width": 1,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 1,
-            },
-            Object {
-              "padding": 12,
-            },
-            Array [
-              Object {
-                "marginLeft": 0,
-                "marginRight": 0,
-              },
-              Object {
-                "paddingVertical": 17,
-              },
-              Object {
-                "backgroundColor": "#ffffff",
-                "opacity": 0.2,
-              },
-            ],
-            Object {
-              "backgroundColor": "#dadee0",
+              "backgroundColor": "transparent",
             },
             undefined,
           ]
         }
+        testID="close-button"
+        tvParallaxProperties={undefined}
       >
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
+        <View
+          pointerEvents="box-only"
           style={
             Array [
-              Object {},
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#9E9E9E",
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "padding": 19,
+              },
               undefined,
               undefined,
               undefined,
               undefined,
               undefined,
+              Object {
+                "backgroundColor": "#85bf43",
+              },
               undefined,
+              Object {
+                "padding": 12,
+              },
               undefined,
               undefined,
               undefined,
               Array [
                 Object {
-                  "color": "white",
-                  "fontSize": 16,
+                  "paddingVertical": 17,
                 },
                 Object {
-                  "color": "#ffffff",
+                  "backgroundColor": "#ffffff",
+                  "opacity": 0.2,
                 },
-                Object {
-                  "fontSize": 14,
-                },
-                undefined,
-                undefined,
-                Object {
-                  "fontWeight": "600",
-                },
-                undefined,
               ],
+              Object {
+                "backgroundColor": "#dadee0",
+              },
+              undefined,
             ]
           }
         >
-          Close
-        </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {},
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                Array [
+                  Object {
+                    "color": "white",
+                    "fontSize": 16,
+                  },
+                  Object {
+                    "color": "#ffffff",
+                  },
+                  Object {
+                    "fontSize": 14,
+                  },
+                  undefined,
+                  undefined,
+                  Object {
+                    "fontWeight": "600",
+                  },
+                  undefined,
+                  undefined,
+                ],
+              ]
+            }
+          >
+            Close
+          </Text>
+        </View>
       </View>
     </View>
   </View>
@@ -357,118 +373,134 @@ exports[`<LockSetupSuccess /> should render Lock setup success Screen 1`] = `
     style={Object {}}
   >
     <View
-      accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
-      accessibilityTraits={undefined}
-      accessible={true}
-      hasTVPreferredFocus={undefined}
-      hitSlop={undefined}
-      isTVSelectable={true}
-      onLayout={undefined}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         Array [
           Object {
-            "backgroundColor": "transparent",
+            "marginLeft": 15,
+            "marginRight": 15,
+          },
+          Object {
+            "shadowColor": "rgba(0,0,0, .4)",
+            "shadowOffset": Object {
+              "height": 1,
+              "width": 1,
+            },
+            "shadowOpacity": 1,
+            "shadowRadius": 1,
+          },
+          Object {
+            "marginLeft": 0,
+            "marginRight": 0,
           },
           undefined,
         ]
       }
-      testID={undefined}
-      tvParallaxProperties={undefined}
     >
       <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Array [
             Object {
-              "alignItems": "center",
-              "backgroundColor": "#9E9E9E",
-              "flexDirection": "row",
-              "justifyContent": "center",
-              "marginLeft": 15,
-              "marginRight": 15,
-              "padding": 19,
+              "backgroundColor": "transparent",
             },
             undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            Object {
-              "backgroundColor": "#85bf43",
-            },
-            undefined,
-            Object {
-              "shadowColor": "rgba(0,0,0, .4)",
-              "shadowOffset": Object {
-                "height": 1,
-                "width": 1,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 1,
-            },
-            Object {
-              "padding": 12,
-            },
-            Array [
-              Object {
-                "marginLeft": 0,
-                "marginRight": 0,
-              },
-              Object {
-                "paddingVertical": 17,
-              },
-              null,
-            ],
-            false,
-            false,
           ]
         }
+        testID="close-button"
+        tvParallaxProperties={undefined}
       >
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
+        <View
+          pointerEvents="box-only"
           style={
             Array [
-              Object {},
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#9E9E9E",
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "padding": 19,
+              },
               undefined,
               undefined,
               undefined,
               undefined,
               undefined,
+              Object {
+                "backgroundColor": "#85bf43",
+              },
               undefined,
+              Object {
+                "padding": 12,
+              },
               undefined,
               undefined,
               undefined,
               Array [
                 Object {
-                  "color": "white",
-                  "fontSize": 16,
+                  "paddingVertical": 17,
                 },
-                Object {
-                  "color": "#ffffff",
-                },
-                Object {
-                  "fontSize": 14,
-                },
-                undefined,
-                undefined,
-                Object {
-                  "fontWeight": "600",
-                },
-                undefined,
+                null,
               ],
+              false,
+              false,
             ]
           }
         >
-          Close
-        </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {},
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                Array [
+                  Object {
+                    "color": "white",
+                    "fontSize": 16,
+                  },
+                  Object {
+                    "color": "#ffffff",
+                  },
+                  Object {
+                    "fontSize": 14,
+                  },
+                  undefined,
+                  undefined,
+                  Object {
+                    "fontWeight": "600",
+                  },
+                  undefined,
+                  false,
+                ],
+              ]
+            }
+          >
+            Close
+          </Text>
+        </View>
       </View>
     </View>
   </View>

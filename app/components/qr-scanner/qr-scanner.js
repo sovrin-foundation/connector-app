@@ -17,11 +17,21 @@ import {
   OFFSET_5X,
 } from '../../common/styles/constant'
 import { isValidQrCode } from './qr-scanner-validator'
-import { SCAN_STATUS } from './type-qr-scanner'
-import type { QrScannerProps, QrScannerState } from './type-qr-scanner'
+import {
+  SCAN_STATUS,
+  BOTTOM_RIGHT,
+  BOTTOM_LEFT,
+  TOP_RIGHT,
+  TOP_LEFT,
+} from './type-qr-scanner'
+import type {
+  QrScannerProps,
+  QrScannerState,
+  CameraMarkerProps,
+  CornerBoxProps,
+} from './type-qr-scanner'
 
 export default class QRScanner extends PureComponent<
-  void,
   QrScannerProps,
   QrScannerState
 > {
@@ -93,7 +103,7 @@ export default class QRScanner extends PureComponent<
   }
 }
 
-export class CameraMarker extends PureComponent {
+export class CameraMarker extends PureComponent<CameraMarkerProps, void> {
   render() {
     const { status, onClose } = this.props
 
@@ -108,18 +118,19 @@ export class CameraMarker extends PureComponent {
           style={[cameraMarkerStyles.cameraMarker]}
         >
           <CustomView row spaceBetween>
-            <CornerBox status={status} position="topLeft" />
-            <CornerBox status={status} position="topRight" />
+            <CornerBox status={status} position={TOP_LEFT} />
+            <CornerBox status={status} position={TOP_RIGHT} />
           </CustomView>
           <CustomView row spaceBetween>
-            <CornerBox status={status} position="bottomLeft" />
-            <CornerBox status={status} position="bottomRight" />
+            <CornerBox status={status} position={BOTTOM_LEFT} />
+            <CornerBox status={status} position={BOTTOM_RIGHT} />
           </CustomView>
         </CustomView>
         <CustomText
           h5
           semiBold
           transparentBg
+          // $FlowFixMe
           style={[scanStatusStyle[status], scanStatusStyle.scanStatusOffset]}
         >
           {status}
@@ -150,7 +161,7 @@ export class CameraMarker extends PureComponent {
   }
 }
 
-export class CornerBox extends PureComponent {
+export class CornerBox extends PureComponent<CornerBoxProps, void> {
   render() {
     const { status } = this.props
     const borderStyle =
@@ -165,6 +176,7 @@ export class CornerBox extends PureComponent {
         transparentBg
         style={[
           cameraMarkerStyles.cornerBox,
+          // $FlowFixMe
           cameraMarkerStyles[`${this.props.position}Box`],
           borderStyle,
         ]}

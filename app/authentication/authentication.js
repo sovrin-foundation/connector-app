@@ -3,7 +3,6 @@ import React, { PureComponent } from 'react'
 import { View, Text, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { encode } from 'bs58'
 import { connectionRoute, homeRoute } from '../common'
 import {
   resetAuthenticationStatus,
@@ -15,7 +14,9 @@ import { Container, Request } from '../components'
 import ConnectionSuccessModal from './connection-success-modal'
 import { AUTHENTICATION_STATUS } from './authentication-store'
 
-class Authentication extends PureComponent {
+// TODO:KS Fix type for this screen, we are not using this screen
+// as of now, so we will fix this later
+class Authentication extends PureComponent<any, any> {
   state = {
     isModalVisible: false,
   }
@@ -80,12 +81,14 @@ class Authentication extends PureComponent {
     let offerMsgTitle = '',
       offerMsgText = '',
       logoUrl = null,
-      name
+      name = ''
+
     if (data) {
       offerMsgTitle = data.offerMsgTitle
       offerMsgText = data.offerMsgText
       logoUrl = data.logoUrl
     }
+
     return (
       <Container>
         <Request

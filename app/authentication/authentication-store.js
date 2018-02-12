@@ -84,7 +84,7 @@ export const resetAuthenticationStatus = (): ResetAuthenticationStatus => ({
   type: RESET_AUTHENTICATION_STATUS,
 })
 
-export function* watchLoadAuthenticationDetailsRequest(): Generator<*, *, *> {
+export function* watchLoadAuthenticationDetailsRequest(): any {
   yield takeLatest(
     SEND_USER_AUTHENTICATION_RESPONSE,
     handleUserAuthenticationResponse

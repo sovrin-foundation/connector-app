@@ -6,7 +6,6 @@ import RequestDetailAvatars from './request-detail-avatars'
 import type { RequestDetailProps } from './type-request'
 
 export default class RequestDetail extends PureComponent<
-  void,
   RequestDetailProps,
   void
 > {

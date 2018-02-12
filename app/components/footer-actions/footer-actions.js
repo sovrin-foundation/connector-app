@@ -12,7 +12,6 @@ import { DENY, CONNECT } from '../../common'
 import type { FooterActionsProps } from './type-footer-actions'
 
 export default class FooterActions extends PureComponent<
-  void,
   FooterActionsProps,
   void
 > {

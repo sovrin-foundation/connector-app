@@ -54,11 +54,7 @@ export const WrongPinText = (
   </CustomText>
 )
 
-export class LockEnter extends PureComponent<
-  void,
-  LockEnterProps,
-  LockEnterState
-> {
+export class LockEnter extends PureComponent<LockEnterProps, LockEnterState> {
   state = {
     interactionsDone: false,
   }

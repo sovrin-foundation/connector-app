@@ -44,13 +44,12 @@ describe('<LockPinCodeEnter />', () => {
     store = getStore()
 
     component = renderer.create(
-      <Provider store={getStore()}>
+      <Provider store={store}>
         <LockEnterPin {...props} />
       </Provider>,
       options
     )
-    componentInstance = component.getInstance()._reactInternalInstance.child
-      .stateNode
+    componentInstance = component.root.findByType(LockEnterPin).instance
   })
 
   it('should render pin code box', () => {
@@ -66,7 +65,7 @@ describe('<LockPinCodeEnter />', () => {
 
   it('redirect to pendingRedirection', () => {
     component.update(
-      <Provider store={getStore()}>
+      <Provider store={store}>
         <LockEnterPin {...props} existingPin={false} />
       </Provider>
     )

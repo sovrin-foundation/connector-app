@@ -1,1 +1,2 @@
+// @flow
 import './app/app'

@@ -32,7 +32,7 @@ import {
   hitSlop,
 } from '../common/styles'
 import { setPinAction, enableTouchIdAction } from './lock-store'
-import type { LockPinSetupState } from './type-lock'
+import type { LockPinSetupState, LockPinCodeSetupProps } from './type-lock'
 import { PIN_SETUP_STATE } from './type-lock'
 import LinearGradient from 'react-native-linear-gradient'
 
@@ -73,7 +73,10 @@ const ReEnterPinFailText = (
   </CustomText>
 )
 
-export class LockPinSetup extends PureComponent {
+export class LockPinSetup extends PureComponent<
+  LockPinCodeSetupProps,
+  LockPinSetupState
+> {
   state: LockPinSetupState = {
     pinSetupState: PIN_SETUP_STATE.INITIAL,
     interactionsDone: false,
@@ -91,7 +94,8 @@ export class LockPinSetup extends PureComponent {
             navigation.state.params &&
             navigation.state.params.existingPin === true
               ? navigation.navigate(settingsTabRoute)
-              : navigation.navigate(lockSelectionRoute)}
+              : navigation.navigate(lockSelectionRoute)
+          }
           hitSlop={hitSlop}
         >
           <Image
@@ -103,7 +107,8 @@ export class LockPinSetup extends PureComponent {
               navigation.state.params &&
               navigation.state.params.existingPin === true
                 ? navigation.navigate(settingsTabRoute)
-                : navigation.navigate(lockSelectionRoute)}
+                : navigation.navigate(lockSelectionRoute)
+            }
           />
         </TouchableHighlight>
       </CustomView>
@@ -126,6 +131,7 @@ export class LockPinSetup extends PureComponent {
 
   onPinSetup = (pin: string) => {
     this.props.setPinAction(pin)
+    this.props.navigation.state &&
     this.props.navigation.state.params &&
     this.props.navigation.state.params.existingPin === true
       ? this.props.navigation.navigate(lockSetupSuccessRoute, {
@@ -185,10 +191,12 @@ export class LockPinSetup extends PureComponent {
   render() {
     const { pinSetupState, interactionsDone } = this.state
     const passCodeSetupText =
-      typeof this.props.navigation.state.params !== 'undefined' &&
+      this.props.navigation.state &&
+      this.props.navigation.state.params &&
       this.props.navigation.state.params.touchIdActive === true
         ? 'Set up a pass code in case TouchID/FaceID fails'
         : 'Set up a pass code'
+
     const EnterPinText = (
       <CustomText
         style={[styles.titleText]}
@@ -214,12 +222,14 @@ export class LockPinSetup extends PureComponent {
         tertiary
         thick
       >
-        {this.props.navigation.state.params &&
+        {this.props.navigation.state &&
+        this.props.navigation.state.params &&
         this.props.navigation.state.params.existingPin === true
           ? 'Re-enter new pass code'
           : 'Re-enter pass code'}
       </CustomText>
     )
+
     return (
       <Container tertiary>
         <LinearGradient

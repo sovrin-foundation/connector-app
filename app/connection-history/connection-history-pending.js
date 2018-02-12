@@ -7,7 +7,8 @@ import type { Store } from '../store/type-store'
 import ClaimRequestModal from '../claim-offer/claim-request-modal'
 import { CLAIM_REQUEST_STATUS } from '../claim-offer/type-claim-offer'
 
-export class ConnectionHistoryPending extends PureComponent<void, void, void> {
+// TODO: Need to Add prop types
+export class ConnectionHistoryPending extends PureComponent<void, void> {
   close = () => {
     this.props && this.props.navigation ? this.props.navigation.goBack() : ''
   }

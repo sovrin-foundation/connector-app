@@ -33,24 +33,25 @@ import type {
   AdditionalDataPayload,
   Attribute,
 } from '../push-notification/type-push-notification'
-import type { ClaimOfferProps, ClaimOfferPayload } from './type-claim-offer'
+import type {
+  ClaimOfferProps,
+  ClaimOfferPayload,
+  ClaimOfferAttributeListProps,
+} from './type-claim-offer'
 import type { Store } from '../store/type-store'
 import ClaimRequestModal from './claim-request-modal'
 import { getConnectionLogoUrl } from '../store/store-selector'
 import type { ReactNavigation } from '../common/type-common'
 
-class ClaimOfferAttributeList extends PureComponent {
+class ClaimOfferAttributeList extends PureComponent<
+  ClaimOfferAttributeListProps,
+  void
+> {
   keyExtractor = (_, index: number) => index
 
   renderItem = ({ item }: { item: Attribute }) => {
     return (
-      <CustomView
-        fifth
-        row
-        horizontalSpace
-        doubleVerticalSpace
-        style={[styles.attributeListItem]}
-      >
+      <CustomView fifth row horizontalSpace doubleVerticalSpace>
         <CustomView fifth right style={[styles.attributeListLabel]}>
           <CustomText
             h7
@@ -79,7 +80,6 @@ class ClaimOfferAttributeList extends PureComponent {
         <FlatList
           data={attributes}
           ItemSeparatorComponent={Separator}
-          keyExtractor={this.keyExtractor}
           ListFooterComponent={Separator}
           renderItem={this.renderItem}
         />
@@ -88,7 +88,7 @@ class ClaimOfferAttributeList extends PureComponent {
   }
 }
 
-export class ClaimOffer extends PureComponent<void, ClaimOfferProps, void> {
+export class ClaimOffer extends PureComponent<ClaimOfferProps, void> {
   close = () => {
     this.props.navigation.goBack()
   }

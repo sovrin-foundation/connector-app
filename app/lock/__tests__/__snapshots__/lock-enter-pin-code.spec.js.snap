@@ -17,14 +17,14 @@ exports[`<LockPinCodeEnter /> should render pin code box 1`] = `
         15790320,
       ]
     }
-    end={undefined}
+    endPoint={undefined}
     locations={
       Array [
         0.08,
         1,
       ]
     }
-    start={undefined}
+    startPoint={undefined}
     style={
       Array [
         Object {
@@ -40,6 +40,7 @@ exports[`<LockPinCodeEnter /> should render pin code box 1`] = `
     accessible={true}
     center={true}
     hitSlop={undefined}
+    nativeID={undefined}
     onLayout={undefined}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}

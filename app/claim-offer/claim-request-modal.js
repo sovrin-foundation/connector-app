@@ -14,7 +14,6 @@ import type {
 } from './type-claim-offer'
 
 export default class ClaimRequestStatusModal extends PureComponent<
-  void,
   ClaimRequestStatusModalProps,
   ClaimRequestStatusModalState
 > {

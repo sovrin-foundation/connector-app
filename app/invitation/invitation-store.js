@@ -304,7 +304,7 @@ export function* sendResponse(
   }
 }
 
-function* watchSendInvitationResponse() {
+function* watchSendInvitationResponse(): any {
   yield takeLatest(INVITATION_RESPONSE_SEND, sendResponse)
 }
 

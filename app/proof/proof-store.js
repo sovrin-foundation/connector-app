@@ -70,22 +70,23 @@ export function* generateProofSaga(
     const preparedProofJSON = JSON.parse(preparedProof)
     let requestedAttrsJson
     try {
-      requestedAttrsJson = Object.keys(
-        proofRequest.requested_attrs
-      ).reduce((acc, attrKey) => {
-        const attributeClaimData = preparedProofJSON.attrs[attrKey]
-        if (!attributeClaimData || !attributeClaimData[0]) {
-          // if we don't get any claim for any attribute
-          // that was asked in proof request
-          // we raise an error and we fail proof generation
-          throw new Error(JSON.stringify(ERROR_MISSING_ATTRIBUTE_IN_CLAIMS))
-        }
+      requestedAttrsJson = Object.keys(proofRequest.requested_attrs).reduce(
+        (acc, attrKey) => {
+          const attributeClaimData = preparedProofJSON.attrs[attrKey]
+          if (!attributeClaimData || !attributeClaimData[0]) {
+            // if we don't get any claim for any attribute
+            // that was asked in proof request
+            // we raise an error and we fail proof generation
+            throw new Error(JSON.stringify(ERROR_MISSING_ATTRIBUTE_IN_CLAIMS))
+          }
 
-        return {
-          ...acc,
-          [attrKey]: [attributeClaimData[0].claim_uuid, true],
-        }
-      }, {})
+          return {
+            ...acc,
+            [attrKey]: [attributeClaimData[0].claim_uuid, true],
+          }
+        },
+        {}
+      )
     } catch (e) {
       yield put(proofFail(action.uid, JSON.parse(e.message)))
 
@@ -113,20 +114,20 @@ export function* generateProofSaga(
 
     // auto-fill proof request
     const { requested_attrs, name, version } = proofRequest
-    const requestedAttributes = Object.keys(
-      requested_attrs
-    ).map(attributeKey => ({
-      label: requested_attrs[attributeKey].name,
-      data: proof.requested_proof.revealed_attrs[attributeKey][1],
-      claimUuid: proof.requested_proof.revealed_attrs[attributeKey][0],
-    }))
+    const requestedAttributes = Object.keys(requested_attrs).map(
+      attributeKey => ({
+        label: requested_attrs[attributeKey].name,
+        data: proof.requested_proof.revealed_attrs[attributeKey][1],
+        claimUuid: proof.requested_proof.revealed_attrs[attributeKey][0],
+      })
+    )
     yield put(proofRequestAutoFill(uid, requestedAttributes))
   } catch (e) {
     yield put(proofFail(action.uid, e))
   }
 }
 
-export function* watchGenerateProof(): Generator<*, *, *> {
+export function* watchGenerateProof(): any {
   yield takeLatest(GENERATE_PROOF, generateProofSaga)
 }
 

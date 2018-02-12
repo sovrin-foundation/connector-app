@@ -9,8 +9,10 @@ import type {
   TextInputRef,
 } from './type-pin-code-box'
 
-export default class PinCodeBox
-  extends PureComponent<void, PinCodeBoxProps, PinCodeBoxState> {
+export default class PinCodeBox extends PureComponent<
+  PinCodeBoxProps,
+  PinCodeBoxState
+> {
   state = {
     pin: '',
   }
@@ -64,9 +66,7 @@ export default class PinCodeBox
 
     return (
       <CustomView>
-        <CustomView row>
-          {pinCodeDigits}
-        </CustomView>
+        <CustomView row>{pinCodeDigits}</CustomView>
         <TextInput
           autoCorrect={false}
           autoFocus={true}

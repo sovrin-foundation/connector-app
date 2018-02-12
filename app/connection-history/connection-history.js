@@ -27,11 +27,16 @@ import {
 import { homeRoute } from '../common/index'
 import { color, OFFSET_1X, OFFSET_3X } from '../common/styles/constant'
 import type { Store } from '../store/type-store'
-import type { ConnectionHistoryItem } from './type-connection-history'
+import type {
+  ConnectionHistoryItem,
+  ConnectionHistoryProps,
+  ConnectionHistoryEvent,
+} from './type-connection-history'
 import {
   HISTORY_EVENT_STATUS,
   HISTORY_EVENT_OCCURRED,
 } from './type-connection-history'
+import type { ReactNavigation } from '../common/type-common'
 import {
   SEND_CLAIM_REQUEST,
   CLAIM_REQUEST_STATUS,
@@ -88,7 +93,10 @@ const HistoryBody = ({ action, timestamp }) => {
   )
 }
 
-export class ConnectionHistory extends PureComponent {
+export class ConnectionHistory extends PureComponent<
+  ConnectionHistoryProps,
+  void
+> {
   connectionDetailHandler = (history: any) => {
     if (history.h.action === HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST]) {
       this.props.navigation.navigate(connectionHistoryPendingRoute, {
@@ -111,125 +119,140 @@ export class ConnectionHistory extends PureComponent {
   }
 
   render() {
-    const { senderName, image, senderDID } = this.props.navigation.state.params
-    const { activeConnectionThemePrimary, connectionHistory } = this.props
-    const testID = 'connection-history'
-    const logoUri = image ? { uri: image } : require('../images/cb_evernym.png')
-    const historySenderDIDs = Object.keys(connectionHistory)
+    if (this.props.navigation.state) {
+      const {
+        senderName,
+        image,
+        senderDID,
+      } = this.props.navigation.state.params
+      const { activeConnectionThemePrimary, connectionHistory } = this.props
+      const testID = 'connection-history'
+      const logoUri = image
+        ? { uri: image }
+        : require('../images/cb_evernym.png')
 
-    const historyList = historySenderDIDs.map((sdid, i) => {
-      const historyItems = connectionHistory[sdid].map((h, i) => {
-        const itemProps = {
-          avatar: historyIcons[h.action],
-          key: h.id,
-          title: <HistoryTitle {...h} theme={activeConnectionThemePrimary} />,
-          subtitle: <HistoryBody {...h} />,
-          chevronColor: color.bg.fifth.font.fifth,
-          avatarStyle: styles.avatarStyle,
-          containerStyle: styles.listItemContainer,
-          hideChevron: false,
-          rightIcon: {
-            name:
-              h.action === HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST]
-                ? 'schedule'
-                : 'chevron-right',
-          },
-          onPress: () => {
-            this.connectionDetailHandler({
-              h,
-              activeConnectionThemePrimary,
-              senderName,
-              image,
-              senderDID,
-            })
-          },
-        }
+      const historySenderDIDs = Object.keys(connectionHistory)
+      const historyList = historySenderDIDs.map((sdid, i) => {
+        const historyItems = connectionHistory[sdid].map((h, i) => {
+          const itemProps = {
+            avatar: historyIcons[h.action],
+            key: h.id,
+            title: <HistoryTitle {...h} theme={activeConnectionThemePrimary} />,
+            subtitle: <HistoryBody {...h} />,
+            chevronColor: color.bg.fifth.font.fifth,
+            avatarStyle: styles.avatarStyle,
+            containerStyle: styles.listItemContainer,
+            hideChevron: false,
+            rightIcon: {
+              name:
+                h.action === HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST]
+                  ? 'schedule'
+                  : 'chevron-right',
+            },
+            onPress: () => {
+              this.connectionDetailHandler({
+                h,
+                activeConnectionThemePrimary,
+                senderName,
+                image,
+                senderDID,
+              })
+            },
+          }
 
-        if (h.action === 'CONNECTED') {
-          itemProps.hideChevron = true
-          delete itemProps.onPress
-        }
+          if (h.action === 'CONNECTED') {
+            itemProps.hideChevron = true
+            delete itemProps.onPress
+          }
 
-        return <ListItem {...itemProps} />
+          return <ListItem {...itemProps} />
+        })
+        const history = (
+          <CustomView key={i}>
+            <CustomText
+              h4
+              semiBold
+              bg="tertiary"
+              style={[styles.listItemLabel]}
+            >
+              {sdid}
+            </CustomText>
+            {historyItems}
+          </CustomView>
+        )
+        return history
       })
-      const history = (
-        <CustomView key={i}>
-          <CustomText h4 semiBold bg="tertiary" style={[styles.listItemLabel]}>
-            {sdid}
-          </CustomText>
-          {historyItems}
-        </CustomView>
-      )
-      return history
-    })
 
-    return (
-      <Container fifth>
-        <LinearGradient
-          locations={[0.1, 1]}
-          colors={[
-            this.props.activeConnectionThemeSecondary,
-            this.props.activeConnectionThemePrimary,
-          ]}
-        >
-          <ClaimProofHeader
-            message={senderName}
-            onClose={this.close}
-            logoUrl={image}
-            testID={testID}
-            containerStyle={{ backgroundColor: 'transparent' }}
-            textContainerStyle={[
-              styles.textContainerStyle,
-              { backgroundColor: 'transparent' },
-            ]}
-            messageStyle={[
-              styles.senderName,
-              { backgroundColor: 'transparent' },
+      return (
+        <Container fifth>
+          <LinearGradient
+            locations={[0.1, 1]}
+            colors={[
+              this.props.activeConnectionThemeSecondary,
+              this.props.activeConnectionThemePrimary,
             ]}
           >
-            <CustomView
-              fifth
-              hCenter
-              style={[
-                styles.headerLogoContainer,
+            <ClaimProofHeader
+              message={senderName}
+              onClose={this.close}
+              logoUrl={image}
+              testID={testID}
+              containerStyle={{ backgroundColor: 'transparent' }}
+              textContainerStyle={[
+                styles.textContainerStyle,
+                { backgroundColor: 'transparent' },
+              ]}
+              messageStyle={[
+                styles.senderName,
                 { backgroundColor: 'transparent' },
               ]}
             >
-              <Icon
-                absolute="TopRight"
-                src={require('../images/close_white.png')}
-                small
-                testID={`${testID}-icon-close`}
-                onPress={this.close}
-                iconStyle={[styles.headerCloseIcon]}
-                style={[styles.headerCloseIconContainer]}
-              />
-              <Icon
-                center
-                halo
-                extraLarge
-                resizeMode="cover"
-                src={logoUri}
-                style={[styles.issuerLogo]}
-                iconStyle={[styles.issuerLogoIcon]}
-                testID={`${testID}-issuer-logo`}
-              />
-            </CustomView>
-          </ClaimProofHeader>
-        </LinearGradient>
+              <CustomView
+                fifth
+                hCenter
+                style={[
+                  styles.headerLogoContainer,
+                  { backgroundColor: 'transparent' },
+                ]}
+              >
+                <Icon
+                  absolute="TopRight"
+                  src={require('../images/close_white.png')}
+                  small
+                  testID={`${testID}-icon-close`}
+                  onPress={this.close}
+                  iconStyle={[styles.headerCloseIcon]}
+                  style={[styles.headerCloseIconContainer]}
+                />
+                <Icon
+                  center
+                  halo
+                  extraLarge
+                  resizeMode="cover"
+                  src={logoUri}
+                  style={[styles.issuerLogo]}
+                  iconStyle={[styles.issuerLogoIcon]}
+                  testID={`${testID}-issuer-logo`}
+                />
+              </CustomView>
+            </ClaimProofHeader>
+          </LinearGradient>
 
-        <ScrollView>
-          <List containerStyle={styles.listContainer}>{historyList}</List>
-        </ScrollView>
-      </Container>
-    )
+          <ScrollView>
+            <List containerStyle={styles.listContainer}>{historyList}</List>
+          </ScrollView>
+        </Container>
+      )
+    }
   }
 }
 
-const mapStateToProps = (state: Store, props: any) => {
-  let connectionHistory = state.history.data
-    ? state.history.data[props.navigation.state.params.senderDID]
-    : {}
+const mapStateToProps = (state: Store, props: ReactNavigation) => {
+  let connectionHistory: ConnectionHistoryEvent[] =
+    state.history.data && props.navigation.state
+      ? state.history.data[props.navigation.state.params.senderDID]
+      : []
+
   if (connectionHistory) {
     connectionHistory = connectionHistory.filter(history => {
       if (statusMsg[history.action]) {
@@ -237,6 +260,7 @@ const mapStateToProps = (state: Store, props: any) => {
       }
     })
   }
+
   return {
     activeConnectionThemePrimary:
       state.connections.connectionThemes.active.primary,

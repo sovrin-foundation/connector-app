@@ -5,15 +5,13 @@ import renderer from 'react-test-renderer'
 import { PIN_SETUP_STATE } from '../type-lock'
 import { LockPinSetup } from '../lock-pin-code-setup'
 import { lockSetupSuccessRoute } from '../../common'
+import { getNavigation } from '../../../__mocks__/static-data'
 
 describe('<LockPinCodeSetup />', () => {
   const getProps = () => ({
     setPinAction: jest.fn(),
-    pinSetupState: PIN_SETUP_STATE.INITIAL,
-    navigation: {
-      state: {},
-      navigate: jest.fn(),
-    },
+    enableTouchIdAction: jest.fn(),
+    navigation: getNavigation(),
   })
   const options = {
     createNodeMock: element => {
@@ -24,9 +22,11 @@ describe('<LockPinCodeSetup />', () => {
       }
     },
   }
+
   let component
   let props
   let cleared
+
   beforeEach(() => {
     props = getProps()
     component = renderer.create(<LockPinSetup {...props} />, options)
