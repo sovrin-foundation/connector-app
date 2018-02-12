@@ -93,7 +93,11 @@ export class LockEnterPin extends PureComponent<
 
 const mapStateToProps = (state: Store, { navigation }: ReactNavigation) => ({
   pendingRedirection: state.lock.pendingRedirection,
-  isFetchingInvitation: state.smsPendingInvitation.isFetching,
+  isFetchingInvitation: Object.keys(state.smsPendingInvitation).some(
+    smsToken =>
+      state.smsPendingInvitation[smsToken] &&
+      state.smsPendingInvitation[smsToken].isFetching === true
+  ),
   existingPin: navigation.state
     ? navigation.state.params ? navigation.state.params.existingPin : false
     : false,

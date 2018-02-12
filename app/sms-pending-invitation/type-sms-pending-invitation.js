@@ -41,10 +41,12 @@ export type SMSPendingInvitationPayload = {
 }
 
 export type SMSPendingInvitationStore = {
-  +payload: ?SMSPendingInvitationPayload,
-  +status: SMSPendingInvitationStatusType,
-  +isFetching: boolean,
-  +error?: ?CustomError,
+  +[string]: {
+    +payload: ?SMSPendingInvitationPayload,
+    +status: SMSPendingInvitationStatusType,
+    +isFetching: boolean,
+    +error?: ?CustomError,
+  },
 }
 
 export const SMS_PENDING_INVITATION_REQUEST: 'SMS_PENDING_INVITATION_REQUEST' =
@@ -61,6 +63,7 @@ export const SMS_PENDING_INVITATION_RECEIVED: 'SMS_PENDING_INVITATION_RECEIVED' 
 export type SMSPendingInvitationReceivedAction = {
   type: typeof SMS_PENDING_INVITATION_RECEIVED,
   data: SMSPendingInvitationPayload,
+  smsToken: string,
 }
 
 export const SMS_PENDING_INVITATION_FAIL: 'SMS_PENDING_INVITATION_FAIL' =
@@ -69,6 +72,7 @@ export const SMS_PENDING_INVITATION_FAIL: 'SMS_PENDING_INVITATION_FAIL' =
 export type SMSPendingInvitationFailAction = {
   type: typeof SMS_PENDING_INVITATION_FAIL,
   error: CustomError,
+  smsToken: string,
 }
 
 export const SMS_PENDING_INVITATION_SEEN: 'SMS_PENDING_INVITATION_SEEN' =
@@ -76,6 +80,7 @@ export const SMS_PENDING_INVITATION_SEEN: 'SMS_PENDING_INVITATION_SEEN' =
 
 export type SMSPendingInvitationSeenAction = {
   type: typeof SMS_PENDING_INVITATION_SEEN,
+  smsToken: string,
 }
 
 export const SAFE_TO_DOWNLOAD_SMS_INVITATION = 'SAFE_TO_DOWNLOAD_SMS_INVITATION'

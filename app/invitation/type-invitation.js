@@ -99,7 +99,10 @@ export type InvitationProps = {
   invitation: Invitation,
   sendInvitationResponse: (data: InvitationResponseSendData) => void,
   invitationRejected: (senderDID: string) => void,
+  smsPendingInvitationSeen: (smsToken: ?string) => void,
   showErrorAlerts: boolean,
+  smsToken: ?string,
+  isSmsInvitationNotSeen: boolean,
 } & ReactNavigation
 
 export type InvitationState = {

@@ -22,10 +22,11 @@ class DeepLink extends PureComponent {
         this.props.deepLinkData(bundle.params.t)
       } else {
         // update store that deep link was not clicked
-        this.props.token === null && this.props.deepLinkEmpty()
+        Object.keys(this.props.tokens).length === 0 &&
+          this.props.deepLinkEmpty()
       }
     } else {
-      this.props.token === null && this.props.deepLinkEmpty()
+      Object.keys(this.props.tokens).length === 0 && this.props.deepLinkEmpty()
     }
   }
 
@@ -39,7 +40,7 @@ class DeepLink extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-  token: state.deepLink.token,
+  tokens: state.deepLink.tokens,
 })
 
 const mapDispatchToProps = dispatch =>

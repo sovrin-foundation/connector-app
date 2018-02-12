@@ -91,7 +91,11 @@ export class LockEnterFingerprint extends PureComponent<
 const mapStateToProps = (state: Store) => ({
   pendingRedirection: state.lock.pendingRedirection,
   pendingRedirectionParams: state.lock.pendingRedirectionParams || {},
-  isFetchingInvitation: state.smsPendingInvitation.isFetching,
+  isFetchingInvitation: Object.keys(state.smsPendingInvitation).some(
+    smsToken =>
+      state.smsPendingInvitation[smsToken] &&
+      state.smsPendingInvitation[smsToken].isFetching === true
+  ),
 })
 
 const mapDispatchToProps = dispatch =>

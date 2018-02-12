@@ -23,6 +23,7 @@ import ConnectionHistoryScreen from './connection-history/connection-history'
 import ConnectionHistoryDetailsScreen from './connection-history/connection-history-details'
 import SwitchEnvironmentScreen from './switch-environment/switch-environment'
 import LockAuthorization from './lock/lock-authorization'
+import WaitForInvitationScreen from './invitation/wait-for-invitation'
 import ConnectionHistoryPending from './connection-history/connection-history-pending'
 import { Icon } from './components'
 import {
@@ -47,6 +48,7 @@ import {
   connectionHistoryDetailsRoute,
   switchEnvironmentRoute,
   lockAuthorizationRoute,
+  waitForInvitationRoute,
   connectionHistoryPendingRoute,
 } from './common/'
 import { color } from './common/styles'
@@ -169,6 +171,9 @@ const CardStack = StackNavigator(
     },
     [switchEnvironmentRoute]: {
       screen: SwitchEnvironmentScreen,
+    },
+    [waitForInvitationRoute]: {
+      screen: WaitForInvitationScreen,
     },
   },
   {

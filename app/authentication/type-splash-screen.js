@@ -13,8 +13,9 @@ export type SplashScreenProps = {
   lock: LockStore,
   getSmsPendingInvitation: (token: string) => void,
   addPendingRedirection: (
-    pendingRedirection: Array<PendingRedirection>
+    pendingRedirection: Array<?PendingRedirection>
   ) => void,
   loadHistory: () => void,
   safeToDownloadSmsInvitation: () => void,
+  deepLinkProcessed: (data: string) => void,
 } & ReactNavigation

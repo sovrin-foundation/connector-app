@@ -30,12 +30,8 @@ import { HYDRATED } from '../../store/type-config-store'
 import { lockSelectionRoute } from '../../common/route-constants'
 
 describe('SMS Connection Request store', () => {
-  const initialState = {
-    payload: null,
-    status: SMSPendingInvitationStatus.NONE,
-    isFetching: false,
-    error: null,
-  }
+  const initialState = {}
+  const smsToken = 'gm76ku'
   const store = getStore()
 
   const getPendingInvitationState = state =>
@@ -59,7 +55,7 @@ describe('SMS Connection Request store', () => {
     const invitationRequestedState = getPendingInvitationState(initialState)
     const nextState = smsPendingInvitationReducer(
       invitationRequestedState,
-      smsPendingInvitationReceived(payload)
+      smsPendingInvitationReceived(smsToken, payload)
     )
 
     expect(nextState).toMatchSnapshot()
@@ -69,7 +65,7 @@ describe('SMS Connection Request store', () => {
     const invitationRequestedState = getPendingInvitationState(initialState)
     const nextState = smsPendingInvitationReducer(
       invitationRequestedState,
-      smsPendingInvitationFail({
+      smsPendingInvitationFail(smsToken, {
         code: 'TEST-FAIL',
         message: 'Test fail message',
       })
@@ -82,11 +78,11 @@ describe('SMS Connection Request store', () => {
     const invitationRequestedState = getPendingInvitationState(initialState)
     const afterReceived = smsPendingInvitationReducer(
       invitationRequestedState,
-      smsPendingInvitationReceived(payload)
+      smsPendingInvitationReceived(smsToken, payload)
     )
     const nextState = smsPendingInvitationReducer(
       afterReceived,
-      smsPendingInvitationSeen()
+      smsPendingInvitationSeen(smsToken)
     )
 
     expect(nextState).toMatchSnapshot()
@@ -133,17 +129,21 @@ describe('SMS Connection Request store', () => {
     )
 
     expect(gen.next(payload).value).toEqual(
-      put(smsPendingInvitationReceived(payload))
+      put(smsPendingInvitationReceived(smsToken, payload))
     )
 
     expect(gen.next().value).toEqual(
       put(
-        invitationReceived({ payload: convertSmsPayloadToInvitation(payload) })
+        invitationReceived({
+          payload: convertSmsPayloadToInvitation(payload),
+        })
       )
     )
 
     expect(gen.next().done).toBe(true)
   })
+
+  //TODO : need to add test cases for multiple test cases whhen code is refactored.
 
   it('sms invitation download error should raise fail action', () => {
     const error = {
@@ -186,7 +186,7 @@ describe('SMS Connection Request store', () => {
     )
 
     expect(gen.throw(new Error(JSON.stringify(error))).value).toEqual(
-      put(smsPendingInvitationFail(error))
+      put(smsPendingInvitationFail(smsToken, error))
     )
 
     expect(gen.next().done).toBe(true)

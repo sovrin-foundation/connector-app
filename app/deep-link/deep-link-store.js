@@ -2,18 +2,21 @@
 import {
   DEEP_LINK_DATA,
   DEEP_LINK_EMPTY,
+  DEEP_LINK_PROCESSED,
   DEEP_LINK_ERROR,
+  DEEP_LINK_STATUS,
 } from './type-deep-link'
 import type {
   DeepLinkStore,
   DeepLinkAction,
   DeepLinkDataAction,
+  DeepLinkProcessedAction,
   DeepLinkEmptyAction,
   DeepLinkErrorAction,
 } from './type-deep-link'
 
 const initialState = {
-  token: null,
+  tokens: {},
   isLoading: true,
   error: null,
 }
@@ -32,6 +35,10 @@ export const deepLinkError = (error: any): DeepLinkErrorAction => ({
   type: DEEP_LINK_DATA,
   error,
 })
+export const deepLinkProcessed = (data: string): DeepLinkProcessedAction => ({
+  type: DEEP_LINK_PROCESSED,
+  data,
+})
 
 export default function deepLinkReducer(
   state: DeepLinkStore = initialState,
@@ -42,8 +49,14 @@ export default function deepLinkReducer(
       return {
         ...state,
         isLoading: false,
-        token: action.data,
-        error: null,
+        tokens: {
+          ...state.tokens,
+          [action.data]: {
+            token: action.data,
+            error: null,
+            status: DEEP_LINK_STATUS.NONE,
+          },
+        },
       }
     case DEEP_LINK_ERROR:
       return {
@@ -51,13 +64,25 @@ export default function deepLinkReducer(
         isLoading: false,
         error: action.error,
       }
+    case DEEP_LINK_PROCESSED:
+      return {
+        ...state,
+        tokens: {
+          ...state.tokens,
+          [action.data]: {
+            ...state.tokens[action.data],
+            status: DEEP_LINK_STATUS.PROCESSED,
+          },
+        },
+      }
     case DEEP_LINK_EMPTY:
       return {
         ...state,
         isLoading: false,
-        token: null,
+        tokens: {},
         error: null,
       }
+
     default:
       return state
   }

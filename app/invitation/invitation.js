@@ -13,6 +13,8 @@ import type { Store } from '../store/type-store'
 import type { ResponseTypes } from '../components/request/type-request'
 import type { InvitationProps, InvitationState } from './type-invitation'
 import type { ReactNavigation } from '../common/type-common'
+import { smsPendingInvitationSeen } from '../sms-pending-invitation/sms-pending-invitation-store'
+import { SMSPendingInvitationStatus } from '../sms-pending-invitation/type-sms-pending-invitation'
 
 export class Invitation extends PureComponent<
   void,
@@ -49,6 +51,9 @@ export class Invitation extends PureComponent<
 
   componentWillReceiveProps(nextProps: InvitationProps) {
     // If invitation itself not generated then don't check payload
+    if (nextProps.isSmsInvitationNotSeen) {
+      nextProps.smsPendingInvitationSeen(nextProps.smsToken)
+    }
     if (
       this.props.invitation !== undefined &&
       nextProps.invitation.payload !== this.props.invitation.payload
@@ -121,14 +126,24 @@ export class Invitation extends PureComponent<
 
 const mapStateToProps = (state: Store, { navigation }: ReactNavigation) => {
   const senderDID = navigation.state ? navigation.state.params.senderDID : ''
-
+  const smsToken = navigation.state ? navigation.state.params.token : null
+  const isSmsInvitationNotSeen =
+    smsToken &&
+    state.smsPendingInvitation[smsToken] &&
+    state.smsPendingInvitation[smsToken].status !==
+      SMSPendingInvitationStatus.SEEN
   return {
     invitation: state.invitation[senderDID],
     showErrorAlerts: state.config.showErrorAlerts,
+    smsToken,
+    isSmsInvitationNotSeen,
   }
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ sendInvitationResponse, invitationRejected }, dispatch)
+  bindActionCreators(
+    { sendInvitationResponse, invitationRejected, smsPendingInvitationSeen },
+    dispatch
+  )
 
 export default connect(mapStateToProps, mapDispatchToProps)(Invitation)

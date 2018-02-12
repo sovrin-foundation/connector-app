@@ -7,7 +7,7 @@ import ConnectedInvitation, { Invitation } from '../invitation'
 import { color } from '../../common/styles'
 import { ResponseType } from '../../components/request/type-request'
 import { homeRoute } from '../../common'
-import { getNavigation } from '../../../__mocks__/static-data'
+import { getNavigation, smsToken } from '../../../__mocks__/static-data'
 
 describe('<Invitation />', () => {
   let store
@@ -15,10 +15,12 @@ describe('<Invitation />', () => {
   let subscribe
   let navigation
   let sendInvitationResponse
+  let smsPendingInvitationSeen
   let invitationRejected
   let instance
   let component
   let invitation
+  let isSmsInvitationNotSeen
 
   const firstInvitation = {
     requestId: 'requestId1',
@@ -90,13 +92,16 @@ describe('<Invitation />', () => {
     navigation = {
       ...getNavigation({
         senderDID: firstInvitation.senderDID,
+        smsToken,
       }),
     }
     const props = getState()
     invitation = props.invitation.senderDID1
     const showErrorAlerts = props.config.showErrorAlerts
     sendInvitationResponse = jest.fn()
+    smsPendingInvitationSeen = jest.fn()
     invitationRejected = jest.fn()
+    isSmsInvitationNotSeen = false
     component = renderer.create(
       <Provider store={store}>
         <Invitation
@@ -104,7 +109,10 @@ describe('<Invitation />', () => {
           showErrorAlerts={showErrorAlerts}
           navigation={navigation}
           sendInvitationResponse={sendInvitationResponse}
+          smsPendingInvitationSeen={smsPendingInvitationSeen}
           invitationRejected={invitationRejected}
+          smsToken={smsToken}
+          isSmsInvitationNotSeen={false}
         />
       </Provider>
     )
@@ -151,11 +159,57 @@ describe('<Invitation />', () => {
           navigation={navigation}
           sendInvitationResponse={sendInvitationResponse}
           invitationRejected={invitationRejected}
+          smsPendingInvitationSeen={smsPendingInvitationSeen}
+          smsToken={smsToken}
+          isSmsInvitationNotSeen={false}
         />
       </Provider>
     )
 
     expect(instance.state.isSuccessModalVisible).toBe(true)
+  })
+
+  it('should call smsPendingInvitationSeen action if isSmsInvitationNotSeen is true', () => {
+    const invitationAfterAccept = {
+      ...invitation,
+      status: ResponseType.accepted,
+    }
+    component.update(
+      <Provider store={store}>
+        <Invitation
+          invitation={invitationAfterAccept}
+          showErrorAlerts
+          navigation={navigation}
+          sendInvitationResponse={sendInvitationResponse}
+          invitationRejected={invitationRejected}
+          smsPendingInvitationSeen={smsPendingInvitationSeen}
+          smsToken={smsToken}
+          isSmsInvitationNotSeen={true}
+        />
+      </Provider>
+    )
+    expect(smsPendingInvitationSeen).toHaveBeenCalledWith(smsToken)
+  })
+  it('should not call smsPendingInvitationSeen action if isSmsInvitationNotSeen is false', () => {
+    const invitationAfterAccept = {
+      ...invitation,
+      status: ResponseType.accepted,
+    }
+    component.update(
+      <Provider store={store}>
+        <Invitation
+          invitation={invitationAfterAccept}
+          showErrorAlerts
+          navigation={navigation}
+          sendInvitationResponse={sendInvitationResponse}
+          invitationRejected={invitationRejected}
+          smsPendingInvitationSeen={smsPendingInvitationSeen}
+          smsToken={smsToken}
+          isSmsInvitationNotSeen={false}
+        />
+      </Provider>
+    )
+    expect(smsPendingInvitationSeen).not.toHaveBeenCalledWith(smsToken)
   })
 
   it('should close modal and redirect to Home on Continue', () => {

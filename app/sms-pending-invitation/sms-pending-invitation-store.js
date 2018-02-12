@@ -1,5 +1,13 @@
 // @flow
-import { put, takeLatest, take, call, all, select } from 'redux-saga/effects'
+import {
+  put,
+  takeLatest,
+  takeEvery,
+  call,
+  take,
+  all,
+  select,
+} from 'redux-saga/effects'
 import type { CustomError } from '../common/type-common'
 import type {
   SMSPendingInvitationStore,
@@ -35,12 +43,7 @@ import {
 } from '../common/route-constants'
 import { HYDRATED } from '../store/type-config-store'
 
-const initialState = {
-  payload: null,
-  status: SMSPendingInvitationStatus.NONE,
-  isFetching: false,
-  error: null,
-}
+const initialState = {}
 
 export const getSmsPendingInvitation = (smsToken: string) => ({
   type: SMS_PENDING_INVITATION_REQUEST,
@@ -48,19 +51,26 @@ export const getSmsPendingInvitation = (smsToken: string) => ({
 })
 
 export const smsPendingInvitationReceived = (
+  smsToken: string,
   data: SMSPendingInvitationPayload
 ) => ({
   type: SMS_PENDING_INVITATION_RECEIVED,
   data,
+  smsToken,
 })
 
-export const smsPendingInvitationFail = (error: CustomError) => ({
+export const smsPendingInvitationFail = (
+  smsToken: string,
+  error: CustomError
+) => ({
   type: SMS_PENDING_INVITATION_FAIL,
+  smsToken,
   error,
 })
 
-export const smsPendingInvitationSeen = () => ({
+export const smsPendingInvitationSeen = (smsToken: string) => ({
   type: SMS_PENDING_INVITATION_SEEN,
+  smsToken,
 })
 
 // Below action tells that now user can't change the environment
@@ -150,13 +160,14 @@ export function* callSmsPendingInvitationRequest(
       url: invitationLink.url,
     })
 
-    yield put(smsPendingInvitationReceived(pendingInvitationPayload))
+    yield put(smsPendingInvitationReceived(smsToken, pendingInvitationPayload))
     yield put(
       invitationReceived({
         payload: convertSmsPayloadToInvitation(pendingInvitationPayload),
       })
     )
   } catch (e) {
+    console.log(e)
     let error: CustomError = {
       code: ERROR_PENDING_INVITATION_RESPONSE_PARSE_CODE,
       message: ERROR_PENDING_INVITATION_RESPONSE_PARSE,
@@ -166,12 +177,12 @@ export function* callSmsPendingInvitationRequest(
       error = JSON.parse(e.message)
     } catch (e) {}
 
-    yield put(smsPendingInvitationFail(error))
+    yield put(smsPendingInvitationFail(smsToken, error))
   }
 }
 
 function* watchSmsPendingInvitationRequest(): Generator<*, *, *> {
-  yield takeLatest(
+  yield takeEvery(
     SMS_PENDING_INVITATION_REQUEST,
     callSmsPendingInvitationRequest
   )
@@ -187,34 +198,54 @@ export default function smsPendingInvitationReducer(
 ) {
   switch (action.type) {
     case SMS_PENDING_INVITATION_REQUEST:
-      return {
-        ...state,
-        payload: null,
-        isFetching: true,
-        status: SMSPendingInvitationStatus.NONE,
+      if (state[action.smsToken] !== undefined) {
+        return state
+      } else {
+        return {
+          ...state,
+          [action.smsToken]: {
+            payload: null,
+            isFetching: true,
+            status: SMSPendingInvitationStatus.NONE,
+            error: null,
+          },
+        }
       }
 
     case SMS_PENDING_INVITATION_RECEIVED:
       return {
         ...state,
-        isFetching: false,
-        payload: action.data,
-        status: SMSPendingInvitationStatus.RECEIVED,
+        [action.smsToken]: {
+          ...state[action.smsToken],
+          isFetching: false,
+          payload: action.data,
+          status: SMSPendingInvitationStatus.RECEIVED,
+        },
       }
 
     case SMS_PENDING_INVITATION_FAIL:
       return {
         ...state,
-        payload: null,
-        isFetching: false,
-        error: action.error,
-        status: SMSPendingInvitationStatus.FETCH_FAILED,
+        [action.smsToken]: {
+          ...state[action.smsToken],
+          payload: null,
+          isFetching: false,
+          error: action.error,
+          status: SMSPendingInvitationStatus.FETCH_FAILED,
+        },
       }
 
     case SMS_PENDING_INVITATION_SEEN:
-      return {
-        ...state,
-        status: SMSPendingInvitationStatus.SEEN,
+      if (action.smsToken) {
+        return {
+          ...state,
+          [action.smsToken]: {
+            ...state[action.smsToken],
+            status: SMSPendingInvitationStatus.SEEN,
+          },
+        }
+      } else {
+        return state
       }
 
     default:
