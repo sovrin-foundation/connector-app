@@ -291,19 +291,10 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
                 "marginRight": 0,
               },
               null,
-              Object {
-                "backgroundColor": "#ffffff",
-                "opacity": 0.2,
-              },
+              null,
             ],
-            Object {
-              "backgroundColor": "#dadee0",
-            },
-            Array [
-              Object {
-                "backgroundColor": "transparent",
-              },
-            ],
+            undefined,
+            undefined,
           ]
         }
       >

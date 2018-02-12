@@ -13,7 +13,11 @@ import {
 } from '../app/store/connections-store'
 import { CLAIM_OFFER_ACCEPTED } from '../app/claim-offer/type-claim-offer'
 import { invitationReceived } from '../app/invitation/invitation-store'
-import { claimOfferReceived } from '../app/claim-offer/claim-offer-store'
+import {
+  claimOfferReceived,
+  sendClaimRequest,
+} from '../app/claim-offer/claim-offer-store'
+import { claimReceived } from '../app/claim/claim-store'
 import { saveNewConnectionSuccess } from '../app/store/connections-store'
 import {
   proofRequestReceived,
@@ -174,6 +178,34 @@ export const proofRequestData = {
   requestedAttributes,
 }
 
+export const claimOfferPayload = {
+  data: {
+    name: 'Home Address',
+    version: '1.0.0',
+    revealedAttributes: [
+      {
+        label: 'Address 1',
+        data: 'Address Address Address',
+      },
+      {
+        label: 'Address 2',
+        data: 'Address 2 Address 2 Address 2',
+      },
+    ],
+    claimDefinitionSchemaSequenceNumber,
+  },
+  issuer: {
+    name: 'Test Issuer',
+    did: issuerDid,
+  },
+  statusMsg: 'pending',
+  uid: claimOfferId,
+  senderLogoUrl: 'http://testissuer.com/logoUrl.png',
+  remotePairwiseDID: 'ha66899sadfjZJGINKN0770',
+  status: 'RECEIVED',
+  claimRequestStatus: 'CLAIM_REQUEST_SUCCESS',
+}
+
 export const claimOffer = {
   payload: {
     data: {
@@ -196,6 +228,8 @@ export const claimOffer = {
       did: issuerDid,
     },
     statusMsg: 'pending',
+    status: 'RECEIVED',
+    claimRequestStatus: 'CLAIM_REQUEST_SUCCESS',
   },
   payloadInfo: {
     uid: claimOfferId,
@@ -473,6 +507,10 @@ export const claimOfferReceivedEvent = claimOfferReceived(
   claimOffer.payload,
   claimOffer.payloadInfo
 )
+
+export const claimReceivedEvent = claimReceived(claim)
+
+export const sendClaimRequestEvent = sendClaimRequest(uid, claimOfferPayload)
 
 export const proofRequestReceivedEvent = proofRequestReceived(
   proofRequest.payload,

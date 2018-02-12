@@ -2,7 +2,8 @@
 import type { Middleware, MiddlewareAPI, Dispatch } from 'redux'
 import { INVITATION_RECEIVED } from '../invitation/type-invitation'
 import { NEW_CONNECTION_SUCCESS } from '../store/connections-store'
-import { CLAIM_OFFER_RECEIVED } from '../claim-offer/type-claim-offer'
+import { SEND_CLAIM_REQUEST } from '../claim-offer/type-claim-offer'
+import { CLAIM_RECEIVED } from '../claim/type-claim'
 import {
   PROOF_REQUEST_RECEIVED,
   PROOF_REQUEST_AUTO_FILL,
@@ -17,9 +18,10 @@ import { setItem } from '../services/secure-storage'
 const actionToRecord = [
   INVITATION_RECEIVED,
   NEW_CONNECTION_SUCCESS,
-  CLAIM_OFFER_RECEIVED,
   PROOF_REQUEST_RECEIVED,
   PROOF_REQUEST_AUTO_FILL,
+  SEND_CLAIM_REQUEST,
+  CLAIM_RECEIVED,
 ]
 
 // TODO:KS Fix any type using `redux` provided Generic Types

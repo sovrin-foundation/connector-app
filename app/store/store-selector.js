@@ -1,6 +1,8 @@
 // @flow
 import type { Store } from './type-store'
+import type { ClaimOfferPayload } from '../claim-offer/type-claim-offer'
 import type { Connections, Connection } from './type-connection-store'
+import type { ConnectionHistoryEvent } from '../connection-history/type-connection-history'
 
 export const getConfig = (state: Store) => state.config
 
@@ -69,6 +71,20 @@ export const getHydrationState = (state: Store) => state.config.isHydrated
 
 export const getClaimOffer = (state: Store, claimOfferId: string) =>
   state.claimOffer[claimOfferId]
+
+//TODO - delete this selector and handle it in the reducer (no need to filter twice)
+export const getPendingHistoryEvent = (
+  state: Store,
+  claim: ClaimOfferPayload
+) => {
+  const historyItems =
+    state.history && state.history.data
+      ? state.history.data[claim.remotePairwiseDID]
+      : []
+  return historyItems.filter(item => {
+    return item.action === 'PENDING' && item.originalPayload.uid === claim.uid
+  })[0]
+}
 
 export const getProofRequest = (state: Store, proofRequestId: string) =>
   state.proofRequest[proofRequestId]

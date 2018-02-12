@@ -38,6 +38,7 @@ import {
   claimOfferId as uid,
   pairwiseConnection,
   claimRequest,
+  claimOfferPayload,
   poolConfig,
 } from '../../../__mocks__/static-data'
 
@@ -83,7 +84,10 @@ describe('claim offer store', () => {
   })
 
   it('claim request is sent', () => {
-    newState = claimOfferStore(newState, sendClaimRequest(uid))
+    newState = claimOfferStore(
+      newState,
+      sendClaimRequest(uid, claimOfferPayload)
+    )
     expect(newState).toMatchSnapshot()
   })
 
@@ -118,7 +122,9 @@ describe('claim offer store', () => {
     )
 
     const userPairwiseDid = pairwiseConnection.identifier
-    expect(gen.next(userPairwiseDid).value).toEqual(put(sendClaimRequest(uid)))
+    expect(gen.next(userPairwiseDid).value).toEqual(
+      put(sendClaimRequest(uid, claimOfferPayload))
+    )
     expect(gen.next().value).toEqual(select(getAgencyUrl))
 
     const agencyUrl = 'https://agencyUrl.com'

@@ -16,12 +16,14 @@ import LockPinCodeSetupScreen from './lock/lock-pin-code-setup'
 import LockSetupSuccessScreen from './lock/lock-setup-success'
 import LockEnterFingerprintScreen from './lock/lock-enter-fingerprint'
 import ClaimOffer from './claim-offer/claim-offer'
+import ClaimRequestModal from './claim-offer/claim-request-modal'
 import ProofRequestScreen from './proof-request/proof-request'
 import InvitationScreen from './invitation/invitation'
 import ConnectionHistoryScreen from './connection-history/connection-history'
 import ConnectionHistoryDetailsScreen from './connection-history/connection-history-details'
 import SwitchEnvironmentScreen from './switch-environment/switch-environment'
 import LockAuthorization from './lock/lock-authorization'
+import ConnectionHistoryPending from './connection-history/connection-history-pending'
 import { Icon } from './components'
 import {
   splashScreenRoute,
@@ -45,6 +47,7 @@ import {
   connectionHistoryDetailsRoute,
   switchEnvironmentRoute,
   lockAuthorizationRoute,
+  connectionHistoryPendingRoute,
 } from './common/'
 import { color } from './common/styles'
 
@@ -148,6 +151,9 @@ const CardStack = StackNavigator(
     },
     [proofRequestRoute]: {
       screen: ProofRequestScreen,
+    },
+    [connectionHistoryPendingRoute]: {
+      screen: ConnectionHistoryPending,
     },
     [connectionHistoryRoute]: {
       screen: ConnectionHistoryScreen,

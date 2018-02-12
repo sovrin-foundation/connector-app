@@ -6,6 +6,7 @@ import Modal from 'react-native-modal'
 import { CustomModal, AvatarsPair, CustomText } from '../components'
 import { color, font, OFFSET_1X } from '../common/styles'
 import { CLAIM_REQUEST_STATUS } from './type-claim-offer'
+import type { GenericObject } from '../common/type-common'
 import type {
   ClaimRequestStatusModalProps,
   ClaimRequestStatusModalState,
@@ -64,6 +65,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
       payload: { issuer, data },
       senderLogoUrl,
     }: ClaimRequestStatusModalProps = this.props
+
     const avatarRight = senderLogoUrl
       ? { uri: senderLogoUrl }
       : require('../images/cb_evernym.png')
@@ -84,9 +86,6 @@ export default class ClaimRequestStatusModal extends PureComponent<
 
     return (
       <CustomModal
-        disabled={
-          claimRequestStatus !== CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS
-        }
         onPress={this.onContinue}
         buttonText="Continue"
         testID={'claim-request'}

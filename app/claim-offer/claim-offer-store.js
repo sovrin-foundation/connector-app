@@ -87,9 +87,10 @@ export const claimOfferRejected = (uid: string) => ({
   uid,
 })
 
-export const sendClaimRequest = (uid: string) => ({
+export const sendClaimRequest = (uid: string, payload: ClaimOfferPayload) => ({
   type: SEND_CLAIM_REQUEST,
   uid,
+  payload,
 })
 
 export const claimRequestSuccess = (uid: string) => ({
@@ -147,7 +148,7 @@ export function* claimOfferAccepted(
 
   if (userPairwiseDid) {
     // set status that we are generating and sending claim request
-    yield put(sendClaimRequest(action.uid))
+    yield put(sendClaimRequest(action.uid, claimOfferPayload))
     try {
       const agencyUrl: string = yield select(getAgencyUrl)
       const poolConfig: string = yield select(getPoolConfig)

@@ -22,14 +22,23 @@ import {
 import {
   connectionHistoryRoute,
   connectionHistoryDetailsRoute,
+  connectionHistoryPendingRoute,
 } from '../common/route-constants'
 import { homeRoute } from '../common/index'
 import { color, OFFSET_1X, OFFSET_3X } from '../common/styles/constant'
 import type { Store } from '../store/type-store'
 import type { ConnectionHistoryItem } from './type-connection-history'
-import { HISTORY_EVENT_STATUS } from './type-connection-history'
+import {
+  HISTORY_EVENT_STATUS,
+  HISTORY_EVENT_OCCURRED,
+} from './type-connection-history'
+import {
+  SEND_CLAIM_REQUEST,
+  CLAIM_REQUEST_STATUS,
+} from '../claim-offer/type-claim-offer'
 
 const statusMsg = {
+  ['PENDING']: 'Pending',
   ['CONNECTED']: 'Established on',
   ['RECEIVED']: 'Accepted on',
   ['ACCEPTED & SAVED']: 'Accepted on',
@@ -37,6 +46,7 @@ const statusMsg = {
 }
 
 const historyIcons = {
+  ['PENDING']: require('../images/received.png'),
   ['CONNECTED']: require('../images/linked.png'),
   ['RECEIVED']: require('../images/received.png'),
   ['ACCEPTED & SAVED']: require('../images/received.png'),
@@ -80,14 +90,20 @@ const HistoryBody = ({ action, timestamp }) => {
 
 export class ConnectionHistory extends PureComponent {
   connectionDetailHandler = (history: any) => {
-    this.props.navigation.navigate(connectionHistoryDetailsRoute, {
-      ...history.h,
-      theme: history.activeConnectionThemePrimary,
-      senderName: history.senderName,
-      image: history.image,
-      senderDID: history.senderDID,
-      claimMap: this.props.claimMap,
-    })
+    if (history.h.action === HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST]) {
+      this.props.navigation.navigate(connectionHistoryPendingRoute, {
+        payload: history.h.originalPayload.payload,
+      })
+    } else {
+      this.props.navigation.navigate(connectionHistoryDetailsRoute, {
+        ...history.h,
+        theme: history.activeConnectionThemePrimary,
+        senderName: history.senderName,
+        image: history.image,
+        senderDID: history.senderDID,
+        claimMap: this.props.claimMap,
+      })
+    }
   }
 
   close = () => {
@@ -99,8 +115,8 @@ export class ConnectionHistory extends PureComponent {
     const { activeConnectionThemePrimary, connectionHistory } = this.props
     const testID = 'connection-history'
     const logoUri = image ? { uri: image } : require('../images/cb_evernym.png')
-
     const historySenderDIDs = Object.keys(connectionHistory)
+
     const historyList = historySenderDIDs.map((sdid, i) => {
       const historyItems = connectionHistory[sdid].map((h, i) => {
         const itemProps = {
@@ -112,6 +128,12 @@ export class ConnectionHistory extends PureComponent {
           avatarStyle: styles.avatarStyle,
           containerStyle: styles.listItemContainer,
           hideChevron: false,
+          rightIcon: {
+            name:
+              h.action === HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST]
+                ? 'schedule'
+                : 'chevron-right',
+          },
           onPress: () => {
             this.connectionDetailHandler({
               h,

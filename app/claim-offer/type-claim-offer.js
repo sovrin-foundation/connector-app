@@ -69,6 +69,7 @@ export const SEND_CLAIM_REQUEST = 'SEND_CLAIM_REQUEST'
 export type SendClaimRequestAction = {
   type: typeof SEND_CLAIM_REQUEST,
   uid: string,
+  payload: ClaimOfferPayload,
 }
 
 export const CLAIM_REQUEST_SUCCESS = 'CLAIM_REQUEST_SUCCESS'
