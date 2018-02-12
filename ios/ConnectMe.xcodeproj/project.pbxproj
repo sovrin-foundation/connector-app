@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -49,7 +48,6 @@
 		2DCD954D1E0B4F2C00145EB5 /* ConnectMeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ConnectMeTests.m */; };
 		4B0AFC4C695A4198A3D2AB69 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0D23D481324711B3988D76 /* libz.tbd */; };
 		5363A41A65BA4F2AB2216D98 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DA3709E947742E9AD228F0E /* SimpleLineIcons.ttf */; };
-		5C7B78BFC5A5431DA5A45C1D /* libInteractable.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4DCC6CAA1D2454C94A6DC1E /* libInteractable.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		6DCB3A1C5B944A298B038611 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66ACA94543464AB6BC1138FE /* libRNFetchBlob.a */; };
 		7B99A1FF6C664D67B643D6BB /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3B85DC158DC404A9EDB867B /* FontAwesome.ttf */; };
@@ -357,13 +355,6 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = BVLinearGradient;
 		};
-		DDE135B71E9407C600BF866B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = CD4CC28195494C4B91BE98A8 /* Interactable.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = CC0127971E3ACC3900B23C9F;
-			remoteInfo = Interactable;
-		};
 		F1F0B5431EF3B12D006FBB0B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F1F0B53F1EF3B12D006FBB0B /* SplashScreen.xcodeproj */;
@@ -421,14 +412,12 @@
 		9BBDEE56AAFF4887BD6CA87E /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		9E962E0D58D6731B5DBE6384 /* libPods-ConnectMe-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ConnectMe-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3B85DC158DC404A9EDB867B /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
-		A4DCC6CAA1D2454C94A6DC1E /* libInteractable.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libInteractable.a; sourceTree = "<group>"; };
 		A530A295487D8DB70CBD2F84 /* libPods-ConnectMeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ConnectMeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA1D8F3C0F6456FB999E520 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		AC9D114DDD644860A23CCA8D /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		AEB54E1DD05B44129DEDADC0 /* RNBranch.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNBranch.xcodeproj; path = "../node_modules/react-native-branch/ios/RNBranch.xcodeproj"; sourceTree = "<group>"; };
 		BA73A9E9FB4C4465B5AE372A /* RCTCamera.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTCamera.xcodeproj; path = "../node_modules/react-native-camera/ios/RCTCamera.xcodeproj"; sourceTree = "<group>"; };
 		BFB502E943A0EBA083B57735 /* libPods-ConnectMe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ConnectMe.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD4CC28195494C4B91BE98A8 /* Interactable.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = Interactable.xcodeproj; path = "../node_modules/react-native-interactable/ios/Interactable.xcodeproj"; sourceTree = "<group>"; };
 		CDB8A8C58296545F925BD051 /* Pods-ConnectMeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConnectMeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ConnectMeTests/Pods-ConnectMeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CFE053FBA18B10BEB77551ED /* Pods-ConnectMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConnectMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ConnectMe/Pods-ConnectMe.debug.xcconfig"; sourceTree = "<group>"; };
 		D5195723B48F485BA8835F82 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
@@ -507,7 +496,6 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				AB18AC9D61264E229FD3C17F /* libRNVectorIcons.a in Frameworks */,
-				5C7B78BFC5A5431DA5A45C1D /* libInteractable.a in Frameworks */,
 				806EAF09CBBA4B34B2E34B67 /* libTouchID.a in Frameworks */,
 				299D7B58E3D74BC4B5620521 /* libBVLinearGradient.a in Frameworks */,
 				1CB546CE3C7B4634B83B8B3A /* libRNSensitiveInfo.a in Frameworks */,
@@ -729,7 +717,6 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				F1F340A9F4AC4349928BD1D3 /* RNVectorIcons.xcodeproj */,
-				CD4CC28195494C4B91BE98A8 /* Interactable.xcodeproj */,
 				0915D5E7C9B34B76A5B080C3 /* TouchID.xcodeproj */,
 				7A38794CCE994D7899DF52A1 /* BVLinearGradient.xcodeproj */,
 				820E1643F10D4EC1A9D13C6C /* RNSensitiveInfo.xcodeproj */,
@@ -890,14 +877,6 @@
 			isa = PBXGroup;
 			children = (
 				DDDAEE141EABC33B00855340 /* libBVLinearGradient.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		DDE135B41E9407C600BF866B /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				DDE135B81E9407C600BF866B /* libInteractable.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1079,10 +1058,6 @@
 				{
 					ProductGroup = DDDAEE101EABC33B00855340 /* Products */;
 					ProjectRef = 7A38794CCE994D7899DF52A1 /* BVLinearGradient.xcodeproj */;
-				},
-				{
-					ProductGroup = DDE135B41E9407C600BF866B /* Products */;
-					ProjectRef = CD4CC28195494C4B91BE98A8 /* Interactable.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
@@ -1425,13 +1400,6 @@
 			remoteRef = DDDAEE131EABC33B00855340 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		DDE135B81E9407C600BF866B /* libInteractable.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libInteractable.a;
-			remoteRef = DDE135B71E9407C600BF866B /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		F1F0B5441EF3B12D006FBB0B /* libSplashScreen.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1753,8 +1721,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1792,8 +1758,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1922,8 +1886,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1968,8 +1930,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1999,8 +1959,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ConnectMe-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2026,8 +1984,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ConnectMe-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";

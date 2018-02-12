@@ -72,9 +72,10 @@
       "node_modules/(?!(jest-)?react-native|react-navigation|jest-fetch-mock)"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
-        "RelativeImageStub"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "RelativeImageStub"
     },
-    "setupFiles": ["<rootDir>/__mocks__/setup.js"]
+    "setupFiles": [
+      "<rootDir>/__mocks__/setup.js"
+    ]
   }
 }

@@ -17,8 +17,6 @@ include ':react-native-sensitive-info'
 project(':react-native-sensitive-info').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-sensitive-info/android')
 include ':react-native-linear-gradient'
 project(':react-native-linear-gradient').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-linear-gradient/android')
-include ':react-native-interactable'
-project(':react-native-interactable').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-interactable/android')
 include ':react-native-fcm'
 project(':react-native-fcm').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fcm/android')
 include ':react-native-splash-screen'

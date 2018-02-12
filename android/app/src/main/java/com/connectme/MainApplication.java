@@ -12,7 +12,6 @@ import io.branch.rnbranch.RNBranchPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
-import com.wix.interactable.Interactable;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.connectme.rnindy.RNIndyPackage;
@@ -51,7 +50,6 @@ public class MainApplication extends Application implements ReactApplication {
             new VectorIconsPackage(),
             new RNSensitiveInfoPackage(),
             new LinearGradientPackage(),
-            new Interactable(),
             new FIRMessagingPackage(),
             new MainReactPackage(),
             new SplashScreenReactPackage()
