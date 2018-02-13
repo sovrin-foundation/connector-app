@@ -140,7 +140,7 @@ export const successConnectionData = {
 export const claimOfferId = 'usd123'
 export const claimDefinitionSchemaSequenceNumber = 36
 const issuerDid = 'issuerDid'
-const senderLogoUrl = 'http://testissuer.com/logoUrl.png'
+export const senderLogoUrl = 'http://testissuer.com/logoUrl.png'
 
 const requestedAttributes = [
   {

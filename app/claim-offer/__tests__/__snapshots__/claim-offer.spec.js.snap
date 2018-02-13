@@ -1346,40 +1346,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
         >
           Successfully issued
         </Text>
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
-          style={
-            Array [
-              Object {
-                "fontSize": 17,
-              },
-              Object {
-                "fontFamily": "SF Pro Display",
-              },
-              Object {
-                "backgroundColor": "#f0f0f0",
-                "color": "#777777",
-              },
-              Object {
-                "fontWeight": "bold",
-              },
-              Object {
-                "textAlign": "center",
-              },
-              Object {
-                "backgroundColor": "transparent",
-              },
-              Object {
-                "marginBottom": 10,
-              },
-            ]
-          }
-          testID="claim-request-claim-name"
-        >
-          Home Address
-        </Text>
       </View>
       <View
         style={

@@ -113,18 +113,6 @@ export default class ClaimRequestStatusModal extends PureComponent<
         >
           {message}
         </CustomText>
-        <CustomText
-          h5
-          bold
-          center
-          tertiary
-          bg="tertiary"
-          transparentBg
-          style={[styles.title]}
-          testID={`claim-request-claim-name`}
-        >
-          {data.name}
-        </CustomText>
       </CustomModal>
     )
   }

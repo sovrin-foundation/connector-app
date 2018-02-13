@@ -201,6 +201,296 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
       >
         You accepted Home Address from Test Issuer!
       </Text>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "marginLeft": 15,
+            "marginRight": 15,
+          },
+          undefined,
+          Object {
+            "marginLeft": 0,
+            "marginRight": 0,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel="Continue to see your new connection"
+        accessibilityTraits={undefined}
+        accessible={true}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+            },
+            undefined,
+          ]
+        }
+        testID="claim-request-success-continue"
+        tvParallaxProperties={undefined}
+      >
+        <View
+          pointerEvents="box-only"
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#9E9E9E",
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "padding": 19,
+              },
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              Object {
+                "backgroundColor": "#ffffff",
+              },
+              undefined,
+              Object {
+                "padding": 12,
+              },
+              undefined,
+              undefined,
+              undefined,
+              Array [
+                null,
+                null,
+              ],
+              undefined,
+              undefined,
+            ]
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {},
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                Array [
+                  Object {
+                    "color": "white",
+                    "fontSize": 16,
+                  },
+                  Object {
+                    "color": "#85bf43",
+                  },
+                  Object {
+                    "fontSize": 14,
+                  },
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                ],
+              ]
+            }
+          >
+            Continue
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</Modal>
+`;
+
+exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = `
+<Modal
+  backdropColor="#f0f0f0"
+  backdropOpacity={1}
+  isVisible={true}
+>
+  <View
+    fifth={true}
+    shadow={true}
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+        "marginHorizontal": 10,
+        "shadowColor": "rgba(0, 0, 0, 0.2)",
+        "shadowOffset": Object {
+          "height": 10,
+          "width": 0,
+        },
+        "shadowOpacity": 1,
+        "shadowRadius": 30,
+      }
+    }
+  >
+    <View
+      spaceBetween={true}
+      style={
+        Object {
+          "borderBottomColor": "#3f3f3f",
+          "borderBottomWidth": 0.2,
+          "justifyContent": "space-between",
+          "paddingVertical": 10,
+        }
+      }
+    >
+      <View
+        row={true}
+        spaceBetween={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginHorizontal": 20,
+            "marginVertical": 10,
+          }
+        }
+        testID="claim-request-text-avatars-container"
+        vCenter={true}
+      >
+        <View
+          imageShadow="imageShadow"
+          style={
+            Object {
+              "borderRadius": 38,
+              "shadowColor": "rgba(0, 0, 0, 0.25)",
+              "shadowOffset": Object {
+                "height": 3,
+                "width": 0,
+              },
+              "shadowOpacity": 1,
+              "shadowRadius": 8,
+            }
+          }
+          testID="claim-request-text-avatars-invitee"
+        >
+          <Image
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hitSlop={undefined}
+            nativeID={undefined}
+            onError={undefined}
+            onLayout={undefined}
+            onLoad={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            source={1}
+            style={
+              Array [
+                Object {
+                  "height": 76,
+                  "width": 76,
+                },
+                Object {
+                  "borderRadius": 38,
+                },
+              ]
+            }
+            testID={undefined}
+          />
+        </View>
+        <Image
+          source={1}
+          style={
+            Array [
+              Object {
+                "height": 22,
+                "width": 30,
+              },
+              Object {
+                "height": 20,
+                "right": 7,
+                "width": 80,
+                "zIndex": -1,
+              },
+            ]
+          }
+          testID="claim-request-check-mark"
+        />
+        <View
+          imageShadow="imageShadow"
+          style={
+            Object {
+              "borderRadius": 38,
+              "shadowColor": "rgba(0, 0, 0, 0.25)",
+              "shadowOffset": Object {
+                "height": 3,
+                "width": 0,
+              },
+              "shadowOpacity": 1,
+              "shadowRadius": 8,
+            }
+          }
+          testID="claim-request-text-avatars-inviter"
+        >
+          <Image
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hitSlop={undefined}
+            nativeID={undefined}
+            onError={undefined}
+            onLayout={undefined}
+            onLoad={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            source={
+              Object {
+                "uri": "http://testissuer.com/logoUrl.png",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 76,
+                  "width": 76,
+                },
+                Object {
+                  "borderRadius": 38,
+                },
+              ]
+            }
+            testID={undefined}
+          />
+        </View>
+      </View>
       <Text
         accessible={true}
         allowFontScaling={true}
@@ -208,7 +498,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
         style={
           Array [
             Object {
-              "fontSize": 17,
+              "fontSize": 15,
             },
             Object {
               "fontFamily": "SF Pro Display",
@@ -218,7 +508,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
               "color": "#777777",
             },
             Object {
-              "fontWeight": "bold",
+              "fontWeight": "600",
             },
             Object {
               "textAlign": "center",
@@ -227,13 +517,14 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
               "backgroundColor": "transparent",
             },
             Object {
-              "marginBottom": 10,
+              "marginBottom": 5,
+              "paddingTop": 10,
             },
           ]
         }
-        testID="claim-request-claim-name"
+        testID="claim-request-message"
       >
-        Home Address
+        As soon as Test Issuer signs and issues Home Address to you it will appear here
       </Text>
     </View>
     <View
