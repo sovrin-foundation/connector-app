@@ -121,11 +121,20 @@ export class QRCodeScannerScreen extends Component<
     this.setState({ isCameraAuthorized: false })
   }
 
+  checkCameraAuthorization = () => {
+    Camera.checkVideoAuthorizationStatus()
+      .then((authorization: boolean) => {
+        if (authorization) {
+          this.setHasCameraAccessPermission()
+        } else {
+          this.setNoCameraAccessPermission()
+        }
+      })
+      .catch(this.setNoCameraAccessPermission)
+  }
+
   componentWillReceiveProps(nextProps: QRCodeScannerScreenProps) {
-    if (
-      this.props.currentScreen !== nextProps.currentScreen &&
-      nextProps.currentScreen === qrCodeScannerTabRoute
-    ) {
+    if (nextProps.currentScreen === qrCodeScannerTabRoute) {
       // whenever user navigates to this screen, we have to check permission
       // every time, although we should have this logic in componentDidMount
       // but in the router (react navigation) that we are using
@@ -135,15 +144,7 @@ export class QRCodeScannerScreen extends Component<
       // such as `cwrp` or `cdu`, we are `cwrp` to check the status every time
       // also, we check status only on the basis of screen switching
       // and only check status if user is redirecting to QrCodeScanScreen
-      Camera.checkVideoAuthorizationStatus()
-        .then((authorization: boolean) => {
-          if (authorization) {
-            this.setHasCameraAccessPermission()
-          } else {
-            this.setNoCameraAccessPermission()
-          }
-        })
-        .catch(this.setNoCameraAccessPermission)
+      this.checkCameraAuthorization()
     }
   }
 
@@ -152,6 +153,14 @@ export class QRCodeScannerScreen extends Component<
     // so, all connected props update will still propagate to this component
     // and we don't want to re-render camera and related stuff
     return nextProps.currentScreen === qrCodeScannerTabRoute
+  }
+
+  componentDidMount() {
+    if (this.props.currentScreen === qrCodeScannerTabRoute) {
+      // when this component is mounted first time, `cwrp` will not be called
+      // so for the first time mount as well we need to check camera permission
+      this.checkCameraAuthorization()
+    }
   }
 
   render() {

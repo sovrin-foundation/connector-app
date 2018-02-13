@@ -2,6 +2,7 @@
 import React from 'react'
 import 'react-native'
 import renderer from 'react-test-renderer'
+import Camera from 'react-native-camera'
 import {
   qrCodeScannerTabRoute,
   invitationRoute,
@@ -11,31 +12,33 @@ import { QRCodeScannerScreen, convertQrCodeToInvitation } from '../qr-code'
 import { getNavigation, qrData } from '../../../__mocks__/static-data'
 
 describe('<QRScannerScreen />', () => {
-  let navigation
-  let invitationReceived
-  let component
+  function getProps() {
+    return {
+      navigation: getNavigation(),
+      invitationReceived: jest.fn(),
+      currentScreen: qrCodeScannerTabRoute,
+    }
+  }
 
-  beforeEach(() => {
-    navigation = getNavigation()
-    invitationReceived = jest.fn()
-    component = renderer.create(
-      <QRCodeScannerScreen
-        invitationReceived={invitationReceived}
-        navigation={navigation}
-        currentScreen={qrCodeScannerTabRoute}
-      />
-    )
-  })
+  function setup() {
+    const props = getProps()
+    const component = renderer.create(<QRCodeScannerScreen {...props} />)
+    const instance: QRCodeScannerScreen = component.getInstance()
+
+    return { props, component, instance }
+  }
 
   it('should match snapshot', () => {
-    const instance = component.getInstance()
+    const { instance, component } = setup()
     instance.setState({ isCameraAuthorized: true })
 
     let tree = component.toJSON()
     expect(tree).toMatchSnapshot()
+    expect(Camera.checkVideoAuthorizationStatus).toHaveBeenCalledTimes(1)
   })
 
   it('match snapshot when camera is not authorized', () => {
+    const { component } = setup()
     expect(component.toJSON()).toMatchSnapshot()
   })
 
@@ -44,7 +47,11 @@ describe('<QRScannerScreen />', () => {
   })
 
   it('should redirect user to invitation screen on success read', () => {
-    const instance = component.getInstance()
+    const {
+      instance,
+      component,
+      props: { invitationReceived, navigation },
+    } = setup()
 
     instance.onRead(qrData)
     expect(invitationReceived).toHaveBeenCalledWith(
@@ -58,8 +65,27 @@ describe('<QRScannerScreen />', () => {
   })
 
   it('should navigate back to home if qr code scanner is closed', () => {
-    const instance = component.getInstance()
+    const { instance, component, props } = setup()
     instance.onClose()
-    expect(navigation.navigate).toHaveBeenCalledWith(homeTabRoute)
+    expect(props.navigation.navigate).toHaveBeenCalledWith(homeTabRoute)
+  })
+
+  it('check camera permission screen is updated', () => {
+    const { instance, props, component } = setup()
+
+    const calledTimesBeforeUpdating =
+      Camera.checkVideoAuthorizationStatus.mock.calls.length
+    const updatedComponent = (
+      <QRCodeScannerScreen
+        {...props}
+        {...{ currentScreen: qrCodeScannerTabRoute }}
+      />
+    )
+
+    component.update(updatedComponent)
+
+    expect(Camera.checkVideoAuthorizationStatus).toHaveBeenCalledTimes(
+      calledTimesBeforeUpdating + 1
+    )
   })
 })

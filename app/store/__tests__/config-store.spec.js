@@ -126,6 +126,7 @@ describe('server environment should change', () => {
 })
 
 describe('hydration should work correctly', () => {
+  // TODO Write this test in proper way and check for all generators and values
   it('should raise correct action with correct data', () => {
     const gen = hydrateConfig()
     // call async storage to get data
@@ -142,7 +143,6 @@ describe('hydration should work correctly', () => {
     gen.next()
     // save data in async storage
     gen.next()
-    // now we should get hydrated action
 
     gen.next()
     gen.next()
@@ -157,6 +157,9 @@ describe('hydration should work correctly', () => {
     // hydrate app success
     gen.next()
     // hydrate user switched environment details
+    gen.next()
+    gen.next()
+
     gen.next()
     gen.next()
 

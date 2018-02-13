@@ -1,5 +1,6 @@
 // @flow
 import { takeLatest, call, put } from 'redux-saga/effects'
+import { AsyncStorage } from 'react-native'
 import { getItem, deleteItem } from '../services/secure-storage'
 import { updatePushToken } from '../push-notification/push-notification-store'
 import { hydrateConnections } from '../store/connections-store'
@@ -25,6 +26,7 @@ import type {
 import { hydrateUserStoreSaga } from './user/user-store'
 import { STORAGE_KEY_USER_ONE_TIME_INFO } from './user/type-user-store'
 import { STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL } from './type-config-store'
+import { HISTORY_EVENT_STORAGE_KEY } from '../connection-history/type-connection-history'
 
 export const hydrateApp = (isAlreadyInstalled: boolean) => ({
   type: HYDRATE_APP,
@@ -59,7 +61,12 @@ export function* appHydration(action: {
       yield call(deleteItem, CONNECTIONS)
       yield call(deleteItem, IS_CONSUMER_AGENT_ALREADY_CREATED)
       yield call(deleteItem, STORAGE_KEY_USER_ONE_TIME_INFO)
-      yield call(deleteItem, STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL)
+      yield call(
+        AsyncStorage.removeItem,
+        STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL
+      )
+      yield call(deleteItem, CLAIM_MAP)
+      yield call(deleteItem, HISTORY_EVENT_STORAGE_KEY)
     }
     yield put(hydrateConnections(connections))
     yield* hydrateUserStoreSaga()

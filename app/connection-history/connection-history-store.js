@@ -89,8 +89,6 @@ export function* loadHistorySaga(): Generator<*, *, *> {
     const historyEvents = yield call(getItem, HISTORY_EVENT_STORAGE_KEY)
     if (historyEvents) {
       yield put(loadHistorySuccess(JSON.parse(historyEvents)))
-    } else {
-      yield put(loadHistoryFail(ERROR_LOADING_HISTORY))
     }
   } catch (e) {
     yield put(

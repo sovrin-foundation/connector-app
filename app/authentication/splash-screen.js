@@ -54,6 +54,8 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
           // from environment information available after app is hydrated
           this.props.safeToDownloadSmsInvitation()
         }
+
+        this.props.loadHistory()
       }
     }
 
@@ -144,7 +146,7 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
 
       // check if smsPendingInvitation payload are the only props that are changed
 
-      const pendingReditectionList = unseenSmsPendingInvitations.map(
+      const pendingRedirectionList = unseenSmsPendingInvitations.map(
         ({ payload, invitationToken }) => {
           if (payload) {
             const senderDID = payload.senderDetail.DID
@@ -156,8 +158,9 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
           }
         }
       )
-      pendingReditectionList.length !== 0 &&
-        nextProps.addPendingRedirection(pendingReditectionList)
+
+      pendingRedirectionList.length !== 0 &&
+        nextProps.addPendingRedirection(pendingRedirectionList)
       // all error token links should be processed processed
       unHandledSmsPendingInvitations.map(({ error, invitationToken }) => {
         error ? nextProps.deepLinkProcessed(invitationToken) : null
@@ -189,10 +192,9 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
         // from environment information available after app is hydrated
         this.props.safeToDownloadSmsInvitation()
       }
-    }
 
-    // load connection history
-    this.props.loadHistory()
+      this.props.loadHistory()
+    }
   }
 
   render() {
