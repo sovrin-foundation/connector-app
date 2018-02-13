@@ -89,6 +89,16 @@ export const getPendingHistoryEvent = (
 export const getProofRequest = (state: Store, proofRequestId: string) =>
   state.proofRequest[proofRequestId]
 
+export const getProofRequesterName = (state: Store, proofRequestId: string) => {
+  if (
+    state.proofRequest[proofRequestId] &&
+    state.proofRequest[proofRequestId].requester &&
+    state.proofRequest[proofRequestId].requester.name
+  ) {
+    return state.proofRequest[proofRequestId].requester.name
+  }
+  return 'requester'
+}
 export const getOriginalProofRequestData = (
   state: Store,
   proofRequestId: string

@@ -24,6 +24,7 @@ import {
   getProofRequestPairwiseDid,
   getClaimIssuerLogo,
   getPoolConfig,
+  getProofRequesterName,
 } from '../store/store-selector'
 
 export const getProof = (uid: string) => ({
@@ -70,16 +71,13 @@ export function* generateProofSaga(
     const preparedProofJSON = JSON.parse(preparedProof)
     let requestedAttrsJson
     try {
+      let missedAttributes = []
       requestedAttrsJson = Object.keys(proofRequest.requested_attrs).reduce(
         (acc, attrKey) => {
           const attributeClaimData = preparedProofJSON.attrs[attrKey]
           if (!attributeClaimData || !attributeClaimData[0]) {
-            // if we don't get any claim for any attribute
-            // that was asked in proof request
-            // we raise an error and we fail proof generation
-            throw new Error(JSON.stringify(ERROR_MISSING_ATTRIBUTE_IN_CLAIMS))
+            missedAttributes.push(proofRequest.requested_attrs[attrKey].name)
           }
-
           return {
             ...acc,
             [attrKey]: [attributeClaimData[0].claim_uuid, true],
@@ -87,6 +85,15 @@ export function* generateProofSaga(
         },
         {}
       )
+
+      if (missedAttributes.length > 0) {
+        const name = yield select(getProofRequesterName, action.uid)
+        const missing = missedAttributes.join(', ')
+        const message = `You do not have all of the attributes ${name} is asking for. You are missing ${missing}. You can gather those attributes by accepting more offers from your connections, and try again.`
+        throw new Error(
+          JSON.stringify(ERROR_MISSING_ATTRIBUTE_IN_CLAIMS(message))
+        )
+      }
     } catch (e) {
       yield put(proofFail(action.uid, JSON.parse(e.message)))
 

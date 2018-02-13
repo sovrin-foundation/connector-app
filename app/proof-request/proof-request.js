@@ -145,7 +145,7 @@ export class ProofRequest extends PureComponent<ProofRequestProps, void> {
         nextProps.proofGenerationError.code === ERROR_CODE_MISSING_ATTRIBUTE
       ) {
         Alert.alert(
-          'Error fulfilling proof',
+          'Missing information',
           nextProps.proofGenerationError.message
         )
       }
