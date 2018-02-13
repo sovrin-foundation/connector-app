@@ -16,6 +16,7 @@ import { OFFSET_2X } from '../common/styles'
 import { tertiaryHeaderStyles } from '../components/layout/header-styles'
 import { lockAuthorizationHomeRoute } from '../common'
 import { StackNavigator } from 'react-navigation'
+import type { ReactNavigation } from '../common/type-common'
 
 const styles = StyleSheet.create({
   headerLeft: {
@@ -27,12 +28,17 @@ export class LockAuthorization extends PureComponent<
   LockAuthorizationProps,
   void
 > {
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({ navigation }: ReactNavigation) => ({
     headerLeft: (
       <CustomView>
         <TouchableHighlight
           testID={'back-button'}
-          onPress={() => navigation.goBack(null)}
+          onPress={() => {
+            navigation.goBack(null)
+            if (navigation.state && navigation.state.params.onAvoid) {
+              navigation.state.params.onAvoid()
+            }
+          }}
           hitSlop={hitSlop}
         >
           <Image
@@ -40,7 +46,6 @@ export class LockAuthorization extends PureComponent<
             style={styles.headerLeft}
             source={require('../images/icon_backArrow.png')}
             resizeMode="contain"
-            onPress={() => navigation.goBack(null)}
           />
         </TouchableHighlight>
       </CustomView>

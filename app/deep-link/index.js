@@ -1,10 +1,12 @@
+// @flow
 import React, { PureComponent } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import branch from 'react-native-branch'
 import { deepLinkData, deepLinkEmpty, deepLinkError } from '../store'
+import type { DeepLinkProps, DeepLinkBundle } from './type-deep-link'
 
-class DeepLink extends PureComponent {
+export class DeepLink extends PureComponent<DeepLinkProps, void> {
   // TODO: Fix this
   // Problem with below function is that it will not work if
   // app is moved in background and then a universal link is clicked
@@ -13,7 +15,7 @@ class DeepLink extends PureComponent {
   // However, it will work if we kill the app and then open universal link
   // it will also work in case of fresh app installation, then also
   // we will get the deep link data
-  onDeepLinkData = bundle => {
+  onDeepLinkData = (bundle: DeepLinkBundle) => {
     if (bundle.error) {
       this.props.deepLinkError(bundle.error)
     } else if (bundle.params) {

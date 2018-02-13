@@ -41,10 +41,27 @@ export type DeepLinkStore = {
     +[string]: Token,
   },
   isLoading: boolean,
-  error: ?any,
+  error: ?string,
 }
 
 export type DeepLinkAction =
   | DeepLinkDataAction
   | DeepLinkEmptyAction
   | DeepLinkErrorAction
+
+export type DeepLinkBundle = {
+  error: ?string,
+  params: ?{
+    ['+clicked_branch_link']: boolean,
+    t: string,
+  },
+}
+
+export type DeepLinkProps = {
+  deepLinkData: (token: string) => void,
+  deepLinkEmpty: () => void,
+  deepLinkError: string => void,
+  tokens: {
+    [string]: Token,
+  },
+}

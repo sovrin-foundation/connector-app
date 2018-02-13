@@ -31,10 +31,11 @@ export const deepLinkEmpty = (): DeepLinkEmptyAction => ({
   type: DEEP_LINK_EMPTY,
 })
 
-export const deepLinkError = (error: any): DeepLinkErrorAction => ({
+export const deepLinkError = (error: string): DeepLinkErrorAction => ({
   type: DEEP_LINK_DATA,
   error,
 })
+
 export const deepLinkProcessed = (data: string): DeepLinkProcessedAction => ({
   type: DEEP_LINK_PROCESSED,
   data,

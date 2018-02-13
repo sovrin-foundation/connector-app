@@ -45,6 +45,12 @@ describe('server environment should change', () => {
     initialConfig = configReducer(undefined, { type: 'INITIAL_TEST_ACTION' })
   })
 
+  it('initial app should always point to staging', () => {
+    if (initialConfig) {
+      expect(initialConfig.agencyUrl).toBe(baseUrls.STAGING.agencyUrl)
+    }
+  })
+
   it('to demo when demo action is raised more than 2 times', () => {
     const gen = watchChangeEnvironmentToDemo()
     // demo saga should wait for demo change event 3 times
