@@ -63,6 +63,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
       claimRequestStatus,
       payload: { issuer, data },
       senderLogoUrl,
+      isPending,
     }: ClaimRequestStatusModalProps = this.props
 
     const avatarRight = senderLogoUrl
@@ -78,9 +79,12 @@ export default class ClaimRequestStatusModal extends PureComponent<
             middleImage: require('../images/connectArrows.png'),
             middleImageStyle: styles.connectedArrow,
           }
-    const message =
-      claimRequestStatus === CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST
-        ? `Waiting for ${issuer.name} to issue`
+    const message = isPending
+      ? `As soon as ${issuer.name} signs and issues ${
+          data.name
+        } to you it will appear here`
+      : claimRequestStatus === CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST
+        ? `You accepted ${data.name} from ${issuer.name}!`
         : 'Successfully issued'
 
     return (

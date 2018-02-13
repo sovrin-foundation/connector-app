@@ -199,7 +199,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
         }
         testID="claim-request-message"
       >
-        Waiting for Test Issuer to issue
+        You accepted Home Address from Test Issuer!
       </Text>
       <Text
         accessible={true}

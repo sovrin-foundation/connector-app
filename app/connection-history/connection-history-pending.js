@@ -23,6 +23,7 @@ export class ConnectionHistoryPending extends PureComponent<void, void> {
           payload={payload}
           onContinue={this.close}
           senderLogoUrl={payload.senderLogoUrl}
+          isPending={true}
         />
       </Container>
     )

@@ -129,6 +129,7 @@ export type ClaimRequestStatusModalProps = {
   payload: ClaimOfferPayload,
   onContinue: () => void,
   senderLogoUrl?: string,
+  isPending?: boolean,
 }
 
 export type ClaimRequestStatusModalState = {
