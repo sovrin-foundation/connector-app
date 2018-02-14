@@ -77,10 +77,12 @@ export function* generateProofSaga(
           const attributeClaimData = preparedProofJSON.attrs[attrKey]
           if (!attributeClaimData || !attributeClaimData[0]) {
             missedAttributes.push(proofRequest.requested_attrs[attrKey].name)
-          }
-          return {
-            ...acc,
-            [attrKey]: [attributeClaimData[0].claim_uuid, true],
+            return acc
+          } else {
+            return {
+              ...acc,
+              [attrKey]: [attributeClaimData[0].claim_uuid, true],
+            }
           }
         },
         {}
