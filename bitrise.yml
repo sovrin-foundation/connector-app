@@ -11,7 +11,7 @@ app:
     GITHUB_USER_EMAIL: iosdev@evernym.com
   - opts:
       is_expand: false
-    FASTLANE_WORK_DIR: ios/fastlane
+    FASTLANE_WORK_DIR: ios
   - opts:
       is_expand: false
     FASTLANE_LANE: beta
@@ -32,13 +32,16 @@ workflows:
     steps:
     - activate-ssh-key@3.1.1:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-    - git-clone@3.5.0: {}
+    - git-clone@3.5.2: {}
     - install-react-native@0.9.1: {}
     - yarn@0.0.4:
         inputs:
         - command: ''
         - args: ''
-    - react-native-bundle@1.0.3: {}
+    - react-native-bundle@1.0.3:
+        inputs:
+        - dev: 'false'
+        - entry_file: index.js
     - fastlane@2.3.9:
         inputs:
         - lane: "$FASTLANE_LANE"
@@ -57,6 +60,8 @@ workflows:
             curl -s -d "payload=$json" "https://hooks.slack.com/services/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"
         - working_dir: "$MAVEN"
     - deploy-to-bitrise-io@1.2.9: {}
+    envs:
+    - BITRISE_PROJECT_PATH: ios/ConnectMe.xcworkspace
   android:
     steps:
     - activate-ssh-key@3.1.1:
