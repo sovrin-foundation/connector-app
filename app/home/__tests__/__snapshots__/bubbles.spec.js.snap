@@ -1,0 +1,227 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Bubbles/> should render Bubbles 1`] = `
+<View
+  collapsable={undefined}
+  style={
+    Object {
+      "height": 380,
+      "left": 0,
+      "overflow": "hidden",
+      "position": "absolute",
+      "right": 0,
+      "top": 0,
+      "transform": Array [
+        Object {
+          "translateY": undefined,
+        },
+      ],
+    }
+  }
+>
+  <Animatable.View
+    animation="zoomIn"
+    delay={200}
+    duration={600}
+    style={
+      Array [
+        Object {
+          "position": "absolute",
+        },
+        Object {
+          "left": 130,
+          "top": 250,
+        },
+      ]
+    }
+  >
+    <View
+      imageShadow="imageShadow"
+      style={
+        Object {
+          "borderRadius": 38,
+          "shadowColor": "rgba(0, 0, 0, 0.25)",
+          "shadowOffset": Object {
+            "height": 3,
+            "width": 0,
+          },
+          "shadowOpacity": 1,
+          "shadowRadius": 8,
+        }
+      }
+      testID="bubble-4ej819kkjywdppuje79"
+    >
+      <Image
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        hitSlop={undefined}
+        nativeID={undefined}
+        onError={[Function]}
+        onLayout={undefined}
+        onLoad={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        source={
+          Object {
+            "uri": "https://logourl.com/logo.png",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "height": 76,
+              "width": 76,
+            },
+            Object {
+              "borderRadius": 38,
+            },
+          ]
+        }
+        testID={undefined}
+      />
+    </View>
+  </Animatable.View>
+  <Animatable.View
+    animation="zoomIn"
+    delay={200}
+    duration={600}
+    style={
+      Array [
+        Object {
+          "position": "absolute",
+        },
+        Object {
+          "left": 60,
+          "top": 300,
+        },
+      ]
+    }
+  >
+    <View
+      imageShadow="imageShadow"
+      style={
+        Object {
+          "borderRadius": 38,
+          "shadowColor": "rgba(0, 0, 0, 0.25)",
+          "shadowOffset": Object {
+            "height": 3,
+            "width": 0,
+          },
+          "shadowOpacity": 1,
+          "shadowRadius": 8,
+        }
+      }
+      testID="bubble-3nj819kkjywdppuje86"
+    >
+      <Image
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        hitSlop={undefined}
+        nativeID={undefined}
+        onError={[Function]}
+        onLayout={undefined}
+        onLoad={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        source={
+          Object {
+            "uri": "https://logourl.com/logo.png",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "height": 76,
+              "width": 76,
+            },
+            Object {
+              "borderRadius": 38,
+            },
+          ]
+        }
+        testID={undefined}
+      />
+    </View>
+  </Animatable.View>
+  <Animatable.View
+    animation="zoomIn"
+    delay={200}
+    duration={600}
+    style={
+      Array [
+        Object {
+          "position": "absolute",
+        },
+        Object {
+          "left": 200,
+          "top": 300,
+        },
+      ]
+    }
+  >
+    <View
+      imageShadow="imageShadow"
+      style={
+        Object {
+          "borderRadius": 38,
+          "shadowColor": "rgba(0, 0, 0, 0.25)",
+          "shadowOffset": Object {
+            "height": 3,
+            "width": 0,
+          },
+          "shadowOpacity": 1,
+          "shadowRadius": 8,
+        }
+      }
+      testID="bubble-7fj819kkjywdppuje34"
+    >
+      <Image
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        hitSlop={undefined}
+        nativeID={undefined}
+        onError={[Function]}
+        onLayout={undefined}
+        onLoad={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        source={
+          Object {
+            "uri": "https://logourl.com/logo.png",
+          }
+        }
+        style={
+          Array [
+            Object {
+              "height": 76,
+              "width": 76,
+            },
+            Object {
+              "borderRadius": 38,
+            },
+          ]
+        }
+        testID={undefined}
+      />
+    </View>
+  </Animatable.View>
+</View>
+`;

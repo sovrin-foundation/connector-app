@@ -10,7 +10,6 @@ import {
 import { View as AnimationView } from 'react-native-animatable'
 import { StackNavigator } from 'react-navigation'
 import { Avatar } from '../components'
-import { bubbleSize } from '../common/styles'
 import { connectionHistoryRoute } from '../common/route-constants'
 import type { BubbleState, BubbleProps, BubblesProps } from './type-home'
 
@@ -49,7 +48,7 @@ export class Bubble extends PureComponent<BubbleProps, BubbleState> {
 
     return (
       <Avatar
-        large
+        medium
         shadow
         src={source}
         onLoad={this._onLoad}
@@ -65,6 +64,35 @@ export default class ConnectionBubbles extends PureComponent<
   BubblesProps,
   void
 > {
+  //returns top and left position of the connection bubble
+  //based on the bubbleIndex the position is calculated
+  getBubblePosition = (bubbleIndex: number) => {
+    let verticalOffset = 250
+    let horizontalOffset = 130
+    const bubbleWidth = 70
+    const bubbleHeight = 80
+
+    //for both side columns add the edgeVerticalOffset to the top
+    //middle column top position dont need this edgeVerticalOffset
+    const edgeVerticalOffset = 50
+
+    //calculate position in the column
+    let verticalRowIndex = Math.floor(bubbleIndex / 3)
+
+    if (bubbleIndex % 3 === 2) {
+      horizontalOffset = horizontalOffset + bubbleWidth
+      verticalOffset = verticalOffset + edgeVerticalOffset
+    } else if (bubbleIndex % 3 === 1) {
+      horizontalOffset = horizontalOffset - bubbleWidth
+      verticalOffset = verticalOffset + edgeVerticalOffset
+    }
+
+    return {
+      top: verticalOffset - verticalRowIndex * bubbleHeight,
+      left: horizontalOffset,
+    }
+  }
+
   render() {
     const { width } = Dimensions.get('window')
     let deviceClass = ''
@@ -88,6 +116,7 @@ export default class ConnectionBubbles extends PureComponent<
     const connections = this.props.connections.map((connection, index) => ({
       ...connection,
       name: enterprises[index] || 'verizon',
+      index,
     }))
 
     return (
@@ -98,18 +127,20 @@ export default class ConnectionBubbles extends PureComponent<
         ]}
       >
         {connections.map(
-          ({ identifier, name, logoUrl, size, senderName, senderDID }) => (
+          ({
+            identifier,
+            name,
+            logoUrl,
+            size,
+            senderName,
+            senderDID,
+            index,
+          }) => (
             <AnimationView
               animation="zoomIn"
               duration={600}
               delay={200}
-              style={[
-                styles.avatar,
-                // $FlowFixMe
-                styles[name.toLowerCase()],
-                // $FlowFixMe
-                styles[`${name.toLowerCase()}${deviceClass}`],
-              ]}
+              style={[styles.avatar, this.getBubblePosition(index)]}
               key={identifier}
             >
               <Bubble
