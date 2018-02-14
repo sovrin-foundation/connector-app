@@ -199,7 +199,79 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
         }
         testID="claim-request-message"
       >
-        You accepted Home Address from Test Issuer!
+        You accepted 
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 15,
+              },
+              Object {
+                "fontFamily": "SF Pro Display",
+              },
+              Object {
+                "backgroundColor": "#f0f0f0",
+                "color": "#777777",
+              },
+              Object {
+                "fontWeight": "bold",
+              },
+              Object {
+                "textAlign": "center",
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+              Object {
+                "marginBottom": 5,
+                "paddingTop": 10,
+              },
+            ]
+          }
+          testID="claim-request-message"
+        >
+          Home Address
+        </Text>
+         from 
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 15,
+              },
+              Object {
+                "fontFamily": "SF Pro Display",
+              },
+              Object {
+                "backgroundColor": "#f0f0f0",
+                "color": "#777777",
+              },
+              Object {
+                "fontWeight": "bold",
+              },
+              Object {
+                "textAlign": "center",
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+              Object {
+                "marginBottom": 5,
+                "paddingTop": 10,
+              },
+            ]
+          }
+          testID="claim-request-message"
+        >
+          Test Issuer
+        </Text>
+         !
       </Text>
     </View>
     <View
@@ -524,7 +596,79 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
         }
         testID="claim-request-message"
       >
-        As soon as Test Issuer signs and issues Home Address to you it will appear here
+        As soon as 
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 15,
+              },
+              Object {
+                "fontFamily": "SF Pro Display",
+              },
+              Object {
+                "backgroundColor": "#f0f0f0",
+                "color": "#777777",
+              },
+              Object {
+                "fontWeight": "bold",
+              },
+              Object {
+                "textAlign": "center",
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+              Object {
+                "marginBottom": 5,
+                "paddingTop": 10,
+              },
+            ]
+          }
+          testID="claim-request-message"
+        >
+          Test Issuer
+        </Text>
+         signs and issues 
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 15,
+              },
+              Object {
+                "fontFamily": "SF Pro Display",
+              },
+              Object {
+                "backgroundColor": "#f0f0f0",
+                "color": "#777777",
+              },
+              Object {
+                "fontWeight": "bold",
+              },
+              Object {
+                "textAlign": "center",
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+              Object {
+                "marginBottom": 5,
+                "paddingTop": 10,
+              },
+            ]
+          }
+          testID="claim-request-message"
+        >
+          Home Address
+        </Text>
+         to you it will appear here
       </Text>
     </View>
     <View

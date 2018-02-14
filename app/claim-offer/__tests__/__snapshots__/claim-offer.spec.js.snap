@@ -1344,7 +1344,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           }
           testID="claim-request-message"
         >
-          Successfully issued
+          Successfully received
         </Text>
       </View>
       <View

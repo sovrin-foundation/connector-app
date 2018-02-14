@@ -58,12 +58,98 @@ export default class ClaimRequestStatusModal extends PureComponent<
     this.toggleModal(nextProps.claimRequestStatus)
   }
 
+  //TODO create separate functions for Pending Claim and Accepting Claim Offer
+  getMessage = (
+    isPending: boolean,
+    claimRequestStatus: ClaimRequestStatus,
+    issuerName: string,
+    dataName: string
+  ) => {
+    let message1 = 'Successfully received',
+      message2 = '',
+      message3 = '',
+      message4 = '',
+      message5 = ''
+    if (isPending) {
+      message1 = 'As soon as '
+      message2 = issuerName
+      message3 = ' signs and issues '
+      message4 = dataName
+      message5 = ' to you it will appear here'
+    } else if (
+      claimRequestStatus === CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST
+    ) {
+      message1 = 'You accepted '
+      message2 = dataName
+      message3 = ' from '
+      message4 = issuerName
+      message5 = ' !'
+    }
+    if (message2 !== '') {
+      return (
+        <CustomText
+          h6
+          demiBold
+          center
+          tertiary
+          bg="tertiary"
+          transparentBg
+          style={[styles.message]}
+          testID={`claim-request-message`}
+        >
+          {message1}
+          <CustomText
+            h6
+            bold
+            center
+            tertiary
+            bg="tertiary"
+            transparentBg
+            style={[styles.message]}
+            testID={`claim-request-message`}
+          >
+            {message2}
+          </CustomText>
+          {message3}
+          <CustomText
+            h6
+            bold
+            center
+            tertiary
+            bg="tertiary"
+            transparentBg
+            style={[styles.message]}
+            testID={`claim-request-message`}
+          >
+            {message4}
+          </CustomText>
+          {message5}
+        </CustomText>
+      )
+    } else {
+      return (
+        <CustomText
+          h6
+          demiBold
+          center
+          tertiary
+          bg="tertiary"
+          transparentBg
+          style={[styles.message]}
+          testID={`claim-request-message`}
+        >
+          {message1}
+        </CustomText>
+      )
+    }
+  }
+
   render() {
     const {
       claimRequestStatus,
       payload: { issuer, data },
       senderLogoUrl,
-      isPending,
+      isPending = false,
     }: ClaimRequestStatusModalProps = this.props
 
     const avatarRight = senderLogoUrl
@@ -79,13 +165,12 @@ export default class ClaimRequestStatusModal extends PureComponent<
             middleImage: require('../images/connectArrows.png'),
             middleImageStyle: styles.connectedArrow,
           }
-    const message = isPending
-      ? `As soon as ${issuer.name} signs and issues ${
-          data.name
-        } to you it will appear here`
-      : claimRequestStatus === CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST
-        ? `You accepted ${data.name} from ${issuer.name}!`
-        : 'Successfully issued'
+    const message = this.getMessage(
+      isPending,
+      claimRequestStatus,
+      issuer.name,
+      data.name
+    )
 
     return (
       <CustomModal
@@ -101,18 +186,8 @@ export default class ClaimRequestStatusModal extends PureComponent<
           avatarRight={avatarRight}
           testID={'claim-request'}
         />
-        <CustomText
-          h6
-          demiBold
-          center
-          tertiary
-          bg="tertiary"
-          transparentBg
-          style={[styles.message]}
-          testID={`claim-request-message`}
-        >
-          {message}
-        </CustomText>
+
+        {message}
       </CustomModal>
     )
   }
