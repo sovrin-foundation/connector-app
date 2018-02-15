@@ -83,7 +83,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
       message2 = dataName
       message3 = ' from '
       message4 = issuerName
-      message5 = ' !'
+      message5 = '!'
     }
     if (message2 !== '') {
       return (
@@ -155,8 +155,12 @@ export default class ClaimRequestStatusModal extends PureComponent<
     const avatarRight = senderLogoUrl
       ? { uri: senderLogoUrl }
       : require('../images/cb_evernym.png')
-    const { middleImage, middleImageStyle } =
-      claimRequestStatus === CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS
+    const { middleImage, middleImageStyle } = isPending
+      ? {
+          middleImage: require('../images/connectArrows.png'),
+          middleImageStyle: styles.connectedArrow,
+        }
+      : claimRequestStatus === CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST
         ? {
             middleImage: require('../images/checkMark.png'),
             middleImageStyle: null,
