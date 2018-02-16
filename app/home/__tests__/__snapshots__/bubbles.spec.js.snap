@@ -5,7 +5,7 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
   collapsable={undefined}
   style={
     Object {
-      "height": 380,
+      "height": 405,
       "left": 0,
       "overflow": "hidden",
       "position": "absolute",
@@ -30,7 +30,7 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
         },
         Object {
           "left": 130,
-          "top": 250,
+          "top": 270,
         },
       ]
     }
@@ -97,8 +97,8 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
           "position": "absolute",
         },
         Object {
-          "left": 60,
-          "top": 300,
+          "left": 38.57142857142857,
+          "top": 320,
         },
       ]
     }
@@ -165,8 +165,8 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
           "position": "absolute",
         },
         Object {
-          "left": 200,
-          "top": 300,
+          "left": 221.42857142857144,
+          "top": 320,
         },
       ]
     }

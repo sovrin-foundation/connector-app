@@ -64,37 +64,73 @@ export default class ConnectionBubbles extends PureComponent<
   BubblesProps,
   void
 > {
-  //returns top and left position of the connection bubble
-  //based on the bubbleIndex the position is calculated
-  getBubblePosition = (bubbleIndex: number) => {
-    let verticalOffset = 250
-    let horizontalOffset = 130
-    const bubbleWidth = 70
-    const bubbleHeight = 80
+  getBubblePosition = (
+    bubbleIndex: number,
+    deviceWidth: number,
+    deviceHeight: number
+  ) => {
+    //returns top and left position of the connection bubble
+    //based on the bubbleIndex the position is calculated
 
-    //for both side columns add the edgeVerticalOffset to the top
-    //middle column top position dont need this edgeVerticalOffset
+    //top position for 0th bubble
+    let verticalOffset = deviceHeight / 2
+    //left position for 0th bubble should be somewhere around the mid of the device
+    //we are subtracting 30 to adjust the bubble width in the offset
+    //so that center of bubble comes in mid
+    let horizontalOffset = deviceWidth / 2 - 30
+
+    // we adjust the width and height of bubble just to calculate position
+    // we need to adjust width because there will be only 3 bubbles in a row
+    // but that row will also contain space between bubbles
+    // and will also have margin on both side of screen horizontally
+    // so, we assume that each bubble adjusted (margin+spacing+gutter space)
+    // will be calculated by dividing device width in 3 columns
+    // along with .5 as adjustment for (margin+spacing+gutter space)
+    // so, suppose a bubble width is 80, and whole screen width would be 320 (iphone5)
+    // then, considering space, margin, bubble width, adjustments would be
+    // ~92
+    const bubbleAdjustedWidth = deviceWidth / 3.5
+
+    //we need to adjust bubbles in a column with some space in between
+    //such that atleast 3 bubbles get adjusted
+    //so if deviceHeight is 568 and
+    //bubble container is having height 426(75%of deviceHeight)
+    //bubbleAdjustedHeight will be 113
+    const bubbleAdjustedHeight = deviceHeight / 5
+
+    //add some more vertical offset to the columns on the left and right
+    //since their top value is more than the middle column
     const edgeVerticalOffset = 50
 
-    //calculate position in the column
+    //calculate position of the bubble in its column
     let verticalRowIndex = Math.floor(bubbleIndex / 3)
 
     if (bubbleIndex % 3 === 2) {
-      horizontalOffset = horizontalOffset + bubbleWidth
+      //calculating offsets for right hand side column
+      horizontalOffset = horizontalOffset + bubbleAdjustedWidth
       verticalOffset = verticalOffset + edgeVerticalOffset
     } else if (bubbleIndex % 3 === 1) {
-      horizontalOffset = horizontalOffset - bubbleWidth
+      //calculating offsets for left hand side column
+      horizontalOffset = horizontalOffset - bubbleAdjustedWidth
       verticalOffset = verticalOffset + edgeVerticalOffset
     }
 
     return {
-      top: verticalOffset - verticalRowIndex * bubbleHeight,
+      //note that based on the verticalRowIndex we need to
+      //adjust the top of the bubble
+      top: verticalOffset - verticalRowIndex * bubbleAdjustedHeight,
       left: horizontalOffset,
     }
   }
 
+  getBubbleContainerHeight = (deviceHeight: number) => {
+    return {
+      height: 75 * deviceHeight / 100,
+    }
+  }
+
   render() {
-    const { width } = Dimensions.get('window')
+    const { width, height } = Dimensions.get('window')
     let deviceClass = ''
 
     if (Platform.OS === 'ios') {
@@ -123,6 +159,7 @@ export default class ConnectionBubbles extends PureComponent<
       <Animated.View
         style={[
           styles.bubbleContainer,
+          this.getBubbleContainerHeight(height),
           { transform: [{ translateY: this.props.height }] },
         ]}
       >
@@ -140,7 +177,10 @@ export default class ConnectionBubbles extends PureComponent<
               animation="zoomIn"
               duration={600}
               delay={200}
-              style={[styles.avatar, this.getBubblePosition(index)]}
+              style={[
+                styles.avatar,
+                this.getBubblePosition(index, width, height),
+              ]}
               key={identifier}
             >
               <Bubble
@@ -166,108 +206,11 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     overflow: 'hidden',
-    // TODO this height should be calculated automatically
-    // these styles are in absolute position due to early stage design
-    // of home screen, we used to scroll on this screen,
-    // and this height was being animated as we scroll on page
-    // now we don't need to scroll and we can directly use <Container />
-    // for bubbles, for now fixing the height, but we need to fix this component
-    height: 380,
   },
   avatar: {
     position: 'absolute',
   },
   avatarImage: {
     resizeMode: 'contain',
-  },
-  bh: {
-    top: 70,
-    left: 2,
-  },
-  dell: {
-    top: 5,
-    left: 115,
-  },
-  ebay: {
-    top: 30,
-    left: 250,
-  },
-  target: {
-    top: 90,
-    right: 2,
-  },
-  centuryLink: {
-    top: 180,
-    left: 5,
-  },
-  starbucks: {
-    top: 110,
-    left: 120,
-  },
-  suncoast: {
-    top: 180,
-    right: 0,
-  },
-  amazon: {
-    top: 260,
-    left: 5,
-  },
-  dillard: {
-    top: 130,
-    left: 150,
-  },
-  verizon: {
-    top: 255,
-    left: 150,
-  },
-  dellIphone5: {
-    top: 20,
-    left: 115,
-  },
-  targetIphone5: {
-    top: 100,
-    right: 2,
-  },
-  starbucksIphone5: {
-    top: 110,
-    left: 100,
-  },
-  suncoastIphone5: {
-    top: 180,
-    right: 2,
-  },
-  dillardIphone5: {
-    top: 130,
-    left: 150,
-  },
-  starbucksIphonePlus: {
-    top: 110,
-    left: 150,
-  },
-  dillardIphonePlus: {
-    top: 130,
-    left: 150,
-  },
-
-  // multiple connections specific styles
-  evernym: {
-    top: 180,
-    left: 15,
-  },
-  evernymIphone5: {
-    top: 180,
-    left: 15,
-  },
-  edcu: {
-    top: 30,
-    left: 50,
-  },
-  edcuIphone5: {
-    top: 30,
-    left: 50,
-  },
-  agency: {
-    top: 30,
-    left: 100,
   },
 })

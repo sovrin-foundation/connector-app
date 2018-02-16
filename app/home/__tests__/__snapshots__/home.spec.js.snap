@@ -23,7 +23,7 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
       collapsable={undefined}
       style={
         Object {
-          "height": 380,
+          "height": 405,
           "left": 0,
           "overflow": "hidden",
           "position": "absolute",
@@ -48,7 +48,7 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
             },
             Object {
               "left": 130,
-              "top": 250,
+              "top": 270,
             },
           ]
         }
