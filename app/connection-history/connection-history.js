@@ -19,6 +19,7 @@ import {
   Separator,
   CustomDate,
 } from '../components'
+import { dimGray } from '../../app/common/styles'
 import {
   connectionHistoryRoute,
   connectionHistoryDetailsRoute,
@@ -143,12 +144,15 @@ export class ConnectionHistory extends PureComponent<
             avatarStyle: styles.avatarStyle,
             containerStyle: styles.listItemContainer,
             hideChevron: false,
-            rightIcon: {
-              name:
-                h.action === HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST]
-                  ? 'schedule'
-                  : 'chevron-right',
-            },
+            rightIcon:
+              h.action === HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST] ? (
+                <Image source={require('../images/e15c.1.png')} />
+              ) : (
+                {
+                  name: 'chevron-right',
+                  color: dimGray,
+                }
+              ),
             onPress: () => {
               this.connectionDetailHandler({
                 h,
