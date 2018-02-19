@@ -67,12 +67,15 @@ export class LockEnterFingerprint extends PureComponent<
         // not sure what to do if finger print authentication failed
       })
   }
+
   componentDidMount() {
     this.touchIdHandler()
   }
+
   render() {
     const { isFetchingInvitation } = this.props
     const message = isFetchingInvitation ? UNLOCKING_APP_WAIT_MESSAGE : ''
+
     if (isFetchingInvitation) {
       return (
         <Container center>

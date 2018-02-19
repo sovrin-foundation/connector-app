@@ -1,7 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { ScrollView, Image, StyleSheet, Text } from 'react-native'
-import { StackNavigator } from 'react-navigation'
+import { ScrollView, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { List, ListItem } from 'react-native-elements'
 import LinearGradient from 'react-native-linear-gradient'
@@ -142,10 +141,14 @@ export class ConnectionHistory extends PureComponent<
             subtitle: <HistoryBody {...h} />,
             chevronColor: color.bg.fifth.font.fifth,
             avatarStyle: styles.avatarStyle,
+            avatarOverlayContainerStyle: styles.avatarOverlayContainerStyle,
             containerStyle: styles.listItemContainer,
             hideChevron: false,
             rightIcon:
               h.action === HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST] ? (
+                // Type definition for react-native-elements is wrong
+                // this will be fixed, once we move this Image to Icon component
+                // $FlowFixMe
                 <Image source={require('../images/e15c.1.png')} />
               ) : (
                 {
@@ -336,4 +339,5 @@ const styles = StyleSheet.create({
     marginVertical: OFFSET_1X,
     resizeMode: 'contain',
   },
+  avatarOverlayContainerStyle: { backgroundColor: 'transparent' },
 })

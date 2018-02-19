@@ -8,7 +8,6 @@ import {
   StyleSheet,
 } from 'react-native'
 import { View as AnimationView } from 'react-native-animatable'
-import { StackNavigator } from 'react-navigation'
 import { Avatar } from '../components'
 import { connectionHistoryRoute } from '../common/route-constants'
 import type { BubbleState, BubbleProps, BubblesProps } from './type-home'

@@ -10,29 +10,6 @@ exports[`<LockPinCodeEnter /> should render pin code box 1`] = `
   }
   tertiary={true}
 >
-  <BVLinearGradient
-    colors={
-      Array [
-        4293585642,
-        15790320,
-      ]
-    }
-    endPoint={undefined}
-    locations={
-      Array [
-        0.08,
-        1,
-      ]
-    }
-    startPoint={undefined}
-    style={
-      Array [
-        Object {
-          "height": 10,
-        },
-      ]
-    }
-  />
   <View
     accessibilityComponentType={undefined}
     accessibilityLabel={undefined}

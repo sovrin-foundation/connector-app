@@ -34,22 +34,9 @@ import {
 import { setPinAction, enableTouchIdAction } from './lock-store'
 import type { LockPinSetupState, LockPinCodeSetupProps } from './type-lock'
 import { PIN_SETUP_STATE } from './type-lock'
-import LinearGradient from 'react-native-linear-gradient'
+import { tertiaryHeaderStyles } from '../components/layout/header-styles'
 
 const styles = StyleSheet.create({
-  header: {
-    backgroundColor: color.bg.tertiary.color,
-    borderBottomWidth: 0,
-    height: 64,
-    padding: 0,
-    paddingHorizontal: OFFSET_2X,
-    shadowColor: 'transparent',
-    shadowOpacity: 0,
-    shadowOffset: {
-      height: 0,
-    },
-    shadowRadius: 0,
-  },
   headerLeft: {
     width: OFFSET_2X,
   },
@@ -61,9 +48,6 @@ const styles = StyleSheet.create({
     lineHeight: 28,
     letterSpacing: 0.5,
     paddingHorizontal: OFFSET_1X,
-  },
-  linearGradient: {
-    height: OFFSET_1X,
   },
 })
 
@@ -118,7 +102,7 @@ export class LockPinSetup extends PureComponent<
         App Security
       </CustomText>
     ),
-    headerStyle: styles.header,
+    headerStyle: tertiaryHeaderStyles.header,
   })
 
   setPinSetupStateToInitial = () => {
@@ -232,11 +216,6 @@ export class LockPinSetup extends PureComponent<
 
     return (
       <Container tertiary>
-        <LinearGradient
-          style={[styles.linearGradient]}
-          locations={[0.08, 1]}
-          colors={['#EAEAEA', 'rgba(240,240,240,0)']}
-        />
         <CustomView style={[styles.title]}>
           {pinSetupState === PIN_SETUP_STATE.INITIAL && EnterPinText}
           {pinSetupState === PIN_SETUP_STATE.REENTER && ReEnterPinText}

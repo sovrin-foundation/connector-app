@@ -1,7 +1,6 @@
 //@flow
 import React, { PureComponent } from 'react'
 import { TouchableHighlight, Image, StyleSheet, TextInput } from 'react-native'
-import { StackNavigator } from 'react-navigation'
 import { Container, CustomView, CustomText } from '../components'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'

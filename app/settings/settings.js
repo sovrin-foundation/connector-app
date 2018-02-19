@@ -29,14 +29,11 @@ import {
 
 import type { Store } from '../store/type-store'
 import type { SettingsProps } from './type-settings'
+import { tertiaryHeaderStyles } from '../components/layout/header-styles'
 
 const style = StyleSheet.create({
   container: {
     overflow: 'scroll',
-  },
-  headerStyle: {
-    backgroundColor: color.bg.tertiary.color,
-    shadowOpacity: 0,
   },
   editIcon: {
     width: EDIT_ICON_DIMENSIONS,
@@ -76,7 +73,7 @@ export class Settings extends PureComponent<SettingsProps, void> {
         {settingsRoute}{' '}
       </CustomText>
     ),
-    headerStyle: style.headerStyle,
+    headerStyle: tertiaryHeaderStyles.header,
   }
 
   render() {

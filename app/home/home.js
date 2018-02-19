@@ -7,7 +7,6 @@ import Bubbles from './bubbles'
 import { barStyleDark, OFFSET_3X } from '../common/styles'
 import { getConnections, loadHistory } from '../store'
 import { CLAIM_OFFER_STATUS } from '../claim-offer/type-claim-offer'
-import { StackNavigator } from 'react-navigation'
 
 export class DashboardScreen extends PureComponent {
   state = {

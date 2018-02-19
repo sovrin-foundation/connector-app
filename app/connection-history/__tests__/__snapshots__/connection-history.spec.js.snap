@@ -516,7 +516,9 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                         "top": 0,
                       },
                       false,
-                      undefined,
+                      Object {
+                        "backgroundColor": "transparent",
+                      },
                     ]
                   }
                 >

@@ -22,6 +22,7 @@ const commonStyles = {
     height: 0,
   },
   shadowRadius: 0,
+  elevation: 0,
 }
 
 export default StyleSheet.create({
@@ -38,7 +39,7 @@ export default StyleSheet.create({
 export const tertiaryHeaderStyles = StyleSheet.create({
   header: {
     backgroundColor: color.bg.tertiary.color,
-    height: 64,
+    minHeight: 64,
     paddingHorizontal: OFFSET_2X,
     ...commonStyles,
   },

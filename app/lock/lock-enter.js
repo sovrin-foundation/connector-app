@@ -3,7 +3,6 @@ import React, { PureComponent } from 'react'
 import { InteractionManager, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import LinearGradient from 'react-native-linear-gradient'
 
 import {
   Container,
@@ -42,9 +41,6 @@ const styles = StyleSheet.create({
   titleText: {
     lineHeight: 28,
     letterSpacing: 0.5,
-  },
-  linearGradient: {
-    height: OFFSET_1X,
   },
 })
 
@@ -118,11 +114,6 @@ export class LockEnter extends PureComponent<LockEnterProps, LockEnterState> {
 
     return (
       <Container tertiary>
-        <LinearGradient
-          style={[styles.linearGradient]}
-          locations={[0.08, 1]}
-          colors={[whisper, whiteSmokeRGBA]}
-        />
         <CustomView
           style={[styles.text]}
           center
