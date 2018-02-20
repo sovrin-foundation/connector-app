@@ -21,6 +21,7 @@ export default class Avatar extends PureComponent {
       onLoad,
       onError,
       clearBg,
+      radius,
     } = this.props
     const size = small ? 'small' : medium ? 'medium' : 'large'
     const imageShadow = shadow ? 'imageShadow' : null
@@ -30,7 +31,7 @@ export default class Avatar extends PureComponent {
       clearBg ? avatarStyle['clearBg'] : null,
     ]
     const elementContentStyle = [
-      avatarStyle[size],
+      radius ? { width: radius * 2, height: radius * 2 } : avatarStyle[size],
       // avatar style contains round styles on the basis of size of Image
       // if we passed size as small, then corresponding style for round image
       // will be `smallRound`, that's why we are concatenating
@@ -38,7 +39,9 @@ export default class Avatar extends PureComponent {
       // for example: if this component is used like <Avatar small round />
       // then we will get size="small" and we get round as true,
       // then style that we get from avatarStyle will be `smallRound`
-      square ? null : avatarStyle[`${size}Round`],
+      square
+        ? null
+        : radius ? { borderRadius: radius } : avatarStyle[`${size}Round`],
       ...imageStyle,
     ]
 

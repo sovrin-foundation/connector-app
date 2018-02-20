@@ -5,7 +5,7 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
   collapsable={undefined}
   style={
     Object {
-      "height": 405,
+      "height": 486,
       "left": 0,
       "overflow": "hidden",
       "position": "absolute",
@@ -29,8 +29,8 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
           "position": "absolute",
         },
         Object {
-          "left": 130,
-          "top": 270,
+          "left": 126,
+          "top": 313,
         },
       ]
     }
@@ -39,7 +39,7 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
       imageShadow="imageShadow"
       style={
         Object {
-          "borderRadius": 38,
+          "borderRadius": 50,
           "shadowColor": "rgba(0, 0, 0, 0.25)",
           "shadowOffset": Object {
             "height": 3,
@@ -75,11 +75,11 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
         style={
           Array [
             Object {
-              "height": 76,
-              "width": 76,
+              "height": 66,
+              "width": 66,
             },
             Object {
-              "borderRadius": 38,
+              "borderRadius": 33,
             },
           ]
         }
@@ -97,8 +97,8 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
           "position": "absolute",
         },
         Object {
-          "left": 38.57142857142857,
-          "top": 320,
+          "left": 34,
+          "top": 363,
         },
       ]
     }
@@ -107,7 +107,7 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
       imageShadow="imageShadow"
       style={
         Object {
-          "borderRadius": 38,
+          "borderRadius": 50,
           "shadowColor": "rgba(0, 0, 0, 0.25)",
           "shadowOffset": Object {
             "height": 3,
@@ -143,11 +143,11 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
         style={
           Array [
             Object {
-              "height": 76,
-              "width": 76,
+              "height": 66,
+              "width": 66,
             },
             Object {
-              "borderRadius": 38,
+              "borderRadius": 33,
             },
           ]
         }
@@ -165,8 +165,8 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
           "position": "absolute",
         },
         Object {
-          "left": 221.42857142857144,
-          "top": 320,
+          "left": 217,
+          "top": 363,
         },
       ]
     }
@@ -175,7 +175,7 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
       imageShadow="imageShadow"
       style={
         Object {
-          "borderRadius": 38,
+          "borderRadius": 50,
           "shadowColor": "rgba(0, 0, 0, 0.25)",
           "shadowOffset": Object {
             "height": 3,
@@ -211,11 +211,11 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
         style={
           Array [
             Object {
-              "height": 76,
-              "width": 76,
+              "height": 66,
+              "width": 66,
             },
             Object {
-              "borderRadius": 38,
+              "borderRadius": 33,
             },
           ]
         }

@@ -47,7 +47,7 @@ export class Bubble extends PureComponent<BubbleProps, BubbleState> {
 
     return (
       <Avatar
-        medium
+        radius={this.props.radius}
         shadow
         src={source}
         onLoad={this._onLoad}
@@ -72,11 +72,11 @@ export default class ConnectionBubbles extends PureComponent<
     //based on the bubbleIndex the position is calculated
 
     //top position for 0th bubble
-    let verticalOffset = deviceHeight / 2
+    let verticalOffset = deviceHeight * 0.58
     //left position for 0th bubble should be somewhere around the mid of the device
-    //we are subtracting 30 to adjust the bubble width in the offset
+    //we are subtracting bubble radius to adjust the bubble width in the offset
     //so that center of bubble comes in mid
-    let horizontalOffset = deviceWidth / 2 - 30
+    let horizontalOffset = deviceWidth / 2 - deviceHeight / 16
 
     // we adjust the width and height of bubble just to calculate position
     // we need to adjust width because there will be only 3 bubbles in a row
@@ -91,11 +91,11 @@ export default class ConnectionBubbles extends PureComponent<
     const bubbleAdjustedWidth = deviceWidth / 3.5
 
     //we need to adjust bubbles in a column with some space in between
-    //such that atleast 3 bubbles get adjusted
+    //such that atleast 4 bubbles get adjusted
     //so if deviceHeight is 568 and
-    //bubble container is having height 426(75%of deviceHeight)
-    //bubbleAdjustedHeight will be 113
-    const bubbleAdjustedHeight = deviceHeight / 5
+    //bubble container is having height 511(90%of deviceHeight)
+    //bubbleAdjustedHeight will be 94
+    const bubbleAdjustedHeight = deviceHeight / 6
 
     //add some more vertical offset to the columns on the left and right
     //since their top value is more than the middle column
@@ -117,14 +117,14 @@ export default class ConnectionBubbles extends PureComponent<
     return {
       //note that based on the verticalRowIndex we need to
       //adjust the top of the bubble
-      top: verticalOffset - verticalRowIndex * bubbleAdjustedHeight,
-      left: horizontalOffset,
+      top: Math.floor(verticalOffset - verticalRowIndex * bubbleAdjustedHeight),
+      left: Math.floor(horizontalOffset),
     }
   }
 
   getBubbleContainerHeight = (deviceHeight: number) => {
     return {
-      height: 75 * deviceHeight / 100,
+      height: 90 * deviceHeight / 100,
     }
   }
 
@@ -183,6 +183,7 @@ export default class ConnectionBubbles extends PureComponent<
               key={identifier}
             >
               <Bubble
+                radius={Math.floor(height / 16)}
                 size={size}
                 image={logoUrl}
                 testID={`bubble-${identifier}`}

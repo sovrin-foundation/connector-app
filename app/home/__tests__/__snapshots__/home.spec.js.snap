@@ -23,7 +23,7 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
       collapsable={undefined}
       style={
         Object {
-          "height": 405,
+          "height": 486,
           "left": 0,
           "overflow": "hidden",
           "position": "absolute",
@@ -47,8 +47,8 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
               "position": "absolute",
             },
             Object {
-              "left": 130,
-              "top": 270,
+              "left": 126,
+              "top": 313,
             },
           ]
         }
@@ -57,7 +57,7 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
           imageShadow="imageShadow"
           style={
             Object {
-              "borderRadius": 38,
+              "borderRadius": 50,
               "shadowColor": "rgba(0, 0, 0, 0.25)",
               "shadowOffset": Object {
                 "height": 3,
@@ -89,11 +89,11 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
             style={
               Array [
                 Object {
-                  "height": 76,
-                  "width": 76,
+                  "height": 66,
+                  "width": 66,
                 },
                 Object {
-                  "borderRadius": 38,
+                  "borderRadius": 33,
                 },
               ]
             }
