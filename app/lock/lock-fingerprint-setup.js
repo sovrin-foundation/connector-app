@@ -22,7 +22,7 @@ import {
   isiPhone5,
 } from '../common/styles/constant'
 import { disableTouchIdAction, enableTouchIdAction } from '../lock/lock-store'
-import { TOUCH_ID_ERROR_NAME } from './type-lock'
+import { AllowedFallbackToucheIDErrors } from './type-lock'
 import type { LockFingerprintSetupProps } from './type-lock'
 
 export class LockFingerprintSetup extends PureComponent<
@@ -62,7 +62,7 @@ export class LockFingerprintSetup extends PureComponent<
       })
       .catch(error => {
         captureError(error)
-        if (TOUCH_ID_ERROR_NAME.indexOf(error.name) > -1) {
+        if (AllowedFallbackToucheIDErrors.indexOf(error.name) >= 0) {
           this.props.fromSettings
             ? this.props.navigation.navigate(settingsTabRoute)
             : this.props.navigation.navigate(lockSelectionRoute)

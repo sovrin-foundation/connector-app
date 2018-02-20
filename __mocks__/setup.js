@@ -163,3 +163,7 @@ jest.mock('react-native-branch', () => {
     subscribe(cb: any) {},
   }
 })
+
+jest.mock('react-native-splash-screen', () => ({
+  hide: jest.fn(),
+}))

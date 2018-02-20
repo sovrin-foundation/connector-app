@@ -26,10 +26,127 @@ import { loadHistory } from '../connection-history/connection-history-store'
 import type { SplashScreenProps } from './type-splash-screen'
 import type { Store } from '../store/type-store'
 import { SMSPendingInvitationStatus } from '../sms-pending-invitation/type-sms-pending-invitation'
+import type { SMSPendingInvitations } from '../sms-pending-invitation/type-sms-pending-invitation'
 import { deepLinkProcessed } from '../deep-link/deep-link-store'
 import { DEEP_LINK_STATUS } from '../deep-link/type-deep-link'
 
+const isReceived = ({ payload, status }) =>
+  payload &&
+  payload.senderDetail.DID &&
+  status === SMSPendingInvitationStatus.RECEIVED
+
 export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
+  ifDeepLinkFoundGoToWaitForInvitationScreenNFetchInvitation = (
+    nextProps: SplashScreenProps
+  ) => {
+    const nextDeepLinkTokens = nextProps.deepLink.tokens
+    if (
+      nextProps.deepLink.isLoading === false &&
+      Object.keys(nextDeepLinkTokens).length >
+        Object.keys(this.props.deepLink.tokens).length
+    ) {
+      Object.keys(nextDeepLinkTokens).map(
+        smsToken =>
+          nextDeepLinkTokens[smsToken].status !== DEEP_LINK_STATUS.PROCESSED &&
+          nextProps.getSmsPendingInvitation(smsToken)
+      )
+      if (nextProps.lock.isAppLocked === false) {
+        nextProps.navigation.navigate(waitForInvitationRoute)
+      }
+    }
+  }
+
+  getUnHandledSmsPendingInvitations = (nextProps: SplashScreenProps) => {
+    const smsPendingInvitations = Object.keys(
+      nextProps.smsPendingInvitation
+    ).map(invitationToken => {
+      return {
+        ...nextProps.smsPendingInvitation[invitationToken],
+        invitationToken,
+      }
+    })
+    const unHandledSmsPendingInvitations: SMSPendingInvitations = smsPendingInvitations.filter(
+      ({ invitationToken }) =>
+        invitationToken &&
+        nextProps.deepLink.tokens[invitationToken].status !==
+          DEEP_LINK_STATUS.PROCESSED
+    )
+    return unHandledSmsPendingInvitations
+  }
+
+  handleExpiredTokens = (
+    unHandledSmsPendingInvitations: SMSPendingInvitations,
+    nextProps: SplashScreenProps
+  ) => {
+    const isAnyOneOfSmsPendingInvitationHasError: boolean = unHandledSmsPendingInvitations.some(
+      ({ error }) => error
+    )
+    const isAnyOneOfSmsPendingInvitationWasExpired: boolean = unHandledSmsPendingInvitations.some(
+      ({ error }) => error && error.code && error.code === TOKEN_EXPIRED_CODE
+    )
+    if (isAnyOneOfSmsPendingInvitationWasExpired) {
+      // TODO: This conditions pops up too many times, we should create a common function for this.
+      // TODO: It should be something like this this.redirect(nextProps.lock, routeName)
+      if (nextProps.lock.isAppLocked === false) {
+        this.props.navigation.navigate(expiredTokenRoute)
+      } else {
+        this.props.addPendingRedirection([{ routeName: expiredTokenRoute }])
+      }
+    } else if (isAnyOneOfSmsPendingInvitationHasError) {
+      // * This condition is needed to avoid un wanted redirection to home screen if unHandledSmsPendingInvitations are empty
+      // * or if we are in middle of other invitation fetching process
+      if (nextProps.lock.isAppLocked === false) {
+        this.props.navigation.navigate(homeRoute)
+      } else {
+        this.props.addPendingRedirection([{ routeName: homeRoute }])
+      }
+    }
+    unHandledSmsPendingInvitations.map(({ error, invitationToken }) => {
+      error ? nextProps.deepLinkProcessed(invitationToken) : null
+    })
+  }
+
+  handleSmsPendingInvitations = (nextProps: SplashScreenProps) => {
+    const nextDeepLinkTokens = nextProps.deepLink.tokens
+    if (
+      JSON.stringify(nextProps.smsPendingInvitation) !==
+      JSON.stringify(this.props.smsPendingInvitation)
+    ) {
+      const unHandledSmsPendingInvitations = this.getUnHandledSmsPendingInvitations(
+        nextProps
+      )
+      this.handleExpiredTokens(unHandledSmsPendingInvitations, nextProps)
+      const unseenSmsPendingInvitations = unHandledSmsPendingInvitations.filter(
+        isReceived
+      )
+
+      const pendingRedirectionList = unseenSmsPendingInvitations.map(
+        ({ payload, invitationToken }) => {
+          if (payload) {
+            const senderDID = payload.senderDetail.DID
+            nextProps.deepLinkProcessed(invitationToken)
+            if (nextProps.lock.isAppLocked === false) {
+              nextProps.navigation.navigate(invitationRoute, {
+                senderDID,
+                token: invitationToken,
+              })
+            }
+            return {
+              routeName: invitationRoute,
+              params: { senderDID, token: invitationToken },
+            }
+          }
+        }
+      )
+
+      pendingRedirectionList.length !== 0 &&
+        nextProps.lock.isAppLocked === true &&
+        nextProps.addPendingRedirection(pendingRedirectionList)
+
+      // * all error token links should be processed
+    }
+  }
+
   componentWillReceiveProps(nextProps: SplashScreenProps) {
     if (nextProps.config.isHydrated !== this.props.config.isHydrated) {
       // hydrated is changed, and if it is changed to true,
@@ -76,96 +193,8 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
       }
     }
 
-    if (
-      nextProps.deepLink.isLoading === false &&
-      Object.keys(nextDeepLinkTokens).length >
-        Object.keys(this.props.deepLink.tokens).length &&
-      Object.keys(nextDeepLinkTokens).length !== 0
-    ) {
-      Object.keys(nextDeepLinkTokens).map(
-        smsToken =>
-          nextDeepLinkTokens[smsToken].status !== DEEP_LINK_STATUS.PROCESSED &&
-          nextProps.getSmsPendingInvitation(smsToken)
-      )
-      if (nextProps.lock.isAppLocked === false) {
-        this.props.navigation.navigate(waitForInvitationRoute)
-      }
-    }
-
-    if (
-      JSON.stringify(nextProps.smsPendingInvitation) !==
-      JSON.stringify(this.props.smsPendingInvitation)
-    ) {
-      const smsPendingInvitationTokens = Object.keys(
-        nextProps.smsPendingInvitation
-      )
-      const smsPendingInvitations = smsPendingInvitationTokens.map(
-        invitationToken => {
-          return {
-            ...nextProps.smsPendingInvitation[invitationToken],
-            invitationToken,
-          }
-        }
-      )
-      const unHandledSmsPendingInvitations = smsPendingInvitations.filter(
-        ({ invitationToken }) =>
-          invitationToken &&
-          nextProps.deepLink.tokens[invitationToken].status !==
-            DEEP_LINK_STATUS.PROCESSED
-      )
-      const isAnyOneOfSmsPendingInvitationHasError = unHandledSmsPendingInvitations.some(
-        ({ error }) => error
-      )
-      const isAnyOneOfSmsPendingInvitationWasExpired = unHandledSmsPendingInvitations.some(
-        ({ error }) => error && error.code && error.code === TOKEN_EXPIRED_CODE
-      )
-      const unseenSmsPendingInvitations = unHandledSmsPendingInvitations
-        .filter(
-          ({ payload, status }) =>
-            payload &&
-            payload.senderDetail.DID &&
-            status === SMSPendingInvitationStatus.RECEIVED
-        )
-        .map(({ payload, invitationToken }) => ({
-          payload,
-          invitationToken,
-        }))
-      if (isAnyOneOfSmsPendingInvitationWasExpired) {
-        if (nextProps.lock.isAppLocked === false) {
-          this.props.navigation.navigate(expiredTokenRoute)
-        } else {
-          this.props.addPendingRedirection([{ routeName: expiredTokenRoute }])
-        }
-      } else if (isAnyOneOfSmsPendingInvitationHasError) {
-        if (nextProps.lock.isAppLocked === false) {
-          this.props.navigation.navigate(homeRoute)
-        } else {
-          this.props.addPendingRedirection([{ routeName: homeRoute }])
-        }
-      }
-
-      // check if smsPendingInvitation payload are the only props that are changed
-
-      const pendingRedirectionList = unseenSmsPendingInvitations.map(
-        ({ payload, invitationToken }) => {
-          if (payload) {
-            const senderDID = payload.senderDetail.DID
-            nextProps.deepLinkProcessed(invitationToken)
-            return {
-              routeName: invitationRoute,
-              params: { senderDID, token: invitationToken },
-            }
-          }
-        }
-      )
-
-      pendingRedirectionList.length !== 0 &&
-        nextProps.addPendingRedirection(pendingRedirectionList)
-      // all error token links should be processed processed
-      unHandledSmsPendingInvitations.map(({ error, invitationToken }) => {
-        error ? nextProps.deepLinkProcessed(invitationToken) : null
-      })
-    }
+    this.ifDeepLinkFoundGoToWaitForInvitationScreenNFetchInvitation(nextProps)
+    this.handleSmsPendingInvitations(nextProps)
   }
 
   componentDidMount() {

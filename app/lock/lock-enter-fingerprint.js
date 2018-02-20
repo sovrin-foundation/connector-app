@@ -6,7 +6,7 @@ import { Container, CustomText } from '../components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { captureError } from '../services/error/error-handler'
-import { homeRoute } from '../common'
+import { homeRoute, lockEnterPinRoute } from '../common'
 import { unlockApp } from './lock-store'
 import { clearPendingRedirect } from '../store'
 import type { Store } from '../store/type-store'
@@ -16,6 +16,7 @@ import type {
   LockEnterFingerState,
   PendingRedirection,
 } from './type-lock'
+import { AllowedFallbackToucheIDErrors } from './type-lock'
 
 export class LockEnterFingerprint extends PureComponent<
   LockEnterFingerProps,
@@ -39,6 +40,8 @@ export class LockEnterFingerprint extends PureComponent<
 
   onAuthenticationSuccess = (pendingRedirection: Array<PendingRedirection>) => {
     this.props.unlockApp()
+    //this method will be called in fingerprint authentication screen
+    //or any where in app if there is a invitation received.
     if (pendingRedirection) {
       pendingRedirection.forEach(pendingRedirection => {
         setTimeout(() => {
@@ -49,7 +52,9 @@ export class LockEnterFingerprint extends PureComponent<
         }, 0)
       })
       this.props.clearPendingRedirect()
-    } else {
+    } else if (this.props.isAppLocked === true) {
+      // * if app is unlocked and invitation is fetched , with out this condition we are redirecting user to home screen from invitation screen.
+      // * this condition will avoid redirecting user to home screen if app is already unlocked
       this.props.navigation.navigate(homeRoute)
     }
   }
@@ -64,7 +69,9 @@ export class LockEnterFingerprint extends PureComponent<
       })
       .catch(error => {
         captureError(error)
-        // not sure what to do if finger print authentication failed
+        if (AllowedFallbackToucheIDErrors.indexOf(error.name) >= 0) {
+          this.props.navigation.navigate(lockEnterPinRoute)
+        }
       })
   }
 
@@ -98,6 +105,7 @@ const mapStateToProps = (state: Store) => ({
       state.smsPendingInvitation[smsToken] &&
       state.smsPendingInvitation[smsToken].isFetching === true
   ),
+  isAppLocked: state.lock.isAppLocked,
 })
 
 const mapDispatchToProps = dispatch =>

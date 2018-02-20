@@ -20,7 +20,9 @@ describe('<LockPinCodeEnter />', () => {
       ...getNavigation(),
     },
     clearPendingRedirect: jest.fn(),
+    unlockApp: jest.fn(),
     isFetchingInvitation: false,
+    isAppLocked: true,
   })
 
   let component

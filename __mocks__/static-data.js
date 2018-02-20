@@ -446,6 +446,9 @@ export function getNavigation(params?: NavigationParams) {
   }
 }
 
+// TODO:  we should be just able to pass an object and
+// TODO: it should deep extend default store state.if we dont deep extend We have to make many calls for getStore and getState
+// TODO: for any property that we want to override
 export function getStore(store?: Store) {
   return {
     getState() {
@@ -458,6 +461,11 @@ export function getStore(store?: Store) {
           agencyDID,
           agencyVerificationKey,
           poolConfig,
+        },
+        deepLink: {
+          error: undefined,
+          isLoading: true,
+          tokens: {},
         },
         lock: {
           checkPinStatus: CHECK_PIN_IDLE,
@@ -479,6 +487,7 @@ export function getStore(store?: Store) {
         route: {
           currentScreen: qrCodeScannerTabRoute,
         },
+        smsPendingInvitation: {},
         ...(store || {}),
         claim: {
           [uid]: {
@@ -624,3 +633,12 @@ export const claimOfferPushNotification = {
   remotePairwiseDID: 'ha66899sadfjZJGINKN0770',
   forDID: 'forDID',
 }
+
+export const getSmsPendingInvitationOfToken = (token: string) => ({
+  [token]: {
+    error: null,
+    isFetching: false,
+    status: 'RECEIVED',
+    payload: smsDownloadedPayload,
+  },
+})

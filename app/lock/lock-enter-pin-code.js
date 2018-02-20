@@ -8,7 +8,7 @@ import { StackNavigator } from 'react-navigation'
 import { CustomText } from '../components'
 import LockEnter from './lock-enter'
 import { color, OFFSET_2X } from '../common/styles'
-import { lockEnterPinRoute, lockPinSetupRoute } from '../common'
+import { lockEnterPinRoute, lockPinSetupRoute, homeRoute } from '../common'
 import type { ReactNavigation } from '../common/type-common'
 import type { Store } from '../store/type-store'
 import type { LockEnterPinProps, LockEnterPinState } from './type-lock'
@@ -19,6 +19,7 @@ import {
 } from '../common/message-constants'
 import { tertiaryHeaderStyles } from '../components/layout/header-styles'
 import { UNLOCKING_APP_WAIT_MESSAGE } from '../common/message-constants'
+import { unlockApp } from './lock-store'
 
 export class LockEnterPin extends PureComponent<
   LockEnterPinProps,
@@ -50,15 +51,22 @@ export class LockEnterPin extends PureComponent<
   }
 
   redirect = () => {
-    this.props.pendingRedirection.forEach(pendingRedirection => {
-      setTimeout(() => {
-        this.props.navigation.navigate(
-          pendingRedirection.routeName,
-          pendingRedirection.params
-        )
-      }, 0)
-    })
-    this.props.clearPendingRedirect()
+    this.props.unlockApp()
+    if (this.props.pendingRedirection) {
+      this.props.pendingRedirection.forEach(pendingRedirection => {
+        setTimeout(() => {
+          this.props.navigation.navigate(
+            pendingRedirection.routeName,
+            pendingRedirection.params
+          )
+        }, 0)
+      })
+      this.props.clearPendingRedirect()
+    } else if (this.props.isAppLocked === true) {
+      // * if app is unlocked and invitation is fetched , with out this condition we are redirecting user to home screen from invitation screen.
+      // * this condition will avoid redirecting user to home screen if app is already unlocked
+      this.props.navigation.navigate(homeRoute)
+    }
   }
 
   onSuccess = () => {
@@ -69,10 +77,7 @@ export class LockEnterPin extends PureComponent<
       this.props.navigation.navigate(lockPinSetupRoute, {
         existingPin: true,
       })
-    } else if (
-      this.props.pendingRedirection &&
-      this.props.isFetchingInvitation === false
-    ) {
+    } else if (this.props.isFetchingInvitation === false) {
       // user is trying to unlock the app
       // check if user has some pending action, so redirect to those
       this.redirect()
@@ -104,12 +109,14 @@ const mapStateToProps = (state: Store, { navigation }: ReactNavigation) => ({
   existingPin: navigation.state
     ? navigation.state.params ? navigation.state.params.existingPin : false
     : false,
+  isAppLocked: state.lock.isAppLocked,
 })
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       clearPendingRedirect,
+      unlockApp,
     },
     dispatch
   )

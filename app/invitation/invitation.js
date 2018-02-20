@@ -50,9 +50,7 @@ export class Invitation extends PureComponent<
 
   componentWillReceiveProps(nextProps: InvitationProps) {
     // If invitation itself not generated then don't check payload
-    if (nextProps.isSmsInvitationNotSeen) {
-      nextProps.smsPendingInvitationSeen(nextProps.smsToken)
-    }
+
     if (
       this.props.invitation !== undefined &&
       nextProps.invitation.payload !== this.props.invitation.payload
@@ -79,6 +77,12 @@ export class Invitation extends PureComponent<
       } else {
         // TODO:KS show loading indicator, API request was sent
       }
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.isSmsInvitationNotSeen) {
+      this.props.smsPendingInvitationSeen(this.props.smsToken)
     }
   }
 

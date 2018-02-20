@@ -17,8 +17,6 @@ export const getAgencyVerificationKey = (state: Store) =>
 
 export const getPushToken = (state: Store) => state.pushNotification.pushToken
 
-export const getSMSToken = (state: Store) => state.deepLink.token
-
 export const getAllConnection = (state: Store) => state.connections.data
 
 export const getConnectionTheme = (state: Store, logoUrl: string) =>

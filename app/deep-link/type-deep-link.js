@@ -37,9 +37,11 @@ export type Token = {
 }
 
 export type DeepLinkStore = {
-  tokens: {
-    +[string]: Token,
-  },
+  tokens:
+    | {
+        +[string]: Token,
+      }
+    | {},
   isLoading: boolean,
   error: ?string,
 }

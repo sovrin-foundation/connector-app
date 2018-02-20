@@ -40,13 +40,19 @@ export type SMSPendingInvitationPayload = {
   targetName: string,
 }
 
+export type SMSPendingInvitation = {
+  +payload: ?SMSPendingInvitationPayload,
+  +status: SMSPendingInvitationStatusType,
+  +isFetching: boolean,
+  +error?: ?CustomError,
+}
+
+export type SMSPendingInvitations = Array<
+  SMSPendingInvitation & { invitationToken: string }
+>
+
 export type SMSPendingInvitationStore = {
-  +[string]: {
-    +payload: ?SMSPendingInvitationPayload,
-    +status: SMSPendingInvitationStatusType,
-    +isFetching: boolean,
-    +error?: ?CustomError,
-  },
+  +[string]: SMSPendingInvitation,
 }
 
 export const SMS_PENDING_INVITATION_REQUEST: 'SMS_PENDING_INVITATION_REQUEST' =

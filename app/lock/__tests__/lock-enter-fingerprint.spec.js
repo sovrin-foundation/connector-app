@@ -17,6 +17,7 @@ function props() {
     clearPendingRedirect: jest.fn(),
     unlockApp: jest.fn(),
     pendingRedirection,
+    isAppLocked: true,
     navigation: {
       ...getNavigation(),
     },

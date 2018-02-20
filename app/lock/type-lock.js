@@ -145,7 +145,9 @@ export type LockEnterPinProps = {
   pendingRedirection: Array<PendingRedirection>,
   isFetchingInvitation?: boolean,
   clearPendingRedirect: () => void,
+  unlockApp: () => void,
   existingPin: boolean,
+  isAppLocked: boolean,
 } & ReactNavigation
 
 export type LockEnterFingerProps = {
@@ -153,6 +155,7 @@ export type LockEnterFingerProps = {
   isFetchingInvitation?: boolean,
   clearPendingRedirect: () => void,
   unlockApp: () => void,
+  isAppLocked: boolean,
 } & ReactNavigation
 
 export type LockEnterPinState = {
@@ -203,12 +206,6 @@ export type LockAuthorizationProps = {
   onFail: () => void,
 } & ReactNavigation
 
-export const TOUCH_ID_ERROR_NAME = [
-  'LAErrorAuthenticationFailed',
-  'LAErrorAuthenticationFailed',
-  'RCTTouchIDNotSupported',
-]
-
 export type LockFingerprintSetupProps = {
   touchIdActive: boolean,
   fromSettings: boolean,
@@ -227,3 +224,25 @@ export type LockSetupSuccessProps = {
   clearPendingRedirect: () => void,
   isFetchingInvitation: boolean,
 } & ReactNavigation
+
+export const LAErrorAuthenticationFailed = 'LAErrorAuthenticationFailed'
+export const LAErrorUserCancel = 'LAErrorUserCancel'
+export const LAErrorUserFallback = 'LAErrorUserFallback'
+export const LAErrorSystemCancel = 'LAErrorSystemCancel'
+export const LAErrorPasscodeNotSet = 'LAErrorPasscodeNotSet'
+export const LAErrorTouchIDNotAvailable = 'LAErrorTouchIDNotAvailable'
+export const LAErrorTouchIDNotEnrolled = 'LAErrorTouchIDNotEnrolled'
+export const LAErrorTouchIDUnknownError = 'RCTTouchIDUnknownError'
+export const LAErrorTouchIDNotSupported = 'RCTTouchIDNotSupported'
+
+export const AllowedFallbackToucheIDErrors = [
+  LAErrorUserCancel,
+  LAErrorSystemCancel,
+  LAErrorPasscodeNotSet,
+  LAErrorTouchIDNotAvailable,
+  LAErrorTouchIDNotEnrolled,
+  LAErrorTouchIDUnknownError,
+  LAErrorAuthenticationFailed,
+  LAErrorUserFallback,
+  LAErrorTouchIDNotSupported,
+]

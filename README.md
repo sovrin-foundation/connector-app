@@ -34,6 +34,15 @@ App to connect Sovrin with 3rd party authentication
 - [Yarn](http://yarnpkg.com)
 - [Cocoa pods](http://cocoadocs.org)
 
+## IDE
+- You may use any IDE you feel more comfortable with.
+- Our preferred IDE would be "VS Code" IDE with extensions like 
+  - Prettier - Code formatter (esbenp.prettier-vscode)
+  - VS Code ES7 React/Redux/React-Native/JS snippets
+  - Code Spell Checker (streetsidesoftware.code-spell-checker)
+  - Better Comments (aaron-bond.better-comments)
+  - Path Autocomplete (ionutvmi.path-autocomplete)
+
 # Things to remember
 - We are putting a restriction on length of data that can be passed in QR code
 

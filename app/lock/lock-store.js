@@ -253,7 +253,6 @@ export default function lockReducer(
       return {
         ...state,
         checkPinStatus: CHECK_PIN_SUCCESS,
-        isAppLocked: false,
       }
     case CHECK_PIN_FAIL:
       return {

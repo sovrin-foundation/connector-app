@@ -116,6 +116,7 @@ describe('<Invitation />', () => {
         />
       </Provider>
     )
+
     instance = component.root.findByType(Invitation).instance
   })
 
@@ -174,7 +175,7 @@ describe('<Invitation />', () => {
       ...invitation,
       status: ResponseType.accepted,
     }
-    component.update(
+    component = renderer.create(
       <Provider store={store}>
         <Invitation
           invitation={invitationAfterAccept}
@@ -195,7 +196,7 @@ describe('<Invitation />', () => {
       ...invitation,
       status: ResponseType.accepted,
     }
-    component.update(
+    component = renderer.create(
       <Provider store={store}>
         <Invitation
           invitation={invitationAfterAccept}

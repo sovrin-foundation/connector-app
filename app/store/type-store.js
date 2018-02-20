@@ -11,6 +11,7 @@ import type { ClaimStore } from '../claim/type-claim'
 import type { ProofStore } from '../proof/type-proof'
 import type { UserStore } from './user/type-user-store'
 import type { ConnectionHistoryStore } from '../connection-history/type-connection-history'
+import type { DeepLinkStore } from '../deep-link/type-deep-link'
 
 export type PushNotificationStore = {
   isAllowed: boolean,
@@ -18,12 +19,6 @@ export type PushNotificationStore = {
     [string]: any,
   },
   pushToken: ?string,
-}
-
-export type DeepLinkStore = {
-  token: ?string,
-  isLoading: boolean,
-  error: ?any, // fix this to use global error object
 }
 
 export type RouteStore = {
