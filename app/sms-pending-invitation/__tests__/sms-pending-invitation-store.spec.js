@@ -127,17 +127,16 @@ describe('SMS Connection Request store', () => {
         url: invitationData.url,
       })
     )
-
     expect(gen.next(payload).value).toEqual(
-      put(smsPendingInvitationReceived(smsToken, payload))
-    )
-
-    expect(gen.next().value).toEqual(
       put(
         invitationReceived({
           payload: convertSmsPayloadToInvitation(payload),
         })
       )
+    )
+
+    expect(gen.next().value).toEqual(
+      put(smsPendingInvitationReceived(smsToken, payload))
     )
 
     expect(gen.next().done).toBe(true)

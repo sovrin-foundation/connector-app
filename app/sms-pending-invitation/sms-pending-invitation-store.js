@@ -160,12 +160,12 @@ export function* callSmsPendingInvitationRequest(
       url: invitationLink.url,
     })
 
-    yield put(smsPendingInvitationReceived(smsToken, pendingInvitationPayload))
     yield put(
       invitationReceived({
         payload: convertSmsPayloadToInvitation(pendingInvitationPayload),
       })
     )
+    yield put(smsPendingInvitationReceived(smsToken, pendingInvitationPayload))
   } catch (e) {
     let error: CustomError = {
       code: ERROR_PENDING_INVITATION_RESPONSE_PARSE_CODE,
