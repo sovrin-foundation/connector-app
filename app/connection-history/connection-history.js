@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { ScrollView, StyleSheet } from 'react-native'
+import { ScrollView, Image, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { List, ListItem } from 'react-native-elements'
 import LinearGradient from 'react-native-linear-gradient'

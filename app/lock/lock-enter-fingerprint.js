@@ -81,7 +81,10 @@ export class LockEnterFingerprint extends PureComponent<
 
   render() {
     const { isFetchingInvitation } = this.props
-    const message = isFetchingInvitation ? UNLOCKING_APP_WAIT_MESSAGE : ''
+    const message =
+      isFetchingInvitation && this.state.authenticationSuccess
+        ? UNLOCKING_APP_WAIT_MESSAGE
+        : ''
 
     if (isFetchingInvitation) {
       return (

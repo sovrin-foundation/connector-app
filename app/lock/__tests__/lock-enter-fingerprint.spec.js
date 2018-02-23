@@ -53,6 +53,10 @@ describe('app lock selection page should', () => {
         <LockEnterFingerprint {...props()} isFetchingInvitation={true} />
       </Provider>
     )
+    let LockEnterFingerprintInstance = component.root.findByType(
+      LockEnterFingerprint
+    ).instance
+    LockEnterFingerprintInstance.setState({ authenticationSuccess: true })
     let tree = component.toJSON()
     expect(tree).toMatchSnapshot()
   })
