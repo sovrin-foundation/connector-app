@@ -468,4 +468,43 @@ RCT_EXPORT_METHOD(sendMessage: (NSString *)url
   [self sendEventWithName: eventName body: params];
 }
 
+// delete connection
+RCT_EXPORT_METHOD(deleteConnection: (NSString *)url
+                  withMyPairwiseDid: (NSString *)myPairwiseDid
+                  withMyPairwiseVerKey: (NSString *)myPairwiseVerKey
+                  withMyPairwiseAgentDid: (NSString *)myPairwiseAgentDid
+                  withMyPairwiseAgentVerKey: (NSString *)myPairwiseAgentVerKey
+                  withMyOneTimeAgentDid: (NSString *)myOneTimeAgentDid
+                  withMyOneTimeAgentVerKey: (NSString *)myOneTimeAgentVerKey
+                  withMyOneTimeDid: (NSString *)myOneTimeDid
+                  withMyOneTimeVerKey: (NSString *)myOneTimeVerKey
+                  withMyAgencyVerKey: (NSString *)myAgencyVerKey
+                  withNodesConfig:(NSString *)nodesConfig
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
+
+  [indy deleteConnectionWithUrl:url
+              withMyPairwiseDid:myPairwiseDid
+           withMyPairwiseVerKey:myPairwiseVerKey          
+         withMyPairwiseAgentDid:myPairwiseAgentDid
+      withMyPairwiseAgentVerKey:myPairwiseAgentVerKey
+          withMyOneTimeAgentDid:myOneTimeAgentDid
+       withMyOneTimeAgentVerKey:myOneTimeAgentVerKey
+               withMyOneTimeDid:myOneTimeDid
+            withMyOneTimeVerKey:myOneTimeVerKey
+             withMyAgencyVerKey:myAgencyVerKey
+                 withCompletion:^(NSError *error, NSDictionary *dataFromServer)
+  {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while accepting connection", error);
+    } else {
+      resolve(dataFromServer);
+    }
+  }];
+}
+
 @end

@@ -390,3 +390,43 @@ export async function sendMessage({
     poolConfig
   )
 }
+
+export async function deleteConnection({
+  url,
+  myPairwiseDid,
+  myPairwiseVerKey,
+  myPairwiseAgentDid,
+  myPairwiseAgentVerKey,
+  myOneTimeAgentDid,
+  myOneTimeAgentVerKey,
+  myOneTimeDid,
+  myOneTimeVerKey,
+  myAgencyVerKey,
+  poolConfig,
+}: {
+  url: string,
+  myPairwiseDid: string,
+  myPairwiseVerKey: string,
+  myPairwiseAgentDid: string,
+  myPairwiseAgentVerKey: string,
+  myOneTimeAgentDid: string,
+  myOneTimeAgentVerKey: string,
+  myOneTimeDid: string,
+  myOneTimeVerKey: string,
+  myAgencyVerKey: string,
+  poolConfig: string,
+}) {
+  return await RNIndy.deleteConnection(
+    url,
+    myPairwiseDid,
+    myPairwiseVerKey,
+    myPairwiseAgentDid,
+    myPairwiseAgentVerKey,
+    myOneTimeAgentDid,
+    myOneTimeAgentVerKey,
+    myOneTimeDid,
+    myOneTimeVerKey,
+    myAgencyVerKey,
+    poolConfig
+  )
+}
