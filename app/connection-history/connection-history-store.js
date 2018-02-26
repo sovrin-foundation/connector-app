@@ -1,4 +1,4 @@
-// @flow
+// $FlowFixMe
 import {
   all,
   takeLatest,
@@ -8,7 +8,7 @@ import {
   select,
 } from 'redux-saga/effects'
 import merge from 'lodash.merge'
-
+import { CONNECTIONS } from '../common'
 import {
   LOAD_HISTORY,
   LOAD_HISTORY_SUCCESS,
@@ -22,6 +22,7 @@ import {
   HISTORY_EVENT_TYPE,
   HISTORY_EVENT_STORAGE_KEY,
   ERROR_HISTORY_EVENT_OCCURRED,
+  DELETE_CONNECTION,
 } from './type-connection-history'
 import type {
   HistoryEventType,
@@ -33,14 +34,20 @@ import type {
   HistoryEventOccurredAction,
   HistoryEventOccurredEventType,
   DeleteHistoryEventAction,
+  DeleteConnectionEventAction,
 } from './type-connection-history'
+import type { Connection } from '../store/type-connection-store'
 import type { CustomError, GenericObject } from '../common/type-common'
 import type { InvitationPayload } from '../invitation/type-invitation'
 import { uuid } from '../services/uuid'
 import { INVITATION_RECEIVED } from '../invitation/type-invitation'
 import moment from 'moment'
 import type { NewConnectionAction } from '../store/type-connection-store'
-import { NEW_CONNECTION_SUCCESS } from '../store/connections-store'
+import {
+  NEW_CONNECTION_SUCCESS,
+  deleteConnectionSuccess,
+  deleteConnectionFailure,
+} from '../store/connections-store'
 import type {
   SendClaimRequestAction,
   ClaimOfferPayload,
@@ -61,8 +68,16 @@ import {
   getProofRequest,
   getClaimOffer,
   getPendingHistoryEvent,
+  getAllConnection,
 } from '../store/store-selector'
 import { CLAIM_RECEIVED } from '../claim/type-claim'
+import type { UserOneTimeInfo } from '../store/user/type-user-store'
+import {
+  getAgencyVerificationKey,
+  getUserOneTimeInfo,
+  getAgencyUrl,
+  getPoolConfig,
+} from '../store/store-selector'
 
 const initialState = {
   error: null,
@@ -224,6 +239,55 @@ export const deleteHistoryEvent = (
   historyEvent,
 })
 
+export const deleteConnection = (
+  senderDID: string
+): DeleteConnectionEventAction => ({
+  type: DELETE_CONNECTION,
+  senderDID,
+})
+
+//TODO move to connections-store
+export function* deleteConnectionOccurredSaga(
+  action: DeleteConnectionEventAction
+): Generator<*, *, *> {
+  const userOneTimeInfo: UserOneTimeInfo = yield select(getUserOneTimeInfo)
+  const agencyVerificationKey: string = yield select(getAgencyVerificationKey)
+  const agencyUrl: string = yield select(getAgencyUrl)
+  const poolConfig: string = yield select(getPoolConfig)
+  const connections: GenericObject = yield select(getAllConnection)
+
+  //TODO : move this logic to selector
+  const savedConnections: Array<Connection> = Object.values(connections)
+  const connection = savedConnections.filter(
+    connection => connection.senderDID === action.senderDID
+  )[0]
+  const { [connection.myPairwiseDid]: deleted, ...rest } = connections
+
+  const url = `${agencyUrl}/agency/msg`
+  try {
+    yield call(deleteConnection, {
+      url,
+      myPairwiseDid: connection.myPairwiseDid,
+      myPairwiseVerKey: connection.myPairwiseVerKey,
+      myPairwiseAgentDid: connection.myPairwiseAgentDid,
+      myPairwiseAgentVerKey: connection.myPairwiseAgentVerKey,
+      myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
+      myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
+      myOneTimeDid: userOneTimeInfo.myOneTimeDid,
+      myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
+      myAgencyVerKey: agencyVerificationKey,
+      poolConfig,
+    })
+    let connections = yield call(getItem, CONNECTIONS)
+    connections = connections ? JSON.parse(connections) : {}
+
+    yield call(setItem, CONNECTIONS, JSON.stringify(rest))
+    yield put(deleteConnectionSuccess(rest))
+  } catch (e) {
+    yield put(deleteConnectionFailure(action.connection, e))
+  }
+}
+
 export const historyEventOccurred = (event: HistoryEventOccurredEventType) => ({
   type: HISTORY_EVENT_OCCURRED,
   event,
@@ -289,6 +353,10 @@ export function* historyEventOccurredSaga(
 
 export function* watchHistoryEventOccurred(): any {
   yield takeEvery(HISTORY_EVENT_OCCURRED, historyEventOccurredSaga)
+}
+
+export function* watchDeleteConnectionOccurred(): Generator<*, *, *> {
+  yield takeLatest(DELETE_CONNECTION, deleteConnectionOccurredSaga)
 }
 
 export function* watchConnectionHistory(): Generator<*, *, *> {

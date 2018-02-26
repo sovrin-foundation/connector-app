@@ -6,6 +6,7 @@ import connectionReducer, {
   saveNewConnectionSuccess,
   saveNewConnectionFailed,
   connectionMapper,
+  deleteConnectionSuccess,
 } from '../connections-store'
 import { bubbleSize } from '../../common/styles'
 
@@ -49,6 +50,9 @@ describe('connections should update correctly', () => {
     )
     expect(actualState).toMatchObject(expectedState)
   })
+
+  //TODO update snapshot test
+  xit('match deleteConnectionSuccess', () => {})
 
   it('should update connections and store new connection properly', () => {
     const expectedState = {

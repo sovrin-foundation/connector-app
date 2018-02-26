@@ -44,6 +44,7 @@ describe('<ConnectionHistory />', () => {
           },
         ],
       },
+      connection: undefined, // TODO fix data
       claimMap: undefined,
     }
   }

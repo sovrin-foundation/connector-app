@@ -34,7 +34,7 @@ const denim = '#1159A9'
 // color shades
 const primaryShade = '1.0'
 const secondaryShade = '0.6'
-
+export const alertCancel = { text: 'Cancel', style: 'cancel' }
 export const color = {
   actions: {
     primary: pumpkin,

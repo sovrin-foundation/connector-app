@@ -1,12 +1,18 @@
-// @flow
+// $FlowFixMe
 import React, { PureComponent } from 'react'
-import { ScrollView, Image, StyleSheet } from 'react-native'
+import {
+  Alert,
+  ScrollView,
+  Image,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from 'react-native'
 import { connect } from 'react-redux'
 import { List, ListItem } from 'react-native-elements'
 import LinearGradient from 'react-native-linear-gradient'
 import moment from 'moment'
 import groupBy from 'lodash.groupby'
-
+import { bindActionCreators } from 'redux'
 import {
   InfoSectionList,
   ClaimProofHeader,
@@ -25,7 +31,13 @@ import {
   connectionHistoryPendingRoute,
 } from '../common/route-constants'
 import { homeRoute } from '../common/index'
-import { color, OFFSET_1X, OFFSET_3X } from '../common/styles/constant'
+import {
+  color,
+  OFFSET_1X,
+  OFFSET_3X,
+  hitSlop,
+  alertCancel,
+} from '../common/styles/constant'
 import type { Store } from '../store/type-store'
 import type {
   ConnectionHistoryItem,
@@ -41,7 +53,8 @@ import {
   SEND_CLAIM_REQUEST,
   CLAIM_REQUEST_STATUS,
 } from '../claim-offer/type-claim-offer'
-
+import { deleteConnection } from './connection-history-store'
+import { getConnection } from '../store/store-selector'
 const statusMsg = {
   ['PENDING']: 'Pending',
   ['CONNECTED']: 'Established on',
@@ -116,6 +129,21 @@ export class ConnectionHistory extends PureComponent<
 
   close = () => {
     this.props.navigation.navigate(homeRoute)
+  }
+
+  onDeleteConnection = (senderName: string, senderDID: string) => {
+    Alert.alert(
+      `Delete ${senderName}?`,
+      `Are you sure you want to delete ${senderName} as a connection? 
+        You will still keep the information they have given you, but you will not 
+        be able to contact them without re-establishing a new connection. Proceed?`,
+      [alertCancel, { text: 'Delete', onPress: this.delete(senderDID) }]
+    )
+  }
+
+  delete = senderDID => {
+    this.props.deleteConnection(senderDID)
+    this.props.navigation.goBack(null)
   }
 
   render() {
@@ -229,7 +257,7 @@ export class ConnectionHistory extends PureComponent<
                   testID={`${testID}-icon-close`}
                   onPress={this.close}
                   iconStyle={[styles.headerCloseIcon]}
-                  style={[styles.headerCloseIconContainer]}
+                  style={[styles.headerIconContainer]}
                 />
                 <Icon
                   center
@@ -241,6 +269,22 @@ export class ConnectionHistory extends PureComponent<
                   iconStyle={[styles.issuerLogoIcon]}
                   testID={`${testID}-issuer-logo`}
                 />
+                <TouchableWithoutFeedback
+                  testID={`${testID}-icon-delete`}
+                  onPress={() => {
+                    this.onDeleteConnection(senderName, senderDID)
+                  }}
+                  hitSlop={hitSlop}
+                >
+                  <Icon
+                    absolute="TopLeft"
+                    src={require('../images/delete.png')}
+                    small
+                    iconStyle={[styles.headerDeleteIcon]}
+                    resizeMode="contain"
+                    style={[styles.headerIconContainer]}
+                  />
+                </TouchableWithoutFeedback>
               </CustomView>
             </ClaimProofHeader>
           </LinearGradient>
@@ -283,14 +327,20 @@ const mapStateToProps = (state: Store, props: ReactNavigation) => {
   }
 }
 
-export default connect(mapStateToProps)(ConnectionHistory)
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ deleteConnection }, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(ConnectionHistory)
 
 const styles = StyleSheet.create({
   headerCloseIcon: {
     marginRight: 15,
   },
-  headerCloseIconContainer: {
+  headerIconContainer: {
     zIndex: 2,
+  },
+  headerDeleteIcon: {
+    marginLeft: 15,
   },
   headerLogoContainer: {
     height: 90,

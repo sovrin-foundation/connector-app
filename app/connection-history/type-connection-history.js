@@ -30,6 +30,7 @@ import {
   PROOF_REQUEST_REJECTED,
   PROOF_REQUEST_AUTO_FILL,
 } from '../proof-request/type-proof-request'
+import type { Connection } from '../connection/type-connection'
 import type {
   ProofRequestReceivedAction,
   ProofRequestAutoFillAction,
@@ -184,6 +185,13 @@ export const RECORD_HISTORY_EVENT = 'RECORD_HISTORY_EVENT'
 export type RecordHistoryEventAction = {
   type: typeof RECORD_HISTORY_EVENT,
   historyEvent: ConnectionHistoryEvent,
+}
+
+export const DELETE_CONNECTION = 'DELETE_CONNECTION'
+
+export type DeleteConnectionEventAction = {
+  type: typeof DELETE_CONNECTION,
+  senderDID: string,
 }
 
 export const DELETE_HISTORY_EVENT = 'DELETE_HISTORY_EVENT'

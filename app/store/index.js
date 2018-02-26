@@ -31,6 +31,7 @@ import claim, { watchClaim } from '../claim/claim-store'
 import proof, { watchProof } from '../proof/proof-store'
 import history, {
   watchConnectionHistory,
+  watchDeleteConnectionOccurred,
 } from '../connection-history/connection-history-store'
 import historyRecorder from '../connection-history/history-middleware'
 
@@ -83,6 +84,7 @@ sagaMiddleware.run(function*() {
     watchProofRequestAccepted(),
     watchConnectionHistory(),
     watchUserStore(),
+    watchDeleteConnectionOccurred(),
   ])
 })
 

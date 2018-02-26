@@ -40,7 +40,10 @@ export const getConnectionLogoUrl = (
   return logoUrl
 }
 
-const getConnection = (state: Store, senderDID: string): Array<Connection> => {
+export const getConnection = (
+  state: Store,
+  senderDID: string
+): Array<Connection> => {
   const connections = getAllConnection(state)
   if (connections) {
     // Had to use `any` type here even though we know `Array<Connection>`

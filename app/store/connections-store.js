@@ -1,4 +1,4 @@
-// @flow
+// $FlowFixMe
 import { put, takeLatest, call, select } from 'redux-saga/effects'
 import { setItem, getItem } from '../services/secure-storage'
 import { CONNECTIONS } from '../common'
@@ -11,8 +11,15 @@ import type {
   Connection,
   Connections,
 } from './type-connection-store'
-import { NEW_CONNECTION } from './type-connection-store'
-
+import {
+  NEW_CONNECTION,
+  DELETE_CONNECTION_SUCCESS,
+  DELETE_CONNECTION_FAILURE,
+} from './type-connection-store'
+import type {
+  DeleteConnectionSuccessEventAction,
+  DeleteConnectionFailureEventAction,
+} from './type-connection-store'
 const UPDATE_CONNECTION_THEME = 'UPDATE_CONNECTION_THEME'
 export const NEW_CONNECTION_SUCCESS = 'NEW_CONNECTION_SUCCESS'
 const NEW_CONNECTION_FAIL = 'NEW_CONNECTION_FAIL'
@@ -148,6 +155,24 @@ export const getConnection = (
 export const getConnectionLogo = (logoUrl: ?string) =>
   logoUrl ? { uri: logoUrl } : require('../images/cb_evernym.png')
 
+//TODO : fix filteredConnections type
+export const deleteConnectionSuccess = (
+  filteredConnections: GenericObject
+): DeleteConnectionSuccessEventAction => ({
+  type: DELETE_CONNECTION_SUCCESS,
+  filteredConnections,
+})
+
+//TODO : fix connections type
+export const deleteConnectionFailure = (
+  connections: GenericObject,
+  error: CustomError
+): DeleteConnectionFailureEventAction => ({
+  type: DELETE_CONNECTION_FAILURE,
+  connections,
+  error,
+})
+
 export default function connections(
   state: ConnectionStore = initialState,
   action: any
@@ -190,6 +215,12 @@ export default function connections(
         ...state,
         isFetching: false,
         error: action.error,
+      }
+    case DELETE_CONNECTION_SUCCESS:
+      const filteredData = { ...action.filteredConnections }
+      return {
+        ...state,
+        data: filteredData,
       }
     case HYDRATE_CONNECTIONS:
       return {
