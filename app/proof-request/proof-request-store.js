@@ -13,6 +13,9 @@ import type {
   ProofRequestAcceptedAction,
   ProofRequestPayload,
   AdditionalProofDataPayload,
+  MissingAttribute,
+  SelfAttestedAttributes,
+  MissingAttributes,
 } from './type-proof-request'
 import {
   getUserPairwiseDid,
@@ -36,6 +39,7 @@ import {
   SEND_PROOF,
   SEND_PROOF_SUCCESS,
   SEND_PROOF_FAIL,
+  MISSING_ATTRIBUTES_FOUND,
 } from './type-proof-request'
 import type {
   NotificationPayloadInfo,
@@ -83,6 +87,31 @@ export const sendProofFail = (
 ): SendProofFailAction => ({
   type: SEND_PROOF_FAIL,
   error,
+  uid,
+})
+
+export function convertMissingAttributeListToObject(
+  missingAttributes: Array<MissingAttribute>
+): MissingAttributes {
+  return missingAttributes.reduce(
+    (selfAttestedAttributes, missingAttribute: MissingAttribute) => ({
+      ...selfAttestedAttributes,
+      [missingAttribute.name.toLocaleLowerCase()]: {
+        name: missingAttribute.name,
+        data: '',
+        key: missingAttribute.key,
+      },
+    }),
+    {}
+  )
+}
+
+export const missingAttributesFound = (
+  missingAttributeList: MissingAttribute[],
+  uid: string
+) => ({
+  type: MISSING_ATTRIBUTES_FOUND,
+  missingAttributes: convertMissingAttributeListToObject(missingAttributeList),
   uid,
 })
 
@@ -159,7 +188,7 @@ export function* proofAccepted(
 
 export const proofRequestAutoFill = (
   uid: string,
-  requestedAttributes: Array<Attribute>
+  requestedAttributes: Attribute[]
 ) => ({
   type: PROOF_REQUEST_AUTO_FILL,
   uid,
@@ -263,6 +292,15 @@ export default function proofRequestReducer(
         [action.uid]: {
           ...state[action.uid],
           proofStatus: PROOF_STATUS.SEND_PROOF_FAIL,
+        },
+      }
+
+    case MISSING_ATTRIBUTES_FOUND:
+      return {
+        ...state,
+        [action.uid]: {
+          ...state[action.uid],
+          missingAttributes: action.missingAttributes,
         },
       }
     default:

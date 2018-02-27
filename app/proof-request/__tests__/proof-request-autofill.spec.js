@@ -13,6 +13,7 @@ import {
   senderName1,
   senderLogoUrl1,
   uid,
+  getNavigation,
 } from '../../../__mocks__/static-data'
 
 describe('<ProofRequest />', () => {
@@ -26,6 +27,7 @@ describe('<ProofRequest />', () => {
   let tree
   let navigation
   let componentInstance
+  let userSelfAttestedAttributes
   const isValid = true
   let proofStatus = PROOF_STATUS.NONE
 
@@ -34,15 +36,9 @@ describe('<ProofRequest />', () => {
     acceptProofRequest = jest.fn()
     rejectProofRequest = jest.fn()
     ignoreProofRequest = jest.fn()
+    userSelfAttestedAttributes = jest.fn()
     getProof = jest.fn()
-    navigation = {
-      goBack: jest.fn(),
-      state: {
-        params: {
-          uid,
-        },
-      },
-    }
+    navigation = getNavigation({ uid })
     wrapper = renderer.create(
       <Provider store={store}>
         <ProofRequest
@@ -57,9 +53,11 @@ describe('<ProofRequest />', () => {
           rejectProofRequest={rejectProofRequest}
           getProof={getProof}
           navigation={navigation}
-          uid={navigation.state.params.uid}
+          uid={navigation.state.params.uid || ''}
           isValid={isValid}
           logoUrl={senderLogoUrl1}
+          missingAttributes={{}}
+          userSelfAttestedAttributes={userSelfAttestedAttributes}
         />
       </Provider>
     )

@@ -281,12 +281,12 @@ Object {
         "requested_attrs": Object {
           "attr1_uuid": Object {
             "issuer_did": "issuerDid",
-            "name": "address1",
+            "name": "Address 1",
             "schema_seq_no": 36,
           },
           "attr2_uuid": Object {
             "issuer_did": "issuerDid",
-            "name": "address2",
+            "name": "Address 2",
             "schema_seq_no": 36,
           },
         },
@@ -300,7 +300,7 @@ Object {
     },
     "payloadInfo": Object {
       "remotePairwiseDID": "senderDID1",
-      "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+      "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
       "uid": "pid123",
     },
     "type": "PROOF_REQUEST_RECEIVED",
@@ -514,12 +514,12 @@ Object {
               "requested_attrs": Object {
                 "attr1_uuid": Object {
                   "issuer_did": "issuerDid",
-                  "name": "address1",
+                  "name": "Address 1",
                   "schema_seq_no": 36,
                 },
                 "attr2_uuid": Object {
                   "issuer_did": "issuerDid",
-                  "name": "address2",
+                  "name": "Address 2",
                   "schema_seq_no": 36,
                 },
               },
@@ -533,7 +533,7 @@ Object {
           },
           "payloadInfo": Object {
             "remotePairwiseDID": "senderDID1",
-            "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+            "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
             "uid": "pid123",
           },
           "type": "PROOF_REQUEST_RECEIVED",

@@ -1,5 +1,117 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Proof Store fn:convertIndyRequestedProofToAttributes 1`] = `
+Array [
+  Object {
+    "claimUuid": "claim::f760213b-e719-47fb-9669-b72c5c410e8c",
+    "data": "Alex",
+    "label": "Address 1",
+  },
+  Object {
+    "claimUuid": "claim::f760213b-e719-47fb-9669-b72c5c410e8c",
+    "data": "male",
+    "label": "Address 2",
+  },
+]
+`;
+
+exports[`Proof Store fn:convertIndyRequestedProofToAttributes 2`] = `
+Array [
+  Object {
+    "claimUuid": "claim::f760213b-e719-47fb-9669-b72c5c410e8c",
+    "data": "Alex",
+    "label": "Address 1",
+  },
+  Object {
+    "claimUuid": "claim::f760213b-e719-47fb-9669-b72c5c410e8c",
+    "data": "male",
+    "label": "Address 2",
+  },
+  Object {
+    "data": "attr 3 value",
+    "label": "Address 3",
+  },
+  Object {
+    "data": "attr 4 value",
+    "label": "Address 4",
+  },
+  Object {
+    "data": "attr 5 value",
+    "label": "Address 5",
+  },
+  Object {
+    "data": "attr 6 value",
+    "label": "Address 6",
+  },
+  Object {
+    "data": "attr 7 value",
+    "label": "Address 7",
+  },
+  Object {
+    "data": "attr 8 value",
+    "label": "Address 8",
+  },
+  Object {
+    "data": "attr 9 value",
+    "label": "Address 9",
+  },
+  Object {
+    "data": "attr 10 value",
+    "label": "Address 10",
+  },
+]
+`;
+
+exports[`Proof Store match snapshot while converting SelfAttestedAttributes to Indy format 1`] = `
+Object {
+  "attr2_uuid": "male",
+}
+`;
+
+exports[`Proof Store match snapshot while converting SelfAttestedAttributes to Indy format 2`] = `
+Object {
+  "attr2_uuid": "male",
+  "attr3_uuid": "190",
+}
+`;
+
+exports[`Proof Store should convert prepared proof to indy proof format 1`] = `
+Array [
+  Object {
+    "attr1_uuid": Array [
+      "claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73",
+      true,
+    ],
+    "attr2_uuid": Array [
+      "claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5",
+      true,
+    ],
+  },
+  Array [],
+]
+`;
+
+exports[`Proof Store should find missing attributes if any missing 1`] = `
+Array [
+  Object {
+    "attr1_uuid": Array [
+      "claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73",
+      true,
+    ],
+    "attr3_uuid": Array [
+      "claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5",
+      true,
+    ],
+  },
+  Array [
+    Object {
+      "key": "attr2_uuid",
+      "name": "address2",
+    },
+  ],
+]
+`;
+
 exports[`Proof Store should match snapshot for proof received action 1`] = `
 Object {
   "pid123": Object {
@@ -51,6 +163,17 @@ Object {
       },
       "self_attested_attrs": Object {},
       "unrevealed_attrs": Object {},
+    },
+  },
+}
+`;
+
+exports[`Proof Store store update correctly if proof fails 1`] = `
+Object {
+  "pid123": Object {
+    "error": Object {
+      "code": "TEST-CODE",
+      "message": "test error message",
     },
   },
 }

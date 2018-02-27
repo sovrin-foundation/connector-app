@@ -1,14 +1,46 @@
 // @flow
 import renderer from 'react-test-renderer'
-import { put, call } from 'redux-saga/effects'
+import { put, call, select, take } from 'redux-saga/effects'
 import { initialTestAction } from '../../common/type-common'
-import proofReducer, { proofSuccess } from '../proof-store'
-import { acceptProofRequest } from '../../proof-request/proof-request-store'
+import proofReducer, {
+  proofSuccess,
+  generateProofSaga,
+  convertPreparedProofToRequestedAttributes,
+  convertSelfAttestedToIndySelfAttested,
+  convertIndyRequestedProofToAttributes,
+  proofFail,
+  getProof,
+} from '../proof-store'
+import {
+  acceptProofRequest,
+  missingAttributesFound,
+  proofRequestAutoFill,
+} from '../../proof-request/proof-request-store'
 import {
   prepareProof,
   generateProof,
 } from '../../bridge/react-native-cxs/RNCxs'
-import { proofRequest, proof } from '../../../__mocks__/static-data'
+import {
+  proofRequest,
+  proofRequest10Attributes,
+  proof,
+  proofWithMissingAttributes,
+  proofWith10Attributes,
+  originalProofRequestData,
+  originalProofRequestData10Attributes,
+  originalProofRequestDataMissingAttribute,
+  preparedProof,
+  preparedProofWithMissingAttribute,
+  selfAttestedAttributes,
+  selfAttestedAttributes1,
+  poolConfig,
+} from '../../../__mocks__/static-data'
+import {
+  getOriginalProofRequestData,
+  getProofRequestPairwiseDid,
+  getPoolConfig,
+} from '../../store/store-selector'
+import { USER_SELF_ATTESTED_ATTRIBUTES } from '../type-proof'
 
 describe('Proof Store', () => {
   const remoteDid = proofRequest.payloadInfo.remotePairwiseDID
@@ -25,8 +57,162 @@ describe('Proof Store', () => {
     expect(afterProofSuccess).toMatchSnapshot()
   })
 
-  xit('show fail if attributes are missing from claims', () => {
-    // TODO:KS Add implementation once connection history test related
-    // changes are available, want to avoid bit of rework
+  it('should convert prepared proof to indy proof format', () => {
+    expect(
+      convertPreparedProofToRequestedAttributes(
+        preparedProof,
+        originalProofRequestData
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('should find missing attributes if any missing', () => {
+    expect(
+      convertPreparedProofToRequestedAttributes(
+        preparedProofWithMissingAttribute,
+        originalProofRequestDataMissingAttribute
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('match snapshot while converting SelfAttestedAttributes to Indy format', () => {
+    expect(
+      convertSelfAttestedToIndySelfAttested(selfAttestedAttributes)
+    ).toMatchSnapshot()
+    expect(
+      convertSelfAttestedToIndySelfAttested(selfAttestedAttributes1)
+    ).toMatchSnapshot()
+  })
+
+  it('fn:convertIndyRequestedProofToAttributes', () => {
+    expect(
+      convertIndyRequestedProofToAttributes(
+        proof.requested_proof,
+        originalProofRequestData.requested_attrs
+      )
+    ).toMatchSnapshot()
+    expect(
+      convertIndyRequestedProofToAttributes(
+        proofWith10Attributes.requested_proof,
+        originalProofRequestData10Attributes.requested_attrs
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('store update correctly if proof fails', () => {
+    expect(
+      proofReducer(
+        initialState,
+        proofFail(uid, {
+          code: 'TEST-CODE',
+          message: 'test error message',
+        })
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('generate proof saga should generate proof', () => {
+    const gen = generateProofSaga(getProof(uid))
+    expect(gen.next().value).toEqual(select(getOriginalProofRequestData, uid))
+
+    expect(gen.next(originalProofRequestData).value).toEqual(
+      select(getProofRequestPairwiseDid, uid)
+    )
+    expect(gen.next(remoteDid).value).toEqual(select(getPoolConfig))
+    expect(gen.next(poolConfig).value).toEqual(
+      call(prepareProof, JSON.stringify(originalProofRequestData), poolConfig)
+    )
+    const preparedProofJson = JSON.stringify(preparedProof)
+    const requestedClaims = {
+      self_attested_attributes: {},
+      requested_attrs: convertPreparedProofToRequestedAttributes(
+        preparedProof,
+        originalProofRequestData
+      )[0],
+      requested_predicates: {},
+    }
+    expect(gen.next(preparedProofJson).value).toEqual(
+      call(
+        generateProof,
+        JSON.stringify(originalProofRequestData),
+        remoteDid,
+        JSON.stringify(requestedClaims),
+        preparedProofJson,
+        poolConfig
+      )
+    )
+    expect(gen.next(JSON.stringify(proof)).value).toEqual(
+      put(proofSuccess(proof, uid))
+    )
+    const requestedAttributes = convertIndyRequestedProofToAttributes(
+      proof.requested_proof,
+      originalProofRequestData.requested_attrs
+    )
+    expect(gen.next().value).toEqual(
+      put(proofRequestAutoFill(uid, requestedAttributes))
+    )
+
+    expect(gen.next().done).toBe(true)
+  })
+
+  it('generate proof saga should generate proof with missing attributes', () => {
+    const gen = generateProofSaga(getProof(uid))
+    expect(gen.next().value).toEqual(select(getOriginalProofRequestData, uid))
+
+    expect(gen.next(originalProofRequestDataMissingAttribute).value).toEqual(
+      select(getProofRequestPairwiseDid, uid)
+    )
+    expect(gen.next(remoteDid).value).toEqual(select(getPoolConfig))
+    expect(gen.next(poolConfig).value).toEqual(
+      call(
+        prepareProof,
+        JSON.stringify(originalProofRequestDataMissingAttribute),
+        poolConfig
+      )
+    )
+    const preparedProofJson = JSON.stringify(preparedProofWithMissingAttribute)
+    const [
+      requestedAttributesJson,
+      missingAttributes,
+    ] = convertPreparedProofToRequestedAttributes(
+      preparedProofWithMissingAttribute,
+      originalProofRequestDataMissingAttribute
+    )
+
+    expect(gen.next(preparedProofJson).value).toEqual(
+      put(missingAttributesFound(missingAttributes, uid))
+    )
+
+    expect(gen.next().value).toEqual(take(USER_SELF_ATTESTED_ATTRIBUTES))
+
+    const requestedClaims = {
+      self_attested_attributes: convertSelfAttestedToIndySelfAttested(
+        selfAttestedAttributes
+      ),
+      requested_attrs: requestedAttributesJson,
+      requested_predicates: {},
+    }
+    expect(gen.next({ selfAttestedAttributes }).value).toEqual(
+      call(
+        generateProof,
+        JSON.stringify(originalProofRequestDataMissingAttribute),
+        remoteDid,
+        JSON.stringify(requestedClaims),
+        preparedProofJson,
+        poolConfig
+      )
+    )
+    expect(gen.next(JSON.stringify(proofWithMissingAttributes)).value).toEqual(
+      put(proofSuccess(proofWithMissingAttributes, uid))
+    )
+    const requestedAttributes = convertIndyRequestedProofToAttributes(
+      proofWithMissingAttributes.requested_proof,
+      originalProofRequestDataMissingAttribute.requested_attrs
+    )
+    expect(gen.next().value).toEqual(
+      put(proofRequestAutoFill(uid, requestedAttributes))
+    )
+
+    expect(gen.next().done).toBe(true)
   })
 })

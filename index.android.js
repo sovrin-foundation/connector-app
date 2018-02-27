@@ -1,5 +1,0 @@
-/**
- * @flow
- */
-
-import "./app/app";

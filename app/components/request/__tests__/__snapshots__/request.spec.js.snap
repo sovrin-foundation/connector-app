@@ -377,7 +377,6 @@ exports[`<Request /> should match snapshot 1`] = `
                       Object {
                         "paddingVertical": 17,
                       },
-                      null,
                     ],
                     undefined,
                     undefined,
@@ -518,7 +517,6 @@ exports[`<Request /> should match snapshot 1`] = `
                       Object {
                         "paddingVertical": 17,
                       },
-                      null,
                     ],
                     false,
                     false,

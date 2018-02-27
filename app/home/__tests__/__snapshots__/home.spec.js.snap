@@ -85,7 +85,11 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
             onResponderTerminate={[Function]}
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
-            source={undefined}
+            source={
+              Object {
+                "uri": "https://logourl.com/logo.png",
+              }
+            }
             style={
               Array [
                 Object {

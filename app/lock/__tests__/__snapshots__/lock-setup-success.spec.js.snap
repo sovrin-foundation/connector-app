@@ -197,15 +197,18 @@ exports[`<LockSetupSuccess /> should display Loading while fetching the invitati
                 Object {
                   "paddingVertical": 17,
                 },
-                Object {
-                  "backgroundColor": "#ffffff",
-                  "opacity": 0.2,
-                },
               ],
               Object {
                 "backgroundColor": "#dadee0",
               },
-              undefined,
+              Array [
+                Object {
+                  "backgroundColor": "#ffffff",
+                },
+                Object {
+                  "opacity": 0.4,
+                },
+              ],
             ]
           }
         >
@@ -453,7 +456,6 @@ exports[`<LockSetupSuccess /> should render Lock setup success Screen 1`] = `
                 Object {
                   "paddingVertical": 17,
                 },
-                null,
               ],
               false,
               false,

@@ -340,7 +340,6 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
               undefined,
               Array [
                 null,
-                null,
               ],
               undefined,
               undefined,
@@ -736,7 +735,6 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
               undefined,
               undefined,
               Array [
-                null,
                 null,
               ],
               undefined,

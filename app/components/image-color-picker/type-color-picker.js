@@ -26,4 +26,5 @@ export type ConnectionThemeProps = {
   children: any, //TODO:PS: import exact react children types
   backgroundColor: string,
   style: any,
+  disabled?: boolean,
 }

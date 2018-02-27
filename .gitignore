@@ -64,3 +64,6 @@ connectMeUITest/*.log
 connectMeUITest/target
 
 ios/ConnectMe.app.dSYM.zip
+
+# ignore code coverage report
+coverage/

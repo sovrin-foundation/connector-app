@@ -384,7 +384,6 @@ exports[`<Invitation /> should match snapshot 1`] = `
                         Object {
                           "paddingVertical": 17,
                         },
-                        null,
                       ],
                       undefined,
                       undefined,
@@ -525,7 +524,6 @@ exports[`<Invitation /> should match snapshot 1`] = `
                         Object {
                           "paddingVertical": 17,
                         },
-                        null,
                       ],
                       false,
                       false,
@@ -1001,7 +999,6 @@ exports[`<Invitation /> should match snapshot 1`] = `
                 undefined,
                 undefined,
                 Array [
-                  null,
                   null,
                 ],
                 undefined,

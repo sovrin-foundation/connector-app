@@ -1,6 +1,6 @@
 // @flow
-import 'react-native'
 import React from 'react'
+import 'react-native'
 import renderer from 'react-test-renderer'
 import { CLAIM_OFFER_STATUS } from '../../claim-offer/type-claim-offer'
 import {
@@ -13,6 +13,11 @@ import {
   PUSH_NOTIFICATION_SENT_CODE,
 } from '../../api/api-constants'
 import { DashboardScreen } from '../home'
+import {
+  getNavigation,
+  getStore,
+  myPairWiseConnectionDetails,
+} from '../../../__mocks__/static-data'
 
 function props(claimOfferStatus) {
   return {
@@ -21,15 +26,15 @@ function props(claimOfferStatus) {
         '3nj819kkjywdppuje79': {
           identifier: '3nj819kkjywdppuje79',
           name: 'Test Connection',
-          remoteConnectionId: '70075yyojywdppuje79',
+          senderDID: '70075yyojywdppuje79',
+          senderEndpoint: '34.216.340.155:3000',
           size: 100,
-          logoUrl: { uri: 'https://logourl.com/logo.png' },
+          logoUrl: 'https://logourl.com/logo.png',
+          ...myPairWiseConnectionDetails,
         },
       },
     },
-    navigation: {
-      navigate: jest.fn(),
-    },
+    navigation: getNavigation(),
     claimOfferStatus: claimOfferStatus || CLAIM_OFFER_STATUS.RECEIVED,
     route: {
       currentScreen: homeTabRoute,
@@ -54,58 +59,4 @@ describe('<DashboardScreen />', () => {
       .toJSON()
     expect(wrapper).toMatchSnapshot()
   })
-
-  // TODO:PS: Fix this while working on authentication flow
-  // Need to check with authentication as Push notification flow has changes
-
-  // it('should redirect to authentication screen if push is received', () => {
-  //   const dashboardProps = props(CLAIM_OFFER_STATUS.IDLE)
-  //   const instance = renderer
-  //     .create(<DashboardScreen {...dashboardProps} />)
-  //     .getInstance()
-  //   const nextProps = {
-  //     ...dashboardProps,
-  //     pushNotification: {
-  //       notification: {
-  //         type: MESSAGE_TYPE.AUTH,
-  //         authNotifMsgTitle: 'Test title',
-  //         authNotifMsgText: 'Test authentication request message',
-  //         logoUrl: 'https://logourl.com/logoUrl.png',
-  //         remoteConnectionId: '70075yyojywdppuje79',
-  //       },
-  //     },
-  //   }
-  //   instance.componentWillReceiveProps(nextProps)
-  //   const { notification } = nextProps.pushNotification
-  //   expect(nextProps.authenticationRequestReceived).toHaveBeenCalledWith(
-  //     expect.objectContaining({
-  //       offerMsgTitle: notification && notification.authNotifMsgTitle,
-  //       offerMsgText: notification && notification.authNotifMsgText,
-  //       statusCode: PUSH_NOTIFICATION_SENT_CODE,
-  //       logoUrl: notification && notification.logoUrl,
-  //       remoteConnectionId: notification && notification.remoteConnectionId,
-  //     })
-  //   )
-  //   expect(nextProps.navigation.navigate).toHaveBeenCalledWith(
-  //     authenticationRoute
-  //   )
-  //   expect(nextProps.pushNotificationReceived).toHaveBeenCalledWith(null)
-  // })
-
-  // it('should redirect to claim offer screen if push is received', () => {
-  //   const dashboardProps = props(CLAIM_OFFER_STATUS.IDLE)
-  //   const instance = renderer
-  //     .create(<DashboardScreen {...dashboardProps} />)
-  //     .getInstance()
-  //   const nextProps = {
-  //     ...dashboardProps,
-  //     pushNotification: {
-  //       notification: {
-  //         type: MESSAGE_TYPE.CLAIM_OFFER,
-  //       },
-  //     },
-  //   }
-  //   instance.componentWillReceiveProps(nextProps)
-  //   expect(nextProps.navigation.navigate).toHaveBeenCalledWith(claimOfferRoute)
-  // })
 })

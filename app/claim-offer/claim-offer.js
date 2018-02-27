@@ -47,7 +47,7 @@ class ClaimOfferAttributeList extends PureComponent<
   ClaimOfferAttributeListProps,
   void
 > {
-  keyExtractor = (_, index: number) => index
+  keyExtractor = ({ label }: Attribute, index: number) => `${label}${index}`
 
   renderItem = ({ item }: { item: Attribute }) => {
     return (
@@ -79,6 +79,7 @@ class ClaimOfferAttributeList extends PureComponent<
       <Container fifth style={[styles.claimOfferData]}>
         <FlatList
           data={attributes}
+          keyExtractor={this.keyExtractor}
           ItemSeparatorComponent={Separator}
           ListFooterComponent={Separator}
           renderItem={this.renderItem}

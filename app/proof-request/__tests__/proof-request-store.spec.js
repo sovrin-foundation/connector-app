@@ -11,6 +11,9 @@ import proofRequestStore, {
   sendProofSuccess,
   sendProofFail,
   proofAccepted,
+  convertMissingAttributeListToObject,
+  missingAttributesFound,
+  proofRequestAutoFill,
 } from '../proof-request-store'
 import { INITIAL_TEST_ACTION } from '../../common/type-common'
 import {
@@ -30,6 +33,9 @@ import {
   proofRequest,
   proofRequestId as uid,
   poolConfig,
+  missingAttributes,
+  missingAttributes1,
+  fulfilledRequestedAttributes,
 } from '../../../__mocks__/static-data'
 
 describe('proof request store', () => {
@@ -94,6 +100,24 @@ describe('proof request store', () => {
       })
     )
     expect(newState).toMatchSnapshot()
+  })
+
+  it('ACTION: MISSING_ATTRIBUTES_FOUND', () => {
+    expect(
+      proofRequestStore(
+        newState,
+        missingAttributesFound(missingAttributes, uid)
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('ACTION: PROOF_REQUEST_AUTO_FILL', () => {
+    expect(
+      proofRequestStore(
+        newState,
+        proofRequestAutoFill(uid, fulfilledRequestedAttributes)
+      )
+    ).toMatchSnapshot()
   })
 
   it('proofAccepted saga works fine after proof request is accepted', () => {
@@ -180,5 +204,14 @@ describe('proof request store', () => {
     expect(gen.next().value).toMatchObject(put(sendProofSuccess(uid)))
 
     expect(gen.next().done).toBe(true)
+  })
+
+  it('should convert missing attributes to self attested attributes', () => {
+    expect(
+      convertMissingAttributeListToObject(missingAttributes)
+    ).toMatchSnapshot()
+    expect(
+      convertMissingAttributeListToObject(missingAttributes1)
+    ).toMatchSnapshot()
   })
 })

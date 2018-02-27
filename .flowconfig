@@ -25,6 +25,7 @@
 .*/node_modules/react-native-linear-gradient/.*
 .*/node_modules/react-navigation/.*
 .*/node_modules/eslint-plugin-jsx-a11y/.*
+.*/node_modules/react-native-keyboard-aware-scroll-view/.*
 
 ; Ignore polyfills
 .*/Libraries/polyfills/.*

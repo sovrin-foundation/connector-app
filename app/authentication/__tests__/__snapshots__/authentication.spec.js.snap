@@ -380,7 +380,6 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                         Object {
                           "paddingVertical": 17,
                         },
-                        null,
                       ],
                       undefined,
                       undefined,
@@ -521,7 +520,6 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                         Object {
                           "paddingVertical": 17,
                         },
-                        null,
                       ],
                       false,
                       false,
@@ -993,7 +991,6 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                 undefined,
                 undefined,
                 Array [
-                  null,
                   null,
                 ],
                 undefined,

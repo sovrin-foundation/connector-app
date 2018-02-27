@@ -141,12 +141,12 @@ export const hydrateConnections = (connections: Connections) => ({
   connections,
 })
 
-export const getConnections = (connectionsData: Array<Connection>) =>
+export const getConnections = (connectionsData: Connections) =>
   connectionsData ? Object.values(connectionsData) : []
 
 export const getConnection = (
   remoteConnectionId: string,
-  connections: Array<Connection>
+  connections: Connections
 ) =>
   Object.values(connections).filter(function(c: any) {
     return c.remoteConnectionId === remoteConnectionId

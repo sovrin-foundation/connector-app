@@ -307,17 +307,16 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
               undefined,
               Array [
                 null,
-                Object {
-                  "backgroundColor": "#ffffff",
-                  "opacity": 0.2,
-                },
               ],
               Object {
                 "backgroundColor": "#dadee0",
               },
               Array [
                 Object {
-                  "backgroundColor": "transparent",
+                  "backgroundColor": "#ffffff",
+                },
+                Object {
+                  "opacity": 0.4,
                 },
               ],
             ]
@@ -669,7 +668,6 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
               undefined,
               undefined,
               Array [
-                null,
                 null,
               ],
               false,
@@ -1029,17 +1027,16 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
               undefined,
               Array [
                 null,
-                Object {
-                  "backgroundColor": "#ffffff",
-                  "opacity": 0.2,
-                },
               ],
               Object {
                 "backgroundColor": "#dadee0",
               },
               Array [
                 Object {
-                  "backgroundColor": "transparent",
+                  "backgroundColor": "#ffffff",
+                },
+                Object {
+                  "opacity": 0.4,
                 },
               ],
             ]

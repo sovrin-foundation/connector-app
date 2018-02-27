@@ -48,15 +48,13 @@ App to connect Sovrin with 3rd party authentication
 
 # Things to improve
 
-- [X] Add one more property to check if app lock is set, then save that property once lock setup is success. Get it in `hydrateConfig` saga, then check this value in splashscreen.js. It will help in case user has not completed pin setup and kills the app for first time, next time user opens the app, he won't be asked to setup pin
 - [ ] Hydration needs to replace whole store. As of now it just changes few values in config store
 - [ ] Need to save whole store in keychain and implement proper hydration
-- [ ] Show loader when user accept/reject invitation or authentication request
+- [ ] Show loader when user accept/reject invitation
 - [ ] Need to consider scenario if user has not allowed permission for push notification or user disable the permission
 - [ ] We need to communicate to user on why we need push notification permission
 - [ ] Wallet implementation on mobile app is a huge stuff which is pending
-- [X] API requests should use a common function to call API and return response
-- [X] Fix all skipped tests
+- [ ] Fix all skipped tests
 - [ ] Handle all API errors while downloading url, downloading data, accepting/rejecting as per new changes. As of now we are not doing that
 - [ ] Connections key should be remote DID and not user identifier
 - [ ] Remove passing newConnection while saving new connection

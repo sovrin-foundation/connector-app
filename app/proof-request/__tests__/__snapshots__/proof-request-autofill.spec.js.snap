@@ -522,6 +522,13 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
     <RCTScrollView
       ItemSeparatorComponent={[Function]}
       ListFooterComponent={[Function]}
+      automaticallyAdjustContentInsets={false}
+      contentContainerStyle={undefined}
+      contentInset={
+        Object {
+          "bottom": 0,
+        }
+      }
       data={
         Array [
           Object {
@@ -533,11 +540,36 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
         ]
       }
       disableVirtualization={false}
+      enableAutomaticScroll={true}
+      enableResetScrollToCoords={false}
+      extraData={
+        Object {
+          "canEnablePrimaryAction": [Function],
+          "claimMap": undefined,
+          "disableUserInputs": false,
+          "list": Array [
+            Object {
+              "label": "Address 1",
+            },
+            Object {
+              "label": "Address 2",
+            },
+          ],
+          "missingAttributes": Object {},
+        }
+      }
+      extraHeight={235}
+      extraScrollHeight={0}
       getItem={[Function]}
       getItemCount={[Function]}
+      getScrollResponder={[Function]}
+      handleOnScroll={[Function]}
       horizontal={false}
       initialNumToRender={10}
       keyExtractor={[Function]}
+      keyboardDismissMode="interactive"
+      keyboardOpeningTime={250}
+      keyboardSpace={0}
       maxToRenderPerBatch={10}
       numColumns={1}
       onContentSizeChange={[Function]}
@@ -548,9 +580,16 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
       onScrollBeginDrag={[Function]}
       onScrollEndDrag={[Function]}
       renderItem={[Function]}
-      scrollEventThrottle={50}
+      resetKeyboardSpace={[Function]}
+      scrollEventThrottle={1}
+      scrollForExtraHeightOnAndroid={[Function]}
+      scrollToEnd={[Function]}
+      scrollToFocusedInput={[Function]}
+      scrollToPosition={[Function]}
+      showsVerticalScrollIndicator={true}
       stickyHeaderIndices={Array []}
       updateCellsBatchingPeriod={50}
+      viewIsInsideTabBar={false}
       viewabilityConfigCallbackPairs={Array []}
       windowSize={21}
     >
@@ -965,7 +1004,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                       Object {
                         "paddingVertical": 17,
                       },
-                      null,
                     ],
                     undefined,
                     undefined,
@@ -1093,7 +1131,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                     undefined,
                     undefined,
                     Object {
-                      "backgroundColor": "rgba(133, 191, 67, 1.0)",
+                      "backgroundColor": "rgba(133, 191, 67,0.4)",
                     },
                     undefined,
                     Object {
@@ -1106,10 +1144,18 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                       Object {
                         "paddingVertical": 17,
                       },
-                      null,
                     ],
-                    undefined,
-                    undefined,
+                    Object {
+                      "backgroundColor": "#dadee0",
+                    },
+                    Array [
+                      Object {
+                        "backgroundColor": "rgba(133, 191, 67,0.4)",
+                      },
+                      Object {
+                        "opacity": 0.4,
+                      },
+                    ],
                   ]
                 }
               >
@@ -1620,17 +1666,16 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                 undefined,
                 Array [
                   null,
-                  Object {
-                    "backgroundColor": "#ffffff",
-                    "opacity": 0.2,
-                  },
                 ],
                 Object {
                   "backgroundColor": "#dadee0",
                 },
                 Array [
                   Object {
-                    "backgroundColor": "transparent",
+                    "backgroundColor": "#ffffff",
+                  },
+                  Object {
+                    "opacity": 0.4,
                   },
                 ],
               ]

@@ -6,7 +6,10 @@ import type {
   GenericStringObject,
   GenericObject,
 } from '../common/type-common'
-import type { ProofRequestData } from '../proof-request/type-proof-request'
+import type {
+  ProofRequestData,
+  SelfAttestedAttributes,
+} from '../proof-request/type-proof-request'
 
 export type PrepareProof = any
 
@@ -26,6 +29,15 @@ export type ProofRevealedDetails = {
   non_revoc_proof: ?GenericObject,
 }
 
+export type IndyRequestedProof = {
+  revealed_attrs: {
+    [string]: Array<string>,
+  },
+  unrevealed_attrs: GenericObject,
+  self_attested_attrs: GenericObject,
+  predicates: GenericObject,
+}
+
 export type Proof = {
   proofs: {
     [string]: {
@@ -38,21 +50,12 @@ export type Proof = {
     c_hash: string,
     c_list: Array<Array<number>>,
   },
-  requested_proof: {
-    revealed_attrs: {
-      [string]: Array<string>,
-    },
-    unrevealed_attrs: GenericObject,
-    self_attested_attrs: GenericObject,
-    predicates: GenericObject,
-  },
+  requested_proof: IndyRequestedProof,
 }
 
 export const GENERATE_PROOF = 'GENERATE_PROOF'
 export type GenerateProofAction = {
   type: typeof GENERATE_PROOF,
-  proofRequest: ProofRequestData,
-  remoteDid: string,
   uid: string,
 }
 
@@ -79,15 +82,46 @@ export const ERROR_MISSING_ATTRIBUTE_IN_CLAIMS = (
   message,
 })
 
+export type IndySelfAttestedAttributes = {
+  [attributeKey: string]: string,
+}
+
+export const USER_SELF_ATTESTED_ATTRIBUTES = 'USER_SELF_ATTESTED_ATTRIBUTES'
+export type UserSelfAttestedAttributesAction = {
+  type: typeof USER_SELF_ATTESTED_ATTRIBUTES,
+  selfAttestedAttributes: SelfAttestedAttributes,
+  uid: string,
+}
+
+export type IndyPreparedProof = {
+  attrs: {
+    [attributeName: string]: ?[
+      ?{
+        claim_uuid: string,
+        attrs: { [claimAttributeName: string]: string },
+        schema_seq_no: number,
+        issuer_did: string,
+      },
+    ],
+  },
+  predicates: {},
+}
+
+export type IndyRequestedAttributes = {
+  [attributeName: string]: [string, boolean],
+}
+
 export type ProofAction =
   | GenerateProofAction
   | ProofSuccessAction
   | ProofFailAction
+  | UserSelfAttestedAttributesAction
   | InitialTestAction
 
 export type ProofStore = {
   +[string]: {
     proof: Proof,
     error?: CustomError,
+    selfAttestedAttributes?: SelfAttestedAttributes,
   },
 }

@@ -23,11 +23,7 @@ const CustomButton = props => {
     disabled,
   } = props
   const buttonStyles = props.style || empty
-  const style = [
-    medium ? styles.mediumVerticalPadding : null,
-    disabled ? styles.disabled : null,
-    ...buttonStyles,
-  ]
+  const style = [medium ? styles.mediumVerticalPadding : null, ...buttonStyles]
 
   const buttonType = primary
     ? 'primary'
@@ -37,6 +33,12 @@ const CustomButton = props => {
         ? 'tertiary'
         : quaternary ? 'quaternary' : dangerous ? 'dangerous' : 'fifth'
   const buttonProps = { ...getButtonProps(buttonType), ...customColor }
+  // when button is disabled, we want to apply same color that is
+  // generated while picking up the color from image
+  const disabledStyles = [
+    { backgroundColor: customColor.backgroundColor || color.actions.none },
+    styles.disabled,
+  ]
 
   return (
     <Button
@@ -44,6 +46,7 @@ const CustomButton = props => {
       {...buttonProps}
       buttonStyle={style}
       containerViewStyle={styles.buttonContainer}
+      disabledStyle={disabledStyles}
     />
   )
 }
@@ -59,8 +62,7 @@ const styles = StyleSheet.create({
     paddingVertical: 17,
   },
   disabled: {
-    opacity: 0.2,
-    backgroundColor: color.actions.none,
+    opacity: 0.4,
   },
   text: {
     fontWeight: '600',

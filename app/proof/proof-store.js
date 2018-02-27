@@ -1,6 +1,6 @@
 // @flow
 
-import { put, takeLatest, call, all, select } from 'redux-saga/effects'
+import { put, takeLatest, take, call, all, select } from 'redux-saga/effects'
 import type {
   Proof,
   ProofStore,
@@ -8,17 +8,33 @@ import type {
   GenerateProofAction,
   ProofSuccessAction,
   ProofFailAction,
+  IndyPreparedProof,
+  IndyRequestedAttributes,
+  IndySelfAttestedAttributes,
+  UserSelfAttestedAttributesAction,
+  IndyRequestedProof,
 } from './type-proof'
-import type { ProofRequestData } from '../proof-request/type-proof-request'
+import type {
+  ProofRequestData,
+  SelfAttestedAttributes,
+  MissingAttribute,
+  IndySelfAttested,
+  SelfAttestedAttribute,
+  ProofRequestedAttributes,
+} from '../proof-request/type-proof-request'
 import {
   GENERATE_PROOF,
   PROOF_SUCCESS,
   PROOF_FAIL,
   ERROR_MISSING_ATTRIBUTE_IN_CLAIMS,
+  USER_SELF_ATTESTED_ATTRIBUTES,
 } from './type-proof'
 import type { CustomError } from '../common/type-common'
 import { prepareProof, generateProof } from '../bridge/react-native-cxs/RNCxs'
-import { proofRequestAutoFill } from '../proof-request/proof-request-store'
+import {
+  proofRequestAutoFill,
+  missingAttributesFound,
+} from '../proof-request/proof-request-store'
 import {
   getOriginalProofRequestData,
   getProofRequestPairwiseDid,
@@ -26,6 +42,7 @@ import {
   getPoolConfig,
   getProofRequesterName,
 } from '../store/store-selector'
+import type { Attribute } from '../push-notification/type-push-notification'
 
 export const getProof = (uid: string) => ({
   type: GENERATE_PROOF,
@@ -50,6 +67,85 @@ export const proofFail = (
   error,
 })
 
+export const userSelfAttestedAttributes = (
+  selfAttestedAttributes: SelfAttestedAttributes,
+  uid: string
+) => ({
+  type: USER_SELF_ATTESTED_ATTRIBUTES,
+  selfAttestedAttributes,
+  uid,
+})
+
+export function convertSelfAttestedToIndySelfAttested(
+  selfAttestedAttributes: SelfAttestedAttributes
+): IndySelfAttested {
+  return Object.keys(selfAttestedAttributes).reduce((acc, name) => {
+    const { key, data }: SelfAttestedAttribute = selfAttestedAttributes[name]
+    return {
+      ...acc,
+      [key]: data,
+    }
+  }, {})
+}
+
+export function convertPreparedProofToRequestedAttributes(
+  preparedProof: IndyPreparedProof,
+  proofRequest: ProofRequestData
+): [IndyRequestedAttributes, MissingAttribute[]] {
+  // apart from conversion, it finds attributes that are not in any claim
+
+  const missingAttributes: MissingAttribute[] = []
+  const requestedAttributes = Object.keys(proofRequest.requested_attrs).reduce(
+    (acc, attrKey) => {
+      const attributeClaimData = preparedProof.attrs[attrKey]
+
+      if (!attributeClaimData || !attributeClaimData[0]) {
+        missingAttributes.push({
+          key: attrKey,
+          name: proofRequest.requested_attrs[attrKey].name,
+        })
+
+        return acc
+      }
+
+      return {
+        ...acc,
+        [attrKey]: [attributeClaimData[0].claim_uuid, true],
+      }
+    },
+    {}
+  )
+
+  return [requestedAttributes, missingAttributes]
+}
+
+export function convertIndyRequestedProofToAttributes(
+  requestedProof: IndyRequestedProof,
+  requestedAttributes: ProofRequestedAttributes
+): Attribute[] {
+  return Object.keys(requestedAttributes).map(attributeKey => {
+    const label = requestedAttributes[attributeKey].name
+
+    const revealedAttribute = requestedProof.revealed_attrs[attributeKey]
+
+    if (revealedAttribute) {
+      return {
+        label,
+        data: revealedAttribute[1],
+        claimUuid: revealedAttribute[0],
+      }
+    }
+
+    const selfAttestedAttribute =
+      requestedProof.self_attested_attrs[attributeKey]
+
+    return {
+      label,
+      data: selfAttestedAttribute,
+    }
+  })
+}
+
 export function* generateProofSaga(
   action: GenerateProofAction
 ): Generator<*, *, *> {
@@ -61,49 +157,39 @@ export function* generateProofSaga(
     )
     const remoteDid: string = yield select(getProofRequestPairwiseDid, uid)
     const poolConfig: string = yield select(getPoolConfig)
-    const preparedProof = yield call(
+
+    const preparedProofJson: string = yield call(
       prepareProof,
       JSON.stringify(proofRequest),
       poolConfig
     )
 
-    // generate proof
-    const preparedProofJSON = JSON.parse(preparedProof)
-    let requestedAttrsJson
-    try {
-      let missedAttributes = []
-      requestedAttrsJson = Object.keys(proofRequest.requested_attrs).reduce(
-        (acc, attrKey) => {
-          const attributeClaimData = preparedProofJSON.attrs[attrKey]
-          if (!attributeClaimData || !attributeClaimData[0]) {
-            missedAttributes.push(proofRequest.requested_attrs[attrKey].name)
-            return acc
-          } else {
-            return {
-              ...acc,
-              [attrKey]: [attributeClaimData[0].claim_uuid, true],
-            }
-          }
-        },
-        {}
+    const preparedProof: IndyPreparedProof = JSON.parse(preparedProofJson)
+    const [
+      requestedAttrsJson,
+      missingAttributes,
+    ] = convertPreparedProofToRequestedAttributes(preparedProof, proofRequest)
+    let selfAttestedAttributes: SelfAttestedAttributes = {}
+
+    if (missingAttributes.length > 0) {
+      // if we find that there are some attributes that are not available
+      // in any of the claims stored in user wallet
+      // then we ask user to fill in those attributes
+      // so we need to tell proof request screen to ask user to
+      yield put(missingAttributesFound(missingAttributes, uid))
+
+      // once user has filled all attributes, we need to get those details here
+      // user filled details become self attested attributes
+      const selfAttestedFilledAction: UserSelfAttestedAttributesAction = yield take(
+        USER_SELF_ATTESTED_ATTRIBUTES
       )
-
-      if (missedAttributes.length > 0) {
-        const name = yield select(getProofRequesterName, action.uid)
-        const missing = missedAttributes.join(', ')
-        const message = `You do not have all of the attributes ${name} is asking for. You are missing ${missing}. You can gather those attributes by accepting more offers from your connections, and try again.`
-        throw new Error(
-          JSON.stringify(ERROR_MISSING_ATTRIBUTE_IN_CLAIMS(message))
-        )
-      }
-    } catch (e) {
-      yield put(proofFail(action.uid, JSON.parse(e.message)))
-
-      return
+      selfAttestedAttributes = selfAttestedFilledAction.selfAttestedAttributes
     }
 
     const requestedClaimsJson = {
-      self_attested_attributes: {},
+      self_attested_attributes: convertSelfAttestedToIndySelfAttested(
+        selfAttestedAttributes
+      ),
       requested_attrs: requestedAttrsJson,
       requested_predicates: {},
     }
@@ -114,21 +200,18 @@ export function* generateProofSaga(
       JSON.stringify(proofRequest),
       remoteDid,
       JSON.stringify(requestedClaimsJson),
-      preparedProof,
+      preparedProofJson,
       poolConfig
     )
-    const proof = JSON.parse(proofJson)
+    const proof: Proof = JSON.parse(proofJson)
 
     yield put(proofSuccess(proof, uid))
 
     // auto-fill proof request
     const { requested_attrs, name, version } = proofRequest
-    const requestedAttributes = Object.keys(requested_attrs).map(
-      attributeKey => ({
-        label: requested_attrs[attributeKey].name,
-        data: proof.requested_proof.revealed_attrs[attributeKey][1],
-        claimUuid: proof.requested_proof.revealed_attrs[attributeKey][0],
-      })
+    const requestedAttributes = convertIndyRequestedProofToAttributes(
+      proof.requested_proof,
+      requested_attrs
     )
     yield put(proofRequestAutoFill(uid, requestedAttributes))
   } catch (e) {

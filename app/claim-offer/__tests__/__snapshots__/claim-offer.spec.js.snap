@@ -797,7 +797,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       Object {
                         "paddingVertical": 17,
                       },
-                      null,
                     ],
                     undefined,
                     undefined,
@@ -938,10 +937,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       Object {
                         "paddingVertical": 17,
                       },
-                      null,
                     ],
-                    undefined,
-                    undefined,
+                    false,
+                    false,
                   ]
                 }
               >
@@ -976,7 +974,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                         undefined,
                         undefined,
                         undefined,
-                        undefined,
+                        false,
                       ],
                     ]
                   }
@@ -1417,7 +1415,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 undefined,
                 undefined,
                 Array [
-                  null,
                   null,
                 ],
                 undefined,

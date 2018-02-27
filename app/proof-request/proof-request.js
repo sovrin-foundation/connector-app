@@ -1,15 +1,10 @@
 // @flow
 import React, { PureComponent } from 'react'
-import {
-  StyleSheet,
-  Platform,
-  Image,
-  FlatList,
-  View,
-  Alert,
-} from 'react-native'
+import { StyleSheet, Image, FlatList, Alert, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
+import debounce from 'lodash.debounce'
 
 import {
   Container,
@@ -35,11 +30,15 @@ import {
   isiPhone5,
 } from '../common/styles'
 import type { Attribute } from '../push-notification/type-push-notification'
-import type { ProofRequestAttributeListProp } from './type-proof-request'
 import type { Store } from '../store/type-store'
 import type {
   ProofRequestProps,
   AdditionalProofDataPayload,
+  ProofRequestAttributeListState,
+  MissingAttributes,
+  ProofRequestState,
+  ProofRequestAttributeListProp,
+  SelfAttestedAttributes,
 } from './type-proof-request'
 import ProofModal from './proof-modal'
 import {
@@ -47,30 +46,123 @@ import {
   acceptProofRequest,
   ignoreProofRequest,
   proofRequestShown,
-  getProof,
 } from '../store'
 import { getConnectionLogoUrl } from '../store/store-selector'
 import { ERROR_CODE_MISSING_ATTRIBUTE } from '../proof/type-proof'
+import type {
+  GenericObject,
+  CustomError,
+  GenericStringObject,
+} from '../common/type-common'
+import {
+  PRIMARY_ACTION_SEND,
+  PRIMARY_ACTION_GENERATE_PROOF,
+  SECONDARY_ACTION_IGNORE,
+  MESSAGE_MISSING_ATTRIBUTES_DESCRIPTION,
+  MESSAGE_MISSING_ATTRIBUTES_TITLE,
+  MESSAGE_ERROR_PROOF_GENERATION_TITLE,
+  MESSAGE_ERROR_PROOF_GENERATION_DESCRIPTION,
+} from './type-proof-request'
+import { userSelfAttestedAttributes, getProof } from '../proof/proof-store'
+
+export function generateStateForMissingAttributes(
+  missingAttributes: MissingAttributes | {}
+) {
+  return Object.keys(missingAttributes).reduce(
+    (acc, attributeName) => ({
+      ...acc,
+      [attributeName]: '',
+    }),
+    {}
+  )
+}
+
+export function isInvalidValues(
+  missingAttributes: MissingAttributes | {},
+  userFilledValues: GenericObject
+): boolean {
+  return Object.keys(missingAttributes).some(attributeName => {
+    const userFilledValue = userFilledValues[attributeName]
+
+    if (!userFilledValue) {
+      return true
+    }
+
+    const adjustedUserFilledValue = userFilledValue.trim()
+
+    if (!adjustedUserFilledValue) {
+      return true
+    }
+
+    return false
+  })
+}
 
 class ProofRequestAttributeList extends PureComponent<
   ProofRequestAttributeListProp,
-  void
+  ProofRequestAttributeListState
 > {
+  constructor(props: ProofRequestAttributeListProp) {
+    super(props)
+
+    this.canEnableGenerateProof = debounce(
+      this.canEnableGenerateProof.bind(this),
+      250
+    )
+  }
+
+  componentWillReceiveProps(nextProps: ProofRequestAttributeListProp) {
+    if (this.props.missingAttributes !== nextProps.missingAttributes) {
+      // once we know that there are missing attributes
+      // then we generate state variable for each of them
+      // because we will show user some input boxes and need to capture values
+      // that user fills in them, also we need to enable generate proof button
+      // once all the missing attributes are filled in by user
+      this.setState(
+        generateStateForMissingAttributes(nextProps.missingAttributes)
+      )
+    }
+  }
+
+  // this form is needed to fix flow error
+  // because methods of a class are by default covariant
+  // so we need an invariance to tell method signature
+  canEnableGenerateProof = function() {
+    const isInvalid = isInvalidValues(this.props.missingAttributes, this.state)
+    this.props.canEnablePrimaryAction(!isInvalid, this.state)
+  }
+
+  onTextChange = (e, name: string) => {
+    const { text } = e.nativeEvent
+    this.setState(
+      {
+        [name]: text,
+      },
+      this.canEnableGenerateProof
+    )
+  }
+
+  keyExtractor = ({ label }: Attribute, index: number) => `${label}${index}`
+
   renderItem = ({ item, index }) => {
+    const adjustedLabel = item.label.toLocaleLowerCase()
+    const testID = 'proof-request-attribute-item'
     const logoUrl = item.data
       ? item.claimUuid &&
         this.props.claimMap &&
         this.props.claimMap[item.claimUuid] &&
         this.props.claimMap[item.claimUuid].logoUrl
         ? { uri: this.props.claimMap[item.claimUuid].logoUrl }
-        : require('../images/cb_evernym.png')
+        : require('../images/UserAvatar.png')
       : null
+    const showInputBox =
+      adjustedLabel in this.props.missingAttributes && !item.data
 
     return (
       <Container
         fifth
         style={[styles.attributeItem]}
-        testID={`proof-request-attribute-item-${index}`}
+        testID={`${testID}-${index}`}
         row
       >
         <Container fifth verticalSpace style={[styles.label]}>
@@ -87,9 +179,27 @@ class ProofRequestAttributeList extends PureComponent<
             </CustomText>
           </CustomView>
           <CustomView fifth style={[styles.attributeListValue]}>
-            <CustomText h6 demiBold bg="tertiary" transparentBg>
-              {item.data}
-            </CustomText>
+            {showInputBox ? (
+              <TextInput
+                autoCorrect={false}
+                blurOnSubmit={true}
+                clearButtonMode="always"
+                numberOfLines={3}
+                name={adjustedLabel}
+                multiline={true}
+                maxLength={200}
+                maxHeight={50}
+                placeholder={`enter ${item.label}`}
+                returnKeyType="done"
+                testID={`${testID}-input-${adjustedLabel}`}
+                onChange={e => this.onTextChange(e, adjustedLabel)}
+                editable={!this.props.disableUserInputs}
+              />
+            ) : (
+              <CustomText h6 demiBold bg="tertiary" transparentBg>
+                {item.data}
+              </CustomText>
+            )}
           </CustomView>
         </Container>
         <Icon
@@ -106,20 +216,112 @@ class ProofRequestAttributeList extends PureComponent<
 
   render() {
     const attributes: Array<Attribute> = this.props.list
+
     return (
       <Container fifth style={[styles.proofRequestData]}>
-        <FlatList
+        <KeyboardAwareFlatList
           data={attributes}
+          keyExtractor={this.keyExtractor}
           ItemSeparatorComponent={Separator}
           ListFooterComponent={Separator}
           renderItem={this.renderItem}
+          extraData={this.props}
+          extraHeight={235}
+          enableResetScrollToCoords={false}
         />
       </Container>
     )
   }
 }
 
-export class ProofRequest extends PureComponent<ProofRequestProps, void> {
+export function convertUserFilledValuesToSelfAttested(
+  userFilledValues: GenericStringObject,
+  missingAttributes: MissingAttributes | {}
+): SelfAttestedAttributes {
+  return Object.keys(missingAttributes).reduce((acc, name) => {
+    return {
+      ...acc,
+      [name]: {
+        name,
+        data: userFilledValues[name],
+        key: missingAttributes[name].key,
+      },
+    }
+  }, {})
+}
+
+export function getPrimaryActionText(
+  missingAttributes: MissingAttributes | {},
+  generateProofClicked: boolean
+) {
+  if (generateProofClicked) {
+    return PRIMARY_ACTION_SEND
+  }
+
+  return Object.keys(missingAttributes).length > 0
+    ? PRIMARY_ACTION_GENERATE_PROOF
+    : PRIMARY_ACTION_SEND
+}
+
+export const isPropEmpty = (prop: string) => (data: GenericObject) =>
+  !data[prop]
+export const missingData = isPropEmpty('data')
+
+export function enablePrimaryAction(
+  missingAttributes: MissingAttributes | {},
+  generateProofClicked: boolean,
+  allMissingAttributesFilled: boolean,
+  error: ?CustomError,
+  requestedAttributes: Attribute[]
+) {
+  // we need to decide on whether to enable Send/Generate-Proof button
+
+  if (error) {
+    return false
+  }
+
+  const missingCount = Object.keys(missingAttributes).length
+  if (missingCount > 0) {
+    if (allMissingAttributesFilled === false) {
+      return false
+    }
+
+    if (generateProofClicked === false) {
+      return true
+    }
+  }
+
+  const isMissingData = requestedAttributes.some(missingData)
+  if (isMissingData) {
+    return false
+  }
+
+  return true
+}
+
+export function hasMissingAttributes(
+  missingAttributes: MissingAttributes | {}
+) {
+  return Object.keys(missingAttributes).length > 0
+}
+
+export function getMissingAttributeNames(
+  missingAttributes: MissingAttributes | {}
+) {
+  return Object.keys(missingAttributes).join(', ')
+}
+
+export class ProofRequest extends PureComponent<
+  ProofRequestProps,
+  ProofRequestState
+> {
+  state = {
+    allMissingAttributesFilled: false,
+    generateProofClicked: false,
+    selfAttestedAttributes: {},
+    disableUserInputs: false,
+  }
+
   close = () => {
     this.props.navigation.goBack()
   }
@@ -135,26 +337,66 @@ export class ProofRequest extends PureComponent<ProofRequestProps, void> {
   }
 
   onSend = () => {
-    this.props.acceptProofRequest(this.props.uid)
+    if (
+      this.state.generateProofClicked ||
+      !hasMissingAttributes(this.props.missingAttributes)
+    ) {
+      // if we don't find any missing attributes then
+      // user will never see generate proof button and we don't need to wait for
+      // generate proof button to be clicked after all attributes are filled
+      this.props.acceptProofRequest(this.props.uid)
+    } else {
+      // we need to change the text to send once we know that generate proof is clicked
+      // also, we need to disable user inputs once user has submitted those fields
+      // because user can't change them now
+      this.setState({ generateProofClicked: true, disableUserInputs: true })
+      this.props.userSelfAttestedAttributes(
+        convertUserFilledValuesToSelfAttested(
+          this.state.selfAttestedAttributes,
+          this.props.missingAttributes
+        ),
+        this.props.uid
+      )
+    }
   }
 
-  componentWillReceiveProps(nextProps: ProofRequestProps) {
-    if (nextProps.proofGenerationError !== this.props.proofGenerationError) {
-      if (
-        nextProps.proofGenerationError &&
-        nextProps.proofGenerationError.code === ERROR_CODE_MISSING_ATTRIBUTE
-      ) {
-        Alert.alert(
-          'Missing information',
-          nextProps.proofGenerationError.message
-        )
-      }
-    }
+  canEnablePrimaryAction = (
+    canEnable: boolean,
+    selfAttestedAttributes: GenericStringObject
+  ) => {
+    this.setState({
+      allMissingAttributesFilled: canEnable,
+      selfAttestedAttributes,
+    })
   }
 
   componentDidMount() {
     this.props.proofRequestShown(this.props.uid)
     this.props.getProof(this.props.uid)
+  }
+
+  componentWillReceiveProps(nextProps: ProofRequestProps) {
+    if (
+      this.props.missingAttributes !== nextProps.missingAttributes &&
+      hasMissingAttributes(nextProps.missingAttributes)
+    ) {
+      Alert.alert(
+        MESSAGE_MISSING_ATTRIBUTES_TITLE,
+        MESSAGE_MISSING_ATTRIBUTES_DESCRIPTION(
+          getMissingAttributeNames(nextProps.missingAttributes)
+        )
+      )
+    }
+
+    if (
+      this.props.proofGenerationError !== nextProps.proofGenerationError &&
+      nextProps.proofGenerationError
+    ) {
+      Alert.alert(
+        MESSAGE_ERROR_PROOF_GENERATION_TITLE,
+        MESSAGE_ERROR_PROOF_GENERATION_DESCRIPTION
+      )
+    }
   }
 
   render() {
@@ -167,100 +409,124 @@ export class ProofRequest extends PureComponent<ProofRequestProps, void> {
       remotePairwiseDID,
       logoUrl,
       claimMap,
+      missingAttributes,
+      proofGenerationError,
     } = this.props
     const testID = 'proof-request'
-    const { name: title } = data
+    const { name: title, requestedAttributes } = data
     const logoUri = logoUrl
       ? { uri: logoUrl }
       : require('../images/cb_evernym.png')
 
-    return (
-      <Container fifth>
-        {isValid && (
-          <ClaimProofHeader
-            message={`${name} would like you to share:`}
-            title={title}
-            onClose={this.onIgnore}
-            logoUrl={logoUrl}
-            testID={testID}
-          >
-            <Icon
-              absolute="TopRight"
-              src={require('../images/close.png')}
-              small
-              testID={`${testID}-icon-close`}
-              onPress={this.close}
-              style={[styles.headerCloseIconContainer]}
-            />
-            <CustomView fifth hCenter style={[styles.headerStripLogoContainer]}>
-              <ConnectionTheme logoUrl={logoUrl} style={[styles.strip]} />
-              <CustomView
-                row
-                vCenter
-                spaceBetween
-                style={[styles.avatarsContainer]}
-                testID={`${testID}-text-avatars-container`}
-              >
-                <Icon
-                  center
-                  halo
-                  extraLarge
-                  resizeMode="cover"
-                  src={require('../images/UserAvatar.png')}
-                  style={[styles.verifierLogo]}
-                  iconStyle={[styles.verifierLogoIcon]}
-                  haloStyle={styles.logoHaloStyle}
-                  testID={`${testID}-verifier-logo`}
-                />
-                <Image
-                  style={[styles.checkMark]}
-                  source={require('../images/icon_rightArrow.png')}
-                  testID={`${testID}-check-mark`}
-                />
-                <Icon
-                  center
-                  halo
-                  extraLarge
-                  resizeMode="cover"
-                  src={logoUri}
-                  haloStyle={styles.logoHaloStyle}
-                  style={[styles.verifierLogo]}
-                  iconStyle={[styles.verifierLogoIcon]}
-                  testID={`${testID}-verifier-logo`}
-                />
-              </CustomView>
-            </CustomView>
-          </ClaimProofHeader>
-        )}
-        {isValid ? (
-          <ProofRequestAttributeList
-            list={data.requestedAttributes}
-            claimMap={claimMap}
-          />
-        ) : (
+    const primaryActionText = getPrimaryActionText(
+      missingAttributes,
+      this.state.generateProofClicked
+    )
+    const enablePrimaryActionStatus = enablePrimaryAction(
+      missingAttributes,
+      this.state.generateProofClicked,
+      this.state.allMissingAttributesFilled,
+      proofGenerationError,
+      requestedAttributes
+    )
+
+    if (!isValid) {
+      return (
+        <Container>
           <Container fifth center>
             <CustomText h5 bg="fifth">
               Invalid proof request. Please ignore.
             </CustomText>
           </Container>
-        )}
+          <FooterActions
+            onDecline={this.onReject}
+            denyTitle="Ignore"
+            testID={testID}
+          />
+        </Container>
+      )
+    }
+
+    return (
+      <Container fifth>
+        <ClaimProofHeader
+          message={`${name} would like you to share:`}
+          title={title}
+          onClose={this.onIgnore}
+          logoUrl={logoUrl}
+          testID={testID}
+        >
+          <Icon
+            absolute="TopRight"
+            src={require('../images/close.png')}
+            small
+            testID={`${testID}-icon-close`}
+            onPress={this.close}
+            style={[styles.headerCloseIconContainer]}
+          />
+          <CustomView fifth hCenter style={[styles.headerStripLogoContainer]}>
+            <ConnectionTheme logoUrl={logoUrl} style={[styles.strip]} />
+            <CustomView
+              row
+              vCenter
+              spaceBetween
+              style={[styles.avatarsContainer]}
+              testID={`${testID}-text-avatars-container`}
+            >
+              <Icon
+                center
+                halo
+                extraLarge
+                resizeMode="cover"
+                src={require('../images/UserAvatar.png')}
+                style={[styles.verifierLogo]}
+                iconStyle={[styles.verifierLogoIcon]}
+                haloStyle={styles.logoHaloStyle}
+                testID={`${testID}-verifier-logo`}
+              />
+              <Image
+                style={[styles.checkMark]}
+                source={require('../images/icon_rightArrow.png')}
+                testID={`${testID}-check-mark`}
+              />
+              <Icon
+                center
+                halo
+                extraLarge
+                resizeMode="cover"
+                src={logoUri}
+                haloStyle={styles.logoHaloStyle}
+                style={[styles.verifierLogo]}
+                iconStyle={[styles.verifierLogoIcon]}
+                testID={`${testID}-verifier-logo`}
+              />
+            </CustomView>
+          </CustomView>
+        </ClaimProofHeader>
+
+        <ProofRequestAttributeList
+          list={requestedAttributes}
+          claimMap={claimMap}
+          missingAttributes={missingAttributes}
+          canEnablePrimaryAction={this.canEnablePrimaryAction}
+          disableUserInputs={this.state.disableUserInputs}
+        />
         <FooterActions
           logoUrl={logoUrl}
           onAccept={this.onSend}
           onDecline={this.onReject}
           denyTitle="Ignore"
-          acceptTitle="Send"
+          acceptTitle={primaryActionText}
+          disableAccept={!enablePrimaryActionStatus}
           testID={testID}
         />
-        {isValid && (
-          <ProofModal
-            proofStatus={proofStatus}
-            title={title}
-            name={name}
-            onContinue={this.close}
-            logoUrl={logoUrl}
-          />
-        )}
+        <ProofModal
+          proofStatus={proofStatus}
+          title={title}
+          name={name}
+          onContinue={this.close}
+          logoUrl={logoUrl}
+        />
       </Container>
     )
   }
@@ -276,8 +542,8 @@ const mapStateToProps = (state: Store, props) => {
     data,
     requester = {},
     proofStatus,
-    status,
     remotePairwiseDID,
+    missingAttributes = {},
   } = proofRequestData
   const { name } = requester
   const isValid = proofRequestData && data && data.requestedAttributes
@@ -292,6 +558,7 @@ const mapStateToProps = (state: Store, props) => {
     proofStatus,
     proofGenerationError,
     claimMap: state.claim.claimMap,
+    missingAttributes,
   }
 }
 
@@ -303,6 +570,7 @@ const mapDispatchToProps = dispatch =>
       ignoreProofRequest,
       rejectProofRequest,
       getProof,
+      userSelfAttestedAttributes,
     },
     dispatch
   )

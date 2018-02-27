@@ -7,14 +7,6 @@ import { deepLinkData, deepLinkEmpty, deepLinkError } from '../store'
 import type { DeepLinkProps, DeepLinkBundle } from './type-deep-link'
 
 export class DeepLink extends PureComponent<DeepLinkProps, void> {
-  // TODO: Fix this
-  // Problem with below function is that it will not work if
-  // app is moved in background and then a universal link is clicked
-  // from phone, then this function will not get the deep link data
-  // and we will not be able to load connections
-  // However, it will work if we kill the app and then open universal link
-  // it will also work in case of fresh app installation, then also
-  // we will get the deep link data
   onDeepLinkData = (bundle: DeepLinkBundle) => {
     if (bundle.error) {
       this.props.deepLinkError(bundle.error)

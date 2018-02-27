@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import { Animated, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
@@ -5,16 +6,14 @@ import { bindActionCreators } from 'redux'
 import { Container, CustomView, Icon } from '../components'
 import Bubbles from './bubbles'
 import { barStyleDark, OFFSET_3X } from '../common/styles'
-import { getConnections, loadHistory } from '../store'
+import { getConnections } from '../store'
 import { CLAIM_OFFER_STATUS } from '../claim-offer/type-claim-offer'
+import type { Store } from '../store/type-store'
+import type { HomeProps, HomeState } from './type-home'
 
-export class DashboardScreen extends PureComponent {
+export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
   state = {
     scrollY: new Animated.Value(0),
-  }
-
-  componentWillMount() {
-    this.props.loadHistory()
   }
 
   render() {
@@ -47,19 +46,11 @@ export class DashboardScreen extends PureComponent {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: Store) => ({
   connections: state.connections,
 })
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      loadHistory,
-    },
-    dispatch
-  )
-
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardScreen)
+export default connect(mapStateToProps)(DashboardScreen)
 
 const styles = StyleSheet.create({
   userAvatarContainer: {

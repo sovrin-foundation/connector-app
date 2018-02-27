@@ -1,6 +1,7 @@
 // @flow
 import type { ReactNavigation } from '../common/type-common'
 import type { Connection } from '../connection/type-connection'
+import type { ConnectionStore } from '../store/type-connection-store'
 
 export type BubbleProps = {
   size: number,
@@ -20,4 +21,11 @@ export type BubblesProps = {
   height: number,
 } & ReactNavigation
 
-export type HomeProps = {}
+export type HomeProps = {
+  connections: ConnectionStore,
+} & ReactNavigation
+
+export type HomeState = {
+  // Don't have react-native Animated API type definition
+  scrollY: any,
+}

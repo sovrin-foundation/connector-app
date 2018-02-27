@@ -5,6 +5,8 @@ import type {
   GenericObject,
   MessageAnnotation,
   TopicAnnotation,
+  ReactNavigation,
+  GenericStringObject,
 } from '../common/type-common'
 import type {
   ClaimProofNavigation,
@@ -29,13 +31,15 @@ export type RequestedPredicates = {
   issuer_did?: string,
 }
 
+export type ProofRequestedAttributes = {
+  +[string]: RequestedAttribute,
+}
+
 export type ProofRequestData = {
   nonce: string,
   name: string,
   version: string,
-  requested_attrs: {
-    +[string]: RequestedAttribute,
-  },
+  requested_attrs: ProofRequestedAttributes,
   requested_predicates?: ?{
     +[string]: RequestedPredicates,
   },
@@ -79,6 +83,16 @@ export type AdditionalProofDataPayload = {
 export type ProofRequestAttributeListProp = {
   list: Array<Attribute>,
   claimMap?: ?ClaimMap,
+  missingAttributes: MissingAttributes | {},
+  canEnablePrimaryAction: (
+    canEnable: boolean,
+    selfAttestedAttributes: GenericStringObject
+  ) => void,
+  disableUserInputs: boolean,
+}
+
+export type ProofRequestAttributeListState = {
+  [string]: string,
 }
 
 export type ProofModalState = {
@@ -99,6 +113,7 @@ export type ProofRequestPayload = AdditionalProofDataPayload & {
   uid: string,
   senderLogoUrl?: ?string,
   remotePairwiseDID: string,
+  missingAttributes?: MissingAttributes,
 }
 
 export type ProofRequestProps = {
@@ -119,9 +134,20 @@ export type ProofRequestProps = {
     uid: string
   ) => void,
   uid: string,
-  navigation: ClaimProofNavigation,
   proofGenerationError?: ?CustomError,
   claimMap?: ?ClaimMap,
+  missingAttributes: MissingAttributes | {},
+  userSelfAttestedAttributes: (
+    selfAttestedAttributes: SelfAttestedAttributes,
+    uid: string
+  ) => void,
+} & ReactNavigation
+
+export type ProofRequestState = {
+  allMissingAttributesFilled: boolean,
+  generateProofClicked: boolean,
+  selfAttestedAttributes: GenericStringObject,
+  disableUserInputs: boolean,
 }
 
 export const PROOF_REQUEST_RECEIVED = 'PROOF_REQUEST_RECEIVED'
@@ -200,6 +226,32 @@ export type ProofRequestAutoFillAction = {
   requestedAttributes: Array<Attribute>,
 }
 
+export type MissingAttribute = {
+  key: string,
+  name: string,
+}
+
+export type SelfAttestedAttribute = {
+  name: string,
+  data: string,
+  key: string,
+}
+
+export type SelfAttestedAttributes = {
+  [attributeName: string]: SelfAttestedAttribute,
+}
+
+export type MissingAttributes = SelfAttestedAttributes
+
+export type IndySelfAttested = GenericStringObject
+
+export const MISSING_ATTRIBUTES_FOUND = 'MISSING_ATTRIBUTES_FOUND'
+export type MissingAttributesFoundAction = {
+  type: typeof MISSING_ATTRIBUTES_FOUND,
+  missingAttributes: MissingAttributes,
+  uid: string,
+}
+
 export type ProofRequestInitialAction = {
   type: typeof INITIAL_TEST_ACTION,
 }
@@ -215,7 +267,24 @@ export type ProofRequestAction =
   | ProofRequestInitialAction
   | ProofRequestRejectedAction
   | ProofRequestAutoFillAction
+  | MissingAttributesFoundAction
 
 export type ProofRequestStore = {
   +[string]: ProofRequestPayload,
 }
+
+export const PRIMARY_ACTION_SEND = 'Send'
+export const PRIMARY_ACTION_GENERATE_PROOF = 'Generate'
+export const SECONDARY_ACTION_IGNORE = 'Ignore'
+
+export const MESSAGE_MISSING_ATTRIBUTES_TITLE = 'Information missing'
+export const MESSAGE_MISSING_ATTRIBUTES_DESCRIPTION = (
+  missingAttributeNames: string
+) =>
+  `Some of requested attributes are missing from claims that you have. We can't automatically fill these attributes.
+  Please fill ${missingAttributeNames}.
+  Click 'Generate'. Once you have filled all missing attributes we will auto fill the rest of them.`
+
+export const MESSAGE_ERROR_PROOF_GENERATION_TITLE = 'Error generating proof'
+export const MESSAGE_ERROR_PROOF_GENERATION_DESCRIPTION =
+  'Please try again after some time.'

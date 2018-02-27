@@ -161,12 +161,95 @@ export const originalProofRequestData = {
     attr1_uuid: {
       schema_seq_no: claimDefinitionSchemaSequenceNumber,
       issuer_did: issuerDid,
+      name: 'Address 1',
+    },
+    attr2_uuid: {
+      schema_seq_no: claimDefinitionSchemaSequenceNumber,
+      issuer_did: issuerDid,
+      name: 'Address 2',
+    },
+  },
+  requested_predicates: {},
+}
+
+export const originalProofRequestData10Attributes = {
+  nonce: '123432421212',
+  name: 'proof_req_2',
+  version: '0.1',
+  requested_attrs: {
+    attr1_uuid: {
+      schema_seq_no: claimDefinitionSchemaSequenceNumber,
+      issuer_did: issuerDid,
+      name: 'Address 1',
+    },
+    attr2_uuid: {
+      schema_seq_no: claimDefinitionSchemaSequenceNumber,
+      issuer_did: issuerDid,
+      name: 'Address 2',
+    },
+    attr3_uuid: {
+      schema_seq_no: claimDefinitionSchemaSequenceNumber,
+      issuer_did: issuerDid,
+      name: 'Address 3',
+    },
+    attr4_uuid: {
+      schema_seq_no: claimDefinitionSchemaSequenceNumber,
+      issuer_did: issuerDid,
+      name: 'Address 4',
+    },
+    attr5_uuid: {
+      schema_seq_no: claimDefinitionSchemaSequenceNumber,
+      issuer_did: issuerDid,
+      name: 'Address 5',
+    },
+    attr6_uuid: {
+      schema_seq_no: claimDefinitionSchemaSequenceNumber,
+      issuer_did: issuerDid,
+      name: 'Address 6',
+    },
+    attr7_uuid: {
+      schema_seq_no: claimDefinitionSchemaSequenceNumber,
+      issuer_did: issuerDid,
+      name: 'Address 7',
+    },
+    attr8_uuid: {
+      schema_seq_no: claimDefinitionSchemaSequenceNumber,
+      issuer_did: issuerDid,
+      name: 'Address 8',
+    },
+    attr9_uuid: {
+      schema_seq_no: claimDefinitionSchemaSequenceNumber,
+      issuer_did: issuerDid,
+      name: 'Address 9',
+    },
+    attr10_uuid: {
+      schema_seq_no: claimDefinitionSchemaSequenceNumber,
+      issuer_did: issuerDid,
+      name: 'Address 10',
+    },
+  },
+  requested_predicates: {},
+}
+
+export const originalProofRequestDataMissingAttribute = {
+  nonce: '123432421212',
+  name: 'proof_req_1',
+  version: '0.1',
+  requested_attrs: {
+    attr1_uuid: {
+      schema_seq_no: claimDefinitionSchemaSequenceNumber,
+      issuer_did: issuerDid,
       name: 'address1',
     },
     attr2_uuid: {
       schema_seq_no: claimDefinitionSchemaSequenceNumber,
       issuer_did: issuerDid,
       name: 'address2',
+    },
+    attr3_uuid: {
+      schema_seq_no: claimDefinitionSchemaSequenceNumber,
+      issuer_did: issuerDid,
+      name: 'address3',
     },
   },
   requested_predicates: {},
@@ -272,6 +355,8 @@ export const claim = {
 
 export const proofRequestId = 'pid123'
 
+export const proofRequestId10Attributes = 'pid10'
+
 export const proofRequest = {
   payload: {
     data: {
@@ -294,7 +379,58 @@ export const proofRequest = {
   },
   payloadInfo: {
     uid: proofRequestId,
-    senderLogoUrl: 'http://testissuer.com/logoUrl.png',
+    senderLogoUrl: 'http://cr0ybot.github.io/ingress-logos/ingress.png',
+    remotePairwiseDID: senderDid1,
+  },
+}
+
+export const proofRequest10Attributes = {
+  payload: {
+    data: {
+      name: 'Home Address',
+      version: '1.0.0',
+      requestedAttributes: [
+        {
+          label: 'Address 1',
+        },
+        {
+          label: 'Address 2',
+        },
+        {
+          label: 'Address 3',
+        },
+        {
+          label: 'Address 4',
+        },
+        {
+          label: 'Address 5',
+        },
+        {
+          label: 'Address 6',
+        },
+        {
+          label: 'Address 7',
+        },
+        {
+          label: 'Address 8',
+        },
+        {
+          label: 'Address 9',
+        },
+        {
+          label: 'Address 10',
+        },
+      ],
+    },
+    requester: {
+      name: 'Test Issuer',
+    },
+    originalProofRequestData: originalProofRequestData10Attributes,
+    statusMsg: 'pending',
+  },
+  payloadInfo: {
+    uid: proofRequestId10Attributes,
+    senderLogoUrl: 'https://image.flaticon.com/icons/png/128/174/174851.png',
     remotePairwiseDID: senderDid1,
   },
 }
@@ -340,6 +476,95 @@ export const proof = {
     },
     unrevealed_attrs: {},
     self_attested_attrs: {},
+    predicates: {},
+  },
+}
+
+export const proofWithMissingAttributes = {
+  proofs: {
+    'claim::f760213b-e719-47fb-9669-b72c5c410e8c': {
+      proof: {
+        primary_proof: {
+          eq_proof: {
+            revealed_attrs: {
+              name: '11',
+              sex: '59',
+            },
+            a_prime: '13',
+            e: '51',
+            v: '13',
+            m: {},
+            m1: '67',
+            m2: '60',
+          },
+          ge_proofs: [],
+        },
+        non_revoc_proof: null,
+      },
+      schema_seq_no: claimDefinitionSchemaSequenceNumber,
+      issuer_did: issuerDid,
+    },
+  },
+  aggregated_proof: {
+    c_hash: '31',
+    c_list: [[claimDefinitionSchemaSequenceNumber]],
+  },
+  requested_proof: {
+    revealed_attrs: {
+      attr3_uuid: ['claim::f760213b-e719-47fb-9669-b72c5c410e8c', 'male', '59'],
+      attr1_uuid: ['claim::f760213b-e719-47fb-9669-b72c5c410e8c', 'Alex', '11'],
+    },
+    unrevealed_attrs: {},
+    self_attested_attrs: { attr2_uuid: 'male' },
+    predicates: {},
+  },
+}
+
+export const proofWith10Attributes = {
+  proofs: {
+    'claim::f760213b-e719-47fb-9669-b72c5c410e8c': {
+      proof: {
+        primary_proof: {
+          eq_proof: {
+            revealed_attrs: {
+              name: '11',
+              sex: '59',
+            },
+            a_prime: '13',
+            e: '51',
+            v: '13',
+            m: {},
+            m1: '67',
+            m2: '60',
+          },
+          ge_proofs: [],
+        },
+        non_revoc_proof: null,
+      },
+      schema_seq_no: claimDefinitionSchemaSequenceNumber,
+      issuer_did: issuerDid,
+    },
+  },
+  aggregated_proof: {
+    c_hash: '31',
+    c_list: [[claimDefinitionSchemaSequenceNumber]],
+  },
+  requested_proof: {
+    revealed_attrs: {
+      attr2_uuid: ['claim::f760213b-e719-47fb-9669-b72c5c410e8c', 'male', '59'],
+      attr1_uuid: ['claim::f760213b-e719-47fb-9669-b72c5c410e8c', 'Alex', '11'],
+    },
+    unrevealed_attrs: {},
+    self_attested_attrs: {
+      attr3_uuid: 'attr 3 value',
+      attr4_uuid: 'attr 4 value',
+      attr5_uuid: 'attr 5 value',
+      attr6_uuid: 'attr 6 value',
+      attr7_uuid: 'attr 7 value',
+      attr8_uuid: 'attr 8 value',
+      attr9_uuid: 'attr 9 value',
+      attr10_uuid: 'attr 10 value',
+    },
     predicates: {},
   },
 }
@@ -411,6 +636,55 @@ export const proofWithTwoClaims = {
   },
 }
 
+export const missingAttributes = [{ key: 'attr2_uuid', name: 'sex' }]
+export const missingAttributes1 = [
+  { key: 'attr2_uuid', name: 'sex' },
+  { key: 'attr3_uuid', name: 'height' },
+]
+
+export const selfAttestedAttributes = {
+  attr2_uuid: {
+    name: 'sex',
+    data: 'male',
+    key: 'attr2_uuid',
+  },
+}
+
+export const selfAttestedAttributes1 = {
+  attr2_uuid: {
+    name: 'sex',
+    data: 'male',
+    key: 'attr2_uuid',
+  },
+  attr3_uuid: {
+    name: 'height',
+    data: '190',
+    key: 'attr3_uuid',
+  },
+}
+
+export const preparedProof = {
+  attrs: {
+    attr1_uuid: [
+      {
+        claim_uuid: 'claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73',
+        attrs: { name: 'Alex', sex: 'male' },
+        schema_seq_no: 295,
+        issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
+      },
+    ],
+    attr2_uuid: [
+      {
+        claim_uuid: 'claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5',
+        attrs: { height: '150' },
+        schema_seq_no: 296,
+        issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
+      },
+    ],
+  },
+  predicates: {},
+}
+
 export const preparedProofWithMissingAttribute = {
   attrs: {
     attr1_uuid: [
@@ -429,7 +703,7 @@ export const preparedProofWithMissingAttribute = {
         issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
       },
     ],
-    attr2_uuid: [],
+    [missingAttributes[0].key]: [undefined],
   },
   predicates: {},
 }

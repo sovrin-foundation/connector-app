@@ -9,6 +9,8 @@ import { OFFSET_1X, OFFSET_3X } from '../../common/styles'
 import type { CustomListProps, Item } from './type-custom-list'
 
 export default class CustomList extends PureComponent<CustomListProps, void> {
+  keyExtractor = ({ label }: Item, index: number) => `${label}${index}`
+
   renderListType1Item = ({ item, index }: { item: Item, index: number }) => {
     if (this.props.type === 'center') {
       return (
@@ -46,7 +48,7 @@ export default class CustomList extends PureComponent<CustomListProps, void> {
           this.props.claimMap[item.claimUuid] &&
           this.props.claimMap[item.claimUuid].logoUrl
           ? { uri: this.props.claimMap[item.claimUuid].logoUrl }
-          : require('../../images/cb_evernym.png')
+          : require('../../images/UserAvatar.png')
         : null
 
       return (
@@ -89,6 +91,7 @@ export default class CustomList extends PureComponent<CustomListProps, void> {
       <Container fifth>
         <FlatList
           data={items}
+          keyExtractor={this.keyExtractor}
           ItemSeparatorComponent={Separator}
           ListFooterComponent={Separator}
           renderItem={this.renderListType1Item}

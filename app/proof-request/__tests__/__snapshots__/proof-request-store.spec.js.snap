@@ -1,5 +1,106 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`proof request store ACTION: MISSING_ATTRIBUTES_FOUND 1`] = `
+Object {
+  "pid123": Object {
+    "data": Object {
+      "name": "Home Address",
+      "requestedAttributes": Array [
+        Object {
+          "label": "Address 1",
+        },
+        Object {
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "missingAttributes": Object {
+      "sex": Object {
+        "data": "",
+        "key": "attr2_uuid",
+        "name": "sex",
+      },
+    },
+    "originalProofRequestData": Object {
+      "name": "proof_req_1",
+      "nonce": "123432421212",
+      "requested_attrs": Object {
+        "attr1_uuid": Object {
+          "issuer_did": "issuerDid",
+          "name": "Address 1",
+          "schema_seq_no": 36,
+        },
+        "attr2_uuid": Object {
+          "issuer_did": "issuerDid",
+          "name": "Address 2",
+          "schema_seq_no": 36,
+        },
+      },
+      "requested_predicates": Object {},
+      "version": "0.1",
+    },
+    "proofStatus": "SEND_PROOF_FAIL",
+    "remotePairwiseDID": "senderDID1",
+    "requester": Object {
+      "name": "Test Issuer",
+    },
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
+    "status": "IGNORED",
+    "statusMsg": "pending",
+    "uid": "pid123",
+  },
+}
+`;
+
+exports[`proof request store ACTION: PROOF_REQUEST_AUTO_FILL 1`] = `
+Object {
+  "pid123": Object {
+    "data": Object {
+      "name": "Home Address",
+      "requestedAttributes": Array [
+        Object {
+          "data": "Address 1",
+          "label": "address1",
+        },
+        Object {
+          "data": "Address 2",
+          "label": "address2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "originalProofRequestData": Object {
+      "name": "proof_req_1",
+      "nonce": "123432421212",
+      "requested_attrs": Object {
+        "attr1_uuid": Object {
+          "issuer_did": "issuerDid",
+          "name": "Address 1",
+          "schema_seq_no": 36,
+        },
+        "attr2_uuid": Object {
+          "issuer_did": "issuerDid",
+          "name": "Address 2",
+          "schema_seq_no": 36,
+        },
+      },
+      "requested_predicates": Object {},
+      "version": "0.1",
+    },
+    "proofStatus": "SEND_PROOF_FAIL",
+    "remotePairwiseDID": "senderDID1",
+    "requester": Object {
+      "name": "Test Issuer",
+    },
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
+    "status": "IGNORED",
+    "statusMsg": "pending",
+    "uid": "pid123",
+  },
+}
+`;
+
 exports[`proof request store proof request is accepted 1`] = `
 Object {
   "pid123": Object {
@@ -21,12 +122,12 @@ Object {
       "requested_attrs": Object {
         "attr1_uuid": Object {
           "issuer_did": "issuerDid",
-          "name": "address1",
+          "name": "Address 1",
           "schema_seq_no": 36,
         },
         "attr2_uuid": Object {
           "issuer_did": "issuerDid",
-          "name": "address2",
+          "name": "Address 2",
           "schema_seq_no": 36,
         },
       },
@@ -38,7 +139,7 @@ Object {
     "requester": Object {
       "name": "Test Issuer",
     },
-    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
     "status": "ACCEPTED",
     "statusMsg": "pending",
     "uid": "pid123",
@@ -67,12 +168,12 @@ Object {
       "requested_attrs": Object {
         "attr1_uuid": Object {
           "issuer_did": "issuerDid",
-          "name": "address1",
+          "name": "Address 1",
           "schema_seq_no": 36,
         },
         "attr2_uuid": Object {
           "issuer_did": "issuerDid",
-          "name": "address2",
+          "name": "Address 2",
           "schema_seq_no": 36,
         },
       },
@@ -84,7 +185,7 @@ Object {
     "requester": Object {
       "name": "Test Issuer",
     },
-    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
     "status": "IGNORED",
     "statusMsg": "pending",
     "uid": "pid123",
@@ -113,12 +214,12 @@ Object {
       "requested_attrs": Object {
         "attr1_uuid": Object {
           "issuer_did": "issuerDid",
-          "name": "address1",
+          "name": "Address 1",
           "schema_seq_no": 36,
         },
         "attr2_uuid": Object {
           "issuer_did": "issuerDid",
-          "name": "address2",
+          "name": "Address 2",
           "schema_seq_no": 36,
         },
       },
@@ -130,7 +231,7 @@ Object {
     "requester": Object {
       "name": "Test Issuer",
     },
-    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
     "status": "IGNORED",
     "statusMsg": "pending",
     "uid": "pid123",
@@ -159,12 +260,12 @@ Object {
       "requested_attrs": Object {
         "attr1_uuid": Object {
           "issuer_did": "issuerDid",
-          "name": "address1",
+          "name": "Address 1",
           "schema_seq_no": 36,
         },
         "attr2_uuid": Object {
           "issuer_did": "issuerDid",
-          "name": "address2",
+          "name": "Address 2",
           "schema_seq_no": 36,
         },
       },
@@ -176,7 +277,7 @@ Object {
     "requester": Object {
       "name": "Test Issuer",
     },
-    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
     "status": "RECEIVED",
     "statusMsg": "pending",
     "uid": "pid123",
@@ -205,12 +306,12 @@ Object {
       "requested_attrs": Object {
         "attr1_uuid": Object {
           "issuer_did": "issuerDid",
-          "name": "address1",
+          "name": "Address 1",
           "schema_seq_no": 36,
         },
         "attr2_uuid": Object {
           "issuer_did": "issuerDid",
-          "name": "address2",
+          "name": "Address 2",
           "schema_seq_no": 36,
         },
       },
@@ -222,7 +323,7 @@ Object {
     "requester": Object {
       "name": "Test Issuer",
     },
-    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
     "status": "REJECTED",
     "statusMsg": "pending",
     "uid": "pid123",
@@ -251,12 +352,12 @@ Object {
       "requested_attrs": Object {
         "attr1_uuid": Object {
           "issuer_did": "issuerDid",
-          "name": "address1",
+          "name": "Address 1",
           "schema_seq_no": 36,
         },
         "attr2_uuid": Object {
           "issuer_did": "issuerDid",
-          "name": "address2",
+          "name": "Address 2",
           "schema_seq_no": 36,
         },
       },
@@ -268,7 +369,7 @@ Object {
     "requester": Object {
       "name": "Test Issuer",
     },
-    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
     "status": "SHOWN",
     "statusMsg": "pending",
     "uid": "pid123",
@@ -297,12 +398,12 @@ Object {
       "requested_attrs": Object {
         "attr1_uuid": Object {
           "issuer_did": "issuerDid",
-          "name": "address1",
+          "name": "Address 1",
           "schema_seq_no": 36,
         },
         "attr2_uuid": Object {
           "issuer_did": "issuerDid",
-          "name": "address2",
+          "name": "Address 2",
           "schema_seq_no": 36,
         },
       },
@@ -314,7 +415,7 @@ Object {
     "requester": Object {
       "name": "Test Issuer",
     },
-    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
     "status": "IGNORED",
     "statusMsg": "pending",
     "uid": "pid123",
@@ -343,12 +444,12 @@ Object {
       "requested_attrs": Object {
         "attr1_uuid": Object {
           "issuer_did": "issuerDid",
-          "name": "address1",
+          "name": "Address 1",
           "schema_seq_no": 36,
         },
         "attr2_uuid": Object {
           "issuer_did": "issuerDid",
-          "name": "address2",
+          "name": "Address 2",
           "schema_seq_no": 36,
         },
       },
@@ -360,7 +461,7 @@ Object {
     "requester": Object {
       "name": "Test Issuer",
     },
-    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
     "status": "IGNORED",
     "statusMsg": "pending",
     "uid": "pid123",
@@ -389,12 +490,12 @@ Object {
       "requested_attrs": Object {
         "attr1_uuid": Object {
           "issuer_did": "issuerDid",
-          "name": "address1",
+          "name": "Address 1",
           "schema_seq_no": 36,
         },
         "attr2_uuid": Object {
           "issuer_did": "issuerDid",
-          "name": "address2",
+          "name": "Address 2",
           "schema_seq_no": 36,
         },
       },
@@ -406,10 +507,35 @@ Object {
     "requester": Object {
       "name": "Test Issuer",
     },
-    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
     "status": "IGNORED",
     "statusMsg": "pending",
     "uid": "pid123",
+  },
+}
+`;
+
+exports[`proof request store should convert missing attributes to self attested attributes 1`] = `
+Object {
+  "sex": Object {
+    "data": "",
+    "key": "attr2_uuid",
+    "name": "sex",
+  },
+}
+`;
+
+exports[`proof request store should convert missing attributes to self attested attributes 2`] = `
+Object {
+  "height": Object {
+    "data": "",
+    "key": "attr3_uuid",
+    "name": "height",
+  },
+  "sex": Object {
+    "data": "",
+    "key": "attr2_uuid",
+    "name": "sex",
   },
 }
 `;
