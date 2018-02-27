@@ -319,7 +319,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
           ]
         }
       >
-        sender1 would like you to prove:
+        sender1 would like you to share:
       </Text>
       <Text
         accessible={true}

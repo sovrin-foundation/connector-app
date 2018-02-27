@@ -137,7 +137,7 @@ export class ConnectionHistory extends PureComponent<
       `Are you sure you want to delete ${senderName} as a connection? 
         You will still keep the information they have given you, but you will not 
         be able to contact them without re-establishing a new connection. Proceed?`,
-      [alertCancel, { text: 'Delete', onPress: this.delete(senderDID) }]
+      [alertCancel, { text: 'Delete', onPress: () => this.delete(senderDID) }]
     )
   }
 

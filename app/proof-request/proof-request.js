@@ -178,7 +178,7 @@ export class ProofRequest extends PureComponent<ProofRequestProps, void> {
       <Container fifth>
         {isValid && (
           <ClaimProofHeader
-            message={`${name} would like you to prove:`}
+            message={`${name} would like you to share:`}
             title={title}
             onClose={this.onIgnore}
             logoUrl={logoUrl}
