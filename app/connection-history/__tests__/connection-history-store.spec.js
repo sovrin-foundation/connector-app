@@ -282,9 +282,6 @@ describe('Store: ConnectionHistory', () => {
     ).toMatchSnapshot()
   })
 
-  //TODO fix test
-  xit('deleteConnectionOccurredSaga should raise success for deleting connection', () => {})
-
   it('should raise failure in case data getItem fails', () => {
     const gen = loadHistorySaga()
     expect(gen.next().value).toEqual(call(getItem, HISTORY_EVENT_STORAGE_KEY))

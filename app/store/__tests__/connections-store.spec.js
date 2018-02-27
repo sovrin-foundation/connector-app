@@ -9,6 +9,10 @@ import connectionReducer, {
   deleteConnectionSuccess,
 } from '../connections-store'
 import { bubbleSize } from '../../common/styles'
+import {
+  successConnectionData,
+  connections,
+} from '../../../__mocks__/static-data'
 
 describe('Mapper', () => {
   it('connectionMapper should return proper object', () => {
@@ -51,8 +55,14 @@ describe('connections should update correctly', () => {
     expect(actualState).toMatchObject(expectedState)
   })
 
-  //TODO update snapshot test
-  xit('match deleteConnectionSuccess', () => {})
+  it('match delete connection success', () => {
+    expect(
+      connectionReducer(initialState, deleteConnectionSuccess(connections))
+    ).toMatchSnapshot()
+  })
+
+  //TODO fix test
+  xit('deleteConnectionOccurredSaga should raise success for deleting connection', () => {})
 
   it('should update connections and store new connection properly', () => {
     const expectedState = {

@@ -187,13 +187,6 @@ export type RecordHistoryEventAction = {
   historyEvent: ConnectionHistoryEvent,
 }
 
-export const DELETE_CONNECTION = 'DELETE_CONNECTION'
-
-export type DeleteConnectionEventAction = {
-  type: typeof DELETE_CONNECTION,
-  senderDID: string,
-}
-
 export const DELETE_HISTORY_EVENT = 'DELETE_HISTORY_EVENT'
 
 export type DeleteHistoryEventAction = {

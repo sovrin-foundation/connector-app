@@ -12,3 +12,105 @@ Object {
   "size": 120,
 }
 `;
+
+exports[`connections should update correctly deleteConnectionOccurredSaga should raise success for deleting connection 1`] = `
+Object {
+  "claimMap": null,
+  "connectionThemes": Object {
+    "active": Object {
+      "primary": "rgba(133, 191, 67, 1.0)",
+      "secondary": "rgba(133, 191, 67, 0.6)",
+    },
+    "default": Object {
+      "primary": "rgba(133, 191, 67, 1.0)",
+      "secondary": "rgba(133, 191, 67, 0.6)",
+    },
+  },
+  "data": Object {
+    "0": Object {
+      "identifier": "4ej819kkjywdppuje79",
+      "logoUrl": "https://logourl.com/logo.png",
+      "name": "Test Connection1",
+      "remoteConnectionId": "70075yyojywdppuje79",
+      "senderDID": "senderDID",
+      "senderName": "senderName",
+      "size": 100,
+    },
+    "1": Object {
+      "identifier": "3nj819kkjywdppuje86",
+      "logoUrl": "https://logourl.com/logo.png",
+      "name": "Test Connection2",
+      "remoteConnectionId": "70075yyojywdppuje79",
+      "senderDID": "senderDID",
+      "senderName": "senderName",
+      "size": 100,
+    },
+    "2": Object {
+      "identifier": "7fj819kkjywdppuje34",
+      "logoUrl": "https://logourl.com/logo.png",
+      "name": "Test Connection3",
+      "remoteConnectionId": "70075yyojywdppuje79",
+      "senderDID": "senderDID",
+      "senderName": "senderName",
+      "size": 100,
+    },
+  },
+  "error": Object {
+    "code": "",
+    "message": "",
+  },
+  "isFetching": false,
+  "isPristine": true,
+}
+`;
+
+exports[`connections should update correctly match delete connection success 1`] = `
+Object {
+  "claimMap": null,
+  "connectionThemes": Object {
+    "active": Object {
+      "primary": "rgba(133, 191, 67, 1.0)",
+      "secondary": "rgba(133, 191, 67, 0.6)",
+    },
+    "default": Object {
+      "primary": "rgba(133, 191, 67, 1.0)",
+      "secondary": "rgba(133, 191, 67, 0.6)",
+    },
+  },
+  "data": Object {
+    "0": Object {
+      "identifier": "4ej819kkjywdppuje79",
+      "logoUrl": "https://logourl.com/logo.png",
+      "name": "Test Connection1",
+      "remoteConnectionId": "70075yyojywdppuje79",
+      "senderDID": "senderDID",
+      "senderName": "senderName",
+      "size": 100,
+    },
+    "1": Object {
+      "identifier": "3nj819kkjywdppuje86",
+      "logoUrl": "https://logourl.com/logo.png",
+      "name": "Test Connection2",
+      "remoteConnectionId": "70075yyojywdppuje79",
+      "senderDID": "senderDID",
+      "senderName": "senderName",
+      "size": 100,
+    },
+    "2": Object {
+      "identifier": "7fj819kkjywdppuje34",
+      "logoUrl": "https://logourl.com/logo.png",
+      "name": "Test Connection3",
+      "remoteConnectionId": "70075yyojywdppuje79",
+      "senderDID": "senderDID",
+      "senderName": "senderName",
+      "size": 100,
+    },
+  },
+  "error": Object {
+    "code": "",
+    "message": "",
+  },
+  "isFetching": false,
+  "isPristine": true,
+}
+`;

@@ -2,7 +2,13 @@
 import { put, takeLatest, call, select } from 'redux-saga/effects'
 import { setItem, getItem } from '../services/secure-storage'
 import { CONNECTIONS } from '../common'
-import { getAgencyUrl } from './store-selector'
+import {
+  getAgencyUrl,
+  getAgencyVerificationKey,
+  getUserOneTimeInfo,
+  getPoolConfig,
+  getAllConnection,
+} from './store-selector'
 import { color } from '../common/styles/constant'
 import { bubbleSize } from '../common/styles'
 import type { CustomError, GenericObject } from '../common/type-common'
@@ -15,10 +21,12 @@ import {
   NEW_CONNECTION,
   DELETE_CONNECTION_SUCCESS,
   DELETE_CONNECTION_FAILURE,
+  DELETE_CONNECTION,
 } from './type-connection-store'
 import type {
   DeleteConnectionSuccessEventAction,
   DeleteConnectionFailureEventAction,
+  DeleteConnectionEventAction,
 } from './type-connection-store'
 const UPDATE_CONNECTION_THEME = 'UPDATE_CONNECTION_THEME'
 export const NEW_CONNECTION_SUCCESS = 'NEW_CONNECTION_SUCCESS'
@@ -86,6 +94,58 @@ export const saveNewConnectionFailed = (error: CustomError) => ({
   type: NEW_CONNECTION_FAIL,
   error,
 })
+
+export const deleteConnection = (
+  senderDID: string
+): DeleteConnectionEventAction => ({
+  type: DELETE_CONNECTION,
+  senderDID,
+})
+
+export function* deleteConnectionOccurredSaga(
+  action: DeleteConnectionEventAction
+): Generator<*, *, *> {
+  const userOneTimeInfo: UserOneTimeInfo = yield select(getUserOneTimeInfo)
+  const agencyVerificationKey: string = yield select(getAgencyVerificationKey)
+  const agencyUrl: string = yield select(getAgencyUrl)
+  const poolConfig: string = yield select(getPoolConfig)
+  const connections: GenericObject = yield select(getAllConnection)
+
+  //TODO : move this logic to selector
+  const savedConnections: Array<Connection> = Object.values(connections)
+  const connection = savedConnections.filter(
+    connection => connection.senderDID === action.senderDID
+  )[0]
+  const { [connection.myPairwiseDid]: deleted, ...rest } = connections
+
+  const url = `${agencyUrl}/agency/msg`
+  try {
+    yield call(deleteConnection, {
+      url,
+      myPairwiseDid: connection.myPairwiseDid,
+      myPairwiseVerKey: connection.myPairwiseVerKey,
+      myPairwiseAgentDid: connection.myPairwiseAgentDid,
+      myPairwiseAgentVerKey: connection.myPairwiseAgentVerKey,
+      myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
+      myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
+      myOneTimeDid: userOneTimeInfo.myOneTimeDid,
+      myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
+      myAgencyVerKey: agencyVerificationKey,
+      poolConfig,
+    })
+    let connections = yield call(getItem, CONNECTIONS)
+    connections = connections ? JSON.parse(connections) : {}
+
+    yield call(setItem, CONNECTIONS, JSON.stringify(rest))
+    yield put(deleteConnectionSuccess(rest))
+  } catch (e) {
+    yield put(deleteConnectionFailure(action.connection, e))
+  }
+}
+
+export function* watchDeleteConnectionOccurred(): Generator<*, *, *> {
+  yield takeLatest(DELETE_CONNECTION, deleteConnectionOccurredSaga)
+}
 
 export function* loadNewConnectionSaga(
   action: GenericObject

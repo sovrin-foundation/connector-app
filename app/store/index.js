@@ -6,7 +6,10 @@ import user, { watchUserStore } from './user/user-store'
 import pushNotification, {
   watchPushNotification,
 } from '../push-notification/push-notification-store'
-import connections, { watchNewConnection } from './connections-store'
+import connections, {
+  watchNewConnection,
+  watchDeleteConnectionOccurred,
+} from './connections-store'
 import config, { watchConfig } from './config-store'
 import authentication, {
   watchAuthentication,
@@ -31,7 +34,6 @@ import claim, { watchClaim } from '../claim/claim-store'
 import proof, { watchProof } from '../proof/proof-store'
 import history, {
   watchConnectionHistory,
-  watchDeleteConnectionOccurred,
 } from '../connection-history/connection-history-store'
 import historyRecorder from '../connection-history/history-middleware'
 

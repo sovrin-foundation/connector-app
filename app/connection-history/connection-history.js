@@ -53,7 +53,7 @@ import {
   SEND_CLAIM_REQUEST,
   CLAIM_REQUEST_STATUS,
 } from '../claim-offer/type-claim-offer'
-import { deleteConnection } from './connection-history-store'
+import { deleteConnection } from '../store/connections-store'
 import { getConnection } from '../store/store-selector'
 const statusMsg = {
   ['PENDING']: 'Pending',

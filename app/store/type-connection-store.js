@@ -15,6 +15,13 @@ export type Connection = {
   myPairwisePeerVerKey: string,
 }
 
+export const DELETE_CONNECTION = 'DELETE_CONNECTION'
+
+export type DeleteConnectionEventAction = {
+  type: typeof DELETE_CONNECTION,
+  senderDID: string,
+}
+
 export type Connections = { [senderDID: string]: Connection }
 
 export type ConnectionStore = {
