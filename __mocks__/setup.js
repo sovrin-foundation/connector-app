@@ -167,3 +167,7 @@ jest.mock('react-native-branch', () => {
 jest.mock('react-native-splash-screen', () => ({
   hide: jest.fn(),
 }))
+
+jest.mock('react-native-unique-id', () =>
+  jest.fn(() => Promise.resolve('uniqueDeviceId'))
+)

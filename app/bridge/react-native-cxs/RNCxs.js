@@ -271,6 +271,7 @@ export async function acceptInvitation({
 export async function updatePushToken({
   url,
   token,
+  uniqueDeviceId,
   myOneTimeAgentDid,
   myOneTimeAgentVerKey,
   myOneTimeVerKey,
@@ -279,6 +280,7 @@ export async function updatePushToken({
 }: {
   url: string,
   token: string,
+  uniqueDeviceId: string,
   myOneTimeAgentDid: string,
   myOneTimeAgentVerKey: string,
   myOneTimeVerKey: string,
@@ -288,6 +290,7 @@ export async function updatePushToken({
   return await RNIndy.updatePushToken(
     url,
     token,
+    uniqueDeviceId,
     myOneTimeAgentDid,
     myOneTimeAgentVerKey,
     myOneTimeVerKey,

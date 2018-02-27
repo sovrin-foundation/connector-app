@@ -340,6 +340,7 @@ RCT_EXPORT_METHOD(acceptInvitation: (NSString *)url
 // Update push token
 RCT_EXPORT_METHOD(updatePushToken: (NSString *)url
                   withToken: (NSString *)token
+                  withUniqueDeviceId: (NSString *)uniqueDeviceId
                   withMyOneTimeAgentDid: (NSString *)myOneTimeAgentDid
                   withMyOneTimeAgentVerKey: (NSString *)myOneTimeAgentVerKey
                   withMyOneTimeVerKey: (NSString *)myOneTimeVerKey
@@ -351,6 +352,7 @@ RCT_EXPORT_METHOD(updatePushToken: (NSString *)url
   ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
   [indy sendPushTokenWithUrl:url
                    withToken:token
+          withUniqueDeviceId:uniqueDeviceId
        withMyOneTimeAgentDid:myOneTimeAgentDid
     withMyOneTimeAgentVerKey:myOneTimeAgentVerKey
          withMyOneTimeVerKey:myOneTimeVerKey

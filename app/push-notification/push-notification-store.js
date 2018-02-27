@@ -42,6 +42,7 @@ import {
 } from '../bridge/react-native-cxs/RNCxs'
 import { HYDRATED } from '../store/type-config-store'
 import { CONNECT_REGISTER_CREATE_AGENT_DONE } from '../store/user/type-user-store'
+import uniqueId from 'react-native-unique-id'
 
 // TODO:PS: handle other/multiple Push Notification while
 // one Push Notification is already downloading
@@ -109,18 +110,23 @@ export function* onPushTokenUpdate(
   const poolConfig: string = yield select(getPoolConfig)
   const agencyVerificationKey: string = yield select(getAgencyVerificationKey)
   const pushComMethod = `FCM:${token}`
-
   try {
-    const url = `${agencyUrl}/agency/msg`
-    yield call(updatePushTokenApi, {
-      url,
-      token: pushComMethod,
-      myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
-      myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
-      myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
-      myAgencyVerKey: agencyVerificationKey,
-      poolConfig,
-    })
+    const id = yield uniqueId()
+    try {
+      const url = `${agencyUrl}/agency/msg`
+      const response = yield call(updatePushTokenApi, {
+        url,
+        token: pushComMethod,
+        uniqueDeviceId: id,
+        myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
+        myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
+        myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
+        myAgencyVerKey: agencyVerificationKey,
+        poolConfig,
+      })
+    } catch (e) {
+      captureError(e)
+    }
   } catch (e) {
     captureError(e)
   }

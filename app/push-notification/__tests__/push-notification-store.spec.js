@@ -22,6 +22,7 @@ import {
 } from '../../../__mocks__/static-data'
 import { CONNECT_REGISTER_CREATE_AGENT_DONE } from '../../store/user/type-user-store'
 import { initialTestAction } from '../../common/type-common'
+import uniqueId from 'react-native-unique-id'
 
 describe('push notification store should work properly', () => {
   let initialState = {
@@ -94,15 +95,18 @@ describe('push notification store should work properly', () => {
     )
 
     const agencyUrl = 'https://agencyurl.com'
+    const uniqueDeviceId = 'uniqueDeviceId'
     expect(gen.next(agencyUrl).value).toEqual(select(getPoolConfig))
 
     expect(gen.next(poolConfig).value).toEqual(select(getAgencyVerificationKey))
-
     const agencyVerificationKey = 'agencyVerificationKey'
-    expect(gen.next(agencyVerificationKey).value).toEqual(
+    expect(gen.next(agencyVerificationKey).value).toEqual(uniqueId())
+
+    expect(gen.next(uniqueDeviceId).value).toEqual(
       call(updatePushTokenApi, {
         url: `${agencyUrl}/agency/msg`,
         token: `FCM:${pushToken}`,
+        uniqueDeviceId,
         myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
         myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
         myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
