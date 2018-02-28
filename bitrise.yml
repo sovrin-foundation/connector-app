@@ -20,13 +20,13 @@ app:
       is_expand: false
 trigger_map:
 - push_branch: master
-  workflow: primary
+   workflow: primary
 - push_branch: stage
-  workflow: primary
+   workflow: primary
 - push_branch: stable
-  workflow: primary
+   workflow: primary
 - pull_request_source_branch: master
-  workflow: primary
+   workflow: primary
 workflows:
   primary:
     steps:
@@ -62,6 +62,7 @@ workflows:
     - deploy-to-bitrise-io@1.2.9: {}
     envs:
     - BITRISE_PROJECT_PATH: ios/ConnectMe.xcworkspace
+    - BITRISE_GIT_BRANCH: master
   android:
     steps:
     - activate-ssh-key@3.1.1:
