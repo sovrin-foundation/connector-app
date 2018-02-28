@@ -20,13 +20,13 @@ app:
       is_expand: false
 trigger_map:
 - push_branch: master
-   workflow: primary
+  workflow: primary
 - push_branch: stage
-   workflow: primary
+  workflow: primary
 - push_branch: stable
-   workflow: primary
+  workflow: primary
 - pull_request_source_branch: master
-   workflow: primary
+  workflow: primary
 workflows:
   primary:
     steps:
@@ -51,12 +51,9 @@ workflows:
         - content: |-
             #!/bin/bash
             brew install maven
-
             text=$(mvn clean install | awk '/Tests run:*/')
-
             escapedText=$(echo $text | sed 's/"/\"/g' | sed "s/'/\'/g" )
             json="{\"channel\": \"#connectme_build\", \"text\": \"$escapedText\"}"
-
             curl -s -d "payload=$json" "https://hooks.slack.com/services/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"
         - working_dir: "$MAVEN"
     - deploy-to-bitrise-io@1.2.9: {}
