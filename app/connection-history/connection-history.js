@@ -53,7 +53,7 @@ import {
   SEND_CLAIM_REQUEST,
   CLAIM_REQUEST_STATUS,
 } from '../claim-offer/type-claim-offer'
-import { deleteConnection } from '../store/connections-store'
+import { deleteConnectionAction } from '../store/connections-store'
 import { getConnection } from '../store/store-selector'
 const statusMsg = {
   ['PENDING']: 'Pending',
@@ -142,7 +142,7 @@ export class ConnectionHistory extends PureComponent<
   }
 
   delete = senderDID => {
-    this.props.deleteConnection(senderDID)
+    this.props.deleteConnectionAction(senderDID)
     this.props.navigation.goBack(null)
   }
 
@@ -328,7 +328,7 @@ const mapStateToProps = (state: Store, props: ReactNavigation) => {
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ deleteConnection }, dispatch)
+  bindActionCreators({ deleteConnectionAction }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConnectionHistory)
 

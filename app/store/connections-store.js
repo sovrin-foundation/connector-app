@@ -28,6 +28,8 @@ import type {
   DeleteConnectionFailureEventAction,
   DeleteConnectionEventAction,
 } from './type-connection-store'
+import { deleteConnection } from '../bridge/react-native-cxs/RNCxs'
+
 const UPDATE_CONNECTION_THEME = 'UPDATE_CONNECTION_THEME'
 export const NEW_CONNECTION_SUCCESS = 'NEW_CONNECTION_SUCCESS'
 const NEW_CONNECTION_FAIL = 'NEW_CONNECTION_FAIL'
@@ -95,7 +97,7 @@ export const saveNewConnectionFailed = (error: CustomError) => ({
   error,
 })
 
-export const deleteConnection = (
+export const deleteConnectionAction = (
   senderDID: string
 ): DeleteConnectionEventAction => ({
   type: DELETE_CONNECTION,
