@@ -857,13 +857,21 @@ export const qrData = {
   },
   t: 'there',
 }
+export const parsedClaimRequest = {
+  blinded_ms: {
+    prover_did: 'prover_did',
+    u: 'u',
+  },
+  issuer_did: 'issuer_did',
+  schema_seq_no: 36,
+}
 
 export const connectionHistory = {
   'September 2017': [
     {
       id: '1',
       type: 'INVITATION',
-      icon: require('../images/linked.png'),
+      icon: require('../app/images/linked.png'),
       action: 'CONNECTED',
       timestamp: '2017-09-06T00:00:00+05:30',
       data: [

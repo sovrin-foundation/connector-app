@@ -29,7 +29,7 @@ The string that we have passed inside `deepLinkData` comes from email. Contact o
 
 #### Proof request screen
 
-Add these lines to import statement
+Add these lines to import statement of Home screen
 ```js
 // TODO Remove these lines after testing is done
 import { proofRequest, proofRequestId } from '../../__mocks__/static-data'
@@ -86,6 +86,88 @@ Find the call to `generateProof` in `generateProofSaga`. Comment out the actual 
 const proofJson = JSON.stringify(proofWith10Attributes)
 ```
 
+
+#### Claim Offer Accepted screen
+
+Add these lines to import statement of Home screen
+```js
+// TODO Remove these lines after testing is done
+import {claimOfferId,claimOffer} from '../../__mocks__/static-data'
+import { claimOfferRoute } from '../common/route-constants'
+import {claimOfferReceived} from '../claim-offer/claim-offer-store'
+```
+
+Add this method to Home screen component
+```js
+
+  // TODO Remove this whole function, this is for testing purpose
+   componentDidMount() {
+    // $FlowFixMe
+   this.props.claimOfferReceived(claimOffer.payload,claimOffer.payloadInfo)
+   setTimeout(() => {
+     this.props.navigation.navigate(claimOfferRoute, { uid: claimOfferId})
+   }, 4000)
+  }
+```
+
+Bind methods to Home props
+```js
+//TODO remove this, only for testing purpose
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      claimOfferReceived,
+    },
+    dispatch
+  )
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardScreen)
+//export default connect(mapStateToProps)(DashboardScreen)
+```
+
+Go to `mapStateToProps` in claim-offer.js and find logoUrl
+```js
+ // TODO: Un-comment this line and remove line next to this line
+  //const logoUrl = getConnectionLogoUrl(state, claimOfferData.remotePairwiseDID)
+  const logoUrl ='https://image.flaticon.com/icons/png/128/174/174851.png'
+```
+
+In claim-offer-store.js 
+
+Go to claimOfferAcceptedSaga use hardcoded userPairwiseDid and parsedClaimRequest.
+Also Comment out the sendMessage native bridge call
+```js
+
+
+// TODO use hardcoded userPairwiseDid, only for testing
+// const userPairwiseDid: string | null = yield select(
+  //   getUserPairwiseDid,
+  //   remoteDid
+  // )
+  const userPairwiseDid: string | null = 'userPairwiseDid'
+
+   //TODO uncomment these lines and remove hardcoded parsedClaimRequest
+      // const stringifiedClaimRequest: string = yield call(
+      //   generateClaimRequest,
+      //   remoteDid,
+      //   indyClaimOffer,
+      //   poolConfig
+      // )
+      // TODO:KS Add error handling if claim request parse fails
+      // const parsedClaimRequest: IndyClaimRequest = JSON.parse(
+      //   stringifiedClaimRequest
+      // )
+      
+      const parsedClaimRequest: IndyClaimRequest = {
+        blinded_ms: {
+          prover_did: 'prover_did',
+          u: 'u',
+        },
+        issuer_did: 'issuer_did',
+        schema_seq_no: 36,
+      }
+
+```
 ## How to know what tests to write
 
 Check this small video https://drive.google.com/open?id=1t83ZTe4RdgozuIRs6Pi140fU7cIp-8wx
