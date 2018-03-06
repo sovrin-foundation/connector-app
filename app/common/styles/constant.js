@@ -110,6 +110,12 @@ export const color = {
         primary: white,
       },
     },
+    dark: {
+      color: black,
+      font: {
+        primary: white,
+      },
+    },
   },
 }
 

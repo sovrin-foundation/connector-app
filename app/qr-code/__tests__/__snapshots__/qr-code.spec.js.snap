@@ -2,8 +2,10 @@
 
 exports[`<QRScannerScreen /> match snapshot when camera is not authorized 1`] = `
 <View
+  dark={true}
   style={
     Object {
+      "backgroundColor": "#000000",
       "flex": 1,
     }
   }
@@ -45,8 +47,10 @@ Object {
 
 exports[`<QRScannerScreen /> should match snapshot 1`] = `
 <View
+  dark={true}
   style={
     Object {
+      "backgroundColor": "#000000",
       "flex": 1,
     }
   }

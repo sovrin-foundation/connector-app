@@ -46,6 +46,9 @@ export default StyleSheet.create({
   senaryBg: {
     backgroundColor: color.bg.sixth.color,
   },
+  darkBg: {
+    backgroundColor: color.bg.dark.color,
+  },
   left: {
     // this is assuming that we are aligning items in column
     alignItems: 'flex-start',

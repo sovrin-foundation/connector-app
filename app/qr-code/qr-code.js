@@ -165,7 +165,10 @@ export class QRCodeScannerScreen extends Component<
 
   render() {
     return (
-      <Container>
+      //Till the time camera authorization is checked
+      //empty black screen will be returned
+      //so that it doesn't look odd
+      <Container dark>
         {this.state.isCameraAuthorized && (
           <QRScanner onRead={this.onRead} onClose={this.onClose} />
         )}
