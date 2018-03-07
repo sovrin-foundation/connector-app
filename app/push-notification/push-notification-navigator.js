@@ -148,9 +148,18 @@ export class PushNotificationNavigator extends PureComponent<
                   remotePairwiseDID,
                 }
               )
-              this.handleRedirection(claimOfferRoute, {
-                uid,
-              })
+              //TODO fix the scenario where claim-offer is not added to pending redirection when app is unlocked
+
+              //Redirect to claimOffer after 1 sec because after unlocking the app
+              //it redirects to home screen
+              //If we don't wait and redirect to claimOffer immediately , then
+              //sometimes claim offer screen disappears as home screen redirection will happen
+              //after it
+              setTimeout(() => {
+                this.handleRedirection(claimOfferRoute, {
+                  uid,
+                })
+              }, 1000)
               break
 
             case MESSAGE_TYPE.PROOF_REQUEST:
