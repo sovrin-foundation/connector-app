@@ -51,7 +51,9 @@ export default class ProofModal extends PureComponent<
 
   componentWillReceiveProps(nextProps: ProofModalProps) {
     // if component was not unmounted, and claim request status updates
-    this.toggleModal(nextProps.proofStatus)
+    if (this.props.proofStatus !== nextProps.proofStatus) {
+      this.toggleModal(nextProps.proofStatus)
+    }
   }
 
   render() {
