@@ -83,7 +83,6 @@ export class LockSelection extends PureComponent<LockSelectionProps, void> {
         tertiary
         testID="lock-selection-view"
         style={[style.pinSelectionContainer]}
-        onLongPress={this._onLongPressButton}
       >
         <CustomView
           onPress={this.props.switchErrorAlerts}
