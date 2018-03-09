@@ -70,17 +70,19 @@ export class LockEnterPin extends PureComponent<
   }
 
   onSuccess = () => {
-    this.setState({ authenticationSuccess: true })
-    // if we reach at this screen from settings page
-    // then user is trying to enable/disable touch id
-    if (this.props.existingPin) {
-      this.props.navigation.navigate(lockPinSetupRoute, {
-        existingPin: true,
-      })
-    } else if (this.props.isFetchingInvitation === false) {
-      // user is trying to unlock the app
-      // check if user has some pending action, so redirect to those
-      this.redirect()
+    if (!this.state.authenticationSuccess) {
+      this.setState({ authenticationSuccess: true })
+      // if we reach at this screen from settings page
+      // then user is trying to enable/disable touch id
+      if (this.props.existingPin) {
+        this.props.navigation.navigate(lockPinSetupRoute, {
+          existingPin: true,
+        })
+      } else if (this.props.isFetchingInvitation === false) {
+        // user is trying to unlock the app
+        // check if user has some pending action, so redirect to those
+        this.redirect()
+      }
     }
   }
 
