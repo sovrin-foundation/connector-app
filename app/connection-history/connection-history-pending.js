@@ -24,6 +24,9 @@ export class ConnectionHistoryPending extends PureComponent<void, void> {
           onContinue={this.close}
           senderLogoUrl={payload.senderLogoUrl}
           isPending={true}
+          message1="As soon as "
+          message3=" signs and issues "
+          message5=" to you it will appear here"
         />
       </Container>
     )

@@ -20,6 +20,9 @@ describe('<ClaimRequestModal />', () => {
           payload={claimOfferPayload}
           onContinue={onContinue}
           senderLogoUrl={senderLogoUrl}
+          message1="You accepted "
+          message3=" from "
+          message5="!"
         />
       )
       .toJSON()
@@ -35,6 +38,9 @@ describe('<ClaimRequestModal />', () => {
           onContinue={onContinue}
           senderLogoUrl={senderLogoUrl}
           isPending={true}
+          message1="As soon as "
+          message3=" signs and issues "
+          message5=" to you it will appear here"
         />
       )
       .toJSON()

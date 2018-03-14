@@ -130,6 +130,9 @@ export type ClaimRequestStatusModalProps = {
   onContinue: () => void,
   senderLogoUrl?: string,
   isPending?: boolean,
+  message1: string,
+  message3: string,
+  message5: string,
 }
 
 export type ClaimRequestStatusModalState = {

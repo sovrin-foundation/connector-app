@@ -58,35 +58,55 @@ export default class ClaimRequestStatusModal extends PureComponent<
     this.toggleModal(nextProps.claimRequestStatus)
   }
 
-  //TODO create separate functions for Pending Claim and Accepting Claim Offer
-  getMessage = (
-    isPending: boolean,
-    claimRequestStatus: ClaimRequestStatus,
-    issuerName: string,
-    dataName: string
-  ) => {
-    let message1 = 'Successfully received',
-      message2 = '',
-      message3 = '',
-      message4 = '',
-      message5 = ''
+  render() {
+    const {
+      claimRequestStatus,
+      payload: { issuer, data },
+      senderLogoUrl,
+      isPending = false,
+      message1,
+      message3,
+      message5,
+    }: ClaimRequestStatusModalProps = this.props
+    let message2 = data.name
+    let message4 = issuer.name
     if (isPending) {
-      message1 = 'As soon as '
-      message2 = issuerName
-      message3 = ' signs and issues '
-      message4 = dataName
-      message5 = ' to you it will appear here'
-    } else if (
-      claimRequestStatus === CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST
-    ) {
-      message1 = 'You accepted '
-      message2 = dataName
-      message3 = ' from '
-      message4 = issuerName
-      message5 = '!'
+      message2 = issuer.name
+      message4 = data.name
     }
-    if (message2 !== '') {
-      return (
+    const avatarRight = senderLogoUrl
+      ? { uri: senderLogoUrl }
+      : require('../images/cb_evernym.png')
+    const { middleImage, middleImageStyle } = isPending
+      ? {
+          middleImage: require('../images/connectArrows.png'),
+          middleImageStyle: styles.connectedArrow,
+        }
+      : claimRequestStatus === CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST
+        ? {
+            middleImage: require('../images/checkMark.png'),
+            middleImageStyle: null,
+          }
+        : {
+            middleImage: require('../images/connectArrows.png'),
+            middleImageStyle: styles.connectedArrow,
+          }
+
+    return (
+      <CustomModal
+        onPress={this.onContinue}
+        buttonText="Continue"
+        testID={'claim-request'}
+        isVisible={this.state.isVisible}
+      >
+        <AvatarsPair
+          middleImage={middleImage}
+          middleImageStyle={middleImageStyle}
+          avatarLeft={require('../images/UserAvatar.png')}
+          avatarRight={avatarRight}
+          testID={'claim-request'}
+        />
+
         <CustomText
           h6
           demiBold
@@ -125,73 +145,6 @@ export default class ClaimRequestStatusModal extends PureComponent<
           </CustomText>
           {message5}
         </CustomText>
-      )
-    } else {
-      return (
-        <CustomText
-          h6
-          demiBold
-          center
-          tertiary
-          bg="tertiary"
-          transparentBg
-          style={[styles.message]}
-          testID={`claim-request-message`}
-        >
-          {message1}
-        </CustomText>
-      )
-    }
-  }
-
-  render() {
-    const {
-      claimRequestStatus,
-      payload: { issuer, data },
-      senderLogoUrl,
-      isPending = false,
-    }: ClaimRequestStatusModalProps = this.props
-
-    const avatarRight = senderLogoUrl
-      ? { uri: senderLogoUrl }
-      : require('../images/cb_evernym.png')
-    const { middleImage, middleImageStyle } = isPending
-      ? {
-          middleImage: require('../images/connectArrows.png'),
-          middleImageStyle: styles.connectedArrow,
-        }
-      : claimRequestStatus === CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST
-        ? {
-            middleImage: require('../images/checkMark.png'),
-            middleImageStyle: null,
-          }
-        : {
-            middleImage: require('../images/connectArrows.png'),
-            middleImageStyle: styles.connectedArrow,
-          }
-    const message = this.getMessage(
-      isPending,
-      claimRequestStatus,
-      issuer.name,
-      data.name
-    )
-
-    return (
-      <CustomModal
-        onPress={this.onContinue}
-        buttonText="Continue"
-        testID={'claim-request'}
-        isVisible={this.state.isVisible}
-      >
-        <AvatarsPair
-          middleImage={middleImage}
-          middleImageStyle={middleImageStyle}
-          avatarLeft={require('../images/UserAvatar.png')}
-          avatarRight={avatarRight}
-          testID={'claim-request'}
-        />
-
-        {message}
       </CustomModal>
     )
   }
