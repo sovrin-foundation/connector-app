@@ -7,6 +7,7 @@ import type {
   TopicAnnotation,
   ReactNavigation,
   GenericStringObject,
+  ResetAction,
 } from '../common/type-common'
 import type {
   ClaimProofNavigation,
@@ -268,6 +269,7 @@ export type ProofRequestAction =
   | ProofRequestRejectedAction
   | ProofRequestAutoFillAction
   | MissingAttributesFoundAction
+  | ResetAction
 
 export type ProofRequestStore = {
   +[string]: ProofRequestPayload,

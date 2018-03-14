@@ -4,49 +4,38 @@ import 'react-native'
 import renderer from 'react-test-renderer'
 import { SCAN_STATUS } from '../type-qr-scanner'
 import QRScanner from '../qr-scanner'
+import {
+  qrData,
+  validQrCodeEnvironmentSwitchUrl,
+} from '../../../../__mocks__/static-data'
 
 describe('<QRScanner />', () => {
-  const props = () => ({
+  const getProps = () => ({
     onClose: jest.fn(),
     onRead: jest.fn(),
+    onEnvironmentSwitchUrl: jest.fn(),
   })
 
+  function setup() {
+    const props = getProps()
+    const wrapper = renderer.create(<QRScanner {...props} />)
+    const instance = wrapper.getInstance()
+    return {
+      ...props,
+      instance,
+      wrapper,
+    }
+  }
+
   it('should match snapshot', () => {
-    const { onClose, onRead } = props()
-    const wrapper = renderer
-      .create(<QRScanner onClose={onClose} onRead={onRead} />)
-      .toJSON()
-    expect(wrapper).toMatchSnapshot()
+    const { wrapper } = setup()
+    expect(wrapper.toJSON()).toMatchSnapshot()
   })
 
   it('should call onRead once QR code read is successful', () => {
     jest.useFakeTimers()
-    const { onClose, onRead } = props()
-    const instance = renderer
-      .create(<QRScanner onClose={onClose} onRead={onRead} />)
-      .getInstance()
+    const { onRead, instance } = setup()
 
-    const qrData = {
-      id: 'yta2odh',
-      s: {
-        n: 'ent-name',
-        dp: {
-          d: 'N2Uyi6SVsHZq1VWXuA3EMg',
-          k: 'CTfF2sZ5q4oPcBvTP75pgx3WGzYiLSTwHGg9zUsJJegi',
-          s:
-            '/FxHMzX8JaH461k1SI5PfyxF5KwBAe6VlaYBNLI2aSZU3APsiWBfvSC+mxBYJ/zAhX9IUeTEX67fj+FCXZZ2Cg==',
-        },
-        d: 'F2axeahCaZfbUYUcKefc3j',
-        l: 'ent-logo-url',
-        v: '74xeXSEac5QTWzQmh84JqzjuXc8yvXLzWKeiqyUnYokx',
-      },
-      sa: {
-        d: 'BDSmVkzxRYGE4HKyMKxd1H',
-        v: '6yUatReYWNSUfEtC2ABgRXmmLaxCyQqsjLwv2BomxsxD',
-        e: '52.38.32.107:80/agency/msg',
-      },
-      t: 'there',
-    }
     const qrReadEvent = {
       data: JSON.stringify(qrData),
     }
@@ -63,13 +52,27 @@ describe('<QRScanner />', () => {
   it('should set state to fail if QR code is not correct', () => {
     jest.useFakeTimers()
 
-    const { onClose, onRead } = props()
-    const instance = renderer
-      .create(<QRScanner onClose={onClose} onRead={onRead} />)
-      .getInstance()
+    const { instance } = setup()
 
     instance.onRead({ data: '' })
     expect(instance.state.scanStatus).toBe(SCAN_STATUS.FAIL)
+
+    jest.runAllTimers()
+
+    expect(instance.state.scanStatus).toBe(SCAN_STATUS.SCANNING)
+  })
+
+  // TODO: Remove when raising PR to master
+  xit('should call onEnvironmentSwitchUrl if it reads correct environment switcher url', () => {
+    jest.useFakeTimers()
+    const { onEnvironmentSwitchUrl, instance } = setup()
+
+    instance.onRead({ data: validQrCodeEnvironmentSwitchUrl })
+    expect(onEnvironmentSwitchUrl).toHaveBeenCalledWith({
+      name: 'dev',
+      url: validQrCodeEnvironmentSwitchUrl,
+    })
+    expect(instance.state.scanStatus).toBe(SCAN_STATUS.SUCCESS)
 
     jest.runAllTimers()
 

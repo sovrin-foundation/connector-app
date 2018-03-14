@@ -14,6 +14,7 @@ import type {
   DeepLinkEmptyAction,
   DeepLinkErrorAction,
 } from './type-deep-link'
+import { RESET } from '../common/type-common'
 
 const initialState = {
   tokens: {},
@@ -32,7 +33,7 @@ export const deepLinkEmpty = (): DeepLinkEmptyAction => ({
 })
 
 export const deepLinkError = (error: string): DeepLinkErrorAction => ({
-  type: DEEP_LINK_DATA,
+  type: DEEP_LINK_ERROR,
   error,
 })
 
@@ -83,6 +84,9 @@ export default function deepLinkReducer(
         tokens: {},
         error: null,
       }
+
+    case RESET:
+      return initialState
 
     default:
       return state

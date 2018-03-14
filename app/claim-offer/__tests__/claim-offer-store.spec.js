@@ -231,6 +231,10 @@ describe('claim offer store', () => {
 
     expect(gen.next().done).toBe(true)
   })
+
+  it('should reset claim offer store, if RESET action is raised', () => {
+    expect(claimOfferStore(newState, { type: 'RESET' })).toMatchSnapshot()
+  })
 })
 
 describe('convertClaimRequestToEdgeClaimRequest', () => {

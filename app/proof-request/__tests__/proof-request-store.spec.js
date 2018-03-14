@@ -214,4 +214,8 @@ describe('proof request store', () => {
       convertMissingAttributeListToObject(missingAttributes1)
     ).toMatchSnapshot()
   })
+
+  it('should reset proof request store, if RESET action is raised', () => {
+    expect(proofRequestStore(newState, { type: 'RESET' })).toMatchSnapshot()
+  })
 })

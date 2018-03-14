@@ -15,6 +15,7 @@ import type { InvitationProps, InvitationState } from './type-invitation'
 import type { ReactNavigation } from '../common/type-common'
 import { smsPendingInvitationSeen } from '../sms-pending-invitation/sms-pending-invitation-store'
 import { SMSPendingInvitationStatus } from '../sms-pending-invitation/type-sms-pending-invitation'
+import { NavigationActions } from 'react-navigation'
 
 export class Invitation extends PureComponent<
   InvitationProps,
@@ -28,9 +29,18 @@ export class Invitation extends PureComponent<
 
   _hideModal = () => this.setState({ isSuccessModalVisible: false })
 
+  navigateAndReset = () => {
+    this.props.navigation.dispatch(
+      NavigationActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: homeRoute })],
+      })
+    )
+  }
+
   onSuccessModalContinue = () => {
     this._hideModal()
-    this.props.navigation.navigate(homeRoute)
+    this.navigateAndReset()
   }
 
   onAction = (response: ResponseTypes) => {
@@ -43,7 +53,7 @@ export class Invitation extends PureComponent<
         })
       } else if (response === ResponseType.rejected) {
         this.props.invitationRejected(payload.senderDID)
-        this.props.navigation.navigate(homeRoute)
+        this.navigateAndReset()
       }
     }
   }
@@ -135,6 +145,7 @@ const mapStateToProps = (state: Store, { navigation }: ReactNavigation) => {
     state.smsPendingInvitation[smsToken] &&
     state.smsPendingInvitation[smsToken].status !==
       SMSPendingInvitationStatus.SEEN
+
   return {
     invitation: state.invitation[senderDID],
     showErrorAlerts: state.config.showErrorAlerts,

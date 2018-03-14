@@ -42,6 +42,15 @@ export const hydrateAppFail = (error: CustomError) => ({
   error,
 })
 
+export function* deleteStoredData(): Generator<*, *, *> {
+  yield call(deleteItem, CONNECTIONS)
+  yield call(AsyncStorage.removeItem, IS_CONSUMER_AGENT_ALREADY_CREATED)
+  yield call(deleteItem, STORAGE_KEY_USER_ONE_TIME_INFO)
+  yield call(AsyncStorage.removeItem, STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL)
+  yield call(deleteItem, CLAIM_MAP)
+  yield call(deleteItem, HISTORY_EVENT_STORAGE_KEY)
+}
+
 export function* appHydration(action: {
   isAlreadyInstalled: boolean,
 }): Generator<*, *, *> {
@@ -58,15 +67,7 @@ export function* appHydration(action: {
     } else {
       // this is the fresh installation of app
       // delete previous stored connections
-      yield call(deleteItem, CONNECTIONS)
-      yield call(deleteItem, IS_CONSUMER_AGENT_ALREADY_CREATED)
-      yield call(deleteItem, STORAGE_KEY_USER_ONE_TIME_INFO)
-      yield call(
-        AsyncStorage.removeItem,
-        STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL
-      )
-      yield call(deleteItem, CLAIM_MAP)
-      yield call(deleteItem, HISTORY_EVENT_STORAGE_KEY)
+      yield* deleteStoredData()
     }
     yield put(hydrateConnections(connections))
     yield* hydrateUserStoreSaga()

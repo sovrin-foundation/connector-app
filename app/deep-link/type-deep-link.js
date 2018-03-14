@@ -1,5 +1,5 @@
 // @flow
-import type { CustomError } from '../common/type-common'
+import type { CustomError, ResetAction } from '../common/type-common'
 
 export const DEEP_LINK_ERROR = 'DEEP_LINK_ERROR'
 export const DEEP_LINK_DATA = 'DEEP_LINK_DATA'
@@ -50,6 +50,7 @@ export type DeepLinkAction =
   | DeepLinkDataAction
   | DeepLinkEmptyAction
   | DeepLinkErrorAction
+  | ResetAction
 
 export type DeepLinkBundle = {
   error: ?string,

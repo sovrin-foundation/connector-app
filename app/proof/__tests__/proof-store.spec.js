@@ -215,4 +215,8 @@ describe('Proof Store', () => {
 
     expect(gen.next().done).toBe(true)
   })
+
+  it('should reset proof store, if RESET action is raised', () => {
+    expect(proofReducer(afterProofSuccess, { type: 'RESET' })).toMatchSnapshot()
+  })
 })

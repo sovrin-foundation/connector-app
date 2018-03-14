@@ -144,7 +144,11 @@ describe('<Invitation />', () => {
   it('should reject invitation and redirect user to Home on Deny', () => {
     instance.onAction(ResponseType.rejected)
     expect(invitationRejected).toHaveBeenCalledWith(firstInvitation.senderDID)
-    expect(navigation.navigate).toHaveBeenCalledWith(homeRoute)
+    expect(navigation.dispatch).toHaveBeenCalled()
+    const redirectScreen =
+      navigation.dispatch.mock.calls[0][0]['0'].actions[0]['0'].routeName
+    expect(redirectScreen).toBe(homeRoute)
+    navigation.dispatch.mockReset()
   })
 
   it('should show success modal once acceptance is sent to agent', () => {
@@ -191,6 +195,7 @@ describe('<Invitation />', () => {
     )
     expect(smsPendingInvitationSeen).toHaveBeenCalledWith(smsToken)
   })
+
   it('should not call smsPendingInvitationSeen action if isSmsInvitationNotSeen is false', () => {
     const invitationAfterAccept = {
       ...invitation,
@@ -217,6 +222,11 @@ describe('<Invitation />', () => {
     instance.onSuccessModalContinue()
 
     expect(instance.state.isSuccessModalVisible).toBe(false)
-    expect(navigation.navigate).toHaveBeenCalledWith(homeRoute)
+    expect(navigation.dispatch).toHaveBeenCalled()
+    const redirectScreen =
+      navigation.dispatch.mock.calls[0][0]['0'].actions[0]['0'].routeName
+    expect(redirectScreen).toBe(homeRoute)
+
+    navigation.dispatch.mockReset()
   })
 })

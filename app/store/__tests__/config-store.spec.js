@@ -1,8 +1,9 @@
 // @flow
 import 'react-native'
+import { Alert } from 'react-native'
 import renderer from 'react-test-renderer'
 import { AsyncStorage } from 'react-native'
-import { put, take, call } from 'redux-saga/effects'
+import { put, take, call, select } from 'redux-saga/effects'
 import configReducer, {
   watchChangeEnvironmentToDemo,
   watchChangeEnvironmentToSandbox,
@@ -16,6 +17,8 @@ import configReducer, {
   onEnvironmentSwitch,
   hydrateSwitchedEnvironmentDetails,
   changeEnvironment,
+  onChangeEnvironmentUrl,
+  changeEnvironmentUrl,
 } from '../config-store'
 import {
   SERVER_ENVIRONMENT_CHANGED_DEMO,
@@ -30,7 +33,13 @@ import {
   agencyUrl,
   agencyVerificationKey,
   poolConfig,
+  validQrCodeEnvironmentSwitchUrl,
 } from '../../../__mocks__/static-data'
+import { downloadEnvironmentDetails } from '../../api/api'
+import { RESET } from '../../common/type-common'
+import { reset as resetNative } from '../../bridge/react-native-cxs/RNCxs'
+import { updatePushToken } from '../../push-notification/push-notification-store'
+import { getPushToken } from '../../store/store-selector'
 
 describe('server environment should change', () => {
   let initialConfig = null
@@ -122,6 +131,94 @@ describe('server environment should change', () => {
         )
       )
     )
+  })
+
+  it('should change environment via url, show success alert', () => {
+    const alertSpy = jest.spyOn(Alert, 'alert')
+    const gen = onChangeEnvironmentUrl(
+      changeEnvironmentUrl(validQrCodeEnvironmentSwitchUrl)
+    )
+
+    expect(gen.next().value).toEqual(
+      call(downloadEnvironmentDetails, validQrCodeEnvironmentSwitchUrl)
+    )
+
+    const environmentDetails = {
+      agencyDID,
+      agencyUrl,
+      agencyVerificationKey,
+      poolConfig,
+    }
+    // delete stored data, not interested in actual calls
+    // those tests are being taken care in other test
+    gen.next(environmentDetails)
+    for (let index = 0; index < 5; index++) {
+      gen.next()
+    }
+
+    expect(gen.next().value).toEqual(put({ type: RESET }))
+    expect(gen.next().value).toEqual(
+      put(
+        changeEnvironment(
+          agencyUrl,
+          agencyDID,
+          agencyVerificationKey,
+          poolConfig
+        )
+      )
+    )
+    expect(gen.next().value).toEqual(select(getPushToken))
+    const pushToken = 'token'
+    expect(gen.next(pushToken).value).toEqual(put(updatePushToken(pushToken)))
+    expect(gen.next().value).toEqual(call(resetNative, poolConfig))
+
+    expect(gen.next().done).toBe(true)
+
+    expect(alertSpy).toHaveBeenCalledTimes(1)
+
+    alertSpy.mockReset()
+    alertSpy.mockRestore()
+  })
+
+  it('should not change environment via url if downloaded data is not correct', () => {
+    const alertSpy = jest.spyOn(Alert, 'alert')
+    const gen = onChangeEnvironmentUrl(
+      changeEnvironmentUrl(validQrCodeEnvironmentSwitchUrl)
+    )
+
+    expect(gen.next().value).toEqual(
+      call(downloadEnvironmentDetails, validQrCodeEnvironmentSwitchUrl)
+    )
+    const invalidEnvironmentDetails = {
+      agencyDID,
+      agencyUrl,
+      agencyVerificationKey,
+    }
+
+    expect(gen.next(invalidEnvironmentDetails).done).toBe(true)
+
+    expect(alertSpy).toHaveBeenCalledTimes(1)
+
+    alertSpy.mockReset()
+    alertSpy.mockRestore()
+  })
+
+  it('should show alert with error message if any error occurs', () => {
+    const alertSpy = jest.spyOn(Alert, 'alert')
+    const gen = onChangeEnvironmentUrl(
+      changeEnvironmentUrl(validQrCodeEnvironmentSwitchUrl)
+    )
+
+    expect(gen.next().value).toEqual(
+      call(downloadEnvironmentDetails, validQrCodeEnvironmentSwitchUrl)
+    )
+
+    gen.throw(new Error('Some error'))
+
+    expect(alertSpy).toHaveBeenCalledTimes(1)
+
+    alertSpy.mockReset()
+    alertSpy.mockRestore()
   })
 })
 

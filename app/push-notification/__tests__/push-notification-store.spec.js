@@ -117,4 +117,16 @@ describe('push notification store should work properly', () => {
 
     expect(gen.next().done).toBe(true)
   })
+
+  it('should reset push notification store, if RESET action is raised', () => {
+    const afterPushNotificationReceivedState = pushNotificationReducer(
+      initialState,
+      pushNotificationReceived(claimOfferPushNotification)
+    )
+    expect(
+      pushNotificationReducer(afterPushNotificationReceivedState, {
+        type: 'RESET',
+      })
+    ).toMatchSnapshot()
+  })
 })

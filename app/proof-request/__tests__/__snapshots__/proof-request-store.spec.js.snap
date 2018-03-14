@@ -541,3 +541,5 @@ Object {
 `;
 
 exports[`proof request store should correctly calculate initial state 1`] = `Object {}`;
+
+exports[`proof request store should reset proof request store, if RESET action is raised 1`] = `Object {}`;

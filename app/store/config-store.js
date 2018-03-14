@@ -1,5 +1,5 @@
 // @flow
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, Alert } from 'react-native'
 import {
   put,
   take,
@@ -15,7 +15,10 @@ import { setItem, getItem, deleteItem } from '../services/secure-storage'
 import { captureError } from '../services/error/error-handler'
 import { lockEnable } from '../lock/lock-store'
 import { PIN_STORAGE_KEY, TOUCHID_STORAGE_KEY } from '../lock/type-lock'
-import { getErrorAlertsSwitchValue } from '../store/store-selector'
+import {
+  getErrorAlertsSwitchValue,
+  getPushToken,
+} from '../store/store-selector'
 import { enableTouchIdAction, disableTouchIdAction } from '../lock/lock-store'
 import {
   SERVER_ENVIRONMENT,
@@ -33,6 +36,13 @@ import {
   ERROR_SAVE_SWITCH_ENVIRONMENT,
   ERROR_HYDRATE_SWITCH_ENVIRONMENT,
   HYDRATE_SWITCH_ENVIRONMENT_DETAIL_FAIL,
+  CHANGE_ENVIRONMENT_VIA_URL,
+  schemaDownloadedEnvironmentDetails,
+  MESSAGE_FAIL_ENVIRONMENT_SWITCH_TITLE,
+  MESSAGE_FAIL_ENVIRONMENT_SWITCH_INVALID_DATA,
+  MESSAGE_FAIL_ENVIRONMENT_SWITCH_ERROR,
+  MESSAGE_SUCCESS_ENVIRONMENT_SWITCH_DESCRIPTION,
+  MESSAGE_SUCCESS_ENVIRONMENT_SWITCH_TITLE,
 } from './type-config-store'
 import type {
   ServerEnvironment,
@@ -41,9 +51,16 @@ import type {
   ServerEnvironmentChangedAction,
   SwitchEnvironmentAction,
   ChangeEnvironment,
+  ChangeEnvironmentUrlAction,
 } from './type-config-store'
-import { appHydration } from './hydration-store'
+import { appHydration, deleteStoredData } from './hydration-store'
 import type { CustomError } from '../common/type-common'
+import { downloadEnvironmentDetails } from '../api/api'
+import schemaValidator from '../services/schema-validator'
+import type { EnvironmentDetailUrlDownloaded } from '../api/type-api'
+import { reset as resetNative } from '../bridge/react-native-cxs/RNCxs'
+import { RESET } from '../common/type-common'
+import { updatePushToken } from '../push-notification/push-notification-store'
 
 /**
  * this file contains configuration which is changed only from user action
@@ -54,15 +71,15 @@ import type { CustomError } from '../common/type-common'
 export const baseUrls = {
   [SERVER_ENVIRONMENT.DEVELOPMENT]: {
     agencyUrl: 'https://cagency.pdev.evernym.com',
-    agencyDID: 'U5okhuLX1vtfPfpEh1W2GR',
-    agencyVerificationKey: 'Fm9H5zDJpLtWTFa3YtxpnRThrzr5dT7sPtq15mJ4bhin',
+    agencyDID: 'dTLdJqRZLwMuWSogcKfBT',
+    agencyVerificationKey: 'LsPQTDHi294TexkFmZK9Q9vW4YGtQRuLV8wuyZi94yH',
     poolConfig:
       '{"data":{"alias":"Node1","blskey":"4N8aUNHSgjQVgkpm8nhNEfDf6txHznoYREg9kirmJrkivgL4oSEimFF6nsQ6M41QvhM2Z33nves5vfSn9n1UwNFJBYtWVnHYMATn76vLuL3zU88KyeAYcHfsih3He6UHcXDxcaecHVz6jhCYz1P2UZn2bDVruL5wXpehgBfBaLKm3Ba","client_ip":"35.164.240.131","client_port":9702,"node_ip":"35.164.240.131","node_port":9701,"services":["VALIDATOR"]},"dest":"Gw6pDLhcBcoQesN72qfotTgFa7cbuqZpkX3Xo6pLhPhv","identifier":"Th7MpTaRZVRYnPiabds81Y","txnId":"fea82e10e894419fe2bea7d96296a6d46f50f93f9eeda954ec461b2ed2950b62","type":"0"}\n{"data":{"alias":"Node2","blskey":"37rAPpXVoxzKhz7d9gkUe52XuXryuLXoM6P6LbWDB7LSbG62Lsb33sfG7zqS8TK1MXwuCHj1FKNzVpsnafmqLG1vXN88rt38mNFs9TENzm4QHdBzsvCuoBnPH7rpYYDo9DZNJePaDvRvqJKByCabubJz3XXKbEeshzpz4Ma5QYpJqjk","client_ip":"35.164.240.131","client_port":9704,"node_ip":"35.164.240.131","node_port":9703,"services":["VALIDATOR"]},"dest":"8ECVSk179mjsjKRLWiQtssMLgp6EPhWXtaYyStWPSGAb","identifier":"EbP4aYNeTHL6q385GuVpRV","txnId":"1ac8aece2a18ced660fef8694b61aac3af08ba875ce3026a160acbc3a3af35fc","type":"0"}\n{"data":{"alias":"Node3","blskey":"3WFpdbg7C5cnLYZwFZevJqhubkFALBfCBBok15GdrKMUhUjGsk3jV6QKj6MZgEubF7oqCafxNdkm7eswgA4sdKTRc82tLGzZBd6vNqU8dupzup6uYUf32KTHTPQbuUM8Yk4QFXjEf2Usu2TJcNkdgpyeUSX42u5LqdDDpNSWUK5deC5","client_ip":"35.164.240.131","client_port":9706,"node_ip":"35.164.240.131","node_port":9705,"services":["VALIDATOR"]},"dest":"DKVxG2fXXTU8yT5N7hGEbXB3dfdAnYv1JczDUHpmDxya","identifier":"4cU41vWW82ArfxJxHkzXPG","txnId":"7e9f355dffa78ed24668f0e0e369fd8c224076571c51e2ea8be5f26479edebe4","type":"0"}\n{"data":{"alias":"Node4","blskey":"2zN3bHM1m4rLz54MJHYSwvqzPchYp8jkHswveCLAEJVcX6Mm1wHQD1SkPYMzUDTZvWvhuE6VNAkK3KxVeEmsanSmvjVkReDeBEMxeDaayjcZjFGPydyey1qxBHmTvAnBKoPydvuTAqx5f7YNNRAdeLmUi99gERUU7TD8KfAa6MpQ9bw","client_ip":"35.164.240.131","client_port":9708,"node_ip":"35.164.240.131","node_port":9707,"services":["VALIDATOR"]},"dest":"4PS3EDQ3dW1tci1Bp6543CfuuebjFrg36kLAUcskGfaA","identifier":"TWwCRQRZ2ZHMJFn9TzLp7W","txnId":"aa5e817d7cc626170eca175822029339a444eb0ee8f0bd20d3b0b76e566fb008","type":"0"}',
   },
   [SERVER_ENVIRONMENT.SANDBOX]: {
     agencyUrl: 'https://agency-sandbox.evernym.com',
-    agencyDID: 'tjVxL8raUsG5s5ZzGhYV1',
-    agencyVerificationKey: 'VCNhKASjLU5tVWnZpjcyEsoV1QC3adrPVMCCjeKMobn',
+    agencyDID: 'Nv9oqGX57gy15kPSJzo2i4',
+    agencyVerificationKey: 'CwpcjCc6MtVNdQgwoonNMFoR6dhzmRXHHaUCRSrjh8gj',
     poolConfig:
       '{"data":{"alias":"Node1","blskey":"4N8aUNHSgjQVgkpm8nhNEfDf6txHznoYREg9kirmJrkivgL4oSEimFF6nsQ6M41QvhM2Z33nves5vfSn9n1UwNFJBYtWVnHYMATn76vLuL3zU88KyeAYcHfsih3He6UHcXDxcaecHVz6jhCYz1P2UZn2bDVruL5wXpehgBfBaLKm3Ba","client_ip":"34.212.206.9","client_port":9702,"node_ip":"34.212.206.9","node_port":9701,"services":["VALIDATOR"]},"dest":"Gw6pDLhcBcoQesN72qfotTgFa7cbuqZpkX3Xo6pLhPhv","identifier":"Th7MpTaRZVRYnPiabds81Y","txnId":"fea82e10e894419fe2bea7d96296a6d46f50f93f9eeda954ec461b2ed2950b62","type":"0"}\n{"data":{"alias":"Node2","blskey":"37rAPpXVoxzKhz7d9gkUe52XuXryuLXoM6P6LbWDB7LSbG62Lsb33sfG7zqS8TK1MXwuCHj1FKNzVpsnafmqLG1vXN88rt38mNFs9TENzm4QHdBzsvCuoBnPH7rpYYDo9DZNJePaDvRvqJKByCabubJz3XXKbEeshzpz4Ma5QYpJqjk","client_ip":"34.212.206.9","client_port":9704,"node_ip":"34.212.206.9","node_port":9703,"services":["VALIDATOR"]},"dest":"8ECVSk179mjsjKRLWiQtssMLgp6EPhWXtaYyStWPSGAb","identifier":"EbP4aYNeTHL6q385GuVpRV","txnId":"1ac8aece2a18ced660fef8694b61aac3af08ba875ce3026a160acbc3a3af35fc","type":"0"}\n{"data":{"alias":"Node3","blskey":"3WFpdbg7C5cnLYZwFZevJqhubkFALBfCBBok15GdrKMUhUjGsk3jV6QKj6MZgEubF7oqCafxNdkm7eswgA4sdKTRc82tLGzZBd6vNqU8dupzup6uYUf32KTHTPQbuUM8Yk4QFXjEf2Usu2TJcNkdgpyeUSX42u5LqdDDpNSWUK5deC5","client_ip":"34.212.206.9","client_port":9706,"node_ip":"34.212.206.9","node_port":9705,"services":["VALIDATOR"]},"dest":"DKVxG2fXXTU8yT5N7hGEbXB3dfdAnYv1JczDUHpmDxya","identifier":"4cU41vWW82ArfxJxHkzXPG","txnId":"7e9f355dffa78ed24668f0e0e369fd8c224076571c51e2ea8be5f26479edebe4","type":"0"}\n{"data":{"alias":"Node4","blskey":"2zN3bHM1m4rLz54MJHYSwvqzPchYp8jkHswveCLAEJVcX6Mm1wHQD1SkPYMzUDTZvWvhuE6VNAkK3KxVeEmsanSmvjVkReDeBEMxeDaayjcZjFGPydyey1qxBHmTvAnBKoPydvuTAqx5f7YNNRAdeLmUi99gERUU7TD8KfAa6MpQ9bw","client_ip":"34.212.206.9","client_port":9708,"node_ip":"34.212.206.9","node_port":9707,"services":["VALIDATOR"]},"dest":"4PS3EDQ3dW1tci1Bp6543CfuuebjFrg36kLAUcskGfaA","identifier":"TWwCRQRZ2ZHMJFn9TzLp7W","txnId":"aa5e817d7cc626170eca175822029339a444eb0ee8f0bd20d3b0b76e566fb008","type":"0"}',
   },
@@ -90,12 +107,6 @@ const initialState: ConfigStore = {
   isHydrated: false,
   // configurable error alert messages
   showErrorAlerts: false,
-  // TODO:KS Need to add one more property to check if app lock is set
-  // and then save that property once lock setup is success
-  // and get in hydrateConfig saga, then check this value in splash-screen
-  // it will help in case user has not completed pin setup
-  // and kills the app for first time
-  // next time user opens the app, he won't be asked to setup pin
 }
 
 export const hydrated = () => ({
@@ -118,6 +129,75 @@ export const changeServerEnvironmentToDemo = () => ({
 export const changeServerEnvironmentToSandbox = () => ({
   type: SERVER_ENVIRONMENT_CHANGED_SANDBOX,
 })
+
+export const changeEnvironmentUrl = (url: string) => ({
+  type: CHANGE_ENVIRONMENT_VIA_URL,
+  url,
+})
+
+export function* resetStore(): Generator<*, *, *> {
+  yield put({ type: RESET })
+}
+
+export function* onChangeEnvironmentUrl(
+  action: ChangeEnvironmentUrlAction
+): Generator<*, *, *> {
+  try {
+    const { url } = action
+    const environmentDetails: EnvironmentDetailUrlDownloaded = yield call(
+      downloadEnvironmentDetails,
+      url
+    )
+    if (
+      !schemaValidator.validate(
+        schemaDownloadedEnvironmentDetails,
+        environmentDetails
+      )
+    ) {
+      // TODO: We need to make a component which displays message
+      // in whole app, something like toast in android
+      // for now, we are using native alert to show error and messages
+      Alert.alert(
+        MESSAGE_FAIL_ENVIRONMENT_SWITCH_TITLE,
+        MESSAGE_FAIL_ENVIRONMENT_SWITCH_INVALID_DATA(url)
+      )
+
+      return
+    }
+
+    yield* deleteStoredData()
+    yield* resetStore()
+
+    yield put(
+      changeEnvironment(
+        environmentDetails.agencyUrl,
+        environmentDetails.agencyDID,
+        environmentDetails.agencyVerificationKey,
+        environmentDetails.poolConfig
+      )
+    )
+
+    const pushToken: string = yield select(getPushToken)
+    yield put(updatePushToken(pushToken))
+
+    yield call(resetNative, environmentDetails.poolConfig)
+    // if we did not get any exception till this point
+    // that means environment is switched
+    Alert.alert(
+      MESSAGE_SUCCESS_ENVIRONMENT_SWITCH_TITLE,
+      MESSAGE_SUCCESS_ENVIRONMENT_SWITCH_DESCRIPTION
+    )
+  } catch (e) {
+    Alert.alert(
+      MESSAGE_FAIL_ENVIRONMENT_SWITCH_TITLE,
+      MESSAGE_FAIL_ENVIRONMENT_SWITCH_ERROR(e.message)
+    )
+  }
+}
+
+export function* watchChangeEnvironmentUrl(): any {
+  yield takeLatest(CHANGE_ENVIRONMENT_VIA_URL, onChangeEnvironmentUrl)
+}
 
 export const changeEnvironment = (
   agencyUrl: string,
@@ -340,6 +420,7 @@ export function* watchConfig(): Generator<*, *, *> {
     watchSwitchErrorAlerts(),
     watchSwitchEnvironment(),
     hydrateConfig(),
+    watchChangeEnvironmentUrl(),
   ])
 }
 

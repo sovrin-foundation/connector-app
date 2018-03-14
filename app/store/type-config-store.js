@@ -75,9 +75,16 @@ export type SaveSwitchEnvironmentDetailFailAction = {
 
 export const HYDRATE_SWITCH_ENVIRONMENT_DETAIL_FAIL =
   'HYDRATE_SWITCH_ENVIRONMENT_DETAIL_FAIL'
+
 export type HydrateSwitchEnvironmentDetailFailAction = {
   type: typeof HYDRATE_SWITCH_ENVIRONMENT_DETAIL_FAIL,
   error: CustomError,
+}
+
+export const CHANGE_ENVIRONMENT_VIA_URL = 'CHANGE_ENVIRONMENT_VIA_URL'
+export type ChangeEnvironmentUrlAction = {
+  type: typeof CHANGE_ENVIRONMENT_VIA_URL,
+  url: string,
 }
 
 export type ConfigAction =
@@ -92,6 +99,7 @@ export type ConfigAction =
   | SwitchEnvironmentAction
   | SaveSwitchEnvironmentDetailFailAction
   | HydrateSwitchEnvironmentDetailFailAction
+  | ChangeEnvironmentUrlAction
 
 export type ConfigStore = {
   isAlreadyInstalled: boolean,
@@ -115,3 +123,28 @@ export const ERROR_HYDRATE_SWITCH_ENVIRONMENT = {
   code: 'CS-001',
   message: 'Failed to hydrate switched environment details: ',
 }
+
+export const schemaDownloadedEnvironmentDetails = {
+  type: 'object',
+  properties: {
+    agencyUrl: { type: 'string' },
+    agencyDID: { type: 'string' },
+    agencyVerificationKey: { type: 'string' },
+    poolConfig: { type: 'string' },
+  },
+  required: ['agencyDID', 'agencyUrl', 'agencyVerificationKey', 'poolConfig'],
+}
+
+export const MESSAGE_FAIL_ENVIRONMENT_SWITCH_TITLE =
+  'Failed to switch environment'
+
+export const MESSAGE_FAIL_ENVIRONMENT_SWITCH_INVALID_DATA = (url: string) =>
+  `Data returned by ${url} is not valid as per our requirements.`
+
+export const MESSAGE_FAIL_ENVIRONMENT_SWITCH_ERROR = (message: string) =>
+  `Failed to switch environment due to following error. ${message}`
+
+export const MESSAGE_SUCCESS_ENVIRONMENT_SWITCH_TITLE = 'Success'
+
+export const MESSAGE_SUCCESS_ENVIRONMENT_SWITCH_DESCRIPTION =
+  'Environment switched successfully.'

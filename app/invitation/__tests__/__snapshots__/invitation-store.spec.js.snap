@@ -277,3 +277,5 @@ Object {
   },
 }
 `;
+
+exports[`Invitation Store should reset invitation store, if RESET action is raised 1`] = `Object {}`;

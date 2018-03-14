@@ -5,6 +5,7 @@ import type {
   ReactNavigation,
   GenericObject,
   CustomError,
+  ResetAction,
 } from '../common/type-common'
 import {
   INVITATION_RECEIVED,
@@ -174,6 +175,7 @@ export type HistoryEventOccurredEventType =
   | ProofRequestReceivedAction
   | ProofRequestAutoFillAction
   | SendClaimRequestAction
+  | ResetAction
 
 export type HistoryEventOccurredAction = {
   type: typeof HISTORY_EVENT_OCCURRED,

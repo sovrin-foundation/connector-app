@@ -114,3 +114,26 @@ Object {
   "isPristine": true,
 }
 `;
+
+exports[`connections should update correctly should reset connection store, if RESET action is raised 1`] = `
+Object {
+  "claimMap": null,
+  "connectionThemes": Object {
+    "active": Object {
+      "primary": "rgba(133, 191, 67, 1.0)",
+      "secondary": "rgba(133, 191, 67, 0.6)",
+    },
+    "default": Object {
+      "primary": "rgba(133, 191, 67, 1.0)",
+      "secondary": "rgba(133, 191, 67, 0.6)",
+    },
+  },
+  "data": null,
+  "error": Object {
+    "code": "",
+    "message": "",
+  },
+  "isFetching": false,
+  "isPristine": true,
+}
+`;

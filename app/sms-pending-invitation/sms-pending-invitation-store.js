@@ -42,6 +42,7 @@ import {
   switchEnvironmentRoute,
 } from '../common/route-constants'
 import { HYDRATED } from '../store/type-config-store'
+import { RESET } from '../common/type-common'
 
 const initialState = {}
 
@@ -246,6 +247,9 @@ export default function smsPendingInvitationReducer(
       } else {
         return state
       }
+
+    case RESET:
+      return initialState
 
     default:
       return state

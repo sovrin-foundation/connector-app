@@ -55,6 +55,7 @@ import { MESSAGE_TYPE } from '../api/api-constants'
 import type { ApiClaimRequest, EdgeClaimRequest } from '../api/type-api'
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
 import type { Connection } from '../store/type-connection-store'
+import { RESET } from '../common/type-common'
 
 const claimOfferInitialState = {}
 
@@ -319,6 +320,8 @@ export default function claimOfferReducer(
           claimRequestStatus: CLAIM_REQUEST_STATUS.CLAIM_REQUEST_FAIL,
         },
       }
+    case RESET:
+      return claimOfferInitialState
     default:
       return state
   }

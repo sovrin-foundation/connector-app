@@ -19,6 +19,7 @@ import type {
   ConnectRegisterCreateAgentDoneAction,
 } from './type-user-store'
 import type { CustomError } from '../../common/type-common'
+import { RESET } from '../../common/type-common'
 
 const initialState = {
   isFetching: false,
@@ -120,6 +121,8 @@ export default function user(
         ...state,
         userOneTimeInfo: action.userOneTimeInfo,
       }
+    case RESET:
+      return initialState
     default:
       return state
   }

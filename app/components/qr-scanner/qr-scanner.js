@@ -30,6 +30,7 @@ import type {
   CameraMarkerProps,
   CornerBoxProps,
 } from './type-qr-scanner'
+import { isValidUrlQrCode } from './qr-url-validator'
 
 export default class QRScanner extends PureComponent<
   QrScannerProps,
@@ -42,12 +43,21 @@ export default class QRScanner extends PureComponent<
     scanStatus: SCAN_STATUS.SCANNING,
   }
 
+  // Need to have this property because we can't rely
+  // on state being updated immediately
+  // so, while state being updated by react asynchronously,
+  // onRead can be called multiple times and we don't want it
+  isScanning = false
+
   reactivateScanning = () => {
     // this method sets scanning status
     // so that we stop accepting qr code scans and user can see
     // "scanning..." text, otherwise as soon as we set state
     // in "reactivate" function, "scanning..." text will disappear and it looks bad
-    setTimeout(() => this.setState({ scanning: false }), 2000)
+    setTimeout(() => {
+      this.setState({ scanning: false })
+      this.isScanning = false
+    }, 2000)
   }
 
   reactivate = () => {
@@ -64,30 +74,44 @@ export default class QRScanner extends PureComponent<
     setTimeout(() => this.reactivate(), 3000)
   }
 
+  onSuccessRead = (nextState: QrScannerState) => {
+    nextState.scanStatus = SCAN_STATUS.SUCCESS
+    this.setState(nextState)
+    // reset state after work is done
+    // assume some arbitrary timeout (1200) of resetting state
+    // expectation is that parent will finish it's work within this timeout
+    setTimeout(this.delayedReactivate, 100)
+  }
+
   onRead = (event: {| data: string |}) => {
-    if (!this.state.scanning) {
+    if (!this.state.scanning && !this.isScanning) {
+      // set this instance property to avoid async state issue
+      this.isScanning = true
+
       const qrData = isValidQrCode(event.data)
       let nextState = { scanning: true, scanStatus: SCAN_STATUS.SCANNING }
 
       if (qrData && typeof qrData === 'object') {
-        nextState.scanStatus = SCAN_STATUS.SUCCESS
-        this.setState(nextState)
+        this.onSuccessRead(nextState)
         this.props.onRead(qrData)
-        // set state back to initial state
-        // once user is redirected to invitation screen
-        setTimeout(this.delayedReactivate, 1000)
       } else {
-        // qr code read failed
-        nextState.scanStatus = SCAN_STATUS.FAIL
-        // if qr code read failed, we reactivate qr code scan after delay
-        // so that user can see that QR code scan failed
-        this.setState(nextState, this.delayedReactivate)
+        // we support another type of qr code as well
+        // in which we recognize the url which allows us
+        // to switch environment
+        const urlQrCode = isValidUrlQrCode(event.data)
+        if (urlQrCode && typeof urlQrCode === 'object') {
+          this.onSuccessRead(nextState)
+          this.props.onEnvironmentSwitchUrl(urlQrCode)
+        } else {
+          // qr code read failed
+          nextState.scanStatus = SCAN_STATUS.FAIL
+          // if qr code read failed, we reactivate qr code scan after delay
+          // so that user can see that QR code scan failed
+          this.setState(nextState, this.delayedReactivate)
+        }
       }
     }
   }
-
-  // how do we kill the instance of the component
-  // we need to add some hook with StackNavigator
 
   render() {
     return (

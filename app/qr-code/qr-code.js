@@ -40,7 +40,11 @@ import type {
 import {
   MESSAGE_NO_CAMERA_PERMISSION,
   MESSAGE_ALLOW_CAMERA_PERMISSION,
+  MESSAGE_RESET_CONNECT_ME,
+  MESSAGE_RESET_DETAILS,
 } from './type-qr-code'
+import type { EnvironmentSwitchUrlQrCode } from '../components/qr-scanner/type-qr-scanner'
+import { changeEnvironmentUrl } from '../store/config-store'
 
 export function convertQrCodeToInvitation(qrCode: QrCode) {
   const qrSenderDetail = qrCode[QR_CODE_SENDER_DETAIL]
@@ -99,6 +103,23 @@ export class QRCodeScannerScreen extends Component<
       this.props.navigation.navigate(invitationRoute, {
         senderDID: invitation.payload.senderDID,
       })
+    }
+  }
+
+  onAllowSwitchEnvironment = (url: EnvironmentSwitchUrlQrCode) => {
+    this.props.changeEnvironmentUrl(url.url)
+    this.props.navigation.navigate(homeTabRoute)
+  }
+
+  onEnvironmentSwitchUrl = (url: EnvironmentSwitchUrlQrCode) => {
+    if (this.props.currentScreen === qrCodeScannerTabRoute) {
+      Alert.alert(MESSAGE_RESET_CONNECT_ME, MESSAGE_RESET_DETAILS(url.name), [
+        { text: 'Cancel' },
+        {
+          text: 'Switch',
+          onPress: () => this.onAllowSwitchEnvironment(url),
+        },
+      ])
     }
   }
 
@@ -170,7 +191,11 @@ export class QRCodeScannerScreen extends Component<
       //so that it doesn't look odd
       <Container dark>
         {this.state.isCameraAuthorized && (
-          <QRScanner onRead={this.onRead} onClose={this.onClose} />
+          <QRScanner
+            onRead={this.onRead}
+            onClose={this.onClose}
+            onEnvironmentSwitchUrl={this.onEnvironmentSwitchUrl}
+          />
         )}
       </Container>
     )
@@ -185,6 +210,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       invitationReceived,
+      changeEnvironmentUrl,
     },
     dispatch
   )

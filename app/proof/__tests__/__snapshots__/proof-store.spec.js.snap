@@ -168,6 +168,8 @@ Object {
 }
 `;
 
+exports[`Proof Store should reset proof store, if RESET action is raised 1`] = `Object {}`;
+
 exports[`Proof Store store update correctly if proof fails 1`] = `
 Object {
   "pid123": Object {

@@ -14,6 +14,14 @@ jest.mock('Linking', () => ({
 
 jest.mock('react-navigation', () => ({
   StackNavigator: jest.fn(),
+  NavigationActions: {
+    reset() {
+      return arguments
+    },
+    navigate() {
+      return arguments
+    },
+  },
 }))
 
 jest.mock('react-native-fcm', () => ({

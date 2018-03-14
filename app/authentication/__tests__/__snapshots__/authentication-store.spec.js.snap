@@ -110,3 +110,20 @@ Object {
   "type": "NONE",
 }
 `;
+
+exports[`Authentication request tests should reset authentication store when reset action is raised 1`] = `
+Object {
+  "data": null,
+  "error": null,
+  "invitee": Object {
+    "image": "./images/inviter.jpeg",
+  },
+  "inviter": Object {
+    "image": "",
+  },
+  "isFetching": false,
+  "isPristine": true,
+  "status": "NONE",
+  "type": "NONE",
+}
+`;

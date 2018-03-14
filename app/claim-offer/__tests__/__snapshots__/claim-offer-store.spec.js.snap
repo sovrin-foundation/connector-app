@@ -266,6 +266,8 @@ Object {
 
 exports[`claim offer store should correctly calculate initial state 1`] = `Object {}`;
 
+exports[`claim offer store should reset claim offer store, if RESET action is raised 1`] = `Object {}`;
+
 exports[`convertClaimRequestToEdgeClaimRequest should convert correctly 1`] = `
 Object {
   "blinded_ms": Object {

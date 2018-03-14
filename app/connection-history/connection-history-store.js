@@ -65,6 +65,7 @@ import {
 } from '../store/store-selector'
 import { CLAIM_RECEIVED } from '../claim/type-claim'
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
+import { RESET } from '../common/type-common'
 
 const initialState = {
   error: null,
@@ -357,6 +358,9 @@ export default function connectionHistoryReducer(
         },
       }
     }
+
+    case RESET:
+      return initialState
 
     default:
       return state

@@ -504,4 +504,10 @@ describe('Invitation Store', () => {
       expect(gen.next().done).toBe(true)
     }
   })
+
+  it('should reset invitation store, if RESET action is raised', () => {
+    expect(
+      invitationReducer(afterOneInvitationState, { type: 'RESET' })
+    ).toMatchSnapshot()
+  })
 })

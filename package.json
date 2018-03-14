@@ -46,7 +46,8 @@
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
     "redux-saga": "0.16.0",
-    "url": "0.11.0"
+    "url": "0.11.0",
+    "url-parse": "^1.2.0"
   },
   "devDependencies": {
     "babel-jest": "22.2.0",
@@ -76,10 +77,11 @@
       "node_modules/(?!(jest-)?react-native|react-navigation|jest-fetch-mock)"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
-        "RelativeImageStub"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "RelativeImageStub"
     },
-    "setupFiles": ["<rootDir>/__mocks__/setup.js"],
+    "setupFiles": [
+      "<rootDir>/__mocks__/setup.js"
+    ],
     "coverageDirectory": "<rootDir>/coverage"
   }
 }

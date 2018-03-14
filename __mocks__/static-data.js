@@ -710,13 +710,15 @@ export const preparedProofWithMissingAttribute = {
 
 export function getNavigation(params?: NavigationParams) {
   return {
-    // $FlowFixMe Don't why this is failing, may be we upgrade to flow 0.63
+    // $FlowFixMe Don't know why this is failing, may be we upgrade to flow 0.63
     navigate: jest.fn(),
     state: {
       params: params || {},
     },
-    // $FlowFixMe Don't why this is failing, may be we upgrade to flow 0.63
+    // $FlowFixMe Don't know why this is failing, may be we upgrade to flow 0.63
     goBack: jest.fn(),
+    // $FlowFixMe
+    dispatch: jest.fn(),
   }
 }
 
@@ -864,6 +866,14 @@ export const parsedClaimRequest = {
   },
   issuer_did: 'issuer_did',
   schema_seq_no: 36,
+}
+
+export const validQrCodeEnvironmentSwitchUrl =
+  'https://connect-me-env-switch.connect.me/?env=dev'
+
+export const environmentSwitchQrCodeData = {
+  name: 'dev',
+  url: validQrCodeEnvironmentSwitchUrl,
 }
 
 export const connectionHistory = {

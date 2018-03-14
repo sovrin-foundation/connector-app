@@ -178,6 +178,36 @@ RCT_EXPORT_METHOD(getProof: (NSString *) proofRequest
   }];
 }
 
+RCT_EXPORT_METHOD(switchEnvironment: (NSString *)poolConfig
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:poolConfig];
+  if (indy.pool.handle) {
+    [indy.pool close:^(NSError *error) {
+      NSString *uuid = [[NSUUID UUID] UUIDString];
+      indy.pool = [[CMPoolObject alloc] initWithName:uuid nodesConfig:poolConfig];
+      if (indy.wallet.handle) {
+        [indy.wallet deleteWallet:^(NSError *error) {
+          if (error != nil && error.code != 0) {
+            NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+            reject(indyErrorCode, @"Error deleting wallet", error);
+          } else {
+            resolve(@YES);
+          }
+        }];
+      } else {
+        // if there is no wallet, then we can directly resolve
+        resolve(@YES);
+      }
+    }];
+  } else {
+    // if no pool was opened, then we can set the pool config and don't need to close the pool
+    indy.pool = [[CMPoolObject alloc] initWithName:@"pool" nodesConfig:poolConfig];
+    resolve(@YES);
+  }
+}
+
 #pragma mark msg pack apis
 // CONNECT
 RCT_EXPORT_METHOD(connectToAgency: (NSString *)url

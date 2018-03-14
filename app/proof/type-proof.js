@@ -5,6 +5,7 @@ import type {
   InitialTestAction,
   GenericStringObject,
   GenericObject,
+  ResetAction,
 } from '../common/type-common'
 import type {
   ProofRequestData,
@@ -117,6 +118,7 @@ export type ProofAction =
   | ProofFailAction
   | UserSelfAttestedAttributesAction
   | InitialTestAction
+  | ResetAction
 
 export type ProofStore = {
   +[string]: {

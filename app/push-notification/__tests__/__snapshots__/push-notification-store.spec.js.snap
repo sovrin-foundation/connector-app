@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`push notification store should work properly should reset push notification store, if RESET action is raised 1`] = `
+Object {
+  "error": null,
+  "isAllowed": false,
+  "isFetching": false,
+  "isPristine": true,
+  "notification": null,
+  "pushToken": null,
+}
+`;

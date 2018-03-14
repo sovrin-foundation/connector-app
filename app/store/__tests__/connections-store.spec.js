@@ -93,4 +93,14 @@ describe('connections should update correctly', () => {
     )
     expect(actualState).toMatchObject(expectedState)
   })
+
+  it('should reset connection store, if RESET action is raised', () => {
+    const afterNewConnection = connectionReducer(
+      initialState,
+      saveNewConnection(newConnection)
+    )
+    expect(
+      connectionReducer(afterNewConnection, { type: 'RESET' })
+    ).toMatchSnapshot()
+  })
 })

@@ -1,5 +1,9 @@
 // @flow
-import type { CustomError, InitialTestAction } from '../common/type-common'
+import type {
+  CustomError,
+  InitialTestAction,
+  ResetAction,
+} from '../common/type-common'
 
 export const SMSPendingInvitationStatus = {
   NONE: 'NONE',
@@ -102,3 +106,4 @@ export type SMSPendingInvitationAction =
   | SMSPendingInvitationSeenAction
   | SafeToDownloadSmsInvitationAction
   | InitialTestAction
+  | ResetAction

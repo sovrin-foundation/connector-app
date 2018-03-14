@@ -4,6 +4,7 @@ import type {
   GenericObject,
   CustomError,
   InitialTestAction,
+  ResetAction,
 } from '../common/type-common'
 
 export type Claim = {
@@ -83,6 +84,7 @@ export type ClaimAction =
   | HydrateClaimMapAction
   | HydrateClaimMapFailAction
   | InitialTestAction
+  | ResetAction
 
 export type ClaimStore = {
   +[string]: {

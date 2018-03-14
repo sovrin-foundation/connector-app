@@ -5,6 +5,7 @@ import type {
   GenericObject,
   InitialTestAction,
   NavigationParams,
+  ResetAction,
 } from '../common/type-common'
 import type { PendingRedirection } from '../lock/type-lock'
 import type { Claim } from '../claim/type-claim'
@@ -56,6 +57,7 @@ export type PushNotificationAction =
   | FetchAdditionalDataAction
   | FetchAdditionalDataErrorAction
   | InitialTestAction
+  | ResetAction
 
 export type DownloadedNotification = {
   additionalData: GenericObject,

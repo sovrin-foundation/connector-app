@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`SMS Connection Request store should reset store, if RESET action is raised 1`] = `Object {}`;
+
 exports[`SMS Connection Request store should update store when invitation is seen 1`] = `
 Object {
   "gm76ku": Object {

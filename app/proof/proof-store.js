@@ -43,6 +43,7 @@ import {
   getProofRequesterName,
 } from '../store/store-selector'
 import type { Attribute } from '../push-notification/type-push-notification'
+import { RESET } from '../common/type-common'
 
 export const getProof = (uid: string) => ({
   type: GENERATE_PROOF,
@@ -251,6 +252,9 @@ export default function proofReducer(
           error: action.error,
         },
       }
+
+    case RESET:
+      return initialState
 
     default:
       return state

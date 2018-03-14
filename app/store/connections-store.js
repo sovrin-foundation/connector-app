@@ -29,6 +29,7 @@ import type {
   DeleteConnectionEventAction,
 } from './type-connection-store'
 import { deleteConnection } from '../bridge/react-native-cxs/RNCxs'
+import { RESET } from '../common/type-common'
 
 const UPDATE_CONNECTION_THEME = 'UPDATE_CONNECTION_THEME'
 export const NEW_CONNECTION_SUCCESS = 'NEW_CONNECTION_SUCCESS'
@@ -289,6 +290,8 @@ export default function connections(
         ...state,
         data: action.connections,
       }
+    case RESET:
+      return initialState
     default:
       return state
   }

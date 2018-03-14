@@ -1,5 +1,5 @@
 // @flow
-import type { CustomError } from '../common/type-common'
+import type { CustomError, ResetAction } from '../common/type-common'
 import type {
   AdditionalDataPayload,
   ClaimProofNavigation,
@@ -99,6 +99,7 @@ export type ClaimOfferAction =
   | ClaimRequestSuccessAction
   | ClaimRequestFailAction
   | ClaimRequestInitialAction
+  | ResetAction
 
 export type ClaimOfferPayload = AdditionalDataPayload & {
   uid: string,

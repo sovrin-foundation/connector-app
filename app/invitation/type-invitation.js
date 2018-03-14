@@ -8,6 +8,7 @@ import type {
   CustomError,
   ReactNavigation,
   InitialTestAction,
+  ResetAction,
 } from '../common/type-common'
 import type {
   InvitationSenderAgencyDetail,
@@ -94,6 +95,7 @@ export type InvitationAction =
   | InvitationSuccessAction
   | InvitationRejectedAction
   | InitialTestAction
+  | ResetAction
 
 export type InvitationProps = {
   invitation: Invitation,

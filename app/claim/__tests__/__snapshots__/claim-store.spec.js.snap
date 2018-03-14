@@ -79,3 +79,9 @@ Object {
   "claimMap": Object {},
 }
 `;
+
+exports[`Claim Store should reset claim store, if RESET action is raised 1`] = `
+Object {
+  "claimMap": Object {},
+}
+`;

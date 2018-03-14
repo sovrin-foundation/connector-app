@@ -433,3 +433,7 @@ export async function deleteConnection({
     poolConfig
   )
 }
+
+export async function reset(poolConfig: string) {
+  return await RNIndy.switchEnvironment(poolConfig)
+}

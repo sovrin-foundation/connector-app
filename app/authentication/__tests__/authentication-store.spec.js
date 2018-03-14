@@ -24,6 +24,7 @@ import type {
   AuthenticationRequestReceived,
 } from '../type-authentication'
 import { PUSH_NOTIFICATION_SENT_CODE } from '../../api/api-constants'
+import { RESET } from '../../common/type-common'
 
 describe('Authentication request tests', () => {
   const initialAction: AuthenticationAction = {
@@ -111,5 +112,19 @@ describe('Authentication request tests', () => {
       AUTHENTICATION_TYPE.AUTHENTICATION_REQUEST
     )
     expect(authentication(initialState, responseAction)).toMatchSnapshot()
+  })
+
+  it('should reset authentication store when reset action is raised', () => {
+    const successData = {
+      newStatus: AUTHENTICATION_STATUS.ACCEPTED,
+      dataBody: { challenge: 'challenge', signature: 'signature' },
+      identifier: 'identifier',
+      remoteConnectionId: 'remoteConnectionId',
+    }
+    const successState = authentication(
+      initialState,
+      sendUserAuthenticationResponseSuccess(successData)
+    )
+    expect(authentication(successState, { type: RESET })).toMatchSnapshot()
   })
 })

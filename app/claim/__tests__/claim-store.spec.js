@@ -106,4 +106,10 @@ describe('Claim Store', () => {
 
     expect(gen.next().done).toBe(true)
   })
+
+  it('should reset claim store, if RESET action is raised', () => {
+    expect(
+      claimReducer(afterClaimReceived, { type: 'RESET' })
+    ).toMatchSnapshot()
+  })
 })

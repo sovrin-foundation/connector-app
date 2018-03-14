@@ -42,6 +42,7 @@ export type QrScannerState = {
 export type QrScannerProps = {
   onRead: QrCode => void,
   onClose: () => void,
+  onEnvironmentSwitchUrl: EnvironmentSwitchUrlQrCode => void,
 }
 
 export type CameraMarkerProps = {
@@ -61,4 +62,9 @@ export type CornerBoxProps = {
     | typeof TOP_RIGHT
     | typeof BOTTOM_LEFT
     | typeof BOTTOM_RIGHT,
+}
+
+export type EnvironmentSwitchUrlQrCode = {
+  url: string,
+  name: string,
 }

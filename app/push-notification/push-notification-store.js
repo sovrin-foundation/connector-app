@@ -43,6 +43,7 @@ import {
 import { HYDRATED } from '../store/type-config-store'
 import { CONNECT_REGISTER_CREATE_AGENT_DONE } from '../store/user/type-user-store'
 import uniqueId from 'react-native-unique-id'
+import { RESET } from '../common/type-common'
 
 // TODO:PS: handle other/multiple Push Notification while
 // one Push Notification is already downloading
@@ -279,6 +280,12 @@ export default function pushNotification(
       return {
         ...state,
         notification: action.notification,
+      }
+    case RESET:
+      return {
+        ...state,
+        notification: null,
+        error: null,
       }
     default:
       return state

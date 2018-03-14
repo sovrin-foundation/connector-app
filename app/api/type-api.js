@@ -72,3 +72,10 @@ export type EdgeClaimRequest = {
   tid: string,
   mid: string,
 } & IndyClaimRequest
+
+export type EnvironmentDetailUrlDownloaded = {
+  agencyDID: string,
+  agencyUrl: string,
+  agencyVerificationKey: string,
+  poolConfig: string,
+}

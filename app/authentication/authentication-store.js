@@ -17,6 +17,7 @@ import type {
   ResetAuthenticationStatus,
   AuthenticationRequestReceived,
 } from './type-authentication'
+import { RESET } from '../common/type-common'
 
 export const AUTHENTICATION_STATUS: AuthenticationStatus = {
   ACCEPTED: 'accepted',
@@ -164,7 +165,8 @@ export default function authentication(
         data: action.data,
         error: null,
       }
-
+    case RESET:
+      return initialState
     default:
       return state
   }

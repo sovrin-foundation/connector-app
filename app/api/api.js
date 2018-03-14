@@ -5,11 +5,7 @@ import type {
   MessageApiData,
   DownloadInvitationApiData,
   SendAuthenticationResponseApiData,
-  SendMessageApiData,
-  SendClaimRequestApiData,
-  ApiClaimRequest,
-  EdgeClaimRequest,
-  SendProofApiData,
+  EnvironmentDetailUrlDownloaded,
 } from './type-api'
 import { PAYLOAD_TYPE, MESSAGE_TYPE, STATUS_CODE } from './api-constants'
 
@@ -30,3 +26,7 @@ export const sendAuthenticationRequest = ({
   config: { agencyUrl },
 }: SendAuthenticationResponseApiData) =>
   api(`${agencyUrl}/agent/${identifier}/auth`, options('PUT', dataBody), true)
+
+export const downloadEnvironmentDetails = (
+  url: string
+): Promise<EnvironmentDetailUrlDownloaded> => api(url, options())

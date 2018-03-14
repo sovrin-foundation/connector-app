@@ -53,6 +53,7 @@ import type {
 } from '../bridge/react-native-cxs/type-cxs'
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
 import { connectRegisterCreateAgentDone } from '../store/user/user-store'
+import { RESET } from '../common/type-common'
 
 export const invitationInitialState = {}
 
@@ -369,6 +370,9 @@ export default function invitationReducer(
           status: ResponseType.rejected,
         },
       }
+
+    case RESET:
+      return invitationInitialState
 
     default:
       return state

@@ -190,4 +190,13 @@ describe('SMS Connection Request store', () => {
 
     expect(gen.next().done).toBe(true)
   })
+
+  it('should reset store, if RESET action is raised', () => {
+    const afterInvitationReceivedState = getPendingInvitationState(initialState)
+    expect(
+      smsPendingInvitationReducer(afterInvitationReceivedState, {
+        type: 'RESET',
+      })
+    ).toMatchSnapshot()
+  })
 })

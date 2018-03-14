@@ -49,6 +49,7 @@ import { sendMessage } from '../bridge/react-native-cxs/RNCxs'
 import type { Connection } from '../store/type-connection-store'
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
 import { MESSAGE_TYPE } from '../api/api-constants'
+import { RESET } from '../common/type-common'
 
 const proofRequestInitialState = {}
 
@@ -303,6 +304,8 @@ export default function proofRequestReducer(
           missingAttributes: action.missingAttributes,
         },
       }
+    case RESET:
+      return proofRequestInitialState
     default:
       return state
   }

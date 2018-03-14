@@ -27,6 +27,7 @@ import { CLAIM_STORAGE_ERROR } from '../services/error/error-code'
 import { getConnectionLogoUrl, getPoolConfig } from '../store/store-selector'
 import { setItem, getItem } from '../services/secure-storage'
 import { CLAIM_MAP } from '../common/secure-storage-constants'
+import { RESET } from '../common/type-common'
 
 export const claimReceived = (claim: Claim): ClaimReceivedAction => ({
   type: CLAIM_RECEIVED,
@@ -182,6 +183,9 @@ export default function claimReducer(
         ...state,
         claimMap: action.claimMap,
       }
+
+    case RESET:
+      return initialState
 
     default:
       return state

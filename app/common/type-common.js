@@ -30,6 +30,10 @@ export type ReactNavigation = {
       params: NavigationParams,
     },
     goBack: (route?: ?string) => void,
+    // TODO: Had to use any here because we don't know type of beforehand
+    // need to move react navigation library to latest version
+    // and use their type, also need to use Generics here
+    dispatch: any => void,
   },
 }
 
@@ -52,3 +56,9 @@ export type TopicAnnotation = {
 }
 
 export type ReactChildren = Element<*>
+
+export const RESET: 'RESET' = 'RESET'
+
+export type ResetAction = {
+  type: typeof RESET,
+}

@@ -1,6 +1,7 @@
 // @flow
 import React from 'react'
 import 'react-native'
+import { Alert } from 'react-native'
 import renderer from 'react-test-renderer'
 import Camera from 'react-native-camera'
 import {
@@ -9,7 +10,12 @@ import {
   homeTabRoute,
 } from '../../common/'
 import { QRCodeScannerScreen, convertQrCodeToInvitation } from '../qr-code'
-import { getNavigation, qrData } from '../../../__mocks__/static-data'
+import {
+  getNavigation,
+  qrData,
+  environmentSwitchQrCodeData,
+  validQrCodeEnvironmentSwitchUrl,
+} from '../../../__mocks__/static-data'
 
 describe('<QRScannerScreen />', () => {
   function getProps() {
@@ -17,6 +23,7 @@ describe('<QRScannerScreen />', () => {
       navigation: getNavigation(),
       invitationReceived: jest.fn(),
       currentScreen: qrCodeScannerTabRoute,
+      changeEnvironmentUrl: jest.fn(),
     }
   }
 
@@ -87,5 +94,32 @@ describe('<QRScannerScreen />', () => {
     expect(Camera.checkVideoAuthorizationStatus).toHaveBeenCalledTimes(
       calledTimesBeforeUpdating + 1
     )
+  })
+
+  it(`show alert if environment switch url is scanned,
+      trigger action when Switch is clicked,
+      and redirect to home tab`, () => {
+    const {
+      instance,
+      component,
+      props: { changeEnvironmentUrl, navigation: { navigate } },
+    } = setup()
+    const alertSpy = jest.spyOn(Alert, 'alert')
+
+    instance.onEnvironmentSwitchUrl(environmentSwitchQrCodeData)
+    expect(alertSpy).toHaveBeenCalled()
+
+    const switchButton = alertSpy.mock.calls[0][2][1]
+    // click switch button
+    switchButton.onPress()
+
+    expect(changeEnvironmentUrl).toHaveBeenCalledWith(
+      validQrCodeEnvironmentSwitchUrl
+    )
+
+    expect(navigate).toHaveBeenCalledWith(homeTabRoute)
+
+    alertSpy.mockReset()
+    alertSpy.mockRestore()
   })
 })

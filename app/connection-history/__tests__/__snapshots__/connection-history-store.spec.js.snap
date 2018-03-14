@@ -643,3 +643,11 @@ Object {
   "isLoading": false,
 }
 `;
+
+exports[`Store: ConnectionHistory should reset history if RESET action is raised 1`] = `
+Object {
+  "data": null,
+  "error": null,
+  "isLoading": false,
+}
+`;

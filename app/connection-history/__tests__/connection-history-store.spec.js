@@ -64,6 +64,7 @@ import {
   claimOfferPayload,
   uid,
 } from '../../../__mocks__/static-data'
+import { RESET } from '../../common/type-common'
 
 jest.mock('../../services/uuid')
 
@@ -272,6 +273,7 @@ describe('Store: ConnectionHistory', () => {
       convertProofRequestToHistoryEvent(proofRequestReceivedEvent)
     ).toMatchSnapshot()
   })
+
   it('convertProofAutoFillToHistoryEvent should raise success', () => {
     expect(
       convertProofAutoFillToHistoryEvent(
@@ -295,5 +297,19 @@ describe('Store: ConnectionHistory', () => {
       )
     )
     expect(gen.next().done).toBe(true)
+  })
+
+  it('should reset history if RESET action is raised', () => {
+    const afterOneHistoryEventState = connectionHistoryReducer(
+      initialState,
+      recordHistoryEvent(
+        convertSendClaimRequestToHistoryEvent(
+          sendClaimRequest(uid, claimOfferPayload)
+        )
+      )
+    )
+    expect(
+      connectionHistoryReducer(afterOneHistoryEventState, { type: RESET })
+    ).toMatchSnapshot()
   })
 })
