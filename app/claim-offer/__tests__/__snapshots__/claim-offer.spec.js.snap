@@ -1247,12 +1247,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                   "height": 22,
                   "width": 30,
                 },
-                Object {
-                  "height": 20,
-                  "right": 7,
-                  "width": 80,
-                  "zIndex": -1,
-                },
+                null,
               ]
             }
             testID="claim-request-check-mark"

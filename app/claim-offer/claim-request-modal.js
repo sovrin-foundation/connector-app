@@ -82,15 +82,10 @@ export default class ClaimRequestStatusModal extends PureComponent<
           middleImage: require('../images/connectArrows.png'),
           middleImageStyle: styles.connectedArrow,
         }
-      : claimRequestStatus === CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST
-        ? {
-            middleImage: require('../images/checkMark.png'),
-            middleImageStyle: null,
-          }
-        : {
-            middleImage: require('../images/connectArrows.png'),
-            middleImageStyle: styles.connectedArrow,
-          }
+      : {
+          middleImage: require('../images/checkMark.png'),
+          middleImageStyle: null,
+        }
 
     return (
       <CustomModal
