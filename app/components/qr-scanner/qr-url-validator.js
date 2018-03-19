@@ -4,16 +4,13 @@ import type { EnvironmentSwitchUrlQrCode } from './type-qr-scanner'
 
 // allow only this domain to be a valid url for a qr code
 // if we don't find this as host, then we don't consider it valid
-export const validUrlQrCodeHost = 'shoddyexaltedoctagon--khageshsharma.repl.co'
+export const validUrlQrCodeHost = 's3-us-west-2.amazonaws.com'
 
 // only trust if scheme is https, http is not allowed
 export const validUrlQrCodeScheme = 'https'
 
-// only want one query string named as `env`
-export const validUrlQrCodeQueryParamName = 'env'
-
-// value of query string should not exceed this length
-export const validUrlQrCodeEnvironmentQueryParamLength = 50
+// value of path name should not exceed this length
+export const validUrlQrCodeUrlPathLength = 50
 
 // maximum length allowed for whole url-qr-code
 export const validUrlQrCodeLength = 120
@@ -28,11 +25,7 @@ export function isValidUrlQrCode(
     return false
   }
 
-  const { protocol, hostname, query: { env } = {} } = urlParse(
-    urlQrCode,
-    {},
-    true
-  )
+  const { protocol, hostname, pathname } = urlParse(urlQrCode, {}, true)
 
   if (protocol !== `${validUrlQrCodeScheme}:`) {
     return false
@@ -42,20 +35,29 @@ export function isValidUrlQrCode(
     return false
   }
 
-  if (!env) {
+  if (!pathname) {
     return false
   }
 
-  if (env.length > validUrlQrCodeEnvironmentQueryParamLength) {
+  const paths = pathname.split('/')
+
+  // take the last path name and that would be treated as environment name
+  const environmentName = paths[paths.length - 1]
+
+  if (!environmentName) {
     return false
   }
 
-  if (urlQrQueryParamAllowedRegex.test(env) === false) {
+  if (environmentName.length > validUrlQrCodeUrlPathLength) {
+    return false
+  }
+
+  if (urlQrQueryParamAllowedRegex.test(environmentName) === false) {
     return false
   }
 
   return {
     url: urlQrCode,
-    name: env,
+    name: environmentName,
   }
 }

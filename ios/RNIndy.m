@@ -184,15 +184,17 @@ RCT_EXPORT_METHOD(switchEnvironment: (NSString *)poolConfig
 {
   ConnectMeIndy *indy = [RNIndy sharedIndyInstance:poolConfig];
   if (indy.pool.handle) {
-    [indy.pool close:^(NSError *error) {
-      NSString *uuid = [[NSUUID UUID] UUIDString];
-      indy.pool = [[CMPoolObject alloc] initWithName:uuid nodesConfig:poolConfig];
+    [indy.pool deletePool:^(NSError *error) {
       if (indy.wallet.handle) {
         [indy.wallet deleteWallet:^(NSError *error) {
           if (error != nil && error.code != 0) {
             NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
             reject(indyErrorCode, @"Error deleting wallet", error);
           } else {
+            NSString *uuid = [[NSUUID UUID] UUIDString];
+            NSString *uuidWallet = [[NSUUID UUID] UUIDString];
+            indy.wallet = [[CMWalletObject alloc] initWithName:uuidWallet type:nil];
+            indy.pool = [[CMPoolObject alloc] initWithName:uuid nodesConfig:poolConfig];
             resolve(@YES);
           }
         }];
@@ -202,6 +204,7 @@ RCT_EXPORT_METHOD(switchEnvironment: (NSString *)poolConfig
       }
     }];
   } else {
+    indy.wallet = [[CMWalletObject alloc] initWithName:nil type:nil];
     // if no pool was opened, then we can set the pool config and don't need to close the pool
     indy.pool = [[CMPoolObject alloc] initWithName:@"pool" nodesConfig:poolConfig];
     resolve(@YES);

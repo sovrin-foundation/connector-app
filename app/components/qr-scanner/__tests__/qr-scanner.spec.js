@@ -62,8 +62,7 @@ describe('<QRScanner />', () => {
     expect(instance.state.scanStatus).toBe(SCAN_STATUS.SCANNING)
   })
 
-  // TODO: Remove when raising PR to master
-  xit('should call onEnvironmentSwitchUrl if it reads correct environment switcher url', () => {
+  it('should call onEnvironmentSwitchUrl if it reads correct environment switcher url', () => {
     jest.useFakeTimers()
     const { onEnvironmentSwitchUrl, instance } = setup()
 

@@ -869,7 +869,7 @@ export const parsedClaimRequest = {
 }
 
 export const validQrCodeEnvironmentSwitchUrl =
-  'https://connect-me-env-switch.connect.me/?env=dev'
+  'https://s3-us-west-2.amazonaws.com/vcx-env/dev'
 
 export const environmentSwitchQrCodeData = {
   name: 'dev',
