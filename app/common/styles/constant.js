@@ -11,6 +11,7 @@ export const whiteSmoke = '#f0f0f0'
 export const whiteSmokeRGBA = 'rgba(240, 240, 240, 0)'
 export const mantis = '#85bf43'
 const mantisRGB = '133, 191, 67'
+const greyRGB = '119, 119, 119'
 export const white = '#ffffff'
 export const whisper = '#EAEAEA'
 
@@ -42,15 +43,16 @@ export const color = {
     tertiary: mantis,
     quaternary: olivine,
     fifth: white,
+    sixth: grey,
     dangerous: venetianRed,
     none: white,
     button: {
       primary: {
-        rgba: mantisRGB + ', ' + primaryShade,
+        rgba: greyRGB + ', ' + primaryShade,
         shade: primaryShade,
       },
       secondary: {
-        rgba: mantisRGB + ', ' + secondaryShade,
+        rgba: greyRGB + ', ' + secondaryShade,
         shade: secondaryShade,
       },
     },
@@ -61,6 +63,7 @@ export const color = {
       quaternary: white,
       fifth: mantis,
       dangerous: white,
+      sixth: white,
     },
   },
   bg: {

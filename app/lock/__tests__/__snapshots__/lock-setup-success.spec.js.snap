@@ -184,7 +184,7 @@ exports[`<LockSetupSuccess /> should display Loading while fetching the invitati
               undefined,
               undefined,
               Object {
-                "backgroundColor": "#85bf43",
+                "backgroundColor": "#777777",
               },
               undefined,
               Object {
@@ -443,7 +443,7 @@ exports[`<LockSetupSuccess /> should render Lock setup success Screen 1`] = `
               undefined,
               undefined,
               Object {
-                "backgroundColor": "#85bf43",
+                "backgroundColor": "#777777",
               },
               undefined,
               Object {

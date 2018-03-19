@@ -92,7 +92,7 @@ export class LockSetupSuccess extends PureComponent<
         </Container>
         <CustomView>
           <CustomButton
-            tertiary
+            primary
             raised
             medium
             disabled={isFetchingInvitation}

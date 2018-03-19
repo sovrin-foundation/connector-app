@@ -26,7 +26,7 @@ const CustomButton = props => {
   const style = [medium ? styles.mediumVerticalPadding : null, ...buttonStyles]
 
   const buttonType = primary
-    ? 'primary'
+    ? 'sixth'
     : secondary
       ? 'secondary'
       : tertiary

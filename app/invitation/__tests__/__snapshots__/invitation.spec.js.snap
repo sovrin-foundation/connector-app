@@ -371,7 +371,7 @@ exports[`<Invitation /> should match snapshot 1`] = `
                       undefined,
                       undefined,
                       Object {
-                        "backgroundColor": "rgba(133, 191, 67, 0.6)",
+                        "backgroundColor": "rgba(119, 119, 119, 0.6)",
                       },
                       undefined,
                       Object {
@@ -511,7 +511,7 @@ exports[`<Invitation /> should match snapshot 1`] = `
                       undefined,
                       undefined,
                       Object {
-                        "backgroundColor": "rgba(133, 191, 67, 1.0)",
+                        "backgroundColor": "rgba(119, 119, 119, 1.0)",
                       },
                       undefined,
                       Object {

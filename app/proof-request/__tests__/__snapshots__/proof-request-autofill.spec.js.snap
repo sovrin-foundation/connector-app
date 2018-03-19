@@ -98,7 +98,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
               },
             ],
             Object {
-              "backgroundColor": "rgba(133, 191, 67, 1.0)",
+              "backgroundColor": "rgba(119, 119, 119, 1.0)",
             },
           ]
         }
@@ -991,7 +991,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                     undefined,
                     undefined,
                     Object {
-                      "backgroundColor": "rgba(133, 191, 67, 0.6)",
+                      "backgroundColor": "rgba(119, 119, 119, 0.6)",
                     },
                     undefined,
                     Object {
@@ -1131,7 +1131,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                     undefined,
                     undefined,
                     Object {
-                      "backgroundColor": "rgba(133, 191, 67,0.4)",
+                      "backgroundColor": "rgba(119, 119, 119,0.4)",
                     },
                     undefined,
                     Object {
@@ -1150,7 +1150,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                     },
                     Array [
                       Object {
-                        "backgroundColor": "rgba(133, 191, 67,0.4)",
+                        "backgroundColor": "rgba(119, 119, 119,0.4)",
                       },
                       Object {
                         "opacity": 0.4,
