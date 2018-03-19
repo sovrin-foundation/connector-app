@@ -133,7 +133,7 @@ export type ClaimRequestStatusModalProps = {
   isPending?: boolean,
   message1: string,
   message3: string,
-  message5: string,
+  message5?: string,
 }
 
 export type ClaimRequestStatusModalState = {

@@ -103,7 +103,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
         />
 
         <CustomText
-          h6
+          h5
           demiBold
           center
           tertiary
@@ -113,33 +113,57 @@ export default class ClaimRequestStatusModal extends PureComponent<
           testID={`claim-request-message`}
         >
           {message1}
-          <CustomText
-            h6
-            bold
-            center
-            tertiary
-            bg="tertiary"
-            transparentBg
-            style={[styles.message]}
-            testID={`claim-request-message`}
-          >
-            {message2}
-          </CustomText>
-          {message3}
-          <CustomText
-            h6
-            bold
-            center
-            tertiary
-            bg="tertiary"
-            transparentBg
-            style={[styles.message]}
-            testID={`claim-request-message`}
-          >
-            {message4}
-          </CustomText>
-          {message5}
         </CustomText>
+        <CustomText
+          h5
+          bold
+          center
+          tertiary
+          bg="tertiary"
+          transparentBg
+          style={[styles.message]}
+          testID={`claim-request-message`}
+        >
+          {message2}
+        </CustomText>
+        <CustomText
+          h5
+          demiBold
+          center
+          tertiary
+          bg="tertiary"
+          transparentBg
+          style={[styles.message]}
+          testID={`claim-request-message`}
+        >
+          {message3}{' '}
+        </CustomText>
+        <CustomText
+          h5
+          bold
+          center
+          tertiary
+          bg="tertiary"
+          transparentBg
+          style={[styles.message]}
+          testID={`claim-request-message`}
+        >
+          {message4}
+        </CustomText>
+        {message5 !== undefined ? (
+          <CustomText
+            h5
+            demiBold
+            center
+            tertiary
+            bg="tertiary"
+            transparentBg
+            style={[styles.message]}
+            testID={`claim-request-message`}
+          >
+            {message5}
+          </CustomText>
+        ) : null}
       </CustomModal>
     )
   }

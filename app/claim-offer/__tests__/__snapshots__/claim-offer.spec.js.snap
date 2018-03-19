@@ -1311,7 +1311,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           style={
             Array [
               Object {
-                "fontSize": 15,
+                "fontSize": 17,
               },
               Object {
                 "fontFamily": "SF Pro Display",
@@ -1337,79 +1337,113 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           }
           testID="claim-request-message"
         >
-          You accepted 
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Array [
-                Object {
-                  "fontSize": 15,
-                },
-                Object {
-                  "fontFamily": "SF Pro Display",
-                },
-                Object {
-                  "backgroundColor": "#f0f0f0",
-                  "color": "#777777",
-                },
-                Object {
-                  "fontWeight": "bold",
-                },
-                Object {
-                  "textAlign": "center",
-                },
-                Object {
-                  "backgroundColor": "transparent",
-                },
-                Object {
-                  "marginBottom": 5,
-                  "paddingTop": 10,
-                },
-              ]
-            }
-            testID="claim-request-message"
-          >
-            Home Address
-          </Text>
-           from 
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Array [
-                Object {
-                  "fontSize": 15,
-                },
-                Object {
-                  "fontFamily": "SF Pro Display",
-                },
-                Object {
-                  "backgroundColor": "#f0f0f0",
-                  "color": "#777777",
-                },
-                Object {
-                  "fontWeight": "bold",
-                },
-                Object {
-                  "textAlign": "center",
-                },
-                Object {
-                  "backgroundColor": "transparent",
-                },
-                Object {
-                  "marginBottom": 5,
-                  "paddingTop": 10,
-                },
-              ]
-            }
-            testID="claim-request-message"
-          >
-            Test Issuer
-          </Text>
-          !
+          You accepted
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "SF Pro Display",
+              },
+              Object {
+                "backgroundColor": "#f0f0f0",
+                "color": "#777777",
+              },
+              Object {
+                "fontWeight": "bold",
+              },
+              Object {
+                "textAlign": "center",
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+              Object {
+                "marginBottom": 5,
+                "paddingTop": 10,
+              },
+            ]
+          }
+          testID="claim-request-message"
+        >
+          Home Address
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "SF Pro Display",
+              },
+              Object {
+                "backgroundColor": "#f0f0f0",
+                "color": "#777777",
+              },
+              Object {
+                "fontWeight": "600",
+              },
+              Object {
+                "textAlign": "center",
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+              Object {
+                "marginBottom": 5,
+                "paddingTop": 10,
+              },
+            ]
+          }
+          testID="claim-request-message"
+        >
+          from
+           
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "SF Pro Display",
+              },
+              Object {
+                "backgroundColor": "#f0f0f0",
+                "color": "#777777",
+              },
+              Object {
+                "fontWeight": "bold",
+              },
+              Object {
+                "textAlign": "center",
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+              Object {
+                "marginBottom": 5,
+                "paddingTop": 10,
+              },
+            ]
+          }
+          testID="claim-request-message"
+        >
+          Test Issuer
         </Text>
       </View>
       <View

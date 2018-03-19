@@ -182,9 +182,8 @@ export class ClaimOffer extends PureComponent<ClaimOfferProps, void> {
             payload={claimOfferData}
             onContinue={this.close}
             senderLogoUrl={logoUrl}
-            message1="You accepted "
-            message3=" from "
-            message5="!"
+            message1="You accepted"
+            message3="from"
           />
         )}
       </Container>
