@@ -6240,18 +6240,16 @@ react-native-keyboard-aware-scroll-view@^0.4.4:
     prop-types "^15.6.0"
     react-native-iphone-x-helper "^1.0.1"
 
-react-native-linear-gradient@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.4.0.tgz#51d8ea12bb72a59bede9edc87b694b16b64cf435"
-  dependencies:
-    prop-types "^15.5.10"
-
 react-native-modal@5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-5.0.0.tgz#d9a056e68a985678d9545fce38dcc1ac3299ba31"
   dependencies:
     prop-types "15.6.0"
     react-native-animatable "^1.2.4"
+
+react-native-radial-gradient@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-radial-gradient/-/react-native-radial-gradient-1.0.3.tgz#ad1c23c31435aa96f1965a6be101962cdaa084c6"
 
 react-native-sensitive-info@5.2.0:
   version "5.2.0"

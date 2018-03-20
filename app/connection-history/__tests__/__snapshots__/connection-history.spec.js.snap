@@ -10,22 +10,39 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
     }
   }
 >
-  <BVLinearGradient
-    colors={
-      Array [
-        2574743415,
-        4286019447,
-      ]
-    }
-    endPoint={undefined}
-    locations={
-      Array [
-        0.1,
-        1,
-      ]
-    }
-    startPoint={undefined}
+  <View
+    style={undefined}
   >
+    <SRSRadialGradient
+      center={
+        Array [
+          160,
+          45,
+        ]
+      }
+      colors={
+        Array [
+          4286019447,
+          2574743415,
+        ]
+      }
+      radius={960}
+      stops={
+        Array [
+          0.1,
+          0.4,
+        ]
+      }
+      style={
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        }
+      }
+    />
     <View
       fifth={true}
       style={
@@ -455,7 +472,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
         }
       />
     </View>
-  </BVLinearGradient>
+  </View>
   <RCTScrollView>
     <View>
       <View

@@ -163,8 +163,8 @@ dependencies {
     compile "com.facebook.react:react-native:+"  // From node_modules
     compile project(':react-native-vector-icons')
     compile project(':react-native-sensitive-info')
-    compile project(':react-native-linear-gradient')
     compile project(':react-native-fcm')
+    compile project(':react-native-radial-gradient')
     compile 'net.hockeyapp.android:HockeySDK:4.1.4'
 }
 

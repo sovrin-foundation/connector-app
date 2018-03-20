@@ -1,7 +1,7 @@
 package com.connectme;
 
 import android.app.Application;
-
+import com.surajit.rnrg.RNRadialGradientPackage;
 import com.facebook.react.ReactApplication;
 import com.rnfingerprint.FingerprintAuthPackage;
 import com.horcrux.svg.SvgPackage;
@@ -11,7 +11,6 @@ import io.sentry.RNSentryPackage;
 import io.branch.rnbranch.RNBranchPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import com.cboy.rn.splashscreen.SplashScreenReactPackage;
 import com.connectme.rnindy.RNIndyPackage;
@@ -49,7 +48,6 @@ public class MainApplication extends Application implements ReactApplication {
             new RNBranchPackage(),
             new VectorIconsPackage(),
             new RNSensitiveInfoPackage(),
-            new LinearGradientPackage(),
             new FIRMessagingPackage(),
             new MainReactPackage(),
             new SplashScreenReactPackage()
@@ -57,7 +55,8 @@ public class MainApplication extends Application implements ReactApplication {
             new ReactNativeOneSignalPackage(),
             new Interactable(),
             new VectorIconsPackage(),
-            new RNIndyPackage()
+            new RNIndyPackage(),
+            new RNRadialGradientPackage()
       );
     }
 

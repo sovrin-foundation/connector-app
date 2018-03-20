@@ -1,15 +1,16 @@
 // $FlowFixMe
 import React, { PureComponent } from 'react'
+import RadialGradient from 'react-native-radial-gradient'
 import {
   Alert,
   ScrollView,
   Image,
   StyleSheet,
   TouchableWithoutFeedback,
+  Dimensions,
 } from 'react-native'
 import { connect } from 'react-redux'
 import { List, ListItem } from 'react-native-elements'
-import LinearGradient from 'react-native-linear-gradient'
 import moment from 'moment'
 import groupBy from 'lodash.groupby'
 import { bindActionCreators } from 'redux'
@@ -24,7 +25,7 @@ import {
   Separator,
   CustomDate,
 } from '../components'
-import { dimGray } from '../../app/common/styles'
+import { dimGray, OFFSET_9X } from '../../app/common/styles'
 import {
   connectionHistoryRoute,
   connectionHistoryDetailsRoute,
@@ -147,6 +148,7 @@ export class ConnectionHistory extends PureComponent<
   }
 
   render() {
+    const { width } = Dimensions.get('window')
     if (this.props.navigation.state) {
       const {
         senderName,
@@ -220,12 +222,14 @@ export class ConnectionHistory extends PureComponent<
 
       return (
         <Container fifth>
-          <LinearGradient
-            locations={[0.1, 1]}
+          <RadialGradient
             colors={[
-              this.props.activeConnectionThemeSecondary,
               this.props.activeConnectionThemePrimary,
+              this.props.activeConnectionThemeSecondary,
             ]}
+            stops={[0.1, 0.4]}
+            center={[width / 2, OFFSET_9X / 2]}
+            radius={width * 3}
           >
             <ClaimProofHeader
               message={senderName}
@@ -287,7 +291,7 @@ export class ConnectionHistory extends PureComponent<
                 </TouchableWithoutFeedback>
               </CustomView>
             </ClaimProofHeader>
-          </LinearGradient>
+          </RadialGradient>
 
           <ScrollView>
             <List containerStyle={styles.listContainer}>{historyList}</List>
@@ -343,7 +347,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   headerLogoContainer: {
-    height: 90,
+    height: OFFSET_9X,
   },
   issuerLogo: {
     ...StyleSheet.absoluteFillObject,
