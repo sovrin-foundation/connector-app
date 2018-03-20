@@ -383,34 +383,6 @@
 			remoteGlobalIDString = 358F4ED71D1E81A9004DF814;
 			remoteInfo = RCTBlob;
 		};
-		DD2258AC205F9B5B00301CE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7A38794CCE994D7899DF52A1 /* BVLinearGradient.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 64AA15081EF7F30100718508;
-			remoteInfo = "BVLinearGradient-tvOS";
-		};
-		DD2258B3205F9B5B00301CE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = ADD01A681E09402E00F6D226;
-			remoteInfo = "RCTBlob-tvOS";
-		};
-		DD2258C6205F9B5B00301CE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3DBE0D001F3B181A0099AA32;
-			remoteInfo = fishhook;
-		};
-		DD2258C8205F9B5B00301CE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3DBE0D0D1F3B181C0099AA32;
-			remoteInfo = "fishhook-tvOS";
-		};
 		DD268A3A1F01C06500EAE9A0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AEB54E1DD05B44129DEDADC0 /* RNBranch.xcodeproj */;
@@ -1525,34 +1497,6 @@
 			remoteRef = ADBDB9261DFEBF0700ED6528 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		DD2258AD205F9B5B00301CE6 /* libBVLinearGradient.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libBVLinearGradient.a;
-			remoteRef = DD2258AC205F9B5B00301CE6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		DD2258B4205F9B5B00301CE6 /* libRCTBlob-tvOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libRCTBlob-tvOS.a";
-			remoteRef = DD2258B3205F9B5B00301CE6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		DD2258C7205F9B5B00301CE6 /* libfishhook.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libfishhook.a;
-			remoteRef = DD2258C6205F9B5B00301CE6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		DD2258C9205F9B5B00301CE6 /* libfishhook-tvOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libfishhook-tvOS.a";
-			remoteRef = DD2258C8205F9B5B00301CE6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		DD268A3B1F01C06500EAE9A0 /* libreact-native-branch.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1967,7 +1911,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Evernym Automation (3XVZBU8VAE)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 382;
+				CURRENT_PROJECT_VERSION = 383;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = ES8QU3D2A4;
 				ENABLE_BITCODE = NO;
@@ -2012,7 +1956,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConnectMe/ConnectMe.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: EVERNYM, INC. (ES8QU3D2A4)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 382;
+				CURRENT_PROJECT_VERSION = 383;
 				DEVELOPMENT_TEAM = ES8QU3D2A4;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
