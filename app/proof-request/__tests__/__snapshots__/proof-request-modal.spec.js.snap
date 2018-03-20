@@ -350,7 +350,9 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
                     "fontSize": 14,
                   },
                   undefined,
-                  undefined,
+                  Object {
+                    "fontWeight": "bold",
+                  },
                   undefined,
                   undefined,
                   undefined,
@@ -703,7 +705,9 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
                     "fontSize": 14,
                   },
                   undefined,
-                  undefined,
+                  Object {
+                    "fontWeight": "bold",
+                  },
                   undefined,
                   undefined,
                   false,
@@ -1070,7 +1074,9 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
                     "fontSize": 14,
                   },
                   undefined,
-                  undefined,
+                  Object {
+                    "fontWeight": "bold",
+                  },
                   undefined,
                   undefined,
                   undefined,

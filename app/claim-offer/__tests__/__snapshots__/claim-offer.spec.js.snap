@@ -1320,9 +1320,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 "backgroundColor": "#f0f0f0",
                 "color": "#777777",
               },
-              Object {
-                "fontWeight": "600",
-              },
+              null,
               Object {
                 "textAlign": "center",
               },
@@ -1390,9 +1388,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 "backgroundColor": "#f0f0f0",
                 "color": "#777777",
               },
-              Object {
-                "fontWeight": "600",
-              },
+              null,
               Object {
                 "textAlign": "center",
               },
@@ -1551,7 +1547,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontSize": 14,
                     },
                     undefined,
-                    undefined,
+                    Object {
+                      "fontWeight": "bold",
+                    },
                     undefined,
                     undefined,
                     undefined,

@@ -1714,7 +1714,9 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                       "fontSize": 14,
                     },
                     undefined,
-                    undefined,
+                    Object {
+                      "fontWeight": "bold",
+                    },
                     undefined,
                     undefined,
                     undefined,

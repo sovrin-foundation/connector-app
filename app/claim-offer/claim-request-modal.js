@@ -104,7 +104,6 @@ export default class ClaimRequestStatusModal extends PureComponent<
 
         <CustomText
           h5
-          demiBold
           center
           tertiary
           bg="tertiary"
@@ -128,7 +127,6 @@ export default class ClaimRequestStatusModal extends PureComponent<
         </CustomText>
         <CustomText
           h5
-          demiBold
           center
           tertiary
           bg="tertiary"
@@ -153,7 +151,6 @@ export default class ClaimRequestStatusModal extends PureComponent<
         {message5 !== undefined ? (
           <CustomText
             h5
-            demiBold
             center
             tertiary
             bg="tertiary"

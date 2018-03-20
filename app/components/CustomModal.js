@@ -38,6 +38,7 @@ export default class CustomModal extends PureComponent {
             title={buttonText}
             accessibilityLabel={accessibilityLabel}
             testID={`${testID}-success-continue`}
+            textStyle={{ fontWeight: 'bold' }}
           />
         </CustomView>
       </Modal>
