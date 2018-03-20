@@ -56,6 +56,7 @@ import {
 } from '../claim-offer/type-claim-offer'
 import { deleteConnectionAction } from '../store/connections-store'
 import { getConnection } from '../store/store-selector'
+
 const statusMsg = {
   ['PENDING']: 'Pending',
   ['CONNECTED']: 'Established on',
@@ -129,7 +130,7 @@ export class ConnectionHistory extends PureComponent<
   }
 
   close = () => {
-    this.props.navigation.navigate(homeRoute)
+    this.props.navigation.goBack(null)
   }
 
   onDeleteConnection = (senderName: string, senderDID: string) => {
@@ -245,6 +246,7 @@ export class ConnectionHistory extends PureComponent<
                 styles.senderName,
                 { backgroundColor: 'transparent' },
               ]}
+              useColorPicker={true}
             >
               <CustomView
                 fifth

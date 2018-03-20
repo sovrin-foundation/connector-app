@@ -2,6 +2,9 @@
 
 exports[`<ClaimRequestModal /> should match snapshot 1`] = `
 <Modal
+  animationIn="zoomIn"
+  animationOut="zoomOut"
+  animationOutTiming={100}
   backdropColor="#f0f0f0"
   backdropOpacity={1}
   isVisible={true}
@@ -458,6 +461,9 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
 
 exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = `
 <Modal
+  animationIn="zoomIn"
+  animationOut="zoomOut"
+  animationOutTiming={100}
   backdropColor="#f0f0f0"
   backdropOpacity={1}
   isVisible={true}

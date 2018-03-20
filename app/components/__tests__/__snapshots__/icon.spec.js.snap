@@ -38,6 +38,14 @@ exports[`<Icon /> should match snapshot 1`] = `
     }
   >
     <Image
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
       resizeMode="cover"
       source={1}
       style={

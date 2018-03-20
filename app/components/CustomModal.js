@@ -25,6 +25,9 @@ export default class CustomModal extends PureComponent {
         backdropColor={color.bg.tertiary.color}
         backdropOpacity={1}
         isVisible={isVisible}
+        animationIn="zoomIn"
+        animationOut="zoomOut"
+        animationOutTiming={100}
       >
         <CustomView fifth shadow style={[styles.container]}>
           <CustomView spaceBetween style={[styles.innerContainer]}>

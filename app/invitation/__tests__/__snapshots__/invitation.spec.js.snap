@@ -733,6 +733,9 @@ exports[`<Invitation /> should match snapshot 1`] = `
     </View>
   </View>
   <Modal
+    animationIn="zoomIn"
+    animationOut="zoomOut"
+    animationOutTiming={100}
     backdropColor="#f0f0f0"
     backdropOpacity={1}
     isVisible={false}

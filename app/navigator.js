@@ -1,7 +1,8 @@
 // @flow
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Animated, Easing } from 'react-native'
 import { StackNavigator, TabNavigator } from 'react-navigation'
+
 import AuthenticationScreen from './authentication/authentication'
 import HomeScreen from './home/home'
 import ConnectionHome from './connection/connection'
@@ -19,12 +20,10 @@ import ClaimOffer from './claim-offer/claim-offer'
 import ClaimRequestModal from './claim-offer/claim-request-modal'
 import ProofRequestScreen from './proof-request/proof-request'
 import InvitationScreen from './invitation/invitation'
-import ConnectionHistoryScreen from './connection-history/connection-history'
-import ConnectionHistoryDetailsScreen from './connection-history/connection-history-details'
+import ConnectionHistoryNavigator from './connection-history/connection-history-navigator'
 import SwitchEnvironmentScreen from './switch-environment/switch-environment'
 import LockAuthorization from './lock/lock-authorization'
 import WaitForInvitationScreen from './invitation/wait-for-invitation'
-import ConnectionHistoryPending from './connection-history/connection-history-pending'
 import { Icon } from './components'
 import {
   splashScreenRoute,
@@ -45,11 +44,9 @@ import {
   qrCodeScannerTabRoute,
   proofRequestRoute,
   invitationRoute,
-  connectionHistoryDetailsRoute,
   switchEnvironmentRoute,
   lockAuthorizationRoute,
   waitForInvitationRoute,
-  connectionHistoryPendingRoute,
 } from './common/'
 import { color } from './common/styles'
 
@@ -151,24 +148,6 @@ const CardStack = StackNavigator(
     [lockEnterFingerprintRoute]: {
       screen: LockEnterFingerprintScreen,
     },
-    [proofRequestRoute]: {
-      screen: ProofRequestScreen,
-    },
-    [connectionHistoryPendingRoute]: {
-      screen: ConnectionHistoryPending,
-    },
-    [connectionHistoryRoute]: {
-      screen: ConnectionHistoryScreen,
-      navigationOptions: {
-        gesturesEnabled: true,
-      },
-    },
-    [connectionHistoryDetailsRoute]: {
-      screen: ConnectionHistoryDetailsScreen,
-      navigationOptions: {
-        gesturesEnabled: true,
-      },
-    },
     [switchEnvironmentRoute]: {
       screen: SwitchEnvironmentScreen,
     },
@@ -185,6 +164,39 @@ const CardStack = StackNavigator(
   }
 )
 
+const transitionConfig = () => {
+  return {
+    transitionSpec: {
+      duration: 300,
+      easing: Easing.out(Easing.poly(4)),
+      timing: Animated.timing,
+      useNativeDriver: true,
+    },
+    screenInterpolator: sceneProps => {
+      const { layout, position, scene } = sceneProps
+
+      const thisSceneIndex = scene.index
+      const height = layout.initHeight
+      const width = layout.initWidth
+
+      const scale = position.interpolate({
+        inputRange: [thisSceneIndex - 1, thisSceneIndex - 0.7, thisSceneIndex],
+        outputRange: [0.5, 0.7, 1],
+      })
+
+      const opacity = position.interpolate({
+        inputRange: [thisSceneIndex - 1, thisSceneIndex - 0.5, thisSceneIndex],
+        outputRange: [0, 0.3, 1],
+      })
+
+      return {
+        opacity,
+        transform: [{ scale }],
+      }
+    },
+  }
+}
+
 // TODO:KS create a custom navigator to track page changes
 // for flows to support deep link, etc.
 const ConnectMeAppNavigator = StackNavigator(
@@ -192,10 +204,17 @@ const ConnectMeAppNavigator = StackNavigator(
     CardStack: { screen: CardStack },
     [claimOfferRoute]: { screen: ClaimOffer },
     [lockAuthorizationRoute]: { screen: LockAuthorization },
+    [proofRequestRoute]: {
+      screen: ProofRequestScreen,
+    },
+    [connectionHistoryRoute]: {
+      screen: ConnectionHistoryNavigator,
+    },
   },
   {
     mode: 'modal',
     headerMode: 'none',
+    transitionConfig,
   }
 )
 

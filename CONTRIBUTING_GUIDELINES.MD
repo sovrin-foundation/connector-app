@@ -55,7 +55,8 @@ Add this method to Home screen component
 
 Bind methods to Home props
 ```js
-// TODO: Remove this, Only for testing purpose
+
+// TODO: Remove below two line, Only for testing purpose
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
@@ -65,6 +66,9 @@ const mapDispatchToProps = dispatch =>
   )
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardScreen)
+
+// TODO: Un-comment this line after testing is done
+//export default connect(mapStateToProps)(DashboardScreen)
 ```
 
 Go to `mapStateToProps` in proof-request.js and find logoUrl

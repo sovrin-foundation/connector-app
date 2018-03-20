@@ -109,6 +109,14 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
           testID="connection-history-icon-close-touchable"
         >
           <Image
+            hitSlop={
+              Object {
+                "bottom": 20,
+                "left": 20,
+                "right": 20,
+                "top": 20,
+              }
+            }
             resizeMode="contain"
             source={1}
             style={
@@ -175,6 +183,14 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
             }
           >
             <Image
+              hitSlop={
+                Object {
+                  "bottom": 20,
+                  "left": 20,
+                  "right": 20,
+                  "top": 20,
+                }
+              }
               resizeMode="cover"
               source={
                 Object {
@@ -244,6 +260,14 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
           testID="connection-history-icon-delete"
         >
           <Image
+            hitSlop={
+              Object {
+                "bottom": 20,
+                "left": 20,
+                "right": 20,
+                "top": 20,
+              }
+            }
             resizeMode="contain"
             source={1}
             style={

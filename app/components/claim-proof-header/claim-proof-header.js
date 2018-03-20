@@ -32,6 +32,7 @@ export default class ClaimProofHeader extends PureComponent<
       textContainerStyle = [],
       messageStyle = [],
       titleStyle = empty,
+      useColorPicker = false,
     }: ClaimProofHeaderProps = this.props
 
     return (
@@ -53,7 +54,7 @@ export default class ClaimProofHeader extends PureComponent<
             </CustomText>
           )}
         </CustomView>
-        <ImageColorPicker imageUrl={logoUrl} />
+        {useColorPicker && <ImageColorPicker imageUrl={logoUrl} />}
       </CustomView>
     )
   }

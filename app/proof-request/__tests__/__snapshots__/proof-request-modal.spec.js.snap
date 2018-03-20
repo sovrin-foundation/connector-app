@@ -2,6 +2,9 @@
 
 exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
 <Modal
+  animationIn="zoomIn"
+  animationOut="zoomOut"
+  animationOutTiming={100}
   backdropColor="#f0f0f0"
   backdropOpacity={1}
   isVisible={false}
@@ -371,6 +374,9 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
 
 exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
 <Modal
+  animationIn="zoomIn"
+  animationOut="zoomOut"
+  animationOutTiming={100}
   backdropColor="#f0f0f0"
   backdropOpacity={1}
   isVisible={true}
@@ -726,6 +732,9 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
 
 exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
 <Modal
+  animationIn="zoomIn"
+  animationOut="zoomOut"
+  animationOutTiming={100}
   backdropColor="#f0f0f0"
   backdropOpacity={1}
   isVisible={true}
