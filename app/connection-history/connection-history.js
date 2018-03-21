@@ -129,6 +129,15 @@ export class ConnectionHistory extends PureComponent<
     }
   }
 
+  getHistoryIcons = action => {
+    return (
+      <Image
+        source={historyIcons[action]}
+        style={[{ tintColor: this.props.activeConnectionThemePrimary }]}
+      />
+    )
+  }
+
   close = () => {
     this.props.navigation.goBack(null)
   }
@@ -166,7 +175,7 @@ export class ConnectionHistory extends PureComponent<
       const historyList = historySenderDIDs.map((sdid, i) => {
         const historyItems = connectionHistory[sdid].map((h, i) => {
           const itemProps = {
-            avatar: historyIcons[h.action],
+            avatar: this.getHistoryIcons(h.action),
             key: h.id,
             title: <HistoryTitle {...h} theme={activeConnectionThemePrimary} />,
             subtitle: <HistoryBody {...h} />,

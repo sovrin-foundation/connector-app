@@ -549,7 +549,18 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
             September 2017
           </Text>
           <View
-            avatar={1}
+            avatar={
+              <Image
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "tintColor": "rgba(119, 119, 119, 1.0)",
+                    },
+                  ]
+                }
+              />
+            }
             disabled={false}
             onLongPress={undefined}
             onPress={undefined}
@@ -584,67 +595,16 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                 ]
               }
             >
-              <View
-                activeOpacity={undefined}
-                onLongPress={undefined}
-                onPress={undefined}
+              <Image
+                source={1}
                 style={
                   Array [
                     Object {
-                      "backgroundColor": "transparent",
-                      "height": 34,
-                      "paddingBottom": 10,
-                      "paddingRight": 10,
-                      "paddingTop": 10,
-                      "width": 34,
+                      "tintColor": "rgba(119, 119, 119, 1.0)",
                     },
-                    false,
-                    undefined,
                   ]
                 }
-              >
-                <View
-                  style={
-                    Array [
-                      Object {
-                        "alignItems": "center",
-                        "alignSelf": "stretch",
-                        "backgroundColor": "rgba(0,0,0,0.2)",
-                        "bottom": 0,
-                        "flex": 1,
-                        "justifyContent": "center",
-                        "left": 0,
-                        "position": "absolute",
-                        "right": 0,
-                        "top": 0,
-                      },
-                      false,
-                      Object {
-                        "backgroundColor": "transparent",
-                      },
-                    ]
-                  }
-                >
-                  <Image
-                    source={1}
-                    style={
-                      Array [
-                        Object {
-                          "height": 34,
-                          "width": 34,
-                        },
-                        false,
-                        Object {
-                          "height": 17,
-                          "marginVertical": 10,
-                          "resizeMode": "contain",
-                          "width": 17,
-                        },
-                      ]
-                    }
-                  />
-                </View>
-              </View>
+              />
               <View
                 style={
                   Object {
