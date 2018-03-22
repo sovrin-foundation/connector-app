@@ -35,6 +35,7 @@ export const CustomView = props => {
     absolute,
     absoluteFill,
     spaceAround,
+    small,
   } = props
   const passedStyles = props.style || empty
   const absoluteStyles = absolute
@@ -93,8 +94,17 @@ export const CustomView = props => {
     if (typeof onLongPress !== 'undefined') {
       touchProps.onLongPress = onLongPress
     }
+    let hitSlopWidth = small ? 30 : 20
     return (
-      <TouchableWithoutFeedback {...touchProps}>
+      <TouchableWithoutFeedback
+        {...touchProps}
+        hitSlop={{
+          top: hitSlopWidth,
+          right: hitSlopWidth,
+          bottom: hitSlopWidth,
+          left: hitSlopWidth,
+        }}
+      >
         {customView}
       </TouchableWithoutFeedback>
     )

@@ -46,7 +46,14 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
         accessibilityTraits={undefined}
         accessible={true}
         clearBg={true}
-        hitSlop={undefined}
+        hitSlop={
+          Object {
+            "bottom": 30,
+            "left": 30,
+            "right": 30,
+            "top": 30,
+          }
+        }
         iconStyle={
           Array [
             Object {
@@ -76,14 +83,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
         testID="claim-offer-icon-close-touchable"
       >
         <Image
-          hitSlop={
-            Object {
-              "bottom": 20,
-              "left": 20,
-              "right": 20,
-              "top": 20,
-            }
-          }
           resizeMode="contain"
           source={1}
           style={
@@ -167,14 +166,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           }
         >
           <Image
-            hitSlop={
-              Object {
-                "bottom": 20,
-                "left": 20,
-                "right": 20,
-                "top": 20,
-              }
-            }
             resizeMode="cover"
             source={
               Object {

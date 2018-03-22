@@ -7,11 +7,11 @@
  * accepting claim offer, sharing proof for now
  */
 import React, { PureComponent } from 'react'
-import { TouchableHighlight, Image, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import LockEnter from './lock-enter'
 import type { LockAuthorizationProps } from './type-lock'
+import { Icon } from '../components'
 import { CustomView } from '../components'
-import { hitSlop } from '../common/styles/constant'
 import { OFFSET_2X } from '../common/styles'
 import { tertiaryHeaderStyles } from '../components/layout/header-styles'
 import { lockAuthorizationHomeRoute } from '../common'
@@ -31,23 +31,18 @@ export class LockAuthorization extends PureComponent<
   static navigationOptions = ({ navigation }: ReactNavigation) => ({
     headerLeft: (
       <CustomView>
-        <TouchableHighlight
-          testID={'back-button'}
+        <Icon
+          testID={'back-arrow'}
+          iconStyle={[styles.headerLeft]}
+          src={require('../images/icon_backArrow.png')}
+          resizeMode="contain"
           onPress={() => {
             navigation.goBack(null)
             if (navigation.state && navigation.state.params.onAvoid) {
               navigation.state.params.onAvoid()
             }
           }}
-          hitSlop={hitSlop}
-        >
-          <Image
-            testID={'back-arrow'}
-            style={styles.headerLeft}
-            source={require('../images/icon_backArrow.png')}
-            resizeMode="contain"
-          />
-        </TouchableHighlight>
+        />
       </CustomView>
     ),
     headerStyle: tertiaryHeaderStyles.header,

@@ -186,7 +186,7 @@ exports[`<QRScanner /> should match snapshot 1`] = `
           accessibilityLabel={undefined}
           accessibilityTraits={undefined}
           accessible={true}
-          hasTVPreferredFocus={undefined}
+          clearBg={true}
           hitSlop={
             Object {
               "bottom": 30,
@@ -195,7 +195,6 @@ exports[`<QRScanner /> should match snapshot 1`] = `
               "top": 30,
             }
           }
-          isTVSelectable={true}
           nativeID={undefined}
           onLayout={undefined}
           onResponderGrant={[Function]}
@@ -204,20 +203,27 @@ exports[`<QRScanner /> should match snapshot 1`] = `
           onResponderTerminate={[Function]}
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
+          small={true}
+          src={1}
           style={
-            Array [
-              Object {
-                "backgroundColor": "transparent",
-              },
-              undefined,
-            ]
+            Object {
+              "backgroundColor": "transparent",
+            }
           }
-          testID="close-qr-scanner-button"
-          tvParallaxProperties={undefined}
+          testID="close-qr-scanner-icon-touchable"
         >
           <Image
-            onPress={[MockFunction]}
+            resizeMode="contain"
             source={1}
+            style={
+              Array [
+                Object {
+                  "height": 20,
+                  "width": 20,
+                },
+                null,
+              ]
+            }
             testID="close-qr-scanner-icon"
           />
         </View>

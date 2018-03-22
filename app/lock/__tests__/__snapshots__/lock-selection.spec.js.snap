@@ -19,7 +19,14 @@ exports[`app lock selection page should render properly 1`] = `
     accessibilityLabel={undefined}
     accessibilityTraits={undefined}
     accessible={true}
-    hitSlop={undefined}
+    hitSlop={
+      Object {
+        "bottom": 20,
+        "left": 20,
+        "right": 20,
+        "top": 20,
+      }
+    }
     nativeID={undefined}
     onLayout={undefined}
     onResponderGrant={[Function]}
@@ -114,7 +121,14 @@ exports[`app lock selection page should render properly 1`] = `
       accessible={true}
       center={true}
       fifth={true}
-      hitSlop={undefined}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
       nativeID={undefined}
       onLayout={undefined}
       onResponderGrant={[Function]}
@@ -194,7 +208,14 @@ exports[`app lock selection page should render properly 1`] = `
       accessibilityLabel={undefined}
       accessibilityTraits={undefined}
       accessible={true}
-      hitSlop={undefined}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
       nativeID={undefined}
       onLayout={undefined}
       onResponderGrant={[Function]}
@@ -243,7 +264,14 @@ exports[`app lock selection page should render properly 1`] = `
       accessibilityTraits={undefined}
       accessible={true}
       fifth={true}
-      hitSlop={undefined}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
       nativeID={undefined}
       onLayout={undefined}
       onResponderGrant={[Function]}

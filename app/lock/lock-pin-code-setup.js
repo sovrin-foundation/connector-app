@@ -1,11 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import {
-  StyleSheet,
-  Image,
-  TouchableHighlight,
-  InteractionManager,
-} from 'react-native'
+import { StyleSheet, InteractionManager } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -15,6 +10,7 @@ import {
   CustomButton,
   CustomView,
   PinCodeBox,
+  Icon,
 } from '../components'
 import {
   lockSelectionRoute,
@@ -29,7 +25,6 @@ import {
   OFFSET_2X,
   OFFSET_6X,
   OFFSET_7X,
-  hitSlop,
 } from '../common/styles'
 import { setPinAction, enableTouchIdAction } from './lock-store'
 import type { LockPinSetupState, LockPinCodeSetupProps } from './type-lock'
@@ -72,29 +67,18 @@ export class LockPinSetup extends PureComponent<
   static navigationOptions = ({ navigation }) => ({
     headerLeft: (
       <CustomView>
-        <TouchableHighlight
-          testID={'back-button'}
+        <Icon
+          testID={'back-arrow'}
+          iconStyle={[styles.headerLeft]}
+          src={require('../images/icon_backArrow.png')}
+          resizeMode="contain"
           onPress={() =>
             navigation.state.params &&
             navigation.state.params.existingPin === true
               ? navigation.navigate(settingsTabRoute)
               : navigation.navigate(lockSelectionRoute)
           }
-          hitSlop={hitSlop}
-        >
-          <Image
-            testID={'back-arrow'}
-            style={styles.headerLeft}
-            source={require('../images/icon_backArrow.png')}
-            resizeMode="contain"
-            onPress={() =>
-              navigation.state.params &&
-              navigation.state.params.existingPin === true
-                ? navigation.navigate(settingsTabRoute)
-                : navigation.navigate(lockSelectionRoute)
-            }
-          />
-        </TouchableHighlight>
+        />
       </CustomView>
     ),
     headerTitle: (

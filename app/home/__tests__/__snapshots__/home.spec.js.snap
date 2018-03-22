@@ -127,14 +127,6 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
       }
     >
       <Image
-        hitSlop={
-          Object {
-            "bottom": 20,
-            "left": 20,
-            "right": 20,
-            "top": 20,
-          }
-        }
         resizeMode="contain"
         source={1}
         style={

@@ -1,15 +1,8 @@
 // @flow
 import React, { PureComponent } from 'react'
-import {
-  Vibration,
-  StyleSheet,
-  View,
-  Dimensions,
-  Image,
-  TouchableHighlight,
-} from 'react-native'
+import { Vibration, StyleSheet, View, Dimensions } from 'react-native'
 import Camera from 'react-native-camera'
-import { CustomView, Container, CustomText } from '../../components/'
+import { CustomView, Container, CustomText, Icon } from '../../components/'
 import {
   color,
   OFFSET_2X,
@@ -165,17 +158,12 @@ export class CameraMarker extends PureComponent<CameraMarkerProps, void> {
           style={[closeIconStyle.closeIcon]}
           testID={'close-qr-scanner-container'}
         >
-          <TouchableHighlight
+          <Icon
+            src={require('../../images/close_white.png')}
+            testID={'close-qr-scanner-icon'}
             onPress={onClose}
-            testID={'close-qr-scanner-button'}
-            hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}
-          >
-            <Image
-              source={require('../../images/close_white.png')}
-              testID={'close-qr-scanner-icon'}
-              onPress={onClose}
-            />
-          </TouchableHighlight>
+            small
+          />
         </CustomView>
         <CustomView
           style={[cameraMarkerStyles.container, cameraMarkerStyles.overlay]}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Image } from 'react-native'
+import { StyleSheet, Image, TouchableWithoutFeedback } from 'react-native'
 import { CustomView } from './layout'
 import empty from '../common/empty'
 
@@ -17,6 +17,8 @@ const Icon = props => {
     halo,
     round,
     haloStyle = empty,
+    onPress,
+    onLongPress,
   } = props
   const size = small
     ? 'small'
@@ -30,7 +32,6 @@ const Icon = props => {
       style={[styles[size], roundImageStyle, ...iconStyle]}
       resizeMode={resizeMode}
       testID={testID}
-      hitSlop={{ top: 20, right: 20, bottom: 20, left: 20 }}
     />
   )
 

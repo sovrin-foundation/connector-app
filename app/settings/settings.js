@@ -1,8 +1,8 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Image, Text, Switch, StyleSheet, TouchableOpacity } from 'react-native'
+import { Text, Switch, StyleSheet } from 'react-native'
 import { StackNavigator } from 'react-navigation'
-import { Avatar, CustomText } from '../components'
+import { Avatar, CustomText, Icon } from '../components'
 import { CustomList, CustomView, Container } from '../components/layout'
 import {
   settingsRoute,
@@ -11,13 +11,7 @@ import {
 } from '../common/route-constants'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import {
-  white,
-  mantis,
-  OFFSET_1X,
-  color,
-  hitSlop,
-} from '../common/styles/constant'
+import { white, mantis, OFFSET_1X, color } from '../common/styles/constant'
 import {
   EDIT_ICON_DIMENSIONS,
   PASS_CODE_ASTERISK_TOP_OFFSET,
@@ -81,21 +75,20 @@ export class Settings extends PureComponent<SettingsProps, void> {
       <Avatar medium round src={require('../images/UserAvatar.png')} />
     )
     const editIcon = (
-      <Image
-        style={[style.editIcon, { tintColor: 'grey' }]}
+      <Icon
+        iconStyle={[style.editIcon, { tintColor: 'grey' }]}
         resizeMode={'contain'}
-        source={require('../images/edit.png')}
+        src={require('../images/edit.png')}
       />
     )
 
     const editIconChangePin = (
-      <TouchableOpacity onPress={this.onChangePinClick} hitSlop={hitSlop}>
-        <Image
-          style={[style.editIcon, { tintColor: 'grey' }]}
-          resizeMode={'contain'}
-          source={require('../images/edit.png')}
-        />
-      </TouchableOpacity>
+      <Icon
+        iconStyle={[style.editIcon, { tintColor: 'grey' }]}
+        resizeMode={'contain'}
+        src={require('../images/edit.png')}
+        onPress={this.onChangePinClick}
+      />
     )
 
     const userName = (
@@ -118,9 +111,9 @@ export class Settings extends PureComponent<SettingsProps, void> {
     )
     const touchId = (
       <CustomView row>
-        <Image
-          style={[style.labelImage, style.editIcon, { tintColor: mantis }]}
-          source={require('../images/biometrics.png')}
+        <Icon
+          iconStyle={[style.labelImage, style.editIcon, { tintColor: mantis }]}
+          src={require('../images/biometrics.png')}
         />
         <CustomView center>
           <SettingText onPress={this.onChangeTouchId} testID={TOUCH_ID_TEST_ID}>

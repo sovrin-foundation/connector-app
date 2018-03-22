@@ -36,14 +36,6 @@ exports[`<LockSetupSuccess /> should display Loading while fetching the invitati
       testID="lock-success-lock-logo"
     >
       <Image
-        hitSlop={
-          Object {
-            "bottom": 20,
-            "left": 20,
-            "right": 20,
-            "top": 20,
-          }
-        }
         resizeMode="cover"
         source={1}
         style={
@@ -303,14 +295,6 @@ exports[`<LockSetupSuccess /> should render Lock setup success Screen 1`] = `
       testID="lock-success-lock-logo"
     >
       <Image
-        hitSlop={
-          Object {
-            "bottom": 20,
-            "left": 20,
-            "right": 20,
-            "top": 20,
-          }
-        }
         resizeMode="cover"
         source={1}
         style={

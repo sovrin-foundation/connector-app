@@ -96,10 +96,9 @@ exports[`user settings screen should render properly and snapshot should match 1
             }
           }
         >
-          <Image
-            resizeMode="contain"
-            source={1}
-            style={
+          <View
+            clearBg={true}
+            iconStyle={
               Array [
                 Object {
                   "height": 30,
@@ -110,7 +109,36 @@ exports[`user settings screen should render properly and snapshot should match 1
                 },
               ]
             }
-          />
+            resizeMode="contain"
+            src={1}
+            style={
+              Object {
+                "backgroundColor": "transparent",
+              }
+            }
+          >
+            <Image
+              resizeMode="contain"
+              source={1}
+              style={
+                Array [
+                  Object {
+                    "height": 50,
+                    "width": 50,
+                  },
+                  null,
+                  Object {
+                    "height": 30,
+                    "width": 30,
+                  },
+                  Object {
+                    "tintColor": "grey",
+                  },
+                ]
+              }
+              testID={undefined}
+            />
+          </View>
         </View>
       </View>
       <View
@@ -170,10 +198,9 @@ exports[`user settings screen should render properly and snapshot should match 1
             }
           }
         >
-          <Image
-            resizeMode="contain"
-            source={1}
-            style={
+          <View
+            clearBg={true}
+            iconStyle={
               Array [
                 Object {
                   "height": 30,
@@ -184,7 +211,36 @@ exports[`user settings screen should render properly and snapshot should match 1
                 },
               ]
             }
-          />
+            resizeMode="contain"
+            src={1}
+            style={
+              Object {
+                "backgroundColor": "transparent",
+              }
+            }
+          >
+            <Image
+              resizeMode="contain"
+              source={1}
+              style={
+                Array [
+                  Object {
+                    "height": 50,
+                    "width": 50,
+                  },
+                  null,
+                  Object {
+                    "height": 30,
+                    "width": 30,
+                  },
+                  Object {
+                    "tintColor": "grey",
+                  },
+                ]
+              }
+              testID={undefined}
+            />
+          </View>
         </View>
       </View>
       <View
@@ -291,17 +347,26 @@ exports[`user settings screen should render properly and snapshot should match 1
             accessibilityLabel={undefined}
             accessibilityTraits={undefined}
             accessible={true}
-            collapsable={undefined}
-            hasTVPreferredFocus={undefined}
+            clearBg={true}
             hitSlop={
               Object {
-                "bottom": 15,
-                "left": 15,
-                "right": 15,
-                "top": 15,
+                "bottom": 20,
+                "left": 20,
+                "right": 20,
+                "top": 20,
               }
             }
-            isTVSelectable={true}
+            iconStyle={
+              Array [
+                Object {
+                  "height": 30,
+                  "width": 30,
+                },
+                Object {
+                  "tintColor": "grey",
+                },
+              ]
+            }
             nativeID={undefined}
             onLayout={undefined}
             onResponderGrant={[Function]}
@@ -310,19 +375,25 @@ exports[`user settings screen should render properly and snapshot should match 1
             onResponderTerminate={[Function]}
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
+            resizeMode="contain"
+            src={1}
             style={
               Object {
-                "opacity": 1,
+                "backgroundColor": "transparent",
               }
             }
             testID={undefined}
-            tvParallaxProperties={undefined}
           >
             <Image
               resizeMode="contain"
               source={1}
               style={
                 Array [
+                  Object {
+                    "height": 50,
+                    "width": 50,
+                  },
+                  null,
                   Object {
                     "height": 30,
                     "width": 30,
@@ -332,6 +403,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                   },
                 ]
               }
+              testID={undefined}
             />
           </View>
         </View>
@@ -365,9 +437,9 @@ exports[`user settings screen should render properly and snapshot should match 1
               }
             }
           >
-            <Image
-              source={1}
-              style={
+            <View
+              clearBg={true}
+              iconStyle={
                 Array [
                   Object {
                     "marginRight": 10,
@@ -381,7 +453,38 @@ exports[`user settings screen should render properly and snapshot should match 1
                   },
                 ]
               }
-            />
+              src={1}
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                }
+              }
+            >
+              <Image
+                resizeMode="contain"
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "height": 50,
+                      "width": 50,
+                    },
+                    null,
+                    Object {
+                      "marginRight": 10,
+                    },
+                    Object {
+                      "height": 30,
+                      "width": 30,
+                    },
+                    Object {
+                      "tintColor": "#85bf43",
+                    },
+                  ]
+                }
+                testID={undefined}
+              />
+            </View>
             <View
               center={true}
               style={

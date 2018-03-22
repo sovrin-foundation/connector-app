@@ -35,7 +35,14 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
       accessibilityTraits={undefined}
       accessible={true}
       clearBg={true}
-      hitSlop={undefined}
+      hitSlop={
+        Object {
+          "bottom": 30,
+          "left": 30,
+          "right": 30,
+          "top": 30,
+        }
+      }
       nativeID={undefined}
       onLayout={undefined}
       onResponderGrant={[Function]}
@@ -58,14 +65,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
       testID="proof-request-icon-close-touchable"
     >
       <Image
-        hitSlop={
-          Object {
-            "bottom": 20,
-            "left": 20,
-            "right": 20,
-            "top": 20,
-          }
-        }
         resizeMode="contain"
         source={1}
         style={
@@ -173,14 +172,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
             }
           >
             <Image
-              hitSlop={
-                Object {
-                  "bottom": 20,
-                  "left": 20,
-                  "right": 20,
-                  "top": 20,
-                }
-              }
               resizeMode="cover"
               source={1}
               style={
@@ -266,14 +257,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
             }
           >
             <Image
-              hitSlop={
-                Object {
-                  "bottom": 20,
-                  "left": 20,
-                  "right": 20,
-                  "top": 20,
-                }
-              }
               resizeMode="cover"
               source={
                 Object {
@@ -660,14 +643,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                         testID="proof-requester-logo-0"
                       >
                         <Image
-                          hitSlop={
-                            Object {
-                              "bottom": 20,
-                              "left": 20,
-                              "right": 20,
-                              "top": 20,
-                            }
-                          }
                           resizeMode="cover"
                           source={null}
                           style={
@@ -896,14 +871,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                         testID="proof-requester-logo-1"
                       >
                         <Image
-                          hitSlop={
-                            Object {
-                              "bottom": 20,
-                              "left": 20,
-                              "right": 20,
-                              "top": 20,
-                            }
-                          }
                           resizeMode="cover"
                           source={null}
                           style={

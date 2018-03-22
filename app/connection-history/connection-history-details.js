@@ -1,6 +1,5 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { TouchableHighlight, Image } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 
 import type { ConnectionHistoryDetailsProps } from './type-connection-history'
@@ -12,6 +11,7 @@ import {
   headerStyles,
   ConnectionTheme,
   CustomDate,
+  Icon,
 } from '../components'
 import {
   connectionHistoryDetailsRoute,
@@ -40,19 +40,14 @@ export class ConnectionHistoryDetails extends PureComponent<
   }) => ({
     headerLeft: (
       <CustomView>
-        <TouchableHighlight
-          testID={'history-details-back-button'}
-          //goBack from current screen works when null is added
+        <Icon
+          testID={'history-details-back-arrow'}
+          iconStyle={[headerStyles.headerLeft]}
+          small
+          src={require('../images/icon_backArrow_white.png')}
+          resizeMode="contain"
           onPress={() => goBack(null)}
-        >
-          <Image
-            testID={'history-details-back-arrow'}
-            style={headerStyles.headerLeft}
-            source={require('../images/icon_backArrow_white.png')}
-            resizeMode="contain"
-            onPress={() => goBack(null)}
-          />
-        </TouchableHighlight>
+        />
       </CustomView>
     ),
     headerTitle: (

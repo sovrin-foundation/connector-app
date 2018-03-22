@@ -16,7 +16,14 @@ exports[`<LockAuthorization /> should match snapshot 1`] = `
     accessibilityTraits={undefined}
     accessible={true}
     center={true}
-    hitSlop={undefined}
+    hitSlop={
+      Object {
+        "bottom": 20,
+        "left": 20,
+        "right": 20,
+        "top": 20,
+      }
+    }
     nativeID={undefined}
     onLayout={undefined}
     onResponderGrant={[Function]}

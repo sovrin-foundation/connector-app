@@ -1,14 +1,7 @@
 // $FlowFixMe
 import React, { PureComponent } from 'react'
 import RadialGradient from 'react-native-radial-gradient'
-import {
-  Alert,
-  ScrollView,
-  Image,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  Dimensions,
-} from 'react-native'
+import { Alert, ScrollView, StyleSheet, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import { List, ListItem } from 'react-native-elements'
 import moment from 'moment'
@@ -36,7 +29,6 @@ import {
   color,
   OFFSET_1X,
   OFFSET_3X,
-  hitSlop,
   alertCancel,
 } from '../common/styles/constant'
 import type { Store } from '../store/type-store'
@@ -131,9 +123,10 @@ export class ConnectionHistory extends PureComponent<
 
   getHistoryIcons = action => {
     return (
-      <Image
-        source={historyIcons[action]}
-        style={[{ tintColor: this.props.activeConnectionThemePrimary }]}
+      <Icon
+        src={historyIcons[action]}
+        iconStyle={[{ tintColor: this.props.activeConnectionThemePrimary }]}
+        small
       />
     )
   }
@@ -189,7 +182,7 @@ export class ConnectionHistory extends PureComponent<
                 // Type definition for react-native-elements is wrong
                 // this will be fixed, once we move this Image to Icon component
                 // $FlowFixMe
-                <Image source={require('../images/e15c.1.png')} />
+                <Icon src={require('../images/e15c.1.png')} small />
               ) : (
                 {
                   name: 'chevron-right',
@@ -284,22 +277,17 @@ export class ConnectionHistory extends PureComponent<
                   iconStyle={[styles.issuerLogoIcon]}
                   testID={`${testID}-issuer-logo`}
                 />
-                <TouchableWithoutFeedback
+                <Icon
+                  absolute="TopLeft"
+                  src={require('../images/delete.png')}
+                  small
+                  iconStyle={[styles.headerDeleteIcon]}
+                  resizeMode="contain"
                   testID={`${testID}-icon-delete`}
                   onPress={() => {
                     this.onDeleteConnection(senderName, senderDID)
                   }}
-                  hitSlop={hitSlop}
-                >
-                  <Icon
-                    absolute="TopLeft"
-                    src={require('../images/delete.png')}
-                    small
-                    iconStyle={[styles.headerDeleteIcon]}
-                    resizeMode="contain"
-                    style={[styles.headerIconContainer]}
-                  />
-                </TouchableWithoutFeedback>
+                />
               </CustomView>
             </ClaimProofHeader>
           </RadialGradient>
