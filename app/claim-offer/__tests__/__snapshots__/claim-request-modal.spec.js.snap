@@ -189,7 +189,6 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
             },
             Object {
               "marginBottom": 5,
-              "paddingTop": 10,
             },
           ]
         }
@@ -224,7 +223,6 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
             },
             Object {
               "marginBottom": 5,
-              "paddingTop": 10,
             },
           ]
         }
@@ -257,7 +255,6 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
             },
             Object {
               "marginBottom": 5,
-              "paddingTop": 10,
             },
           ]
         }
@@ -293,7 +290,6 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
             },
             Object {
               "marginBottom": 5,
-              "paddingTop": 10,
             },
           ]
         }
@@ -326,7 +322,6 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
             },
             Object {
               "marginBottom": 5,
-              "paddingTop": 10,
             },
           ]
         }
@@ -653,7 +648,6 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
             },
             Object {
               "marginBottom": 5,
-              "paddingTop": 10,
             },
           ]
         }
@@ -688,7 +682,6 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
             },
             Object {
               "marginBottom": 5,
-              "paddingTop": 10,
             },
           ]
         }
@@ -721,7 +714,6 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
             },
             Object {
               "marginBottom": 5,
-              "paddingTop": 10,
             },
           ]
         }
@@ -757,7 +749,6 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
             },
             Object {
               "marginBottom": 5,
-              "paddingTop": 10,
             },
           ]
         }
@@ -790,7 +781,6 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
             },
             Object {
               "marginBottom": 5,
-              "paddingTop": 10,
             },
           ]
         }

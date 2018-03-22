@@ -1192,7 +1192,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               },
               Object {
                 "marginBottom": 5,
-                "paddingTop": 10,
               },
             ]
           }
@@ -1227,7 +1226,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               },
               Object {
                 "marginBottom": 5,
-                "paddingTop": 10,
               },
             ]
           }
@@ -1260,7 +1258,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               },
               Object {
                 "marginBottom": 5,
-                "paddingTop": 10,
               },
             ]
           }
@@ -1296,7 +1293,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               },
               Object {
                 "marginBottom": 5,
-                "paddingTop": 10,
               },
             ]
           }

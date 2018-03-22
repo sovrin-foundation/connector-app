@@ -174,7 +174,6 @@ const styles = StyleSheet.create({
     right: 7,
   },
   message: {
-    paddingTop: OFFSET_1X,
     marginBottom: OFFSET_1X / 2,
   },
   title: {
