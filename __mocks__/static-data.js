@@ -685,6 +685,28 @@ export const preparedProof = {
   predicates: {},
 }
 
+export const homeAddressPreparedProof = {
+  attrs: {
+    attr1_uuid: [
+      {
+        claim_uuid: 'claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73',
+        attrs: { ['Address 1']: 'Address 1' },
+        schema_seq_no: 295,
+        issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
+      },
+    ],
+    attr2_uuid: [
+      {
+        claim_uuid: 'claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5',
+        attrs: { ['Address 2']: 'Address 2' },
+        schema_seq_no: 296,
+        issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
+      },
+    ],
+  },
+  predicates: {},
+}
+
 export const preparedProofWithMissingAttribute = {
   attrs: {
     attr1_uuid: [
@@ -703,7 +725,30 @@ export const preparedProofWithMissingAttribute = {
         issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
       },
     ],
-    [missingAttributes[0].key]: [undefined],
+    [missingAttributes[0].key]: [null],
+  },
+  predicates: {},
+}
+
+export const homeAddressPreparedProofWithMissingAttribute = {
+  attrs: {
+    attr1_uuid: [
+      {
+        claim_uuid: 'claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73',
+        attrs: { ['Address 1']: 'Address 1' },
+        schema_seq_no: 295,
+        issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
+      },
+    ],
+    attr3_uuid: [
+      {
+        claim_uuid: 'claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5',
+        attrs: { ['Address 2']: 'Address 2' },
+        schema_seq_no: 296,
+        issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
+      },
+    ],
+    [missingAttributes[0].key]: [null],
   },
   predicates: {},
 }

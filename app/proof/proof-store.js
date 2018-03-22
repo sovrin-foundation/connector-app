@@ -4,6 +4,7 @@ import { put, takeLatest, take, call, all, select } from 'redux-saga/effects'
 import type {
   Proof,
   ProofStore,
+  UpdateAttributeClaimAction,
   ProofAction,
   GenerateProofAction,
   ProofSuccessAction,
@@ -13,6 +14,8 @@ import type {
   IndySelfAttestedAttributes,
   UserSelfAttestedAttributesAction,
   IndyRequestedProof,
+  RequestedClaimsJson,
+  RequestedAttrsJson,
 } from './type-proof'
 import type {
   ProofRequestData,
@@ -23,6 +26,7 @@ import type {
   ProofRequestedAttributes,
 } from '../proof-request/type-proof-request'
 import {
+  UPDATE_ATTRIBUTE_CLAIM,
   GENERATE_PROOF,
   PROOF_SUCCESS,
   PROOF_FAIL,
@@ -34,6 +38,7 @@ import { prepareProof, generateProof } from '../bridge/react-native-cxs/RNCxs'
 import {
   proofRequestAutoFill,
   missingAttributesFound,
+  acceptProofRequest,
 } from '../proof-request/proof-request-store'
 import {
   getOriginalProofRequestData,
@@ -44,6 +49,13 @@ import {
 } from '../store/store-selector'
 import type { Attribute } from '../push-notification/type-push-notification'
 import { RESET } from '../common/type-common'
+
+export const updateAttributeClaim = (
+  requestedAttrsJson: RequestedAttrsJson
+): UpdateAttributeClaimAction => ({
+  type: UPDATE_ATTRIBUTE_CLAIM,
+  requestedAttrsJson,
+})
 
 export const getProof = (uid: string) => ({
   type: GENERATE_PROOF,
@@ -120,31 +132,36 @@ export function convertPreparedProofToRequestedAttributes(
   return [requestedAttributes, missingAttributes]
 }
 
-export function convertIndyRequestedProofToAttributes(
-  requestedProof: IndyRequestedProof,
+export function convertIndyPreparedProofToAttributes(
+  preparedProof: IndyPreparedProof,
   requestedAttributes: ProofRequestedAttributes
-): Attribute[] {
-  return Object.keys(requestedAttributes).map(attributeKey => {
+): Array<Attribute> {
+  let attributes = Object.keys(requestedAttributes).map(attributeKey => {
     const label = requestedAttributes[attributeKey].name
+    const revealedAttributes = preparedProof.attrs[attributeKey]
 
-    const revealedAttribute = requestedProof.revealed_attrs[attributeKey]
-
-    if (revealedAttribute) {
-      return {
+    if (revealedAttributes && revealedAttributes.length > 0) {
+      return revealedAttributes.map(revealedAttribute => ({
         label,
-        data: revealedAttribute[1],
-        claimUuid: revealedAttribute[0],
-      }
+        data: revealedAttribute && revealedAttribute.attrs[label],
+        claimUuid: revealedAttribute && revealedAttribute.claim_uuid,
+      }))
     }
 
     const selfAttestedAttribute =
-      requestedProof.self_attested_attrs[attributeKey]
+      preparedProof.self_attested_attrs &&
+      preparedProof.self_attested_attrs[label.toLocaleLowerCase()].data
 
-    return {
-      label,
-      data: selfAttestedAttribute,
-    }
+    return [
+      {
+        label,
+        data: selfAttestedAttribute,
+      },
+    ]
   })
+
+  // $FlowFixMe
+  return attributes
 }
 
 export function* generateProofSaga(
@@ -156,7 +173,6 @@ export function* generateProofSaga(
       getOriginalProofRequestData,
       uid
     )
-    const remoteDid: string = yield select(getProofRequestPairwiseDid, uid)
     const poolConfig: string = yield select(getPoolConfig)
 
     const preparedProofJson: string = yield call(
@@ -195,6 +211,20 @@ export function* generateProofSaga(
       requested_predicates: {},
     }
 
+    // auto-fill proof request
+    const requestedAttributes = convertIndyPreparedProofToAttributes(
+      { ...preparedProof, self_attested_attrs: { ...selfAttestedAttributes } },
+      proofRequest.requested_attrs
+    )
+
+    yield put(proofRequestAutoFill(uid, requestedAttributes))
+
+    const remoteDid: string = yield select(getProofRequestPairwiseDid, uid)
+
+    const updateAttributeClaim = yield take(UPDATE_ATTRIBUTE_CLAIM)
+    requestedClaimsJson.requested_attrs =
+      updateAttributeClaim.requestedAttrsJson
+
     // call generate proof api
     const proofJson = yield call(
       generateProof,
@@ -207,14 +237,7 @@ export function* generateProofSaga(
     const proof: Proof = JSON.parse(proofJson)
 
     yield put(proofSuccess(proof, uid))
-
-    // auto-fill proof request
-    const { requested_attrs, name, version } = proofRequest
-    const requestedAttributes = convertIndyRequestedProofToAttributes(
-      proof.requested_proof,
-      requested_attrs
-    )
-    yield put(proofRequestAutoFill(uid, requestedAttributes))
+    yield put(acceptProofRequest(uid))
   } catch (e) {
     yield put(proofFail(action.uid, e))
   }

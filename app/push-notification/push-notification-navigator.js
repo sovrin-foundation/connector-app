@@ -34,7 +34,6 @@ import type { Claim } from '../claim/type-claim'
 import type {
   ProofRequestPushPayload,
   AdditionalProofDataPayload,
-  RequestedAttribute,
 } from '../proof-request/type-proof-request'
 
 const blackListedRoute = {}

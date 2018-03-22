@@ -10,9 +10,8 @@ import type {
 import type {
   ProofRequestData,
   SelfAttestedAttributes,
+  IndySelfAttested,
 } from '../proof-request/type-proof-request'
-
-export type PrepareProof = any
 
 export type ProofRevealedDetails = {
   primary_proof: {
@@ -52,6 +51,22 @@ export type Proof = {
     c_list: Array<Array<number>>,
   },
   requested_proof: IndyRequestedProof,
+}
+
+export type RequestedClaimsJson = {
+  self_attested_attributes: IndySelfAttested,
+  requested_attrs: IndyRequestedAttributes,
+  requested_predicates: GenericObject,
+}
+
+export type RequestedAttrsJson = {
+  +[string]: [string, boolean],
+}
+
+export const UPDATE_ATTRIBUTE_CLAIM = 'UPDATE_ATTRIBUTE_CLAIM'
+export type UpdateAttributeClaimAction = {
+  type: typeof UPDATE_ATTRIBUTE_CLAIM,
+  requestedAttrsJson: RequestedAttrsJson,
 }
 
 export const GENERATE_PROOF = 'GENERATE_PROOF'
@@ -106,6 +121,7 @@ export type IndyPreparedProof = {
     ],
   },
   predicates: {},
+  self_attested_attrs?: {},
 }
 
 export type IndyRequestedAttributes = {

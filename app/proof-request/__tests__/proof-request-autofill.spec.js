@@ -24,6 +24,7 @@ describe('<ProofRequest />', () => {
   let rejectProofRequest
   let ignoreProofRequest
   let getProof
+  let updateAttributeClaim
   let tree
   let navigation
   let componentInstance
@@ -37,7 +38,9 @@ describe('<ProofRequest />', () => {
     rejectProofRequest = jest.fn()
     ignoreProofRequest = jest.fn()
     userSelfAttestedAttributes = jest.fn()
+
     getProof = jest.fn()
+    updateAttributeClaim = jest.fn()
     navigation = getNavigation({ uid })
     wrapper = renderer.create(
       <Provider store={store}>
@@ -52,6 +55,7 @@ describe('<ProofRequest />', () => {
           ignoreProofRequest={ignoreProofRequest}
           rejectProofRequest={rejectProofRequest}
           getProof={getProof}
+          updateAttributeClaim={updateAttributeClaim}
           navigation={navigation}
           uid={navigation.state.params.uid || ''}
           isValid={isValid}

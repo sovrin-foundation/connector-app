@@ -89,7 +89,7 @@ export type Attribute = {
   label: string,
   data?: string,
   logoUrl?: string,
-  claimUuid?: string,
+  claimUuid?: ?string,
 }
 
 export type AdditionalData = {

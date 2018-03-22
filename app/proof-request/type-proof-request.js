@@ -15,7 +15,7 @@ import type {
   Attribute,
   NotificationPayloadInfo,
 } from '../push-notification/type-push-notification'
-import type { Proof } from '../proof/type-proof'
+import type { Proof, RequestedAttrsJson } from '../proof/type-proof'
 import type { ClaimMap } from '../claim/type-claim'
 
 export type RequestedAttribute = {
@@ -90,6 +90,7 @@ export type ProofRequestAttributeListProp = {
     selfAttestedAttributes: GenericStringObject
   ) => void,
   disableUserInputs: boolean,
+  updateSelectedClaims: (item: Attribute, index: number) => void,
 }
 
 export type ProofRequestAttributeListState = {
@@ -129,11 +130,8 @@ export type ProofRequestProps = {
   rejectProofRequest: (uid: string) => void,
   acceptProofRequest: (uid: string) => void,
   proofRequestShown: (uid: string) => void,
-  getProof: (
-    // originalProofRequestData: ProofRequestData,
-    // remoteDid: string,
-    uid: string
-  ) => void,
+  updateAttributeClaim: (requestedAttrsJson: RequestedAttrsJson) => void,
+  getProof: (uid: string) => void,
   uid: string,
   proofGenerationError?: ?CustomError,
   claimMap?: ?ClaimMap,
@@ -149,6 +147,7 @@ export type ProofRequestState = {
   generateProofClicked: boolean,
   selfAttestedAttributes: GenericStringObject,
   disableUserInputs: boolean,
+  selectedClaims: RequestedAttrsJson,
 }
 
 export const PROOF_REQUEST_RECEIVED = 'PROOF_REQUEST_RECEIVED'

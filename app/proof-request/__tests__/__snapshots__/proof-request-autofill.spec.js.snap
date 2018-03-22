@@ -424,6 +424,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
             },
           ],
           "missingAttributes": Object {},
+          "updateSelectedClaims": [Function],
         }
       }
       extraHeight={235}
@@ -467,149 +468,227 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
           style={null}
         >
           <View
-            fifth={true}
-            row={true}
+            onLayout={[Function]}
             style={
-              Object {
-                "backgroundColor": "#ffffff",
-                "flex": 1,
-                "flexDirection": "row",
-                "paddingHorizontal": 10,
-              }
-            }
-            testID="proof-request-attribute-item-0"
-          >
-            <View
-              fifth={true}
-              style={
+              Array [
                 Object {
-                  "backgroundColor": "#ffffff",
+                  "backgroundColor": "transparent",
                   "flex": 1,
-                  "marginLeft": 5,
-                  "paddingVertical": 8,
+                  "position": "relative",
+                },
+                undefined,
+              ]
+            }
+          >
+            <RCTScrollView
+              automaticallyAdjustContentInsets={false}
+              autoplay={false}
+              autoplayDirection={true}
+              autoplayTimeout={2.5}
+              bounces={false}
+              contentContainerStyle={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
+                  undefined,
+                ]
+              }
+              contentOffset={
+                Object {
+                  "x": 0,
                 }
               }
-              verticalSpace={true}
+              disableNextButton={false}
+              height={69}
+              horizontal={true}
+              index={0}
+              loadMinimal={false}
+              loadMinimalSize={1}
+              loop={true}
+              onIndexChanged={[Function]}
+              onMomentumScrollEnd={[Function]}
+              onScrollBeginDrag={[Function]}
+              onScrollEndDrag={[Function]}
+              pagingEnabled={true}
+              removeClippedSubviews={true}
+              scrollsToTop={false}
+              showsButtons={false}
+              showsHorizontalScrollIndicator={false}
+              showsPagination={false}
+              showsVerticalScrollIndicator={false}
+              style={undefined}
             >
-              <View
-                fifth={true}
-                style={
-                  Object {
-                    "backgroundColor": "#ffffff",
-                    "marginVertical": 2,
-                  }
-                }
-              >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  ellipsizeMode="tail"
+              <View>
+                <View
                   style={
                     Array [
                       Object {
-                        "fontSize": 12,
+                        "height": 69,
+                        "width": 320,
                       },
-                      Object {
-                        "fontFamily": "SF Pro Display",
-                      },
-                      Object {
-                        "backgroundColor": "#f0f0f0",
-                        "color": "#333333",
-                      },
-                      Object {
-                        "fontWeight": "600",
-                      },
-                      null,
                       Object {
                         "backgroundColor": "transparent",
-                      },
-                      Object {
-                        "paddingVertical": 2,
                       },
                     ]
                   }
                 >
-                  ADDRESS 1
-                </Text>
+                  <View
+                    style={
+                      Object {
+                        "flex": 1,
+                      }
+                    }
+                  >
+                    <View
+                      fifth={true}
+                      row={true}
+                      style={
+                        Object {
+                          "backgroundColor": "#ffffff",
+                          "flex": 1,
+                          "flexDirection": "row",
+                          "paddingHorizontal": 10,
+                        }
+                      }
+                      testID="proof-request-attribute-item-0"
+                    >
+                      <View
+                        fifth={true}
+                        style={
+                          Object {
+                            "backgroundColor": "#ffffff",
+                            "flex": 1,
+                            "marginLeft": 5,
+                            "paddingVertical": 8,
+                          }
+                        }
+                        verticalSpace={true}
+                      >
+                        <View
+                          fifth={true}
+                          style={
+                            Object {
+                              "backgroundColor": "#ffffff",
+                              "marginVertical": 2,
+                            }
+                          }
+                        >
+                          <Text
+                            accessible={true}
+                            allowFontScaling={true}
+                            ellipsizeMode="tail"
+                            style={
+                              Array [
+                                Object {
+                                  "fontSize": 12,
+                                },
+                                Object {
+                                  "fontFamily": "SF Pro Display",
+                                },
+                                Object {
+                                  "backgroundColor": "#f0f0f0",
+                                  "color": "#333333",
+                                },
+                                Object {
+                                  "fontWeight": "600",
+                                },
+                                null,
+                                Object {
+                                  "backgroundColor": "transparent",
+                                },
+                                Object {
+                                  "paddingVertical": 2,
+                                },
+                              ]
+                            }
+                          >
+                            ADDRESS 1
+                          </Text>
+                        </View>
+                        <View
+                          fifth={true}
+                          style={
+                            Object {
+                              "backgroundColor": "#ffffff",
+                              "marginBottom": 10,
+                            }
+                          }
+                        >
+                          <Text
+                            accessible={true}
+                            allowFontScaling={true}
+                            ellipsizeMode="tail"
+                            style={
+                              Array [
+                                Object {
+                                  "fontSize": 15,
+                                },
+                                Object {
+                                  "fontFamily": "SF Pro Display",
+                                },
+                                Object {
+                                  "backgroundColor": "#f0f0f0",
+                                  "color": "#333333",
+                                },
+                                Object {
+                                  "fontWeight": "600",
+                                },
+                                null,
+                                Object {
+                                  "backgroundColor": "transparent",
+                                },
+                              ]
+                            }
+                          />
+                        </View>
+                      </View>
+                      <View
+                        center={true}
+                        clearBg={true}
+                        medium={true}
+                        resizeMode="cover"
+                        round={true}
+                        src={null}
+                        style={
+                          Object {
+                            "alignItems": "center",
+                            "backgroundColor": "transparent",
+                            "justifyContent": "center",
+                          }
+                        }
+                        testID="proof-requester-logo-0"
+                      >
+                        <Image
+                          hitSlop={
+                            Object {
+                              "bottom": 20,
+                              "left": 20,
+                              "right": 20,
+                              "top": 20,
+                            }
+                          }
+                          resizeMode="cover"
+                          source={null}
+                          style={
+                            Array [
+                              Object {
+                                "height": 30,
+                                "width": 30,
+                              },
+                              Object {
+                                "borderRadius": 15,
+                              },
+                            ]
+                          }
+                          testID="proof-requester-logo-0"
+                        />
+                      </View>
+                    </View>
+                  </View>
+                </View>
               </View>
-              <View
-                fifth={true}
-                style={
-                  Object {
-                    "backgroundColor": "#ffffff",
-                    "marginBottom": 10,
-                  }
-                }
-              >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  ellipsizeMode="tail"
-                  style={
-                    Array [
-                      Object {
-                        "fontSize": 15,
-                      },
-                      Object {
-                        "fontFamily": "SF Pro Display",
-                      },
-                      Object {
-                        "backgroundColor": "#f0f0f0",
-                        "color": "#333333",
-                      },
-                      Object {
-                        "fontWeight": "600",
-                      },
-                      null,
-                      Object {
-                        "backgroundColor": "transparent",
-                      },
-                    ]
-                  }
-                />
-              </View>
-            </View>
-            <View
-              center={true}
-              clearBg={true}
-              medium={true}
-              resizeMode="cover"
-              round={true}
-              src={null}
-              style={
-                Object {
-                  "alignItems": "center",
-                  "backgroundColor": "transparent",
-                  "justifyContent": "center",
-                }
-              }
-              testID="proof-requester-logo-0"
-            >
-              <Image
-                hitSlop={
-                  Object {
-                    "bottom": 20,
-                    "left": 20,
-                    "right": 20,
-                    "top": 20,
-                  }
-                }
-                resizeMode="cover"
-                source={null}
-                style={
-                  Array [
-                    Object {
-                      "height": 30,
-                      "width": 30,
-                    },
-                    Object {
-                      "borderRadius": 15,
-                    },
-                  ]
-                }
-                testID="proof-requester-logo-0"
-              />
-            </View>
+            </RCTScrollView>
           </View>
           <View
             style={
@@ -625,149 +704,227 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
           style={null}
         >
           <View
-            fifth={true}
-            row={true}
+            onLayout={[Function]}
             style={
-              Object {
-                "backgroundColor": "#ffffff",
-                "flex": 1,
-                "flexDirection": "row",
-                "paddingHorizontal": 10,
-              }
-            }
-            testID="proof-request-attribute-item-1"
-          >
-            <View
-              fifth={true}
-              style={
+              Array [
                 Object {
-                  "backgroundColor": "#ffffff",
+                  "backgroundColor": "transparent",
                   "flex": 1,
-                  "marginLeft": 5,
-                  "paddingVertical": 8,
+                  "position": "relative",
+                },
+                undefined,
+              ]
+            }
+          >
+            <RCTScrollView
+              automaticallyAdjustContentInsets={false}
+              autoplay={false}
+              autoplayDirection={true}
+              autoplayTimeout={2.5}
+              bounces={false}
+              contentContainerStyle={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
+                  undefined,
+                ]
+              }
+              contentOffset={
+                Object {
+                  "x": 0,
                 }
               }
-              verticalSpace={true}
+              disableNextButton={false}
+              height={69}
+              horizontal={true}
+              index={0}
+              loadMinimal={false}
+              loadMinimalSize={1}
+              loop={true}
+              onIndexChanged={[Function]}
+              onMomentumScrollEnd={[Function]}
+              onScrollBeginDrag={[Function]}
+              onScrollEndDrag={[Function]}
+              pagingEnabled={true}
+              removeClippedSubviews={true}
+              scrollsToTop={false}
+              showsButtons={false}
+              showsHorizontalScrollIndicator={false}
+              showsPagination={false}
+              showsVerticalScrollIndicator={false}
+              style={undefined}
             >
-              <View
-                fifth={true}
-                style={
-                  Object {
-                    "backgroundColor": "#ffffff",
-                    "marginVertical": 2,
-                  }
-                }
-              >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  ellipsizeMode="tail"
+              <View>
+                <View
                   style={
                     Array [
                       Object {
-                        "fontSize": 12,
+                        "height": 69,
+                        "width": 320,
                       },
-                      Object {
-                        "fontFamily": "SF Pro Display",
-                      },
-                      Object {
-                        "backgroundColor": "#f0f0f0",
-                        "color": "#333333",
-                      },
-                      Object {
-                        "fontWeight": "600",
-                      },
-                      null,
                       Object {
                         "backgroundColor": "transparent",
-                      },
-                      Object {
-                        "paddingVertical": 2,
                       },
                     ]
                   }
                 >
-                  ADDRESS 2
-                </Text>
+                  <View
+                    style={
+                      Object {
+                        "flex": 1,
+                      }
+                    }
+                  >
+                    <View
+                      fifth={true}
+                      row={true}
+                      style={
+                        Object {
+                          "backgroundColor": "#ffffff",
+                          "flex": 1,
+                          "flexDirection": "row",
+                          "paddingHorizontal": 10,
+                        }
+                      }
+                      testID="proof-request-attribute-item-1"
+                    >
+                      <View
+                        fifth={true}
+                        style={
+                          Object {
+                            "backgroundColor": "#ffffff",
+                            "flex": 1,
+                            "marginLeft": 5,
+                            "paddingVertical": 8,
+                          }
+                        }
+                        verticalSpace={true}
+                      >
+                        <View
+                          fifth={true}
+                          style={
+                            Object {
+                              "backgroundColor": "#ffffff",
+                              "marginVertical": 2,
+                            }
+                          }
+                        >
+                          <Text
+                            accessible={true}
+                            allowFontScaling={true}
+                            ellipsizeMode="tail"
+                            style={
+                              Array [
+                                Object {
+                                  "fontSize": 12,
+                                },
+                                Object {
+                                  "fontFamily": "SF Pro Display",
+                                },
+                                Object {
+                                  "backgroundColor": "#f0f0f0",
+                                  "color": "#333333",
+                                },
+                                Object {
+                                  "fontWeight": "600",
+                                },
+                                null,
+                                Object {
+                                  "backgroundColor": "transparent",
+                                },
+                                Object {
+                                  "paddingVertical": 2,
+                                },
+                              ]
+                            }
+                          >
+                            ADDRESS 2
+                          </Text>
+                        </View>
+                        <View
+                          fifth={true}
+                          style={
+                            Object {
+                              "backgroundColor": "#ffffff",
+                              "marginBottom": 10,
+                            }
+                          }
+                        >
+                          <Text
+                            accessible={true}
+                            allowFontScaling={true}
+                            ellipsizeMode="tail"
+                            style={
+                              Array [
+                                Object {
+                                  "fontSize": 15,
+                                },
+                                Object {
+                                  "fontFamily": "SF Pro Display",
+                                },
+                                Object {
+                                  "backgroundColor": "#f0f0f0",
+                                  "color": "#333333",
+                                },
+                                Object {
+                                  "fontWeight": "600",
+                                },
+                                null,
+                                Object {
+                                  "backgroundColor": "transparent",
+                                },
+                              ]
+                            }
+                          />
+                        </View>
+                      </View>
+                      <View
+                        center={true}
+                        clearBg={true}
+                        medium={true}
+                        resizeMode="cover"
+                        round={true}
+                        src={null}
+                        style={
+                          Object {
+                            "alignItems": "center",
+                            "backgroundColor": "transparent",
+                            "justifyContent": "center",
+                          }
+                        }
+                        testID="proof-requester-logo-1"
+                      >
+                        <Image
+                          hitSlop={
+                            Object {
+                              "bottom": 20,
+                              "left": 20,
+                              "right": 20,
+                              "top": 20,
+                            }
+                          }
+                          resizeMode="cover"
+                          source={null}
+                          style={
+                            Array [
+                              Object {
+                                "height": 30,
+                                "width": 30,
+                              },
+                              Object {
+                                "borderRadius": 15,
+                              },
+                            ]
+                          }
+                          testID="proof-requester-logo-1"
+                        />
+                      </View>
+                    </View>
+                  </View>
+                </View>
               </View>
-              <View
-                fifth={true}
-                style={
-                  Object {
-                    "backgroundColor": "#ffffff",
-                    "marginBottom": 10,
-                  }
-                }
-              >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  ellipsizeMode="tail"
-                  style={
-                    Array [
-                      Object {
-                        "fontSize": 15,
-                      },
-                      Object {
-                        "fontFamily": "SF Pro Display",
-                      },
-                      Object {
-                        "backgroundColor": "#f0f0f0",
-                        "color": "#333333",
-                      },
-                      Object {
-                        "fontWeight": "600",
-                      },
-                      null,
-                      Object {
-                        "backgroundColor": "transparent",
-                      },
-                    ]
-                  }
-                />
-              </View>
-            </View>
-            <View
-              center={true}
-              clearBg={true}
-              medium={true}
-              resizeMode="cover"
-              round={true}
-              src={null}
-              style={
-                Object {
-                  "alignItems": "center",
-                  "backgroundColor": "transparent",
-                  "justifyContent": "center",
-                }
-              }
-              testID="proof-requester-logo-1"
-            >
-              <Image
-                hitSlop={
-                  Object {
-                    "bottom": 20,
-                    "left": 20,
-                    "right": 20,
-                    "top": 20,
-                  }
-                }
-                resizeMode="cover"
-                source={null}
-                style={
-                  Array [
-                    Object {
-                      "height": 30,
-                      "width": 30,
-                    },
-                    Object {
-                      "borderRadius": 15,
-                    },
-                  ]
-                }
-                testID="proof-requester-logo-1"
-              />
-            </View>
+            </RCTScrollView>
           </View>
         </View>
         <View

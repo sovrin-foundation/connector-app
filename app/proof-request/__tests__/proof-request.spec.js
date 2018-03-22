@@ -35,6 +35,7 @@ describe('<ProofRequest />', () => {
   let rejectProofRequest
   let ignoreProofRequest
   let getProof
+  let updateAttributeClaim
   let tree
   let navigation
   let componentInstance
@@ -49,6 +50,7 @@ describe('<ProofRequest />', () => {
     ignoreProofRequest = jest.fn()
     userSelfAttestedAttributes = jest.fn()
     getProof = jest.fn()
+    updateAttributeClaim = jest.fn()
     navigation = getNavigation({ uid })
 
     wrapper = renderer.create(
@@ -64,6 +66,7 @@ describe('<ProofRequest />', () => {
           ignoreProofRequest={ignoreProofRequest}
           rejectProofRequest={rejectProofRequest}
           getProof={getProof}
+          updateAttributeClaim={updateAttributeClaim}
           navigation={navigation}
           uid={navigation.state.params.uid || ''}
           isValid={isValid}
@@ -83,12 +86,12 @@ describe('<ProofRequest />', () => {
     expect(proofRequestShown).toHaveBeenCalledWith(uid)
   })
 
-  it('should call acceptProofRequest if offer is accepted after generate proof is done', () => {
+  it('should call getProof if offer is accepted after generate proof is done', () => {
     // generate proof
     componentInstance.onSend()
     // accept
     componentInstance.onSend()
-    expect(acceptProofRequest).toHaveBeenCalledWith(uid)
+    expect(getProof).toHaveBeenCalledWith(uid)
   })
 
   it('should call proofRequestIgnored if close button is pressed', () => {

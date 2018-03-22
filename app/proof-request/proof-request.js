@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
 import debounce from 'lodash.debounce'
+import Swiper from 'react-native-swiper'
 
 import {
   Container,
@@ -63,7 +64,11 @@ import {
   MESSAGE_ERROR_PROOF_GENERATION_TITLE,
   MESSAGE_ERROR_PROOF_GENERATION_DESCRIPTION,
 } from './type-proof-request'
-import { userSelfAttestedAttributes, getProof } from '../proof/proof-store'
+import {
+  userSelfAttestedAttributes,
+  updateAttributeClaim,
+  getProof,
+} from '../proof/proof-store'
 
 export function generateStateForMissingAttributes(
   missingAttributes: MissingAttributes | {}
@@ -104,7 +109,6 @@ class ProofRequestAttributeList extends PureComponent<
 > {
   constructor(props: ProofRequestAttributeListProp) {
     super(props)
-
     this.canEnableGenerateProof = debounce(
       this.canEnableGenerateProof.bind(this),
       250
@@ -142,75 +146,98 @@ class ProofRequestAttributeList extends PureComponent<
     )
   }
 
+  onSwipe = (item: Attribute, index: number) => {
+    this.props.updateSelectedClaims(item, index)
+  }
+
   keyExtractor = ({ label }: Attribute, index: number) => `${label}${index}`
 
   renderItem = ({ item, index }) => {
-    const adjustedLabel = item.label.toLocaleLowerCase()
-    const testID = 'proof-request-attribute-item'
-    const logoUrl = item.data
-      ? item.claimUuid &&
-        this.props.claimMap &&
-        this.props.claimMap[item.claimUuid] &&
-        this.props.claimMap[item.claimUuid].logoUrl
-        ? { uri: this.props.claimMap[item.claimUuid].logoUrl }
-        : require('../images/UserAvatar.png')
-      : null
-    const showInputBox =
-      adjustedLabel in this.props.missingAttributes && !item.data
+    // convert item to array of item
+    let items = item
+    if (!Array.isArray(items)) {
+      items = [items]
+    }
 
     return (
-      <Container
-        fifth
-        style={[styles.attributeItem]}
-        testID={`${testID}-${index}`}
-        row
+      <Swiper
+        showsButtons={false}
+        showsPagination={false}
+        height={69}
+        onIndexChanged={swipeIndex => this.onSwipe(items[swipeIndex], index)}
       >
-        <Container fifth verticalSpace style={[styles.label]}>
-          <CustomView fifth style={[styles.attributeListLabel]}>
-            <CustomText
-              h7
-              uppercase
-              semiBold
-              bg="tertiary"
-              transparentBg
-              style={[styles.attributeListLabelText]}
-            >
-              {item.label}
-            </CustomText>
-          </CustomView>
-          <CustomView fifth style={[styles.attributeListValue]}>
-            {showInputBox ? (
-              <TextInput
-                autoCorrect={false}
-                blurOnSubmit={true}
-                clearButtonMode="always"
-                numberOfLines={3}
-                name={adjustedLabel}
-                multiline={true}
-                maxLength={200}
-                maxHeight={50}
-                placeholder={`enter ${item.label}`}
-                returnKeyType="done"
-                testID={`${testID}-input-${adjustedLabel}`}
-                onChange={e => this.onTextChange(e, adjustedLabel)}
-                editable={!this.props.disableUserInputs}
-              />
-            ) : (
-              <CustomText h6 demiBold bg="tertiary" transparentBg>
-                {item.data}
-              </CustomText>
-            )}
-          </CustomView>
-        </Container>
-        <Icon
-          center
-          medium
-          round
-          resizeMode="cover"
-          src={logoUrl}
-          testID={`proof-requester-logo-${index}`}
-        />
-      </Container>
+        {items.map((item, itemIndex) => {
+          const adjustedLabel = item.label.toLocaleLowerCase()
+          const testID = 'proof-request-attribute-item'
+          const logoUrl = item.data
+            ? item.claimUuid &&
+              this.props.claimMap &&
+              this.props.claimMap[item.claimUuid] &&
+              this.props.claimMap[item.claimUuid].logoUrl
+              ? { uri: this.props.claimMap[item.claimUuid].logoUrl }
+              : require('../images/UserAvatar.png')
+            : null
+          const showInputBox =
+            adjustedLabel in this.props.missingAttributes && !item.data
+
+          return (
+            <Container key={itemIndex}>
+              <Container
+                fifth
+                style={[styles.attributeItem]}
+                testID={`${testID}-${index}`}
+                row
+              >
+                <Container fifth verticalSpace style={[styles.label]}>
+                  <CustomView fifth style={[styles.attributeListLabel]}>
+                    <CustomText
+                      h7
+                      uppercase
+                      semiBold
+                      bg="tertiary"
+                      transparentBg
+                      style={[styles.attributeListLabelText]}
+                    >
+                      {item.label}
+                    </CustomText>
+                  </CustomView>
+                  <CustomView fifth style={[styles.attributeListValue]}>
+                    {showInputBox ? (
+                      <TextInput
+                        autoCorrect={false}
+                        blurOnSubmit={true}
+                        clearButtonMode="always"
+                        numberOfLines={3}
+                        name={adjustedLabel}
+                        multiline={true}
+                        maxLength={200}
+                        maxHeight={50}
+                        placeholder={`enter ${item.label}`}
+                        returnKeyType="done"
+                        testID={`${testID}-input-${adjustedLabel}`}
+                        onChange={e => this.onTextChange(e, adjustedLabel)}
+                        editable={!this.props.disableUserInputs}
+                      />
+                    ) : (
+                      <CustomText h6 demiBold bg="tertiary" transparentBg>
+                        {item.data}
+                      </CustomText>
+                    )}
+                  </CustomView>
+                </Container>
+                <Icon
+                  center
+                  medium
+                  round
+                  resizeMode="cover"
+                  src={logoUrl}
+                  testID={`proof-requester-logo-${index}`}
+                />
+              </Container>
+            </Container>
+          )
+        })}
+      </Swiper>
     )
   }
 
@@ -263,8 +290,15 @@ export function getPrimaryActionText(
     : PRIMARY_ACTION_SEND
 }
 
-export const isPropEmpty = (prop: string) => (data: GenericObject) =>
-  !data[prop]
+export const isPropEmpty = (prop: string) => (
+  data: GenericObject | Array<Attribute>
+) => {
+  if (Array.isArray(data)) {
+    return data.some(missingData)
+  }
+  return !data[prop]
+}
+
 export const missingData = isPropEmpty('data')
 
 export function enablePrimaryAction(
@@ -320,6 +354,7 @@ export class ProofRequest extends PureComponent<
     generateProofClicked: false,
     selfAttestedAttributes: {},
     disableUserInputs: false,
+    selectedClaims: {},
   }
 
   close = () => {
@@ -344,7 +379,8 @@ export class ProofRequest extends PureComponent<
       // if we don't find any missing attributes then
       // user will never see generate proof button and we don't need to wait for
       // generate proof button to be clicked after all attributes are filled
-      this.props.acceptProofRequest(this.props.uid)
+      // this.props.getProof(this.props.uid)
+      this.props.updateAttributeClaim(this.state.selectedClaims)
     } else {
       // we need to change the text to send once we know that generate proof is clicked
       // also, we need to disable user inputs once user has submitted those fields
@@ -396,6 +432,32 @@ export class ProofRequest extends PureComponent<
         MESSAGE_ERROR_PROOF_GENERATION_TITLE,
         MESSAGE_ERROR_PROOF_GENERATION_DESCRIPTION
       )
+    }
+
+    if (
+      this.props.data &&
+      this.props.data.requestedAttributes !== nextProps.data.requestedAttributes
+    ) {
+      const selectedClaims = nextProps.data.requestedAttributes.reduce(
+        (acc, item, index) => {
+          return {
+            ...acc,
+            [`${item[0].label}_${index}`]: [item[0].claimUuid, true],
+          }
+        },
+        {}
+      )
+      this.setState({ selectedClaims })
+    }
+  }
+
+  updateSelectedClaims = (item: Attribute, index: number) => {
+    if (this.state.selectedClaims) {
+      const selectedClaims = {
+        ...this.state.selectedClaims,
+        [`${item.label}_${index}`]: [item.claimUuid, true],
+      }
+      this.setState({ selectedClaims })
     }
   }
 
@@ -510,6 +572,7 @@ export class ProofRequest extends PureComponent<
           missingAttributes={missingAttributes}
           canEnablePrimaryAction={this.canEnablePrimaryAction}
           disableUserInputs={this.state.disableUserInputs}
+          updateSelectedClaims={this.updateSelectedClaims}
         />
         <FooterActions
           logoUrl={logoUrl}
@@ -533,7 +596,7 @@ export class ProofRequest extends PureComponent<
 }
 
 // we need to navigate to this screen only by passing "proofRequestId"  in the props like below.
-// this.props.navigation.navigate(proofRequestRoute,{'proofRequestId':'CRM2M28')
+// this.props.navigation.navigate(proofRequestRoute,{'proofRequestId': 'CRM2M28')
 const mapStateToProps = (state: Store, props) => {
   const { proofRequest } = state
   const { uid } = props.navigation.state.params
@@ -569,6 +632,7 @@ const mapDispatchToProps = dispatch =>
       acceptProofRequest,
       ignoreProofRequest,
       rejectProofRequest,
+      updateAttributeClaim,
       getProof,
       userSelfAttestedAttributes,
     },

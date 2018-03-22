@@ -1,64 +1,88 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Proof Store fn:convertIndyRequestedProofToAttributes 1`] = `
+exports[`Proof Store fn:convertPreparedProofToRequestedAttributes 1`] = `
 Array [
-  Object {
-    "claimUuid": "claim::f760213b-e719-47fb-9669-b72c5c410e8c",
-    "data": "Alex",
-    "label": "Address 1",
-  },
-  Object {
-    "claimUuid": "claim::f760213b-e719-47fb-9669-b72c5c410e8c",
-    "data": "male",
-    "label": "Address 2",
-  },
+  Array [
+    Object {
+      "claimUuid": "claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73",
+      "data": "Address 1",
+      "label": "Address 1",
+    },
+  ],
+  Array [
+    Object {
+      "claimUuid": "claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5",
+      "data": "Address 2",
+      "label": "Address 2",
+    },
+  ],
 ]
 `;
 
-exports[`Proof Store fn:convertIndyRequestedProofToAttributes 2`] = `
+exports[`Proof Store fn:convertPreparedProofToRequestedAttributes 2`] = `
 Array [
-  Object {
-    "claimUuid": "claim::f760213b-e719-47fb-9669-b72c5c410e8c",
-    "data": "Alex",
-    "label": "Address 1",
-  },
-  Object {
-    "claimUuid": "claim::f760213b-e719-47fb-9669-b72c5c410e8c",
-    "data": "male",
-    "label": "Address 2",
-  },
-  Object {
-    "data": "attr 3 value",
-    "label": "Address 3",
-  },
-  Object {
-    "data": "attr 4 value",
-    "label": "Address 4",
-  },
-  Object {
-    "data": "attr 5 value",
-    "label": "Address 5",
-  },
-  Object {
-    "data": "attr 6 value",
-    "label": "Address 6",
-  },
-  Object {
-    "data": "attr 7 value",
-    "label": "Address 7",
-  },
-  Object {
-    "data": "attr 8 value",
-    "label": "Address 8",
-  },
-  Object {
-    "data": "attr 9 value",
-    "label": "Address 9",
-  },
-  Object {
-    "data": "attr 10 value",
-    "label": "Address 10",
-  },
+  Array [
+    Object {
+      "claimUuid": "claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73",
+      "data": "Address 1",
+      "label": "Address 1",
+    },
+  ],
+  Array [
+    Object {
+      "claimUuid": "claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5",
+      "data": "Address 2",
+      "label": "Address 2",
+    },
+  ],
+  Array [
+    Object {
+      "data": undefined,
+      "label": "Address 3",
+    },
+  ],
+  Array [
+    Object {
+      "data": undefined,
+      "label": "Address 4",
+    },
+  ],
+  Array [
+    Object {
+      "data": undefined,
+      "label": "Address 5",
+    },
+  ],
+  Array [
+    Object {
+      "data": undefined,
+      "label": "Address 6",
+    },
+  ],
+  Array [
+    Object {
+      "data": undefined,
+      "label": "Address 7",
+    },
+  ],
+  Array [
+    Object {
+      "data": undefined,
+      "label": "Address 8",
+    },
+  ],
+  Array [
+    Object {
+      "data": undefined,
+      "label": "Address 9",
+    },
+  ],
+  Array [
+    Object {
+      "data": undefined,
+      "label": "Address 10",
+    },
+  ],
 ]
 `;
 

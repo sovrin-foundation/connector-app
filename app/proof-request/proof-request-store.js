@@ -17,6 +17,7 @@ import type {
   SelfAttestedAttributes,
   MissingAttributes,
 } from './type-proof-request'
+
 import {
   getUserPairwiseDid,
   getAgencyUrl,
@@ -189,7 +190,7 @@ export function* proofAccepted(
 
 export const proofRequestAutoFill = (
   uid: string,
-  requestedAttributes: Attribute[]
+  requestedAttributes: Array<Attribute>
 ) => ({
   type: PROOF_REQUEST_AUTO_FILL,
   uid,
