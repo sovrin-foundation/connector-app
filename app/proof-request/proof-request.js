@@ -146,8 +146,8 @@ class ProofRequestAttributeList extends PureComponent<
     )
   }
 
-  onSwipe = (item: Attribute, index: number) => {
-    this.props.updateSelectedClaims(item, index)
+  onSwipe = (item: Attribute) => {
+    this.props.updateSelectedClaims(item)
   }
 
   keyExtractor = ({ label }: Attribute, index: number) => `${label}${index}`
@@ -164,7 +164,7 @@ class ProofRequestAttributeList extends PureComponent<
         showsButtons={false}
         showsPagination={false}
         height={69}
-        onIndexChanged={swipeIndex => this.onSwipe(items[swipeIndex], index)}
+        onIndexChanged={swipeIndex => this.onSwipe(items[swipeIndex])}
       >
         {items.map((item, itemIndex) => {
           const adjustedLabel = item.label.toLocaleLowerCase()
@@ -439,10 +439,10 @@ export class ProofRequest extends PureComponent<
       this.props.data.requestedAttributes !== nextProps.data.requestedAttributes
     ) {
       const selectedClaims = nextProps.data.requestedAttributes.reduce(
-        (acc, item, index) => {
+        (acc, item) => {
           const items = { ...acc }
           if (item[0].claimUuid) {
-            items[`${item[0].label}_${index}`] = [item[0].claimUuid, true]
+            items[`${item[0].key}`] = [item[0].claimUuid, true]
           }
           return items
         },
@@ -452,11 +452,11 @@ export class ProofRequest extends PureComponent<
     }
   }
 
-  updateSelectedClaims = (item: Attribute, index: number) => {
-    if (this.state.selectedClaims) {
+  updateSelectedClaims = (item: Attribute) => {
+    if (this.state.selectedClaims && item && item.key) {
       const selectedClaims = {
         ...this.state.selectedClaims,
-        [`${item.label}_${index}`]: [item.claimUuid, true],
+        [`${item.key}`]: [item.claimUuid, true],
       }
       this.setState({ selectedClaims })
     }

@@ -143,6 +143,7 @@ export function convertIndyPreparedProofToAttributes(
     if (revealedAttributes && revealedAttributes.length > 0) {
       return revealedAttributes.map(revealedAttribute => ({
         label,
+        key: attributeKey,
         data: revealedAttribute && revealedAttribute.attrs[label],
         claimUuid: revealedAttribute && revealedAttribute.claim_uuid,
       }))

@@ -90,7 +90,7 @@ export type ProofRequestAttributeListProp = {
     selfAttestedAttributes: GenericStringObject
   ) => void,
   disableUserInputs: boolean,
-  updateSelectedClaims: (item: Attribute, index: number) => void,
+  updateSelectedClaims: (item: Attribute) => void,
 }
 
 export type ProofRequestAttributeListState = {

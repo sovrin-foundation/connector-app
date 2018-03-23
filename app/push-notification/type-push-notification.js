@@ -87,6 +87,7 @@ export type AdditionalDataResponse = {
 
 export type Attribute = {
   label: string,
+  key?: string,
   data?: string,
   logoUrl?: string,
   claimUuid?: ?string,
