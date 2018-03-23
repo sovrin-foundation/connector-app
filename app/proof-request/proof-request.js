@@ -440,10 +440,11 @@ export class ProofRequest extends PureComponent<
     ) {
       const selectedClaims = nextProps.data.requestedAttributes.reduce(
         (acc, item, index) => {
-          return {
-            ...acc,
-            [`${item[0].label}_${index}`]: [item[0].claimUuid, true],
+          const items = { ...acc }
+          if (item[0].claimUuid) {
+            items[`${item[0].label}_${index}`] = [item[0].claimUuid, true]
           }
+          return items
         },
         {}
       )
