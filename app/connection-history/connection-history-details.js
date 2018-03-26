@@ -1,7 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react'
+import { StyleSheet } from 'react-native'
 import { StackNavigator } from 'react-navigation'
-
 import type { ConnectionHistoryDetailsProps } from './type-connection-history'
 import {
   Container,
@@ -17,6 +17,22 @@ import {
   connectionHistoryDetailsRoute,
   connectionHistoryRoute,
 } from '../common'
+import { OFFSET_1X, OFFSET_3X, OFFSET_9X } from '../common/styles/constant'
+
+const styles = StyleSheet.create({
+  headerContent: {
+    marginTop: OFFSET_1X / 2,
+  },
+  headerDate: {
+    marginBottom: OFFSET_3X / 2,
+  },
+  headerContainer: {
+    minHeight: 109,
+  },
+  containerStyle: {
+    marginTop: OFFSET_9X / 2,
+  },
+})
 
 export class ConnectionHistoryDetails extends PureComponent<
   ConnectionHistoryDetailsProps,
@@ -54,9 +70,20 @@ export class ConnectionHistoryDetails extends PureComponent<
       <CustomView>
         {action && (
           <CustomText transparentBg semiBold center>
-            {action} {name && ' - '} {name}
+            {action}
           </CustomText>
         )}
+        {name && (
+          <CustomText
+            style={[styles.headerContent]}
+            transparentBg
+            semiBold
+            center
+          >
+            {name}
+          </CustomText>
+        )}
+
         {timestamp && (
           <CustomDate
             format="MM/DD/YYYY | hh:mm A"
@@ -64,13 +91,18 @@ export class ConnectionHistoryDetails extends PureComponent<
             h7
             center
             uppercase
+            style={[styles.headerContent, styles.headerDate]}
           >
             {timestamp}
           </CustomDate>
         )}
       </CustomView>
     ),
-    headerStyle: [headerStyles.header, { backgroundColor: theme }],
+    headerStyle: [
+      headerStyles.header,
+      styles.headerContainer,
+      { backgroundColor: theme },
+    ],
   })
 
   render() {
@@ -79,7 +111,7 @@ export class ConnectionHistoryDetails extends PureComponent<
       const listType = type === 'CLAIM' ? 'center' : 'end'
 
       return (
-        <Container>
+        <Container style={[styles.containerStyle]}>
           {data && (
             <CustomList items={data} type={listType} claimMap={claimMap} />
           )}

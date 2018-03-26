@@ -5,6 +5,7 @@ exports[`<ConnectionHistoryDetails /> should ConnectionHistoryDetails render pro
   style={
     Object {
       "flex": 1,
+      "marginTop": 45,
     }
   }
 />
