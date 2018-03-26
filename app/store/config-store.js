@@ -100,7 +100,7 @@ export const baseUrls = {
 }
 
 const initialState: ConfigStore = {
-  ...baseUrls[SERVER_ENVIRONMENT.STAGING],
+  ...baseUrls[SERVER_ENVIRONMENT.STAGING], // TODO: change from DEVELOPMENT to  STAGING
   isAlreadyInstalled: false,
   // this flag is used to identify if we got the already stored data
   // from the phone and loaded in app
