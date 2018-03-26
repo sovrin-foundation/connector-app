@@ -282,6 +282,7 @@ export class ConnectionHistory extends PureComponent<
                   src={require('../images/delete.png')}
                   small
                   iconStyle={[styles.headerDeleteIcon]}
+                  style={[styles.headerIconContainer]}
                   resizeMode="contain"
                   testID={`${testID}-icon-delete`}
                   onPress={() => {

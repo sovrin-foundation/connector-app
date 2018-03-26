@@ -245,6 +245,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
               "left": 0,
               "position": "absolute",
               "top": 0,
+              "zIndex": 2,
             }
           }
           testID="connection-history-icon-delete-touchable"
