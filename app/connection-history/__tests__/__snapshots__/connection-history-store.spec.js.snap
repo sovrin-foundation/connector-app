@@ -226,19 +226,9 @@ Object {
     },
   ],
   "id": "a4f35623-b50c-40ea-a2b0-f7cd06e03142",
-  "name": "proof_req_1",
+  "name": "proof_req_auto_filled",
   "originalPayload": Object {
-    "requestedAttributes": Array [
-      Object {
-        "data": "address1",
-        "label": "address1",
-      },
-      Object {
-        "data": "address2",
-        "label": "address2",
-      },
-    ],
-    "type": "PROOF_REQUEST_AUTO_FILL",
+    "type": "SEND_PROOF_SUCCESS",
     "uid": "pid123",
   },
   "remoteDid": "remotePairWiseDID",
@@ -547,31 +537,21 @@ Object {
         "action": "SHARED",
         "data": Array [
           Object {
-            "data": "Address 1",
+            "data": "address1",
             "label": "address1",
           },
           Object {
-            "data": "Address 2",
+            "data": "address2",
             "label": "address2",
           },
         ],
         "id": "a4f35623-b50c-40ea-a2b0-f7cd06e03142",
-        "name": "Home Address",
+        "name": "proof_req_auto_filled",
         "originalPayload": Object {
-          "requestedAttributes": Array [
-            Object {
-              "data": "Address 1",
-              "label": "address1",
-            },
-            Object {
-              "data": "Address 2",
-              "label": "address2",
-            },
-          ],
-          "type": "PROOF_REQUEST_AUTO_FILL",
+          "type": "SEND_PROOF_SUCCESS",
           "uid": "pid123",
         },
-        "remoteDid": "senderDID1",
+        "remoteDid": "remotePairWiseDID",
         "status": "SHARED",
         "timestamp": "2018-01-10T04:32:43+05:30",
         "type": "PROOF",

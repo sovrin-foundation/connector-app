@@ -50,12 +50,12 @@ import type { ClaimReceivedAction } from '../claim/type-claim'
 import { SEND_CLAIM_REQUEST } from '../claim-offer/type-claim-offer'
 import type {
   ProofRequestReceivedAction,
-  ProofRequestAutoFillAction,
+  SendProofSuccessAction,
   ProofRequestPayload,
 } from '../proof-request/type-proof-request'
 import {
   PROOF_REQUEST_RECEIVED,
-  PROOF_REQUEST_AUTO_FILL,
+  SEND_PROOF_SUCCESS,
 } from '../proof-request/type-proof-request'
 import { setItem, getItem } from '../services/secure-storage'
 import {
@@ -197,17 +197,19 @@ export function convertProofRequestToHistoryEvent(
   }
 }
 
-export function convertProofAutoFillToHistoryEvent(
-  action: ProofRequestAutoFillAction,
-  proofRequestName: string,
-  remoteDid: string
+export function convertProofSendToHistoryEvent(
+  action: SendProofSuccessAction,
+  {
+    data: { name, requestedAttributes },
+    remotePairwiseDID: remoteDid,
+  }: ProofRequestPayload
 ): ConnectionHistoryEvent {
   return {
-    action: HISTORY_EVENT_STATUS[PROOF_REQUEST_AUTO_FILL],
-    data: action.requestedAttributes,
+    action: HISTORY_EVENT_STATUS[SEND_PROOF_SUCCESS],
+    data: requestedAttributes,
     id: uuid(),
-    name: proofRequestName,
-    status: HISTORY_EVENT_STATUS[PROOF_REQUEST_AUTO_FILL],
+    name,
+    status: HISTORY_EVENT_STATUS[SEND_PROOF_SUCCESS],
     timestamp: moment().format(),
     type: HISTORY_EVENT_TYPE.PROOF,
     remoteDid,
@@ -265,16 +267,12 @@ export function* historyEventOccurredSaga(
       historyEvent = convertProofRequestToHistoryEvent(event)
     }
 
-    if (event.type === PROOF_REQUEST_AUTO_FILL) {
+    if (event.type === SEND_PROOF_SUCCESS) {
       const proofRequest: ProofRequestPayload = yield select(
         getProofRequest,
         event.uid
       )
-      historyEvent = convertProofAutoFillToHistoryEvent(
-        event,
-        proofRequest.originalProofRequestData.name,
-        proofRequest.remotePairwiseDID
-      )
+      historyEvent = convertProofSendToHistoryEvent(event, proofRequest)
     }
 
     if (historyEvent) {

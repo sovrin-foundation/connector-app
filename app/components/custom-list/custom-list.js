@@ -12,6 +12,11 @@ export default class CustomList extends PureComponent<CustomListProps, void> {
   keyExtractor = ({ label }: Item, index: number) => `${label}${index}`
 
   renderListType1Item = ({ item, index }: { item: Item, index: number }) => {
+    // if item is an array then take first element of item
+    // as we only need single item
+    if (Array.isArray(item)) {
+      item = item[0]
+    }
     if (this.props.type === 'center') {
       return (
         <CustomView fifth row horizontalSpace doubleVerticalSpace>

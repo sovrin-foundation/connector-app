@@ -19,7 +19,7 @@ import connectionHistoryReducer, {
   convertConnectionSuccessToHistoryEvent,
   convertClaimReceivedToHistoryEvent,
   convertProofRequestToHistoryEvent,
-  convertProofAutoFillToHistoryEvent,
+  convertProofSendToHistoryEvent,
   convertSendClaimRequestToHistoryEvent,
 } from '../connection-history-store'
 import { initialTestAction } from '../../common/type-common'
@@ -44,6 +44,7 @@ import {
   proofRequestReceived,
   sendProof,
   proofRequestAutoFill,
+  sendProofSuccess,
 } from '../../proof-request/proof-request-store'
 import {
   HISTORY_EVENT_STORAGE_KEY,
@@ -60,6 +61,7 @@ import {
   claimReceivedEvent,
   proofRequestReceivedEvent,
   proofRequestAutofillEvent,
+  proofSharedEvent,
   proofRequestAutofill,
   claimOfferPayload,
   uid,
@@ -102,14 +104,7 @@ function getHistoryData() {
 
   // add history for proof sent
   sender1History.push(
-    convertProofAutoFillToHistoryEvent(
-      proofRequestAutoFill(
-        proofRequest.payloadInfo.uid,
-        fulfilledRequestedAttributes
-      ),
-      proofRequest.payload.data.name,
-      proofRequest.payloadInfo.remotePairwiseDID
-    )
+    convertProofSendToHistoryEvent(proofSharedEvent, proofRequestAutofill)
   )
 
   return {
@@ -208,27 +203,22 @@ describe('Store: ConnectionHistory', () => {
     expect(gen.next().value).toEqual(put(recordHistoryEvent(historyEvent)))
   })
 
-  it('historyEventOccurredSaga should raise success for proof autofill', () => {
+  it('historyEventOccurredSaga should raise success for proof shared', () => {
     let historyEvent
-    const gen = historyEventOccurredSaga(
-      historyEventOccurred(proofRequestAutofillEvent)
-    )
+    const gen = historyEventOccurredSaga(historyEventOccurred(proofSharedEvent))
     expect(gen.next().value).toEqual(
-      select(getProofRequest, proofRequestAutofillEvent.uid)
+      select(getProofRequest, proofSharedEvent.uid)
     )
-    historyEvent = convertProofAutoFillToHistoryEvent(
-      proofRequestAutofillEvent,
-      proofRequestAutofill.originalProofRequestData.name,
-      proofRequestAutofill.remotePairwiseDID
+    historyEvent = convertProofSendToHistoryEvent(
+      proofSharedEvent,
+      proofRequestAutofill
     )
   })
 
   it('historyEventOccurredSaga should raise failure in case anything fails', () => {
-    const gen = historyEventOccurredSaga(
-      historyEventOccurred(proofRequestAutofillEvent)
-    )
+    const gen = historyEventOccurredSaga(historyEventOccurred(proofSharedEvent))
     expect(gen.next().value).toEqual(
-      select(getProofRequest, proofRequestAutofillEvent.uid)
+      select(getProofRequest, proofSharedEvent.uid)
     )
     const error = new Error()
     expect(gen.throw(error).value).toEqual(
@@ -276,11 +266,7 @@ describe('Store: ConnectionHistory', () => {
 
   it('convertProofAutoFillToHistoryEvent should raise success', () => {
     expect(
-      convertProofAutoFillToHistoryEvent(
-        proofRequestAutofillEvent,
-        proofRequestAutofill.originalProofRequestData.name,
-        proofRequestAutofill.remotePairwiseDID
-      )
+      convertProofSendToHistoryEvent(proofSharedEvent, proofRequestAutofill)
     ).toMatchSnapshot()
   })
 

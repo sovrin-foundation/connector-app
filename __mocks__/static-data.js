@@ -22,6 +22,7 @@ import { saveNewConnectionSuccess } from '../app/store/connections-store'
 import {
   proofRequestReceived,
   proofRequestAutoFill,
+  sendProofSuccess,
 } from '../app/proof-request/proof-request-store'
 import { color } from '../app/common/styles/constant'
 import {
@@ -856,6 +857,8 @@ export const proofRequestAutofillEvent = proofRequestAutoFill(
   requestedAttributes
 )
 
+export const proofSharedEvent = sendProofSuccess(proofRequestId)
+
 export const proofRequestAutofill = {
   status: 'proofRequestStatus',
   proofStatus: 'NONE',
@@ -863,7 +866,7 @@ export const proofRequestAutofill = {
   senderLogoUrl,
   remotePairwiseDID: 'remotePairWiseDID',
   data: {
-    name: 'name',
+    name: 'proof_req_auto_filled',
     version: 'version',
     requestedAttributes,
   },

@@ -29,12 +29,12 @@ import {
   PROOF_REQUEST_ACCEPTED,
   PROOF_REQUEST_IGNORED,
   PROOF_REQUEST_REJECTED,
-  PROOF_REQUEST_AUTO_FILL,
+  SEND_PROOF_SUCCESS,
 } from '../proof-request/type-proof-request'
 import type { Connection } from '../connection/type-connection'
 import type {
   ProofRequestReceivedAction,
-  ProofRequestAutoFillAction,
+  SendProofSuccessAction,
   AdditionalProofDataPayload,
 } from '../proof-request/type-proof-request'
 import { NEW_CONNECTION_SUCCESS } from '../store/connections-store'
@@ -59,7 +59,7 @@ export const HISTORY_EVENT_STATUS = {
   [PROOF_REQUEST_RECEIVED]: 'PROOF RECEIVED',
   [PROOF_REQUEST_IGNORED]: 'IGNORED',
   [PROOF_REQUEST_REJECTED]: 'REJECTED',
-  [PROOF_REQUEST_AUTO_FILL]: 'SHARED',
+  [SEND_PROOF_SUCCESS]: 'SHARED',
 }
 
 export type HistoryEventStatus = $Keys<typeof HISTORY_EVENT_STATUS>
@@ -173,7 +173,7 @@ export type HistoryEventOccurredEventType =
   | NewConnectionAction
   | ClaimOfferReceivedAction
   | ProofRequestReceivedAction
-  | ProofRequestAutoFillAction
+  | SendProofSuccessAction
   | SendClaimRequestAction
   | ResetAction
 

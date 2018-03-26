@@ -6,7 +6,7 @@ import { SEND_CLAIM_REQUEST } from '../claim-offer/type-claim-offer'
 import { CLAIM_RECEIVED } from '../claim/type-claim'
 import {
   PROOF_REQUEST_RECEIVED,
-  PROOF_REQUEST_AUTO_FILL,
+  SEND_PROOF_SUCCESS,
 } from '../proof-request/type-proof-request'
 import {
   RECORD_HISTORY_EVENT,
@@ -19,9 +19,9 @@ const actionToRecord = [
   INVITATION_RECEIVED,
   NEW_CONNECTION_SUCCESS,
   PROOF_REQUEST_RECEIVED,
-  PROOF_REQUEST_AUTO_FILL,
   SEND_CLAIM_REQUEST,
   CLAIM_RECEIVED,
+  SEND_PROOF_SUCCESS,
 ]
 
 // TODO:KS Fix any type using `redux` provided Generic Types
