@@ -29,63 +29,64 @@ export class Invitation extends PureComponent<
 
   _hideModal = () => this.setState({ isSuccessModalVisible: false })
 
-  navigateAndReset = () => {
-    this.props.navigation.dispatch(
-      NavigationActions.reset({
-        index: 0,
-        actions: [NavigationActions.navigate({ routeName: homeRoute })],
-      })
-    )
+  navigate = () => {
+    this.props.navigation.navigate(homeRoute)
   }
 
   onSuccessModalContinue = () => {
     this._hideModal()
-    this.navigateAndReset()
+    this.navigate()
   }
 
   onAction = (response: ResponseTypes) => {
-    const { payload } = this.props.invitation
-    if (payload) {
-      if (response === ResponseType.accepted) {
-        this.props.sendInvitationResponse({
-          response,
-          senderDID: payload.senderDID,
-        })
-      } else if (response === ResponseType.rejected) {
-        this.props.invitationRejected(payload.senderDID)
-        this.navigateAndReset()
+    const { invitation } = this.props
+    if (invitation) {
+      const { payload } = invitation
+      if (payload) {
+        if (response === ResponseType.accepted) {
+          this.props.sendInvitationResponse({
+            response,
+            senderDID: payload.senderDID,
+          })
+        } else if (response === ResponseType.rejected) {
+          this.props.invitationRejected(payload.senderDID)
+          this.navigate()
+        }
+      } else {
+        this.navigate()
       }
     }
   }
 
   componentWillReceiveProps(nextProps: InvitationProps) {
     // If invitation itself not generated then don't check payload
-
-    if (
-      this.props.invitation !== undefined &&
-      nextProps.invitation.payload !== this.props.invitation.payload
-    ) {
-      // a new invitation was received
-      this._hideModal()
-    } else {
-      if (nextProps.invitation.isFetching === false) {
-        if (nextProps.invitation.error) {
-          // TODO:KS we got error from API response, what to do now
-          if (nextProps.invitation.error != this.props.invitation.error) {
-            // TODO: captureError should only accept Error object or only json
-            // as of now it would fail for JSON objects, as we are using
-            // captureException of Sentry which is supposed to take only Error object
-            // captureError(nextProps.invitation.error, this.props.showErrorAlerts)
+    if (nextProps.invitation && this.props.invitation) {
+      if (
+        this.props.invitation !== undefined &&
+        nextProps.invitation.payload !== this.props.invitation.payload
+      ) {
+        // a new invitation was received
+        this._hideModal()
+      } else {
+        if (nextProps.invitation.isFetching === false) {
+          if (nextProps.invitation.error) {
+            // TODO:KS we got error from API response, what to do now
+            if (nextProps.invitation.error != this.props.invitation.error) {
+              // TODO: captureError should only accept Error object or only json
+              // as of now it would fail for JSON objects, as we are using
+              // captureException of Sentry which is supposed to take only Error object
+              // captureError(nextProps.invitation.error, this.props.showErrorAlerts)
+            }
+          } else {
+            // api response was successful, but now we have to check
+            // if user accepted or declined the request
+            if (nextProps.invitation.status === ResponseType.accepted) {
+              this._showModal()
+            }
           }
         } else {
-          // api response was successful, but now we have to check
-          // if user accepted or declined the request
-          if (nextProps.invitation.status === ResponseType.accepted) {
-            this._showModal()
-          }
+          // TODO:KS show loading indicator, API request was sent
         }
-      } else {
-        // TODO:KS show loading indicator, API request was sent
       }
     }
   }
@@ -97,43 +98,39 @@ export class Invitation extends PureComponent<
   }
 
   render() {
-    if (this.props.invitation == null) {
-      return <Container />
-    } else {
-      const { payload } = this.props.invitation
-
+    if (this.props.invitation) {
+      let { payload } = this.props.invitation
       let senderName = ''
       let title = 'Hi'
       let message = 'You have received a connection request'
       let senderLogoUrl = undefined
-
       if (payload) {
         senderName = payload.senderName
         title = `Hi ${payload.targetName}`
         message = `${senderName} wants to connect with you.`
         senderLogoUrl = payload.senderLogoUrl
+        return (
+          <Container>
+            <Request
+              title={title}
+              message={message}
+              senderLogoUrl={senderLogoUrl}
+              onAction={this.onAction}
+              testID={'invitation'}
+              navigation={this.props.navigation}
+              showErrorAlerts={this.props.showErrorAlerts}
+            />
+            <ConnectionSuccessModal
+              isModalVisible={this.state.isSuccessModalVisible}
+              showConnectionSuccessModal={this.onSuccessModalContinue}
+              name={senderName}
+              logoUrl={senderLogoUrl}
+            />
+          </Container>
+        )
       }
-
-      return (
-        <Container>
-          <Request
-            title={title}
-            message={message}
-            senderLogoUrl={senderLogoUrl}
-            onAction={this.onAction}
-            testID={'invitation'}
-            navigation={this.props.navigation}
-            showErrorAlerts={this.props.showErrorAlerts}
-          />
-          <ConnectionSuccessModal
-            isModalVisible={this.state.isSuccessModalVisible}
-            showConnectionSuccessModal={this.onSuccessModalContinue}
-            name={senderName}
-            logoUrl={senderLogoUrl}
-          />
-        </Container>
-      )
     }
+    return <Container />
   }
 }
 

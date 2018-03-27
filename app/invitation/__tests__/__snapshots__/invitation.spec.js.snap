@@ -1056,3 +1056,13 @@ exports[`<Invitation /> should match snapshot 1`] = `
   </Modal>
 </View>
 `;
+
+exports[`<Invitation /> should return a empty container when invitation is null 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+/>
+`;

@@ -98,7 +98,7 @@ export type InvitationAction =
   | ResetAction
 
 export type InvitationProps = {
-  invitation: Invitation,
+  invitation: ?Invitation,
   sendInvitationResponse: (data: InvitationResponseSendData) => void,
   invitationRejected: (senderDID: string) => void,
   smsPendingInvitationSeen: (smsToken: ?string) => void,
