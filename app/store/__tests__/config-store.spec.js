@@ -54,9 +54,9 @@ describe('server environment should change', () => {
     initialConfig = configReducer(undefined, { type: 'INITIAL_TEST_ACTION' })
   })
 
-  it('initial app should always point to staging', () => {
+  it('initial app should always point to demo', () => {
     if (initialConfig) {
-      expect(initialConfig.agencyUrl).toBe(baseUrls.STAGING.agencyUrl)
+      expect(initialConfig.agencyUrl).toBe(baseUrls.DEMO.agencyUrl)
     }
   })
 
