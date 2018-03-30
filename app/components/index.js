@@ -6,7 +6,12 @@ export { default as Badge } from './badge'
 export { default as InfoSectionList } from './info-section-list'
 export { ListItem, ListItemData } from './info-section-list'
 export { Avatar, BadgeAvatar } from './avatar'
-export { Container, CustomView, headerStyles } from './layout'
+export {
+  Container,
+  CustomView,
+  headerStyles,
+  CustomSafeAreaView,
+} from './layout'
 export { default as Icon } from './icon'
 export { default as CustomText, styles as TextStyles } from './text'
 export { default as CustomButton } from './button'
@@ -29,4 +34,3 @@ export { default as Separator } from './separator'
 export { default as FooterActions } from './footer-actions/footer-actions'
 export { default as CustomList } from './custom-list/custom-list'
 export { default as CustomDate } from './custom-date/custom-date'
-export { default as UserAvatar } from './user-avatar/user-avatar'

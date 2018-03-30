@@ -39,9 +39,6 @@ describe('<AuthenticationScreen />', () => {
           config: {
             showErrorAlerts: false,
           },
-          user: {
-            avatarName: undefined,
-          },
         }
       },
       subscribe() {

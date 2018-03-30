@@ -109,14 +109,6 @@ jest.mock('react-native-modal', () => mockModal)
 
 jest.mock('react-native-fetch-blob', () => ({
   fetch: jest.fn((type, url) => Promise.resolve()),
-  fs: {
-    dirs: {
-      DocumentDir: '/var/application/DocumentDir',
-    },
-    exists: jest.fn(path => Promise.resolve(true)),
-    unlink: jest.fn(path => Promise.resolve(true)),
-    cp: jest.fn((source, destination) => Promise.resolve(destination)),
-  },
 }))
 
 jest.mock('WebView', () => 'WebView')
@@ -187,9 +179,3 @@ jest.mock('react-native-splash-screen', () => ({
 jest.mock('react-native-unique-id', () =>
   jest.fn(() => Promise.resolve('uniqueDeviceId'))
 )
-
-jest.mock('react-native-image-crop-picker', () => ({
-  openPicker: jest.fn(() =>
-    Promise.resolve({ path: '/var/application/DocumentDir/user-avatar.jpeg' })
-  ),
-}))

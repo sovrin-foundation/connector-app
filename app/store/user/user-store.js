@@ -1,10 +1,8 @@
 // @flow
-import { put, takeLatest, call, all, select } from 'redux-saga/effects'
-import { AsyncStorage } from 'react-native'
-import type { Saga } from 'redux-saga'
-import RNFetchBlob from 'react-native-fetch-blob'
-
+import { put, takeLatest, call, all } from 'redux-saga/effects'
 import { setItem, getItem, deleteItem } from '../../services/secure-storage'
+import type { Saga } from 'redux-saga'
+
 import {
   CONNECT_REGISTER_CREATE_AGENT_DONE,
   HYDRATE_USER_STORE,
@@ -13,32 +11,20 @@ import {
   ERROR_SAVE_USER_INFO_FAIL,
   ERROR_PARSE_USER_INFO_FAIL,
   PARSE_USER_ONE_TIME_INFO_FAIL,
-  SAVE_USER_SELECTED_AVATAR,
-  USER_AVATAR_IMAGE_NAME,
-  ERROR_SAVE_USER_SELECTED_IMAGE,
-  SAVE_USER_SELECTED_AVATAR_FAIL,
-  SAVE_USER_SELECTED_AVATAR_SUCCESS,
-  STORAGE_KEY_USER_AVATAR_NAME,
-  ERROR_HYDRATE_USER_SELECTED_IMAGE,
 } from './type-user-store'
 import type {
   UserStore,
   UserStoreAction,
   UserOneTimeInfo,
   ConnectRegisterCreateAgentDoneAction,
-  SaveUserSelectedAvatarAction,
-  HydrateUserStoreData,
 } from './type-user-store'
 import type { CustomError } from '../../common/type-common'
 import { RESET } from '../../common/type-common'
-import { uuid } from '../../services/uuid'
-import { getUserAvatarName } from '../../store/store-selector'
 
 const initialState = {
   isFetching: false,
   error: null,
   userOneTimeInfo: null,
-  avatarName: null,
 }
 
 export const connectRegisterCreateAgentDone = (
@@ -79,9 +65,9 @@ function* watchConnectRegisterCreateAgent(): any {
   yield takeLatest(CONNECT_REGISTER_CREATE_AGENT_DONE, saveUserOneTimeInfoSaga)
 }
 
-export const hydrateUserStore = (data: HydrateUserStoreData) => ({
+export const hydrateUserStore = (userOneTimeInfo: UserOneTimeInfo) => ({
   type: HYDRATE_USER_STORE,
-  data,
+  userOneTimeInfo,
 })
 
 export const hydrateUserStoreFail = (error: CustomError) => ({
@@ -91,13 +77,10 @@ export const hydrateUserStoreFail = (error: CustomError) => ({
 
 export function* hydrateUserStoreSaga(): Generator<*, *, *> {
   try {
-    const userOneTimeInfoJson: string = yield call(
-      getItem,
-      STORAGE_KEY_USER_ONE_TIME_INFO
-    )
-    if (userOneTimeInfoJson) {
-      const userOneTimeInfo: UserOneTimeInfo = JSON.parse(userOneTimeInfoJson)
-      yield put(hydrateUserStore({ userOneTimeInfo }))
+    const userOneTimeInfo = yield call(getItem, STORAGE_KEY_USER_ONE_TIME_INFO)
+    if (userOneTimeInfo) {
+      const userOneTimeInfoParsed: UserOneTimeInfo = JSON.parse(userOneTimeInfo)
+      yield put(hydrateUserStore(userOneTimeInfoParsed))
     }
   } catch (e) {
     yield put(
@@ -107,100 +90,10 @@ export function* hydrateUserStoreSaga(): Generator<*, *, *> {
       })
     )
   }
-
-  yield* hydrateUserSelectedAvatarImage()
-}
-
-export const saveUserSelectedAvatar = (imagePath: string) => ({
-  type: SAVE_USER_SELECTED_AVATAR,
-  imagePath,
-})
-
-export const saveUserSelectedAvatarSuccess = (avatarName: string) => ({
-  type: SAVE_USER_SELECTED_AVATAR_SUCCESS,
-  avatarName,
-})
-
-export const saveUserSelectedAvatarFail = (error: CustomError) => ({
-  type: SAVE_USER_SELECTED_AVATAR_FAIL,
-  error,
-})
-
-export function getImageInfo(imagePath: string) {
-  const parts = imagePath.split('/')
-  const fileName = parts[parts.length - 1]
-  const nameParts = fileName.split('.')
-  return {
-    name: nameParts[0],
-    extension: nameParts[nameParts.length - 1],
-  }
-}
-
-export function* saveUserSelectedAvatarSaga(
-  action: SaveUserSelectedAvatarAction
-): Generator<*, *, *> {
-  const { imagePath } = action
-  const { name, extension } = getImageInfo(imagePath)
-  try {
-    const appDirectory = RNFetchBlob.fs.dirs.DocumentDir
-    const existingAvatarName = yield select(getUserAvatarName)
-    const userAvatarPath = `${appDirectory}/${existingAvatarName}`
-    const alreadyExist = yield call(RNFetchBlob.fs.exists, userAvatarPath)
-
-    const imageId = uuid()
-    const avatarName = `${imageId}.${extension}`
-    const newImagePath = `${appDirectory}/${avatarName}`
-
-    if (alreadyExist) {
-      yield call(RNFetchBlob.fs.unlink, userAvatarPath)
-    }
-
-    yield call(RNFetchBlob.fs.cp, imagePath, newImagePath)
-    yield* persistUserSelectedAvatar(avatarName)
-    yield put(saveUserSelectedAvatarSuccess(avatarName))
-  } catch (e) {
-    yield put(
-      saveUserSelectedAvatarFail(ERROR_SAVE_USER_SELECTED_IMAGE(e.message))
-    )
-  }
-}
-
-export function* persistUserSelectedAvatar(
-  userAvatarName: string
-): Generator<*, *, *> {
-  yield call(AsyncStorage.setItem, STORAGE_KEY_USER_AVATAR_NAME, userAvatarName)
-}
-
-export function* hydrateUserSelectedAvatarImage(): Generator<*, *, *> {
-  try {
-    const avatarName = yield call(
-      AsyncStorage.getItem,
-      STORAGE_KEY_USER_AVATAR_NAME
-    )
-    if (avatarName) {
-      yield put(
-        hydrateUserStore({
-          avatarName,
-        })
-      )
-    }
-  } catch (e) {
-    yield put(
-      hydrateUserStoreFail(ERROR_HYDRATE_USER_SELECTED_IMAGE(e.message))
-    )
-  }
-}
-
-export function* removePersistedUserSelectedAvatarImage(): Generator<*, *, *> {
-  yield call(AsyncStorage.removeItem, STORAGE_KEY_USER_AVATAR_NAME)
-}
-
-export function* watchSaveUserSelectedAvatar(): any {
-  yield takeLatest(SAVE_USER_SELECTED_AVATAR, saveUserSelectedAvatarSaga)
 }
 
 export function* watchUserStore(): Saga<void> {
-  yield all([watchConnectRegisterCreateAgent(), watchSaveUserSelectedAvatar()])
+  yield all([watchConnectRegisterCreateAgent()])
 }
 
 export default function user(
@@ -223,34 +116,13 @@ export default function user(
         ...state,
         error: action.error,
       }
-    case HYDRATE_USER_STORE: {
-      // HYDRATE_USER_STORE can be fired more than once, it can be called
-      // a. when user one time info is fetched from storage
-      // b. when user avatar image is fetched from storage
-      // in any case, we want to keep previous state if one of the param is missing
-      const {
-        userOneTimeInfo = state.userOneTimeInfo,
-        avatarName = state.avatarName,
-      } = action.data
-
+    case HYDRATE_USER_STORE:
       return {
         ...state,
-        userOneTimeInfo,
-        avatarName,
+        userOneTimeInfo: action.userOneTimeInfo,
       }
-    }
     case RESET:
       return initialState
-    case SAVE_USER_SELECTED_AVATAR_SUCCESS:
-      return {
-        ...state,
-        avatarName: action.avatarName,
-      }
-    case SAVE_USER_SELECTED_AVATAR_FAIL:
-      return {
-        ...state,
-        error: action.error,
-      }
     default:
       return state
   }

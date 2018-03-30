@@ -77,9 +77,6 @@ describe('<Invitation />', () => {
         },
       },
     },
-    user: {
-      avatarName: undefined,
-    },
   })
 
   beforeEach(() => {

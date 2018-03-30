@@ -2,16 +2,13 @@
 import React from 'react'
 import 'react-native'
 import renderer from 'react-test-renderer'
-import { Provider } from 'react-redux'
 import ProofModal from '../proof-modal'
 import { PROOF_STATUS } from '../type-proof-request'
-import { getStore } from '../../../__mocks__/static-data'
 
 describe('<ProofModal />', () => {
   const title = 'Home Address'
   const name = 'Test Issuer'
   const logoUrl = 'http://testissuer.com/logoUrl.png'
-  const store = getStore()
   let onContinue
 
   beforeEach(() => {
@@ -23,15 +20,13 @@ describe('<ProofModal />', () => {
 
     const wrapper = renderer
       .create(
-        <Provider store={store}>
-          <ProofModal
-            proofStatus={proofStatus}
-            title={title}
-            name={name}
-            onContinue={onContinue}
-            logoUrl={logoUrl}
-          />
-        </Provider>
+        <ProofModal
+          proofStatus={proofStatus}
+          title={title}
+          name={name}
+          onContinue={onContinue}
+          logoUrl={logoUrl}
+        />
       )
       .toJSON()
     expect(wrapper).toMatchSnapshot()
@@ -41,15 +36,13 @@ describe('<ProofModal />', () => {
     const proofStatus = PROOF_STATUS.SEND_PROOF_SUCCESS
     const wrapper = renderer
       .create(
-        <Provider store={store}>
-          <ProofModal
-            proofStatus={proofStatus}
-            title={title}
-            name={name}
-            onContinue={onContinue}
-            logoUrl={logoUrl}
-          />
-        </Provider>
+        <ProofModal
+          proofStatus={proofStatus}
+          title={title}
+          name={name}
+          onContinue={onContinue}
+          logoUrl={logoUrl}
+        />
       )
       .toJSON()
     expect(wrapper).toMatchSnapshot()
@@ -59,15 +52,13 @@ describe('<ProofModal />', () => {
     const proofStatus = PROOF_STATUS.SEND_PROOF_FAIL
     const wrapper = renderer
       .create(
-        <Provider store={store}>
-          <ProofModal
-            proofStatus={proofStatus}
-            title={title}
-            name={name}
-            onContinue={onContinue}
-            logoUrl={logoUrl}
-          />
-        </Provider>
+        <ProofModal
+          proofStatus={proofStatus}
+          title={title}
+          name={name}
+          onContinue={onContinue}
+          logoUrl={logoUrl}
+        />
       )
       .toJSON()
     expect(wrapper).toMatchSnapshot()

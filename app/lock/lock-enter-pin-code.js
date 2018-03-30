@@ -27,9 +27,6 @@ export class LockEnterPin extends PureComponent<
 > {
   state = {
     authenticationSuccess: false,
-    message: this.props.existingPin
-      ? ENTER_YOUR_PASS_CODE_MESSAGE
-      : ENTER_PASS_CODE_MESSAGE,
   }
 
   static navigationOptions = () => ({
@@ -80,16 +77,6 @@ export class LockEnterPin extends PureComponent<
   onSuccess = () => {
     if (!this.state.authenticationSuccess) {
       this.setState({ authenticationSuccess: true })
-
-      if (this.props.isFetchingInvitation) {
-        this.setState({
-          message: UNLOCKING_APP_WAIT_MESSAGE,
-        })
-      }
-      // since we have already set the message to unlock, we don't want to set message back to initial state
-      // because we don't want to show initial message once isFetchingInvitation goes back to false if it was
-      // previously set to true.
-
       // if we reach at this screen from settings page
       // then user is trying to enable/disable touch id
       if (this.props.existingPin) {
@@ -105,7 +92,17 @@ export class LockEnterPin extends PureComponent<
   }
 
   render() {
-    return <LockEnter onSuccess={this.onSuccess} message={this.state.message} />
+    const { isFetchingInvitation } = this.props
+
+    let message = this.props.existingPin
+      ? ENTER_YOUR_PASS_CODE_MESSAGE
+      : ENTER_PASS_CODE_MESSAGE
+
+    if (isFetchingInvitation && this.state.authenticationSuccess) {
+      message = UNLOCKING_APP_WAIT_MESSAGE
+    }
+
+    return <LockEnter onSuccess={this.onSuccess} message={message} />
   }
 }
 

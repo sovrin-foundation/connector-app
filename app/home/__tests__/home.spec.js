@@ -2,7 +2,6 @@
 import React from 'react'
 import 'react-native'
 import renderer from 'react-test-renderer'
-import { Provider } from 'react-redux'
 import { CLAIM_OFFER_STATUS } from '../../claim-offer/type-claim-offer'
 import {
   claimOfferRoute,
@@ -51,18 +50,12 @@ function props(claimOfferStatus) {
 }
 
 describe('<DashboardScreen />', () => {
-  const store = getStore()
-
   jest.useFakeTimers()
 
   it('should render Home and redirect user to claim offer modal', () => {
     const dashboardProps = props()
     const wrapper = renderer
-      .create(
-        <Provider store={store}>
-          <DashboardScreen {...dashboardProps} />
-        </Provider>
-      )
+      .create(<DashboardScreen {...dashboardProps} />)
       .toJSON()
     expect(wrapper).toMatchSnapshot()
   })

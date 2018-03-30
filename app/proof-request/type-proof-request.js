@@ -8,7 +8,6 @@ import type {
   ReactNavigation,
   GenericStringObject,
   ResetAction,
-  ImageSource,
 } from '../common/type-common'
 import type {
   ClaimProofNavigation,
@@ -91,7 +90,6 @@ export type ProofRequestAttributeListProp = {
     selfAttestedAttributes: GenericStringObject
   ) => void,
   disableUserInputs: boolean,
-  userAvatarSource: ?ImageSource,
   updateSelectedClaims: (item: Attribute) => void,
 }
 
@@ -142,7 +140,6 @@ export type ProofRequestProps = {
     selfAttestedAttributes: SelfAttestedAttributes,
     uid: string
   ) => void,
-  userAvatarSource: ?ImageSource,
 } & ReactNavigation
 
 export type ProofRequestState = {

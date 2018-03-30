@@ -66,30 +66,21 @@ const historyIcons = {
 }
 
 const HistoryTitle = ({ action, name, theme }) => (
-  <CustomView>
-    <CustomView>
-      <CustomText
-        h5
-        semiBold
-        uppercase
-        bg="fifth"
-        style={[styles.listItemAction, { color: theme }]}
-      >
-        {action}
+  <CustomView row>
+    <CustomText
+      h5
+      semiBold
+      uppercase
+      bg="fifth"
+      style={[styles.listItemAction, { color: theme }]}
+    >
+      {action}
+    </CustomText>
+    {name && (
+      <CustomText h5 semiBold bg="fifth" style={[styles.listItemTitleEvent]}>
+        {` - ${name}`}
       </CustomText>
-    </CustomView>
-    <CustomView>
-      {name && (
-        <CustomText
-          h5
-          semiBold
-          bg="fifth"
-          style={[styles.listItemTitleEvent, styles.listItemAction]}
-        >
-          {name}
-        </CustomText>
-      )}
-    </CustomView>
+    )}
   </CustomView>
 )
 
@@ -283,10 +274,7 @@ export class ConnectionHistory extends PureComponent<
                   resizeMode="cover"
                   src={logoUri}
                   style={[styles.issuerLogo]}
-                  iconStyle={[
-                    styles.issuerLogoIcon,
-                    { backgroundColor: color.actions.fifth },
-                  ]}
+                  iconStyle={[styles.issuerLogoIcon]}
                   testID={`${testID}-issuer-logo`}
                 />
                 <Icon
@@ -387,7 +375,7 @@ const styles = StyleSheet.create({
     paddingVertical: OFFSET_1X,
   },
   listItemContainer: {
-    borderBottomWidth: 1,
+    borderBottomWidth: 2,
   },
   listItemAction: {
     marginLeft: OFFSET_1X,
