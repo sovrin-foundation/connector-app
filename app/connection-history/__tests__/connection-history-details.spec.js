@@ -5,6 +5,7 @@ import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 import { ConnectionHistoryDetails } from '../connection-history-details'
 
+//TODO:RG fix test - add tests for history actions like RECEIVED and SHARED
 describe('<ConnectionHistoryDetails />', () => {
   function props() {
     return {

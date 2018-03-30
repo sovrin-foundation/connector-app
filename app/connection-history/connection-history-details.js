@@ -79,6 +79,7 @@ export class ConnectionHistoryDetails extends PureComponent<
             transparentBg
             semiBold
             center
+            numberOfLines={1}
           >
             {name}
           </CustomText>

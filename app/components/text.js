@@ -27,6 +27,7 @@ const CustomText = props => {
     transparentBg,
     uppercase,
     heavy,
+    numberOfLines,
   } = props
 
   const colorType = quaternary
@@ -58,6 +59,9 @@ const CustomText = props => {
   }
   if (typeof onPress !== 'undefined') {
     filteredProps.onPress = onPress
+  }
+  if (typeof numberOfLines !== 'undefined') {
+    filteredProps.numberOfLines = numberOfLines
   }
   return (
     <Text style={textStyles} {...filteredProps}>
