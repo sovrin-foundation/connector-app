@@ -274,7 +274,10 @@ export class ConnectionHistory extends PureComponent<
                   resizeMode="cover"
                   src={logoUri}
                   style={[styles.issuerLogo]}
-                  iconStyle={[styles.issuerLogoIcon]}
+                  iconStyle={[
+                    styles.issuerLogoIcon,
+                    { backgroundColor: color.actions.fifth },
+                  ]}
                   testID={`${testID}-issuer-logo`}
                 />
                 <Icon

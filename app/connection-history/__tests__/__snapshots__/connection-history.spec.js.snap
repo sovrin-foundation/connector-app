@@ -143,6 +143,9 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
               Object {
                 "borderRadius": 40,
               },
+              Object {
+                "backgroundColor": "#ffffff",
+              },
             ]
           }
           resizeMode="cover"
@@ -199,6 +202,9 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                   },
                   Object {
                     "borderRadius": 40,
+                  },
+                  Object {
+                    "backgroundColor": "#ffffff",
                   },
                 ]
               }
