@@ -10,7 +10,7 @@ import {
   CustomButton,
   Icon,
 } from '../components'
-import { settingsTabRoute } from '../common'
+import { settingsTabRoute, homeTabRoute } from '../common'
 import { unlockApp, clearPendingRedirect } from './lock-store'
 import type { Store } from '../store/type-store'
 import { OFFSET_1X, OFFSET_2X, OFFSET_4X, color } from '../common/styles'
@@ -40,6 +40,8 @@ export class LockSetupSuccess extends PureComponent<
         }, 0)
       })
       this.props.clearPendingRedirect()
+    } else {
+      this.props.navigation.navigate(homeTabRoute)
     }
   }
 

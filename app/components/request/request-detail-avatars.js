@@ -2,15 +2,25 @@
 import React, { PureComponent } from 'react'
 import { StyleSheet, Image } from 'react-native'
 import { View as AnimatedView } from 'react-native-animatable'
-import { Container, CustomView, Avatar } from '../../components'
+import { Container, CustomView, UserAvatar, Avatar } from '../../components'
 import { getConnectionLogo } from '../../store'
 import type { RequestDetailAvatarProps } from './type-request'
 import { OFFSET_4X, OFFSET_1X } from '../../common/styles'
+import type { ImageSource } from '../../common/type-common'
 
 export default class RequestDetailAvatars extends PureComponent<
   RequestDetailAvatarProps,
   void
 > {
+  renderAvatarWithSource = (avatarSource: number | ImageSource) => (
+    <Avatar
+      medium
+      shadow
+      src={avatarSource}
+      testID={'invitation-text-avatars-invitee'}
+    />
+  )
+
   render() {
     const senderAvatar = getConnectionLogo(this.props.senderLogoUrl)
 
@@ -29,12 +39,7 @@ export default class RequestDetailAvatars extends PureComponent<
             style={[styles.avatarsContainer]}
             testID={'invitation-text-avatars-container'}
           >
-            <Avatar
-              medium
-              shadow
-              src={require('../../images/UserAvatar.png')}
-              testID={'invitation-text-avatars-invitee'}
-            />
+            <UserAvatar>{this.renderAvatarWithSource}</UserAvatar>
             <Image
               style={styles.forwardArrow}
               source={require('../../images/connectDots.png')}

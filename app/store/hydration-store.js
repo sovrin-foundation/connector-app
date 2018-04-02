@@ -23,7 +23,10 @@ import type {
   HydrationStoreAction,
   HydrationStore,
 } from './type-hydration-store'
-import { hydrateUserStoreSaga } from './user/user-store'
+import {
+  hydrateUserStoreSaga,
+  removePersistedUserSelectedAvatarImage,
+} from './user/user-store'
 import { STORAGE_KEY_USER_ONE_TIME_INFO } from './user/type-user-store'
 import { STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL } from './type-config-store'
 import { HISTORY_EVENT_STORAGE_KEY } from '../connection-history/type-connection-history'
@@ -49,6 +52,7 @@ export function* deleteStoredData(): Generator<*, *, *> {
   yield call(AsyncStorage.removeItem, STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL)
   yield call(deleteItem, CLAIM_MAP)
   yield call(deleteItem, HISTORY_EVENT_STORAGE_KEY)
+  yield* removePersistedUserSelectedAvatarImage()
 }
 
 export function* appHydration(action: {

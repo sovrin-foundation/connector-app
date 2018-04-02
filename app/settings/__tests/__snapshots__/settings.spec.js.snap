@@ -49,43 +49,66 @@ exports[`user settings screen should render properly and snapshot should match 1
           }
         >
           <View
-            imageShadow={null}
-            style={
-              Object {
-                "borderRadius": 38,
-              }
-            }
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hitSlop={undefined}
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            pointerEvents="box-only"
+            style={undefined}
+            testID={undefined}
           >
-            <Image
-              accessibilityComponentType={undefined}
-              accessibilityLabel={undefined}
-              accessibilityTraits={undefined}
-              accessible={true}
-              hitSlop={undefined}
-              nativeID={undefined}
-              onError={undefined}
-              onLayout={undefined}
-              onLoad={undefined}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              source={1}
+            <View
+              imageShadow={null}
               style={
-                Array [
-                  Object {
-                    "height": 76,
-                    "width": 76,
-                  },
-                  Object {
-                    "borderRadius": 38,
-                  },
-                ]
+                Object {
+                  "borderRadius": 38,
+                }
               }
-              testID={undefined}
-            />
+            >
+              <Image
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
+                accessible={true}
+                hitSlop={undefined}
+                nativeID={undefined}
+                onError={undefined}
+                onLayout={undefined}
+                onLoad={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                source={
+                  Object {
+                    "uri": "/var/application/DocumentDir/user-avatar.jpeg",
+                  }
+                }
+                style={
+                  Array [
+                    Object {
+                      "height": 76,
+                      "width": 76,
+                    },
+                    Object {
+                      "borderRadius": 38,
+                    },
+                  ]
+                }
+                testID={undefined}
+              />
+            </View>
           </View>
         </View>
         <View
