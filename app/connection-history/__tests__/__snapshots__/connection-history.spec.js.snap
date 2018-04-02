@@ -565,7 +565,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                   "paddingTop": 10,
                 },
                 Object {
-                  "borderBottomWidth": 2,
+                  "borderBottomWidth": 1,
                 },
                 false,
                 false,
@@ -633,75 +633,82 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                 >
                   <View>
                     <View
-                      row={true}
-                      style={
-                        Object {
-                          "flexDirection": "row",
-                        }
-                      }
+                      style={Object {}}
                     >
-                      <Text
-                        accessible={true}
-                        allowFontScaling={true}
-                        ellipsizeMode="tail"
-                        style={
-                          Array [
-                            Object {
-                              "fontSize": 17,
-                            },
-                            Object {
-                              "fontFamily": "SF Pro Display",
-                            },
-                            Object {
-                              "backgroundColor": "#ffffff",
-                              "color": "#777777",
-                            },
-                            Object {
-                              "fontWeight": "600",
-                            },
-                            null,
-                            null,
-                            Object {
-                              "marginBottom": 5,
-                              "marginLeft": 10,
-                            },
-                            Object {
-                              "color": "rgba(119, 119, 119, 1.0)",
-                            },
-                          ]
-                        }
+                      <View
+                        style={Object {}}
                       >
-                        CONNECTED
-                      </Text>
-                      <Text
-                        accessible={true}
-                        allowFontScaling={true}
-                        ellipsizeMode="tail"
-                        style={
-                          Array [
-                            Object {
-                              "fontSize": 17,
-                            },
-                            Object {
-                              "fontFamily": "SF Pro Display",
-                            },
-                            Object {
-                              "backgroundColor": "#ffffff",
-                              "color": "#777777",
-                            },
-                            Object {
-                              "fontWeight": "600",
-                            },
-                            null,
-                            null,
-                            Object {
-                              "color": "#333333",
-                            },
-                          ]
-                        }
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          ellipsizeMode="tail"
+                          style={
+                            Array [
+                              Object {
+                                "fontSize": 17,
+                              },
+                              Object {
+                                "fontFamily": "SF Pro Display",
+                              },
+                              Object {
+                                "backgroundColor": "#ffffff",
+                                "color": "#777777",
+                              },
+                              Object {
+                                "fontWeight": "600",
+                              },
+                              null,
+                              null,
+                              Object {
+                                "marginBottom": 5,
+                                "marginLeft": 10,
+                              },
+                              Object {
+                                "color": "rgba(119, 119, 119, 1.0)",
+                              },
+                            ]
+                          }
+                        >
+                          CONNECTED
+                        </Text>
+                      </View>
+                      <View
+                        style={Object {}}
                       >
-                         - Enterprise name
-                      </Text>
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          ellipsizeMode="tail"
+                          style={
+                            Array [
+                              Object {
+                                "fontSize": 17,
+                              },
+                              Object {
+                                "fontFamily": "SF Pro Display",
+                              },
+                              Object {
+                                "backgroundColor": "#ffffff",
+                                "color": "#777777",
+                              },
+                              Object {
+                                "fontWeight": "600",
+                              },
+                              null,
+                              null,
+                              Object {
+                                "color": "#333333",
+                              },
+                              Object {
+                                "marginBottom": 5,
+                                "marginLeft": 10,
+                              },
+                            ]
+                          }
+                        >
+                          Enterprise name
+                        </Text>
+                      </View>
                     </View>
                   </View>
                 </View>
