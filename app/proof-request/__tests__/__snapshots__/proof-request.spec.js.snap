@@ -167,81 +167,38 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
           >
             <View
               center={true}
-              clearBg={true}
-              extraLarge={true}
-              halo={true}
-              haloStyle={
-                Object {
-                  "height": 87,
-                  "width": 87,
-                }
-              }
-              iconStyle={
-                Array [
-                  Object {
-                    "borderRadius": 35,
-                    "height": 70,
-                    "width": 70,
-                  },
-                ]
-              }
-              resizeMode="cover"
-              src={
-                Object {
-                  "uri": "/var/application/DocumentDir/user-avatar.jpeg",
-                }
-              }
               style={
                 Object {
                   "alignItems": "center",
-                  "backgroundColor": "transparent",
-                  "height": 70,
+                  "backgroundColor": "rgba(0,0,0,0.07)",
+                  "borderRadius": 50,
+                  "height": 87,
                   "justifyContent": "center",
-                  "zIndex": 1,
+                  "width": 87,
                 }
               }
-              testID="proof-request-verifier-logo"
             >
               <Image
                 resizeMode="cover"
                 source={1}
                 style={
-                  Object {
-                    "alignItems": "center",
-                    "backgroundColor": "rgba(0,0,0,0.07)",
-                    "borderRadius": 50,
-                    "height": 87,
-                    "justifyContent": "center",
-                    "width": 87,
-                  }
-                }
-              >
-                <Image
-                  resizeMode="cover"
-                  source={
+                  Array [
                     Object {
-                      "uri": "/var/application/DocumentDir/user-avatar.jpeg",
-                    }
-                  }
-                  style={
-                    Array [
-                      Object {
-                        "height": 80,
-                        "width": 80,
-                      },
-                      Object {
-                        "borderRadius": 40,
-                      },
-                      Object {
-                        "borderRadius": 35,
-                        "height": 70,
-                        "width": 70,
-                      },
-                    ]
-                  }
-                  testID="proof-request-verifier-logo"
-                />
-              </View>
+                      "height": 80,
+                      "width": 80,
+                    },
+                    Object {
+                      "borderRadius": 40,
+                    },
+                    Object {
+                      "borderRadius": 35,
+                      "height": 70,
+                      "width": 70,
+                    },
+                  ]
+                }
+                testID="proof-request-verifier-logo"
+              />
             </View>
           </View>
           <Image
