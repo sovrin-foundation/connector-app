@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react'
 import { Text, Switch, StyleSheet } from 'react-native'
 import { StackNavigator } from 'react-navigation'
-import { UserAvatar, CustomText, Icon, Avatar } from '../components'
+import { Avatar, CustomText, Icon } from '../components'
 import { CustomList, CustomView, Container } from '../components/layout'
 import {
   settingsRoute,
@@ -24,7 +24,6 @@ import {
 import type { Store } from '../store/type-store'
 import type { SettingsProps } from './type-settings'
 import { tertiaryHeaderStyles } from '../components/layout/header-styles'
-import type { ImageSource } from '../common/type-common'
 
 const style = StyleSheet.create({
   container: {
@@ -77,13 +76,9 @@ export class Settings extends PureComponent<SettingsProps, void> {
     headerStyle: tertiaryHeaderStyles.header,
   }
 
-  renderAvatarWithSource = (avatarSource: number | ImageSource) => (
-    <Avatar medium round src={avatarSource} />
-  )
-
   render() {
     const userAvatar = (
-      <UserAvatar userCanChange>{this.renderAvatarWithSource}</UserAvatar>
+      <Avatar medium round src={require('../images/UserAvatar.png')} />
     )
     const editIcon = (
       <Icon

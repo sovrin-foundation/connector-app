@@ -1,21 +1,29 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { View } from 'react-native'
+import { View, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
+import type { Store } from '../../store/type-store'
 import {
   CustomView,
   Container,
   CustomButton,
   ImageColorPicker,
   ConnectionTheme,
+  CustomSafeAreaView,
 } from '../../components'
 import { DENY, CONNECT } from '../../common'
 import type { FooterActionsProps } from './type-footer-actions'
 import { noop } from '../../common'
+import { white } from '../../common/styles/constant'
 
-export default class FooterActions extends PureComponent<
-  FooterActionsProps,
-  void
-> {
+const styles = StyleSheet.create({
+  buttonStyle: {
+    borderLeftColor: white,
+    borderLeftWidth: StyleSheet.hairlineWidth,
+  },
+})
+
+export class FooterActions extends PureComponent<FooterActionsProps, void> {
   render() {
     const {
       denyTitle = DENY,
@@ -29,38 +37,52 @@ export default class FooterActions extends PureComponent<
     } = this.props
 
     return (
-      <View>
-        <CustomView row>
-          <Container>
-            <ConnectionTheme logoUrl={logoUrl} secondary>
-              <CustomButton
-                secondary
-                raised
-                medium
-                title={denyTitle}
-                onPress={onDecline}
-                testID={`${testID}-deny`}
-              />
-            </ConnectionTheme>
-          </Container>
-          {!hidePrimary && (
+      <CustomSafeAreaView
+        style={[{ backgroundColor: this.props.activeConnectionThemePrimary }]}
+      >
+        <ConnectionTheme logoUrl={logoUrl}>
+          <CustomView row>
             <Container>
-              <ConnectionTheme logoUrl={logoUrl} disabled={disableAccept}>
+              <ConnectionTheme logoUrl={logoUrl}>
                 <CustomButton
-                  disabled={disableAccept}
                   primary
-                  raised
                   medium
-                  title={acceptTitle}
-                  onPress={onAccept}
-                  testID={`${testID}-accept`}
+                  title={denyTitle}
+                  onPress={onDecline}
+                  testID={`${testID}-deny`}
                 />
               </ConnectionTheme>
             </Container>
-          )}
-        </CustomView>
+            {!hidePrimary && (
+              <Container>
+                <ConnectionTheme logoUrl={logoUrl}>
+                  <CustomButton
+                    primary
+                    medium
+                    title={acceptTitle}
+                    onPress={onAccept}
+                    testID={`${testID}-accept`}
+                    style={[styles.buttonStyle]}
+                    fontWeight="bold"
+                  />
+                </ConnectionTheme>
+              </Container>
+            )}
+          </CustomView>
+        </ConnectionTheme>
         <ImageColorPicker imageUrl={logoUrl} />
-      </View>
+      </CustomSafeAreaView>
     )
   }
 }
+
+const mapStateToProps = (state: Store) => {
+  const activeConnectionThemePrimary = state.connections.connectionThemes.active
+    ? state.connections.connectionThemes.active.primary
+    : white
+  return {
+    activeConnectionThemePrimary,
+  }
+}
+
+export default connect(mapStateToProps)(FooterActions)

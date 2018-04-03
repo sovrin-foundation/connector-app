@@ -162,74 +162,51 @@ exports[`<Request /> should match snapshot 1`] = `
               vCenter={true}
             >
               <View
-                accessibilityComponentType={undefined}
-                accessibilityLabel={undefined}
-                accessibilityTraits={undefined}
-                accessible={true}
-                hitSlop={undefined}
-                nativeID={undefined}
-                onLayout={undefined}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                pointerEvents="box-only"
-                style={undefined}
-                testID={undefined}
-              >
-                <View
-                  imageShadow="imageShadow"
-                  style={
-                    Object {
-                      "borderRadius": 38,
-                      "shadowColor": "rgba(0, 0, 0, 0.25)",
-                      "shadowOffset": Object {
-                        "height": 3,
-                        "width": 0,
-                      },
-                      "shadowOpacity": 1,
-                      "shadowRadius": 8,
-                    }
+                imageShadow="imageShadow"
+                style={
+                  Object {
+                    "borderRadius": 38,
+                    "shadowColor": "rgba(0, 0, 0, 0.25)",
+                    "shadowOffset": Object {
+                      "height": 3,
+                      "width": 0,
+                    },
+                    "shadowOpacity": 1,
+                    "shadowRadius": 8,
                   }
-                  testID="invitation-text-avatars-invitee"
-                >
-                  <Image
-                    accessibilityComponentType={undefined}
-                    accessibilityLabel={undefined}
-                    accessibilityTraits={undefined}
-                    accessible={true}
-                    hitSlop={undefined}
-                    nativeID={undefined}
-                    onError={undefined}
-                    onLayout={undefined}
-                    onLoad={undefined}
-                    onResponderGrant={[Function]}
-                    onResponderMove={[Function]}
-                    onResponderRelease={[Function]}
-                    onResponderTerminate={[Function]}
-                    onResponderTerminationRequest={[Function]}
-                    onStartShouldSetResponder={[Function]}
-                    source={
+                }
+                testID="invitation-text-avatars-invitee"
+              >
+                <Image
+                  accessibilityComponentType={undefined}
+                  accessibilityLabel={undefined}
+                  accessibilityTraits={undefined}
+                  accessible={true}
+                  hitSlop={undefined}
+                  nativeID={undefined}
+                  onError={undefined}
+                  onLayout={undefined}
+                  onLoad={undefined}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  source={1}
+                  style={
+                    Array [
                       Object {
-                        "uri": "/var/application/DocumentDir/user-avatar.jpeg",
-                      }
-                    }
-                    style={
-                      Array [
-                        Object {
-                          "height": 76,
-                          "width": 76,
-                        },
-                        Object {
-                          "borderRadius": 38,
-                        },
-                      ]
-                    }
-                    testID={undefined}
-                  />
-                </View>
+                        "height": 76,
+                        "width": 76,
+                      },
+                      Object {
+                        "borderRadius": 38,
+                      },
+                    ]
+                  }
+                  testID={undefined}
+                />
               </View>
               <Image
                 source={1}
@@ -298,292 +275,300 @@ exports[`<Request /> should match snapshot 1`] = `
       </View>
     </View>
   </View>
-  <View>
-    <View
-      row={true}
-      style={
-        Object {
-          "flexDirection": "row",
-        }
+  <RCTSafeAreaView
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
       }
+    }
+  >
+    <View
+      style={Object {}}
     >
       <View
+        customColor={
+          Object {
+            "backgroundColor": "rgba(119, 119, 119, 1.0)",
+          }
+        }
+        row={true}
         style={
           Object {
-            "flex": 1,
+            "flexDirection": "row",
           }
         }
       >
         <View
-          style={Object {}}
+          style={
+            Object {
+              "flex": 1,
+            }
+          }
         >
           <View
-            style={
-              Array [
-                Object {
-                  "marginLeft": 15,
-                  "marginRight": 15,
-                },
-                Object {
-                  "shadowColor": "rgba(0,0,0, .4)",
-                  "shadowOffset": Object {
-                    "height": 1,
-                    "width": 1,
-                  },
-                  "shadowOpacity": 1,
-                  "shadowRadius": 1,
-                },
-                Object {
-                  "marginLeft": 0,
-                  "marginRight": 0,
-                },
-                undefined,
-              ]
-            }
+            style={Object {}}
           >
             <View
-              accessibilityComponentType={undefined}
-              accessibilityLabel={undefined}
-              accessibilityTraits={undefined}
-              accessible={true}
-              hasTVPreferredFocus={undefined}
-              hitSlop={undefined}
-              isTVSelectable={true}
-              nativeID={undefined}
-              onLayout={undefined}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
               style={
                 Array [
                   Object {
-                    "backgroundColor": "transparent",
+                    "marginLeft": 15,
+                    "marginRight": 15,
+                  },
+                  undefined,
+                  Object {
+                    "marginLeft": 0,
+                    "marginRight": 0,
                   },
                   undefined,
                 ]
               }
-              testID="request-deny"
-              tvParallaxProperties={undefined}
             >
               <View
-                pointerEvents="box-only"
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
+                accessible={true}
+                hasTVPreferredFocus={undefined}
+                hitSlop={undefined}
+                isTVSelectable={true}
+                nativeID={undefined}
+                onLayout={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
                 style={
                   Array [
                     Object {
-                      "alignItems": "center",
-                      "backgroundColor": "#9E9E9E",
-                      "flexDirection": "row",
-                      "justifyContent": "center",
-                      "padding": 19,
+                      "backgroundColor": "transparent",
                     },
-                    Object {
-                      "backgroundColor": "#8F0CE8",
-                    },
-                    undefined,
-                    undefined,
-                    undefined,
-                    undefined,
-                    Object {
-                      "backgroundColor": "rgba(119, 119, 119, 0.6)",
-                    },
-                    undefined,
-                    Object {
-                      "padding": 12,
-                    },
-                    undefined,
-                    undefined,
-                    undefined,
-                    Array [
-                      Object {
-                        "paddingVertical": 17,
-                      },
-                    ],
-                    undefined,
                     undefined,
                   ]
                 }
+                testID="request-deny"
+                tvParallaxProperties={undefined}
               >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  ellipsizeMode="tail"
+                <View
+                  pointerEvents="box-only"
                   style={
                     Array [
-                      Object {},
+                      Object {
+                        "alignItems": "center",
+                        "backgroundColor": "#9E9E9E",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "padding": 19,
+                      },
                       undefined,
                       undefined,
                       undefined,
                       undefined,
                       undefined,
+                      Object {
+                        "backgroundColor": "rgba(119, 119, 119, 1.0)",
+                      },
                       undefined,
+                      Object {
+                        "padding": 12,
+                      },
                       undefined,
                       undefined,
                       undefined,
                       Array [
                         Object {
-                          "color": "white",
-                          "fontSize": 16,
+                          "paddingVertical": 17,
                         },
-                        Object {
-                          "color": "#ffffff",
-                        },
-                        Object {
-                          "fontSize": 14,
-                        },
-                        undefined,
-                        undefined,
-                        undefined,
-                        undefined,
-                        undefined,
                       ],
+                      undefined,
+                      undefined,
                     ]
                   }
                 >
-                  Deny
-                </Text>
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "white",
+                            "fontSize": 16,
+                          },
+                          Object {
+                            "color": "#ffffff",
+                          },
+                          Object {
+                            "fontSize": 14,
+                          },
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Deny
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
         </View>
-      </View>
-      <View
-        style={
-          Object {
-            "flex": 1,
-          }
-        }
-      >
         <View
-          style={Object {}}
+          style={
+            Object {
+              "flex": 1,
+            }
+          }
         >
           <View
-            style={
-              Array [
-                Object {
-                  "marginLeft": 15,
-                  "marginRight": 15,
-                },
-                Object {
-                  "shadowColor": "rgba(0,0,0, .4)",
-                  "shadowOffset": Object {
-                    "height": 1,
-                    "width": 1,
-                  },
-                  "shadowOpacity": 1,
-                  "shadowRadius": 1,
-                },
-                Object {
-                  "marginLeft": 0,
-                  "marginRight": 0,
-                },
-                undefined,
-              ]
-            }
+            style={Object {}}
           >
             <View
-              accessibilityComponentType={undefined}
-              accessibilityLabel={undefined}
-              accessibilityTraits={undefined}
-              accessible={true}
-              hasTVPreferredFocus={undefined}
-              hitSlop={undefined}
-              isTVSelectable={true}
-              nativeID={undefined}
-              onLayout={undefined}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
               style={
                 Array [
                   Object {
-                    "backgroundColor": "transparent",
+                    "marginLeft": 15,
+                    "marginRight": 15,
+                  },
+                  undefined,
+                  Object {
+                    "marginLeft": 0,
+                    "marginRight": 0,
                   },
                   undefined,
                 ]
               }
-              testID="request-accept"
-              tvParallaxProperties={undefined}
             >
               <View
-                pointerEvents="box-only"
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
+                accessible={true}
+                hasTVPreferredFocus={undefined}
+                hitSlop={undefined}
+                isTVSelectable={true}
+                nativeID={undefined}
+                onLayout={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
                 style={
                   Array [
                     Object {
-                      "alignItems": "center",
-                      "backgroundColor": "#9E9E9E",
-                      "flexDirection": "row",
-                      "justifyContent": "center",
-                      "padding": 19,
+                      "backgroundColor": "transparent",
                     },
-                    undefined,
-                    undefined,
-                    undefined,
-                    undefined,
-                    undefined,
-                    Object {
-                      "backgroundColor": "rgba(119, 119, 119, 1.0)",
-                    },
-                    undefined,
-                    Object {
-                      "padding": 12,
-                    },
-                    undefined,
-                    undefined,
-                    undefined,
                     Array [
                       Object {
-                        "paddingVertical": 17,
+                        "borderLeftColor": "#ffffff",
+                        "borderLeftWidth": 0.4,
                       },
                     ],
-                    false,
-                    false,
                   ]
                 }
+                testID="request-accept"
+                tvParallaxProperties={undefined}
               >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  ellipsizeMode="tail"
+                <View
+                  pointerEvents="box-only"
                   style={
                     Array [
-                      Object {},
+                      Object {
+                        "alignItems": "center",
+                        "backgroundColor": "#9E9E9E",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "padding": 19,
+                      },
                       undefined,
                       undefined,
                       undefined,
                       undefined,
                       undefined,
+                      Object {
+                        "backgroundColor": "rgba(119, 119, 119, 1.0)",
+                      },
                       undefined,
+                      Object {
+                        "padding": 12,
+                      },
                       undefined,
                       undefined,
                       undefined,
                       Array [
                         Object {
-                          "color": "white",
-                          "fontSize": 16,
+                          "paddingVertical": 17,
                         },
                         Object {
-                          "color": "#ffffff",
+                          "borderLeftColor": "#ffffff",
+                          "borderLeftWidth": 0.4,
                         },
-                        Object {
-                          "fontSize": 14,
-                        },
-                        undefined,
-                        undefined,
-                        undefined,
-                        undefined,
-                        false,
                       ],
+                      undefined,
+                      undefined,
                     ]
                   }
                 >
-                  Connect
-                </Text>
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "white",
+                            "fontSize": 16,
+                          },
+                          Object {
+                            "color": "#ffffff",
+                          },
+                          Object {
+                            "fontSize": 14,
+                          },
+                          undefined,
+                          undefined,
+                          Object {
+                            "fontWeight": "bold",
+                          },
+                          undefined,
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Connect
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
@@ -746,6 +731,6 @@ exports[`<Request /> should match snapshot 1`] = `
         }
       }
     />
-  </View>
+  </RCTSafeAreaView>
 </View>
 `;

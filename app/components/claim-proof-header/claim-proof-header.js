@@ -7,6 +7,7 @@ import {
   Icon,
   ImageColorPicker,
   ConnectionTheme,
+  CustomSafeAreaView,
 } from '../../components'
 import {
   color,
@@ -36,33 +37,40 @@ export default class ClaimProofHeader extends PureComponent<
     }: ClaimProofHeaderProps = this.props
 
     return (
-      <CustomView
-        testID={`${testID}-header`}
-        fifth
-        style={[styles.header, containerStyle]}
-      >
-        {this.props.children}
-        <CustomView fifth center style={[styles.message, textContainerStyle]}>
-          {message && (
-            <CustomText h5 center demiBold bg="fifth" style={[messageStyle]}>
-              {message}
-            </CustomText>
-          )}
-          {title && (
-            <CustomText h4 heavy bg="fifth" style={[styles.title, titleStyle]}>
-              {title}
-            </CustomText>
-          )}
+      <CustomSafeAreaView fifth>
+        <CustomView
+          testID={`${testID}-header`}
+          fifth
+          style={[styles.header, containerStyle]}
+        >
+          {this.props.children}
+          <CustomView fifth center style={[styles.message, textContainerStyle]}>
+            {message && (
+              <CustomText h5 center demiBold bg="fifth" style={[messageStyle]}>
+                {message}
+              </CustomText>
+            )}
+            {title && (
+              <CustomText
+                h4
+                heavy
+                bg="fifth"
+                style={[styles.title, titleStyle]}
+              >
+                {title}
+              </CustomText>
+            )}
+          </CustomView>
+          {useColorPicker && <ImageColorPicker imageUrl={logoUrl} />}
         </CustomView>
-        {useColorPicker && <ImageColorPicker imageUrl={logoUrl} />}
-      </CustomView>
+      </CustomSafeAreaView>
     )
   }
 }
 
 const styles = StyleSheet.create({
   header: {
-    paddingTop: (Platform.OS === 'ios' ? OFFSET_2X : 0) + 20,
+    paddingTop: (Platform.OS === 'ios' ? OFFSET_1X : 0) + 20,
     shadowColor: color.bg.secondary.color,
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.3,

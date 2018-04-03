@@ -117,61 +117,28 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
     vCenter={true}
   >
     <View
-      accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
-      accessibilityTraits={undefined}
-      accessible={true}
       clearBg={true}
       extraLarge={true}
-      hitSlop={
-        Object {
-          "bottom": 20,
-          "left": 20,
-          "right": 20,
-          "top": 20,
-        }
-      }
-      nativeID={undefined}
-      onLayout={undefined}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      resizeMode="cover"
-      round={true}
-      src={
-        Object {
-          "uri": "/var/application/DocumentDir/user-avatar.jpeg",
-        }
-      }
+      src={1}
       style={
         Object {
           "backgroundColor": "transparent",
         }
       }
-      testID="user-avatar-touchable"
     >
       <Image
-        resizeMode="cover"
-        source={
-          Object {
-            "uri": "/var/application/DocumentDir/user-avatar.jpeg",
-          }
-        }
+        resizeMode="contain"
+        source={1}
         style={
           Array [
             Object {
               "height": 80,
               "width": 80,
             },
-            Object {
-              "borderRadius": 40,
-            },
+            null,
           ]
         }
-        testID="user-avatar"
+        testID={undefined}
       />
     </View>
   </View>

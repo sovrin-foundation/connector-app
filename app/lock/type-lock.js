@@ -160,7 +160,6 @@ export type LockEnterFingerProps = {
 
 export type LockEnterPinState = {
   authenticationSuccess: boolean,
-  message: string,
 }
 export type LockEnterFingerState = {
   authenticationSuccess: boolean,

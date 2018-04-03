@@ -20,6 +20,7 @@ import {
   ClaimProofHeader,
   Separator,
   FooterActions,
+  CustomSafeAreaView,
 } from '../components'
 import { homeRoute } from '../common/'
 import {
@@ -51,25 +52,27 @@ class ClaimOfferAttributeList extends PureComponent<
 
   renderItem = ({ item }: { item: Attribute }) => {
     return (
-      <CustomView fifth row horizontalSpace doubleVerticalSpace>
-        <CustomView fifth right style={[styles.attributeListLabel]}>
-          <CustomText
-            h7
-            uppercase
-            semiBold
-            bg="tertiary"
-            transparentBg
-            style={[styles.attributeListLabelText]}
-          >
-            {item.label}
-          </CustomText>
+      <CustomSafeAreaView>
+        <CustomView fifth row horizontalSpace doubleVerticalSpace>
+          <CustomView fifth right style={[styles.attributeListLabel]}>
+            <CustomText
+              h7
+              uppercase
+              semiBold
+              bg="tertiary"
+              transparentBg
+              style={[styles.attributeListLabelText]}
+            >
+              {item.label}
+            </CustomText>
+          </CustomView>
+          <CustomView fifth left style={[styles.attributeListValue]}>
+            <CustomText h6 demiBold bg="tertiary" transparentBg>
+              {item.data}
+            </CustomText>
+          </CustomView>
         </CustomView>
-        <CustomView fifth left style={[styles.attributeListValue]}>
-          <CustomText h6 demiBold bg="tertiary" transparentBg>
-            {item.data}
-          </CustomText>
-        </CustomView>
-      </CustomView>
+      </CustomSafeAreaView>
     )
   }
 
@@ -126,38 +129,44 @@ export class ClaimOffer extends PureComponent<ClaimOfferProps, void> {
     const testID = 'claim-offer'
 
     return (
-      <Container fifth>
+      <Container>
         {isValid && (
-          <ClaimProofHeader
-            message={`${issuer.name} is offering you`}
-            title={data.name}
-            onClose={this.onIgnore}
-            logoUrl={logoUrl}
-            testID={testID}
-          >
-            <CustomView fifth hCenter style={[styles.headerStripLogoContainer]}>
-              <Icon
-                absolute="TopRight"
-                src={require('../images/close.png')}
-                small
-                testID={`${testID}-icon-close`}
-                onPress={this.close}
-                iconStyle={[styles.headerCloseIcon]}
-                style={[styles.headerCloseIconContainer]}
-              />
-              <ConnectionTheme logoUrl={logoUrl} style={[styles.strip]} />
-              <Icon
-                center
-                halo
-                extraLarge
-                resizeMode="cover"
-                src={logoUri}
-                style={[styles.issuerLogo]}
-                iconStyle={[styles.issuerLogoIcon]}
-                testID={`${testID}-issuer-logo`}
-              />
-            </CustomView>
-          </ClaimProofHeader>
+          <CustomSafeAreaView fifth>
+            <ClaimProofHeader
+              message={`${issuer.name} is offering you`}
+              title={data.name}
+              onClose={this.onIgnore}
+              logoUrl={logoUrl}
+              testID={testID}
+            >
+              <CustomView
+                fifth
+                hCenter
+                style={[styles.headerStripLogoContainer]}
+              >
+                <Icon
+                  absolute="TopRight"
+                  src={require('../images/close.png')}
+                  small
+                  testID={`${testID}-icon-close`}
+                  onPress={this.close}
+                  iconStyle={[styles.headerCloseIcon]}
+                  style={[styles.headerCloseIconContainer]}
+                />
+                <ConnectionTheme logoUrl={logoUrl} style={[styles.strip]} />
+                <Icon
+                  center
+                  halo
+                  extraLarge
+                  resizeMode="cover"
+                  src={logoUri}
+                  style={[styles.issuerLogo]}
+                  iconStyle={[styles.issuerLogoIcon]}
+                  testID={`${testID}-issuer-logo`}
+                />
+              </CustomView>
+            </ClaimProofHeader>
+          </CustomSafeAreaView>
         )}
         {isValid ? (
           <ClaimOfferAttributeList list={data.revealedAttributes} />

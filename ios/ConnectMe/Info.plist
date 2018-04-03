@@ -89,8 +89,6 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Please allow us access to Camera so that we can scan QR code</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Please allow us access to Photo library so that you can change your profile photo</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>UIAppFonts</key>

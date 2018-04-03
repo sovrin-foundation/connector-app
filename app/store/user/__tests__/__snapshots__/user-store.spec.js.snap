@@ -2,7 +2,6 @@
 
 exports[`store: user-store:  action: CONNECT_REGISTER_CREATE_AGENT_DONE 1`] = `
 Object {
-  "avatarName": null,
   "error": null,
   "isFetching": false,
   "userOneTimeInfo": Object {
@@ -18,7 +17,6 @@ Object {
 
 exports[`store: user-store:  action: HYDRATE_USER_STORE 1`] = `
 Object {
-  "avatarName": null,
   "error": null,
   "isFetching": false,
   "userOneTimeInfo": Object {
@@ -29,53 +27,11 @@ Object {
     "oneTimeAgencyDid": "oneTimeAgencyDid",
     "oneTimeAgencyVerificationKey": "oneTimeAgencyVerKey",
   },
-}
-`;
-
-exports[`store: user-store:  action: HYDRATE_USER_STORE, after avatar name is hydrated 1`] = `
-Object {
-  "avatarName": "user-avatar.jpeg",
-  "error": null,
-  "isFetching": false,
-  "userOneTimeInfo": Object {
-    "myOneTimeAgentDid": "myOneTimeAgentDid",
-    "myOneTimeAgentVerificationKey": "myOneTimeAgentVerificationKey",
-    "myOneTimeDid": "myOneTimeDid",
-    "myOneTimeVerificationKey": "myOneTimeVerificationKey",
-    "oneTimeAgencyDid": "oneTimeAgencyDid",
-    "oneTimeAgencyVerificationKey": "oneTimeAgencyVerKey",
-  },
-}
-`;
-
-exports[`store: user-store:  action: HYDRATE_USER_STORE, after user one time info is hydrated 1`] = `
-Object {
-  "avatarName": "user-avatar.jpeg",
-  "error": null,
-  "isFetching": false,
-  "userOneTimeInfo": Object {
-    "myOneTimeAgentDid": "myOneTimeAgentDid",
-    "myOneTimeAgentVerificationKey": "myOneTimeAgentVerificationKey",
-    "myOneTimeDid": "myOneTimeDid",
-    "myOneTimeVerificationKey": "myOneTimeVerificationKey",
-    "oneTimeAgencyDid": "oneTimeAgencyDid",
-    "oneTimeAgencyVerificationKey": "oneTimeAgencyVerKey",
-  },
-}
-`;
-
-exports[`store: user-store:  action: HYDRATE_USER_STORE: avatarName 1`] = `
-Object {
-  "avatarName": "user-avatar.jpeg",
-  "error": null,
-  "isFetching": false,
-  "userOneTimeInfo": null,
 }
 `;
 
 exports[`store: user-store:  action: PARSE_USER_ONE_TIME_INFO_FAIL 1`] = `
 Object {
-  "avatarName": null,
   "error": Object {
     "code": "US-002",
     "message": "Failed to parse user info: ",
@@ -87,7 +43,6 @@ Object {
 
 exports[`store: user-store:  action: SAVE_USER_ONE_TIME_INFO_FAIL 1`] = `
 Object {
-  "avatarName": null,
   "error": Object {
     "code": "US-001",
     "message": "Failed to store user one time info: ",

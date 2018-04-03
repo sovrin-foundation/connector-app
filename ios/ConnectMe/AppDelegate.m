@@ -76,8 +76,8 @@
 // methods to open connect me from SMS and from an custom URI and universal link
 // Respond to URI scheme links
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-  if (![RNBranch.branch application:application openURL:url sourceApplication:sourceApplication annotation:annotation]) {
-    // do other deep link routing
+  if (![RNBranch handleDeepLink:url]) {
+    // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
   }
   return YES;
 }
