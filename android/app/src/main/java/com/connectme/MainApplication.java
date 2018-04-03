@@ -4,7 +4,7 @@ import android.app.Application;
 import com.surajit.rnrg.RNRadialGradientPackage;
 import com.facebook.react.ReactApplication;
 import com.rnfingerprint.FingerprintAuthPackage;
-import com.horcrux.svg.SvgPackage;
+//import com.horcrux.svg.SvgPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import io.sentry.RNSentryPackage;
@@ -12,7 +12,7 @@ import io.branch.rnbranch.RNBranchPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
-import com.cboy.rn.splashscreen.SplashScreenReactPackage;
+import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.connectme.rnindy.RNIndyPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -23,10 +23,10 @@ import java.util.Arrays;
 import java.util.List;
 
 
-import com.BV.LinearGradient.LinearGradientPackage;
-import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
-import com.wix.interactable.Interactable;
-import com.oblador.vectoricons.VectorIconsPackage;
+//import com.BV.LinearGradient.LinearGradientPackage;
+//import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
+//import com.wix.interactable.Interactable;
+//import com.oblador.vectoricons.VectorIconsPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -41,7 +41,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
             new FingerprintAuthPackage(),
-            new SvgPackage(),
+            //new SvgPackage(),
             new RNFetchBlobPackage(),
             new RCTCameraPackage(),
             new RNSentryPackage(MainApplication.this),
@@ -50,11 +50,10 @@ public class MainApplication extends Application implements ReactApplication {
             new RNSensitiveInfoPackage(),
             new FIRMessagingPackage(),
             new MainReactPackage(),
-            new SplashScreenReactPackage()
-            new LinearGradientPackage(),
-            new ReactNativeOneSignalPackage(),
-            new Interactable(),
-            new VectorIconsPackage(),
+            new SplashScreenReactPackage(),
+            //new LinearGradientPackage(),
+            //new ReactNativeOneSignalPackage(),
+            //new Interactable(),
             new RNIndyPackage(),
             new RNRadialGradientPackage()
       );
@@ -62,12 +61,14 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected String getJSMainModuleName() {
+
       return "index";
     }
   };
 
   @Override
   public ReactNativeHost getReactNativeHost() {
+
     return mReactNativeHost;
   }
 
