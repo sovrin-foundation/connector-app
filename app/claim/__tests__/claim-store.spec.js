@@ -14,6 +14,7 @@ import { addClaim, getClaim } from '../../bridge/react-native-cxs/RNCxs'
 import { getConnectionLogoUrl, getPoolConfig } from '../../store/store-selector'
 import {
   claim,
+  claimWithUuid,
   senderDid1,
   claimDefinitionSchemaSequenceNumber,
   getClaimFormat,
@@ -52,37 +53,43 @@ describe('Claim Store', () => {
     expect(nextState).toMatchSnapshot()
   })
 
-  //TODO fix the test
-  xit('claim storage workflow should work fine if storage is success', () => {
-    const gen = claimReceivedSaga(claimReceived(claim))
+  it('claim storage workflow should work fine if storage is success', () => {
+    const gen = claimReceivedSaga(claimReceived(claimWithUuid))
 
-    expect(gen.next().value).toEqual(
-      call(addClaim, JSON.stringify(claim), poolConfig)
+    expect(gen.next().value).toEqual(select(getPoolConfig))
+
+    expect(gen.next(poolConfig).value).toEqual(
+      call(addClaim, JSON.stringify(claimWithUuid), poolConfig)
     )
-    expect(gen.next().value).toEqual(put(claimStorageSuccess(claim.messageId)))
-    expect(gen.next().value).toEqual(
-      call(
-        getClaim,
-        JSON.stringify({
-          issuer_DID: senderDid1,
-          schema_seq_no: claimDefinitionSchemaSequenceNumber,
-        }),
-        poolConfig
-      )
+
+    const claimFilterJSON = JSON.stringify({
+      issuer_DID: claimWithUuid.from_did,
+      schema_seq_no: claimDefinitionSchemaSequenceNumber,
+    })
+
+    expect(gen.next(claimFilterJSON).value).toEqual(
+      call(getClaim, claimFilterJSON, poolConfig)
     )
-    expect(gen.next(getClaimFormat).value).toEqual(
-      select(getConnectionLogoUrl, senderDid1)
+
+    expect(gen.next(JSON.stringify(claimWithUuid)).value).toEqual(
+      select(getConnectionLogoUrl, claimWithUuid.from_did)
     )
+
     expect(gen.next(senderLogoUrl1).value).toEqual(
       put(
         mapClaimToSender(
-          getClaimFormat.claim_uuid,
-          senderDid1,
-          myPairWiseConnectionDetails.myPairwiseDid,
+          claimWithUuid.claim_uuid,
+          claimWithUuid.from_did,
+          claimWithUuid.forDID,
           senderLogoUrl1
         )
       )
     )
+
+    expect(gen.next().value).toEqual(
+      put(claimStorageSuccess(claimWithUuid.messageId))
+    )
+
     // TODO: Fix this
     gen.next()
     gen.next()

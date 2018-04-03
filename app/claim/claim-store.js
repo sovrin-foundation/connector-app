@@ -61,11 +61,12 @@ export function* claimReceivedSaga(
       JSON.stringify(action.claim),
       poolConfig
     )
-    yield put(claimStorageSuccess(action.claim.messageId))
+
     const claimString = yield call(getClaim, claimFilterJSON, poolConfig)
     const { claim_uuid: claimUuid } = JSON.parse(claimString)
     const logoUrl = yield select(getConnectionLogoUrl, senderDID)
     yield put(mapClaimToSender(claimUuid, senderDID, myPairwiseDid, logoUrl))
+    yield put(claimStorageSuccess(action.claim.messageId))
 
     // persist claimMap to secure storage
     // TODO:PS: replace with fork redux-effect

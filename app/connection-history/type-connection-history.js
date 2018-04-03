@@ -23,7 +23,7 @@ import {
 import type { SendClaimRequestAction } from '../claim-offer/type-claim-offer'
 import type { ClaimReceivedAction } from '../claim/type-claim'
 import type { ClaimOfferReceivedAction } from '../claim-offer/type-claim-offer'
-import { CLAIM_RECEIVED } from '../claim/type-claim'
+import { CLAIM_STORAGE_SUCCESS } from '../claim/type-claim'
 import {
   PROOF_REQUEST_RECEIVED,
   PROOF_REQUEST_ACCEPTED,
@@ -55,7 +55,7 @@ export const HISTORY_EVENT_STATUS = {
   [CLAIM_OFFER_ACCEPTED]: 'ACCEPTED OFFER',
   [CLAIM_OFFER_IGNORED]: 'IGNORED OFFER',
   [CLAIM_OFFER_REJECTED]: 'REJECTED OFFER',
-  [CLAIM_RECEIVED]: 'RECEIVED',
+  [CLAIM_STORAGE_SUCCESS]: 'RECEIVED',
   [PROOF_REQUEST_RECEIVED]: 'PROOF RECEIVED',
   [PROOF_REQUEST_IGNORED]: 'IGNORED',
   [PROOF_REQUEST_REJECTED]: 'REJECTED',
@@ -84,7 +84,7 @@ export const EventTypeToEventStatusMap = {
     CLAIM_OFFER_ACCEPTED,
     CLAIM_OFFER_IGNORED,
     CLAIM_OFFER_REJECTED,
-    CLAIM_RECEIVED,
+    CLAIM_STORAGE_SUCCESS,
   ],
   PROOF: [
     PROOF_REQUEST_RECEIVED,

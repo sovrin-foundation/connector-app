@@ -17,10 +17,11 @@ import connectionHistoryReducer, {
   historyEventOccurredSaga,
   convertInvitationToHistoryEvent,
   convertConnectionSuccessToHistoryEvent,
-  convertClaimReceivedToHistoryEvent,
+  convertClaimStorageSuccessToHistoryEvent,
   convertProofRequestToHistoryEvent,
   convertProofSendToHistoryEvent,
   convertSendClaimRequestToHistoryEvent,
+  deleteHistoryEvent,
 } from '../connection-history-store'
 import { initialTestAction } from '../../common/type-common'
 import {
@@ -29,9 +30,21 @@ import {
   claimOffer,
   claimRequest,
   claim,
+  claimOfferPayload,
+  pendingClaimHistory,
   proofRequest,
   senderDid1,
   fulfilledRequestedAttributes,
+  invitationReceivedEvent,
+  newConnectionSuccessEvent,
+  sendClaimRequestEvent,
+  claimReceivedEvent,
+  claimReceivedSuccessEvent,
+  proofRequestReceivedEvent,
+  proofRequestAutofillEvent,
+  proofSharedEvent,
+  proofRequestAutofill,
+  uid,
 } from '../../../__mocks__/static-data'
 import { invitationRejected } from '../../invitation/invitation-store'
 import { saveNewConnection } from '../../store/connections-store'
@@ -39,7 +52,7 @@ import {
   claimOfferReceived,
   claimRequestSuccess,
 } from '../../claim-offer/claim-offer-store'
-import { claimReceived } from '../../claim/claim-store'
+import { claimReceived, claimStorageSuccess } from '../../claim/claim-store'
 import {
   proofRequestReceived,
   sendProof,
@@ -51,21 +64,13 @@ import {
   ERROR_LOADING_HISTORY,
   ERROR_HISTORY_EVENT_OCCURRED,
 } from '../type-connection-history'
-import { getProofRequest, getClaimOffer } from '../../store/store-selector'
+import {
+  getProofRequest,
+  getClaimOffer,
+  getPendingHistoryEvent,
+} from '../../store/store-selector'
 import { getItem } from '../../services/secure-storage'
 import { sendClaimRequest } from '../../claim-offer/claim-offer-store'
-import {
-  invitationReceivedEvent,
-  newConnectionSuccessEvent,
-  sendClaimRequestEvent,
-  claimReceivedEvent,
-  proofRequestReceivedEvent,
-  proofRequestAutofillEvent,
-  proofSharedEvent,
-  proofRequestAutofill,
-  claimOfferPayload,
-  uid,
-} from '../../../__mocks__/static-data'
 import { RESET } from '../../common/type-common'
 
 jest.mock('../../services/uuid')
@@ -191,8 +196,29 @@ describe('Store: ConnectionHistory', () => {
     expect(gen.next().value).toEqual(put(recordHistoryEvent(historyEvent)))
   })
 
-  //TODO : fix this test
-  xit('historyEventOccurredSaga should raise success for claim received ', () => {})
+  it('historyEventOccurredSaga should raise success for claim received ', () => {
+    let historyEvent
+    const gen = historyEventOccurredSaga(
+      historyEventOccurred(claimReceivedSuccessEvent)
+    )
+
+    expect(gen.next().value).toEqual(
+      select(getClaimOffer, claimReceivedSuccessEvent.messageId)
+    )
+
+    historyEvent = convertClaimStorageSuccessToHistoryEvent(
+      claimReceivedSuccessEvent,
+      claimOfferPayload
+    )
+
+    expect(gen.next(claimOfferPayload).value).toEqual(
+      select(getPendingHistoryEvent, claimOfferPayload)
+    )
+
+    expect(gen.next(pendingClaimHistory).value).toEqual(
+      put(deleteHistoryEvent(pendingClaimHistory))
+    )
+  })
 
   it('historyEventOccurredSaga should raise success for correct proof request received', () => {
     let historyEvent
