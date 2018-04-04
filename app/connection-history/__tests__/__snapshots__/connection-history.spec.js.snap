@@ -44,11 +44,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
       }
     />
     <RCTSafeAreaView
-      style={
-        Object {
-          "backgroundColor": "#ffffff",
-        }
-      }
+      style={Object {}}
     >
       <View
         fifth={true}

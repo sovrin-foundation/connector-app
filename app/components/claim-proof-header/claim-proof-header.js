@@ -37,7 +37,7 @@ export default class ClaimProofHeader extends PureComponent<
     }: ClaimProofHeaderProps = this.props
 
     return (
-      <CustomSafeAreaView fifth>
+      <CustomSafeAreaView>
         <CustomView
           testID={`${testID}-header`}
           fifth

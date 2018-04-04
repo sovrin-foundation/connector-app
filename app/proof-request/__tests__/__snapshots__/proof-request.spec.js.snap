@@ -11,11 +11,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
   }
 >
   <RCTSafeAreaView
-    style={
-      Object {
-        "backgroundColor": "#ffffff",
-      }
-    }
+    style={Object {}}
   >
     <View
       fifth={true}

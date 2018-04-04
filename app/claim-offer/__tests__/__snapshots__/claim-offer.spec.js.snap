@@ -16,11 +16,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
     }
   >
     <RCTSafeAreaView
-      style={
-        Object {
-          "backgroundColor": "#ffffff",
-        }
-      }
+      style={Object {}}
     >
       <View
         fifth={true}
