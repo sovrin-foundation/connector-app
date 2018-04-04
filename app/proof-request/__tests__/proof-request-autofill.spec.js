@@ -62,6 +62,7 @@ describe('<ProofRequest />', () => {
           logoUrl={senderLogoUrl1}
           missingAttributes={{}}
           userSelfAttestedAttributes={userSelfAttestedAttributes}
+          userAvatarSource={undefined}
         />
       </Provider>
     )

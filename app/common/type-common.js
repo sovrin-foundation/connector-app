@@ -62,3 +62,7 @@ export const RESET: 'RESET' = 'RESET'
 export type ResetAction = {
   type: typeof RESET,
 }
+
+export type ImageSource = {
+  uri: string,
+}

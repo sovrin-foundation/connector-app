@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { Animated, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Container, CustomView, Icon } from '../components'
+import { Container, CustomView, Icon, UserAvatar } from '../components'
 import Bubbles from './bubbles'
 import { barStyleDark, OFFSET_3X } from '../common/styles'
 import { getConnections } from '../store'
@@ -39,7 +39,7 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
             )}
         </Container>
         <CustomView vCenter style={[styles.userAvatarContainer]}>
-          <Icon src={require('../images/UserAvatar.png')} extraLarge />
+          <UserAvatar />
         </CustomView>
       </Container>
     )

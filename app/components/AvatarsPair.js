@@ -1,18 +1,27 @@
+// @flow
 import React, { PureComponent } from 'react'
 import { Image, StyleSheet } from 'react-native'
 import Modal from 'react-native-modal'
-import { Avatar, CustomView } from '../components'
-import { color, OFFSET_1X, OFFSET_2X, isiPhone } from '../common/styles'
+import { Avatar, CustomView, UserAvatar } from '../components'
+import { color, OFFSET_1X, OFFSET_2X, isiPhone5 } from '../common/styles'
+import avatarStyle from '../components/avatar/avatar-style'
+import type { ImageSource } from '../common/type-common'
 
-export default class AvatarsPair extends PureComponent {
+// TODO:KS Add types and tests for this component
+// change the name of the file to match our convention of snake-case
+// move this component to it's own folder, add type, tests, etc.
+export default class AvatarsPair extends PureComponent<*, void> {
+  renderAvatarWithSource = (avatarSource: ImageSource | number) => (
+    <Avatar
+      medium
+      shadow
+      src={avatarSource}
+      testID={`avatars-pair-avatars-invitee`}
+    />
+  )
+
   render() {
-    const {
-      avatarLeft,
-      middleImage,
-      middleImageStyle,
-      avatarRight,
-      testID,
-    } = this.props
+    const { middleImage, middleImageStyle, avatarRight, testID } = this.props
     return (
       <CustomView
         row
@@ -21,14 +30,7 @@ export default class AvatarsPair extends PureComponent {
         style={[styles.avatarsContainer]}
         testID={`${testID}-text-avatars-container`}
       >
-        {avatarLeft && (
-          <Avatar
-            medium
-            shadow
-            src={avatarLeft}
-            testID={`${testID}-text-avatars-invitee`}
-          />
-        )}
+        <UserAvatar>{this.renderAvatarWithSource}</UserAvatar>
         {middleImage && (
           <Image
             style={[styles.checkMark, middleImageStyle && middleImageStyle]}
@@ -52,7 +54,7 @@ export default class AvatarsPair extends PureComponent {
 const styles = StyleSheet.create({
   avatarsContainer: {
     marginVertical: OFFSET_1X,
-    marginHorizontal: isiPhone ? OFFSET_1X : OFFSET_2X,
+    marginHorizontal: isiPhone5 ? OFFSET_1X : OFFSET_2X,
   },
   checkMark: {
     width: 30,

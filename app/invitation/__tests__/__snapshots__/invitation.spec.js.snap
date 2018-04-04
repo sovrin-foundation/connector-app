@@ -169,51 +169,70 @@ exports[`<Invitation /> should match snapshot 1`] = `
                 vCenter={true}
               >
                 <View
-                  imageShadow="imageShadow"
-                  style={
-                    Object {
-                      "borderRadius": 38,
-                      "shadowColor": "rgba(0, 0, 0, 0.25)",
-                      "shadowOffset": Object {
-                        "height": 3,
-                        "width": 0,
-                      },
-                      "shadowOpacity": 1,
-                      "shadowRadius": 8,
-                    }
-                  }
-                  testID="invitation-text-avatars-invitee"
+                  accessibilityComponentType={undefined}
+                  accessibilityLabel={undefined}
+                  accessibilityTraits={undefined}
+                  accessible={true}
+                  hitSlop={undefined}
+                  nativeID={undefined}
+                  onLayout={undefined}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  pointerEvents="box-only"
+                  style={undefined}
+                  testID={undefined}
                 >
-                  <Image
-                    accessibilityComponentType={undefined}
-                    accessibilityLabel={undefined}
-                    accessibilityTraits={undefined}
-                    accessible={true}
-                    hitSlop={undefined}
-                    nativeID={undefined}
-                    onError={undefined}
-                    onLayout={undefined}
-                    onLoad={undefined}
-                    onResponderGrant={[Function]}
-                    onResponderMove={[Function]}
-                    onResponderRelease={[Function]}
-                    onResponderTerminate={[Function]}
-                    onResponderTerminationRequest={[Function]}
-                    onStartShouldSetResponder={[Function]}
-                    source={1}
+                  <View
+                    imageShadow="imageShadow"
                     style={
-                      Array [
-                        Object {
-                          "height": 76,
-                          "width": 76,
+                      Object {
+                        "borderRadius": 38,
+                        "shadowColor": "rgba(0, 0, 0, 0.25)",
+                        "shadowOffset": Object {
+                          "height": 3,
+                          "width": 0,
                         },
-                        Object {
-                          "borderRadius": 38,
-                        },
-                      ]
+                        "shadowOpacity": 1,
+                        "shadowRadius": 8,
+                      }
                     }
-                    testID={undefined}
-                  />
+                    testID="invitation-text-avatars-invitee"
+                  >
+                    <Image
+                      accessibilityComponentType={undefined}
+                      accessibilityLabel={undefined}
+                      accessibilityTraits={undefined}
+                      accessible={true}
+                      hitSlop={undefined}
+                      nativeID={undefined}
+                      onError={undefined}
+                      onLayout={undefined}
+                      onLoad={undefined}
+                      onResponderGrant={[Function]}
+                      onResponderMove={[Function]}
+                      onResponderRelease={[Function]}
+                      onResponderTerminate={[Function]}
+                      onResponderTerminationRequest={[Function]}
+                      onStartShouldSetResponder={[Function]}
+                      source={1}
+                      style={
+                        Array [
+                          Object {
+                            "height": 76,
+                            "width": 76,
+                          },
+                          Object {
+                            "borderRadius": 38,
+                          },
+                        ]
+                      }
+                      testID={undefined}
+                    />
+                  </View>
                 </View>
                 <Image
                   source={1}
@@ -784,7 +803,7 @@ exports[`<Invitation /> should match snapshot 1`] = `
               "alignItems": "center",
               "flexDirection": "row",
               "justifyContent": "space-between",
-              "marginHorizontal": 20,
+              "marginHorizontal": 10,
               "marginVertical": 10,
             }
           }
@@ -792,51 +811,70 @@ exports[`<Invitation /> should match snapshot 1`] = `
           vCenter={true}
         >
           <View
-            imageShadow="imageShadow"
-            style={
-              Object {
-                "borderRadius": 38,
-                "shadowColor": "rgba(0, 0, 0, 0.25)",
-                "shadowOffset": Object {
-                  "height": 3,
-                  "width": 0,
-                },
-                "shadowOpacity": 1,
-                "shadowRadius": 8,
-              }
-            }
-            testID="invitation-text-avatars-invitee"
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hitSlop={undefined}
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            pointerEvents="box-only"
+            style={undefined}
+            testID={undefined}
           >
-            <Image
-              accessibilityComponentType={undefined}
-              accessibilityLabel={undefined}
-              accessibilityTraits={undefined}
-              accessible={true}
-              hitSlop={undefined}
-              nativeID={undefined}
-              onError={undefined}
-              onLayout={undefined}
-              onLoad={undefined}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              source={1}
+            <View
+              imageShadow="imageShadow"
               style={
-                Array [
-                  Object {
-                    "height": 76,
-                    "width": 76,
+                Object {
+                  "borderRadius": 38,
+                  "shadowColor": "rgba(0, 0, 0, 0.25)",
+                  "shadowOffset": Object {
+                    "height": 3,
+                    "width": 0,
                   },
-                  Object {
-                    "borderRadius": 38,
-                  },
-                ]
+                  "shadowOpacity": 1,
+                  "shadowRadius": 8,
+                }
               }
-              testID={undefined}
-            />
+              testID="avatars-pair-avatars-invitee"
+            >
+              <Image
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
+                accessible={true}
+                hitSlop={undefined}
+                nativeID={undefined}
+                onError={undefined}
+                onLayout={undefined}
+                onLoad={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "height": 76,
+                      "width": 76,
+                    },
+                    Object {
+                      "borderRadius": 38,
+                    },
+                  ]
+                }
+                testID={undefined}
+              />
+            </View>
           </View>
           <Image
             source={1}

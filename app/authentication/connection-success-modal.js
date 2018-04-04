@@ -40,7 +40,6 @@ export default class ConnectionSuccessModal extends PureComponent<
       >
         <AvatarsPair
           middleImage={require('../images/checkMark.png')}
-          avatarLeft={require('../images/UserAvatar.png')}
           avatarRight={connectionAvatar}
           testID={'invitation'}
         />
