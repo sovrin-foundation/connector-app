@@ -3,6 +3,7 @@ import React from 'react'
 import { View } from 'react-native'
 import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
+import ImagePicker from 'react-native-image-crop-picker'
 import {
   getStore,
   userAvatarImagePath,
@@ -18,7 +19,7 @@ describe('<ConnectedUserAvatar />', () => {
 
   function getProps(extraProps = {}) {
     return {
-      saveUserSelectedAvatar: jest.fn(),
+      selectUserAvatar: jest.fn(),
       ...extraProps,
     }
   }
@@ -63,16 +64,21 @@ describe('<ConnectedUserAvatar />', () => {
     })
   })
 
-  it('should raise user selected action if user selects an image', async () => {
+  it('should raise select avatar action if user can change image', () => {
     const extraProps = {
       userCanChange: true,
     }
     const { instance, props } = setup(extraProps)
-    await instance.changeAvatar()
-    expect(props.saveUserSelectedAvatar).toHaveBeenCalledWith(
-      userAvatarImagePath
-    )
+    instance.changeAvatar()
+    expect(props.selectUserAvatar).toHaveBeenCalledWith()
   })
 
-  it('should not raise user selected action if user cancels image selection', () => {})
+  it(`should not raise select avatar action if user can't change image`, () => {
+    const extraProps = {
+      userCanChange: false,
+    }
+    const { instance, props } = setup(extraProps)
+    instance.changeAvatar()
+    expect(props.selectUserAvatar).not.toHaveBeenCalled()
+  })
 })

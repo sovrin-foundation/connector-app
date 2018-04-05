@@ -25,6 +25,7 @@ import type { Store } from '../store/type-store'
 import type { SettingsProps } from './type-settings'
 import { tertiaryHeaderStyles } from '../components/layout/header-styles'
 import type { ImageSource } from '../common/type-common'
+import { selectUserAvatar } from '../store/user/user-store'
 
 const style = StyleSheet.create({
   container: {
@@ -90,6 +91,7 @@ export class Settings extends PureComponent<SettingsProps, void> {
         iconStyle={[style.editIcon, { tintColor: 'grey' }]}
         resizeMode={'contain'}
         src={require('../images/edit.png')}
+        onPress={this.props.selectUserAvatar}
       />
     )
 
@@ -147,11 +149,12 @@ export class Settings extends PureComponent<SettingsProps, void> {
         left: userAvatar,
         right: editIcon,
       },
-      {
-        id: 1,
-        left: userName,
-        right: editIcon,
-      },
+      // We don't need Name option for now, will add it later when story comes up
+      // {
+      //   id: 1,
+      //   left: userName,
+      //   right: editIcon,
+      // },
       {
         id: 2,
         left: passCode,
@@ -178,8 +181,11 @@ const mapStateToProps = (state: Store) => ({
   touchIdActive: state.lock.isTouchIdEnabled,
 })
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ selectUserAvatar }, dispatch)
+
 export default StackNavigator({
   [settingsRoute]: {
-    screen: connect(mapStateToProps, null)(Settings),
+    screen: connect(mapStateToProps, mapDispatchToProps)(Settings),
   },
 })

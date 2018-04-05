@@ -16,6 +16,8 @@ import userReducer, {
   saveUserSelectedAvatarFail,
   persistUserSelectedAvatar,
   hydrateUserSelectedAvatarImage,
+  selectUserAvatarSaga,
+  selectUserAvatarFail,
 } from '../user-store'
 import { initialTestAction } from '../../../common/type-common'
 import {
@@ -31,10 +33,12 @@ import {
   STORAGE_KEY_USER_AVATAR_NAME,
   ERROR_HYDRATE_USER_SELECTED_IMAGE,
   ERROR_SAVE_USER_SELECTED_IMAGE,
+  ERROR_SELECT_USER_AVATAR,
 } from '../type-user-store'
 import { setItem, getItem } from '../../../services/secure-storage'
 import { getUserAvatarName } from '../../store-selector'
 import { uuid } from '../../../services/uuid'
+import ImagePicker from 'react-native-image-crop-picker'
 
 jest.mock('../../../services/uuid')
 
@@ -275,6 +279,30 @@ describe('store: user-store: ', () => {
     const errorMessage = 'error getting user avatar name'
     expect(gen.throw(new Error(errorMessage)).value).toEqual(
       put(hydrateUserStoreFail(ERROR_HYDRATE_USER_SELECTED_IMAGE(errorMessage)))
+    )
+    expect(gen.next().done).toBe(true)
+  })
+
+  it('saga: selectUserAvatarSaga => success', () => {
+    const gen = selectUserAvatarSaga()
+    expect(gen.next().value).toEqual(
+      call(ImagePicker.openPicker, { mediaType: 'photo' })
+    )
+    expect(gen.next({ path: userAvatarImagePath }).value).toEqual(
+      put(saveUserSelectedAvatar(userAvatarImagePath))
+    )
+    expect(gen.next().done).toBe(true)
+  })
+
+  it('saga: selectUserAvatarSaga => failure', () => {
+    const gen = selectUserAvatarSaga()
+    expect(gen.next().value).toEqual(
+      call(ImagePicker.openPicker, { mediaType: 'photo' })
+    )
+    const errorMessage = 'image picker user cancelled'
+    const error = new Error(errorMessage)
+    expect(gen.throw(error).value).toEqual(
+      put(selectUserAvatarFail(ERROR_SELECT_USER_AVATAR(errorMessage)))
     )
     expect(gen.next().done).toBe(true)
   })

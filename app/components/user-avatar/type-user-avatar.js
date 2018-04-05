@@ -5,7 +5,7 @@ import type { GenericObject, ImageSource } from '../../common/type-common'
 
 export type UserAvatarProps = {
   userCanChange?: boolean,
-  saveUserSelectedAvatar: (imagePath: string) => void,
+  selectUserAvatar: () => void,
   avatarName?: ?ImageSource,
   children?: (avatarSource: ImageSource | number) => React.Element<*>,
 }

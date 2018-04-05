@@ -3,6 +3,7 @@ import { put, takeLatest, call, all, select } from 'redux-saga/effects'
 import { AsyncStorage } from 'react-native'
 import type { Saga } from 'redux-saga'
 import RNFetchBlob from 'react-native-fetch-blob'
+import ImagePicker from 'react-native-image-crop-picker'
 
 import { setItem, getItem, deleteItem } from '../../services/secure-storage'
 import {
@@ -20,6 +21,9 @@ import {
   SAVE_USER_SELECTED_AVATAR_SUCCESS,
   STORAGE_KEY_USER_AVATAR_NAME,
   ERROR_HYDRATE_USER_SELECTED_IMAGE,
+  SELECT_USER_AVATAR,
+  SELECT_USER_AVATAR_FAIL,
+  ERROR_SELECT_USER_AVATAR,
 } from './type-user-store'
 import type {
   UserStore,
@@ -199,8 +203,38 @@ export function* watchSaveUserSelectedAvatar(): any {
   yield takeLatest(SAVE_USER_SELECTED_AVATAR, saveUserSelectedAvatarSaga)
 }
 
+export const selectUserAvatar = () => ({
+  type: SELECT_USER_AVATAR,
+})
+
+export const selectUserAvatarFail = (error: CustomError) => ({
+  type: SELECT_USER_AVATAR_FAIL,
+  error,
+})
+
+export function* selectUserAvatarSaga(): Generator<*, *, *> {
+  try {
+    const image = yield call(ImagePicker.openPicker, {
+      mediaType: 'photo',
+    })
+    yield put(saveUserSelectedAvatar(image.path))
+  } catch (e) {
+    // TODO:KS Don't know what to do if image is not picked
+    // or we get some error, there is no UI to communicate these errors
+    yield put(selectUserAvatarFail(ERROR_SELECT_USER_AVATAR(e.message)))
+  }
+}
+
+export function* watchSelectUserAvatar(): any {
+  yield takeLatest(SELECT_USER_AVATAR, selectUserAvatarSaga)
+}
+
 export function* watchUserStore(): Saga<void> {
-  yield all([watchConnectRegisterCreateAgent(), watchSaveUserSelectedAvatar()])
+  yield all([
+    watchConnectRegisterCreateAgent(),
+    watchSaveUserSelectedAvatar(),
+    watchSelectUserAvatar(),
+  ])
 }
 
 export default function user(

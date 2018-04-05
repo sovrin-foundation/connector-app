@@ -3,12 +3,11 @@ import React, { PureComponent } from 'react'
 import { Image, TouchableWithoutFeedback, View } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import ImagePicker from 'react-native-image-crop-picker'
 import RNFetchBlob from 'react-native-fetch-blob'
 
 import { Icon } from '../index'
 
-import { saveUserSelectedAvatar } from '../../store/user/user-store'
+import { selectUserAvatar } from '../../store/user/user-store'
 import { getUserAvatarSource } from '../../store/store-selector'
 
 import type { UserAvatarProps } from './type-user-avatar'
@@ -17,22 +16,12 @@ import type { Store } from '../../store/type-store'
 const defaultAvatar = require('../../images/UserAvatar.png')
 
 export class UserAvatar extends PureComponent<UserAvatarProps, void> {
-  changeAvatar = async () => {
+  changeAvatar = () => {
     if (!this.props.userCanChange) {
       return
     }
 
-    try {
-      const image = await ImagePicker.openPicker({
-        mediaType: 'photo',
-      })
-      this.props.saveUserSelectedAvatar(image.path)
-    } catch (e) {
-      // TODO:KS Don't know what to do if image is not picked
-      // or we get some error, there is no UI to communicate these errors
-      // so, for now, just log these things
-      console.log(e)
-    }
+    this.props.selectUserAvatar()
   }
 
   render() {
@@ -68,6 +57,6 @@ const mapStateToProps = (state: Store) => ({
 })
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ saveUserSelectedAvatar }, dispatch)
+  bindActionCreators({ selectUserAvatar }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserAvatar)

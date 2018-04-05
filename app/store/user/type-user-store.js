@@ -71,6 +71,17 @@ export type SaveUserSelectedAvatarFailAction = {
   error: CustomError,
 }
 
+export const SELECT_USER_AVATAR = 'SELECT_USER_AVATAR'
+export type SelectUserAvatarAction = {
+  type: typeof SELECT_USER_AVATAR,
+}
+
+export const SELECT_USER_AVATAR_FAIL = 'SELECT_USER_AVATAR_FAIL'
+export type SelectUserAvatarFailAction = {
+  type: typeof SELECT_USER_AVATAR_FAIL,
+  error: CustomError,
+}
+
 export const USER_AVATAR_IMAGE_NAME = 'user-avatar'
 
 export type UserStoreAction =
@@ -81,6 +92,8 @@ export type UserStoreAction =
   | SaveUserSelectedAvatarAction
   | SaveUserSelectedAvatarSuccessAction
   | SaveUserSelectedAvatarFailAction
+  | SelectUserAvatarAction
+  | SelectUserAvatarFailAction
   | InitialTestAction
 
 export const STORAGE_KEY_USER_ONE_TIME_INFO = 'STORAGE_KEY_USER_ONE_TIME_INFO'
@@ -104,4 +117,9 @@ export const ERROR_SAVE_USER_SELECTED_IMAGE = (message: string) => ({
 export const ERROR_HYDRATE_USER_SELECTED_IMAGE = (message: string) => ({
   message: `Failed to get user avatar: ${message}`,
   code: 'US-004',
+})
+
+export const ERROR_SELECT_USER_AVATAR = (message: string) => ({
+  message: `Failed to select user avatar: ${message}`,
+  code: 'US-005',
 })
