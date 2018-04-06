@@ -4,7 +4,14 @@ import { StyleSheet, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { Container, CustomView, CustomText, Separator, Icon } from '../index'
+import {
+  Container,
+  CustomView,
+  CustomText,
+  Separator,
+  Icon,
+  CustomSafeAreaView,
+} from '../index'
 import { OFFSET_1X, OFFSET_3X } from '../../common/styles'
 import { getUserAvatarSource } from '../../store/store-selector'
 import type { CustomListProps, Item } from './type-custom-list'
@@ -95,7 +102,8 @@ export class CustomList extends PureComponent<CustomListProps, void> {
   render() {
     const items: Item[] = this.props.items
     return (
-      <Container fifth>
+      //TODO : fix other customSafeAreaView , use prop
+      <Container safeArea fifth>
         <FlatList
           data={items}
           keyExtractor={this.keyExtractor}

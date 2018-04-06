@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions, Platform } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import type { ConnectionHistoryDetailsProps } from './type-connection-history'
 import {
@@ -12,12 +12,19 @@ import {
   ConnectionTheme,
   CustomDate,
   Icon,
+  CustomSafeAreaView,
 } from '../components'
 import {
   connectionHistoryDetailsRoute,
   connectionHistoryRoute,
 } from '../common'
-import { OFFSET_1X, OFFSET_3X, OFFSET_9X } from '../common/styles/constant'
+import {
+  OFFSET_1X,
+  OFFSET_3X,
+  OFFSET_9X,
+  OFFSET_2X,
+  iPhoneXHeight,
+} from '../common/styles/constant'
 
 const styles = StyleSheet.create({
   headerContent: {
@@ -28,9 +35,6 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     minHeight: 109,
-  },
-  containerStyle: {
-    marginTop: OFFSET_9X / 2,
   },
 })
 
@@ -106,13 +110,31 @@ export class ConnectionHistoryDetails extends PureComponent<
     ],
   })
 
+  getContainerStyle = (deviceClass: string) => {
+    if (deviceClass === 'IphoneX') {
+      return {
+        marginTop: OFFSET_2X,
+      }
+    }
+    return {
+      marginTop: OFFSET_9X / 2,
+    }
+  }
+
   render() {
+    const { height } = Dimensions.get('window')
+
+    const deviceClass =
+      Platform.OS === 'ios'
+        ? height === iPhoneXHeight ? 'IphoneX' : 'ios'
+        : 'android'
+
     if (this.props.navigation.state) {
       const { type, data, claimMap } = this.props.navigation.state.params
       const listType = type === 'CLAIM' ? 'center' : 'end'
 
       return (
-        <Container style={[styles.containerStyle]}>
+        <Container style={[this.getContainerStyle(deviceClass)]}>
           {data && (
             <CustomList items={data} type={listType} claimMap={claimMap} />
           )}
