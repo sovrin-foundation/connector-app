@@ -28,6 +28,10 @@ export type Claim = {
   forDID: string,
 }
 
+export type ClaimWithUuid = Claim & {
+  claim_uuid: string,
+}
+
 export const CLAIM_RECEIVED = 'CLAIM_RECEIVED'
 export type ClaimReceivedAction = {
   type: typeof CLAIM_RECEIVED,
