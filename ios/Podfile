@@ -26,7 +26,7 @@ target 'ConnectMe' do
     'RCTWebSocket'
   ]
 
-  pod 'ConnectMeIndy', '0.0.33'
+  pod 'ConnectMeIndy', '0.0.34'
   pod 'Firebase/Messaging', '4.8.0'
   pod 'RNImageCropPicker', :path =>  '../node_modules/react-native-image-crop-picker'
   pod 'apptentive-ios'

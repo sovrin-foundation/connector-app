@@ -1,25 +1,24 @@
+// TODO: Add flow here.
 import React, { PureComponent } from 'react'
 import { Apptentive, ApptentiveConfiguration } from 'apptentive-react-native'
-import { apptentiveCredentials } from '../common'
+import { apptentiveCredentials } from './message-constants'
 
 const configuration = new ApptentiveConfiguration(
   apptentiveCredentials.apptentiveKey,
   apptentiveCredentials.apptentiveSignature
 )
-export default class Appten extends PureComponent {
+export default class ApptentiveMessage extends PureComponent {
   componentDidMount() {
-    configuration.logLevel = 'verbose'
+    if (__DEV__) configuration.logLevel = 'verbose'
     Apptentive.register(configuration)
       .then(() => {
-        Apptentive.onUnreadMessageCountChanged = count => {
-          this.setState({ unreadMessageCount: count })
-        }
         Apptentive.onAuthenticationFailed = reason => {
-          showAlert('Error', `Authentication failed:\n${reason}`)
+          if (__DEV__) console.log('Error', `Authentication failed:\n${reason}`)
         }
       })
       .catch(error => {
-        showAlert('Error', `Can't register Apptentive:\n${error.message}`)
+        if (__DEV__)
+          console.log('Error', `Can't register Apptentive:\n${error.message}`)
       })
   }
 
