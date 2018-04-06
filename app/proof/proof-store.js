@@ -43,7 +43,6 @@ import {
 import {
   getOriginalProofRequestData,
   getProofRequestPairwiseDid,
-  getClaimIssuerLogo,
   getPoolConfig,
   getProofRequesterName,
 } from '../store/store-selector'

@@ -11,7 +11,11 @@ import claimReducer, {
 } from '../claim-store'
 import { CLAIM_STORAGE_ERROR } from '../../services/error/error-code'
 import { addClaim, getClaim } from '../../bridge/react-native-cxs/RNCxs'
-import { getConnectionLogoUrl, getPoolConfig } from '../../store/store-selector'
+import {
+  getConnectionLogoUrl,
+  getPoolConfig,
+  getClaimMap,
+} from '../../store/store-selector'
 import {
   claim,
   claimWithUuid,
@@ -21,8 +25,10 @@ import {
   senderLogoUrl1,
   myPairWiseConnectionDetails,
   poolConfig,
+  claimMap,
 } from '../../../__mocks__/static-data'
 import { getItem, setItem } from '../../services/secure-storage'
+import type { ClaimWithUuid } from '../../claim/type-claim'
 
 describe('Claim Store', () => {
   let initialState = { claimMap: {} }
@@ -54,16 +60,16 @@ describe('Claim Store', () => {
   })
 
   it('claim storage workflow should work fine if storage is success', () => {
-    const gen = claimReceivedSaga(claimReceived(claimWithUuid))
+    const gen = claimReceivedSaga(claimReceived(claim))
 
     expect(gen.next().value).toEqual(select(getPoolConfig))
 
     expect(gen.next(poolConfig).value).toEqual(
-      call(addClaim, JSON.stringify(claimWithUuid), poolConfig)
+      call(addClaim, JSON.stringify(claim), poolConfig)
     )
 
     const claimFilterJSON = JSON.stringify({
-      issuer_DID: claimWithUuid.from_did,
+      issuer_DID: claim.issuer_did,
       schema_seq_no: claimDefinitionSchemaSequenceNumber,
     })
 
@@ -71,27 +77,24 @@ describe('Claim Store', () => {
       call(getClaim, claimFilterJSON, poolConfig)
     )
 
-    expect(gen.next(JSON.stringify(claimWithUuid)).value).toEqual(
-      select(getConnectionLogoUrl, claimWithUuid.from_did)
-    )
+    expect(gen.next(claimWithUuid).value).toEqual(select(getClaimMap))
 
-    expect(gen.next(senderLogoUrl1).value).toEqual(
-      put(
-        mapClaimToSender(
-          claimWithUuid.claim_uuid,
-          claimWithUuid.from_did,
-          claimWithUuid.forDID,
-          senderLogoUrl1
+    for (let c: ClaimWithUuid of claimWithUuid) {
+      if (!claimMap[c.claim_uuid]) {
+        expect(gen.next(JSON.stringify(claimMap)).value).toEqual(
+          select(getConnectionLogoUrl, c.from_did)
         )
-      )
-    )
-
-    expect(gen.next().value).toEqual(
-      put(claimStorageSuccess(claimWithUuid.messageId))
-    )
+        expect(gen.next(senderLogoUrl1).value).toEqual(
+          put(
+            mapClaimToSender(c.claim_uuid, c.from_did, c.forDID, senderLogoUrl1)
+          )
+        )
+        expect(gen.next().value).toEqual(put(claimStorageSuccess(c.messageId)))
+        break
+      }
+    }
 
     // TODO: Fix this
-    gen.next()
     gen.next()
 
     expect(gen.next().done).toBe(true)

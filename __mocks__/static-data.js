@@ -378,28 +378,30 @@ export const claim = {
   forDID: 'forDID',
 }
 
-export const claimWithUuid = {
-  messageId: '2',
-  claim: {
-    name: ['test', 'anon cred test'],
-    date_of_birth: ['20-2-1800', 'anon cred date'],
-  },
-  schema_seq_no: claimDefinitionSchemaSequenceNumber,
-  issuer_did: issuerDid,
-  signature: {
-    primary_claim: {
-      m2: 'm2',
-      a: 'a',
-      e: 'e',
-      v: 'v',
+export const claimWithUuid = [
+  {
+    messageId: '1',
+    claim: {
+      name: ['test', 'anon cred test'],
+      date_of_birth: ['20-2-1800', 'anon cred date'],
     },
+    schema_seq_no: claimDefinitionSchemaSequenceNumber,
+    issuer_did: issuerDid,
+    signature: {
+      primary_claim: {
+        m2: 'm2',
+        a: 'a',
+        e: 'e',
+        v: 'v',
+      },
+    },
+    remoteDid: 'remoteDid',
+    uid: claimOfferId,
+    from_did: 'from_did',
+    forDID: 'forDID',
+    claim_uuid: 'claim_uuid',
   },
-  remoteDid: 'remoteDid',
-  uid: claimOfferId,
-  from_did: 'from_did',
-  forDID: 'forDID',
-  claim_uuid: 'claim_uuid',
-}
+]
 
 export const proofRequestId = 'pid123'
 

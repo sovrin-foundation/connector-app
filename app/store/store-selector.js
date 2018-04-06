@@ -142,10 +142,7 @@ export const getRemotePairwiseDidAndName = (state: Store, userDid: string) => {
 
 export const getUserOneTimeInfo = (state: Store) => state.user.userOneTimeInfo
 
-export const getClaimIssuerLogo = (state: Store, claimUuid: string) => {
-  const senderDID = state.connections.claimMap[claimUuid]
-  return getConnectionLogoUrl(state, senderDID)
-}
+export const getClaimMap = (state: Store) => state.claim.claimMap
 
 export const getCurrentScreen = (state: Store) => state.route.currentScreen
 

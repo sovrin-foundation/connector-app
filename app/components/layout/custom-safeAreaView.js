@@ -1,6 +1,5 @@
 import React from 'react'
 import { SafeAreaView, StyleSheet } from 'react-native'
-import { CustomView } from './custom-view'
 import style from './layout-style'
 
 //Use this component to adjust the content within
