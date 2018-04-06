@@ -1,4 +1,3 @@
-// @flow
 import React, { PureComponent } from 'react'
 import { Apptentive, ApptentiveConfiguration } from 'apptentive-react-native'
 import { apptentiveCredentials } from '../common'
