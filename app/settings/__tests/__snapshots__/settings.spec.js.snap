@@ -475,6 +475,124 @@ exports[`user settings screen should render properly and snapshot should match 1
           />
         </View>
       </View>
+      <View
+        row={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "flexDirection": "row",
+            "marginVertical": 20,
+          }
+        }
+        vCenter={true}
+      >
+        <View
+          left={true}
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "flex": 1,
+            }
+          }
+        >
+          <View
+            row={true}
+            style={
+              Object {
+                "flexDirection": "row",
+              }
+            }
+          >
+            <View
+              clearBg={true}
+              iconStyle={
+                Array [
+                  Object {
+                    "marginRight": 10,
+                  },
+                  Object {
+                    "height": 30,
+                    "width": 30,
+                  },
+                  Object {
+                    "tintColor": "#85bf43",
+                  },
+                ]
+              }
+              src={1}
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                }
+              }
+            >
+              <Image
+                resizeMode="contain"
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "height": 50,
+                      "width": 50,
+                    },
+                    null,
+                    Object {
+                      "marginRight": 10,
+                    },
+                    Object {
+                      "height": 30,
+                      "width": 30,
+                    },
+                    Object {
+                      "tintColor": "#85bf43",
+                    },
+                  ]
+                }
+                testID={undefined}
+              />
+            </View>
+            <View
+              center={true}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={true}
+                ellipsizeMode="tail"
+                onPress={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "fontSize": 17,
+                    },
+                    Object {
+                      "fontFamily": "SF Pro Display",
+                    },
+                    Object {
+                      "backgroundColor": "#f0f0f0",
+                      "color": "#777777",
+                    },
+                    Object {
+                      "fontWeight": "600",
+                    },
+                    null,
+                    null,
+                  ]
+                }
+                testID="settings-chat-id-label"
+              >
+                Chat with us
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
     </View>
   </View>
 </View>

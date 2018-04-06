@@ -19,6 +19,7 @@ import {
   PASS_CODE_TEST_ID,
   TOUCH_ID_TEST_ID,
   USERNAME_TEST_ID,
+  CHAT_TEST_ID,
 } from './settings-constant'
 
 import type { Store } from '../store/type-store'
@@ -26,6 +27,7 @@ import type { SettingsProps } from './type-settings'
 import { tertiaryHeaderStyles } from '../components/layout/header-styles'
 import type { ImageSource } from '../common/type-common'
 import { selectUserAvatar } from '../store/user/user-store'
+import { Apptentive } from 'apptentive-react-native'
 
 const style = StyleSheet.create({
   container: {
@@ -66,6 +68,10 @@ export class Settings extends PureComponent<SettingsProps, void> {
         fromSettings: true,
       })
     }
+  }
+
+  onApptentive = () => {
+    Apptentive.presentMessageCenter()
   }
 
   static navigationOptions = {
@@ -143,6 +149,21 @@ export class Settings extends PureComponent<SettingsProps, void> {
         value={this.props.touchIdActive}
       />
     )
+
+    const onChat = (
+      <CustomView row>
+        <Icon
+          iconStyle={[style.labelImage, style.editIcon, { tintColor: mantis }]}
+          src={require('../images/icon_feedback.png')}
+        />
+        <CustomView center>
+          <SettingText onPress={this.onApptentive} testID={CHAT_TEST_ID}>
+            Chat with us
+          </SettingText>
+        </CustomView>
+      </CustomView>
+    )
+
     const itemList = [
       {
         id: 0,
@@ -164,6 +185,10 @@ export class Settings extends PureComponent<SettingsProps, void> {
         id: 3,
         left: touchId,
         right: toggleSwitch,
+      },
+      {
+        id: 4,
+        left: onChat,
       },
     ]
 
