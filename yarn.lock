@@ -194,10 +194,6 @@ append-transform@^0.4.0:
   dependencies:
     default-require-extensions "^1.0.0"
 
-apptentive-react-native@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/apptentive-react-native/-/apptentive-react-native-5.0.0.tgz#2abb18748989d963be1dc44e0d2b399a5ca1a110"
-
 aproba@^1.0.3:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/aproba/-/aproba-1.2.0.tgz#6802e6264efd18c790a1b0d517f0f2627bf2c94a"

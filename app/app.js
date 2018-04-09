@@ -9,7 +9,6 @@ import { barStyleLight, barStyleDark } from './common/styles/constant'
 import ConnectMeAppNavigator from './navigator'
 import { qrCodeScannerTabRoute } from './common'
 import { NavigationActions } from 'react-navigation'
-import { setupFeedback } from './feedback'
 
 // for now let's start adding flow type on file by file basis
 // once we have a lot of coverage for types
