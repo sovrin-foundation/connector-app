@@ -12,31 +12,31 @@ target 'ConnectMe' do
 # use_frameworks!
 
 # this is very important to have!
-rn_path = '../node_modules/react-native'
-pod 'yoga', path: "#{rn_path}/ReactCommon/yoga/yoga.podspec"
-pod 'React', path: rn_path, subspecs: [
-'Core',
-'RCTActionSheet',
-'RCTAnimation',
-'RCTGeolocation',
-'RCTImage',
-'RCTLinkingIOS',
-'RCTNetwork',
-'RCTSettings',
-'RCTText',
-'RCTVibration',
-'RCTWebSocket'
-]
+    rn_path = '../node_modules/react-native'
+    pod 'yoga', path: "#{rn_path}/ReactCommon/yoga/yoga.podspec"
+    pod 'React', path: rn_path, subspecs: [
+    'Core',
+    'RCTActionSheet',
+    'RCTAnimation',
+    'RCTGeolocation',
+    'RCTImage',
+    'RCTLinkingIOS',
+    'RCTNetwork',
+    'RCTSettings',
+    'RCTText',
+    'RCTVibration',
+    'RCTWebSocket'
+    ]
 
-pod 'RNImageCropPicker', :path =>  '../node_modules/react-native-image-crop-picker'
-pod 'apptentive-ios'
+    pod 'RNImageCropPicker', :path =>  '../node_modules/react-native-image-crop-picker'
+    pod 'apptentive-ios'
 
 # Pods for SimpleFcmClient
 
-target 'ConnectMeTests' do
-inherit! :search_paths
-# Pods for testing
-end
+    target 'ConnectMeTests' do
+        inherit! :search_paths
+        # Pods for testing
+    end
 
 end
 
@@ -46,11 +46,11 @@ end
 # 2) min requirment of ios 9.3
 # 3) also scrape use_frameworks from swift libraries that have it internally and add $(inherited) method
 
-    post_install do |installer|
-        installer.pods_project.targets.each do |target|
-    if target.name == "React"
-        target.remove_from_project
-    end
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        if target.name == "React"
+            target.remove_from_project
+        end
         target.build_configurations.each do |config|
             config.build_settings['CLANG_ENABLE_OBJC_WEAK'] ||= 'YES'
             config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.3'
@@ -60,4 +60,4 @@ end
             end
         end
     end
-    end
+end
