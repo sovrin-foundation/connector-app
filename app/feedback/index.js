@@ -8,7 +8,9 @@ const configuration = new ApptentiveConfiguration(
   apptentiveCredentials.apptentiveSignature
 )
 
-export default function ApptentiveMessage() {
+export const setupFeedback = ApptentiveMessage()
+
+function ApptentiveMessage() {
   if (__DEV__) configuration.logLevel = 'verbose'
   Apptentive.register(configuration)
     .then(() => {

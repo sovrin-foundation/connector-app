@@ -10,6 +10,7 @@ import { getConnections } from '../store'
 import { CLAIM_OFFER_STATUS } from '../claim-offer/type-claim-offer'
 import type { Store } from '../store/type-store'
 import type { HomeProps, HomeState } from './type-home'
+import { FEEDBACK_TEST_ID } from './home-constants'
 import { Apptentive } from 'apptentive-react-native'
 
 export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
@@ -29,6 +30,17 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
 
     return (
       <Container tertiary>
+        <Icon
+          medium
+          resizeMode={'contain'}
+          src={require('../images/icon_feedback1.png')}
+          onPress={() => Apptentive.presentMessageCenter()}
+          absoluteStyles
+          right
+          doubleVerticalSpace
+          horizontalSpace
+          testID={FEEDBACK_TEST_ID}
+        />
         <Container tertiary>
           {connections &&
             connections.length > 0 && (
@@ -42,14 +54,6 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
         <CustomView vCenter style={[styles.userAvatarContainer]}>
           <UserAvatar />
         </CustomView>
-        <View style={styles.floatIcon}>
-          <Icon
-            iconStyle={[styles.editIcon, { tintColor: 'grey' }]}
-            resizeMode={'contain'}
-            src={require('../images/icon_feedback1.png')}
-            onPress={() => Apptentive.presentMessageCenter()}
-          />
-        </View>
       </Container>
     )
   }
@@ -69,9 +73,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: OFFSET_1X,
     top: OFFSET_3X,
-  },
-  editIcon: {
-    width: OFFSET_3X,
-    height: OFFSET_3X,
   },
 })
