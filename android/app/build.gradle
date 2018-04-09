@@ -152,15 +152,18 @@ android {
 }
 
 dependencies {
-compile project(':react-native-touch-id')
+
+    compile 'com.google.firebase:firebase-messaging:11.8.0'
+    compile project(':react-native-touch-id')
     compile project(':react-native-fetch-blob')
     compile project(':react-native-camera')
     compile project(':react-native-sentry')
     compile project(':react-native-branch')
     compile project(':react-native-splash-screen')
-    compile fileTree(dir: "libs", include: ["*.jar"])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:25.0.0'
-    compile "com.facebook.react:react-native:+"  // From node_modules
+    compile 'com.facebook.react:react-native:+'
+    // From node_modules
     compile project(':react-native-vector-icons')
     compile project(':react-native-sensitive-info')
     compile project(':react-native-fcm')
@@ -174,3 +177,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+
+apply plugin: 'com.google.gms.google-services'
