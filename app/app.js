@@ -9,7 +9,7 @@ import { barStyleLight, barStyleDark } from './common/styles/constant'
 import ConnectMeAppNavigator from './navigator'
 import { qrCodeScannerTabRoute } from './common'
 import { NavigationActions } from 'react-navigation'
-import ApptentiveMessage from './apptentive-message'
+import ApptentiveMessage from './feedback'
 
 // for now let's start adding flow type on file by file basis
 // once we have a lot of coverage for types
@@ -49,6 +49,9 @@ class ConnectMeApp extends PureComponent {
     })
     this.navigatorRef.dispatch(navigateAction)
   }
+  componentDidMount() {
+    ApptentiveMessage()
+  }
 
   render() {
     return (
@@ -56,7 +59,6 @@ class ConnectMeApp extends PureComponent {
         <Container>
           <PushNotification navigateToRoute={this.navigateToRoute} />
           <DeepLink />
-          <ApptentiveMessage />
           <ConnectMeAppNavigator
             ref={navigatorRef => (this.navigatorRef = navigatorRef)}
             onNavigationStateChange={this.navigationChangeHandler}

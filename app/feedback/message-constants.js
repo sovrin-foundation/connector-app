@@ -1,3 +1,4 @@
+// @flow
 import { Platform } from 'react-native'
 
 export const apptentiveCredentials = Platform.select({
@@ -6,7 +7,7 @@ export const apptentiveCredentials = Platform.select({
     apptentiveSignature: '***REMOVED***',
   },
   android: {
-    apptentiveKey: '<YOUR_ANDROID_APPTENTIVE_KEY>',
-    apptentiveSignature: '<YOUR_ANDROID_APPTENTIVE_SIGNATURE>',
+    apptentiveKey: '***REMOVED***',
+    apptentiveSignature: '***REMOVED***',
   },
 })

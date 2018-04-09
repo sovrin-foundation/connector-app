@@ -70,7 +70,7 @@ export class Settings extends PureComponent<SettingsProps, void> {
     }
   }
 
-  onApptentive = () => {
+  openFeedback = () => {
     Apptentive.presentMessageCenter()
   }
 
@@ -157,7 +157,7 @@ export class Settings extends PureComponent<SettingsProps, void> {
           src={require('../images/icon_feedback.png')}
         />
         <CustomView center>
-          <SettingText onPress={this.onApptentive} testID={CHAT_TEST_ID}>
+          <SettingText onPress={this.openFeedback} testID={CHAT_TEST_ID}>
             Chat with us
           </SettingText>
         </CustomView>

@@ -1,6 +1,7 @@
 package com.connectme;
 
 import android.app.Application;
+import com.apptentive.android.sdk.reactlibrary.RNApptentivePackage;
 import com.surajit.rnrg.RNRadialGradientPackage;
 import com.facebook.react.ReactApplication;
 import com.rnfingerprint.FingerprintAuthPackage;
@@ -56,7 +57,8 @@ public class MainApplication extends Application implements ReactApplication {
             new Interactable(),
             new VectorIconsPackage(),
             new RNIndyPackage(),
-            new RNRadialGradientPackage()
+            new RNRadialGradientPackage(),
+            new RNApptentivePackage()
       );
     }
 
