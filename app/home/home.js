@@ -1,15 +1,17 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Animated, StyleSheet } from 'react-native'
+import { Animated, StyleSheet, View } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Container, CustomView, Icon, UserAvatar } from '../components'
 import Bubbles from './bubbles'
-import { barStyleDark, OFFSET_3X } from '../common/styles'
+import { barStyleDark, OFFSET_3X, OFFSET_1X } from '../common/styles'
 import { getConnections } from '../store'
 import { CLAIM_OFFER_STATUS } from '../claim-offer/type-claim-offer'
 import type { Store } from '../store/type-store'
 import type { HomeProps, HomeState } from './type-home'
+import { FEEDBACK_TEST_ID } from './home-constants'
+import { Apptentive } from 'apptentive-react-native'
 
 export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
   state = {
@@ -28,6 +30,16 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
 
     return (
       <Container tertiary>
+        <Icon
+          medium
+          src={require('../images/icon_feedback1.png')}
+          onPress={() => Apptentive.presentMessageCenter()}
+          absoluteStyles
+          right
+          doubleVerticalSpace
+          horizontalSpace
+          testID={FEEDBACK_TEST_ID}
+        />
         <Container tertiary>
           {connections &&
             connections.length > 0 && (

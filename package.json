@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "ajv": "^5.2.2",
+    "apptentive-react-native": "^5.0.0",
     "lodash.debounce": "^4.0.8",
     "lodash.groupby": "^4.6.0",
     "lodash.merge": "^4.6.0",
@@ -79,7 +80,7 @@
   "jest": {
     "preset": "react-native",
     "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|react-navigation|jest-fetch-mock)"
+      "node_modules/(?!(jest-)?react-native|react-navigation|jest-fetch-mock|apptentive-react-native)"
     ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "RelativeImageStub"
