@@ -69,9 +69,4 @@ const styles = StyleSheet.create({
   userAvatarContainer: {
     marginVertical: OFFSET_3X,
   },
-  floatIcon: {
-    position: 'absolute',
-    right: OFFSET_1X,
-    top: OFFSET_3X,
-  },
 })
