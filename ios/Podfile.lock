@@ -1,6 +1,6 @@
 PODS:
   - apptentive-ios (5.0.3)
-  - ConnectMeIndy (0.0.33):
+  - ConnectMeIndy (0.0.34):
     - libindy-objc (~> 1.3.1)
     - MPMessagePack (~> 1.4.3)
     - OpenSSL-Universal (~> 1.0.1.16)
@@ -78,7 +78,7 @@ PODS:
 
 DEPENDENCIES:
   - apptentive-ios
-  - ConnectMeIndy (= 0.0.33)
+  - ConnectMeIndy (= 0.0.34)
   - Firebase/Messaging (= 4.8.0)
   - React/Core (from `../node_modules/react-native`)
   - React/RCTActionSheet (from `../node_modules/react-native`)
@@ -104,7 +104,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   apptentive-ios: ad55e169a5ad1d1b999f4f9e996948a2227c1bce
-  ConnectMeIndy: db24d55e08a34cbddad27bad2bdcaae60e5d7893
+  ConnectMeIndy: 35be3691eae2344fef625ff26da9181af4fb98e5
   Firebase: 710decbbc6d9d48530e9a5dba3209740c3532e05
   FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
   FirebaseCore: 3c02ec652db3d03fdc8bc6d9154af3e20d64b6f5
@@ -123,6 +123,6 @@ SPEC CHECKSUMS:
   RSKImageCropper: 50d5a3e4160f0309b14d75b89d5ae2f496d56e0d
   yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
-PODFILE CHECKSUM: 27bccc1506791cac22812f322a51e18edd69faad
+PODFILE CHECKSUM: 5a7e81d660eb4a000a8fa79c3d204ea37366c1ed
 
 COCOAPODS: 1.4.0
