@@ -32,7 +32,6 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
       <Container tertiary>
         <Icon
           medium
-          resizeMode={'contain'}
           src={require('../images/icon_feedback1.png')}
           onPress={() => Apptentive.presentMessageCenter()}
           absoluteStyles
