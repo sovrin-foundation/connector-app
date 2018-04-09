@@ -546,8 +546,8 @@ exports[`<Request /> should match snapshot 1`] = `
                           "borderLeftWidth": 0.4,
                         },
                       ],
-                      undefined,
-                      undefined,
+                      false,
+                      false,
                     ]
                   }
                 >
@@ -584,7 +584,7 @@ exports[`<Request /> should match snapshot 1`] = `
                             "fontWeight": "bold",
                           },
                           undefined,
-                          undefined,
+                          false,
                         ],
                       ]
                     }
