@@ -36,7 +36,6 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
-    resizeMode="contain"
     right={true}
     src={1}
     style={
