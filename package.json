@@ -9,7 +9,9 @@
     "precommit": "lint-staged",
     "prepush": "npm test && npm run lint",
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
-    "coverage": "npm test -- --coverage"
+    "coverage": "npm test -- --coverage",
+    "test:e2e": "detox test -c ios.sim.release",
+    "test:e2e:build": "detox build"
   },
   "lint-staged": {
     "*.js": [
@@ -54,6 +56,8 @@
   "devDependencies": {
     "babel-jest": "22.2.0",
     "babel-preset-react-native": "4.0.0",
+    "child-process-async": "^1.0.1",
+    "detox": "^7.3.3",
     "eslint": "^3.19.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
@@ -84,6 +88,22 @@
     "setupFiles": [
       "<rootDir>/__mocks__/setup.js"
     ],
-    "coverageDirectory": "<rootDir>/coverage"
+    "coverageDirectory": "<rootDir>/coverage",
+    "testPathIgnorePatterns": [
+      "/e2e/",
+      "/node_modules/"
+    ]
+  },
+  "detox": {
+    "configurations": {
+      "ios.sim.release": {
+        "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/ConnectMe.app",
+        "build": "xcodebuild -workspace ios/ConnectMe.xcworkspace -scheme ConnectMe -configuration release -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone 7"
+      }
+    },
+    "test-runner": "jest",
+    "runner-config": "e2e/config.json"
   }
 }

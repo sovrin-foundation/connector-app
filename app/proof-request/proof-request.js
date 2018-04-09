@@ -681,7 +681,7 @@ const styles = StyleSheet.create({
     height: 87,
   },
   proofRequestData: {
-    zIndex: 3,
+    zIndex: -1,
   },
   attributeListLabel: {
     marginVertical: 2,

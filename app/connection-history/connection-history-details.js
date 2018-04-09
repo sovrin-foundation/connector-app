@@ -73,7 +73,7 @@ export class ConnectionHistoryDetails extends PureComponent<
     headerTitle: (
       <CustomView>
         {action && (
-          <CustomText transparentBg semiBold center>
+          <CustomText transparentBg center>
             {action}
           </CustomText>
         )}

@@ -21,10 +21,10 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
           "paddingTop": 30,
           "shadowColor": "#777777",
           "shadowOffset": Object {
-            "height": 10,
+            "height": 20,
             "width": 0,
           },
-          "shadowOpacity": 0.3,
+          "shadowOpacity": 0.2,
           "shadowRadius": 10,
           "zIndex": 4,
         }
@@ -397,7 +397,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
       Object {
         "backgroundColor": "#ffffff",
         "flex": 1,
-        "zIndex": 3,
+        "zIndex": -1,
       }
     }
   >
@@ -1204,8 +1204,8 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                           "borderLeftWidth": 0.4,
                         },
                       ],
-                      undefined,
-                      undefined,
+                      false,
+                      false,
                     ]
                   }
                 >
@@ -1242,7 +1242,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                             "fontWeight": "bold",
                           },
                           undefined,
-                          undefined,
+                          false,
                         ],
                       ]
                     }

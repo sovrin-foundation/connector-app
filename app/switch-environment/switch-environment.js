@@ -1,7 +1,7 @@
 //@flow
 import React, { PureComponent } from 'react'
 import { TouchableHighlight, Image, StyleSheet, TextInput } from 'react-native'
-import { Container, CustomView, CustomText } from '../components'
+import { Container, CustomView, CustomText, CustomButton } from '../components'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import type { Store } from '../store/type-store'
@@ -19,6 +19,8 @@ import type {
   SwitchEnvironmentState,
   SwitchEnvironmentProps,
 } from './type-switch-environment'
+import { baseUrls } from '../store/config-store'
+import { SERVER_ENVIRONMENT } from '../store/type-config-store'
 
 const styles = StyleSheet.create({
   TextInput: {
@@ -77,11 +79,41 @@ class SwitchEnvironment extends PureComponent<
     this.setState({ agencyDID, agencyUrl, agencyVerificationKey, poolConfig })
   }
 
+  onSwitchTap = (environment: string) => {
+    this.setState(baseUrls[environment])
+  }
+
   render() {
     const testID = 'switch-environment'
     return (
       <Container>
         <Container>
+          <CustomView row style={[style.buttonGroup]}>
+            <CustomButton
+              primary
+              title="DEV"
+              testID={`${testID}-dev`}
+              onPress={() => this.onSwitchTap(SERVER_ENVIRONMENT.DEVELOPMENT)}
+            />
+            <CustomButton
+              primary
+              title="SANDBOX"
+              testID={`${testID}-sandbox`}
+              onPress={() => this.onSwitchTap(SERVER_ENVIRONMENT.SANDBOX)}
+            />
+            <CustomButton
+              primary
+              title="STAGING"
+              testID={`${testID}-staging`}
+              onPress={() => this.onSwitchTap(SERVER_ENVIRONMENT.STAGING)}
+            />
+            <CustomButton
+              primary
+              title="DEMO"
+              testID={`${testID}-demo`}
+              onPress={() => this.onSwitchTap(SERVER_ENVIRONMENT.DEMO)}
+            />
+          </CustomView>
           <CustomText
             h7
             uppercase
@@ -180,3 +212,12 @@ const mapDispatchToProps = dispatch =>
   )
 
 export default connect(mapStateToProps, mapDispatchToProps)(SwitchEnvironment)
+
+const style = StyleSheet.create({
+  buttonGroup: {
+    marginTop: 20,
+    marginLeft: 10,
+    marginRight: 10,
+    justifyContent: 'space-between',
+  },
+})
