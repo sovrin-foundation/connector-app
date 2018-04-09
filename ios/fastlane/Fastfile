@@ -8,7 +8,7 @@ platform :ios do
   build_type = "QAConnectMe Build"
 
   before_all do
-     ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+     ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
   end
 
   lane :beta do

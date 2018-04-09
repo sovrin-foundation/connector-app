@@ -45,7 +45,7 @@ export class LockEnterPin extends PureComponent<
       nextProps.pendingRedirection
     ) {
       if (this.state.authenticationSuccess) {
-        // passing the nextProps in to the redirect funtion
+        // passing the nextProps in to the redirect function
         // the prop is being changed (pendingRedirection) from object to null
         // CLEAR_PENDING_REDIRECT clearing the pendingRedirection property to null
         // so, the previous props are being sent for the redirection
