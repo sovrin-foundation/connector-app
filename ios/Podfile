@@ -12,6 +12,8 @@ target 'ConnectMe' do
 # use_frameworks!
 
 # this is very important to have!
+    pod 'apptentive-ios', :git => 'https://github.com/nagad814/apptentive-ios.git'
+
     rn_path = '../node_modules/react-native'
     pod 'yoga', path: "#{rn_path}/ReactCommon/yoga/yoga.podspec"
     pod 'React', path: rn_path, subspecs: [
@@ -29,7 +31,6 @@ target 'ConnectMe' do
     ]
 
     pod 'RNImageCropPicker', :path =>  '../node_modules/react-native-image-crop-picker'
-    pod 'apptentive-ios'
 
 # Pods for SimpleFcmClient
 
@@ -48,9 +49,6 @@ end
 
 post_install do |installer|
     installer.pods_project.targets.each do |target|
-        if target.name == "React"
-            target.remove_from_project
-        end
         target.build_configurations.each do |config|
             config.build_settings['CLANG_ENABLE_OBJC_WEAK'] ||= 'YES'
             config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.3'
@@ -58,6 +56,9 @@ post_install do |installer|
                 config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)']
                 config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] << 'NO_USE_FRAMEWORKS=1'
             end
+        end
+        if target.name == "React"
+            target.remove_from_project
         end
     end
 end

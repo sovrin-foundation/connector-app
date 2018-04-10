@@ -77,7 +77,7 @@ PODS:
   - yoga (0.51.0.React)
 
 DEPENDENCIES:
-  - apptentive-ios
+  - apptentive-ios (from `https://github.com/nagad814/apptentive-ios.git`)
   - ConnectMeIndy (= 0.0.34)
   - Firebase/Messaging (= 4.8.0)
   - React/Core (from `../node_modules/react-native`)
@@ -95,6 +95,8 @@ DEPENDENCIES:
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
 EXTERNAL SOURCES:
+  apptentive-ios:
+    :git: https://github.com/nagad814/apptentive-ios.git
   React:
     :path: ../node_modules/react-native
   RNImageCropPicker:
@@ -102,8 +104,13 @@ EXTERNAL SOURCES:
   yoga:
     :path: ../node_modules/react-native/ReactCommon/yoga/yoga.podspec
 
+CHECKOUT OPTIONS:
+  apptentive-ios:
+    :commit: af655173af55822878b42f229ea7942e794e7fdc
+    :git: https://github.com/nagad814/apptentive-ios.git
+
 SPEC CHECKSUMS:
-  apptentive-ios: ad55e169a5ad1d1b999f4f9e996948a2227c1bce
+  apptentive-ios: 5285e206f754eb9424a7699befb0ea66e0278805
   ConnectMeIndy: 35be3691eae2344fef625ff26da9181af4fb98e5
   Firebase: 710decbbc6d9d48530e9a5dba3209740c3532e05
   FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
@@ -123,6 +130,6 @@ SPEC CHECKSUMS:
   RSKImageCropper: 50d5a3e4160f0309b14d75b89d5ae2f496d56e0d
   yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
-PODFILE CHECKSUM: 5a7e81d660eb4a000a8fa79c3d204ea37366c1ed
+PODFILE CHECKSUM: 60ca34bb10ff9dc3f1c10051d26b2c009e8cd9c3
 
 COCOAPODS: 1.4.0
