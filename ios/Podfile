@@ -46,7 +46,7 @@ end
 # 1) hence need week binding CLANG_ENABLE_OBJC_WEAK
 # 2) min requirment of ios 9.3
 # 3) also scrape use_frameworks from swift libraries that have it internally and add $(inherited) method
-
+#
 post_install do |installer|
     installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
