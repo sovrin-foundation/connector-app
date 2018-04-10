@@ -74,7 +74,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    entryFile: "index.js"
+        entryFile: "index.js"
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -95,30 +95,30 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 25
     buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "com.connectme"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
         manifestPlaceholders = [onesignal_app_id: "***REMOVED***",
-                              // Project number pulled from dashboard, local value is ignored.
-                              onesignal_google_project_number: "REMOTE",
-                              HOCKEYAPP_APP_ID: "***REMOVED***"]
+                                // Project number pulled from dashboard, local value is ignored.
+                                onesignal_google_project_number: "REMOTE",
+                                HOCKEYAPP_APP_ID: "***REMOVED***"]
     }
-    
+
     signingConfigs{
         release {
-            storeFile file(System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL"))
-            storePassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
-            keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
-            keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+//            storeFile file(System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL"))
+//            storePassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
+//            keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
+//            keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
         }
     }
     splits {
@@ -152,6 +152,8 @@ android {
 }
 
 dependencies {
+
+    compile 'com.google.firebase:firebase-messaging:11.8.0'
     compile project(':react-native-touch-id')
     compile project(':react-native-fetch-blob')
     compile project(':react-native-camera')
@@ -159,9 +161,10 @@ dependencies {
     compile project(':react-native-branch')
     compile project(':react-native-splash-screen')
     compile project(':apptentive-react-native')
-    compile fileTree(dir: "libs", include: ["*.jar"])
-    compile 'com.android.support:appcompat-v7:23.0.1'
-    compile "com.facebook.react:react-native:+"  // From node_modules
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.facebook.react:react-native:+'
+    // From node_modules
     compile project(':react-native-vector-icons')
     compile project(':react-native-sensitive-info')
     compile project(':react-native-fcm')
@@ -175,3 +178,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+
+apply plugin: 'com.google.gms.google-services'
