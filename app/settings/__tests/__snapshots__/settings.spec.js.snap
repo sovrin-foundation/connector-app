@@ -497,12 +497,33 @@ exports[`user settings screen should render properly and snapshot should match 1
           }
         >
           <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hitSlop={
+              Object {
+                "bottom": 20,
+                "left": 20,
+                "right": 20,
+                "top": 20,
+              }
+            }
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             row={true}
             style={
               Object {
                 "flexDirection": "row",
               }
             }
+            testID="settings-chat-id-label-touchable"
           >
             <View
               clearBg={true}
@@ -565,7 +586,6 @@ exports[`user settings screen should render properly and snapshot should match 1
                 accessible={true}
                 allowFontScaling={true}
                 ellipsizeMode="tail"
-                onPress={[Function]}
                 style={
                   Array [
                     Object {
@@ -585,7 +605,6 @@ exports[`user settings screen should render properly and snapshot should match 1
                     null,
                   ]
                 }
-                testID="settings-chat-id-label"
               >
                 Chat with us
               </Text>

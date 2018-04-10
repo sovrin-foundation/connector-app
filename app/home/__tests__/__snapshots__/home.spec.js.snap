@@ -11,59 +11,6 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
   tertiary={true}
 >
   <View
-    absoluteStyles={true}
-    accessibilityComponentType={undefined}
-    accessibilityLabel={undefined}
-    accessibilityTraits={undefined}
-    accessible={true}
-    clearBg={true}
-    doubleVerticalSpace={true}
-    hitSlop={
-      Object {
-        "bottom": 20,
-        "left": 20,
-        "right": 20,
-        "top": 20,
-      }
-    }
-    horizontalSpace={true}
-    medium={true}
-    nativeID={undefined}
-    onLayout={undefined}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    right={true}
-    src={1}
-    style={
-      Object {
-        "alignItems": "flex-end",
-        "backgroundColor": "transparent",
-        "paddingHorizontal": 15,
-        "paddingVertical": 16,
-      }
-    }
-    testID="home-feedback-id-label-touchable"
-  >
-    <Image
-      resizeMode="contain"
-      source={1}
-      style={
-        Array [
-          Object {
-            "height": 30,
-            "width": 30,
-          },
-          null,
-        ]
-      }
-      testID="home-feedback-id-label"
-    />
-  </View>
-  <View
     style={
       Object {
         "backgroundColor": "#f0f0f0",
@@ -225,6 +172,62 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
           ]
         }
         testID="user-avatar"
+      />
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "position": "absolute",
+        "right": 10,
+        "top": 30,
+      }
+    }
+  >
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel={undefined}
+      accessibilityTraits={undefined}
+      accessible={true}
+      clearBg={true}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      medium={true}
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      src={1}
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+      testID="home-feedback-id-label-touchable"
+    >
+      <Image
+        resizeMode="contain"
+        source={1}
+        style={
+          Array [
+            Object {
+              "height": 30,
+              "width": 30,
+            },
+            null,
+          ]
+        }
+        testID="home-feedback-id-label"
       />
     </View>
   </View>

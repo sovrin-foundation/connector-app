@@ -30,16 +30,6 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
 
     return (
       <Container tertiary>
-        <Icon
-          medium
-          src={require('../images/icon_feedback1.png')}
-          onPress={() => Apptentive.presentMessageCenter()}
-          absoluteStyles
-          right
-          doubleVerticalSpace
-          horizontalSpace
-          testID={FEEDBACK_TEST_ID}
-        />
         <Container tertiary>
           {connections &&
             connections.length > 0 && (
@@ -53,6 +43,14 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
         <CustomView vCenter style={[styles.userAvatarContainer]}>
           <UserAvatar />
         </CustomView>
+        <View style={styles.floatIcon}>
+          <Icon
+            medium
+            onPress={() => Apptentive.presentMessageCenter()}
+            testID={FEEDBACK_TEST_ID}
+            src={require('../images/icon_feedback1.png')}
+          />
+        </View>
       </Container>
     )
   }
@@ -67,5 +65,10 @@ export default connect(mapStateToProps)(DashboardScreen)
 const styles = StyleSheet.create({
   userAvatarContainer: {
     marginVertical: OFFSET_3X,
+  },
+  floatIcon: {
+    position: 'absolute',
+    right: OFFSET_1X,
+    top: OFFSET_3X,
   },
 })

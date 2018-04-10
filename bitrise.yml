@@ -41,7 +41,7 @@ workflows:
         - work_dir: "$FASTLANE_WORK_DIR"
     envs:
     - BITRISE_PROJECT_PATH: ios/ConnectMe.xcworkspace
-    - BITRISE_GIT_BRANCH: sec-apptentive
+    - BITRISE_GIT_BRANCH: master
   android:
     steps:
     - activate-ssh-key@3.1.1:

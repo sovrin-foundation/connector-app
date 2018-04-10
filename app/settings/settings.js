@@ -151,15 +151,13 @@ export class Settings extends PureComponent<SettingsProps, void> {
     )
 
     const onChat = (
-      <CustomView row>
+      <CustomView row onPress={this.openFeedback} testID={CHAT_TEST_ID}>
         <Icon
           iconStyle={[style.labelImage, style.editIcon, { tintColor: mantis }]}
           src={require('../images/icon_feedback.png')}
         />
         <CustomView center>
-          <SettingText onPress={this.openFeedback} testID={CHAT_TEST_ID}>
-            Chat with us
-          </SettingText>
+          <SettingText>Chat with us</SettingText>
         </CustomView>
       </CustomView>
     )
