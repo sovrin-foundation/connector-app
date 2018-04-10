@@ -48,7 +48,7 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
             medium
             onPress={() => Apptentive.presentMessageCenter()}
             testID={FEEDBACK_TEST_ID}
-            src={require('../images/icon_feedback1.png')}
+            src={require('../images/icon_feedback_grey.png')}
           />
         </View>
       </Container>
