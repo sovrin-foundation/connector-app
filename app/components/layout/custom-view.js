@@ -1,5 +1,10 @@
 import React from 'react'
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  SafeAreaView,
+} from 'react-native'
 import { color } from '../../common/styles/constant'
 import empty from '../../common/empty'
 import style from './layout-style'
@@ -36,12 +41,12 @@ export const CustomView = props => {
     absoluteFill,
     spaceAround,
     small,
+    safeArea,
   } = props
   const passedStyles = props.style || empty
   const absoluteStyles = absolute
     ? [style.absolute, style[`absolute${absolute}`]]
     : empty
-
   // TODO:KS We can keep same name as style and use it directly with props
   const styles = StyleSheet.flatten([
     clearBg ? style.transparentBg : null,
@@ -77,7 +82,11 @@ export const CustomView = props => {
   if (typeof props.testID === 'undefined') {
     delete filteredProps.testID
   }
-  const customView = (
+  const customView = safeArea ? (
+    <SafeAreaView {...filteredProps} style={styles}>
+      {filteredProps.children}
+    </SafeAreaView>
+  ) : (
     <View {...filteredProps} style={styles}>
       {filteredProps.children}
     </View>

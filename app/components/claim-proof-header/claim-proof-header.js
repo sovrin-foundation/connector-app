@@ -37,7 +37,7 @@ export default class ClaimProofHeader extends PureComponent<
     }: ClaimProofHeaderProps = this.props
 
     return (
-      <CustomSafeAreaView fifth>
+      <CustomSafeAreaView>
         <CustomView
           testID={`${testID}-header`}
           fifth
@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
   header: {
     paddingTop: (Platform.OS === 'ios' ? OFFSET_1X : 0) + 20,
     shadowColor: color.bg.secondary.color,
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.3,
+    shadowOffset: { width: 0, height: 20 },
+    shadowOpacity: 0.2,
     shadowRadius: 10,
     zIndex: 4,
   },

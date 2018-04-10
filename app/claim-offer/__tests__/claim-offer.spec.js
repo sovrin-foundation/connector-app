@@ -6,31 +6,10 @@ import { Provider } from 'react-redux'
 import { ClaimOffer } from '../claim-offer'
 import { CLAIM_OFFER_STATUS, CLAIM_REQUEST_STATUS } from '../type-claim-offer'
 import { color } from '../../common/styles'
+import { getStore } from '../../../__mocks__/static-data'
 
 describe('<ClaimOffer />', () => {
-  let store = {}
-  beforeAll(() => {
-    store = {
-      getState() {
-        return {
-          connections: {
-            connectionThemes: {
-              default: {
-                primary: `rgba(${color.actions.button.primary.rgba})`,
-                secondary: `rgba(${color.actions.button.secondary.rgba})`,
-              },
-            },
-          },
-        }
-      },
-      subscribe() {
-        return jest.fn()
-      },
-      dispatch() {
-        return jest.fn()
-      },
-    }
-  })
+  const store = getStore()
 
   let wrapper
   let claimOfferShown

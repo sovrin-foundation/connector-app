@@ -74,6 +74,7 @@ describe('<ProofRequest />', () => {
           claimMap={claimMap}
           missingAttributes={{}}
           userSelfAttestedAttributes={userSelfAttestedAttributes}
+          userAvatarSource={undefined}
         />
       </Provider>
     )

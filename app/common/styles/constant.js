@@ -25,6 +25,7 @@ const nobel = '#a0a0a0'
 const venetianRed = '#d0021b'
 export const veniceBlue = '#2A5270'
 export const hitSlop = { top: 15, bottom: 15, left: 15, right: 15 }
+export const iPhoneXHeight = 812
 const dodgerBlue = '#0d8ffc'
 const black = '#000000'
 const seaBuckthorn = '#f79347'

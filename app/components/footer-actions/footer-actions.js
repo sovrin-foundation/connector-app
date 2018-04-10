@@ -59,6 +59,7 @@ export class FooterActions extends PureComponent<FooterActionsProps, void> {
                   <CustomButton
                     primary
                     medium
+                    disabled={disableAccept}
                     title={acceptTitle}
                     onPress={onAccept}
                     testID={`${testID}-accept`}

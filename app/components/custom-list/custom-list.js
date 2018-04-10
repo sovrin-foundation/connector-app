@@ -4,11 +4,20 @@ import { StyleSheet, FlatList } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { Container, CustomView, CustomText, Separator, Icon } from '../index'
+import {
+  Container,
+  CustomView,
+  CustomText,
+  Separator,
+  Icon,
+  CustomSafeAreaView,
+} from '../index'
 import { OFFSET_1X, OFFSET_3X } from '../../common/styles'
+import { getUserAvatarSource } from '../../store/store-selector'
 import type { CustomListProps, Item } from './type-custom-list'
+import type { Store } from '../../store/type-store'
 
-export default class CustomList extends PureComponent<CustomListProps, void> {
+export class CustomList extends PureComponent<CustomListProps, void> {
   keyExtractor = ({ label }: Item, index: number) => `${label}${index}`
 
   renderListType1Item = ({ item, index }: { item: Item, index: number }) => {
@@ -53,7 +62,7 @@ export default class CustomList extends PureComponent<CustomListProps, void> {
           this.props.claimMap[item.claimUuid] &&
           this.props.claimMap[item.claimUuid].logoUrl
           ? { uri: this.props.claimMap[item.claimUuid].logoUrl }
-          : require('../../images/UserAvatar.png')
+          : this.props.avatarSource || require('../../images/UserAvatar.png')
         : null
 
       return (
@@ -91,9 +100,10 @@ export default class CustomList extends PureComponent<CustomListProps, void> {
   }
 
   render() {
-    const items: Array<Item> = this.props.items
+    const items: Item[] = this.props.items
     return (
-      <Container fifth>
+      //TODO : fix other customSafeAreaView , use prop
+      <Container safeArea fifth>
         <FlatList
           data={items}
           keyExtractor={this.keyExtractor}
@@ -105,6 +115,12 @@ export default class CustomList extends PureComponent<CustomListProps, void> {
     )
   }
 }
+
+const mapStateToProps = (state: Store) => ({
+  avatarSource: getUserAvatarSource(state.user.avatarName),
+})
+
+export default connect(mapStateToProps)(CustomList)
 
 const styles = StyleSheet.create({
   list: {

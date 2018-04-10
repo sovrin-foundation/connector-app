@@ -66,21 +66,30 @@ const historyIcons = {
 }
 
 const HistoryTitle = ({ action, name, theme }) => (
-  <CustomView row>
-    <CustomText
-      h5
-      semiBold
-      uppercase
-      bg="fifth"
-      style={[styles.listItemAction, { color: theme }]}
-    >
-      {action}
-    </CustomText>
-    {name && (
-      <CustomText h5 semiBold bg="fifth" style={[styles.listItemTitleEvent]}>
-        {` - ${name}`}
+  <CustomView>
+    <CustomView>
+      <CustomText
+        h5
+        semiBold
+        uppercase
+        bg="fifth"
+        style={[styles.listItemAction, { color: theme }]}
+      >
+        {action}
       </CustomText>
-    )}
+    </CustomView>
+    <CustomView>
+      {name && (
+        <CustomText
+          h5
+          semiBold
+          bg="fifth"
+          style={[styles.listItemTitleEvent, styles.listItemAction]}
+        >
+          {name}
+        </CustomText>
+      )}
+    </CustomView>
   </CustomView>
 )
 
@@ -375,7 +384,7 @@ const styles = StyleSheet.create({
     paddingVertical: OFFSET_1X,
   },
   listItemContainer: {
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
   },
   listItemAction: {
     marginLeft: OFFSET_1X,

@@ -19,6 +19,7 @@ import {
   ClaimProofHeader,
   Separator,
   FooterActions,
+  UserAvatar,
 } from '../components'
 import { homeRoute } from '../common/'
 import {
@@ -48,7 +49,10 @@ import {
   ignoreProofRequest,
   proofRequestShown,
 } from '../store'
-import { getConnectionLogoUrl } from '../store/store-selector'
+import {
+  getConnectionLogoUrl,
+  getUserAvatarSource,
+} from '../store/store-selector'
 import { ERROR_CODE_MISSING_ATTRIBUTE } from '../proof/type-proof'
 import type {
   GenericObject,
@@ -69,6 +73,7 @@ import {
   updateAttributeClaim,
   getProof,
 } from '../proof/proof-store'
+import type { ImageSource } from '../common/type-common'
 
 export function generateStateForMissingAttributes(
   missingAttributes: MissingAttributes | {}
@@ -175,7 +180,8 @@ class ProofRequestAttributeList extends PureComponent<
               this.props.claimMap[item.claimUuid] &&
               this.props.claimMap[item.claimUuid].logoUrl
               ? { uri: this.props.claimMap[item.claimUuid].logoUrl }
-              : require('../images/UserAvatar.png')
+              : this.props.userAvatarSource ||
+                require('../images/UserAvatar.png')
             : null
           const showInputBox =
             adjustedLabel in this.props.missingAttributes && !item.data
@@ -462,6 +468,20 @@ export class ProofRequest extends PureComponent<
     }
   }
 
+  renderAvatarWithSource = (avatarSource: number | ImageSource) => (
+    <Icon
+      center
+      halo
+      extraLarge
+      resizeMode="cover"
+      src={avatarSource}
+      style={[styles.verifierLogo]}
+      iconStyle={[styles.verifierLogoIcon]}
+      haloStyle={styles.logoHaloStyle}
+      testID="proof-request-verifier-logo"
+    />
+  )
+
   render() {
     const {
       data,
@@ -536,17 +556,7 @@ export class ProofRequest extends PureComponent<
               style={[styles.avatarsContainer]}
               testID={`${testID}-text-avatars-container`}
             >
-              <Icon
-                center
-                halo
-                extraLarge
-                resizeMode="cover"
-                src={require('../images/UserAvatar.png')}
-                style={[styles.verifierLogo]}
-                iconStyle={[styles.verifierLogoIcon]}
-                haloStyle={styles.logoHaloStyle}
-                testID={`${testID}-verifier-logo`}
-              />
+              <UserAvatar>{this.renderAvatarWithSource}</UserAvatar>
               <Image
                 style={[styles.checkMark]}
                 source={require('../images/icon_rightArrow.png')}
@@ -573,6 +583,7 @@ export class ProofRequest extends PureComponent<
           missingAttributes={missingAttributes}
           canEnablePrimaryAction={this.canEnablePrimaryAction}
           disableUserInputs={this.state.disableUserInputs}
+          userAvatarSource={this.props.userAvatarSource}
           updateSelectedClaims={this.updateSelectedClaims}
         />
         <FooterActions
@@ -623,6 +634,7 @@ const mapStateToProps = (state: Store, props) => {
     proofGenerationError,
     claimMap: state.claim.claimMap,
     missingAttributes,
+    userAvatarSource: getUserAvatarSource(state.user.avatarName),
   }
 }
 
@@ -669,7 +681,7 @@ const styles = StyleSheet.create({
     height: 87,
   },
   proofRequestData: {
-    zIndex: 3,
+    zIndex: -1,
   },
   attributeListLabel: {
     marginVertical: 2,

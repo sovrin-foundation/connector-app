@@ -17,7 +17,7 @@ import {
   claimOfferReceived,
   sendClaimRequest,
 } from '../app/claim-offer/claim-offer-store'
-import { claimReceived } from '../app/claim/claim-store'
+import { claimReceived, claimStorageSuccess } from '../app/claim/claim-store'
 import { saveNewConnectionSuccess } from '../app/store/connections-store'
 import {
   proofRequestReceived,
@@ -290,6 +290,30 @@ export const claimOfferPayload = {
   claimRequestStatus: 'CLAIM_REQUEST_SUCCESS',
 }
 
+export const pendingClaimHistory = {
+  action: 'PENDING',
+  data: [
+    {
+      label: 'Address 1',
+      data: 'Address Address Address',
+    },
+    {
+      label: 'Address 2',
+      data: 'Address 2 Address 2 Address 2',
+    },
+  ],
+  id: 'id',
+  name: 'Home Address',
+  status: 'PENDING',
+  timestamp: 'timestamp',
+  type: 'CLAIM',
+  remoteDid: 'ha66899sadfjZJGINKN0770',
+  originalPayload: {
+    type: 'CLAIM_RECEIVED',
+    messageId: claimOfferId,
+  },
+}
+
 export const claimOffer = {
   payload: {
     data: {
@@ -353,6 +377,31 @@ export const claim = {
   from_did: 'from_did',
   forDID: 'forDID',
 }
+
+export const claimWithUuid = [
+  {
+    messageId: '1',
+    claim: {
+      name: ['test', 'anon cred test'],
+      date_of_birth: ['20-2-1800', 'anon cred date'],
+    },
+    schema_seq_no: claimDefinitionSchemaSequenceNumber,
+    issuer_did: issuerDid,
+    signature: {
+      primary_claim: {
+        m2: 'm2',
+        a: 'a',
+        e: 'e',
+        v: 'v',
+      },
+    },
+    remoteDid: 'remoteDid',
+    uid: claimOfferId,
+    from_did: 'from_did',
+    forDID: 'forDID',
+    claim_uuid: 'claim_uuid',
+  },
+]
 
 export const proofRequestId = 'pid123'
 
@@ -817,6 +866,12 @@ export function getStore(store?: Store) {
           },
           claimMap: claimMap,
         },
+        user: {
+          isFetching: false,
+          error: null,
+          userOneTimeInfo,
+          avatarName: userAvatarImageName,
+        },
       }
     },
     dispatch() {
@@ -846,6 +901,8 @@ export const claimOfferReceivedEvent = claimOfferReceived(
 export const claimReceivedEvent = claimReceived(claim)
 
 export const sendClaimRequestEvent = sendClaimRequest(uid, claimOfferPayload)
+
+export const claimReceivedSuccessEvent = claimStorageSuccess(uid)
 
 export const proofRequestReceivedEvent = proofRequestReceived(
   proofRequest.payload,
@@ -1052,3 +1109,9 @@ export const getSmsPendingInvitationOfToken = (token: string) => ({
     payload: smsDownloadedPayload,
   },
 })
+
+export const defaultUUID = 'a4f35623-b50c-40ea-a2b0-f7cd06e03142'
+
+export const userAvatarImageName = `user-avatar.jpeg`
+
+export const userAvatarImagePath = `/var/application/DocumentDir/${userAvatarImageName}`

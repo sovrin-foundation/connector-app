@@ -30,33 +30,15 @@ trigger_map:
 workflows:
   primary:
     steps:
-    - activate-ssh-key@3.1.1:
-        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone@3.5.2: {}
-    - install-react-native@0.9.1: {}
     - yarn@0.0.4:
         inputs:
         - command: ''
         - args: ''
-    - react-native-bundle@1.0.3:
-        inputs:
-        - dev: 'false'
-        - entry_file: index.js
     - fastlane@2.3.9:
         inputs:
         - lane: "$FASTLANE_LANE"
         - work_dir: "$FASTLANE_WORK_DIR"
-    - script@1.1.4:
-        inputs:
-        - content: |-
-            #!/bin/bash
-            brew install maven
-            text=$(mvn clean install | awk '/Tests run:*/')
-            escapedText=$(echo $text | sed 's/"/\"/g' | sed "s/'/\'/g" )
-            json="{\"channel\": \"#connectme_build\", \"text\": \"$escapedText\"}"
-            curl -s -d "payload=$json" "https://hooks.slack.com/services/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"
-        - working_dir: "$MAVEN"
-    - deploy-to-bitrise-io@1.2.9: {}
     envs:
     - BITRISE_PROJECT_PATH: ios/ConnectMe.xcworkspace
     - BITRISE_GIT_BRANCH: master

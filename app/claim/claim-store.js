@@ -11,6 +11,7 @@ import type {
   ClaimMap,
   HydrateClaimMapAction,
   HydrateClaimMapFailAction,
+  ClaimWithUuid,
 } from './type-claim'
 import {
   CLAIM_RECEIVED,
@@ -24,7 +25,11 @@ import {
 import type { CustomError } from '../common/type-common'
 import { addClaim, getClaim } from '../bridge/react-native-cxs/RNCxs'
 import { CLAIM_STORAGE_ERROR } from '../services/error/error-code'
-import { getConnectionLogoUrl, getPoolConfig } from '../store/store-selector'
+import {
+  getConnectionLogoUrl,
+  getPoolConfig,
+  getClaimMap,
+} from '../store/store-selector'
 import { setItem, getItem } from '../services/secure-storage'
 import { CLAIM_MAP } from '../common/secure-storage-constants'
 import { RESET } from '../common/type-common'
@@ -61,26 +66,39 @@ export function* claimReceivedSaga(
       JSON.stringify(action.claim),
       poolConfig
     )
-    yield put(claimStorageSuccess(action.claim.messageId))
-    const claimString = yield call(getClaim, claimFilterJSON, poolConfig)
-    const { claim_uuid: claimUuid } = JSON.parse(claimString)
-    const logoUrl = yield select(getConnectionLogoUrl, senderDID)
-    yield put(mapClaimToSender(claimUuid, senderDID, myPairwiseDid, logoUrl))
 
-    // persist claimMap to secure storage
-    // TODO:PS: replace with fork redux-effect
-    let claimMap = yield call(getItem, CLAIM_MAP)
-    claimMap = claimMap ? JSON.parse(claimMap) : {}
+    const claims: Array<ClaimWithUuid> = yield call(
+      getClaim,
+      claimFilterJSON,
+      poolConfig
+    )
+    const claimMap: ClaimMap = yield select(getClaimMap)
 
-    Object.assign(claimMap, {
-      [claimUuid]: {
-        senderDID,
-        myPairwiseDid,
-        logoUrl,
-      },
-    })
+    // There will only be one claim which will be missing from claimMap
+    // thats why raising action from loop and it will run only once.
+    // We had to do this because api is returning all claims issued by a particular issuer
+    for (let c of claims) {
+      if (!claimMap[c.claim_uuid]) {
+        const logoUrl = yield select(getConnectionLogoUrl, senderDID)
+        yield put(
+          mapClaimToSender(c.claim_uuid, senderDID, myPairwiseDid, logoUrl)
+        )
+        yield put(claimStorageSuccess(action.claim.messageId))
 
-    yield call(setItem, CLAIM_MAP, JSON.stringify(claimMap))
+        // persist claimMap to secure storage
+        // TODO:PS: replace with fork redux-effect
+        Object.assign(claimMap, {
+          [c.claim_uuid]: {
+            senderDID,
+            myPairwiseDid,
+            logoUrl,
+          },
+        })
+
+        yield call(setItem, CLAIM_MAP, JSON.stringify(claimMap))
+        break
+      }
+    }
   } catch (e) {
     // we got error while saving claim in wallet, what to do now?
     yield put(claimStorageFail(action.claim.messageId, CLAIM_STORAGE_ERROR(e)))

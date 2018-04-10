@@ -34,17 +34,24 @@ App to connect Sovrin with 3rd party authentication
 - [Yarn](http://yarnpkg.com)
 - [Cocoa pods](http://cocoadocs.org)
 
+## Run functional automated test
+
+- `$ brew tap wix/brew && brew install applesimutils`
+- `$ npm i -g detox-cli`
+- Ensure that iphone 7 simulator is installed and running
+- Ensure that iphone 7 simulator has hardware keyboard disconnected. `Hardware -> Keyboard -> Un check 'Connect Hardware Keyboard'`
+- `$ npm run test:e2e:build && npm run test:e2e`
+
+> If you get an error in logs saying that `image not found`. Run `$ detox clean-framework-cache && detox build-framework-cache`, then run last command in above steps
+
 ## IDE
 - You may use any IDE you feel more comfortable with.
-- Our preferred IDE would be "VS Code" IDE with extensions like 
+- Our preferred IDE would be "VS Code" with extensions like 
   - Prettier - Code formatter (esbenp.prettier-vscode)
   - VS Code ES7 React/Redux/React-Native/JS snippets
   - Code Spell Checker (streetsidesoftware.code-spell-checker)
   - Better Comments (aaron-bond.better-comments)
   - Path Autocomplete (ionutvmi.path-autocomplete)
-
-# Things to remember
-- We are putting a restriction on length of data that can be passed in QR code
 
 # Things to improve
 
@@ -53,9 +60,6 @@ App to connect Sovrin with 3rd party authentication
 - [ ] Show loader when user accept/reject invitation
 - [ ] Need to consider scenario if user has not allowed permission for push notification or user disable the permission
 - [ ] We need to communicate to user on why we need push notification permission
-- [ ] Wallet implementation on mobile app is a huge stuff which is pending
-- [ ] Fix all skipped tests
-- [ ] Handle all API errors while downloading url, downloading data, accepting/rejecting as per new changes. As of now we are not doing that
 - [ ] Connections key should be remote DID and not user identifier
 - [ ] Remove passing newConnection while saving new connection
 - [ ] Save whole payload in connection instead of choosing selected props in connection store

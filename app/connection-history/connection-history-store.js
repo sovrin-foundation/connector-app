@@ -46,7 +46,7 @@ import type {
   SendClaimRequestAction,
   ClaimOfferPayload,
 } from '../claim-offer/type-claim-offer'
-import type { ClaimReceivedAction } from '../claim/type-claim'
+import type { ClaimStorageSuccessAction } from '../claim/type-claim'
 import { SEND_CLAIM_REQUEST } from '../claim-offer/type-claim-offer'
 import type {
   ProofRequestReceivedAction,
@@ -63,7 +63,7 @@ import {
   getClaimOffer,
   getPendingHistoryEvent,
 } from '../store/store-selector'
-import { CLAIM_RECEIVED } from '../claim/type-claim'
+import { CLAIM_STORAGE_SUCCESS } from '../claim/type-claim'
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
 import { RESET } from '../common/type-common'
 
@@ -163,16 +163,16 @@ export function convertSendClaimRequestToHistoryEvent(
 // TODO:KS Add claim accepted
 //export function convertClaimAcceptedToHistoryEvent(): ConnectionHistoryEvent {}
 
-export function convertClaimReceivedToHistoryEvent(
-  action: ClaimReceivedAction,
+export function convertClaimStorageSuccessToHistoryEvent(
+  action: ClaimStorageSuccessAction,
   claim: ClaimOfferPayload
 ): ConnectionHistoryEvent {
   return {
-    action: HISTORY_EVENT_STATUS[CLAIM_RECEIVED],
+    action: HISTORY_EVENT_STATUS[CLAIM_STORAGE_SUCCESS],
     data: claim.data.revealedAttributes,
     id: uuid(),
     name: claim.data.name,
-    status: HISTORY_EVENT_STATUS[CLAIM_RECEIVED],
+    status: HISTORY_EVENT_STATUS[CLAIM_STORAGE_SUCCESS],
     timestamp: moment().format(),
     type: HISTORY_EVENT_TYPE.CLAIM,
     remoteDid: claim.remotePairwiseDID,
@@ -253,13 +253,15 @@ export function* historyEventOccurredSaga(
       historyEvent = convertSendClaimRequestToHistoryEvent(event)
     }
 
-    if (event.type === CLAIM_RECEIVED) {
+    if (event.type === CLAIM_STORAGE_SUCCESS) {
       const claim: ClaimOfferPayload = yield select(
         getClaimOffer,
-        event.claim.claim_offer_id
+        event.messageId
       )
-      historyEvent = convertClaimReceivedToHistoryEvent(event, claim)
+      historyEvent = convertClaimStorageSuccessToHistoryEvent(event, claim)
+
       const pendingHistory = yield select(getPendingHistoryEvent, claim)
+
       yield put(deleteHistoryEvent(pendingHistory))
     }
 
