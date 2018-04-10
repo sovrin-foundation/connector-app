@@ -28,7 +28,7 @@ platform :ios do
         xcargs: "PROVISIONING_PROFILE_SPECIFIER='#{profile}' DEVELOPMENT_TEAM='ES8QU3D2A4'",
         clean: true
       )
-      remote_branch = ENV["BITRISE_GIT_BRANCH"]
+      remote_branch = git_branch
 
       if remote_branch == "master"
         hockey(api_token: ENV["QA_HOCKEYAPP_TOKEN"])
