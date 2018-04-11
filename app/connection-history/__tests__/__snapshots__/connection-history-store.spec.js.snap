@@ -217,12 +217,16 @@ Object {
   "action": "SHARED",
   "data": Array [
     Object {
-      "data": "address1",
-      "label": "address1",
+      "claimUuid": "claim::f760213b-e719-47fb-9669-b72c5c410e8c",
+      "data": "male",
+      "key": "attr2_uuid",
+      "label": "Address 2",
     },
     Object {
-      "data": "address2",
-      "label": "address2",
+      "claimUuid": "claim::f760213b-e719-47fb-9669-b72c5c410e8c",
+      "data": "Alex",
+      "key": "attr1_uuid",
+      "label": "Address 1",
     },
   ],
   "id": "a4f35623-b50c-40ea-a2b0-f7cd06e03142",
@@ -537,12 +541,16 @@ Object {
         "action": "SHARED",
         "data": Array [
           Object {
-            "data": "address1",
-            "label": "address1",
+            "claimUuid": "claim::f760213b-e719-47fb-9669-b72c5c410e8c",
+            "data": "male",
+            "key": "attr2_uuid",
+            "label": "Address 2",
           },
           Object {
-            "data": "address2",
-            "label": "address2",
+            "claimUuid": "claim::f760213b-e719-47fb-9669-b72c5c410e8c",
+            "data": "Alex",
+            "key": "attr1_uuid",
+            "label": "Address 1",
           },
         ],
         "id": "a4f35623-b50c-40ea-a2b0-f7cd06e03142",

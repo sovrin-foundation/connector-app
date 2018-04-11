@@ -44,6 +44,7 @@ import {
   proofRequestAutofillEvent,
   proofSharedEvent,
   proofRequestAutofill,
+  proof,
   uid,
 } from '../../../__mocks__/static-data'
 import { invitationRejected } from '../../invitation/invitation-store'
@@ -66,6 +67,7 @@ import {
 } from '../type-connection-history'
 import {
   getProofRequest,
+  getProof,
   getClaimOffer,
   getPendingHistoryEvent,
 } from '../../store/store-selector'
@@ -109,7 +111,11 @@ function getHistoryData() {
 
   // add history for proof sent
   sender1History.push(
-    convertProofSendToHistoryEvent(proofSharedEvent, proofRequestAutofill)
+    convertProofSendToHistoryEvent(
+      proofSharedEvent,
+      proofRequestAutofill,
+      proof
+    )
   )
 
   return {
@@ -235,9 +241,13 @@ describe('Store: ConnectionHistory', () => {
     expect(gen.next().value).toEqual(
       select(getProofRequest, proofSharedEvent.uid)
     )
+    expect(gen.next(proofRequestAutofill).value).toEqual(
+      select(getProof, proofSharedEvent.uid)
+    )
     historyEvent = convertProofSendToHistoryEvent(
       proofSharedEvent,
-      proofRequestAutofill
+      proofRequestAutofill,
+      proof
     )
   })
 
@@ -292,7 +302,11 @@ describe('Store: ConnectionHistory', () => {
 
   it('convertProofAutoFillToHistoryEvent should raise success', () => {
     expect(
-      convertProofSendToHistoryEvent(proofSharedEvent, proofRequestAutofill)
+      convertProofSendToHistoryEvent(
+        proofSharedEvent,
+        proofRequestAutofill,
+        proof
+      )
     ).toMatchSnapshot()
   })
 

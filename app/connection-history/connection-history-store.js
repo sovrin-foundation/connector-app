@@ -35,7 +35,11 @@ import type {
   DeleteHistoryEventAction,
 } from './type-connection-history'
 import type { Connection } from '../store/type-connection-store'
-import type { CustomError, GenericObject } from '../common/type-common'
+import type {
+  CustomError,
+  GenericObject,
+  GenericStringObject,
+} from '../common/type-common'
 import type { InvitationPayload } from '../invitation/type-invitation'
 import { uuid } from '../services/uuid'
 import { INVITATION_RECEIVED } from '../invitation/type-invitation'
@@ -47,6 +51,7 @@ import type {
   ClaimOfferPayload,
 } from '../claim-offer/type-claim-offer'
 import type { ClaimStorageSuccessAction } from '../claim/type-claim'
+import type { Proof } from '../proof/type-proof'
 import { SEND_CLAIM_REQUEST } from '../claim-offer/type-claim-offer'
 import type {
   ProofRequestReceivedAction,
@@ -60,6 +65,7 @@ import {
 import { setItem, getItem } from '../services/secure-storage'
 import {
   getProofRequest,
+  getProof,
   getClaimOffer,
   getPendingHistoryEvent,
 } from '../store/store-selector'
@@ -197,16 +203,55 @@ export function convertProofRequestToHistoryEvent(
   }
 }
 
+function mapSentAttributes(
+  revealedAttributes: Array<GenericStringObject>,
+  selfAttestedAttributes: Array<GenericStringObject>,
+  requestedAttributes: Array<Array<Attribute>>
+): Array<Attribute> {
+  let sentAttributes = []
+  if (revealedAttributes) {
+    const revealedAttributeKeys = Object.keys(revealedAttributes)
+    Object.values(revealedAttributes).forEach((revealedAttribute, index) => {
+      sentAttributes.push({
+        label: requestedAttributes[revealedAttributeKeys[index]].name,
+        key: revealedAttributeKeys[index],
+        data: revealedAttribute[1],
+        claimUuid: revealedAttribute[0],
+      })
+    })
+  }
+
+  if (selfAttestedAttributes) {
+    const selfAttestedAttributesKeys = Object.keys(selfAttestedAttributes)
+    Object.values(selfAttestedAttributes).forEach(
+      (selfAttestedAttribute, index) => {
+        sentAttributes.push({
+          label: requestedAttributes[selfAttestedAttributesKeys[index]].name,
+          key: selfAttestedAttributesKeys[index],
+          data: selfAttestedAttribute[1],
+        })
+      }
+    )
+  }
+  return sentAttributes
+}
+
 export function convertProofSendToHistoryEvent(
   action: SendProofSuccessAction,
   {
-    data: { name, requestedAttributes },
+    data: { name },
+    originalProofRequestData: { requested_attrs },
     remotePairwiseDID: remoteDid,
-  }: ProofRequestPayload
+  }: ProofRequestPayload,
+  { requested_proof: { revealed_attrs, self_attested_attrs } }: Proof
 ): ConnectionHistoryEvent {
   return {
     action: HISTORY_EVENT_STATUS[SEND_PROOF_SUCCESS],
-    data: requestedAttributes,
+    data: mapSentAttributes(
+      revealed_attrs,
+      self_attested_attrs,
+      requested_attrs
+    ),
     id: uuid(),
     name,
     status: HISTORY_EVENT_STATUS[SEND_PROOF_SUCCESS],
@@ -274,7 +319,8 @@ export function* historyEventOccurredSaga(
         getProofRequest,
         event.uid
       )
-      historyEvent = convertProofSendToHistoryEvent(event, proofRequest)
+      const proof: ProofRequestPayload = yield select(getProof, event.uid)
+      historyEvent = convertProofSendToHistoryEvent(event, proofRequest, proof)
     }
 
     if (historyEvent) {
@@ -300,8 +346,7 @@ export function* watchConnectionHistory(): Generator<*, *, *> {
 
 export default function connectionHistoryReducer(
   state: ConnectionHistoryStore = initialState,
-  //TODO : fix action should be connectionHistoryAction
-  action: GenericObject
+  action: HistoryEventOccurredEventType
 ) {
   switch (action.type) {
     case LOAD_HISTORY:
