@@ -175,11 +175,11 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
       />
     </View>
   </View>
-  <View
+  <RCTSafeAreaView
     style={
       Object {
         "position": "absolute",
-        "right": 10,
+        "right": 20,
         "top": 30,
       }
     }
@@ -230,6 +230,6 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
         testID="home-feedback-id-label"
       />
     </View>
-  </View>
+  </RCTSafeAreaView>
 </View>
 `;

@@ -1,11 +1,11 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Animated, StyleSheet, View } from 'react-native'
+import { Animated, StyleSheet, SafeAreaView } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Container, CustomView, Icon, UserAvatar } from '../components'
 import Bubbles from './bubbles'
-import { barStyleDark, OFFSET_3X, OFFSET_1X } from '../common/styles'
+import { barStyleDark, OFFSET_3X, OFFSET_2X } from '../common/styles'
 import { getConnections } from '../store'
 import { CLAIM_OFFER_STATUS } from '../claim-offer/type-claim-offer'
 import type { Store } from '../store/type-store'
@@ -43,14 +43,14 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
         <CustomView vCenter style={[styles.userAvatarContainer]}>
           <UserAvatar />
         </CustomView>
-        <View style={styles.floatIcon}>
+        <SafeAreaView style={styles.floatIcon}>
           <Icon
             medium
             onPress={() => Apptentive.presentMessageCenter()}
             testID={FEEDBACK_TEST_ID}
             src={require('../images/icon_feedback_grey.png')}
           />
-        </View>
+        </SafeAreaView>
       </Container>
     )
   }
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   floatIcon: {
     position: 'absolute',
-    right: OFFSET_1X,
+    right: OFFSET_2X,
     top: OFFSET_3X,
   },
 })
