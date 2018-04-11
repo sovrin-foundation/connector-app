@@ -1110,6 +1110,26 @@ export const getSmsPendingInvitationOfToken = (token: string) => ({
   },
 })
 
+export const connectionHistoryDetail = {
+  type: 'claim',
+  action: 'RECEIVED',
+  claimMap: claimMap,
+  data: [{ label: 'label', name: 'name' }],
+  id: 'dsfd',
+  image: senderLogoUrl,
+  name: 'name',
+  originalPayload: {
+    messageId: 'messageId',
+    type: 'CLAIM_STORAGE_SUCCESS',
+  },
+  remoteDid: 'remoteDid',
+  senderDID: 'senderDID',
+  senderName: 'DEV',
+  status: 'RECEIVED',
+  theme: activeConnectionThemePrimary,
+  timestamp: '2018-04-05T20:57:07+05:30',
+}
+
 export const defaultUUID = 'a4f35623-b50c-40ea-a2b0-f7cd06e03142'
 
 export const userAvatarImageName = `user-avatar.jpeg`

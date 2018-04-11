@@ -8,5 +8,205 @@ exports[`<ConnectionHistoryDetails /> should ConnectionHistoryDetails render pro
       "marginTop": 45,
     }
   }
-/>
+>
+  <RCTSafeAreaView
+    fifth={true}
+    safeArea={true}
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+        "flex": 1,
+      }
+    }
+  >
+    <RCTScrollView
+      ItemSeparatorComponent={[Function]}
+      ListFooterComponent={[Function]}
+      data={
+        Array [
+          Object {
+            "label": "label",
+            "name": "name",
+          },
+        ]
+      }
+      disableVirtualization={false}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      horizontal={false}
+      initialNumToRender={10}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      numColumns={1}
+      onContentSizeChange={[Function]}
+      onEndReachedThreshold={2}
+      onLayout={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      stickyHeaderIndices={Array []}
+      updateCellsBatchingPeriod={50}
+      viewabilityConfigCallbackPairs={Array []}
+      windowSize={21}
+    >
+      <View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            fifth={true}
+            row={true}
+            style={
+              Object {
+                "backgroundColor": "#ffffff",
+                "flex": 1,
+                "flexDirection": "row",
+                "paddingHorizontal": 15,
+              }
+            }
+          >
+            <View
+              fifth={true}
+              style={
+                Object {
+                  "backgroundColor": "#ffffff",
+                  "flex": 1,
+                  "paddingVertical": 8,
+                }
+              }
+              verticalSpace={true}
+            >
+              <View
+                fifth={true}
+                style={
+                  Object {
+                    "backgroundColor": "#ffffff",
+                  }
+                }
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {
+                        "fontSize": 12,
+                      },
+                      Object {
+                        "fontFamily": "SF Pro Display",
+                      },
+                      Object {
+                        "backgroundColor": "#f0f0f0",
+                        "color": "#333333",
+                      },
+                      Object {
+                        "fontWeight": "600",
+                      },
+                      null,
+                      Object {
+                        "backgroundColor": "transparent",
+                      },
+                      Object {
+                        "paddingVertical": 2,
+                      },
+                    ]
+                  }
+                  testID="custom-list-label-0"
+                >
+                  LABEL
+                </Text>
+              </View>
+              <View
+                fifth={true}
+                style={
+                  Object {
+                    "backgroundColor": "#ffffff",
+                  }
+                }
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {
+                        "fontSize": 15,
+                      },
+                      Object {
+                        "fontFamily": "SF Pro Display",
+                      },
+                      Object {
+                        "backgroundColor": "#f0f0f0",
+                        "color": "#333333",
+                      },
+                      Object {
+                        "fontWeight": "600",
+                      },
+                      null,
+                      Object {
+                        "backgroundColor": "transparent",
+                      },
+                    ]
+                  }
+                  testID="custom-list-data-0"
+                />
+              </View>
+            </View>
+            <View
+              center={true}
+              clearBg={true}
+              medium={true}
+              resizeMode="cover"
+              round={true}
+              src={null}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "transparent",
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Image
+                resizeMode="cover"
+                source={null}
+                style={
+                  Array [
+                    Object {
+                      "height": 30,
+                      "width": 30,
+                    },
+                    Object {
+                      "borderRadius": 15,
+                    },
+                  ]
+                }
+                testID={undefined}
+              />
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            style={
+              Object {
+                "backgroundColor": "#f0f0f0",
+                "height": 2,
+              }
+            }
+          />
+        </View>
+      </View>
+    </RCTScrollView>
+  </RCTSafeAreaView>
+</View>
 `;
