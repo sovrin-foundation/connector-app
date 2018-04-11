@@ -1,7 +1,11 @@
 // @flow
 import React from 'react'
 import 'react-native'
-import { ImageColorPicker, isAllowedColor } from '../image-color-picker'
+import {
+  ImageColorPicker,
+  isAllowedColor,
+  getImageType,
+} from '../image-color-picker'
 import renderer from 'react-test-renderer'
 
 function getProps() {
@@ -48,5 +52,12 @@ describe('<ImageColorPicker />', () => {
     expect(isAllowedColor(color)).toBe(false)
     color = [245, 245, 245]
     expect(isAllowedColor(color)).toBe(false)
+  })
+
+  it('should pick correct image extension', () => {
+    let imageUrl = 'a.jpG'
+    expect(getImageType(imageUrl)).toBe('JPEG')
+    imageUrl = 'a.jpG?'
+    expect(getImageType(imageUrl)).toBe('JPEG')
   })
 })

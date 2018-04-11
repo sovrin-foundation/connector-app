@@ -12,7 +12,7 @@ import { color, greyRGB } from '../../common/styles/constant'
 import { captureError } from '../../services/error/error-handler'
 import { canvasHtml } from './canvas-html'
 
-const LIGHT_COLOR_LUMINANCE_FACTOR = 170
+const LIGHT_COLOR_LUMINANCE_FACTOR = 190
 
 export function isAllowedColor(color: Array<*>): boolean {
   if (color.length < 3) {
@@ -31,6 +31,20 @@ export function isAllowedColor(color: Array<*>): boolean {
   return luminance < LIGHT_COLOR_LUMINANCE_FACTOR
 }
 
+const imageType = {
+  jpg: 'JPEG',
+  jpeg: 'JPEG',
+  png: 'PNG',
+  webp: 'WEBP',
+}
+
+export function getImageType(imageUrl: string) {
+  const parts = imageUrl.split('.')
+  const imageExtension = parts[parts.length - 1].toLowerCase()
+
+  return imageType[imageExtension] || imageType.jpg
+}
+
 export class ImageColorPicker extends PureComponent<
   ImagePickerProps,
   ImagePickerStates
@@ -45,11 +59,12 @@ export class ImageColorPicker extends PureComponent<
         'GET',
         imageUrl
       )
+      const type = getImageType(imageUrl)
       const resizedImage = await ImageResizer.createResizedImage(
         localCopy.path(),
         20,
         20,
-        'JPEG',
+        type,
         80
       )
       const base64EncodedImage = await RNFetchBlob.fs.readFile(
