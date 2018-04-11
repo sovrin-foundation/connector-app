@@ -49,6 +49,8 @@ import {
 import { deleteConnectionAction } from '../store/connections-store'
 import { getConnection } from '../store/store-selector'
 
+import debounce from 'lodash.debounce'
+
 const statusMsg = {
   ['PENDING']: 'Pending',
   ['CONNECTED']: 'Established on',
@@ -113,6 +115,23 @@ export class ConnectionHistory extends PureComponent<
   ConnectionHistoryProps,
   void
 > {
+  constructor(props) {
+    super(props)
+    this.connectionDetailHandlerDebounce = debounce(
+      ({ h, activeConnectionThemePrimary, senderName, image, senderDID }) => {
+        this.connectionDetailHandler({
+          h,
+          activeConnectionThemePrimary,
+          senderName,
+          image,
+          senderDID,
+        })
+      },
+      300,
+      { leading: true, trailing: false }
+    )
+  }
+
   connectionDetailHandler = (history: any) => {
     if (history.h.action === HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST]) {
       this.props.navigation.navigate(connectionHistoryPendingRoute, {
@@ -148,8 +167,8 @@ export class ConnectionHistory extends PureComponent<
     Alert.alert(
       `Delete ${senderName}?`,
       `Are you sure you want to delete ${senderName} as a connection? 
-        You will still keep the information they have given you, but you will not 
-        be able to contact them without re-establishing a new connection. Proceed?`,
+      You will still keep the information they have given you, but you will not 
+      be able to contact them without re-establishing a new connection. Proceed?`,
       [alertCancel, { text: 'Delete', onPress: () => this.delete(senderDID) }]
     )
   }
@@ -199,7 +218,7 @@ export class ConnectionHistory extends PureComponent<
                 }
               ),
             onPress: () => {
-              this.connectionDetailHandler({
+              this.connectionDetailHandlerDebounce({
                 h,
                 activeConnectionThemePrimary,
                 senderName,

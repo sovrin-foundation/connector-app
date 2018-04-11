@@ -8,6 +8,7 @@ import {
 import { color } from '../../common/styles/constant'
 import empty from '../../common/empty'
 import style from './layout-style'
+import debounce from 'lodash.debounce'
 
 // CustomView is used for different types of background for our app
 // default styles for a view such a padding, shadow or transparent background
@@ -98,7 +99,13 @@ export const CustomView = props => {
       touchProps.testID = `${props.testID}-touchable`
     }
     if (typeof onPress !== 'undefined') {
-      touchProps.onPress = onPress
+      touchProps.onPress = debounce(
+        event => {
+          onPress(event)
+        },
+        300,
+        { leading: true, trailing: false }
+      )
     }
     if (typeof onLongPress !== 'undefined') {
       touchProps.onLongPress = onLongPress

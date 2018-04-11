@@ -4,7 +4,19 @@ import { CustomView } from '../layout'
 import avatarStyle from './avatar-style'
 import empty from '../../common/empty'
 
+import debounce from 'lodash.debounce'
+
 export default class Avatar extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.onPressDebounce = debounce(
+      event => {
+        this.props.onPress(event)
+      },
+      300,
+      { leading: true, trailing: false }
+    )
+  }
   render() {
     const {
       small,
@@ -51,7 +63,7 @@ export default class Avatar extends PureComponent {
         style={elementStyle}
         testID={testID}
       >
-        <TouchableWithoutFeedback onPress={onPress}>
+        <TouchableWithoutFeedback onPress={this.onPressDebounce}>
           <Image
             source={src}
             style={elementContentStyle}

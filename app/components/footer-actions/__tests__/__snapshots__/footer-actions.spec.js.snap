@@ -9,161 +9,169 @@ exports[`<FooterActions /> match snapshot when hidePrimary is true 1`] = `
   }
 >
   <View
-    style={Object {}}
+    fifth={true}
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+      }
+    }
   >
     <View
-      customColor={
-        Object {
-          "backgroundColor": "rgba(119, 119, 119, 1.0)",
-        }
-      }
-      row={true}
-      style={
-        Object {
-          "flexDirection": "row",
-        }
-      }
+      style={Object {}}
     >
       <View
+        customColor={
+          Object {
+            "backgroundColor": "rgba(119, 119, 119, 1.0)",
+          }
+        }
+        row={true}
         style={
           Object {
-            "flex": 1,
+            "flexDirection": "row",
           }
         }
       >
         <View
-          style={Object {}}
+          style={
+            Object {
+              "flex": 1,
+            }
+          }
         >
           <View
-            style={
-              Array [
-                Object {
-                  "marginLeft": 15,
-                  "marginRight": 15,
-                },
-                undefined,
-                Object {
-                  "marginLeft": 0,
-                  "marginRight": 0,
-                },
-                undefined,
-              ]
-            }
+            style={Object {}}
           >
             <View
-              accessibilityComponentType={undefined}
-              accessibilityLabel={undefined}
-              accessibilityTraits={undefined}
-              accessible={true}
-              hasTVPreferredFocus={undefined}
-              hitSlop={undefined}
-              isTVSelectable={true}
-              nativeID={undefined}
-              onLayout={undefined}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
               style={
                 Array [
                   Object {
-                    "backgroundColor": "transparent",
+                    "marginLeft": 15,
+                    "marginRight": 15,
+                  },
+                  undefined,
+                  Object {
+                    "marginLeft": 0,
+                    "marginRight": 0,
                   },
                   undefined,
                 ]
               }
-              testID="test-deny"
-              tvParallaxProperties={undefined}
             >
               <View
-                pointerEvents="box-only"
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
+                accessible={true}
+                hasTVPreferredFocus={undefined}
+                hitSlop={undefined}
+                isTVSelectable={true}
+                nativeID={undefined}
+                onLayout={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
                 style={
                   Array [
                     Object {
-                      "alignItems": "center",
-                      "backgroundColor": "#9E9E9E",
-                      "flexDirection": "row",
-                      "justifyContent": "center",
-                      "padding": 19,
+                      "backgroundColor": "transparent",
                     },
-                    undefined,
-                    undefined,
-                    undefined,
-                    undefined,
-                    undefined,
-                    Object {
-                      "backgroundColor": "rgba(119, 119, 119, 1.0)",
-                    },
-                    undefined,
-                    Object {
-                      "padding": 12,
-                    },
-                    undefined,
-                    undefined,
-                    undefined,
-                    Array [
-                      Object {
-                        "paddingVertical": 17,
-                      },
-                    ],
-                    undefined,
                     undefined,
                   ]
                 }
+                testID="test-deny"
+                tvParallaxProperties={undefined}
               >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  ellipsizeMode="tail"
+                <View
+                  pointerEvents="box-only"
                   style={
                     Array [
-                      Object {},
+                      Object {
+                        "alignItems": "center",
+                        "backgroundColor": "#9E9E9E",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "padding": 19,
+                      },
                       undefined,
                       undefined,
                       undefined,
                       undefined,
                       undefined,
+                      Object {
+                        "backgroundColor": "rgba(119, 119, 119, 1.0)",
+                      },
                       undefined,
+                      Object {
+                        "padding": 12,
+                      },
                       undefined,
                       undefined,
                       undefined,
                       Array [
                         Object {
-                          "color": "white",
-                          "fontSize": 16,
+                          "paddingVertical": 17,
                         },
-                        Object {
-                          "color": "#ffffff",
-                        },
-                        Object {
-                          "fontSize": 14,
-                        },
-                        undefined,
-                        undefined,
-                        undefined,
-                        undefined,
-                        undefined,
                       ],
+                      undefined,
+                      undefined,
                     ]
                   }
                 >
-                  Deny
-                </Text>
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "white",
+                            "fontSize": 16,
+                          },
+                          Object {
+                            "color": "#ffffff",
+                          },
+                          Object {
+                            "fontSize": 14,
+                          },
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Deny
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
         </View>
       </View>
     </View>
-  </View>
-  <WebView
-    javaScriptEnabled={true}
-    onMessage={[Function]}
-    source={
-      Object {
-        "html": "
+    <WebView
+      javaScriptEnabled={true}
+      onMessage={[Function]}
+      source={
+        Object {
+          "html": "
     <!DOCTYPE html>
     <html>
     <script>
@@ -311,9 +319,10 @@ exports[`<FooterActions /> match snapshot when hidePrimary is true 1`] = `
     </body>
     </html>
   ",
+        }
       }
-    }
-  />
+    />
+  </View>
 </RCTSafeAreaView>
 `;
 
@@ -326,304 +335,312 @@ exports[`<FooterActions /> should match snapshot 1`] = `
   }
 >
   <View
-    style={Object {}}
+    fifth={true}
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+      }
+    }
   >
     <View
-      customColor={
-        Object {
-          "backgroundColor": "rgba(119, 119, 119, 1.0)",
-        }
-      }
-      row={true}
-      style={
-        Object {
-          "flexDirection": "row",
-        }
-      }
+      style={Object {}}
     >
       <View
+        customColor={
+          Object {
+            "backgroundColor": "rgba(119, 119, 119, 1.0)",
+          }
+        }
+        row={true}
         style={
           Object {
-            "flex": 1,
+            "flexDirection": "row",
           }
         }
       >
         <View
-          style={Object {}}
+          style={
+            Object {
+              "flex": 1,
+            }
+          }
         >
           <View
-            style={
-              Array [
-                Object {
-                  "marginLeft": 15,
-                  "marginRight": 15,
-                },
-                undefined,
-                Object {
-                  "marginLeft": 0,
-                  "marginRight": 0,
-                },
-                undefined,
-              ]
-            }
+            style={Object {}}
           >
             <View
-              accessibilityComponentType={undefined}
-              accessibilityLabel={undefined}
-              accessibilityTraits={undefined}
-              accessible={true}
-              hasTVPreferredFocus={undefined}
-              hitSlop={undefined}
-              isTVSelectable={true}
-              nativeID={undefined}
-              onLayout={undefined}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
               style={
                 Array [
                   Object {
-                    "backgroundColor": "transparent",
+                    "marginLeft": 15,
+                    "marginRight": 15,
+                  },
+                  undefined,
+                  Object {
+                    "marginLeft": 0,
+                    "marginRight": 0,
                   },
                   undefined,
                 ]
               }
-              testID="test-deny"
-              tvParallaxProperties={undefined}
             >
               <View
-                pointerEvents="box-only"
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
+                accessible={true}
+                hasTVPreferredFocus={undefined}
+                hitSlop={undefined}
+                isTVSelectable={true}
+                nativeID={undefined}
+                onLayout={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
                 style={
                   Array [
                     Object {
-                      "alignItems": "center",
-                      "backgroundColor": "#9E9E9E",
-                      "flexDirection": "row",
-                      "justifyContent": "center",
-                      "padding": 19,
+                      "backgroundColor": "transparent",
                     },
-                    undefined,
-                    undefined,
-                    undefined,
-                    undefined,
-                    undefined,
-                    Object {
-                      "backgroundColor": "rgba(119, 119, 119, 1.0)",
-                    },
-                    undefined,
-                    Object {
-                      "padding": 12,
-                    },
-                    undefined,
-                    undefined,
-                    undefined,
-                    Array [
-                      Object {
-                        "paddingVertical": 17,
-                      },
-                    ],
-                    undefined,
                     undefined,
                   ]
                 }
+                testID="test-deny"
+                tvParallaxProperties={undefined}
               >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  ellipsizeMode="tail"
+                <View
+                  pointerEvents="box-only"
                   style={
                     Array [
-                      Object {},
+                      Object {
+                        "alignItems": "center",
+                        "backgroundColor": "#9E9E9E",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "padding": 19,
+                      },
                       undefined,
                       undefined,
                       undefined,
                       undefined,
                       undefined,
+                      Object {
+                        "backgroundColor": "rgba(119, 119, 119, 1.0)",
+                      },
                       undefined,
+                      Object {
+                        "padding": 12,
+                      },
                       undefined,
                       undefined,
                       undefined,
                       Array [
                         Object {
-                          "color": "white",
-                          "fontSize": 16,
+                          "paddingVertical": 17,
                         },
-                        Object {
-                          "color": "#ffffff",
-                        },
-                        Object {
-                          "fontSize": 14,
-                        },
-                        undefined,
-                        undefined,
-                        undefined,
-                        undefined,
-                        undefined,
                       ],
+                      undefined,
+                      undefined,
                     ]
                   }
                 >
-                  Deny
-                </Text>
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "white",
+                            "fontSize": 16,
+                          },
+                          Object {
+                            "color": "#ffffff",
+                          },
+                          Object {
+                            "fontSize": 14,
+                          },
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Deny
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
         </View>
-      </View>
-      <View
-        style={
-          Object {
-            "flex": 1,
-          }
-        }
-      >
         <View
-          style={Object {}}
+          style={
+            Object {
+              "flex": 1,
+            }
+          }
         >
           <View
-            style={
-              Array [
-                Object {
-                  "marginLeft": 15,
-                  "marginRight": 15,
-                },
-                undefined,
-                Object {
-                  "marginLeft": 0,
-                  "marginRight": 0,
-                },
-                undefined,
-              ]
-            }
+            style={Object {}}
           >
             <View
-              accessibilityComponentType={undefined}
-              accessibilityLabel={undefined}
-              accessibilityTraits={undefined}
-              accessible={true}
-              hasTVPreferredFocus={undefined}
-              hitSlop={undefined}
-              isTVSelectable={true}
-              nativeID={undefined}
-              onLayout={undefined}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
               style={
                 Array [
                   Object {
-                    "backgroundColor": "transparent",
+                    "marginLeft": 15,
+                    "marginRight": 15,
                   },
-                  Array [
-                    Object {
-                      "borderLeftColor": "#ffffff",
-                      "borderLeftWidth": 0.4,
-                    },
-                  ],
+                  undefined,
+                  Object {
+                    "marginLeft": 0,
+                    "marginRight": 0,
+                  },
+                  undefined,
                 ]
               }
-              testID="test-accept"
-              tvParallaxProperties={undefined}
             >
               <View
-                pointerEvents="box-only"
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
+                accessible={true}
+                hasTVPreferredFocus={undefined}
+                hitSlop={undefined}
+                isTVSelectable={true}
+                nativeID={undefined}
+                onLayout={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
                 style={
                   Array [
                     Object {
-                      "alignItems": "center",
-                      "backgroundColor": "#9E9E9E",
-                      "flexDirection": "row",
-                      "justifyContent": "center",
-                      "padding": 19,
+                      "backgroundColor": "transparent",
                     },
-                    undefined,
-                    undefined,
-                    undefined,
-                    undefined,
-                    undefined,
-                    Object {
-                      "backgroundColor": "rgba(119, 119, 119, 1.0)",
-                    },
-                    undefined,
-                    Object {
-                      "padding": 12,
-                    },
-                    undefined,
-                    undefined,
-                    undefined,
                     Array [
-                      Object {
-                        "paddingVertical": 17,
-                      },
                       Object {
                         "borderLeftColor": "#ffffff",
                         "borderLeftWidth": 0.4,
                       },
                     ],
-                    false,
-                    false,
                   ]
                 }
+                testID="test-accept"
+                tvParallaxProperties={undefined}
               >
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  ellipsizeMode="tail"
+                <View
+                  pointerEvents="box-only"
                   style={
                     Array [
-                      Object {},
+                      Object {
+                        "alignItems": "center",
+                        "backgroundColor": "#9E9E9E",
+                        "flexDirection": "row",
+                        "justifyContent": "center",
+                        "padding": 19,
+                      },
                       undefined,
                       undefined,
                       undefined,
                       undefined,
                       undefined,
+                      Object {
+                        "backgroundColor": "rgba(119, 119, 119, 1.0)",
+                      },
                       undefined,
+                      Object {
+                        "padding": 12,
+                      },
                       undefined,
                       undefined,
                       undefined,
                       Array [
                         Object {
-                          "color": "white",
-                          "fontSize": 16,
+                          "paddingVertical": 17,
                         },
                         Object {
-                          "color": "#ffffff",
+                          "borderLeftColor": "#ffffff",
+                          "borderLeftWidth": 0.4,
                         },
-                        Object {
-                          "fontSize": 14,
-                        },
-                        undefined,
-                        undefined,
-                        Object {
-                          "fontWeight": "bold",
-                        },
-                        undefined,
-                        false,
                       ],
+                      false,
+                      false,
                     ]
                   }
                 >
-                  Connect
-                </Text>
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "white",
+                            "fontSize": 16,
+                          },
+                          Object {
+                            "color": "#ffffff",
+                          },
+                          Object {
+                            "fontSize": 14,
+                          },
+                          undefined,
+                          undefined,
+                          Object {
+                            "fontWeight": "bold",
+                          },
+                          undefined,
+                          false,
+                        ],
+                      ]
+                    }
+                  >
+                    Connect
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
         </View>
       </View>
     </View>
-  </View>
-  <WebView
-    javaScriptEnabled={true}
-    onMessage={[Function]}
-    source={
-      Object {
-        "html": "
+    <WebView
+      javaScriptEnabled={true}
+      onMessage={[Function]}
+      source={
+        Object {
+          "html": "
     <!DOCTYPE html>
     <html>
     <script>
@@ -771,8 +788,9 @@ exports[`<FooterActions /> should match snapshot 1`] = `
     </body>
     </html>
   ",
+        }
       }
-    }
-  />
+    />
+  </View>
 </RCTSafeAreaView>
 `;

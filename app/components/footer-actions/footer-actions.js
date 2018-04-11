@@ -40,38 +40,40 @@ export class FooterActions extends PureComponent<FooterActionsProps, void> {
       <CustomSafeAreaView
         style={[{ backgroundColor: this.props.activeConnectionThemePrimary }]}
       >
-        <ConnectionTheme logoUrl={logoUrl}>
-          <CustomView row>
-            <Container>
-              <ConnectionTheme logoUrl={logoUrl}>
-                <CustomButton
-                  primary
-                  medium
-                  title={denyTitle}
-                  onPress={onDecline}
-                  testID={`${testID}-deny`}
-                />
-              </ConnectionTheme>
-            </Container>
-            {!hidePrimary && (
+        <CustomView fifth>
+          <ConnectionTheme logoUrl={logoUrl}>
+            <CustomView row>
               <Container>
                 <ConnectionTheme logoUrl={logoUrl}>
                   <CustomButton
                     primary
                     medium
-                    disabled={disableAccept}
-                    title={acceptTitle}
-                    onPress={onAccept}
-                    testID={`${testID}-accept`}
-                    style={[styles.buttonStyle]}
-                    fontWeight="bold"
+                    title={denyTitle}
+                    onPress={onDecline}
+                    testID={`${testID}-deny`}
                   />
                 </ConnectionTheme>
               </Container>
-            )}
-          </CustomView>
-        </ConnectionTheme>
-        <ImageColorPicker imageUrl={logoUrl} />
+              {!hidePrimary && (
+                <Container>
+                  <ConnectionTheme logoUrl={logoUrl} disabled={disableAccept}>
+                    <CustomButton
+                      primary
+                      medium
+                      disabled={disableAccept}
+                      title={acceptTitle}
+                      onPress={onAccept}
+                      testID={`${testID}-accept`}
+                      style={[styles.buttonStyle]}
+                      fontWeight="bold"
+                    />
+                  </ConnectionTheme>
+                </Container>
+              )}
+            </CustomView>
+          </ConnectionTheme>
+          <ImageColorPicker imageUrl={logoUrl} />
+        </CustomView>
       </CustomSafeAreaView>
     )
   }

@@ -2,6 +2,7 @@ import React from 'react'
 import { Text, StyleSheet } from 'react-native'
 import empty from '../common/empty'
 import { color, font } from '../common/styles/constant'
+import debounce from 'lodash.debounce'
 //TODO: Default font color should be tertiary and background should also be tertiary.
 const CustomText = props => {
   const {
@@ -58,7 +59,13 @@ const CustomText = props => {
     filteredProps.testID = testID
   }
   if (typeof onPress !== 'undefined') {
-    filteredProps.onPress = onPress
+    filteredProps.onPress = debounce(
+      event => {
+        onPress(event)
+      },
+      300,
+      { leading: true, trailing: false }
+    )
   }
   if (typeof numberOfLines !== 'undefined') {
     filteredProps.numberOfLines = numberOfLines
