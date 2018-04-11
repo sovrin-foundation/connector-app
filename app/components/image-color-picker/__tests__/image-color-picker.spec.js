@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import 'react-native'
-import { ImageColorPicker } from '../image-color-picker'
+import { ImageColorPicker, isAllowedColor } from '../image-color-picker'
 import renderer from 'react-test-renderer'
 
 function getProps() {
@@ -29,5 +29,24 @@ describe('<ImageColorPicker />', () => {
     const { instance, wrapper } = setup()
     instance.setState({ imageBlob: 'someblob' })
     expect(wrapper.toJSON()).toMatchSnapshot()
+  })
+
+  it('should pick default color if color is light', () => {
+    let color = [255, 255, 255]
+    expect(isAllowedColor(color)).toBe(false)
+    color = [224, 224, 224]
+    expect(isAllowedColor(color)).toBe(false)
+    color = [229, 255, 204]
+    expect(isAllowedColor(color)).toBe(false)
+    color = [0, 255, 255]
+    expect(isAllowedColor(color)).toBe(false)
+    color = [255, 248, 220]
+    expect(isAllowedColor(color)).toBe(false)
+    color = [240, 255, 255]
+    expect(isAllowedColor(color)).toBe(false)
+    color = [255, 255, 240]
+    expect(isAllowedColor(color)).toBe(false)
+    color = [245, 245, 245]
+    expect(isAllowedColor(color)).toBe(false)
   })
 })

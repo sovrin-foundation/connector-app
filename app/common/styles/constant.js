@@ -11,7 +11,7 @@ export const whiteSmoke = '#f0f0f0'
 export const whiteSmokeRGBA = 'rgba(240, 240, 240, 0)'
 export const mantis = '#85bf43'
 const mantisRGB = '133, 191, 67'
-const greyRGB = '119, 119, 119'
+export const greyRGB = '119, 119, 119'
 export const white = '#ffffff'
 export const whisper = '#EAEAEA'
 

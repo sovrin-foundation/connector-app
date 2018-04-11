@@ -8,17 +8,27 @@ import ImageResizer from 'react-native-image-resizer'
 
 import { updateConnectionTheme } from '../../store'
 import type { ImagePickerProps, ImagePickerStates } from './type-color-picker'
-import { color } from '../../common/styles/constant'
+import { color, greyRGB } from '../../common/styles/constant'
 import { captureError } from '../../services/error/error-handler'
 import { canvasHtml } from './canvas-html'
 
-const whiteColorPalette = {
-  ['255,255,255,255']: '255,255,255,255',
-  ['255,255,254,255']: '255,255,254,255',
-}
+const LIGHT_COLOR_LUMINANCE_FACTOR = 170
 
 export function isAllowedColor(color: Array<*>): boolean {
-  return !whiteColorPalette[color.join(',')]
+  if (color.length < 3) {
+    return false
+  }
+
+  const [R, G, B] = color
+
+  // As per luminance https://en.wikipedia.org/wiki/Relative_luminance
+  const luminance =
+    0.2126 * parseInt(R, 10) +
+    0.7152 * parseInt(G, 10) +
+    0.0722 * parseInt(B, 10)
+
+  // any luminance below this factor is considered dark color
+  return luminance < LIGHT_COLOR_LUMINANCE_FACTOR
 }
 
 export class ImageColorPicker extends PureComponent<
@@ -64,25 +74,31 @@ export class ImageColorPicker extends PureComponent<
       const secondBestColor =
         payload.length > 1 ? Object.values(payload[1]) : []
 
-      let imageColor = firstBestColor
+      let imageColor = greyRGB.split(', ').map(rgb => parseInt(rgb, 10))
+      // add alpha value to rgba
+      imageColor.push(1)
 
-      if (!isAllowedColor(firstBestColor)) {
-        if (isAllowedColor(secondBestColor)) {
-          imageColor = secondBestColor
+      if (isAllowedColor(firstBestColor)) {
+        imageColor = firstBestColor
+      } else if (isAllowedColor(secondBestColor)) {
+        imageColor = secondBestColor
+      } else {
+        const thirdBestColor =
+          payload.length > 2 ? Object.values(payload[2]) : imageColor
+        if (isAllowedColor(thirdBestColor)) {
+          imageColor = thirdBestColor
         }
       }
 
-      if (isAllowedColor(imageColor)) {
-        const primaryColor = `rgba(${imageColor.join(',')})`
-        const secondaryColor = `rgba(${imageColor.splice(0, 3).join(',')},
+      const primaryColor = `rgba(${imageColor.join(',')})`
+      const secondaryColor = `rgba(${imageColor.splice(0, 3).join(',')},
         ${color.actions.button.secondary.shade})`
 
-        this.props.updateConnectionTheme(
-          this.props.imageUrl,
-          primaryColor,
-          secondaryColor
-        )
-      }
+      this.props.updateConnectionTheme(
+        this.props.imageUrl,
+        primaryColor,
+        secondaryColor
+      )
     }
   }
 
