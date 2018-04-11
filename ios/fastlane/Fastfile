@@ -29,6 +29,7 @@ platform :ios do
         clean: true
       )
       remote_branch = git_branch
+      remote_branch = remote_branch.split('/').last
 
       if remote_branch == "master"
         hockey(api_token: ENV["QA_HOCKEYAPP_TOKEN"])
