@@ -14,7 +14,16 @@ platform :ios do
   lane :beta do
       reset_git_repo(force: true)
       cocoapods
-      increment_build_number(xcodeproj: "ConnectMe.xcodeproj")
+      
+      buildNumber = increment_build_number(xcodeproj: "ConnectMe.xcodeproj")      
+      path = '../../android/app/build.gradle'
+      re = /versionCode\s+(\d+)/ 
+      androidBuildGradleFileContent = File.read(path)
+      androidBuildGradleFileContent[re, 1] = buildNumber.to_s
+      androidBuildGradleFile = File.new(path, 'w')
+      androidBuildGradleFile.write(androidBuildGradleFileContent)
+      androidBuildGradleFile.close
+      
       app_identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
       match(
         type: "adhoc",
@@ -58,7 +67,8 @@ platform :ios do
       commit_version_bump(
         message: "Build Version bump by Fastlane [ci skip]",
         xcodeproj: "ConnectMe.xcodeproj",
-        force: true
+        force: true,
+        include: %w[ android/app/build.gradle ]
       )
       push_to_git_remote(
         remote: "origin",         

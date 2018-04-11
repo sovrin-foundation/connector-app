@@ -7,11 +7,19 @@ platform :android do
 end
   
 lane :alpha do
-     gradle(
-      task: "assemble",
-      build_type: "Release",
-      )
-   hockey(api_token: "b68f8e14f97b41baa9b1f57a934834cd")
+  path = '../app/build.gradle'
+  re = /versionCode\s+(\d+)/ 
+  androidBuildGradleFileContent = File.read(path)
+  versionCode = (androidBuildGradleFileContent[re, 1].to_i+1)
+  androidBuildGradleFileContent[re, 1] = versionCode.to_s
+  androidBuildGradleFile = File.new(path, 'w')
+  androidBuildGradleFile.write(androidBuildGradleFileContent)
+  androidBuildGradleFile.close
+  gradle(
+    task: "assemble",
+    build_type: "Release",
+  )
+  hockey(api_token: ENV["HOCKEY_APP_API_TOKEN"])
 end
 
   after_all do |lane|

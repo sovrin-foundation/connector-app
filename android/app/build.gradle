@@ -102,7 +102,7 @@ android {
         applicationId "com.connectme"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 1
+        versionCode 403
         versionName "1.0"
         ndk {
             abiFilters "armeabi-v7a", "x86"
@@ -115,10 +115,11 @@ android {
 
     signingConfigs{
         release {
-//            storeFile file(System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL"))
-//            storePassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
-//            keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
-//            keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+            // we need this configuration for fastlane step workflow in bitrise.
+            storeFile file(System.getenv("HOME") + "/keystores/my_keystore.jks")
+            storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
+            keyAlias System.getenv("ANDROID_KEYSTORE_ALIAS")
+            keyPassword System.getenv("ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
         }
     }
     splits {
@@ -136,19 +137,7 @@ android {
             signingConfig signingConfigs.release    
         }
     }
-    // applicationVariants are e.g. debug, release
-    applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            // For each separate APK per architecture, set a unique version code as described here:
-            // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
-            def versionCodes = ["armeabi-v7a":1, "x86":2]
-            def abi = output.getFilter(OutputFile.ABI)
-            if (abi != null) {  // null for the universal-debug, universal-release variants
-                output.versionCodeOverride =
-                        versionCodes.get(abi) * 1048576 + defaultConfig.versionCode
-            }
-        }
-    }
+    
 }
 
 dependencies {
