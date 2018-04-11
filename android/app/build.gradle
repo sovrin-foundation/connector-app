@@ -141,7 +141,7 @@ android {
 }
 
 dependencies {
-
+    compile project(':react-native-image-resizer')
     compile 'com.google.firebase:firebase-messaging:11.8.0'
     compile project(':react-native-touch-id')
     compile project(':react-native-fetch-blob')

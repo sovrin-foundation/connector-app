@@ -53,3 +53,14 @@ export type NewConnectionAction = {
     logoUrl?: ?string,
   } & InvitationPayload,
 }
+
+export const STORAGE_KEY_THEMES = 'STORAGE_KEY_THEMES'
+
+export type ConnectionThemes = {
+  [string]: {
+    primary: string,
+    secondary: string,
+  },
+}
+
+export const HYDRATE_CONNECTION_THEMES = 'HYDRATE_CONNECTION_THEMES'

@@ -149,7 +149,7 @@ exports[`<ImageColorPicker /> should render properly 1`] = `
 
     </script>
     <body>
-      <img src='data:image/jpeg;base64,' 
+      <img src='data:image/jpeg;base64,someblob' 
         id='__colorPickerCanvasImage' onload='fetchColorFromCanvas()'/>
     </body>
     </html>

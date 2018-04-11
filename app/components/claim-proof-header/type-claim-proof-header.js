@@ -12,5 +12,4 @@ export type ClaimProofHeaderProps = {
   textContainerStyle?: Array<GenericObject | number>,
   messageStyle?: Array<GenericObject | number>,
   titleStyle?: GenericObject,
-  useColorPicker?: boolean,
 }

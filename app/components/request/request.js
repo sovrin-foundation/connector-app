@@ -88,6 +88,7 @@ export default class Request extends PureComponent<RequestProps, RequestState> {
           onDecline={this.onDecline}
           logoUrl={senderLogoUrl}
           testID={testID}
+          useColorPicker={true}
         />
       </Container>
     )

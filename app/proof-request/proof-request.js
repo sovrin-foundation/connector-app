@@ -14,7 +14,6 @@ import {
   CustomText,
   Avatar,
   Icon,
-  ImageColorPicker,
   ConnectionTheme,
   ClaimProofHeader,
   Separator,

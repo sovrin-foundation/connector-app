@@ -42,6 +42,10 @@ PODS:
   - OpenSSL-Universal (1.0.1.20)
   - Protobuf (3.5.0)
   - QBImagePickerController (3.4.0)
+  - React (0.51.0):
+    - React/Core (= 0.51.0)
+  - react-native-image-resizer (1.0.0):
+    - React
   - React/Core (0.51.0):
     - yoga (= 0.51.0.React)
   - React/fishhook (0.51.0)
@@ -80,6 +84,7 @@ DEPENDENCIES:
   - apptentive-ios (from `https://github.com/nagad814/apptentive-ios.git`)
   - ConnectMeIndy (= 0.0.34)
   - Firebase/Messaging (= 4.8.0)
+  - react-native-image-resizer (from `../node_modules/react-native-image-resizer`)
   - React/Core (from `../node_modules/react-native`)
   - React/RCTActionSheet (from `../node_modules/react-native`)
   - React/RCTAnimation (from `../node_modules/react-native`)
@@ -99,6 +104,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/nagad814/apptentive-ios.git
   React:
     :path: ../node_modules/react-native
+  react-native-image-resizer:
+    :path: ../node_modules/react-native-image-resizer
   RNImageCropPicker:
     :path: ../node_modules/react-native-image-crop-picker
   yoga:
@@ -126,11 +133,11 @@ SPEC CHECKSUMS:
   Protobuf: 8a9838fba8dae3389230e1b7f8c104aa32389c03
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
   React: 541ba768b9855e10cdc76f55427a5cd0653ca806
+  react-native-image-resizer: 04a3409e7d4ad646c4468671c69dec490def139c
   RNImageCropPicker: a637beb8f4c76bf9fe8a89d404ad65a33c4215ac
   RSKImageCropper: 50d5a3e4160f0309b14d75b89d5ae2f496d56e0d
   yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
-PODFILE CHECKSUM: 75fd473c215186b53cf8d3b5c26712fc602a7753
+PODFILE CHECKSUM: effb946a3d37e09a70e1329f77c1d64c69287755
 
 COCOAPODS: 1.4.0
-  

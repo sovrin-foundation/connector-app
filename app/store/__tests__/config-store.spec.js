@@ -152,7 +152,7 @@ describe('server environment should change', () => {
     // delete stored data, not interested in actual calls
     // those tests are being taken care in other test
     gen.next(environmentDetails)
-    for (let index = 0; index < 6; index++) {
+    for (let index = 0; index < 7; index++) {
       gen.next()
     }
 
@@ -246,6 +246,9 @@ describe('hydration should work correctly', () => {
     gen.next()
 
     // hydrate user store
+    gen.next()
+    gen.next()
+    // hydrate themes
     gen.next()
     gen.next()
     gen.next()

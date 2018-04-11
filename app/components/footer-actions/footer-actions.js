@@ -15,6 +15,7 @@ import { DENY, CONNECT } from '../../common'
 import type { FooterActionsProps } from './type-footer-actions'
 import { noop } from '../../common'
 import { white } from '../../common/styles/constant'
+import { getConnectionTheme } from '../../store/store-selector'
 
 const styles = StyleSheet.create({
   buttonStyle: {
@@ -34,6 +35,7 @@ export class FooterActions extends PureComponent<FooterActionsProps, void> {
       testID,
       disableAccept = false,
       hidePrimary = false,
+      useColorPicker = false,
     } = this.props
 
     return (
@@ -72,17 +74,17 @@ export class FooterActions extends PureComponent<FooterActionsProps, void> {
               )}
             </CustomView>
           </ConnectionTheme>
-          <ImageColorPicker imageUrl={logoUrl} />
+          {useColorPicker && <ImageColorPicker imageUrl={logoUrl} />}
         </CustomView>
       </CustomSafeAreaView>
     )
   }
 }
 
-const mapStateToProps = (state: Store) => {
-  const activeConnectionThemePrimary = state.connections.connectionThemes.active
-    ? state.connections.connectionThemes.active.primary
-    : white
+const mapStateToProps = (state: Store, props: FooterActionsProps) => {
+  const activeConnectionThemePrimary = getConnectionTheme(state, props.logoUrl)
+    .primary
+
   return {
     activeConnectionThemePrimary,
   }

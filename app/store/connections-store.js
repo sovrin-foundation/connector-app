@@ -1,5 +1,6 @@
 // $FlowFixMe
-import { put, takeLatest, call, select } from 'redux-saga/effects'
+import { put, takeLatest, call, select, all } from 'redux-saga/effects'
+import { AsyncStorage } from 'react-native'
 import { setItem, getItem } from '../services/secure-storage'
 import { CONNECTIONS } from '../common'
 import {
@@ -8,6 +9,7 @@ import {
   getUserOneTimeInfo,
   getPoolConfig,
   getAllConnection,
+  getThemes,
 } from './store-selector'
 import { color } from '../common/styles/constant'
 import { bubbleSize } from '../common/styles'
@@ -16,12 +18,15 @@ import type {
   ConnectionStore,
   Connection,
   Connections,
+  ConnectionThemes,
 } from './type-connection-store'
 import {
   NEW_CONNECTION,
   DELETE_CONNECTION_SUCCESS,
   DELETE_CONNECTION_FAILURE,
   DELETE_CONNECTION,
+  STORAGE_KEY_THEMES,
+  HYDRATE_CONNECTION_THEMES,
 } from './type-connection-store'
 import type {
   DeleteConnectionSuccessEventAction,
@@ -42,10 +47,6 @@ const initialState: ConnectionStore = {
   isPristine: true,
   connectionThemes: {
     default: {
-      primary: `rgba(${color.actions.button.primary.rgba})`,
-      secondary: `rgba(${color.actions.button.secondary.rgba})`,
-    },
-    active: {
       primary: `rgba(${color.actions.button.primary.rgba})`,
       secondary: `rgba(${color.actions.button.secondary.rgba})`,
     },
@@ -236,6 +237,51 @@ export const deleteConnectionFailure = (
   error,
 })
 
+export const hydrateConnectionThemes = (themes: ConnectionThemes) => ({
+  type: HYDRATE_CONNECTION_THEMES,
+  themes,
+})
+
+export function* persistThemes(): Generator<*, *, *> {
+  const themes = yield select(getThemes)
+  try {
+    yield call(AsyncStorage.setItem, STORAGE_KEY_THEMES, JSON.stringify(themes))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export function* hydrateThemes(): Generator<*, *, *> {
+  try {
+    const themes = yield call(AsyncStorage.getItem, STORAGE_KEY_THEMES)
+    if (themes) {
+      yield put(hydrateConnectionThemes(JSON.parse(themes)))
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export function* removePersistedThemes(): Generator<*, *, *> {
+  try {
+    yield call(AsyncStorage.removeItem, STORAGE_KEY_THEMES)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export function* watchUpdateConnectionTheme(): any {
+  yield takeLatest(UPDATE_CONNECTION_THEME, persistThemes)
+}
+
+export function* watchConnection(): Generator<*, *, *> {
+  yield all([
+    watchDeleteConnectionOccurred(),
+    watchNewConnection(),
+    watchUpdateConnectionTheme(),
+  ])
+}
+
 export default function connections(
   state: ConnectionStore = initialState,
   action: any
@@ -250,10 +296,14 @@ export default function connections(
             primary: action.primaryColor,
             secondary: action.secondaryColor,
           },
-          active: {
-            primary: action.primaryColor,
-            secondary: action.secondaryColor,
-          },
+        },
+      }
+    case HYDRATE_CONNECTION_THEMES:
+      return {
+        ...state,
+        connectionThemes: {
+          ...state.connectionThemes,
+          ...action.themes,
         },
       }
     case NEW_CONNECTION:

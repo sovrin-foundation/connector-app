@@ -15,7 +15,6 @@ import {
   CustomButton,
   CustomText,
   Icon,
-  ImageColorPicker,
   ConnectionTheme,
   ClaimProofHeader,
   Separator,

@@ -11,4 +11,5 @@ export type FooterActionsProps = {
   testID: string,
   hidePrimary?: boolean,
   activeConnectionThemePrimary?: string,
+  useColorPicker?: boolean,
 } & ReactNavigation

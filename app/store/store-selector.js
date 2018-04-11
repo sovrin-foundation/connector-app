@@ -157,3 +157,5 @@ export const getUserAvatarSource = (name: ?string) => {
 }
 
 export const getUserAvatarName = (state: Store) => state.user.avatarName
+
+export const getThemes = (state: Store) => state.connections.connectionThemes

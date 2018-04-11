@@ -3,7 +3,11 @@ import { takeLatest, call, put } from 'redux-saga/effects'
 import { AsyncStorage } from 'react-native'
 import { getItem, deleteItem } from '../services/secure-storage'
 import { updatePushToken } from '../push-notification/push-notification-store'
-import { hydrateConnections } from '../store/connections-store'
+import {
+  hydrateConnections,
+  hydrateThemes,
+  removePersistedThemes,
+} from '../store/connections-store'
 import { hydrateClaimMapSaga } from '../claim/claim-store'
 import {
   CONNECTIONS,
@@ -53,6 +57,7 @@ export function* deleteStoredData(): Generator<*, *, *> {
   yield call(deleteItem, CLAIM_MAP)
   yield call(deleteItem, HISTORY_EVENT_STORAGE_KEY)
   yield* removePersistedUserSelectedAvatarImage()
+  yield* removePersistedThemes()
 }
 
 export function* appHydration(action: {
@@ -74,6 +79,7 @@ export function* appHydration(action: {
       yield* deleteStoredData()
     }
     yield put(hydrateConnections(connections))
+    yield* hydrateThemes()
     yield* hydrateUserStoreSaga()
 
     // restore claimMap

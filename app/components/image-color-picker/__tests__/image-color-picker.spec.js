@@ -4,7 +4,7 @@ import 'react-native'
 import { ImageColorPicker } from '../image-color-picker'
 import renderer from 'react-test-renderer'
 
-function props() {
+function getProps() {
   return {
     imageType: 'jpeg',
     imageUrl: 'https://image.url',
@@ -12,11 +12,22 @@ function props() {
   }
 }
 
+function setup() {
+  const props = getProps()
+  const wrapper = renderer.create(<ImageColorPicker {...props} />)
+  const instance = wrapper.root.instance
+
+  return {
+    props,
+    wrapper,
+    instance,
+  }
+}
+
 describe('<ImageColorPicker />', () => {
   it('should render properly', () => {
-    const imageColorPicker = renderer
-      .create(<ImageColorPicker {...props()} />)
-      .toJSON()
-    expect(imageColorPicker).toMatchSnapshot()
+    const { instance, wrapper } = setup()
+    instance.setState({ imageBlob: 'someblob' })
+    expect(wrapper.toJSON()).toMatchSnapshot()
   })
 })

@@ -6,10 +6,7 @@ import user, { watchUserStore } from './user/user-store'
 import pushNotification, {
   watchPushNotification,
 } from '../push-notification/push-notification-store'
-import connections, {
-  watchNewConnection,
-  watchDeleteConnectionOccurred,
-} from './connections-store'
+import connections, { watchConnection } from './connections-store'
 import config, { watchConfig } from './config-store'
 import authentication, {
   watchAuthentication,
@@ -70,7 +67,7 @@ const store = createStore(appReducer, applyMiddleware(...middlewares))
 
 sagaMiddleware.run(function*() {
   return yield all([
-    watchNewConnection(),
+    watchConnection(),
     watchConfig(),
     watchAuthentication(),
     watchLock(),
@@ -86,7 +83,6 @@ sagaMiddleware.run(function*() {
     watchProofRequestAccepted(),
     watchConnectionHistory(),
     watchUserStore(),
-    watchDeleteConnectionOccurred(),
   ])
 })
 

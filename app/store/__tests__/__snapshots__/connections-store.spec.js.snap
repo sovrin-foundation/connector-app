@@ -68,10 +68,6 @@ exports[`connections should update correctly match delete connection success 1`]
 Object {
   "claimMap": null,
   "connectionThemes": Object {
-    "active": Object {
-      "primary": "rgba(119, 119, 119, 1.0)",
-      "secondary": "rgba(119, 119, 119, 0.6)",
-    },
     "default": Object {
       "primary": "rgba(119, 119, 119, 1.0)",
       "secondary": "rgba(119, 119, 119, 0.6)",
@@ -119,10 +115,6 @@ exports[`connections should update correctly should reset connection store, if R
 Object {
   "claimMap": null,
   "connectionThemes": Object {
-    "active": Object {
-      "primary": "rgba(119, 119, 119, 1.0)",
-      "secondary": "rgba(119, 119, 119, 0.6)",
-    },
     "default": Object {
       "primary": "rgba(119, 119, 119, 1.0)",
       "secondary": "rgba(119, 119, 119, 0.6)",

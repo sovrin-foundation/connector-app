@@ -103,4 +103,16 @@ describe('connections should update correctly', () => {
       connectionReducer(afterNewConnection, { type: 'RESET' })
     ).toMatchSnapshot()
   })
+
+  // TODO:KS Complete these tests
+  xit('saga:persistThemes, success', () => {})
+  xit('saga:persistThemes, fail', () => {})
+
+  xit('saga:hydrateThemes, success', () => {})
+  xit('saga:hydrateThemes, fail', () => {})
+
+  xit('saga:removePersistedThemes, success', () => {})
+  xit('saga:removePersistedThemes, fail', () => {})
+
+  xit('ACTION:HYDRATE_CONNECTION_THEMES', () => {})
 })

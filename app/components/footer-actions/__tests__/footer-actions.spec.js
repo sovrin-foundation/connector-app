@@ -11,6 +11,7 @@ describe('<FooterActions />', () => {
   function getProps(props?: * = {}) {
     return {
       testID: 'test',
+      useColorPicker: true,
       ...props,
     }
   }

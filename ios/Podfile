@@ -11,7 +11,7 @@ target 'ConnectMe' do
 # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
 # use_frameworks!
 
-# this is very important to have!
+# this is very important to have! Need to point to fork inside evernym organization 
     pod 'apptentive-ios', :git => 'https://github.com/nagad814/apptentive-ios.git'
 
     rn_path = '../node_modules/react-native'
@@ -30,7 +30,8 @@ target 'ConnectMe' do
     'RCTWebSocket'
     ]
 
-    pod 'RNImageCropPicker', :path =>  '../node_modules/react-native-image-crop-picker'
+  pod 'RNImageCropPicker', :path =>  '../node_modules/react-native-image-crop-picker'
+  pod 'react-native-image-resizer', :path => '../node_modules/react-native-image-resizer'
 
 # Pods for SimpleFcmClient
 

@@ -47,7 +47,7 @@ import {
   CLAIM_REQUEST_STATUS,
 } from '../claim-offer/type-claim-offer'
 import { deleteConnectionAction } from '../store/connections-store'
-import { getConnection } from '../store/store-selector'
+import { getConnection, getConnectionTheme } from '../store/store-selector'
 
 import debounce from 'lodash.debounce'
 
@@ -276,7 +276,6 @@ export class ConnectionHistory extends PureComponent<
                 styles.senderName,
                 { backgroundColor: 'transparent' },
               ]}
-              useColorPicker={true}
             >
               <CustomView
                 fifth
@@ -344,11 +343,14 @@ const mapStateToProps = (state: Store, props: ReactNavigation) => {
     })
   }
 
+  const themeForLogo = getConnectionTheme(
+    state,
+    props.navigation.state.params.image
+  )
+
   return {
-    activeConnectionThemePrimary:
-      state.connections.connectionThemes.active.primary,
-    activeConnectionThemeSecondary:
-      state.connections.connectionThemes.active.secondary,
+    activeConnectionThemePrimary: themeForLogo.primary,
+    activeConnectionThemeSecondary: themeForLogo.secondary,
     connectionHistory: groupBy(
       connectionHistory.sort((a, b) => {
         return new Date(b.timestamp) - new Date(a.timestamp)
