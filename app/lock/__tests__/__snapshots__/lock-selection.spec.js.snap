@@ -208,6 +208,7 @@ exports[`app lock selection page should render properly 1`] = `
       accessibilityLabel={undefined}
       accessibilityTraits={undefined}
       accessible={true}
+      debounceAction={false}
       hitSlop={
         Object {
           "bottom": 20,

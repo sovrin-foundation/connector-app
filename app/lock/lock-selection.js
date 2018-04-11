@@ -129,6 +129,7 @@ export class LockSelection extends PureComponent<LockSelectionProps, void> {
             testID="lock-selection-or-text"
             onLongPress={this._onLongPressButton}
             onPress={this._onTextPressButton}
+            debounceAction={false}
           >
             <CustomText h4 bg="tertiary" tertiary transparentBg thick center>
               or

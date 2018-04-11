@@ -43,6 +43,7 @@ export const CustomView = props => {
     spaceAround,
     small,
     safeArea,
+    debounceAction = true,
   } = props
   const passedStyles = props.style || empty
   const absoluteStyles = absolute
@@ -99,13 +100,17 @@ export const CustomView = props => {
       touchProps.testID = `${props.testID}-touchable`
     }
     if (typeof onPress !== 'undefined') {
-      touchProps.onPress = debounce(
-        event => {
-          onPress(event)
-        },
-        300,
-        { leading: true, trailing: false }
-      )
+      if (debounceAction) {
+        touchProps.onPress = debounce(
+          event => {
+            onPress(event)
+          },
+          300,
+          { leading: true, trailing: false }
+        )
+      } else {
+        touchProps.onPress = onPress
+      }
     }
     if (typeof onLongPress !== 'undefined') {
       touchProps.onLongPress = onLongPress
