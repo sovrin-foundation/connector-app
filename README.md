@@ -36,6 +36,7 @@ App to connect Sovrin with 3rd party authentication
 
 ## Run functional automated test
 
+- Ensure that Node version greater than 8.5.0 and less than 9 is installed. We recommend using `nvm` to install node
 - `$ brew tap wix/brew && brew install applesimutils`
 - `$ npm i -g detox-cli`
 - Ensure that iphone 7 simulator is installed and running
