@@ -338,7 +338,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           >
             <View
               fifth={true}
-              right={true}
               style={
                 Object {
                   "alignItems": "flex-end",
@@ -382,7 +381,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
             </View>
             <View
               fifth={true}
-              left={true}
               style={
                 Object {
                   "alignItems": "flex-start",
@@ -450,7 +448,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           >
             <View
               fifth={true}
-              right={true}
               style={
                 Object {
                   "alignItems": "flex-end",
@@ -494,7 +491,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
             </View>
             <View
               fifth={true}
-              left={true}
               style={
                 Object {
                   "alignItems": "flex-start",

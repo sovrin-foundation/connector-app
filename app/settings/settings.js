@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Text, Switch, StyleSheet } from 'react-native'
+import { Text, Switch, StyleSheet, Platform } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { UserAvatar, CustomText, Icon, Avatar } from '../components'
 import { CustomList, CustomView, Container } from '../components/layout'
@@ -141,14 +141,17 @@ export class Settings extends PureComponent<SettingsProps, void> {
         </CustomView>
       </CustomView>
     )
-    const toggleSwitch = (
-      <Switch
-        onTintColor={mantis}
-        tintColor={white}
-        onValueChange={this.onChangeTouchId}
-        value={this.props.touchIdActive}
-      />
-    )
+    const toggleSwitch =
+      Platform.OS === 'ios' ? (
+        <Switch
+          onTintColor={mantis}
+          tintColor={white}
+          onValueChange={this.onChangeTouchId}
+          value={this.props.touchIdActive}
+        />
+      ) : (
+        <CustomView />
+      )
 
     const onChat = (
       <CustomView row onPress={this.openFeedback} testID={CHAT_TEST_ID}>

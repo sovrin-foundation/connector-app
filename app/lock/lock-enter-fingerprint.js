@@ -39,7 +39,6 @@ export class LockEnterFingerprint extends PureComponent<
   }
 
   onAuthenticationSuccess = (pendingRedirection: Array<PendingRedirection>) => {
-    this.props.unlockApp()
     //this method will be called in fingerprint authentication screen
     //or any where in app if there is a invitation received.
     if (pendingRedirection) {
@@ -57,15 +56,25 @@ export class LockEnterFingerprint extends PureComponent<
       // * this condition will avoid redirecting user to home screen if app is already unlocked
       this.props.navigation.navigate(homeRoute)
     }
+    this.props.unlockApp()
   }
 
   touchIdHandler = () => {
-    TouchId.authenticate('', this.touchIdHandler)
+    TouchId.isSupported()
       .then(success => {
-        this.setState({ authenticationSuccess: true })
-        if (this.props.isFetchingInvitation === false) {
-          this.onAuthenticationSuccess(this.props.pendingRedirection)
-        }
+        TouchId.authenticate('', this.touchIdHandler)
+          .then(success => {
+            this.setState({ authenticationSuccess: true })
+            if (this.props.isFetchingInvitation === false) {
+              this.onAuthenticationSuccess(this.props.pendingRedirection)
+            }
+          })
+          .catch(error => {
+            captureError(error)
+            if (AllowedFallbackToucheIDErrors.indexOf(error.name) >= 0) {
+              this.props.navigation.navigate(lockEnterPinRoute)
+            }
+          })
       })
       .catch(error => {
         captureError(error)

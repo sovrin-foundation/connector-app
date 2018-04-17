@@ -17,4 +17,13 @@ export const TouchId = {
         })
     })
   },
+  isSupported(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      RNTouchId.isSupported()
+        .then(resolve)
+        .catch(error => {
+          reject(error)
+        })
+    })
+  },
 }

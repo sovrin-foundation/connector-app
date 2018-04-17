@@ -3,7 +3,6 @@ import React, { PureComponent } from 'react'
 import { Alert, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-
 import { TouchId } from '../components/touch-id/touch-id'
 import { Container } from '../components'
 import { captureError } from '../services/error/error-handler'
@@ -54,11 +53,22 @@ export class LockFingerprintSetup extends PureComponent<
   }
 
   touchIdHandler = () => {
-    TouchId.authenticate('', this.touchIdHandler)
+    TouchId.isSupported()
       .then(success => {
-        this.props.fromSettings
-          ? this.goToSettingsScreen()
-          : this.goToPinSetupScreen()
+        TouchId.authenticate('', this.touchIdHandler)
+          .then(success => {
+            this.props.fromSettings
+              ? this.goToSettingsScreen()
+              : this.goToPinSetupScreen()
+          })
+          .catch(error => {
+            captureError(error)
+            if (AllowedFallbackToucheIDErrors.indexOf(error.name) >= 0) {
+              this.props.fromSettings
+                ? this.props.navigation.navigate(settingsTabRoute)
+                : this.props.navigation.navigate(lockSelectionRoute)
+            }
+          })
       })
       .catch(error => {
         captureError(error)

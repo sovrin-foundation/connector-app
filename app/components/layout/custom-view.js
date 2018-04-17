@@ -81,6 +81,8 @@ export const CustomView = props => {
   let filteredProps = { ...props }
   delete filteredProps.onLongPress
   delete filteredProps.onPress
+  delete filteredProps.left
+  delete filteredProps.right
   if (typeof props.testID === 'undefined') {
     delete filteredProps.testID
   }

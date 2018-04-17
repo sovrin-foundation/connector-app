@@ -16,7 +16,6 @@ exports[`<Divider /> should render divider with left and right 1`] = `
   tertiary={true}
 >
   <View
-    left={true}
     style={
       Object {
         "alignItems": "flex-start",
@@ -51,7 +50,6 @@ exports[`<Divider /> should render only right, if only right child is provided 1
   tertiary={true}
 >
   <View
-    right={true}
     style={
       Object {
         "alignItems": "flex-end",

@@ -40,7 +40,6 @@ exports[`user settings screen should render properly and snapshot should match 1
         vCenter={true}
       >
         <View
-          left={true}
           style={
             Object {
               "alignItems": "flex-start",
@@ -112,7 +111,6 @@ exports[`user settings screen should render properly and snapshot should match 1
           </View>
         </View>
         <View
-          right={true}
           style={
             Object {
               "alignItems": "flex-end",
@@ -177,7 +175,6 @@ exports[`user settings screen should render properly and snapshot should match 1
         vCenter={true}
       >
         <View
-          left={true}
           style={
             Object {
               "alignItems": "flex-start",
@@ -256,7 +253,6 @@ exports[`user settings screen should render properly and snapshot should match 1
           </View>
         </View>
         <View
-          right={true}
           style={
             Object {
               "alignItems": "flex-end",
@@ -342,7 +338,6 @@ exports[`user settings screen should render properly and snapshot should match 1
         vCenter={true}
       >
         <View
-          left={true}
           style={
             Object {
               "alignItems": "flex-start",
@@ -447,7 +442,6 @@ exports[`user settings screen should render properly and snapshot should match 1
           </View>
         </View>
         <View
-          right={true}
           style={
             Object {
               "alignItems": "flex-end",
@@ -488,7 +482,6 @@ exports[`user settings screen should render properly and snapshot should match 1
         vCenter={true}
       >
         <View
-          left={true}
           style={
             Object {
               "alignItems": "flex-start",
