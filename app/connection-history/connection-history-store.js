@@ -228,7 +228,7 @@ function mapSentAttributes(
         sentAttributes.push({
           label: requestedAttributes[selfAttestedAttributesKeys[index]].name,
           key: selfAttestedAttributesKeys[index],
-          data: selfAttestedAttribute[1],
+          data: selfAttestedAttribute,
         })
       }
     )
