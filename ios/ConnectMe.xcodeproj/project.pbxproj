@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -50,6 +51,7 @@
 		5363A41A65BA4F2AB2216D98 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1DA3709E947742E9AD228F0E /* SimpleLineIcons.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		6DCB3A1C5B944A298B038611 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 66ACA94543464AB6BC1138FE /* libRNFetchBlob.a */; };
+		7B5F63F567FB4A18933A93CA /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA7BA45366374CBDAB9927BD /* Feather.ttf */; };
 		7B99A1FF6C664D67B643D6BB /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3B85DC158DC404A9EDB867B /* FontAwesome.ttf */; };
 		806EAF09CBBA4B34B2E34B67 /* libTouchID.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F42336402924E59927A5D19 /* libTouchID.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
@@ -93,7 +95,6 @@
 		DDCFDEE81F879B8900F932F8 /* SF-Pro-Text-SemiboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = DDCFDECA1F879B8900F932F8 /* SF-Pro-Text-SemiboldItalic.otf */; };
 		DDD4B74C1F65577400FBEE23 /* RNIndy.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD4B7271F65577300FBEE23 /* RNIndy.m */; };
 		F1F0B5451EF3B138006FBB0B /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F1F0B5441EF3B12D006FBB0B /* libSplashScreen.a */; };
-		7B5F63F567FB4A18933A93CA /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA7BA45366374CBDAB9927BD /* Feather.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -494,6 +495,7 @@
 		CFE053FBA18B10BEB77551ED /* Pods-ConnectMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConnectMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ConnectMe/Pods-ConnectMe.debug.xcconfig"; sourceTree = "<group>"; };
 		D5195723B48F485BA8835F82 /* libBVLinearGradient.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libBVLinearGradient.a; sourceTree = "<group>"; };
 		D825ECF49B6D970185F4772D /* libPods-ConnectMe-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ConnectMe-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA7BA45366374CBDAB9927BD /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		DDA052DA1E9824F9001F0857 /* ConnectMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ConnectMe.entitlements; path = ConnectMe/ConnectMe.entitlements; sourceTree = "<group>"; };
 		DDCFDEAD1F879B8900F932F8 /* SF-Pro-Display-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-Black.otf"; path = "../app/fonts/SF Pro/SF-Pro-Display-Black.otf"; sourceTree = "<group>"; };
 		DDCFDEAE1F879B8900F932F8 /* SF-Pro-Display-BlackItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Display-BlackItalic.otf"; path = "../app/fonts/SF Pro/SF-Pro-Display-BlackItalic.otf"; sourceTree = "<group>"; };
@@ -536,7 +538,6 @@
 		FBB39EC84A9E4905B3E31600 /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
 		FF5B8ABA15754B53BDAFE558 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		FF87A1937BAC523D19CFC635 /* Pods-ConnectMeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConnectMeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ConnectMeTests/Pods-ConnectMeTests.release.xcconfig"; sourceTree = "<group>"; };
-		DA7BA45366374CBDAB9927BD /* Feather.ttf */ = {isa = PBXFileReference; name = "Feather.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1951,7 +1952,7 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Evernym Automation (3XVZBU8VAE)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 420;
+				CURRENT_PROJECT_VERSION = 421;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = ES8QU3D2A4;
 				ENABLE_BITCODE = NO;
@@ -1996,7 +1997,7 @@
 				CODE_SIGN_ENTITLEMENTS = ConnectMe/ConnectMe.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: EVERNYM, INC. (ES8QU3D2A4)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 420;
+				CURRENT_PROJECT_VERSION = 421;
 				DEVELOPMENT_TEAM = ES8QU3D2A4;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
