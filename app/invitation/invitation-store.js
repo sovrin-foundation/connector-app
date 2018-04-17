@@ -13,6 +13,7 @@ import {
   ERROR_ALREADY_EXIST,
   ERROR_INVITATION_RESPONSE_PARSE_CODE,
   ERROR_INVITATION_RESPONSE_PARSE,
+  SERVER_ERROR_CODE,
 } from '../api/api-constants'
 import {
   getAgencyUrl,
@@ -204,104 +205,118 @@ export function* sendResponse(
     ...payload,
   }
 
-  const { identifier, verificationKey } = yield call(
-    addConnection,
-    agencyDid,
-    agencyVerificationKey,
-    metadata,
-    poolConfig
-  )
-
-  const alreadyExist: boolean = yield select(isDuplicateConnection, senderDID)
-  if (alreadyExist) {
-    yield put(invitationFail(ERROR_ALREADY_EXIST, senderDID))
-  } else {
-    const metadata = {
-      ...payload,
-    }
-    const isConsumerAgentCreated = yield call(
-      AsyncStorage.getItem,
-      IS_CONSUMER_AGENT_ALREADY_CREATED
+  try {
+    const { identifier, verificationKey } = yield call(
+      addConnection,
+      agencyDid,
+      agencyVerificationKey,
+      metadata,
+      poolConfig
     )
-    if (isConsumerAgentCreated !== 'true') {
-      yield* createConsumerAgencyAgent(
-        senderDID,
-        identifier,
-        verificationKey,
-        payload
+
+    const alreadyExist: boolean = yield select(isDuplicateConnection, senderDID)
+    if (alreadyExist) {
+      yield put(invitationFail(ERROR_ALREADY_EXIST, senderDID))
+    } else {
+      const metadata = {
+        ...payload,
+      }
+      const isConsumerAgentCreated = yield call(
+        AsyncStorage.getItem,
+        IS_CONSUMER_AGENT_ALREADY_CREATED
       )
-    }
+      if (isConsumerAgentCreated !== 'true') {
+        yield* createConsumerAgencyAgent(
+          senderDID,
+          identifier,
+          verificationKey,
+          payload
+        )
+      }
 
-    try {
-      const pairwiseConnection = yield call(
-        addConnection,
-        senderDID,
-        payload.senderVerificationKey,
-        metadata,
-        poolConfig
-      )
+      try {
+        const pairwiseConnection = yield call(
+          addConnection,
+          senderDID,
+          payload.senderVerificationKey,
+          metadata,
+          poolConfig
+        )
 
-      const url = `${agencyUrl}/agency/msg`
-      const userOneTimeInfo: UserOneTimeInfo = yield select(getUserOneTimeInfo)
+        const url = `${agencyUrl}/agency/msg`
+        const userOneTimeInfo: UserOneTimeInfo = yield select(
+          getUserOneTimeInfo
+        )
 
-      const createPairwiseKeyResponse: CreatePairwiseAgentResponse = yield call(
-        createPairwiseAgent,
-        {
-          url,
-          myPairwiseDid: pairwiseConnection.identifier,
-          myPairwiseVerKey: pairwiseConnection.verificationKey,
-          oneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
-          oneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
-          myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
-          agencyVerKey: agencyVerificationKey,
-          poolConfig,
-        }
-      )
-
-      // TODO:KS Check errors from backend in api utils
-      yield call(acceptInvitation, {
-        url,
-        requestId: payload.requestId,
-        myPairwiseDid: pairwiseConnection.identifier,
-        myPairwiseVerKey: pairwiseConnection.verificationKey,
-        invitation: payload,
-        myPairwiseAgentDid: createPairwiseKeyResponse.withPairwiseDID,
-        myPairwiseAgentVerKey: createPairwiseKeyResponse.withPairwiseDIDVerKey,
-        myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
-        myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
-        myOneTimeDid: userOneTimeInfo.myOneTimeDid,
-        myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
-        myAgencyVerKey: agencyVerificationKey,
-        poolConfig,
-      })
-      yield put(invitationSuccess(senderDID))
-
-      if (action.data.response === ResponseType.accepted) {
-        const connection = {
-          newConnection: {
-            identifier: pairwiseConnection.identifier,
-            logoUrl: payload.senderLogoUrl,
+        const createPairwiseKeyResponse: CreatePairwiseAgentResponse = yield call(
+          createPairwiseAgent,
+          {
+            url,
             myPairwiseDid: pairwiseConnection.identifier,
             myPairwiseVerKey: pairwiseConnection.verificationKey,
-            myPairwiseAgentDid: createPairwiseKeyResponse.withPairwiseDID,
-            myPairwiseAgentVerKey:
-              createPairwiseKeyResponse.withPairwiseDIDVerKey,
-            myPairwisePeerVerKey: payload.senderDetail.verKey,
-            ...payload,
-          },
+            oneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
+            oneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
+            myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
+            agencyVerKey: agencyVerificationKey,
+            poolConfig,
+          }
+        )
+
+        // TODO:KS Check errors from backend in api utils
+        yield call(acceptInvitation, {
+          url,
+          requestId: payload.requestId,
+          myPairwiseDid: pairwiseConnection.identifier,
+          myPairwiseVerKey: pairwiseConnection.verificationKey,
+          invitation: payload,
+          myPairwiseAgentDid: createPairwiseKeyResponse.withPairwiseDID,
+          myPairwiseAgentVerKey:
+            createPairwiseKeyResponse.withPairwiseDIDVerKey,
+          myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
+          myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
+          myOneTimeDid: userOneTimeInfo.myOneTimeDid,
+          myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
+          myAgencyVerKey: agencyVerificationKey,
+          poolConfig,
+        })
+        yield put(invitationSuccess(senderDID))
+
+        if (action.data.response === ResponseType.accepted) {
+          const connection = {
+            newConnection: {
+              identifier: pairwiseConnection.identifier,
+              logoUrl: payload.senderLogoUrl,
+              myPairwiseDid: pairwiseConnection.identifier,
+              myPairwiseVerKey: pairwiseConnection.verificationKey,
+              myPairwiseAgentDid: createPairwiseKeyResponse.withPairwiseDID,
+              myPairwiseAgentVerKey:
+                createPairwiseKeyResponse.withPairwiseDIDVerKey,
+              myPairwisePeerVerKey: payload.senderDetail.verKey,
+              ...payload,
+            },
+          }
+          yield put(saveNewConnection(connection))
         }
-        yield put(saveNewConnection(connection))
+      } catch (e) {
+        let error: CustomError = {
+          code: ERROR_INVITATION_RESPONSE_PARSE_CODE,
+          message: ERROR_INVITATION_RESPONSE_PARSE,
+        }
+        try {
+          error = JSON.parse(e.message)
+        } catch (_) {}
+        yield put(invitationFail(error, senderDID))
       }
-    } catch (e) {
-      let error: CustomError = {
-        code: ERROR_INVITATION_RESPONSE_PARSE_CODE,
-        message: ERROR_INVITATION_RESPONSE_PARSE,
-      }
-      try {
-        error = JSON.parse(e.message)
-      } catch (_) {}
-      yield put(invitationFail(error, senderDID))
     }
+  } catch (err) {
+    let error: CustomError = {
+      code: SERVER_ERROR_CODE,
+      message: 'Error: An error occurred while creating a connection',
+    }
+    try {
+      error = JSON.parse(err.message)
+    } catch (_) {}
+    yield put(invitationFail(error, senderDID))
   }
 }
 

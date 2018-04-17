@@ -151,6 +151,7 @@ export type ProofRequestState = {
   selfAttestedAttributes: GenericStringObject,
   disableUserInputs: boolean,
   selectedClaims: RequestedAttrsJson,
+  disableSendButton: boolean,
 }
 
 export const PROOF_REQUEST_RECEIVED = 'PROOF_REQUEST_RECEIVED'

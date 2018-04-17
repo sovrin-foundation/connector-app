@@ -125,6 +125,10 @@ export type ClaimOfferProps = {
   logoUrl?: string,
 }
 
+export type ClaimOfferState = {
+  disableAcceptButton: boolean,
+}
+
 export type ClaimRequestStatusModalProps = {
   claimRequestStatus: ClaimRequestStatus,
   payload: ClaimOfferPayload,

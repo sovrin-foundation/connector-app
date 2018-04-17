@@ -66,6 +66,9 @@ const Tabs = TabNavigator(
     [homeTabRoute]: {
       screen: HomeScreen,
       navigationOptions: {
+        tabBarTestIDProps: {
+          testID: 'tab-bar-home-icon',
+        },
         tabBarIcon: ({ focused }) => {
           return focused ? (
             <Icon src={require('./images/dashboard_large.png')} mediumLarge />
@@ -78,6 +81,9 @@ const Tabs = TabNavigator(
     [settingsTabRoute]: {
       screen: Settings,
       navigationOptions: {
+        tabBarTestIDProps: {
+          testID: 'tab-bar-settings-icon',
+        },
         tabBarIcon: ({ focused }) => {
           return focused ? (
             <Icon src={require('./images/settings_large.png')} mediumLarge />
@@ -90,6 +96,9 @@ const Tabs = TabNavigator(
     [qrCodeScannerTabRoute]: {
       screen: QRCodeScanner,
       navigationOptions: {
+        tabBarTestIDProps: {
+          testID: 'tab-bar-qrcode-icon',
+        },
         tabBarVisible: false,
         tabBarIcon: () => {
           return <Icon src={require('./images/addConnection.png')} medium />

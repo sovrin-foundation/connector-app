@@ -360,6 +360,7 @@ export class ProofRequest extends PureComponent<
     selfAttestedAttributes: {},
     disableUserInputs: false,
     selectedClaims: {},
+    disableSendButton: false,
   }
 
   close = () => {
@@ -385,12 +386,19 @@ export class ProofRequest extends PureComponent<
       // user will never see generate proof button and we don't need to wait for
       // generate proof button to be clicked after all attributes are filled
       // this.props.getProof(this.props.uid)
+      this.setState({
+        disableSendButton: true,
+      })
       this.props.updateAttributeClaim(this.state.selectedClaims)
     } else {
       // we need to change the text to send once we know that generate proof is clicked
       // also, we need to disable user inputs once user has submitted those fields
       // because user can't change them now
-      this.setState({ generateProofClicked: true, disableUserInputs: true })
+      this.setState({
+        generateProofClicked: true,
+        disableUserInputs: true,
+        disableSendButton: false,
+      })
       this.props.userSelfAttestedAttributes(
         convertUserFilledValuesToSelfAttested(
           this.state.selfAttestedAttributes,
@@ -591,7 +599,9 @@ export class ProofRequest extends PureComponent<
           onDecline={this.onReject}
           denyTitle="Ignore"
           acceptTitle={primaryActionText}
-          disableAccept={!enablePrimaryActionStatus}
+          disableAccept={
+            !enablePrimaryActionStatus || this.state.disableSendButton
+          }
           testID={testID}
         />
         <ProofModal

@@ -43,6 +43,7 @@ export async function addConnection(
   } catch (e) {
     // what to do if indy sdk returns error
     console.error(e)
+    throw e
   }
 
   // TODO: What if Indy throws error and we don't get any DID

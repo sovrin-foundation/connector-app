@@ -37,6 +37,7 @@ import type {
   ClaimOfferProps,
   ClaimOfferPayload,
   ClaimOfferAttributeListProps,
+  ClaimOfferState,
 } from './type-claim-offer'
 import type { Store } from '../store/type-store'
 import ClaimRequestModal from './claim-request-modal'
@@ -89,7 +90,13 @@ class ClaimOfferAttributeList extends PureComponent<
   }
 }
 
-export class ClaimOffer extends PureComponent<ClaimOfferProps, void> {
+export class ClaimOffer extends PureComponent<
+  ClaimOfferProps,
+  ClaimOfferState
+> {
+  state = {
+    disableAcceptButton: false,
+  }
   close = () => {
     this.props.navigation.goBack()
   }
@@ -105,6 +112,9 @@ export class ClaimOffer extends PureComponent<ClaimOfferProps, void> {
   }
 
   onAccept = () => {
+    this.setState({
+      disableAcceptButton: true,
+    })
     this.props.acceptClaimOffer(this.props.uid)
   }
 
@@ -175,6 +185,7 @@ export class ClaimOffer extends PureComponent<ClaimOfferProps, void> {
           denyTitle="Ignore"
           acceptTitle="Accept"
           testID={`${testID}-footer`}
+          disableAccept={this.state.disableAcceptButton}
         />
         {isValid && (
           <ClaimRequestModal
