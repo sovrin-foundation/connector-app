@@ -1,5 +1,5 @@
 // $FlowFixMe
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import RadialGradient from 'react-native-radial-gradient'
 import { Alert, ScrollView, StyleSheet, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
@@ -111,10 +111,7 @@ const HistoryBody = ({ action, timestamp }) => {
   )
 }
 
-export class ConnectionHistory extends PureComponent<
-  ConnectionHistoryProps,
-  void
-> {
+export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
   constructor(props) {
     super(props)
     this.connectionDetailHandlerDebounce = debounce(
