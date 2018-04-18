@@ -114,8 +114,10 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
     onChangeText={[Function]}
     style={
       Object {
+        "bottom": -300,
+        "height": 0,
         "position": "absolute",
-        "right": -999,
+        "width": 0,
       }
     }
     testID="pin-code-input-box"
@@ -260,8 +262,10 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
     onChangeText={[Function]}
     style={
       Object {
+        "bottom": -300,
+        "height": 0,
         "position": "absolute",
-        "right": -999,
+        "width": 0,
       }
     }
     testID="pin-code-input-box"

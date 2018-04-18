@@ -9,12 +9,16 @@ describe('ConnectMe without invitation', () => {
     const orText = element(by.id('lock-selection-or-text-touchable'))
 
     await orText.longPress()
-    for (let i = 0; i <= 10; i++) {
+    for (let i = 0; i < 10; i++) {
       await orText.tap()
     }
-    await element(
-      by.label('OK').and(by.type('_UIAlertControllerActionView'))
-    ).tap()
+    if (device.getPlatform() === 'ios') {
+      await element(
+        by.label('OK').and(by.type('_UIAlertControllerActionView'))
+      ).tap()
+    } else {
+      await element(by.type('android.widget.Button').and(by.text('OK'))).tap()
+    }
 
     await element(by.id('switch-environment-dev')).tap()
     await element(by.id('switch-environment-footer-accept')).tap()
@@ -28,6 +32,8 @@ describe('ConnectMe without invitation', () => {
 
     await expect(element(by.id('user-avatar'))).toBeVisible()
 
-    await exec('xcrun simctl io booted screenshot e2e/screenshots/home.jpg')
+    if (device.getPlatform() === 'ios') {
+      await exec('xcrun simctl io booted screenshot e2e/screenshots/home.jpg')
+    }
   })
 })

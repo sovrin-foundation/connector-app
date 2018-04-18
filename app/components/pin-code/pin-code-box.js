@@ -91,6 +91,8 @@ export default class PinCodeBox extends PureComponent<
 const styles = StyleSheet.create({
   input: {
     position: 'absolute',
-    right: -999,
+    bottom: -300, // this is to keep the input box in view port of android,
+    height: 0, // but not visible to user. currently this disappears behind keyboard
+    width: 0,
   },
 })

@@ -31,6 +31,8 @@ yarn-error.log
 build/
 .idea
 .gradle
+.project
+.settings/
 local.properties
 *.iml
 
