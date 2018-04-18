@@ -9,6 +9,7 @@ import {
   CustomView,
   CustomButton,
   Icon,
+  withAndroidBackHandler,
 } from '../components'
 import { settingsTabRoute, homeTabRoute } from '../common'
 import { unlockApp, clearPendingRedirect } from './lock-store'
@@ -132,7 +133,9 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default connect(mapStateToProps, mapDispatchToProps)(LockSetupSuccess)
+export default withAndroidBackHandler(
+  connect(mapStateToProps, mapDispatchToProps)(LockSetupSuccess)
+)
 
 const style = StyleSheet.create({
   successContainer: {

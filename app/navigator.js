@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import { StyleSheet, Animated, Easing } from 'react-native'
-import { StackNavigator, TabNavigator } from 'react-navigation'
+import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation'
 
 import AuthenticationScreen from './authentication/authentication'
 import HomeScreen from './home/home'
@@ -116,6 +116,8 @@ const Tabs = TabNavigator(
       showLabel: false,
       style: styles.tabBarContainer,
     },
+    tabBarComponent: TabBarBottom,
+    tabBarPosition: 'bottom',
   }
 )
 
