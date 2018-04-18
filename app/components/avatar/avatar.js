@@ -11,7 +11,9 @@ export default class Avatar extends PureComponent {
     super(props)
     this.onPressDebounce = debounce(
       event => {
-        this.props.onPress(event)
+        if (this.props.onPress) {
+          this.props.onPress(event)
+        }
       },
       300,
       { leading: true, trailing: false }
