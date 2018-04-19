@@ -4,7 +4,7 @@ platform :ios, '10.2'
 source 'git@github.com:evernym/connect-me-indy-wrapper.git'
 source 'git@github.com:hyperledger/indy-sdk.git'
 source 'https://github.com/CocoaPods/Specs.git'
-pod 'ConnectMeIndy', '0.0.34'
+pod 'ConnectMeIndy', '0.0.35'
 pod 'Firebase/Messaging', '4.8.0'
 
 target 'ConnectMe' do
