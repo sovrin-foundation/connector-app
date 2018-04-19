@@ -1017,8 +1017,8 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				78640BF6722600957028DBC7 /* [CP] Embed Pods Frameworks */,
-				D5EE50C2A2A4003A353405B6 /* [CP] Copy Pods Resources */,
+				AB89A2EF82932DDC177FA26C /* [CP] Embed Pods Frameworks */,
+				1644B6F4A077F8D13BE04E03 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1665,6 +1665,21 @@
 			shellPath = /bin/sh;
 			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\nnode ../node_modules/sentry-cli-binary/bin/sentry-cli react-native xcode \n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		1644B6F4A077F8D13BE04E03 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ConnectMeTests/Pods-ConnectMeTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1729,21 +1744,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ConnectMe/Pods-ConnectMe-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		78640BF6722600957028DBC7 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ConnectMeTests/Pods-ConnectMeTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		901AA8635490573B5477DDC7 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1766,19 +1766,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ConnectMe/Pods-ConnectMe-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D5EE50C2A2A4003A353405B6 /* [CP] Copy Pods Resources */ = {
+		AB89A2EF82932DDC177FA26C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ConnectMeTests/Pods-ConnectMeTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ConnectMeTests/Pods-ConnectMeTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F988A8F5C138F906C4B6429B /* [CP] Check Pods Manifest.lock */ = {
