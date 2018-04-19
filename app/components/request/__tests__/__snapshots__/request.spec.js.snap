@@ -29,7 +29,6 @@ exports[`<Request /> should match snapshot 1`] = `
       useNativeDriver={true}
     >
       <View
-        bottom={true}
         style={
           Object {
             "flex": 1,

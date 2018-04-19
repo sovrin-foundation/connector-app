@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Vibration, StyleSheet, View, Dimensions } from 'react-native'
+import { Vibration, StyleSheet, View, Dimensions, Platform } from 'react-native'
 import Camera from 'react-native-camera'
 import { CustomView, Container, CustomText, Icon } from '../../components/'
 import {
@@ -143,6 +143,9 @@ export class CameraMarker extends PureComponent<CameraMarkerProps, void> {
             <CornerBox status={status} position={BOTTOM_RIGHT} />
           </CustomView>
         </CustomView>
+        <CustomView
+          style={[cameraMarkerStyles.container, cameraMarkerStyles.overlay]}
+        />
         <CustomText
           h5
           semiBold
@@ -165,9 +168,6 @@ export class CameraMarker extends PureComponent<CameraMarkerProps, void> {
             small
           />
         </CustomView>
-        <CustomView
-          style={[cameraMarkerStyles.container, cameraMarkerStyles.overlay]}
-        />
       </CustomView>
     )
   }

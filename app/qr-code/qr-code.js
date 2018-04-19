@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Camera from 'react-native-camera'
-import { Alert } from 'react-native'
+import { Alert, Platform, PermissionsAndroid } from 'react-native'
 import { Container, QRScanner } from '../components'
 import { color, barStyleLight } from '../common/styles/constant'
 import { invitationReceived } from '../store'
@@ -143,15 +143,32 @@ export class QRCodeScannerScreen extends Component<
   }
 
   checkCameraAuthorization = () => {
-    Camera.checkVideoAuthorizationStatus()
-      .then((authorization: boolean) => {
-        if (authorization) {
-          this.setHasCameraAccessPermission()
-        } else {
-          this.setNoCameraAccessPermission()
-        }
+    if (Platform.OS === 'ios') {
+      Camera.checkVideoAuthorizationStatus()
+        .then((authorization: boolean) => {
+          if (authorization) {
+            this.setHasCameraAccessPermission()
+          } else {
+            this.setNoCameraAccessPermission()
+          }
+        })
+        .catch(this.setNoCameraAccessPermission)
+    } else {
+      PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA, {
+        title: 'App Camera Permission',
+        message:
+          'App needs access to your camera ' +
+          'so you can scan QR codes and form connections.',
       })
-      .catch(this.setNoCameraAccessPermission)
+        .then(result => {
+          if (result === 'granted') {
+            this.setHasCameraAccessPermission()
+          } else {
+            this.setNoCameraAccessPermission()
+          }
+        })
+        .catch(this.setNoCameraAccessPermission)
+    }
   }
 
   componentWillReceiveProps(nextProps: QRCodeScannerScreenProps) {

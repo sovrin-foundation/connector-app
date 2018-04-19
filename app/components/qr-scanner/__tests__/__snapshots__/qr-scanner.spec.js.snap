@@ -134,6 +134,19 @@ exports[`<QRScanner /> should match snapshot 1`] = `
           />
         </View>
       </View>
+      <View
+        style={
+          Object {
+            "backgroundColor": "rgba(0, 0, 0, 0.2)",
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+            "zIndex": -1,
+          }
+        }
+      />
       <Text
         accessible={true}
         allowFontScaling={true}
@@ -228,19 +241,6 @@ exports[`<QRScanner /> should match snapshot 1`] = `
           />
         </View>
       </View>
-      <View
-        style={
-          Object {
-            "backgroundColor": "rgba(0, 0, 0, 0.2)",
-            "bottom": 0,
-            "left": 0,
-            "position": "absolute",
-            "right": 0,
-            "top": 0,
-            "zIndex": -1,
-          }
-        }
-      />
     </View>
   </View>
 </View>
