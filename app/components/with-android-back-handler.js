@@ -1,3 +1,5 @@
+//TODO add flow
+//TODO add tests
 import React, { Component } from 'react'
 import { BackHandler, Platform } from 'react-native'
 

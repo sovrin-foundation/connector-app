@@ -5,12 +5,33 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
   style={Object {}}
 >
   <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    hitSlop={
+      Object {
+        "bottom": 20,
+        "left": 20,
+        "right": 20,
+        "top": 20,
+      }
+    }
+    nativeID={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     row={true}
     style={
       Object {
         "flexDirection": "row",
       }
     }
+    testID={undefined}
   >
     <View
       center={true}
@@ -131,12 +152,33 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
   style={Object {}}
 >
   <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    hitSlop={
+      Object {
+        "bottom": 20,
+        "left": 20,
+        "right": 20,
+        "top": 20,
+      }
+    }
+    nativeID={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     row={true}
     style={
       Object {
         "flexDirection": "row",
       }
     }
+    testID={undefined}
   >
     <View
       center={true}

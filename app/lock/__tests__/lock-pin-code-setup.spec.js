@@ -19,6 +19,7 @@ describe('<LockPinCodeSetup />', () => {
         clear: () => {
           cleared = true
         },
+        blur: () => {},
       }
     },
   }

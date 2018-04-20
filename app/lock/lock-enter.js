@@ -73,6 +73,7 @@ export class LockEnter extends PureComponent<LockEnterProps, LockEnterState> {
   componentWillReceiveProps(nextProps: LockEnterProps) {
     if (this.props.checkPinStatus !== nextProps.checkPinStatus) {
       if (nextProps.checkPinStatus === CHECK_PIN_SUCCESS) {
+        this.pinCodeBox && this.pinCodeBox.hideKeyboard()
         this.props.onSuccess()
       } else if (nextProps.checkPinStatus === CHECK_PIN_FAIL) {
         this.pinCodeBox && this.pinCodeBox.clear && this.pinCodeBox.clear()

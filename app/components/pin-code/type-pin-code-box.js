@@ -15,4 +15,6 @@ export type PinCodeBoxState = {
 export type TextInputRef = {
   clear: () => void,
   isFocused: () => boolean,
+  focus: () => void,
+  blur: () => void,
 }

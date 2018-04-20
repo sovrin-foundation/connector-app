@@ -1,6 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { TextInput, StyleSheet } from 'react-native'
+import { TextInput, StyleSheet, Platform } from 'react-native'
+import { PIN_SETUP_STATE } from '../../lock/type-lock'
 import PinCodeDigit from './pin-code-digit'
 import { CustomView } from '../../components'
 import type {
@@ -8,6 +9,15 @@ import type {
   PinCodeBoxState,
   TextInputRef,
 } from './type-pin-code-box'
+
+const keyboard = Platform.OS === 'ios' ? 'number-pad' : 'numeric'
+
+const isDigit = text => {
+  if (isNaN(parseInt(text))) {
+    return false
+  }
+  return true
+}
 
 export default class PinCodeBox extends PureComponent<
   PinCodeBoxProps,
@@ -22,7 +32,9 @@ export default class PinCodeBox extends PureComponent<
   maxLength = 6
 
   onPinChange = (pin: string) => {
-    this.setState({ pin }, this.onPinSet)
+    if (pin === '' || isDigit(pin.substr(pin.length - 1))) {
+      this.setState({ pin }, this.onPinSet)
+    }
   }
 
   clear = () => {
@@ -30,6 +42,14 @@ export default class PinCodeBox extends PureComponent<
     // either in case pin was wrong, or we want them to enter it again
     this.inputBox && this.inputBox.clear()
     this.setState({ pin: '' })
+  }
+
+  hideKeyboard = () => {
+    this.inputBox && this.inputBox.blur()
+  }
+
+  showKeyboard = () => {
+    this.inputBox && this.inputBox.focus()
   }
 
   onPinSet = () => {
@@ -66,13 +86,15 @@ export default class PinCodeBox extends PureComponent<
 
     return (
       <CustomView>
-        <CustomView row>{pinCodeDigits}</CustomView>
+        <CustomView onPress={this.showKeyboard} row>
+          {pinCodeDigits}
+        </CustomView>
         <TextInput
           autoCorrect={false}
           autoFocus={true}
           blurOnSubmit={false}
           enablesReturnKeyAutomatically={false}
-          keyboardType="number-pad"
+          keyboardType={keyboard}
           keyboardAppearance="dark"
           maxLength={this.maxLength}
           onChangeText={this.onPinChange}

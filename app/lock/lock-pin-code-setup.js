@@ -122,6 +122,7 @@ export class LockPinSetup extends PureComponent<
   }
 
   onPinReEnterSuccess = (pin: string) => {
+    this.pinCodeBox && this.pinCodeBox.hideKeyboard()
     this.setState({
       pinSetupState: PIN_SETUP_STATE.REENTER_SUCCESS,
     })

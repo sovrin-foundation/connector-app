@@ -27,6 +27,7 @@ describe('<LockEnter />', () => {
         clear: () => {
           cleared = true
         },
+        blur: () => {},
       }
     },
   }
