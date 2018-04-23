@@ -76,6 +76,7 @@ import com.android.build.OutputFile
 project.ext.react = [
         entryFile: "index.js"
 ]
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 apply from: "../../node_modules/react-native/react.gradle"
 
@@ -119,7 +120,7 @@ android {
                                 HOCKEYAPP_APP_ID: "***REMOVED***"]
     }
     dexOptions {
-        javaMaxHeapSize "8g"
+        javaMaxHeapSize "2g"
     }
 
     signingConfigs{
