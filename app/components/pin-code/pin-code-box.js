@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { TextInput, StyleSheet, Platform } from 'react-native'
+import { TextInput, StyleSheet, Platform, Keyboard } from 'react-native'
 import { PIN_SETUP_STATE } from '../../lock/type-lock'
 import PinCodeDigit from './pin-code-digit'
 import { CustomView } from '../../components'
@@ -25,6 +25,15 @@ export default class PinCodeBox extends PureComponent<
 > {
   state = {
     pin: '',
+  }
+  componentDidMount = () => {
+    this.keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      this.hideKeyboard
+    )
+  }
+  componentWillUnMount = () => {
+    this.keyboardDidHideListener && this.keyboardDidHideListener.remove()
   }
 
   inputBox: ?TextInputRef = null
@@ -77,6 +86,7 @@ export default class PinCodeBox extends PureComponent<
       isEntered = this.state.pin[i] !== undefined
       pinCodeDigits.push(
         <PinCodeDigit
+          onPress={this.showKeyboard}
           key={i}
           entered={isEntered}
           testID={`pin-code-digit-${i}`}
@@ -113,7 +123,7 @@ export default class PinCodeBox extends PureComponent<
 const styles = StyleSheet.create({
   input: {
     position: 'absolute',
-    bottom: -300, // this is to keep the input box in view port of android,
+    right: -999, // this is to keep the input box in view port of android,
     height: 0, // but not visible to user. currently this disappears behind keyboard
     width: 0,
   },

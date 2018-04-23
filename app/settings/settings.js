@@ -9,6 +9,7 @@ import {
   lockEnterPinRoute,
   lockTouchIdSetupRoute,
 } from '../common/route-constants'
+import { Switch as AndroidSwitch } from 'react-native-switch'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { white, mantis, OFFSET_1X, color } from '../common/styles/constant'
@@ -150,7 +151,12 @@ export class Settings extends PureComponent<SettingsProps, void> {
           value={this.props.touchIdActive}
         />
       ) : (
-        <CustomView />
+        <AndroidSwitch
+          onTintColor={mantis}
+          tintColor={white}
+          onValueChange={this.onChangeTouchId}
+          value={this.props.touchIdActive}
+        />
       )
 
     const onChat = (

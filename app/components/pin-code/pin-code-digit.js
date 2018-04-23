@@ -12,11 +12,16 @@ export default class PinCodeDigit extends PureComponent<
   void
 > {
   render() {
-    const { entered, testID = undefined } = this.props
+    const { entered, testID = undefined, onPress } = this.props
     const style = entered ? styles.entered : null
 
     return (
-      <CustomView center style={[styles.digit, style]} testID={testID}>
+      <CustomView
+        onPress={onPress}
+        center
+        style={[styles.digit, style]}
+        testID={testID}
+      >
         {entered && (
           <Image style={styles.icon} source={sovrinIcon} resizeMode="contain" />
         )}

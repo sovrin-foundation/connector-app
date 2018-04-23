@@ -4,6 +4,7 @@ import type { ClaimOfferPayload } from '../claim-offer/type-claim-offer'
 import type { Connections, Connection } from './type-connection-store'
 import type { ConnectionHistoryEvent } from '../connection-history/type-connection-history'
 import RNFetchBlob from 'react-native-fetch-blob'
+import { Platform } from 'react-native'
 
 export const getConfig = (state: Store) => state.config
 
@@ -148,8 +149,12 @@ export const getCurrentScreen = (state: Store) => state.route.currentScreen
 
 export const getUserAvatarSource = (name: ?string) => {
   if (name) {
+    const uri =
+      Platform.OS === 'ios'
+        ? `${RNFetchBlob.fs.dirs.DocumentDir}/${name}`
+        : `file://${RNFetchBlob.fs.dirs.DocumentDir}/${name}`
     return {
-      uri: `${RNFetchBlob.fs.dirs.DocumentDir}/${name}`,
+      uri,
     }
   }
 

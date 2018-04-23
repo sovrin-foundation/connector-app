@@ -74,8 +74,9 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
-  - RNImageCropPicker (0.20.0):
+  - RNImageCropPicker (0.20.1):
     - QBImagePickerController
+    - React/Core
     - RSKImageCropper
   - RSKImageCropper (2.0.1)
   - yoga (0.51.0.React)
@@ -134,7 +135,7 @@ SPEC CHECKSUMS:
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
   React: 541ba768b9855e10cdc76f55427a5cd0653ca806
   react-native-image-resizer: 04a3409e7d4ad646c4468671c69dec490def139c
-  RNImageCropPicker: a637beb8f4c76bf9fe8a89d404ad65a33c4215ac
+  RNImageCropPicker: 32ca4b9fef4e1b7b85ba69494242122948117e06
   RSKImageCropper: 50d5a3e4160f0309b14d75b89d5ae2f496d56e0d
   yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
