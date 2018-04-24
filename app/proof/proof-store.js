@@ -39,6 +39,7 @@ import {
   proofRequestAutoFill,
   missingAttributesFound,
   acceptProofRequest,
+  sendProof,
 } from '../proof-request/proof-request-store'
 import {
   getOriginalProofRequestData,
@@ -224,6 +225,8 @@ export function* generateProofSaga(
     const updateAttributeClaim = yield take(UPDATE_ATTRIBUTE_CLAIM)
     requestedClaimsJson.requested_attrs =
       updateAttributeClaim.requestedAttrsJson
+
+    yield put(sendProof(uid))
 
     // call generate proof api
     const proofJson = yield call(

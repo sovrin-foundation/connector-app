@@ -15,6 +15,7 @@ import {
   acceptProofRequest,
   missingAttributesFound,
   proofRequestAutoFill,
+  sendProof,
 } from '../../proof-request/proof-request-store'
 import {
   prepareProof,
@@ -159,7 +160,9 @@ describe('Proof Store', () => {
         type: UPDATE_ATTRIBUTE_CLAIM,
         requestedAttrsJson: requestedClaimsJson.requested_attrs,
       }).value
-    ).toEqual(
+    ).toEqual(put(sendProof(uid)))
+
+    expect(gen.next().value).toEqual(
       call(
         generateProof,
         JSON.stringify(originalProofRequestData),
@@ -246,7 +249,9 @@ describe('Proof Store', () => {
         type: UPDATE_ATTRIBUTE_CLAIM,
         requestedAttrsJson: requestedClaimsJson.requested_attrs,
       }).value
-    ).toEqual(
+    ).toEqual(put(sendProof(uid)))
+
+    expect(gen.next().value).toEqual(
       call(
         generateProof,
         JSON.stringify(originalProofRequestDataMissingAttribute),
