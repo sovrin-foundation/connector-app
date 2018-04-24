@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { StyleSheet } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 
-import { CustomText } from '../components'
+import { CustomText, withAndroidBackHandler } from '../components'
 import LockEnter from './lock-enter'
 import { color, OFFSET_2X } from '../common/styles'
 import { lockEnterPinRoute, lockPinSetupRoute, homeRoute } from '../common'
@@ -37,7 +37,6 @@ export class LockEnterPin extends PureComponent<
     ),
     headerStyle: tertiaryHeaderStyles.header,
   })
-
   componentWillReceiveProps(nextProps: LockEnterPinProps) {
     if (
       this.props.isFetchingInvitation !== nextProps.isFetchingInvitation &&
@@ -130,6 +129,8 @@ const mapDispatchToProps = dispatch =>
 
 export default StackNavigator({
   [lockEnterPinRoute]: {
-    screen: connect(mapStateToProps, mapDispatchToProps)(LockEnterPin),
+    screen: withAndroidBackHandler(
+      connect(mapStateToProps, mapDispatchToProps)(LockEnterPin)
+    ),
   },
 })
