@@ -11,7 +11,7 @@ import {
   getAllConnection,
   getThemes,
 } from './store-selector'
-import { color } from '../common/styles/constant'
+import { color, whiteSmoke } from '../common/styles/constant'
 import { bubbleSize } from '../common/styles'
 import type { CustomError, GenericObject } from '../common/type-common'
 import type {
@@ -38,6 +38,7 @@ import { RESET } from '../common/type-common'
 
 const UPDATE_CONNECTION_THEME = 'UPDATE_CONNECTION_THEME'
 export const NEW_CONNECTION_SUCCESS = 'NEW_CONNECTION_SUCCESS'
+export const UPDATE_HEADER_THEME = 'UPDATE_HEADER_THEME'
 const NEW_CONNECTION_FAIL = 'NEW_CONNECTION_FAIL'
 const HYDRATE_CONNECTIONS = 'HYDRATE_CONNECTIONS'
 
@@ -92,6 +93,11 @@ export const saveNewConnection = (connection: GenericObject) => ({
 export const saveNewConnectionSuccess = (connection: GenericObject) => ({
   type: NEW_CONNECTION_SUCCESS,
   connection,
+})
+
+export const updateHeaderTheme = color => ({
+  type: UPDATE_HEADER_THEME,
+  color: color !== undefined ? color : whiteSmoke,
 })
 
 export const saveNewConnectionFailed = (error: CustomError) => ({
@@ -334,6 +340,11 @@ export default function connections(
       return {
         ...state,
         data: filteredData,
+      }
+    case UPDATE_HEADER_THEME:
+      return {
+        ...state,
+        headerTheme: action.color,
       }
     case HYDRATE_CONNECTIONS:
       return {

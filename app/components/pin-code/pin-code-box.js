@@ -1,4 +1,4 @@
-// @flow
+//TODO fix flow
 import React, { PureComponent } from 'react'
 import { TextInput, StyleSheet, Platform, Keyboard } from 'react-native'
 import { PIN_SETUP_STATE } from '../../lock/type-lock'

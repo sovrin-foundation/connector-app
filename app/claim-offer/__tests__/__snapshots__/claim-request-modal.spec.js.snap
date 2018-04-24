@@ -75,6 +75,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
             style={
               Object {
                 "borderRadius": 38,
+                "elevation": 3,
                 "shadowColor": "rgba(0, 0, 0, 0.25)",
                 "shadowOffset": Object {
                   "height": 3,
@@ -140,6 +141,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
           style={
             Object {
               "borderRadius": 38,
+              "elevation": 3,
               "shadowColor": "rgba(0, 0, 0, 0.25)",
               "shadowOffset": Object {
                 "height": 3,
@@ -552,6 +554,7 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
             style={
               Object {
                 "borderRadius": 38,
+                "elevation": 3,
                 "shadowColor": "rgba(0, 0, 0, 0.25)",
                 "shadowOffset": Object {
                   "height": 3,
@@ -622,6 +625,7 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
           style={
             Object {
               "borderRadius": 38,
+              "elevation": 3,
               "shadowColor": "rgba(0, 0, 0, 0.25)",
               "shadowOffset": Object {
                 "height": 3,

@@ -7,6 +7,7 @@ import { List, ListItem } from 'react-native-elements'
 import moment from 'moment'
 import groupBy from 'lodash.groupby'
 import { bindActionCreators } from 'redux'
+import { updateHeaderTheme } from '../../app/store/connections-store'
 import {
   InfoSectionList,
   ClaimProofHeader,
@@ -129,6 +130,10 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
     )
   }
 
+  componentDidMount() {
+    this.props.updateHeaderTheme(this.props.activeConnectionThemePrimary)
+  }
+
   connectionDetailHandler = (history: any) => {
     if (history.h.action === HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST]) {
       this.props.navigation.navigate(connectionHistoryPendingRoute, {
@@ -157,6 +162,7 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
   }
 
   close = () => {
+    this.props.updateHeaderTheme()
     this.props.navigation.goBack(null)
   }
 
@@ -359,7 +365,7 @@ const mapStateToProps = (state: Store, props: ReactNavigation) => {
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ deleteConnectionAction }, dispatch)
+  bindActionCreators({ deleteConnectionAction, updateHeaderTheme }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConnectionHistory)
 

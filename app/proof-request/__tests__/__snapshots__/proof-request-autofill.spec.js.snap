@@ -1335,6 +1335,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
               style={
                 Object {
                   "borderRadius": 38,
+                  "elevation": 3,
                   "shadowColor": "rgba(0, 0, 0, 0.25)",
                   "shadowOffset": Object {
                     "height": 3,
@@ -1405,6 +1406,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
             style={
               Object {
                 "borderRadius": 38,
+                "elevation": 3,
                 "shadowColor": "rgba(0, 0, 0, 0.25)",
                 "shadowOffset": Object {
                   "height": 3,

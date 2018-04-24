@@ -19,7 +19,7 @@
         tools:replace="android:label"
         android:label="ConnectMe"
         android:allowBackup="true"
-        android:theme="@android:style/Theme.NoTitleBar"
+        android:theme="@style/AppTheme"
         android:icon="@mipmap/ic_launcher">
 
         <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@mipmap/ic_launcher"/>

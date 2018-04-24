@@ -2,7 +2,7 @@
 export type PinCodeDigitProps = {
   entered: boolean,
   testID?: ?string,
-  onPress: () => void,
+  onPress?: () => void,
 }
 
 export type PinCodeBoxProps = {

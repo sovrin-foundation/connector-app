@@ -129,7 +129,9 @@ export default class ConnectionBubbles extends PureComponent<
   }
 
   render() {
-    const { width, height } = Dimensions.get('window')
+    let { width, height } = Dimensions.get('window')
+    //Adjusting height in android due to navigational bar
+    height = Platform.OS === 'ios' ? height : height - 44
     let deviceClass = ''
 
     if (Platform.OS === 'ios') {

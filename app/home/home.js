@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Animated, StyleSheet, SafeAreaView } from 'react-native'
+import { Animated, StyleSheet, SafeAreaView, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Container, CustomView, Icon, UserAvatar } from '../components'
@@ -64,7 +64,7 @@ export default connect(mapStateToProps)(DashboardScreen)
 
 const styles = StyleSheet.create({
   userAvatarContainer: {
-    marginVertical: OFFSET_3X,
+    marginVertical: Platform.OS === 'ios' ? OFFSET_3X : OFFSET_3X / 2,
   },
   floatIcon: {
     position: 'absolute',

@@ -190,6 +190,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                     style={
                       Object {
                         "borderRadius": 38,
+                        "elevation": 3,
                         "shadowColor": "rgba(0, 0, 0, 0.25)",
                         "shadowOffset": Object {
                           "height": 3,
@@ -248,6 +249,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                   style={
                     Object {
                       "borderRadius": 38,
+                      "elevation": 3,
                       "shadowColor": "rgba(0, 0, 0, 0.25)",
                       "shadowOffset": Object {
                         "height": 3,
@@ -681,6 +683,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
               style={
                 Object {
                   "borderRadius": 38,
+                  "elevation": 3,
                   "shadowColor": "rgba(0, 0, 0, 0.25)",
                   "shadowOffset": Object {
                     "height": 3,
@@ -742,6 +745,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
             style={
               Object {
                 "borderRadius": 38,
+                "elevation": 3,
                 "shadowColor": "rgba(0, 0, 0, 0.25)",
                 "shadowOffset": Object {
                   "height": 3,

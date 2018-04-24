@@ -58,6 +58,7 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
           style={
             Object {
               "borderRadius": 50,
+              "elevation": 3,
               "shadowColor": "rgba(0, 0, 0, 0.25)",
               "shadowOffset": Object {
                 "height": 3,

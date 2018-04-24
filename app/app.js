@@ -5,17 +5,42 @@ import store, { ROUTE_UPDATE } from './store'
 import { Container } from './components'
 import { PushNotification } from './push-notification'
 import DeepLink from './deep-link'
-import { barStyleLight, barStyleDark } from './common/styles/constant'
+import {
+  barStyleLight,
+  barStyleDark,
+  whiteSmoke,
+} from './common/styles/constant'
 import ConnectMeAppNavigator from './navigator'
 import { qrCodeScannerTabRoute } from './common'
 import { NavigationActions } from 'react-navigation'
 import { setupFeedback } from './feedback'
+import { updateHeaderTheme } from './store/connections-store'
 
 // for now let's start adding flow type on file by file basis
 // once we have a lot of coverage for types
 // we will scan all files without any flow directive for each file
 
 class ConnectMeApp extends PureComponent {
+  componentWillMount() {
+    this.setState({
+      headerTheme:
+        store.getState().connections !== undefined &&
+        store.getState().connections.headerTheme != undefined
+          ? store.getState().connections.headerTheme
+          : whiteSmoke,
+    })
+    store.dispatch(updateHeaderTheme())
+    store.subscribe(() => {
+      this.handleChange()
+    })
+  }
+
+  handleChange = () => {
+    if (this.headerTheme !== store.getState().connections.headerTheme) {
+      this.setState({ headerTheme: store.getState().connections.headerTheme })
+    }
+  }
+
   // gets the current screen from navigation state
   getCurrentRouteName = navigationState => {
     const route = navigationState.routes[navigationState.index]
@@ -54,6 +79,7 @@ class ConnectMeApp extends PureComponent {
     return (
       <Provider store={store}>
         <Container>
+          <StatusBar backgroundColor={this.state.headerTheme} />
           <PushNotification navigateToRoute={this.navigateToRoute} />
           <DeepLink />
           <ConnectMeAppNavigator

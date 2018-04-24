@@ -37,7 +37,10 @@ import type {
   SendProofSuccessAction,
   AdditionalProofDataPayload,
 } from '../proof-request/type-proof-request'
-import { NEW_CONNECTION_SUCCESS } from '../store/connections-store'
+import {
+  NEW_CONNECTION_SUCCESS,
+  updateHeaderTheme,
+} from '../store/connections-store'
 import { PROOF_SUCCESS } from '../proof/type-proof'
 import type {
   Attribute,
@@ -229,4 +232,5 @@ export type ConnectionHistoryProps = {
   connectionHistory: {
     [string]: ConnectionHistoryEvent[],
   },
+  updateHeaderTheme: (color?: string) => void,
 } & ReactNavigation
