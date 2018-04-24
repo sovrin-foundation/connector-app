@@ -11,18 +11,20 @@ App to connect Sovrin with 3rd party authentication
 
 # Steps to run
 
+- Clone this repository with `SSH`
 - `yarn install`
 
 ## For ios
 - `cd ios/fastlane`
 - `bundle install`
 - `bundle exec fastlane match development`. DO NOT use `--force` with this command. Do not use XCode automatic code signing.
+- You'll be prompted to enter 2 passwords. Slack a contributor for what those are.
 - `cd .. && pod install` (Make sure `pod` is installed or `sudo gem install cocoapods`)
 - `cd .. && npm run ios`
 
 # To Read
-- [Coding guidelines](https://github.com/evernym/ConnectMe/blob/master/CODING_GUIDELINES.md)
-- [Contributing guidelines](https://github.com/evernym/ConnectMe/blob/master/CONTRIBUTING_GUIDELINES.MD)
+- [Coding guidelines](https://github.com/evernym/ConnectMe/blob/master/docs/CODING_GUIDELINES.md)
+- [Contributing guidelines](https://github.com/evernym/ConnectMe/blob/master/docs/CONTRIBUTING_GUIDELINES.MD)
 
 ## Tech stack used
 - [React Native](https://facebook.github.io/react-native/)
@@ -47,7 +49,7 @@ App to connect Sovrin with 3rd party authentication
 
 ## IDE
 - You may use any IDE you feel more comfortable with.
-- Our preferred IDE would be "VS Code" with extensions like 
+- Our preferred IDE would be "VS Code" with extensions like
   - Prettier - Code formatter (esbenp.prettier-vscode)
   - VS Code ES7 React/Redux/React-Native/JS snippets
   - Code Spell Checker (streetsidesoftware.code-spell-checker)
