@@ -7,7 +7,7 @@ import { List, ListItem } from 'react-native-elements'
 import moment from 'moment'
 import groupBy from 'lodash.groupby'
 import { bindActionCreators } from 'redux'
-import { updateHeaderTheme } from '../../app/store/connections-store'
+import { updateStatusBarTheme } from '../../app/store/connections-store'
 import {
   InfoSectionList,
   ClaimProofHeader,
@@ -131,7 +131,7 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
   }
 
   componentDidMount() {
-    this.props.updateHeaderTheme(this.props.activeConnectionThemePrimary)
+    this.props.updateStatusBarTheme(this.props.activeConnectionThemePrimary)
   }
 
   connectionDetailHandler = (history: any) => {
@@ -162,7 +162,7 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
   }
 
   close = () => {
-    this.props.updateHeaderTheme()
+    this.props.updateStatusBarTheme()
     this.props.navigation.goBack(null)
   }
 
@@ -365,7 +365,7 @@ const mapStateToProps = (state: Store, props: ReactNavigation) => {
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ deleteConnectionAction, updateHeaderTheme }, dispatch)
+  bindActionCreators({ deleteConnectionAction, updateStatusBarTheme }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConnectionHistory)
 

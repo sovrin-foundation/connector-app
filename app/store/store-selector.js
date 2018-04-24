@@ -5,6 +5,7 @@ import type { Connections, Connection } from './type-connection-store'
 import type { ConnectionHistoryEvent } from '../connection-history/type-connection-history'
 import RNFetchBlob from 'react-native-fetch-blob'
 import { Platform } from 'react-native'
+import { whiteSmoke } from '../common/styles/constant'
 
 export const getConfig = (state: Store) => state.config
 
@@ -146,6 +147,15 @@ export const getUserOneTimeInfo = (state: Store) => state.user.userOneTimeInfo
 export const getClaimMap = (state: Store) => state.claim.claimMap
 
 export const getCurrentScreen = (state: Store) => state.route.currentScreen
+
+export const getStatusBarTheme = (state: Store) => {
+  const statusBarTheme =
+    state.connections !== undefined &&
+    state.connections.statusBarTheme != undefined
+      ? state.connections.statusBarTheme
+      : whiteSmoke
+  return statusBarTheme
+}
 
 export const getUserAvatarSource = (name: ?string) => {
   if (name) {

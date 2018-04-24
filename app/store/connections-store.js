@@ -38,7 +38,7 @@ import { RESET } from '../common/type-common'
 
 const UPDATE_CONNECTION_THEME = 'UPDATE_CONNECTION_THEME'
 export const NEW_CONNECTION_SUCCESS = 'NEW_CONNECTION_SUCCESS'
-export const UPDATE_HEADER_THEME = 'UPDATE_HEADER_THEME'
+export const UPDATE_STATUS_BAR_THEME = 'UPDATE_STATUS_BAR_THEME'
 const NEW_CONNECTION_FAIL = 'NEW_CONNECTION_FAIL'
 const HYDRATE_CONNECTIONS = 'HYDRATE_CONNECTIONS'
 
@@ -95,8 +95,9 @@ export const saveNewConnectionSuccess = (connection: GenericObject) => ({
   connection,
 })
 
-export const updateHeaderTheme = color => ({
-  type: UPDATE_HEADER_THEME,
+//TODO refactor create a new store for ui
+export const updateStatusBarTheme = color => ({
+  type: UPDATE_STATUS_BAR_THEME,
   color: color !== undefined ? color : whiteSmoke,
 })
 
@@ -341,10 +342,10 @@ export default function connections(
         ...state,
         data: filteredData,
       }
-    case UPDATE_HEADER_THEME:
+    case UPDATE_STATUS_BAR_THEME:
       return {
         ...state,
-        headerTheme: action.color,
+        statusBarTheme: action.color,
       }
     case HYDRATE_CONNECTIONS:
       return {

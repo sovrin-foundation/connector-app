@@ -28,7 +28,7 @@ describe('<ConnectionHistory />', () => {
       connectionHistory,
       connection,
       claimMap: undefined,
-      updateHeaderTheme: () => {},
+      updateStatusBarTheme: () => {},
     }
   }
 

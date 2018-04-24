@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { Provider } from 'react-redux'
 import { AppRegistry, StatusBar } from 'react-native'
 import store, { ROUTE_UPDATE } from './store'
+import { getStatusBarTheme } from './store/store-selector'
 import { Container } from './components'
 import { PushNotification } from './push-notification'
 import DeepLink from './deep-link'
@@ -14,30 +15,33 @@ import ConnectMeAppNavigator from './navigator'
 import { qrCodeScannerTabRoute } from './common'
 import { NavigationActions } from 'react-navigation'
 import { setupFeedback } from './feedback'
-import { updateHeaderTheme } from './store/connections-store'
+import { updateStatusBarTheme } from './store/connections-store'
 
 // for now let's start adding flow type on file by file basis
 // once we have a lot of coverage for types
 // we will scan all files without any flow directive for each file
 
 class ConnectMeApp extends PureComponent {
-  componentWillMount() {
+  constructor() {
+    super()
+    this.state = {
+      statusBarTheme: whiteSmoke,
+    }
+  }
+
+  componentDidMount() {
     this.setState({
-      headerTheme:
-        store.getState().connections !== undefined &&
-        store.getState().connections.headerTheme != undefined
-          ? store.getState().connections.headerTheme
-          : whiteSmoke,
+      statusBarTheme: getStatusBarTheme(store.getState()),
     })
-    store.dispatch(updateHeaderTheme())
+    store.dispatch(updateStatusBarTheme())
     store.subscribe(() => {
       this.handleChange()
     })
   }
 
   handleChange = () => {
-    if (this.headerTheme !== store.getState().connections.headerTheme) {
-      this.setState({ headerTheme: store.getState().connections.headerTheme })
+    if (this.state.statusBarTheme !== getStatusBarTheme(store.getState())) {
+      this.setState({ statusBarTheme: getStatusBarTheme(store.getState()) })
     }
   }
 
@@ -79,7 +83,7 @@ class ConnectMeApp extends PureComponent {
     return (
       <Provider store={store}>
         <Container>
-          <StatusBar backgroundColor={this.state.headerTheme} />
+          <StatusBar backgroundColor={this.state.statusBarTheme} />
           <PushNotification navigateToRoute={this.navigateToRoute} />
           <DeepLink />
           <ConnectMeAppNavigator

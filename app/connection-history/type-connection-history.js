@@ -232,5 +232,5 @@ export type ConnectionHistoryProps = {
   connectionHistory: {
     [string]: ConnectionHistoryEvent[],
   },
-  updateHeaderTheme: (color?: string) => void,
+  updateStatusBarTheme: (color?: string) => void,
 } & ReactNavigation
