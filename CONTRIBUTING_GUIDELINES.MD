@@ -49,7 +49,7 @@ Add this method to Home screen component
     )
     setTimeout(() => {
       this.props.navigation.navigate(proofRequestRoute, { uid: proofRequestId })
-    }, 100)
+    }, 1000)
   }
 ```
 
@@ -81,7 +81,12 @@ logoUrl: 'https://image.flaticon.com/icons/png/128/174/174851.png',
 In proof-store.js. Import static-data for proof
 ```js
 // TODO Remove below import, only for testing
-import { proofWith10Attributes } from '../../__mocks__/static-data'
+import { proofWith10Attributes,homeAddressPreparedProofWithMissingAttribute } from '../../__mocks__/static-data'
+```
+
+Find the call to `prepareProof` in `generateProofSaga`. Comment out the actual call to native bridge and use this instead
+```js
+const preparedProofJson=JSON.stringify(homeAddressPreparedProofWithMissingAttribute)
 ```
 
 Find the call to `generateProof` in `generateProofSaga`. Comment out the actual call to native bridge and use this instead

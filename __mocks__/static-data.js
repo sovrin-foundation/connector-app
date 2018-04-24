@@ -785,7 +785,13 @@ export const homeAddressPreparedProofWithMissingAttribute = {
     attr1_uuid: [
       {
         claim_uuid: 'claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73',
-        attrs: { ['Address 1']: 'Address 1' },
+        attrs: { ['Address 1']: 'Evernym Ltd, Hyd.' },
+        schema_seq_no: 295,
+        issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
+      },
+      {
+        claim_uuid: 'claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73',
+        attrs: { ['Address 1']: 'Sovrin Ltd, Utah.' },
         schema_seq_no: 295,
         issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
       },
