@@ -31,7 +31,10 @@ export class UserAvatar extends PureComponent<UserAvatarProps, void> {
       // if we are using children as render prop
       // then we want user of the component to specify what to render
       return (
-        <TouchableWithoutFeedback onPress={this.changeAvatar}>
+        <TouchableWithoutFeedback
+          testID={this.props.testID}
+          onPress={this.changeAvatar}
+        >
           <View pointerEvents="box-only">
             {this.props.children(avatarSource)}
           </View>

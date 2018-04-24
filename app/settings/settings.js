@@ -21,6 +21,7 @@ import {
   TOUCH_ID_TEST_ID,
   USERNAME_TEST_ID,
   CHAT_TEST_ID,
+  USER_AVATAR_TEST_ID,
 } from './settings-constant'
 
 import type { Store } from '../store/type-store'
@@ -91,7 +92,9 @@ export class Settings extends PureComponent<SettingsProps, void> {
 
   render() {
     const userAvatar = (
-      <UserAvatar userCanChange>{this.renderAvatarWithSource}</UserAvatar>
+      <UserAvatar testID={USER_AVATAR_TEST_ID} userCanChange>
+        {this.renderAvatarWithSource}
+      </UserAvatar>
     )
     const editIcon = (
       <Icon

@@ -63,7 +63,7 @@ exports[`user settings screen should render properly and snapshot should match 1
             onStartShouldSetResponder={[Function]}
             pointerEvents="box-only"
             style={undefined}
-            testID={undefined}
+            testID="settings-user-avatar-label"
           >
             <View
               imageShadow={null}

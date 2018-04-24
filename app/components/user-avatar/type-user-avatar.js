@@ -7,5 +7,6 @@ export type UserAvatarProps = {
   userCanChange?: boolean,
   selectUserAvatar: () => void,
   avatarName?: ?ImageSource,
+  testID?: string,
   children?: (avatarSource: ImageSource | number) => React.Element<*>,
 }

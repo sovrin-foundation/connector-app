@@ -9,8 +9,21 @@ import {
   isiPhone5,
 } from '../common/styles'
 import { CustomView, CustomButton } from '../components'
+import debounce from 'lodash.debounce'
 
 export default class CustomModal extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.onPressDebounce = debounce(
+      event => {
+        if (this.props.onPress) {
+          this.props.onPress(event)
+        }
+      },
+      300,
+      { leading: true, trailing: false }
+    )
+  }
   render() {
     const {
       disabled,
@@ -37,7 +50,7 @@ export default class CustomModal extends PureComponent {
             fifth
             disabled={disabled}
             disabledStyle={[styles.disabledStyle]}
-            onPress={onPress}
+            onPress={this.onPressDebounce}
             title={buttonText}
             accessibilityLabel={accessibilityLabel}
             testID={`${testID}-success-continue`}
