@@ -111,14 +111,12 @@ export type UserSelfAttestedAttributesAction = {
 
 export type IndyPreparedProof = {
   attrs: {
-    [attributeName: string]: ?[
-      ?{
-        claim_uuid: string,
-        attrs: { [claimAttributeName: string]: string },
-        schema_seq_no: number,
-        issuer_did: string,
-      },
-    ],
+    [attributeName: string]: ?Array<{
+      claim_uuid: string,
+      attrs: { [claimAttributeName: string]: string },
+      schema_seq_no: number,
+      issuer_did: string,
+    } | null>,
   },
   predicates: {},
   self_attested_attrs?: {},
