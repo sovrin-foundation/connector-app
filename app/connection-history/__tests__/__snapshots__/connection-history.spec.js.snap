@@ -137,10 +137,22 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
             />
           </View>
           <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
             center={true}
             clearBg={true}
             extraLarge={true}
             halo={true}
+            hitSlop={
+              Object {
+                "bottom": 20,
+                "left": 20,
+                "right": 20,
+                "top": 20,
+              }
+            }
             iconStyle={
               Array [
                 Object {
@@ -148,6 +160,14 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                 },
               ]
             }
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             resizeMode="cover"
             src={
               Object {
@@ -169,7 +189,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                 "zIndex": 1,
               }
             }
-            testID="connection-history-issuer-logo"
+            testID="connection-history-issuer-logo-touchable"
           >
             <View
               center={true}

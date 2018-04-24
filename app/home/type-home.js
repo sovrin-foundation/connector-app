@@ -10,6 +10,7 @@ export type BubbleProps = {
   senderName: string,
   senderDID: string,
   radius: number,
+  identifier: string,
 } & ReactNavigation
 
 export type BubbleState = {

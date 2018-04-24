@@ -31,6 +31,7 @@ export default class Avatar extends PureComponent {
       src,
       extraNode,
       onPress,
+      onLongPress,
       testID,
       onLoad,
       onError,
@@ -65,7 +66,10 @@ export default class Avatar extends PureComponent {
         style={elementStyle}
         testID={testID}
       >
-        <TouchableWithoutFeedback onPress={this.onPressDebounce}>
+        <TouchableWithoutFeedback
+          onPress={this.onPressDebounce}
+          onLongPress={onLongPress}
+        >
           <Image
             source={src}
             style={elementContentStyle}

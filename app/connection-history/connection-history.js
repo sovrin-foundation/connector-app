@@ -43,6 +43,7 @@ import {
   HISTORY_EVENT_OCCURRED,
 } from './type-connection-history'
 import type { ReactNavigation } from '../common/type-common'
+import showDID from '../components/show-pairwise-info'
 import {
   SEND_CLAIM_REQUEST,
   CLAIM_REQUEST_STATUS,
@@ -169,8 +170,8 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
   onDeleteConnection = (senderName: string, senderDID: string) => {
     Alert.alert(
       `Delete ${senderName}?`,
-      `Are you sure you want to delete ${senderName} as a connection? 
-      You will still keep the information they have given you, but you will not 
+      `Are you sure you want to delete ${senderName} as a connection?
+      You will still keep the information they have given you, but you will not
       be able to contact them without re-establishing a new connection. Proceed?`,
       [alertCancel, { text: 'Delete', onPress: () => this.delete(senderDID) }]
     )
@@ -188,6 +189,7 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
         senderName,
         image,
         senderDID,
+        identifier,
       } = this.props.navigation.state.params
       const { activeConnectionThemePrimary, connectionHistory } = this.props
       const testID = 'connection-history'
@@ -306,6 +308,7 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
                   style={[styles.issuerLogo]}
                   iconStyle={[styles.issuerLogoIcon]}
                   testID={`${testID}-issuer-logo`}
+                  onLongPress={() => showDID(senderDID, identifier)}
                 />
                 <Icon
                   absolute="TopLeft"

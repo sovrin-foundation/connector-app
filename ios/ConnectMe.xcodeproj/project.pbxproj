@@ -1663,7 +1663,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\nnode ../node_modules/sentry-cli-binary/bin/sentry-cli react-native xcode \n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport DISABLE_XIP=true\nexport NODE_BINARY=node\nnode ../node_modules/sentry-cli-binary/bin/sentry-cli react-native xcode \n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
 		1644B6F4A077F8D13BE04E03 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1692,7 +1692,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport NODE_BINARY=node\nnode ../node_modules/sentry-cli-binary/bin/sentry-cli react-native xcode \n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport DISABLE_XIP=true\nexport NODE_BINARY=node\nnode ../node_modules/sentry-cli-binary/bin/sentry-cli react-native xcode \n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
 		4F25372745CB4C4B9757BA25 /* Upload Debug Symbols to Sentry */ = {
 			isa = PBXShellScriptBuildPhase;

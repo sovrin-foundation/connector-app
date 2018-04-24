@@ -10,6 +10,7 @@ import {
 import { View as AnimationView } from 'react-native-animatable'
 import { Avatar } from '../components'
 import { connectionHistoryRoute } from '../common/route-constants'
+import showDID from '../components/show-pairwise-info'
 import type { BubbleState, BubbleProps, BubblesProps } from './type-home'
 
 export class Bubble extends PureComponent<BubbleProps, BubbleState> {
@@ -25,16 +26,22 @@ export class Bubble extends PureComponent<BubbleProps, BubbleState> {
     this.setState({ failed: true })
   }
 
-  goHistoryView = (senderName: string, image: ?string, senderDID: string) => {
+  goHistoryView = (
+    senderName: string,
+    image: ?string,
+    senderDID: string,
+    identifier: string
+  ) => {
     this.props.navigation.navigate(connectionHistoryRoute, {
       senderName,
       image,
       senderDID,
+      identifier,
     })
   }
 
   render() {
-    const { image, testID, senderName, senderDID } = this.props
+    const { image, testID, senderName, senderDID, identifier } = this.props
     let source
 
     if (this.state.failed || Number.isInteger(image) || !image) {
@@ -53,7 +60,10 @@ export class Bubble extends PureComponent<BubbleProps, BubbleState> {
         onLoad={this._onLoad}
         onError={this._onError}
         testID={testID}
-        onPress={() => this.goHistoryView(senderName, image, senderDID)}
+        onPress={() =>
+          this.goHistoryView(senderName, image, senderDID, identifier)
+        }
+        onLongPress={() => showDID(senderDID, identifier)}
       />
     )
   }
@@ -191,6 +201,7 @@ export default class ConnectionBubbles extends PureComponent<
                 testID={`bubble-${identifier}`}
                 senderName={senderName}
                 senderDID={senderDID}
+                identifier={identifier}
                 navigation={this.props.navigation}
               />
             </AnimationView>
