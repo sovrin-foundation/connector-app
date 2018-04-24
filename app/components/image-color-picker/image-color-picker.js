@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { WebView } from 'react-native'
+import { WebView, Platform } from 'react-native'
 import RNFetchBlob from 'react-native-fetch-blob'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -11,8 +11,9 @@ import type { ImagePickerProps, ImagePickerStates } from './type-color-picker'
 import { color, greyRGB } from '../../common/styles/constant'
 import { captureError } from '../../services/error/error-handler'
 import { canvasHtml } from './canvas-html'
+import { getColor } from '../../bridge/react-native-cxs/RNCxs'
 
-const LIGHT_COLOR_LUMINANCE_FACTOR = 190
+const LIGHT_COLOR_LUMINANCE_FACTOR = 200
 
 export function isAllowedColor(color: Array<*>): boolean {
   if (color.length < 3) {
@@ -67,6 +68,15 @@ export class ImageColorPicker extends PureComponent<
         type,
         80
       )
+      // if we are on Android, then we have a faster native solution
+      // to get color from image, so we will use native for Android
+      if (Platform.OS === 'android') {
+        const rgb = await getColor(resizedImage.path)
+        this.updateTheme([rgb])
+
+        return
+      }
+
       const base64EncodedImage = await RNFetchBlob.fs.readFile(
         resizedImage.path,
         'base64'
@@ -84,37 +94,40 @@ export class ImageColorPicker extends PureComponent<
       this.state.imageBlob &&
       messageData.payload[0]
     ) {
-      const { payload } = messageData
-      const firstBestColor = Object.values(payload[0])
-      const secondBestColor =
-        payload.length > 1 ? Object.values(payload[1]) : []
-
-      let imageColor = greyRGB.split(', ').map(rgb => parseInt(rgb, 10))
-      // add alpha value to rgba
-      imageColor.push(1)
-
-      if (isAllowedColor(firstBestColor)) {
-        imageColor = firstBestColor
-      } else if (isAllowedColor(secondBestColor)) {
-        imageColor = secondBestColor
-      } else {
-        const thirdBestColor =
-          payload.length > 2 ? Object.values(payload[2]) : imageColor
-        if (isAllowedColor(thirdBestColor)) {
-          imageColor = thirdBestColor
-        }
-      }
-
-      const primaryColor = `rgba(${imageColor.join(',')})`
-      const secondaryColor = `rgba(${imageColor.splice(0, 3).join(',')},
-        ${color.actions.button.secondary.shade})`
-
-      this.props.updateConnectionTheme(
-        this.props.imageUrl,
-        primaryColor,
-        secondaryColor
-      )
+      this.updateTheme(messageData.payload)
     }
+  }
+
+  updateTheme = (payload: Array<Array<string>>) => {
+    const firstBestColor = Object.values(payload[0])
+    const secondBestColor = payload.length > 1 ? Object.values(payload[1]) : []
+
+    let imageColor = greyRGB.split(', ').map(rgb => parseInt(rgb, 10))
+    // add alpha value to rgba
+    imageColor.push(1)
+
+    if (isAllowedColor(firstBestColor)) {
+      imageColor = firstBestColor
+    } else if (isAllowedColor(secondBestColor)) {
+      imageColor = secondBestColor
+    } else {
+      const thirdBestColor =
+        payload.length > 2 ? Object.values(payload[2]) : imageColor
+      if (isAllowedColor(thirdBestColor)) {
+        imageColor = thirdBestColor
+      }
+    }
+
+    const primaryColor = `rgba(${imageColor.join(',')})`
+    const secondaryColor = `rgba(${imageColor.splice(0, 3).join(',')},${
+      color.actions.button.secondary.shade
+    })`
+
+    this.props.updateConnectionTheme(
+      this.props.imageUrl,
+      primaryColor,
+      secondaryColor
+    )
   }
 
   componentDidMount() {

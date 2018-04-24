@@ -438,3 +438,7 @@ export async function deleteConnection({
 export async function reset(poolConfig: string) {
   return await RNIndy.switchEnvironment(poolConfig)
 }
+
+export async function getColor(imagePath: string): Promise<Array<string>> {
+  return RNIndy.getColor(imagePath)
+}

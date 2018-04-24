@@ -2,17 +2,24 @@
 
 package com.connectme.rnindy;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
+import android.support.v7.graphics.Palette;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RNIndyModule extends ReactContextBaseJavaModule {
@@ -40,6 +47,7 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     public void addConnection (String remoteDID,
                             String senderVerificationKey, 
                             ReadableMap metadata,
+                            String poolConfig,
                             Promise promise) {
         promise.resolve(staticData.addConnection());
     }
@@ -207,5 +215,61 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
                             String poolConfig,
                             Promise promise) {
         promise.resolve("{}");
+    }
+
+    @ReactMethod
+    public void getColor(String imagePath, final Promise promise) {
+        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+        Palette.from(bitmap).generate(
+                new Palette.PaletteAsyncListener() {
+                    @Override
+                    public void onGenerated(Palette palette) {
+                        try {
+                            Palette.Swatch swatch = palette.getVibrantSwatch();
+                            if (swatch == null) {
+                                swatch = palette.getDarkVibrantSwatch();
+                            }
+                            if (swatch == null) {
+                                swatch = palette.getLightVibrantSwatch();
+                            }
+                            if (swatch == null) {
+                                swatch = palette.getMutedSwatch();
+                            }
+                            if (swatch == null) {
+                                swatch = palette.getDarkMutedSwatch();
+                            }
+                            if (swatch == null) {
+                                swatch = palette.getLightMutedSwatch();
+                            }
+                            if (swatch == null) {
+                                swatch = palette.getDominantSwatch();
+                            }
+                            if (swatch == null) {
+                                List<Palette.Swatch> swatchList = palette.getSwatches();
+                                for (Palette.Swatch swatchItem: swatchList) {
+                                    if (swatchItem != null) {
+                                        swatch = swatchItem;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            int rgb = swatch.getRgb();
+                            int r = Color.red(rgb);
+                            int g = Color.green(rgb);
+                            int b = Color.blue(rgb);
+                            WritableArray colors = Arguments.createArray();
+                            colors.pushString(String.valueOf(r));
+                            colors.pushString(String.valueOf(g));
+                            colors.pushString(String.valueOf(b));
+                            // add a value for alpha factor
+                            colors.pushString("1");
+                            promise.resolve(colors);
+                        } catch (Exception e) {
+                            promise.reject("No color", e);
+                        }
+                    }
+                }
+        );
     }
 }

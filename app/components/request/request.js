@@ -40,15 +40,17 @@ export default class Request extends PureComponent<RequestProps, RequestState> {
     this.setState({ disableAccept: false })
   }
 
+  onTouchIdFailed = (response: ResponseTypes) =>
+    this.props.navigation.navigate(lockAuthorizationRoute, {
+      onSuccess: () => this.onSuccessfulAuthorization(response),
+      onAvoid: () => this.onAvoidAuthorization(),
+    })
+
   authenticate = (response: ResponseTypes) => {
-    return TouchId.authenticate(TOUCH_ID_MESSAGE)
+    return TouchId.isSupported()
+      .then(result => TouchId.authenticate(TOUCH_ID_MESSAGE))
       .then(() => this.onSuccessfulAuthorization(response))
-      .catch(() => {
-        this.props.navigation.navigate(lockAuthorizationRoute, {
-          onSuccess: () => this.onSuccessfulAuthorization(response),
-          onAvoid: () => this.onAvoidAuthorization(),
-        })
-      })
+      .catch(() => this.onTouchIdFailed(response))
   }
 
   onAction = (response: ResponseTypes) => {
