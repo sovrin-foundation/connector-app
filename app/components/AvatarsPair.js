@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Image, StyleSheet } from 'react-native'
+import { Image, StyleSheet, Platform } from 'react-native'
 import Modal from 'react-native-modal'
 import { Avatar, CustomView, UserAvatar } from '../components'
 import { color, OFFSET_1X, OFFSET_2X, isiPhone5 } from '../common/styles'
@@ -55,6 +55,11 @@ const styles = StyleSheet.create({
   avatarsContainer: {
     marginVertical: OFFSET_1X,
     marginHorizontal: isiPhone5 ? OFFSET_1X : OFFSET_2X,
+    ...Platform.select({
+      android: {
+        paddingVertical: OFFSET_1X / 2,
+      },
+    }),
   },
   checkMark: {
     width: 30,

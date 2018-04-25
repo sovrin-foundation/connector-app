@@ -222,6 +222,7 @@ class ProofRequestAttributeList extends PureComponent<
                         testID={`${testID}-input-${adjustedLabel}`}
                         onChange={e => this.onTextChange(e, adjustedLabel)}
                         editable={!this.props.disableUserInputs}
+                        underlineColorAndroid="transparent"
                       />
                     ) : (
                       <CustomText h6 demiBold bg="tertiary" transparentBg>

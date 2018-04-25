@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, Image, StyleSheet } from 'react-native'
+import { View, Image, StyleSheet, Platform } from 'react-native'
 import Modal from 'react-native-modal'
 import {
   color,
@@ -67,8 +67,16 @@ const styles = StyleSheet.create({
     marginHorizontal: isiPhone5 ? OFFSET_1X : OFFSET_3X,
   },
   innerContainer: {
-    borderBottomColor: color.bg.fifth.font.tertiary,
-    borderBottomWidth: HAIRLINE_WIDTH,
+    ...Platform.select({
+      ios: {
+        borderBottomColor: color.bg.fifth.font.tertiary,
+        borderBottomWidth: HAIRLINE_WIDTH,
+      },
+      android: {
+        borderBottomColor: color.bg.fifth.font.secondary,
+        borderBottomWidth: 1,
+      },
+    }),
     paddingVertical: OFFSET_1X,
   },
   disabledStyle: {
