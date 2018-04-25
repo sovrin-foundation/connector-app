@@ -144,7 +144,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               "alignSelf": "center",
               "backgroundColor": "transparent",
               "bottom": 0,
-              "height": 80,
               "justifyContent": "center",
               "left": 0,
               "position": "absolute",

@@ -120,6 +120,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
             Object {
               "alignItems": "center",
               "flexDirection": "row",
+              "height": 90,
               "justifyContent": "space-between",
               "marginHorizontal": 10,
               "marginVertical": 30,
@@ -161,8 +162,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                 Array [
                   Object {
                     "borderRadius": 35,
-                    "height": 70,
-                    "width": 70,
                   },
                 ]
               }
@@ -176,7 +175,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                 Object {
                   "alignItems": "center",
                   "backgroundColor": "transparent",
-                  "height": 70,
                   "justifyContent": "center",
                   "zIndex": 1,
                 }
@@ -214,8 +212,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                       },
                       Object {
                         "borderRadius": 35,
-                        "height": 70,
-                        "width": 70,
                       },
                     ]
                   }
@@ -251,8 +247,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
               Array [
                 Object {
                   "borderRadius": 35,
-                  "height": 70,
-                  "width": 70,
                 },
               ]
             }
@@ -266,7 +260,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
               Object {
                 "alignItems": "center",
                 "backgroundColor": "transparent",
-                "height": 70,
                 "justifyContent": "center",
                 "zIndex": 1,
               }
@@ -304,8 +297,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                     },
                     Object {
                       "borderRadius": 35,
-                      "height": 70,
-                      "width": 70,
                     },
                   ]
                 }

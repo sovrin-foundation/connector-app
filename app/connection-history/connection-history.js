@@ -18,6 +18,7 @@ import {
   CustomText,
   Separator,
   CustomDate,
+  headerStyles,
 } from '../components'
 import { dimGray, OFFSET_9X } from '../../app/common/styles'
 import {
@@ -286,7 +287,7 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
                 fifth
                 hCenter
                 style={[
-                  styles.headerLogoContainer,
+                  headerStyles.headerLogoContainer,
                   { backgroundColor: 'transparent' },
                 ]}
               >
@@ -382,13 +383,9 @@ const styles = StyleSheet.create({
   headerDeleteIcon: {
     marginLeft: 15,
   },
-  headerLogoContainer: {
-    height: OFFSET_9X,
-  },
   issuerLogo: {
     ...StyleSheet.absoluteFillObject,
     alignSelf: 'center',
-    height: 80,
     zIndex: 1,
   },
   textContainerStyle: {

@@ -19,6 +19,7 @@ import {
   Separator,
   FooterActions,
   UserAvatar,
+  headerStyles,
 } from '../components'
 import { homeRoute } from '../common/'
 import {
@@ -28,6 +29,7 @@ import {
   OFFSET_3X,
   OFFSET_4X,
   OFFSET_5X,
+  OFFSET_9X,
   isiPhone5,
 } from '../common/styles'
 import type { Attribute } from '../push-notification/type-push-notification'
@@ -678,13 +680,10 @@ const styles = StyleSheet.create({
     zIndex: -1,
   },
   verifierLogo: {
-    height: 70,
     zIndex: 1,
   },
   verifierLogoIcon: {
     borderRadius: 35,
-    height: 70,
-    width: 70,
   },
   logoHaloStyle: {
     width: 87,
@@ -709,6 +708,7 @@ const styles = StyleSheet.create({
     zIndex: 3,
   },
   avatarsContainer: {
+    height: OFFSET_9X,
     marginVertical: OFFSET_3X,
     marginHorizontal: OFFSET_1X,
   },

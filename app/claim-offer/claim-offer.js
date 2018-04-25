@@ -20,6 +20,7 @@ import {
   Separator,
   FooterActions,
   CustomSafeAreaView,
+  headerStyles,
 } from '../components'
 import { homeRoute } from '../common/'
 import {
@@ -145,7 +146,11 @@ export class ClaimOffer extends PureComponent<
             logoUrl={logoUrl}
             testID={testID}
           >
-            <CustomView fifth hCenter style={[styles.headerStripLogoContainer]}>
+            <CustomView
+              fifth
+              hCenter
+              style={[headerStyles.headerLogoContainer]}
+            >
               <Icon
                 absolute="TopRight"
                 src={require('../images/close.png')}
@@ -244,9 +249,6 @@ const styles = StyleSheet.create({
   headerCloseIconContainer: {
     zIndex: 2,
   },
-  headerStripLogoContainer: {
-    height: 90,
-  },
   strip: {
     height: 20,
     width: '100%',
@@ -256,7 +258,6 @@ const styles = StyleSheet.create({
   issuerLogo: {
     ...StyleSheet.absoluteFillObject,
     alignSelf: 'center',
-    height: 80,
     zIndex: 1,
   },
   issuerLogoIcon: {

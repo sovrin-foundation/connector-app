@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform } from 'react-native'
 
 import {
   PADDING_HORIZONTAL,
@@ -9,6 +9,7 @@ import {
   OFFSET_1X,
   OFFSET_3X,
   OFFSET_2X,
+  OFFSET_9X,
 } from '../../common/styles/constant'
 
 // TODO:KS Move this file to common/styles
@@ -33,6 +34,9 @@ export default StyleSheet.create({
   },
   headerLeft: {
     marginLeft: OFFSET_3X / 2,
+  },
+  headerLogoContainer: {
+    height: OFFSET_9X + (Platform.OS === 'ios' ? 0 : OFFSET_1X),
   },
 })
 
