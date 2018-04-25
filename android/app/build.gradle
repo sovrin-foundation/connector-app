@@ -101,7 +101,7 @@ android {
 
     defaultConfig {
         applicationId "com.connectme"
-        minSdkVersion 18
+        minSdkVersion 23
         targetSdkVersion 26
         multiDexEnabled true
         versionCode 443
