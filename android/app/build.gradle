@@ -117,10 +117,12 @@ android {
         manifestPlaceholders = [onesignal_app_id: "***REMOVED***",
                                 // Project number pulled from dashboard, local value is ignored.
                                 onesignal_google_project_number: "REMOTE",
-                                HOCKEYAPP_APP_ID: "***REMOVED***"]
+                                HOCKEYAPP_APP_ID: "***REMOVED***",
+                                BRANCH_LIVE_KEY: "***REMOVED***",
+                                BRANCH_TEST_KEY:"***REMOVED***"]
     }
     dexOptions {
-        javaMaxHeapSize "2g"
+        javaMaxHeapSize "4g"
     }
 
     signingConfigs{
@@ -161,7 +163,6 @@ dependencies {
     compile project(':react-native-branch')
     compile project(':react-native-splash-screen')
     compile project(':apptentive-react-native')
-
     androidTestImplementation(project(path: ":detox"))
     androidTestImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

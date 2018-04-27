@@ -38,6 +38,7 @@
 
       <activity
         android:name=".MainActivity"
+        android:launchMode="singleTask"
         android:label="@string/app_name"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
         android:windowSoftInputMode="adjustResize">
@@ -45,7 +46,29 @@
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
+
+        <intent-filter>
+            <data android:scheme="branchandroid" />
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+        </intent-filter>
+
+        <!-- Branch App Links (optional) -->
+        <intent-filter android:autoVerify="true">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" android:host="connectme.app.link" />
+            <data android:scheme="connectme" android:host="app.link" />
+        </intent-filter>
       </activity>
+
+              <!-- Branch init -->
+        <meta-data android:name="io.branch.sdk.BranchKey" android:value="${BRANCH_LIVE_KEY}" />
+        <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="${BRANCH_TEST_KEY}" />
+        <meta-data android:name="io.branch.sdk.TestMode" android:value="false" />
+
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
         <meta-data android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />
        //TODO add InstanceIdService.java to manifest file

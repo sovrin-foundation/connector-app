@@ -13,6 +13,7 @@ import com.RNFetchBlob.RNFetchBlobPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import io.sentry.RNSentryPackage;
 import io.branch.rnbranch.RNBranchPackage;
+import io.branch.referral.Branch;
 import com.oblador.vectoricons.VectorIconsPackage;
 import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
@@ -74,6 +75,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    Branch.getAutoInstance(this);
     SoLoader.init(this, /* native exopackage */ false);
   }
 }
