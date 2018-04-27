@@ -4,7 +4,7 @@ exports[`<LockPinCodeSetup /> should render pin code box 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": "#f0f0f0",
+      "backgroundColor": "#ffffff",
       "flex": 1,
     }
   }
@@ -31,7 +31,7 @@ exports[`<LockPinCodeSetup /> should render pin code box 1`] = `
             "fontFamily": "SF Pro Display",
           },
           Object {
-            "backgroundColor": "#f0f0f0",
+            "backgroundColor": "#ffffff",
             "color": "#777777",
           },
           Object {
@@ -333,7 +333,7 @@ exports[`<LockPinCodeSetup /> should show "pass code mismatch ..." message and r
 <View
   style={
     Object {
-      "backgroundColor": "#f0f0f0",
+      "backgroundColor": "#ffffff",
       "flex": 1,
     }
   }
@@ -360,7 +360,7 @@ exports[`<LockPinCodeSetup /> should show "pass code mismatch ..." message and r
             "fontFamily": "SF Pro Display",
           },
           Object {
-            "backgroundColor": "#f0f0f0",
+            "backgroundColor": "#ffffff",
             "color": "#777777",
           },
           Object {
@@ -662,7 +662,7 @@ exports[`<LockPinCodeSetup /> should show re enter pass code after first entry 1
 <View
   style={
     Object {
-      "backgroundColor": "#f0f0f0",
+      "backgroundColor": "#ffffff",
       "flex": 1,
     }
   }
@@ -689,7 +689,7 @@ exports[`<LockPinCodeSetup /> should show re enter pass code after first entry 1
             "fontFamily": "SF Pro Display",
           },
           Object {
-            "backgroundColor": "#f0f0f0",
+            "backgroundColor": "#ffffff",
             "color": "#777777",
           },
           Object {

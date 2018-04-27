@@ -215,7 +215,7 @@ export default class ConnectionBubbles extends PureComponent<
 const styles = StyleSheet.create({
   bubbleContainer: {
     position: 'absolute',
-    top: 0,
+    top: -70,
     left: 0,
     right: 0,
     overflow: 'hidden',

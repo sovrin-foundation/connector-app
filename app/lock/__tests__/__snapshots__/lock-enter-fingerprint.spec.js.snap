@@ -24,7 +24,7 @@ exports[`app lock selection page should in case of fetching invitation show mess
           "fontFamily": "SF Pro Display",
         },
         Object {
-          "backgroundColor": "#f0f0f0",
+          "backgroundColor": "#ffffff",
           "color": "#777777",
         },
         Object {

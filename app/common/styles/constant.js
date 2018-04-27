@@ -8,6 +8,7 @@ const zircon = '#ebebea'
 export const nightRider = '#333333'
 export const grey = '#777777'
 export const whiteSmoke = '#f0f0f0'
+export const whiteSmokeSecondary = '#f7f7f7'
 export const whiteSmokeRGBA = 'rgba(240, 240, 240, 0)'
 export const mantis = '#85bf43'
 const mantisRGB = '133, 191, 67'
@@ -28,6 +29,7 @@ export const hitSlop = { top: 15, bottom: 15, left: 15, right: 15 }
 export const iPhoneXHeight = 812
 const dodgerBlue = '#0d8ffc'
 const black = '#000000'
+const yellowSea = '#EB9B2D'
 const seaBuckthorn = '#f79347'
 const pumpkin = '#F68127'
 const olivine = '#97C85F'
@@ -65,6 +67,7 @@ export const color = {
       fifth: mantis,
       dangerous: white,
       sixth: white,
+      seventh: yellowSea,
     },
   },
   bg: {
@@ -86,7 +89,7 @@ export const color = {
       },
     },
     tertiary: {
-      color: whiteSmoke,
+      color: white,
       font: {
         primary: nightRider,
         secondary: dimGray,
@@ -112,6 +115,15 @@ export const color = {
       color: nightRider,
       font: {
         primary: white,
+      },
+    },
+    seventh: {
+      color: white,
+      font: {
+        primary: nightRider,
+        secondary: dimGray,
+        tertiary: grey,
+        fifth: yellowSea,
       },
     },
     dark: {

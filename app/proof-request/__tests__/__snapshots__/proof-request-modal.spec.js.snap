@@ -5,7 +5,7 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
   animationIn="zoomIn"
   animationOut="zoomOut"
   animationOutTiming={100}
-  backdropColor="#f0f0f0"
+  backdropColor="#ffffff"
   backdropOpacity={1}
   isVisible={false}
 >
@@ -207,7 +207,7 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#f0f0f0",
+              "backgroundColor": "#ffffff",
               "color": "#777777",
             },
             Object {
@@ -242,7 +242,7 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#f0f0f0",
+              "backgroundColor": "#ffffff",
               "color": "#777777",
             },
             Object {
@@ -402,7 +402,7 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
   animationIn="zoomIn"
   animationOut="zoomOut"
   animationOutTiming={100}
-  backdropColor="#f0f0f0"
+  backdropColor="#ffffff"
   backdropOpacity={1}
   isVisible={true}
 >
@@ -599,7 +599,7 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#f0f0f0",
+              "backgroundColor": "#ffffff",
               "color": "#777777",
             },
             Object {
@@ -634,7 +634,7 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#f0f0f0",
+              "backgroundColor": "#ffffff",
               "color": "#777777",
             },
             Object {
@@ -785,7 +785,7 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
   animationIn="zoomIn"
   animationOut="zoomOut"
   animationOutTiming={100}
-  backdropColor="#f0f0f0"
+  backdropColor="#ffffff"
   backdropOpacity={1}
   isVisible={true}
 >
@@ -987,7 +987,7 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#f0f0f0",
+              "backgroundColor": "#ffffff",
               "color": "#777777",
             },
             Object {
@@ -1022,7 +1022,7 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#f0f0f0",
+              "backgroundColor": "#ffffff",
               "color": "#777777",
             },
             Object {

@@ -4,7 +4,7 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
 <View
   style={
     Object {
-      "backgroundColor": "#f0f0f0",
+      "backgroundColor": "#ffffff",
       "flex": 1,
     }
   }
@@ -13,7 +13,7 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
   <View
     style={
       Object {
-        "backgroundColor": "#f0f0f0",
+        "backgroundColor": "#ffffff",
         "flex": 1,
       }
     }
@@ -28,7 +28,7 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
           "overflow": "hidden",
           "position": "absolute",
           "right": 0,
-          "top": 0,
+          "top": -70,
           "transform": Array [
             Object {
               "translateY": 0,
@@ -176,61 +176,5 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
       />
     </View>
   </View>
-  <RCTSafeAreaView
-    style={
-      Object {
-        "position": "absolute",
-        "right": 20,
-        "top": 30,
-      }
-    }
-  >
-    <View
-      accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
-      accessibilityTraits={undefined}
-      accessible={true}
-      clearBg={true}
-      hitSlop={
-        Object {
-          "bottom": 20,
-          "left": 20,
-          "right": 20,
-          "top": 20,
-        }
-      }
-      medium={true}
-      nativeID={undefined}
-      onLayout={undefined}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      src={1}
-      style={
-        Object {
-          "backgroundColor": "transparent",
-        }
-      }
-      testID="home-feedback-id-label-touchable"
-    >
-      <Image
-        resizeMode="contain"
-        source={1}
-        style={
-          Array [
-            Object {
-              "height": 30,
-              "width": 30,
-            },
-            null,
-          ]
-        }
-        testID="home-feedback-id-label"
-      />
-    </View>
-  </RCTSafeAreaView>
 </View>
 `;

@@ -72,3 +72,12 @@ App to connect Sovrin with 3rd party authentication
 ## Unit test
 
 - *Problem*: `Invariant Violation: Native module cannot be null.`. *Solution*: You are missing the mocks for native module. Open `<rootDir>/__mocks__/setup.js` and create a mock for native module which is throwing error. You can check which native module is throwing error from call stack printed in terminal
+
+## iOS Simulator keyboard issue
+
+- *Problem*" `The iOS simulator does not take input from my MacBook Pro keyboard`. *Workaround*: A temporary
+workaround is to disconnect the hardward keyboard with the Shift+Cmd+K key combination (via the menu it is Hardware ->
+Keyboard -> Connect Hardware Keyboard to unselect that option). Then only using the menu Hardware -> Shake Gesture will
+bring up the React Native Developer Menu and then you select the Reload option from the React Native Developer Menu
+and then the software keyboard will come up and allow you to use the mouse to input characters. After a while you can
+try to re-enable The MacBook Pro keyboard but if it still fails then use this workaround again.

@@ -6,7 +6,7 @@ exports[`<Divider /> should render divider with left and right 1`] = `
   row={true}
   style={
     Object {
-      "backgroundColor": "#f0f0f0",
+      "backgroundColor": "#ffffff",
       "flex": 1,
       "flexDirection": "row",
       "paddingHorizontal": 15,
@@ -40,7 +40,7 @@ exports[`<Divider /> should render only right, if only right child is provided 1
   row={true}
   style={
     Object {
-      "backgroundColor": "#f0f0f0",
+      "backgroundColor": "#ffffff",
       "flex": 1,
       "flexDirection": "row",
       "paddingHorizontal": 15,

@@ -4,7 +4,7 @@ exports[`<LockSetupSuccess /> should display Loading while fetching the invitati
 <View
   style={
     Object {
-      "backgroundColor": "#f0f0f0",
+      "backgroundColor": "#ffffff",
       "flex": 1,
     }
   }
@@ -63,7 +63,7 @@ exports[`<LockSetupSuccess /> should display Loading while fetching the invitati
             "fontFamily": "SF Pro Display",
           },
           Object {
-            "backgroundColor": "#f0f0f0",
+            "backgroundColor": "#ffffff",
             "color": "#777777",
           },
           Object {
@@ -94,7 +94,7 @@ exports[`<LockSetupSuccess /> should display Loading while fetching the invitati
             "fontFamily": "SF Pro Display",
           },
           Object {
-            "backgroundColor": "#f0f0f0",
+            "backgroundColor": "#ffffff",
             "color": "#777777",
           },
           Object {
@@ -263,7 +263,7 @@ exports[`<LockSetupSuccess /> should render Lock setup success Screen 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": "#f0f0f0",
+      "backgroundColor": "#ffffff",
       "flex": 1,
     }
   }
@@ -322,7 +322,7 @@ exports[`<LockSetupSuccess /> should render Lock setup success Screen 1`] = `
             "fontFamily": "SF Pro Display",
           },
           Object {
-            "backgroundColor": "#f0f0f0",
+            "backgroundColor": "#ffffff",
             "color": "#777777",
           },
           Object {
@@ -353,7 +353,7 @@ exports[`<LockSetupSuccess /> should render Lock setup success Screen 1`] = `
             "fontFamily": "SF Pro Display",
           },
           Object {
-            "backgroundColor": "#f0f0f0",
+            "backgroundColor": "#ffffff",
             "color": "#777777",
           },
           Object {

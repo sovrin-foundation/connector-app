@@ -46,6 +46,9 @@ export default StyleSheet.create({
   senaryBg: {
     backgroundColor: color.bg.sixth.color,
   },
+  septenaryBg: {
+    backgroundColor: color.bg.seventh.color,
+  },
   darkBg: {
     backgroundColor: color.bg.dark.color,
   },

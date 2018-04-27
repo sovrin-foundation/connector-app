@@ -10,7 +10,7 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
       "overflow": "hidden",
       "position": "absolute",
       "right": 0,
-      "top": 0,
+      "top": -70,
       "transform": Array [
         Object {
           "translateY": undefined,

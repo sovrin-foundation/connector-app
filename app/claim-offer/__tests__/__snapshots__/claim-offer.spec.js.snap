@@ -359,7 +359,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontFamily": "SF Pro Display",
                     },
                     Object {
-                      "backgroundColor": "#f0f0f0",
+                      "backgroundColor": "#ffffff",
                       "color": "#333333",
                     },
                     Object {
@@ -401,7 +401,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontFamily": "SF Pro Display",
                     },
                     Object {
-                      "backgroundColor": "#f0f0f0",
+                      "backgroundColor": "#ffffff",
                       "color": "#333333",
                     },
                     Object {
@@ -469,7 +469,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontFamily": "SF Pro Display",
                     },
                     Object {
-                      "backgroundColor": "#f0f0f0",
+                      "backgroundColor": "#ffffff",
                       "color": "#333333",
                     },
                     Object {
@@ -511,7 +511,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontFamily": "SF Pro Display",
                     },
                     Object {
-                      "backgroundColor": "#f0f0f0",
+                      "backgroundColor": "#ffffff",
                       "color": "#333333",
                     },
                     Object {
@@ -859,7 +859,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
     animationIn="zoomIn"
     animationOut="zoomOut"
     animationOutTiming={100}
-    backdropColor="#f0f0f0"
+    backdropColor="#ffffff"
     backdropOpacity={1}
     isVisible={false}
   >
@@ -1056,7 +1056,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 "fontFamily": "SF Pro Display",
               },
               Object {
-                "backgroundColor": "#f0f0f0",
+                "backgroundColor": "#ffffff",
                 "color": "#777777",
               },
               null,
@@ -1088,7 +1088,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 "fontFamily": "SF Pro Display",
               },
               Object {
-                "backgroundColor": "#f0f0f0",
+                "backgroundColor": "#ffffff",
                 "color": "#777777",
               },
               Object {
@@ -1122,7 +1122,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 "fontFamily": "SF Pro Display",
               },
               Object {
-                "backgroundColor": "#f0f0f0",
+                "backgroundColor": "#ffffff",
                 "color": "#777777",
               },
               null,
@@ -1155,7 +1155,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 "fontFamily": "SF Pro Display",
               },
               Object {
-                "backgroundColor": "#f0f0f0",
+                "backgroundColor": "#ffffff",
                 "color": "#777777",
               },
               Object {

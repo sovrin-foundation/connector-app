@@ -381,7 +381,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                   "fontFamily": "SF Pro Display",
                 },
                 Object {
-                  "backgroundColor": "#f0f0f0",
+                  "backgroundColor": "#ffffff",
                   "color": "#333333",
                 },
                 Object {

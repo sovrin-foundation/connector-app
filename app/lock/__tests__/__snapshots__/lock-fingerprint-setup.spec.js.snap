@@ -4,7 +4,7 @@ exports[`<LockFingerprintSetup /> should render touchId modal 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": "#f0f0f0",
+      "backgroundColor": "#ffffff",
       "flex": 1,
       "paddingBottom": 20,
       "paddingHorizontal": 20,
@@ -19,7 +19,7 @@ exports[`<LockFingerprintSetup /> should test touchId handler is called 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": "#f0f0f0",
+      "backgroundColor": "#ffffff",
       "flex": 1,
       "paddingBottom": 20,
       "paddingHorizontal": 20,

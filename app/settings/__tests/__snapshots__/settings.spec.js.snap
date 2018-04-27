@@ -4,7 +4,7 @@ exports[`user settings screen should render properly and snapshot should match 1
 <View
   style={
     Object {
-      "backgroundColor": "#f0f0f0",
+      "backgroundColor": "#ffffff",
       "flex": 1,
     }
   }
@@ -204,7 +204,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                     "fontFamily": "SF Pro Display",
                   },
                   Object {
-                    "backgroundColor": "#f0f0f0",
+                    "backgroundColor": "#ffffff",
                     "color": "#777777",
                   },
                   Object {
@@ -233,7 +233,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                     "fontFamily": "SF Pro Display",
                   },
                   Object {
-                    "backgroundColor": "#f0f0f0",
+                    "backgroundColor": "#ffffff",
                     "color": "#777777",
                   },
                   Object {
@@ -424,7 +424,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                       "fontFamily": "SF Pro Display",
                     },
                     Object {
-                      "backgroundColor": "#f0f0f0",
+                      "backgroundColor": "#ffffff",
                       "color": "#777777",
                     },
                     Object {
@@ -588,7 +588,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                       "fontFamily": "SF Pro Display",
                     },
                     Object {
-                      "backgroundColor": "#f0f0f0",
+                      "backgroundColor": "#ffffff",
                       "color": "#777777",
                     },
                     Object {

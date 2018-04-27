@@ -5,7 +5,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
   animationIn="zoomIn"
   animationOut="zoomOut"
   animationOutTiming={100}
-  backdropColor="#f0f0f0"
+  backdropColor="#ffffff"
   backdropOpacity={1}
   isVisible={true}
 >
@@ -202,7 +202,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#f0f0f0",
+              "backgroundColor": "#ffffff",
               "color": "#777777",
             },
             null,
@@ -234,7 +234,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#f0f0f0",
+              "backgroundColor": "#ffffff",
               "color": "#777777",
             },
             Object {
@@ -268,7 +268,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#f0f0f0",
+              "backgroundColor": "#ffffff",
               "color": "#777777",
             },
             null,
@@ -301,7 +301,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#f0f0f0",
+              "backgroundColor": "#ffffff",
               "color": "#777777",
             },
             Object {
@@ -335,7 +335,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#f0f0f0",
+              "backgroundColor": "#ffffff",
               "color": "#777777",
             },
             null,
@@ -484,7 +484,7 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
   animationIn="zoomIn"
   animationOut="zoomOut"
   animationOutTiming={100}
-  backdropColor="#f0f0f0"
+  backdropColor="#ffffff"
   backdropOpacity={1}
   isVisible={true}
 >
@@ -686,7 +686,7 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#f0f0f0",
+              "backgroundColor": "#ffffff",
               "color": "#777777",
             },
             null,
@@ -718,7 +718,7 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#f0f0f0",
+              "backgroundColor": "#ffffff",
               "color": "#777777",
             },
             Object {
@@ -752,7 +752,7 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#f0f0f0",
+              "backgroundColor": "#ffffff",
               "color": "#777777",
             },
             null,
@@ -785,7 +785,7 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#f0f0f0",
+              "backgroundColor": "#ffffff",
               "color": "#777777",
             },
             Object {
@@ -819,7 +819,7 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
               "fontFamily": "SF Pro Display",
             },
             Object {
-              "backgroundColor": "#f0f0f0",
+              "backgroundColor": "#ffffff",
               "color": "#777777",
             },
             null,
