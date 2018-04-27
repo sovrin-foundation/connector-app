@@ -56,6 +56,16 @@ App to connect Sovrin with 3rd party authentication
   - Better Comments (aaron-bond.better-comments)
   - Path Autocomplete (ionutvmi.path-autocomplete)
 
+# Makefile
+- If you want to run the iOS or android emulators from a terminal without the need for
+the Xcode or Android Studio IDE then you can use the Makefile (this is how Norman runs
+the iOS and android emulator on his MacBook). The commands to setup
+your environment for the Makefile are:
+  - export PATH=$PWD/node_modules/.bin:$PATH
+  - make clean
+  - make pre-run
+  - make run for iOS and make run-android for android
+
 # Things to improve
 
 - [ ] Hydration needs to replace whole store. As of now it just changes few values in config store
