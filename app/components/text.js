@@ -6,6 +6,7 @@ import debounce from 'lodash.debounce'
 //TODO: Default font color should be tertiary and background should also be tertiary.
 const CustomText = props => {
   const {
+    h3,
     h4,
     h5,
     h6,
@@ -34,7 +35,7 @@ const CustomText = props => {
   const colorType = quaternary
     ? 'Quaternary'
     : secondary ? 'Secondary' : tertiary ? 'Tertiary' : 'Primary'
-  const size = h4 ? 'h4' : h6 ? 'h6' : h7 ? 'h7' : 'h5'
+  const size = h3 ? 'h3' : h4 ? 'h4' : h6 ? 'h6' : h7 ? 'h7' : 'h5'
   const fontFamily = proText ? 'fontFamilySFProText' : 'fontFamilySFProDisplay'
   const textStyles = [
     styles[size],
@@ -84,6 +85,9 @@ const CustomText = props => {
 export default CustomText
 //TODO h should start with h1 to h4
 export const styles = StyleSheet.create({
+  h3: {
+    fontSize: font.size.L,
+  },
   h4: {
     fontSize: font.size.ML,
   },

@@ -24,6 +24,7 @@ import ConnectionHistoryNavigator from './connection-history/connection-history-
 import SwitchEnvironmentScreen from './switch-environment/switch-environment'
 import LockAuthorization from './lock/lock-authorization'
 import WaitForInvitationScreen from './invitation/wait-for-invitation'
+import Wallet from './wallet/wallet'
 import { Icon } from './components'
 import {
   splashScreenRoute,
@@ -47,6 +48,7 @@ import {
   switchEnvironmentRoute,
   lockAuthorizationRoute,
   waitForInvitationRoute,
+  walletRoute,
 } from './common/'
 import { color } from './common/styles'
 
@@ -221,6 +223,7 @@ const ConnectMeAppNavigator = StackNavigator(
     [connectionHistoryRoute]: {
       screen: ConnectionHistoryNavigator,
     },
+    [walletRoute]: { screen: Wallet },
   },
   {
     mode: 'modal',

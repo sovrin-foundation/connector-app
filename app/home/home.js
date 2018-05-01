@@ -14,7 +14,7 @@ import { StackNavigator } from 'react-navigation'
 import Bubbles from './bubbles'
 import { color, barStyleDark, OFFSET_3X, OFFSET_2X } from '../common/styles'
 import { primaryHeaderStyles } from '../components/layout/header-styles'
-import { homeRoute } from '../common'
+import { homeRoute, walletRoute } from '../common'
 import { getConnections } from '../store'
 import { CLAIM_OFFER_STATUS } from '../claim-offer/type-claim-offer'
 import type { Store } from '../store/type-store'
@@ -33,11 +33,16 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
 
   static navigationOptions = ({ navigation }) => ({
     headerLeft: (
-      <CustomView horizontalSpace row center>
+      <CustomView
+        horizontalSpace
+        row
+        center
+        onPress={() => navigation.navigate(walletRoute)}
+      >
         <Icon
           small
           testID={SOVRINTOKEN_TEST_ID}
-          src={require('../images/iconTokenOrange.png')}
+          src={require('../images/sovrinTokenOrange.png')}
         />
         <CustomText
           h5

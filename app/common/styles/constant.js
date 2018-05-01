@@ -133,6 +133,10 @@ export const color = {
       },
     },
   },
+  border: {
+    primary: whisper,
+    secondary: yellowSea,
+  },
 }
 
 export const font = {
@@ -141,6 +145,7 @@ export const font = {
     S: 15,
     M: 17,
     ML: 20,
+    L: 40,
   },
 }
 
