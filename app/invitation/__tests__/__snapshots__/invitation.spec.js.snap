@@ -83,6 +83,9 @@ exports[`<Invitation /> should match snapshot 1`] = `
                       "textAlign": "center",
                     },
                     null,
+                    null,
+                    null,
+                    null,
                     Object {
                       "lineHeight": 30,
                       "marginHorizontal": 30,
@@ -116,6 +119,9 @@ exports[`<Invitation /> should match snapshot 1`] = `
                     Object {
                       "textAlign": "center",
                     },
+                    null,
+                    null,
+                    null,
                     null,
                     Object {
                       "margin": 10,
@@ -822,6 +828,9 @@ exports[`<Invitation /> should match snapshot 1`] = `
               Object {
                 "backgroundColor": "transparent",
               },
+              null,
+              null,
+              null,
               Object {
                 "marginBottom": 10,
                 "marginHorizontal": 5,

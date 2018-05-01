@@ -1141,3 +1141,7 @@ export const defaultUUID = 'a4f35623-b50c-40ea-a2b0-f7cd06e03142'
 export const userAvatarImageName = `user-avatar.jpeg`
 
 export const userAvatarImagePath = `/var/application/DocumentDir/${userAvatarImageName}`
+
+export const walletAddressess = [
+  'sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030',
+]

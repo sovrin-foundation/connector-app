@@ -219,6 +219,9 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
             Object {
               "backgroundColor": "transparent",
             },
+            null,
+            null,
+            null,
             Object {
               "marginBottom": 5,
               "paddingTop": 10,
@@ -254,6 +257,9 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
             Object {
               "backgroundColor": "transparent",
             },
+            null,
+            null,
+            null,
             Object {
               "marginBottom": 10,
             },
@@ -611,6 +617,9 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
             Object {
               "backgroundColor": "transparent",
             },
+            null,
+            null,
+            null,
             Object {
               "marginBottom": 5,
               "paddingTop": 10,
@@ -646,6 +655,9 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
             Object {
               "backgroundColor": "transparent",
             },
+            null,
+            null,
+            null,
             Object {
               "marginBottom": 10,
             },
@@ -999,6 +1011,9 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
             Object {
               "backgroundColor": "transparent",
             },
+            null,
+            null,
+            null,
             Object {
               "marginBottom": 5,
               "paddingTop": 10,
@@ -1034,6 +1049,9 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
             Object {
               "backgroundColor": "transparent",
             },
+            null,
+            null,
+            null,
             Object {
               "marginBottom": 10,
             },

@@ -22,6 +22,8 @@ const CustomText = props => {
     proText,
     tertiary,
     quaternary,
+    quinaryText,
+    borderColor,
     style = empty,
     testID,
     onPress,
@@ -50,6 +52,9 @@ const CustomText = props => {
           : demiBold ? styles.demiBold : heavy ? styles.heavy : null,
     center ? styles.center : null,
     transparentBg ? styles.transparentBg : null,
+    quinaryText ? styles.orangeText : null,
+    borderColor ? styles.borderColor : null,
+    primary ? styles.primary : null,
     ...style,
   ]
   let filteredProps = {}
@@ -148,6 +153,16 @@ export const styles = StyleSheet.create({
   },
   transparentBg: {
     backgroundColor: 'transparent',
+  },
+  orangeText: {
+    color: color.bg.eighth.color,
+  },
+  borderColor: {
+    borderWidth: 2,
+    borderColor: color.bg.eighth.border.color,
+  },
+  primary: {
+    color: color.bg.primary.color,
   },
   fontFamilySFProDisplay: {
     fontFamily: 'SF Pro Display',

@@ -36,6 +36,9 @@ exports[`app lock selection page should in case of fetching invitation show mess
         Object {
           "backgroundColor": "transparent",
         },
+        null,
+        null,
+        null,
       ]
     }
   >

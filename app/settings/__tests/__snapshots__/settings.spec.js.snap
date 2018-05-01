@@ -212,6 +212,9 @@ exports[`user settings screen should render properly and snapshot should match 1
                   },
                   null,
                   null,
+                  null,
+                  null,
+                  null,
                 ]
               }
               testID="settings-pass-code-label"
@@ -239,6 +242,9 @@ exports[`user settings screen should render properly and snapshot should match 1
                   Object {
                     "fontWeight": "600",
                   },
+                  null,
+                  null,
+                  null,
                   null,
                   null,
                   Object {
@@ -432,6 +438,9 @@ exports[`user settings screen should render properly and snapshot should match 1
                     },
                     null,
                     null,
+                    null,
+                    null,
+                    null,
                   ]
                 }
                 testID="settings-touch-id-label"
@@ -594,6 +603,9 @@ exports[`user settings screen should render properly and snapshot should match 1
                     Object {
                       "fontWeight": "600",
                     },
+                    null,
+                    null,
+                    null,
                     null,
                     null,
                   ]

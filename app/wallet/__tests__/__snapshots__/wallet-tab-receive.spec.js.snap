@@ -1,0 +1,262 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<WalletTabReceive /> should render properly and match the snapshot 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "marginTop": 38,
+        }
+      }
+    >
+      <RCTScrollView
+        scrollEnabled={false}
+      >
+        <View>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "fontSize": 15,
+                },
+                Object {
+                  "fontFamily": "SF Pro Text",
+                },
+                Object {
+                  "backgroundColor": "#333333",
+                  "color": "#ffffff",
+                },
+                Object {
+                  "fontWeight": "bold",
+                },
+                Object {
+                  "textAlign": "center",
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                Object {
+                  "color": "rgba(237, 156, 46, 1)",
+                },
+                null,
+                null,
+                Object {
+                  "letterSpacing": -0.38,
+                  "lineHeight": 18,
+                  "marginBottom": 20,
+                },
+              ]
+            }
+          >
+            YOUR SOVRIN TOKEN PAYMENT ADDRESS IS:
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "fontSize": 17,
+                },
+                Object {
+                  "fontFamily": "SF Pro Text",
+                },
+                Object {
+                  "backgroundColor": "#333333",
+                  "color": "#ffffff",
+                },
+                null,
+                Object {
+                  "textAlign": "center",
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                null,
+                Object {
+                  "borderColor": "rgba(207, 127, 20, 1)",
+                  "borderWidth": 2,
+                },
+                Object {
+                  "color": "#333333",
+                },
+                Object {
+                  "fontSize": 18,
+                  "letterSpacing": -0.45,
+                  "lineHeight": 24,
+                  "marginLeft": 19,
+                  "marginRight": 19,
+                  "marginTop": 5,
+                  "paddingBottom": 16,
+                  "paddingLeft": 13,
+                  "paddingRight": 13,
+                  "paddingTop": 16,
+                },
+              ]
+            }
+          >
+            sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030
+          </Text>
+        </View>
+      </RCTScrollView>
+    </View>
+  </View>
+  <RCTSafeAreaView
+    safeArea={true}
+    style={
+      Object {
+        "marginBottom": 6,
+        "marginLeft": "5%",
+        "marginRight": "5%",
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "marginLeft": 15,
+            "marginRight": 15,
+          },
+          undefined,
+          Object {
+            "marginLeft": 0,
+            "marginRight": 0,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+            },
+            Array [
+              Object {
+                "backgroundColor": "rgba(237, 156, 46, 1)",
+                "borderRadius": 5,
+                "width": "100%",
+              },
+            ],
+          ]
+        }
+        testID="token-copy-to-clipboard-label"
+        tvParallaxProperties={undefined}
+      >
+        <View
+          pointerEvents="box-only"
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#9E9E9E",
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "padding": 19,
+              },
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              Object {
+                "backgroundColor": "#777777",
+              },
+              undefined,
+              Object {
+                "padding": 12,
+              },
+              undefined,
+              undefined,
+              undefined,
+              Array [
+                null,
+                Object {
+                  "backgroundColor": "rgba(237, 156, 46, 1)",
+                  "borderRadius": 5,
+                  "width": "100%",
+                },
+              ],
+              undefined,
+              undefined,
+            ]
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {},
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                Array [
+                  Object {
+                    "color": "white",
+                    "fontSize": 16,
+                  },
+                  Object {
+                    "color": "#ffffff",
+                  },
+                  Object {
+                    "fontSize": 14,
+                  },
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                ],
+              ]
+            }
+          >
+            Copy Address To Clipboard
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTSafeAreaView>
+</View>
+`;

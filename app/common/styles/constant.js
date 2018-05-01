@@ -34,6 +34,8 @@ const seaBuckthorn = '#f79347'
 const pumpkin = '#F68127'
 const olivine = '#97C85F'
 const denim = '#1159A9'
+const orange = 'rgba(237, 156, 46, 1)'
+const darkOrange = 'rgba(207, 127, 20, 1)'
 
 // color shades
 const primaryShade = '1.0'
@@ -124,6 +126,12 @@ export const color = {
         secondary: dimGray,
         tertiary: grey,
         fifth: yellowSea,
+      },
+    },
+    eighth: {
+      color: orange,
+      border: {
+        color: darkOrange,
       },
     },
     dark: {

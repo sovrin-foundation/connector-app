@@ -66,6 +66,9 @@ exports[`<LockAuthorization /> should match snapshot 1`] = `
             "textAlign": "center",
           },
           null,
+          null,
+          null,
+          null,
           Object {
             "letterSpacing": 0.5,
             "lineHeight": 28,

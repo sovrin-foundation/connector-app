@@ -1,3 +1,4 @@
+// @flow
 import React from 'react'
 import { Dimensions } from 'react-native'
 import { TabBarTop, TabNavigator } from 'react-navigation'
@@ -13,13 +14,14 @@ import {
 import { color, font } from '../common/styles/constant'
 import styles from './styles'
 import { receiveTabRoute, sendTabRoute, historyTabRoute } from '../common/'
+import WalletTabReceive from './wallet-tab-receive'
 
 const { width } = Dimensions.get('window')
 
 const Tabs = TabNavigator(
   {
     [receiveTabRoute]: {
-      screen: CustomView,
+      screen: WalletTabReceive,
       navigationOptions: {
         tabBarLabel: RECEIVE_TAB,
         tabBarTestIDProps: {

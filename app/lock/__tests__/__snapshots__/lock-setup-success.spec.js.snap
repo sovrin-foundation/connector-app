@@ -73,6 +73,9 @@ exports[`<LockSetupSuccess /> should display Loading while fetching the invitati
             "textAlign": "center",
           },
           null,
+          null,
+          null,
+          null,
           Object {
             "paddingVertical": 40,
           },
@@ -103,6 +106,9 @@ exports[`<LockSetupSuccess /> should display Loading while fetching the invitati
           Object {
             "textAlign": "center",
           },
+          null,
+          null,
+          null,
           null,
           Object {
             "paddingVertical": 40,
@@ -332,6 +338,9 @@ exports[`<LockSetupSuccess /> should render Lock setup success Screen 1`] = `
             "textAlign": "center",
           },
           null,
+          null,
+          null,
+          null,
           Object {
             "paddingVertical": 40,
           },
@@ -362,6 +371,9 @@ exports[`<LockSetupSuccess /> should render Lock setup success Screen 1`] = `
           Object {
             "textAlign": "center",
           },
+          null,
+          null,
+          null,
           null,
           Object {
             "paddingVertical": 40,

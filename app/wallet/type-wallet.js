@@ -7,3 +7,7 @@ export type WalletBalanceProps = {
 }
 
 export type WalletProps = {} & ReactNavigation
+
+export type WalletTabReceiveProps = {
+  walletAddressess?: string[],
+}

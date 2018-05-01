@@ -41,6 +41,9 @@ exports[`<LockPinCodeSetup /> should render pin code box 1`] = `
             "textAlign": "center",
           },
           null,
+          null,
+          null,
+          null,
           Object {
             "letterSpacing": 0.5,
             "lineHeight": 28,
@@ -370,6 +373,9 @@ exports[`<LockPinCodeSetup /> should show "pass code mismatch ..." message and r
             "textAlign": "center",
           },
           null,
+          null,
+          null,
+          null,
           Object {
             "letterSpacing": 0.5,
             "lineHeight": 28,
@@ -698,6 +704,9 @@ exports[`<LockPinCodeSetup /> should show re enter pass code after first entry 1
           Object {
             "textAlign": "center",
           },
+          null,
+          null,
+          null,
           null,
           Object {
             "letterSpacing": 0.5,

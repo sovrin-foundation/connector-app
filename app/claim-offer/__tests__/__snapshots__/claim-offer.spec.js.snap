@@ -230,6 +230,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 "textAlign": "center",
               },
               null,
+              null,
+              null,
+              null,
               Array [],
             ]
           }
@@ -255,6 +258,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               Object {
                 "fontWeight": "900",
               },
+              null,
+              null,
+              null,
               null,
               null,
               Object {
@@ -369,6 +375,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     Object {
                       "backgroundColor": "transparent",
                     },
+                    null,
+                    null,
+                    null,
                     Object {
                       "lineHeight": 19,
                     },
@@ -411,6 +420,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     Object {
                       "backgroundColor": "transparent",
                     },
+                    null,
+                    null,
+                    null,
                   ]
                 }
               >
@@ -479,6 +491,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     Object {
                       "backgroundColor": "transparent",
                     },
+                    null,
+                    null,
+                    null,
                     Object {
                       "lineHeight": 19,
                     },
@@ -521,6 +536,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     Object {
                       "backgroundColor": "transparent",
                     },
+                    null,
+                    null,
+                    null,
                   ]
                 }
               >
@@ -1066,6 +1084,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               Object {
                 "backgroundColor": "transparent",
               },
+              null,
+              null,
+              null,
               Object {
                 "marginBottom": 5,
               },
@@ -1100,6 +1121,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               Object {
                 "backgroundColor": "transparent",
               },
+              null,
+              null,
+              null,
               Object {
                 "marginBottom": 5,
               },
@@ -1132,6 +1156,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               Object {
                 "backgroundColor": "transparent",
               },
+              null,
+              null,
+              null,
               Object {
                 "marginBottom": 5,
               },
@@ -1167,6 +1194,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               Object {
                 "backgroundColor": "transparent",
               },
+              null,
+              null,
+              null,
               Object {
                 "marginBottom": 5,
               },
