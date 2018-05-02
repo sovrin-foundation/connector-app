@@ -10,6 +10,7 @@ import {
 } from '../store/connections-store'
 import { hydrateClaimMapSaga } from '../claim/claim-store'
 import {
+  WALLET_ENCRYPTION_KEY,
   CONNECTIONS,
   PUSH_COM_METHOD,
   IS_CONSUMER_AGENT_ALREADY_CREATED,
@@ -50,6 +51,7 @@ export const hydrateAppFail = (error: CustomError) => ({
 })
 
 export function* deleteStoredData(): Generator<*, *, *> {
+  yield call(deleteItem, WALLET_ENCRYPTION_KEY)
   yield call(deleteItem, CONNECTIONS)
   yield call(AsyncStorage.removeItem, IS_CONSUMER_AGENT_ALREADY_CREATED)
   yield call(deleteItem, STORAGE_KEY_USER_ONE_TIME_INFO)

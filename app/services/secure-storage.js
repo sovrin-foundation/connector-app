@@ -3,7 +3,7 @@ import RNSensitiveInfo from 'react-native-sensitive-info'
 
 const storageName = {
   sharedPreferencesName: 'ConnectMeSharedPref',
-  keyNamechainService: 'ConnectMeKeyChain',
+  keychainService: 'ConnectMeKeyChain',
 }
 
 export const setItem = (key: string, data: string) =>

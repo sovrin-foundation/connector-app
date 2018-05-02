@@ -152,7 +152,7 @@ describe('server environment should change', () => {
     // delete stored data, not interested in actual calls
     // those tests are being taken care in other test
     gen.next(environmentDetails)
-    for (let index = 0; index < 7; index++) {
+    for (let index = 0; index < 8; index++) {
       gen.next()
     }
 
@@ -231,6 +231,7 @@ describe('hydration should work correctly', () => {
     // dispatch an action to tell app was not already installed
     gen.next()
     // clear app setup settings
+    gen.next()
     gen.next()
     // clear app lock settings
     gen.next()
