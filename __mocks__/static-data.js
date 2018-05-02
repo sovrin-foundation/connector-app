@@ -1142,6 +1142,6 @@ export const userAvatarImageName = `user-avatar.jpeg`
 
 export const userAvatarImagePath = `/var/application/DocumentDir/${userAvatarImageName}`
 
-export const walletAddressess = [
+export const walletStaticAddresses = [
   'sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030',
 ]

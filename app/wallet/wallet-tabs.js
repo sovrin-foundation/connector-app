@@ -52,7 +52,7 @@ const Tabs = TabNavigator(
     animationEnabled: true,
     swipeEnabled: true,
     lazy: true,
-    initialRouteName: sendTabRoute,
+    initialRouteName: receiveTabRoute,
     order: [receiveTabRoute, sendTabRoute, historyTabRoute],
     initialLayout: {
       height: 52,

@@ -10,28 +10,35 @@ import {
   StyleSheet,
   SafeAreaView,
   Button,
+  Clipboard,
   ScrollView,
   Alert,
 } from 'react-native'
+import { connect } from 'react-redux'
 import { Container } from '../components/layout/container'
 import { CustomView } from '../components/layout/custom-view'
 import CustomText from '../components/text'
 import CustomButton from '../components/button'
-import { color } from '../common/styles/constant'
-
-import { walletAddressess } from '../../__mocks__/static-data'
 import type { WalletTabReceiveProps } from './type-wallet'
+import { color } from '../common/styles/constant'
+import type { Store } from '../store/type-store'
 
-export default class WalletTabReceive extends Component<
-  WalletTabReceiveProps,
-  void
-> {
+// TODO: Remove the static data
+import { walletStaticAddresses } from '../../__mocks__/static-data'
+
+export class WalletTabReceive extends Component<WalletTabReceiveProps, void> {
+  copyToClipboard = () => {
+    if (this.props.walletAddresses.length) {
+      Clipboard.setString(this.props.walletAddresses[0])
+    }
+  }
   render() {
+    const { walletAddresses } = this.props
     return (
       <Container>
         <Container>
           <CustomView style={[styles.container]}>
-            <ScrollView scrollEnabled={walletAddressess.length > 1}>
+            <ScrollView scrollEnabled={walletAddresses.length > 1}>
               <CustomText
                 h6
                 bold
@@ -43,7 +50,7 @@ export default class WalletTabReceive extends Component<
               >
                 YOUR SOVRIN TOKEN PAYMENT ADDRESS IS:
               </CustomText>
-              {walletAddressess.map((walletAddress, index) => {
+              {walletAddresses.map((walletAddress, index) => {
                 return (
                   <CustomText
                     proText
@@ -63,6 +70,7 @@ export default class WalletTabReceive extends Component<
         </Container>
         <CustomView safeArea style={[styles.alignItemsCenter]}>
           <CustomButton
+            onPress={this.copyToClipboard}
             testID="token-copy-to-clipboard-label"
             style={[styles.copyButton]}
             primary
@@ -106,3 +114,11 @@ const styles = StyleSheet.create({
     backgroundColor: color.bg.eighth.color,
   },
 })
+
+const mapStateToProps = (state: Store) => {
+  return {
+    walletAddresses: walletStaticAddresses,
+  }
+}
+
+export default connect(mapStateToProps)(WalletTabReceive)
