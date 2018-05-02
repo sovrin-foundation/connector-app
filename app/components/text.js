@@ -3,6 +3,17 @@ import { Text, StyleSheet } from 'react-native'
 import empty from '../common/empty'
 import { color, font } from '../common/styles/constant'
 import debounce from 'lodash.debounce'
+
+// to format the number 1234 -> 1,234
+export function formatNumbers(num: string) {
+  if (num) {
+    let numStr = num.toString().split('.')
+    numStr[0] = numStr[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    return numStr.join('.')
+  }
+  return num
+}
+
 //TODO: Default font color should be tertiary and background should also be tertiary.
 const CustomText = props => {
   const {
@@ -32,6 +43,7 @@ const CustomText = props => {
     uppercase,
     heavy,
     numberOfLines,
+    formatNumber,
   } = props
 
   const colorType = quaternary
@@ -76,13 +88,17 @@ const CustomText = props => {
   if (typeof numberOfLines !== 'undefined') {
     filteredProps.numberOfLines = numberOfLines
   }
+  let textChild = props.children
+  if (uppercase) {
+    textChild = props.children.toUpperCase()
+  }
+  if (formatNumber) {
+    textChild = formatNumbers(props.children)
+  }
+
   return (
     <Text style={textStyles} {...filteredProps}>
-      {uppercase
-        ? props.children.toUpperCase
-          ? props.children.toUpperCase()
-          : props.children
-        : props.children}
+      {textChild}
     </Text>
   )
 }

@@ -51,8 +51,9 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
           style={[styles.floatTokenAmount]}
           transparentBg
           testID={SOVRINTOKEN_AMOUNT_TEST_ID}
+          formatNumber
         >
-          0
+          10000
         </CustomText>
       </CustomView>
     ),
