@@ -1,7 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react'
-import { TouchableHighlight, Image } from 'react-native'
+import { Image } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { Container, CustomView, CustomText, Icon } from '../components'
 import { homeRoute, walletRoute } from '../common'
@@ -18,7 +18,8 @@ const tokenLogo = require('../images/sovrinTokenWhite.png')
 
 export class Wallet extends PureComponent<WalletProps, void> {
   static navigationOptions = ({ navigation }) => ({
-    headerLeft: null,
+    // Makes it so that headerTitle is centered Android
+    headerLeft: <Container style={[styles.headerSpacer]} />,
     headerTitle: (
       <WalletBalance
         render={balance => (
@@ -52,10 +53,10 @@ export class Wallet extends PureComponent<WalletProps, void> {
       <CustomView
         onPress={() => navigation.goBack(null)}
         testID={'wallet-header-close'}
+        style={[styles.headerSpacer]}
       >
         <Icon
           medium
-          absolute="TopRight"
           testID="wallet-header-close-image"
           iconStyle={[styles.headerCloseIcon]}
           src={closeImage}
@@ -66,6 +67,7 @@ export class Wallet extends PureComponent<WalletProps, void> {
       backgroundColor: color.actions.font.seventh,
       height: 120,
     },
+    gesturesEnabled: true,
   })
 
   render() {
