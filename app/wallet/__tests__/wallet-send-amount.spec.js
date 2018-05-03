@@ -1,14 +1,12 @@
-//  @flow
-
+// @flow
+import 'react-native'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { walletRoute } from '../../common'
-import { getNavigation } from '../../../__mocks__/static-data'
-import WalletTabs from '../wallet-tabs'
+import WalletSendAmount from '../wallet-send-amount'
 
-describe('<WalletTabs />', () => {
+describe('<WalletSendAmount />', () => {
   function setup() {
-    const component = renderer.create(<WalletTabs />)
+    const component = renderer.create(<WalletSendAmount />)
     const instance = component.getInstance()
 
     return { component, instance }

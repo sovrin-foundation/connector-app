@@ -16,7 +16,7 @@ const closeImage = require('../images/iconClose.png')
 const sovrinLogo = require('../images/sovrinLogo.png')
 const tokenLogo = require('../images/sovrinTokenWhite.png')
 
-class Wallet extends PureComponent<WalletProps, void> {
+export class Wallet extends PureComponent<WalletProps, void> {
   static navigationOptions = ({ navigation }) => ({
     headerLeft: null,
     headerTitle: (

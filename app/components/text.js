@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, StyleSheet } from 'react-native'
+import { Text, Animated, StyleSheet } from 'react-native'
 import empty from '../common/empty'
 import { color, font } from '../common/styles/constant'
 import debounce from 'lodash.debounce'
@@ -44,6 +44,7 @@ const CustomText = props => {
     heavy,
     numberOfLines,
     formatNumber,
+    animated,
   } = props
 
   const colorType = quaternary
@@ -69,6 +70,7 @@ const CustomText = props => {
     primary ? styles.primary : null,
     ...style,
   ]
+  const TextComponent = animated ? Animated.Text : Text
   let filteredProps = {}
   if (typeof onLongPress !== 'undefined') {
     filteredProps.onLongPress = onLongPress
@@ -97,9 +99,9 @@ const CustomText = props => {
   }
 
   return (
-    <Text style={textStyles} {...filteredProps}>
+    <TextComponent style={textStyles} {...filteredProps}>
       {textChild}
-    </Text>
+    </TextComponent>
   )
 }
 

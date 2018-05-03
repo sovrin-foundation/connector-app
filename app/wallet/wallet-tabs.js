@@ -12,73 +12,78 @@ import {
   HISTORY_TAB_TEST_ID,
 } from './wallet-constants'
 import { color, font } from '../common/styles/constant'
+import { receiveTabRoute, sendTabRoute, historyTabRoute } from '../common'
+import WalletSendAmount from './wallet-send-amount'
 import styles from './styles'
-import { receiveTabRoute, sendTabRoute, historyTabRoute } from '../common/'
 import WalletTabReceive from './wallet-tab-receive'
 
 const { width } = Dimensions.get('window')
+let Tabs = CustomView
 
-const Tabs = TabNavigator(
-  {
-    [receiveTabRoute]: {
-      screen: WalletTabReceive,
-      navigationOptions: {
-        tabBarLabel: RECEIVE_TAB,
-        tabBarTestIDProps: {
-          testID: RECEIVE_TAB_TEST_ID,
+//  check prevents type error failure in jest
+if (typeof TabNavigator === 'function') {
+  Tabs = TabNavigator(
+    {
+      [receiveTabRoute]: {
+        screen: WalletTabReceive,
+        navigationOptions: {
+          tabBarLabel: RECEIVE_TAB,
+          tabBarTestIDProps: {
+            testID: RECEIVE_TAB_TEST_ID,
+          },
+        },
+      },
+      [sendTabRoute]: {
+        screen: WalletSendAmount,
+        navigationOptions: {
+          tabBarLabel: SEND_TAB,
+          tabBarTestIDProps: {
+            testID: SEND_TAB_TEST_ID,
+          },
+        },
+      },
+      [historyTabRoute]: {
+        screen: CustomView,
+        navigationOptions: {
+          tabBarLabel: HISTORY_TAB,
+          tabBarTestIDProps: {
+            testID: HISTORY_TAB_TEST_ID,
+          },
         },
       },
     },
-    [sendTabRoute]: {
-      screen: CustomView,
-      navigationOptions: {
-        tabBarLabel: SEND_TAB,
-        tabBarTestIDProps: {
-          testID: SEND_TAB_TEST_ID,
+    {
+      animationEnabled: true,
+      swipeEnabled: true,
+      lazy: true,
+      initialRouteName: receiveTabRoute,
+      order: [receiveTabRoute, sendTabRoute, historyTabRoute],
+      initialLayout: {
+        height: 52,
+        width,
+      },
+      tabBarComponent: TabBarTop,
+      tabBarPosition: 'top',
+      tabBarOptions: {
+        allowFontScaling: false,
+        activeTintColor: color.actions.font.seventh,
+        inactiveTintColor: color.bg.tertiary.font.primary,
+        indicatorStyle: {
+          backgroundColor: color.actions.font.seventh,
+          height: 3,
+        },
+        style: {
+          backgroundColor: color.bg.tertiary.color,
+          borderBottomWidth: 1,
+          borderBottomColor: color.border.primary,
+        },
+        labelStyle: {
+          fontSize: font.size.S,
+          fontWeight: 'bold',
         },
       },
-    },
-    [historyTabRoute]: {
-      screen: CustomView,
-      navigationOptions: {
-        tabBarLabel: HISTORY_TAB,
-        tabBarTestIDProps: {
-          testID: HISTORY_TAB_TEST_ID,
-        },
-      },
-    },
-  },
-  {
-    animationEnabled: true,
-    swipeEnabled: true,
-    lazy: true,
-    initialRouteName: receiveTabRoute,
-    order: [receiveTabRoute, sendTabRoute, historyTabRoute],
-    initialLayout: {
-      height: 52,
-      width,
-    },
-    tabBarComponent: TabBarTop,
-    tabBarPosition: 'top',
-    tabBarOptions: {
-      allowFontScaling: false,
-      activeTintColor: color.actions.font.seventh,
-      inactiveTintColor: color.bg.tertiary.font.primary,
-      indicatorStyle: {
-        backgroundColor: color.actions.font.seventh,
-        height: 3,
-      },
-      style: {
-        backgroundColor: color.bg.tertiary.color,
-        borderBottomWidth: 1,
-        borderBottomColor: color.border.primary,
-      },
-      labelStyle: {
-        fontSize: font.size.S,
-        fontWeight: 'bold',
-      },
-    },
-  }
-)
+    }
+  )
+}
 
 export default Tabs

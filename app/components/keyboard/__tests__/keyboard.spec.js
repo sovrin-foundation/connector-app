@@ -1,14 +1,18 @@
-//  @flow
+// @flow
 
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { walletRoute } from '../../common'
-import { getNavigation } from '../../../__mocks__/static-data'
-import WalletTabs from '../wallet-tabs'
+import Keyboard from '../keyboard'
 
-describe('<WalletTabs />', () => {
+describe('<Keyboard />', () => {
+  const keyboardProps = {
+    maxLength: 9,
+    color: '#fff',
+    onPress: jest.fn(),
+  }
+
   function setup() {
-    const component = renderer.create(<WalletTabs />)
+    const component = renderer.create(<Keyboard {...keyboardProps} />)
     const instance = component.getInstance()
 
     return { component, instance }
