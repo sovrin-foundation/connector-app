@@ -47,9 +47,13 @@ export default class Keyboard extends PureComponent<
   }
 
   Row(numbersArray: Array<string>) {
+    const rowMargin = numbersArray.includes('1')
+      ? styles.firstRowMargin
+      : styles.marginTop
     let cells = numbersArray.map(val => this.Cell(val))
+
     return (
-      <CustomView row style={[styles.marginTop]}>
+      <CustomView row style={[rowMargin]}>
         {cells}
       </CustomView>
     )

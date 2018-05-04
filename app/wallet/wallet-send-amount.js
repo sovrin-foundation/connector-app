@@ -1,16 +1,30 @@
 // @flow
 
 import React, { PureComponent } from 'react'
-import * as Animatable from 'react-native-animatable'
 import { Text, Animated } from 'react-native'
 
-import { Container, CustomView, CustomText } from '../components'
+import { Container, CustomView, CustomText, CustomButton } from '../components'
 import { Keyboard } from '../components'
 import { color } from '../common/styles/constant'
+import { SEND_TOKEN_BUTTON } from './wallet-constants'
+import styles from './styles'
 import type {
   WalletSendAmountState,
   WalletSendAmountProps,
 } from './type-wallet'
+
+const FONT_SIZE_MAPPING = {
+  '0': 70,
+  '1': 70,
+  '2': 70,
+  '3': 70,
+  '4': 70,
+  '5': 60,
+  '6': 60,
+  '7': 50,
+  '8': 50,
+  '9': 50,
+}
 
 export default class WalletSendAmount extends PureComponent<
   WalletSendAmountProps,
@@ -43,8 +57,18 @@ export default class WalletSendAmount extends PureComponent<
       this._shake.setValue(0)
     })
   }
+
+  sendTokenAmount = () => {
+    if (this.state.text.length) {
+      // TODO route to send token amount details with state.text as a parameter
+    }
+  }
+
   render() {
     const { text } = this.state
+
+    // adjust fontSize based on text length
+    const fontSize = FONT_SIZE_MAPPING[text.length]
     const animatedStyle = {
       transform: [
         {
@@ -55,23 +79,24 @@ export default class WalletSendAmount extends PureComponent<
         },
       ],
     }
+
     return (
       <Container tertiary>
-        <CustomView spaceAround>
+        <Container style={[styles.verticalSpacing]}>
           <CustomView>
-            <CustomView doubleVerticalSpace>
+            <CustomView verticalSpace>
               <CustomText
                 animated
                 formatNumber
-                adjustsFontSizeToFit
-                minimumFontScale={0.8}
                 transparentBg
                 center
                 style={[
                   animatedStyle,
                   {
+                    fontSize,
                     color: color.bg.seventh.font.fifth,
-                    fontSize: 70,
+                    height: 70,
+                    lineHeight: 75,
                   },
                 ]}
                 numberOfLines={1}
@@ -86,6 +111,16 @@ export default class WalletSendAmount extends PureComponent<
           <Keyboard
             color={color.bg.seventh.font.fifth}
             onPress={(val, animate) => this.changeText(val, animate)}
+          />
+        </Container>
+        <CustomView safeArea style={[styles.alignItemsCenter]}>
+          <CustomButton
+            disabled={text.length < 1}
+            onPress={this.sendTokenAmount}
+            testID={SEND_TOKEN_BUTTON}
+            style={[styles.ctaButton]}
+            primary
+            title="Select Recipient"
           />
         </CustomView>
       </Container>

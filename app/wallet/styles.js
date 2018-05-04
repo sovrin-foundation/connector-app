@@ -1,8 +1,14 @@
 import { StyleSheet, Dimensions } from 'react-native'
-import { PADDING_HORIZONTAL, PADDING_VERTICAL } from '../common/styles/constant'
+import {
+  PADDING_HORIZONTAL,
+  PADDING_VERTICAL,
+  SHORT_DEVICE,
+  color,
+} from '../common/styles/constant'
 
-const { width } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window')
 const SPACE_FILLER = 50
+const amountSpacing = height > SHORT_DEVICE ? PADDING_VERTICAL * 2 : 0
 
 const styles = StyleSheet.create({
   tabContainer: {
@@ -23,6 +29,19 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
     width: width - SPACE_FILLER * 2,
     alignSelf: 'center',
+  },
+  ctaButton: {
+    width: '100%',
+    borderRadius: 5,
+    backgroundColor: color.bg.eighth.color,
+  },
+  alignItemsCenter: {
+    marginBottom: 6,
+    marginLeft: '5%',
+    marginRight: '5%',
+  },
+  verticalSpacing: {
+    paddingTop: amountSpacing,
   },
 })
 

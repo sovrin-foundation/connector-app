@@ -14,7 +14,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     style={
       Object {
         "flexDirection": "row",
-        "marginTop": 36,
+        "marginTop": 8,
       }
     }
   >
@@ -234,7 +234,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     style={
       Object {
         "flexDirection": "row",
-        "marginTop": 36,
+        "marginTop": 22,
       }
     }
   >
@@ -454,7 +454,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     style={
       Object {
         "flexDirection": "row",
-        "marginTop": 36,
+        "marginTop": 22,
       }
     }
   >
@@ -674,7 +674,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     style={
       Object {
         "flexDirection": "row",
-        "marginTop": 36,
+        "marginTop": 22,
       }
     }
   >
