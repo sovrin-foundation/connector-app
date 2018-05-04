@@ -77,13 +77,9 @@ export class Settings extends PureComponent<SettingsProps, void> {
   }
 
   static navigationOptions = {
-    headerTitle: (
-      <CustomText bg="fifth" h5 semiBold tertiary>
-        {' '}
-        {settingsRoute}{' '}
-      </CustomText>
-    ),
+    title: settingsRoute,
     headerStyle: tertiaryHeaderStyles.header,
+    headerTitleStyle: tertiaryHeaderStyles.title,
   }
 
   renderAvatarWithSource = (avatarSource: number | ImageSource) => (

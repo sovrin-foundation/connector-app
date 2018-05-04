@@ -30,12 +30,9 @@ export class LockEnterPin extends PureComponent<
   }
 
   static navigationOptions = () => ({
-    headerTitle: (
-      <CustomText bg="tertiary" tertiary transparentBg semiBold>
-        App Security
-      </CustomText>
-    ),
+    title: 'App Security',
     headerStyle: tertiaryHeaderStyles.header,
+    headerTitleStyle: tertiaryHeaderStyles.title,
   })
   componentWillReceiveProps(nextProps: LockEnterPinProps) {
     if (

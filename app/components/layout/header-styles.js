@@ -6,6 +6,7 @@ import {
   PADDING_HORIZONTAL,
   PADDING_VERTICAL,
   color,
+  font,
   whisper,
   whiteSmokeSecondary,
   OFFSET_1X,
@@ -58,5 +59,12 @@ export const tertiaryHeaderStyles = StyleSheet.create({
     paddingHorizontal: OFFSET_2X,
     borderBottomWidth: 0,
     ...commonStyles,
+  },
+  title: {
+    alignSelf: 'center',
+    textAlign: 'center',
+    fontSize: font.size.M,
+    fontWeight: '600',
+    color: color.bg.tertiary.font.tertiary,
   },
 })

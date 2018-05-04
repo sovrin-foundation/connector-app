@@ -81,12 +81,9 @@ export class LockPinSetup extends PureComponent<
         />
       </CustomView>
     ),
-    headerTitle: (
-      <CustomText bg="tertiary" tertiary transparentBg semiBold>
-        App Security
-      </CustomText>
-    ),
+    title: 'App Security',
     headerStyle: tertiaryHeaderStyles.header,
+    headerTitleStyle: tertiaryHeaderStyles.title,
   })
 
   setPinSetupStateToInitial = () => {
