@@ -158,7 +158,6 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
   }
 
   close = () => {
-    this.props.updateStatusBarTheme()
     this.props.navigation.goBack(null)
   }
 

@@ -11,7 +11,7 @@ import {
   getAllConnection,
   getThemes,
 } from './store-selector'
-import { color, whiteSmoke } from '../common/styles/constant'
+import { color, white } from '../common/styles/constant'
 import { bubbleSize } from '../common/styles'
 import type { CustomError, GenericObject } from '../common/type-common'
 import type {
@@ -96,9 +96,9 @@ export const saveNewConnectionSuccess = (connection: GenericObject) => ({
 })
 
 //TODO refactor create a new store for ui
-export const updateStatusBarTheme = color => ({
+export const updateStatusBarTheme = statusColor => ({
   type: UPDATE_STATUS_BAR_THEME,
-  color: color !== undefined ? color : whiteSmoke,
+  color: statusColor || color.bg.tertiary.color,
 })
 
 export const saveNewConnectionFailed = (error: CustomError) => ({

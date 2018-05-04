@@ -9,10 +9,16 @@ import DeepLink from './deep-link'
 import {
   barStyleLight,
   barStyleDark,
-  whiteSmoke,
+  whiteSmokeSecondary,
+  color,
 } from './common/styles/constant'
 import ConnectMeAppNavigator from './navigator'
-import { qrCodeScannerTabRoute } from './common'
+import {
+  qrCodeScannerTabRoute,
+  homeRoute,
+  walletRoute,
+  connectionHistoryRoute,
+} from './common'
 import { NavigationActions } from 'react-navigation'
 import { setupFeedback } from './feedback'
 import { updateStatusBarTheme } from './store/connections-store'
@@ -25,7 +31,7 @@ class ConnectMeApp extends PureComponent {
   constructor() {
     super()
     this.state = {
-      statusBarTheme: whiteSmoke,
+      statusBarTheme: whiteSmokeSecondary,
     }
   }
 
@@ -63,10 +69,17 @@ class ConnectMeApp extends PureComponent {
         type: ROUTE_UPDATE,
         currentScreen,
       })
+      StatusBar.setBarStyle(barStyleDark, true)
       if (currentScreen === qrCodeScannerTabRoute) {
+        store.dispatch(updateStatusBarTheme(color.bg.primary.color))
         StatusBar.setBarStyle(barStyleLight, true)
-      } else {
-        StatusBar.setBarStyle(barStyleDark, true)
+      } else if (currentScreen === homeRoute) {
+        store.dispatch(updateStatusBarTheme(whiteSmokeSecondary))
+      } else if (currentScreen === walletRoute) {
+        store.dispatch(updateStatusBarTheme(color.actions.font.seventh))
+      } else if (currentScreen !== connectionHistoryRoute) {
+        //connectionHistory is handling theme on its own
+        store.dispatch(updateStatusBarTheme())
       }
     }
   }
