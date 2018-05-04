@@ -16,6 +16,7 @@ import { receiveTabRoute, sendTabRoute, historyTabRoute } from '../common'
 import WalletSendAmount from './wallet-send-amount'
 import styles from './styles'
 import WalletTabReceive from './wallet-tab-receive'
+import WalletTabHistory from './wallet-tab-history'
 
 const { width } = Dimensions.get('window')
 let Tabs = CustomView
@@ -43,7 +44,7 @@ if (typeof TabNavigator === 'function') {
         },
       },
       [historyTabRoute]: {
-        screen: CustomView,
+        screen: WalletTabHistory,
         navigationOptions: {
           tabBarLabel: HISTORY_TAB,
           tabBarTestIDProps: {

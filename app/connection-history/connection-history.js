@@ -101,13 +101,7 @@ const HistoryTitle = ({ action, name, theme }) => (
 const HistoryBody = ({ action, timestamp }) => {
   return (
     <CustomView row>
-      <CustomDate
-        format="MM/DD/YYYY | h:mm A"
-        h7
-        uppercase
-        bg="fifth"
-        style={[styles.listItemBody]}
-      >
+      <CustomDate h7 uppercase bg="fifth" style={[styles.listItemBody]}>
         {timestamp}
       </CustomDate>
     </CustomView>

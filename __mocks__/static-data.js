@@ -1145,3 +1145,21 @@ export const userAvatarImagePath = `/var/application/DocumentDir/${userAvatarIma
 export const walletStaticAddresses = [
   'sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030',
 ]
+
+export const walletHistory = [
+  {
+    id: 'asd',
+    senderAddress: 'sov:senderAddress',
+    action: 'Withdraw',
+    tokenAmount: 5656,
+    timestamp: 'Tue, 04 Aug 2015 12:38:41 GMT',
+  },
+  {
+    id: 'kld',
+    senderName: 'senderName',
+    senderAddress: 'sov:senderAddress',
+    action: 'Purchase',
+    tokenAmount: 10000,
+    timestamp: 'Tue, 04 Aug 2015 14:38:41 GMT',
+  },
+]

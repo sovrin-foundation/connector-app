@@ -22,7 +22,9 @@ const eclipse = '#3f3f3f'
 const matterhorn = '#535353'
 const blackPearl = '#242b2d'
 export const dimGray = '#686868'
+const dimGraySecondary = '#6D6D6D'
 const nobel = '#a0a0a0'
+const nobelSecondary = '#9B9B9B'
 const venetianRed = '#d0021b'
 export const veniceBlue = '#2A5270'
 export const hitSlop = { top: 15, bottom: 15, left: 15, right: 15 }
@@ -126,6 +128,8 @@ export const color = {
         secondary: dimGray,
         tertiary: grey,
         fifth: yellowSea,
+        sixth: dimGraySecondary,
+        seventh: nobelSecondary,
       },
     },
     eighth: {

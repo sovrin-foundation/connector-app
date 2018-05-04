@@ -27,6 +27,6 @@ export type CustomTextProps = {
 }
 
 export type CustomDateProps = {
-  format: string,
+  format?: string,
   children: string,
 }

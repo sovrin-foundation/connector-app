@@ -26,6 +26,6 @@ exports[`<CustomDate /> should ConnectionHistoryDetails render properly 1`] = `
     ]
   }
 >
-  01/10/2018
+  2018-01-10T04:32:43+05:30
 </Text>
 `;

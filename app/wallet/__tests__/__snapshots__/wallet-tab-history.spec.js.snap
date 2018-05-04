@@ -1,0 +1,608 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<WalletTabHistory /> should render no history view properly and match the snapshot 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    hCenter={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+      }
+    }
+    vCenter={true}
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "fontFamily": "SF Pro Display",
+          },
+          undefined,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "color": "#9B9B9B",
+            "marginVertical": 10,
+          },
+        ]
+      }
+    >
+      No history to show
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <RCTScrollView>
+    <View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#ffffff",
+              "borderColor": "#bbb",
+              "borderTopWidth": 1,
+              "marginTop": 20,
+            },
+            Object {
+              "borderBottomWidth": 0,
+              "marginTop": -1,
+            },
+          ]
+        }
+      >
+        <View
+          avatar={
+            <Icon
+              iconStyle={
+                Array [
+                  Object {
+                    "tintColor": "#333333",
+                  },
+                ]
+              }
+              small={true}
+              src={1}
+            />
+          }
+          disabled={false}
+          onLongPress={undefined}
+          onPress={undefined}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+                "borderBottomColor": "#bbb",
+                "borderBottomWidth": 1,
+                "paddingBottom": 10,
+                "paddingRight": 10,
+                "paddingTop": 10,
+              },
+              Object {
+                "borderBottomColor": "#EAEAEA",
+                "borderBottomWidth": 1,
+              },
+              false,
+              false,
+            ]
+          }
+          underlayColor="white"
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "marginLeft": 10,
+                },
+                undefined,
+              ]
+            }
+          >
+            <View
+              clearBg={true}
+              iconStyle={
+                Array [
+                  Object {
+                    "tintColor": "#333333",
+                  },
+                ]
+              }
+              small={true}
+              src={1}
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                }
+              }
+            >
+              <Image
+                resizeMode="contain"
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "height": 20,
+                      "width": 20,
+                    },
+                    null,
+                    Object {
+                      "tintColor": "#333333",
+                    },
+                  ]
+                }
+                testID={undefined}
+              />
+            </View>
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <View
+                style={undefined}
+              >
+                <View />
+              </View>
+              <View
+                style={undefined}
+              >
+                <View>
+                  <View
+                    columnBottom={true}
+                    row={true}
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "flexDirection": "row",
+                      }
+                    }
+                    vCenter={true}
+                  >
+                    <View
+                      style={
+                        Object {
+                          "flex": 1,
+                          "marginHorizontal": 15,
+                        }
+                      }
+                    >
+                      <View
+                        style={Object {}}
+                      >
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          ellipsizeMode="tail"
+                          numberOfLines={1}
+                          style={
+                            Array [
+                              Object {
+                                "fontSize": 17,
+                              },
+                              Object {
+                                "fontFamily": "SF Pro Display",
+                              },
+                              Object {
+                                "backgroundColor": "#ffffff",
+                                "color": "#777777",
+                              },
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              Object {
+                                "color": "#6D6D6D",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          sov:senderAddress
+                        </Text>
+                      </View>
+                      <View
+                        style={Object {}}
+                      >
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          ellipsizeMode="tail"
+                          style={
+                            Array [
+                              Object {
+                                "fontSize": 17,
+                              },
+                              Object {
+                                "fontFamily": "SF Pro Display",
+                              },
+                              undefined,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              Object {
+                                "color": "#9B9B9B",
+                                "fontSize": 14,
+                              },
+                            ]
+                          }
+                        >
+                          Withdraw
+                        </Text>
+                      </View>
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                            },
+                            Object {
+                              "fontFamily": "SF Pro Display",
+                            },
+                            undefined,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            Object {
+                              "color": "#9B9B9B",
+                              "fontSize": 14,
+                            },
+                          ]
+                        }
+                      >
+                        2018-01-10T04:32:43+05:30
+                      </Text>
+                    </View>
+                    <View
+                      style={Object {}}
+                    >
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                            },
+                            Object {
+                              "fontFamily": "SF Pro Display",
+                            },
+                            Object {
+                              "backgroundColor": "#ffffff",
+                              "color": "#777777",
+                            },
+                            Object {
+                              "fontWeight": "bold",
+                            },
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            Object {
+                              "color": "#EB9B2D",
+                              "fontSize": 18,
+                              "paddingRight": 10,
+                            },
+                          ]
+                        }
+                      >
+                        -
+                        5,656
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          avatar={
+            <Icon
+              iconStyle={
+                Array [
+                  Object {
+                    "tintColor": "#333333",
+                  },
+                ]
+              }
+              small={true}
+              src={1}
+            />
+          }
+          disabled={false}
+          onLongPress={undefined}
+          onPress={undefined}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+                "borderBottomColor": "#bbb",
+                "borderBottomWidth": 1,
+                "paddingBottom": 10,
+                "paddingRight": 10,
+                "paddingTop": 10,
+              },
+              Object {
+                "borderBottomColor": "#EAEAEA",
+                "borderBottomWidth": 1,
+              },
+              false,
+              false,
+            ]
+          }
+          underlayColor="white"
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                  "marginLeft": 10,
+                },
+                undefined,
+              ]
+            }
+          >
+            <View
+              clearBg={true}
+              iconStyle={
+                Array [
+                  Object {
+                    "tintColor": "#333333",
+                  },
+                ]
+              }
+              small={true}
+              src={1}
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                }
+              }
+            >
+              <Image
+                resizeMode="contain"
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "height": 20,
+                      "width": 20,
+                    },
+                    null,
+                    Object {
+                      "tintColor": "#333333",
+                    },
+                  ]
+                }
+                testID={undefined}
+              />
+            </View>
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <View
+                style={undefined}
+              >
+                <View />
+              </View>
+              <View
+                style={undefined}
+              >
+                <View>
+                  <View
+                    columnBottom={true}
+                    row={true}
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "flexDirection": "row",
+                      }
+                    }
+                    vCenter={true}
+                  >
+                    <View
+                      style={
+                        Object {
+                          "flex": 1,
+                          "marginHorizontal": 15,
+                        }
+                      }
+                    >
+                      <View
+                        style={Object {}}
+                      >
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          ellipsizeMode="tail"
+                          numberOfLines={1}
+                          style={
+                            Array [
+                              Object {
+                                "fontSize": 17,
+                              },
+                              Object {
+                                "fontFamily": "SF Pro Display",
+                              },
+                              Object {
+                                "backgroundColor": "#ffffff",
+                                "color": "#777777",
+                              },
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              Object {
+                                "color": "#6D6D6D",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          senderName
+                        </Text>
+                      </View>
+                      <View
+                        style={Object {}}
+                      >
+                        <Text
+                          accessible={true}
+                          allowFontScaling={true}
+                          ellipsizeMode="tail"
+                          style={
+                            Array [
+                              Object {
+                                "fontSize": 17,
+                              },
+                              Object {
+                                "fontFamily": "SF Pro Display",
+                              },
+                              undefined,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              null,
+                              Object {
+                                "color": "#9B9B9B",
+                                "fontSize": 14,
+                              },
+                            ]
+                          }
+                        >
+                          Purchase
+                        </Text>
+                      </View>
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                            },
+                            Object {
+                              "fontFamily": "SF Pro Display",
+                            },
+                            undefined,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            Object {
+                              "color": "#9B9B9B",
+                              "fontSize": 14,
+                            },
+                          ]
+                        }
+                      >
+                        2018-01-10T04:32:43+05:30
+                      </Text>
+                    </View>
+                    <View
+                      style={Object {}}
+                    >
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                            },
+                            Object {
+                              "fontFamily": "SF Pro Display",
+                            },
+                            Object {
+                              "backgroundColor": "#ffffff",
+                              "color": "#777777",
+                            },
+                            Object {
+                              "fontWeight": "bold",
+                            },
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            Object {
+                              "color": "#EB9B2D",
+                              "fontSize": 18,
+                              "paddingRight": 10,
+                            },
+                          ]
+                        }
+                      >
+                        +
+                        10,000
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
