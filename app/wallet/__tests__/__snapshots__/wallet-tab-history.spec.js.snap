@@ -30,7 +30,10 @@ exports[`<WalletTabHistory /> should render no history view properly and match t
           Object {
             "fontFamily": "SF Pro Display",
           },
-          undefined,
+          Object {
+            "backgroundColor": "#ffffff",
+            "color": "#333333",
+          },
           null,
           null,
           null,
@@ -246,7 +249,10 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                               Object {
                                 "fontFamily": "SF Pro Display",
                               },
-                              undefined,
+                              Object {
+                                "backgroundColor": "#ffffff",
+                                "color": "#333333",
+                              },
                               null,
                               null,
                               null,
@@ -275,7 +281,10 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                             Object {
                               "fontFamily": "SF Pro Display",
                             },
-                            undefined,
+                            Object {
+                              "backgroundColor": "#ffffff",
+                              "color": "#333333",
+                            },
                             null,
                             null,
                             null,
@@ -314,7 +323,7 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                             },
                             Object {
                               "backgroundColor": "#ffffff",
-                              "color": "#777777",
+                              "color": "#333333",
                             },
                             Object {
                               "fontWeight": "bold",
@@ -347,7 +356,7 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                             },
                             Object {
                               "backgroundColor": "#ffffff",
-                              "color": "#777777",
+                              "color": "#333333",
                             },
                             Object {
                               "fontWeight": "bold",
@@ -544,7 +553,10 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                               Object {
                                 "fontFamily": "SF Pro Display",
                               },
-                              undefined,
+                              Object {
+                                "backgroundColor": "#ffffff",
+                                "color": "#333333",
+                              },
                               null,
                               null,
                               null,
@@ -573,7 +585,10 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                             Object {
                               "fontFamily": "SF Pro Display",
                             },
-                            undefined,
+                            Object {
+                              "backgroundColor": "#ffffff",
+                              "color": "#333333",
+                            },
                             null,
                             null,
                             null,
@@ -612,7 +627,7 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                             },
                             Object {
                               "backgroundColor": "#ffffff",
-                              "color": "#777777",
+                              "color": "#333333",
                             },
                             Object {
                               "fontWeight": "bold",
@@ -645,7 +660,7 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                             },
                             Object {
                               "backgroundColor": "#ffffff",
-                              "color": "#777777",
+                              "color": "#333333",
                             },
                             Object {
                               "fontWeight": "bold",
