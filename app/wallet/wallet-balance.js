@@ -10,16 +10,11 @@ export default class WalletBalance extends PureComponent<
   void
 > {
   static defaultProps = {
-    balance: 12470,
-  }
-
-  formatBalance = (balance: number) => {
-    // TODO: TC Adjust font size or format them via M (million), B(billion), etc. for long numbers.
-    return balance.toLocaleString('en-US')
+    balance: '12470',
   }
 
   render() {
     const { balance, render }: WalletBalanceProps = this.props
-    return <View>{render(this.formatBalance(balance))}</View>
+    return <View>{render(balance)}</View>
   }
 }

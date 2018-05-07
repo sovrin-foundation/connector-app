@@ -8,7 +8,7 @@ exports[`<WalletBalance /> should render WalletBalance 1`] = `
       allowFontScaling={true}
       ellipsizeMode="tail"
     >
-      12,470
+      12470
     </Text>
   </View>
 </View>

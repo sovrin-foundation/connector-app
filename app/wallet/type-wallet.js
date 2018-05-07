@@ -2,7 +2,7 @@
 import type { ReactNavigation } from '../common/type-common'
 
 export type WalletBalanceProps = {
-  balance: number,
+  balance: string,
   render: Function,
 }
 

@@ -33,6 +33,7 @@ export class Wallet extends PureComponent<WalletProps, void> {
                 <CustomText
                   h3
                   demiBold
+                  formatNumber
                   transparentBg
                   style={[{ width: '100%' }]}
                 >
