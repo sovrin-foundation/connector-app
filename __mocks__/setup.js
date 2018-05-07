@@ -126,6 +126,8 @@ jest.mock('InteractionManager', () => ({
   runAfterInteractions(fn) {
     fn()
   },
+  createInteractionHandle: jest.fn(),
+  clearInteractionHandle: jest.fn(),
 }))
 
 jest.mock('TextInput', () => 'TextInput')

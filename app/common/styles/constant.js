@@ -98,6 +98,9 @@ export const color = {
         primary: nightRider,
         secondary: dimGray,
         tertiary: grey,
+        quaternary: yellowSea,
+        fifth: nobelSecondary,
+        sixth: dimGraySecondary,
       },
     },
     quaternary: {
@@ -128,8 +131,6 @@ export const color = {
         secondary: dimGray,
         tertiary: grey,
         fifth: yellowSea,
-        sixth: dimGraySecondary,
-        seventh: nobelSecondary,
       },
     },
     eighth: {

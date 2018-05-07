@@ -14,6 +14,7 @@ import {
 import { color, OFFSET_1X, OFFSET_3X } from '../common/styles/constant'
 import type { Store } from '../store/type-store'
 import type { WalletHistoryProps, WalletHistoryItem } from './type-wallet'
+import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
 
 const HistoryItem = ({
   senderName,
@@ -26,29 +27,32 @@ const HistoryItem = ({
     <CustomView row vCenter columnBottom>
       <CustomView style={[styles.listItemBody]}>
         <CustomView>
-          <CustomText
-            bg="fifth"
-            numberOfLines={1}
-            style={[styles.listItemTitle]}
-          >
+          <CustomText bg="fifth" style={[styles.listItemTitle]}>
             {senderName || senderAddress}
           </CustomText>
         </CustomView>
 
         <CustomView>
-          <CustomText bg="seventh" style={[styles.listItemSubTitle]}>
+          <CustomText bg="tertiary" style={[styles.listItemSubTitle]}>
             {action}
           </CustomText>
         </CustomView>
-        <CustomDate uppercase bg="seventh" style={[styles.listItemSubTitle]}>
+        <CustomDate uppercase bg="tertiary" style={[styles.listItemSubTitle]}>
           {timestamp}
         </CustomDate>
       </CustomView>
 
-      <CustomView>
-        <CustomText bold bg="fifth" style={[styles.listItemWallet]}>
+      <CustomView row>
+        <CustomText bold bg="tertiary" style={[styles.itemWalletSign]}>
           {action.toLowerCase() === 'withdraw' ? '-' : '+'}
-          {tokenAmount.toLocaleString('en-US')}
+        </CustomText>
+        <CustomText
+          bold
+          bg="tertiary"
+          formatNumber
+          style={[styles.listItemWallet]}
+        >
+          {tokenAmount}
         </CustomText>
       </CustomView>
     </CustomView>
@@ -88,13 +92,15 @@ export class WalletTabHistory extends Component<WalletHistoryProps, void> {
 
     return (
       <Container>
-        {this.props.walletHistory.length < 1 && (
-          <Container hCenter vCenter>
-            <CustomText h5 bg="seventh" style={[styles.noHistory]}>
-              No history to show
-            </CustomText>
-          </Container>
-        )}
+        {this.props.isLoading && <CustomActivityIndicator />}
+        {this.props.walletHistory.length < 1 &&
+          !this.props.isLoading && (
+            <Container center>
+              <CustomText h5 bg="tertiary" style={[styles.noHistory]}>
+                No history to show
+              </CustomText>
+            </Container>
+          )}
         {this.props.walletHistory.length > 0 && (
           <ScrollView>
             <List containerStyle={styles.listContainer}>{walletHistory}</List>
@@ -125,6 +131,7 @@ const mapStateToProps = (state: Store) => ({
       timestamp: 'Tue, 04 Aug 2015 14:38:41 GMT',
     },
   ],
+  isLoading: false,
 })
 
 export default connect(mapStateToProps, null)(WalletTabHistory)
@@ -148,7 +155,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   listItemTitle: {
-    color: color.bg.seventh.font.sixth,
+    color: color.bg.tertiary.font.sixth,
     fontSize: 16,
   },
   listItemBody: {
@@ -157,15 +164,19 @@ const styles = StyleSheet.create({
   },
   listItemSubTitle: {
     fontSize: 14,
-    color: color.bg.seventh.font.seventh,
+    color: color.bg.tertiary.font.fifth,
   },
   noHistory: {
-    color: color.bg.seventh.font.seventh,
+    color: color.bg.tertiary.font.fifth,
     marginVertical: OFFSET_1X,
+  },
+  itemWalletSign: {
+    fontSize: 18,
+    color: color.bg.tertiary.font.quaternary,
   },
   listItemWallet: {
     fontSize: 18,
     paddingRight: OFFSET_1X,
-    color: color.bg.seventh.font.fifth,
+    color: color.bg.tertiary.font.quaternary,
   },
 })

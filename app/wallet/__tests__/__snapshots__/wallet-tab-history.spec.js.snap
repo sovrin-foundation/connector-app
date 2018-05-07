@@ -9,7 +9,7 @@ exports[`<WalletTabHistory /> should render no history view properly and match t
   }
 >
   <View
-    hCenter={true}
+    center={true}
     style={
       Object {
         "alignItems": "center",
@@ -17,7 +17,6 @@ exports[`<WalletTabHistory /> should render no history view properly and match t
         "justifyContent": "center",
       }
     }
-    vCenter={true}
   >
     <Text
       accessible={true}
@@ -204,7 +203,6 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                           accessible={true}
                           allowFontScaling={true}
                           ellipsizeMode="tail"
-                          numberOfLines={1}
                           style={
                             Array [
                               Object {
@@ -295,8 +293,46 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                       </Text>
                     </View>
                     <View
-                      style={Object {}}
+                      row={true}
+                      style={
+                        Object {
+                          "flexDirection": "row",
+                        }
+                      }
                     >
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                            },
+                            Object {
+                              "fontFamily": "SF Pro Display",
+                            },
+                            Object {
+                              "backgroundColor": "#ffffff",
+                              "color": "#777777",
+                            },
+                            Object {
+                              "fontWeight": "bold",
+                            },
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            Object {
+                              "color": "#EB9B2D",
+                              "fontSize": 18,
+                            },
+                          ]
+                        }
+                      >
+                        -
+                      </Text>
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -329,7 +365,6 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                           ]
                         }
                       >
-                        -
                         5,656
                       </Text>
                     </View>
@@ -466,7 +501,6 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                           accessible={true}
                           allowFontScaling={true}
                           ellipsizeMode="tail"
-                          numberOfLines={1}
                           style={
                             Array [
                               Object {
@@ -557,8 +591,46 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                       </Text>
                     </View>
                     <View
-                      style={Object {}}
+                      row={true}
+                      style={
+                        Object {
+                          "flexDirection": "row",
+                        }
+                      }
                     >
+                      <Text
+                        accessible={true}
+                        allowFontScaling={true}
+                        ellipsizeMode="tail"
+                        style={
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                            },
+                            Object {
+                              "fontFamily": "SF Pro Display",
+                            },
+                            Object {
+                              "backgroundColor": "#ffffff",
+                              "color": "#777777",
+                            },
+                            Object {
+                              "fontWeight": "bold",
+                            },
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            Object {
+                              "color": "#EB9B2D",
+                              "fontSize": 18,
+                            },
+                          ]
+                        }
+                      >
+                        +
+                      </Text>
                       <Text
                         accessible={true}
                         allowFontScaling={true}
@@ -591,7 +663,6 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                           ]
                         }
                       >
-                        +
                         10,000
                       </Text>
                     </View>
