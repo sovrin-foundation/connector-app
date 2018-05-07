@@ -169,6 +169,7 @@ exports[`<WalletTabReceive /> should render properly and match the snapshot 1`] 
               Object {
                 "backgroundColor": "rgba(237, 156, 46, 1)",
                 "borderRadius": 5,
+                "height": 43,
                 "width": "100%",
               },
             ],
@@ -208,6 +209,7 @@ exports[`<WalletTabReceive /> should render properly and match the snapshot 1`] 
                 Object {
                   "backgroundColor": "rgba(237, 156, 46, 1)",
                   "borderRadius": 5,
+                  "height": 43,
                   "width": "100%",
                 },
               ],

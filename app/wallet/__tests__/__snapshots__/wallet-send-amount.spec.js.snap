@@ -1028,6 +1028,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
               Object {
                 "backgroundColor": "rgba(237, 156, 46, 1)",
                 "borderRadius": 5,
+                "height": 43,
                 "width": "100%",
               },
             ],
@@ -1053,7 +1054,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
               undefined,
               undefined,
               Object {
-                "backgroundColor": "#777777",
+                "backgroundColor": "rgba(237, 156, 46, 1)",
               },
               undefined,
               Object {
@@ -1067,6 +1068,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
                 Object {
                   "backgroundColor": "rgba(237, 156, 46, 1)",
                   "borderRadius": 5,
+                  "height": 43,
                   "width": "100%",
                 },
               ],
@@ -1075,7 +1077,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
               },
               Array [
                 Object {
-                  "backgroundColor": "#ffffff",
+                  "backgroundColor": "rgba(237, 156, 46, 1)",
                 },
                 Object {
                   "opacity": 0.4,

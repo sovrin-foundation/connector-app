@@ -22,6 +22,7 @@ import CustomButton from '../components/button'
 import type { WalletTabReceiveProps } from './type-wallet'
 import { color } from '../common/styles/constant'
 import type { Store } from '../store/type-store'
+import customStyles from './styles'
 
 // TODO: Remove the static data
 import { walletStaticAddresses } from '../../__mocks__/static-data'
@@ -72,7 +73,7 @@ export class WalletTabReceive extends Component<WalletTabReceiveProps, void> {
           <CustomButton
             onPress={this.copyToClipboard}
             testID="token-copy-to-clipboard-label"
-            style={[styles.copyButton]}
+            style={[customStyles.ctaButton]}
             primary
             title="Copy Address To Clipboard"
           />
@@ -107,11 +108,6 @@ const styles = StyleSheet.create({
     marginBottom: 6,
     marginLeft: '5%',
     marginRight: '5%',
-  },
-  copyButton: {
-    width: '100%',
-    borderRadius: 5,
-    backgroundColor: color.bg.eighth.color,
   },
 })
 

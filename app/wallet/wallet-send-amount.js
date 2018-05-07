@@ -116,6 +116,7 @@ export default class WalletSendAmount extends PureComponent<
         <CustomView safeArea style={[styles.alignItemsCenter]}>
           <CustomButton
             disabled={text.length < 1}
+            customColor={{ backgroundColor: color.bg.eighth.color }}
             onPress={this.sendTokenAmount}
             testID={SEND_TOKEN_BUTTON}
             style={[styles.ctaButton]}

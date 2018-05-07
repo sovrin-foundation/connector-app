@@ -9,6 +9,7 @@ import {
 const { width, height } = Dimensions.get('window')
 const SPACE_FILLER = 50
 const amountSpacing = height > SHORT_DEVICE ? PADDING_VERTICAL * 2 : 0
+const ctaButtonHeight = height > SHORT_DEVICE ? 63 : 43
 
 const styles = StyleSheet.create({
   tabContainer: {
@@ -32,6 +33,7 @@ const styles = StyleSheet.create({
   },
   ctaButton: {
     width: '100%',
+    height: ctaButtonHeight,
     borderRadius: 5,
     backgroundColor: color.bg.eighth.color,
   },
