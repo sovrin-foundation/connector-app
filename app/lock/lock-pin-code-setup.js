@@ -81,6 +81,7 @@ export class LockPinSetup extends PureComponent<
         />
       </CustomView>
     ),
+    headerRight: <CustomView />, // fill space to properly align title for android
     title: 'App Security',
     headerStyle: tertiaryHeaderStyles.header,
     headerTitleStyle: tertiaryHeaderStyles.title,
