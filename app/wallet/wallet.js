@@ -50,13 +50,10 @@ export class Wallet extends PureComponent<WalletProps, void> {
       />
     ),
     headerRight: (
-      <CustomView
-        onPress={() => navigation.goBack(null)}
-        testID={'wallet-header-close'}
-        style={[styles.headerSpacer]}
-      >
+      <CustomView testID={'wallet-header-close'} style={[styles.headerSpacer]}>
         <Icon
           medium
+          onPress={() => navigation.goBack(null)}
           testID="wallet-header-close-image"
           iconStyle={[styles.headerCloseIcon]}
           src={closeImage}
