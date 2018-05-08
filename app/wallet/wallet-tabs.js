@@ -55,6 +55,7 @@ if (typeof TabNavigator === 'function') {
     },
     {
       animationEnabled: true,
+      backBehavior: 'none',
       swipeEnabled: true,
       lazy: true,
       initialRouteName: receiveTabRoute,
