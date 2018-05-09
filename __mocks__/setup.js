@@ -2,6 +2,7 @@ import React from 'react'
 import fetch from './fetch-mock'
 import mockCamera from './camera-mock'
 import mockModal from './modal-mock'
+import mockView from './view-mock'
 
 // mock this module to allow react-navigation to mock Linking
 jest.mock('Linking', () => ({
@@ -14,6 +15,8 @@ jest.mock('Linking', () => ({
 
 jest.mock('react-navigation', () => ({
   StackNavigator: jest.fn(),
+  TabNavigator: jest.fn(() => mockView),
+  TabBarTop: jest.fn(),
   NavigationActions: {
     reset() {
       return arguments

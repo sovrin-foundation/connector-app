@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<WalletTabSendDetails /> should render properly and match the snapshot 1`] = `
+<View
+  style={
+    Object {
+      "borderBottomColor": "#EAEAEA",
+      "borderBottomWidth": 1,
+    }
+  }
+>
+  <View
+    center={true}
+    fifth={true}
+    horizontalSpace={true}
+    row={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#ffffff",
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "paddingHorizontal": 15,
+      }
+    }
+  >
+    <View
+      fifth={true}
+      style={
+        Object {
+          "alignItems": "flex-end",
+          "backgroundColor": "#ffffff",
+          "paddingVertical": 25,
+          "width": 35,
+        }
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "fontSize": 17,
+            },
+            Object {
+              "fontFamily": "SF Pro Display",
+            },
+            Object {
+              "backgroundColor": "#ffffff",
+              "color": "#333333",
+            },
+            Object {
+              "fontWeight": "600",
+            },
+            null,
+            Object {
+              "backgroundColor": "transparent",
+            },
+            Object {
+              "color": "rgba(237, 156, 46, 1)",
+            },
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "lineHeight": 20,
+            },
+          ]
+        }
+      >
+        To:
+      </Text>
+    </View>
+    <View
+      fifth={true}
+      horizontalSpace={true}
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "backgroundColor": "#ffffff",
+          "paddingHorizontal": 15,
+          "width": "83%",
+        }
+      }
+    >
+      <TextInput
+        multiline={false}
+        onChangeText={[Function]}
+        placeholder="test"
+        style={
+          Array [
+            Object {
+              "fontSize": 17,
+              "fontStyle": "italic",
+              "lineHeight": 20,
+              "width": "100%",
+            },
+          ]
+        }
+        testID="To-token-send-details-label"
+        underlineColorAndroid="transparent"
+      />
+    </View>
+    <View
+      style={Object {}}
+    >
+      <View
+        clearBg={true}
+        small={true}
+        src={1}
+        style={
+          Object {
+            "backgroundColor": "transparent",
+          }
+        }
+      >
+        <Image
+          resizeMode="contain"
+          source={1}
+          style={
+            Array [
+              Object {
+                "height": 20,
+                "width": 20,
+              },
+              null,
+            ]
+          }
+          testID={undefined}
+        />
+      </View>
+    </View>
+  </View>
+</View>
+`;

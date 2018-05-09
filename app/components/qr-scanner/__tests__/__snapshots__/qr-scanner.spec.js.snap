@@ -49,6 +49,8 @@ exports[`<QRScanner /> should match snapshot 1`] = `
             null,
             null,
             null,
+            null,
+            null,
           ]
         }
       >
@@ -173,6 +175,8 @@ exports[`<QRScanner /> should match snapshot 1`] = `
             Object {
               "backgroundColor": "transparent",
             },
+            null,
+            null,
             null,
             null,
             null,

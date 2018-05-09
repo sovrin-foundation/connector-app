@@ -10,8 +10,6 @@ exports[`<Wallet /> should render Wallet 1`] = `
   }
   tertiary={true}
 >
-  <View
-    style={Object {}}
-  />
+  <View />
 </View>
 `;

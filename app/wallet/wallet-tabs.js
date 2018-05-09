@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import React, { PureComponent } from 'react'
 import { Dimensions } from 'react-native'
 import { TabBarTop, TabNavigator } from 'react-navigation'
 import { CustomView } from '../components'
@@ -17,75 +17,79 @@ import WalletSendAmount from './wallet-send-amount'
 import styles from './styles'
 import WalletTabReceive from './wallet-tab-receive'
 import WalletTabHistory from './wallet-tab-history'
+import type { WalletTabsProps } from './type-wallet'
 
 const { width } = Dimensions.get('window')
-let Tabs = CustomView
 
-//  check prevents type error failure in jest
-if (typeof TabNavigator === 'function') {
-  Tabs = TabNavigator(
-    {
-      [receiveTabRoute]: {
-        screen: WalletTabReceive,
-        navigationOptions: {
-          tabBarLabel: RECEIVE_TAB,
-          tabBarTestIDProps: {
-            testID: RECEIVE_TAB_TEST_ID,
-          },
-        },
-      },
-      [sendTabRoute]: {
-        screen: WalletSendAmount,
-        navigationOptions: {
-          tabBarLabel: SEND_TAB,
-          tabBarTestIDProps: {
-            testID: SEND_TAB_TEST_ID,
-          },
-        },
-      },
-      [historyTabRoute]: {
-        screen: WalletTabHistory,
-        navigationOptions: {
-          tabBarLabel: HISTORY_TAB,
-          tabBarTestIDProps: {
-            testID: HISTORY_TAB_TEST_ID,
-          },
+export default class WalletTabs extends PureComponent<WalletTabsProps, void> {
+  render() {
+    const outerNavigation = {
+      navigation: this.props.navigation,
+    }
+    return <Tabs screenProps={outerNavigation} />
+  }
+}
+
+const Tabs = TabNavigator(
+  {
+    [receiveTabRoute]: {
+      screen: WalletTabReceive,
+      navigationOptions: {
+        tabBarLabel: RECEIVE_TAB,
+        tabBarTestIDProps: {
+          testID: RECEIVE_TAB_TEST_ID,
         },
       },
     },
-    {
-      animationEnabled: true,
-      backBehavior: 'none',
-      swipeEnabled: true,
-      lazy: true,
-      initialRouteName: receiveTabRoute,
-      order: [receiveTabRoute, sendTabRoute, historyTabRoute],
-      initialLayout: {
-        height: 52,
-        width,
-      },
-      tabBarComponent: TabBarTop,
-      tabBarPosition: 'top',
-      tabBarOptions: {
-        allowFontScaling: false,
-        activeTintColor: color.actions.font.seventh,
-        inactiveTintColor: color.bg.tertiary.font.primary,
-        indicatorStyle: {
-          backgroundColor: color.actions.font.seventh,
-          height: 3,
-        },
-        style: {
-          backgroundColor: color.bg.tertiary.color,
-          borderBottomWidth: 1,
-          borderBottomColor: color.border.primary,
-        },
-        labelStyle: {
-          fontSize: font.size.S,
-          fontWeight: 'bold',
+    [sendTabRoute]: {
+      screen: WalletSendAmount,
+      navigationOptions: {
+        tabBarLabel: SEND_TAB,
+        tabBarTestIDProps: {
+          testID: SEND_TAB_TEST_ID,
         },
       },
-    }
-  )
-}
-
-export default Tabs
+    },
+    [historyTabRoute]: {
+      screen: WalletTabHistory,
+      navigationOptions: {
+        tabBarLabel: HISTORY_TAB,
+        tabBarTestIDProps: {
+          testID: HISTORY_TAB_TEST_ID,
+        },
+      },
+    },
+  },
+  {
+    animationEnabled: true,
+    backBehavior: 'none',
+    swipeEnabled: true,
+    lazy: true,
+    initialRouteName: receiveTabRoute,
+    order: [receiveTabRoute, sendTabRoute, historyTabRoute],
+    initialLayout: {
+      height: 52,
+      width,
+    },
+    tabBarComponent: TabBarTop,
+    tabBarPosition: 'top',
+    tabBarOptions: {
+      allowFontScaling: false,
+      activeTintColor: color.actions.font.seventh,
+      inactiveTintColor: color.bg.tertiary.font.primary,
+      indicatorStyle: {
+        backgroundColor: color.actions.font.seventh,
+        height: 3,
+      },
+      style: {
+        backgroundColor: color.bg.tertiary.color,
+        borderBottomWidth: 1,
+        borderBottomColor: color.border.primary,
+      },
+      labelStyle: {
+        fontSize: font.size.S,
+        fontWeight: 'bold',
+      },
+    },
+  }
+)

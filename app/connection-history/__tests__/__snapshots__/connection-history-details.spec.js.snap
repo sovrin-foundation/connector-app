@@ -114,6 +114,8 @@ exports[`<ConnectionHistoryDetails /> should ConnectionHistoryDetails render pro
                       null,
                       null,
                       null,
+                      null,
+                      null,
                       Object {
                         "paddingVertical": 2,
                       },
@@ -155,6 +157,8 @@ exports[`<ConnectionHistoryDetails /> should ConnectionHistoryDetails render pro
                       Object {
                         "backgroundColor": "transparent",
                       },
+                      null,
+                      null,
                       null,
                       null,
                       null,

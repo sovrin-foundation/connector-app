@@ -12,8 +12,7 @@
     "coverage": "npm test -- --coverage",
     "test:e2e": "detox test -c ios.sim.release",
     "test:e2e:build": "detox build",
-    "test:e2e:android":
-      "detox build --configuration android.emu.debug && detox test --configuration android.emu.debug"
+    "test:e2e:android": "detox build --configuration android.emu.debug && detox test --configuration android.emu.debug"
   },
   "lint-staged": {
     "*.js": [
@@ -27,6 +26,7 @@
     "lodash.debounce": "^4.0.8",
     "lodash.groupby": "^4.6.0",
     "lodash.merge": "^4.6.0",
+    "lodash.throttle": "^4.1.1",
     "moment": "^2.20.1",
     "react": "16.0.0",
     "react-native": "0.51.0",
@@ -87,27 +87,28 @@
       "node_modules/(?!(jest-)?react-native|react-navigation|jest-fetch-mock|apptentive-react-native)"
     ],
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
-        "RelativeImageStub"
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "RelativeImageStub"
     },
-    "setupFiles": ["<rootDir>/__mocks__/setup.js"],
+    "setupFiles": [
+      "<rootDir>/__mocks__/setup.js"
+    ],
     "coverageDirectory": "<rootDir>/coverage",
-    "testPathIgnorePatterns": ["/e2e/", "/node_modules/"]
+    "testPathIgnorePatterns": [
+      "/e2e/",
+      "/node_modules/"
+    ]
   },
   "detox": {
     "configurations": {
       "ios.sim.release": {
-        "binaryPath":
-          "ios/build/Build/Products/Release-iphonesimulator/ConnectMe.app",
-        "build":
-          "xcodebuild -workspace ios/ConnectMe.xcworkspace -scheme ConnectMe -configuration release -sdk iphonesimulator -derivedDataPath ios/build",
+        "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/ConnectMe.app",
+        "build": "xcodebuild -workspace ios/ConnectMe.xcworkspace -scheme ConnectMe -configuration release -sdk iphonesimulator -derivedDataPath ios/build",
         "type": "ios.simulator",
         "name": "iPhone 7"
       },
       "android.emu.debug": {
         "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
-        "build":
-          "pushd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && popd",
+        "build": "pushd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && popd",
         "type": "android.emulator",
         "name": "Nexus_5X_API_26"
       }

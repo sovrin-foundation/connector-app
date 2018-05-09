@@ -25,6 +25,7 @@ import SwitchEnvironmentScreen from './switch-environment/switch-environment'
 import LockAuthorization from './lock/lock-authorization'
 import WaitForInvitationScreen from './invitation/wait-for-invitation'
 import Wallet from './wallet/wallet'
+import WalletTabs from './wallet/wallet-tabs'
 import { Icon } from './components'
 import {
   splashScreenRoute,
@@ -49,8 +50,10 @@ import {
   lockAuthorizationRoute,
   waitForInvitationRoute,
   walletRoute,
+  walletTabSendDetailsRoute,
 } from './common/'
 import { color } from './common/styles'
+import WalletTabSendDetails from './wallet/wallet-tab-send-details'
 
 if (__DEV__) {
   require('../tools/reactotron-config')
@@ -224,6 +227,9 @@ const ConnectMeAppNavigator = StackNavigator(
       screen: ConnectionHistoryNavigator,
     },
     [walletRoute]: { screen: Wallet },
+    [walletTabSendDetailsRoute]: {
+      screen: WalletTabSendDetails,
+    },
   },
   {
     mode: 'modal',

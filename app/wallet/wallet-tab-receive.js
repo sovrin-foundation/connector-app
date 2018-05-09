@@ -4,7 +4,7 @@
 // we have to design this tab content by assuming that
 // we would get a list of payment addresses and for now we would take first item out of it
 // and that first item would be displayed
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import {
   View,
   StyleSheet,
@@ -19,7 +19,10 @@ import { Container } from '../components/layout/container'
 import { CustomView } from '../components/layout/custom-view'
 import CustomText from '../components/text'
 import CustomButton from '../components/button'
-import type { WalletTabReceiveProps } from './type-wallet'
+import type {
+  WalletTabReceiveProps,
+  WalletTabReceiveState,
+} from './type-wallet'
 import { color } from '../common/styles/constant'
 import type { Store } from '../store/type-store'
 import customStyles from './styles'
@@ -27,10 +30,24 @@ import customStyles from './styles'
 // TODO: Remove the static data
 import { walletStaticAddresses } from '../../__mocks__/static-data'
 
-export class WalletTabReceive extends Component<WalletTabReceiveProps, void> {
+export class WalletTabReceive extends PureComponent<
+  WalletTabReceiveProps,
+  WalletTabReceiveState
+> {
+  state = {
+    copyButtonText: 'Copy Address To Clipboard',
+  }
   copyToClipboard = () => {
     if (this.props.walletAddresses.length) {
       Clipboard.setString(this.props.walletAddresses[0])
+      this.setState({
+        copyButtonText: 'Copied !',
+      })
+      setTimeout(() => {
+        this.setState({
+          copyButtonText: 'Copy Address To Clipboard',
+        })
+      }, 2000)
     }
   }
   render() {
@@ -75,7 +92,7 @@ export class WalletTabReceive extends Component<WalletTabReceiveProps, void> {
             testID="token-copy-to-clipboard-label"
             style={[customStyles.ctaButton]}
             primary
-            title="Copy Address To Clipboard"
+            title={this.state.copyButtonText}
           />
         </CustomView>
       </Container>

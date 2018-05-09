@@ -71,7 +71,7 @@ export class Wallet extends PureComponent<WalletProps, void> {
   render() {
     return (
       <Container tertiary>
-        <WalletTabs />
+        <WalletTabs navigation={this.props.navigation} />
       </Container>
     )
   }

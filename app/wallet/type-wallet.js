@@ -10,12 +10,32 @@ export type WalletSendAmountState = {
   text: string,
 }
 
-export type WalletSendAmountProps = {}
+export type WalletSendAmountProps = {
+  screenProps: ReactNavigation,
+} & ReactNavigation
 
 export type WalletProps = {} & ReactNavigation
 
 export type WalletTabReceiveProps = {
   walletAddresses: string[],
+}
+
+export type WalletTabReceiveState = {
+  copyButtonText: string,
+}
+
+export type WalletSendPaymentData = {
+  paymentTo: string,
+  paymentFor?: string,
+}
+
+export type WalletTabSendDetailsProps = {
+  tokenAmount: string,
+} & ReactNavigation
+
+export type WalletTabSendDetailsState = {
+  showPaymentAddress: boolean,
+  isPaymentAddressValid: boolean,
 }
 
 export type WalletHistoryProps = {
@@ -30,3 +50,5 @@ export type WalletHistoryItem = {
   tokenAmount: number,
   timestamp: string,
 }
+
+export type WalletTabsProps = {} & ReactNavigation

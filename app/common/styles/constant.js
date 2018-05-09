@@ -38,6 +38,7 @@ const olivine = '#97C85F'
 const denim = '#1159A9'
 const orange = 'rgba(237, 156, 46, 1)'
 const darkOrange = 'rgba(207, 127, 20, 1)'
+const errorBg = 'rgba(255, 214, 219, 1)'
 
 // color shades
 const primaryShade = '1.0'
@@ -131,12 +132,23 @@ export const color = {
         secondary: dimGray,
         tertiary: grey,
         fifth: yellowSea,
+        sixth: dimGraySecondary,
+        seventh: nobelSecondary,
       },
     },
     eighth: {
       color: orange,
       border: {
         color: darkOrange,
+      },
+    },
+    ninth: {
+      color: dimGraySecondary,
+    },
+    tenth: {
+      color: errorBg,
+      font: {
+        color: venetianRed,
       },
     },
     dark: {

@@ -2,13 +2,17 @@
 
 import React from 'react'
 import renderer from 'react-test-renderer'
+import { TabNavigator } from 'react-navigation'
 import { walletRoute } from '../../common'
 import { getNavigation } from '../../../__mocks__/static-data'
 import WalletTabs from '../wallet-tabs'
 
 describe('<WalletTabs />', () => {
+  let navigation = {
+    ...getNavigation(),
+  }
   function setup() {
-    const component = renderer.create(<WalletTabs />)
+    const component = renderer.create(<WalletTabs navigation={navigation} />)
     const instance = component.getInstance()
 
     return { component, instance }

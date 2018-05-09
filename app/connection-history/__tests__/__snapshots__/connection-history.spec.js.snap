@@ -332,6 +332,8 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                 null,
                 null,
                 null,
+                null,
+                null,
                 Array [
                   Object {
                     "color": "#ffffff",
@@ -390,6 +392,8 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                 Object {
                   "fontWeight": "600",
                 },
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -529,6 +533,8 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                               null,
                               null,
                               null,
+                              null,
+                              null,
                               Object {
                                 "marginBottom": 5,
                                 "marginLeft": 10,
@@ -564,6 +570,8 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                               Object {
                                 "fontWeight": "600",
                               },
+                              null,
+                              null,
                               null,
                               null,
                               null,
@@ -613,6 +621,8 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                               "backgroundColor": "#ffffff",
                               "color": "#777777",
                             },
+                            null,
+                            null,
                             null,
                             null,
                             null,

@@ -81,6 +81,8 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
             null,
             null,
             null,
+            null,
+            null,
           ]
         }
       >
@@ -161,6 +163,8 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
                 null,
                 null,
                 null,
+                null,
+                null,
                 Object {
                   "fontSize": 28,
                   "fontWeight": "500",
@@ -231,6 +235,8 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
                 null,
                 null,
                 null,
+                null,
+                null,
                 Object {
                   "fontSize": 28,
                   "fontWeight": "500",
@@ -298,6 +304,8 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
                 Object {
                   "backgroundColor": "transparent",
                 },
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -381,6 +389,8 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
                 null,
                 null,
                 null,
+                null,
+                null,
                 Object {
                   "fontSize": 28,
                   "fontWeight": "500",
@@ -451,6 +461,8 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
                 null,
                 null,
                 null,
+                null,
+                null,
                 Object {
                   "fontSize": 28,
                   "fontWeight": "500",
@@ -518,6 +530,8 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
                 Object {
                   "backgroundColor": "transparent",
                 },
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -601,6 +615,8 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
                 null,
                 null,
                 null,
+                null,
+                null,
                 Object {
                   "fontSize": 28,
                   "fontWeight": "500",
@@ -671,6 +687,8 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
                 null,
                 null,
                 null,
+                null,
+                null,
                 Object {
                   "fontSize": 28,
                   "fontWeight": "500",
@@ -738,6 +756,8 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
                 Object {
                   "backgroundColor": "transparent",
                 },
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -821,6 +841,8 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
                 null,
                 null,
                 null,
+                null,
+                null,
                 Object {
                   "fontSize": 28,
                   "fontWeight": "500",
@@ -891,6 +913,8 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
                 null,
                 null,
                 null,
+                null,
+                null,
                 Object {
                   "fontSize": 28,
                   "fontWeight": "500",
@@ -958,6 +982,8 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
                 Object {
                   "backgroundColor": "transparent",
                 },
+                null,
+                null,
                 null,
                 null,
                 null,

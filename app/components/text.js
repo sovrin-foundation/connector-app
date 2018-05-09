@@ -34,6 +34,7 @@ const CustomText = props => {
     tertiary,
     quaternary,
     quinaryText,
+    errorText,
     borderColor,
     style = empty,
     testID,
@@ -44,6 +45,9 @@ const CustomText = props => {
     heavy,
     numberOfLines,
     formatNumber,
+    fullWidth,
+    adjustsFontSizeToFit,
+    allowFontScaling,
     animated,
   } = props
 
@@ -66,8 +70,10 @@ const CustomText = props => {
     center ? styles.center : null,
     transparentBg ? styles.transparentBg : null,
     quinaryText ? styles.orangeText : null,
+    errorText ? styles.errorText : null,
     borderColor ? styles.borderColor : null,
     primary ? styles.primary : null,
+    fullWidth ? styles.fullWidth : null,
     ...style,
   ]
   const TextComponent = animated ? Animated.Text : Text
@@ -96,6 +102,12 @@ const CustomText = props => {
   }
   if (formatNumber) {
     textChild = formatNumbers(props.children)
+  }
+  if (adjustsFontSizeToFit) {
+    filteredProps.adjustsFontSizeToFit = adjustsFontSizeToFit
+  }
+  if (allowFontScaling) {
+    filteredProps.allowFontScaling = allowFontScaling
   }
 
   return (
@@ -175,6 +187,9 @@ export const styles = StyleSheet.create({
   orangeText: {
     color: color.bg.eighth.color,
   },
+  errorText: {
+    color: color.bg.tenth.font.color,
+  },
   borderColor: {
     borderWidth: 2,
     borderColor: color.bg.eighth.border.color,
@@ -187,5 +202,8 @@ export const styles = StyleSheet.create({
   },
   fontFamilySFProText: {
     fontFamily: 'SF Pro Text',
+  },
+  fullWidth: {
+    width: '100%',
   },
 })

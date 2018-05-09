@@ -69,6 +69,8 @@ exports[`<LockAuthorization /> should match snapshot 1`] = `
           null,
           null,
           null,
+          null,
+          null,
           Object {
             "letterSpacing": 0.5,
             "lineHeight": 28,

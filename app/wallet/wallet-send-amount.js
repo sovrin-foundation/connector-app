@@ -2,7 +2,6 @@
 
 import React, { PureComponent } from 'react'
 import { Text, Animated } from 'react-native'
-
 import { Container, CustomView, CustomText, CustomButton } from '../components'
 import { Keyboard } from '../components'
 import { color } from '../common/styles/constant'
@@ -12,6 +11,7 @@ import type {
   WalletSendAmountState,
   WalletSendAmountProps,
 } from './type-wallet'
+import { walletTabSendDetailsRoute } from '../common/route-constants'
 
 const FONT_SIZE_MAPPING = {
   '0': 70,
@@ -61,6 +61,8 @@ export default class WalletSendAmount extends PureComponent<
   sendTokenAmount = () => {
     if (this.state.text.length) {
       // TODO route to send token amount details with state.text as a parameter
+
+      this.props.screenProps.navigation.navigate(walletTabSendDetailsRoute)
     }
   }
 
