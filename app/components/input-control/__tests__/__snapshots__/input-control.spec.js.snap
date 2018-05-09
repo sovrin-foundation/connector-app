@@ -87,6 +87,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
       }
     >
       <TextInput
+        maxLength={undefined}
         multiline={false}
         onChangeText={[Function]}
         placeholder="test"
@@ -106,33 +107,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
     </View>
     <View
       style={Object {}}
-    >
-      <View
-        clearBg={true}
-        small={true}
-        src={1}
-        style={
-          Object {
-            "backgroundColor": "transparent",
-          }
-        }
-      >
-        <Image
-          resizeMode="contain"
-          source={1}
-          style={
-            Array [
-              Object {
-                "height": 20,
-                "width": 20,
-              },
-              null,
-            ]
-          }
-          testID={undefined}
-        />
-      </View>
-    </View>
+    />
   </View>
 </View>
 `;

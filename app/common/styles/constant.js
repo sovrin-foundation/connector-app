@@ -37,6 +37,7 @@ const pumpkin = '#F68127'
 const olivine = '#97C85F'
 const denim = '#1159A9'
 const orange = 'rgba(237, 156, 46, 1)'
+const orangeDisabled = 'rgba(237, 156, 46, 0.5)'
 const darkOrange = 'rgba(207, 127, 20, 1)'
 const errorBg = 'rgba(255, 214, 219, 1)'
 
@@ -138,6 +139,7 @@ export const color = {
     },
     eighth: {
       color: orange,
+      disabled: orangeDisabled,
       border: {
         color: darkOrange,
       },

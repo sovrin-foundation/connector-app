@@ -34,6 +34,7 @@ export type ReactNavigation = {
     // need to move react navigation library to latest version
     // and use their type, also need to use Generics here
     dispatch: any => void,
+    setParams: (params?: any) => void,
   },
 }
 

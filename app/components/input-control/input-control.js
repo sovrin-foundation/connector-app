@@ -37,16 +37,14 @@ export default class ControlInput extends PureComponent<
   )
 
   onTextChange = (event: string) => {
+    this.props.onChangeText(event, this.props.name)
     if (this.props.validation) {
       this.throttledValidate()
     }
-    this.props.onChangeText(event, this.props.name)
   }
 
-  componentWillReceiveProps(nextProps: InputControlProps) {}
-
   render() {
-    let { placeholder, label, multiline, isValid } = this.props
+    let { placeholder, label, multiline, isValid, maxLength } = this.props
     return (
       <CustomView style={[styles.container]}>
         <CustomView fifth center row horizontalSpace>
@@ -78,19 +76,20 @@ export default class ControlInput extends PureComponent<
               underlineColorAndroid="transparent"
               placeholder={placeholder}
               multiline={multiline ? true : false}
+              maxLength={maxLength}
               onChangeText={this.onTextChange}
             />
           </CustomView>
-          {this.props.validation && !isValid ? (
-            <ErrorIcon />
-          ) : isValid ? (
+          {this.props.validation && isValid === 'SUCCESS' ? (
             <SuccessIcon />
+          ) : isValid === 'ERROR' ? (
+            <ErrorIcon />
           ) : (
             <CustomView />
           )}
         </CustomView>
         {/* for validation */}
-        {this.props.validation && !isValid ? (
+        {this.props.validation && isValid === 'ERROR' ? (
           <ErrorCustomInput>Invalid Payment Address</ErrorCustomInput>
         ) : null}
       </CustomView>

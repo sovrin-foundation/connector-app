@@ -16,7 +16,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, Keyboard } from 'react-native'
 import { connect } from 'react-redux'
-import { StackNavigator } from 'react-navigation'
+import { StackNavigator, NavigationActions } from 'react-navigation'
 import { Container, CustomText, CustomView } from '../components'
 import { primaryHeaderStyles } from '../components/layout/header-styles'
 import Icon from '../components/icon'
@@ -35,14 +35,16 @@ import type {
   WalletTabSendDetailsState,
 } from './type-wallet'
 import { formatNumbers } from '../components/text'
-import { walletRoute } from '../common'
+import { historyTabRoute } from '../common'
+
+import { walletStaticAddresses } from '../../__mocks__/static-data'
 
 // TODO: Add type for the props and state
 export class WalletTabSendDetails extends Component<
   WalletTabSendDetailsProps,
   WalletTabSendDetailsState
 > {
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({ navigation, screenProps }) => ({
     headerLeft: (
       <CustomView horizontalSpace>
         <Icon
@@ -72,7 +74,21 @@ export class WalletTabSendDetails extends Component<
     ),
     headerRight: (
       <CustomView horizontalSpace>
-        <CustomText uppercase proText bold quinaryText transparentBg h5>
+        <CustomText
+          uppercase
+          proText
+          bold
+          quinaryText
+          transparentBg
+          h5
+          style={[navigation.state.params.isValid ? {} : styles.disabledText]}
+          onPress={() => {
+            if (navigation.state.params.isValid) {
+              navigation.goBack(null)
+              navigation.state.params.navigate(historyTabRoute)
+            }
+          }}
+        >
           Send
         </CustomText>
       </CustomView>
@@ -82,7 +98,7 @@ export class WalletTabSendDetails extends Component<
 
   state = {
     showPaymentAddress: false,
-    isPaymentAddressValid: false,
+    isPaymentAddressValid: 'IDLE',
   }
 
   paymentData: WalletSendPaymentData = {
@@ -106,8 +122,19 @@ export class WalletTabSendDetails extends Component<
     // the validationFunction will be running here
 
     // the isPaymentAddressValid state need to be changed to true if the payment address validation is success and vice-versa
+    let status = ''
+    if (this.paymentData['paymentTo'] === walletStaticAddresses[0]) {
+      status = 'SUCCESS'
+      this.props.navigation.setParams({ isValid: true })
+    } else if (this.paymentData['paymentTo'].length <= 0) {
+      status = 'IDLE'
+      this.props.navigation.setParams({ isValid: false })
+    } else {
+      status = 'ERROR'
+      this.props.navigation.setParams({ isValid: false })
+    }
     this.setState({
-      isPaymentAddressValid: true,
+      isPaymentAddressValid: status,
     })
   }
   render() {
@@ -125,6 +152,7 @@ export class WalletTabSendDetails extends Component<
           label="For"
           name="paymentFor"
           multiline
+          maxLength={80}
           placeholder="credential, gift, etc."
           onChangeText={this.onTextChange}
         />
@@ -158,14 +186,14 @@ export class WalletTabSendDetails extends Component<
           </CustomView>
         </CustomView>
         {this.state.showPaymentAddress ? (
-          <CustomView center>
+          <CustomView center horizontalSpace>
             <CustomText
               center
               transparentBg
               primary
               style={[
                 { marginTop: 10 },
-                this.state.isPaymentAddressValid
+                this.state.isPaymentAddressValid === 'SUCCESS'
                   ? styles.validTextColor
                   : styles.invalidTextColor,
               ]}
@@ -233,6 +261,9 @@ const styles = StyleSheet.create({
     letterSpacing: -1.87,
     marginTop: 19,
     lineHeight: 89,
+  },
+  disabledText: {
+    color: color.bg.eighth.disabled,
   },
 })
 

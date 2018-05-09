@@ -840,6 +840,8 @@ export function getNavigation(params?: NavigationParams) {
     goBack: jest.fn(),
     // $FlowFixMe
     dispatch: jest.fn(),
+    // $FlowFixMe Don't know why this is failing, may be we upgrade to flow 0.63
+    setParams: jest.fn(),
   }
 }
 

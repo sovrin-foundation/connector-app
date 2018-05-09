@@ -118,6 +118,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
         }
       >
         <TextInput
+          maxLength={undefined}
           multiline={false}
           onChangeText={[Function]}
           placeholder="Enter Payee wallet address"
@@ -136,110 +137,8 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
         />
       </View>
       <View
-        hCenter={true}
-        style={
-          Object {
-            "borderColor": "#d0021b",
-            "borderRadius": 100,
-            "borderWidth": 2,
-            "height": 22,
-            "justifyContent": "center",
-            "padding": 1,
-            "width": 22,
-          }
-        }
-      >
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
-          style={
-            Array [
-              Object {
-                "fontSize": 17,
-              },
-              Object {
-                "fontFamily": "SF Pro Display",
-              },
-              Object {
-                "backgroundColor": "#333333",
-                "color": "#ffffff",
-              },
-              null,
-              Object {
-                "textAlign": "center",
-              },
-              Object {
-                "backgroundColor": "transparent",
-              },
-              null,
-              null,
-              null,
-              null,
-              null,
-              Object {
-                "color": "#d0021b",
-                "fontSize": 13,
-              },
-            ]
-          }
-        >
-          !
-        </Text>
-      </View>
-    </View>
-    <View
-      column={true}
-      style={
-        Object {
-          "backgroundColor": "rgba(255, 214, 219, 1)",
-          "paddingVertical": 5,
-        }
-      }
-    >
-      <Text
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
-        style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "SF Pro Display",
-            },
-            Object {
-              "backgroundColor": "#333333",
-              "color": "#ffffff",
-            },
-            null,
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            Object {
-              "color": "#333333",
-            },
-            null,
-            Object {
-              "fontSize": 14,
-              "letterSpacing": -0.35,
-              "lineHeight": 16,
-            },
-            Object {
-              "color": "#d0021b",
-            },
-          ]
-        }
-      >
-        Invalid Payment Address
-      </Text>
+        style={Object {}}
+      />
     </View>
   </View>
   <View
@@ -328,6 +227,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
         }
       >
         <TextInput
+          maxLength={80}
           multiline={true}
           onChangeText={[Function]}
           placeholder="credential, gift, etc."

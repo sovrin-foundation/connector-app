@@ -16,7 +16,7 @@ describe('<WalletTabSendDetails />', () => {
         name="paymentTo"
         multiline={false}
         validation={validation}
-        isValid={true}
+        isValid={'IDLE'}
       />
     )
     const instance = component.root.findByType(ControlInput).instance

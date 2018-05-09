@@ -62,7 +62,9 @@ export default class WalletSendAmount extends PureComponent<
     if (this.state.text.length) {
       // TODO route to send token amount details with state.text as a parameter
 
-      this.props.screenProps.navigation.navigate(walletTabSendDetailsRoute)
+      this.props.screenProps.navigation.navigate(walletTabSendDetailsRoute, {
+        ...this.props.navigation,
+      })
     }
   }
 

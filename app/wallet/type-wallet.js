@@ -1,5 +1,6 @@
 // @flow
 import type { ReactNavigation } from '../common/type-common'
+import type { IsValid } from '../components/input-control/type-input-control'
 
 export type WalletBalanceProps = {
   balance: string,
@@ -35,7 +36,7 @@ export type WalletTabSendDetailsProps = {
 
 export type WalletTabSendDetailsState = {
   showPaymentAddress: boolean,
-  isPaymentAddressValid: boolean,
+  isPaymentAddressValid: IsValid,
 }
 
 export type WalletHistoryProps = {
