@@ -8,6 +8,7 @@ import {
   call,
   select,
   takeLatest,
+  spawn,
 } from 'redux-saga/effects'
 import { IS_ALREADY_INSTALLED } from '../common'
 import { hydrateApp } from '../store/hydration-store'
@@ -18,6 +19,10 @@ import { PIN_STORAGE_KEY, TOUCHID_STORAGE_KEY } from '../lock/type-lock'
 import {
   getErrorAlertsSwitchValue,
   getPushToken,
+  getHydrationState,
+  getConfig,
+  getUserOneTimeInfo,
+  getVcxInitializationState,
 } from '../store/store-selector'
 import { enableTouchIdAction, disableTouchIdAction } from '../lock/lock-store'
 import {
@@ -26,8 +31,6 @@ import {
   APP_INSTALLED,
   ALREADY_INSTALLED_RESULT,
   SERVER_ENVIRONMENT_CHANGED,
-  SERVER_ENVIRONMENT_CHANGED_DEMO,
-  SERVER_ENVIRONMENT_CHANGED_SANDBOX,
   SWITCH_ERROR_ALERTS,
   TOGGLE_ERROR_ALERTS,
   SWITCH_ENVIRONMENT,
@@ -43,6 +46,12 @@ import {
   MESSAGE_FAIL_ENVIRONMENT_SWITCH_ERROR,
   MESSAGE_SUCCESS_ENVIRONMENT_SWITCH_DESCRIPTION,
   MESSAGE_SUCCESS_ENVIRONMENT_SWITCH_TITLE,
+  VCX_INIT_START,
+  VCX_INIT_SUCCESS,
+  VCX_INIT_FAIL,
+  ERROR_VCX_INIT_FAIL,
+  ERROR_VCX_PROVISION_FAIL,
+  VCX_INIT_NOT_STARTED,
 } from './type-config-store'
 import type {
   ServerEnvironment,
@@ -58,9 +67,16 @@ import type { CustomError } from '../common/type-common'
 import { downloadEnvironmentDetails } from '../api/api'
 import schemaValidator from '../services/schema-validator'
 import type { EnvironmentDetailUrlDownloaded } from '../api/type-api'
-import { reset as resetNative } from '../bridge/react-native-cxs/RNCxs'
+import {
+  reset as resetNative,
+  init,
+  createOneTimeInfo,
+} from '../bridge/react-native-cxs/RNCxs'
 import { RESET } from '../common/type-common'
 import { updatePushToken } from '../push-notification/push-notification-store'
+import type { VcxProvisionResult } from '../bridge/react-native-cxs/type-cxs'
+import type { UserOneTimeInfo } from './user/type-user-store'
+import { connectRegisterCreateAgentDone } from './user/user-store'
 
 /**
  * this file contains configuration which is changed only from user action
@@ -107,6 +123,11 @@ const initialState: ConfigStore = {
   isHydrated: false,
   // configurable error alert messages
   showErrorAlerts: false,
+  // used to track if vcx is initialized successfully
+  // if vcx is not initialized, then we won't be able
+  // to call bridge methods that deals claims, connections, proofs, etc.
+  vcxInitializationState: VCX_INIT_NOT_STARTED,
+  vcxInitializationError: null,
 }
 
 export const hydrated = () => ({
@@ -122,14 +143,6 @@ export const appInstalledSuccess = () => ({
   type: APP_INSTALLED,
 })
 
-export const changeServerEnvironmentToDemo = () => ({
-  type: SERVER_ENVIRONMENT_CHANGED_DEMO,
-})
-
-export const changeServerEnvironmentToSandbox = () => ({
-  type: SERVER_ENVIRONMENT_CHANGED_SANDBOX,
-})
-
 export const changeEnvironmentUrl = (url: string) => ({
   type: CHANGE_ENVIRONMENT_VIA_URL,
   url,
@@ -139,6 +152,8 @@ export function* resetStore(): Generator<*, *, *> {
   yield put({ type: RESET })
 }
 
+// had to specify type to any instead of generator
+// due to redux-saga type definition failing for if with yield
 export function* onChangeEnvironmentUrl(
   action: ChangeEnvironmentUrlAction
 ): Generator<*, *, *> {
@@ -179,8 +194,9 @@ export function* onChangeEnvironmentUrl(
 
     const pushToken: string = yield select(getPushToken)
     yield put(updatePushToken(pushToken))
-
     yield call(resetNative, environmentDetails.poolConfig)
+    yield put(vcxInitReset())
+
     // if we did not get any exception till this point
     // that means environment is switched
     Alert.alert(
@@ -319,26 +335,6 @@ export const toggleErrorAlerts = (isShowErrorAlert: boolean) => ({
   isShowErrorAlert,
 })
 
-export function* watchChangeEnvironmentToDemo(): any {
-  while (true) {
-    for (let i = 0; i < 4; i++) {
-      yield take(SERVER_ENVIRONMENT_CHANGED_DEMO)
-    }
-
-    yield put(changeServerEnvironment(SERVER_ENVIRONMENT.DEMO))
-  }
-}
-
-export function* watchChangeEnvironmentToSandbox(): any {
-  while (true) {
-    for (let i = 0; i < 4; i++) {
-      yield take(SERVER_ENVIRONMENT_CHANGED_SANDBOX)
-    }
-
-    yield put(changeServerEnvironment(SERVER_ENVIRONMENT.SANDBOX))
-  }
-}
-
 export function* watchSwitchErrorAlerts(): any {
   while (true) {
     for (let i = 0; i < 4; i++) {
@@ -413,14 +409,114 @@ export function* hydrateConfig(): any {
   yield put(hydrated())
 }
 
+export const vcxInitStart = () => ({
+  type: VCX_INIT_START,
+})
+
+export const vcxInitSuccess = () => ({
+  type: VCX_INIT_SUCCESS,
+})
+
+export const vcxInitFail = (error: CustomError) => ({
+  type: VCX_INIT_FAIL,
+  error,
+})
+
+export const vcxInitReset = () => ({
+  type: VCX_INIT_NOT_STARTED,
+})
+
+export function* ensureAppHydrated(): Generator<*, *, *> {
+  const isHydrated = yield select(getHydrationState)
+  if (!isHydrated) {
+    yield take(HYDRATED)
+  }
+}
+
+export function* initVcx(): Generator<*, *, *> {
+  yield* ensureAppHydrated()
+
+  // check if we already have user one time info
+  // if we already have one time info, that means we don't have to register
+  // with agency again, and we can just raise success action for VCX_INIT
+  let userOneTimeInfo: UserOneTimeInfo = yield select(getUserOneTimeInfo)
+  const {
+    agencyUrl,
+    agencyDID,
+    agencyVerificationKey,
+    poolConfig,
+  }: ConfigStore = yield select(getConfig)
+  const agencyConfig = {
+    agencyUrl,
+    agencyDID,
+    agencyVerificationKey,
+    poolConfig,
+  }
+
+  if (!userOneTimeInfo) {
+    // app is hydrated, but we haven't got user one time info
+    // so now we go ahead and create user one time info
+    try {
+      userOneTimeInfo = yield call(createOneTimeInfo, agencyConfig)
+
+      yield put(connectRegisterCreateAgentDone(userOneTimeInfo))
+    } catch (e) {
+      yield put(vcxInitFail(ERROR_VCX_PROVISION_FAIL(e.message)))
+
+      return
+    }
+  }
+
+  // once we reach here, we are sure that either user one time info is loaded from disk
+  // or we provisioned one time agent for current user if not already available
+  try {
+    yield call(init, {
+      ...userOneTimeInfo,
+      ...agencyConfig,
+    })
+    yield put(vcxInitSuccess())
+  } catch (e) {
+    yield put(vcxInitFail(ERROR_VCX_INIT_FAIL(e.message)))
+  }
+}
+
+export function* watchVcxInitStart(): any {
+  yield takeLatest(VCX_INIT_START, initVcx)
+}
+
+export function* ensureVcxInitSuccess(): Generator<*, *, *> {
+  // vcx init ensures that
+  // -- app is hydrated
+  // -- user one time info is available
+  // -- vcx initialization was success
+
+  const vcxInitializationState = yield select(getVcxInitializationState)
+  if (vcxInitializationState === VCX_INIT_SUCCESS) {
+    // if already initialized, no need to process further
+    return
+  }
+
+  if ([VCX_INIT_NOT_STARTED, VCX_INIT_FAIL].includes(vcxInitializationState)) {
+    // if vcx init not started or vcx init failed and we want to init again
+    yield put(vcxInitStart())
+  }
+
+  // if we are here, that means we either started vcx init
+  // or vcx init was already in progress and now we need to wait for success
+  yield take(VCX_INIT_SUCCESS)
+
+  // TODO we could put a logic to retry in case we get a fail event
+  // so instead of above statement we can start a race b/w fail and success action
+  // and then if we get fail, we can retry with exponential backoff
+}
+
 export function* watchConfig(): Generator<*, *, *> {
   yield all([
-    watchChangeEnvironmentToDemo(),
-    watchChangeEnvironmentToSandbox(),
     watchSwitchErrorAlerts(),
     watchSwitchEnvironment(),
     hydrateConfig(),
     watchChangeEnvironmentUrl(),
+    watchVcxInitStart(),
   ])
 }
 
@@ -462,6 +558,29 @@ export default function configReducer(
         agencyDID: action.agencyDID,
         agencyVerificationKey: action.agencyVerificationKey,
         agencyUrl: action.agencyUrl,
+      }
+    case VCX_INIT_NOT_STARTED:
+      return {
+        ...state,
+        vcxInitializationState: VCX_INIT_NOT_STARTED,
+        vcxInitializationError: null,
+      }
+    case VCX_INIT_START:
+      return {
+        ...state,
+        vcxInitializationState: VCX_INIT_START,
+        vcxInitializationError: null,
+      }
+    case VCX_INIT_SUCCESS:
+      return {
+        ...state,
+        vcxInitializationState: VCX_INIT_SUCCESS,
+      }
+    case VCX_INIT_FAIL:
+      return {
+        ...state,
+        vcxInitializationState: VCX_INIT_FAIL,
+        vcxInitializationError: action.error,
       }
     default:
       return state

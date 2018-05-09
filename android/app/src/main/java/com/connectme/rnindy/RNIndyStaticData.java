@@ -15,17 +15,17 @@ public class RNIndyStaticData {
     private int pairwiseAgentCalls = 0;
     private int getMessageCalls = 0;
 
-    private Map<String, String> oneTimeAddConnection = new HashMap<String, String>(){{
+    public Map<String, String> oneTimeAddConnection = new HashMap<String, String>(){{
         put("userDID", "3akhf906816kahfadhfas85");
         put("verificationKey", "3akhf906816kahfadhfas853akhf906816kahfadhfas85");
     }};
 
-    private Map<String, String> secondTimeAddConnection = new HashMap<String, String>(){{
+    public Map<String, String> secondTimeAddConnection = new HashMap<String, String>(){{
         put("userDID", "user1Did");
         put("verificationKey", "user1VerificationKey");
     }};
 
-    private Map<String, String> allOtherAddConnection = new HashMap<String, String>(){{
+    public Map<String, String> allOtherAddConnection = new HashMap<String, String>(){{
         put("userDID", "user2Did");
         put("verificationKey", "user2VerificationKey");
     }};

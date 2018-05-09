@@ -70,3 +70,6 @@ ios/ConnectMe.app.dSYM.zip
 
 # ignore code coverage report
 coverage/
+
+# npm lock file, we are not using npm command to install packages
+package-lock.json

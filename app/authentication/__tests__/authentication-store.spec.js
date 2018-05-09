@@ -25,6 +25,7 @@ import type {
 } from '../type-authentication'
 import { PUSH_NOTIFICATION_SENT_CODE } from '../../api/api-constants'
 import { RESET } from '../../common/type-common'
+import { getStore } from '../../../__mocks__/static-data'
 
 describe('Authentication request tests', () => {
   const initialAction: AuthenticationAction = {
@@ -88,6 +89,7 @@ describe('Authentication request tests', () => {
     const challenge = 'some challenge'
     const signature = 'some signature'
     const identifier = 'some identifier'
+    const config = getStore().getState().config
 
     const responseAction: SendUserAuthenticationResponse = sendUserAuthenticationResponse(
       {
@@ -99,16 +101,7 @@ describe('Authentication request tests', () => {
           signature,
         },
       },
-      {
-        agencyUrl: 'some agency url',
-        agencyDID: 'some DID',
-        agencyVerificationKey: 'some VerificationKey',
-        isAlreadyInstalled: true,
-        isHydrated: true,
-        showErrorAlerts: false,
-        showDevMode: false,
-        poolConfig: 'some text',
-      },
+      config,
       AUTHENTICATION_TYPE.AUTHENTICATION_REQUEST
     )
     expect(authentication(initialState, responseAction)).toMatchSnapshot()

@@ -1,5 +1,9 @@
 // @flow
 
+import type { SMSPendingInvitationPayload } from '../../sms-pending-invitation/type-sms-pending-invitation'
+import type { UserOneTimeInfo } from '../../store/user/type-user-store'
+import type { AgencyPoolConfig } from '../../store/type-config-store'
+
 export type Metadata = {
   [string]: any,
 }
@@ -52,4 +56,74 @@ export type CreatePairwiseAgentResponse = {
 export type AcceptInvitationResponse = {
   '@type': { name: string, ver: string },
   uid: string,
+}
+
+// TODO: Remove types that will not be used once vcx is integrated
+export type VcxProvision = {
+  agency_url: string,
+  agency_did: string,
+  agency_verkey: string,
+}
+
+export type VcxProvisionResult = {
+  wallet_name: string,
+  wallet_key: string,
+  agency_endpoint: string,
+  agency_did: string,
+  agency_verkey: string,
+  // myOneTimeDid
+  sdk_to_remote_did: string,
+  // myOneTimeVerificationKey
+  sdk_to_remote_verkey: string,
+  // oneTimeAgencyDid
+  institution_did: string,
+  // oneTimeAgencyVerificationKey
+  institution_verkey: string,
+  // myOneTimeAgentDid
+  remote_to_sdk_did: string,
+  // myOneTimeAgentVerificationKey
+  remote_to_sdk_verkey: string,
+}
+
+export type CxsInitConfig = UserOneTimeInfo & AgencyPoolConfig
+
+export type VcxInitConfig = {
+  agency_endpoint: string,
+  agency_did: string,
+  agency_verkey: string,
+  config: string,
+  pool_name: string,
+  wallet_name: string,
+  remote_to_sdk_did: string,
+  sdk_to_remote_did: string,
+  remote_to_sdk_verkey: string,
+}
+
+export type VcxPushTokenConfig = {
+  id: string,
+  value: string,
+}
+
+export type CxsPushTokenConfig = {
+  uniqueId: string,
+  pushToken: string,
+}
+
+export type VcxCreateConnection = {
+  source_id: string,
+  invite_details: SMSPendingInvitationPayload,
+}
+
+export type VcxConnectionCreateResult = number
+
+export type VcxConnectionConnectResult = {
+  source_id: string,
+  pw_did: string,
+  pw_verkey: string,
+  uuid: string,
+  endpoint: string,
+  agent_did: string,
+  agent_vk: string,
+  their_pw_did: string,
+  their_pw_verkey: string,
 }

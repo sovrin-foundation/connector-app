@@ -110,3 +110,13 @@ export type InvitationProps = {
 export type InvitationState = {
   isSuccessModalVisible: boolean,
 }
+
+export const ERROR_INVITATION_VCX_INIT = {
+  code: 'INVITATION-001',
+  message: 'Could not initialize vcx while creating a connection',
+}
+
+export const ERROR_INVITATION_CONNECT = (message: string) => ({
+  code: 'INVITATION-002',
+  message: `Error while establishing a connection ${message}`,
+})

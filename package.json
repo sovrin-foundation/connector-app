@@ -78,6 +78,7 @@
     "react-test-renderer": "16.0.0",
     "reactotron-react-native": "1.14.0",
     "reactotron-redux": "1.13.0",
+    "redux-saga-test-plan": "^3.6.0",
     "remote-redux-devtools": "^0.5.12",
     "remotedev-rn-debugger": "0.8.3"
   },

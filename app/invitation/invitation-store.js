@@ -1,5 +1,5 @@
 // @flow
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, Platform } from 'react-native'
 import { put, takeLatest, call, all, select } from 'redux-saga/effects'
 import {
   INVITATION_RECEIVED,
@@ -7,6 +7,8 @@ import {
   INVITATION_RESPONSE_SUCCESS,
   INVITATION_RESPONSE_FAIL,
   INVITATION_REJECTED,
+  ERROR_INVITATION_VCX_INIT,
+  ERROR_INVITATION_CONNECT,
 } from './type-invitation'
 import { ResponseType } from '../components/request/type-request'
 import {
@@ -33,6 +35,8 @@ import {
   createOneTimeAgent,
   createPairwiseAgent,
   acceptInvitation,
+  createConnectionWithInvite,
+  acceptInvitationVcx,
 } from '../bridge/react-native-cxs/RNCxs'
 import type {
   InvitationResponseSendData,
@@ -55,6 +59,9 @@ import type {
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
 import { connectRegisterCreateAgentDone } from '../store/user/user-store'
 import { RESET } from '../common/type-common'
+import { initVcx, ensureVcxInitSuccess } from '../store/config-store'
+import { VCX_INIT_SUCCESS } from '../store/type-config-store'
+import type { MyPairwiseInfo } from '../store/type-connection-store'
 
 export const invitationInitialState = {}
 
@@ -188,6 +195,16 @@ function* createConsumerAgencyAgent(
 export function* sendResponse(
   action: InvitationResponseSendAction
 ): Generator<*, *, *> {
+  if (Platform.OS === 'android') {
+    // TODO:KS Once integration with vcx is done, then we would remove this saga
+    // and use sendResponseVcx. Also sendResponseVcx will be renamed to sendResponse
+    // the flow is running only for android because on ios we can establish real connection
+    // while on android things works with static data as of now
+    yield* sendResponseVcx(action)
+
+    return
+  }
+
   const { senderDID } = action.data
   // get data needed for agent api call from store using selectors
   // this will keep our components and screen to not pass data
@@ -317,6 +334,53 @@ export function* sendResponse(
       error = JSON.parse(err.message)
     } catch (_) {}
     yield put(invitationFail(error, senderDID))
+  }
+}
+
+export function* sendResponseVcx(
+  action: InvitationResponseSendAction
+): Generator<*, *, *> {
+  yield* ensureVcxInitSuccess()
+
+  const { senderDID } = action.data
+  const alreadyExist: boolean = yield select(isDuplicateConnection, senderDID)
+  if (alreadyExist) {
+    yield put(invitationFail(ERROR_ALREADY_EXIST, senderDID))
+
+    return
+  }
+
+  try {
+    const payload: InvitationPayload = yield select(
+      getInvitationPayload,
+      senderDID
+    )
+    const connectionHandle: number = yield call(
+      createConnectionWithInvite,
+      payload
+    )
+    const pairwiseInfo: MyPairwiseInfo = yield call(
+      acceptInvitationVcx,
+      connectionHandle
+    )
+
+    yield put(invitationSuccess(senderDID))
+
+    const connection = {
+      newConnection: {
+        identifier: pairwiseInfo.myPairwiseDid,
+        logoUrl: payload.senderLogoUrl,
+        myPairwiseDid: pairwiseInfo.myPairwiseDid,
+        myPairwiseVerKey: pairwiseInfo.myPairwiseVerKey,
+        myPairwiseAgentDid: pairwiseInfo.myPairwiseAgentDid,
+        myPairwiseAgentVerKey: pairwiseInfo.myPairwiseAgentVerKey,
+        myPairwisePeerVerKey: pairwiseInfo.myPairwisePeerVerKey,
+        ...payload,
+      },
+    }
+    yield put(saveNewConnection(connection))
+  } catch (e) {
+    yield put(invitationFail(ERROR_INVITATION_CONNECT(e.message), senderDID))
   }
 }
 

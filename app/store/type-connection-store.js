@@ -1,19 +1,22 @@
 // @flow
 import type { InvitationPayload } from '../invitation/type-invitation'
 
-export type Connection = {
-  identifier: string,
-  logoUrl: string,
-  senderDID: string,
-  senderEndpoint: string,
-  size: number,
-  senderName?: string,
+export type MyPairwiseInfo = {
   myPairwiseDid: string,
   myPairwiseVerKey: string,
   myPairwiseAgentDid: string,
   myPairwiseAgentVerKey: string,
   myPairwisePeerVerKey: string,
+  senderDID: string,
 }
+
+export type Connection = {
+  identifier: string,
+  logoUrl: string,
+  senderEndpoint: string,
+  size?: number,
+  senderName?: string,
+} & MyPairwiseInfo
 
 export const DELETE_CONNECTION = 'DELETE_CONNECTION'
 

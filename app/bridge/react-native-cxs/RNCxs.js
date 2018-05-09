@@ -10,8 +10,25 @@ import type {
   AcceptInvitationResponse,
 } from './type-cxs'
 import type { InvitationPayload } from '../../invitation/type-invitation'
+import {
+  convertAgencyConfigToVcxProvision,
+  convertVcxProvisionResultToUserOneTimeInfo,
+  convertCxsInitToVcxInit,
+  convertCxsPushConfigToVcxPushTokenConfig,
+  convertInvitationToVcxConnectionCreate,
+  convertVcxConnectionToCxsConnection,
+} from './vcx-transformers'
+import type {
+  VcxProvisionResult,
+  VcxProvision,
+  CxsInitConfig,
+  CxsPushTokenConfig,
+  VcxConnectionConnectResult,
+} from './type-cxs'
+import type { UserOneTimeInfo } from '../../store/user/type-user-store'
+import type { AgencyPoolConfig } from '../../store/type-config-store'
+import type { MyPairwiseInfo } from '../../store/type-connection-store'
 
-// get React native indy module from NativeModules
 const { RNIndy } = NativeModules
 
 export async function addConnection(
@@ -58,6 +75,7 @@ export async function generateClaimRequest(
   claimOffer: IndyClaimOffer,
   poolConfig: string
 ) {
+  // be sure to call initVcx before calling this method
   const indyClaimOffer = {
     issuer_did: claimOffer.issuerDid,
     schema_seq_no: claimOffer.schemaSequenceNumber,
@@ -73,14 +91,17 @@ export async function generateClaimRequest(
 }
 
 export async function addClaim(claim: string, poolConfig: string) {
+  // be sure to call ensureInitVcx before calling this method
   return await RNIndy.addClaim(claim, poolConfig)
 }
 
 export async function getClaim(filterJSON: string, poolConfig: string) {
+  // be sure to call ensureInitVcx before calling this method
   return await RNIndy.getClaim(filterJSON, poolConfig)
 }
 
 export async function prepareProof(proofRequest: string, poolConfig: string) {
+  // be sure to call ensureInitVcx before calling this method
   const prepareProofJSON: string = await RNIndy.prepareProof(
     proofRequest,
     poolConfig
@@ -96,6 +117,7 @@ export async function generateProof(
   requestedClaims: string,
   poolConfig: string
 ) {
+  // be sure to call ensureInitVcx before calling this method
   const proof: string = await RNIndy.getProof(
     proofRequest,
     remoteDid,
@@ -250,6 +272,7 @@ export async function acceptInvitation({
   myAgencyVerKey: string,
   poolConfig: string,
 }) {
+  // be sure to call ensureInitVcx before calling this method
   const acceptInvitationResponse: AcceptInvitationResponse = await RNIndy.acceptInvitation(
     url,
     requestId,
@@ -267,6 +290,18 @@ export async function acceptInvitation({
   )
 
   return acceptInvitationResponse
+}
+
+export async function acceptInvitationVcx(
+  connectionHandle: number
+): Promise<MyPairwiseInfo> {
+  // above API will be removed and this api shall be renamed to acceptInvitation
+  // we will do this once we have integration with vcx
+  const result: VcxConnectionConnectResult = await RNIndy.acceptInvitation(
+    connectionHandle
+  )
+
+  return convertVcxConnectionToCxsConnection(result)
 }
 
 export async function updatePushToken({
@@ -288,6 +323,7 @@ export async function updatePushToken({
   myAgencyVerKey: string,
   poolConfig: string,
 }) {
+  // be sure to call ensureInitVcx before calling this method
   return await RNIndy.updatePushToken(
     url,
     token,
@@ -297,6 +333,12 @@ export async function updatePushToken({
     myOneTimeVerKey,
     myAgencyVerKey,
     poolConfig
+  )
+}
+
+export async function updatePushTokenVcx(pushTokenConfig: CxsPushTokenConfig) {
+  return await RNIndy.updatePushToken(
+    JSON.stringify(convertCxsPushConfigToVcxPushTokenConfig(pushTokenConfig))
   )
 }
 
@@ -420,6 +462,7 @@ export async function deleteConnection({
   myAgencyVerKey: string,
   poolConfig: string,
 }) {
+  // be sure to call ensureInitVcx before calling this method
   return await RNIndy.deleteConnection(
     url,
     myPairwiseDid,
@@ -435,10 +478,65 @@ export async function deleteConnection({
   )
 }
 
+// TODO remove this API when vcx is available
+// instead of this we should use shutdown
 export async function reset(poolConfig: string) {
+  // be sure to call ensureInitVcx before calling this method
   return await RNIndy.switchEnvironment(poolConfig)
+}
+
+export async function resetVcx(removeData: boolean): Promise<boolean> {
+  // we would remove above reset method and rename this method to reset
+  // once we have integration available with vcx
+  const result: boolean = await RNIndy.reset(true)
+
+  return result
 }
 
 export async function getColor(imagePath: string): Promise<Array<string>> {
   return RNIndy.getColor(imagePath)
+}
+
+export async function createOneTimeInfo(
+  agencyConfig: AgencyPoolConfig
+): Promise<UserOneTimeInfo> {
+  const provisionResult: VcxProvisionResult = await RNIndy.createOneTimeInfo(
+    JSON.stringify(convertAgencyConfigToVcxProvision(agencyConfig))
+  )
+
+  return convertVcxProvisionResultToUserOneTimeInfo(provisionResult)
+}
+
+export async function init(config: CxsInitConfig): Promise<boolean> {
+  const initResult: boolean = await RNIndy.init(
+    JSON.stringify(convertCxsInitToVcxInit(config))
+  )
+
+  return initResult
+}
+
+export async function createConnectionWithInvite(
+  invitation: InvitationPayload
+): Promise<number> {
+  const connectionHandle: number = await RNIndy.createConnectionWithInvite(
+    invitation.requestId,
+    JSON.stringify(convertInvitationToVcxConnectionCreate(invitation))
+  )
+
+  return connectionHandle
+}
+
+export async function downloadClaimOffer() {
+  // TODO:KS Complete signature as per vcx
+  // Add these methods in Java & objective-c wrapper
+}
+
+export async function downloadClaim() {
+  // TODO:KS Complete signature as per vcx
+  // Add this methods in Java & objective-c wrapper
+}
+
+export async function downloadProofRequest() {
+  // TODO:KS Complete signature as per vcx
+  // Add this methods in Java & objective-c wrapper
 }

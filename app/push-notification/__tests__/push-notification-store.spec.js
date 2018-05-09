@@ -1,5 +1,7 @@
 // @flow
 import { call, select, take } from 'redux-saga/effects'
+import { expectSaga } from 'redux-saga-test-plan'
+import * as matchers from 'redux-saga-test-plan/matchers'
 import {
   getAgencyUrl,
   getAgencyVerificationKey,
@@ -12,8 +14,12 @@ import pushNotificationReducer, {
   pushNotificationReceived,
   updatePushToken,
   onPushTokenUpdate,
+  onPushTokenUpdateVcx,
 } from '../push-notification-store'
-import { updatePushToken as updatePushTokenApi } from '../../bridge/react-native-cxs/RNCxs'
+import {
+  updatePushToken as updatePushTokenApi,
+  updatePushTokenVcx,
+} from '../../bridge/react-native-cxs/RNCxs'
 import { PAYLOAD_TYPE } from '../../api/api-constants'
 import {
   userOneTimeInfo,
@@ -23,6 +29,7 @@ import {
 import { CONNECT_REGISTER_CREATE_AGENT_DONE } from '../../store/user/type-user-store'
 import { initialTestAction } from '../../common/type-common'
 import uniqueId from 'react-native-unique-id'
+import { VCX_INIT_SUCCESS } from '../../store/type-config-store'
 
 describe('push notification store should work properly', () => {
   let initialState = {
@@ -128,5 +135,21 @@ describe('push notification store should work properly', () => {
         type: 'RESET',
       })
     ).toMatchSnapshot()
+  })
+
+  it('saga:onPushTokenUpdateVcx', async () => {
+    const pushToken = 'test:APA91bFOyY3at1DzdKO-Z4G_5dG12cXvKC1GuICX3jH'
+    const vcxInitSuccessState = {
+      config: {
+        vcxInitializationState: VCX_INIT_SUCCESS,
+      },
+    }
+    const id = await uniqueId()
+    const cxsPushTokenConfig = { uniqueId: id, pushToken: `FCM:${pushToken}` }
+
+    return expectSaga(onPushTokenUpdateVcx, updatePushToken(pushToken))
+      .withState(vcxInitSuccessState)
+      .call(updatePushTokenVcx, cxsPushTokenConfig)
+      .run()
   })
 })

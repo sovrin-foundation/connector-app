@@ -3,6 +3,9 @@ import React from 'react'
 import { AsyncStorage } from 'react-native'
 import renderer from 'react-test-renderer'
 import { put, call, select } from 'redux-saga/effects'
+import { expectSaga } from 'redux-saga-test-plan'
+import * as matchers from 'redux-saga-test-plan/matchers'
+import { throwError } from 'redux-saga-test-plan/providers'
 import invitationReducer, {
   invitationReceived,
   sendInvitationResponse,
@@ -10,6 +13,7 @@ import invitationReducer, {
   invitationRejected,
   invitationFail,
   sendResponse,
+  sendResponseVcx,
 } from '../invitation-store'
 import { initialTestAction } from '../../common/type-common'
 import type { InvitationStore } from '../type-invitation'
@@ -33,6 +37,8 @@ import {
   createPairwiseAgent,
   acceptInvitation,
   updatePushToken,
+  createConnectionWithInvite,
+  acceptInvitationVcx,
 } from '../../bridge/react-native-cxs/RNCxs'
 import {
   ERROR_ALREADY_EXIST,
@@ -44,8 +50,10 @@ import {
   getTestInvitationPayload,
   successConnectionData,
   pairwiseConnection,
+  myPairWiseConnectionDetails,
 } from '../../../__mocks__/static-data'
 import { connectRegisterCreateAgentDone } from '../../store/user/user-store'
+import { VCX_INIT_SUCCESS } from '../../store/type-config-store'
 
 // TODO:KS These should be moved to a separate file that handles
 // all of the static data of whole app, so that if we change
@@ -509,5 +517,44 @@ describe('Invitation Store', () => {
     expect(
       invitationReducer(afterOneInvitationState, { type: 'RESET' })
     ).toMatchSnapshot()
+  })
+
+  it('saga:sendResponseVcx', () => {
+    if (firstInvitation) {
+      const { payload } = firstInvitation
+      const { senderDID, senderVerificationKey } = payload
+      const data = {
+        senderDID,
+        response: ResponseType.accepted,
+      }
+      const vcxInitSuccessWithInvitationState = {
+        config: {
+          vcxInitializationState: VCX_INIT_SUCCESS,
+        },
+        invitation: {
+          [senderDID]: {
+            payload,
+          },
+        },
+        connections: {},
+      }
+      const connectionHandle = 1
+
+      return expectSaga(sendResponseVcx, sendInvitationResponse(data))
+        .withState(vcxInitSuccessWithInvitationState)
+        .provide([
+          [
+            matchers.call.fn(createConnectionWithInvite, payload),
+            connectionHandle,
+          ],
+          [
+            matchers.call.fn(acceptInvitationVcx, connectionHandle),
+            myPairWiseConnectionDetails,
+          ],
+        ])
+        .put(invitationSuccess(senderDID))
+        .put(saveNewConnection(successConnectionData))
+        .run()
+    }
   })
 })

@@ -2,6 +2,7 @@
 
 package com.connectme.rnindy;
 
+import android.animation.ArgbEvaluator;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -18,9 +19,13 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
+import net.hockeyapp.android.metrics.model.Internal;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class RNIndyModule extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "RNIndy";
@@ -44,88 +49,63 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void addConnection (String remoteDID,
-                            String senderVerificationKey, 
-                            ReadableMap metadata,
-                            String poolConfig,
-                            Promise promise) {
-        promise.resolve(staticData.addConnection());
+    public void createOneTimeInfo(String agencyConfig, Promise promise) {
+        WritableMap oneTimeInfo = Arguments.createMap();
+        oneTimeInfo.putString("sdk_to_remote_did", staticData.oneTimeAddConnection.get("userDID"));
+        oneTimeInfo.putString("sdk_to_remote_verkey", staticData.oneTimeAddConnection.get("verificationKey"));
+        oneTimeInfo.putString("institution_did", "oneTimeAgencyDid");
+        oneTimeInfo.putString("institution_verkey", "oneTimeAgencyVerKey");
+        oneTimeInfo.putString("remote_to_sdk_did", "oneTimeAgentDid");
+        oneTimeInfo.putString("remote_to_sdk_verkey", "oneTimeAgentVerKey");
+
+        // TODO: call vcx_agent_provision_async of libvcx
+        // pass a json string
+        // callback would get an error code and a json string back in case of success
+        promise.resolve(oneTimeInfo);
     }
 
     @ReactMethod
-    public void connectToAgency(String url,
-                                String myDid,
-                                String agencyDid,
-                                String myVerKey,
-                                String agencyVerKey,
-                                String poolConfig,
-                                Promise promise) {
-        promise.resolve(staticData.connectAgency());
+    public void init(String config, final Promise promise) {
+        // TODO: call vcx_init_with_config
+        // pass a json config string
+        Timer t = new Timer();
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                promise.resolve(true);
+            }
+        }, (long)(Math.random()*1000));
     }
 
     @ReactMethod
-    public void signupWithAgency(String url,
-                                String oneTimeAgencyVerKey,
-                                String oneTimeAgencyDid,
-                                String myOneTimeVerKey,
-                                String agencyVerKey,
-                                String poolConfig,
-                                Promise promise) {
-        promise.resolve(true);
+    public void createConnectionWithInvite(String invitationId, String inviteDetails, Promise promise) {
+        // TODO: call vcx_connection_create_with_invite
+        // pass invitationId as sourceId
+        // and inviteDetails is a json string
+        // it will return connection handle that will be an integer or error code
+        promise.resolve(1);
     }
 
     @ReactMethod
-    public void createOneTimeAgent(String url,
-                                String oneTimeAgencyVerKey,
-                                String oneTimeAgencyDid,
-                                String myOneTimeVerKey,
-                                String agencyVerKey,
-                                String poolConfig,
-                                Promise promise) {
-        promise.resolve(staticData.oneTimeAgent());
+    public void acceptInvitation(int connectionHandle, Promise promise) {
+        // TODO: call vcx_connection_connect
+        // pass connection handle as integer that we got from createConnectionWithInvite
+        WritableMap pairwiseInfo = Arguments.createMap();
+        pairwiseInfo.putString("pw_did", "user1Did");
+        pairwiseInfo.putString("pw_verkey", "user1VerificationKey");
+        pairwiseInfo.putString("endpoint", "senderEndpoint");
+        pairwiseInfo.putString("agent_did", "myPairwiseAgentDid");
+        pairwiseInfo.putString("agent_vk", "myPairwiseAgentVerKey");
+        pairwiseInfo.putString("their_pw_did", "senderPairwiseDid");
+        pairwiseInfo.putString("their_pw_verkey", "senderPairwiseVerKey");
+
+        promise.resolve(pairwiseInfo);
     }
 
     @ReactMethod
-    public void createPairwiseAgent(String url,
-                                    String myPairwiseDid,
-                                    String myPairwiseVerKey,
-                                    String oneTimeAgentVerKey,
-                                    String oneTimeAgentDid,
-                                    String myOneTimeVerKey,
-                                    String agencyVerKey,
-                                    String poolConfig,
-                                    Promise promise) {
-        promise.resolve(staticData.pairwiseAgent());
-    }
-
-    @ReactMethod
-    public void acceptInvitation(String url,
-                                String requestId,
-                                String myPairwiseDid,
-                                String myPairwiseVerKey,
-                                ReadableMap invitation,
-                                String myPairwiseAgentDid,
-                                String myPairwiseAgentVerKey,
-                                String myOneTimeAgentDid,
-                                String myOneTimeAgentVerKey,
-                                String myOneTimeDid,
-                                String myOneTimeVerKey,
-                                String myAgencyVerKey,
-                                String poolConfig,
-                                Promise promise) {
-        promise.resolve(true);
-    }
-
-    @ReactMethod
-    public void updatePushToken(String url,
-                                String token,
-                                String uniqueDeviceId,
-                                String myOneTimeAgentDid,
-                                String myOneTimeAgentVerKey,
-                                String myOneTimeVerKey,
-                                String myAgencyVerKey,
-                                String poolConfig,
-                                Promise promise) {
+    public void updatePushToken(String config, Promise promise) {
+        // TODO: call vcx_agent_update_info
+        // with first parameter as json string
         promise.resolve(true);
     }
 
@@ -179,11 +159,6 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
                                 String myAgencyVerKey,
                                 String poolConfig,
                                 Promise promise) {
-        promise.resolve(true);
-    }
-
-    @ReactMethod
-    public void reset(String poolConfig, Promise promise) {
         promise.resolve(true);
     }
 
@@ -271,5 +246,18 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
                     }
                 }
         );
+    }
+
+    @ReactMethod
+    public void reset(boolean reset, final Promise promise) {
+        // TODO: call vcx_reset or vcx_shutdown if later is available
+        // pass true to indicate that we delete both pool and wallet objects
+        Timer t = new Timer();
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                promise.resolve(true);
+            }
+        }, (long)(Math.random()*1000));
     }
 }

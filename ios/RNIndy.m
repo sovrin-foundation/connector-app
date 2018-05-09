@@ -542,4 +542,22 @@ RCT_EXPORT_METHOD(deleteConnection: (NSString *)url
   }];
 }
 
+RCT_EXPORT_METHOD(init: (NSDictionary *)config
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    resolve(@{});
+  });
+}
+
+RCT_EXPORT_METHOD(reset:
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    resolve(@{});
+  });
+}
+
 @end

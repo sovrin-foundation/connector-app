@@ -1,7 +1,8 @@
 // @flow
 
+import { Platform } from 'react-native'
 import { call, all, takeLatest, take, select, put } from 'redux-saga/effects'
-import { PAYLOAD_TYPE } from '../api/api-constants'
+import { PAYLOAD_TYPE, MESSAGE_TYPE } from '../api/api-constants'
 import { captureError } from '../services/error/error-handler'
 import {
   getAgencyUrl,
@@ -39,11 +40,16 @@ import type { UserOneTimeInfo } from '../store/user/type-user-store'
 import {
   updatePushToken as updatePushTokenApi,
   getMessage,
+  updatePushTokenVcx,
+  downloadClaimOffer,
+  downloadClaim,
+  downloadProofRequest,
 } from '../bridge/react-native-cxs/RNCxs'
 import { HYDRATED } from '../store/type-config-store'
 import { CONNECT_REGISTER_CREATE_AGENT_DONE } from '../store/user/type-user-store'
 import uniqueId from 'react-native-unique-id'
 import { RESET } from '../common/type-common'
+import { ensureVcxInitSuccess } from '../store/config-store'
 
 // TODO:PS: handle other/multiple Push Notification while
 // one Push Notification is already downloading
@@ -66,9 +72,40 @@ export const updatePushToken = (token: string) => ({
   token,
 })
 
+export function* onPushTokenUpdateVcx(
+  action: PushNotificationUpdateTokenAction
+): Generator<*, *, *> {
+  // TODO:KS Rename this method to onPushTokenUpdate
+  // once integration with vcx is done for both ios and android
+
+  // We can come to this point in code from several paths
+  // 1. this is called when user is trying to accept connection first time
+  // 2. this can be called when we are hydrating app data and we put push token
+  // 3. can be called when Firebase Push plugin updates push token
+
+  yield* ensureVcxInitSuccess()
+
+  try {
+    const pushToken = `FCM:${action.token}`
+    const id = yield uniqueId()
+    yield call(updatePushTokenVcx, { uniqueId: id, pushToken })
+  } catch (e) {
+    captureError(e)
+  }
+}
+
 export function* onPushTokenUpdate(
   action: PushNotificationUpdateTokenAction
 ): Generator<*, *, *> {
+  // TODO:KS Once we have integrated vcx with both ios and android
+  // then we will remove method onPushTokenUpdate
+  // and use onPushTokenUpdateVcx, because that is what flow will be when using vcx
+  if (Platform.OS === 'android') {
+    yield* onPushTokenUpdateVcx(action)
+
+    return
+  }
+
   const { token } = action
   // We can come to this point in code from several paths
   // 1. this is called when user is trying to accept connection first time
@@ -156,9 +193,17 @@ export const fetchAdditionalDataError = (error: CustomError) => ({
   error,
 })
 
-export function* additionalDataFetching(
+export function* fetchAdditionalDataSaga(
   action: FetchAdditionalDataAction
 ): Generator<*, *, *> {
+  if (Platform.OS === 'android') {
+    // TODO: KS Once integration with vcx is done for both ios and android
+    // we will remove fetchAdditionalDataSaga and use fetchAdditionalDataSagaVcx
+    yield* fetchAdditionalDataSagaVcx(action)
+
+    return
+  }
+
   const { forDID, uid, type, senderLogoUrl } = action.notificationPayload
   const isHydrated = yield select(getHydrationState)
   if (!isHydrated) {
@@ -240,8 +285,83 @@ export function* additionalDataFetching(
   }
 }
 
+export function* fetchAdditionalDataSagaVcx(
+  action: FetchAdditionalDataAction
+): Generator<*, *, *> {
+  yield* ensureVcxInitSuccess()
+
+  const { forDID, uid, type, senderLogoUrl } = action.notificationPayload
+  if (forDID) {
+    const { remotePairwiseDID, remoteName, ...connection } = yield select(
+      getRemotePairwiseDidAndName,
+      forDID
+    )
+
+    if (remotePairwiseDID) {
+      try {
+        let additionalDataResponse: AdditionalDataResponse | null = null
+        if (type === MESSAGE_TYPE.CLAIM_OFFER) {
+          // TODO:KS Pass parameters that are needed to download claim offer
+          additionalDataResponse = yield call(downloadClaimOffer)
+        }
+
+        if (type === MESSAGE_TYPE.CLAIM) {
+          // TODO:KS Pass parameters that are needed to download claim
+          additionalDataResponse = yield call(downloadClaim)
+        }
+
+        if (type === MESSAGE_TYPE.PROOF_REQUEST) {
+          // TODO:KS Pass parameters that are needed to download proof request
+          additionalDataResponse = yield call(downloadProofRequest)
+        }
+
+        if (!additionalDataResponse) {
+          // we did not get any data or either push notification type is not supported
+          return
+        }
+
+        const additionalData = JSON.parse(additionalDataResponse.payload)
+        yield put(
+          pushNotificationReceived({
+            type,
+            additionalData: {
+              remoteName,
+              ...additionalData,
+            },
+            uid,
+            senderLogoUrl,
+            remotePairwiseDID,
+            forDID,
+          })
+        )
+      } catch (e) {
+        yield put(
+          fetchAdditionalDataError({
+            code: 'OCS-000',
+            message: 'Invalid additional data',
+          })
+        )
+      }
+    } else {
+      yield put(
+        fetchAdditionalDataError({
+          code: 'OCS-002',
+          message: 'No pairwise connection found',
+        })
+      )
+    }
+  } else {
+    yield put(
+      fetchAdditionalDataError({
+        code: 'OCS-001',
+        message: 'Missing forDID in notification payload',
+      })
+    )
+  }
+}
+
 function* watchFetchAdditionalData(): any {
-  yield takeLatest(FETCH_ADDITIONAL_DATA, additionalDataFetching)
+  yield takeLatest(FETCH_ADDITIONAL_DATA, fetchAdditionalDataSaga)
 }
 
 export function* watchPushNotification(): Generator<*, *, *> {

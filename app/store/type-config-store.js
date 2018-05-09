@@ -32,11 +32,6 @@ export type ServerEnvironmentChangedAction = {
   serverEnvironment: ServerEnvironment,
 }
 
-export const SERVER_ENVIRONMENT_CHANGED_DEMO = 'SERVER_ENVIRONMENT_CHANGED_DEMO'
-export type ServerEnvironmentChangedDemoAction = {
-  type: typeof SERVER_ENVIRONMENT_CHANGED_DEMO,
-}
-
 export const SWITCH_ENVIRONMENT = 'SWITCH_ENVIRONMENT'
 export type ChangeEnvironment = {
   agencyUrl: string,
@@ -48,12 +43,6 @@ export type ChangeEnvironment = {
 export type SwitchEnvironmentAction = {
   type: typeof SWITCH_ENVIRONMENT,
 } & ChangeEnvironment
-
-export const SERVER_ENVIRONMENT_CHANGED_SANDBOX =
-  'SERVER_ENVIRONMENT_CHANGED_SANDBOX'
-export type ServerEnvironmentChangedSandboxAction = {
-  type: typeof SERVER_ENVIRONMENT_CHANGED_SANDBOX,
-}
 
 export const SWITCH_ERROR_ALERTS = 'SWITCH_ERROR_ALERTS'
 export type SwitchErrorAlertsAction = {
@@ -87,29 +76,59 @@ export type ChangeEnvironmentUrlAction = {
   url: string,
 }
 
+export const VCX_INIT_NOT_STARTED = 'VCX_INIT_NOT_STARTED'
+
+export const VCX_INIT_START = 'VCX_INIT_START'
+export type VcxInitStartAction = {
+  type: typeof VCX_INIT_START,
+}
+
+export const VCX_INIT_SUCCESS = 'VCX_INIT_SUCCESS'
+export type VcxInitSuccessAction = {
+  type: typeof VCX_INIT_SUCCESS,
+}
+
+export const VCX_INIT_FAIL = 'VCX_INIT_FAIL'
+export type VcxInitFailAction = {
+  type: typeof VCX_INIT_FAIL,
+  error: CustomError,
+}
+
 export type ConfigAction =
   | HydratedAction
   | AppInstalledSuccessAction
   | AlreadyInstalledAction
   | ServerEnvironmentChangedAction
-  | ServerEnvironmentChangedDemoAction
-  | ServerEnvironmentChangedSandboxAction
   | SwitchErrorAlertsAction
   | ToggleErrorAlertsAction
   | SwitchEnvironmentAction
   | SaveSwitchEnvironmentDetailFailAction
   | HydrateSwitchEnvironmentDetailFailAction
   | ChangeEnvironmentUrlAction
+  | VcxInitStartAction
+  | VcxInitFailAction
+  | VcxInitSuccessAction
 
-export type ConfigStore = {
-  isAlreadyInstalled: boolean,
-  isHydrated: boolean,
-  showErrorAlerts: boolean,
+export type VcxInitializationState =
+  | typeof VCX_INIT_NOT_STARTED
+  | typeof VCX_INIT_START
+  | typeof VCX_INIT_SUCCESS
+  | typeof VCX_INIT_FAIL
+
+export type AgencyPoolConfig = {
   agencyUrl: string,
   agencyDID: string,
   agencyVerificationKey: string,
   poolConfig: string,
 }
+
+export type ConfigStore = {
+  isAlreadyInstalled: boolean,
+  isHydrated: boolean,
+  showErrorAlerts: boolean,
+  vcxInitializationState: VcxInitializationState,
+  vcxInitializationError: null | CustomError,
+} & AgencyPoolConfig
 
 export const STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL =
   'STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL'
@@ -148,3 +167,13 @@ export const MESSAGE_SUCCESS_ENVIRONMENT_SWITCH_TITLE = 'Success'
 
 export const MESSAGE_SUCCESS_ENVIRONMENT_SWITCH_DESCRIPTION =
   'Environment switched successfully.'
+
+export const ERROR_VCX_INIT_FAIL = (message: string) => ({
+  code: `CS-002`,
+  message: `Failed to init vcx: ${message}`,
+})
+
+export const ERROR_VCX_PROVISION_FAIL = (message: string) => ({
+  code: `CS-003`,
+  message: `Failed to provision vcx: ${message}`,
+})

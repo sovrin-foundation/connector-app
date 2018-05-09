@@ -2,20 +2,9 @@
 
 - [ ] Bug fix
 - [ ] Feature/Change request
-- [ ] Refactoring
 
 ## Link for jira ticket
 [CO-](http://evernym.atlassian.net/browse/CO-)
-
-### Is this PR to move code to stage
-
-- [ ] I have checked that default url in config store is pointing to DEMO
-- [ ] I have checked that api resources are using base urls from config and are not hard coded
-
-### Is this PR to move code to stable
-
-- [ ] I have checked that default url in config store is pointing to PRODUCTION
-- [ ] I have checked that api resources are using base urls from config and are not hard coded
 
 ## In case of Bug
 
@@ -32,8 +21,8 @@
 
 ## Tests written for Bug/Feature/Refactoring
 
-- `__tests__/index.ios.spec.js` -> `testName` or `describe` or `it` description
+- `<Please write test file/test name here>`
 
 ## Checklist
 
-- [ ] I went through my PR once by myself and contain no unnecessary changes
+- [ ] I have created new screen, and I have checked the header of new screen on Android. I have also set the status bar color in app.js
