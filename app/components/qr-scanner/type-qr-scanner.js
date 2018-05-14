@@ -37,6 +37,7 @@ type QR_SCAN_STATUS =
 export type QrScannerState = {
   scanning: boolean,
   scanStatus: QR_SCAN_STATUS,
+  cameraActive?: boolean,
 }
 
 export type QrScannerProps = {

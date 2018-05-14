@@ -39,6 +39,9 @@ describe('<AuthenticationScreen />', () => {
           config: {
             showErrorAlerts: false,
           },
+          lock: {
+            isTouchIdEnabled: false,
+          },
           user: {
             avatarName: undefined,
           },

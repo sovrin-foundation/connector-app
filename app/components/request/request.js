@@ -3,14 +3,16 @@ import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 import FCM from 'react-native-fcm'
 import { Container, TouchId } from '../../components'
+import { connect } from 'react-redux'
 import { TOUCH_ID_MESSAGE, TOUCH_ID_NOT_AVAILABLE } from '../../common'
 import RequestDetail from './request-detail'
 import FooterActions from '../footer-actions/footer-actions'
 import type { RequestProps, RequestState, ResponseTypes } from './type-request'
 import { captureError } from '../../services/error/error-handler'
 import { lockAuthorizationRoute } from '../../common/route-constants'
+import type { Store } from '../../store/type-store'
 
-export default class Request extends PureComponent<RequestProps, RequestState> {
+export class Request extends PureComponent<RequestProps, RequestState> {
   state = {
     disableAccept: false,
   }
@@ -53,9 +55,17 @@ export default class Request extends PureComponent<RequestProps, RequestState> {
       .catch(() => this.onTouchIdFailed(response))
   }
 
+  checkIfTouchIdEnabled(response: ResponseTypes) {
+    if (this.props.isTouchIdEnabled) {
+      return this.authenticate(response)
+    } else {
+      this.onTouchIdFailed(response)
+    }
+  }
+
   onAction = (response: ResponseTypes) => {
     return FCM.requestPermissions()
-      .then(() => this.authenticate(response))
+      .then(() => this.checkIfTouchIdEnabled(response))
       .catch(error => {
         // astute readers will notice that we are calling authenticate
         // in success and fail both, so we can move it outside of promise
@@ -64,7 +74,7 @@ export default class Request extends PureComponent<RequestProps, RequestState> {
         // we need to authenticate user either with TouchId or pass code
         // unfortunately React-Native's (ES6's as well) Promise implementation
         // does not have finally block
-        this.authenticate(response)
+        this.checkIfTouchIdEnabled(response)
         // TODO: we did not get push token
         // now what should we do?
         captureError(error, this.props.showErrorAlerts)
@@ -96,3 +106,11 @@ export default class Request extends PureComponent<RequestProps, RequestState> {
     )
   }
 }
+
+const mapStateToProps = ({ lock }: Store) => {
+  return {
+    isTouchIdEnabled: lock.isTouchIdEnabled,
+  }
+}
+
+export default connect(mapStateToProps)(Request)

@@ -34,6 +34,7 @@ export default class QRScanner extends PureComponent<
     // if this is set to false, only then we
     scanning: false,
     scanStatus: SCAN_STATUS.SCANNING,
+    cameraActive: true,
   }
 
   // Need to have this property because we can't rely
@@ -69,6 +70,7 @@ export default class QRScanner extends PureComponent<
 
   onSuccessRead = (nextState: QrScannerState) => {
     nextState.scanStatus = SCAN_STATUS.SUCCESS
+    nextState.cameraActive = false
     this.setState(nextState)
     // reset state after work is done
     // assume some arbitrary timeout (1200) of resetting state
@@ -109,12 +111,14 @@ export default class QRScanner extends PureComponent<
   render() {
     return (
       <Container>
-        <Camera onBarCodeRead={this.onRead} style={[cameraStyle.camera]}>
-          <CameraMarker
-            status={this.state.scanStatus}
-            onClose={this.props.onClose}
-          />
-        </Camera>
+        {this.state.cameraActive ? (
+          <Camera onBarCodeRead={this.onRead} style={[cameraStyle.camera]}>
+            <CameraMarker
+              status={this.state.scanStatus}
+              onClose={this.props.onClose}
+            />
+          </Camera>
+        ) : null}
       </Container>
     )
   }

@@ -80,6 +80,9 @@ describe('<Invitation />', () => {
     user: {
       avatarName: undefined,
     },
+    lock: {
+      isTouchIdEnabled: false,
+    },
   })
 
   beforeEach(() => {

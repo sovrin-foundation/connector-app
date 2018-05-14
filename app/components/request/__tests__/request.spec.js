@@ -5,7 +5,7 @@ import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 import TouchId from 'react-native-touch-id'
 import FCM from 'react-native-fcm'
-import Request from '../request'
+import { Request } from '../request'
 import type { RequestProps, ResponseTypes } from '../type-request'
 import { color } from '../../../common/styles/constant'
 import { lockAuthorizationRoute } from '../../../common/route-constants'
@@ -25,6 +25,7 @@ describe('<Request />', () => {
     onAction: jest.fn(),
     showErrorAlerts: false,
     testID: 'request',
+    isTouchIdEnabled: true,
   }
   let navigation
 
