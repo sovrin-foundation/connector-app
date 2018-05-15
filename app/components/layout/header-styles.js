@@ -41,6 +41,7 @@ export default StyleSheet.create({
   headerLogoContainer: {
     height: OFFSET_9X + (Platform.OS === 'ios' ? 0 : OFFSET_1X),
   },
+  clearBg: { backgroundColor: 'transparent' },
 })
 
 export const primaryHeaderStyles = StyleSheet.create({

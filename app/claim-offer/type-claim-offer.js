@@ -101,12 +101,14 @@ export type ClaimOfferAction =
   | ClaimRequestInitialAction
   | ResetAction
 
+// Assumption is that paid claim will have payTokenValue in ClaimOfferPayload/claimOfferData. CO-1329
 export type ClaimOfferPayload = AdditionalDataPayload & {
   uid: string,
   senderLogoUrl?: ?string,
   remotePairwiseDID: string,
   status: ClaimOfferStatus,
   claimRequestStatus: ClaimRequestStatus,
+  payTokenValue?: ?string,
 }
 
 export type ClaimOfferStore = {
@@ -118,11 +120,14 @@ export type ClaimOfferProps = {
   acceptClaimOffer: (uid: string) => void,
   claimOfferRejected: (uid: string) => void,
   claimOfferIgnored: (uid: string) => void,
+  updateStatusBarTheme: (color?: string) => void,
   navigation: ClaimProofNavigation,
   uid: string,
   claimOfferData: ClaimOfferPayload,
   isValid: boolean,
   logoUrl?: string,
+  claimThemePrimary: string,
+  claimThemeSecondary: string,
 }
 
 export type ClaimOfferState = {

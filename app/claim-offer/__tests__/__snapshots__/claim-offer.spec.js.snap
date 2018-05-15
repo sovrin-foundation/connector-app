@@ -17,7 +17,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
       fifth={true}
       style={
         Object {
-          "backgroundColor": "#ffffff",
+          "backgroundColor": "grey",
+          "borderBottomColor": "grey",
+          "marginBottom": -10,
           "paddingTop": 30,
           "shadowColor": "#777777",
           "shadowOffset": Object {
@@ -36,7 +38,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
         hCenter={true}
         style={
           Object {
-            "backgroundColor": "#ffffff",
+            "backgroundColor": "transparent",
             "height": 90,
             "justifyContent": "center",
           }
@@ -51,10 +53,10 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           clearBg={true}
           hitSlop={
             Object {
-              "bottom": 30,
-              "left": 30,
-              "right": 30,
-              "top": 30,
+              "bottom": 20,
+              "left": 20,
+              "right": 20,
+              "top": 20,
             }
           }
           iconStyle={
@@ -64,6 +66,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               },
             ]
           }
+          medium={true}
           nativeID={undefined}
           onLayout={undefined}
           onResponderGrant={[Function]}
@@ -72,7 +75,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           onResponderTerminate={[Function]}
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
-          small={true}
           src={1}
           style={
             Object {
@@ -91,8 +93,8 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
             style={
               Array [
                 Object {
-                  "height": 20,
-                  "width": 20,
+                  "height": 30,
+                  "width": 30,
                 },
                 null,
                 Object {
@@ -103,23 +105,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
             testID="claim-offer-icon-close"
           />
         </View>
-        <View
-          style={
-            Array [
-              Array [
-                Object {
-                  "backgroundColor": "#f79347",
-                  "height": 20,
-                  "width": "100%",
-                  "zIndex": -1,
-                },
-              ],
-              Object {
-                "backgroundColor": "rgba(119, 119, 119, 1.0)",
-              },
-            ]
-          }
-        />
         <View
           center={true}
           clearBg={true}
@@ -199,11 +184,11 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "backgroundColor": "#ffffff",
+            "backgroundColor": "transparent",
             "justifyContent": "center",
             "marginHorizontal": 10,
             "marginTop": 5,
-            "paddingBottom": 20,
+            "paddingBottom": 10,
           }
         }
       >
@@ -235,7 +220,14 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               null,
               null,
               null,
-              Array [],
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                Object {
+                  "color": "#ffffff",
+                },
+              ],
             ]
           }
         >
@@ -270,7 +262,10 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               Object {
                 "marginTop": 5,
               },
-              Object {},
+              Object {
+                "backgroundColor": "transparent",
+                "color": "#ffffff",
+              },
             ]
           }
         >

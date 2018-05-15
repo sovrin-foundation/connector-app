@@ -95,6 +95,29 @@ Find the call to `generateProof` in `generateProofSaga`. Comment out the actual 
 const proofJson = JSON.stringify(proofWith10Attributes)
 ```
 
+#### Paid Claim Offer Accepted screen
+Add these lines to import statement of Home screen
+```js
+// TODO Remove these lines after testing is done
+import {claimOfferId,paidClaimOffer} from '../../__mocks__/static-data'
+import { claimOfferRoute } from '../common/route-constants'
+import {claimOfferReceived} from '../claim-offer/claim-offer-store'
+```
+
+Add this method to Home screen component
+```js
+
+  // TODO Remove this whole function, this is for testing purpose
+   componentDidMount() {
+    // $FlowFixMe
+   this.props.claimOfferReceived(paidClaimOffer.payload,paidClaimOffer.payloadInfo)
+   setTimeout(() => {
+     this.props.navigation.navigate(claimOfferRoute, { uid: claimOfferId})
+   }, 4000)
+  }
+```
+
+Follow the process mentioned below in Claim offer screen.
 
 #### Claim Offer Accepted screen
 

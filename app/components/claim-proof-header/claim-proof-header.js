@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { StyleSheet, Platform } from 'react-native'
+import { StyleSheet, Platform, View, Dimensions } from 'react-native'
 import {
   CustomView,
   CustomText,
@@ -14,10 +14,36 @@ import {
   OFFSET_2X,
   OFFSET_3X,
   isiPhone5,
+  font,
 } from '../../common/styles'
 import empty from '../../common/empty'
-import type { ClaimProofHeaderProps } from './type-claim-proof-header'
+import type {
+  ClaimProofHeaderProps,
+  ClaimProofHeaderNotchProps,
+} from './type-claim-proof-header'
+var { height, width } = Dimensions.get('screen')
 
+export class ClaimProofHeaderNotch extends PureComponent<
+  ClaimProofHeaderNotchProps,
+  void
+> {
+  render() {
+    const {
+      containerStyle = empty,
+      titleStyle = empty,
+    }: ClaimProofHeaderNotchProps = this.props
+    return (
+      <View style={[{ zIndex: 5 }]}>
+        <View style={[styles.trapezoid, containerStyle]}>
+          <CustomText h7 center style={[styles.sovrinText, titleStyle]}>
+            SOVRIN TOKENS
+          </CustomText>
+        </View>
+        <View style={[containerStyle, styles.triangle]} />
+      </View>
+    )
+  }
+}
 export default class ClaimProofHeader extends PureComponent<
   ClaimProofHeaderProps,
   void
@@ -32,14 +58,14 @@ export default class ClaimProofHeader extends PureComponent<
       textContainerStyle = [],
       messageStyle = [],
       titleStyle = empty,
+      payTokenValue,
     }: ClaimProofHeaderProps = this.props
-
     return (
       <CustomSafeAreaView>
         <CustomView
           testID={`${testID}-header`}
           fifth
-          style={[styles.header, containerStyle]}
+          style={[styles.header, containerStyle, { marginBottom: -OFFSET_1X }]}
         >
           {this.props.children}
           <CustomView fifth center style={[styles.message, textContainerStyle]}>
@@ -58,8 +84,47 @@ export default class ClaimProofHeader extends PureComponent<
                 {title}
               </CustomText>
             )}
+            {payTokenValue && (
+              <CustomView
+                row
+                horizontalSpace
+                style={[
+                  {
+                    alignItems: 'flex-start',
+                  },
+                ]}
+              >
+                <CustomText
+                  h4
+                  uppercase
+                  bg="fifth"
+                  style={[styles.prefix, titleStyle]}
+                >
+                  pay
+                </CustomText>
+                <CustomText
+                  h3
+                  bg="fifth"
+                  style={[styles.title, titleStyle]}
+                  formatNumber
+                >
+                  {payTokenValue}
+                </CustomText>
+                <Icon
+                  src={require('../../images/sovrinToken.png')}
+                  small
+                  iconStyle={[{ marginTop: OFFSET_3X / 2 }]}
+                />
+              </CustomView>
+            )}
           </CustomView>
         </CustomView>
+        {payTokenValue && (
+          <ClaimProofHeaderNotch
+            containerStyle={containerStyle}
+            titleStyle={titleStyle}
+          />
+        )}
       </CustomSafeAreaView>
     )
   }
@@ -76,10 +141,42 @@ const styles = StyleSheet.create({
   },
   message: {
     marginTop: OFFSET_1X / 2,
-    paddingBottom: OFFSET_2X,
+    paddingBottom: OFFSET_1X,
     marginHorizontal: OFFSET_1X,
   },
   title: {
     marginTop: OFFSET_1X / 2,
+  },
+  prefix: {
+    fontSize: font.size.prefix,
+    marginTop: OFFSET_3X / 2,
+  },
+  sovrinText: {
+    marginBottom: -OFFSET_1X,
+  },
+  trapezoid: {
+    width: '100%',
+    height: 0,
+    borderBottomWidth: 20,
+    borderLeftWidth: 0,
+    borderLeftColor: 'transparent',
+    borderRightWidth: 0,
+    borderRightColor: 'transparent',
+    borderStyle: 'solid',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  triangle: {
+    width: '95%',
+    height: 0,
+    alignSelf: 'center',
+    backgroundColor: 'transparent',
+    borderStyle: 'solid',
+    borderLeftWidth: width / 2.1,
+    borderRightWidth: width / 2.1,
+    borderBottomWidth: 20,
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    transform: [{ rotate: '180deg' }],
   },
 })

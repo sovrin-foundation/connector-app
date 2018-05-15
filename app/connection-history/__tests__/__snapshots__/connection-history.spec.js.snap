@@ -51,6 +51,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
         style={
           Object {
             "backgroundColor": "transparent",
+            "marginBottom": -10,
             "paddingTop": 30,
             "shadowColor": "#777777",
             "shadowOffset": Object {

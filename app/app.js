@@ -18,6 +18,7 @@ import {
   homeRoute,
   walletRoute,
   connectionHistoryRoute,
+  claimOfferRoute,
 } from './common'
 import { NavigationActions } from 'react-navigation'
 import { setupFeedback } from './feedback'
@@ -77,8 +78,11 @@ class ConnectMeApp extends PureComponent {
         store.dispatch(updateStatusBarTheme(whiteSmokeSecondary))
       } else if (currentScreen === walletRoute) {
         store.dispatch(updateStatusBarTheme(color.actions.font.seventh))
-      } else if (currentScreen !== connectionHistoryRoute) {
-        //connectionHistory is handling theme on its own
+      } else if (
+        currentScreen !== connectionHistoryRoute &&
+        currentScreen !== claimOfferRoute
+      ) {
+        // Any screen that handles its own statusbar theme should be included above.
         store.dispatch(updateStatusBarTheme())
       }
     }

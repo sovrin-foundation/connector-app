@@ -42,8 +42,13 @@ import type {
 } from './type-claim-offer'
 import type { Store } from '../store/type-store'
 import ClaimRequestModal from './claim-request-modal'
-import { getConnectionLogoUrl } from '../store/store-selector'
+import {
+  getConnectionLogoUrl,
+  getConnectionTheme,
+} from '../store/store-selector'
+
 import type { ReactNavigation } from '../common/type-common'
+import { updateStatusBarTheme } from '../../app/store/connections-store'
 
 class ClaimOfferAttributeList extends PureComponent<
   ClaimOfferAttributeListProps,
@@ -122,20 +127,32 @@ export class ClaimOffer extends PureComponent<
   componentDidMount() {
     // update store that offer is shown to user
     this.props.claimOfferShown(this.props.uid)
+    this.props.updateStatusBarTheme(this.props.claimThemePrimary)
   }
 
   render() {
-    const { claimOfferData, isValid, logoUrl } = this.props
+    const {
+      claimOfferData,
+      isValid,
+      logoUrl,
+      claimThemePrimary,
+      claimThemeSecondary,
+    } = this.props
     const {
       claimRequestStatus,
       issuer,
       data,
+      payTokenValue,
     }: ClaimOfferPayload = claimOfferData
     const logoUri = logoUrl
       ? { uri: logoUrl }
       : require('../images/cb_evernym.png')
     const testID = 'claim-offer'
+    let acceptButtonText = (() => {
+      return payTokenValue ? 'Accept & Pay' : 'Accept'
+    })()
 
+    // TODO: Get text and background color from color-picker.
     return (
       <Container fifth>
         {isValid && (
@@ -145,22 +162,35 @@ export class ClaimOffer extends PureComponent<
             onClose={this.onIgnore}
             logoUrl={logoUrl}
             testID={testID}
+            payTokenValue={payTokenValue}
+            containerStyle={{
+              backgroundColor: claimThemePrimary,
+              borderBottomColor: claimThemePrimary,
+            }}
+            textContainerStyle={[headerStyles.clearBg]}
+            messageStyle={[
+              headerStyles.clearBg,
+              { color: color.bg.primary.font.primary },
+            ]}
+            titleStyle={{
+              backgroundColor: 'transparent',
+              color: color.bg.primary.font.primary,
+            }}
           >
             <CustomView
               fifth
               hCenter
-              style={[headerStyles.headerLogoContainer]}
+              style={[headerStyles.headerLogoContainer, headerStyles.clearBg]}
             >
               <Icon
                 absolute="TopRight"
-                src={require('../images/close.png')}
-                small
+                src={require('../images/iconClose.png')}
+                medium
                 testID={`${testID}-icon-close`}
                 onPress={this.close}
                 iconStyle={[styles.headerCloseIcon]}
                 style={[styles.headerCloseIconContainer]}
               />
-              <ConnectionTheme logoUrl={logoUrl} style={[styles.strip]} />
               <Icon
                 center
                 halo
@@ -188,7 +218,7 @@ export class ClaimOffer extends PureComponent<
           onAccept={this.onAccept}
           onDecline={this.onReject}
           denyTitle="Ignore"
-          acceptTitle="Accept"
+          acceptTitle={acceptButtonText}
           testID={`${testID}-footer`}
           disableAccept={this.state.disableAcceptButton}
         />
@@ -215,6 +245,8 @@ const mapStateToProps = (state: Store, props: ReactNavigation) => {
       : { uid: '' }
   const claimOfferData = claimOffer[uid]
   const logoUrl = getConnectionLogoUrl(state, claimOfferData.remotePairwiseDID)
+
+  const themeForLogo = getConnectionTheme(state, logoUrl)
   const isValid =
     claimOfferData &&
     claimOfferData.data &&
@@ -222,6 +254,8 @@ const mapStateToProps = (state: Store, props: ReactNavigation) => {
     claimOfferData.data.revealedAttributes
 
   return {
+    claimThemePrimary: themeForLogo.primary,
+    claimThemeSecondary: themeForLogo.secondary,
     uid,
     claimOfferData,
     isValid,
@@ -236,6 +270,7 @@ const mapDispatchToProps = dispatch =>
       acceptClaimOffer,
       claimOfferRejected,
       claimOfferIgnored,
+      updateStatusBarTheme,
     },
     dispatch
   )

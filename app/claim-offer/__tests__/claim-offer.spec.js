@@ -47,6 +47,9 @@ describe('<ClaimOffer />', () => {
     error: null,
   }
   const isValid = true
+  const claimThemePrimary = 'grey'
+  const claimThemeSecondary = 'grey'
+  const updateStatusBarTheme = jest.fn()
 
   beforeEach(() => {
     claimOfferShown = jest.fn()
@@ -73,6 +76,9 @@ describe('<ClaimOffer />', () => {
           uid={navigation.state.params.uid}
           isValid={isValid}
           logoUrl={logoUrl}
+          claimThemeSecondary={claimThemeSecondary}
+          claimThemePrimary={claimThemePrimary}
+          updateStatusBarTheme={updateStatusBarTheme}
         />
       </Provider>
     )

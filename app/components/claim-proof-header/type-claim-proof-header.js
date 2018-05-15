@@ -12,4 +12,10 @@ export type ClaimProofHeaderProps = {
   textContainerStyle?: Array<GenericObject | number>,
   messageStyle?: Array<GenericObject | number>,
   titleStyle?: GenericObject,
+  payTokenValue?: ?string,
+}
+
+export type ClaimProofHeaderNotchProps = {
+  containerStyle?: GenericObject,
+  titleStyle?: GenericObject,
 }

@@ -366,6 +366,39 @@ export const claimOffer = {
   },
 }
 
+export const paidClaimOffer = {
+  payload: {
+    data: {
+      name: 'Home Address',
+      version: '1.0.0',
+      revealedAttributes: [
+        {
+          label: 'Address 1',
+          data: 'Address Address Address',
+        },
+        {
+          label: 'Address 2',
+          data: 'Address 2 Address 2 Address 2',
+        },
+      ],
+      claimDefinitionSchemaSequenceNumber,
+    },
+    issuer: {
+      name: 'Test Issuer',
+      did: issuerDid,
+    },
+    statusMsg: 'pending',
+    status: 'RECEIVED',
+    claimRequestStatus: 'CLAIM_REQUEST_SUCCESS',
+    payTokenValue: '8000.0675854',
+  },
+  payloadInfo: {
+    uid: claimOfferId,
+    senderLogoUrl: 'http://testissuer.com/logoUrl.png',
+    remotePairwiseDID: 'ha66899sadfjZJGINKN0770',
+  },
+}
+
 export const claimRequest = {
   blinded_ms: {
     prover_did: pairwiseConnection.identifier,
