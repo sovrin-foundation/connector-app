@@ -38,6 +38,11 @@ import { formatNumbers } from '../components/text'
 import { historyTabRoute } from '../common'
 
 import { walletStaticAddresses } from '../../__mocks__/static-data'
+import {
+  SEND_TOKENS_TO_PAYMENT_ADDRESS,
+  FOR_SEND_DETAILS_TEST_ID,
+  TO_SEND_DETAILS_TEST_ID,
+} from './wallet-constants'
 
 // TODO: Add type for the props and state
 export class WalletTabSendDetails extends Component<
@@ -82,6 +87,7 @@ export class WalletTabSendDetails extends Component<
           transparentBg
           h5
           style={[navigation.state.params.isValid ? {} : styles.disabledText]}
+          testID={SEND_TOKENS_TO_PAYMENT_ADDRESS}
           onPress={() => {
             if (navigation.state.params.isValid) {
               navigation.goBack(null)
@@ -147,6 +153,7 @@ export class WalletTabSendDetails extends Component<
           validation={this.throttledAsyncValidationFunction}
           onChangeText={this.onTextChange}
           isValid={this.state.isPaymentAddressValid}
+          testID={TO_SEND_DETAILS_TEST_ID}
         />
         <ControlInput
           label="For"
@@ -155,6 +162,7 @@ export class WalletTabSendDetails extends Component<
           maxLength={80}
           placeholder="credential, gift, etc."
           onChangeText={this.onTextChange}
+          testID={FOR_SEND_DETAILS_TEST_ID}
         />
         <CustomView row center style={[{ width: '100%' }]} horizontalSpace>
           <CustomText

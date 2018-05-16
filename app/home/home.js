@@ -38,6 +38,7 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
         row
         center
         onPress={() => navigation.navigate(walletRoute)}
+        testID={SOVRINTOKEN_AMOUNT_TEST_ID}
       >
         <Icon
           small
@@ -50,7 +51,6 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
           center
           style={[styles.floatTokenAmount]}
           transparentBg
-          testID={SOVRINTOKEN_AMOUNT_TEST_ID}
           formatNumber
         >
           10000
