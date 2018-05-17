@@ -28,6 +28,7 @@ import type {
 import type { UserOneTimeInfo } from '../../store/user/type-user-store'
 import type { AgencyPoolConfig } from '../../store/type-config-store'
 import type { MyPairwiseInfo } from '../../store/type-connection-store'
+import type { WalletHistoryEvent } from '../../wallet/type-wallet'
 
 const { RNIndy } = NativeModules
 
@@ -541,6 +542,39 @@ export async function downloadProofRequest() {
   // Add this methods in Java & objective-c wrapper
 }
 
+export async function getWalletBalance(): Promise<number> {
+  return new Promise.resolve(10000)
+}
+
+export async function getWalletAddresses(): Promise<Array<string>> {
+  const walletAddressesData = [
+    'sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030',
+  ]
+  return new Promise.resolve(walletAddressesData)
+}
+
+export async function getWalletHistory(): Promise<WalletHistoryEvent[]> {
+  const walletHistoryData = [
+    {
+      id: 'asd',
+      senderAddress:
+        'sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030',
+      action: 'Withdraw',
+      tokenAmount: 5656,
+      timeStamp: 'Tue, 04 Aug 2015 12:38:41 GMT',
+    },
+    {
+      id: 'kld',
+      senderName: 'Sovrin Foundation',
+      senderAddress:
+        'sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030',
+      action: 'Purchase',
+      tokenAmount: 10000,
+      timeStamp: 'Tue, 04 Aug 2015 14:38:41 GMT',
+    },
+  ]
+  return new Promise.resolve(walletHistoryData)
+}
 export async function getZippedWalletBackupPath(
   documentDirectory: string,
   agencyConfig: AgencyPoolConfig

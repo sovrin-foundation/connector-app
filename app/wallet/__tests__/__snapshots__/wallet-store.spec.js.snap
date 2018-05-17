@@ -1,0 +1,373 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`store: wallet-store:  action: HYDRATE_WALLET_ADDRESSES 1`] = `
+Object {
+  "walletAddresses": Object {
+    "data": Array [
+      "sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030",
+    ],
+    "error": null,
+    "status": "SUCCESS",
+  },
+  "walletBalance": Object {
+    "data": 0,
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "IDLE",
+    "transactions": Array [],
+  },
+}
+`;
+
+exports[`store: wallet-store:  action: HYDRATE_WALLET_ADDRESSES_FAIL 1`] = `
+Object {
+  "walletAddresses": Object {
+    "data": Array [],
+    "error": Object {
+      "code": "W006",
+      "message": "Error while loading wallet addresses",
+    },
+    "status": "ERROR",
+  },
+  "walletBalance": Object {
+    "data": 0,
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "IDLE",
+    "transactions": Array [],
+  },
+}
+`;
+
+exports[`store: wallet-store:  action: HYDRATE_WALLET_BALANCE 1`] = `
+Object {
+  "walletAddresses": Object {
+    "data": Array [],
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletBalance": Object {
+    "data": 1000,
+    "error": null,
+    "status": "SUCCESS",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "IDLE",
+    "transactions": Array [],
+  },
+}
+`;
+
+exports[`store: wallet-store:  action: HYDRATE_WALLET_BALANCE_FAIL 1`] = `
+Object {
+  "walletAddresses": Object {
+    "data": Array [],
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletBalance": Object {
+    "data": 0,
+    "error": Object {
+      "code": "W005",
+      "message": "Error while loading wallet balance",
+    },
+    "status": "ERROR",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "IDLE",
+    "transactions": Array [],
+  },
+}
+`;
+
+exports[`store: wallet-store:  action: HYDRATE_WALLET_HISTORY 1`] = `
+Object {
+  "walletAddresses": Object {
+    "data": Array [],
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletBalance": Object {
+    "data": 0,
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "SUCCESS",
+    "transactions": Array [
+      Object {
+        "action": "Withdraw",
+        "id": "asd",
+        "senderAddress": "sov:senderAddress",
+        "timeStamp": "Tue, 04 Aug 2015 12:38:41 GMT",
+        "tokenAmount": 5656,
+      },
+      Object {
+        "action": "Purchase",
+        "id": "kld",
+        "senderAddress": "sov:senderAddress",
+        "senderName": "senderName",
+        "timeStamp": "Tue, 04 Aug 2015 14:38:41 GMT",
+        "tokenAmount": 10000,
+      },
+    ],
+  },
+}
+`;
+
+exports[`store: wallet-store:  action: HYDRATE_WALLET_HISTORY_FAIL 1`] = `
+Object {
+  "walletAddresses": Object {
+    "data": Array [],
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletBalance": Object {
+    "data": 0,
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletHistory": Object {
+    "error": Object {
+      "code": "W007",
+      "message": "Error while loading wallet history",
+    },
+    "status": "ERROR",
+    "transactions": Array [],
+  },
+}
+`;
+
+exports[`store: wallet-store:  action: REFRESH_WALLET_ADDRESSES_FAIL 1`] = `
+Object {
+  "walletAddresses": Object {
+    "data": Array [],
+    "error": Object {
+      "code": "W003",
+      "message": "Error while refreshing wallet addresses",
+    },
+    "status": "ERROR",
+  },
+  "walletBalance": Object {
+    "data": 0,
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "IDLE",
+    "transactions": Array [],
+  },
+}
+`;
+
+exports[`store: wallet-store:  action: REFRESH_WALLET_BALANCE_FAIL 1`] = `
+Object {
+  "walletAddresses": Object {
+    "data": Array [],
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletBalance": Object {
+    "data": 0,
+    "error": Object {
+      "code": "W002",
+      "message": "Error while refreshing wallet balance",
+    },
+    "status": "ERROR",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "IDLE",
+    "transactions": Array [],
+  },
+}
+`;
+
+exports[`store: wallet-store:  action: REFRESH_WALLET_HISTORY_FAIL 1`] = `
+Object {
+  "walletAddresses": Object {
+    "data": Array [],
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletBalance": Object {
+    "data": 0,
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletHistory": Object {
+    "error": Object {
+      "code": "W004",
+      "message": "Error while refreshing wallet history",
+    },
+    "status": "ERROR",
+    "transactions": Array [],
+  },
+}
+`;
+
+exports[`store: wallet-store:  action: WALLET_ADDRESSES_REFRESHED 1`] = `
+Object {
+  "walletAddresses": Object {
+    "data": Array [
+      "sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030",
+    ],
+    "error": null,
+    "status": "SUCCESS",
+  },
+  "walletBalance": Object {
+    "data": 0,
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "IDLE",
+    "transactions": Array [],
+  },
+}
+`;
+
+exports[`store: wallet-store:  action: WALLET_ADDRESSES_REFRESHED 2`] = `
+Object {
+  "walletAddresses": Object {
+    "data": Array [
+      "sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030",
+    ],
+    "error": null,
+    "status": "SUCCESS",
+  },
+  "walletBalance": Object {
+    "data": 0,
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "IDLE",
+    "transactions": Array [],
+  },
+}
+`;
+
+exports[`store: wallet-store:  action: WALLET_BALANCE_REFRESHED 1`] = `
+Object {
+  "walletAddresses": Object {
+    "data": Array [],
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletBalance": Object {
+    "data": 1000,
+    "error": null,
+    "status": "SUCCESS",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "IDLE",
+    "transactions": Array [],
+  },
+}
+`;
+
+exports[`store: wallet-store:  action: WALLET_BALANCE_REFRESHED 2`] = `
+Object {
+  "walletAddresses": Object {
+    "data": Array [],
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletBalance": Object {
+    "data": 1000,
+    "error": null,
+    "status": "SUCCESS",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "IDLE",
+    "transactions": Array [],
+  },
+}
+`;
+
+exports[`store: wallet-store:  action: WALLET_HISTORY_REFRESHED 1`] = `
+Object {
+  "walletAddresses": Object {
+    "data": Array [],
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletBalance": Object {
+    "data": 0,
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "SUCCESS",
+    "transactions": Array [
+      Object {
+        "action": "Withdraw",
+        "id": "asd",
+        "senderAddress": "sov:senderAddress",
+        "timeStamp": "Tue, 04 Aug 2015 12:38:41 GMT",
+        "tokenAmount": 5656,
+      },
+      Object {
+        "action": "Purchase",
+        "id": "kld",
+        "senderAddress": "sov:senderAddress",
+        "senderName": "senderName",
+        "timeStamp": "Tue, 04 Aug 2015 14:38:41 GMT",
+        "tokenAmount": 10000,
+      },
+    ],
+  },
+}
+`;
+
+exports[`store: wallet-store:  action: WALLET_HISTORY_REFRESHED 2`] = `
+Object {
+  "walletAddresses": Object {
+    "data": Array [],
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletBalance": Object {
+    "data": 0,
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "SUCCESS",
+    "transactions": Array [
+      Object {
+        "action": "Withdraw",
+        "id": "asd",
+        "senderAddress": "sov:senderAddress",
+        "timeStamp": "Tue, 04 Aug 2015 12:38:41 GMT",
+        "tokenAmount": 5656,
+      },
+      Object {
+        "action": "Purchase",
+        "id": "kld",
+        "senderAddress": "sov:senderAddress",
+        "senderName": "senderName",
+        "timeStamp": "Tue, 04 Aug 2015 14:38:41 GMT",
+        "tokenAmount": 10000,
+      },
+    ],
+  },
+}
+`;

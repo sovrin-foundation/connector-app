@@ -2,7 +2,6 @@
 import React, { PureComponent } from 'react'
 import { Animated, StyleSheet, SafeAreaView, Platform } from 'react-native'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import {
   Container,
   CustomView,
@@ -25,6 +24,7 @@ import {
   SOVRINTOKEN_AMOUNT_TEST_ID,
 } from './home-constants'
 import { Apptentive } from 'apptentive-react-native'
+import WalletBalance from '../wallet/wallet-balance'
 
 export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
   state = {
@@ -33,29 +33,34 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
 
   static navigationOptions = ({ navigation }) => ({
     headerLeft: (
-      <CustomView
-        horizontalSpace
-        row
-        center
-        onPress={() => navigation.navigate(walletRoute)}
-        testID={SOVRINTOKEN_AMOUNT_TEST_ID}
-      >
-        <Icon
-          small
-          testID={SOVRINTOKEN_TEST_ID}
-          src={require('../images/sovrinTokenOrange.png')}
-        />
-        <CustomText
-          h5
-          demiBold
-          center
-          style={[styles.floatTokenAmount]}
-          transparentBg
-          formatNumber
-        >
-          10000
-        </CustomText>
-      </CustomView>
+      <WalletBalance
+        render={balance => (
+          <CustomView
+            horizontalSpace
+            row
+            center
+            onPress={() => navigation.navigate(walletRoute)}
+            testID={SOVRINTOKEN_AMOUNT_TEST_ID}
+          >
+            <Icon
+              small
+              testID={SOVRINTOKEN_TEST_ID}
+              src={require('../images/sovrinTokenOrange.png')}
+            />
+            <CustomText
+              h5
+              demiBold
+              center
+              style={[styles.floatTokenAmount]}
+              transparentBg
+              testID={SOVRINTOKEN_AMOUNT_TEST_ID}
+              formatNumber
+            >
+              {balance}
+            </CustomText>
+          </CustomView>
+        )}
+      />
     ),
     headerRight: (
       <CustomView horizontalSpace>

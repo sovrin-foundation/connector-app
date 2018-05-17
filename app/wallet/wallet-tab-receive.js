@@ -15,6 +15,7 @@ import {
   Alert,
 } from 'react-native'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { Container } from '../components/layout/container'
 import { CustomView } from '../components/layout/custom-view'
 import CustomText from '../components/text'
@@ -26,9 +27,8 @@ import type {
 import { color } from '../common/styles/constant'
 import type { Store } from '../store/type-store'
 import customStyles from './styles'
-
-// TODO: Remove the static data
-import { walletStaticAddresses } from '../../__mocks__/static-data'
+import { getWalletAddresses } from '../store/store-selector'
+import { refreshWalletAddresses } from './wallet-store'
 
 export class WalletTabReceive extends PureComponent<
   WalletTabReceiveProps,
@@ -37,6 +37,11 @@ export class WalletTabReceive extends PureComponent<
   state = {
     copyButtonText: 'Copy Address To Clipboard',
   }
+
+  componentDidMount() {
+    this.props.refreshWalletAddresses()
+  }
+
   copyToClipboard = () => {
     if (this.props.walletAddresses.length) {
       Clipboard.setString(this.props.walletAddresses[0])
@@ -50,6 +55,8 @@ export class WalletTabReceive extends PureComponent<
       }, 2000)
     }
   }
+
+  // TODO handle IN_PROGRESS, success and error state
   render() {
     const { walletAddresses } = this.props
     return (
@@ -130,8 +137,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: Store) => {
   return {
-    walletAddresses: walletStaticAddresses,
+    walletAddresses: getWalletAddresses(state),
   }
 }
 
-export default connect(mapStateToProps)(WalletTabReceive)
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ refreshWalletAddresses }, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(WalletTabReceive)

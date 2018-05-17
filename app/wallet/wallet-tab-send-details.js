@@ -36,8 +36,7 @@ import type {
 } from './type-wallet'
 import { formatNumbers } from '../components/text'
 import { historyTabRoute } from '../common'
-
-import { walletStaticAddresses } from '../../__mocks__/static-data'
+import { walletAddresses } from '../../__mocks__/static-data'
 import {
   SEND_TOKENS_TO_PAYMENT_ADDRESS,
   FOR_SEND_DETAILS_TEST_ID,
@@ -129,7 +128,7 @@ export class WalletTabSendDetails extends Component<
 
     // the isPaymentAddressValid state need to be changed to true if the payment address validation is success and vice-versa
     let status = ''
-    if (this.paymentData['paymentTo'] === walletStaticAddresses[0]) {
+    if (this.paymentData['paymentTo'] === walletAddresses[0]) {
       status = 'SUCCESS'
       this.props.navigation.setParams({ isValid: true })
     } else if (this.paymentData['paymentTo'].length <= 0) {

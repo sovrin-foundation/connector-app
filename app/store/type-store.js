@@ -12,6 +12,7 @@ import type { ProofStore } from '../proof/type-proof'
 import type { UserStore } from './user/type-user-store'
 import type { ConnectionHistoryStore } from '../connection-history/type-connection-history'
 import type { DeepLinkStore } from '../deep-link/type-deep-link'
+import type { WalletStore } from '../wallet/type-wallet'
 
 export type PushNotificationStore = {
   isAllowed: boolean,
@@ -41,6 +42,7 @@ export type Store = {
   claim: ClaimStore,
   proof: ProofStore,
   history: ConnectionHistoryStore,
+  wallet: WalletStore,
 }
 
 export type { AuthenticationStore } from '../authentication/type-authentication'

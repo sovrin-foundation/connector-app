@@ -13,16 +13,20 @@ import {
 } from '../components'
 import { color, OFFSET_1X, OFFSET_3X } from '../common/styles/constant'
 import type { Store } from '../store/type-store'
-import type { WalletHistoryProps, WalletHistoryItem } from './type-wallet'
+import type { WalletHistoryProps, WalletHistoryEvent } from './type-wallet'
 import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
+import { getWalletHistory } from '../store/store-selector'
+import { refreshWalletHistory } from './wallet-store'
+import { bindActionCreators } from 'redux'
+import { STORE_STATUS } from './type-wallet'
 
 const HistoryItem = ({
   senderName,
   senderAddress,
   action,
   tokenAmount,
-  timestamp,
-}: WalletHistoryItem) => {
+  timeStamp,
+}: WalletHistoryEvent) => {
   return (
     <CustomView row vCenter columnBottom>
       <CustomView style={[styles.listItemBody]}>
@@ -38,7 +42,7 @@ const HistoryItem = ({
           </CustomText>
         </CustomView>
         <CustomDate uppercase bg="tertiary" style={[styles.listItemSubTitle]}>
-          {timestamp}
+          {timeStamp}
         </CustomDate>
       </CustomView>
 
@@ -66,6 +70,10 @@ const historyIcons = {
 }
 
 export class WalletTabHistory extends Component<WalletHistoryProps, void> {
+  componentDidMount() {
+    this.props.refreshWalletHistory()
+  }
+
   getHistoryIcons = (action: string) => {
     return (
       <Icon
@@ -77,12 +85,13 @@ export class WalletTabHistory extends Component<WalletHistoryProps, void> {
   }
 
   render() {
-    const walletHistory = this.props.walletHistory.map(item => {
+    const { transactions, status } = this.props.walletHistory
+    const walletHistory = transactions.map(transaction => {
       let itemProps = {
-        key: item.id,
-        avatar: this.getHistoryIcons(item.action),
+        key: transaction.id,
+        avatar: this.getHistoryIcons(transaction.action),
         hideChevron: true,
-        subtitle: <HistoryItem {...item} />,
+        subtitle: <HistoryItem {...transaction} />,
         avatarStyle: styles.avatarStyle,
         avatarOverlayContainerStyle: styles.avatarOverlayContainerStyle,
         containerStyle: styles.listItemContainer,
@@ -92,16 +101,16 @@ export class WalletTabHistory extends Component<WalletHistoryProps, void> {
 
     return (
       <Container>
-        {this.props.isLoading && <CustomActivityIndicator />}
-        {this.props.walletHistory.length < 1 &&
-          !this.props.isLoading && (
+        {status === STORE_STATUS.IN_PROGRESS && <CustomActivityIndicator />}
+        {transactions.length < 1 &&
+          status !== STORE_STATUS.SUCCESS && (
             <Container center>
               <CustomText h5 bg="tertiary" style={[styles.noHistory]}>
                 No history to show
               </CustomText>
             </Container>
           )}
-        {this.props.walletHistory.length > 0 && (
+        {transactions.length > 0 && (
           <ScrollView>
             <List containerStyle={styles.listContainer}>{walletHistory}</List>
           </ScrollView>
@@ -111,30 +120,20 @@ export class WalletTabHistory extends Component<WalletHistoryProps, void> {
   }
 }
 
-const mapStateToProps = (state: Store) => ({
-  walletHistory: [
-    {
-      id: 'asd',
-      senderAddress:
-        'sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030',
-      action: 'Withdraw',
-      tokenAmount: 5656,
-      timestamp: 'Tue, 04 Aug 2015 12:38:41 GMT',
+const mapStateToProps = (state: Store) => {
+  return {
+    walletHistory: getWalletHistory(state) || {
+      transactions: [],
+      error: '',
+      status: STORE_STATUS.IDLE,
     },
-    {
-      id: 'kld',
-      senderName: 'Sovrin Foundation',
-      senderAddress:
-        'sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030',
-      action: 'Purchase',
-      tokenAmount: 10000,
-      timestamp: 'Tue, 04 Aug 2015 14:38:41 GMT',
-    },
-  ],
-  isLoading: false,
-})
+  }
+}
 
-export default connect(mapStateToProps, null)(WalletTabHistory)
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ refreshWalletHistory }, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(WalletTabHistory)
 
 const styles = StyleSheet.create({
   listContainer: {

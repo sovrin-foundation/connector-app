@@ -39,6 +39,7 @@ import {
   vcxInitializationError,
 } from './data/config-store-mock-data'
 import { userOneTimeInfo } from './data/user-store-mock-data'
+import { STORE_STATUS } from '../app/wallet/type-wallet'
 
 // sadly, we can't export all variables in one line and use them in file as well
 // to use them in this file, we have to import them first
@@ -935,6 +936,11 @@ export function getStore(store?: Store) {
           userOneTimeInfo,
           avatarName: userAvatarImageName,
         },
+        wallet: {
+          walletBalance,
+          walletAddresses,
+          walletHistory,
+        },
       }
     },
     dispatch() {
@@ -948,9 +954,10 @@ export function getStore(store?: Store) {
   }
 }
 
-export const invitationReceivedEvent = invitationReceived({
-  ...firstInvitationPayload,
-})
+export const invitationReceivedEvent = {
+  type: INVITATION_RECEIVED,
+  data: { ...firstInvitationPayload },
+}
 
 export const newConnectionSuccessEvent = saveNewConnectionSuccess(
   successConnectionData ? successConnectionData.newConnection : {}
@@ -1192,26 +1199,38 @@ export const userAvatarImageName = `user-avatar.jpeg`
 
 export const userAvatarImagePath = `/var/application/DocumentDir/${userAvatarImageName}`
 
-export const walletStaticAddresses = [
-  'sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030',
-]
+export const walletBalance = {
+  data: 1000,
+  status: STORE_STATUS.SUCCESS,
+  error: null,
+}
 
-export const walletHistory = [
-  {
-    id: 'asd',
-    senderAddress: 'sov:senderAddress',
-    action: 'Withdraw',
-    tokenAmount: 5656,
-    timestamp: 'Tue, 04 Aug 2015 12:38:41 GMT',
-  },
-  {
-    id: 'kld',
-    senderName: 'senderName',
-    senderAddress: 'sov:senderAddress',
-    action: 'Purchase',
-    tokenAmount: 10000,
-    timestamp: 'Tue, 04 Aug 2015 14:38:41 GMT',
-  },
-]
+export const walletAddresses = {
+  data: ['sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030'],
+  status: STORE_STATUS.SUCCESS,
+  error: null,
+}
+
+export const walletHistory = {
+  transactions: [
+    {
+      id: 'asd',
+      senderAddress: 'sov:senderAddress',
+      action: 'Withdraw',
+      tokenAmount: 5656,
+      timeStamp: 'Tue, 04 Aug 2015 12:38:41 GMT',
+    },
+    {
+      id: 'kld',
+      senderName: 'senderName',
+      senderAddress: 'sov:senderAddress',
+      action: 'Purchase',
+      tokenAmount: 10000,
+      timeStamp: 'Tue, 04 Aug 2015 14:38:41 GMT',
+    },
+  ],
+  status: STORE_STATUS.SUCCESS,
+  error: null,
+}
 
 export { vcxProvisionResult } from './data/vcx-mock-data'

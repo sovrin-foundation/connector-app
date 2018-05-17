@@ -5,14 +5,17 @@ import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 import { WalletTabReceive } from '../wallet-tab-receive'
 import { Clipboard } from 'react-native'
-import { walletStaticAddresses, getStore } from '../../../__mocks__/static-data'
+import { walletAddresses, getStore } from '../../../__mocks__/static-data'
 
 describe('<WalletTabReceive />', () => {
   const store = getStore()
   function setup() {
     const component = renderer.create(
       <Provider store={store}>
-        <WalletTabReceive walletAddresses={walletStaticAddresses} />
+        <WalletTabReceive
+          walletAddresses={walletAddresses.data}
+          refreshWalletAddresses={jest.fn()}
+        />
       </Provider>
     )
     const instance = component.root.findByType(WalletTabReceive).instance
@@ -27,7 +30,7 @@ describe('<WalletTabReceive />', () => {
     const { instance } = setup()
     const copyToClipboard = jest.spyOn(Clipboard, 'setString')
     instance.copyToClipboard()
-    expect(copyToClipboard).toHaveBeenCalledWith(walletStaticAddresses[0])
+    expect(copyToClipboard).toHaveBeenCalledWith(walletAddresses.data[0])
     copyToClipboard.mockReset()
     copyToClipboard.mockRestore()
   })

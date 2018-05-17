@@ -148,6 +148,14 @@ export const getClaimMap = (state: Store) => state.claim.claimMap
 
 export const getCurrentScreen = (state: Store) => state.route.currentScreen
 
+export const getWalletBalance = (state: Store) =>
+  state.wallet.walletBalance.data
+
+export const getWalletAddresses = (state: Store) =>
+  state.wallet.walletAddresses.data
+
+export const getWalletHistory = (state: Store) => state.wallet.walletHistory
+
 export const getStatusBarTheme = (state: Store) => {
   const statusBarTheme =
     state.connections !== undefined &&

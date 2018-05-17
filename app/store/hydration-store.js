@@ -32,6 +32,12 @@ import {
   hydrateUserStoreSaga,
   removePersistedUserSelectedAvatarImage,
 } from './user/user-store'
+import {
+  hydrateWalletStoreSaga,
+  deletePersistedWalletBalance,
+  deletePersistedWalletAddresses,
+  deletePersistedWalletHistory,
+} from '../wallet/wallet-store'
 import { STORAGE_KEY_USER_ONE_TIME_INFO } from './user/type-user-store'
 import { STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL } from './type-config-store'
 import { HISTORY_EVENT_STORAGE_KEY } from '../connection-history/type-connection-history'
@@ -58,6 +64,21 @@ export function* deleteStoredData(): Generator<*, *, *> {
   yield call(AsyncStorage.removeItem, STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL)
   yield call(deleteItem, CLAIM_MAP)
   yield call(deleteItem, HISTORY_EVENT_STORAGE_KEY)
+  try {
+    yield* deletePersistedWalletBalance()
+  } catch (e) {
+    //TODO handle catch
+  }
+  try {
+    yield* deletePersistedWalletAddresses()
+  } catch (e) {
+    //TODO handle catch
+  }
+  try {
+    yield* deletePersistedWalletHistory()
+  } catch (e) {
+    //TODO handle catch
+  }
   yield* removePersistedUserSelectedAvatarImage()
   yield* removePersistedThemes()
 }
@@ -80,6 +101,7 @@ export function* appHydration(action: {
       // delete previous stored connections
       yield* deleteStoredData()
     }
+    yield* hydrateWalletStoreSaga()
     yield put(hydrateConnections(connections))
     yield* hydrateThemes()
     yield* hydrateUserStoreSaga()
