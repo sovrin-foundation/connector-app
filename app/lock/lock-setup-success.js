@@ -18,8 +18,6 @@ import { OFFSET_1X, OFFSET_2X, OFFSET_4X, color } from '../common/styles'
 import { UNLOCKING_APP_WAIT_MESSAGE } from '../common/message-constants'
 import type { LockSetupSuccessProps } from './type-lock'
 
-import debounce from 'lodash.debounce'
-
 export class LockSetupSuccess extends PureComponent<
   LockSetupSuccessProps,
   void
@@ -47,11 +45,6 @@ export class LockSetupSuccess extends PureComponent<
       this.props.navigation.navigate(homeTabRoute)
     }
   }
-
-  onCloseDebounce = debounce(this.onClose, 300, {
-    leading: true,
-    trailing: false,
-  })
 
   render() {
     const { isFetchingInvitation } = this.props
@@ -109,7 +102,7 @@ export class LockSetupSuccess extends PureComponent<
             testID="close-button"
             fontWeight="600"
             title="Close"
-            onPress={this.onCloseDebounce}
+            onPress={this.onClose}
           />
         </CustomView>
       </Container>

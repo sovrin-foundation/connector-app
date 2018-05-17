@@ -145,7 +145,12 @@ export class WalletTabSendDetails extends Component<
   }
   render() {
     return (
-      <Container safeArea fifth onPress={Keyboard.dismiss}>
+      <Container
+        safeArea
+        fifth
+        onPress={Keyboard.dismiss}
+        testID="wallet-tab-send-details"
+      >
         <ControlInput
           label="To"
           name="paymentTo"

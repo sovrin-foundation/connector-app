@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import { StyleSheet } from 'react-native'
 import { Button } from 'react-native-elements'
 import { color, font } from '../common/styles/constant'
 import empty from '../common/empty'
+import debounce from 'lodash.debounce'
 
 const getButtonProps = type => ({
   backgroundColor: color.actions[type],
@@ -10,48 +11,64 @@ const getButtonProps = type => ({
   textAlign: 'center',
 })
 
-const CustomButton = props => {
-  const {
-    primary,
-    secondary,
-    tertiary,
-    quaternary,
-    fifth,
-    dangerous,
-    medium,
-    customColor = {},
-    disabled,
-  } = props
-  const buttonStyles = props.style || empty
-  const style = [medium ? styles.mediumVerticalPadding : null, ...buttonStyles]
+export default class CustomButton extends PureComponent {
+  constructor(props) {
+    super(props)
+    this.deboucedButton = debounce(
+      event => {
+        if (this.props.onPress) {
+          this.props.onPress(event)
+        }
+      },
+      500,
+      { leading: true, trailing: false }
+    )
+  }
+  render() {
+    const {
+      primary,
+      secondary,
+      tertiary,
+      quaternary,
+      fifth,
+      dangerous,
+      medium,
+      customColor = {},
+      disabled,
+    } = this.props
+    const buttonStyles = this.props.style || empty
+    const style = [
+      medium ? styles.mediumVerticalPadding : null,
+      ...buttonStyles,
+    ]
 
-  const buttonType = primary
-    ? 'sixth'
-    : secondary
-      ? 'secondary'
-      : tertiary
-        ? 'tertiary'
-        : quaternary ? 'quaternary' : dangerous ? 'dangerous' : 'fifth'
-  const buttonProps = { ...getButtonProps(buttonType), ...customColor }
-  // when button is disabled, we want to apply same color that is
-  // generated while picking up the color from image
-  const disabledStyles = [
-    { backgroundColor: customColor.backgroundColor || color.actions.none },
-    styles.disabled,
-  ]
+    const buttonType = primary
+      ? 'sixth'
+      : secondary
+        ? 'secondary'
+        : tertiary
+          ? 'tertiary'
+          : quaternary ? 'quaternary' : dangerous ? 'dangerous' : 'fifth'
+    const buttonProps = { ...getButtonProps(buttonType), ...customColor }
+    // when button is disabled, we want to apply same color that is
+    // generated while picking up the color from image
+    const disabledStyles = [
+      { backgroundColor: customColor.backgroundColor || color.actions.none },
+      styles.disabled,
+    ]
 
-  return (
-    <Button
-      {...props}
-      {...buttonProps}
-      buttonStyle={style}
-      containerViewStyle={styles.buttonContainer}
-      disabledStyle={disabledStyles}
-    />
-  )
+    return (
+      <Button
+        {...this.props}
+        onPress={this.deboucedButton}
+        {...buttonProps}
+        buttonStyle={style}
+        containerViewStyle={styles.buttonContainer}
+        disabledStyle={disabledStyles}
+      />
+    )
+  }
 }
-
-export default CustomButton
 
 const styles = StyleSheet.create({
   buttonContainer: {

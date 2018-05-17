@@ -30,7 +30,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
       "flex": 1,
     }
   }
-  testID={undefined}
+  testID="wallet-tab-send-details-touchable"
 >
   <View
     style={
