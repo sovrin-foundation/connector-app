@@ -195,12 +195,12 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void generateProof(String proofRequest,
-                            String remoteDid,
-                            String prepareProof,
-                            String requestedClaims,
-                            String poolConfig,
+    public void generateProof(String proofRequestId, 
+                            String requestedAttrs, 
+                            String requestedPredicates,
+                            String proofName, 
                             Promise promise) {
+        // call vcx_proof_create
         promise.resolve("{}");
     }
 

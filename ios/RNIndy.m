@@ -589,4 +589,121 @@ RCT_EXPORT_METHOD(reset:
   });
 }
 
+// Init
+RCT_EXPORT_METHOD(init: (NSString *)config
+              resolver: (RCTPromiseResolveBlock) resolve
+              rejecter: (RCTPromiseRejectBlock) reject)
+{
+  // TODO: call vcx_init_with_config of libvcx
+  // pass a config as json string
+  // callback would get an error code and a json string back in case of success
+  {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Init failed with error", error);
+    } else {
+      resolve(@{});
+    }
+  }];
+}
+
+// Create one time info
+RCT_EXPORT_METHOD(createOneTimeInfo: (NSString *)config
+                           resolver: (RCTPromiseResolveBlock) resolve
+                           rejecter: (RCTPromiseRejectBlock) reject)
+{
+  // TODO: call vcx_agent_provision_async of libvcx
+  // pass a config as json string
+  // callback would get an error code and a json string back in case of success
+  {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while creating one time info", error);
+    } else {
+      resolve(@{});
+    }
+  }];
+}
+
+// Create connection with invite
+RCT_EXPORT_METHOD(createConnectionWithInvite: (NSString *)invitationId
+                               inviteDetails: (NSString *)inviteDetails
+                                    resolver: (RCTPromiseResolveBlock) resolve
+                                    rejecter: (RCTPromiseRejectBlock) reject)
+{
+  // TODO: call vcx_connection_create_with_invite of libvcx
+  // pass a config as json string
+  // callback would get an error code and a json string back in case of success
+  {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while creating connection", error);
+    } else {
+      resolve(@{});
+    }
+  }];
+}
+
+// Accept connection invitation
+RCT_EXPORT_METHOD(acceptInvitation: (NSString *)connectionHandle
+                    connectionType: (NSString *)connectionType
+                          resolver: (RCTPromiseResolveBlock) resolve
+                          rejecter: (RCTPromiseRejectBlock) reject)
+{
+  // TODO: call vcx_connection_connect of libvcx
+  // pass a config as json string
+  // callback would get an error code and a json string back in case of success
+  {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while accepitng connection", error);
+    } else {
+      resolve(@{});
+    }
+  }];
+}
+
+// Update push token
+RCT_EXPORT_METHOD(updatePushToken: (NSString *)config
+                         resolver: (RCTPromiseResolveBlock) resolve
+                         rejecter: (RCTPromiseRejectBlock) reject)
+{
+  // TODO: call vcx_agent_update_info of libvcx
+  // pass a config as json string
+  // callback would get an error code and a json string back in case of success
+  {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while updating push token", error);
+    } else {
+      resolve(@{});
+    }
+  }];
+}
+
+// Generate proof
+RCT_EXPORT_METHOD(generateProof: (NSString *)proofRequestId
+                 requestedAttrs: (NSString *)requestedAttrs
+            requestedPredicates: (NSString *)requestedPredicates
+                      proofName: (NSString *)proofName
+                       resolver: (RCTPromiseResolveBlock) resolve
+                       rejecter: (RCTPromiseRejectBlock) reject)
+{
+  // TODO: call vcx_proof_create of libvcx
+  {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while generating proof", error);
+    } else {
+      resolve(@{});
+    }
+  }];
+}
+
 @end
