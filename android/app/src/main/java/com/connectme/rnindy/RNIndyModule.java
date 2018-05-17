@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.graphics.Palette;
+import android.os.Environment;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
@@ -26,6 +27,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+
+import org.json.JSONObject;
 
 public class RNIndyModule extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "RNIndy";
@@ -259,5 +271,45 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
                 promise.resolve(true);
             }
         }, (long)(Math.random()*1000));
+    }
+
+    private static final int BUFFER = 2048;
+
+    @ReactMethod
+    public void backupDataWallet(String documentDirectory, String agencyConfig, Promise promise) { 
+        // TODO: Remove this file, this is a dummy file, testing for backup the wallet
+        String fileName = "backup.txt";
+        File file = new File(documentDirectory, fileName);
+        String contentToWrite = "Dummy Content";
+        try (FileWriter fileWriter = new FileWriter(file)) {
+            fileWriter.append(contentToWrite);
+            fileWriter.flush();
+        } catch (IOException e) {
+            promise.reject(e);
+        }
+
+        // convert the file to zip
+        String inputDir = documentDirectory + "/" + fileName;
+        String zipPath = documentDirectory + "/wallet-backup.zip";
+        try (
+            FileOutputStream dest = new FileOutputStream(zipPath);
+            ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest));
+            FileInputStream fi = new FileInputStream(inputDir);
+            BufferedInputStream origin = new BufferedInputStream(fi);
+        ){
+            byte data[] = new byte[BUFFER];
+            // fileName will be the wallet filename
+            ZipEntry entry = new ZipEntry(fileName);
+            out.putNextEntry(entry);
+            int count;
+            while ((count = origin.read(data, 0, BUFFER)) != -1) {
+                out.write(data, 0, count);
+            }
+            out.closeEntry();
+            promise.resolve(zipPath);
+        }
+        catch (IOException e) {
+            promise.reject(e);
+        }
     }
 }
