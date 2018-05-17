@@ -540,3 +540,15 @@ export async function downloadProofRequest() {
   // TODO:KS Complete signature as per vcx
   // Add this methods in Java & objective-c wrapper
 }
+
+export async function getZippedWalletBackupPath(
+  documentDirectory: string,
+  agencyConfig: AgencyPoolConfig
+): Promise<string> {
+  const backup = await RNIndy.backupDataWallet(
+    documentDirectory,
+    JSON.stringify(agencyConfig)
+  )
+
+  return backup // exposes the zip file path to the user
+}

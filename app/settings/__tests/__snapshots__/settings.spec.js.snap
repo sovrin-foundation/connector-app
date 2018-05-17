@@ -625,6 +625,180 @@ exports[`user settings screen should render properly and snapshot should match 1
           </View>
         </View>
       </View>
+      <View
+        row={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "flexDirection": "row",
+            "marginVertical": 20,
+          }
+        }
+        vCenter={true}
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "flex": 1,
+            }
+          }
+        >
+          <View>
+            <View
+              accessibilityComponentType={undefined}
+              accessibilityLabel={undefined}
+              accessibilityTraits={undefined}
+              accessible={true}
+              hitSlop={
+                Object {
+                  "bottom": 20,
+                  "left": 20,
+                  "right": 20,
+                  "top": 20,
+                }
+              }
+              nativeID={undefined}
+              onLayout={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              row={true}
+              style={
+                Object {
+                  "flexDirection": "row",
+                }
+              }
+              testID="settings-backup-data-wallet-touchable"
+            >
+              <View
+                clearBg={true}
+                iconStyle={
+                  Array [
+                    Object {
+                      "marginRight": 10,
+                    },
+                    Object {
+                      "height": 30,
+                      "width": 30,
+                    },
+                    Object {
+                      "tintColor": "#85bf43",
+                    },
+                  ]
+                }
+                src={1}
+                style={
+                  Object {
+                    "backgroundColor": "transparent",
+                  }
+                }
+              >
+                <Image
+                  resizeMode="contain"
+                  source={1}
+                  style={
+                    Array [
+                      Object {
+                        "height": 50,
+                        "width": 50,
+                      },
+                      null,
+                      Object {
+                        "marginRight": 10,
+                      },
+                      Object {
+                        "height": 30,
+                        "width": 30,
+                      },
+                      Object {
+                        "tintColor": "#85bf43",
+                      },
+                    ]
+                  }
+                  testID={undefined}
+                />
+              </View>
+              <View
+                center={true}
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {
+                        "fontSize": 17,
+                      },
+                      Object {
+                        "fontFamily": "SF Pro Display",
+                      },
+                      Object {
+                        "backgroundColor": "#ffffff",
+                        "color": "#777777",
+                      },
+                      Object {
+                        "fontWeight": "600",
+                      },
+                      null,
+                      null,
+                      null,
+                      null,
+                      null,
+                      null,
+                      null,
+                    ]
+                  }
+                >
+                  Backup my wallet
+                </Text>
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {
+                        "fontSize": 17,
+                      },
+                      Object {
+                        "fontFamily": "SF Pro Display",
+                      },
+                      Object {
+                        "backgroundColor": "#ffffff",
+                        "color": "#777777",
+                      },
+                      Object {
+                        "fontWeight": "600",
+                      },
+                      null,
+                      null,
+                      null,
+                      null,
+                      null,
+                      null,
+                      null,
+                    ]
+                  }
+                >
+                  
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
     </View>
   </View>
 </View>

@@ -1,6 +1,7 @@
 //  Created by react-native-create-bridge
 
 #import "RNIndy.h"
+#import "SSZipArchive.h"
 
 // import RCTBridge
 #if __has_include(<React/RCTBridge.h>)
@@ -40,7 +41,7 @@
     }
     indy.pool = [[CMPoolObject alloc] initWithName:@"sandboxPool" nodesConfig:xNodesConfig];
   });
-  
+
   return indy;
 }
 
@@ -135,7 +136,7 @@ RCT_EXPORT_METHOD(getClaim: (NSString *) filterJson
     } else {
       resolve(claimsJSON);
     }
-  }];  
+  }];
 }
 
 RCT_EXPORT_METHOD(prepareProof: (NSString *) proofRequest
@@ -209,6 +210,34 @@ RCT_EXPORT_METHOD(switchEnvironment: (NSString *)poolConfig
     indy.pool = [[CMPoolObject alloc] initWithName:@"pool" nodesConfig:poolConfig];
     resolve(@YES);
   }
+}
+
+  // BACKUP DATA WALLET
+RCT_EXPORT_METHOD(backupDataWallet: (NSString *) documentsDirectory
+                  withNodesConfig:(NSString *) nodesConfig
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
+        NSError *error = nil;
+        // TODO: replace this block with the CMWallet file location
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSString *dataWalletFile = [documentsDirectory stringByAppendingPathComponent:@"backup.txt"];
+        [fileManager createFileAtPath:dataWalletFile contents:[@"tomato tomatoe, potato, potatoe" dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
+
+        // Path of the zip file
+        NSString *walletZipPath = [documentsDirectory stringByAppendingString:@"/backup.zip"];
+
+        // Creates zip file
+        BOOL success = [SSZipArchive createZipFileAtPath:walletZipPath withContentsOfDirectory:dataWalletFile];
+
+        if (success) {
+          resolve(walletZipPath);
+        } else {
+          NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+
+          reject(indyErrorCode, @"Error backing up wallet", error);
+        }
 }
 
 #pragma mark msg pack apis
@@ -522,7 +551,7 @@ RCT_EXPORT_METHOD(deleteConnection: (NSString *)url
 
   [indy deleteConnectionWithUrl:url
               withMyPairwiseDid:myPairwiseDid
-           withMyPairwiseVerKey:myPairwiseVerKey          
+           withMyPairwiseVerKey:myPairwiseVerKey
          withMyPairwiseAgentDid:myPairwiseAgentDid
       withMyPairwiseAgentVerKey:myPairwiseAgentVerKey
           withMyOneTimeAgentDid:myOneTimeAgentDid

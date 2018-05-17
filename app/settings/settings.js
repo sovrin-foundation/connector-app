@@ -2,6 +2,7 @@
 import React, { PureComponent } from 'react'
 import { Text, Switch, StyleSheet, Platform } from 'react-native'
 import { StackNavigator } from 'react-navigation'
+import BackupWallet from './backup-wallet'
 import { UserAvatar, CustomText, Icon, Avatar } from '../components'
 import { CustomList, CustomView, Container } from '../components/layout'
 import {
@@ -22,6 +23,7 @@ import {
   USERNAME_TEST_ID,
   CHAT_TEST_ID,
   USER_AVATAR_TEST_ID,
+  BACKUP_DATA_WALLET,
 } from './settings-constant'
 
 import type { Store } from '../store/type-store'
@@ -170,6 +172,28 @@ export class Settings extends PureComponent<SettingsProps, void> {
       </CustomView>
     )
 
+    const onBackup = (
+      <BackupWallet
+        render={(status, backupWallet) => (
+          <CustomView row onPress={backupWallet} testID={BACKUP_DATA_WALLET}>
+            {/* TODO: change out placeholder icon */}
+            <Icon
+              iconStyle={[
+                style.labelImage,
+                style.editIcon,
+                { tintColor: mantis },
+              ]}
+              src={require('../images/icon_feedback.png')}
+            />
+            <CustomView center>
+              <SettingText>Backup my wallet</SettingText>
+              <SettingText>{status}</SettingText>
+            </CustomView>
+          </CustomView>
+        )}
+      />
+    )
+
     const itemList = [
       {
         id: 0,
@@ -195,6 +219,10 @@ export class Settings extends PureComponent<SettingsProps, void> {
       {
         id: 4,
         left: onChat,
+      },
+      {
+        id: 5,
+        left: onBackup,
       },
     ]
 
