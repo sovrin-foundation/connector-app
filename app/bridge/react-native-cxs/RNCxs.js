@@ -575,11 +575,15 @@ export async function getWalletHistory(): Promise<WalletHistoryEvent[]> {
   ]
   return new Promise.resolve(walletHistoryData)
 }
-export async function getZippedWalletBackupPath(
+
+export async function getZippedWalletBackupPath({
+  documentDirectory,
+  agencyConfig,
+}: {
   documentDirectory: string,
-  agencyConfig: AgencyPoolConfig
-): Promise<string> {
-  const backup = await RNIndy.backupDataWallet(
+  agencyConfig: AgencyPoolConfig,
+}): Promise<string> {
+  const backup = await RNIndy.backupWallet(
     documentDirectory,
     JSON.stringify(agencyConfig)
   )

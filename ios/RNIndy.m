@@ -213,7 +213,7 @@ RCT_EXPORT_METHOD(switchEnvironment: (NSString *)poolConfig
 }
 
   // BACKUP DATA WALLET
-RCT_EXPORT_METHOD(backupDataWallet: (NSString *) documentsDirectory
+RCT_EXPORT_METHOD(backupWallet: (NSString *) documentsDirectory
                   withNodesConfig:(NSString *) nodesConfig
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)

@@ -19,6 +19,9 @@ import walletReducer, {
   refreshWalletBalanceFail,
   refreshWalletAddressesFail,
   refreshWalletHistoryFail,
+  backupWalletFail,
+  walletBackup,
+  walletBackupComplete,
 } from '../wallet-store'
 import { initialTestAction } from '../../common/type-common'
 import {
@@ -30,6 +33,8 @@ import {
   ERROR_LOADING_WALLET,
   ERROR_REFRESHING_WALLET_BALANCE,
   STORE_STATUS,
+  ERROR_BACKUP_WALLET,
+  ERROR_BACKUP_WALLET_SHARE,
   ERROR_LOADING_WALLET_BALANCE,
   ERROR_LOADING_WALLET_ADDRESSES,
   ERROR_LOADING_WALLET_HISTORY,
@@ -52,7 +57,30 @@ describe('store: wallet-store: ', () => {
         status: STORE_STATUS.IDLE,
         error: null,
       },
+      backup: { status: STORE_STATUS.IDLE, latest: null, error: null },
     }
+  })
+
+  it('action: BACKUP_WALLET', () => {
+    expect(walletReducer(initialState, walletBackup())).toMatchSnapshot()
+  })
+
+  it('action: BACKUP_WALLET_SUCCESS', () => {
+    expect(
+      walletReducer(initialState, walletBackupComplete())
+    ).toMatchSnapshot()
+  })
+
+  it('action: ERROR_BACKUP_WALLET', () => {
+    expect(
+      walletReducer(initialState, backupWalletFail(ERROR_BACKUP_WALLET))
+    ).toMatchSnapshot()
+  })
+
+  it('action: ERROR_BACKUP_WALLET_SHARE', () => {
+    expect(
+      walletReducer(initialState, backupWalletFail(ERROR_BACKUP_WALLET_SHARE))
+    ).toMatchSnapshot()
   })
 
   it('action: HYDRATE_WALLET_BALANCE', () => {

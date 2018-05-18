@@ -3,6 +3,38 @@ import type { ReactNavigation } from '../common/type-common'
 import type { CustomError } from '../common/type-common'
 import type { IsValid } from '../components/input-control/type-input-control'
 
+export type BackupWalletProps = {
+  backup: BackupInfo,
+  render: (backup: string, backupWallet: () => void) => void,
+  walletBackup: () => void,
+}
+
+export type BackupInfo = {
+  latest: ?string,
+  error: ?CustomError,
+} & StoreStatus
+
+export const BACKUP_WALLET = 'BACKUP_WALLET'
+
+export const BACKUP_WALLET_FAIL = 'BACKUP_WALLET_FAIL'
+
+export const BACKUP_WALLET_SUCCESS = 'BACKUP_WALLET_SUCCESS'
+
+export const ERROR_BACKUP_WALLET = {
+  code: 'WB-001',
+  message: 'Error while backing up wallet',
+}
+
+export const ERROR_BACKUP_WALLET_SHARE = {
+  code: 'WB-002',
+  message: 'Error while sharing zipped backup',
+}
+
+export type BackupWalletAction = {
+  type: typeof BACKUP_WALLET,
+  data: BackupInfo,
+}
+
 export type WalletBalanceProps = {
   walletBalance: WalletBalance,
   refreshWalletBalance: () => {},
@@ -122,6 +154,7 @@ export type WalletStore = {
   walletBalance: WalletBalance,
   walletAddresses: WalletAddresses,
   walletHistory: WalletHistory,
+  backup: BackupInfo,
 }
 
 export type HydrateWalletStoreFailAction = {
@@ -235,3 +268,6 @@ export type WalletStoreAction =
   | HydrateWalletBalanceAction
   | HydrateWalletAddressesAction
   | HydrateWalletHistoryAction
+  | BackupWalletAction
+
+// TODO: add BackupWalletAction types for action of success and failure

@@ -1,50 +1,29 @@
 // @flow
 
 import React, { PureComponent } from 'react'
-import { View, Share } from 'react-native'
-import RNFetchBlob from 'react-native-fetch-blob'
+import { View } from 'react-native'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-import type { BackupWalletProps } from './type-settings'
-import { getZippedWalletBackupPath } from '../bridge/react-native-cxs/RNCxs'
+import { walletBackup } from '../wallet/wallet-store'
+import type { Store } from '../store/type-store'
+import type { BackupWalletProps } from '../wallet/type-wallet'
 
-export default class BackupWallet extends PureComponent<
-  BackupWalletProps,
-  void
-> {
-  static defaultProps = {
-    status: '',
+class BackupWallet extends PureComponent<BackupWalletProps, void> {
+  backupWallet = () => {
+    this.props.walletBackup()
   }
-  backupWallet = async () => {
-    // DUMMY DATA UNTIL MOVED INTO SAGA
-    const agencyConfig = {
-      agencyUrl: 'something',
-      agencyDID: 'something',
-      agencyVerificationKey: 'something',
-      poolConfig: 'something',
-    }
-    const documentDirectory = RNFetchBlob.fs.dirs.DocumentDir
-    const backup = await getZippedWalletBackupPath(
-      documentDirectory,
-      agencyConfig
-    )
-
-    // TODO: move to backupWalletSaga & figure out flow type check hack for url
-    //   Share.share(
-    //     {
-    //       url: backup,
-    //       title: 'Share Your Data Wallet',
-    //     },
-    //     {
-    //       // Android
-    //       dialogTitle: 'Share Your Data Wallet',
-    //     }
-    //   )
-    console.log(backup)
-  }
-
   render() {
-    const { render, status }: BackupWalletProps = this.props
-
-    return <View>{render(status, this.backupWallet)}</View>
+    const { render, backup }: BackupWalletProps = this.props
+    return <View>{render(backup.status, this.backupWallet)}</View>
   }
 }
+
+const mapStateToProps = ({ wallet }: Store) => ({
+  backup: wallet.backup,
+})
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ walletBackup }, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(BackupWallet)

@@ -940,6 +940,7 @@ export function getStore(store?: Store) {
           walletBalance,
           walletAddresses,
           walletHistory,
+          backup,
         },
       }
     },
@@ -1005,6 +1006,12 @@ export const proofRequestAutofill = {
 }
 
 export { userOneTimeInfo } from './data/user-store-mock-data'
+
+export const backup = {
+  status: STORE_STATUS.IDLE,
+  error: null,
+  latest: '2017-09-06T00:00:00+05:30',
+}
 
 export const qrData = {
   id: 'yta2odh',

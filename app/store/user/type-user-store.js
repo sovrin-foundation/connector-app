@@ -17,6 +17,13 @@ export type UserStore = {
   avatarName: ?string,
 }
 
+export type ChangeEnvironment = {
+  agencyUrl: string,
+  poolConfig: string,
+  agencyDID: string,
+  agencyVerificationKey: string,
+}
+
 export const CONNECT_REGISTER_CREATE_AGENT_DONE =
   'CONNECT_REGISTER_CREATE_AGENT_DONE'
 

@@ -1,7 +1,118 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`store: wallet-store:  action: BACKUP_WALLET 1`] = `
+Object {
+  "backup": Object {
+    "error": null,
+    "latest": null,
+    "status": "IN_PROGRESS",
+  },
+  "walletAddresses": Object {
+    "data": Array [],
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletBalance": Object {
+    "data": 0,
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "IDLE",
+    "transactions": Array [],
+  },
+}
+`;
+
+exports[`store: wallet-store:  action: BACKUP_WALLET_SUCCESS 1`] = `
+Object {
+  "backup": Object {
+    "error": null,
+    "latest": "2018-01-10T04:32:43+05:30",
+    "status": "SUCCESS",
+  },
+  "walletAddresses": Object {
+    "data": Array [],
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletBalance": Object {
+    "data": 0,
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "IDLE",
+    "transactions": Array [],
+  },
+}
+`;
+
+exports[`store: wallet-store:  action: ERROR_BACKUP_WALLET 1`] = `
+Object {
+  "backup": Object {
+    "error": Object {
+      "code": "WB-001",
+      "message": "Error while backing up wallet",
+    },
+    "latest": null,
+    "status": "ERROR",
+  },
+  "walletAddresses": Object {
+    "data": Array [],
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletBalance": Object {
+    "data": 0,
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "IDLE",
+    "transactions": Array [],
+  },
+}
+`;
+
+exports[`store: wallet-store:  action: ERROR_BACKUP_WALLET_SHARE 1`] = `
+Object {
+  "backup": Object {
+    "error": Object {
+      "code": "WB-002",
+      "message": "Error while sharing zipped backup",
+    },
+    "latest": null,
+    "status": "ERROR",
+  },
+  "walletAddresses": Object {
+    "data": Array [],
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletBalance": Object {
+    "data": 0,
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "IDLE",
+    "transactions": Array [],
+  },
+}
+`;
+
 exports[`store: wallet-store:  action: HYDRATE_WALLET_ADDRESSES 1`] = `
 Object {
+  "backup": Object {
+    "error": null,
+    "latest": null,
+    "status": "IDLE",
+  },
   "walletAddresses": Object {
     "data": Array [
       "sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030",
@@ -24,6 +135,11 @@ Object {
 
 exports[`store: wallet-store:  action: HYDRATE_WALLET_ADDRESSES_FAIL 1`] = `
 Object {
+  "backup": Object {
+    "error": null,
+    "latest": null,
+    "status": "IDLE",
+  },
   "walletAddresses": Object {
     "data": Array [],
     "error": Object {
@@ -47,6 +163,11 @@ Object {
 
 exports[`store: wallet-store:  action: HYDRATE_WALLET_BALANCE 1`] = `
 Object {
+  "backup": Object {
+    "error": null,
+    "latest": null,
+    "status": "IDLE",
+  },
   "walletAddresses": Object {
     "data": Array [],
     "error": null,
@@ -67,6 +188,11 @@ Object {
 
 exports[`store: wallet-store:  action: HYDRATE_WALLET_BALANCE_FAIL 1`] = `
 Object {
+  "backup": Object {
+    "error": null,
+    "latest": null,
+    "status": "IDLE",
+  },
   "walletAddresses": Object {
     "data": Array [],
     "error": null,
@@ -90,6 +216,11 @@ Object {
 
 exports[`store: wallet-store:  action: HYDRATE_WALLET_HISTORY 1`] = `
 Object {
+  "backup": Object {
+    "error": null,
+    "latest": null,
+    "status": "IDLE",
+  },
   "walletAddresses": Object {
     "data": Array [],
     "error": null,
@@ -126,6 +257,11 @@ Object {
 
 exports[`store: wallet-store:  action: HYDRATE_WALLET_HISTORY_FAIL 1`] = `
 Object {
+  "backup": Object {
+    "error": null,
+    "latest": null,
+    "status": "IDLE",
+  },
   "walletAddresses": Object {
     "data": Array [],
     "error": null,
@@ -149,6 +285,11 @@ Object {
 
 exports[`store: wallet-store:  action: REFRESH_WALLET_ADDRESSES_FAIL 1`] = `
 Object {
+  "backup": Object {
+    "error": null,
+    "latest": null,
+    "status": "IDLE",
+  },
   "walletAddresses": Object {
     "data": Array [],
     "error": Object {
@@ -172,6 +313,11 @@ Object {
 
 exports[`store: wallet-store:  action: REFRESH_WALLET_BALANCE_FAIL 1`] = `
 Object {
+  "backup": Object {
+    "error": null,
+    "latest": null,
+    "status": "IDLE",
+  },
   "walletAddresses": Object {
     "data": Array [],
     "error": null,
@@ -195,6 +341,11 @@ Object {
 
 exports[`store: wallet-store:  action: REFRESH_WALLET_HISTORY_FAIL 1`] = `
 Object {
+  "backup": Object {
+    "error": null,
+    "latest": null,
+    "status": "IDLE",
+  },
   "walletAddresses": Object {
     "data": Array [],
     "error": null,
@@ -218,6 +369,11 @@ Object {
 
 exports[`store: wallet-store:  action: WALLET_ADDRESSES_REFRESHED 1`] = `
 Object {
+  "backup": Object {
+    "error": null,
+    "latest": null,
+    "status": "IDLE",
+  },
   "walletAddresses": Object {
     "data": Array [
       "sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030",
@@ -240,6 +396,11 @@ Object {
 
 exports[`store: wallet-store:  action: WALLET_ADDRESSES_REFRESHED 2`] = `
 Object {
+  "backup": Object {
+    "error": null,
+    "latest": null,
+    "status": "IDLE",
+  },
   "walletAddresses": Object {
     "data": Array [
       "sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030",
@@ -262,6 +423,11 @@ Object {
 
 exports[`store: wallet-store:  action: WALLET_BALANCE_REFRESHED 1`] = `
 Object {
+  "backup": Object {
+    "error": null,
+    "latest": null,
+    "status": "IDLE",
+  },
   "walletAddresses": Object {
     "data": Array [],
     "error": null,
@@ -282,6 +448,11 @@ Object {
 
 exports[`store: wallet-store:  action: WALLET_BALANCE_REFRESHED 2`] = `
 Object {
+  "backup": Object {
+    "error": null,
+    "latest": null,
+    "status": "IDLE",
+  },
   "walletAddresses": Object {
     "data": Array [],
     "error": null,
@@ -302,6 +473,11 @@ Object {
 
 exports[`store: wallet-store:  action: WALLET_HISTORY_REFRESHED 1`] = `
 Object {
+  "backup": Object {
+    "error": null,
+    "latest": null,
+    "status": "IDLE",
+  },
   "walletAddresses": Object {
     "data": Array [],
     "error": null,
@@ -338,6 +514,11 @@ Object {
 
 exports[`store: wallet-store:  action: WALLET_HISTORY_REFRESHED 2`] = `
 Object {
+  "backup": Object {
+    "error": null,
+    "latest": null,
+    "status": "IDLE",
+  },
   "walletAddresses": Object {
     "data": Array [],
     "error": null,

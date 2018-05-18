@@ -792,7 +792,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                     ]
                   }
                 >
-                  
+                  IDLE
                 </Text>
               </View>
             </View>

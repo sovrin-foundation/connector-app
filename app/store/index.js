@@ -33,7 +33,7 @@ import history, {
   watchConnectionHistory,
 } from '../connection-history/connection-history-store'
 import historyRecorder from '../connection-history/history-middleware'
-import wallet, { watchWalletStore } from '../wallet/wallet-store'
+import wallet, { watchWalletStore, watchBackup } from '../wallet/wallet-store'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -86,6 +86,7 @@ sagaMiddleware.run(function*() {
     watchConnectionHistory(),
     watchUserStore(),
     watchWalletStore(),
+    watchBackup(),
   ])
 })
 

@@ -1,8 +1,10 @@
 // @flow
 
 import { put, takeLatest, call, all, select } from 'redux-saga/effects'
-import { AsyncStorage } from 'react-native'
+import RNFetchBlob from 'react-native-fetch-blob'
+import { AsyncStorage, Share } from 'react-native'
 import type { Saga } from 'redux-saga'
+import moment from 'moment'
 import { setItem, getItem, deleteItem } from '../services/secure-storage'
 import {
   HYDRATE_WALLET_STORE,
@@ -31,7 +33,13 @@ import {
   ERROR_LOADING_WALLET_ADDRESSES,
   ERROR_LOADING_WALLET_HISTORY,
   STORE_STATUS,
+  BACKUP_WALLET,
+  BACKUP_WALLET_FAIL,
+  BACKUP_WALLET_SUCCESS,
+  ERROR_BACKUP_WALLET,
+  ERROR_BACKUP_WALLET_SHARE,
 } from './type-wallet'
+import type { AgencyPoolConfig } from '../store/type-config-store'
 import type {
   WalletStore,
   WalletStoreAction,
@@ -41,6 +49,7 @@ import type {
   RefreshWalletHistoryAction,
   RefreshWalletAddressesAction,
   RefreshWalletBalanceAction,
+  BackupWalletAction,
   WalletHistory,
   WalletBalance,
   WalletAddresses,
@@ -56,12 +65,107 @@ import {
   getWalletBalance,
   getWalletAddresses,
   getWalletHistory,
+  getZippedWalletBackupPath,
 } from '../bridge/react-native-cxs/RNCxs'
+import { getConfig } from '../store/store-selector'
 
 const initialState = {
   walletBalance: { data: 0, status: STORE_STATUS.IDLE, error: null },
   walletAddresses: { data: [], status: STORE_STATUS.IDLE, error: null },
   walletHistory: { transactions: [], status: STORE_STATUS.IDLE, error: null },
+  backup: { status: STORE_STATUS.IDLE, latest: null, error: null },
+}
+
+export function* backupWalletSaga(
+  action: BackupWalletAction
+): Generator<*, *, *> {
+  // WALLET BACKUP ZIP FLOW
+  const {
+    agencyUrl,
+    agencyDID,
+    agencyVerificationKey,
+    poolConfig,
+  }: AgencyPoolConfig = yield select(getConfig)
+  const agencyConfig = {
+    agencyUrl,
+    agencyDID,
+    agencyVerificationKey,
+    poolConfig,
+  }
+  try {
+    const documentDirectory = RNFetchBlob.fs.dirs.DocumentDir
+    const backup = yield call(getZippedWalletBackupPath, {
+      documentDirectory,
+      agencyConfig,
+    })
+
+    // SHARE BACKUP FLOW
+    const shareBackup = yield call(
+      Share.share,
+      {
+        url: backup,
+        title: 'Share Your Data Wallet',
+      },
+      {
+        // Android Only
+        dialogTitle: 'Share Your Data Wallet',
+      }
+    )
+
+    if (shareBackup.action === 'sharedAction') {
+      yield put(walletBackupComplete())
+    } else {
+      yield put(
+        backupWalletFail({
+          ...ERROR_BACKUP_WALLET_SHARE,
+          message: `${ERROR_BACKUP_WALLET_SHARE.message}.`,
+        })
+      )
+    }
+
+    // SHOW ENCRYPTION KEY FLOW
+    // const encryptionKeyModalTrigger = shareBackup.action === 'sharedAction'
+    // TODO: encryption key modal
+  } catch (e) {
+    yield put(
+      backupWalletFail({
+        ...ERROR_BACKUP_WALLET,
+        message: `${ERROR_BACKUP_WALLET.message}. ${e.message}`,
+      })
+    )
+  }
+}
+
+export const backupWalletFail = (error: CustomError) => ({
+  type: BACKUP_WALLET_FAIL,
+  error,
+  status: STORE_STATUS.ERROR,
+})
+
+export const walletBackup = () => ({
+  type: BACKUP_WALLET,
+  data: {
+    status: STORE_STATUS.IN_PROGRESS,
+    error: null,
+  },
+})
+
+export const walletBackupComplete = () => ({
+  type: BACKUP_WALLET_SUCCESS,
+  data: {
+    status: STORE_STATUS.SUCCESS,
+    latest: moment().format(),
+    error: null,
+  },
+})
+
+function* watchWalletBackup(): any {
+  yield takeLatest(BACKUP_WALLET, backupWalletSaga)
+}
+
+// TODO: persist wallet back state in AsyncStorage
+export function* watchBackup(): Saga<void> {
+  yield all([watchWalletBackup()])
 }
 
 export function* hydrateWalletStoreSaga(): Generator<*, *, *> {
@@ -154,9 +258,7 @@ export function* deletePersistedWalletAddresses(): Generator<*, *, *> {
 
 export function* deletePersistedWalletHistory(): Generator<*, *, *> {
   yield call(deleteItem, WALLET_HISTORY)
-}
-
-//TODO add sagas,action,reducers for payment related stuff
+} //TODO add sagas,action,reducers for payment related stuff
 
 export function* watchWalletStore(): Saga<void> {
   yield all([
@@ -399,7 +501,6 @@ export default function walletReducer(
         },
       }
     }
-
     case HYDRATE_WALLET_ADDRESSES_FAIL: {
       return {
         ...state,
@@ -468,6 +569,42 @@ export default function walletReducer(
           ...state.walletHistory,
           status: action.status,
           error: action.error,
+        },
+      }
+    }
+    case BACKUP_WALLET: {
+      const { status, error } = action.data
+
+      return {
+        ...state,
+        backup: {
+          ...state.backup,
+          status,
+          error,
+        },
+      }
+    }
+    case BACKUP_WALLET_SUCCESS: {
+      const { status, error, latest } = action.data
+
+      return {
+        ...state,
+        backup: {
+          latest,
+          status,
+          error,
+        },
+      }
+    }
+    case BACKUP_WALLET_FAIL: {
+      const { status, error } = action
+
+      return {
+        ...state,
+        backup: {
+          ...state.backup,
+          status,
+          error,
         },
       }
     }
