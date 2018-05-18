@@ -79,6 +79,7 @@ PODS:
     - React/Core
     - RSKImageCropper
   - RSKImageCropper (2.0.1)
+  - SSZipArchive (2.1.2)
   - yoga (0.51.0.React)
 
 DEPENDENCIES:
@@ -98,6 +99,7 @@ DEPENDENCIES:
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
+  - SSZipArchive
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
 EXTERNAL SOURCES:
@@ -137,8 +139,9 @@ SPEC CHECKSUMS:
   react-native-image-resizer: 04a3409e7d4ad646c4468671c69dec490def139c
   RNImageCropPicker: 32ca4b9fef4e1b7b85ba69494242122948117e06
   RSKImageCropper: 50d5a3e4160f0309b14d75b89d5ae2f496d56e0d
+  SSZipArchive: d4009d2ce5520a421f231fd97028cc0e2667eed8
   yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
-PODFILE CHECKSUM: ea93f63d7f0b7d688261d2c0df872a65c73fde2f
+PODFILE CHECKSUM: 4dd84f524c2f43f01eccfa6f1010a10ac8621058
 
 COCOAPODS: 1.4.0

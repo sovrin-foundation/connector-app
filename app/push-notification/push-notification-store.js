@@ -1,7 +1,15 @@
 // @flow
 
 import { Platform } from 'react-native'
-import { call, all, takeLatest, take, select, put } from 'redux-saga/effects'
+import {
+  call,
+  all,
+  takeLatest,
+  take,
+  select,
+  put,
+  fork,
+} from 'redux-saga/effects'
 import { PAYLOAD_TYPE, MESSAGE_TYPE } from '../api/api-constants'
 import { captureError } from '../services/error/error-handler'
 import {
@@ -34,6 +42,7 @@ import type {
   PushNotificationStore,
   DownloadedNotification,
   ClaimOfferPushPayload,
+  ClaimPushPayload,
 } from './type-push-notification'
 import type { Connections } from '../connection/type-connection'
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
@@ -44,12 +53,21 @@ import {
   downloadClaimOffer,
   downloadClaim,
   downloadProofRequest,
+  getHandleBySerializedConnection,
+  serializeClaimOffer,
 } from '../bridge/react-native-cxs/RNCxs'
 import { HYDRATED } from '../store/type-config-store'
 import { CONNECT_REGISTER_CREATE_AGENT_DONE } from '../store/user/type-user-store'
 import uniqueId from 'react-native-unique-id'
 import { RESET } from '../common/type-common'
 import { ensureVcxInitSuccess } from '../store/config-store'
+import type { Connection } from '../store/type-connection-store'
+import type { CxsCredentialOfferResult } from '../bridge/react-native-cxs/type-cxs'
+import type { ProofRequestPushPayload } from '../proof-request/type-proof-request'
+import {
+  addSerializedClaimOffer,
+  saveSerializedClaimOffer,
+} from '../claim-offer/claim-offer-store'
 
 // TODO:PS: handle other/multiple Push Notification while
 // one Push Notification is already downloading
@@ -292,35 +310,56 @@ export function* fetchAdditionalDataSagaVcx(
 
   const { forDID, uid, type, senderLogoUrl } = action.notificationPayload
   if (forDID) {
-    const { remotePairwiseDID, remoteName, ...connection } = yield select(
-      getRemotePairwiseDidAndName,
-      forDID
-    )
+    const {
+      remotePairwiseDID,
+      remoteName,
+      ...connection
+    }: {
+      remotePairwiseDID: string,
+      remoteName: string,
+    } & Connection = yield select(getRemotePairwiseDidAndName, forDID)
 
-    if (remotePairwiseDID) {
+    if (remotePairwiseDID && connection.vcxSerializedConnection) {
+      const connectionHandle = yield call(
+        getHandleBySerializedConnection,
+        connection.vcxSerializedConnection
+      )
+
       try {
-        let additionalDataResponse: AdditionalDataResponse | null = null
+        let additionalData:
+          | ClaimOfferPushPayload
+          | ProofRequestPushPayload
+          | ClaimPushPayload
+          | null = null
         if (type === MESSAGE_TYPE.CLAIM_OFFER) {
-          // TODO:KS Pass parameters that are needed to download claim offer
-          additionalDataResponse = yield call(downloadClaimOffer)
+          const {
+            claimHandle,
+            claimOffer,
+          }: CxsCredentialOfferResult = yield call(
+            downloadClaimOffer,
+            connectionHandle,
+            uid,
+            uid
+          )
+          additionalData = claimOffer
+          yield fork(saveSerializedClaimOffer, claimHandle, forDID, uid)
         }
 
         if (type === MESSAGE_TYPE.CLAIM) {
           // TODO:KS Pass parameters that are needed to download claim
-          additionalDataResponse = yield call(downloadClaim)
+          additionalData = yield call(downloadClaim)
         }
 
         if (type === MESSAGE_TYPE.PROOF_REQUEST) {
           // TODO:KS Pass parameters that are needed to download proof request
-          additionalDataResponse = yield call(downloadProofRequest)
+          additionalData = yield call(downloadProofRequest)
         }
 
-        if (!additionalDataResponse) {
+        if (!additionalData) {
           // we did not get any data or either push notification type is not supported
           return
         }
 
-        const additionalData = JSON.parse(additionalDataResponse.payload)
         yield put(
           pushNotificationReceived({
             type,

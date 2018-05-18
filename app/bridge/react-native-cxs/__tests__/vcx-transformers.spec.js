@@ -5,6 +5,7 @@ import {
   convertVcxProvisionResultToUserOneTimeInfo,
   convertCxsInitToVcxInit,
   convertInvitationToVcxConnectionCreate,
+  convertVcxCredentialOfferToCxsClaimOffer,
 } from '../vcx-transformers'
 import {
   vcxProvisionResult,
@@ -14,6 +15,7 @@ import {
   poolConfig,
   userOneTimeInfo,
   getTestInvitationPayload,
+  vcxClaimOffer,
 } from '../../../../__mocks__/static-data'
 import type { InvitationPayload } from '../../../invitation/type-invitation'
 
@@ -51,5 +53,11 @@ describe('transformer:VCX', () => {
         convertInvitationToVcxConnectionCreate(invitation.payload)
       ).toMatchSnapshot()
     }
+  })
+
+  it('convertVcxCredentialOfferToCxsClaimOffer', () => {
+    expect(
+      convertVcxCredentialOfferToCxsClaimOffer(vcxClaimOffer)
+    ).toMatchSnapshot()
   })
 })

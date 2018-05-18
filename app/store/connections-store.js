@@ -1,4 +1,4 @@
-// $FlowFixMe
+// @flow
 import { put, takeLatest, call, select, all } from 'redux-saga/effects'
 import { AsyncStorage } from 'react-native'
 import { setItem, getItem } from '../services/secure-storage'
@@ -10,6 +10,7 @@ import {
   getPoolConfig,
   getAllConnection,
   getThemes,
+  getConnection as getConnectionBySenderDid,
 } from './store-selector'
 import { color, white } from '../common/styles/constant'
 import { bubbleSize } from '../common/styles'
@@ -35,6 +36,7 @@ import type {
 } from './type-connection-store'
 import { deleteConnection } from '../bridge/react-native-cxs/RNCxs'
 import { RESET } from '../common/type-common'
+import type { UserOneTimeInfo } from './user/type-user-store'
 
 const UPDATE_CONNECTION_THEME = 'UPDATE_CONNECTION_THEME'
 export const NEW_CONNECTION_SUCCESS = 'NEW_CONNECTION_SUCCESS'
@@ -96,7 +98,7 @@ export const saveNewConnectionSuccess = (connection: GenericObject) => ({
 })
 
 //TODO refactor create a new store for ui
-export const updateStatusBarTheme = statusColor => ({
+export const updateStatusBarTheme = (statusColor: string) => ({
   type: UPDATE_STATUS_BAR_THEME,
   color: statusColor || color.bg.tertiary.color,
 })
@@ -122,11 +124,10 @@ export function* deleteConnectionOccurredSaga(
   const poolConfig: string = yield select(getPoolConfig)
   const connections: GenericObject = yield select(getAllConnection)
 
-  //TODO : move this logic to selector
-  const savedConnections: Array<Connection> = Object.values(connections)
-  const connection = savedConnections.filter(
-    connection => connection.senderDID === action.senderDID
-  )[0]
+  const [connection]: Array<Connection> = yield select(
+    getConnectionBySenderDid,
+    action.senderDID
+  )
   const { [connection.myPairwiseDid]: deleted, ...rest } = connections
 
   const url = `${agencyUrl}/agency/msg`
@@ -144,17 +145,15 @@ export function* deleteConnectionOccurredSaga(
       myAgencyVerKey: agencyVerificationKey,
       poolConfig,
     })
-    let connections = yield call(getItem, CONNECTIONS)
-    connections = connections ? JSON.parse(connections) : {}
 
     yield call(setItem, CONNECTIONS, JSON.stringify(rest))
     yield put(deleteConnectionSuccess(rest))
   } catch (e) {
-    yield put(deleteConnectionFailure(action.connection, e))
+    yield put(deleteConnectionFailure(connection, e))
   }
 }
 
-export function* watchDeleteConnectionOccurred(): Generator<*, *, *> {
+export function* watchDeleteConnectionOccurred(): any {
   yield takeLatest(DELETE_CONNECTION, deleteConnectionOccurredSaga)
 }
 
@@ -172,6 +171,7 @@ export function* loadNewConnectionSaga(
     myPairwiseAgentDid,
     myPairwiseAgentVerKey,
     myPairwisePeerVerKey,
+    vcxSerializedConnection,
   }: Connection = action.connection.newConnection
 
   try {
@@ -186,9 +186,9 @@ export function* loadNewConnectionSaga(
       myPairwiseAgentDid,
       myPairwiseAgentVerKey,
       myPairwisePeerVerKey,
+      vcxSerializedConnection,
     }
 
-    //TODO:Add a middleware which will periodically save redux store to secure storage.
     let connections = yield call(getItem, CONNECTIONS)
     connections = connections ? JSON.parse(connections) : {}
 
@@ -203,7 +203,7 @@ export function* loadNewConnectionSaga(
   }
 }
 
-export function* watchNewConnection(): Generator<*, *, *> {
+export function* watchNewConnection(): any {
   yield takeLatest(NEW_CONNECTION, loadNewConnectionSaga)
 }
 
@@ -226,21 +226,19 @@ export const getConnection = (
 export const getConnectionLogo = (logoUrl: ?string) =>
   logoUrl ? { uri: logoUrl } : require('../images/cb_evernym.png')
 
-//TODO : fix filteredConnections type
 export const deleteConnectionSuccess = (
-  filteredConnections: GenericObject
+  filteredConnections: Connections
 ): DeleteConnectionSuccessEventAction => ({
   type: DELETE_CONNECTION_SUCCESS,
   filteredConnections,
 })
 
-//TODO : fix connections type
 export const deleteConnectionFailure = (
-  connections: GenericObject,
+  connection: Connection,
   error: CustomError
 ): DeleteConnectionFailureEventAction => ({
   type: DELETE_CONNECTION_FAILURE,
-  connections,
+  connection,
   error,
 })
 

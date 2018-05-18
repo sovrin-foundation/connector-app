@@ -29,3 +29,29 @@ export const vcxProvisionResult = {
   remote_to_sdk_did: userOneTimeInfo.myOneTimeAgentDid,
   remote_to_sdk_verkey: userOneTimeInfo.myOneTimeAgentVerificationKey,
 }
+
+export const vcxConnectionSerialized = JSON.stringify({})
+
+export const serializedClaimOffer = '{}'
+
+export const serializedClaimOffers = JSON.stringify({
+  pairwiseIdentifier1: {
+    uid: serializedClaimOffer,
+  },
+})
+
+export const vcxClaimOffer = {
+  msg_type: 'CLAIM_OFFER',
+  version: '1.0.0',
+  to_did: '8XFh8yBzrpJQmNyZzgoTqB',
+  from_did: 'ha66899sadfjZJGINKN0770',
+  libindy_offer: '',
+  cred_def_id: 'cred_def_id',
+  credential_attrs: {
+    ['Address 1']: ['Address Address Address'],
+    ['Address 2']: ['Address 2 Address 2 Address 2'],
+  },
+  claim_name: 'Home Address',
+  schema_seq_no: 36,
+  claim_id: 'jhkad:97:kkda:jhh',
+}

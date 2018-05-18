@@ -3,6 +3,8 @@
 import type { SMSPendingInvitationPayload } from '../../sms-pending-invitation/type-sms-pending-invitation'
 import type { UserOneTimeInfo } from '../../store/user/type-user-store'
 import type { AgencyPoolConfig } from '../../store/type-config-store'
+import type { GenericObject } from '../../common/type-common'
+import type { ClaimOfferPushPayload } from '../../push-notification/type-push-notification'
 
 export type Metadata = {
   [string]: any,
@@ -127,3 +129,28 @@ export type VcxConnectionConnectResult = {
   their_pw_did: string,
   their_pw_verkey: string,
 }
+
+export type VcxCredentialOfferResult = {
+  credential_handle: number,
+  credential_offer: string,
+}
+
+export type VcxCredentialOffer = {
+  msg_type: string,
+  version: string,
+  to_did: string,
+  from_did: string,
+  libindy_offer: string,
+  cred_def_id: string,
+  credential_attrs: { [string]: Array<string> },
+  schema_seq_no: number,
+  claim_name: string,
+  claim_id: string,
+}
+
+export type CxsCredentialOfferResult = {
+  claimHandle: number,
+  claimOffer: ClaimOfferPushPayload,
+}
+
+export type VcxSendCredentialRequest = {}

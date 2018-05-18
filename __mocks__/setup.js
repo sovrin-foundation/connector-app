@@ -1,4 +1,5 @@
 import React from 'react'
+import { NativeModules } from 'react-native'
 import fetch from './fetch-mock'
 import mockCamera from './camera-mock'
 import mockModal from './modal-mock'
@@ -199,3 +200,12 @@ jest.mock('react-native-image-crop-picker', () => ({
     Promise.resolve({ path: '/var/application/DocumentDir/user-avatar.jpeg' })
   ),
 }))
+
+// Add mock for RNIndy on NativeModules
+// we don't want to mock NativeModules the way we are doing for all above
+// because then we would have to mock everything else as well of NativeModules
+// a lot of other modules depend on it, so we are adding RNIndy
+// which is what we need to mock
+NativeModules.RNIndy = {
+  deserializeConnection: jest.fn(_ => Promise.resolve(1)),
+}

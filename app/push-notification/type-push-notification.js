@@ -114,8 +114,8 @@ export type ClaimOfferPushPayload = {
   version: string,
   to_did: string,
   from_did: string,
-  iid: string,
-  mid: string,
+  iid?: string,
+  mid?: string,
   claim: {
     name: Array<string>,
     date_of_birth: Array<string>,
@@ -124,9 +124,9 @@ export type ClaimOfferPushPayload = {
   claim_name: string,
   schema_seq_no: number,
   issuer_did: string,
-  issuer_name: string,
-  nonce: string,
-  optional_data: GenericObject,
+  issuer_name?: string,
+  nonce?: string,
+  optional_data?: GenericObject,
   remoteName: string,
 }
 

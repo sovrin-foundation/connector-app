@@ -37,6 +37,7 @@ import {
   poolConfig,
   vcxInitializationState,
   vcxInitializationError,
+  configStoreNotHydratedInstalledVcxInit,
 } from './data/config-store-mock-data'
 import { userOneTimeInfo } from './data/user-store-mock-data'
 import { STORE_STATUS } from '../app/wallet/type-wallet'
@@ -56,6 +57,7 @@ export {
   agencyDID,
   agencyVerificationKey,
   poolConfig,
+  configStoreNotHydratedInstalledVcxInit,
 } from './data/config-store-mock-data'
 
 export const senderDid1 = 'senderDID1'
@@ -148,6 +150,8 @@ export const myPairWiseConnectionDetails = {
   myPairwiseVerKey: 'pairwiseVerificationKey1',
 }
 
+export const vcxSerializedConnection = '{someVcxSerializedFormat}'
+
 export const successConnectionData = {
   newConnection: {
     identifier: pairwiseConnection.identifier,
@@ -156,6 +160,8 @@ export const successConnectionData = {
       : '',
     ...(firstInvitationPayload ? firstInvitationPayload.payload : {}),
     ...myPairWiseConnectionDetails,
+    // TODO Add vcxSerializedConnection key once vcx is integrated
+    // vcxSerializedConnection
   },
 }
 
@@ -281,6 +287,20 @@ export const proofRequestData = {
   name: 'Home Address',
   version: '1.0.0',
   requestedAttributes,
+}
+
+export const claimOfferPushAdditionalData = {
+  msg_type: 'CLAIM_OFFER',
+  version: '1.0.0',
+  to_did: '8XFh8yBzrpJQmNyZzgoTqB',
+  from_did: 'ha66899sadfjZJGINKN0770',
+  claim: {
+    ['Address 1']: ['Address Address Address'],
+    ['Address 2']: ['Address 2 Address 2 Address 2'],
+  },
+  claim_name: 'Home Address',
+  schema_seq_no: claimDefinitionSchemaSequenceNumber,
+  remoteName: 'Test Issuer',
 }
 
 export const claimOfferPayload = {
@@ -886,17 +906,7 @@ export function getStore(store?: Store) {
   return {
     getState() {
       return {
-        config: {
-          isHydrated: false,
-          isAlreadyInstalled: true,
-          showErrorAlerts: false,
-          agencyUrl,
-          agencyDID,
-          agencyVerificationKey,
-          poolConfig,
-          vcxInitializationError,
-          vcxInitializationState,
-        },
+        config: configStoreNotHydratedInstalledVcxInit,
         deepLink: {
           error: undefined,
           isLoading: true,
@@ -1081,8 +1091,10 @@ export const activeConnectionThemeSecondary = `rgba(${
   color.actions.button.secondary.rgba
 })`
 
-export const connections = [
-  {
+export const connections = {
+  ['4ej819kkjywdppuje79']: {
+    ...successConnectionData.newConnection,
+    vcxSerializedConnection: '',
     identifier: '4ej819kkjywdppuje79',
     name: 'Test Connection1',
     senderName: 'senderName',
@@ -1091,7 +1103,9 @@ export const connections = [
     size: 100,
     logoUrl: 'https://logourl.com/logo.png',
   },
-  {
+  ['3nj819kkjywdppuje86']: {
+    ...successConnectionData.newConnection,
+    vcxSerializedConnection: '',
     identifier: '3nj819kkjywdppuje86',
     name: 'Test Connection2',
     senderName: 'senderName',
@@ -1100,7 +1114,9 @@ export const connections = [
     size: 100,
     logoUrl: 'https://logourl.com/logo.png',
   },
-  {
+  ['7fj819kkjywdppuje34']: {
+    ...successConnectionData.newConnection,
+    vcxSerializedConnection: '',
     identifier: '7fj819kkjywdppuje34',
     name: 'Test Connection3',
     senderName: 'senderName',
@@ -1109,7 +1125,7 @@ export const connections = [
     size: 100,
     logoUrl: 'https://logourl.com/logo.png',
   },
-]
+}
 
 export const connection = {
   identifier: '90ij8167kkjywdppujer60',
@@ -1240,4 +1256,10 @@ export const walletHistory = {
   error: null,
 }
 
-export { vcxProvisionResult } from './data/vcx-mock-data'
+export {
+  vcxProvisionResult,
+  serializedClaimOffers,
+  serializedClaimOffer,
+  vcxClaimOffer,
+} from './data/vcx-mock-data'
+export { connectionThemes } from './data/connections-mock-data'

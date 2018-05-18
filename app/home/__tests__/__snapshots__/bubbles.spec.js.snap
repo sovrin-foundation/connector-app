@@ -13,7 +13,7 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
       "top": -70,
       "transform": Array [
         Object {
-          "translateY": undefined,
+          "translateY": 300,
         },
       ],
     }

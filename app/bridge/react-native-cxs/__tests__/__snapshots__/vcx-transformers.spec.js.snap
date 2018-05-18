@@ -52,6 +52,27 @@ Object {
 }
 `;
 
+exports[`transformer:VCX convertVcxCredentialOfferToCxsClaimOffer 1`] = `
+Object {
+  "claim": Object {
+    "Address 1": Array [
+      "Address Address Address",
+    ],
+    "Address 2": Array [
+      "Address 2 Address 2 Address 2",
+    ],
+  },
+  "claim_name": "Home Address",
+  "from_did": "ha66899sadfjZJGINKN0770",
+  "issuer_did": "ha66899sadfjZJGINKN0770",
+  "msg_type": "CLAIM_OFFER",
+  "remoteName": "",
+  "schema_seq_no": 36,
+  "to_did": "8XFh8yBzrpJQmNyZzgoTqB",
+  "version": "1.0.0",
+}
+`;
+
 exports[`transformer:VCX convertVcxProvisionResultToUserOneTimeInfo 1`] = `
 Object {
   "myOneTimeAgentDid": "myOneTimeAgentDid",

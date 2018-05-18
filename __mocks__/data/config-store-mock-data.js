@@ -9,3 +9,15 @@ export const poolConfig =
 
 export const vcxInitializationState = 'VCX_INIT_SUCCESS'
 export const vcxInitializationError = null
+
+export const configStoreNotHydratedInstalledVcxInit = {
+  isHydrated: false,
+  isAlreadyInstalled: true,
+  showErrorAlerts: false,
+  agencyUrl,
+  agencyDID,
+  agencyVerificationKey,
+  poolConfig,
+  vcxInitializationError,
+  vcxInitializationState,
+}

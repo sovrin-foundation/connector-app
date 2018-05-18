@@ -37,6 +37,7 @@ import {
   acceptInvitation,
   createConnectionWithInvite,
   acceptInvitationVcx,
+  serializeConnection,
 } from '../bridge/react-native-cxs/RNCxs'
 import type {
   InvitationResponseSendData,
@@ -366,6 +367,18 @@ export function* sendResponseVcx(
 
     yield put(invitationSuccess(senderDID))
 
+    // once the connection is successful, we need to save serialized connection
+    // in secure storage as well, because libIndy does not handle persistence
+    // once we have persisted serialized state, we can hydrate vcx
+    // if we need anything from that connection
+    const vcxSerializedConnection: string = yield call(
+      serializeConnection,
+      connectionHandle
+    )
+    // TODO:KS Above call will probably interfere with showing bubbles as soon as user
+    // is on home screen after accepting connection
+    // there are few more things that we can do, but we are not doing those here for now
+
     const connection = {
       newConnection: {
         identifier: pairwiseInfo.myPairwiseDid,
@@ -375,6 +388,7 @@ export function* sendResponseVcx(
         myPairwiseAgentDid: pairwiseInfo.myPairwiseAgentDid,
         myPairwiseAgentVerKey: pairwiseInfo.myPairwiseAgentVerKey,
         myPairwisePeerVerKey: pairwiseInfo.myPairwisePeerVerKey,
+        vcxSerializedConnection,
         ...payload,
       },
     }

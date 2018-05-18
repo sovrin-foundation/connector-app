@@ -18,6 +18,7 @@ import {
   getNavigation,
   getStore,
   myPairWiseConnectionDetails,
+  vcxSerializedConnection,
 } from '../../../__mocks__/static-data'
 
 function props(claimOfferStatus) {
@@ -31,6 +32,7 @@ function props(claimOfferStatus) {
           senderEndpoint: '34.216.340.155:3000',
           size: 100,
           logoUrl: 'https://logourl.com/logo.png',
+          vcxSerializedConnection,
           ...myPairWiseConnectionDetails,
         },
       },

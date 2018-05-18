@@ -5,7 +5,6 @@ import renderer from 'react-test-renderer'
 import { put, call, select } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import { throwError } from 'redux-saga-test-plan/providers'
 import invitationReducer, {
   invitationReceived,
   sendInvitationResponse,
@@ -39,6 +38,7 @@ import {
   updatePushToken,
   createConnectionWithInvite,
   acceptInvitationVcx,
+  serializeConnection,
 } from '../../bridge/react-native-cxs/RNCxs'
 import {
   ERROR_ALREADY_EXIST,
@@ -51,6 +51,7 @@ import {
   successConnectionData,
   pairwiseConnection,
   myPairWiseConnectionDetails,
+  vcxSerializedConnection,
 } from '../../../__mocks__/static-data'
 import { connectRegisterCreateAgentDone } from '../../store/user/user-store'
 import { VCX_INIT_SUCCESS } from '../../store/type-config-store'
@@ -551,9 +552,20 @@ describe('Invitation Store', () => {
             matchers.call.fn(acceptInvitationVcx, connectionHandle),
             myPairWiseConnectionDetails,
           ],
+          [
+            matchers.call.fn(serializeConnection, connectionHandle),
+            vcxSerializedConnection,
+          ],
         ])
         .put(invitationSuccess(senderDID))
-        .put(saveNewConnection(successConnectionData))
+        .put(
+          saveNewConnection({
+            newConnection: {
+              ...successConnectionData.newConnection,
+              vcxSerializedConnection,
+            },
+          })
+        )
         .run()
     }
   })

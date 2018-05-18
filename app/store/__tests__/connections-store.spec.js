@@ -1,5 +1,9 @@
-import 'react-native'
+// @flow
+import { AsyncStorage } from 'react-native'
 import renderer from 'react-test-renderer'
+import * as matchers from 'redux-saga-test-plan/matchers'
+import { expectSaga } from 'redux-saga-test-plan'
+import { throwError } from 'redux-saga-test-plan/providers'
 
 import connectionReducer, {
   saveNewConnection,
@@ -7,12 +11,26 @@ import connectionReducer, {
   saveNewConnectionFailed,
   connectionMapper,
   deleteConnectionSuccess,
+  deleteConnectionOccurredSaga,
+  deleteConnectionAction,
+  persistThemes,
+  hydrateThemes,
+  removePersistedThemes,
+  hydrateConnectionThemes,
 } from '../connections-store'
 import { bubbleSize } from '../../common/styles'
 import {
   successConnectionData,
   connections,
+  userOneTimeInfo,
+  configStoreNotHydratedInstalledVcxInit,
+  getStore,
+  connectionThemes,
 } from '../../../__mocks__/static-data'
+import { getItem, deleteItem, setItem } from '../../services/secure-storage'
+import { CONNECTIONS } from '../../common'
+import { deleteConnection } from '../../bridge/react-native-cxs/RNCxs'
+import { STORAGE_KEY_THEMES } from '../type-connection-store'
 
 describe('Mapper', () => {
   it('connectionMapper should return proper object', () => {
@@ -31,7 +49,9 @@ describe('Mapper', () => {
 })
 
 describe('connections should update correctly', () => {
-  let initialState = {}
+  let initialState = {
+    data: null,
+  }
   const newConnection = {
     identifier: '6789012345678906789012',
     name: 'test',
@@ -61,8 +81,34 @@ describe('connections should update correctly', () => {
     ).toMatchSnapshot()
   })
 
-  //TODO fix test
-  xit('deleteConnectionOccurredSaga should raise success for deleting connection', () => {})
+  it('saga:deleteConnectionOccurredSaga, success', () => {
+    const connection = successConnectionData.newConnection
+    const stateWithConnection = {
+      connections: {
+        data: {
+          [connection.identifier]: connection,
+        },
+      },
+      user: {
+        userOneTimeInfo,
+      },
+      config: configStoreNotHydratedInstalledVcxInit,
+    }
+
+    return expectSaga(
+      deleteConnectionOccurredSaga,
+      deleteConnectionAction(connection.senderDID)
+    )
+      .withState(stateWithConnection)
+      .provide([
+        [matchers.call.like({ fn: deleteConnection }), true],
+        [matchers.call.fn(setItem, CONNECTIONS, '{}'), true],
+      ])
+      .call.like({ fn: deleteConnection })
+      .call(setItem, CONNECTIONS, '{}')
+      .put(deleteConnectionSuccess({}))
+      .run()
+  })
 
   it('should update connections and store new connection properly', () => {
     const expectedState = {
@@ -104,15 +150,37 @@ describe('connections should update correctly', () => {
     ).toMatchSnapshot()
   })
 
-  // TODO:KS Complete these tests
-  xit('saga:persistThemes, success', () => {})
-  xit('saga:persistThemes, fail', () => {})
+  it('saga:persistThemes, success', async () => {
+    const stateWithThemes = getStore().getState()
+    const result = await expectSaga(persistThemes)
+      .withState(stateWithThemes)
+      .provide([[matchers.call.like({ fn: AsyncStorage.setItem }), true]])
+      .run()
+    expect(result).toMatchSnapshot()
+  })
 
-  xit('saga:hydrateThemes, success', () => {})
-  xit('saga:hydrateThemes, fail', () => {})
+  it('saga:hydrateThemes, success', async () => {
+    const result = await expectSaga(hydrateThemes)
+      .provide([
+        [
+          matchers.call.fn(AsyncStorage.getItem, STORAGE_KEY_THEMES),
+          JSON.stringify(connectionThemes),
+        ],
+      ])
+      .run()
+    expect(result).toMatchSnapshot()
+  })
 
-  xit('saga:removePersistedThemes, success', () => {})
-  xit('saga:removePersistedThemes, fail', () => {})
+  it('saga:removePersistedThemes, success', async () => {
+    const result = await expectSaga(removePersistedThemes).run()
+    expect(result).toMatchSnapshot()
+  })
 
-  xit('ACTION:HYDRATE_CONNECTION_THEMES', () => {})
+  it('ACTION:HYDRATE_CONNECTION_THEMES', () => {
+    const afterThemeHydrationState = connectionReducer(
+      initialState,
+      hydrateConnectionThemes(connectionThemes)
+    )
+    expect(afterThemeHydrationState).toMatchSnapshot()
+  })
 })

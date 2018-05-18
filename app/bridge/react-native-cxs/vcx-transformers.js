@@ -9,10 +9,12 @@ import type {
   VcxPushTokenConfig,
   VcxCreateConnection,
   VcxConnectionConnectResult,
+  VcxCredentialOffer,
 } from './type-cxs'
 import type { UserOneTimeInfo } from '../../store/user/type-user-store'
 import type { InvitationPayload } from '../../invitation/type-invitation'
 import type { MyPairwiseInfo } from '../../store/type-connection-store'
+import type { ClaimOfferPushPayload } from '../../push-notification/type-push-notification'
 
 export function convertAgencyConfigToVcxProvision(
   config: AgencyPoolConfig
@@ -89,5 +91,22 @@ export function convertVcxConnectionToCxsConnection(
     myPairwiseAgentVerKey: vcxConnection.agent_vk,
     myPairwisePeerVerKey: vcxConnection.their_pw_verkey,
     senderDID: vcxConnection.their_pw_did,
+  }
+}
+
+export function convertVcxCredentialOfferToCxsClaimOffer(
+  vcxCredentialOffer: VcxCredentialOffer
+): ClaimOfferPushPayload {
+  return {
+    msg_type: vcxCredentialOffer.msg_type,
+    version: vcxCredentialOffer.version,
+    to_did: vcxCredentialOffer.to_did,
+    from_did: vcxCredentialOffer.from_did,
+    claim: vcxCredentialOffer.credential_attrs,
+    claim_name: vcxCredentialOffer.claim_name,
+    schema_seq_no: vcxCredentialOffer.schema_seq_no,
+    issuer_did: vcxCredentialOffer.from_did,
+    // should override it when generating claim offer object
+    remoteName: '',
   }
 }

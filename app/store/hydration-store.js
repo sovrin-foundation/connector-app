@@ -41,6 +41,10 @@ import {
 import { STORAGE_KEY_USER_ONE_TIME_INFO } from './user/type-user-store'
 import { STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL } from './type-config-store'
 import { HISTORY_EVENT_STORAGE_KEY } from '../connection-history/type-connection-history'
+import {
+  removePersistedSerializedClaimOffersSaga,
+  hydrateSerializedClaimOffersSaga,
+} from '../claim-offer/claim-offer-store'
 
 export const hydrateApp = (isAlreadyInstalled: boolean) => ({
   type: HYDRATE_APP,
@@ -81,6 +85,7 @@ export function* deleteStoredData(): Generator<*, *, *> {
   }
   yield* removePersistedUserSelectedAvatarImage()
   yield* removePersistedThemes()
+  yield* removePersistedSerializedClaimOffersSaga()
 }
 
 export function* appHydration(action: {
@@ -108,6 +113,7 @@ export function* appHydration(action: {
 
     // restore claimMap
     yield* hydrateClaimMapSaga()
+    yield* hydrateSerializedClaimOffersSaga()
     yield put(hydrateAppSuccess())
   } catch (e) {
     yield put(hydrateAppFail(e))

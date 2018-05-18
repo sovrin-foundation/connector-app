@@ -13,48 +13,20 @@ Object {
 }
 `;
 
-exports[`connections should update correctly deleteConnectionOccurredSaga should raise success for deleting connection 1`] = `
+exports[`connections should update correctly ACTION:HYDRATE_CONNECTION_THEMES 1`] = `
 Object {
   "claimMap": null,
   "connectionThemes": Object {
-    "active": Object {
-      "primary": "rgba(133, 191, 67, 1.0)",
-      "secondary": "rgba(133, 191, 67, 0.6)",
-    },
     "default": Object {
-      "primary": "rgba(133, 191, 67, 1.0)",
-      "secondary": "rgba(133, 191, 67, 0.6)",
+      "primary": "rgba(119, 119, 119, 1.0)",
+      "secondary": "rgba(119, 119, 119, 0.6)",
+    },
+    "http://cr0ybot.github.io/ingress-logos/ingress.png": Object {
+      "primary": "rgba(100,200,100,1)",
+      "secondary": "rgba(100,200,100,0.6)",
     },
   },
-  "data": Object {
-    "0": Object {
-      "identifier": "4ej819kkjywdppuje79",
-      "logoUrl": "https://logourl.com/logo.png",
-      "name": "Test Connection1",
-      "remoteConnectionId": "70075yyojywdppuje79",
-      "senderDID": "senderDID",
-      "senderName": "senderName",
-      "size": 100,
-    },
-    "1": Object {
-      "identifier": "3nj819kkjywdppuje86",
-      "logoUrl": "https://logourl.com/logo.png",
-      "name": "Test Connection2",
-      "remoteConnectionId": "70075yyojywdppuje79",
-      "senderDID": "senderDID",
-      "senderName": "senderName",
-      "size": 100,
-    },
-    "2": Object {
-      "identifier": "7fj819kkjywdppuje34",
-      "logoUrl": "https://logourl.com/logo.png",
-      "name": "Test Connection3",
-      "remoteConnectionId": "70075yyojywdppuje79",
-      "senderDID": "senderDID",
-      "senderName": "senderName",
-      "size": 100,
-    },
-  },
+  "data": null,
   "error": Object {
     "code": "",
     "message": "",
@@ -74,32 +46,128 @@ Object {
     },
   },
   "data": Object {
-    "0": Object {
-      "identifier": "4ej819kkjywdppuje79",
-      "logoUrl": "https://logourl.com/logo.png",
-      "name": "Test Connection1",
-      "remoteConnectionId": "70075yyojywdppuje79",
-      "senderDID": "senderDID",
-      "senderName": "senderName",
-      "size": 100,
-    },
-    "1": Object {
+    "3nj819kkjywdppuje86": Object {
       "identifier": "3nj819kkjywdppuje86",
       "logoUrl": "https://logourl.com/logo.png",
+      "myPairwiseAgentDid": "myPairwiseAgentDID",
+      "myPairwiseAgentVerKey": "myPairwiseAgentVerKey",
+      "myPairwiseDid": "pairwiseIdentifier1",
+      "myPairwisePeerVerKey": "senderVerificationKey1",
+      "myPairwiseVerKey": "pairwiseVerificationKey1",
       "name": "Test Connection2",
       "remoteConnectionId": "70075yyojywdppuje79",
+      "requestId": "requestId1",
+      "senderAgencyDetail": Object {
+        "DID": "senderDID1",
+        "endpoint": "endpoint",
+        "verKey": "senderVerificationKey1",
+      },
+      "senderAgentKeyDelegationProof": Object {
+        "agentDID": "senderAgentDID1",
+        "agentDelegatedKey": "agentDelegatedKey",
+        "signature": "signature",
+      },
       "senderDID": "senderDID",
+      "senderDetail": Object {
+        "DID": "senderDID1",
+        "agentKeyDlgProof": Object {
+          "agentDID": "senderAgentDID1",
+          "agentDelegatedKey": "agentDelegatedKey",
+          "signature": "signature",
+        },
+        "logoUrl": "http://testissuer.com/logoUrl.png",
+        "name": "sender1",
+        "verKey": "senderVerificationKey1",
+      },
+      "senderEndpoint": "endpoint",
+      "senderLogoUrl": "lu",
       "senderName": "senderName",
+      "senderVerificationKey": "sVk",
       "size": 100,
+      "targetName": "target name",
+      "vcxSerializedConnection": "",
     },
-    "2": Object {
+    "4ej819kkjywdppuje79": Object {
+      "identifier": "4ej819kkjywdppuje79",
+      "logoUrl": "https://logourl.com/logo.png",
+      "myPairwiseAgentDid": "myPairwiseAgentDID",
+      "myPairwiseAgentVerKey": "myPairwiseAgentVerKey",
+      "myPairwiseDid": "pairwiseIdentifier1",
+      "myPairwisePeerVerKey": "senderVerificationKey1",
+      "myPairwiseVerKey": "pairwiseVerificationKey1",
+      "name": "Test Connection1",
+      "remoteConnectionId": "70075yyojywdppuje79",
+      "requestId": "requestId1",
+      "senderAgencyDetail": Object {
+        "DID": "senderDID1",
+        "endpoint": "endpoint",
+        "verKey": "senderVerificationKey1",
+      },
+      "senderAgentKeyDelegationProof": Object {
+        "agentDID": "senderAgentDID1",
+        "agentDelegatedKey": "agentDelegatedKey",
+        "signature": "signature",
+      },
+      "senderDID": "senderDID",
+      "senderDetail": Object {
+        "DID": "senderDID1",
+        "agentKeyDlgProof": Object {
+          "agentDID": "senderAgentDID1",
+          "agentDelegatedKey": "agentDelegatedKey",
+          "signature": "signature",
+        },
+        "logoUrl": "http://testissuer.com/logoUrl.png",
+        "name": "sender1",
+        "verKey": "senderVerificationKey1",
+      },
+      "senderEndpoint": "endpoint",
+      "senderLogoUrl": "lu",
+      "senderName": "senderName",
+      "senderVerificationKey": "sVk",
+      "size": 100,
+      "targetName": "target name",
+      "vcxSerializedConnection": "",
+    },
+    "7fj819kkjywdppuje34": Object {
       "identifier": "7fj819kkjywdppuje34",
       "logoUrl": "https://logourl.com/logo.png",
+      "myPairwiseAgentDid": "myPairwiseAgentDID",
+      "myPairwiseAgentVerKey": "myPairwiseAgentVerKey",
+      "myPairwiseDid": "pairwiseIdentifier1",
+      "myPairwisePeerVerKey": "senderVerificationKey1",
+      "myPairwiseVerKey": "pairwiseVerificationKey1",
       "name": "Test Connection3",
       "remoteConnectionId": "70075yyojywdppuje79",
+      "requestId": "requestId1",
+      "senderAgencyDetail": Object {
+        "DID": "senderDID1",
+        "endpoint": "endpoint",
+        "verKey": "senderVerificationKey1",
+      },
+      "senderAgentKeyDelegationProof": Object {
+        "agentDID": "senderAgentDID1",
+        "agentDelegatedKey": "agentDelegatedKey",
+        "signature": "signature",
+      },
       "senderDID": "senderDID",
+      "senderDetail": Object {
+        "DID": "senderDID1",
+        "agentKeyDlgProof": Object {
+          "agentDID": "senderAgentDID1",
+          "agentDelegatedKey": "agentDelegatedKey",
+          "signature": "signature",
+        },
+        "logoUrl": "http://testissuer.com/logoUrl.png",
+        "name": "sender1",
+        "verKey": "senderVerificationKey1",
+      },
+      "senderEndpoint": "endpoint",
+      "senderLogoUrl": "lu",
       "senderName": "senderName",
+      "senderVerificationKey": "sVk",
       "size": 100,
+      "targetName": "target name",
+      "vcxSerializedConnection": "",
     },
   },
   "error": Object {
@@ -108,6 +176,84 @@ Object {
   },
   "isFetching": false,
   "isPristine": true,
+}
+`;
+
+exports[`connections should update correctly saga:hydrateThemes, success 1`] = `
+Object {
+  "call": Array [
+    Object {
+      "@@redux-saga/IO": true,
+      "CALL": Object {
+        "args": Array [
+          "STORAGE_KEY_THEMES",
+        ],
+        "context": null,
+        "fn": "@@redux-saga-test-plan/json/function/getItem",
+      },
+    },
+  ],
+  "put": Array [
+    Object {
+      "@@redux-saga/IO": true,
+      "PUT": Object {
+        "action": Object {
+          "themes": Object {
+            "http://cr0ybot.github.io/ingress-logos/ingress.png": Object {
+              "primary": "rgba(100,200,100,1)",
+              "secondary": "rgba(100,200,100,0.6)",
+            },
+          },
+          "type": "HYDRATE_CONNECTION_THEMES",
+        },
+        "channel": null,
+      },
+    },
+  ],
+}
+`;
+
+exports[`connections should update correctly saga:persistThemes, success 1`] = `
+Object {
+  "call": Array [
+    Object {
+      "@@redux-saga/IO": true,
+      "CALL": Object {
+        "args": Array [
+          "STORAGE_KEY_THEMES",
+          "{\\"default\\":{\\"primary\\":\\"rgba(119, 119, 119, 1.0)\\",\\"secondary\\":\\"rgba(119, 119, 119, 0.6)\\"}}",
+        ],
+        "context": null,
+        "fn": "@@redux-saga-test-plan/json/function/setItem",
+      },
+    },
+  ],
+  "select": Array [
+    Object {
+      "@@redux-saga/IO": true,
+      "SELECT": Object {
+        "args": Array [],
+        "selector": "@@redux-saga-test-plan/json/function/getThemes",
+      },
+    },
+  ],
+}
+`;
+
+exports[`connections should update correctly saga:removePersistedThemes, success 1`] = `
+Object {
+  "call": Array [
+    Object {
+      "@@redux-saga/IO": true,
+      "CALL": Object {
+        "args": Array [
+          "STORAGE_KEY_THEMES",
+        ],
+        "context": null,
+        "fn": "@@redux-saga-test-plan/json/function/removeItem",
+      },
+    },
+  ],
 }
 `;
 

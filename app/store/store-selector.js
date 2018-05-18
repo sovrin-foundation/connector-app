@@ -185,3 +185,20 @@ export const getThemes = (state: Store) => state.connections.connectionThemes
 
 export const getVcxInitializationState = (state: Store) =>
   state.config.vcxInitializationState
+
+export const getSerializedClaimOffers = (state: Store) =>
+  state.claimOffer.vcxSerializedClaimOffers
+
+export const getSerializedClaimOffer = (
+  state: Store,
+  userDID: string,
+  messageId: string
+) => {
+  const userClaimOffers = state.claimOffer.vcxSerializedClaimOffers[userDID]
+  if (!userClaimOffers) {
+    // we did not find any claim offers with user pairwise did (userDID)
+    return null
+  }
+
+  return userClaimOffers[messageId]
+}

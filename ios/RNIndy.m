@@ -589,7 +589,86 @@ RCT_EXPORT_METHOD(reset:
   });
 }
 
-// Init
+RCT_EXPORT_METHOD(getSerializedConnection: (NSInteger)connectionHandle
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  // TODO call vcx_connection_serialize and pass connectionHandle
+  // it would return a string
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    resolve(@"{}");
+  });
+}
+
+RCT_EXPORT_METHOD(deserializeConnection: (NSString *)serializedConnection
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  // TODO call vcx_connection_deserialize and pass serializedConnection
+  // it would return an error code and an integer connection handle in callback
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    resolve(@1);
+  });
+}
+
+RCT_EXPORT_METHOD(credentialCreateWithMsgId: (NSString *) sourceId
+                  withConnectionHandle: (NSInteger) connectionHandle
+                  withMessageId: (NSString *) messageId
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  // TODO call vcx_credential_create_with_msgid
+  // pass sourceId, connectionHandle, & messageId
+  // it would return an error code, an integer credential handle, a json string of credential offer in callback
+  // notice that we are returning a Map from here, not string or error code
+  // JavaScript layer is expecting a map with two keys defined below
+  // with one as an integer and another as json string of claim offer received from vcx
+  NSDictionary* vcxCredentialCreateResult = @{
+                                              @"credential_handle": @2,
+                                              @"credential_offer": @"{\"msg_type\":\"CLAIM_OFFER\",\"version\":\"1.0.0\",\"to_did\":\"8XFh8yBzrpJQmNyZzgoTqB\",\"from_did\":\"ha66899sadfjZJGINKN0770\",\"libindy_offer\":\"\",\"cred_def_id\":\"cred_def_id\",\"credential_attrs\":{\"Address 1\":[\"Address Address Address\"],\"Address 2\":[\"Address 2 Address 2 Address 2\"]},\"claim_name\":\"Home Address\",\"schema_seq_no\":36,\"claim_id\":\"jhkad:97:kkda:jhh\"}"
+                                              };
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    resolve(vcxCredentialCreateResult);
+  });
+}
+
+RCT_EXPORT_METHOD(serializeClaimOffer: (NSInteger)credentialHandle
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  // TODO call vcx_credential_serialize and pass credentialHandle
+  // it would return error code, json string of credential inside callback
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    resolve(@"{}");
+  });
+}
+
+RCT_EXPORT_METHOD(deserializeClaimOffer: (NSString *)serializedCredential
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  // TODO call vcx_credential_deserialize and pass serializedCredential
+  // it would return an error code and an integer credential handle in callback
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    resolve(@2);
+  });
+}
+
+RCT_EXPORT_METHOD(sendClaimRequest: (NSString *)credentialHandle
+                  withConnectionHandle: (NSInteger *)connectionHandle
+                  withPaymentHandle: (NSInteger *)paymentHandle
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  // TODO call vcx_credential_send_request and pass credentialHandle, connectionHandle, paymentHandle
+  // it would return an error code in callback
+  // we resolve promise with an empty string after success
+  // or reject promise with error code
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    resolve(@"");
+  });
+}
+
 RCT_EXPORT_METHOD(initWithConfig: (NSString *)config
               resolver: (RCTPromiseResolveBlock) resolve
               rejecter: (RCTPromiseRejectBlock) reject)
@@ -607,7 +686,6 @@ RCT_EXPORT_METHOD(initWithConfig: (NSString *)config
   }
 }
 
-// Create one time info
 RCT_EXPORT_METHOD(createOneTimeInfo: (NSString *)config
                            resolver: (RCTPromiseResolveBlock) resolve
                            rejecter: (RCTPromiseRejectBlock) reject)
@@ -625,7 +703,6 @@ RCT_EXPORT_METHOD(createOneTimeInfo: (NSString *)config
   }
 }
 
-// Create connection with invite
 RCT_EXPORT_METHOD(createConnectionWithInvite: (NSString *)invitationId
                                inviteDetails: (NSString *)inviteDetails
                                     resolver: (RCTPromiseResolveBlock) resolve
@@ -644,7 +721,6 @@ RCT_EXPORT_METHOD(createConnectionWithInvite: (NSString *)invitationId
   }
 }
 
-// Accept connection invitation
 RCT_EXPORT_METHOD(acceptInvitation: (NSString *)connectionHandle
                     connectionType: (NSString *)connectionType
                           resolver: (RCTPromiseResolveBlock) resolve
@@ -663,7 +739,6 @@ RCT_EXPORT_METHOD(acceptInvitation: (NSString *)connectionHandle
   }
 }
 
-// Update push token
 RCT_EXPORT_METHOD(updatePushToken: (NSString *)config
                          resolver: (RCTPromiseResolveBlock) resolve
                          rejecter: (RCTPromiseRejectBlock) reject)
@@ -681,7 +756,6 @@ RCT_EXPORT_METHOD(updatePushToken: (NSString *)config
   }
 }
 
-// Generate proof
 RCT_EXPORT_METHOD(generateProof: (NSString *)proofRequestId
                  requestedAttrs: (NSString *)requestedAttrs
             requestedPredicates: (NSString *)requestedPredicates

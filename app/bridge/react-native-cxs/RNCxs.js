@@ -1,5 +1,6 @@
 // @flow
 import { NativeModules } from 'react-native'
+import memoize from 'lodash.memoize'
 import type {
   Metadata,
   IndyClaimOffer,
@@ -8,6 +9,7 @@ import type {
   CreateOneTimeAgentResponse,
   CreatePairwiseAgentResponse,
   AcceptInvitationResponse,
+  CxsCredentialOfferResult,
 } from './type-cxs'
 import type { InvitationPayload } from '../../invitation/type-invitation'
 import {
@@ -17,6 +19,7 @@ import {
   convertCxsPushConfigToVcxPushTokenConfig,
   convertInvitationToVcxConnectionCreate,
   convertVcxConnectionToCxsConnection,
+  convertVcxCredentialOfferToCxsClaimOffer,
 } from './vcx-transformers'
 import type {
   VcxProvisionResult,
@@ -24,10 +27,13 @@ import type {
   CxsInitConfig,
   CxsPushTokenConfig,
   VcxConnectionConnectResult,
+  VcxCredentialOfferResult,
+  VcxCredentialOffer,
 } from './type-cxs'
 import type { UserOneTimeInfo } from '../../store/user/type-user-store'
 import type { AgencyPoolConfig } from '../../store/type-config-store'
 import type { MyPairwiseInfo } from '../../store/type-connection-store'
+import type { ClaimOfferPushPayload } from '../../push-notification/type-push-notification'
 import type { WalletHistoryEvent } from '../../wallet/type-wallet'
 
 const { RNIndy } = NativeModules
@@ -527,9 +533,78 @@ export async function createConnectionWithInvite(
   return connectionHandle
 }
 
-export async function downloadClaimOffer() {
-  // TODO:KS Complete signature as per vcx
-  // Add these methods in Java & objective-c wrapper
+export async function serializeConnection(
+  connectionHandle: number
+): Promise<string> {
+  const serializedConnection: string = await RNIndy.getSerializedConnection(
+    connectionHandle
+  )
+
+  return serializedConnection
+}
+
+// cache Promise of serializedString so that we don't call Bridge method again
+export const getHandleBySerializedConnection = memoize(async function(
+  serializedConnection: string
+): Promise<number> {
+  const connectionHandle: number = await RNIndy.deserializeConnection(
+    serializedConnection
+  )
+
+  return connectionHandle
+})
+
+export async function downloadClaimOffer(
+  connectionHandle: number,
+  sourceId: string,
+  messageId: string
+): Promise<CxsCredentialOfferResult> {
+  const {
+    credential_offer,
+    credential_handle,
+  }: VcxCredentialOfferResult = await RNIndy.credentialCreateWithMsgId(
+    sourceId,
+    connectionHandle,
+    messageId
+  )
+  const vcxCredentialOffer: VcxCredentialOffer = JSON.parse(credential_offer)
+
+  return {
+    claimHandle: credential_handle,
+    claimOffer: convertVcxCredentialOfferToCxsClaimOffer(vcxCredentialOffer),
+  }
+}
+
+export async function serializeClaimOffer(
+  claimHandle: number
+): Promise<string> {
+  const serializedClaimOffer: string = await RNIndy.serializeClaimOffer(
+    claimHandle
+  )
+
+  return serializedClaimOffer
+}
+
+export const getClaimHandleBySerializedClaimOffer = memoize(async function(
+  serializedClaimOffer
+): Promise<number> {
+  const claimHandle: number = await RNIndy.deserializeClaimOffer(
+    serializedClaimOffer
+  )
+
+  return claimHandle
+})
+
+export async function sendClaimRequest(
+  claimHandle: number,
+  connectionHandle: number,
+  paymentHandle: number
+): Promise<void> {
+  return await RNIndy.sendClaimRequest(
+    claimHandle,
+    connectionHandle,
+    paymentHandle
+  )
 }
 
 export async function downloadClaim() {
@@ -583,10 +658,10 @@ export async function getZippedWalletBackupPath({
   documentDirectory: string,
   agencyConfig: AgencyPoolConfig,
 }): Promise<string> {
-  const backup = await RNIndy.backupWallet(
+  const backupPath = await RNIndy.backupWallet(
     documentDirectory,
     JSON.stringify(agencyConfig)
   )
 
-  return backup // exposes the zip file path to the user
+  return backupPath
 }

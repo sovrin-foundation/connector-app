@@ -89,6 +89,14 @@ export type ClaimRequestInitialAction = {
   type: typeof INITIAL_ACTION,
 }
 
+export const ADD_SERIALIZED_CLAIM_OFFER = 'ADD_SERIALIZED_CLAIM_OFFER'
+export type AddSerializedClaimOfferAction = {
+  type: typeof ADD_SERIALIZED_CLAIM_OFFER,
+  serializedClaimOffer: string,
+  userDID: string,
+  messageId: string,
+}
+
 export type ClaimOfferAction =
   | ClaimOfferReceivedAction
   | ClaimOfferFailedAction
@@ -99,6 +107,8 @@ export type ClaimOfferAction =
   | ClaimRequestSuccessAction
   | ClaimRequestFailAction
   | ClaimRequestInitialAction
+  | AddSerializedClaimOfferAction
+  | HydrateSerializedClaimOffersSuccessAction
   | ResetAction
 
 // Assumption is that paid claim will have payTokenValue in ClaimOfferPayload/claimOfferData. CO-1329
@@ -111,8 +121,17 @@ export type ClaimOfferPayload = AdditionalDataPayload & {
   payTokenValue?: ?string,
 }
 
+export type SerializedClaimOffers = {
+  +[userDID: string]: {
+    +[messageId: string]: string,
+  },
+}
+
 export type ClaimOfferStore = {
   +[string]: ClaimOfferPayload,
+  // serialized offer are organized by user did so that we can directly
+  // take all of offers for a connection and run update_state on all of them
+  +vcxSerializedClaimOffers: SerializedClaimOffers,
 }
 
 export type ClaimOfferProps = {
@@ -164,3 +183,47 @@ export type ClaimOfferResponse = {
 export type ClaimOfferAttributeListProps = {
   list: Array<Attribute>,
 }
+
+export const SAVE_SERIALIZED_CLAIM_OFFERS_SUCCESS =
+  'SAVE_SERIALIZED_CLAIM_OFFERS_SUCCESS'
+export const SAVE_SERIALIZED_CLAIM_OFFERS_FAIL =
+  'SAVE_SERIALIZED_CLAIM_OFFERS_FAIL'
+export const ERROR_SAVE_SERIALIZED_CLAIM_OFFERS = (message: string) => ({
+  code: 'CO-001',
+  message: `Error saving serialized claim offers: ${message}`,
+})
+
+export const REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS =
+  'REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS'
+export const REMOVE_SERIALIZED_CLAIM_OFFERS_FAIL =
+  'REMOVE_SERIALIZED_CLAIM_OFFERS_FAIL'
+export const ERROR_REMOVE_SERIALIZED_CLAIM_OFFERS = (message: string) => ({
+  code: 'CO-002',
+  message: `Error removing persisted serialized claim offers: ${message}`,
+})
+
+export const HYDRATE_SERIALIZED_CLAIM_OFFERS_SUCCESS =
+  'HYDRATE_SERIALIZED_CLAIM_OFFERS_SUCCESS'
+export type HydrateSerializedClaimOffersSuccessAction = {
+  type: typeof HYDRATE_SERIALIZED_CLAIM_OFFERS_SUCCESS,
+  serializedClaimOffers: SerializedClaimOffers,
+}
+
+export const HYDRATE_SERIALIZED_CLAIM_OFFERS_FAIL =
+  'HYDRATE_SERIALIZED_CLAIM_OFFERS_FAIL'
+export const ERROR_HYDRATE_SERIALIZED_CLAIM_OFFERS = (message: string) => ({
+  code: 'CO-003',
+  message: `Error hydrating serialized claim offers: ${message}`,
+})
+
+export const KEY_SERIALIZED_CLAIM_OFFERS = 'KEY_SERIALIZED_CLAIM_OFFERS'
+
+export const ERROR_NO_SERIALIZED_CLAIM_OFFER = (message: string) => ({
+  code: 'CO-004',
+  message: `No serialized claim offer found with this message id: ${message}`,
+})
+
+export const ERROR_SEND_CLAIM_REQUEST = (message: string) => ({
+  code: 'CO-005',
+  message: `Error occurred while trying to send/generate claim request: ${message}`,
+})

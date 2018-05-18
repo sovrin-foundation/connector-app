@@ -1,5 +1,81 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`claim offer store action: ADD_SERIALIZED_CLAIM_OFFER 1`] = `
+Object {
+  "usd123": Object {
+    "claimRequestStatus": "CLAIM_REQUEST_FAIL",
+    "data": Object {
+      "claimDefinitionSchemaSequenceNumber": 36,
+      "name": "Home Address",
+      "revealedAttributes": Array [
+        Object {
+          "data": "Address Address Address",
+          "label": "Address 1",
+        },
+        Object {
+          "data": "Address 2 Address 2 Address 2",
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "error": null,
+    "issuer": Object {
+      "did": "issuerDid",
+      "name": "Test Issuer",
+    },
+    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "status": "ACCEPTED",
+    "statusMsg": "pending",
+    "uid": "usd123",
+  },
+  "vcxSerializedClaimOffers": Object {
+    "pairwiseIdentifier1": Object {
+      "usd123": "{}",
+    },
+  },
+}
+`;
+
+exports[`claim offer store action: HYDRATE_SERIALIZED_CLAIM_OFFERS_SUCCESS 1`] = `
+Object {
+  "usd123": Object {
+    "claimRequestStatus": "CLAIM_REQUEST_FAIL",
+    "data": Object {
+      "claimDefinitionSchemaSequenceNumber": 36,
+      "name": "Home Address",
+      "revealedAttributes": Array [
+        Object {
+          "data": "Address Address Address",
+          "label": "Address 1",
+        },
+        Object {
+          "data": "Address 2 Address 2 Address 2",
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "error": null,
+    "issuer": Object {
+      "did": "issuerDid",
+      "name": "Test Issuer",
+    },
+    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+    "status": "ACCEPTED",
+    "statusMsg": "pending",
+    "uid": "usd123",
+  },
+  "vcxSerializedClaimOffers": Object {
+    "pairwiseIdentifier1": Object {
+      "uid": "{}",
+    },
+  },
+}
+`;
+
 exports[`claim offer store claim offer is accepted 1`] = `
 Object {
   "usd123": Object {
@@ -30,6 +106,7 @@ Object {
     "statusMsg": "pending",
     "uid": "usd123",
   },
+  "vcxSerializedClaimOffers": Object {},
 }
 `;
 
@@ -63,6 +140,7 @@ Object {
     "statusMsg": "pending",
     "uid": "usd123",
   },
+  "vcxSerializedClaimOffers": Object {},
 }
 `;
 
@@ -96,6 +174,7 @@ Object {
     "statusMsg": "pending",
     "uid": "usd123",
   },
+  "vcxSerializedClaimOffers": Object {},
 }
 `;
 
@@ -129,6 +208,7 @@ Object {
     "statusMsg": "pending",
     "uid": "usd123",
   },
+  "vcxSerializedClaimOffers": Object {},
 }
 `;
 
@@ -162,6 +242,7 @@ Object {
     "statusMsg": "pending",
     "uid": "usd123",
   },
+  "vcxSerializedClaimOffers": Object {},
 }
 `;
 
@@ -195,6 +276,7 @@ Object {
     "statusMsg": "pending",
     "uid": "usd123",
   },
+  "vcxSerializedClaimOffers": Object {},
 }
 `;
 
@@ -228,6 +310,7 @@ Object {
     "statusMsg": "pending",
     "uid": "usd123",
   },
+  "vcxSerializedClaimOffers": Object {},
 }
 `;
 
@@ -261,12 +344,21 @@ Object {
     "statusMsg": "pending",
     "uid": "usd123",
   },
+  "vcxSerializedClaimOffers": Object {},
 }
 `;
 
-exports[`claim offer store should correctly calculate initial state 1`] = `Object {}`;
+exports[`claim offer store should correctly calculate initial state 1`] = `
+Object {
+  "vcxSerializedClaimOffers": Object {},
+}
+`;
 
-exports[`claim offer store should reset claim offer store, if RESET action is raised 1`] = `Object {}`;
+exports[`claim offer store should reset claim offer store, if RESET action is raised 1`] = `
+Object {
+  "vcxSerializedClaimOffers": Object {},
+}
+`;
 
 exports[`convertClaimRequestToEdgeClaimRequest should convert correctly 1`] = `
 Object {

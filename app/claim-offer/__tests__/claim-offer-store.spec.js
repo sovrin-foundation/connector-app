@@ -11,8 +11,22 @@ import claimOfferStore, {
   claimOfferAccepted,
   acceptClaimOffer,
   convertClaimRequestToEdgeClaimRequest,
+  addSerializedClaimOffer,
+  hydrateSerializedClaimOffers,
+  saveSerializedClaimOffersSaga,
+  removePersistedSerializedClaimOffersSaga,
+  hydrateSerializedClaimOffersSaga,
+  saveSerializedClaimOffer,
+  claimOfferAcceptedVcx,
 } from '../claim-offer-store'
-import { CLAIM_OFFER_ACCEPTED } from '../type-claim-offer'
+import {
+  CLAIM_OFFER_ACCEPTED,
+  KEY_SERIALIZED_CLAIM_OFFERS,
+  SAVE_SERIALIZED_CLAIM_OFFERS_SUCCESS,
+  SAVE_SERIALIZED_CLAIM_OFFERS_FAIL,
+  ERROR_SAVE_SERIALIZED_CLAIM_OFFERS,
+  REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS,
+} from '../type-claim-offer'
 import { INITIAL_TEST_ACTION } from '../../common/type-common'
 import type { ClaimOfferAcceptedAction } from '../type-claim-offer'
 import {
@@ -27,6 +41,9 @@ import {
 import {
   generateClaimRequest,
   sendMessage,
+  serializeClaimOffer,
+  getHandleBySerializedConnection,
+  getClaimHandleBySerializedClaimOffer,
 } from '../../bridge/react-native-cxs/RNCxs'
 import {
   CLAIM_STORAGE_FAIL,
@@ -40,12 +57,23 @@ import {
   claimRequest,
   claimOfferPayload,
   poolConfig,
+  serializedClaimOffers,
+  serializedClaimOffer,
+  vcxSerializedConnection,
 } from '../../../__mocks__/static-data'
+import { expectSaga } from 'redux-saga-test-plan'
+import * as matchers from 'redux-saga-test-plan/matchers'
+import { throwError } from 'redux-saga-test-plan/providers'
+import { setItem, deleteItem, getItem } from '../../services/secure-storage'
 
 describe('claim offer store', () => {
   const initialAction = { type: 'INITIAL_TEST_ACTION' }
-  let initialState = {}
-  let newState = {}
+  let initialState = {
+    vcxSerializedClaimOffers: {},
+  }
+  let newState = {
+    vcxSerializedClaimOffers: {},
+  }
 
   beforeEach(() => {
     initialState = claimOfferStore(undefined, initialAction)
@@ -103,6 +131,18 @@ describe('claim offer store', () => {
         code: 'TEST-100',
         message: 'Claim request failed',
       })
+    )
+    expect(newState).toMatchSnapshot()
+  })
+
+  it('action: ADD_SERIALIZED_CLAIM_OFFER', () => {
+    newState = claimOfferStore(
+      newState,
+      addSerializedClaimOffer(
+        serializedClaimOffer,
+        pairwiseConnection.identifier,
+        uid
+      )
     )
     expect(newState).toMatchSnapshot()
   })
@@ -234,6 +274,160 @@ describe('claim offer store', () => {
 
   it('should reset claim offer store, if RESET action is raised', () => {
     expect(claimOfferStore(newState, { type: 'RESET' })).toMatchSnapshot()
+  })
+
+  it('action: HYDRATE_SERIALIZED_CLAIM_OFFERS_SUCCESS', () => {
+    newState = claimOfferStore(
+      newState,
+      hydrateSerializedClaimOffers(JSON.parse(serializedClaimOffers))
+    )
+    expect(newState).toMatchSnapshot()
+  })
+
+  it('saga: saveSerializedClaimOfferSaga, success', () => {
+    return expectSaga(
+      saveSerializedClaimOffersSaga,
+      addSerializedClaimOffer(
+        serializedClaimOffer,
+        pairwiseConnection.identifier,
+        uid
+      )
+    )
+      .withState({ claimOffer: { vcxSerializedClaimOffers: {} } })
+      .call(setItem, KEY_SERIALIZED_CLAIM_OFFERS, '{}')
+      .put({ type: SAVE_SERIALIZED_CLAIM_OFFERS_SUCCESS })
+      .run()
+  })
+
+  it('saga: saveSerializedClaimOfferSaga, fail', () => {
+    const errorMessage = 'test error'
+    const failSaveSerializedClaimOffers = new Error(errorMessage)
+
+    return expectSaga(
+      saveSerializedClaimOffersSaga,
+      addSerializedClaimOffer(
+        serializedClaimOffer,
+        pairwiseConnection.identifier,
+        uid
+      )
+    )
+      .withState({ claimOffer: { vcxSerializedClaimOffers: {} } })
+      .provide([
+        [
+          matchers.call.fn(setItem, KEY_SERIALIZED_CLAIM_OFFERS, '{}'),
+          throwError(failSaveSerializedClaimOffers),
+        ],
+      ])
+      .put({
+        type: SAVE_SERIALIZED_CLAIM_OFFERS_FAIL,
+        error: ERROR_SAVE_SERIALIZED_CLAIM_OFFERS(errorMessage),
+      })
+      .run()
+  })
+
+  it('saga: removePersistedSerializedClaimOffersSaga, success', () => {
+    return expectSaga(removePersistedSerializedClaimOffersSaga)
+      .call(deleteItem, KEY_SERIALIZED_CLAIM_OFFERS)
+      .put({
+        type: REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS,
+      })
+      .run()
+  })
+
+  it('saga: hydrateSerializedClaimOffersSaga, success', () => {
+    return expectSaga(hydrateSerializedClaimOffersSaga)
+      .provide([
+        [
+          matchers.call.fn(getItem, KEY_SERIALIZED_CLAIM_OFFERS),
+          serializedClaimOffers,
+        ],
+      ])
+      .put(hydrateSerializedClaimOffers(JSON.parse(serializedClaimOffers)))
+      .run()
+  })
+
+  it('saga: claimOfferAcceptedVcx, success', () => {
+    const claimOfferPayload = {
+      ...claimOffer.payload,
+      ...claimOffer.payloadInfo,
+    }
+    const userDID = pairwiseConnection.identifier
+    const stateWithClaimOfferAndSerialized = {
+      claimOffer: {
+        [uid]: claimOfferPayload,
+        vcxSerializedClaimOffers: {
+          [userDID]: {
+            [uid]: serializedClaimOffer,
+          },
+        },
+      },
+      connections: {
+        data: {
+          [userDID]: {
+            ...pairwiseConnection,
+            senderDID: claimOfferPayload.remotePairwiseDID,
+            vcxSerializedConnection: vcxSerializedConnection,
+          },
+        },
+      },
+    }
+    const claimHandle = 1
+    const connectionHandle = 1
+    const paymentHandle = 1
+
+    return expectSaga(claimOfferAcceptedVcx, acceptClaimOffer(uid))
+      .withState(stateWithClaimOfferAndSerialized)
+      .provide([
+        [
+          matchers.call.fn(
+            getHandleBySerializedConnection,
+            vcxSerializedConnection
+          ),
+          connectionHandle,
+        ],
+        [
+          matchers.call.fn(
+            getClaimHandleBySerializedClaimOffer,
+            serializedClaimOffer
+          ),
+          claimHandle,
+        ],
+      ])
+      .dispatch({ type: CLAIM_STORAGE_SUCCESS, messageId: uid })
+      .call(sendClaimRequest, claimHandle, connectionHandle, paymentHandle)
+      .fork(
+        saveSerializedClaimOffer,
+        claimHandle,
+        pairwiseConnection.identifier,
+        uid
+      )
+      .put(sendClaimRequest(uid, claimOfferPayload))
+      .put(claimRequestSuccess(uid))
+      .run()
+  })
+
+  it('saga: saveSerializedClaimOffer', () => {
+    const claimHandle = 1
+    return expectSaga(
+      saveSerializedClaimOffer,
+      claimHandle,
+      pairwiseConnection.identifier,
+      uid
+    )
+      .provide([
+        [
+          matchers.call.fn(serializeClaimOffer, claimHandle),
+          serializedClaimOffer,
+        ],
+      ])
+      .put(
+        addSerializedClaimOffer(
+          serializedClaimOffer,
+          pairwiseConnection.identifier,
+          uid
+        )
+      )
+      .run()
   })
 })
 

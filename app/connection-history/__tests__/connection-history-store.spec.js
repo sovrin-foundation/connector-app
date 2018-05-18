@@ -285,9 +285,6 @@ describe('Store: ConnectionHistory', () => {
     ).toMatchSnapshot()
   })
 
-  //TODO : fix this test
-  xit('convertConnectionSuccessToHistoryEvent should raise success', () => {})
-
   it('convertConnectionSuccessToHistoryEvent should raise success', () => {
     expect(
       convertConnectionSuccessToHistoryEvent(newConnectionSuccessEvent)

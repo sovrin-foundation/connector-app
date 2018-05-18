@@ -159,7 +159,7 @@ describe('server environment should change', () => {
     // delete stored data, not interested in actual calls
     // those tests are being taken care in other test
     gen.next(environmentDetails)
-    for (let index = 0; index < 11; index++) {
+    for (let index = 0; index < 13; index++) {
       gen.next()
     }
 
@@ -264,6 +264,11 @@ describe('hydration should work correctly', () => {
     gen.next()
     gen.next()
     // hydrate claimMap from claim store
+    gen.next()
+    gen.next()
+
+    // hydrate serialized claim offers
+    gen.next()
     gen.next()
     gen.next()
 

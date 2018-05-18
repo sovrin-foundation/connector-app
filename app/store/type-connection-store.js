@@ -1,5 +1,6 @@
 // @flow
 import type { InvitationPayload } from '../invitation/type-invitation'
+import type { CustomError } from '../common/type-common'
 
 export type MyPairwiseInfo = {
   myPairwiseDid: string,
@@ -16,6 +17,7 @@ export type Connection = {
   senderEndpoint: string,
   size?: number,
   senderName?: string,
+  vcxSerializedConnection: string,
 } & MyPairwiseInfo
 
 export const DELETE_CONNECTION = 'DELETE_CONNECTION'
@@ -39,12 +41,13 @@ export const DELETE_CONNECTION_FAILURE = 'DELETE_CONNECTION_FAILURE'
 
 export type DeleteConnectionSuccessEventAction = {
   type: typeof DELETE_CONNECTION_SUCCESS,
-  connection: Connection,
+  filteredConnections: Connections,
 }
 
 export type DeleteConnectionFailureEventAction = {
   type: typeof DELETE_CONNECTION_FAILURE,
   connection: Connection,
+  error: CustomError,
 }
 
 export const NEW_CONNECTION = 'NEW_CONNECTION'
