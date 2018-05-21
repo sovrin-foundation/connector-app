@@ -9,6 +9,8 @@ import {
   settingsRoute,
   lockEnterPinRoute,
   lockTouchIdSetupRoute,
+  aboutAppRoute,
+  privacyTNCRoute,
 } from '../common/route-constants'
 import { Switch as AndroidSwitch } from 'react-native-switch'
 import { connect } from 'react-redux'
@@ -24,6 +26,7 @@ import {
   CHAT_TEST_ID,
   USER_AVATAR_TEST_ID,
   BACKUP_DATA_WALLET,
+  ABOUT_APP_TEST_ID,
 } from './settings-constant'
 
 import type { Store } from '../store/type-store'
@@ -32,6 +35,8 @@ import { tertiaryHeaderStyles } from '../components/layout/header-styles'
 import type { ImageSource } from '../common/type-common'
 import { selectUserAvatar } from '../store/user/user-store'
 import { Apptentive } from 'apptentive-react-native'
+import AboutApp from '../about-app/about-app'
+import PrivacyTNC from '../privacy-tnc/privacy-tnc-screen'
 
 const style = StyleSheet.create({
   container: {
@@ -72,6 +77,10 @@ export class Settings extends PureComponent<SettingsProps, void> {
         fromSettings: true,
       })
     }
+  }
+
+  openAboutApp = () => {
+    this.props.navigation.navigate(aboutAppRoute, {})
   }
 
   openFeedback = () => {
@@ -172,6 +181,18 @@ export class Settings extends PureComponent<SettingsProps, void> {
       </CustomView>
     )
 
+    const onAboutApp = (
+      <CustomView row onPress={this.openAboutApp} testID={ABOUT_APP_TEST_ID}>
+        <Icon
+          iconStyle={[style.labelImage, style.editIcon, { tintColor: mantis }]}
+          src={require('../images/icon_aboutApp.png')}
+        />
+        <CustomView center>
+          <SettingText>About This App</SettingText>
+        </CustomView>
+      </CustomView>
+    )
+
     const onBackup = (
       <BackupWallet
         render={(status, backupWallet) => (
@@ -218,10 +239,14 @@ export class Settings extends PureComponent<SettingsProps, void> {
       },
       {
         id: 4,
-        left: onChat,
+        left: onAboutApp,
       },
       {
         id: 5,
+        left: onChat,
+      },
+      {
+        id: 6,
         left: onBackup,
       },
     ]
@@ -246,5 +271,11 @@ const mapDispatchToProps = dispatch =>
 export default StackNavigator({
   [settingsRoute]: {
     screen: connect(mapStateToProps, mapDispatchToProps)(Settings),
+  },
+  [aboutAppRoute]: {
+    screen: AboutApp,
+  },
+  [privacyTNCRoute]: {
+    screen: PrivacyTNC,
   },
 })

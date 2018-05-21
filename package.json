@@ -50,6 +50,7 @@
     "react-native-touch-id": "4.0.0",
     "react-native-unique-id": "^1.0.4",
     "react-native-vector-icons": "4.5.0",
+    "react-native-version-number": "^0.3.3",
     "react-navigation": "1.0.0",
     "react-redux": "^5.0.4",
     "redux": "^3.6.0",
@@ -86,7 +87,7 @@
   "jest": {
     "preset": "react-native",
     "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|react-navigation|jest-fetch-mock|apptentive-react-native)"
+      "node_modules/(?!(jest-)?react-native|react-navigation|jest-fetch-mock|apptentive-react-native|react-native-version-number)"
     ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "RelativeImageStub"

@@ -2,7 +2,7 @@
 import React from 'react'
 import { StyleSheet, Animated, Easing } from 'react-native'
 import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation'
-
+import AboutApp from './about-app/about-app'
 import AuthenticationScreen from './authentication/authentication'
 import HomeScreen from './home/home'
 import ConnectionHome from './connection/connection'
@@ -50,6 +50,7 @@ import {
   lockAuthorizationRoute,
   waitForInvitationRoute,
   walletRoute,
+  aboutAppRoute,
   walletTabSendDetailsRoute,
 } from './common/'
 import { color } from './common/styles'
@@ -137,6 +138,7 @@ const CardStack = StackNavigator(
     [authenticationRoute]: {
       screen: AuthenticationScreen,
     },
+
     [connectionRoute]: {
       screen: ConnectionHome,
     },

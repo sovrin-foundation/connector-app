@@ -30,7 +30,11 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>486</string>
+	<string>486</string>	
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<true/>
+	<key>ITSEncryptionExportComplianceCode</key>
+	<string>3ca4b2eb-b35a-47f4-a4f6-95cc41a2bfd7</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -89,10 +93,10 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Please allow us access to Camera so that we can scan QR code</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Please allow us access to Photo library so that you can change your profile photo</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Please allow us access to Photo library so that you can change your profile photo</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
@@ -153,6 +157,10 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict/>
+	</array>
 	<key>branch_key</key>
 	<dict>
 		<key>live</key>
