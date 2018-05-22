@@ -721,7 +721,8 @@ RCT_EXPORT_METHOD(createConnectionWithInvite: (NSString *)invitationId
   }
 }
 
-RCT_EXPORT_METHOD(acceptInvitation: (NSString *)connectionHandle
+// TODO:repalce with acceptInvitation when vcx integration done
+RCT_EXPORT_METHOD(vcxAcceptInvitation: (NSString *)connectionHandle
                     connectionType: (NSString *)connectionType
                           resolver: (RCTPromiseResolveBlock) resolve
                           rejecter: (RCTPromiseRejectBlock) reject)
@@ -739,7 +740,8 @@ RCT_EXPORT_METHOD(acceptInvitation: (NSString *)connectionHandle
   }
 }
 
-RCT_EXPORT_METHOD(updatePushToken: (NSString *)config
+// TODO:repalce with updatePushToken when vcx integration done
+RCT_EXPORT_METHOD(vcxUpdatePushToken: (NSString *)config
                          resolver: (RCTPromiseResolveBlock) resolve
                          rejecter: (RCTPromiseRejectBlock) reject)
 {
