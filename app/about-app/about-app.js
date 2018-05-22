@@ -70,9 +70,9 @@ export class AboutAppListItem extends PureComponent<
   }
 }
 
-const logoConnectMe = require('../images/logo_connectme.png')
-const logoEvernym = require('../images/logo_evernym.png')
-const logoSovrin = require('../images/logo_sovrin.png')
+const logoConnectMe = <Image source={require('../images/logo_connectme.png')} />
+const logoEvernym = <Image source={require('../images/logo_evernym.png')} />
+const logoSovrin = <Image source={require('../images/logo_sovrin.png')} />
 const versionNumber = VersionNumber
 export class AboutApp extends PureComponent<AboutAppProps> {
   // TODO: Move the below values to constants
@@ -97,12 +97,10 @@ export class AboutApp extends PureComponent<AboutAppProps> {
         onPress={() => navigation.goBack()}
       />
     ),
-    headerTitle: (
-      <CustomText bg="tertiary" tertiary transparentBg semiBold>
-        About This App
-      </CustomText>
-    ),
+    headerRight: <CustomView />, // fill space to properly align title for android
+    title: 'About This App',
     headerStyle: tertiaryHeaderStyles.header,
+    headerTitleStyle: tertiaryHeaderStyles.title,
     tabBarVisible: false,
     swipeEnabled: false,
   })
@@ -111,7 +109,7 @@ export class AboutApp extends PureComponent<AboutAppProps> {
     return (
       <Container tertiary>
         <CustomView center doubleVerticalSpace>
-          <Image source={logoConnectMe} />
+          {logoConnectMe}
           <CustomView center doubleVerticalSpace>
             <CustomText bg="tertiary" tertiary transparentBg semiBold>
               VERSION # {versionNumber.appVersion}
@@ -133,7 +131,7 @@ export class AboutApp extends PureComponent<AboutAppProps> {
             >
               built by
             </CustomText>
-            <Image source={logoEvernym} />
+            {logoEvernym}
           </CustomView>
           <CustomView verticalSpace>
             <CustomText
@@ -145,7 +143,7 @@ export class AboutApp extends PureComponent<AboutAppProps> {
             >
               powered by
             </CustomText>
-            <Image source={logoSovrin} />
+            {logoSovrin}
           </CustomView>
         </CustomView>
         <Container>

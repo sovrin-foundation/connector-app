@@ -5,8 +5,10 @@ import type { ConfigStore } from '../store/type-config-store'
 import type { DeepLinkStore } from '../deep-link/type-deep-link'
 import type { SMSPendingInvitationStore } from '../sms-pending-invitation/type-sms-pending-invitation'
 import type { LockStore, PendingRedirection } from '../lock/type-lock'
+import type { EulaStore } from '../eula/type-eula'
 
 export type SplashScreenProps = {
+  eula: EulaStore,
   config: ConfigStore,
   deepLink: DeepLinkStore,
   smsPendingInvitation: SMSPendingInvitationStore,

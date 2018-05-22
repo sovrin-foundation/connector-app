@@ -34,6 +34,7 @@ import history, {
 } from '../connection-history/connection-history-store'
 import historyRecorder from '../connection-history/history-middleware'
 import wallet, { watchWalletStore, watchBackup } from '../wallet/wallet-store'
+import eula from '../eula/eula-store'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -54,6 +55,7 @@ const appReducer = combineReducers({
   proof,
   history,
   wallet,
+  eula,
 })
 
 let middlewares = [historyRecorder]

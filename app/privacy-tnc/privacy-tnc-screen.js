@@ -33,19 +33,6 @@ const styles = StyleSheet.create({
   headerLeft: {
     width: OFFSET_2X,
   },
-  title: {
-    marginTop: OFFSET_6X,
-    marginBottom: OFFSET_7X,
-  },
-  titleText: {
-    lineHeight: 28,
-    letterSpacing: 0.5,
-    paddingHorizontal: OFFSET_1X,
-  },
-  MiddleBox: {
-    marginHorizontal: OFFSET_7X,
-    paddingVertical: OFFSET_2X,
-  },
 })
 
 export class PrivacyTNC extends PureComponent<PrivacyTNCProps> {
@@ -64,12 +51,10 @@ export class PrivacyTNC extends PureComponent<PrivacyTNCProps> {
         onPress={() => navigation.goBack()}
       />
     ),
-    headerTitle: (
-      <CustomText bg="tertiary" tertiary transparentBg semiBold>
-        {navigation.state.params.title}
-      </CustomText>
-    ),
+    headerRight: <CustomView />, // fill space to properly align title for android
+    title: navigation.state.params.title,
     headerStyle: tertiaryHeaderStyles.header,
+    headerTitleStyle: tertiaryHeaderStyles.title,
     tabBarVisible: false,
     swipeEnabled: false,
   })
@@ -78,6 +63,7 @@ export class PrivacyTNC extends PureComponent<PrivacyTNCProps> {
     return (
       <WebView
         source={{
+          // $FlowFixMe
           uri: this.props.navigation.state.params.url,
         }}
       />

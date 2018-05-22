@@ -13,6 +13,7 @@ import type { UserStore } from './user/type-user-store'
 import type { ConnectionHistoryStore } from '../connection-history/type-connection-history'
 import type { DeepLinkStore } from '../deep-link/type-deep-link'
 import type { WalletStore } from '../wallet/type-wallet'
+import type { EulaStore } from '../eula/type-eula'
 
 export type PushNotificationStore = {
   isAllowed: boolean,
@@ -43,6 +44,7 @@ export type Store = {
   proof: ProofStore,
   history: ConnectionHistoryStore,
   wallet: WalletStore,
+  eula: EulaStore,
 }
 
 export type { AuthenticationStore } from '../authentication/type-authentication'

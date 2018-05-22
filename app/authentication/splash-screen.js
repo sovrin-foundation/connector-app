@@ -12,6 +12,7 @@ import {
   lockEnterFingerprintRoute,
   invitationRoute,
   waitForInvitationRoute,
+  eulaRoute,
 } from '../common/route-constants'
 import {
   TOKEN_EXPIRED_CODE,
@@ -156,7 +157,11 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
         // now we can safely check value of isAlreadyInstalled
         if (nextProps.lock.isLockEnabled === false) {
           // user is opening the app for first time after installing
-          this.props.navigation.navigate(lockSelectionRoute)
+          if (nextProps.eula.isEulaAccept === false) {
+            this.props.navigation.navigate(eulaRoute)
+          } else {
+            this.props.navigation.navigate(lockSelectionRoute)
+          }
         } else {
           // not the first time user is opening app
           if (nextProps.lock.isTouchIdEnabled) {
@@ -206,7 +211,11 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
       // now we can safely check value of isAlreadyInstalled
       if (this.props.lock.isLockEnabled === false) {
         // user is opening the app for first time after installing
-        this.props.navigation.navigate(lockSelectionRoute)
+        if (this.props.eula.isEulaAccept === false) {
+          this.props.navigation.navigate(eulaRoute)
+        } else {
+          this.props.navigation.navigate(lockSelectionRoute)
+        }
       } else {
         // not the first time user is opening app
         if (this.props.lock.isTouchIdEnabled) {
@@ -236,11 +245,13 @@ const mapStateToProps = ({
   deepLink,
   lock,
   smsPendingInvitation,
+  eula,
 }: Store) => ({
   config,
   deepLink,
   lock,
   smsPendingInvitation,
+  eula,
 })
 
 const mapDispatchToProps = dispatch =>

@@ -52,9 +52,11 @@ import {
   walletRoute,
   aboutAppRoute,
   walletTabSendDetailsRoute,
+  eulaRoute,
 } from './common/'
 import { color } from './common/styles'
 import WalletTabSendDetails from './wallet/wallet-tab-send-details'
+import EulaScreen from './eula/eula'
 
 if (__DEV__) {
   require('../tools/reactotron-config')
@@ -171,6 +173,9 @@ const CardStack = StackNavigator(
     },
     [waitForInvitationRoute]: {
       screen: WaitForInvitationScreen,
+    },
+    [eulaRoute]: {
+      screen: EulaScreen,
     },
   },
   {

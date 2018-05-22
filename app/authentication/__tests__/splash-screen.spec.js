@@ -37,12 +37,19 @@ describe('<SplashScreen />', () => {
       ...getStore().getState(),
       lock: { ...getLock(), isAppLocked: true },
     })
-    const { deepLink, config, lock, smsPendingInvitation } = store.getState()
+    const {
+      deepLink,
+      config,
+      lock,
+      smsPendingInvitation,
+      eula,
+    } = store.getState()
     const props = {
       navigation: getNavigation(),
       deepLink,
       config,
       lock,
+      eula,
       smsPendingInvitation,
       addPendingRedirection: jest.fn(),
       getSmsPendingInvitation: jest.fn(),

@@ -3,10 +3,10 @@ import 'react-native'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
-import { PrivacyTNC } from '../privacy-tnc-screen'
+import { EulaScreen } from '../eula'
 import { getNavigation } from '../../../__mocks__/static-data'
 
-describe('Privacy and TNC screen', () => {
+describe('Eula screen', () => {
   const navigation = getNavigation()
 
   // TODO:  ND : Test is failing with  TypeError: Cannot read property 'state' of undefined
@@ -15,7 +15,7 @@ describe('Privacy and TNC screen', () => {
 
   xit('should render properly and snapshot should match', () => {
     const tree = renderer
-      .create(<PrivacyTNC navigation={navigation} />)
+      .create(<EulaScreen navigation={navigation} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })
