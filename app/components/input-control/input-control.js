@@ -46,8 +46,17 @@ export default class ControlInput extends PureComponent<
   render() {
     let { placeholder, label, multiline, isValid, maxLength } = this.props
     return (
-      <CustomView style={[styles.container]}>
-        <CustomView fifth center row horizontalSpace>
+      <CustomView
+        style={[styles.container]}
+        testID={`${label}-mainview-wallet-send-details`}
+      >
+        <CustomView
+          fifth
+          center
+          row
+          horizontalSpace
+          testID={`${label}-subview-wallet-send-details`}
+        >
           <CustomView fifth right style={[{ width: 35, paddingVertical: 25 }]}>
             <CustomText
               h5
@@ -69,6 +78,7 @@ export default class ControlInput extends PureComponent<
                 width: '83%',
               },
             ]}
+            testID={`${label}-textinput-wallet-send-details`}
           >
             <TextInput
               testID={`${label}-token-send-details-label`}

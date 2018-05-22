@@ -20,6 +20,8 @@ export const BACKUP_WALLET_FAIL = 'BACKUP_WALLET_FAIL'
 
 export const BACKUP_WALLET_SUCCESS = 'BACKUP_WALLET_SUCCESS'
 
+export const GET_WALLET_ENCRYPTION_KEY = 'GET_WALLET_ENCRYPTION_KEY'
+
 export const ERROR_BACKUP_WALLET = {
   code: 'WB-001',
   message: 'Error while backing up wallet',

@@ -39,6 +39,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
         "borderBottomWidth": 1,
       }
     }
+    testID="To-mainview-wallet-send-details"
   >
     <View
       center={true}
@@ -54,6 +55,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
           "paddingHorizontal": 15,
         }
       }
+      testID="To-subview-wallet-send-details"
     >
       <View
         fifth={true}
@@ -116,6 +118,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
             "width": "83%",
           }
         }
+        testID="To-textinput-wallet-send-details"
       >
         <TextInput
           maxLength={undefined}
@@ -148,6 +151,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
         "borderBottomWidth": 1,
       }
     }
+    testID="For-mainview-wallet-send-details"
   >
     <View
       center={true}
@@ -163,6 +167,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
           "paddingHorizontal": 15,
         }
       }
+      testID="For-subview-wallet-send-details"
     >
       <View
         fifth={true}
@@ -225,6 +230,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
             "width": "83%",
           }
         }
+        testID="For-textinput-wallet-send-details"
       >
         <TextInput
           maxLength={80}

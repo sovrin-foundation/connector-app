@@ -36,6 +36,7 @@ import {
   BACKUP_WALLET,
   BACKUP_WALLET_FAIL,
   BACKUP_WALLET_SUCCESS,
+  GET_WALLET_ENCRYPTION_KEY,
   ERROR_BACKUP_WALLET,
   ERROR_BACKUP_WALLET_SHARE,
 } from './type-wallet'
@@ -68,6 +69,7 @@ import {
   getZippedWalletBackupPath,
 } from '../bridge/react-native-cxs/RNCxs'
 import { getConfig } from '../store/store-selector'
+import { WALLET_ENCRYPTION_KEY } from '../common/secure-storage-constants'
 
 const initialState = {
   walletBalance: { data: 0, status: STORE_STATUS.IDLE, error: null },
@@ -114,6 +116,12 @@ export function* backupWalletSaga(
 
     if (shareBackup.action === 'sharedAction') {
       yield put(walletBackupComplete())
+      let encryptionKey = yield call(getItem, WALLET_ENCRYPTION_KEY)
+      // TODO: has to be removed, only for android testing and the above let has to be changed to const
+      if (encryptionKey === null) {
+        encryptionKey = WALLET_ENCRYPTION_KEY
+      }
+      yield put(walletEncryptionKey(encryptionKey))
     } else {
       yield put(
         backupWalletFail({
@@ -122,10 +130,6 @@ export function* backupWalletSaga(
         })
       )
     }
-
-    // SHOW ENCRYPTION KEY FLOW
-    // const encryptionKeyModalTrigger = shareBackup.action === 'sharedAction'
-    // TODO: encryption key modal
   } catch (e) {
     yield put(
       backupWalletFail({
@@ -140,6 +144,14 @@ export const backupWalletFail = (error: CustomError) => ({
   type: BACKUP_WALLET_FAIL,
   error,
   status: STORE_STATUS.ERROR,
+})
+
+export const walletEncryptionKey = (WALLET_ENCRYPTION_KEY: string) => ({
+  type: GET_WALLET_ENCRYPTION_KEY,
+  data: {
+    encryptionKey: WALLET_ENCRYPTION_KEY,
+    status: STORE_STATUS.SUCCESS,
+  },
 })
 
 export const walletBackup = () => ({
@@ -593,6 +605,17 @@ export default function walletReducer(
           latest,
           status,
           error,
+        },
+      }
+    }
+    case GET_WALLET_ENCRYPTION_KEY: {
+      const { encryptionKey, status } = action.data
+      return {
+        ...state,
+        backup: {
+          ...state.backup,
+          encryptionKey,
+          status,
         },
       }
     }

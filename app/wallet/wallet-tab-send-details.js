@@ -128,7 +128,7 @@ export class WalletTabSendDetails extends Component<
 
     // the isPaymentAddressValid state need to be changed to true if the payment address validation is success and vice-versa
     let status = ''
-    if (this.paymentData['paymentTo'] === walletAddresses[0]) {
+    if (this.paymentData['paymentTo'] === walletAddresses.data[0]) {
       status = 'SUCCESS'
       this.props.navigation.setParams({ isValid: true })
     } else if (this.paymentData['paymentTo'].length <= 0) {
@@ -157,7 +157,6 @@ export class WalletTabSendDetails extends Component<
           validation={this.throttledAsyncValidationFunction}
           onChangeText={this.onTextChange}
           isValid={this.state.isPaymentAddressValid}
-          testID={TO_SEND_DETAILS_TEST_ID}
         />
         <ControlInput
           label="For"
@@ -166,7 +165,6 @@ export class WalletTabSendDetails extends Component<
           maxLength={80}
           placeholder="credential, gift, etc."
           onChangeText={this.onTextChange}
-          testID={FOR_SEND_DETAILS_TEST_ID}
         />
         <CustomView row center style={[{ width: '100%' }]} horizontalSpace>
           <CustomText

@@ -894,6 +894,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
       style={
         Object {
           "backgroundColor": "#ffffff",
+          "elevation": 10,
           "marginHorizontal": 10,
           "shadowColor": "rgba(0, 0, 0, 0.2)",
           "shadowOffset": Object {

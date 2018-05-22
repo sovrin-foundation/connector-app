@@ -12,7 +12,12 @@ describe('user settings screen', () => {
     const tree = renderer
       .create(
         <Provider store={store}>
-          <Settings />
+          <Settings
+            walletBackup={{
+              encryptionKey: 'walletEncryptionKey',
+              status: 'IDLE',
+            }}
+          />
         </Provider>
       )
       .toJSON()

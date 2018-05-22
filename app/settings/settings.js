@@ -30,11 +30,12 @@ import {
 } from './settings-constant'
 
 import type { Store } from '../store/type-store'
-import type { SettingsProps } from './type-settings'
+import type { SettingsProps, SettingsState } from './type-settings'
 import { tertiaryHeaderStyles } from '../components/layout/header-styles'
 import type { ImageSource } from '../common/type-common'
 import { selectUserAvatar } from '../store/user/user-store'
 import { Apptentive } from 'apptentive-react-native'
+import WalletBackupSuccessModal from '../wallet/wallet-backup-success-modal'
 import AboutApp from '../about-app/about-app'
 import PrivacyTNC from '../privacy-tnc/privacy-tnc-screen'
 
@@ -60,7 +61,10 @@ const SettingText = props => (
   </CustomText>
 )
 
-export class Settings extends PureComponent<SettingsProps, void> {
+export class Settings extends PureComponent<SettingsProps, SettingsState> {
+  state = {
+    walletBackupModalVisible: false,
+  }
   onChangePinClick = () => {
     this.props.navigation.navigate(lockEnterPinRoute, {
       existingPin: true,
@@ -96,6 +100,23 @@ export class Settings extends PureComponent<SettingsProps, void> {
   renderAvatarWithSource = (avatarSource: number | ImageSource) => (
     <Avatar medium round src={avatarSource} />
   )
+
+  hideWalletPopupModal = () => {
+    this.setState({
+      walletBackupModalVisible: false,
+    })
+  }
+
+  componentWillReceiveProps(nextProps: SettingsProps) {
+    if (
+      nextProps.walletBackup.status !== this.props.walletBackup.status &&
+      nextProps.walletBackup.status === 'SUCCESS'
+    ) {
+      this.setState({
+        walletBackupModalVisible: true,
+      })
+    }
+  }
 
   render() {
     const userAvatar = (
@@ -256,6 +277,11 @@ export class Settings extends PureComponent<SettingsProps, void> {
         <CustomView style={[style.container]}>
           <CustomList data={itemList} />
         </CustomView>
+        <WalletBackupSuccessModal
+          onContinue={this.hideWalletPopupModal}
+          isVisible={this.state.walletBackupModalVisible}
+          walletEncryptionKey={this.props.walletBackup.encryptionKey}
+        />
       </Container>
     )
   }
@@ -263,6 +289,7 @@ export class Settings extends PureComponent<SettingsProps, void> {
 
 const mapStateToProps = (state: Store) => ({
   touchIdActive: state.lock.isTouchIdEnabled,
+  walletBackup: state.wallet.backup,
 })
 
 const mapDispatchToProps = dispatch =>

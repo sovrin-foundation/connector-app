@@ -15,6 +15,7 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
     style={
       Object {
         "backgroundColor": "#ffffff",
+        "elevation": 10,
         "marginHorizontal": 10,
         "shadowColor": "rgba(0, 0, 0, 0.2)",
         "shadowOffset": Object {
@@ -422,6 +423,7 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
     style={
       Object {
         "backgroundColor": "#ffffff",
+        "elevation": 10,
         "marginHorizontal": 10,
         "shadowColor": "rgba(0, 0, 0, 0.2)",
         "shadowOffset": Object {
@@ -815,6 +817,7 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
     style={
       Object {
         "backgroundColor": "#ffffff",
+        "elevation": 10,
         "marginHorizontal": 10,
         "shadowColor": "rgba(0, 0, 0, 0.2)",
         "shadowOffset": Object {

@@ -89,6 +89,7 @@ export default StyleSheet.create({
     shadowOpacity: 1,
     shadowOffset: { width: 0, height: 10 },
     shadowRadius: 30,
+    elevation: 10,
   },
   imageShadow: {
     shadowColor: 'rgba(0, 0, 0, 0.25)',

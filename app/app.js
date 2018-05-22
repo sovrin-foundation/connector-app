@@ -19,6 +19,7 @@ import {
   walletRoute,
   connectionHistoryRoute,
   claimOfferRoute,
+  walletTabSendDetailsRoute,
 } from './common'
 import { NavigationActions } from 'react-navigation'
 import { setupFeedback } from './feedback'
@@ -74,7 +75,10 @@ class ConnectMeApp extends PureComponent {
       if (currentScreen === qrCodeScannerTabRoute) {
         store.dispatch(updateStatusBarTheme(color.bg.primary.color))
         StatusBar.setBarStyle(barStyleLight, true)
-      } else if (currentScreen === homeRoute) {
+      } else if (
+        currentScreen === homeRoute ||
+        currentScreen === walletTabSendDetailsRoute
+      ) {
         store.dispatch(updateStatusBarTheme(whiteSmokeSecondary))
       } else if (currentScreen === walletRoute) {
         store.dispatch(updateStatusBarTheme(color.actions.font.seventh))

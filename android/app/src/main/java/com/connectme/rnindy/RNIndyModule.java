@@ -276,7 +276,7 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     private static final int BUFFER = 2048;
 
     @ReactMethod
-    public void backupDataWallet(String documentDirectory, String agencyConfig, Promise promise) { 
+    public void backupWallet(String documentDirectory, String agencyConfig, Promise promise) { 
         // TODO: Remove this file, this is a dummy file, testing for backup the wallet
         String fileName = "backup.txt";
         File file = new File(documentDirectory, fileName);
