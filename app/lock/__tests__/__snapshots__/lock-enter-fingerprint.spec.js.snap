@@ -44,7 +44,7 @@ exports[`app lock selection page should in case of fetching invitation show mess
       ]
     }
   >
-    Unlocking the App, please wait...
+    Loading please wait...
   </Text>
 </View>
 `;

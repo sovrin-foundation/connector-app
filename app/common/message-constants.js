@@ -19,7 +19,7 @@ export const DUPLICATE_CONNECTION_ERROR = [
   'Duplicate Connection invitation!',
 ]
 
-export const UNLOCKING_APP_WAIT_MESSAGE = 'Unlocking the App, please wait...'
+export const UNLOCKING_APP_WAIT_MESSAGE = 'Loading please wait...'
 
 export const ENTER_PASS_CODE_MESSAGE = 'Enter pass code'
 

@@ -84,7 +84,7 @@ exports[`<LockSetupSuccess /> should display Loading while fetching the invitati
         ]
       }
     >
-      Unlocking the App, please wait...
+      Loading please wait...
     </Text>
     <Text
       accessible={true}
