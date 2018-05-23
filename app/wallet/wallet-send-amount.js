@@ -1,6 +1,8 @@
 // @flow
 
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { Text, Animated } from 'react-native'
 import { Container, CustomView, CustomText, CustomButton } from '../components'
 import { Keyboard } from '../components'
@@ -12,6 +14,7 @@ import type {
   WalletSendAmountProps,
 } from './type-wallet'
 import { walletTabSendDetailsRoute } from '../common/route-constants'
+import { selectTokenAmount } from './wallet-store'
 
 const FONT_SIZE_MAPPING = {
   '0': 70,
@@ -26,7 +29,7 @@ const FONT_SIZE_MAPPING = {
   '9': 50,
 }
 
-export default class WalletSendAmount extends PureComponent<
+class WalletSendAmount extends PureComponent<
   WalletSendAmountProps,
   WalletSendAmountState
 > {
@@ -59,6 +62,7 @@ export default class WalletSendAmount extends PureComponent<
   }
 
   sendTokenAmount = () => {
+    this.props.selectTokenAmount(this.state.text)
     if (this.state.text.length) {
       // TODO route to send token amount details with state.text as a parameter
 
@@ -132,3 +136,12 @@ export default class WalletSendAmount extends PureComponent<
     )
   }
 }
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      selectTokenAmount,
+    },
+    dispatch
+  )
+export default connect(null, mapDispatchToProps)(WalletSendAmount)

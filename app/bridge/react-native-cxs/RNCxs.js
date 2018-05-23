@@ -504,6 +504,16 @@ export async function getColor(imagePath: string): Promise<Array<string>> {
   return RNIndy.getColor(imagePath)
 }
 
+export async function sendTokenAmount(
+  tokenAmount: number,
+  receipientWalletAddress: string,
+  senderWalletAddress: string
+): Promise<boolean> {
+  return new Promise.resolve(true)
+  // TODO:KS Complete signature as per vcx
+  // Add these methods in Java & objective-c wrapper
+}
+
 export async function createOneTimeInfo(
   agencyConfig: AgencyPoolConfig
 ): Promise<UserOneTimeInfo> {

@@ -1,7 +1,6 @@
 // @flow
 import { put, call, select, all } from 'redux-saga/effects'
 import walletReducer, {
-  refreshWalletStoreFail,
   refreshWalletHistory,
   hydrateWalletStoreSaga,
   hydrateWalletBalanceSaga,
@@ -18,10 +17,10 @@ import walletReducer, {
   hydrateWalletHistoryFail,
   refreshWalletBalanceFail,
   refreshWalletAddressesFail,
-  refreshWalletHistoryFail,
   backupWalletFail,
   walletBackup,
   walletBackupComplete,
+  sendTokensFail,
 } from '../wallet-store'
 import { initialTestAction } from '../../common/type-common'
 import {
@@ -40,6 +39,7 @@ import {
   ERROR_LOADING_WALLET_HISTORY,
   ERROR_REFRESHING_WALLET_ADDRESSES,
   ERROR_REFRESHING_WALLET_HISTORY,
+  ERROR_SENDING_TOKENS,
 } from '../type-wallet'
 import { WALLET_BALANCE, WALLET_ADDRESSES, WALLET_HISTORY } from '../../common'
 import { setItem, getItem } from '../../services/secure-storage'
@@ -58,6 +58,7 @@ describe('store: wallet-store: ', () => {
         error: null,
       },
       backup: { status: STORE_STATUS.IDLE, latest: null, error: null },
+      payment: { tokenAmount: 0, status: STORE_STATUS.IDLE, error: null },
     }
   })
 
@@ -107,9 +108,39 @@ describe('store: wallet-store: ', () => {
     ).toMatchSnapshot()
   })
 
+  it('action: HYDRATE_WALLET_BALANCE_FAIL', () => {
+    expect(
+      walletReducer(
+        initialState,
+        hydrateWalletBalanceFail(ERROR_LOADING_WALLET_BALANCE)
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('action: HYDRATE_WALLET_ADDRESSES_FAIL', () => {
+    expect(
+      walletReducer(
+        initialState,
+        hydrateWalletAddressesFail({ ...ERROR_LOADING_WALLET_ADDRESSES })
+      )
+    ).toMatchSnapshot()
+  })
+
+  it('action: HYDRATE_WALLET_HISTORY_FAIL', () => {
+    expect(
+      walletReducer(
+        initialState,
+        hydrateWalletHistoryFail({ ...ERROR_LOADING_WALLET_HISTORY })
+      )
+    ).toMatchSnapshot()
+  })
+
   it('action: WALLET_BALANCE_REFRESHED', () => {
     expect(
-      walletReducer(initialState, walletBalanceRefreshed(walletBalance.data))
+      walletReducer(
+        initialState,
+        hydrateWalletBalanceFail({ ...ERROR_LOADING_WALLET_BALANCE })
+      )
     ).toMatchSnapshot()
   })
 
@@ -200,12 +231,9 @@ describe('store: wallet-store: ', () => {
     ).toMatchSnapshot()
   })
 
-  it('action: REFRESH_WALLET_HISTORY_FAIL', () => {
+  it('action: SEND_TOKENS_FAIL', () => {
     expect(
-      walletReducer(
-        initialState,
-        refreshWalletHistoryFail(ERROR_REFRESHING_WALLET_HISTORY)
-      )
+      walletReducer(initialState, sendTokensFail(5656, ERROR_SENDING_TOKENS))
     ).toMatchSnapshot()
   })
 
@@ -224,6 +252,10 @@ describe('store: wallet-store: ', () => {
     const gen = hydrateWalletBalanceSaga()
     expect(gen.next().value).toEqual(call(getItem, WALLET_BALANCE))
   })
+
+  xit('saga: sendTokensSaga => success', () => {})
+
+  xit('saga: sendTokensSaga => fail', () => {})
 
   xit('saga: refreshWalletSaga => success', () => {})
 

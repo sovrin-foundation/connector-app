@@ -951,6 +951,7 @@ export function getStore(store?: Store) {
           walletAddresses,
           walletHistory,
           backup,
+          payment,
         },
       }
     },
@@ -1225,6 +1226,12 @@ export const userAvatarImagePath = `/var/application/DocumentDir/${userAvatarIma
 
 export const walletBalance = {
   data: 1000,
+  status: STORE_STATUS.SUCCESS,
+  error: null,
+}
+
+export const payment = {
+  tokenAmount: 5656,
   status: STORE_STATUS.SUCCESS,
   error: null,
 }

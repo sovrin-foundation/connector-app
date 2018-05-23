@@ -1,6 +1,13 @@
 // @flow
 
-import { put, takeLatest, call, all, select } from 'redux-saga/effects'
+import {
+  put,
+  takeLatest,
+  call,
+  all,
+  select,
+  takeEvery,
+} from 'redux-saga/effects'
 import RNFetchBlob from 'react-native-fetch-blob'
 import { AsyncStorage, Platform } from 'react-native'
 import Share from 'react-native-share'
@@ -8,15 +15,12 @@ import type { Saga } from 'redux-saga'
 import moment from 'moment'
 import { setItem, getItem, deleteItem } from '../services/secure-storage'
 import {
-  HYDRATE_WALLET_STORE,
-  HYDRATE_WALLET_STORE_FAIL,
   HYDRATE_WALLET_BALANCE_FAIL,
   HYDRATE_WALLET_ADDRESSES_FAIL,
   HYDRATE_WALLET_HISTORY_FAIL,
   REFRESH_WALLET_ADDRESSES,
   REFRESH_WALLET_HISTORY,
   ERROR_LOADING_WALLET,
-  REFRESH_WALLET_STORE_FAIL,
   REFRESH_WALLET_BALANCE_FAIL,
   REFRESH_WALLET_ADDRESSES_FAIL,
   REFRESH_WALLET_HISTORY_FAIL,
@@ -40,6 +44,11 @@ import {
   GET_WALLET_ENCRYPTION_KEY,
   ERROR_BACKUP_WALLET,
   ERROR_BACKUP_WALLET_SHARE,
+  SEND_TOKENS,
+  SEND_TOKENS_FAIL,
+  ERROR_SENDING_TOKENS,
+  TOKEN_SENT_SUCCESS,
+  SELECT_TOKEN_AMOUNT,
 } from './type-wallet'
 import type { AgencyPoolConfig } from '../store/type-config-store'
 import type {
@@ -55,6 +64,7 @@ import type {
   WalletHistory,
   WalletBalance,
   WalletAddresses,
+  SendTokensAction,
 } from './type-wallet'
 import type { CustomError } from '../common/type-common'
 import { RESET } from '../common/type-common'
@@ -68,6 +78,7 @@ import {
   getWalletAddresses,
   getWalletHistory,
   getZippedWalletBackupPath,
+  sendTokenAmount,
 } from '../bridge/react-native-cxs/RNCxs'
 import { getConfig } from '../store/store-selector'
 import { WALLET_ENCRYPTION_KEY } from '../common/secure-storage-constants'
@@ -77,6 +88,7 @@ const initialState = {
   walletAddresses: { data: [], status: STORE_STATUS.IDLE, error: null },
   walletHistory: { transactions: [], status: STORE_STATUS.IDLE, error: null },
   backup: { status: STORE_STATUS.IDLE, latest: null, error: null },
+  payment: { tokenAmount: 0, status: STORE_STATUS.IDLE, error: null },
 }
 
 export function* backupWalletSaga(
@@ -269,13 +281,14 @@ export function* deletePersistedWalletAddresses(): Generator<*, *, *> {
 
 export function* deletePersistedWalletHistory(): Generator<*, *, *> {
   yield call(deleteItem, WALLET_HISTORY)
-} //TODO add sagas,action,reducers for payment related stuff
+}
 
 export function* watchWalletStore(): Saga<void> {
   yield all([
     watchRefreshWalletBalance(),
     watchRefreshWalletAddresses(),
     watchRefreshWalletHistory(),
+    watchSendTokens(),
   ])
 }
 
@@ -291,9 +304,34 @@ function* watchRefreshWalletHistory(): any {
   yield takeLatest(REFRESH_WALLET_HISTORY, refreshWalletHistorySaga)
 }
 
-export function* refreshWalletBalanceSaga(
-  action: RefreshWalletBalanceAction
-): Saga<void> {
+function* watchSendTokens(): any {
+  yield takeLatest(SEND_TOKENS, sendTokensSaga)
+}
+
+export function* sendTokensSaga(action: SendTokensAction): Saga<void> {
+  try {
+    yield call(
+      sendTokenAmount,
+      action.tokenAmount,
+      action.recipientWalletAddress,
+      action.senderWalletAddress
+    )
+    yield all([
+      put(tokenSentSuccess(action.tokenAmount)),
+      refreshWalletBalanceSaga(),
+      refreshWalletHistorySaga(),
+    ])
+  } catch (e) {
+    yield put(
+      sendTokensFail(action.tokenAmount, {
+        ...ERROR_SENDING_TOKENS,
+        message: `${ERROR_SENDING_TOKENS.message} ${e.message}`,
+      })
+    )
+  }
+}
+
+export function* refreshWalletBalanceSaga(): any {
   const walletBalanceData = yield call(getWalletBalance)
   try {
     yield put(walletBalanceRefreshed(walletBalanceData))
@@ -308,9 +346,7 @@ export function* refreshWalletBalanceSaga(
   }
 }
 
-export function* refreshWalletHistorySaga(
-  action: RefreshWalletHistoryAction
-): Saga<void> {
+export function* refreshWalletHistorySaga(): any {
   try {
     const walletHistoryData = yield call(getWalletHistory)
     yield put(walletHistoryRefreshed(walletHistoryData))
@@ -325,9 +361,7 @@ export function* refreshWalletHistorySaga(
   }
 }
 
-export function* refreshWalletAddressesSaga(
-  action: RefreshWalletAddressesAction
-): Saga<void> {
+export function* refreshWalletAddressesSaga(): Generator<*, *, *> {
   try {
     const walletAddressesData = yield call(getWalletAddresses)
     yield put(walletAddressesRefreshed(walletAddressesData))
@@ -347,6 +381,24 @@ export const walletBalanceRefreshed = (walletBalanceData: number) => ({
   walletBalance: {
     data: walletBalanceData,
     status: STORE_STATUS.SUCCESS,
+    error: null,
+  },
+})
+
+export const tokenSentSuccess = (tokenAmount: number) => ({
+  type: TOKEN_SENT_SUCCESS,
+  payment: {
+    tokenAmount,
+    status: STORE_STATUS.SUCCESS,
+    error: null,
+  },
+})
+
+export const selectTokenAmount = (tokenAmount: number) => ({
+  type: SELECT_TOKEN_AMOUNT,
+  payment: {
+    tokenAmount,
+    status: STORE_STATUS.IN_PROGRESS,
     error: null,
   },
 })
@@ -434,17 +486,19 @@ export const hydrateWalletHistoryFail = (error: CustomError) => ({
   status: STORE_STATUS.ERROR,
 })
 
-//TODO check
-export const refreshWalletStoreFail = (error: CustomError) => ({
-  type: REFRESH_WALLET_STORE_FAIL,
-  error,
-  status: STORE_STATUS.ERROR,
-})
-
 export const refreshWalletBalanceFail = (error: CustomError) => ({
   type: REFRESH_WALLET_BALANCE_FAIL,
   error,
   status: STORE_STATUS.ERROR,
+})
+
+export const sendTokensFail = (tokenAmount: number, error: CustomError) => ({
+  type: SEND_TOKENS_FAIL,
+  payment: {
+    tokenAmount,
+    error,
+    status: STORE_STATUS.ERROR,
+  },
 })
 
 export const refreshWalletAddressesFail = (error: CustomError) => ({
@@ -459,25 +513,22 @@ export const refreshWalletHistoryFail = (error: CustomError) => ({
   status: STORE_STATUS.ERROR,
 })
 
+export const sendTokens = (
+  tokenAmount: number,
+  recipientWalletAddress: string,
+  senderWalletAddress: string
+) => ({
+  type: SEND_TOKENS,
+  tokenAmount,
+  recipientWalletAddress,
+  senderWalletAddress,
+})
+
 export default function walletReducer(
   state: WalletStore = initialState,
   action: WalletStoreAction
 ) {
   switch (action.type) {
-    case HYDRATE_WALLET_STORE: {
-      const {
-        walletBalance = state.walletBalance,
-        walletAddresses = state.walletAddresses,
-        walletHistory = state.walletHistory,
-      } = action.data
-
-      return {
-        ...state,
-        walletBalance,
-        walletAddresses,
-        walletHistory,
-      }
-    }
     case HYDRATE_WALLET_BALANCE: {
       return {
         ...state,
@@ -494,12 +545,6 @@ export default function walletReducer(
       return {
         ...state,
         walletHistory: action.walletHistory,
-      }
-    }
-    case HYDRATE_WALLET_STORE_FAIL: {
-      return {
-        ...state,
-        error: action.error,
       }
     }
     case HYDRATE_WALLET_BALANCE_FAIL: {
@@ -630,6 +675,28 @@ export default function walletReducer(
         },
       }
     }
+    case TOKEN_SENT_SUCCESS: {
+      const { payment } = action
+      return {
+        ...state,
+        payment,
+      }
+    }
+    case SEND_TOKENS_FAIL: {
+      const { payment } = action
+      return {
+        ...state,
+        payment,
+      }
+    }
+    case SELECT_TOKEN_AMOUNT: {
+      const { payment } = action
+      return {
+        ...state,
+        payment,
+      }
+    }
+
     case RESET:
       return initialState
     default:

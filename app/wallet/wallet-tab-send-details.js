@@ -16,6 +16,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, Keyboard } from 'react-native'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { StackNavigator, NavigationActions } from 'react-navigation'
 import { Container, CustomText, CustomView } from '../components'
 import { primaryHeaderStyles } from '../components/layout/header-styles'
@@ -42,6 +43,9 @@ import {
   FOR_SEND_DETAILS_TEST_ID,
   TO_SEND_DETAILS_TEST_ID,
 } from './wallet-constants'
+import { sendTokens } from '../wallet/wallet-store'
+import { getWalletAddresses, getTokenAmount } from '../store/store-selector'
+import type { Store } from '../store/type-store'
 
 // TODO: Add type for the props and state
 export class WalletTabSendDetails extends Component<
@@ -88,6 +92,11 @@ export class WalletTabSendDetails extends Component<
           style={[navigation.state.params.isValid ? {} : styles.disabledText]}
           testID={SEND_TOKENS_TO_PAYMENT_ADDRESS}
           onPress={() => {
+            navigation.state.params.sendTokens(
+              navigation.state.params.tokenAmount,
+              navigation.state.params.senderWalletAddress,
+              navigation.state.params.receipientWalletAddress
+            )
             if (navigation.state.params.isValid) {
               navigation.goBack(null)
               navigation.state.params.navigate(historyTabRoute)
@@ -109,6 +118,12 @@ export class WalletTabSendDetails extends Component<
   paymentData: WalletSendPaymentData = {
     paymentTo: '',
     paymentFor: '',
+  }
+
+  componentDidMount() {
+    this.props.navigation.setParams({
+      ...this.props,
+    })
   }
 
   onTextChange = (text: string, name: string) => {
@@ -277,14 +292,18 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state: WalletTabSendDetailsProps) => {
+const mapStateToProps = (state: Store) => {
   return {
-    tokenAmount: '5656',
+    tokenAmount: getTokenAmount(state),
+    senderWalletAddress: getWalletAddresses(state)[0],
+    receipientWalletAddress: getWalletAddresses(state)[0],
   }
 }
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ sendTokens }, dispatch)
 
 export default StackNavigator({
   WalletTabSendDetails: {
-    screen: connect(mapStateToProps, null)(WalletTabSendDetails),
+    screen: connect(mapStateToProps, mapDispatchToProps)(WalletTabSendDetails),
   },
 })

@@ -32,6 +32,10 @@ export const ERROR_BACKUP_WALLET_SHARE = {
   message: 'Error while sharing zipped backup',
 }
 
+export type WalletTabSendDetailsProps = {
+  tokenAmount: string,
+} & ReactNavigation
+
 export type BackupWalletAction = {
   type: typeof BACKUP_WALLET,
   data: BackupInfo,
@@ -49,6 +53,7 @@ export type WalletSendAmountState = {
 
 export type WalletSendAmountProps = {
   screenProps: ReactNavigation,
+  selectTokenAmount: (tokenAmount: string) => {},
 } & ReactNavigation
 
 export type WalletProps = {} & ReactNavigation
@@ -66,10 +71,6 @@ export type WalletSendPaymentData = {
   paymentTo: string,
   paymentFor?: string,
 }
-
-export type WalletTabSendDetailsProps = {
-  tokenAmount: string,
-} & ReactNavigation
 
 export type WalletTabSendDetailsState = {
   showPaymentAddress: boolean,
@@ -104,6 +105,11 @@ export type WalletAddresses = {
 
 export type WalletHistory = {
   transactions: WalletHistoryEvent[],
+} & StoreStatus &
+  StoreError
+
+export type Payment = {
+  tokenAmount: number,
 } & StoreStatus &
   StoreError
 
@@ -142,6 +148,11 @@ export const ERROR_LOADING_WALLET_HISTORY = {
   message: 'Error while loading wallet history',
 }
 
+export const ERROR_SENDING_TOKENS = {
+  code: 'W008',
+  message: 'Error sending tokens',
+}
+
 export const STORE_STATUS = {
   IDLE: 'IDLE',
   IN_PROGRESS: 'IN_PROGRESS',
@@ -157,11 +168,7 @@ export type WalletStore = {
   walletAddresses: WalletAddresses,
   walletHistory: WalletHistory,
   backup: BackupInfo,
-}
-
-export type HydrateWalletStoreFailAction = {
-  type: typeof HYDRATE_WALLET_STORE_FAIL,
-  error: CustomError,
+  payment: Payment,
 }
 
 export type HydrateWalletBalanceFailAction = {
@@ -182,20 +189,24 @@ export type HydrateWalletHistoryFailAction = {
   status: StoreStatus,
 }
 
-export type RefreshWalletStoreFailAction = {
-  type: typeof REFRESH_WALLET_STORE_FAIL,
-  error: CustomError,
+export type SendTokensAction = {
+  type: typeof SEND_TOKENS,
+  tokenAmount: number,
+  recipientWalletAddress: string,
+  senderWalletAddress: string,
 }
 
-export const HYDRATE_WALLET_STORE_FAIL = 'HYDRATE_WALLET_STORE_FAIL'
+export type SelectTokensAction = {
+  type: typeof SEND_TOKENS,
+  tokenAmount: number,
+}
+
 export const HYDRATE_WALLET_BALANCE_FAIL = 'HYDRATE_WALLET_BALANCE_FAIL'
 export const HYDRATE_WALLET_ADDRESSES_FAIL = 'HYDRATE_WALLET_ADDRESSES_FAIL'
 export const HYDRATE_WALLET_HISTORY_FAIL = 'HYDRATE_WALLET_HISTORY_FAIL'
-export const REFRESH_WALLET_STORE_FAIL = 'REFRESH_WALLET_STORE_FAIL'
 export const REFRESH_WALLET_BALANCE_FAIL = 'REFRESH_WALLET_BALANCE_FAIL'
 export const REFRESH_WALLET_ADDRESSES_FAIL = 'REFRESH_WALLET_ADDRESSES_FAIL'
 export const REFRESH_WALLET_HISTORY_FAIL = 'REFRESH_WALLET_HISTORY_FAIL'
-export const HYDRATE_WALLET_STORE = 'HYDRATE_WALLET_STORE'
 export const HYDRATE_WALLET_BALANCE = 'HYDRATE_WALLET_BALANCE'
 export const HYDRATE_WALLET_ADDRESSES = 'HYDRATE_WALLET_ADDRESSES'
 export const HYDRATE_WALLET_HISTORY = 'HYDRATE_WALLET_HISTORY'
@@ -206,6 +217,10 @@ export const REFRESH_WALLET_BALANCE = 'REFRESH_WALLET_BALANCE'
 export const WALLET_BALANCE_REFRESHED = 'WALLET_BALANCE_REFRESHED'
 export const WALLET_ADDRESSES_REFRESHED = 'WALLET_ADDRESSES_REFRESHED'
 export const WALLET_HISTORY_REFRESHED = 'WALLET_HISTORY_REFRESHED'
+export const SEND_TOKENS = 'SEND_TOKENS'
+export const SEND_TOKENS_FAIL = 'SEND_TOKENS_FAIL'
+export const TOKEN_SENT_SUCCESS = 'TOKEN_SENT_SUCCESS'
+export const SELECT_TOKEN_AMOUNT = 'SELECT_TOKEN_AMOUNT'
 
 export type HydrateWalletBalanceData = number
 
@@ -256,8 +271,12 @@ export type HydrateWalletHistoryAction = {
   walletHistory: WalletHistory,
 }
 
+export type TokenSentSuccessAction = {
+  type: typeof TOKEN_SENT_SUCCESS,
+  payment: Payment,
+}
+
 export type WalletStoreAction =
-  | HydrateWalletStoreFailAction
   | HydrateWalletBalanceFailAction
   | HydrateWalletAddressesFailAction
   | HydrateWalletHistoryFailAction
@@ -271,5 +290,8 @@ export type WalletStoreAction =
   | HydrateWalletAddressesAction
   | HydrateWalletHistoryAction
   | BackupWalletAction
+  | SendTokensAction
+  | TokenSentSuccessAction
+  | SelectTokensAction
 
 // TODO: add BackupWalletAction types for action of success and failure

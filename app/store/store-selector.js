@@ -154,6 +154,8 @@ export const getWalletBalance = (state: Store) =>
 export const getWalletAddresses = (state: Store) =>
   state.wallet.walletAddresses.data
 
+export const getTokenAmount = (state: Store) => state.wallet.payment.tokenAmount
+
 export const getWalletHistory = (state: Store) => state.wallet.walletHistory
 
 export const getStatusBarTheme = (state: Store) => {
