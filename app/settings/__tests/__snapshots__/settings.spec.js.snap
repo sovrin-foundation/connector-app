@@ -904,37 +904,6 @@ exports[`user settings screen should render properly and snapshot should match 1
                 >
                   Backup my wallet
                 </Text>
-                <Text
-                  accessible={true}
-                  allowFontScaling={true}
-                  ellipsizeMode="tail"
-                  style={
-                    Array [
-                      Object {
-                        "fontSize": 17,
-                      },
-                      Object {
-                        "fontFamily": "SF Pro Display",
-                      },
-                      Object {
-                        "backgroundColor": "#ffffff",
-                        "color": "#777777",
-                      },
-                      Object {
-                        "fontWeight": "600",
-                      },
-                      null,
-                      null,
-                      null,
-                      null,
-                      null,
-                      null,
-                      null,
-                    ]
-                  }
-                >
-                  IDLE
-                </Text>
               </View>
             </View>
           </View>

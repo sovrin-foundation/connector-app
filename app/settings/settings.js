@@ -225,11 +225,10 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
                 style.editIcon,
                 { tintColor: mantis },
               ]}
-              src={require('../images/icon_feedback.png')}
+              src={require('../images/icon_backup.png')}
             />
             <CustomView center>
               <SettingText>Backup my wallet</SettingText>
-              <SettingText>{status}</SettingText>
             </CustomView>
           </CustomView>
         )}
