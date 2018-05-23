@@ -23,6 +23,7 @@ import {
   getConfig,
   getUserOneTimeInfo,
   getVcxInitializationState,
+  getAgencyUrl,
 } from '../store/store-selector'
 import { enableTouchIdAction, disableTouchIdAction } from '../lock/lock-store'
 import {
@@ -77,6 +78,7 @@ import { updatePushToken } from '../push-notification/push-notification-store'
 import type { VcxProvisionResult } from '../bridge/react-native-cxs/type-cxs'
 import type { UserOneTimeInfo } from './user/type-user-store'
 import { connectRegisterCreateAgentDone } from './user/user-store'
+import findKey from 'lodash.findkey'
 
 /**
  * this file contains configuration which is changed only from user action
@@ -518,6 +520,12 @@ export function* watchConfig(): Generator<*, *, *> {
     watchChangeEnvironmentUrl(),
     watchVcxInitStart(),
   ])
+}
+
+export const getEnvironmentName = (configStore: ConfigStore) => {
+  const { agencyUrl } = configStore
+
+  return findKey(baseUrls, environment => environment.agencyUrl === agencyUrl)
 }
 
 export default function configReducer(

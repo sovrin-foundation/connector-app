@@ -209,3 +209,8 @@ jest.mock('react-native-image-crop-picker', () => ({
 NativeModules.RNIndy = {
   deserializeConnection: jest.fn(_ => Promise.resolve(1)),
 }
+
+jest.mock('react-native-version-number', () => ({
+  appVersion: '1.0',
+  buildVersion: '500',
+}))

@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`config-store:saga fn:getEnvironmentName 1`] = `"DEMO"`;
+
 exports[`reducer:config action:VCX_INIT_FAIL 1`] = `
 Object {
   "agencyDID": "3mbwr7i85JNSL3LoNQecaW",

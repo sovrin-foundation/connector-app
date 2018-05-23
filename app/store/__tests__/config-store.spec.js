@@ -26,6 +26,7 @@ import configReducer, {
   vcxInitFail,
   initVcx,
   ensureVcxInitSuccess,
+  getEnvironmentName,
 } from '../config-store'
 import {
   SERVER_ENVIRONMENT_CHANGED,
@@ -403,5 +404,9 @@ describe('config-store:saga', () => {
       })
       .not.take(VCX_INIT_SUCCESS)
       .run()
+  })
+
+  it('fn:getEnvironmentName', () => {
+    expect(getEnvironmentName(getConfigStoreInitialState())).toMatchSnapshot()
   })
 })

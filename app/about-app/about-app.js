@@ -2,7 +2,6 @@
 import React, { PureComponent } from 'react'
 import { StyleSheet, Image, View } from 'react-native'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { StackNavigator } from 'react-navigation'
 import { Container, CustomText, CustomView, Icon } from '../components'
 import {
@@ -21,6 +20,8 @@ import VersionNumber from 'react-native-version-number'
 import { ListItem } from 'react-native-elements'
 
 import PrivacyTNC from '../privacy-tnc/privacy-tnc-screen'
+import type { Store } from '../store/type-store'
+import { getEnvironmentName } from '../store/config-store'
 
 const styles = StyleSheet.create({
   headerLeft: {
@@ -68,8 +69,8 @@ const logoConnectMe = <Image source={require('../images/logo_connectme.png')} />
 const logoEvernym = <Image source={require('../images/logo_evernym.png')} />
 const logoSovrin = <Image source={require('../images/logo_sovrin.png')} />
 const versionNumber = VersionNumber
-export class AboutApp extends PureComponent<AboutAppProps> {
-  // TODO: Move the below values to constants
+
+export class AboutApp extends PureComponent<AboutAppProps, void> {
   openTermsAndConditions = () => {
     this.props.navigation.navigate(privacyTNCRoute, PrivacyTNC.INFO_TYPE.TNC)
   }
@@ -106,12 +107,12 @@ export class AboutApp extends PureComponent<AboutAppProps> {
           {logoConnectMe}
           <CustomView center doubleVerticalSpace>
             <CustomText bg="tertiary" tertiary transparentBg semiBold>
-              VERSION # {versionNumber.appVersion}
+              VERSION # {versionNumber.appVersion}.{versionNumber.buildVersion}
             </CustomText>
           </CustomView>
           <CustomView center verticalSpace>
             <CustomText bg="tertiary" tertiary transparentBg semiBold>
-              BUILD # {versionNumber.buildVersion}
+              {this.props.environmentName}
             </CustomText>
           </CustomView>
           <CustomView verticalSpace vCenter style={[styles.thickLine]} />
@@ -156,4 +157,8 @@ export class AboutApp extends PureComponent<AboutAppProps> {
   }
 }
 
-export default AboutApp
+const mapStateToProps = (state: Store) => ({
+  environmentName: getEnvironmentName(state.config),
+})
+
+export default connect(mapStateToProps)(AboutApp)

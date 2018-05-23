@@ -67,6 +67,9 @@ exports[`user about app screen should render properly and snapshot should match 
         }
       >
         VERSION # 
+        1.0
+        .
+        500
       </Text>
     </View>
     <View
@@ -111,7 +114,7 @@ exports[`user about app screen should render properly and snapshot should match 
           ]
         }
       >
-        BUILD # 
+        DEMO
       </Text>
     </View>
     <View

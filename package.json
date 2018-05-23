@@ -24,6 +24,7 @@
     "ajv": "^5.2.2",
     "apptentive-react-native": "^5.0.0",
     "lodash.debounce": "^4.0.8",
+    "lodash.findkey": "^4.6.0",
     "lodash.groupby": "^4.6.0",
     "lodash.memoize": "^4.1.2",
     "lodash.merge": "^4.6.0",

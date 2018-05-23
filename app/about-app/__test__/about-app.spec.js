@@ -13,6 +13,7 @@ import type {} from '../type-about-app'
 describe('user about app screen', () => {
   const props = {
     navigation: getNavigation(),
+    environmentName: 'DEMO',
   }
 
   it('should render properly and snapshot should match', () => {
