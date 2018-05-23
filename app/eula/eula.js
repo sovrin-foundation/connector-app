@@ -7,7 +7,7 @@
 // TODO: add eulaAccept to async storage.
 
 import React, { PureComponent } from 'react'
-import { WebView } from 'react-native'
+import { WebView, Alert } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -27,8 +27,10 @@ export class EulaScreen extends PureComponent<*, void> {
   })
 
   onReject = () => {
-    // TODO : No logic given. by Product owner
-    return null
+    Alert.alert(
+      'Alert',
+      'You will not be able to use the application without accepting Terms and Conditions'
+    )
   }
 
   onAccept = () => {
