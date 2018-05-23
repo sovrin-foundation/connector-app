@@ -154,7 +154,7 @@ export class ClaimOffer extends PureComponent<
 
     // TODO: Get text and background color from color-picker.
     return (
-      <Container fifth>
+      <Container style={[{ backgroundColor: claimThemePrimary }]}>
         {isValid && (
           <ClaimProofHeader
             message={`${issuer.name} is offering you`}

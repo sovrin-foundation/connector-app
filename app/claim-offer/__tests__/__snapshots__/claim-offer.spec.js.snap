@@ -2,10 +2,9 @@
 
 exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
 <View
-  fifth={true}
   style={
     Object {
-      "backgroundColor": "#ffffff",
+      "backgroundColor": "grey",
       "flex": 1,
     }
   }
