@@ -479,7 +479,6 @@ exports[`user settings screen should render properly and snapshot should match 1
                 undefined,
               ]
             }
-            tintColor="#ffffff"
             value={false}
           />
         </View>

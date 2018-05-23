@@ -177,7 +177,6 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
       Platform.OS === 'ios' ? (
         <Switch
           onTintColor={mantis}
-          tintColor={white}
           onValueChange={this.onChangeTouchId}
           value={this.props.touchIdActive}
         />
