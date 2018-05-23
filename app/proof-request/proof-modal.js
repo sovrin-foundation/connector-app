@@ -68,7 +68,7 @@ export default class ProofModal extends PureComponent<
             middleImageStyle: null,
           }
         : {
-            middleImage: require('../images/connectArrows.png'),
+            middleImage: require('../images/connectArrowsRight.png'),
             middleImageStyle: styles.connectedArrow,
           }
 
