@@ -1,6 +1,7 @@
 // @flow
 
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
+import { Animated, TouchableWithoutFeedback } from 'react-native'
 import { CustomView, CustomText, Container } from '../../components'
 import type { KeyboardProps, KeyboardState } from './type-keyboard'
 import {
@@ -10,35 +11,88 @@ import {
   BACK_SPACE,
   MAX_LENGTH,
   DECIMAL,
+  ZERO,
+  ONE,
+  TWO,
+  THREE,
+  FOUR,
+  FIVE,
+  SIX,
+  SEVEN,
+  EIGHT,
+  NINE,
 } from './keyboard-constants'
 import styles from './styles'
 
-export default class Keyboard extends PureComponent<
-  KeyboardProps,
-  KeyboardState
-> {
+const inputRange = [0, 0.5, 1]
+const outputRange = [28, 35, 42]
+
+export default class Keyboard extends Component<KeyboardProps, KeyboardState> {
+  originalOptions: Array<string>
+  _animation: any
+
+  constructor(props: KeyboardProps) {
+    super(props)
+    this.state = {
+      text: '',
+    }
+    this.originalOptions = [
+      ONE,
+      TWO,
+      THREE,
+      FOUR,
+      FIVE,
+      SIX,
+      SEVEN,
+      EIGHT,
+      NINE,
+      DECIMAL,
+      ZERO,
+      BACK_SPACE_SYMBOL,
+    ]
+    this._animation = this.originalOptions.map(i => new Animated.Value(0))
+  }
   static defaultProps = {
     maxLength: 9,
   }
 
-  state = {
-    text: '',
+  animation = (key: string) => {
+    const animationKey = this.originalOptions.indexOf(key)
+
+    this._animation[animationKey].setValue(0)
+    Animated.spring(this._animation[animationKey], {
+      speed: 120,
+      toValue: 1,
+      bounciness: 10,
+      overshootClamping: false,
+    }).start(() => {
+      this._animation[animationKey].setValue(0)
+    })
   }
 
   Backspace(symbol: string) {
+    const animationKey = this.originalOptions.indexOf(symbol)
+    const textSize = this._animation[animationKey].interpolate({
+      inputRange,
+      outputRange,
+    })
     return (
       <Container
         accessibilityLabel={BACK_SPACE}
         center
         testID={`${KEYBOARD_TEST_ID}-back-space`}
         onPress={() => {
-          this.onPress(BACK_SPACE)
+          this.onPress(BACK_SPACE_SYMBOL)
         }}
       >
         <CustomText
           transparentBg
+          animated
           center
-          style={[styles.number, { color: this.props.color }]}
+          style={[
+            styles.number,
+            { color: this.props.color, fontSize: textSize },
+          ]}
         >
           {symbol}
         </CustomText>
@@ -47,87 +101,110 @@ export default class Keyboard extends PureComponent<
   }
 
   Row(numbersArray: Array<string>) {
-    const rowMargin = numbersArray.includes('1')
-      ? styles.firstRowMargin
-      : styles.marginTop
+    const rowStyle = numbersArray.includes(ONE) ? styles.firstRow : styles.row
     let cells = numbersArray.map(val => this.Cell(val))
 
     return (
-      <CustomView row style={[rowMargin]}>
+      <CustomView row style={[rowStyle]}>
         {cells}
       </CustomView>
     )
   }
 
   Cell(symbol: string) {
+    const animationKey = this.originalOptions.indexOf(symbol)
     const { maxLength } = this.props
+    const textSize = this._animation[animationKey].interpolate({
+      inputRange,
+      outputRange,
+    })
     return (
-      <Container
-        center
+      <TouchableWithoutFeedback
         key={symbol}
         testID={`${KEYBOARD_TEST_ID}-${symbol}`}
-        accessibilityLabel={symbol.toString()}
-        onPress={() => {
+        accessibilityLabel={symbol}
+        onPressIn={() => {
           maxLength && maxLength > this.state.text.length
-            ? this.onPress(symbol.toString())
-            : this.onPress(MAX_LENGTH)
+            ? this.onPress(symbol)
+            : this.onPress(symbol, MAX_LENGTH)
         }}
       >
-        <CustomText
-          transparentBg
-          center
-          style={[styles.number, { color: this.props.color }]}
-        >
-          {symbol}
-        </CustomText>
-      </Container>
+        <Container center>
+          <CustomText
+            transparentBg
+            animated
+            center
+            style={[
+              styles.number,
+              { color: this.props.color, fontSize: textSize },
+            ]}
+          >
+            {symbol}
+          </CustomText>
+        </Container>
+      </TouchableWithoutFeedback>
     )
   }
 
-  onPress(key: string) {
+  onPress(key: string, MAX_LENGTH: ?string) {
+    this.animation(key)
+
     const { text } = this.state
     const NO_DECIMAL = !text.includes(DECIMAL)
     const HAS_INPUT = text.length
 
     let curText: string = text
-    let animate: boolean = false
-    if (isNaN(key)) {
-      if (key === BACK_SPACE) {
-        curText =
-          text === SPECIAL_DECIMAL_FORMAT
-            ? (curText = '')
-            : curText.slice(0, -1)
-        // animate if backspace is pressed with nothing stored in text
-        animate = HAS_INPUT ? false : true
-      } else if (key === MAX_LENGTH) {
-        curText = curText
-        animate = true
-      } else if (key === DECIMAL) {
-        // only allow one decimal place
-        curText = HAS_INPUT
-          ? NO_DECIMAL ? (curText += key) : curText
-          : SPECIAL_DECIMAL_FORMAT
-        animate = HAS_INPUT ? (NO_DECIMAL ? false : true) : false
-      }
-    } else if (key === '0' && !HAS_INPUT) {
-      curText = curText
-      animate = true
+
+    if (MAX_LENGTH) {
+      const animate = true
+      this.setState({ text: curText })
+
+      return this.props.onPress(curText, animate)
+    } else if (key === BACK_SPACE_SYMBOL) {
+      const updatedText =
+        curText === SPECIAL_DECIMAL_FORMAT
+          ? (curText = '')
+          : curText.slice(0, -1)
+      // animate if backspace is pressed with nothing stored in text
+      const animate = HAS_INPUT ? false : true
+
+      this.setState({ text: updatedText })
+
+      return this.props.onPress(updatedText, animate)
+    } else if (key === DECIMAL) {
+      // only allow one decimal place
+      const updatedText = HAS_INPUT
+        ? NO_DECIMAL ? (curText += key) : curText
+        : SPECIAL_DECIMAL_FORMAT
+      const animate = HAS_INPUT ? (NO_DECIMAL ? false : true) : false
+
+      this.setState({ text: updatedText })
+
+      return this.props.onPress(updatedText, animate)
+    } else if (key === ZERO && !HAS_INPUT) {
+      const animate = true
+      this.setState({ text })
+
+      return this.props.onPress(text, animate)
     } else {
-      curText += key
+      const updatedText = (curText += key)
+      const animate = false
+
+      this.setState({ text: updatedText })
+
+      return this.props.onPress(updatedText, animate)
     }
-    this.setState({ text: curText })
-    this.props.onPress(curText, animate)
   }
 
   render() {
     return (
       <CustomView left style={[styles.container]}>
-        {this.Row(['1', '2', '3'])}
-        {this.Row(['4', '5', '6'])}
-        {this.Row(['7', '8', '9'])}
-        <CustomView row style={[styles.marginTop]}>
+        {this.Row([ONE, TWO, THREE])}
+        {this.Row([FOUR, FIVE, SIX])}
+        {this.Row([SEVEN, EIGHT, NINE])}
+        <CustomView row style={[styles.row]}>
           {this.Cell(DECIMAL)}
-          {this.Cell('0')}
+          {this.Cell(ZERO)}
           {this.Backspace(BACK_SPACE_SYMBOL)}
         </CustomView>
       </CustomView>

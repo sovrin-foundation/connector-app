@@ -14,24 +14,18 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     style={
       Object {
         "flexDirection": "row",
+        "height": 30,
         "marginTop": 8,
       }
     }
   >
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="1"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
-      hitSlop={
-        Object {
-          "bottom": 20,
-          "left": 20,
-          "right": 20,
-          "top": 20,
-        }
-      }
+      hitSlop={undefined}
       nativeID={undefined}
       onLayout={undefined}
       onResponderGrant={[Function]}
@@ -47,44 +41,22 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
           "justifyContent": "center",
         }
       }
-      testID="wallet-keyboard-id-label-1-touchable"
+      testID="wallet-keyboard-id-label-1"
     >
       <Text
         accessible={true}
         allowFontScaling={true}
+        collapsable={undefined}
         ellipsizeMode="tail"
         style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "SF Pro Display",
-            },
-            Object {
-              "backgroundColor": "#333333",
-              "color": "#ffffff",
-            },
-            null,
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "fontSize": 28,
-              "fontWeight": "500",
-            },
-            Object {
-              "color": "#fff",
-            },
-          ]
+          Object {
+            "backgroundColor": "transparent",
+            "color": "#fff",
+            "fontFamily": "SF Pro Display",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "textAlign": "center",
+          }
         }
       >
         1
@@ -92,18 +64,11 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="2"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
-      hitSlop={
-        Object {
-          "bottom": 20,
-          "left": 20,
-          "right": 20,
-          "top": 20,
-        }
-      }
+      hitSlop={undefined}
       nativeID={undefined}
       onLayout={undefined}
       onResponderGrant={[Function]}
@@ -119,44 +84,22 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
           "justifyContent": "center",
         }
       }
-      testID="wallet-keyboard-id-label-2-touchable"
+      testID="wallet-keyboard-id-label-2"
     >
       <Text
         accessible={true}
         allowFontScaling={true}
+        collapsable={undefined}
         ellipsizeMode="tail"
         style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "SF Pro Display",
-            },
-            Object {
-              "backgroundColor": "#333333",
-              "color": "#ffffff",
-            },
-            null,
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "fontSize": 28,
-              "fontWeight": "500",
-            },
-            Object {
-              "color": "#fff",
-            },
-          ]
+          Object {
+            "backgroundColor": "transparent",
+            "color": "#fff",
+            "fontFamily": "SF Pro Display",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "textAlign": "center",
+          }
         }
       >
         2
@@ -164,18 +107,11 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="3"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
-      hitSlop={
-        Object {
-          "bottom": 20,
-          "left": 20,
-          "right": 20,
-          "top": 20,
-        }
-      }
+      hitSlop={undefined}
       nativeID={undefined}
       onLayout={undefined}
       onResponderGrant={[Function]}
@@ -191,44 +127,22 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
           "justifyContent": "center",
         }
       }
-      testID="wallet-keyboard-id-label-3-touchable"
+      testID="wallet-keyboard-id-label-3"
     >
       <Text
         accessible={true}
         allowFontScaling={true}
+        collapsable={undefined}
         ellipsizeMode="tail"
         style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "SF Pro Display",
-            },
-            Object {
-              "backgroundColor": "#333333",
-              "color": "#ffffff",
-            },
-            null,
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "fontSize": 28,
-              "fontWeight": "500",
-            },
-            Object {
-              "color": "#fff",
-            },
-          ]
+          Object {
+            "backgroundColor": "transparent",
+            "color": "#fff",
+            "fontFamily": "SF Pro Display",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "textAlign": "center",
+          }
         }
       >
         3
@@ -240,24 +154,18 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     style={
       Object {
         "flexDirection": "row",
+        "height": 30,
         "marginTop": 22,
       }
     }
   >
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="4"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
-      hitSlop={
-        Object {
-          "bottom": 20,
-          "left": 20,
-          "right": 20,
-          "top": 20,
-        }
-      }
+      hitSlop={undefined}
       nativeID={undefined}
       onLayout={undefined}
       onResponderGrant={[Function]}
@@ -273,44 +181,22 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
           "justifyContent": "center",
         }
       }
-      testID="wallet-keyboard-id-label-4-touchable"
+      testID="wallet-keyboard-id-label-4"
     >
       <Text
         accessible={true}
         allowFontScaling={true}
+        collapsable={undefined}
         ellipsizeMode="tail"
         style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "SF Pro Display",
-            },
-            Object {
-              "backgroundColor": "#333333",
-              "color": "#ffffff",
-            },
-            null,
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "fontSize": 28,
-              "fontWeight": "500",
-            },
-            Object {
-              "color": "#fff",
-            },
-          ]
+          Object {
+            "backgroundColor": "transparent",
+            "color": "#fff",
+            "fontFamily": "SF Pro Display",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "textAlign": "center",
+          }
         }
       >
         4
@@ -318,18 +204,11 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="5"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
-      hitSlop={
-        Object {
-          "bottom": 20,
-          "left": 20,
-          "right": 20,
-          "top": 20,
-        }
-      }
+      hitSlop={undefined}
       nativeID={undefined}
       onLayout={undefined}
       onResponderGrant={[Function]}
@@ -345,44 +224,22 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
           "justifyContent": "center",
         }
       }
-      testID="wallet-keyboard-id-label-5-touchable"
+      testID="wallet-keyboard-id-label-5"
     >
       <Text
         accessible={true}
         allowFontScaling={true}
+        collapsable={undefined}
         ellipsizeMode="tail"
         style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "SF Pro Display",
-            },
-            Object {
-              "backgroundColor": "#333333",
-              "color": "#ffffff",
-            },
-            null,
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "fontSize": 28,
-              "fontWeight": "500",
-            },
-            Object {
-              "color": "#fff",
-            },
-          ]
+          Object {
+            "backgroundColor": "transparent",
+            "color": "#fff",
+            "fontFamily": "SF Pro Display",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "textAlign": "center",
+          }
         }
       >
         5
@@ -390,18 +247,11 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="6"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
-      hitSlop={
-        Object {
-          "bottom": 20,
-          "left": 20,
-          "right": 20,
-          "top": 20,
-        }
-      }
+      hitSlop={undefined}
       nativeID={undefined}
       onLayout={undefined}
       onResponderGrant={[Function]}
@@ -417,44 +267,22 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
           "justifyContent": "center",
         }
       }
-      testID="wallet-keyboard-id-label-6-touchable"
+      testID="wallet-keyboard-id-label-6"
     >
       <Text
         accessible={true}
         allowFontScaling={true}
+        collapsable={undefined}
         ellipsizeMode="tail"
         style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "SF Pro Display",
-            },
-            Object {
-              "backgroundColor": "#333333",
-              "color": "#ffffff",
-            },
-            null,
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "fontSize": 28,
-              "fontWeight": "500",
-            },
-            Object {
-              "color": "#fff",
-            },
-          ]
+          Object {
+            "backgroundColor": "transparent",
+            "color": "#fff",
+            "fontFamily": "SF Pro Display",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "textAlign": "center",
+          }
         }
       >
         6
@@ -466,24 +294,18 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     style={
       Object {
         "flexDirection": "row",
+        "height": 30,
         "marginTop": 22,
       }
     }
   >
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="7"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
-      hitSlop={
-        Object {
-          "bottom": 20,
-          "left": 20,
-          "right": 20,
-          "top": 20,
-        }
-      }
+      hitSlop={undefined}
       nativeID={undefined}
       onLayout={undefined}
       onResponderGrant={[Function]}
@@ -499,44 +321,22 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
           "justifyContent": "center",
         }
       }
-      testID="wallet-keyboard-id-label-7-touchable"
+      testID="wallet-keyboard-id-label-7"
     >
       <Text
         accessible={true}
         allowFontScaling={true}
+        collapsable={undefined}
         ellipsizeMode="tail"
         style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "SF Pro Display",
-            },
-            Object {
-              "backgroundColor": "#333333",
-              "color": "#ffffff",
-            },
-            null,
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "fontSize": 28,
-              "fontWeight": "500",
-            },
-            Object {
-              "color": "#fff",
-            },
-          ]
+          Object {
+            "backgroundColor": "transparent",
+            "color": "#fff",
+            "fontFamily": "SF Pro Display",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "textAlign": "center",
+          }
         }
       >
         7
@@ -544,18 +344,11 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="8"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
-      hitSlop={
-        Object {
-          "bottom": 20,
-          "left": 20,
-          "right": 20,
-          "top": 20,
-        }
-      }
+      hitSlop={undefined}
       nativeID={undefined}
       onLayout={undefined}
       onResponderGrant={[Function]}
@@ -571,44 +364,22 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
           "justifyContent": "center",
         }
       }
-      testID="wallet-keyboard-id-label-8-touchable"
+      testID="wallet-keyboard-id-label-8"
     >
       <Text
         accessible={true}
         allowFontScaling={true}
+        collapsable={undefined}
         ellipsizeMode="tail"
         style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "SF Pro Display",
-            },
-            Object {
-              "backgroundColor": "#333333",
-              "color": "#ffffff",
-            },
-            null,
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "fontSize": 28,
-              "fontWeight": "500",
-            },
-            Object {
-              "color": "#fff",
-            },
-          ]
+          Object {
+            "backgroundColor": "transparent",
+            "color": "#fff",
+            "fontFamily": "SF Pro Display",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "textAlign": "center",
+          }
         }
       >
         8
@@ -616,18 +387,11 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="9"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
-      hitSlop={
-        Object {
-          "bottom": 20,
-          "left": 20,
-          "right": 20,
-          "top": 20,
-        }
-      }
+      hitSlop={undefined}
       nativeID={undefined}
       onLayout={undefined}
       onResponderGrant={[Function]}
@@ -643,44 +407,22 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
           "justifyContent": "center",
         }
       }
-      testID="wallet-keyboard-id-label-9-touchable"
+      testID="wallet-keyboard-id-label-9"
     >
       <Text
         accessible={true}
         allowFontScaling={true}
+        collapsable={undefined}
         ellipsizeMode="tail"
         style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "SF Pro Display",
-            },
-            Object {
-              "backgroundColor": "#333333",
-              "color": "#ffffff",
-            },
-            null,
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "fontSize": 28,
-              "fontWeight": "500",
-            },
-            Object {
-              "color": "#fff",
-            },
-          ]
+          Object {
+            "backgroundColor": "transparent",
+            "color": "#fff",
+            "fontFamily": "SF Pro Display",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "textAlign": "center",
+          }
         }
       >
         9
@@ -692,24 +434,18 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     style={
       Object {
         "flexDirection": "row",
+        "height": 30,
         "marginTop": 22,
       }
     }
   >
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="."
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
-      hitSlop={
-        Object {
-          "bottom": 20,
-          "left": 20,
-          "right": 20,
-          "top": 20,
-        }
-      }
+      hitSlop={undefined}
       nativeID={undefined}
       onLayout={undefined}
       onResponderGrant={[Function]}
@@ -725,44 +461,22 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
           "justifyContent": "center",
         }
       }
-      testID="wallet-keyboard-id-label-.-touchable"
+      testID="wallet-keyboard-id-label-."
     >
       <Text
         accessible={true}
         allowFontScaling={true}
+        collapsable={undefined}
         ellipsizeMode="tail"
         style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "SF Pro Display",
-            },
-            Object {
-              "backgroundColor": "#333333",
-              "color": "#ffffff",
-            },
-            null,
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "fontSize": 28,
-              "fontWeight": "500",
-            },
-            Object {
-              "color": "#fff",
-            },
-          ]
+          Object {
+            "backgroundColor": "transparent",
+            "color": "#fff",
+            "fontFamily": "SF Pro Display",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "textAlign": "center",
+          }
         }
       >
         .
@@ -770,18 +484,11 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="0"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
-      hitSlop={
-        Object {
-          "bottom": 20,
-          "left": 20,
-          "right": 20,
-          "top": 20,
-        }
-      }
+      hitSlop={undefined}
       nativeID={undefined}
       onLayout={undefined}
       onResponderGrant={[Function]}
@@ -797,44 +504,22 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
           "justifyContent": "center",
         }
       }
-      testID="wallet-keyboard-id-label-0-touchable"
+      testID="wallet-keyboard-id-label-0"
     >
       <Text
         accessible={true}
         allowFontScaling={true}
+        collapsable={undefined}
         ellipsizeMode="tail"
         style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "SF Pro Display",
-            },
-            Object {
-              "backgroundColor": "#333333",
-              "color": "#ffffff",
-            },
-            null,
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "fontSize": 28,
-              "fontWeight": "500",
-            },
-            Object {
-              "color": "#fff",
-            },
-          ]
+          Object {
+            "backgroundColor": "transparent",
+            "color": "#fff",
+            "fontFamily": "SF Pro Display",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "textAlign": "center",
+          }
         }
       >
         0
@@ -874,39 +559,17 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
       <Text
         accessible={true}
         allowFontScaling={true}
+        collapsable={undefined}
         ellipsizeMode="tail"
         style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "SF Pro Display",
-            },
-            Object {
-              "backgroundColor": "#333333",
-              "color": "#ffffff",
-            },
-            null,
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "fontSize": 28,
-              "fontWeight": "500",
-            },
-            Object {
-              "color": "#fff",
-            },
-          ]
+          Object {
+            "backgroundColor": "transparent",
+            "color": "#fff",
+            "fontFamily": "SF Pro Display",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "textAlign": "center",
+          }
         }
       >
         &lt;
