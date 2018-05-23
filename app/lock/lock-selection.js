@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableHighlight,
   Alert,
+  Keyboard,
 } from 'react-native'
 import { connect } from 'react-redux'
 import { select } from 'redux-saga/effects'
@@ -38,6 +39,11 @@ import {
 import { safeToDownloadSmsInvitation } from '../sms-pending-invitation/sms-pending-invitation-store'
 
 export class LockSelection extends PureComponent<LockSelectionProps, void> {
+  constructor(props: LockSelectionProps) {
+    super(props)
+    Keyboard.dismiss()
+  }
+
   goTouchIdSetup = () => {
     this.props.navigation.navigate(lockTouchIdSetupRoute)
     this.props.safeToDownloadSmsInvitation()
