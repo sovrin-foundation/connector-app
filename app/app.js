@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Provider } from 'react-redux'
-import { AppRegistry, StatusBar } from 'react-native'
+import { AppRegistry, StatusBar, BackHandler } from 'react-native'
 import store, { ROUTE_UPDATE } from './store'
 import { getStatusBarTheme } from './store/store-selector'
 import { Container } from './components'
@@ -20,6 +20,19 @@ import {
   connectionHistoryRoute,
   claimOfferRoute,
   walletTabSendDetailsRoute,
+  lockTouchIdSetupRoute,
+  lockPinSetupHomeRoute,
+  settingsTabRoute,
+  settingsRoute,
+  authenticationRoute,
+  lockSetupSuccessRoute,
+  invitationRoute,
+  proofRequestRoute,
+  lockEnterPinRoute,
+  homeTabRoute,
+  splashScreenRoute,
+  privacyTNCRoute,
+  aboutAppRoute,
 } from './common'
 import { NavigationActions } from 'react-navigation'
 import { setupFeedback } from './feedback'
@@ -29,12 +42,27 @@ import { updateStatusBarTheme } from './store/connections-store'
 // once we have a lot of coverage for types
 // we will scan all files without any flow directive for each file
 
+const backButtonDisableRoutes = [
+  lockEnterPinRoute,
+  homeTabRoute,
+  homeRoute,
+  splashScreenRoute,
+  settingsRoute,
+  qrCodeScannerTabRoute,
+  lockSetupSuccessRoute,
+  invitationRoute,
+]
+
+const backButtonExitRoutes = [homeRoute, settingsRoute, qrCodeScannerTabRoute]
+
 class ConnectMeApp extends PureComponent {
   constructor() {
     super()
     this.state = {
       statusBarTheme: whiteSmokeSecondary,
     }
+    this.currentRouteKey = ''
+    this.currentRoute = ''
   }
 
   componentDidMount() {
@@ -45,6 +73,33 @@ class ConnectMeApp extends PureComponent {
     store.subscribe(() => {
       this.handleChange()
     })
+    BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.handleBackButtonClick
+    )
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      'hardwareBackPress',
+      this.handleBackButtonClick
+    )
+  }
+
+  handleBackButtonClick = () => {
+    if (this.currentRouteKey !== '' && this.currentRoute !== '') {
+      if (backButtonDisableRoutes.indexOf(this.currentRoute) < 0) {
+        const navigateAction = NavigationActions.back({
+          key: this.currentRouteKey,
+        })
+        this.navigatorRef.dispatch(navigateAction)
+        return false
+      }
+      if (backButtonExitRoutes.indexOf(this.currentRoute) >= 0) {
+        BackHandler.exitApp()
+      }
+    }
+    return true
   }
 
   handleChange = () => {
@@ -54,23 +109,29 @@ class ConnectMeApp extends PureComponent {
   }
 
   // gets the current screen from navigation state
-  getCurrentRouteName = navigationState => {
+  getCurrentRoute = navigationState => {
     const route = navigationState.routes[navigationState.index]
     // dive into nested navigators
     if (route.routes) {
-      return this.getCurrentRouteName(route)
+      return this.getCurrentRoute(route)
     }
 
-    return route.routeName
+    return route
   }
 
   navigationChangeHandler = (previousState, currentState) => {
     if (currentState) {
-      const currentScreen = this.getCurrentRouteName(currentState)
+      const { routeName, key } = this.getCurrentRoute(currentState)
+      const currentScreen = routeName
+
+      this.currentRoute = routeName
+      this.currentRouteKey = key
+
       store.dispatch({
         type: ROUTE_UPDATE,
         currentScreen,
       })
+
       StatusBar.setBarStyle(barStyleDark, true)
       if (currentScreen === qrCodeScannerTabRoute) {
         store.dispatch(updateStatusBarTheme(color.bg.primary.color))

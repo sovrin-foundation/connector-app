@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react'
 import { StyleSheet } from 'react-native'
 import { TouchId } from '../components/touch-id/touch-id'
-import { Container, CustomText, withAndroidBackHandler } from '../components'
+import { Container, CustomText } from '../components'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { captureError } from '../services/error/error-handler'
@@ -129,6 +129,6 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default withAndroidBackHandler(
-  connect(mapStateToProps, mapDispatchToProps)(LockEnterFingerprint)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  LockEnterFingerprint
 )

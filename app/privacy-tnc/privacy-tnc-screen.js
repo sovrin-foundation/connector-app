@@ -4,13 +4,7 @@ import { StyleSheet, Image, WebView } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { StackNavigator } from 'react-navigation'
-import {
-  Container,
-  CustomText,
-  CustomView,
-  Icon,
-  withAndroidBackHandler,
-} from '../components'
+import { Container, CustomText, CustomView, Icon } from '../components'
 import {
   color,
   OFFSET_1X,

@@ -11,12 +11,7 @@ import { connect } from 'react-redux'
 import { select } from 'redux-saga/effects'
 import { bindActionCreators } from 'redux'
 import type { Store } from '../store/type-store'
-import {
-  Container,
-  CustomText,
-  CustomView,
-  withAndroidBackHandler,
-} from '../components'
+import { Container, CustomText, CustomView } from '../components'
 import {
   lockPinSetupRoute,
   lockTouchIdSetupRoute,
@@ -218,9 +213,7 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default withAndroidBackHandler(
-  connect(mapStateToProps, mapDispatchToProps)(LockSelection)
-)
+export default connect(mapStateToProps, mapDispatchToProps)(LockSelection)
 
 const style = StyleSheet.create({
   pinSelectionContainer: {

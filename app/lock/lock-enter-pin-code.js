@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { StyleSheet } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 
-import { CustomText, withAndroidBackHandler } from '../components'
+import { CustomText } from '../components'
 import LockEnter from './lock-enter'
 import { color, OFFSET_2X } from '../common/styles'
 import { lockEnterPinRoute, lockPinSetupRoute, homeRoute } from '../common'
@@ -126,8 +126,6 @@ const mapDispatchToProps = dispatch =>
 
 export default StackNavigator({
   [lockEnterPinRoute]: {
-    screen: withAndroidBackHandler(
-      connect(mapStateToProps, mapDispatchToProps)(LockEnterPin)
-    ),
+    screen: connect(mapStateToProps, mapDispatchToProps)(LockEnterPin),
   },
 })
