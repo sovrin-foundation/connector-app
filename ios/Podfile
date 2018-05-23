@@ -36,6 +36,8 @@ target 'ConnectMe' do
 
 # Pods for SimpleFcmClient
 
+    pod 'RNShare', :path => '../node_modules/react-native-share'
+
     target 'ConnectMeTests' do
         inherit! :search_paths
         # Pods for testing

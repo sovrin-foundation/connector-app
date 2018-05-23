@@ -44,6 +44,7 @@
     "react-native-radial-gradient": "^1.0.3",
     "react-native-sensitive-info": "5.2.0",
     "react-native-sentry": "0.33.0",
+    "react-native-share": "^1.0.27",
     "react-native-splash-screen": "3.0.6",
     "react-native-swiper": "^1.5.13",
     "react-native-switch": "^1.5.0",

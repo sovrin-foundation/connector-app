@@ -13,10 +13,10 @@ PODS:
   - FirebaseAnalytics (4.0.5):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - nanopb (~> 0.3)
   - FirebaseCore (4.0.13):
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
   - FirebaseInstanceID (2.0.10):
     - FirebaseCore (~> 4.0)
   - FirebaseMessaging (2.0.8):
@@ -29,7 +29,7 @@ PODS:
   - GoogleToolboxForMac/Defines (2.1.3)
   - GoogleToolboxForMac/Logger (2.1.3):
     - GoogleToolboxForMac/Defines (= 2.1.3)
-  - GoogleToolboxForMac/NSData+zlib (2.1.3):
+  - "GoogleToolboxForMac/NSData+zlib (2.1.3)":
     - GoogleToolboxForMac/Defines (= 2.1.3)
   - libindy-objc (1.3.1)
   - MPMessagePack (1.4.5):
@@ -78,6 +78,8 @@ PODS:
     - QBImagePickerController
     - React/Core
     - RSKImageCropper
+  - RNShare (1.0.27):
+    - React
   - RSKImageCropper (2.0.1)
   - SSZipArchive (2.1.2)
   - yoga (0.51.0.React)
@@ -99,20 +101,44 @@ DEPENDENCIES:
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
+  - RNShare (from `../node_modules/react-native-share`)
   - SSZipArchive
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
+
+SPEC REPOS:
+  "git@github.com:evernym/connect-me-indy-wrapper.git":
+    - ConnectMeIndy
+  "git@github.com:hyperledger/indy-sdk.git":
+    - libindy-objc
+  https://github.com/CocoaPods/Specs.git:
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseInstanceID
+    - FirebaseMessaging
+    - GHODictionary
+    - GoogleToolboxForMac
+    - MPMessagePack
+    - nanopb
+    - OpenSSL-Universal
+    - Protobuf
+    - QBImagePickerController
+    - RSKImageCropper
+    - SSZipArchive
 
 EXTERNAL SOURCES:
   apptentive-ios:
     :git: https://github.com/nagad814/apptentive-ios.git
   React:
-    :path: ../node_modules/react-native
+    :path: "../node_modules/react-native"
   react-native-image-resizer:
-    :path: ../node_modules/react-native-image-resizer
+    :path: "../node_modules/react-native-image-resizer"
   RNImageCropPicker:
-    :path: ../node_modules/react-native-image-crop-picker
+    :path: "../node_modules/react-native-image-crop-picker"
+  RNShare:
+    :path: "../node_modules/react-native-share"
   yoga:
-    :path: ../node_modules/react-native/ReactCommon/yoga/yoga.podspec
+    :path: "../node_modules/react-native/ReactCommon/yoga/yoga.podspec"
 
 CHECKOUT OPTIONS:
   apptentive-ios:
@@ -138,10 +164,11 @@ SPEC CHECKSUMS:
   React: 541ba768b9855e10cdc76f55427a5cd0653ca806
   react-native-image-resizer: 04a3409e7d4ad646c4468671c69dec490def139c
   RNImageCropPicker: 32ca4b9fef4e1b7b85ba69494242122948117e06
+  RNShare: 80d4472ab25e77d9f824cb8d49d7e85af91c66e0
   RSKImageCropper: 50d5a3e4160f0309b14d75b89d5ae2f496d56e0d
   SSZipArchive: d4009d2ce5520a421f231fd97028cc0e2667eed8
   yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
-PODFILE CHECKSUM: 4dd84f524c2f43f01eccfa6f1010a10ac8621058
+PODFILE CHECKSUM: 819ebb367a06fd98021e84353d09afb5bf1c30b0
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0

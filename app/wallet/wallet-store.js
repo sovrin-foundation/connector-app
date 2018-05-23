@@ -2,7 +2,8 @@
 
 import { put, takeLatest, call, all, select } from 'redux-saga/effects'
 import RNFetchBlob from 'react-native-fetch-blob'
-import { AsyncStorage, Share } from 'react-native'
+import { AsyncStorage, Platform } from 'react-native'
+import Share from 'react-native-share'
 import type { Saga } from 'redux-saga'
 import moment from 'moment'
 import { setItem, getItem, deleteItem } from '../services/secure-storage'
@@ -102,19 +103,17 @@ export function* backupWalletSaga(
     })
 
     // SHARE BACKUP FLOW
-    const shareBackup = yield call(
-      Share.share,
-      {
-        url: backup,
-        title: 'Share Your Data Wallet',
-      },
-      {
-        // Android Only
-        dialogTitle: 'Share Your Data Wallet',
-      }
-    )
-
-    if (shareBackup.action === 'sharedAction') {
+    try {
+      Platform.OS === 'android'
+        ? yield call(Share.open, {
+            title: 'Share Your Data Wallet',
+            url: `file://${backup}`,
+            type: 'application/zip',
+          })
+        : yield call(Share.open, {
+            title: 'Share Your Data Wallet',
+            url: backup,
+          })
       yield put(walletBackupComplete())
       let encryptionKey = yield call(getItem, WALLET_ENCRYPTION_KEY)
       // TODO: has to be removed, only for android testing and the above let has to be changed to const
@@ -122,11 +121,11 @@ export function* backupWalletSaga(
         encryptionKey = WALLET_ENCRYPTION_KEY
       }
       yield put(walletEncryptionKey(encryptionKey))
-    } else {
+    } catch (e) {
       yield put(
         backupWalletFail({
           ...ERROR_BACKUP_WALLET_SHARE,
-          message: `${ERROR_BACKUP_WALLET_SHARE.message}.`,
+          message: `${ERROR_BACKUP_WALLET_SHARE.message}.${e}`,
         })
       )
     }

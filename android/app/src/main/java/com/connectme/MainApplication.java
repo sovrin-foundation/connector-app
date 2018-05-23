@@ -4,6 +4,8 @@ import android.app.Application;
 import com.apptentive.android.sdk.reactlibrary.RNApptentivePackage;
 import com.surajit.rnrg.RNRadialGradientPackage;
 import com.facebook.react.ReactApplication;
+import cl.json.RNSharePackage;
+import cl.json.ShareApplication;
 import com.apsl.versionnumber.RNVersionNumberPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
@@ -28,10 +30,9 @@ import com.facebook.soloader.SoLoader;
 import java.util.Arrays;
 import java.util.List;
 
-
 //import com.oblador.vectoricons.VectorIconsPackage;
 
-public class MainApplication extends Application implements ReactApplication {
+public class MainApplication extends Application implements ShareApplication, ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
@@ -43,6 +44,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new RNSharePackage(),
             new RNVersionNumberPackage(),
             new PickerPackage(),
             new ImageResizerPackage(),
@@ -79,5 +81,10 @@ public class MainApplication extends Application implements ReactApplication {
     super.onCreate();
     Branch.getAutoInstance(this);
     SoLoader.init(this, /* native exopackage */ false);
+  }
+
+  @Override
+  public String getFileProviderAuthority() {
+    return "com.connectme.provider";
   }
 }
