@@ -76,6 +76,9 @@ const Tabs = TabNavigator(
       navigationOptions: {
         tabBarTestIDProps: {
           testID: 'tab-bar-home-icon',
+          accessible: true,
+          accessibleLabel: 'tab-bar-home-icon',
+          accessibilityLabel: 'tab-bar-home-icon',
         },
         tabBarIcon: ({ focused }) => {
           return focused ? (
@@ -91,6 +94,9 @@ const Tabs = TabNavigator(
       navigationOptions: {
         tabBarTestIDProps: {
           testID: 'tab-bar-settings-icon',
+          accessible: true,
+          accessibleLabel: 'tab-bar-settings-icon',
+          accessibilityLabel: 'tab-bar-settings-icon',
         },
         tabBarIcon: ({ focused }) => {
           return focused ? (
@@ -106,6 +112,9 @@ const Tabs = TabNavigator(
       navigationOptions: {
         tabBarTestIDProps: {
           testID: 'tab-bar-qrcode-icon',
+          accessible: true,
+          accessibleLabel: 'tab-bar-qrcode-icon',
+          accessibilityLabel: 'tab-bar-qrcode-icon',
         },
         tabBarVisible: false,
         tabBarIcon: () => {

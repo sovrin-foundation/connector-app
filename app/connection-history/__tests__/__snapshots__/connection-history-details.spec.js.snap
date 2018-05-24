@@ -184,6 +184,8 @@ exports[`<ConnectionHistoryDetails /> should ConnectionHistoryDetails render pro
               }
             >
               <Image
+                accessibilityLabel={undefined}
+                accessible={true}
                 resizeMode="cover"
                 source={null}
                 style={

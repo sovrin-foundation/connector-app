@@ -36,6 +36,8 @@ export class FooterActions extends PureComponent<FooterActionsProps, void> {
       disableAccept = false,
       hidePrimary = false,
       useColorPicker = false,
+      accessible,
+      accessibilityLabel,
     } = this.props
 
     return (
@@ -53,6 +55,8 @@ export class FooterActions extends PureComponent<FooterActionsProps, void> {
                     title={denyTitle}
                     onPress={onDecline}
                     testID={`${testID}-deny`}
+                    accessible={true}
+                    accessibilityLabel={`${testID}-deny`}
                   />
                 </ConnectionTheme>
               </Container>
@@ -68,6 +72,8 @@ export class FooterActions extends PureComponent<FooterActionsProps, void> {
                       testID={`${testID}-accept`}
                       style={[styles.buttonStyle]}
                       fontWeight="bold"
+                      accessible={true}
+                      accessibilityLabel={`${testID}-accept`}
                     />
                   </ConnectionTheme>
                 </Container>

@@ -37,11 +37,15 @@ export default class ConnectionSuccessModal extends PureComponent<
         buttonText="Continue"
         testID={'invitation'}
         isVisible={isModalVisible}
+        accessible={true}
+        accessibilityLabel={'invitation'}
       >
         <AvatarsPair
           middleImage={require('../images/checkMark.png')}
           avatarRight={connectionAvatar}
           testID={'invitation'}
+          accessible={true}
+          accessibilityLabel={'invitation'}
         />
         <CustomText
           bg="tertiary"
@@ -52,6 +56,8 @@ export default class ConnectionSuccessModal extends PureComponent<
           style={[styles.message]}
           transparentBg
           testID={`invitation-message`}
+          accessible={true}
+          accessibilityLabel={'invitation-message'}
         >
           {`You are now connected to ${name}!`}
         </CustomText>

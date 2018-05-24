@@ -3,7 +3,7 @@
 exports[`<ConnectedUserAvatar /> should match snapshot when no user image is selected 1`] = `
 <View
   accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
+  accessibilityLabel="user-avatar-touchable"
   accessibilityTraits={undefined}
   accessible={true}
   clearBg={true}
@@ -35,6 +35,8 @@ exports[`<ConnectedUserAvatar /> should match snapshot when no user image is sel
   testID="user-avatar-touchable"
 >
   <Image
+    accessibilityLabel="user-avatar"
+    accessible={true}
     resizeMode="cover"
     source={1}
     style={
@@ -56,7 +58,7 @@ exports[`<ConnectedUserAvatar /> should match snapshot when no user image is sel
 exports[`<ConnectedUserAvatar /> should match snapshot when user image is selected 1`] = `
 <View
   accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
+  accessibilityLabel="user-avatar-touchable"
   accessibilityTraits={undefined}
   accessible={true}
   clearBg={true}
@@ -92,6 +94,8 @@ exports[`<ConnectedUserAvatar /> should match snapshot when user image is select
   testID="user-avatar-touchable"
 >
   <Image
+    accessibilityLabel="user-avatar"
+    accessible={true}
     resizeMode="cover"
     source={
       Object {

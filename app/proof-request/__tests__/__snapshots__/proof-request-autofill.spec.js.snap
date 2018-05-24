@@ -14,6 +14,8 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
     style={Object {}}
   >
     <View
+      accessibilityLabel="proof-request-header"
+      accessible={true}
       fifth={true}
       style={
         Object {
@@ -35,7 +37,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
       <View
         absolute="TopRight"
         accessibilityComponentType={undefined}
-        accessibilityLabel={undefined}
+        accessibilityLabel="proof-request-icon-close-touchable"
         accessibilityTraits={undefined}
         accessible={true}
         clearBg={true}
@@ -69,6 +71,8 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
         testID="proof-request-icon-close-touchable"
       >
         <Image
+          accessibilityLabel="proof-request-icon-close"
+          accessible={true}
           resizeMode="contain"
           source={1}
           style={
@@ -115,6 +119,8 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
           }
         />
         <View
+          accessibilityLabel="proof-request-text-avatars-container"
+          accessible={true}
           row={true}
           spaceBetween={true}
           style={
@@ -149,6 +155,8 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
             testID={undefined}
           >
             <View
+              accessibilityLabel="proof-request-verifier-logo"
+              accessible={true}
               center={true}
               clearBg={true}
               extraLarge={true}
@@ -196,6 +204,8 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                 }
               >
                 <Image
+                  accessibilityLabel="proof-request-verifier-logo"
+                  accessible={true}
                   resizeMode="cover"
                   source={
                     Object {
@@ -222,6 +232,8 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
             </View>
           </View>
           <Image
+            accessibilityLabel="proof-request-check-mark"
+            accessible={true}
             source={1}
             style={
               Array [
@@ -234,6 +246,8 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
             testID="proof-request-check-mark"
           />
           <View
+            accessibilityLabel="proof-request-verifier-logo"
+            accessible={true}
             center={true}
             clearBg={true}
             extraLarge={true}
@@ -281,6 +295,8 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
               }
             >
               <Image
+                accessibilityLabel="proof-request-verifier-logo"
+                accessible={true}
                 resizeMode="cover"
                 source={
                   Object {
@@ -558,6 +574,8 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                     }
                   >
                     <View
+                      accessibilityLabel="proof-request-attribute-item-0"
+                      accessible={true}
                       fifth={true}
                       row={true}
                       style={
@@ -671,6 +689,8 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                         </View>
                       </View>
                       <View
+                        accessibilityLabel="proof-requester-logo-0"
+                        accessible={true}
                         center={true}
                         clearBg={true}
                         medium={true}
@@ -687,6 +707,8 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                         testID="proof-requester-logo-0"
                       >
                         <Image
+                          accessibilityLabel="proof-requester-logo-0"
+                          accessible={true}
                           resizeMode="cover"
                           source={null}
                           style={
@@ -796,6 +818,8 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                     }
                   >
                     <View
+                      accessibilityLabel="proof-request-attribute-item-1"
+                      accessible={true}
                       fifth={true}
                       row={true}
                       style={
@@ -909,6 +933,8 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                         </View>
                       </View>
                       <View
+                        accessibilityLabel="proof-requester-logo-1"
+                        accessible={true}
                         center={true}
                         clearBg={true}
                         medium={true}
@@ -925,6 +951,8 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                         testID="proof-requester-logo-1"
                       >
                         <Image
+                          accessibilityLabel="proof-requester-logo-1"
+                          accessible={true}
                           resizeMode="cover"
                           source={null}
                           style={
@@ -1023,7 +1051,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
               >
                 <View
                   accessibilityComponentType={undefined}
-                  accessibilityLabel={undefined}
+                  accessibilityLabel="proof-request-deny"
                   accessibilityTraits={undefined}
                   accessible={true}
                   hasTVPreferredFocus={undefined}
@@ -1155,7 +1183,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
               >
                 <View
                   accessibilityComponentType={undefined}
-                  accessibilityLabel={undefined}
+                  accessibilityLabel="proof-request-accept"
                   accessibilityTraits={undefined}
                   accessible={true}
                   hasTVPreferredFocus={undefined}
@@ -1321,6 +1349,8 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
         }
       >
         <View
+          accessibilityLabel="send-proof-text-avatars-container"
+          accessible={true}
           row={true}
           spaceBetween={true}
           style={
@@ -1407,6 +1437,8 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
             </View>
           </View>
           <Image
+            accessibilityLabel="send-proof-check-mark"
+            accessible={true}
             source={1}
             style={
               Array [

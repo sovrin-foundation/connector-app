@@ -371,7 +371,7 @@ exports[`<Invitation /> should match snapshot 1`] = `
                 >
                   <View
                     accessibilityComponentType={undefined}
-                    accessibilityLabel={undefined}
+                    accessibilityLabel="invitation-deny"
                     accessibilityTraits={undefined}
                     accessible={true}
                     hasTVPreferredFocus={undefined}
@@ -503,7 +503,7 @@ exports[`<Invitation /> should match snapshot 1`] = `
                 >
                   <View
                     accessibilityComponentType={undefined}
-                    accessibilityLabel={undefined}
+                    accessibilityLabel="invitation-accept"
                     accessibilityTraits={undefined}
                     accessible={true}
                     hasTVPreferredFocus={undefined}
@@ -661,6 +661,8 @@ exports[`<Invitation /> should match snapshot 1`] = `
         }
       >
         <View
+          accessibilityLabel="invitation-text-avatars-container"
+          accessible={true}
           row={true}
           spaceBetween={true}
           style={
@@ -743,6 +745,8 @@ exports[`<Invitation /> should match snapshot 1`] = `
             </View>
           </View>
           <Image
+            accessibilityLabel="invitation-check-mark"
+            accessible={true}
             source={1}
             style={
               Array [
@@ -809,6 +813,7 @@ exports[`<Invitation /> should match snapshot 1`] = `
           </View>
         </View>
         <Text
+          accessibilityLabel="invitation-message"
           accessible={true}
           allowFontScaling={true}
           ellipsizeMode="tail"
@@ -868,7 +873,7 @@ exports[`<Invitation /> should match snapshot 1`] = `
       >
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel="Continue to see your new connection"
+          accessibilityLabel="invitation"
           accessibilityTraits={undefined}
           accessible={true}
           hasTVPreferredFocus={undefined}

@@ -100,7 +100,7 @@ exports[`<LockPinCodeSetup /> should render pin code box 1`] = `
       >
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="pin-code-digit-0-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           center={true}
@@ -135,7 +135,7 @@ exports[`<LockPinCodeSetup /> should render pin code box 1`] = `
         />
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="pin-code-digit-1-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           center={true}
@@ -170,7 +170,7 @@ exports[`<LockPinCodeSetup /> should render pin code box 1`] = `
         />
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="pin-code-digit-2-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           center={true}
@@ -205,7 +205,7 @@ exports[`<LockPinCodeSetup /> should render pin code box 1`] = `
         />
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="pin-code-digit-3-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           center={true}
@@ -240,7 +240,7 @@ exports[`<LockPinCodeSetup /> should render pin code box 1`] = `
         />
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="pin-code-digit-4-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           center={true}
@@ -275,7 +275,7 @@ exports[`<LockPinCodeSetup /> should render pin code box 1`] = `
         />
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="pin-code-digit-5-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           center={true}
@@ -310,6 +310,8 @@ exports[`<LockPinCodeSetup /> should render pin code box 1`] = `
         />
       </View>
       <TextInput
+        accessibilityLabel="pin-code-input-box"
+        accessible={true}
         autoCorrect={false}
         autoFocus={true}
         blurOnSubmit={false}
@@ -434,7 +436,7 @@ exports[`<LockPinCodeSetup /> should show "pass code mismatch ..." message and r
       >
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="pin-code-digit-0-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           center={true}
@@ -469,7 +471,7 @@ exports[`<LockPinCodeSetup /> should show "pass code mismatch ..." message and r
         />
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="pin-code-digit-1-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           center={true}
@@ -504,7 +506,7 @@ exports[`<LockPinCodeSetup /> should show "pass code mismatch ..." message and r
         />
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="pin-code-digit-2-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           center={true}
@@ -539,7 +541,7 @@ exports[`<LockPinCodeSetup /> should show "pass code mismatch ..." message and r
         />
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="pin-code-digit-3-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           center={true}
@@ -574,7 +576,7 @@ exports[`<LockPinCodeSetup /> should show "pass code mismatch ..." message and r
         />
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="pin-code-digit-4-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           center={true}
@@ -609,7 +611,7 @@ exports[`<LockPinCodeSetup /> should show "pass code mismatch ..." message and r
         />
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="pin-code-digit-5-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           center={true}
@@ -644,6 +646,8 @@ exports[`<LockPinCodeSetup /> should show "pass code mismatch ..." message and r
         />
       </View>
       <TextInput
+        accessibilityLabel="pin-code-input-box"
+        accessible={true}
         autoCorrect={false}
         autoFocus={true}
         blurOnSubmit={false}
@@ -768,7 +772,7 @@ exports[`<LockPinCodeSetup /> should show re enter pass code after first entry 1
       >
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="pin-code-digit-0-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           center={true}
@@ -803,7 +807,7 @@ exports[`<LockPinCodeSetup /> should show re enter pass code after first entry 1
         />
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="pin-code-digit-1-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           center={true}
@@ -838,7 +842,7 @@ exports[`<LockPinCodeSetup /> should show re enter pass code after first entry 1
         />
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="pin-code-digit-2-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           center={true}
@@ -873,7 +877,7 @@ exports[`<LockPinCodeSetup /> should show re enter pass code after first entry 1
         />
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="pin-code-digit-3-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           center={true}
@@ -908,7 +912,7 @@ exports[`<LockPinCodeSetup /> should show re enter pass code after first entry 1
         />
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="pin-code-digit-4-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           center={true}
@@ -943,7 +947,7 @@ exports[`<LockPinCodeSetup /> should show re enter pass code after first entry 1
         />
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="pin-code-digit-5-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           center={true}
@@ -978,6 +982,8 @@ exports[`<LockPinCodeSetup /> should show re enter pass code after first entry 1
         />
       </View>
       <TextInput
+        accessibilityLabel="pin-code-input-box"
+        accessible={true}
         autoCorrect={false}
         autoFocus={true}
         blurOnSubmit={false}

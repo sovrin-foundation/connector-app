@@ -2,6 +2,8 @@
 export type PinCodeDigitProps = {
   entered: boolean,
   testID?: ?string,
+  accessible?: boolean,
+  accessibilityLabel?: string,
   onPress: () => void,
 }
 

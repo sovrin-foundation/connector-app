@@ -120,7 +120,12 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
 
   render() {
     const userAvatar = (
-      <UserAvatar testID={USER_AVATAR_TEST_ID} userCanChange>
+      <UserAvatar
+        testID={USER_AVATAR_TEST_ID}
+        accessible={true}
+        accessibilityLabel={USER_AVATAR_TEST_ID}
+        userCanChange
+      >
         {this.renderAvatarWithSource}
       </UserAvatar>
     )
@@ -148,12 +153,19 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
 
     const passCode = (
       <CustomView row>
-        <SettingText testID={PASS_CODE_TEST_ID} onPress={this.onChangePinClick}>
+        <SettingText
+          testID={PASS_CODE_TEST_ID}
+          accessible={true}
+          accessibilityLabel={PASS_CODE_TEST_ID}
+          onPress={this.onChangePinClick}
+        >
           Pass code:{' '}
         </SettingText>
         <SettingText
           onPress={this.onChangePinClick}
           testID={PASS_CODE_ASTERISK_TEST_ID}
+          accessible={true}
+          accessibilityLabel={PASS_CODE_ASTERISK_TEST_ID}
           style={[style.labelPassCode]}
         >
           ******
@@ -167,7 +179,12 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
           src={require('../images/biometrics.png')}
         />
         <CustomView center>
-          <SettingText onPress={this.onChangeTouchId} testID={TOUCH_ID_TEST_ID}>
+          <SettingText
+            onPress={this.onChangeTouchId}
+            testID={TOUCH_ID_TEST_ID}
+            accessible={true}
+            accessibilityLabel={TOUCH_ID_TEST_ID}
+          >
             Enable Touch ID
           </SettingText>
         </CustomView>
@@ -190,7 +207,13 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
       )
 
     const onChat = (
-      <CustomView row onPress={this.openFeedback} testID={CHAT_TEST_ID}>
+      <CustomView
+        row
+        onPress={this.openFeedback}
+        testID={CHAT_TEST_ID}
+        accessible={true}
+        accessibilityLabel={CHAT_TEST_ID}
+      >
         <Icon
           iconStyle={[style.labelImage, style.editIcon, { tintColor: mantis }]}
           src={require('../images/icon_feedback.png')}
@@ -202,7 +225,13 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
     )
 
     const onAboutApp = (
-      <CustomView row onPress={this.openAboutApp} testID={ABOUT_APP_TEST_ID}>
+      <CustomView
+        row
+        onPress={this.openAboutApp}
+        testID={ABOUT_APP_TEST_ID}
+        accessible={true}
+        accessibilityLabel={ABOUT_APP_TEST_ID}
+      >
         <Icon
           iconStyle={[style.labelImage, style.editIcon, { tintColor: mantis }]}
           src={require('../images/icon_aboutApp.png')}
@@ -216,7 +245,13 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
     const onBackup = (
       <BackupWallet
         render={(status, backupWallet) => (
-          <CustomView row onPress={backupWallet} testID={BACKUP_DATA_WALLET}>
+          <CustomView
+            row
+            onPress={backupWallet}
+            testID={BACKUP_DATA_WALLET}
+            accessible={true}
+            accessibilityLabel={BACKUP_DATA_WALLET}
+          >
             {/* TODO: change out placeholder icon */}
             <Icon
               iconStyle={[

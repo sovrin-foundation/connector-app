@@ -21,7 +21,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
   >
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel="1"
+      accessibilityLabel="wallet-keyboard-id-label-1"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -64,7 +64,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel="2"
+      accessibilityLabel="wallet-keyboard-id-label-2"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -107,7 +107,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel="3"
+      accessibilityLabel="wallet-keyboard-id-label-3"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -161,7 +161,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
   >
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel="4"
+      accessibilityLabel="wallet-keyboard-id-label-4"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -204,7 +204,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel="5"
+      accessibilityLabel="wallet-keyboard-id-label-5"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -247,7 +247,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel="6"
+      accessibilityLabel="wallet-keyboard-id-label-6"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -301,7 +301,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
   >
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel="7"
+      accessibilityLabel="wallet-keyboard-id-label-7"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -344,7 +344,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel="8"
+      accessibilityLabel="wallet-keyboard-id-label-8"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -387,7 +387,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel="9"
+      accessibilityLabel="wallet-keyboard-id-label-9"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -441,7 +441,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
   >
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel="."
+      accessibilityLabel="wallet-keyboard-id-label-."
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -484,7 +484,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel="0"
+      accessibilityLabel="wallet-keyboard-id-label-0"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -527,7 +527,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="wallet-keyboard-id-label-back-space-touchable"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}

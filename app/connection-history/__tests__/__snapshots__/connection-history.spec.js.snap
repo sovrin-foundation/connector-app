@@ -47,6 +47,8 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
       style={Object {}}
     >
       <View
+        accessibilityLabel="undefined-header"
+        accessible={undefined}
         fifth={true}
         style={
           Object {
@@ -120,6 +122,8 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
             testID="connection-history-icon-close-touchable"
           >
             <Image
+              accessibilityLabel="connection-history-icon-close"
+              accessible={true}
               resizeMode="contain"
               source={1}
               style={
@@ -205,6 +209,8 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
               }
             >
               <Image
+                accessibilityLabel="connection-history-issuer-logo"
+                accessible={true}
                 resizeMode="cover"
                 source={
                   Object {
@@ -274,6 +280,8 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
             testID="connection-history-icon-delete-touchable"
           >
             <Image
+              accessibilityLabel="connection-history-icon-delete"
+              accessible={true}
               resizeMode="contain"
               source={1}
               style={
@@ -475,6 +483,8 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                 }
               >
                 <Image
+                  accessibilityLabel={undefined}
+                  accessible={true}
                   resizeMode="contain"
                   source={1}
                   style={

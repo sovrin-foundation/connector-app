@@ -162,6 +162,8 @@ export class ClaimOffer extends PureComponent<
             onClose={this.onIgnore}
             logoUrl={logoUrl}
             testID={testID}
+            accessible={true}
+            accessibilityLabel={testID}
             payTokenValue={payTokenValue}
             containerStyle={{
               backgroundColor: claimThemePrimary,
@@ -187,6 +189,8 @@ export class ClaimOffer extends PureComponent<
                 src={require('../images/iconClose.png')}
                 medium
                 testID={`${testID}-icon-close`}
+                accessible={true}
+                accessibilityLabel={`${testID}-icon-close`}
                 onPress={this.close}
                 iconStyle={[styles.headerCloseIcon]}
                 style={[styles.headerCloseIconContainer]}
@@ -200,6 +204,8 @@ export class ClaimOffer extends PureComponent<
                 style={[styles.issuerLogo]}
                 iconStyle={[styles.issuerLogoIcon]}
                 testID={`${testID}-issuer-logo`}
+                accessible={true}
+                accessibilityLabel={`${testID}-issuer-logo`}
               />
             </CustomView>
           </ClaimProofHeader>
@@ -220,6 +226,8 @@ export class ClaimOffer extends PureComponent<
           denyTitle="Ignore"
           acceptTitle={acceptButtonText}
           testID={`${testID}-footer`}
+          accessible={true}
+          accessibilityLabel={`${testID}-footer`}
           disableAccept={this.state.disableAcceptButton}
         />
         {isValid && (

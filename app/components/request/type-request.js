@@ -7,6 +7,8 @@ export type RequestDetailTextPropsText = {
   title: string,
   message: string,
   testID: string,
+  accessible?: boolean,
+  accessibilityLabel?: string,
 }
 
 export type RequestDetailTextProps = RequestDetailTextPropsText

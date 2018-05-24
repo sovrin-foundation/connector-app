@@ -119,7 +119,7 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
   >
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="user-avatar-touchable"
       accessibilityTraits={undefined}
       accessible={true}
       clearBg={true}
@@ -155,6 +155,8 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
       testID="user-avatar-touchable"
     >
       <Image
+        accessibilityLabel="user-avatar"
+        accessible={true}
         resizeMode="cover"
         source={
           Object {

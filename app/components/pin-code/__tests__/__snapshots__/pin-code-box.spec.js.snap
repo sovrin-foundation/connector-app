@@ -35,7 +35,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
   >
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="pin-code-digit-0-touchable"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -70,7 +70,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
     />
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="pin-code-digit-1-touchable"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -105,7 +105,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
     />
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="pin-code-digit-2-touchable"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -140,7 +140,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
     />
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="pin-code-digit-3-touchable"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -175,7 +175,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
     />
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="pin-code-digit-4-touchable"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -210,7 +210,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
     />
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="pin-code-digit-5-touchable"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -245,6 +245,8 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
     />
   </View>
   <TextInput
+    accessibilityLabel="pin-code-input-box"
+    accessible={true}
     autoCorrect={false}
     autoFocus={true}
     blurOnSubmit={false}
@@ -302,7 +304,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
   >
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="pin-code-digit-0-touchable"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -348,7 +350,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="pin-code-digit-1-touchable"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -394,7 +396,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="pin-code-digit-2-touchable"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -429,7 +431,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
     />
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="pin-code-digit-3-touchable"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -464,7 +466,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
     />
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="pin-code-digit-4-touchable"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -499,7 +501,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
     />
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="pin-code-digit-5-touchable"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -534,6 +536,8 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
     />
   </View>
   <TextInput
+    accessibilityLabel="pin-code-input-box"
+    accessible={true}
     autoCorrect={false}
     autoFocus={true}
     blurOnSubmit={false}

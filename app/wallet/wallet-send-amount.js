@@ -127,6 +127,8 @@ class WalletSendAmount extends PureComponent<
             customColor={{ backgroundColor: color.bg.eighth.color }}
             onPress={this.sendTokenAmount}
             testID={SEND_TOKEN_BUTTON}
+            accessible={true}
+            accessibilityLabel={SEND_TOKEN_BUTTON}
             style={[styles.ctaButton]}
             primary
             title="Select Recipient"

@@ -82,7 +82,14 @@ export class Request extends PureComponent<RequestProps, RequestState> {
   }
 
   render() {
-    const { title, message, senderLogoUrl, testID }: RequestProps = this.props
+    const {
+      title,
+      message,
+      senderLogoUrl,
+      testID,
+      accessible,
+      accessibilityLabel,
+    }: RequestProps = this.props
 
     return (
       <Container>
@@ -92,6 +99,8 @@ export class Request extends PureComponent<RequestProps, RequestState> {
             message={message}
             senderLogoUrl={senderLogoUrl}
             testID={testID}
+            accessible={accessible}
+            accessibilityLabel={accessibilityLabel}
           />
         </Container>
         <FooterActions
@@ -100,6 +109,8 @@ export class Request extends PureComponent<RequestProps, RequestState> {
           onDecline={this.onDecline}
           logoUrl={senderLogoUrl}
           testID={testID}
+          accessible={true}
+          accessibilityLabel={accessibilityLabel}
           useColorPicker={true}
         />
       </Container>

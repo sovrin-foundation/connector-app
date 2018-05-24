@@ -221,7 +221,7 @@ exports[`app lock selection page should render properly 1`] = `
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="lock-selection-or-text-touchable"
       accessibilityTraits={undefined}
       accessible={true}
       debounceAction={false}
@@ -282,7 +282,7 @@ exports[`app lock selection page should render properly 1`] = `
     </View>
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="pin-code-selection-touchable"
       accessibilityTraits={undefined}
       accessible={true}
       fifth={true}

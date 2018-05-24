@@ -81,6 +81,8 @@ export default class Keyboard extends Component<KeyboardProps, KeyboardState> {
         accessibilityLabel={BACK_SPACE}
         center
         testID={`${KEYBOARD_TEST_ID}-back-space`}
+        accessible={true}
+        accessibilityLabel={`${KEYBOARD_TEST_ID}-back-space`}
         onPress={() => {
           this.onPress(BACK_SPACE_SYMBOL)
         }}
@@ -122,7 +124,8 @@ export default class Keyboard extends Component<KeyboardProps, KeyboardState> {
       <TouchableWithoutFeedback
         key={symbol}
         testID={`${KEYBOARD_TEST_ID}-${symbol}`}
-        accessibilityLabel={symbol}
+        accessible={true}
+        accessibilityLabel={`${KEYBOARD_TEST_ID}-${symbol}`}
         onPressIn={() => {
           maxLength && maxLength > this.state.text.length
             ? this.onPress(symbol)

@@ -8,5 +8,7 @@ export type UserAvatarProps = {
   selectUserAvatar: () => void,
   avatarName?: ?ImageSource,
   testID?: string,
+  accessible?: boolean,
+  accessibilityLabel?: string,
   children?: (avatarSource: ImageSource | number) => React.Element<*>,
 }

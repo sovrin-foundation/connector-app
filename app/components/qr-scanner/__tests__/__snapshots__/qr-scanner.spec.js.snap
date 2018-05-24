@@ -236,6 +236,8 @@ exports[`<QRScanner /> should match snapshot 1`] = `
           testID="close-qr-scanner-icon-touchable"
         >
           <Image
+            accessibilityLabel="close-qr-scanner-icon"
+            accessible={true}
             resizeMode="contain"
             source={1}
             style={

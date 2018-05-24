@@ -60,7 +60,7 @@ exports[`<FooterActions /> match snapshot when hidePrimary is true 1`] = `
             >
               <View
                 accessibilityComponentType={undefined}
-                accessibilityLabel={undefined}
+                accessibilityLabel="test-deny"
                 accessibilityTraits={undefined}
                 accessible={true}
                 hasTVPreferredFocus={undefined}
@@ -230,7 +230,7 @@ exports[`<FooterActions /> should match snapshot 1`] = `
             >
               <View
                 accessibilityComponentType={undefined}
-                accessibilityLabel={undefined}
+                accessibilityLabel="test-deny"
                 accessibilityTraits={undefined}
                 accessible={true}
                 hasTVPreferredFocus={undefined}
@@ -362,7 +362,7 @@ exports[`<FooterActions /> should match snapshot 1`] = `
             >
               <View
                 accessibilityComponentType={undefined}
-                accessibilityLabel={undefined}
+                accessibilityLabel="test-accept"
                 accessibilityTraits={undefined}
                 accessible={true}
                 hasTVPreferredFocus={undefined}

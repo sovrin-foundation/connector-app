@@ -49,6 +49,8 @@ const CustomText = props => {
     adjustsFontSizeToFit,
     allowFontScaling,
     animated,
+    accessible,
+    accessibilityLabel,
   } = props
 
   const colorType = quaternary
@@ -83,6 +85,12 @@ const CustomText = props => {
   }
   if (typeof testID !== 'undefined') {
     filteredProps.testID = testID
+  }
+  if (typeof accessible !== 'undefined') {
+    filteredProps.accessible = accessible
+  }
+  if (typeof accessibilityLabel !== 'undefined') {
+    filteredProps.accessibilityLabel = accessibilityLabel
   }
   if (typeof onPress !== 'undefined') {
     filteredProps.onPress = debounce(

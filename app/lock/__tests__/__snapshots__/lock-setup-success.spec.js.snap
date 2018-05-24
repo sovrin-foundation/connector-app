@@ -36,6 +36,8 @@ exports[`<LockSetupSuccess /> should display Loading while fetching the invitati
       testID="lock-success-lock-logo"
     >
       <Image
+        accessibilityLabel="lock-success-lock-logo"
+        accessible={true}
         resizeMode="cover"
         source={1}
         style={
@@ -152,7 +154,7 @@ exports[`<LockSetupSuccess /> should display Loading while fetching the invitati
     >
       <View
         accessibilityComponentType={undefined}
-        accessibilityLabel={undefined}
+        accessibilityLabel="close-button"
         accessibilityTraits={undefined}
         accessible={true}
         hasTVPreferredFocus={undefined}
@@ -305,6 +307,8 @@ exports[`<LockSetupSuccess /> should render Lock setup success Screen 1`] = `
       testID="lock-success-lock-logo"
     >
       <Image
+        accessibilityLabel="lock-success-lock-logo"
+        accessible={true}
         resizeMode="cover"
         source={1}
         style={
@@ -421,7 +425,7 @@ exports[`<LockSetupSuccess /> should render Lock setup success Screen 1`] = `
     >
       <View
         accessibilityComponentType={undefined}
-        accessibilityLabel={undefined}
+        accessibilityLabel="close-button"
         accessibilityTraits={undefined}
         accessible={true}
         hasTVPreferredFocus={undefined}

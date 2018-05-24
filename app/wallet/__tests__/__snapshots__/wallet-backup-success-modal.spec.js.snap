@@ -40,7 +40,7 @@ exports[`<WalletBackupSuccessModal /> should render properly and match the snaps
     >
       <View
         accessibilityComponentType={undefined}
-        accessibilityLabel={undefined}
+        accessibilityLabel="wallet-backup-modal-innerview-touchable"
         accessibilityTraits={undefined}
         accessible={true}
         hitSlop={
@@ -164,7 +164,7 @@ exports[`<WalletBackupSuccessModal /> should render properly and match the snaps
     >
       <View
         accessibilityComponentType={undefined}
-        accessibilityLabel="Continue to see your new connection"
+        accessibilityLabel="wallet-backup-modal"
         accessibilityTraits={undefined}
         accessible={true}
         hasTVPreferredFocus={undefined}

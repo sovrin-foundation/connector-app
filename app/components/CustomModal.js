@@ -52,6 +52,7 @@ export default class CustomModal extends PureComponent {
             disabledStyle={[styles.disabledStyle]}
             onPress={this.onPressDebounce}
             title={buttonText}
+            accessible={true}
             accessibilityLabel={accessibilityLabel}
             testID={`${testID}-success-continue`}
             textStyle={{ fontWeight: 'bold' }}

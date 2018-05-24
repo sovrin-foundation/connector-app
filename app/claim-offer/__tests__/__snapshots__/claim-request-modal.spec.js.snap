@@ -39,6 +39,8 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
       }
     >
       <View
+        accessibilityLabel="claim-request-text-avatars-container"
+        accessible={true}
         row={true}
         spaceBetween={true}
         style={
@@ -125,6 +127,8 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
           </View>
         </View>
         <Image
+          accessibilityLabel="claim-request-check-mark"
+          accessible={true}
           source={1}
           style={
             Array [
@@ -191,6 +195,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
         </View>
       </View>
       <Text
+        accessibilityLabel="claim-request-message"
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
@@ -228,6 +233,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
         You accepted 
       </Text>
       <Text
+        accessibilityLabel="claim-request-message"
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
@@ -267,6 +273,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
         Home Address
       </Text>
       <Text
+        accessibilityLabel="claim-request-message"
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
@@ -305,6 +312,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
          
       </Text>
       <Text
+        accessibilityLabel="claim-request-message"
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
@@ -344,6 +352,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
         Test Issuer
       </Text>
       <Text
+        accessibilityLabel="claim-request-message"
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
@@ -399,7 +408,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
     >
       <View
         accessibilityComponentType={undefined}
-        accessibilityLabel="Continue to see your new connection"
+        accessibilityLabel="claim-request"
         accessibilityTraits={undefined}
         accessible={true}
         hasTVPreferredFocus={undefined}
@@ -544,6 +553,8 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
       }
     >
       <View
+        accessibilityLabel="claim-request-text-avatars-container"
+        accessible={true}
         row={true}
         spaceBetween={true}
         style={
@@ -630,6 +641,8 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
           </View>
         </View>
         <Image
+          accessibilityLabel="claim-request-check-mark"
+          accessible={true}
           source={1}
           style={
             Array [
@@ -701,6 +714,7 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
         </View>
       </View>
       <Text
+        accessibilityLabel="claim-request-message"
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
@@ -738,6 +752,7 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
         As soon as 
       </Text>
       <Text
+        accessibilityLabel="claim-request-message"
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
@@ -777,6 +792,7 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
         Test Issuer
       </Text>
       <Text
+        accessibilityLabel="claim-request-message"
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
@@ -815,6 +831,7 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
          
       </Text>
       <Text
+        accessibilityLabel="claim-request-message"
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
@@ -854,6 +871,7 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
         Home Address
       </Text>
       <Text
+        accessibilityLabel="claim-request-message"
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
@@ -909,7 +927,7 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
     >
       <View
         accessibilityComponentType={undefined}
-        accessibilityLabel="Continue to see your new connection"
+        accessibilityLabel="claim-request"
         accessibilityTraits={undefined}
         accessible={true}
         hasTVPreferredFocus={undefined}

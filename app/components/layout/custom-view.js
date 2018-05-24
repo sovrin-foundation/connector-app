@@ -45,6 +45,8 @@ export const CustomView = props => {
     small,
     safeArea,
     debounceAction = true,
+    accessibilityLabel,
+    accessible,
   } = props
   const passedStyles = props.style || empty
   const absoluteStyles = absolute
@@ -103,6 +105,12 @@ export const CustomView = props => {
     let touchProps = {}
     if (typeof props.testID !== 'undefined') {
       touchProps.testID = `${props.testID}-touchable`
+    }
+    if (typeof props.accessibilityLabel !== 'undefined') {
+      touchProps.accessibilityLabel = `${props.accessibilityLabel}-touchable`
+    }
+    if (typeof props.accessible !== 'undefined') {
+      touchProps.accessible = accessible
     }
     if (typeof onPress !== 'undefined') {
       if (debounceAction) {

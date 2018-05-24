@@ -49,7 +49,7 @@ exports[`user settings screen should render properly and snapshot should match 1
         >
           <View
             accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
+            accessibilityLabel="settings-user-avatar-label"
             accessibilityTraits={undefined}
             accessible={true}
             hitSlop={undefined}
@@ -139,6 +139,8 @@ exports[`user settings screen should render properly and snapshot should match 1
             }
           >
             <Image
+              accessibilityLabel={undefined}
+              accessible={true}
               resizeMode="contain"
               source={1}
               style={
@@ -191,6 +193,7 @@ exports[`user settings screen should render properly and snapshot should match 1
             }
           >
             <Text
+              accessibilityLabel="settings-pass-code-label"
               accessible={true}
               allowFontScaling={true}
               ellipsizeMode="tail"
@@ -225,6 +228,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                
             </Text>
             <Text
+              accessibilityLabel="settings-pass-code-asterisk-label"
               accessible={true}
               allowFontScaling={true}
               ellipsizeMode="tail"
@@ -312,6 +316,8 @@ exports[`user settings screen should render properly and snapshot should match 1
             testID={undefined}
           >
             <Image
+              accessibilityLabel={undefined}
+              accessible={true}
               resizeMode="contain"
               source={1}
               style={
@@ -387,6 +393,8 @@ exports[`user settings screen should render properly and snapshot should match 1
               }
             >
               <Image
+                accessibilityLabel={undefined}
+                accessible={true}
                 resizeMode="contain"
                 source={1}
                 style={
@@ -421,6 +429,7 @@ exports[`user settings screen should render properly and snapshot should match 1
               }
             >
               <Text
+                accessibilityLabel="settings-touch-id-label"
                 accessible={true}
                 allowFontScaling={true}
                 ellipsizeMode="tail"
@@ -505,7 +514,7 @@ exports[`user settings screen should render properly and snapshot should match 1
         >
           <View
             accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
+            accessibilityLabel="settings-about-app-label-touchable"
             accessibilityTraits={undefined}
             accessible={true}
             hitSlop={
@@ -556,6 +565,8 @@ exports[`user settings screen should render properly and snapshot should match 1
               }
             >
               <Image
+                accessibilityLabel={undefined}
+                accessible={true}
                 resizeMode="contain"
                 source={1}
                 style={
@@ -646,7 +657,7 @@ exports[`user settings screen should render properly and snapshot should match 1
         >
           <View
             accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
+            accessibilityLabel="settings-chat-id-label-touchable"
             accessibilityTraits={undefined}
             accessible={true}
             hitSlop={
@@ -697,6 +708,8 @@ exports[`user settings screen should render properly and snapshot should match 1
               }
             >
               <Image
+                accessibilityLabel={undefined}
+                accessible={true}
                 resizeMode="contain"
                 source={1}
                 style={
@@ -788,7 +801,7 @@ exports[`user settings screen should render properly and snapshot should match 1
           <View>
             <View
               accessibilityComponentType={undefined}
-              accessibilityLabel={undefined}
+              accessibilityLabel="settings-backup-data-wallet-touchable"
               accessibilityTraits={undefined}
               accessible={true}
               hitSlop={
@@ -839,6 +852,8 @@ exports[`user settings screen should render properly and snapshot should match 1
                 }
               >
                 <Image
+                  accessibilityLabel={undefined}
+                  accessible={true}
                   resizeMode="contain"
                   source={1}
                   style={
@@ -949,7 +964,7 @@ exports[`user settings screen should render properly and snapshot should match 1
       >
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
+          accessibilityLabel="wallet-backup-modal-innerview-touchable"
           accessibilityTraits={undefined}
           accessible={true}
           hitSlop={
@@ -1073,7 +1088,7 @@ exports[`user settings screen should render properly and snapshot should match 1
       >
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel="Continue to see your new connection"
+          accessibilityLabel="wallet-backup-modal"
           accessibilityTraits={undefined}
           accessible={true}
           hasTVPreferredFocus={undefined}

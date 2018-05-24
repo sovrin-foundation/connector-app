@@ -53,6 +53,8 @@ export class EulaScreen extends PureComponent<*, void> {
           denyTitle="Decline"
           acceptTitle="Accept"
           testID="eula"
+          accessible={true}
+          accessibilityLabel="eula"
         />
       </Container>
     )

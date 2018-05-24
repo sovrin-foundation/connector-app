@@ -38,6 +38,8 @@ exports[`<Icon /> should match snapshot 1`] = `
     }
   >
     <Image
+      accessibilityLabel="test-icon-test"
+      accessible={true}
       resizeMode="cover"
       source={1}
       style={

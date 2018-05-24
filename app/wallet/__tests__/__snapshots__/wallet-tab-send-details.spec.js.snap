@@ -3,7 +3,7 @@
 exports[`<WalletTabSendDetails /> should render properly and match the snapshot 1`] = `
 <RCTSafeAreaView
   accessibilityComponentType={undefined}
-  accessibilityLabel={undefined}
+  accessibilityLabel="wallet-tab-send-details-touchable"
   accessibilityTraits={undefined}
   accessible={true}
   fifth={true}
@@ -33,6 +33,8 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
   testID="wallet-tab-send-details-touchable"
 >
   <View
+    accessibilityLabel="To-mainview-wallet-send-details"
+    accessible={true}
     style={
       Object {
         "borderBottomColor": "#EAEAEA",
@@ -42,6 +44,8 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
     testID="To-mainview-wallet-send-details"
   >
     <View
+      accessibilityLabel="To-subview-wallet-send-details"
+      accessible={true}
       center={true}
       fifth={true}
       horizontalSpace={true}
@@ -108,6 +112,8 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
         </Text>
       </View>
       <View
+        accessibilityLabel="To-textinput-wallet-send-details"
+        accessible={true}
         fifth={true}
         horizontalSpace={true}
         style={
@@ -121,6 +127,8 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
         testID="To-textinput-wallet-send-details"
       >
         <TextInput
+          accessibilityLabel="To-token-send-details-label"
+          accessible={true}
           maxLength={undefined}
           multiline={false}
           onChangeText={[Function]}
@@ -145,6 +153,8 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
     </View>
   </View>
   <View
+    accessibilityLabel="For-mainview-wallet-send-details"
+    accessible={true}
     style={
       Object {
         "borderBottomColor": "#EAEAEA",
@@ -154,6 +164,8 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
     testID="For-mainview-wallet-send-details"
   >
     <View
+      accessibilityLabel="For-subview-wallet-send-details"
+      accessible={true}
       center={true}
       fifth={true}
       horizontalSpace={true}
@@ -220,6 +232,8 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
         </Text>
       </View>
       <View
+        accessibilityLabel="For-textinput-wallet-send-details"
+        accessible={true}
         fifth={true}
         horizontalSpace={true}
         style={
@@ -233,6 +247,8 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
         testID="For-textinput-wallet-send-details"
       >
         <TextInput
+          accessibilityLabel="For-token-send-details-label"
+          accessible={true}
           maxLength={80}
           multiline={true}
           onChangeText={[Function]}

@@ -33,6 +33,8 @@ export class UserAvatar extends PureComponent<UserAvatarProps, void> {
       return (
         <TouchableWithoutFeedback
           testID={this.props.testID}
+          accessible={this.props.accessible}
+          accessibilityLabel={this.props.accessibilityLabel}
           onPress={this.changeAvatar}
         >
           <View pointerEvents="box-only">
@@ -50,6 +52,8 @@ export class UserAvatar extends PureComponent<UserAvatarProps, void> {
         round
         resizeMode="cover"
         testID="user-avatar"
+        accessible={true}
+        accessibilityLabel="user-avatar"
       />
     )
   }

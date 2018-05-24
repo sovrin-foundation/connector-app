@@ -2,6 +2,8 @@
 
 exports[`<WalletTabSendDetails /> should render properly and match the snapshot 1`] = `
 <View
+  accessibilityLabel="To-mainview-wallet-send-details"
+  accessible={true}
   style={
     Object {
       "borderBottomColor": "#EAEAEA",
@@ -11,6 +13,8 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
   testID="To-mainview-wallet-send-details"
 >
   <View
+    accessibilityLabel="To-subview-wallet-send-details"
+    accessible={true}
     center={true}
     fifth={true}
     horizontalSpace={true}
@@ -77,6 +81,8 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
       </Text>
     </View>
     <View
+      accessibilityLabel="To-textinput-wallet-send-details"
+      accessible={true}
       fifth={true}
       horizontalSpace={true}
       style={
@@ -90,6 +96,8 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
       testID="To-textinput-wallet-send-details"
     >
       <TextInput
+        accessibilityLabel="To-token-send-details-label"
+        accessible={true}
         maxLength={undefined}
         multiline={false}
         onChangeText={[Function]}

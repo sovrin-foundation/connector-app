@@ -41,6 +41,8 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
             center
             onPress={() => navigation.navigate(walletRoute)}
             testID={SOVRINTOKEN_AMOUNT_TEST_ID}
+            accessible={true}
+            accessibilityLabel="token-balance-home"
           >
             <Icon
               small
@@ -68,6 +70,8 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
           medium
           onPress={() => Apptentive.presentMessageCenter()}
           testID={FEEDBACK_TEST_ID}
+          accessible={true}
+          accessibilityLabel={FEEDBACK_TEST_ID}
           src={require('../images/icon_feedback_grey.png')}
         />
       </CustomView>

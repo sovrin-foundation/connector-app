@@ -368,7 +368,7 @@ exports[`<Request /> should match snapshot 1`] = `
               >
                 <View
                   accessibilityComponentType={undefined}
-                  accessibilityLabel={undefined}
+                  accessibilityLabel="request-deny"
                   accessibilityTraits={undefined}
                   accessible={true}
                   hasTVPreferredFocus={undefined}
@@ -500,7 +500,7 @@ exports[`<Request /> should match snapshot 1`] = `
               >
                 <View
                   accessibilityComponentType={undefined}
-                  accessibilityLabel={undefined}
+                  accessibilityLabel="request-accept"
                   accessibilityTraits={undefined}
                   accessible={true}
                   hasTVPreferredFocus={undefined}

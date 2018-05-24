@@ -150,7 +150,7 @@ exports[`<WalletTabReceive /> should render properly and match the snapshot 1`] 
     >
       <View
         accessibilityComponentType={undefined}
-        accessibilityLabel={undefined}
+        accessibilityLabel="token-copy-to-clipboard-label"
         accessibilityTraits={undefined}
         accessible={true}
         hasTVPreferredFocus={undefined}

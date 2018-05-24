@@ -32,6 +32,8 @@ const Icon = props => {
       style={[styles[size], roundImageStyle, ...iconStyle]}
       resizeMode={resizeMode}
       testID={testID}
+      accessible={true}
+      accessibilityLabel={testID}
     />
   )
 

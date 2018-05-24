@@ -90,6 +90,8 @@ export default class PinCodeBox extends PureComponent<
           key={i}
           entered={isEntered}
           testID={`pin-code-digit-${i}`}
+          accessible={true}
+          accessibilityLabel={`pin-code-digit-${i}`}
         />
       )
     }
@@ -113,6 +115,8 @@ export default class PinCodeBox extends PureComponent<
           }}
           style={styles.input}
           testID="pin-code-input-box"
+          accessible={true}
+          accessibilityLabel={`pin-code-input-box`}
           value={this.state.pin}
         />
       </CustomView>

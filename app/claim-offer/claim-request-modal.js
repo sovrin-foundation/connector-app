@@ -92,6 +92,8 @@ export default class ClaimRequestStatusModal extends PureComponent<
         onPress={this.onContinue}
         buttonText="Continue"
         testID={'claim-request'}
+        accessible={true}
+        accessibilityLabel={'claim-request'}
         isVisible={this.state.isVisible}
       >
         <AvatarsPair
@@ -99,6 +101,8 @@ export default class ClaimRequestStatusModal extends PureComponent<
           middleImageStyle={middleImageStyle}
           avatarRight={avatarRight}
           testID={'claim-request'}
+          accessible={true}
+          accessibilityLabel={'claim-request'}
         />
 
         <CustomText
@@ -109,6 +113,8 @@ export default class ClaimRequestStatusModal extends PureComponent<
           transparentBg
           style={[styles.message]}
           testID={`claim-request-message`}
+          accessible={true}
+          accessibilityLabel={'claim-request-message'}
         >
           {message1}
         </CustomText>
@@ -121,6 +127,8 @@ export default class ClaimRequestStatusModal extends PureComponent<
           transparentBg
           style={[styles.message]}
           testID={`claim-request-message`}
+          accessible={true}
+          accessibilityLabel={'claim-request-message'}
         >
           {message2}
         </CustomText>
@@ -132,6 +140,8 @@ export default class ClaimRequestStatusModal extends PureComponent<
           transparentBg
           style={[styles.message]}
           testID={`claim-request-message`}
+          accessible={true}
+          accessibilityLabel={'claim-request-message'}
         >
           {message3}{' '}
         </CustomText>
@@ -144,6 +154,8 @@ export default class ClaimRequestStatusModal extends PureComponent<
           transparentBg
           style={[styles.message]}
           testID={`claim-request-message`}
+          accessible={true}
+          accessibilityLabel={'claim-request-message'}
         >
           {message4}
         </CustomText>
@@ -156,6 +168,8 @@ export default class ClaimRequestStatusModal extends PureComponent<
             transparentBg
             style={[styles.message]}
             testID={`claim-request-message`}
+            accessible={true}
+            accessibilityLabel={'claim-request-message'}
           >
             {message5}
           </CustomText>
