@@ -133,8 +133,6 @@ export class LockSelection extends PureComponent<LockSelectionProps, void> {
           </CustomView>
           <CustomView
             testID="lock-selection-or-text"
-            accessible={true}
-            accessibilityLabel="lock-selection-or-text"
             onLongPress={this._onLongPressButton}
             onPress={this._onTextPressButton}
             debounceAction={false}
@@ -150,8 +148,6 @@ export class LockSelection extends PureComponent<LockSelectionProps, void> {
             style={[style.touchIdPinContainer]}
             onPress={this.goPinCodeSetup}
             onLongPress={this._onLongPressButton}
-            accessible={true}
-            accessibilityLabel="pin-code-selection"
           >
             <CustomView row center style={[style.pinContainer]}>
               <CustomView style={[style.pin]}>

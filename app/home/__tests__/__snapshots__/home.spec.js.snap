@@ -54,6 +54,8 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
         }
       >
         <View
+          accessibilityLabel="bubble-3nj819kkjywdppuje79"
+          accessible={true}
           imageShadow="imageShadow"
           style={
             Object {

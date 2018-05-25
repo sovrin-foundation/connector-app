@@ -42,15 +42,11 @@ export default class WalletBackupSuccessModal extends PureComponent<
         onPress={this.props.onContinue}
         buttonText="Continue"
         testID={'wallet-backup-modal'}
-        accessible={true}
-        accessibilityLabel={'wallet-backup-modal'}
         isVisible={this.props.isVisible}
       >
         <CustomView
           onPress={this.copyToClipboard}
           testID={'wallet-backup-modal-innerview'}
-          accessible={true}
-          accessibilityLabel={'wallet-backup-modal-innerview'}
         >
           <CustomView doubleVerticalSpace>
             <CustomText

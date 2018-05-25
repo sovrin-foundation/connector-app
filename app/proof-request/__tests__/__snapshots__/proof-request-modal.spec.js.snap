@@ -74,6 +74,8 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
           testID={undefined}
         >
           <View
+            accessibilityLabel="avatars-pair-avatars-invitee"
+            accessible={true}
             imageShadow="imageShadow"
             style={
               Object {
@@ -147,6 +149,8 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
           testID="send-proof-check-mark"
         />
         <View
+          accessibilityLabel="send-proof-text-avatars-inviter"
+          accessible={true}
           imageShadow="imageShadow"
           style={
             Object {
@@ -200,6 +204,7 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
         </View>
       </View>
       <Text
+        accessibilityLabel="send-proof-message"
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
@@ -240,6 +245,7 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
         Successfully Sent
       </Text>
       <Text
+        accessibilityLabel="proof-verify-name"
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
@@ -297,7 +303,7 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
     >
       <View
         accessibilityComponentType={undefined}
-        accessibilityLabel="Continue to see your new connection"
+        accessibilityLabel="send-proof-success-continue"
         accessibilityTraits={undefined}
         accessible={true}
         hasTVPreferredFocus={undefined}
@@ -486,6 +492,8 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
           testID={undefined}
         >
           <View
+            accessibilityLabel="avatars-pair-avatars-invitee"
+            accessible={true}
             imageShadow="imageShadow"
             style={
               Object {
@@ -554,6 +562,8 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
           testID="send-proof-check-mark"
         />
         <View
+          accessibilityLabel="send-proof-text-avatars-inviter"
+          accessible={true}
           imageShadow="imageShadow"
           style={
             Object {
@@ -607,6 +617,7 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
         </View>
       </View>
       <Text
+        accessibilityLabel="send-proof-message"
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
@@ -647,6 +658,7 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
         Successfully Sent
       </Text>
       <Text
+        accessibilityLabel="proof-verify-name"
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
@@ -704,7 +716,7 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
     >
       <View
         accessibilityComponentType={undefined}
-        accessibilityLabel="Continue to see your new connection"
+        accessibilityLabel="send-proof-success-continue"
         accessibilityTraits={undefined}
         accessible={true}
         hasTVPreferredFocus={undefined}
@@ -884,6 +896,8 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
           testID={undefined}
         >
           <View
+            accessibilityLabel="avatars-pair-avatars-invitee"
+            accessible={true}
             imageShadow="imageShadow"
             style={
               Object {
@@ -957,6 +971,8 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
           testID="send-proof-check-mark"
         />
         <View
+          accessibilityLabel="send-proof-text-avatars-inviter"
+          accessible={true}
           imageShadow="imageShadow"
           style={
             Object {
@@ -1010,6 +1026,7 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
         </View>
       </View>
       <Text
+        accessibilityLabel="send-proof-message"
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
@@ -1050,6 +1067,7 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
         Sending Proof to
       </Text>
       <Text
+        accessibilityLabel="proof-verify-name"
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
@@ -1107,7 +1125,7 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
     >
       <View
         accessibilityComponentType={undefined}
-        accessibilityLabel="Continue to see your new connection"
+        accessibilityLabel="send-proof-success-continue"
         accessibilityTraits={undefined}
         accessible={true}
         hasTVPreferredFocus={undefined}

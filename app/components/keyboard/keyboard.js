@@ -81,8 +81,6 @@ export default class Keyboard extends Component<KeyboardProps, KeyboardState> {
         accessibilityLabel={BACK_SPACE}
         center
         testID={`${KEYBOARD_TEST_ID}-back-space`}
-        accessible={true}
-        accessibilityLabel={`${KEYBOARD_TEST_ID}-back-space`}
         onPress={() => {
           this.onPress(BACK_SPACE_SYMBOL)
         }}

@@ -74,6 +74,8 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
           testID={undefined}
         >
           <View
+            accessibilityLabel="avatars-pair-avatars-invitee"
+            accessible={true}
             imageShadow="imageShadow"
             style={
               Object {
@@ -142,6 +144,8 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
           testID="claim-request-check-mark"
         />
         <View
+          accessibilityLabel="claim-request-text-avatars-inviter"
+          accessible={true}
           imageShadow="imageShadow"
           style={
             Object {
@@ -408,7 +412,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
     >
       <View
         accessibilityComponentType={undefined}
-        accessibilityLabel="claim-request"
+        accessibilityLabel="claim-request-success-continue"
         accessibilityTraits={undefined}
         accessible={true}
         hasTVPreferredFocus={undefined}
@@ -588,6 +592,8 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
           testID={undefined}
         >
           <View
+            accessibilityLabel="avatars-pair-avatars-invitee"
+            accessible={true}
             imageShadow="imageShadow"
             style={
               Object {
@@ -661,6 +667,8 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
           testID="claim-request-check-mark"
         />
         <View
+          accessibilityLabel="claim-request-text-avatars-inviter"
+          accessible={true}
           imageShadow="imageShadow"
           style={
             Object {
@@ -927,7 +935,7 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
     >
       <View
         accessibilityComponentType={undefined}
-        accessibilityLabel="claim-request"
+        accessibilityLabel="claim-request-success-continue"
         accessibilityTraits={undefined}
         accessible={true}
         hasTVPreferredFocus={undefined}

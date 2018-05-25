@@ -62,8 +62,8 @@ export default class CustomButton extends PureComponent {
         {...this.props}
         onPress={this.deboucedButton}
         {...buttonProps}
-        accessible={this.props.accessible}
-        accessibilityLabel={this.props.accessibilityLabel}
+        accessible={true}
+        accessibilityLabel={this.props.testID}
         buttonStyle={style}
         containerViewStyle={styles.buttonContainer}
         disabledStyle={disabledStyles}

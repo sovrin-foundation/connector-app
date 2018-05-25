@@ -17,8 +17,6 @@ export default class AvatarsPair extends PureComponent<*, void> {
       shadow
       src={avatarSource}
       testID={`avatars-pair-avatars-invitee`}
-      accessible={true}
-      accessibilityLabel={'avatars-pair-avatars-invitee'}
     />
   )
 
@@ -31,8 +29,6 @@ export default class AvatarsPair extends PureComponent<*, void> {
         spaceBetween
         style={[styles.avatarsContainer]}
         testID={`${testID}-text-avatars-container`}
-        accessible={true}
-        accessibilityLabel={`${testID}-text-avatars-container`}
       >
         <UserAvatar>{this.renderAvatarWithSource}</UserAvatar>
         {middleImage && (
@@ -50,8 +46,6 @@ export default class AvatarsPair extends PureComponent<*, void> {
             shadow
             src={avatarRight}
             testID={`${testID}-text-avatars-inviter`}
-            accessible={true}
-            accessibilityLabel={`${testID}-text-avatars-inviter`}
           />
         )}
       </CustomView>

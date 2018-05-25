@@ -99,8 +99,6 @@ export class LockSetupSuccess extends PureComponent<
             medium
             disabled={isFetchingInvitation}
             testID="close-button"
-            accessible={true}
-            accessibilityLabel="close-button"
             fontWeight="600"
             title="Close"
             onPress={this.onClose}

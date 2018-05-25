@@ -12,7 +12,7 @@ exports[`<LockEnter /> should match snapshot 1`] = `
 >
   <View
     accessibilityComponentType={undefined}
-    accessibilityLabel={undefined}
+    accessibilityLabel="pin-code-input-boxes-touchable"
     accessibilityTraits={undefined}
     accessible={true}
     center={true}
@@ -44,6 +44,7 @@ exports[`<LockEnter /> should match snapshot 1`] = `
     testID="pin-code-input-boxes-touchable"
   >
     <Text
+      accessibilityLabel="pass-code-input-text"
       accessible={true}
       allowFontScaling={true}
       ellipsizeMode="tail"

@@ -47,8 +47,8 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
       style={Object {}}
     >
       <View
-        accessibilityLabel="undefined-header"
-        accessible={undefined}
+        accessibilityLabel="connection-history-header"
+        accessible={true}
         fifth={true}
         style={
           Object {
@@ -81,7 +81,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
           <View
             absolute="TopRight"
             accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
+            accessibilityLabel="connection-history-icon-close-touchable"
             accessibilityTraits={undefined}
             accessible={true}
             clearBg={true}
@@ -143,7 +143,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
           </View>
           <View
             accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
+            accessibilityLabel="connection-history-issuer-logo-touchable"
             accessibilityTraits={undefined}
             accessible={true}
             center={true}
@@ -238,7 +238,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
           <View
             absolute="TopLeft"
             accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
+            accessibilityLabel="connection-history-icon-delete-touchable"
             accessibilityTraits={undefined}
             accessible={true}
             clearBg={true}
@@ -483,8 +483,6 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                 }
               >
                 <Image
-                  accessibilityLabel={undefined}
-                  accessible={true}
                   resizeMode="contain"
                   source={1}
                   style={
@@ -499,7 +497,6 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                       },
                     ]
                   }
-                  testID={undefined}
                 />
               </View>
               <View

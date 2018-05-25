@@ -26,14 +26,18 @@ const Icon = props => {
       ? 'medium'
       : extraLarge ? 'extraLarge' : mediumLarge ? 'mediumLarge' : 'large'
   const roundImageStyle = halo || round ? styles[`${size}RoundIcon`] : null
+  let filteredProps = {}
+  if (typeof props.testID !== 'undefined') {
+    filteredProps.testID = testID
+    filteredProps.accessible = true
+    filteredProps.accessibilityLabel = testID
+  }
   const iconImage = (
     <Image
       source={src}
       style={[styles[size], roundImageStyle, ...iconStyle]}
       resizeMode={resizeMode}
-      testID={testID}
-      accessible={true}
-      accessibilityLabel={testID}
+      {...filteredProps}
     />
   )
 

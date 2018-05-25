@@ -25,6 +25,8 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
       }
     >
       <View
+        accessibilityLabel="authentication-request-text-container"
+        accessible={true}
         hCenter={true}
         style={
           Object {
@@ -36,6 +38,8 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
         useNativeDriver={true}
       >
         <View
+          accessibilityLabel="authentication-request-text-message-container"
+          accessible={true}
           style={
             Object {
               "flex": 1,
@@ -45,12 +49,16 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
           testID="authentication-request-text-message-container"
         >
           <Animatable.View
+            accessibilityLabel="authentication-request-text-container-animation"
+            accessible={true}
             animation="bounceInDown"
             delay={100}
             duration={1500}
             testID="authentication-request-text-container-animation"
           >
             <View
+              accessibilityLabel="authentication-request-text-container-message-title"
+              accessible={true}
               center={true}
               style={
                 Object {
@@ -61,6 +69,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
               testID="authentication-request-text-container-message-title"
             >
               <Text
+                accessibilityLabel="authentication-request-text-container-title"
                 accessible={true}
                 allowFontScaling={true}
                 ellipsizeMode="tail"
@@ -100,6 +109,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                 Hi There
               </Text>
               <Text
+                accessibilityLabel="authentication-request-text-container-message"
                 accessible={true}
                 allowFontScaling={true}
                 ellipsizeMode="tail"
@@ -140,6 +150,8 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
           </Animatable.View>
         </View>
         <View
+          accessibilityLabel="authentication-request-text-container-avatars"
+          accessible={true}
           style={
             Object {
               "flex": 1,
@@ -148,6 +160,8 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
           testID="authentication-request-text-container-avatars"
         >
           <Animatable.View
+            accessibilityLabel="invitation-text-container-avatars-animation"
+            accessible={true}
             animation="bounceInUp"
             delay={300}
             duration={1500}
@@ -164,6 +178,8 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
               }
             >
               <View
+                accessibilityLabel="invitation-text-avatars-container"
+                accessible={true}
                 row={true}
                 spaceBetween={true}
                 style={
@@ -196,6 +212,8 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                   testID={undefined}
                 >
                   <View
+                    accessibilityLabel="invitation-text-avatars-invitee"
+                    accessible={true}
                     imageShadow="imageShadow"
                     style={
                       Object {
@@ -255,6 +273,8 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                   }
                 />
                 <View
+                  accessibilityLabel="invitation-text-avatars-inviter"
+                  accessible={true}
                   imageShadow="imageShadow"
                   style={
                     Object {
@@ -692,6 +712,8 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
             testID={undefined}
           >
             <View
+              accessibilityLabel="avatars-pair-avatars-invitee"
+              accessible={true}
               imageShadow="imageShadow"
               style={
                 Object {
@@ -756,6 +778,8 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
             testID="invitation-check-mark"
           />
           <View
+            accessibilityLabel="invitation-text-avatars-inviter"
+            accessible={true}
             imageShadow="imageShadow"
             style={
               Object {
@@ -865,7 +889,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
       >
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel="invitation"
+          accessibilityLabel="invitation-success-continue"
           accessibilityTraits={undefined}
           accessible={true}
           hasTVPreferredFocus={undefined}

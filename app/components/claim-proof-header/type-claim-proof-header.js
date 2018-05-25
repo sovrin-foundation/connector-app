@@ -13,8 +13,6 @@ export type ClaimProofHeaderProps = {
   messageStyle?: Array<GenericObject | number>,
   titleStyle?: GenericObject,
   payTokenValue?: ?string,
-  accessible: boolean,
-  accessibilityLabel: string,
 }
 
 export type ClaimProofHeaderNotchProps = {

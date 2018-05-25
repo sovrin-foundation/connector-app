@@ -69,8 +69,6 @@ export class LockPinSetup extends PureComponent<
       <CustomView>
         <Icon
           testID={'back-arrow'}
-          accessible={true}
-          accessibilityLabel="back-arrow"
           iconStyle={[styles.headerLeft]}
           src={require('../images/icon_backArrow.png')}
           resizeMode="contain"

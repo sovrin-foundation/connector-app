@@ -36,6 +36,8 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
     }
   >
     <View
+      accessibilityLabel="bubble-4ej819kkjywdppuje79"
+      accessible={true}
       imageShadow="imageShadow"
       style={
         Object {
@@ -105,6 +107,8 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
     }
   >
     <View
+      accessibilityLabel="bubble-3nj819kkjywdppuje86"
+      accessible={true}
       imageShadow="imageShadow"
       style={
         Object {
@@ -174,6 +178,8 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
     }
   >
     <View
+      accessibilityLabel="bubble-7fj819kkjywdppuje34"
+      accessible={true}
       imageShadow="imageShadow"
       style={
         Object {

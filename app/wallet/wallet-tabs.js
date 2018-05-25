@@ -39,6 +39,7 @@ const Tabs = TabNavigator(
         tabBarTestIDProps: {
           testID: RECEIVE_TAB_TEST_ID,
           accessible: true,
+          accessibleLabel: RECEIVE_TAB_TEST_ID,
           accessibilityLabel: RECEIVE_TAB_TEST_ID,
         },
       },
@@ -50,6 +51,7 @@ const Tabs = TabNavigator(
         tabBarTestIDProps: {
           testID: SEND_TAB_TEST_ID,
           accessible: true,
+          accessibleLabel: SEND_TAB_TEST_ID,
           accessibilityLabel: SEND_TAB_TEST_ID,
         },
       },
@@ -61,6 +63,7 @@ const Tabs = TabNavigator(
         tabBarTestIDProps: {
           testID: HISTORY_TAB_TEST_ID,
           accessible: true,
+          accessibleLabel: HISTORY_TAB_TEST_ID,
           accessibilityLabel: HISTORY_TAB_TEST_ID,
         },
       },

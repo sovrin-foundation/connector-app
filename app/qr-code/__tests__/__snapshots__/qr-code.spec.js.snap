@@ -246,6 +246,8 @@ exports[`<QRScannerScreen /> should match snapshot 1`] = `
           scanning...
         </Text>
         <View
+          accessibilityLabel="close-qr-scanner-container"
+          accessible={true}
           center={true}
           row={true}
           style={
@@ -260,7 +262,7 @@ exports[`<QRScannerScreen /> should match snapshot 1`] = `
         >
           <View
             accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
+            accessibilityLabel="close-qr-scanner-icon-touchable"
             accessibilityTraits={undefined}
             accessible={true}
             clearBg={true}

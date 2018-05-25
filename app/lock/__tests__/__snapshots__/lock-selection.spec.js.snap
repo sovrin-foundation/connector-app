@@ -2,6 +2,8 @@
 
 exports[`app lock selection page should render properly 1`] = `
 <View
+  accessibilityLabel="lock-selection-view"
+  accessible={true}
   style={
     Object {
       "backgroundColor": "#ffffff",
@@ -126,7 +128,7 @@ exports[`app lock selection page should render properly 1`] = `
   >
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel={undefined}
+      accessibilityLabel="touch-id-selection-touchable"
       accessibilityTraits={undefined}
       accessible={true}
       center={true}
@@ -181,6 +183,7 @@ exports[`app lock selection page should render properly 1`] = `
         }
       />
       <Text
+        accessibilityLabel="use-touch-id-text"
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"
@@ -608,6 +611,7 @@ exports[`app lock selection page should render properly 1`] = `
         </View>
       </View>
       <Text
+        accessibilityLabel="use-pass-code-text"
         accessible={true}
         allowFontScaling={true}
         ellipsizeMode="tail"

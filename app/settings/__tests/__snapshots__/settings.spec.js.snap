@@ -139,8 +139,6 @@ exports[`user settings screen should render properly and snapshot should match 1
             }
           >
             <Image
-              accessibilityLabel={undefined}
-              accessible={true}
               resizeMode="contain"
               source={1}
               style={
@@ -159,7 +157,6 @@ exports[`user settings screen should render properly and snapshot should match 1
                   },
                 ]
               }
-              testID={undefined}
             />
           </View>
         </View>
@@ -316,8 +313,6 @@ exports[`user settings screen should render properly and snapshot should match 1
             testID={undefined}
           >
             <Image
-              accessibilityLabel={undefined}
-              accessible={true}
               resizeMode="contain"
               source={1}
               style={
@@ -336,7 +331,6 @@ exports[`user settings screen should render properly and snapshot should match 1
                   },
                 ]
               }
-              testID={undefined}
             />
           </View>
         </View>
@@ -393,8 +387,6 @@ exports[`user settings screen should render properly and snapshot should match 1
               }
             >
               <Image
-                accessibilityLabel={undefined}
-                accessible={true}
                 resizeMode="contain"
                 source={1}
                 style={
@@ -416,7 +408,6 @@ exports[`user settings screen should render properly and snapshot should match 1
                     },
                   ]
                 }
-                testID={undefined}
               />
             </View>
             <View
@@ -565,8 +556,6 @@ exports[`user settings screen should render properly and snapshot should match 1
               }
             >
               <Image
-                accessibilityLabel={undefined}
-                accessible={true}
                 resizeMode="contain"
                 source={1}
                 style={
@@ -588,7 +577,6 @@ exports[`user settings screen should render properly and snapshot should match 1
                     },
                   ]
                 }
-                testID={undefined}
               />
             </View>
             <View
@@ -708,8 +696,6 @@ exports[`user settings screen should render properly and snapshot should match 1
               }
             >
               <Image
-                accessibilityLabel={undefined}
-                accessible={true}
                 resizeMode="contain"
                 source={1}
                 style={
@@ -731,7 +717,6 @@ exports[`user settings screen should render properly and snapshot should match 1
                     },
                   ]
                 }
-                testID={undefined}
               />
             </View>
             <View
@@ -852,8 +837,6 @@ exports[`user settings screen should render properly and snapshot should match 1
                 }
               >
                 <Image
-                  accessibilityLabel={undefined}
-                  accessible={true}
                   resizeMode="contain"
                   source={1}
                   style={
@@ -875,7 +858,6 @@ exports[`user settings screen should render properly and snapshot should match 1
                       },
                     ]
                   }
-                  testID={undefined}
                 />
               </View>
               <View
@@ -1088,7 +1070,7 @@ exports[`user settings screen should render properly and snapshot should match 1
       >
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel="wallet-backup-modal"
+          accessibilityLabel="wallet-backup-modal-success-continue"
           accessibilityTraits={undefined}
           accessible={true}
           hasTVPreferredFocus={undefined}

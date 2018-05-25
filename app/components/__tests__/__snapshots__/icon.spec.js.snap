@@ -2,6 +2,8 @@
 
 exports[`<Icon /> should match snapshot 1`] = `
 <View
+  accessibilityLabel="test-icon-test"
+  accessible={true}
   center={true}
   clearBg={true}
   extraLarge={true}

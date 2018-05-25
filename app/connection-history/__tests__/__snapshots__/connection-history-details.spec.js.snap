@@ -89,6 +89,7 @@ exports[`<ConnectionHistoryDetails /> should ConnectionHistoryDetails render pro
                 }
               >
                 <Text
+                  accessibilityLabel="custom-list-label-0"
                   accessible={true}
                   allowFontScaling={true}
                   ellipsizeMode="tail"
@@ -135,6 +136,7 @@ exports[`<ConnectionHistoryDetails /> should ConnectionHistoryDetails render pro
                 }
               >
                 <Text
+                  accessibilityLabel="custom-list-data-0"
                   accessible={true}
                   allowFontScaling={true}
                   ellipsizeMode="tail"
@@ -184,8 +186,6 @@ exports[`<ConnectionHistoryDetails /> should ConnectionHistoryDetails render pro
               }
             >
               <Image
-                accessibilityLabel={undefined}
-                accessible={true}
                 resizeMode="cover"
                 source={null}
                 style={
@@ -199,7 +199,6 @@ exports[`<ConnectionHistoryDetails /> should ConnectionHistoryDetails render pro
                     },
                   ]
                 }
-                testID={undefined}
               />
             </View>
           </View>

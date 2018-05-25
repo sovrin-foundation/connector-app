@@ -148,8 +148,6 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
               }
             >
               <Image
-                accessibilityLabel={undefined}
-                accessible={true}
                 resizeMode="contain"
                 source={1}
                 style={
@@ -164,7 +162,6 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                     },
                   ]
                 }
-                testID={undefined}
               />
             </View>
             <View
@@ -464,8 +461,6 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
               }
             >
               <Image
-                accessibilityLabel={undefined}
-                accessible={true}
                 resizeMode="contain"
                 source={1}
                 style={
@@ -480,7 +475,6 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                     },
                   ]
                 }
-                testID={undefined}
               />
             </View>
             <View

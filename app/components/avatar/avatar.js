@@ -74,6 +74,8 @@ export default class Avatar extends PureComponent {
             source={src}
             style={elementContentStyle}
             testID={`${testID}-image`}
+            accessible={true}
+            accessibilityLabel={`${testID}-image`}
             onLoad={onLoad}
             onError={onError}
           />

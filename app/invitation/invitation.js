@@ -117,8 +117,6 @@ export class Invitation extends PureComponent<
               senderLogoUrl={senderLogoUrl}
               onAction={this.onAction}
               testID={'invitation'}
-              accessible={true}
-              accessibilityLabel={'invitation'}
               navigation={this.props.navigation}
               showErrorAlerts={this.props.showErrorAlerts}
             />

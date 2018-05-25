@@ -57,8 +57,6 @@ export class WalletTabSendDetails extends Component<
       <CustomView horizontalSpace>
         <Icon
           testID={'back-arrow'}
-          accessible={true}
-          accessibilityLabel={'back-arrow'}
           iconStyle={[styles.headerLeft]}
           src={require('../images/icon_backArrow.png')}
           resizeMode="contain"
@@ -93,8 +91,6 @@ export class WalletTabSendDetails extends Component<
           h5
           style={[navigation.state.params.isValid ? {} : styles.disabledText]}
           testID={SEND_TOKENS_TO_PAYMENT_ADDRESS}
-          accessible={true}
-          accessibilityLabel={SEND_TOKENS_TO_PAYMENT_ADDRESS}
           onPress={() => {
             navigation.state.params.sendTokens(
               navigation.state.params.tokenAmount,
@@ -168,8 +164,6 @@ export class WalletTabSendDetails extends Component<
         fifth
         onPress={Keyboard.dismiss}
         testID="wallet-tab-send-details"
-        accessible={true}
-        accessibilityLabel={'wallet-tab-send-details'}
       >
         <ControlInput
           label="To"

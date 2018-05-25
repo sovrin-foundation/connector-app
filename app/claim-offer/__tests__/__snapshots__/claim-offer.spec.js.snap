@@ -960,6 +960,8 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
             testID={undefined}
           >
             <View
+              accessibilityLabel="avatars-pair-avatars-invitee"
+              accessible={true}
               imageShadow="imageShadow"
               style={
                 Object {
@@ -1028,6 +1030,8 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
             testID="claim-request-check-mark"
           />
           <View
+            accessibilityLabel="claim-request-text-avatars-inviter"
+            accessible={true}
             imageShadow="imageShadow"
             style={
               Object {
@@ -1256,7 +1260,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
       >
         <View
           accessibilityComponentType={undefined}
-          accessibilityLabel="claim-request"
+          accessibilityLabel="claim-request-success-continue"
           accessibilityTraits={undefined}
           accessible={true}
           hasTVPreferredFocus={undefined}

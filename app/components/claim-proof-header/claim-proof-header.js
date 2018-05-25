@@ -59,15 +59,11 @@ export default class ClaimProofHeader extends PureComponent<
       messageStyle = [],
       titleStyle = empty,
       payTokenValue,
-      accessible,
-      accessibilityLabel,
     }: ClaimProofHeaderProps = this.props
     return (
       <CustomSafeAreaView>
         <CustomView
           testID={`${testID}-header`}
-          accessible={accessible}
-          accessibilityLabel={`${accessibilityLabel}-header`}
           fifth
           style={[styles.header, containerStyle, { marginBottom: -OFFSET_1X }]}
         >

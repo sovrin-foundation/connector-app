@@ -193,8 +193,6 @@ class ProofRequestAttributeList extends PureComponent<
                 fifth
                 style={[styles.attributeItem]}
                 testID={`${testID}-${index}`}
-                accessible={true}
-                accessibilityLabel={`${testID}-${index}`}
                 row
               >
                 <Container fifth verticalSpace style={[styles.label]}>
@@ -244,8 +242,6 @@ class ProofRequestAttributeList extends PureComponent<
                   resizeMode="cover"
                   src={logoUrl}
                   testID={`proof-requester-logo-${index}`}
-                  accessible={true}
-                  accessibilityLabel={`proof-requester-logo-${index}`}
                 />
               </Container>
             </Container>
@@ -495,8 +491,6 @@ export class ProofRequest extends PureComponent<
       iconStyle={[styles.verifierLogoIcon]}
       haloStyle={styles.logoHaloStyle}
       testID="proof-request-verifier-logo"
-      accessible={true}
-      accessibilityLabel="proof-request-verifier-logo"
     />
   )
 
@@ -543,8 +537,6 @@ export class ProofRequest extends PureComponent<
             onDecline={this.onReject}
             denyTitle="Ignore"
             testID={testID}
-            accessible={true}
-            accessibilityLabel={testID}
           />
         </Container>
       )
@@ -558,16 +550,12 @@ export class ProofRequest extends PureComponent<
           onClose={this.onIgnore}
           logoUrl={logoUrl}
           testID={testID}
-          accessible={true}
-          accessibilityLabel={testID}
         >
           <Icon
             absolute="TopRight"
             src={require('../images/close.png')}
             small
             testID={`${testID}-icon-close`}
-            accessible={true}
-            accessibilityLabel={`${testID}-icon-close`}
             onPress={this.close}
             style={[styles.headerCloseIconContainer]}
           />
@@ -579,8 +567,6 @@ export class ProofRequest extends PureComponent<
               spaceBetween
               style={[styles.avatarsContainer]}
               testID={`${testID}-text-avatars-container`}
-              accessible={true}
-              accessibilityLabel={`${testID}-text-avatars-container`}
             >
               <UserAvatar>{this.renderAvatarWithSource}</UserAvatar>
               <Image
@@ -600,8 +586,6 @@ export class ProofRequest extends PureComponent<
                 style={[styles.verifierLogo]}
                 iconStyle={[styles.verifierLogoIcon]}
                 testID={`${testID}-verifier-logo`}
-                accessible={true}
-                accessibilityLabel={`${testID}-verifier-logo`}
               />
             </CustomView>
           </CustomView>
@@ -626,8 +610,6 @@ export class ProofRequest extends PureComponent<
             !enablePrimaryActionStatus || this.state.disableSendButton
           }
           testID={testID}
-          accessible={true}
-          accessibilityLabel={testID}
         />
         <ProofModal
           proofStatus={proofStatus}

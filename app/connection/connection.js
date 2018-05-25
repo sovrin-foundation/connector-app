@@ -70,6 +70,8 @@ export class ConnectionHome extends PureComponent {
         >
           <Image
             testID="connection-header-close-image"
+            accessible={true}
+            accessibilityLabel={'connection-header-close-image'}
             style={[styles.right]}
             source={require('../images/icon_close.png')}
             onPress={() => navigation.navigate(homeRoute)}

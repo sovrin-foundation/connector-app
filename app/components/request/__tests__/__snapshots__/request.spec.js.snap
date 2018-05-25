@@ -18,6 +18,8 @@ exports[`<Request /> should match snapshot 1`] = `
     }
   >
     <View
+      accessibilityLabel="request-text-container"
+      accessible={true}
       hCenter={true}
       style={
         Object {
@@ -29,6 +31,8 @@ exports[`<Request /> should match snapshot 1`] = `
       useNativeDriver={true}
     >
       <View
+        accessibilityLabel="request-text-message-container"
+        accessible={true}
         style={
           Object {
             "flex": 1,
@@ -38,12 +42,16 @@ exports[`<Request /> should match snapshot 1`] = `
         testID="request-text-message-container"
       >
         <Animatable.View
+          accessibilityLabel="request-text-container-animation"
+          accessible={true}
           animation="bounceInDown"
           delay={100}
           duration={1500}
           testID="request-text-container-animation"
         >
           <View
+            accessibilityLabel="request-text-container-message-title"
+            accessible={true}
             center={true}
             style={
               Object {
@@ -54,6 +62,7 @@ exports[`<Request /> should match snapshot 1`] = `
             testID="request-text-container-message-title"
           >
             <Text
+              accessibilityLabel="request-text-container-title"
               accessible={true}
               allowFontScaling={true}
               ellipsizeMode="tail"
@@ -93,6 +102,7 @@ exports[`<Request /> should match snapshot 1`] = `
               Hi Test User
             </Text>
             <Text
+              accessibilityLabel="request-text-container-message"
               accessible={true}
               allowFontScaling={true}
               ellipsizeMode="tail"
@@ -133,6 +143,8 @@ exports[`<Request /> should match snapshot 1`] = `
         </Animatable.View>
       </View>
       <View
+        accessibilityLabel="request-text-container-avatars"
+        accessible={true}
         style={
           Object {
             "flex": 1,
@@ -141,6 +153,8 @@ exports[`<Request /> should match snapshot 1`] = `
         testID="request-text-container-avatars"
       >
         <Animatable.View
+          accessibilityLabel="invitation-text-container-avatars-animation"
+          accessible={true}
           animation="bounceInUp"
           delay={300}
           duration={1500}
@@ -157,6 +171,8 @@ exports[`<Request /> should match snapshot 1`] = `
             }
           >
             <View
+              accessibilityLabel="invitation-text-avatars-container"
+              accessible={true}
               row={true}
               spaceBetween={true}
               style={
@@ -189,6 +205,8 @@ exports[`<Request /> should match snapshot 1`] = `
                 testID={undefined}
               >
                 <View
+                  accessibilityLabel="invitation-text-avatars-invitee"
+                  accessible={true}
                   imageShadow="imageShadow"
                   style={
                     Object {
@@ -252,6 +270,8 @@ exports[`<Request /> should match snapshot 1`] = `
                 }
               />
               <View
+                accessibilityLabel="invitation-text-avatars-inviter"
+                accessible={true}
                 imageShadow="imageShadow"
                 style={
                   Object {

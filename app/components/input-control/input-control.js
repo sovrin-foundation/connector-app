@@ -49,8 +49,6 @@ export default class ControlInput extends PureComponent<
       <CustomView
         style={[styles.container]}
         testID={`${label}-mainview-wallet-send-details`}
-        accessible={true}
-        accessibilityLabel={`${label}-mainview-wallet-send-details`}
       >
         <CustomView
           fifth
@@ -58,8 +56,6 @@ export default class ControlInput extends PureComponent<
           row
           horizontalSpace
           testID={`${label}-subview-wallet-send-details`}
-          accessible={true}
-          accessibilityLabel={`${label}-subview-wallet-send-details`}
         >
           <CustomView fifth right style={[{ width: 35, paddingVertical: 25 }]}>
             <CustomText
@@ -83,8 +79,6 @@ export default class ControlInput extends PureComponent<
               },
             ]}
             testID={`${label}-textinput-wallet-send-details`}
-            accessible={true}
-            accessibilityLabel={`${label}-textinput-wallet-send-details`}
           >
             <TextInput
               testID={`${label}-token-send-details-label`}

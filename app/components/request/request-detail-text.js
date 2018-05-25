@@ -16,6 +16,8 @@ export default class RequestDetailText extends PureComponent<
     return (
       <AnimatedView
         testID={`${testID}-text-container-animation`}
+        accessible={true}
+        accessibilityLabel={`${testID}-text-container-animation`}
         animation="bounceInDown"
         duration={1500}
         delay={100}

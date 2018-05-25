@@ -97,8 +97,6 @@ export class WalletTabReceive extends PureComponent<
           <CustomButton
             onPress={this.copyToClipboard}
             testID="token-copy-to-clipboard-label"
-            accessible={true}
-            accessibilityLabel="token-copy-to-clipboard-label"
             style={[customStyles.ctaButton]}
             primary
             title={this.state.copyButtonText}

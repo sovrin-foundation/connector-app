@@ -12,13 +12,7 @@ export default class PinCodeDigit extends PureComponent<
   void
 > {
   render() {
-    const {
-      entered,
-      testID = undefined,
-      onPress,
-      accessibilityLabel,
-      accessible,
-    } = this.props
+    const { entered, testID = undefined, onPress } = this.props
     const style = entered ? styles.entered : null
 
     return (
@@ -27,8 +21,6 @@ export default class PinCodeDigit extends PureComponent<
         center
         style={[styles.digit, style]}
         testID={testID}
-        accessible={accessible}
-        accessibilityLabel={accessibilityLabel}
       >
         {entered && (
           <Image style={styles.icon} source={sovrinIcon} resizeMode="contain" />

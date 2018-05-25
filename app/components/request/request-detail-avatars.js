@@ -30,6 +30,8 @@ export default class RequestDetailAvatars extends PureComponent<
         delay={300}
         duration={1500}
         testID={'invitation-text-container-avatars-animation'}
+        accessible={true}
+        accessibilityLabel={'invitation-text-container-avatars-animation'}
       >
         <CustomView center spaceBetween>
           <CustomView

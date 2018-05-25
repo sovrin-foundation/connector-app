@@ -9,10 +9,14 @@ const empty = {}
 // When used as <Container> siblings, they all take space in equal ratio
 export const Container = props => {
   const passedStyles = props.style ? props.style : empty
-
+  let allProps = props
+  if (props.testID) {
+    allProps.accessible = true
+    allProps.accessibilityLabel = props.testID
+  }
   return (
-    <CustomView {...props} style={[...passedStyles, style.container]}>
-      {props.children}
+    <CustomView {...allProps} style={[...passedStyles, style.container]}>
+      {allProps.children}
     </CustomView>
   )
 }

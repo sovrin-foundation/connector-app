@@ -164,7 +164,7 @@ exports[`<WalletBackupSuccessModal /> should render properly and match the snaps
     >
       <View
         accessibilityComponentType={undefined}
-        accessibilityLabel="wallet-backup-modal"
+        accessibilityLabel="wallet-backup-modal-success-continue"
         accessibilityTraits={undefined}
         accessible={true}
         hasTVPreferredFocus={undefined}
