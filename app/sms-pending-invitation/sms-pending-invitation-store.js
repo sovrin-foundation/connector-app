@@ -40,6 +40,7 @@ import {
   splashScreenRoute,
   lockSelectionRoute,
   switchEnvironmentRoute,
+  eulaRoute,
 } from '../common/route-constants'
 import { HYDRATED } from '../store/type-config-store'
 import { RESET } from '../common/type-common'
@@ -101,6 +102,7 @@ export const UNSAFE_SCREENS_TO_DOWNLOAD_SMS = [
   splashScreenRoute,
   lockSelectionRoute,
   switchEnvironmentRoute,
+  eulaRoute,
 ]
 
 export function* callSmsPendingInvitationRequest(
