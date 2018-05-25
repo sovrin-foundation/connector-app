@@ -239,7 +239,7 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
             <CustomText
               h4
               semiBold
-              bg="tertiary"
+              bg="septenary"
               style={[styles.listItemLabel]}
             >
               {sdid}

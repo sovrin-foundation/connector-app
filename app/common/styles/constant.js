@@ -128,7 +128,7 @@ export const color = {
       },
     },
     seventh: {
-      color: white,
+      color: whiteSmoke,
       font: {
         primary: nightRider,
         secondary: dimGray,
