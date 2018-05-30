@@ -11,11 +11,11 @@ export type ClaimProofHeaderProps = {
   containerStyle?: GenericObject,
   textContainerStyle?: Array<GenericObject | number>,
   messageStyle?: Array<GenericObject | number>,
-  titleStyle?: GenericObject,
+  titleStyle?: Array<GenericObject | number>,
   payTokenValue?: ?string,
 }
 
 export type ClaimProofHeaderNotchProps = {
   containerStyle?: GenericObject,
-  titleStyle?: GenericObject,
+  titleStyle?: Array<GenericObject | number>,
 }

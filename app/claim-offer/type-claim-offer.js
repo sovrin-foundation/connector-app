@@ -111,7 +111,10 @@ export type ClaimOfferAction =
   | HydrateSerializedClaimOffersSuccessAction
   | ResetAction
 
-// Assumption is that paid claim will have payTokenValue in ClaimOfferPayload/claimOfferData. CO-1329
+// Assumption is that paid claim will have below listed in ClaimOfferPayload/claimOfferData. CO-1329
+// 1) Payment address of issuer
+// 2) Invoice number
+// 3) Payable Token amount
 export type ClaimOfferPayload = AdditionalDataPayload & {
   uid: string,
   senderLogoUrl?: ?string,
@@ -119,6 +122,8 @@ export type ClaimOfferPayload = AdditionalDataPayload & {
   status: ClaimOfferStatus,
   claimRequestStatus: ClaimRequestStatus,
   payTokenValue?: ?string,
+  issuerWalletAddress?: ?string,
+  claimOfferInvoiceNumber?: ?string,
 }
 
 export type SerializedClaimOffers = {

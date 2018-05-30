@@ -148,10 +148,7 @@ export class ClaimOffer extends PureComponent<
       ? { uri: logoUrl }
       : require('../images/cb_evernym.png')
     const testID = 'claim-offer'
-    let acceptButtonText = (() => {
-      return payTokenValue ? 'Accept & Pay' : 'Accept'
-    })()
-
+    let acceptButtonText = payTokenValue ? 'Accept & Pay' : 'Accept'
     // TODO: Get text and background color from color-picker.
     return (
       <Container style={[{ backgroundColor: claimThemePrimary }]}>
@@ -168,14 +165,8 @@ export class ClaimOffer extends PureComponent<
               borderBottomColor: claimThemePrimary,
             }}
             textContainerStyle={[headerStyles.clearBg]}
-            messageStyle={[
-              headerStyles.clearBg,
-              { color: color.bg.primary.font.primary },
-            ]}
-            titleStyle={{
-              backgroundColor: 'transparent',
-              color: color.bg.primary.font.primary,
-            }}
+            messageStyle={[headerStyles.clearBg, styles.messageStyle]}
+            titleStyle={[styles.titleStyles]}
           >
             <CustomView
               fifth
@@ -245,7 +236,6 @@ const mapStateToProps = (state: Store, props: ReactNavigation) => {
       : { uid: '' }
   const claimOfferData = claimOffer[uid]
   const logoUrl = getConnectionLogoUrl(state, claimOfferData.remotePairwiseDID)
-
   const themeForLogo = getConnectionTheme(state, logoUrl)
   const isValid =
     claimOfferData &&
@@ -310,5 +300,12 @@ const styles = StyleSheet.create({
   },
   attributeListValue: {
     flex: 6,
+  },
+  messageStyle: {
+    color: color.bg.primary.font.primary,
+  },
+  titleStyles: {
+    backgroundColor: 'transparent',
+    color: color.bg.primary.font.primary,
   },
 })

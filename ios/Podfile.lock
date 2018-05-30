@@ -110,7 +110,7 @@ SPEC REPOS:
     - ConnectMeIndy
   "git@github.com:hyperledger/indy-sdk.git":
     - libindy-objc
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -171,4 +171,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 819ebb367a06fd98021e84353d09afb5bf1c30b0
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.2

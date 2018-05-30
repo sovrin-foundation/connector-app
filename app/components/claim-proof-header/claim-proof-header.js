@@ -15,6 +15,7 @@ import {
   OFFSET_3X,
   isiPhone5,
   font,
+  white,
 } from '../../common/styles'
 import empty from '../../common/empty'
 import type {
@@ -30,10 +31,10 @@ export class ClaimProofHeaderNotch extends PureComponent<
   render() {
     const {
       containerStyle = empty,
-      titleStyle = empty,
+      titleStyle = [],
     }: ClaimProofHeaderNotchProps = this.props
     return (
-      <View style={[{ zIndex: 5 }]}>
+      <View style={styles.headerNotchContainer}>
         <View style={[styles.trapezoid, containerStyle]}>
           <CustomText h7 center style={[styles.sovrinText, titleStyle]}>
             SOVRIN TOKENS
@@ -57,7 +58,7 @@ export default class ClaimProofHeader extends PureComponent<
       containerStyle = empty,
       textContainerStyle = [],
       messageStyle = [],
-      titleStyle = empty,
+      titleStyle = [],
       payTokenValue,
     }: ClaimProofHeaderProps = this.props
     return (
@@ -85,15 +86,7 @@ export default class ClaimProofHeader extends PureComponent<
               </CustomText>
             )}
             {payTokenValue && (
-              <CustomView
-                row
-                horizontalSpace
-                style={[
-                  {
-                    alignItems: 'flex-start',
-                  },
-                ]}
-              >
+              <CustomView row horizontalSpace left>
                 <CustomText
                   h4
                   uppercase
@@ -148,11 +141,15 @@ const styles = StyleSheet.create({
     marginTop: OFFSET_1X / 2,
   },
   prefix: {
-    fontSize: font.size.prefix,
+    fontSize: font.size.PREFIX,
     marginTop: OFFSET_3X / 2,
   },
   sovrinText: {
     marginBottom: -OFFSET_1X,
+  },
+  headerNotchContainer: {
+    zIndex: 5,
+    backgroundColor: white,
   },
   trapezoid: {
     width: '100%',

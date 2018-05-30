@@ -174,7 +174,7 @@ export const font = {
     M: 17,
     ML: 20,
     L: 40,
-    prefix: 14,
+    PREFIX: 14,
   },
 }
 
