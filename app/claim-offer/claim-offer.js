@@ -221,6 +221,7 @@ export class ClaimOffer extends PureComponent<
             senderLogoUrl={logoUrl}
             message1="You accepted"
             message3="from"
+            message5="for"
           />
         )}
       </Container>

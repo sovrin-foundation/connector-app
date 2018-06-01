@@ -355,44 +355,6 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
       >
         Test Issuer
       </Text>
-      <Text
-        accessibilityLabel="claim-request-message"
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
-        style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "SF Pro Display",
-            },
-            Object {
-              "backgroundColor": "#ffffff",
-              "color": "#777777",
-            },
-            null,
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "marginBottom": 5,
-            },
-          ]
-        }
-        testID="claim-request-message"
-      >
-        !
-      </Text>
     </View>
     <View
       style={
@@ -877,44 +839,6 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
         testID="claim-request-message"
       >
         Home Address
-      </Text>
-      <Text
-        accessibilityLabel="claim-request-message"
-        accessible={true}
-        allowFontScaling={true}
-        ellipsizeMode="tail"
-        style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "SF Pro Display",
-            },
-            Object {
-              "backgroundColor": "#ffffff",
-              "color": "#777777",
-            },
-            null,
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "marginBottom": 5,
-            },
-          ]
-        }
-        testID="claim-request-message"
-      >
-         to you it will appear here
       </Text>
     </View>
     <View

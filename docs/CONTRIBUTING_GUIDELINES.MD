@@ -200,6 +200,23 @@ Also Comment out the sendMessage native bridge call
       }
 
 ```
+## To trigger claim offer success pop up
+
+  in claim-request-modal.js add the following code 
+
+
+```js
+    componentDidMount() {
+    // if modal is opened when it was unmounted or freshly mounted
+    // this.toggleModal(this.props.claimRequestStatus)
+
+    setTimeout(() => {
+      this.setState({isVisible: true})
+    }, 4000)
+  }
+
+```
+
 ## How to know what tests to write
 
 Check this small video https://drive.google.com/open?id=1t83ZTe4RdgozuIRs6Pi140fU7cIp-8wx

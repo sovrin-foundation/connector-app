@@ -61,7 +61,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
   render() {
     const {
       claimRequestStatus,
-      payload: { issuer, data },
+      payload: { issuer, data, payTokenValue },
       senderLogoUrl,
       isPending = false,
       message1,
@@ -70,6 +70,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
     }: ClaimRequestStatusModalProps = this.props
     let message2 = data.name
     let message4 = issuer.name
+    let message6 = payTokenValue
     if (isPending) {
       message2 = issuer.name
       message4 = data.name
@@ -147,7 +148,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
         >
           {message4}
         </CustomText>
-        {message5 !== undefined ? (
+        {message6 !== undefined ? (
           <CustomText
             h5
             center
@@ -158,6 +159,20 @@ export default class ClaimRequestStatusModal extends PureComponent<
             testID={`claim-request-message`}
           >
             {message5}
+          </CustomText>
+        ) : null}
+        {message6 !== undefined ? (
+          <CustomText
+            h5
+            bold
+            center
+            tertiary
+            bg="tertiary"
+            transparentBg
+            style={[styles.message]}
+            testID={`claim-request-message`}
+          >
+            {message6} {' tokens'}
           </CustomText>
         ) : null}
       </CustomModal>
