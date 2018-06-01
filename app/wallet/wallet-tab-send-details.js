@@ -14,19 +14,21 @@
 // when and if we would new features, we would add those later
 
 import React, { Component } from 'react'
-import { StyleSheet, Keyboard } from 'react-native'
+import { StyleSheet, Keyboard, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { StackNavigator, NavigationActions } from 'react-navigation'
-import { Container, CustomText, CustomView } from '../components'
+import { Container, CustomText, CustomView, CustomButton } from '../components'
 import { primaryHeaderStyles } from '../components/layout/header-styles'
 import Icon from '../components/icon'
 import {
   OFFSET_1X,
   OFFSET_2X,
+  OFFSET_3X,
   OFFSET_6X,
   OFFSET_7X,
   color,
+  HAIRLINE_WIDTH,
 } from '../common/styles/constant'
 import ControlInput from '../components/input-control/input-control'
 import { Text } from 'react-native-elements'
@@ -46,8 +48,9 @@ import {
 import { sendTokens } from '../wallet/wallet-store'
 import { getWalletAddresses, getTokenAmount } from '../store/store-selector'
 import type { Store } from '../store/type-store'
+import { STORE_STATUS } from './type-wallet'
+import Modal from 'react-native-modal'
 
-// TODO: Add type for the props and state
 export class WalletTabSendDetails extends Component<
   WalletTabSendDetailsProps,
   WalletTabSendDetailsState
@@ -92,14 +95,12 @@ export class WalletTabSendDetails extends Component<
           style={[navigation.state.params.isValid ? {} : styles.disabledText]}
           testID={SEND_TOKENS_TO_PAYMENT_ADDRESS}
           onPress={() => {
-            navigation.state.params.sendTokens(
-              navigation.state.params.tokenAmount,
-              navigation.state.params.senderWalletAddress,
-              navigation.state.params.receipientWalletAddress
-            )
             if (navigation.state.params.isValid) {
-              navigation.goBack(null)
-              navigation.state.params.navigate(historyTabRoute)
+              navigation.state.params.sendTokens(
+                navigation.state.params.tokenAmount,
+                navigation.state.params.senderWalletAddress,
+                navigation.state.params.receipientWalletAddress
+              )
             }
           }}
         >
@@ -113,11 +114,24 @@ export class WalletTabSendDetails extends Component<
   state = {
     showPaymentAddress: false,
     isPaymentAddressValid: 'IDLE',
+    tokenSentFailedVisible: false,
   }
 
   paymentData: WalletSendPaymentData = {
     paymentTo: '',
     paymentFor: '',
+  }
+
+  componentDidUpdate(prevProps: WalletTabSendDetailsProps) {
+    if (this.props.tokenSentStatus !== prevProps.tokenSentStatus) {
+      if (this.props.tokenSentStatus === STORE_STATUS.SUCCESS) {
+        this.props.navigation.goBack(null)
+        this.props.navigation.state &&
+          this.props.navigation.state.params.navigate(historyTabRoute)
+      } else if (this.props.tokenSentStatus === STORE_STATUS.ERROR) {
+        this.setState({ tokenSentFailedVisible: true })
+      }
+    }
   }
 
   componentDidMount() {
@@ -138,6 +152,11 @@ export class WalletTabSendDetails extends Component<
       })
     }
   }
+
+  onTokenSentFailedClose = () => {
+    this.setState({ tokenSentFailedVisible: false })
+  }
+
   throttledAsyncValidationFunction = () => {
     // the validationFunction will be running here
 
@@ -158,13 +177,9 @@ export class WalletTabSendDetails extends Component<
     })
   }
   render() {
+    const testID = 'wallet-tab-send-details'
     return (
-      <Container
-        safeArea
-        fifth
-        onPress={Keyboard.dismiss}
-        testID="wallet-tab-send-details"
-      >
+      <Container safeArea fifth onPress={Keyboard.dismiss} testID={testID}>
         <ControlInput
           label="To"
           name="paymentTo"
@@ -239,12 +254,92 @@ export class WalletTabSendDetails extends Component<
             </CustomText>
           </CustomView>
         )}
+
+        <Modal
+          backdropOpacity={0.5}
+          isVisible={this.state.tokenSentFailedVisible}
+          animationIn="zoomIn"
+          animationOut="zoomOut"
+          animationOutTiming={100}
+        >
+          <CustomView fifth shadow style={[styles.container]}>
+            <CustomView spaceBetween style={[styles.innerContainer]}>
+              <Icon
+                iconStyle={[{ margin: 10 }]}
+                src={require('../images/EDCU.png')}
+                extraLarge
+                center
+                resizeMode="contain"
+                testID={`${testID}-modal-header-icon`}
+              />
+              <CustomText
+                h5
+                center
+                tertiary
+                bg="tertiary"
+                transparentBg
+                style={[styles.message]}
+                demiBold
+                testID={`${testID}-modal-title`}
+              >
+                {'Payment failure'}
+              </CustomText>
+              <CustomText
+                h5
+                center
+                tertiary
+                bg="tertiary"
+                transparentBg
+                style={[styles.message]}
+                demiBold
+                testID={`${testID}-modal-content`}
+              >
+                {'Something went wrong trying to pay EDCU. Please try again.'}
+              </CustomText>
+            </CustomView>
+            <CustomView row spaceAround>
+              <CustomButton
+                fifth
+                onPress={this.onTokenSentFailedClose}
+                title={'Cancel'}
+                testID={`${testID}-modal-cancel`}
+                textStyle={{ fontWeight: 'bold' }}
+              />
+              <CustomButton
+                fifth
+                onPress={this.onTokenSentFailedClose}
+                title={'Retry'}
+                testID={`${testID}-modal-retry`}
+                textStyle={{ fontWeight: 'bold' }}
+              />
+            </CustomView>
+          </CustomView>
+        </Modal>
       </Container>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: OFFSET_3X,
+  },
+  innerContainer: {
+    ...Platform.select({
+      ios: {
+        borderBottomColor: color.bg.fifth.font.tertiary,
+        borderBottomWidth: HAIRLINE_WIDTH,
+      },
+      android: {
+        borderBottomColor: color.bg.fifth.font.secondary,
+        borderBottomWidth: 1,
+      },
+    }),
+    padding: OFFSET_2X,
+  },
+  message: {
+    marginBottom: OFFSET_1X / 2,
+  },
   headerLeft: {
     width: OFFSET_2X,
   },
@@ -297,6 +392,7 @@ const mapStateToProps = (state: Store) => {
     tokenAmount: getTokenAmount(state),
     senderWalletAddress: getWalletAddresses(state)[0],
     receipientWalletAddress: getWalletAddresses(state)[0],
+    tokenSentStatus: state.wallet.payment.status,
   }
 }
 const mapDispatchToProps = dispatch =>

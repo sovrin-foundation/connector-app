@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import { WalletTabSendDetails } from '../wallet-tab-send-details'
 import { getStore } from '../../../__mocks__/static-data'
 import { getNavigation, smsToken } from '../../../__mocks__/static-data'
+import { STORE_STATUS } from '../type-wallet'
 
 describe('<WalletTabSendDetails />', () => {
   const store = getStore()
@@ -16,7 +17,11 @@ describe('<WalletTabSendDetails />', () => {
   function setup() {
     const component = renderer.create(
       <Provider store={store}>
-        <WalletTabSendDetails tokenAmount="12345" navigation={navigation} />
+        <WalletTabSendDetails
+          tokenAmount="12345"
+          tokenSentStatus={STORE_STATUS.SUCCESS}
+          navigation={navigation}
+        />
       </Provider>
     )
     const instance = component.root.findByType(WalletTabSendDetails).instance

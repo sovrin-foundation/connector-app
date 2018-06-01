@@ -34,6 +34,7 @@ export const ERROR_BACKUP_WALLET_SHARE = {
 
 export type WalletTabSendDetailsProps = {
   tokenAmount: string,
+  tokenSentStatus: $Keys<typeof STORE_STATUS>,
 } & ReactNavigation
 
 export type BackupWalletAction = {
@@ -75,6 +76,7 @@ export type WalletSendPaymentData = {
 export type WalletTabSendDetailsState = {
   showPaymentAddress: boolean,
   isPaymentAddressValid: IsValid,
+  tokenSentFailedVisible: boolean,
 }
 
 export type WalletHistoryProps = {
