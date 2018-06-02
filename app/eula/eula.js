@@ -12,10 +12,9 @@ import { StackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { tertiaryHeaderStyles } from '../components/layout/header-styles'
-import { CustomText, Container } from '../components'
+import { CustomText, Container, FooterActions } from '../components'
 import { lockSelectionRoute, eulaRoute } from '../common'
 import { eulaAccept } from './eula-store'
-import { FooterActions } from '../components/footer-actions/footer-actions'
 import type { Store } from '../store/type-store'
 
 export class EulaScreen extends PureComponent<*, void> {

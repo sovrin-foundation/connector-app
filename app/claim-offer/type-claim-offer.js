@@ -1,10 +1,13 @@
 // @flow
-import type { CustomError, ResetAction } from '../common/type-common'
+import type {
+  CustomError,
+  ResetAction,
+  NotificationPayload,
+} from '../common/type-common'
 import type {
   AdditionalDataPayload,
   ClaimProofNavigation,
   Attribute,
-  NotificationPayload,
   NotificationPayloadInfo,
 } from '../push-notification/type-push-notification'
 
@@ -95,6 +98,7 @@ export type AddSerializedClaimOfferAction = {
   serializedClaimOffer: string,
   userDID: string,
   messageId: string,
+  claimOfferVcxState: number,
 }
 
 export type ClaimOfferAction =
@@ -126,10 +130,18 @@ export type ClaimOfferPayload = AdditionalDataPayload & {
   claimOfferInvoiceNumber?: ?string,
 }
 
+export type SerializedClaimOffer = {
+  serialized: string,
+  state: number,
+  messageId: string,
+}
+
+export type SerializedClaimOffersPerDid = {
+  +[messageId: string]: SerializedClaimOffer,
+}
+
 export type SerializedClaimOffers = {
-  +[userDID: string]: {
-    +[messageId: string]: string,
-  },
+  +[userDID: string]: SerializedClaimOffersPerDid,
 }
 
 export type ClaimOfferStore = {

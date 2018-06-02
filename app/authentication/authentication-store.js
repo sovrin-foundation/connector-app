@@ -122,7 +122,7 @@ function* handleUserAuthenticationResponse(
   }
 }
 
-export function* watchAuthentication(): Generator<*, *, *> {
+export function* watchAuthentication(): any {
   yield all([watchLoadAuthenticationDetailsRequest()])
 }
 

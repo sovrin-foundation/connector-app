@@ -1,6 +1,6 @@
-import { ReactNavigation } from '../../common/type-common'
-
 // @flow
+import type { ReactNavigation } from '../../common/type-common'
+
 export type FooterActionsProps = {
   disableAccept?: boolean,
   logoUrl?: ?string,
@@ -12,4 +12,6 @@ export type FooterActionsProps = {
   hidePrimary?: boolean,
   activeConnectionThemePrimary?: string,
   useColorPicker?: boolean,
+  accessible: boolean,
+  accessibilityLabel: string,
 } & ReactNavigation

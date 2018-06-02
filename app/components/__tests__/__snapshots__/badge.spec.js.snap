@@ -17,7 +17,7 @@ exports[`<Badge /> should render dark colored badge 1`] = `
     hitSlop={undefined}
     nativeID={undefined}
     onLayout={undefined}
-    onPress={undefined}
+    onPress={[MockFunction]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
     onResponderRelease={[Function]}
@@ -39,7 +39,7 @@ exports[`<Badge /> should render dark colored badge 1`] = `
     allowFontScaling={true}
     center={true}
     ellipsizeMode="tail"
-    secondary={undefined}
+    secondary={false}
     style={
       Array [
         Object {
@@ -53,7 +53,7 @@ exports[`<Badge /> should render dark colored badge 1`] = `
           "textAlign": "center",
           "textAlignVertical": "center",
         },
-        undefined,
+        Object {},
       ]
     }
     text={10}
@@ -80,7 +80,7 @@ exports[`<Badge /> should render light colored badge 1`] = `
     hitSlop={undefined}
     nativeID={undefined}
     onLayout={undefined}
-    onPress={undefined}
+    onPress={[MockFunction]}
     onResponderGrant={[Function]}
     onResponderMove={[Function]}
     onResponderRelease={[Function]}
@@ -102,7 +102,7 @@ exports[`<Badge /> should render light colored badge 1`] = `
     allowFontScaling={true}
     center={true}
     ellipsizeMode="tail"
-    secondary={undefined}
+    secondary={false}
     style={
       Array [
         Object {
@@ -116,7 +116,7 @@ exports[`<Badge /> should render light colored badge 1`] = `
           "textAlign": "center",
           "textAlignVertical": "center",
         },
-        undefined,
+        Object {},
       ]
     }
     text={10}

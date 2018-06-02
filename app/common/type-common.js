@@ -67,3 +67,15 @@ export type ResetAction = {
 export type ImageSource = {
   uri: string,
 }
+
+export type NotificationPayload = {
+  forDID: string,
+  uid: string,
+  type: string,
+  remotePairwiseDID: string,
+  senderLogoUrl?: ?string,
+}
+
+export type ImmutableGenericStringObject = {
+  +[string]: string,
+}

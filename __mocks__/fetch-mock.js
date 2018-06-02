@@ -1,6 +1,6 @@
 import { Headers, Response, Request } from 'node-fetch'
 
-const fetch = jest.fn()
+const fetch = jest.fn(() => {})
 fetch.Headers = Headers
 fetch.Request = Request
 fetch.Response = Response

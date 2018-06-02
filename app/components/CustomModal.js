@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import { View, Image, StyleSheet, Platform } from 'react-native'
 import Modal from 'react-native-modal'
@@ -11,19 +12,27 @@ import {
 import { CustomView, CustomButton } from '../components'
 import debounce from 'lodash.debounce'
 
-export default class CustomModal extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.onPressDebounce = debounce(
-      event => {
-        if (this.props.onPress) {
-          this.props.onPress(event)
-        }
-      },
-      300,
-      { leading: true, trailing: false }
-    )
-  }
+type CustomModalProps = {
+  onPress: (event: any) => void,
+  children?: any,
+  disabled?: boolean,
+  buttonText: string,
+  testID: string,
+  isVisible: boolean,
+  accessibilityLabel?: string,
+}
+
+export default class CustomModal extends PureComponent<CustomModalProps, void> {
+  onPressDebounce = debounce(
+    event => {
+      if (this.props.onPress) {
+        this.props.onPress(event)
+      }
+    },
+    300,
+    { leading: true, trailing: false }
+  )
+
   render() {
     const {
       disabled,

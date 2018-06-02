@@ -402,7 +402,7 @@ function* watchSendInvitationResponse(): any {
   yield takeLatest(INVITATION_RESPONSE_SEND, sendResponse)
 }
 
-export function* watchInvitation(): Generator<*, *, *> {
+export function* watchInvitation(): any {
   yield all([watchSendInvitationResponse()])
 }
 

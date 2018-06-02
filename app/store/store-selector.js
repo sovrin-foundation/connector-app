@@ -1,6 +1,10 @@
 // @flow
 import type { Store } from './type-store'
-import type { ClaimOfferPayload } from '../claim-offer/type-claim-offer'
+import type {
+  ClaimOfferPayload,
+  SerializedClaimOffersPerDid,
+  SerializedClaimOffers,
+} from '../claim-offer/type-claim-offer'
 import type { Connections, Connection } from './type-connection-store'
 import type { ConnectionHistoryEvent } from '../connection-history/type-connection-history'
 import RNFetchBlob from 'react-native-fetch-blob'
@@ -203,4 +207,25 @@ export const getSerializedClaimOffer = (
   }
 
   return userClaimOffers[messageId]
+}
+
+export const getClaimOffers = (state: Store, userDID: string) => {
+  const serializedClaimOffers: SerializedClaimOffersPerDid =
+    state.claimOffer.vcxSerializedClaimOffers[userDID]
+
+  if (serializedClaimOffers) {
+    return Object.values(serializedClaimOffers)
+  }
+
+  return []
+}
+
+export const getConnectionByUserDid = (state: Store, userDID: string) => {
+  const connections = getAllConnection(state)
+
+  if (connections) {
+    return connections[userDID]
+  }
+
+  return null
 }

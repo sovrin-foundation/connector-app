@@ -1,3 +1,4 @@
+// @flow
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { all } from 'redux-saga/effects'
@@ -69,6 +70,7 @@ middlewares.push(sagaMiddleware)
 
 const store = createStore(appReducer, applyMiddleware(...middlewares))
 
+// $FlowFixMe Don't know how to fix polymorphic type coercion
 sagaMiddleware.run(function*() {
   return yield all([
     watchConnection(),

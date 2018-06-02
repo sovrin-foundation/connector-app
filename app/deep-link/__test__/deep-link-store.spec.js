@@ -1,14 +1,15 @@
+// @flow
 import deepLinkReducer, {
   deepLinkData,
   deepLinkEmpty,
   deepLinkError,
 } from '../deep-link-store'
-import { RESET } from '../../common/type-common'
+import { RESET, initialTestAction } from '../../common/type-common'
 
 describe('Deep link store', () => {
   let initialState
   beforeEach(() => {
-    initialState = deepLinkReducer(undefined, { type: 'INITIAL_ACTION' })
+    initialState = deepLinkReducer(undefined, initialTestAction())
   })
 
   it('should correctly update store when we get deep link data', () => {
@@ -33,7 +34,7 @@ describe('Deep link store', () => {
       deepLinkData('erg76esd')
     )
     expect(
-      deepLinkReducer(afterDeepLinkDataState, { type: RESET })
+      deepLinkReducer(afterDeepLinkDataState, { type: 'RESET' })
     ).toMatchSnapshot()
   })
 })

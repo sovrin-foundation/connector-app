@@ -1,7 +1,9 @@
 // @flow
 import type { ReactNavigation } from '../common/type-common'
-import type { Connection } from '../connection/type-connection'
-import type { ConnectionStore } from '../store/type-connection-store'
+import type {
+  ConnectionStore,
+  Connection,
+} from '../store/type-connection-store'
 
 export type BubbleProps = {
   size: number,

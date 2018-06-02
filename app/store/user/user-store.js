@@ -229,7 +229,7 @@ export function* watchSelectUserAvatar(): any {
   yield takeLatest(SELECT_USER_AVATAR, selectUserAvatarSaga)
 }
 
-export function* watchUserStore(): Saga<void> {
+export function* watchUserStore(): any {
   yield all([
     watchConnectRegisterCreateAgent(),
     watchSaveUserSelectedAvatar(),

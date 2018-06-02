@@ -25,6 +25,7 @@ import {
 } from './home-constants'
 import { Apptentive } from 'apptentive-react-native'
 import WalletBalance from '../wallet/wallet-balance'
+import type { Connection } from '../store/type-connection-store'
 
 export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
   state = {
@@ -83,7 +84,9 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
     })
 
     const { connections: { data } } = this.props
-    const connections = getConnections(data)
+    // type casting from Array<mixed> to any and then to what we need
+    // because flow Array<mixed> can't be directly type casted as of now
+    const connections: Connection[] = (getConnections(data): any)
 
     return (
       <Container tertiary>

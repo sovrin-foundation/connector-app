@@ -340,7 +340,7 @@ export function* watchHistoryEventOccurred(): any {
   yield takeEvery(HISTORY_EVENT_OCCURRED, historyEventOccurredSaga)
 }
 
-export function* watchConnectionHistory(): Generator<*, *, *> {
+export function* watchConnectionHistory(): any {
   yield all([watchLoadHistory(), watchHistoryEventOccurred()])
 }
 

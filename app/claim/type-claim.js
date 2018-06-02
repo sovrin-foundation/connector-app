@@ -5,7 +5,9 @@ import type {
   CustomError,
   InitialTestAction,
   ResetAction,
+  NotificationPayload,
 } from '../common/type-common'
+import type { ClaimPushPayload } from '../push-notification/type-push-notification'
 
 export type Claim = {
   messageId: string,
@@ -80,6 +82,17 @@ export type HydrateClaimMapFailAction = {
   error: CustomError,
 }
 
+export type ClaimPushPayloadVcx = {
+  connectionHandle: number,
+}
+export type ClaimVcx = NotificationPayload & ClaimPushPayloadVcx
+
+export const CLAIM_RECEIVED_VCX = 'CLAIM_RECEIVED_VCX'
+export type ClaimReceivedVcxAction = {
+  type: typeof HYDRATE_CLAIM_MAP_FAIL,
+  claim: ClaimVcx,
+}
+
 export type ClaimAction =
   | ClaimReceivedAction
   | ClaimStorageSuccessAction
@@ -89,6 +102,7 @@ export type ClaimAction =
   | HydrateClaimMapFailAction
   | InitialTestAction
   | ResetAction
+  | ClaimReceivedVcxAction
 
 export type ClaimStore = {
   +[string]: {
@@ -101,4 +115,14 @@ export type ClaimStore = {
 export const ERROR_CLAIM_HYDRATE_FAIL = {
   message: 'Failed to hydrate claim map',
   code: 'CL-001',
+}
+
+export const VCX_CLAIM_OFFER_STATE = {
+  INITIALIZED: 0,
+  ACCEPTED: 4,
+}
+
+export type GetClaimVcxResult = {
+  claimUuid: string,
+  claimPayload: ClaimPushPayload,
 }

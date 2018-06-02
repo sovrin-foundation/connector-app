@@ -8,6 +8,7 @@ export type Item = {
   data?: string,
   claimUuid?: string,
   logoUrl?: string,
+  key?: string,
 }
 
 export type CustomListProps = {

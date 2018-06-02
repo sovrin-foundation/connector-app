@@ -50,6 +50,7 @@ describe('<PushNotificationNavigator />', () => {
       pushNotificationReceived: jest.fn(),
       addPendingRedirection: jest.fn(),
       claimReceived: jest.fn(),
+      claimReceivedVcx: jest.fn(),
     }
   }
 

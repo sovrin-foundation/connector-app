@@ -118,7 +118,19 @@ exports[`user settings screen should render properly and snapshot should match 1
           }
         >
           <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
             clearBg={true}
+            hitSlop={
+              Object {
+                "bottom": 20,
+                "left": 20,
+                "right": 20,
+                "top": 20,
+              }
+            }
             iconStyle={
               Array [
                 Object {
@@ -130,6 +142,14 @@ exports[`user settings screen should render properly and snapshot should match 1
                 },
               ]
             }
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             resizeMode="contain"
             src={1}
             style={
@@ -137,6 +157,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                 "backgroundColor": "transparent",
               }
             }
+            testID={undefined}
           >
             <Image
               resizeMode="contain"

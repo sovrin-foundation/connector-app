@@ -62,14 +62,17 @@
     "url-parse": "^1.2.0"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.3",
     "babel-jest": "22.2.0",
     "babel-preset-react-native": "4.0.0",
     "child-process-async": "^1.0.1",
     "detox": "^7.3.3",
     "eslint": "^3.19.0",
+    "eslint-plugin-flowtype": "^2.47.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.0.0",
+    "flow-annotation-check": "^1.8.1",
     "flow-bin": "0.57.3",
     "flow-typed": "2.3.0",
     "glow": "^1.2.2",

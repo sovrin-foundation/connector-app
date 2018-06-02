@@ -29,9 +29,8 @@ import {
   FETCH_ADDITIONAL_DATA_ERROR,
 } from './type-push-notification'
 
-import type { CustomError } from '../common/type-common'
+import type { CustomError, NotificationPayload } from '../common/type-common'
 import type {
-  NotificationPayload,
   AdditionalDataPayload,
   PushNotificationPermissionAction,
   PushNotificationUpdateTokenAction,
@@ -51,7 +50,6 @@ import {
   getMessage,
   updatePushTokenVcx,
   downloadClaimOffer,
-  downloadClaim,
   downloadProofRequest,
   getHandleBySerializedConnection,
   serializeClaimOffer,
@@ -64,10 +62,8 @@ import { ensureVcxInitSuccess } from '../store/config-store'
 import type { Connection } from '../store/type-connection-store'
 import type { CxsCredentialOfferResult } from '../bridge/react-native-cxs/type-cxs'
 import type { ProofRequestPushPayload } from '../proof-request/type-proof-request'
-import {
-  addSerializedClaimOffer,
-  saveSerializedClaimOffer,
-} from '../claim-offer/claim-offer-store'
+import { saveSerializedClaimOffer } from '../claim-offer/claim-offer-store'
+import type { ClaimPushPayloadVcx } from '../claim/type-claim'
 
 // TODO:PS: handle other/multiple Push Notification while
 // one Push Notification is already downloading
@@ -309,91 +305,98 @@ export function* fetchAdditionalDataSagaVcx(
   yield* ensureVcxInitSuccess()
 
   const { forDID, uid, type, senderLogoUrl } = action.notificationPayload
-  if (forDID) {
-    const {
-      remotePairwiseDID,
-      remoteName,
-      ...connection
-    }: {
-      remotePairwiseDID: string,
-      remoteName: string,
-    } & Connection = yield select(getRemotePairwiseDidAndName, forDID)
 
-    if (remotePairwiseDID && connection.vcxSerializedConnection) {
-      const connectionHandle = yield call(
-        getHandleBySerializedConnection,
-        connection.vcxSerializedConnection
-      )
-
-      try {
-        let additionalData:
-          | ClaimOfferPushPayload
-          | ProofRequestPushPayload
-          | ClaimPushPayload
-          | null = null
-        if (type === MESSAGE_TYPE.CLAIM_OFFER) {
-          const {
-            claimHandle,
-            claimOffer,
-          }: CxsCredentialOfferResult = yield call(
-            downloadClaimOffer,
-            connectionHandle,
-            uid,
-            uid
-          )
-          additionalData = claimOffer
-          yield fork(saveSerializedClaimOffer, claimHandle, forDID, uid)
-        }
-
-        if (type === MESSAGE_TYPE.CLAIM) {
-          // TODO:KS Pass parameters that are needed to download claim
-          additionalData = yield call(downloadClaim)
-        }
-
-        if (type === MESSAGE_TYPE.PROOF_REQUEST) {
-          // TODO:KS Pass parameters that are needed to download proof request
-          additionalData = yield call(downloadProofRequest)
-        }
-
-        if (!additionalData) {
-          // we did not get any data or either push notification type is not supported
-          return
-        }
-
-        yield put(
-          pushNotificationReceived({
-            type,
-            additionalData: {
-              remoteName,
-              ...additionalData,
-            },
-            uid,
-            senderLogoUrl,
-            remotePairwiseDID,
-            forDID,
-          })
-        )
-      } catch (e) {
-        yield put(
-          fetchAdditionalDataError({
-            code: 'OCS-000',
-            message: 'Invalid additional data',
-          })
-        )
-      }
-    } else {
-      yield put(
-        fetchAdditionalDataError({
-          code: 'OCS-002',
-          message: 'No pairwise connection found',
-        })
-      )
-    }
-  } else {
+  if (!forDID) {
     yield put(
       fetchAdditionalDataError({
         code: 'OCS-001',
         message: 'Missing forDID in notification payload',
+      })
+    )
+
+    return
+  }
+
+  const {
+    remotePairwiseDID,
+    remoteName,
+    ...connection
+  }: {
+    remotePairwiseDID: string,
+    remoteName: string,
+  } & Connection = yield select(getRemotePairwiseDidAndName, forDID)
+
+  if (!remotePairwiseDID || !connection.vcxSerializedConnection) {
+    yield put(
+      fetchAdditionalDataError({
+        code: 'OCS-002',
+        message: 'No pairwise connection found',
+      })
+    )
+
+    return
+  }
+
+  const connectionHandle = yield call(
+    getHandleBySerializedConnection,
+    connection.vcxSerializedConnection
+  )
+
+  try {
+    let additionalData:
+      | ClaimOfferPushPayload
+      | ProofRequestPushPayload
+      | ClaimPushPayload
+      | ClaimPushPayloadVcx
+      | null = null
+    if (type === MESSAGE_TYPE.CLAIM_OFFER) {
+      const { claimHandle, claimOffer }: CxsCredentialOfferResult = yield call(
+        downloadClaimOffer,
+        connectionHandle,
+        uid,
+        uid
+      )
+      additionalData = claimOffer
+      yield fork(saveSerializedClaimOffer, claimHandle, forDID, uid)
+    }
+
+    if (type === MESSAGE_TYPE.CLAIM) {
+      // as per vcx apis we are not downloading claim
+      // we will update state of existing claim offer instance
+      // and vcx will internally download claim and store inside wallet
+      additionalData = {
+        connectionHandle,
+      }
+    }
+
+    if (type === MESSAGE_TYPE.PROOF_REQUEST) {
+      // TODO:KS Pass parameters that are needed to download proof request
+      additionalData = yield call(downloadProofRequest)
+    }
+
+    if (!additionalData) {
+      // we did not get any data or either push notification type is not supported
+      return
+    }
+
+    yield put(
+      pushNotificationReceived({
+        type,
+        additionalData: {
+          remoteName,
+          ...additionalData,
+        },
+        uid,
+        senderLogoUrl,
+        remotePairwiseDID,
+        forDID,
+      })
+    )
+  } catch (e) {
+    yield put(
+      fetchAdditionalDataError({
+        code: 'OCS-000',
+        message: 'Invalid additional data',
       })
     )
   }
@@ -403,7 +406,7 @@ function* watchFetchAdditionalData(): any {
   yield takeLatest(FETCH_ADDITIONAL_DATA, fetchAdditionalDataSaga)
 }
 
-export function* watchPushNotification(): Generator<*, *, *> {
+export function* watchPushNotification(): any {
   yield all([watchPushTokenUpdate(), watchFetchAdditionalData()])
 }
 

@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 import { bindActionCreators } from 'redux'
@@ -11,8 +12,17 @@ import {
 import { PUSH_COM_METHOD } from '../common'
 import { setItem } from '../services/secure-storage'
 import PushNotificationNavigator from './push-notification-navigator'
+import type { PushNotificationProps } from './type-push-notification'
+import type { NotificationPayload } from '../common/type-common'
 
-export class PushNotification extends PureComponent {
+export class PushNotification extends PureComponent<
+  PushNotificationProps,
+  void
+> {
+  notificationListener = null
+  initialNotificationListener = null
+  refreshTokenListener = null
+
   componentDidMount() {
     // reset ios badge count to zero
     // iOS only and there's no way to set it in Android, yet.
@@ -37,13 +47,13 @@ export class PushNotification extends PureComponent {
     })
   }
 
-  onPushNotificationReceived(notificationPayload) {
+  onPushNotificationReceived(notificationPayload: ?NotificationPayload) {
     if (notificationPayload) {
       this.props.fetchAdditionalData(notificationPayload)
     }
   }
 
-  saveDeviceToken(token) {
+  saveDeviceToken(token: string) {
     if (token) {
       setItem(PUSH_COM_METHOD, token)
         .then(() => {
@@ -81,6 +91,4 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default (mapsStateDispatch = connect(null, mapDispatchToProps)(
-  PushNotification
-))
+export default connect(null, mapDispatchToProps)(PushNotification)

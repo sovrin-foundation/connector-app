@@ -4,13 +4,11 @@ export type IsValid = 'IDLE' | 'SUCCESS' | 'ERROR'
 
 export type InputControlProps = {
   isValid?: IsValid,
-  // $flowFixMe
-  onChangeText: function,
+  onChangeText: (text: string, name: string) => void,
   placeholder: string,
   label: string,
   name: string,
   multiline?: boolean,
-  // $flowFixMe
-  validation?: function,
+  validation?: () => void,
   maxLength?: number,
 }

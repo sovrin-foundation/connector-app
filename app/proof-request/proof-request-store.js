@@ -117,7 +117,7 @@ export const missingAttributesFound = (
   uid,
 })
 
-export function* watchProofRequestAccepted(): Generator<*, *, *> {
+export function* watchProofRequestAccepted(): any {
   yield takeLatest(PROOF_REQUEST_ACCEPTED, proofAccepted)
 }
 

@@ -1,8 +1,9 @@
 // @flow
 import { splashScreenRoute } from '../common/route-constants'
 import type { RouteStore } from './type-store'
+import type { InitialTestAction } from '../common/type-common'
 
-export type RouteStoreAction = typeof handleRouteUpdate
+export type RouteStoreAction = typeof handleRouteUpdate | InitialTestAction
 
 const initialState = {
   currentScreen: splashScreenRoute,

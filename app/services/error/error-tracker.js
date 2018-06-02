@@ -1,3 +1,4 @@
+// @flow
 import { Sentry, SentryLog } from 'react-native-sentry'
 
 // Configure install to add error handler
@@ -10,6 +11,7 @@ Sentry.install = () => {
 
 function configureSentryErrorHandler() {
   let sentryErrorHandler =
+    // $FlowFixMe ErrorUtils is global variable
     (ErrorUtils.getGlobalHandler && ErrorUtils.getGlobalHandler()) ||
     ErrorUtils._globalHandler
 

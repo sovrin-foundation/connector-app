@@ -1,9 +1,13 @@
+// @flow
 import React from 'react'
 import { StyleSheet, Image, TouchableWithoutFeedback } from 'react-native'
-import { CustomView } from './layout'
-import empty from '../common/empty'
+import { CustomView } from './layout/custom-view'
+import type { GenericObject } from '../common/type-common'
 
-const Icon = props => {
+const empty = []
+
+// TODO:KS Change GenericObject to actual props of icon
+const Icon = (props: GenericObject) => {
   const {
     src,
     small,
@@ -25,7 +29,11 @@ const Icon = props => {
     : medium
       ? 'medium'
       : extraLarge ? 'extraLarge' : mediumLarge ? 'mediumLarge' : 'large'
-  const roundImageStyle = halo || round ? styles[`${size}RoundIcon`] : null
+  const roundImageStyle =
+    halo || round
+      ? // $FlowFixMe flow does not support dynamic object key
+        styles[`${size}RoundIcon`]
+      : null
   let filteredProps = {}
   if (typeof props.testID !== 'undefined') {
     filteredProps.testID = testID
@@ -43,8 +51,10 @@ const Icon = props => {
 
   let haloView
   if (halo) {
+    // $FlowFixMe flow does not support dynamic object lookup
+    const haloSizeStyle = styles[`${size}Halo`]
     haloView = (
-      <CustomView center style={[styles[`${size}Halo`], haloStyle]}>
+      <CustomView center style={[haloSizeStyle, haloStyle]}>
         {iconImage}
       </CustomView>
     )

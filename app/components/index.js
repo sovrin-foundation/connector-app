@@ -1,11 +1,11 @@
 // @flow
 import React from 'react'
 
-export { default as Divider } from './divider'
 export { default as Badge } from './badge'
 export { default as InfoSectionList } from './info-section-list'
 export { ListItem, ListItemData } from './info-section-list'
-export { Avatar, BadgeAvatar } from './avatar'
+export { Avatar } from './avatar/avatar'
+export { BadgeAvatar } from './avatar/badge-avatar'
 export {
   Container,
   CustomView,

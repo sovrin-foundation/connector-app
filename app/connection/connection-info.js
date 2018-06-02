@@ -1,6 +1,7 @@
+// @flow
 import React from 'react'
 import { View, Text } from 'react-native'
-import { UserInfoSectionList, Divider, CustomView } from '../components'
+import { CustomView } from '../components'
 
 const labelSuncoastInfo = <Text>SUNCOAST INFO</Text>
 
@@ -23,9 +24,4 @@ const connectionInfo = [
   },
 ]
 
-export default props => (
-  <CustomView>
-    <Divider left={labelSuncoastInfo} />
-    <UserInfoSectionList noLeftSpaced infoList={connectionInfo} />
-  </CustomView>
-)
+export default () => <CustomView />

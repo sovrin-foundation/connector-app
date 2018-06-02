@@ -1,5 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
+import { Platform } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
@@ -19,17 +20,19 @@ import {
   qrCodeScannerTabRoute,
   homeTabRoute,
 } from '../common'
-import { claimReceived } from '../claim/claim-store'
+import { claimReceived, claimReceivedVcx } from '../claim/claim-store'
 
 import type {
-  NotificationPayload,
   PushNotificationNavigatorProps,
   NextPropsPushNotificationNavigator,
   ClaimOfferPushPayload,
   AdditionalDataPayload,
   ClaimPushPayload,
 } from './type-push-notification'
-import type { NavigationParams } from '../common/type-common'
+import type {
+  NavigationParams,
+  NotificationPayload,
+} from '../common/type-common'
 import type { Claim } from '../claim/type-claim'
 import type {
   ProofRequestPushPayload,
@@ -176,6 +179,18 @@ export class PushNotificationNavigator extends PureComponent<
               break
 
             case MESSAGE_TYPE.CLAIM:
+              if (Platform.OS === 'android') {
+                // raise an action as per vcx
+                this.props.claimReceivedVcx({
+                  connectionHandle: additionalData.connectionHandle,
+                  uid,
+                  type,
+                  forDID,
+                  remotePairwiseDID,
+                })
+                break
+              }
+
               this.props.claimReceived(
                 convertClaimPushPayloadToAppClaim(additionalData, uid, forDID)
               )
@@ -214,6 +229,7 @@ const mapDispatchToProps = dispatch =>
       pushNotificationReceived,
       addPendingRedirection,
       claimReceived,
+      claimReceivedVcx,
     },
     dispatch
   )

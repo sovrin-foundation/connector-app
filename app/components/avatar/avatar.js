@@ -1,24 +1,24 @@
+// @flow
 import React, { PureComponent } from 'react'
 import { Image, TouchableWithoutFeedback } from 'react-native'
-import { CustomView } from '../layout'
-import avatarStyle from './avatar-style'
-import empty from '../../common/empty'
-
 import debounce from 'lodash.debounce'
+import { CustomView } from '../layout/custom-view'
+import avatarStyle from './avatar-style'
+import type { AvatarProps } from './type-avatar'
 
-export default class Avatar extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.onPressDebounce = debounce(
-      event => {
-        if (this.props.onPress) {
-          this.props.onPress(event)
-        }
-      },
-      300,
-      { leading: true, trailing: false }
-    )
-  }
+const empty = []
+
+export class Avatar extends PureComponent<AvatarProps, void> {
+  onPressDebounce = debounce(
+    event => {
+      if (this.props.onPress) {
+        this.props.onPress(event)
+      }
+    },
+    300,
+    { leading: true, trailing: false }
+  )
+
   render() {
     const {
       small,
@@ -42,7 +42,10 @@ export default class Avatar extends PureComponent {
     const imageShadow = shadow ? 'imageShadow' : null
     const elementStyle = [
       ...style,
-      square ? null : avatarStyle[`${size}Round`],
+      square
+        ? null
+        : // $FlowFixMe flow does not support dynamic property lookup
+          avatarStyle[`${size}Round`],
       clearBg ? avatarStyle['clearBg'] : null,
     ]
     const elementContentStyle = [
@@ -56,7 +59,10 @@ export default class Avatar extends PureComponent {
       // then style that we get from avatarStyle will be `smallRound`
       square
         ? null
-        : radius ? { borderRadius: radius } : avatarStyle[`${size}Round`],
+        : radius
+          ? { borderRadius: radius }
+          : // $FlowFixMe flow does not support dynamic property lookup
+            avatarStyle[`${size}Round`],
       ...imageStyle,
     ]
 

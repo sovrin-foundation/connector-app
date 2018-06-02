@@ -1,9 +1,11 @@
+// @flow
 import React, { PureComponent } from 'react'
 import { StyleSheet } from 'react-native'
 import { Button } from 'react-native-elements'
 import { color, font } from '../common/styles/constant'
-import empty from '../common/empty'
 import debounce from 'lodash.debounce'
+
+const empty = []
 
 const getButtonProps = type => ({
   backgroundColor: color.actions[type],
@@ -11,19 +13,18 @@ const getButtonProps = type => ({
   textAlign: 'center',
 })
 
-export default class CustomButton extends PureComponent {
-  constructor(props) {
-    super(props)
-    this.deboucedButton = debounce(
-      event => {
-        if (this.props.onPress) {
-          this.props.onPress(event)
-        }
-      },
-      500,
-      { leading: true, trailing: false }
-    )
-  }
+// TODO:KS Add specific prop that are needed and used by Button
+export default class CustomButton extends PureComponent<*, void> {
+  debounceButtonPress = debounce(
+    event => {
+      if (this.props.onPress) {
+        this.props.onPress(event)
+      }
+    },
+    500,
+    { leading: true, trailing: false }
+  )
+
   render() {
     const {
       primary,
@@ -60,7 +61,7 @@ export default class CustomButton extends PureComponent {
     return (
       <Button
         {...this.props}
-        onPress={this.deboucedButton}
+        onPress={this.debounceButtonPress}
         {...buttonProps}
         accessible={true}
         accessibilityLabel={this.props.testID}

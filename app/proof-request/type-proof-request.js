@@ -9,10 +9,10 @@ import type {
   GenericStringObject,
   ResetAction,
   ImageSource,
+  NotificationPayload,
 } from '../common/type-common'
 import type {
   ClaimProofNavigation,
-  NotificationPayload,
   Attribute,
   NotificationPayloadInfo,
 } from '../push-notification/type-push-notification'

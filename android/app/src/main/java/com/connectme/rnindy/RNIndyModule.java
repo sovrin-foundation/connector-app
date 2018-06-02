@@ -364,4 +364,31 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
         promise.resolve("");
     }
 
+    @ReactMethod
+    public void updateClaimOfferState(int credentialHandle, Promise promise) {
+        // TODO: Add bridge methods and vcx wrapper methods for update_state api call
+        // call vcx_credential_update_state with credentialHandle
+
+        // number as 4 refers to accepted state from vcx
+        promise.resolve(4);
+    }
+
+    @ReactMethod
+    public void getClaimOfferState(int credentialHandle, Promise promise) {
+        // TODO: Add vcx wrapper method for vcx_credential_get_state
+        // call vcx_credential_get_state and pass credentialHandle
+
+        // number as 4 refers to accepted state from vcx
+        promise.resolve(4);
+    }
+
+    @ReactMethod
+    public void getClaimVcx(int credentialHandle, Promise promise) {
+        // TODO: Add method in wrapper and call vcx_get_credential
+        // it will return a json string of format {claimUUID: <stringifiedClaimJson>}
+        // or error number as a code
+
+        promise.resolve("{\"claim_uuid\": \"{\"claim\":{\"name\":[\"test\",\"anon cred test\"],\"date_of_birth\":[\"20-2-1800\",\"anon cred date\"]},\"schema_seq_no\":36,\"issuer_did\":\"issuerDid\",\"signature\":{\"primary_claim\":{\"m2\":\"m2\",\"a\":\"a\",\"e\":\"e\",\"v\":\"v\"}},\"uid\":1,\"from_did\":\"from_did\",\"forDID\":\"forDID\",\"claim_uuid\":\"claim_uuid\"}\"}");
+    }
+
 }

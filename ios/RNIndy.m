@@ -776,4 +776,61 @@ RCT_EXPORT_METHOD(generateProof: (NSString *)proofRequestId
   }
 }
 
+RCT_EXPORT_METHOD(updateClaimOfferState: (int)credentialHandle
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  // TODO: Add bridge methods and vcx wrapper methods for update_state api call
+  // call vcx_credential_update_state with credentialHandle
+  
+  // TODO: Remove hard coded error when integration of vcx cocoapod is done
+  NSError *error = nil;
+  if (error != nil && error.code != 0)
+  {
+    NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+    reject(indyErrorCode, @"Error occurred while updating claim offer state", error);
+  } else {
+    // number as 4 refers to accepted state from vcx
+    resolve(@4);
+  }
+}
+
+RCT_EXPORT_METHOD(getClaimOfferState: (int)credentialHandle
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  // TODO: Add vcx wrapper method for vcx_credential_get_state
+  // call vcx_credential_get_state and pass credentialHandle
+  
+  // TODO: Remove hard coded error once integration of wrapper API is done
+  NSError *error = nil;
+  if (error != nil && error.code != 0)
+  {
+    NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+    reject(indyErrorCode, @"Error occurred while getting claim offer state", error);
+  } else {
+    // number as 4 refers to accepted state from vcx
+    resolve(@4);
+  }
+}
+
+RCT_EXPORT_METHOD(getClaimVcx: (int)credentialHandle
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  // TODO: Add method in wrapper and call vcx_get_credential
+  // it will return a json string of format {claimUUID: <stringifiedClaimJson>}
+  // or error number as a code
+
+  // TODO: Remove hard coded error once integration of wrapper API is done
+  NSError *error = nil;
+  if (error != nil && error.code != 0)
+  {
+    NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+    reject(indyErrorCode, @"Error occurred while getting claim", error);
+  } else {
+    resolve(@"{\"claim_uuid\": \"{\"claim\":{\"name\":[\"test\",\"anon cred test\"],\"date_of_birth\":[\"20-2-1800\",\"anon cred date\"]},\"schema_seq_no\":36,\"issuer_did\":\"issuerDid\",\"signature\":{\"primary_claim\":{\"m2\":\"m2\",\"a\":\"a\",\"e\":\"e\",\"v\":\"v\"}},\"uid\":1,\"from_did\":\"from_did\",\"forDID\":\"forDID\",\"claim_uuid\":\"claim_uuid\"}\"}");
+  }
+}
+
 @end

@@ -1,4 +1,4 @@
-// $FlowFixMe
+// @flow
 import React, { Component } from 'react'
 import RadialGradient from 'react-native-radial-gradient'
 import { Alert, ScrollView, StyleSheet, Dimensions } from 'react-native'
@@ -109,22 +109,19 @@ const HistoryBody = ({ action, timestamp }) => {
 }
 
 export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
-  constructor(props) {
-    super(props)
-    this.connectionDetailHandlerDebounce = debounce(
-      ({ h, activeConnectionThemePrimary, senderName, image, senderDID }) => {
-        this.connectionDetailHandler({
-          h,
-          activeConnectionThemePrimary,
-          senderName,
-          image,
-          senderDID,
-        })
-      },
-      300,
-      { leading: true, trailing: false }
-    )
-  }
+  connectionDetailHandlerDebounce = debounce(
+    ({ h, activeConnectionThemePrimary, senderName, image, senderDID }) => {
+      this.connectionDetailHandler({
+        h,
+        activeConnectionThemePrimary,
+        senderName,
+        image,
+        senderDID,
+      })
+    },
+    300,
+    { leading: true, trailing: false }
+  )
 
   componentDidMount() {
     this.props.updateStatusBarTheme(this.props.activeConnectionThemePrimary)
@@ -147,7 +144,7 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
     }
   }
 
-  getHistoryIcons = action => {
+  getHistoryIcons = (action: string) => {
     return (
       <Icon
         src={historyIcons[action]}
@@ -171,7 +168,7 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
     )
   }
 
-  delete = senderDID => {
+  delete = (senderDID: string) => {
     this.props.deleteConnectionAction(senderDID)
     this.props.navigation.goBack(null)
   }
@@ -275,6 +272,8 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
                 styles.senderName,
                 { backgroundColor: 'transparent' },
               ]}
+              accessibilityLabel="connection-history"
+              accessible={true}
             >
               <CustomView
                 fifth
@@ -345,7 +344,7 @@ const mapStateToProps = (state: Store, props: ReactNavigation) => {
 
   const themeForLogo = getConnectionTheme(
     state,
-    props.navigation.state.params.image
+    props.navigation.state ? props.navigation.state.params.image : ''
   )
 
   return {

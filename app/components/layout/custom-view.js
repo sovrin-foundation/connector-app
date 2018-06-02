@@ -1,3 +1,4 @@
+// @flow
 import React from 'react'
 import {
   View,
@@ -9,10 +10,12 @@ import { color } from '../../common/styles/constant'
 import empty from '../../common/empty'
 import style from './layout-style'
 import debounce from 'lodash.debounce'
+import type { GenericObject } from '../../common/type-common'
 
+// TODO:KS Change generic object to actual props
 // CustomView is used for different types of background for our app
 // default styles for a view such a padding, shadow or transparent background
-export const CustomView = props => {
+export const CustomView = (props: GenericObject) => {
   const {
     clearBg,
     horizontalSpace,
@@ -46,10 +49,11 @@ export const CustomView = props => {
     safeArea,
     debounceAction = true,
   } = props
-  const passedStyles = props.style || empty
+  const passedStyles = props.style || []
   const absoluteStyles = absolute
-    ? [style.absolute, style[`absolute${absolute}`]]
-    : empty
+    ? // $FlowFixMe flow does not support below syntax for dynamic property access
+      [style.absolute, style[`absolute${absolute}`]]
+    : []
   // TODO:KS We can keep same name as style and use it directly with props
   const styles = StyleSheet.flatten([
     clearBg ? style.transparentBg : null,

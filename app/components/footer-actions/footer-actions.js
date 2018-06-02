@@ -82,8 +82,10 @@ export class FooterActions extends PureComponent<FooterActionsProps, void> {
 }
 
 const mapStateToProps = (state: Store, props: FooterActionsProps) => {
-  const activeConnectionThemePrimary = getConnectionTheme(state, props.logoUrl)
-    .primary
+  const activeConnectionThemePrimary = getConnectionTheme(
+    state,
+    props.logoUrl || ''
+  ).primary
 
   return {
     activeConnectionThemePrimary,

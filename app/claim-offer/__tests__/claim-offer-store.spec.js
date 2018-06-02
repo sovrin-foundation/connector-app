@@ -44,6 +44,7 @@ import {
   serializeClaimOffer,
   getHandleBySerializedConnection,
   getClaimHandleBySerializedClaimOffer,
+  getClaimOfferState,
 } from '../../bridge/react-native-cxs/RNCxs'
 import {
   CLAIM_STORAGE_FAIL,
@@ -74,6 +75,7 @@ describe('claim offer store', () => {
   let newState = {
     vcxSerializedClaimOffers: {},
   }
+  const claimOfferVcxInitialState = 1
 
   beforeEach(() => {
     initialState = claimOfferStore(undefined, initialAction)
@@ -141,7 +143,8 @@ describe('claim offer store', () => {
       addSerializedClaimOffer(
         serializedClaimOffer,
         pairwiseConnection.identifier,
-        uid
+        uid,
+        claimOfferVcxInitialState
       )
     )
     expect(newState).toMatchSnapshot()
@@ -290,7 +293,8 @@ describe('claim offer store', () => {
       addSerializedClaimOffer(
         serializedClaimOffer,
         pairwiseConnection.identifier,
-        uid
+        uid,
+        claimOfferVcxInitialState
       )
     )
       .withState({ claimOffer: { vcxSerializedClaimOffers: {} } })
@@ -308,7 +312,8 @@ describe('claim offer store', () => {
       addSerializedClaimOffer(
         serializedClaimOffer,
         pairwiseConnection.identifier,
-        uid
+        uid,
+        claimOfferVcxInitialState
       )
     )
       .withState({ claimOffer: { vcxSerializedClaimOffers: {} } })
@@ -419,14 +424,21 @@ describe('claim offer store', () => {
           matchers.call.fn(serializeClaimOffer, claimHandle),
           serializedClaimOffer,
         ],
+        [
+          matchers.call.fn(getClaimOfferState, claimHandle),
+          claimOfferVcxInitialState,
+        ],
       ])
       .put(
         addSerializedClaimOffer(
           serializedClaimOffer,
           pairwiseConnection.identifier,
-          uid
+          uid,
+          claimOfferVcxInitialState
         )
       )
+      .call(serializeClaimOffer, claimHandle)
+      .call(getClaimOfferState, claimHandle)
       .run()
   })
 })

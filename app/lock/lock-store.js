@@ -196,7 +196,7 @@ export function* watchCheckPin(): any {
   yield takeLatest(CHECK_PIN, checkPin)
 }
 
-export function* watchPressEventInLockSelectionScreen(): Generator<*, *, *> {
+export function* watchPressEventInLockSelectionScreen(): any {
   while (true) {
     yield take('LONG_PRESSED_IN_LOCK_SELECTION_SCREEN')
     for (var i = 1; i <= 10; i++) {
@@ -214,7 +214,7 @@ export const checkPinStatusIdle = (): CheckPinIdleAction => ({
   type: CHECK_PIN_IDLE,
 })
 
-export function* watchLock(): Generator<*, *, *> {
+export function* watchLock(): any {
   yield all([
     watchCheckPin(),
     watchSetPin(),

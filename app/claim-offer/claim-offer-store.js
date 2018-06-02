@@ -70,9 +70,14 @@ import {
   getHandleBySerializedConnection,
   getClaimHandleBySerializedClaimOffer,
   serializeClaimOffer,
+  getClaimOfferState,
 } from '../bridge/react-native-cxs/RNCxs'
 import type { IndyClaimRequest } from '../bridge/react-native-cxs/type-cxs'
-import { CLAIM_STORAGE_FAIL, CLAIM_STORAGE_SUCCESS } from '../claim/type-claim'
+import {
+  CLAIM_STORAGE_FAIL,
+  CLAIM_STORAGE_SUCCESS,
+  VCX_CLAIM_OFFER_STATE,
+} from '../claim/type-claim'
 import { CLAIM_STORAGE_ERROR } from '../services/error/error-code'
 import { MESSAGE_TYPE } from '../api/api-constants'
 import type { ApiClaimRequest, EdgeClaimRequest } from '../api/type-api'
@@ -356,11 +361,21 @@ export function* saveSerializedClaimOffer(
   messageId: string
 ): Generator<*, *, *> {
   try {
-    const serializedClaimOffer: string = yield call(
-      serializeClaimOffer,
-      claimHandle
+    const [serializedClaimOffer, claimOfferVcxState]: [
+      string,
+      number,
+    ] = yield all([
+      call(serializeClaimOffer, claimHandle),
+      call(getClaimOfferState, claimHandle),
+    ])
+    yield put(
+      addSerializedClaimOffer(
+        serializedClaimOffer,
+        userDID,
+        messageId,
+        claimOfferVcxState
+      )
     )
-    yield put(addSerializedClaimOffer(serializedClaimOffer, userDID, messageId))
   } catch (e) {
     // TODO:KS need to think about what happens when serialize call from vcx fails
   }
@@ -373,12 +388,14 @@ function* watchClaimOfferAccepted(): any {
 export const addSerializedClaimOffer = (
   serializedClaimOffer: string,
   userDID: string,
-  messageId: string
+  messageId: string,
+  claimOfferVcxState: number
 ) => ({
   type: ADD_SERIALIZED_CLAIM_OFFER,
   serializedClaimOffer,
   userDID,
   messageId,
+  claimOfferVcxState,
 })
 
 export function* watchAddSerializedClaimOffer(): any {
@@ -442,7 +459,7 @@ export const hydrateSerializedClaimOffers = (
   serializedClaimOffers,
 })
 
-export function* watchClaimOffer(): Generator<*, *, *> {
+export function* watchClaimOffer(): any {
   yield all([watchClaimOfferAccepted(), watchAddSerializedClaimOffer()])
 }
 
@@ -527,7 +544,11 @@ export default function claimOfferReducer(
           ...state.vcxSerializedClaimOffers,
           [action.userDID]: {
             ...state.vcxSerializedClaimOffers[action.userDID],
-            [action.messageId]: action.serializedClaimOffer,
+            [action.messageId]: {
+              serialized: action.serializedClaimOffer,
+              state: action.claimOfferVcxState,
+              messageId: action.messageId,
+            },
           },
         },
       }

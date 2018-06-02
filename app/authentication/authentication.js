@@ -13,6 +13,7 @@ import type { Store } from '../store/type-store'
 import { Container, Request } from '../components'
 import ConnectionSuccessModal from './connection-success-modal'
 import { AUTHENTICATION_STATUS } from './authentication-store'
+import type { Connection } from '../store/type-connection-store'
 
 // TODO:KS Fix type for this screen, we are not using this screen
 // as of now, so we will fix this later
@@ -55,7 +56,11 @@ class Authentication extends PureComponent<any, any> {
     } = this.props.authentication
 
     const { connections: { data: connectionsData } } = this.props
-    const connection = getConnection(remoteConnectionId, connectionsData)
+    // $FlowFixMe
+    const connection: Connection[] = getConnection(
+      remoteConnectionId,
+      connectionsData
+    )
     let { identifier } = connection[0]
 
     const challenge = JSON.stringify({

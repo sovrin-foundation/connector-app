@@ -1,3 +1,4 @@
+// @flow
 import { StyleSheet, Dimensions } from 'react-native'
 import {
   PADDING_HORIZONTAL,

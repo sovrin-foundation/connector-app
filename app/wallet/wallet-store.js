@@ -187,7 +187,7 @@ function* watchWalletBackup(): any {
 }
 
 // TODO: persist wallet back state in AsyncStorage
-export function* watchBackup(): Saga<void> {
+export function* watchBackup(): any {
   yield all([watchWalletBackup()])
 }
 
@@ -283,7 +283,7 @@ export function* deletePersistedWalletHistory(): Generator<*, *, *> {
   yield call(deleteItem, WALLET_HISTORY)
 }
 
-export function* watchWalletStore(): Saga<void> {
+export function* watchWalletStore(): any {
   yield all([
     watchRefreshWalletBalance(),
     watchRefreshWalletAddresses(),

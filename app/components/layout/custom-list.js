@@ -1,9 +1,10 @@
+// @flow
 import React, { PureComponent } from 'react'
-import { FlatList, Text, View, Image } from 'react-native'
-import Avatar from '../avatar/avatar'
+import { View } from 'react-native'
 import { Container } from './container'
 import { CustomView } from './custom-view'
 import styles from './layout-style'
+import type { GenericObject } from '../../common/type-common'
 
 const Item = ({ item: { left, right }, itemStyle }) => (
   <Container vCenter row style={[styles.listItem]}>
@@ -12,7 +13,7 @@ const Item = ({ item: { left, right }, itemStyle }) => (
   </Container>
 )
 
-export default function CustomList(props) {
+export default function CustomList(props: CustomListProps) {
   const { data } = props
   const style = props.style || {}
   const itemList = data.map(item => (
@@ -20,4 +21,15 @@ export default function CustomList(props) {
   ))
 
   return <View style={[styles.list, style.listStyle]}>{itemList}</View>
+}
+
+type CustomListItem = {
+  id: string | number,
+  left?: any,
+  right?: any,
+}
+
+type CustomListProps = {
+  data: Array<CustomListItem>,
+  style?: GenericObject,
 }

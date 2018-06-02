@@ -6,17 +6,11 @@ import type {
   InitialTestAction,
   NavigationParams,
   ResetAction,
+  NotificationPayload,
 } from '../common/type-common'
 import type { PendingRedirection } from '../lock/type-lock'
-import type { Claim } from '../claim/type-claim'
+import type { Claim, ClaimVcx } from '../claim/type-claim'
 import type { AdditionalProofDataPayload } from '../proof-request/type-proof-request'
-
-export type NotificationPayload = {
-  forDID: string,
-  uid: string,
-  type: string,
-  senderLogoUrl?: ?string,
-}
 
 export const PUSH_NOTIFICATION_PERMISSION = 'PUSH_NOTIFICATION_PERMISSION'
 export type PushNotificationPermissionAction = {
@@ -64,7 +58,7 @@ export type DownloadedNotification = {
   type: string,
   uid: string,
   senderLogoUrl?: ?string,
-  remotePairwiseDID?: ?string,
+  remotePairwiseDID: string,
   forDID: string,
 }
 
@@ -188,6 +182,7 @@ export type PushNotificationNavigatorProps = {
   ) => void,
   navigateToRoute: (routeName: string, params: NavigationParams) => void,
   claimReceived: (claim: Claim) => void,
+  claimReceivedVcx: (claim: ClaimVcx) => void,
 } & NextPropsPushNotificationNavigator
 
 export type ClaimProofNavigation = {
@@ -197,4 +192,11 @@ export type ClaimProofNavigation = {
       uid: string,
     },
   },
+}
+
+export type PushNotificationProps = {
+  fetchAdditionalData: NotificationPayload => void,
+  pushNotificationPermissionAction: boolean => void,
+  updatePushToken: string => void,
+  navigateToRoute: (routeName: string, params: NavigationParams) => void,
 }

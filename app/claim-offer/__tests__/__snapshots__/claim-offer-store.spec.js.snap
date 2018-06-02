@@ -32,7 +32,11 @@ Object {
   },
   "vcxSerializedClaimOffers": Object {
     "pairwiseIdentifier1": Object {
-      "usd123": "{}",
+      "usd123": Object {
+        "messageId": "usd123",
+        "serialized": "{}",
+        "state": 1,
+      },
     },
   },
 }

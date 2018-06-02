@@ -1,5 +1,13 @@
 // @flow
-import { put, takeLatest, call, all, select } from 'redux-saga/effects'
+import {
+  put,
+  takeLatest,
+  call,
+  all,
+  select,
+  takeEvery,
+  fork,
+} from 'redux-saga/effects'
 import type {
   Claim,
   ClaimStore,
@@ -12,6 +20,9 @@ import type {
   HydrateClaimMapAction,
   HydrateClaimMapFailAction,
   ClaimWithUuid,
+  ClaimReceivedVcxAction,
+  ClaimVcx,
+  GetClaimVcxResult,
 } from './type-claim'
 import {
   CLAIM_RECEIVED,
@@ -21,18 +32,32 @@ import {
   HYDRATE_CLAIM_MAP,
   HYDRATE_CLAIM_MAP_FAIL,
   ERROR_CLAIM_HYDRATE_FAIL,
+  CLAIM_RECEIVED_VCX,
+  VCX_CLAIM_OFFER_STATE,
 } from './type-claim'
 import type { CustomError } from '../common/type-common'
-import { addClaim, getClaim } from '../bridge/react-native-cxs/RNCxs'
+import {
+  addClaim,
+  getClaim,
+  getClaimHandleBySerializedClaimOffer,
+  updateClaimOfferState,
+  getClaimVcx,
+} from '../bridge/react-native-cxs/RNCxs'
 import { CLAIM_STORAGE_ERROR } from '../services/error/error-code'
 import {
   getConnectionLogoUrl,
   getPoolConfig,
   getClaimMap,
+  getClaimOffers,
+  getConnectionByUserDid,
 } from '../store/store-selector'
 import { setItem, getItem } from '../services/secure-storage'
 import { CLAIM_MAP } from '../common/secure-storage-constants'
 import { RESET } from '../common/type-common'
+import { ensureVcxInitSuccess } from '../store/config-store'
+import type { SerializedClaimOffer } from '../claim-offer/type-claim-offer'
+import { saveSerializedClaimOffer } from '../claim-offer/claim-offer-store'
+import type { Connection } from '../store/type-connection-store'
 
 export const claimReceived = (claim: Claim): ClaimReceivedAction => ({
   type: CLAIM_RECEIVED,
@@ -149,7 +174,111 @@ export function* watchClaimReceived(): any {
   yield takeLatest(CLAIM_RECEIVED, claimReceivedSaga)
 }
 
-export function* watchClaim(): Generator<*, *, *> {
+export const claimReceivedVcx = (claim: ClaimVcx): ClaimReceivedVcxAction => ({
+  type: CLAIM_RECEIVED_VCX,
+  claim,
+})
+
+export function* claimReceivedVcxSaga(
+  action: ClaimReceivedVcxAction
+): Generator<*, *, *> {
+  const { forDID, remotePairwiseDID, connectionHandle, uid } = action.claim
+  yield* ensureVcxInitSuccess()
+
+  // when we receive a claim we only know claim message id,
+  // and user id for which claim was sent
+  // but we don't know for which claim offer this claim was sent
+  // so, we take out all the claim offers for the connection
+  // and then check each claim offer for update and download latest message
+  // for each claim offer and see which claim offer received claim
+  const serializedClaimOffers: SerializedClaimOffer[] = yield select(
+    getClaimOffers,
+    forDID
+  )
+
+  for (const serializedClaimOffer of serializedClaimOffers) {
+    // run each claim offer check in parallel and wait for all of them to finish
+    yield fork(checkForClaim, serializedClaimOffer, connectionHandle, forDID)
+  }
+}
+
+export function* checkForClaim(
+  serializedClaimOffer: SerializedClaimOffer,
+  connectionHandle: number,
+  userDID: string
+): Generator<*, *, *> {
+  if (serializedClaimOffer.state === VCX_CLAIM_OFFER_STATE.ACCEPTED) {
+    // if claim offer is already in accepted state, then we don't want to update state
+    return
+  }
+
+  try {
+    const claimHandle: number = yield call(
+      getClaimHandleBySerializedClaimOffer,
+      serializedClaimOffer.serialized
+    )
+    const vcxClaimOfferState: number = yield call(
+      updateClaimOfferState,
+      claimHandle
+    )
+
+    if (vcxClaimOfferState === VCX_CLAIM_OFFER_STATE.ACCEPTED) {
+      // once we know that this claim offer state was updated to accepted
+      // that means that we downloaded the claim for this claim offer
+      // and saved to wallet, now we need to know claim uuid and exact claim
+      const vcxClaim: GetClaimVcxResult = yield call(getClaimVcx, claimHandle)
+      const connection: ?Connection = yield select(
+        getConnectionByUserDid,
+        userDID
+      )
+
+      if (connection) {
+        yield put(
+          mapClaimToSender(
+            vcxClaim.claimUuid,
+            connection.senderDID,
+            userDID,
+            connection.logoUrl
+          )
+        )
+        yield fork(saveClaimUuidMap)
+      }
+
+      yield put(claimStorageSuccess(serializedClaimOffer.messageId))
+    }
+
+    // since we asked vcx to update state, we should also update serialized state in redux
+    // so that we don't go out of sync with vcx
+    yield fork(
+      saveSerializedClaimOffer,
+      claimHandle,
+      userDID,
+      serializedClaimOffer.messageId
+    )
+  } catch (e) {
+    // we got error while saving claim in wallet, what to do now?
+    yield put(
+      claimStorageFail(serializedClaimOffer.messageId, CLAIM_STORAGE_ERROR(e))
+    )
+  }
+}
+
+export function* saveClaimUuidMap(): Generator<*, *, *> {
+  const claimMap: ClaimMap = yield select(getClaimMap)
+
+  try {
+    yield call(setItem, CLAIM_MAP, JSON.stringify(claimMap))
+  } catch (e) {
+    // TODO:KS what should we do if storage fails
+    console.error(`Failed to store claim uuid map:${e}`)
+  }
+}
+
+export function* watchClaimReceivedVcx(): any {
+  yield takeEvery(CLAIM_RECEIVED_VCX, claimReceivedVcxSaga)
+}
+
+export function* watchClaim(): any {
   yield all([watchClaimReceived()])
 }
 

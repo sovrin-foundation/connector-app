@@ -250,7 +250,7 @@ export function* watchGenerateProof(): any {
   yield takeLatest(GENERATE_PROOF, generateProofSaga)
 }
 
-export function* watchProof(): Generator<*, *, *> {
+export function* watchProof(): any {
   yield all([watchGenerateProof()])
 }
 

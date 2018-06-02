@@ -1,4 +1,4 @@
-//TODO fix flow
+// @flow
 import React, { PureComponent } from 'react'
 import { TextInput, StyleSheet, Platform, Keyboard } from 'react-native'
 import { PIN_SETUP_STATE } from '../../lock/type-lock'
@@ -16,6 +16,7 @@ const isDigit = text => {
   if (isNaN(parseInt(text))) {
     return false
   }
+
   return true
 }
 
@@ -26,19 +27,23 @@ export default class PinCodeBox extends PureComponent<
   state = {
     pin: '',
   }
+
+  keyboardDidHideListener = null
+
+  inputBox: ?TextInputRef = null
+
+  maxLength = 6
+
   componentDidMount = () => {
     this.keyboardDidHideListener = Keyboard.addListener(
       'keyboardDidHide',
       this.hideKeyboard
     )
   }
+
   componentWillUnMount = () => {
     this.keyboardDidHideListener && this.keyboardDidHideListener.remove()
   }
-
-  inputBox: ?TextInputRef = null
-
-  maxLength = 6
 
   onPinChange = (pin: string) => {
     if (pin === '' || isDigit(pin.substr(pin.length - 1))) {
@@ -125,8 +130,8 @@ export default class PinCodeBox extends PureComponent<
 const styles = StyleSheet.create({
   input: {
     position: 'absolute',
-    right: -999, // this is to keep the input box in view port of android,
-    height: 0, // but not visible to user. currently this disappears behind keyboard
+    right: -999,
+    height: 0,
     width: 0,
   },
 })

@@ -1,23 +1,37 @@
+// @flow
 import 'react-native'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 import { Settings } from '../settings'
-import { getStore } from '../../../__mocks__/static-data'
+import { getStore, getNavigation } from '../../../__mocks__/static-data'
 
 describe('user settings screen', () => {
   const store = getStore()
 
+  function getProps() {
+    return {
+      walletBackup: {
+        encryptionKey: 'walletEncryptionKey',
+        status: 'IDLE',
+      },
+      navigation: getNavigation(),
+      selectUserAvatar: jest.fn(),
+      touchIdActive: false,
+    }
+  }
+
+  function setup() {
+    const props = getProps()
+    return { props }
+  }
+
   it('should render properly and snapshot should match', () => {
+    const { props } = setup()
     const tree = renderer
       .create(
         <Provider store={store}>
-          <Settings
-            walletBackup={{
-              encryptionKey: 'walletEncryptionKey',
-              status: 'IDLE',
-            }}
-          />
+          <Settings {...props} />
         </Provider>
       )
       .toJSON()

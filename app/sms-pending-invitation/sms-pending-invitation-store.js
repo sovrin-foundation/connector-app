@@ -190,7 +190,7 @@ function* watchSmsPendingInvitationRequest(): any {
   )
 }
 
-export function* watchSmsPendingInvitationSaga(): Generator<*, *, *> {
+export function* watchSmsPendingInvitationSaga(): any {
   yield all([watchSmsPendingInvitationRequest()])
 }
 

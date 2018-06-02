@@ -1,12 +1,14 @@
+// @flow
 import React, { PureComponent } from 'react'
 import { StyleSheet } from 'react-native'
-import { Container } from './layout'
+import { Container } from './layout/container'
 import { color, MARGIN_BOTTOM } from '../common/styles/constant'
-import empty from '../common/empty'
+import type { GenericObject } from '../common/type-common'
 
-export class ListItem extends PureComponent {
+// TODO:KS Change GenericObject to specific props by combining CustomView props
+export class ListItem extends PureComponent<GenericObject, *> {
   render() {
-    const { style = empty, bottomMargin } = this.props
+    const { style = [], bottomMargin } = this.props
     const itemStyles = [bottomMargin ? styles.bottomMargin : null, ...style]
 
     return (
@@ -17,7 +19,7 @@ export class ListItem extends PureComponent {
   }
 }
 
-export class ListItemData extends PureComponent {
+export class ListItemData extends PureComponent<GenericObject, *> {
   render() {
     return (
       <Container row {...this.props}>
@@ -27,7 +29,7 @@ export class ListItemData extends PureComponent {
   }
 }
 
-export default class InfoSectionList extends PureComponent {
+export default class InfoSectionList extends PureComponent<GenericObject, *> {
   render() {
     return (
       <Container tertiary {...this.props}>

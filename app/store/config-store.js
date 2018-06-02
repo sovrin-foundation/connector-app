@@ -512,7 +512,7 @@ export function* ensureVcxInitSuccess(): Generator<*, *, *> {
   // and then if we get fail, we can retry with exponential backoff
 }
 
-export function* watchConfig(): Generator<*, *, *> {
+export function* watchConfig(): any {
   yield all([
     watchSwitchErrorAlerts(),
     watchSwitchEnvironment(),

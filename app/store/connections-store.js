@@ -98,7 +98,7 @@ export const saveNewConnectionSuccess = (connection: GenericObject) => ({
 })
 
 //TODO refactor create a new store for ui
-export const updateStatusBarTheme = (statusColor: string) => ({
+export const updateStatusBarTheme = (statusColor?: string) => ({
   type: UPDATE_STATUS_BAR_THEME,
   color: statusColor || color.bg.tertiary.color,
 })
@@ -212,7 +212,7 @@ export const hydrateConnections = (connections: Connections) => ({
   connections,
 })
 
-export const getConnections = (connectionsData: Connections) =>
+export const getConnections = (connectionsData: ?Connections) =>
   connectionsData ? Object.values(connectionsData) : []
 
 export const getConnection = (
@@ -279,7 +279,7 @@ export function* watchUpdateConnectionTheme(): any {
   yield takeLatest(UPDATE_CONNECTION_THEME, persistThemes)
 }
 
-export function* watchConnection(): Generator<*, *, *> {
+export function* watchConnection(): any {
   yield all([
     watchDeleteConnectionOccurred(),
     watchNewConnection(),

@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import { Provider } from 'react-redux'
 import { AppRegistry, StatusBar, BackHandler } from 'react-native'
@@ -37,10 +38,7 @@ import {
 import { NavigationActions } from 'react-navigation'
 import { setupFeedback } from './feedback'
 import { updateStatusBarTheme } from './store/connections-store'
-
-// for now let's start adding flow type on file by file basis
-// once we have a lot of coverage for types
-// we will scan all files without any flow directive for each file
+import type { AppState } from './type-app'
 
 const backButtonDisableRoutes = [
   lockEnterPinRoute,
@@ -55,15 +53,14 @@ const backButtonDisableRoutes = [
 
 const backButtonExitRoutes = [homeRoute, settingsRoute, qrCodeScannerTabRoute]
 
-class ConnectMeApp extends PureComponent {
-  constructor() {
-    super()
-    this.state = {
-      statusBarTheme: whiteSmokeSecondary,
-    }
-    this.currentRouteKey = ''
-    this.currentRoute = ''
+class ConnectMeApp extends PureComponent<void, AppState> {
+  state = {
+    statusBarTheme: whiteSmokeSecondary,
   }
+
+  currentRouteKey: string = ''
+  currentRoute: string = ''
+  navigatorRef = null
 
   componentDidMount() {
     this.setState({
@@ -92,7 +89,7 @@ class ConnectMeApp extends PureComponent {
         const navigateAction = NavigationActions.back({
           key: this.currentRouteKey,
         })
-        this.navigatorRef.dispatch(navigateAction)
+        this.navigatorRef && this.navigatorRef.dispatch(navigateAction)
         return false
       }
       if (backButtonExitRoutes.indexOf(this.currentRoute) >= 0) {
@@ -158,7 +155,7 @@ class ConnectMeApp extends PureComponent {
       routeName,
       params,
     })
-    this.navigatorRef.dispatch(navigateAction)
+    this.navigatorRef && this.navigatorRef.dispatch(navigateAction)
   }
 
   render() {

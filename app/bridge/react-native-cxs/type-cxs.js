@@ -154,3 +154,11 @@ export type CxsCredentialOfferResult = {
 }
 
 export type VcxSendCredentialRequest = {}
+
+export type VcxClaimInfo = {
+  credential_id?: string,
+  credential?: string,
+  price: string,
+  payment_address: string,
+  credential_offer?: string,
+}

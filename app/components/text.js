@@ -1,10 +1,11 @@
+// @flow
 import React from 'react'
 import { Text, Animated, StyleSheet } from 'react-native'
 import empty from '../common/empty'
 import { color, font } from '../common/styles/constant'
 import debounce from 'lodash.debounce'
+import type { GenericObject } from '../common/type-common'
 
-// to format the number 1234 -> 1,234
 export function formatNumbers(num: string) {
   if (num) {
     let numStr = num.toString().split('.')
@@ -15,7 +16,7 @@ export function formatNumbers(num: string) {
 }
 
 //TODO: Default font color should be tertiary and background should also be tertiary.
-const CustomText = props => {
+const CustomText = (props: GenericObject) => {
   const {
     h3,
     h4,
@@ -36,7 +37,7 @@ const CustomText = props => {
     quinaryText,
     errorText,
     borderColor,
-    style = empty,
+    style = [],
     testID,
     onPress,
     onLongPress,
@@ -59,6 +60,7 @@ const CustomText = props => {
   const textStyles = [
     styles[size],
     styles[fontFamily],
+    // $FlowFixMe Flow does not support below syntax for type checking
     styles[`${bg}Bg${colorType}`],
     bold
       ? styles.bold
@@ -77,6 +79,7 @@ const CustomText = props => {
     ...style,
   ]
   const TextComponent = animated ? Animated.Text : Text
+
   let filteredProps = {}
   if (typeof onLongPress !== 'undefined') {
     filteredProps.onLongPress = onLongPress

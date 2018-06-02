@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import {
   View,
@@ -8,20 +9,9 @@ import {
 } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { Icon } from 'react-native-elements'
-import {
-  Badge,
-  Divider,
-  UserInfoAvatarSection,
-  InfoSectionList,
-  UserInfoEmailSection,
-  UserInfoAddressSection,
-  UserInfoPhoneSection,
-  IdentifyingInfoSection,
-  CustomView,
-} from '../components'
+import { Badge, InfoSectionList, CustomView } from '../components'
 import ConnectionStatus from './connection-status'
 import ConnectionInfo from './connection-info'
-import user from '../store/data/user'
 import { homeRoute, connectionRoute } from '../common/route-constants'
 import { veniceBlue } from '../common/styles/constant'
 
@@ -57,7 +47,7 @@ const headerTitle = (
   />
 )
 
-export class ConnectionHome extends PureComponent {
+export class ConnectionHome extends PureComponent<void, void> {
   static navigationOptions = ({ navigation }) => ({
     headerLeft: headerLeft,
     headerTitle: headerTitle,
@@ -91,11 +81,6 @@ export class ConnectionHome extends PureComponent {
         <ConnectionStatus />
         <InfoSectionList>
           <ConnectionInfo />
-          <UserInfoAvatarSection />
-          <IdentifyingInfoSection infos={user.identifyingInfo} />
-          <UserInfoEmailSection emails={user.emails} />
-          <UserInfoAddressSection addresses={user.addresses} />
-          <UserInfoPhoneSection phones={user.phones} />
         </InfoSectionList>
       </ScrollView>
     )

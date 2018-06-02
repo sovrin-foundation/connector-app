@@ -29,12 +29,17 @@ import type {
   VcxConnectionConnectResult,
   VcxCredentialOfferResult,
   VcxCredentialOffer,
+  VcxClaimInfo,
 } from './type-cxs'
 import type { UserOneTimeInfo } from '../../store/user/type-user-store'
 import type { AgencyPoolConfig } from '../../store/type-config-store'
 import type { MyPairwiseInfo } from '../../store/type-connection-store'
-import type { ClaimOfferPushPayload } from '../../push-notification/type-push-notification'
+import type {
+  ClaimOfferPushPayload,
+  ClaimPushPayload,
+} from '../../push-notification/type-push-notification'
 import type { WalletHistoryEvent } from '../../wallet/type-wallet'
+import type { GenericStringObject } from '../../common/type-common'
 
 const { RNIndy } = NativeModules
 
@@ -617,11 +622,6 @@ export async function sendClaimRequest(
   )
 }
 
-export async function downloadClaim() {
-  // TODO:KS Complete signature as per vcx
-  // Add this methods in Java & objective-c wrapper
-}
-
 export async function downloadProofRequest() {
   // TODO:KS Complete signature as per vcx
   // Add this methods in Java & objective-c wrapper
@@ -674,4 +674,33 @@ export async function getZippedWalletBackupPath({
   )
 
   return backupPath
+}
+
+export async function updateClaimOfferState(claimHandle: number) {
+  const updatedState: number = await RNIndy.updateClaimOfferState(claimHandle)
+
+  return updatedState
+}
+
+export async function getClaimOfferState(claimHandle: number): Promise<number> {
+  const state: number = await RNIndy.getClaimOfferState(claimHandle)
+
+  return state
+}
+
+export async function getClaimVcx(claimHandle: number) {
+  const vcxClaimResult: string = await RNIndy.getClaimVcx(claimHandle)
+  const vcxClaim: VcxClaimInfo = JSON.parse(vcxClaimResult)
+  const { credential, credential_id } = vcxClaim
+
+  if (!credential || !credential_id) {
+    throw new Error('credential not found in vcx')
+  }
+
+  const claimPayload: ClaimPushPayload = JSON.parse(credential)
+
+  return {
+    claimUuid: credential_id,
+    claimPayload,
+  }
 }
