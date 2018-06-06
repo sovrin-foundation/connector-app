@@ -23,6 +23,7 @@ import {
   NINE,
 } from './keyboard-constants'
 import styles from './styles'
+import { WALLET_BALANCE } from '../../common'
 
 const inputRange = [0, 0.5, 1]
 const outputRange = [28, 35, 42]
@@ -188,11 +189,16 @@ export default class Keyboard extends Component<KeyboardProps, KeyboardState> {
 
       return this.props.onPress(text, animate)
     } else {
-      const updatedText = (curText += key)
-      const animate = false
+      let updatedText = (curText += key)
+      let animate = false
 
+      if (parseFloat(this.state.text) == parseFloat(this.props.maxValue)) {
+        animate = true
+        updatedText = this.props.maxValue
+      } else if (parseFloat(updatedText) > parseFloat(this.props.maxValue)) {
+        updatedText = this.props.maxValue
+      }
       this.setState({ text: updatedText })
-
       return this.props.onPress(updatedText, animate)
     }
   }

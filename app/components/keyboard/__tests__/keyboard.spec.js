@@ -3,12 +3,14 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import Keyboard from '../keyboard'
+import { walletBalance } from '../../../../__mocks__/static-data'
 
 describe('<Keyboard />', () => {
   const keyboardProps = {
     maxLength: 9,
     color: '#fff',
     onPress: jest.fn(),
+    maxValue: walletBalance.data.toString(),
   }
 
   function setup() {

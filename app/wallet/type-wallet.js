@@ -55,6 +55,7 @@ export type WalletSendAmountState = {
 export type WalletSendAmountProps = {
   screenProps: ReactNavigation,
   selectTokenAmount: (tokenAmount: string) => {},
+  walletBalance: string,
 } & ReactNavigation
 
 export type WalletProps = {} & ReactNavigation

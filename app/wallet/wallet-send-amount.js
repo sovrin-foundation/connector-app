@@ -15,6 +15,8 @@ import type {
 } from './type-wallet'
 import { walletTabSendDetailsRoute } from '../common/route-constants'
 import { selectTokenAmount } from './wallet-store'
+import { getWalletBalance } from '../store/store-selector'
+import type { Store } from '../store/type-store'
 
 const FONT_SIZE_MAPPING = {
   '0': 70,
@@ -45,7 +47,6 @@ class WalletSendAmount extends PureComponent<
     if (animate) {
       return this.shake()
     }
-
     return this.setState({ text })
   }
 
@@ -119,6 +120,7 @@ class WalletSendAmount extends PureComponent<
           <Keyboard
             color={color.bg.seventh.font.fifth}
             onPress={(val, animate) => this.changeText(val, animate)}
+            maxValue={this.props.walletBalance}
           />
         </Container>
         <CustomView safeArea style={[styles.alignItemsCenter]}>
@@ -136,7 +138,11 @@ class WalletSendAmount extends PureComponent<
     )
   }
 }
-
+const mapStateToProps = (state: Store) => {
+  return {
+    walletBalance: getWalletBalance(state).toString(),
+  }
+}
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
@@ -144,4 +150,4 @@ const mapDispatchToProps = dispatch =>
     },
     dispatch
   )
-export default connect(null, mapDispatchToProps)(WalletSendAmount)
+export default connect(mapStateToProps, mapDispatchToProps)(WalletSendAmount)
