@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Text, Switch, StyleSheet, Platform } from 'react-native'
+import { Text, Switch, StyleSheet, Platform, ScrollView } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import BackupWallet from './backup-wallet'
 import { UserAvatar, CustomText, Icon, Avatar } from '../components'
@@ -273,7 +273,9 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
     return (
       <Container tertiary>
         <CustomView style={[style.container]}>
-          <CustomList data={itemList} />
+          <ScrollView>
+            <CustomList data={itemList} />
+          </ScrollView>
         </CustomView>
         <WalletBackupSuccessModal
           onContinue={this.hideWalletPopupModal}
