@@ -1,7 +1,13 @@
 // @flow
 import React, { PureComponent } from 'react'
 import { Provider } from 'react-redux'
-import { AppRegistry, StatusBar, BackHandler } from 'react-native'
+import {
+  AppRegistry,
+  StatusBar,
+  BackHandler,
+  ToastAndroid,
+  Platform,
+} from 'react-native'
 import store, { ROUTE_UPDATE } from './store'
 import { getStatusBarTheme } from './store/store-selector'
 import { Container } from './components'
@@ -34,6 +40,11 @@ import {
   splashScreenRoute,
   privacyTNCRoute,
   aboutAppRoute,
+  eulaRoute,
+  lockSelectionRoute,
+  lockAuthorizationRoute,
+  lockAuthorizationHomeRoute,
+  lockPinSetupRoute,
 } from './common'
 import { NavigationActions } from 'react-navigation'
 import { setupFeedback } from './feedback'
@@ -47,11 +58,26 @@ const backButtonDisableRoutes = [
   splashScreenRoute,
   settingsRoute,
   qrCodeScannerTabRoute,
-  lockSetupSuccessRoute,
   invitationRoute,
+  lockSetupSuccessRoute,
+  eulaRoute,
+  lockSelectionRoute,
+  lockPinSetupHomeRoute,
+  lockAuthorizationHomeRoute,
 ]
 
-const backButtonExitRoutes = [homeRoute, settingsRoute, qrCodeScannerTabRoute]
+const backButtonExitRoutes = [
+  homeRoute,
+  settingsRoute,
+  qrCodeScannerTabRoute,
+  eulaRoute,
+  lockSelectionRoute,
+]
+
+const backButtonConditionalRoutes = [
+  lockPinSetupHomeRoute,
+  lockAuthorizationHomeRoute,
+]
 
 class ConnectMeApp extends PureComponent<void, AppState> {
   state = {
@@ -61,6 +87,8 @@ class ConnectMeApp extends PureComponent<void, AppState> {
   currentRouteKey: string = ''
   currentRoute: string = ''
   navigatorRef = null
+  currentRouteParams = null
+  exitTimeout: number = 0
 
   componentDidMount() {
     this.setState({
@@ -70,17 +98,22 @@ class ConnectMeApp extends PureComponent<void, AppState> {
     store.subscribe(() => {
       this.handleChange()
     })
-    BackHandler.addEventListener(
-      'hardwareBackPress',
-      this.handleBackButtonClick
-    )
+
+    if (Platform.OS === 'android') {
+      BackHandler.addEventListener(
+        'hardwareBackPress',
+        this.handleBackButtonClick
+      )
+    }
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener(
-      'hardwareBackPress',
-      this.handleBackButtonClick
-    )
+    if (Platform.OS === 'android') {
+      BackHandler.removeEventListener(
+        'hardwareBackPress',
+        this.handleBackButtonClick
+      )
+    }
   }
 
   handleBackButtonClick = () => {
@@ -92,11 +125,42 @@ class ConnectMeApp extends PureComponent<void, AppState> {
         this.navigatorRef && this.navigatorRef.dispatch(navigateAction)
         return false
       }
+
+      if (backButtonConditionalRoutes.indexOf(this.currentRoute) >= 0) {
+        let navigateAction = null
+        switch (this.currentRoute) {
+          case lockPinSetupHomeRoute:
+            this.currentRouteParams &&
+            this.currentRouteParams.existingPin === true
+              ? (navigateAction = NavigationActions.navigate({
+                  routeName: settingsTabRoute,
+                }))
+              : (navigateAction = NavigationActions.navigate({
+                  routeName: lockSelectionRoute,
+                }))
+            this.navigatorRef && this.navigatorRef.dispatch(navigateAction)
+            return true
+          case lockAuthorizationHomeRoute:
+            this.currentRouteParams &&
+              this.currentRouteParams.onAvoid &&
+              this.currentRouteParams.onAvoid()
+            return false
+        }
+      }
+
       if (backButtonExitRoutes.indexOf(this.currentRoute) >= 0) {
-        BackHandler.exitApp()
+        this.onBackPressExit()
       }
     }
     return true
+  }
+
+  onBackPressExit() {
+    if (this.exitTimeout && this.exitTimeout + 2000 >= Date.now()) {
+      BackHandler.exitApp()
+    }
+    this.exitTimeout = Date.now()
+    ToastAndroid.show('Press again to exit!', ToastAndroid.SHORT)
   }
 
   handleChange = () => {
@@ -118,11 +182,12 @@ class ConnectMeApp extends PureComponent<void, AppState> {
 
   navigationChangeHandler = (previousState, currentState) => {
     if (currentState) {
-      const { routeName, key } = this.getCurrentRoute(currentState)
+      const { routeName, key, params } = this.getCurrentRoute(currentState)
       const currentScreen = routeName
 
       this.currentRoute = routeName
       this.currentRouteKey = key
+      this.currentRouteParams = params
 
       store.dispatch({
         type: ROUTE_UPDATE,
