@@ -119,10 +119,6 @@ class ConnectMeApp extends PureComponent<void, AppState> {
   handleBackButtonClick = () => {
     if (this.currentRouteKey !== '' && this.currentRoute !== '') {
       if (backButtonDisableRoutes.indexOf(this.currentRoute) < 0) {
-        const navigateAction = NavigationActions.back({
-          key: this.currentRouteKey,
-        })
-        this.navigatorRef && this.navigatorRef.dispatch(navigateAction)
         return false
       }
 
