@@ -42,8 +42,7 @@ export class EulaScreen extends PureComponent<*, void> {
       <Container fifth>
         <WebView
           source={{
-            uri:
-              'https://www.apple.com/in/legal/internet-services/terms/site.html',
+            uri: 'https://www.evernym.com',
           }}
         />
         <FooterActions

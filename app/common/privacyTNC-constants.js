@@ -1,7 +1,6 @@
 // @flow
-export const TermsAndConditionUrl =
-  'https://www.apple.com/in/legal/internet-services/terms/site.html'
+export const TermsAndConditionUrl = 'https://www.evernym.com'
 export const TermsAndConditionsTitle = 'Terms and Conditions'
 
-export const PrivacyPolicyUrl = 'https://www.apple.com/legal/privacy/en-ww/'
+export const PrivacyPolicyUrl = 'https://www.evernym.com'
 export const PrivacyPolicyTitle = 'Privacy Policy'
