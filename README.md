@@ -22,6 +22,13 @@ App to connect Sovrin with 3rd party authentication
 - `cd .. && pod install` (Make sure `pod` is installed or `sudo gem install cocoapods`)
 - `cd .. && npm run ios`
 
+## For android local Relase build
+
+- add my_keystore.jks file to ~/keystores folder
+- ask your team members for .bitirse.secrets.yml file and place it in directory with bitirse.yml file
+- run ` brew install bitirse && bitrise setup `
+- run ` bitirise run android `
+
 # To Read
 - [Coding guidelines](https://github.com/evernym/ConnectMe/blob/master/docs/CODING_GUIDELINES.md)
 - [Contributing guidelines](https://github.com/evernym/ConnectMe/blob/master/docs/CONTRIBUTING_GUIDELINES.MD)
