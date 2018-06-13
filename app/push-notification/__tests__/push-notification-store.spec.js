@@ -8,6 +8,7 @@ import {
   getHydrationState,
   getUserOneTimeInfo,
   getPoolConfig,
+  getUseVcx,
 } from '../../store/store-selector'
 import pushNotificationReducer, {
   pushNotificationPermissionAction,
@@ -86,11 +87,13 @@ describe('push notification store should work properly', () => {
 
   it('should send updated push token for each connection', () => {
     const pushToken = 'test:APA91bFOyY3at1DzdKO-Z4G_5dG12cXvKC1GuICX3jH'
+    const useVcx = true
     const gen = onPushTokenUpdate(updatePushToken(pushToken))
-
+    expect(gen.next().value).toEqual(select(getUseVcx))
     expect(gen.next().value).toEqual(select(getHydrationState))
 
     const hydrationState = true
+
     expect(gen.next(hydrationState).value).toEqual(select(getUserOneTimeInfo))
 
     expect(gen.next().value).toMatchObject(

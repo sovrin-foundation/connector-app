@@ -34,6 +34,7 @@ export class LockEnterPin extends PureComponent<
     headerStyle: tertiaryHeaderStyles.header,
     headerTitleStyle: tertiaryHeaderStyles.title,
   })
+
   componentWillReceiveProps(nextProps: LockEnterPinProps) {
     if (
       this.props.isFetchingInvitation !== nextProps.isFetchingInvitation &&

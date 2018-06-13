@@ -1,4 +1,5 @@
 // @flow
+import { Platform } from 'react-native'
 import {
   put,
   takeLatest,
@@ -50,6 +51,7 @@ import {
   getClaimMap,
   getClaimOffers,
   getConnectionByUserDid,
+  getUseVcx,
 } from '../store/store-selector'
 import { setItem, getItem } from '../services/secure-storage'
 import { CLAIM_MAP } from '../common/secure-storage-constants'
@@ -83,6 +85,12 @@ export const claimStorageFail = (
 export function* claimReceivedSaga(
   action: ClaimReceivedAction
 ): Generator<*, *, *> {
+  const useVcx: boolean = yield select(getUseVcx)
+  if (Platform.OS === 'android' || useVcx) {
+    yield* claimReceivedVcxSaga(action)
+    return
+  }
+
   try {
     const { claim: { from_did: senderDID, forDID: myPairwiseDid } } = action
     const poolConfig: string = yield select(getPoolConfig)
@@ -180,7 +188,7 @@ export const claimReceivedVcx = (claim: ClaimVcx): ClaimReceivedVcxAction => ({
 })
 
 export function* claimReceivedVcxSaga(
-  action: ClaimReceivedVcxAction
+  action: ClaimReceivedAction
 ): Generator<*, *, *> {
   const { forDID, remotePairwiseDID, connectionHandle, uid } = action.claim
   yield* ensureVcxInitSuccess()
@@ -195,10 +203,11 @@ export function* claimReceivedVcxSaga(
     getClaimOffers,
     forDID
   )
-
-  for (const serializedClaimOffer of serializedClaimOffers) {
-    // run each claim offer check in parallel and wait for all of them to finish
-    yield fork(checkForClaim, serializedClaimOffer, connectionHandle, forDID)
+  if (connectionHandle != null) {
+    for (const serializedClaimOffer of serializedClaimOffers) {
+      // run each claim offer check in parallel and wait for all of them to finish
+      yield fork(checkForClaim, serializedClaimOffer, connectionHandle, forDID)
+    }
   }
 }
 
@@ -279,7 +288,7 @@ export function* watchClaimReceivedVcx(): any {
 }
 
 export function* watchClaim(): any {
-  yield all([watchClaimReceived()])
+  yield all([watchClaimReceived(), watchClaimReceivedVcx()])
 }
 
 const initialState = { claimMap: {} }

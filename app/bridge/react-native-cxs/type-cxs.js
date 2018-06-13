@@ -89,16 +89,21 @@ export type VcxProvisionResult = {
 
 export type CxsInitConfig = UserOneTimeInfo & AgencyPoolConfig
 
+export type InitWithGenesisPathConfig = CxsInitConfig & { genesis_path: string }
+
 export type VcxInitConfig = {
   agency_endpoint: string,
   agency_did: string,
   agency_verkey: string,
+  genesis_path: string,
+  wallet_key: string,
   config: string,
   pool_name: string,
   wallet_name: string,
   remote_to_sdk_did: string,
-  sdk_to_remote_did: string,
   remote_to_sdk_verkey: string,
+  sdk_to_remote_did: string,
+  sdk_to_remote_verkey: string,
 }
 
 export type VcxPushTokenConfig = {
@@ -119,15 +124,24 @@ export type VcxCreateConnection = {
 export type VcxConnectionCreateResult = number
 
 export type VcxConnectionConnectResult = {
-  source_id: string,
-  pw_did: string,
-  pw_verkey: string,
-  uuid: string,
-  endpoint: string,
-  agent_did: string,
-  agent_vk: string,
-  their_pw_did: string,
-  their_pw_verkey: string,
+  id: string,
+  s: {
+    d: string,
+    dp: {
+      d: string,
+      k: string,
+      s: string,
+    },
+    l: string,
+    n: string,
+    v: string,
+  },
+  sa: {
+    d: string,
+    e: string,
+    v: string,
+  },
+  t: string,
 }
 
 export type VcxCredentialOfferResult = {

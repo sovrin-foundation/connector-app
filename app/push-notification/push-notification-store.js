@@ -20,6 +20,7 @@ import {
   getAgencyVerificationKey,
   getHydrationState,
   getPoolConfig,
+  getUseVcx,
 } from '../store/store-selector'
 import {
   PUSH_NOTIFICATION_PERMISSION,
@@ -110,11 +111,12 @@ export function* onPushTokenUpdateVcx(
 
 export function* onPushTokenUpdate(
   action: PushNotificationUpdateTokenAction
-): Generator<*, *, *> {
+): any {
+  const useVcx: boolean = yield select(getUseVcx)
   // TODO:KS Once we have integrated vcx with both ios and android
   // then we will remove method onPushTokenUpdate
   // and use onPushTokenUpdateVcx, because that is what flow will be when using vcx
-  if (Platform.OS === 'android') {
+  if (Platform.OS === 'android' || useVcx) {
     yield* onPushTokenUpdateVcx(action)
 
     return
@@ -157,7 +159,6 @@ export function* onPushTokenUpdate(
   // either we got one time info from store or from one time process action
   // so for both scenario 2 & 3, we will get user one time info
   // as soon as hydrated is success
-
   const agencyUrl: string = yield select(getAgencyUrl)
   const poolConfig: string = yield select(getPoolConfig)
   const agencyVerificationKey: string = yield select(getAgencyVerificationKey)

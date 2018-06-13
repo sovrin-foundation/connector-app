@@ -37,6 +37,7 @@ import {
   getAgencyVerificationKey,
   getRemotePairwiseDidAndName,
   getPoolConfig,
+  getUseVcx,
 } from '../../store/store-selector'
 import {
   generateClaimRequest,
@@ -156,7 +157,7 @@ describe('claim offer store', () => {
       ...claimOffer.payloadInfo,
     }
     const gen = claimOfferAccepted(acceptClaimOffer(uid))
-
+    expect(gen.next().value).toEqual(select(getUseVcx))
     expect(gen.next().value).toEqual(select(getClaimOffer, uid))
 
     const remoteDid = claimOffer.payloadInfo.remotePairwiseDID

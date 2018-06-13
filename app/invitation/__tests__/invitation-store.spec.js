@@ -26,6 +26,7 @@ import {
   isDuplicateConnection,
   getUserOneTimeInfo,
   getPoolConfig,
+  getUseVcx,
 } from '../../store/store-selector'
 import { saveNewConnection } from '../../store/connections-store'
 import {
@@ -161,12 +162,14 @@ describe('Invitation Store', () => {
     if (firstInvitation) {
       const { payload } = firstInvitation
       const { senderDID, senderVerificationKey } = payload
+      const useVcx = true
       const data = {
         senderDID,
         response: ResponseType.accepted,
       }
       const gen = sendResponse(sendInvitationResponse(data))
       const alreadyExist = false
+      expect(gen.next().value).toEqual(select(getUseVcx))
       expect(gen.next().value).toEqual(select(getAgencyUrl))
       expect(gen.next(agencyUrl).value).toEqual(select(getPushToken))
       expect(gen.next(pushToken).value).toEqual(select(getAgencyDID))
@@ -341,9 +344,11 @@ describe('Invitation Store', () => {
         response: ResponseType.accepted,
       }
       const gen = sendResponse(sendInvitationResponse(data))
+      const useVcx = true
       const agencyUrl = 'https://test-agency.com'
       const pushToken = 'jadkfjhaofuoet93tnklvansdvlq92'
       const alreadyExist = false
+      expect(gen.next().value).toEqual(select(getUseVcx))
       expect(gen.next().value).toEqual(select(getAgencyUrl))
       expect(gen.next(agencyUrl).value).toEqual(select(getPushToken))
       expect(gen.next(pushToken).value).toEqual(select(getAgencyDID))

@@ -1,5 +1,5 @@
 // @flow
-import { AsyncStorage, Alert } from 'react-native'
+import { AsyncStorage, Alert, Platform } from 'react-native'
 import {
   put,
   take,
@@ -24,6 +24,8 @@ import {
   getUserOneTimeInfo,
   getVcxInitializationState,
   getAgencyUrl,
+  getCurrentScreen,
+  getUseVcx,
 } from '../store/store-selector'
 import { enableTouchIdAction, disableTouchIdAction } from '../lock/lock-store'
 import {
@@ -53,6 +55,8 @@ import {
   ERROR_VCX_INIT_FAIL,
   ERROR_VCX_PROVISION_FAIL,
   VCX_INIT_NOT_STARTED,
+  USE_VCX,
+  UNSAFE_SCREENS_TO_DOWNLOAD_SMS,
 } from './type-config-store'
 import type {
   ServerEnvironment,
@@ -79,6 +83,9 @@ import type { VcxProvisionResult } from '../bridge/react-native-cxs/type-cxs'
 import type { UserOneTimeInfo } from './user/type-user-store'
 import { connectRegisterCreateAgentDone } from './user/user-store'
 import findKey from 'lodash.findkey'
+import { SAFE_TO_DOWNLOAD_SMS_INVITATION } from '../sms-pending-invitation/type-sms-pending-invitation'
+import { GENESIS_FILE_NAME } from '../api/api-constants'
+import { USE_VCX_KEY } from '../common/secure-storage-constants'
 
 /**
  * this file contains configuration which is changed only from user action
@@ -130,6 +137,7 @@ const initialState: ConfigStore = {
   // to call bridge methods that deals claims, connections, proofs, etc.
   vcxInitializationState: VCX_INIT_NOT_STARTED,
   vcxInitializationError: null,
+  useVcx: false,
 }
 
 export const hydrated = () => ({
@@ -368,6 +376,25 @@ export function* alreadyInstalledNotFound(): Generator<*, *, *> {
   }
 }
 
+export function* onUseVcx(): Generator<*, *, *> {
+  yield call(AsyncStorage.setItem, USE_VCX_KEY, 'true')
+}
+
+export function* watchOnUseVcx(): any {
+  yield takeLatest(USE_VCX, onUseVcx)
+}
+
+export function* hydrateOnUseVcx(): any {
+  try {
+    const useVcxFlag = yield call(AsyncStorage.getItem, USE_VCX_KEY)
+    if (useVcxFlag) {
+      yield put(useVcx())
+    }
+  } catch (e) {
+    captureError(e)
+  }
+}
+
 export function* hydrateConfig(): any {
   let isAlreadyInstalled = false
   try {
@@ -408,6 +435,7 @@ export function* hydrateConfig(): any {
   yield put(hydrateApp(isAlreadyInstalled))
   yield* appHydration({ isAlreadyInstalled })
   yield* hydrateSwitchedEnvironmentDetails()
+  yield* hydrateOnUseVcx()
   yield put(hydrated())
 }
 
@@ -438,6 +466,27 @@ export function* ensureAppHydrated(): Generator<*, *, *> {
 export function* initVcx(): Generator<*, *, *> {
   yield* ensureAppHydrated()
 
+  // Since we have added a feature flag, so we need to wait
+  // to know that user is going to enable the feature flag or not
+  // now problem is how do we know when to stop waiting
+  // so we are assuming that whenever user goes past lock-selection
+  // screen, that means now user can't enable feature flag
+  // because there is no way to enable that flag now
+  const currentScreen: string = yield select(getCurrentScreen)
+  if (UNSAFE_SCREENS_TO_DOWNLOAD_SMS.indexOf(currentScreen) > -1) {
+    // user is on screens where he has chance to change environment details
+    // so we wait for event which tells that we are safe
+    yield take(SAFE_TO_DOWNLOAD_SMS_INVITATION)
+  }
+
+  if (Platform.os !== 'android') {
+    const useVcx: boolean = yield select(getUseVcx)
+    // if we are not going to use vcx, then don't proceed with vcx
+    if (!useVcx) {
+      return
+    }
+  }
+
   // check if we already have user one time info
   // if we already have one time info, that means we don't have to register
   // with agency again, and we can just raise success action for VCX_INIT
@@ -460,7 +509,6 @@ export function* initVcx(): Generator<*, *, *> {
     // so now we go ahead and create user one time info
     try {
       userOneTimeInfo = yield call(createOneTimeInfo, agencyConfig)
-
       yield put(connectRegisterCreateAgentDone(userOneTimeInfo))
     } catch (e) {
       yield put(vcxInitFail(ERROR_VCX_PROVISION_FAIL(e.message)))
@@ -472,14 +520,26 @@ export function* initVcx(): Generator<*, *, *> {
   // once we reach here, we are sure that either user one time info is loaded from disk
   // or we provisioned one time agent for current user if not already available
   try {
-    yield call(init, {
-      ...userOneTimeInfo,
-      ...agencyConfig,
-    })
+    yield call(
+      init,
+      {
+        ...userOneTimeInfo,
+        ...agencyConfig,
+      },
+      getGenesisFileName(agencyUrl)
+    )
     yield put(vcxInitSuccess())
   } catch (e) {
     yield put(vcxInitFail(ERROR_VCX_INIT_FAIL(e.message)))
   }
+}
+
+export const getGenesisFileName = (agencyUrl: string) => {
+  return (
+    GENESIS_FILE_NAME +
+    '_' +
+    findKey(baseUrls, environment => environment.agencyUrl === agencyUrl)
+  )
 }
 
 export function* watchVcxInitStart(): any {
@@ -518,6 +578,7 @@ export function* watchConfig(): any {
     watchSwitchEnvironment(),
     hydrateConfig(),
     watchChangeEnvironmentUrl(),
+    watchOnUseVcx(),
     watchVcxInitStart(),
   ])
 }
@@ -527,6 +588,10 @@ export const getEnvironmentName = (configStore: ConfigStore) => {
 
   return findKey(baseUrls, environment => environment.agencyUrl === agencyUrl)
 }
+
+export const useVcx = () => ({
+  type: USE_VCX,
+})
 
 export default function configReducer(
   state: ConfigStore = initialState,
@@ -589,6 +654,11 @@ export default function configReducer(
         ...state,
         vcxInitializationState: VCX_INIT_FAIL,
         vcxInitializationError: action.error,
+      }
+    case USE_VCX:
+      return {
+        ...state,
+        useVcx: true,
       }
     default:
       return state

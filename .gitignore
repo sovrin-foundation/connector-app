@@ -77,6 +77,8 @@ coverage/
 
 # npm lock file, we are not using npm command to install packages
 package-lock.json
+android/app/src/main/assets/index.android.bundle
+android/app/src/main/assets/index.android.bundle.meta
 
 # Bitrise secret ignore
 .bitrise.secrets.yml

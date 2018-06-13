@@ -21,6 +21,7 @@ export const QR_CODE_SENDER_AGENCY_DID = 'd'
 export const QR_CODE_SENDER_AGENCY_KEY = 'v'
 export const QR_CODE_SENDER_AGENCY_ENDPOINT = 'e'
 export const QR_CODE_TARGET_NAME = 't'
+export const GENESIS_FILE_NAME = 'pool_transactions_genesis'
 
 export const MESSAGE_TYPE = {
   AUTH: 'auth-req',

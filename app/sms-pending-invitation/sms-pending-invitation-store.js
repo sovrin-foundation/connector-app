@@ -37,12 +37,9 @@ import {
 } from '../store/store-selector'
 import { invitationReceived } from '../invitation/invitation-store'
 import {
-  splashScreenRoute,
-  lockSelectionRoute,
-  switchEnvironmentRoute,
-  eulaRoute,
-} from '../common/route-constants'
-import { HYDRATED } from '../store/type-config-store'
+  HYDRATED,
+  UNSAFE_SCREENS_TO_DOWNLOAD_SMS,
+} from '../store/type-config-store'
 import { RESET } from '../common/type-common'
 
 const initialState = {}
@@ -98,13 +95,6 @@ export const convertSmsPayloadToInvitation = (
   senderDetail: pendingInvitation.senderDetail,
 })
 
-export const UNSAFE_SCREENS_TO_DOWNLOAD_SMS = [
-  splashScreenRoute,
-  lockSelectionRoute,
-  switchEnvironmentRoute,
-  eulaRoute,
-]
-
 export function* callSmsPendingInvitationRequest(
   action: SMSPendingInvitationRequestAction
 ): Generator<*, *, *> {
@@ -128,11 +118,11 @@ export function* callSmsPendingInvitationRequest(
 
   // I lied a bit in above statement that we can start downloading SMS now
   // there is one more scenario that we need to consider before we can start
-  // downloading sms, this saga can also be triggered if already has an app
+  // downloading sms, this saga can also be triggered if user already has an app
   // and user switched environments while setting up the app first time
-  // so now we need to maintain that environment for the lifetime of app
+  // so now we need to maintain switched environment for the lifetime of app
   // so we store those environment details in phone storage and
-  // hydrate them when app is killed and run again
+  // hydrate them when app is killed and started again
   // now, when user starts the app second time, user's updated config
   // might still not be fetched or app is not fully hydrated yet,
   // so, we wait for app to be hydrated if not already hydrated

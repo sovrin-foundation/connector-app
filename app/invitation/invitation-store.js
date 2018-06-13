@@ -26,6 +26,7 @@ import {
   isDuplicateConnection,
   getUserOneTimeInfo,
   getPoolConfig,
+  getUseVcx,
 } from '../store/store-selector'
 import { saveNewConnection } from '../store/connections-store'
 import {
@@ -126,7 +127,6 @@ function* createConsumerAgencyAgent(
     const oneTimeAgencyVerificationKey = connectResponse.withPairwiseDIDVerKey
     const myOneTimeDid = identifier
     const myOneTimeVerificationKey = verificationKey
-
     const registerResponse: RegisterAgencyResponse = yield call(
       registerWithAgency,
       {
@@ -138,7 +138,6 @@ function* createConsumerAgencyAgent(
         poolConfig,
       }
     )
-
     const createAgentResponse: CreateOneTimeAgentResponse = yield call(
       createOneTimeAgent,
       {
@@ -193,10 +192,9 @@ function* createConsumerAgencyAgent(
   }
 }
 
-export function* sendResponse(
-  action: InvitationResponseSendAction
-): Generator<*, *, *> {
-  if (Platform.OS === 'android') {
+export function* sendResponse(action: InvitationResponseSendAction): any {
+  const useVcx: boolean = yield select(getUseVcx)
+  if (Platform.OS === 'android' || useVcx) {
     // TODO:KS Once integration with vcx is done, then we would remove this saga
     // and use sendResponseVcx. Also sendResponseVcx will be renamed to sendResponse
     // the flow is running only for android because on ios we can establish real connection
@@ -231,7 +229,6 @@ export function* sendResponse(
       metadata,
       poolConfig
     )
-
     const alreadyExist: boolean = yield select(isDuplicateConnection, senderDID)
     if (alreadyExist) {
       yield put(invitationFail(ERROR_ALREADY_EXIST, senderDID))
@@ -265,7 +262,6 @@ export function* sendResponse(
         const userOneTimeInfo: UserOneTimeInfo = yield select(
           getUserOneTimeInfo
         )
-
         const createPairwiseKeyResponse: CreatePairwiseAgentResponse = yield call(
           createPairwiseAgent,
           {

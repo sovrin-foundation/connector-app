@@ -1,5 +1,11 @@
 // @flow
 import type { CustomError } from '../common/type-common'
+import {
+  splashScreenRoute,
+  lockSelectionRoute,
+  switchEnvironmentRoute,
+  eulaRoute,
+} from '../common/route-constants'
 
 export const SERVER_ENVIRONMENT = {
   DEMO: 'DEMO',
@@ -94,6 +100,11 @@ export type VcxInitFailAction = {
   error: CustomError,
 }
 
+export const USE_VCX = 'USE_VCX'
+export type UseVcxAction = {
+  type: typeof USE_VCX,
+}
+
 export type ConfigAction =
   | HydratedAction
   | AppInstalledSuccessAction
@@ -108,6 +119,7 @@ export type ConfigAction =
   | VcxInitStartAction
   | VcxInitFailAction
   | VcxInitSuccessAction
+  | UseVcxAction
 
 export type VcxInitializationState =
   | typeof VCX_INIT_NOT_STARTED
@@ -128,6 +140,7 @@ export type ConfigStore = {
   showErrorAlerts: boolean,
   vcxInitializationState: VcxInitializationState,
   vcxInitializationError: null | CustomError,
+  useVcx: boolean,
 } & AgencyPoolConfig
 
 export const STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL =
@@ -177,3 +190,10 @@ export const ERROR_VCX_PROVISION_FAIL = (message: string) => ({
   code: `CS-003`,
   message: `Failed to provision vcx: ${message}`,
 })
+
+export const UNSAFE_SCREENS_TO_DOWNLOAD_SMS = [
+  splashScreenRoute,
+  lockSelectionRoute,
+  switchEnvironmentRoute,
+  eulaRoute,
+]

@@ -4,6 +4,7 @@ import type {
   VcxProvision,
   VcxProvisionResult,
   CxsInitConfig,
+  InitWithGenesisPathConfig,
   VcxInitConfig,
   CxsPushTokenConfig,
   VcxPushTokenConfig,
@@ -23,6 +24,11 @@ export function convertAgencyConfigToVcxProvision(
     agency_url: config.agencyUrl,
     agency_did: config.agencyDID,
     agency_verkey: config.agencyVerificationKey,
+    wallet_name: 'walletName',
+    // TODO: wallet key needs to be handled on libvcx wrapper or on bridge for both ios and android not  tobe passed from js layer.
+    wallet_key: 'walletKey',
+    agent_seed: null,
+    enterprise_seed: null,
   }
 }
 
@@ -39,7 +45,9 @@ export function convertVcxProvisionResultToUserOneTimeInfo(
   }
 }
 
-export function convertCxsInitToVcxInit(init: CxsInitConfig): VcxInitConfig {
+export function convertCxsInitToVcxInit(
+  init: InitWithGenesisPathConfig
+): VcxInitConfig {
   return {
     agency_endpoint: init.agencyUrl,
     agency_did: init.agencyDID,
@@ -49,9 +57,16 @@ export function convertCxsInitToVcxInit(init: CxsInitConfig): VcxInitConfig {
     // but we still have to move these to constants
     pool_name: 'poolName',
     wallet_name: 'walletName',
+    // TODO: wallet key needs to be handled on libvcx wrapper or on bridge for both ios and android not  tobe passed from js layer.
+    wallet_key: 'walletKey',
+    genesis_path: init.genesis_path,
     remote_to_sdk_did: init.myOneTimeAgentDid,
-    sdk_to_remote_did: init.myOneTimeDid,
     remote_to_sdk_verkey: init.myOneTimeAgentVerificationKey,
+    sdk_to_remote_did: init.myOneTimeDid,
+    sdk_to_remote_verkey: init.myOneTimeVerificationKey,
+    // TODO: These should be removed after we sdk team fix these as optional
+    institution_name: 'some-random-name',
+    institution_logo_url: 'https://robothash.com/logo.png',
   }
 }
 
@@ -82,15 +97,18 @@ export function convertInvitationToVcxConnectionCreate(
 }
 
 export function convertVcxConnectionToCxsConnection(
-  vcxConnection: VcxConnectionConnectResult
+  vcxConnectionString: string
 ): MyPairwiseInfo {
+  const vcxConnection: VcxConnectionConnectResult = JSON.parse(
+    vcxConnectionString
+  )
   return {
-    myPairwiseDid: vcxConnection.pw_did,
-    myPairwiseVerKey: vcxConnection.pw_verkey,
-    myPairwiseAgentDid: vcxConnection.agent_did,
-    myPairwiseAgentVerKey: vcxConnection.agent_vk,
-    myPairwisePeerVerKey: vcxConnection.their_pw_verkey,
-    senderDID: vcxConnection.their_pw_did,
+    myPairwiseDid: vcxConnection.sa.d,
+    myPairwiseVerKey: vcxConnection.sa.v,
+    myPairwiseAgentDid: vcxConnection.s.dp.d,
+    myPairwiseAgentVerKey: vcxConnection.s.dp.k,
+    myPairwisePeerVerKey: vcxConnection.s.v,
+    senderDID: vcxConnection.s.d,
   }
 }
 

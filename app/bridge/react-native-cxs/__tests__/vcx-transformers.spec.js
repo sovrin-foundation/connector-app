@@ -25,6 +25,11 @@ const agencyPoolConfig = {
   agencyVerificationKey,
   poolConfig,
 }
+const initWithGenesisPathConfig = {
+  ...userOneTimeInfo,
+  ...agencyPoolConfig,
+  genesis_path: 'genesis_path',
+}
 
 describe('transformer:VCX', () => {
   it('convertAgencyConfigToVcxProvision', () => {
@@ -40,9 +45,7 @@ describe('transformer:VCX', () => {
   })
 
   it('convertCxsInitToVcxInit', () => {
-    expect(
-      convertCxsInitToVcxInit({ ...userOneTimeInfo, ...agencyPoolConfig })
-    ).toMatchSnapshot()
+    expect(convertCxsInitToVcxInit(initWithGenesisPathConfig)).toMatchSnapshot()
   })
 
   it('convertInvitationToVcxConnectionCreate', () => {

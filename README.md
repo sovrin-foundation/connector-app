@@ -28,6 +28,10 @@ App to connect Sovrin with 3rd party authentication
 - ask your team members for .bitirse.secrets.yml file and place it in directory with bitirse.yml file
 - run ` brew install bitirse && bitrise setup `
 - run ` bitirise run android `
+- run ` brew install maven `
+- download the vcx.aar file
+- later run ` mvn install:install-file -Dfile=com.evernym-vcx_1.0.0-12-06-2018T16-17_x86-armv7-release.aar -DgroupId=com.connectme -DartifactId=vcx -Dversion=1.0.0-12-06-2018T16-17 -Dpackaging=aar `
+- remember to change file names as required
 
 # To Read
 - [Coding guidelines](https://github.com/evernym/ConnectMe/blob/master/docs/CODING_GUIDELINES.md)
@@ -98,3 +102,8 @@ Keyboard -> Connect Hardware Keyboard to unselect that option). Then only using 
 bring up the React Native Developer Menu and then you select the Reload option from the React Native Developer Menu
 and then the software keyboard will come up and allow you to use the mouse to input characters. After a while you can
 try to re-enable The MacBook Pro keyboard but if it still fails then use this workaround again.
+
+## Android OPENSSL Issue
+- On Android https calls to the webserver will result in _verify failed_ error. This is because of the known issue in openssl crate in rust https://github.com/seanmonstar/reqwest/issues/70 . 
+  - Workaround: Download the cacert.pem from the here https://curl.haxx.se/ca/cacert.pem . Push the cert to the device to a accessbile location (like sd card `SSL_CERT_FILE=/sdcard/cacert.pem`) so that the rust binary can access the cert.
+  - As of the cacert.pem is a part of assets in android app and is created in createOneTimeInfo()

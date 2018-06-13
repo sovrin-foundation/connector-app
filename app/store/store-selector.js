@@ -229,3 +229,5 @@ export const getConnectionByUserDid = (state: Store, userDID: string) => {
 
   return null
 }
+
+export const getUseVcx = (state: Store) => state.config.useVcx

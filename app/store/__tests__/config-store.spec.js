@@ -27,6 +27,7 @@ import configReducer, {
   initVcx,
   ensureVcxInitSuccess,
   getEnvironmentName,
+  useVcx,
 } from '../config-store'
 import {
   SERVER_ENVIRONMENT_CHANGED,
@@ -58,6 +59,7 @@ import {
 import { updatePushToken } from '../../push-notification/push-notification-store'
 import { getPushToken } from '../../store/store-selector'
 import { connectRegisterCreateAgentDone } from '../user/user-store'
+import { homeRoute } from '../../common/route-constants'
 
 const getConfigStoreInitialState = () =>
   configReducer(undefined, { type: 'INITIAL_TEST_ACTION' })
@@ -160,7 +162,7 @@ describe('server environment should change', () => {
     // delete stored data, not interested in actual calls
     // those tests are being taken care in other test
     gen.next(environmentDetails)
-    for (let index = 0; index < 13; index++) {
+    for (let index = 0; index < 14; index++) {
       gen.next()
     }
 
@@ -283,6 +285,8 @@ describe('hydration should work correctly', () => {
     gen.next()
     gen.next()
     gen.next()
+    gen.next()
+    gen.next()
 
     expect(gen.next().value).toEqual(put(hydrated()))
   })
@@ -309,6 +313,11 @@ describe('reducer:config', () => {
     const error = ERROR_VCX_INIT_FAIL('error from test')
     expect(configReducer(initialState, vcxInitFail(error))).toMatchSnapshot()
   })
+
+  it('action:USE_VCX', () => {
+    const initialState = getConfigStoreInitialState()
+    expect(configReducer(initialState, useVcx())).toMatchSnapshot()
+  })
 })
 
 describe('config-store:saga', () => {
@@ -316,8 +325,12 @@ describe('config-store:saga', () => {
     config: {
       isHydrated: false,
       vcxInitializationState: VCX_INIT_NOT_STARTED,
+      useVcx: true,
     },
     user: {},
+    route: {
+      currentScreen: homeRoute,
+    },
   }
   const agencyConfig = {
     agencyUrl,

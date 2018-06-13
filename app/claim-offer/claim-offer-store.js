@@ -62,6 +62,7 @@ import {
   getSerializedClaimOffers,
   getConnection,
   getSerializedClaimOffer,
+  getUseVcx,
 } from '../store/store-selector'
 import type { IndyClaimOffer } from '../bridge/react-native-cxs/type-cxs'
 import {
@@ -163,7 +164,8 @@ export function convertClaimRequestToEdgeClaimRequest(
 export function* claimOfferAccepted(
   action: ClaimOfferAcceptedAction
 ): Generator<*, *, *> {
-  if (Platform.OS === 'android') {
+  const useVcx: boolean = yield select(getUseVcx)
+  if (Platform.OS === 'android' || useVcx) {
     // once we have integrated vcx, then we would remove this saga
     // and only use claimOfferAcceptedVcx
     yield* claimOfferAcceptedVcx(action)

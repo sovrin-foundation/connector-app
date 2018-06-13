@@ -10,6 +10,15 @@ import type {
   CreatePairwiseAgentResponse,
   AcceptInvitationResponse,
   CxsCredentialOfferResult,
+  InitWithGenesisPathConfig,
+  VcxProvisionResult,
+  VcxProvision,
+  CxsInitConfig,
+  VcxInitConfig,
+  CxsPushTokenConfig,
+  VcxCredentialOfferResult,
+  VcxCredentialOffer,
+  VcxClaimInfo,
 } from './type-cxs'
 import type { InvitationPayload } from '../../invitation/type-invitation'
 import {
@@ -21,16 +30,6 @@ import {
   convertVcxConnectionToCxsConnection,
   convertVcxCredentialOfferToCxsClaimOffer,
 } from './vcx-transformers'
-import type {
-  VcxProvisionResult,
-  VcxProvision,
-  CxsInitConfig,
-  CxsPushTokenConfig,
-  VcxConnectionConnectResult,
-  VcxCredentialOfferResult,
-  VcxCredentialOffer,
-  VcxClaimInfo,
-} from './type-cxs'
 import type { UserOneTimeInfo } from '../../store/user/type-user-store'
 import type { AgencyPoolConfig } from '../../store/type-config-store'
 import type { MyPairwiseInfo } from '../../store/type-connection-store'
@@ -307,10 +306,17 @@ export async function acceptInvitation({
 export async function acceptInvitationVcx(
   connectionHandle: number
 ): Promise<MyPairwiseInfo> {
-  // above API will be removed and this api shall be renamed to acceptInvitation
-  // we will do this once we have integration with vcx
-  const result: VcxConnectionConnectResult = await RNIndy.acceptInvitation(
-    connectionHandle
+  //TODO fix connectionOptions - remove the hardcoding
+  //connection_options: Provides details indicating if the connection will be established by text or QR Code
+  // # Examples connection_options -> "{"connection_type":"SMS","phone":"123"}" OR: "{"connection_type":"QR","phone":""}"
+  //harcoding connection options to QR type for now, because vcx needs connection options. API for vcx assumes that it is running
+  //on enterprise side and not from consumer side and hence it tries to create connection with connection type.
+  //However, our need is not to create a connection but to create a connection instance with exisiting invitation.
+  //So, for now for any invitation type QR or SMS we are hardcoding connection option to QR
+  const connectionOptions = { connection_type: 'QR', phone: '' }
+  const result: string = await RNIndy.vcxAcceptInvitation(
+    connectionHandle,
+    JSON.stringify(connectionOptions)
   )
 
   return convertVcxConnectionToCxsConnection(result)
@@ -349,7 +355,7 @@ export async function updatePushToken({
 }
 
 export async function updatePushTokenVcx(pushTokenConfig: CxsPushTokenConfig) {
-  return await RNIndy.updatePushToken(
+  return await RNIndy.vcxUpdatePushToken(
     JSON.stringify(convertCxsPushConfigToVcxPushTokenConfig(pushTokenConfig))
   )
 }
@@ -511,7 +517,7 @@ export async function getColor(imagePath: string): Promise<Array<string>> {
 
 export async function sendTokenAmount(
   tokenAmount: number,
-  receipientWalletAddress: string,
+  recipientWalletAddress: string,
   senderWalletAddress: string
 ): Promise<boolean> {
   return new Promise.resolve(true)
@@ -522,16 +528,28 @@ export async function sendTokenAmount(
 export async function createOneTimeInfo(
   agencyConfig: AgencyPoolConfig
 ): Promise<UserOneTimeInfo> {
-  const provisionResult: VcxProvisionResult = await RNIndy.createOneTimeInfo(
+  const provisionVcxResult: string = await RNIndy.createOneTimeInfo(
     JSON.stringify(convertAgencyConfigToVcxProvision(agencyConfig))
   )
-
+  const provisionResult: VcxProvisionResult = JSON.parse(provisionVcxResult)
   return convertVcxProvisionResultToUserOneTimeInfo(provisionResult)
 }
 
-export async function init(config: CxsInitConfig): Promise<boolean> {
+export async function init(
+  config: CxsInitConfig,
+  fileName: string
+): Promise<boolean> {
+  const genesis_path: string = await RNIndy.getGenesisPathWithConfig(
+    config.poolConfig,
+    fileName
+  )
+
+  const initConfig = {
+    ...config,
+    genesis_path,
+  }
   const initResult: boolean = await RNIndy.init(
-    JSON.stringify(convertCxsInitToVcxInit(config))
+    JSON.stringify(convertCxsInitToVcxInit(initConfig))
   )
 
   return initResult
@@ -540,9 +558,33 @@ export async function init(config: CxsInitConfig): Promise<boolean> {
 export async function createConnectionWithInvite(
   invitation: InvitationPayload
 ): Promise<number> {
+  const { invite_details } = convertInvitationToVcxConnectionCreate(invitation)
+  // TODO: Below transformation will be removed once vcx team fix below format
+  const vcxInviteDetails = {
+    sc: invite_details.statusCode,
+    id: invite_details.connReqId,
+    s: {
+      n: invite_details.senderDetail.name,
+      dp: {
+        d: invite_details.senderDetail.agentKeyDlgProof.agentDID,
+        k: invite_details.senderDetail.agentKeyDlgProof.agentDelegatedKey,
+        s: invite_details.senderDetail.agentKeyDlgProof.signature,
+      },
+      d: invite_details.senderDetail.DID,
+      l: invite_details.senderDetail.logoUrl,
+      v: invite_details.senderDetail.verKey,
+    },
+    sa: {
+      d: invite_details.senderAgencyDetail.DID,
+      v: invite_details.senderAgencyDetail.verKey,
+      e: invite_details.senderAgencyDetail.endpoint,
+    },
+    t: invite_details.targetName,
+    sm: invite_details.statusCode,
+  }
   const connectionHandle: number = await RNIndy.createConnectionWithInvite(
     invitation.requestId,
-    JSON.stringify(convertInvitationToVcxConnectionCreate(invitation))
+    JSON.stringify(vcxInviteDetails)
   )
 
   return connectionHandle
@@ -552,7 +594,7 @@ export async function serializeConnection(
   connectionHandle: number
 ): Promise<string> {
   const serializedConnection: string = await RNIndy.getSerializedConnection(
-    connectionHandle
+    parseInt(connectionHandle)
   )
 
   return serializedConnection

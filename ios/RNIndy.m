@@ -22,6 +22,7 @@
 #endif
 
 #import <ConnectMeIndy/ConnectMeIndy.h>
+#import <vcx/vcx/vcx.h>
 
 @implementation RNIndy
 @synthesize bridge = _bridge;
@@ -564,20 +565,26 @@ RCT_EXPORT_METHOD(deleteConnection: (NSString *)url
     if (error != nil && error.code != 0)
     {
       NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
-      reject(indyErrorCode, @"Error occurred while accepting connection", error);
+      reject(indyErrorCode, @"Error occurred while deleting connection", error);
     } else {
       resolve(dataFromServer);
     }
   }];
 }
 
-RCT_EXPORT_METHOD(init: (NSDictionary *)config
+RCT_EXPORT_METHOD(init: (NSString *)config
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    resolve(@{});
-  });
+  [[[ConnectMeVcx alloc] init] initWithConfig:config completion:^(NSError *error) {
+    if (error != nil && error.code != 0 && error.code != 1044)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while initializing vcx", error);
+    }else{
+      resolve(@true);
+    }
+  }];
 }
 
 RCT_EXPORT_METHOD(reset:
@@ -596,7 +603,17 @@ RCT_EXPORT_METHOD(getSerializedConnection: (NSInteger)connectionHandle
   // TODO call vcx_connection_serialize and pass connectionHandle
   // it would return a string
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    resolve(@"{}");
+    [[[ConnectMeVcx alloc] init] connectionSerialize:connectionHandle
+                                                completion:^(NSError *error, NSString *state) {
+      if (error != nil && error.code != 0)
+      {
+        NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+        reject(indyErrorCode, @"Error occurred while serializing connection handle", error);
+      }else{
+        
+        resolve(state);
+      }
+    }];
   });
 }
 
@@ -607,7 +624,16 @@ RCT_EXPORT_METHOD(deserializeConnection: (NSString *)serializedConnection
   // TODO call vcx_connection_deserialize and pass serializedConnection
   // it would return an error code and an integer connection handle in callback
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    resolve(@1);
+    [[[ConnectMeVcx alloc] init] connectionDeserialize:serializedConnection completion:^(NSError *error, NSInteger *connectionHandle) {
+      if (error != nil && error.code != 0)
+      {
+        NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+        reject(indyErrorCode, @"Error occurred while deserializing claim offer", error);
+      }else{
+        NSString * credentailHandleStr=[NSString stringWithFormat:@"%ld", (long)connectionHandle];
+        resolve(credentailHandleStr);
+      }
+    }];
   });
 }
 
@@ -623,12 +649,24 @@ RCT_EXPORT_METHOD(credentialCreateWithMsgId: (NSString *) sourceId
   // notice that we are returning a Map from here, not string or error code
   // JavaScript layer is expecting a map with two keys defined below
   // with one as an integer and another as json string of claim offer received from vcx
-  NSDictionary* vcxCredentialCreateResult = @{
-                                              @"credential_handle": @2,
-                                              @"credential_offer": @"{\"msg_type\":\"CLAIM_OFFER\",\"version\":\"1.0.0\",\"to_did\":\"8XFh8yBzrpJQmNyZzgoTqB\",\"from_did\":\"ha66899sadfjZJGINKN0770\",\"libindy_offer\":\"\",\"cred_def_id\":\"cred_def_id\",\"credential_attrs\":{\"Address 1\":[\"Address Address Address\"],\"Address 2\":[\"Address 2 Address 2 Address 2\"]},\"claim_name\":\"Home Address\",\"schema_seq_no\":36,\"claim_id\":\"jhkad:97:kkda:jhh\"}"
-                                              };
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    resolve(vcxCredentialCreateResult);
+//    [[[ConnectMeVcx alloc] init] credentialCreateWithMsgid:sourceId
+//                                          connectionHandle:(VcxHandle *)connectionHandle
+//                                                     msgId:(NSString *)messageId
+//                                                completion:^(NSError *error, NSString *credentailHandle) {
+//      if (error != nil && error.code != 0)
+//      {
+//        NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+//        reject(indyErrorCode, @"Error occurred while creating credentail handle", error);
+//      }else{
+//        NSString *credentailHandleStr = [NSString stringWithFormat:@"%ld", (long)credentailHandle];
+//        NSDictionary* vcxCredentialCreateResult = @{
+//                                              @"credential_handle": credentailHandleStr,
+//                                              @"credential_offer": @"{\"msg_type\":\"CLAIM_OFFER\",\"version\":\"1.0.0\",\"to_did\":\"8XFh8yBzrpJQmNyZzgoTqB\",\"from_did\":\"ha66899sadfjZJGINKN0770\",\"libindy_offer\":\"\",\"cred_def_id\":\"cred_def_id\",\"credential_attrs\":{\"Address 1\":[\"Address Address Address\"],\"Address 2\":[\"Address 2 Address 2 Address 2\"]},\"claim_name\":\"Home Address\",\"schema_seq_no\":36,\"claim_id\":\"jhkad:97:kkda:jhh\"}"
+//                                              };
+//        resolve(vcxCredentialCreateResult);
+//      }
+//    }];
   });
 }
 
@@ -636,10 +674,18 @@ RCT_EXPORT_METHOD(serializeClaimOffer: (NSInteger)credentialHandle
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
-  // TODO call vcx_credential_serialize and pass credentialHandle
   // it would return error code, json string of credential inside callback
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    resolve(@"{}");
+    [[[ConnectMeVcx alloc] init] credentialSerialize:credentialHandle completion:^(NSError *error, NSString *state) {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while serializing claim offer", error);
+    }else{
+      resolve(state);
+    }
+  }];
+    
   });
 }
 
@@ -647,25 +693,40 @@ RCT_EXPORT_METHOD(deserializeClaimOffer: (NSString *)serializedCredential
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
-  // TODO call vcx_credential_deserialize and pass serializedCredential
   // it would return an error code and an integer credential handle in callback
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    resolve(@2);
+//    [[[ConnectMeVcx alloc] init] credentialDeserialize:serializedCredential completion:^(NSError *error, NSString *credentailHandle) {
+//      if (error != nil && error.code != 0)
+//      {
+//        NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+//        reject(indyErrorCode, @"Error occurred while deserializing claim offer", error);
+//      }else{
+//        NSString * credentailHandleStr=[NSString stringWithFormat:@"%ld", (long)credentailHandle];
+//        resolve(credentailHandleStr);
+//      }
+//    }];
   });
 }
 
-RCT_EXPORT_METHOD(sendClaimRequest: (NSString *)credentialHandle
-                  withConnectionHandle: (NSInteger *)connectionHandle
-                  withPaymentHandle: (NSInteger *)paymentHandle
+RCT_EXPORT_METHOD(sendClaimRequest: (NSInteger )credentialHandle
+                  withConnectionHandle: (NSInteger )connectionHandle
+                  withPaymentHandle: (NSInteger )paymentHandle
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
-  // TODO call vcx_credential_send_request and pass credentialHandle, connectionHandle, paymentHandle
   // it would return an error code in callback
   // we resolve promise with an empty string after success
   // or reject promise with error code
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    resolve(@"");
+    [[[ConnectMeVcx alloc] init] credentialSendRequest:credentialHandle connectionHandle:connectionHandle completion:^(NSError *error) {
+      if (error != nil && error.code != 0)
+      {
+        NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+        reject(indyErrorCode, @"Error occurred while sending claim request", error);
+      }else{
+        resolve(@{});
+      }
+    }];
   });
 }
 
@@ -690,17 +751,20 @@ RCT_EXPORT_METHOD(createOneTimeInfo: (NSString *)config
                            resolver: (RCTPromiseResolveBlock) resolve
                            rejecter: (RCTPromiseRejectBlock) reject)
 {
-  // TODO: call vcx_agent_provision_async of libvcx
   // pass a config as json string
   // callback would get an error code and a json string back in case of success
   NSError *error = nil; // remove this line after integrating libvcx method
-  if (error != nil && error.code != 0)
-  {
-    NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
-    reject(indyErrorCode, @"Error occurred while creating one time info", error);
-  } else {
-    resolve(@{});
-  }
+  
+  [[[ConnectMeVcx alloc] init] agentProvisionAsync:config completion:^(NSError *error, NSString *oneTimeInfo) {
+    NSLog(@"applicationDidBecomeActive callback:%@",oneTimeInfo);
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while creating one time info", error);
+    }else{
+      resolve(oneTimeInfo);
+    }
+  }];
 }
 
 RCT_EXPORT_METHOD(createConnectionWithInvite: (NSString *)invitationId
@@ -708,36 +772,39 @@ RCT_EXPORT_METHOD(createConnectionWithInvite: (NSString *)invitationId
                                     resolver: (RCTPromiseResolveBlock) resolve
                                     rejecter: (RCTPromiseRejectBlock) reject)
 {
-  // TODO: call vcx_connection_create_with_invite of libvcx
-  // pass a config as json string
-  // callback would get an error code and a json string back in case of success
-  NSError *error = nil; // remove this line after integrating libvcx method
-  if (error != nil && error.code != 0)
-  {
-    NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
-    reject(indyErrorCode, @"Error occurred while creating connection", error);
-  } else {
-    resolve(@{});
-  }
+  [[[ConnectMeVcx alloc] init] connectionCreateWithInvite:invitationId
+                                            inviteDetails:inviteDetails
+                                               completion:^(NSError *error, NSString *connectionHandle) {
+     if (error != nil && error.code != 0)
+     {
+       NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+       reject(indyErrorCode, @"Error occurred while creating connection", error);
+     } else {
+       NSString *connectionHandleStr = [NSString stringWithFormat:@"%ld", (long)connectionHandle];
+       resolve(connectionHandleStr);
+     }
+  }];
 }
 
 // TODO:repalce with acceptInvitation when vcx integration done
-RCT_EXPORT_METHOD(vcxAcceptInvitation: (NSString *)connectionHandle
+RCT_EXPORT_METHOD(vcxAcceptInvitation: (NSInteger )connectionHandle
                     connectionType: (NSString *)connectionType
                           resolver: (RCTPromiseResolveBlock) resolve
                           rejecter: (RCTPromiseRejectBlock) reject)
 {
-  // TODO: call vcx_connection_connect of libvcx
-  // pass a config as json string
-  // callback would get an error code and a json string back in case of success
-  NSError *error = nil; // remove this line after integrating libvcx method
+   [[[ConnectMeVcx alloc] init] connectionConnect:connectionHandle
+                                            connectionType:connectionType
+                                               completion:^(NSError *error, NSString *inviteDetails) {
+  
   if (error != nil && error.code != 0)
   {
     NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
     reject(indyErrorCode, @"Error occurred while accepitng connection", error);
   } else {
-    resolve(@{});
+    resolve(inviteDetails);
   }
+   }];
+
 }
 
 // TODO:repalce with updatePushToken when vcx integration done
@@ -776,6 +843,25 @@ RCT_EXPORT_METHOD(generateProof: (NSString *)proofRequestId
   }
 }
 
+RCT_EXPORT_METHOD(getGenesisPathWithConfig: (NSString *)config 
+                        fileName: (NSString *)fileName
+                       resolver: (RCTPromiseResolveBlock) resolve
+                       rejecter: (RCTPromiseRejectBlock) reject)
+{
+  NSError *error;
+  NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:fileName];
+  NSFileManager *fileManager = [NSFileManager defaultManager];
+  if (![fileManager fileExistsAtPath: filePath])
+  {
+    NSInteger *success=[config writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    if(!success)
+    {
+      resolve(@"error while creating genesis file");
+    }  
+  }
+  resolve(filePath);
+}
+
 RCT_EXPORT_METHOD(updateClaimOfferState: (int)credentialHandle
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
@@ -798,7 +884,7 @@ RCT_EXPORT_METHOD(updateClaimOfferState: (int)credentialHandle
 RCT_EXPORT_METHOD(getClaimOfferState: (int)credentialHandle
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
-{
+{   
   // TODO: Add vcx wrapper method for vcx_credential_get_state
   // call vcx_credential_get_state and pass credentialHandle
   

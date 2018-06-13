@@ -19,7 +19,7 @@ import type {
   SwitchEnvironmentState,
   SwitchEnvironmentProps,
 } from './type-switch-environment'
-import { baseUrls } from '../store/config-store'
+import { baseUrls, useVcx } from '../store/config-store'
 import { SERVER_ENVIRONMENT } from '../store/type-config-store'
 
 const styles = StyleSheet.create({
@@ -112,6 +112,14 @@ class SwitchEnvironment extends PureComponent<
               title="DEMO"
               testID={`${testID}-demo`}
               onPress={() => this.onSwitchTap(SERVER_ENVIRONMENT.DEMO)}
+            />
+          </CustomView>
+          <CustomView row style={[style.buttonGroup]}>
+            <CustomButton
+              primary
+              title="Use VCX"
+              testID="use-vcx"
+              onPress={() => this.props.useVcx()}
             />
           </CustomView>
           <CustomText
@@ -207,6 +215,7 @@ const mapDispatchToProps = dispatch =>
     {
       changeEnvironment,
       disableDevMode,
+      useVcx,
     },
     dispatch
   )

@@ -15,6 +15,7 @@ import {
   getConnectionLogoUrl,
   getPoolConfig,
   getClaimMap,
+  getUseVcx,
 } from '../../store/store-selector'
 import {
   claim,
@@ -62,6 +63,7 @@ describe('Claim Store', () => {
   it('claim storage workflow should work fine if storage is success', () => {
     const gen = claimReceivedSaga(claimReceived(claim))
 
+    expect(gen.next().value).toEqual(select(getUseVcx))
     expect(gen.next().value).toEqual(select(getPoolConfig))
 
     expect(gen.next(poolConfig).value).toEqual(
@@ -103,6 +105,7 @@ describe('Claim Store', () => {
   it('claim storage workflow works fine if storage fails', () => {
     const gen = claimReceivedSaga(claimReceived(claim))
 
+    expect(gen.next().value).toEqual(select(getUseVcx))
     expect(gen.next().value).toEqual(select(getPoolConfig))
 
     expect(gen.next(poolConfig).value).toEqual(

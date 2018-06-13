@@ -21,6 +21,7 @@
 #import "SplashScreen.h"
 #import "Apptentive.h"
 
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -33,7 +34,7 @@
                                                       moduleName:@"ConnectMe"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-
+  
   [RNSentry installWithRootView:rootView];
 
   rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];

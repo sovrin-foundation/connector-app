@@ -4,6 +4,7 @@ import android.app.Application;
 import com.apptentive.android.sdk.reactlibrary.RNApptentivePackage;
 import com.surajit.rnrg.RNRadialGradientPackage;
 import com.facebook.react.ReactApplication;
+import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
 import cl.json.RNSharePackage;
 import cl.json.ShareApplication;
 import com.apsl.versionnumber.RNVersionNumberPackage;
@@ -18,7 +19,6 @@ import io.sentry.RNSentryPackage;
 import io.branch.rnbranch.RNBranchPackage;
 import io.branch.referral.Branch;
 import com.oblador.vectoricons.VectorIconsPackage;
-import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
 import com.evollu.react.fcm.FIRMessagingPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.connectme.rnindy.RNIndyPackage;
@@ -44,6 +44,7 @@ public class MainApplication extends Application implements ShareApplication, Re
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new RNSensitiveInfoPackage(),
             new RNSharePackage(),
             new RNVersionNumberPackage(),
             new PickerPackage(),
@@ -54,7 +55,6 @@ public class MainApplication extends Application implements ShareApplication, Re
             new RNSentryPackage(MainApplication.this),
             new RNBranchPackage(),
             new VectorIconsPackage(),
-            new RNSensitiveInfoPackage(),
             new FIRMessagingPackage(),
             new SplashScreenReactPackage(),
             new RNIndyPackage(),

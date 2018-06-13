@@ -206,6 +206,7 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
     // It might be the case the hydration finishes
     // even before component is mounted,
     // so we need to check for pin code here as well
+
     if (this.props.config.isHydrated) {
       SplashScreen.hide()
       // now we can safely check value of isAlreadyInstalled

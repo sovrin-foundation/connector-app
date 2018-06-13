@@ -28,6 +28,8 @@ export type Claim = {
   uid: string,
   from_did: string,
   forDID: string,
+  connectionHandle?: number,
+  remotePairwiseDID?: string,
 }
 
 export type ClaimWithUuid = Claim & {
