@@ -75,7 +75,10 @@ your environment for the Makefile are:
   - export PATH=$PWD/node_modules/.bin:$PATH
   - make clean
   - make pre-run
-  - make run for iOS and make run-android for android
+  - For iOS: SIMULATOR="iPhone 7" make run-ios
+  - For Android: Start the android emulator in a separate terminal with
+  - RUST_BACKTRACE=1 /Users/norm/Library/Android/sdk/emulator/emulator -writable-system -avd Pixel_API_26 -netdelay none -netspeed full
+  - Then run the app in a separate terminal with: make run-android or VARIANT=release make run-android or VARIANT=debug make run-android
 
 # Things to improve
 
