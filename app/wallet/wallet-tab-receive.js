@@ -5,15 +5,7 @@
 // we would get a list of payment addresses and for now we would take first item out of it
 // and that first item would be displayed
 import React, { PureComponent } from 'react'
-import {
-  View,
-  StyleSheet,
-  SafeAreaView,
-  Button,
-  Clipboard,
-  ScrollView,
-  Alert,
-} from 'react-native'
+import { StyleSheet, Clipboard, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Container } from '../components/layout/container'
@@ -24,11 +16,10 @@ import type {
   WalletTabReceiveProps,
   WalletTabReceiveState,
 } from './type-wallet'
-import { color } from '../common/styles/constant'
 import type { Store } from '../store/type-store'
 import customStyles from './styles'
 import { getWalletAddresses } from '../store/store-selector'
-import { refreshWalletAddresses } from './wallet-store'
+import { promptBackupBanner, refreshWalletAddresses } from './wallet-store'
 
 export class WalletTabReceive extends PureComponent<
   WalletTabReceiveProps,
@@ -43,8 +34,11 @@ export class WalletTabReceive extends PureComponent<
   }
 
   copyToClipboard = () => {
-    if (this.props.walletAddresses.length) {
-      Clipboard.setString(this.props.walletAddresses[0])
+    const { walletAddresses, promptBackupBanner } = this.props
+
+    if (walletAddresses.length) {
+      promptBackupBanner(true)
+      Clipboard.setString(walletAddresses[0])
       this.setState({
         copyButtonText: 'Copied !',
       })
@@ -142,6 +136,6 @@ const mapStateToProps = (state: Store) => {
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ refreshWalletAddresses }, dispatch)
+  bindActionCreators({ promptBackupBanner, refreshWalletAddresses }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletTabReceive)

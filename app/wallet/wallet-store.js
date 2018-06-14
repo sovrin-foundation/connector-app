@@ -20,7 +20,7 @@ import {
   HYDRATE_WALLET_HISTORY_FAIL,
   REFRESH_WALLET_ADDRESSES,
   REFRESH_WALLET_HISTORY,
-  ERROR_LOADING_WALLET,
+  PROMPT_WALLET_BACKUP_BANNER,
   REFRESH_WALLET_BALANCE_FAIL,
   REFRESH_WALLET_ADDRESSES_FAIL,
   REFRESH_WALLET_HISTORY_FAIL,
@@ -50,6 +50,7 @@ import {
   TOKEN_SENT_SUCCESS,
   SELECT_TOKEN_AMOUNT,
 } from './type-wallet'
+import { NEW_CONNECTION_SUCCESS } from '../store/connections-store'
 import type { AgencyPoolConfig } from '../store/type-config-store'
 import type {
   WalletStore,
@@ -65,6 +66,7 @@ import type {
   WalletBalance,
   WalletAddresses,
   SendTokensAction,
+  PromptBackupBannerAction,
 } from './type-wallet'
 import type { CustomError } from '../common/type-common'
 import { RESET } from '../common/type-common'
@@ -87,7 +89,12 @@ const initialState = {
   walletBalance: { data: 0, status: STORE_STATUS.IDLE, error: null },
   walletAddresses: { data: [], status: STORE_STATUS.IDLE, error: null },
   walletHistory: { transactions: [], status: STORE_STATUS.IDLE, error: null },
-  backup: { status: STORE_STATUS.IDLE, latest: null, error: null },
+  backup: {
+    status: STORE_STATUS.IDLE,
+    latest: null,
+    error: null,
+    showBanner: false,
+  },
   payment: { tokenAmount: 0, status: STORE_STATUS.IDLE, error: null },
 }
 
@@ -125,8 +132,12 @@ export function* backupWalletSaga(
         : yield call(Share.open, {
             title: 'Share Your Data Wallet',
             url: backup,
+            type: 'application/zip',
+            message: 'here we go!',
+            subject: 'something here maybe?',
           })
       yield put(walletBackupComplete())
+      yield put(promptBackupBanner(false))
       let encryptionKey = yield call(getItem, WALLET_ENCRYPTION_KEY)
       // TODO: has to be removed, only for android testing and the above let has to be changed to const
       if (encryptionKey === null) {
@@ -431,6 +442,13 @@ export const refreshWalletAddresses = () => ({
   type: REFRESH_WALLET_ADDRESSES,
 })
 
+export const promptBackupBanner = (
+  showBanner: boolean
+): PromptBackupBannerAction => ({
+  type: PROMPT_WALLET_BACKUP_BANNER,
+  showBanner,
+})
+
 export const refreshWalletHistory = () => ({
   type: REFRESH_WALLET_HISTORY,
 })
@@ -529,6 +547,24 @@ export default function walletReducer(
   action: WalletStoreAction
 ) {
   switch (action.type) {
+    case NEW_CONNECTION_SUCCESS: {
+      return {
+        ...state,
+        backup: {
+          ...state.backup,
+          showBanner: true,
+        },
+      }
+    }
+    case PROMPT_WALLET_BACKUP_BANNER: {
+      return {
+        ...state,
+        backup: {
+          ...state.backup,
+          showBanner: action.showBanner,
+        },
+      }
+    }
     case HYDRATE_WALLET_BALANCE: {
       return {
         ...state,

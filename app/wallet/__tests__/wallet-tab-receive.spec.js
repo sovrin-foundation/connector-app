@@ -15,6 +15,7 @@ describe('<WalletTabReceive />', () => {
         <WalletTabReceive
           walletAddresses={walletAddresses.data}
           refreshWalletAddresses={jest.fn()}
+          promptBackupBanner={jest.fn()}
         />
       </Provider>
     )

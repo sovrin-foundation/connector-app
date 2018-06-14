@@ -37,6 +37,7 @@ import type {
 import { deleteConnection } from '../bridge/react-native-cxs/RNCxs'
 import { RESET } from '../common/type-common'
 import type { UserOneTimeInfo } from './user/type-user-store'
+import { promptBackupBanner } from '../wallet/wallet-store'
 
 const UPDATE_CONNECTION_THEME = 'UPDATE_CONNECTION_THEME'
 export const NEW_CONNECTION_SUCCESS = 'NEW_CONNECTION_SUCCESS'
@@ -197,6 +198,7 @@ export function* loadNewConnectionSaga(
     })
 
     yield call(setItem, CONNECTIONS, JSON.stringify(connections))
+    yield put(promptBackupBanner(true))
     yield put(saveNewConnectionSuccess(connection))
   } catch (e) {
     yield put(saveNewConnectionFailed(e))

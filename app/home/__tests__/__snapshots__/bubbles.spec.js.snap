@@ -16,6 +16,7 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
           "translateY": 300,
         },
       ],
+      "zIndex": -1,
     }
   }
 >

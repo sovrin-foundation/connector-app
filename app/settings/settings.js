@@ -38,6 +38,7 @@ import { Apptentive } from 'apptentive-react-native'
 import WalletBackupSuccessModal from '../wallet/wallet-backup-success-modal'
 import AboutApp from '../about-app/about-app'
 import PrivacyTNC from '../privacy-tnc/privacy-tnc-screen'
+import Banner from '../components/banner/banner'
 
 const style = StyleSheet.create({
   container: {
@@ -273,6 +274,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
     return (
       <Container tertiary>
         <CustomView style={[style.container]}>
+          <Banner />
           <ScrollView>
             <CustomList data={itemList} />
           </ScrollView>

@@ -219,6 +219,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     overflow: 'hidden',
+    zIndex: -1,
   },
   avatar: {
     position: 'absolute',

@@ -5,6 +5,7 @@ Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
     "status": "IN_PROGRESS",
   },
   "payment": Object {
@@ -68,6 +69,7 @@ Object {
       "message": "Error while backing up wallet",
     },
     "latest": null,
+    "showBanner": false,
     "status": "ERROR",
   },
   "payment": Object {
@@ -101,6 +103,7 @@ Object {
       "message": "Error while sharing zipped backup",
     },
     "latest": null,
+    "showBanner": false,
     "status": "ERROR",
   },
   "payment": Object {
@@ -131,6 +134,7 @@ Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
     "status": "IDLE",
   },
   "payment": Object {
@@ -163,6 +167,7 @@ Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
     "status": "IDLE",
   },
   "payment": Object {
@@ -196,6 +201,7 @@ Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
     "status": "IDLE",
   },
   "payment": Object {
@@ -229,6 +235,7 @@ Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
     "status": "IDLE",
   },
   "payment": Object {
@@ -259,6 +266,7 @@ Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
     "status": "IDLE",
   },
   "payment": Object {
@@ -292,6 +300,7 @@ Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
     "status": "IDLE",
   },
   "payment": Object {
@@ -325,6 +334,7 @@ Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
     "status": "IDLE",
   },
   "payment": Object {
@@ -371,6 +381,7 @@ Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
     "status": "IDLE",
   },
   "payment": Object {
@@ -404,6 +415,7 @@ Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
     "status": "IDLE",
   },
   "payment": Object {
@@ -432,11 +444,43 @@ Object {
 }
 `;
 
+exports[`store: wallet-store:  action: PROMPT_WALLET_BACKUP_BANNER 1`] = `
+Object {
+  "backup": Object {
+    "error": null,
+    "latest": null,
+    "showBanner": true,
+    "status": "IDLE",
+  },
+  "payment": Object {
+    "error": null,
+    "status": "IDLE",
+    "tokenAmount": 0,
+  },
+  "walletAddresses": Object {
+    "data": Array [],
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletBalance": Object {
+    "data": 0,
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "IDLE",
+    "transactions": Array [],
+  },
+}
+`;
+
 exports[`store: wallet-store:  action: REFRESH_WALLET_ADDRESSES_FAIL 1`] = `
 Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
     "status": "IDLE",
   },
   "payment": Object {
@@ -470,6 +514,7 @@ Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
     "status": "IDLE",
   },
   "payment": Object {
@@ -503,6 +548,41 @@ Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
+    "status": "IDLE",
+  },
+  "payment": Object {
+    "error": Object {
+      "code": "W008",
+      "message": "Error sending tokens",
+    },
+    "status": "ERROR",
+    "tokenAmount": 5656,
+  },
+  "walletAddresses": Object {
+    "data": Array [],
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletBalance": Object {
+    "data": 0,
+    "error": null,
+    "status": "IDLE",
+  },
+  "walletHistory": Object {
+    "error": null,
+    "status": "IDLE",
+    "transactions": Array [],
+  },
+}
+`;
+
+exports[`store: wallet-store:  action: SEND_TOKENS_FAIL 2`] = `
+Object {
+  "backup": Object {
+    "error": null,
+    "latest": null,
+    "showBanner": false,
     "status": "IDLE",
   },
   "payment": Object {
@@ -536,6 +616,7 @@ Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
     "status": "IDLE",
   },
   "payment": Object {
@@ -568,6 +649,7 @@ Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
     "status": "IDLE",
   },
   "payment": Object {
@@ -600,6 +682,7 @@ Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
     "status": "IDLE",
   },
   "payment": Object {
@@ -633,6 +716,7 @@ Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
     "status": "IDLE",
   },
   "payment": Object {
@@ -663,6 +747,7 @@ Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
     "status": "IDLE",
   },
   "payment": Object {
@@ -709,6 +794,7 @@ Object {
   "backup": Object {
     "error": null,
     "latest": null,
+    "showBanner": false,
     "status": "IDLE",
   },
   "payment": Object {

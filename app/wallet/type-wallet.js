@@ -63,6 +63,7 @@ export type WalletProps = {} & ReactNavigation
 export type WalletTabReceiveProps = {
   walletAddresses: Array<string>,
   refreshWalletAddresses: () => {},
+  promptBackupBanner: (showBackup: boolean) => {},
 }
 
 export type WalletTabReceiveState = {
@@ -224,6 +225,12 @@ export const SEND_TOKENS = 'SEND_TOKENS'
 export const SEND_TOKENS_FAIL = 'SEND_TOKENS_FAIL'
 export const TOKEN_SENT_SUCCESS = 'TOKEN_SENT_SUCCESS'
 export const SELECT_TOKEN_AMOUNT = 'SELECT_TOKEN_AMOUNT'
+export const PROMPT_WALLET_BACKUP_BANNER = 'PROMPT_WALLET_BACKUP_BANNER'
+
+export type PromptBackupBannerAction = {
+  type: typeof PROMPT_WALLET_BACKUP_BANNER,
+  showBanner: boolean,
+}
 
 export type HydrateWalletBalanceData = number
 

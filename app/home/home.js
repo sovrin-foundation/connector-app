@@ -15,7 +15,6 @@ import { color, barStyleDark, OFFSET_3X, OFFSET_2X } from '../common/styles'
 import { primaryHeaderStyles } from '../components/layout/header-styles'
 import { homeRoute, walletRoute } from '../common'
 import { getConnections } from '../store'
-import { CLAIM_OFFER_STATUS } from '../claim-offer/type-claim-offer'
 import type { Store } from '../store/type-store'
 import type { HomeProps, HomeState } from './type-home'
 import {
@@ -26,6 +25,7 @@ import {
 import { Apptentive } from 'apptentive-react-native'
 import WalletBalance from '../wallet/wallet-balance'
 import type { Connection } from '../store/type-connection-store'
+import Banner from '../components/banner/banner'
 
 export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
   state = {
@@ -91,6 +91,7 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
     return (
       <Container tertiary>
         <Container tertiary>
+          <Banner />
           {connections &&
             connections.length > 0 && (
               <Bubbles
