@@ -50,7 +50,10 @@ import {
   userOneTimeInfo,
 } from '../../../__mocks__/static-data'
 import { downloadEnvironmentDetails } from '../../api/api'
-import { RESET } from '../../common/type-common'
+import {
+  RESET,
+  REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS,
+} from '../../common/type-common'
 import {
   reset as resetNative,
   createOneTimeInfo,
@@ -167,6 +170,9 @@ describe('server environment should change', () => {
       gen.next()
     }
 
+    expect(gen.next().value).toEqual(
+      put({ type: REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS })
+    )
     expect(gen.next().value).toEqual(put({ type: RESET }))
     expect(gen.next().value).toEqual(
       put(
@@ -261,6 +267,8 @@ describe('hydration should work correctly', () => {
     gen.next()
     gen.next()
 
+    // hydrate wallet backup banner
+    gen.next()
     // hydrate user store
     gen.next()
     gen.next()

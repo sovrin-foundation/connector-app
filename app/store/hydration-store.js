@@ -35,6 +35,7 @@ import {
   removePersistedUserSelectedAvatarImage,
 } from './user/user-store'
 import {
+  promptBackupBanner,
   hydrateWalletStoreSaga,
   deletePersistedWalletBalance,
   deletePersistedWalletAddresses,
@@ -42,6 +43,7 @@ import {
 } from '../wallet/wallet-store'
 import { STORAGE_KEY_USER_ONE_TIME_INFO } from './user/type-user-store'
 import { STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL } from './type-config-store'
+import { STORAGE_KEY_SHOW_BANNER } from '../components/banner/banner-constants'
 import { HISTORY_EVENT_STORAGE_KEY } from '../connection-history/type-connection-history'
 import { STORAGE_KEY_EULA_ACCEPTANCE } from '../eula/type-eula'
 import {
@@ -69,6 +71,7 @@ export function* deleteStoredData(): Generator<*, *, *> {
   yield call(AsyncStorage.removeItem, IS_CONSUMER_AGENT_ALREADY_CREATED)
   yield call(deleteItem, STORAGE_KEY_USER_ONE_TIME_INFO)
   yield call(AsyncStorage.removeItem, STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL)
+  yield call(AsyncStorage.removeItem, STORAGE_KEY_SHOW_BANNER)
   yield call(AsyncStorage.removeItem, STORAGE_KEY_EULA_ACCEPTANCE)
   yield call(deleteItem, CLAIM_MAP)
   yield call(deleteItem, HISTORY_EVENT_STORAGE_KEY)
@@ -109,6 +112,12 @@ export function* appHydration(action: {
 
       const token = yield call(getItem, PUSH_COM_METHOD)
       yield put(updatePushToken(token))
+
+      const backupBanner = yield call(
+        AsyncStorage.getItem,
+        STORAGE_KEY_SHOW_BANNER
+      )
+      yield put(promptBackupBanner(backupBanner))
 
       let fetchedConnections = yield call(getItem, CONNECTIONS)
       connections = fetchedConnections ? JSON.parse(fetchedConnections) : {}

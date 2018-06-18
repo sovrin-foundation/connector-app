@@ -59,6 +59,8 @@ export type TopicAnnotation = {
 export type ReactChildren = Element<*>
 
 export const RESET: 'RESET' = 'RESET'
+export const REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS: 'REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS' =
+  'REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS'
 
 export type ResetAction = {
   type: typeof RESET,

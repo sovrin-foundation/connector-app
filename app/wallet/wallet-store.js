@@ -84,6 +84,7 @@ import {
 } from '../bridge/react-native-cxs/RNCxs'
 import { getConfig } from '../store/store-selector'
 import { WALLET_ENCRYPTION_KEY } from '../common/secure-storage-constants'
+import { STORAGE_KEY_SHOW_BANNER } from '../components/banner/banner-constants'
 
 const initialState = {
   walletBalance: { data: 0, status: STORE_STATUS.IDLE, error: null },
@@ -200,6 +201,30 @@ function* watchWalletBackup(): any {
 // TODO: persist wallet back state in AsyncStorage
 export function* watchBackup(): any {
   yield all([watchWalletBackup()])
+}
+
+export function* watchBackupBanner(): any {
+  yield all([watchBackupBannerPrompt()])
+}
+
+export function* watchBackupBannerPrompt(): any {
+  yield takeLatest(PROMPT_WALLET_BACKUP_BANNER, backupBannerSaga)
+}
+
+export function* backupBannerSaga(
+  action: PromptBackupBannerAction
+): Generator<*, *, *> {
+  try {
+    const { showBanner } = action
+
+    yield call(
+      AsyncStorage.setItem,
+      STORAGE_KEY_SHOW_BANNER,
+      JSON.stringify(showBanner)
+    )
+  } catch (e) {
+    yield put(promptBackupBanner(false))
+  }
 }
 
 export function* hydrateWalletStoreSaga(): Generator<*, *, *> {
