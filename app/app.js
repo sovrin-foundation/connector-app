@@ -45,6 +45,7 @@ import {
   lockAuthorizationRoute,
   lockAuthorizationHomeRoute,
   lockPinSetupRoute,
+  restoreRoute,
 } from './common'
 import { NavigationActions } from 'react-navigation'
 import { setupFeedback } from './feedback'
@@ -64,6 +65,7 @@ const backButtonDisableRoutes = [
   lockSelectionRoute,
   lockPinSetupHomeRoute,
   lockAuthorizationHomeRoute,
+  restoreRoute,
 ]
 
 const backButtonExitRoutes = [

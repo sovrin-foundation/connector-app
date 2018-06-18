@@ -37,7 +37,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
       accessibilityComponentType={undefined}
       accessibilityLabel="pin-code-digit-0-touchable"
       accessibilityTraits={undefined}
-      accessible={true}
+      accessible={false}
       center={true}
       hitSlop={
         Object {
@@ -72,7 +72,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
       accessibilityComponentType={undefined}
       accessibilityLabel="pin-code-digit-1-touchable"
       accessibilityTraits={undefined}
-      accessible={true}
+      accessible={false}
       center={true}
       hitSlop={
         Object {
@@ -107,7 +107,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
       accessibilityComponentType={undefined}
       accessibilityLabel="pin-code-digit-2-touchable"
       accessibilityTraits={undefined}
-      accessible={true}
+      accessible={false}
       center={true}
       hitSlop={
         Object {
@@ -142,7 +142,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
       accessibilityComponentType={undefined}
       accessibilityLabel="pin-code-digit-3-touchable"
       accessibilityTraits={undefined}
-      accessible={true}
+      accessible={false}
       center={true}
       hitSlop={
         Object {
@@ -177,7 +177,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
       accessibilityComponentType={undefined}
       accessibilityLabel="pin-code-digit-4-touchable"
       accessibilityTraits={undefined}
-      accessible={true}
+      accessible={false}
       center={true}
       hitSlop={
         Object {
@@ -212,7 +212,7 @@ exports[`<PinCodeBox /> should match snapshot 1`] = `
       accessibilityComponentType={undefined}
       accessibilityLabel="pin-code-digit-5-touchable"
       accessibilityTraits={undefined}
-      accessible={true}
+      accessible={false}
       center={true}
       hitSlop={
         Object {
@@ -306,7 +306,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
       accessibilityComponentType={undefined}
       accessibilityLabel="pin-code-digit-0-touchable"
       accessibilityTraits={undefined}
-      accessible={true}
+      accessible={false}
       center={true}
       hitSlop={
         Object {
@@ -352,7 +352,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
       accessibilityComponentType={undefined}
       accessibilityLabel="pin-code-digit-1-touchable"
       accessibilityTraits={undefined}
-      accessible={true}
+      accessible={false}
       center={true}
       hitSlop={
         Object {
@@ -398,7 +398,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
       accessibilityComponentType={undefined}
       accessibilityLabel="pin-code-digit-2-touchable"
       accessibilityTraits={undefined}
-      accessible={true}
+      accessible={false}
       center={true}
       hitSlop={
         Object {
@@ -433,7 +433,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
       accessibilityComponentType={undefined}
       accessibilityLabel="pin-code-digit-3-touchable"
       accessibilityTraits={undefined}
-      accessible={true}
+      accessible={false}
       center={true}
       hitSlop={
         Object {
@@ -468,7 +468,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
       accessibilityComponentType={undefined}
       accessibilityLabel="pin-code-digit-4-touchable"
       accessibilityTraits={undefined}
-      accessible={true}
+      accessible={false}
       center={true}
       hitSlop={
         Object {
@@ -503,7 +503,7 @@ exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 
       accessibilityComponentType={undefined}
       accessibilityLabel="pin-code-digit-5-touchable"
       accessibilityTraits={undefined}
-      accessible={true}
+      accessible={false}
       center={true}
       hitSlop={
         Object {

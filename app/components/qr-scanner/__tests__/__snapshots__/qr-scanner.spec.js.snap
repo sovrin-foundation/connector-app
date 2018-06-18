@@ -210,7 +210,7 @@ exports[`<QRScanner /> should match snapshot 1`] = `
           accessibilityComponentType={undefined}
           accessibilityLabel="close-qr-scanner-icon-touchable"
           accessibilityTraits={undefined}
-          accessible={true}
+          accessible={false}
           clearBg={true}
           hitSlop={
             Object {

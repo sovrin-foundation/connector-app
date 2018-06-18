@@ -42,7 +42,7 @@ exports[`<WalletBackupSuccessModal /> should render properly and match the snaps
         accessibilityComponentType={undefined}
         accessibilityLabel="wallet-backup-modal-innerview-touchable"
         accessibilityTraits={undefined}
-        accessible={true}
+        accessible={false}
         hitSlop={
           Object {
             "bottom": 20,
@@ -245,7 +245,7 @@ exports[`<WalletBackupSuccessModal /> should render properly and match the snaps
                     "fontSize": 16,
                   },
                   Object {
-                    "color": "#85bf43",
+                    "color": "#4A8FE3",
                   },
                   Object {
                     "fontSize": 14,

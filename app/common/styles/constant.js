@@ -15,6 +15,7 @@ const mantisRGB = '133, 191, 67'
 export const greyRGB = '119, 119, 119'
 export const white = '#ffffff'
 export const whisper = '#EAEAEA'
+export const lightDarkBlue = '#4A8FE3'
 
 const sirocco = '#636564'
 const corduroy = '#3f4140'
@@ -54,6 +55,7 @@ export const color = {
     quaternary: olivine,
     fifth: white,
     sixth: grey,
+    eighth: white,
     dangerous: venetianRed,
     none: white,
     button: {
@@ -75,6 +77,7 @@ export const color = {
       dangerous: white,
       sixth: white,
       seventh: yellowSea,
+      eighth: lightDarkBlue,
     },
   },
   bg: {

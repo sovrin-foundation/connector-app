@@ -83,7 +83,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
             accessibilityComponentType={undefined}
             accessibilityLabel="connection-history-icon-close-touchable"
             accessibilityTraits={undefined}
-            accessible={true}
+            accessible={false}
             clearBg={true}
             hitSlop={
               Object {
@@ -145,7 +145,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
             accessibilityComponentType={undefined}
             accessibilityLabel="connection-history-issuer-logo-touchable"
             accessibilityTraits={undefined}
-            accessible={true}
+            accessible={false}
             center={true}
             clearBg={true}
             extraLarge={true}
@@ -240,7 +240,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
             accessibilityComponentType={undefined}
             accessibilityLabel="connection-history-icon-delete-touchable"
             accessibilityTraits={undefined}
-            accessible={true}
+            accessible={false}
             clearBg={true}
             hitSlop={
               Object {

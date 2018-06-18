@@ -5,7 +5,7 @@ exports[`<ConnectedUserAvatar /> should match snapshot when no user image is sel
   accessibilityComponentType={undefined}
   accessibilityLabel="user-avatar-touchable"
   accessibilityTraits={undefined}
-  accessible={true}
+  accessible={false}
   clearBg={true}
   extraLarge={true}
   hitSlop={
@@ -60,7 +60,7 @@ exports[`<ConnectedUserAvatar /> should match snapshot when user image is select
   accessibilityComponentType={undefined}
   accessibilityLabel="user-avatar-touchable"
   accessibilityTraits={undefined}
-  accessible={true}
+  accessible={false}
   clearBg={true}
   extraLarge={true}
   hitSlop={

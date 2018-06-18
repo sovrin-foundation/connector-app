@@ -530,7 +530,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                 accessibilityComponentType={undefined}
                 accessibilityLabel="settings-about-app-label-touchable"
                 accessibilityTraits={undefined}
-                accessible={true}
+                accessible={false}
                 hitSlop={
                   Object {
                     "bottom": 20,
@@ -670,7 +670,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                 accessibilityComponentType={undefined}
                 accessibilityLabel="settings-chat-id-label-touchable"
                 accessibilityTraits={undefined}
-                accessible={true}
+                accessible={false}
                 hitSlop={
                   Object {
                     "bottom": 20,
@@ -811,7 +811,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                   accessibilityComponentType={undefined}
                   accessibilityLabel="settings-backup-data-wallet-touchable"
                   accessibilityTraits={undefined}
-                  accessible={true}
+                  accessible={false}
                   hitSlop={
                     Object {
                       "bottom": 20,
@@ -973,7 +973,7 @@ exports[`user settings screen should render properly and snapshot should match 1
           accessibilityComponentType={undefined}
           accessibilityLabel="wallet-backup-modal-innerview-touchable"
           accessibilityTraits={undefined}
-          accessible={true}
+          accessible={false}
           hitSlop={
             Object {
               "bottom": 20,
@@ -1176,7 +1176,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                       "fontSize": 16,
                     },
                     Object {
-                      "color": "#85bf43",
+                      "color": "#4A8FE3",
                     },
                     Object {
                       "fontSize": 14,

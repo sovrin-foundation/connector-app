@@ -5,6 +5,7 @@ import {
   lockSelectionRoute,
   switchEnvironmentRoute,
   eulaRoute,
+  restoreRoute,
 } from '../common/route-constants'
 
 export const SERVER_ENVIRONMENT = {
@@ -196,4 +197,5 @@ export const UNSAFE_SCREENS_TO_DOWNLOAD_SMS = [
   lockSelectionRoute,
   switchEnvironmentRoute,
   eulaRoute,
+  restoreRoute,
 ]

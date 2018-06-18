@@ -54,8 +54,8 @@ export class WalletTabReceive extends PureComponent<
   render() {
     const { walletAddresses } = this.props
     return (
-      <Container>
-        <Container>
+      <Container testID={'wallet-receive-container'}>
+        <Container testID={'wallet-receive-container1'}>
           <CustomView style={[styles.container]}>
             <ScrollView scrollEnabled={walletAddresses.length > 1}>
               <CustomText

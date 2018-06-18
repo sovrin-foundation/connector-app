@@ -49,7 +49,9 @@ export default class CustomButton extends PureComponent<*, void> {
         ? 'secondary'
         : tertiary
           ? 'tertiary'
-          : quaternary ? 'quaternary' : dangerous ? 'dangerous' : 'fifth'
+          : quaternary
+            ? 'quaternary'
+            : dangerous ? 'dangerous' : fifth ? 'eighth' : 'fifth'
     const buttonProps = { ...getButtonProps(buttonType), ...customColor }
     // when button is disabled, we want to apply same color that is
     // generated while picking up the color from image

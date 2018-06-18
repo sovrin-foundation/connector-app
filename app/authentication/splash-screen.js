@@ -13,6 +13,7 @@ import {
   invitationRoute,
   waitForInvitationRoute,
   eulaRoute,
+  restoreRoute,
 } from '../common/route-constants'
 import {
   TOKEN_EXPIRED_CODE,
@@ -160,7 +161,7 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
           if (nextProps.eula.isEulaAccept === false) {
             this.props.navigation.navigate(eulaRoute)
           } else {
-            this.props.navigation.navigate(lockSelectionRoute)
+            this.props.navigation.navigate(restoreRoute)
           }
         } else {
           // not the first time user is opening app
@@ -215,7 +216,7 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
         if (this.props.eula.isEulaAccept === false) {
           this.props.navigation.navigate(eulaRoute)
         } else {
-          this.props.navigation.navigate(lockSelectionRoute)
+          this.props.navigation.navigate(restoreRoute)
         }
       } else {
         // not the first time user is opening app

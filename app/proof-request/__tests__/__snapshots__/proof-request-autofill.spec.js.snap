@@ -39,7 +39,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
         accessibilityComponentType={undefined}
         accessibilityLabel="proof-request-icon-close-touchable"
         accessibilityTraits={undefined}
-        accessible={true}
+        accessible={false}
         clearBg={true}
         hitSlop={
           Object {
@@ -1703,7 +1703,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                       "fontSize": 16,
                     },
                     Object {
-                      "color": "#85bf43",
+                      "color": "#4A8FE3",
                     },
                     Object {
                       "fontSize": 14,

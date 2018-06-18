@@ -5,7 +5,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
   accessibilityComponentType={undefined}
   accessibilityLabel="wallet-tab-send-details-touchable"
   accessibilityTraits={undefined}
-  accessible={true}
+  accessible={false}
   fifth={true}
   hitSlop={
     Object {
@@ -776,7 +776,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
                         "fontSize": 16,
                       },
                       Object {
-                        "color": "#85bf43",
+                        "color": "#4A8FE3",
                       },
                       Object {
                         "fontSize": 14,
@@ -896,7 +896,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
                         "fontSize": 16,
                       },
                       Object {
-                        "color": "#85bf43",
+                        "color": "#4A8FE3",
                       },
                       Object {
                         "fontSize": 14,

@@ -13,7 +13,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { tertiaryHeaderStyles } from '../components/layout/header-styles'
 import { CustomText, Container, FooterActions } from '../components'
-import { lockSelectionRoute, eulaRoute } from '../common'
+import { eulaRoute, restoreRoute } from '../common'
 import { eulaAccept } from './eula-store'
 import type { Store } from '../store/type-store'
 
@@ -34,7 +34,7 @@ export class EulaScreen extends PureComponent<*, void> {
 
   onAccept = () => {
     this.props.eulaAccept(true)
-    this.props.navigation.navigate(lockSelectionRoute)
+    this.props.navigation.navigate(restoreRoute)
   }
 
   render() {

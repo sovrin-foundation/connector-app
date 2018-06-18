@@ -455,7 +455,7 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
                     "fontSize": 16,
                   },
                   Object {
-                    "color": "#85bf43",
+                    "color": "#4A8FE3",
                   },
                   Object {
                     "fontSize": 14,
@@ -940,7 +940,7 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
                     "fontSize": 16,
                   },
                   Object {
-                    "color": "#85bf43",
+                    "color": "#4A8FE3",
                   },
                   Object {
                     "fontSize": 14,

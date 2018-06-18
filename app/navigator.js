@@ -53,10 +53,12 @@ import {
   aboutAppRoute,
   walletTabSendDetailsRoute,
   eulaRoute,
+  restoreRoute,
 } from './common/'
 import { color } from './common/styles'
 import WalletTabSendDetails from './wallet/wallet-tab-send-details'
 import EulaScreen from './eula/eula'
+import { RestoreScreen } from './restore/restore'
 
 if (__DEV__) {
   require('../tools/reactotron-config')
@@ -185,6 +187,9 @@ const CardStack = StackNavigator(
     },
     [eulaRoute]: {
       screen: EulaScreen,
+    },
+    [restoreRoute]: {
+      screen: RestoreScreen,
     },
   },
   {

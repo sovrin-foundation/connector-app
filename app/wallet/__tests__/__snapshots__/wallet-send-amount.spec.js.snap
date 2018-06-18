@@ -617,7 +617,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
           accessibilityComponentType={undefined}
           accessibilityLabel="wallet-keyboard-id-label-back-space-touchable"
           accessibilityTraits={undefined}
-          accessible={true}
+          accessible={false}
           center={true}
           hitSlop={
             Object {

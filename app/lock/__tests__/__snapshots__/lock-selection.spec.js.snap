@@ -130,7 +130,7 @@ exports[`app lock selection page should render properly 1`] = `
       accessibilityComponentType={undefined}
       accessibilityLabel="touch-id-selection-touchable"
       accessibilityTraits={undefined}
-      accessible={true}
+      accessible={false}
       center={true}
       fifth={true}
       hitSlop={
@@ -226,7 +226,7 @@ exports[`app lock selection page should render properly 1`] = `
       accessibilityComponentType={undefined}
       accessibilityLabel="lock-selection-or-text-touchable"
       accessibilityTraits={undefined}
-      accessible={true}
+      accessible={false}
       debounceAction={false}
       hitSlop={
         Object {
@@ -287,7 +287,7 @@ exports[`app lock selection page should render properly 1`] = `
       accessibilityComponentType={undefined}
       accessibilityLabel="pin-code-selection-touchable"
       accessibilityTraits={undefined}
-      accessible={true}
+      accessible={false}
       fifth={true}
       hitSlop={
         Object {

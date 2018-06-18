@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   SafeAreaView,
+  Platform
 } from 'react-native'
 import { color } from '../../common/styles/constant'
 import empty from '../../common/empty'
@@ -110,7 +111,7 @@ export const CustomView = (props: GenericObject) => {
     let touchProps = {}
     if (typeof props.testID !== 'undefined') {
       touchProps.testID = `${props.testID}-touchable`
-      touchProps.accessible = true
+      touchProps.accessible = Platform.OS === 'ios' ? false : true
       touchProps.accessibilityLabel = `${props.testID}-touchable`
     }
     if (typeof onPress !== 'undefined') {

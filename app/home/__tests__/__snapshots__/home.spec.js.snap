@@ -124,7 +124,7 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
       accessibilityComponentType={undefined}
       accessibilityLabel="user-avatar-touchable"
       accessibilityTraits={undefined}
-      accessible={true}
+      accessible={false}
       clearBg={true}
       extraLarge={true}
       hitSlop={
