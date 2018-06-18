@@ -89,6 +89,11 @@
     "remote-redux-devtools": "^0.5.12",
     "remotedev-rn-debugger": "0.8.3"
   },
+  "rnpm": {
+    "assets": [
+   "./app/fonts/"
+    ]
+  },
   "jest": {
     "preset": "react-native",
     "transformIgnorePatterns": [
