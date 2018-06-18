@@ -5,7 +5,6 @@ import type { IsValid } from '../components/input-control/type-input-control'
 export type GenerateRecoveryPhraseProps = {} & ReactNavigation
 
 export type GenerateRecoveryPhraseState = {
-  submitButtonText: string,
   recoveryPassphrase: string,
 }
 

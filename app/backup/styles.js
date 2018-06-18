@@ -55,22 +55,56 @@ const styles = StyleSheet.create({
   genRecovery: {
     backgroundColor: color.bg.eleventh.color,
   },
+  genRecoveryWrapper: {
+    height: 80,
+  },
   genRecoveryHeader: {
     width: '100%',
+  },
+  genRecoveryPhraseContainer: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+    right: 20,
+  },
+  genRecoveryPhrase: {
+    textAlign: 'center',
+    color: color.bg.eleventh.color,
+    fontSize: 20,
+    lineHeight: 30,
+    fontFamily: 'Lato',
+    fontWeight: '900',
   },
   genRecoveryText: {
     marginBottom: 20,
     alignSelf: 'center',
     fontSize: 22,
+    fontWeight: '600',
+    fontFamily: 'Lato',
   },
   genRecoveryMessage: {
     marginBottom: 40,
     paddingHorizontal: 20,
     alignSelf: 'center',
     fontSize: 18,
+    lineHeight: 22,
+    fontWeight: '500',
+    fontFamily: 'Lato',
+  },
+  genRecoverySecondMessage: {
+    marginBottom: 40,
+    paddingHorizontal: 20,
+    alignSelf: 'center',
+    fontSize: 18,
+    lineHeight: 22,
+    fontWeight: 'bold',
+    fontFamily: 'Lato',
   },
   genRecoverySmallMessage: {
     fontSize: 14,
+    lineHeight: 17,
+    fontWeight: 'bold',
+    fontFamily: 'Lato',
     marginBottom: 30,
   },
   verifyMainContainer: {

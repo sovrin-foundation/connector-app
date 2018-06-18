@@ -3,6 +3,7 @@
 export const RECOVERY_PHRASE_CLOSE_TEST_ID = 'recovery-header-close-image'
 export const SHOW_RECOVERY_PHRASE_TEST_ID = 'show-recovery-passphrase'
 export const SUBMIT_RECOVERY_PHRASE_TEST_ID = 'submit-recovery-passphrase'
+export const SUBMIT_RECOVERY_PHRASE_BUTTON_TITLE = 'Continue'
 
 export const VERIFY_BACK_TEST_ID = 'verify-passphrase-back-image'
 export const VERIFY_CLOSE_TEST_ID = 'verify-passphrase-close-image'

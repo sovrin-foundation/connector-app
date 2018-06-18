@@ -19,26 +19,23 @@ import type {
 } from './type-backup'
 import {
   RECOVERY_PHRASE_CLOSE_TEST_ID,
-  SHOW_RECOVERY_PHRASE_TEST_ID,
   SUBMIT_RECOVERY_PHRASE_TEST_ID,
+  SUBMIT_RECOVERY_PHRASE_BUTTON_TITLE,
 } from './backup-constants'
 import styles from './styles'
 
 const { height } = Dimensions.get('window')
 const closeImage = require('../images/iconClose.png')
 const transparentBands = require('../images/transparentBands.png')
+const textBubble = require('../images/textBubble.png')
 
 export class GenerateRecoveryPhrase extends PureComponent<
   GenerateRecoveryPhraseProps,
   GenerateRecoveryPhraseState
 > {
   state = {
-    submitButtonText: 'Continue',
-    recoveryPassphrase:
-      'The quick brown fox jumped over the fence last Saturday evening.',
+    recoveryPassphrase: 'one two three',
   }
-
-  doNothing = () => {}
 
   verifyRecoveryPhrase = () => {
     const { navigation: { navigate, state } } = this.props
@@ -60,7 +57,6 @@ export class GenerateRecoveryPhrase extends PureComponent<
         <CustomText
           transparentBg
           numberOfLines={1}
-          demiBold
           style={[styles.genRecoveryText]}
         >
           Recovery Phrase Generated
@@ -84,7 +80,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
     return (
       <Container style={[styles.genRecovery]}>
         <Image source={transparentBands} style={[styles.backgroundImage]} />
-        <CustomView center style={[{ height: 100 }]}>
+        <CustomView center style={[styles.genRecoveryWrapper]}>
           <CustomText
             center
             demiBold
@@ -95,24 +91,20 @@ export class GenerateRecoveryPhrase extends PureComponent<
             anyone.
           </CustomText>
         </CustomView>
-
-        <CustomButton
-          onPress={this.doNothing}
-          testID={SHOW_RECOVERY_PHRASE_TEST_ID}
-          style={[styles.showRecoveryPassphrase]}
-          customColor={{
-            color: color.bg.eleventh.color,
-            fontWeight: '600',
-            fontSize: 20,
-          }}
-          title={this.state.recoveryPassphrase}
-        />
+        <Container>
+          <Image source={textBubble} />
+          <Container style={[styles.genRecoveryPhraseContainer]}>
+            <CustomText transparentBg style={[styles.genRecoveryPhrase]}>
+              {this.state.recoveryPassphrase}
+            </CustomText>
+          </Container>
+        </Container>
         <CustomView center>
           <CustomText
             center
             demiBold
             transparentBg
-            style={[styles.genRecoveryMessage]}
+            style={[styles.genRecoverySecondMessage]}
           >
             You will need this recovery phrase to restore from a backup. Keep it
             safe.
@@ -139,7 +131,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
             fontWeight: '600',
             fontSize: 18,
           }}
-          title={this.state.submitButtonText}
+          title={SUBMIT_RECOVERY_PHRASE_BUTTON_TITLE}
         />
       </Container>
     )
