@@ -158,7 +158,7 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
         // now we can safely check value of isAlreadyInstalled
         if (nextProps.lock.isLockEnabled === false) {
           // user is opening the app for first time after installing
-          if (nextProps.eula.isEulaAccept === false) {
+          if (!nextProps.eula.isEulaAccept) {
             this.props.navigation.navigate(eulaRoute)
           } else {
             this.props.navigation.navigate(restoreRoute)
@@ -213,7 +213,7 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
       // now we can safely check value of isAlreadyInstalled
       if (this.props.lock.isLockEnabled === false) {
         // user is opening the app for first time after installing
-        if (this.props.eula.isEulaAccept === false) {
+        if (!this.props.eula.isEulaAccept) {
           this.props.navigation.navigate(eulaRoute)
         } else {
           this.props.navigation.navigate(restoreRoute)

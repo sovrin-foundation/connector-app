@@ -1,5 +1,6 @@
 // @flow
 export const EULA_ACCEPT = 'EULA_ACCEPT'
+export const STORAGE_KEY_EULA_ACCEPTANCE = 'STORAGE_KEY_EULA_ACCEPTANCE'
 
 export type EulaStore = {
   isEulaAccept: boolean,

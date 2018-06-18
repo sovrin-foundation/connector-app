@@ -3,6 +3,7 @@ import { takeLatest, call, put } from 'redux-saga/effects'
 import { AsyncStorage } from 'react-native'
 import { getItem, deleteItem } from '../services/secure-storage'
 import { updatePushToken } from '../push-notification/push-notification-store'
+import { eulaAccept } from '../eula/eula-store'
 import {
   hydrateConnections,
   hydrateThemes,
@@ -42,6 +43,7 @@ import {
 import { STORAGE_KEY_USER_ONE_TIME_INFO } from './user/type-user-store'
 import { STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL } from './type-config-store'
 import { HISTORY_EVENT_STORAGE_KEY } from '../connection-history/type-connection-history'
+import { STORAGE_KEY_EULA_ACCEPTANCE } from '../eula/type-eula'
 import {
   removePersistedSerializedClaimOffersSaga,
   hydrateSerializedClaimOffersSaga,
@@ -67,6 +69,7 @@ export function* deleteStoredData(): Generator<*, *, *> {
   yield call(AsyncStorage.removeItem, IS_CONSUMER_AGENT_ALREADY_CREATED)
   yield call(deleteItem, STORAGE_KEY_USER_ONE_TIME_INFO)
   yield call(AsyncStorage.removeItem, STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL)
+  yield call(AsyncStorage.removeItem, STORAGE_KEY_EULA_ACCEPTANCE)
   yield call(deleteItem, CLAIM_MAP)
   yield call(deleteItem, HISTORY_EVENT_STORAGE_KEY)
   yield call(AsyncStorage.removeItem, USE_VCX_KEY)
@@ -98,6 +101,12 @@ export function* appHydration(action: {
     if (action.isAlreadyInstalled) {
       // app was already installed and user is just opening the app again
       // or waking up from background
+      const eulaAcceptance = yield call(
+        AsyncStorage.getItem,
+        STORAGE_KEY_EULA_ACCEPTANCE
+      )
+      yield put(eulaAccept(eulaAcceptance))
+
       const token = yield call(getItem, PUSH_COM_METHOD)
       yield put(updatePushToken(token))
 

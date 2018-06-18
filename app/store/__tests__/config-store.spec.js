@@ -162,7 +162,8 @@ describe('server environment should change', () => {
     // delete stored data, not interested in actual calls
     // those tests are being taken care in other test
     gen.next(environmentDetails)
-    for (let index = 0; index < 14; index++) {
+    // TODO: Change index value to constant that better describes what the number represents
+    for (let index = 0; index < 15; index++) {
       gen.next()
     }
 
@@ -235,6 +236,7 @@ describe('server environment should change', () => {
 
 describe('hydration should work correctly', () => {
   // TODO Write this test in proper way and check for all generators and values
+  // TODO: Document when we need to do this
   it('should raise correct action with correct data', () => {
     const gen = hydrateConfig()
     // call async storage to get data
@@ -252,6 +254,7 @@ describe('hydration should work correctly', () => {
     // hydrate lock settings
     gen.next()
     // save data in async storage
+    gen.next()
     gen.next()
 
     gen.next()
