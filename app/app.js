@@ -24,6 +24,10 @@ import {
   qrCodeScannerTabRoute,
   homeRoute,
   walletRoute,
+  genRecoveryPhraseRoute,
+  verifyRecoveryPhraseRoute,
+  exportBackupFileRoute,
+  backupCompleteRoute,
   connectionHistoryRoute,
   claimOfferRoute,
   walletTabSendDetailsRoute,
@@ -203,6 +207,14 @@ class ConnectMeApp extends PureComponent<void, AppState> {
         store.dispatch(updateStatusBarTheme(whiteSmokeSecondary))
       } else if (currentScreen === walletRoute) {
         store.dispatch(updateStatusBarTheme(color.actions.font.seventh))
+      } else if (currentScreen === genRecoveryPhraseRoute) {
+        store.dispatch(updateStatusBarTheme(color.bg.eleventh.color))
+      } else if (currentScreen === verifyRecoveryPhraseRoute) {
+        store.dispatch(updateStatusBarTheme(color.bg.twelfth.color))
+      } else if (currentScreen === exportBackupFileRoute) {
+        store.dispatch(updateStatusBarTheme(color.bg.thirteenth.color))
+      } else if (currentScreen === backupCompleteRoute) {
+        store.dispatch(updateStatusBarTheme(color.bg.fourteenth.color))
       } else if (
         currentScreen !== connectionHistoryRoute &&
         currentScreen !== claimOfferRoute

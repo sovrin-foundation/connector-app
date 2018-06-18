@@ -6,8 +6,8 @@ import type { IsValid } from '../components/input-control/type-input-control'
 export type BackupWalletProps = {
   backup: BackupInfo,
   render: (backup: string, backupWallet: () => void) => void,
-  walletBackup: () => void,
-}
+  //walletBackup: () => void,
+} & ReactNavigation
 
 export type BackupInfo = {
   latest: ?string,

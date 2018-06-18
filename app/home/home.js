@@ -91,7 +91,7 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
     return (
       <Container tertiary>
         <Container tertiary>
-          <Banner />
+          <Banner navigation={this.props.navigation} />
           {connections &&
             connections.length > 0 && (
               <Bubbles

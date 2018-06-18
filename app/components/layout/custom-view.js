@@ -5,7 +5,7 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   SafeAreaView,
-  Platform
+  Platform,
 } from 'react-native'
 import { color } from '../../common/styles/constant'
 import empty from '../../common/empty'

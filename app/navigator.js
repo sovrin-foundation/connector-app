@@ -25,6 +25,10 @@ import SwitchEnvironmentScreen from './switch-environment/switch-environment'
 import LockAuthorization from './lock/lock-authorization'
 import WaitForInvitationScreen from './invitation/wait-for-invitation'
 import Wallet from './wallet/wallet'
+import GenerateRecoveryPhrase from './backup/generatePhrase'
+import VerifyRecoveryPhrase from './backup/verifyPhrase'
+import ExportBackupFile from './backup/exportBackup'
+import BackupComplete from './backup/backupComplete'
 import WalletTabs from './wallet/wallet-tabs'
 import { Icon } from './components'
 import {
@@ -53,6 +57,10 @@ import {
   aboutAppRoute,
   walletTabSendDetailsRoute,
   eulaRoute,
+  genRecoveryPhraseRoute,
+  verifyRecoveryPhraseRoute,
+  exportBackupFileRoute,
+  backupCompleteRoute,
   restoreRoute,
 } from './common/'
 import { color } from './common/styles'
@@ -247,6 +255,10 @@ const ConnectMeAppNavigator = StackNavigator(
     [connectionHistoryRoute]: {
       screen: ConnectionHistoryNavigator,
     },
+    [genRecoveryPhraseRoute]: { screen: GenerateRecoveryPhrase },
+    [verifyRecoveryPhraseRoute]: { screen: VerifyRecoveryPhrase },
+    [exportBackupFileRoute]: { screen: ExportBackupFile },
+    [backupCompleteRoute]: { screen: BackupComplete },
     [walletRoute]: { screen: Wallet },
     [walletTabSendDetailsRoute]: {
       screen: WalletTabSendDetails,

@@ -35,7 +35,7 @@ import { tertiaryHeaderStyles } from '../components/layout/header-styles'
 import type { ImageSource } from '../common/type-common'
 import { selectUserAvatar } from '../store/user/user-store'
 import { Apptentive } from 'apptentive-react-native'
-import WalletBackupSuccessModal from '../wallet/wallet-backup-success-modal'
+//import WalletBackupSuccessModal from '../backup/wallet-backup-success-modal'
 import AboutApp from '../about-app/about-app'
 import PrivacyTNC from '../privacy-tnc/privacy-tnc-screen'
 import Banner from '../components/banner/banner'
@@ -216,6 +216,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
 
     const onBackup = (
       <BackupWallet
+        navigation={this.props.navigation}
         render={(status, backupWallet) => (
           <CustomView row onPress={backupWallet} testID={BACKUP_DATA_WALLET}>
             {/* TODO: change out placeholder icon */}
@@ -274,16 +275,11 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
     return (
       <Container tertiary>
         <CustomView style={[style.container]}>
-          <Banner />
+          <Banner navigation={this.props.navigation} />
           <ScrollView>
             <CustomList data={itemList} />
           </ScrollView>
         </CustomView>
-        <WalletBackupSuccessModal
-          onContinue={this.hideWalletPopupModal}
-          isVisible={this.state.walletBackupModalVisible}
-          walletEncryptionKey={this.props.walletBackup.encryptionKey}
-        />
       </Container>
     )
   }

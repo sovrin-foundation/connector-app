@@ -23,12 +23,13 @@ import type { BannerProps } from './type-banner'
 
 class Banner extends PureComponent<BannerProps, void> {
   render() {
-    const { walletBackup: { showBanner } } = this.props
+    const { walletBackup: { showBanner }, navigation } = this.props
 
     if (showBanner) {
       return (
         <CustomView>
           <BackupWallet
+            navigation={navigation}
             render={(status, backupWallet) => (
               <CustomView
                 row
