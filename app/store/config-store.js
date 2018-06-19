@@ -479,7 +479,7 @@ export function* initVcx(): Generator<*, *, *> {
     yield take(SAFE_TO_DOWNLOAD_SMS_INVITATION)
   }
 
-  if (Platform.os !== 'android') {
+  if (Platform.OS !== 'android') {
     const useVcx: boolean = yield select(getUseVcx)
     // if we are not going to use vcx, then don't proceed with vcx
     if (!useVcx) {

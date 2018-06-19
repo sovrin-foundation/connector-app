@@ -124,24 +124,15 @@ export type VcxCreateConnection = {
 export type VcxConnectionCreateResult = number
 
 export type VcxConnectionConnectResult = {
-  id: string,
-  s: {
-    d: string,
-    dp: {
-      d: string,
-      k: string,
-      s: string,
-    },
-    l: string,
-    n: string,
-    v: string,
-  },
-  sa: {
-    d: string,
-    e: string,
-    v: string,
-  },
-  t: string,
+  source_id: string,
+  pw_did: string,
+  pw_verkey: string,
+  uuid: string,
+  endpoint: string,
+  agent_did: string,
+  agent_vk: string,
+  their_pw_did: string,
+  their_pw_verkey: string,
 }
 
 export type VcxCredentialOfferResult = {

@@ -624,14 +624,13 @@ RCT_EXPORT_METHOD(deserializeConnection: (NSString *)serializedConnection
   // TODO call vcx_connection_deserialize and pass serializedConnection
   // it would return an error code and an integer connection handle in callback
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    [[[ConnectMeVcx alloc] init] connectionDeserialize:serializedConnection completion:^(NSError *error, NSInteger *connectionHandle) {
+    [[[ConnectMeVcx alloc] init] connectionDeserialize:serializedConnection completion:^(NSError *error, NSInteger credentialHandle) {
       if (error != nil && error.code != 0)
       {
         NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
         reject(indyErrorCode, @"Error occurred while deserializing claim offer", error);
       }else{
-        NSString * credentailHandleStr=[NSString stringWithFormat:@"%ld", (long)connectionHandle];
-        resolve(credentailHandleStr);
+        resolve(@(credentialHandle));
       }
     }];
   });
@@ -774,7 +773,6 @@ RCT_EXPORT_METHOD(createOneTimeInfo: (NSString *)config
 {
   // pass a config as json string
   // callback would get an error code and a json string back in case of success
-  NSError *error = nil; // remove this line after integrating libvcx method
   
   [[[ConnectMeVcx alloc] init] agentProvisionAsync:config completion:^(NSError *error, NSString *oneTimeInfo) {
     NSLog(@"applicationDidBecomeActive callback:%@",oneTimeInfo);
@@ -795,14 +793,13 @@ RCT_EXPORT_METHOD(createConnectionWithInvite: (NSString *)invitationId
 {
   [[[ConnectMeVcx alloc] init] connectionCreateWithInvite:invitationId
                                             inviteDetails:inviteDetails
-                                               completion:^(NSError *error, NSString *connectionHandle) {
+                                               completion:^(NSError *error, NSInteger connectionHandle) {
      if (error != nil && error.code != 0)
      {
        NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
        reject(indyErrorCode, @"Error occurred while creating connection", error);
      } else {
-       NSString *connectionHandleStr = [NSString stringWithFormat:@"%ld", (long)connectionHandle];
-       resolve(connectionHandleStr);
+       resolve(@(connectionHandle));
      }
   }];
 }
@@ -835,15 +832,16 @@ RCT_EXPORT_METHOD(vcxUpdatePushToken: (NSString *)config
 {
   // TODO: call vcx_agent_update_info of libvcx
   // pass a config as json string
-  // callback would get an error code and a json string back in case of success
-  NSError *error = nil; // remove this line after integrating libvcx method
-  if (error != nil && error.code != 0)
-  {
-    NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
-    reject(indyErrorCode, @"Error occurred while updating push token", error);
-  } else {
-    resolve(@{});
-  }
+  // callback would get an error code
+  [[[ConnectMeVcx alloc] init] agentUpdateInfo:config completion:^(NSError *error) {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while updating push token", error);
+    } else {
+      resolve(@{});
+    }
+  }];
 }
 
 RCT_EXPORT_METHOD(generateProof: (NSString *)proofRequestId

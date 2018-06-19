@@ -21,6 +21,8 @@ import {
   getHydrationState,
   getPoolConfig,
   getUseVcx,
+  getInvitations,
+  getDeepLinkTokens,
 } from '../store/store-selector'
 import {
   PUSH_NOTIFICATION_PERMISSION,
@@ -59,7 +61,7 @@ import { HYDRATED } from '../store/type-config-store'
 import { CONNECT_REGISTER_CREATE_AGENT_DONE } from '../store/user/type-user-store'
 import uniqueId from 'react-native-unique-id'
 import { RESET } from '../common/type-common'
-import { ensureVcxInitSuccess } from '../store/config-store'
+import { ensureVcxInitSuccess, ensureAppHydrated } from '../store/config-store'
 import type { Connection } from '../store/type-connection-store'
 import type { CxsCredentialOfferResult } from '../bridge/react-native-cxs/type-cxs'
 import type { ProofRequestPushPayload } from '../proof-request/type-proof-request'
@@ -97,6 +99,27 @@ export function* onPushTokenUpdateVcx(
   // 1. this is called when user is trying to accept connection first time
   // 2. this can be called when we are hydrating app data and we put push token
   // 3. can be called when Firebase Push plugin updates push token
+  // 4. for some reason this is called even when the app is launched for the first time
+  //    in that case this triggers vcx init, and we don't want to do that
+  //    because vcx init should only be called if we want to have connections
+  //    or if we want to perform token related work. So, if there is no connection or invitation
+  //    then we don't want to update any push token to server and hence will not call
+  //    vcx init
+
+  yield* ensureAppHydrated()
+  const connections: ?Connections = yield select(getAllConnection)
+  const numberOfConnections = connections ? Object.keys(connections).length : 0
+  const invitations = yield select(getInvitations)
+  const numberOfInvitations = invitations ? Object.keys(invitations).length : 0
+  const deepLinkTokens = yield select(getDeepLinkTokens)
+  const numberOfTokens = deepLinkTokens ? Object.keys(deepLinkTokens).length : 0
+  if (
+    numberOfInvitations === 0 &&
+    numberOfConnections === 0 &&
+    numberOfTokens === 0
+  ) {
+    return
+  }
 
   yield* ensureVcxInitSuccess()
 

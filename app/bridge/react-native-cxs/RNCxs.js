@@ -19,6 +19,7 @@ import type {
   VcxCredentialOfferResult,
   VcxCredentialOffer,
   VcxClaimInfo,
+  VcxConnectionConnectResult,
 } from './type-cxs'
 import type { InvitationPayload } from '../../invitation/type-invitation'
 import {
@@ -306,20 +307,29 @@ export async function acceptInvitation({
 export async function acceptInvitationVcx(
   connectionHandle: number
 ): Promise<MyPairwiseInfo> {
-  //TODO fix connectionOptions - remove the hardcoding
-  //connection_options: Provides details indicating if the connection will be established by text or QR Code
-  // # Examples connection_options -> "{"connection_type":"SMS","phone":"123"}" OR: "{"connection_type":"QR","phone":""}"
-  //harcoding connection options to QR type for now, because vcx needs connection options. API for vcx assumes that it is running
-  //on enterprise side and not from consumer side and hence it tries to create connection with connection type.
-  //However, our need is not to create a connection but to create a connection instance with exisiting invitation.
-  //So, for now for any invitation type QR or SMS we are hardcoding connection option to QR
+  // hard coding connection options to QR type for now, because vcx needs connection options
+  // API for vcx assumes that it is running on enterprise side and not from consumer side
+  // hence it tries to create connection with connection type.
+  // However, our need is not to create a connection but to create a connection instance
+  // with existing invitation. So, for now for any invitation type QR or SMS
+  // we are hard coding connection option to QR
   const connectionOptions = { connection_type: 'QR', phone: '' }
   const result: string = await RNIndy.vcxAcceptInvitation(
     connectionHandle,
     JSON.stringify(connectionOptions)
   )
+  // TODO:KS Remove below API call once sdk team returns pairwise info in above api
+  // above call does not return pairwise did information, but we need pairwise info
+  // to store that information and have those details available while making a connection
+  // we have to make an extra call to get pairwise info
+  const serializedConnection: string = await serializeConnection(
+    connectionHandle
+  )
+  const vcxConnection: VcxConnectionConnectResult = JSON.parse(
+    serializedConnection
+  )
 
-  return convertVcxConnectionToCxsConnection(result)
+  return convertVcxConnectionToCxsConnection(vcxConnection)
 }
 
 export async function updatePushToken({
@@ -559,32 +569,9 @@ export async function createConnectionWithInvite(
   invitation: InvitationPayload
 ): Promise<number> {
   const { invite_details } = convertInvitationToVcxConnectionCreate(invitation)
-  // TODO: Below transformation will be removed once vcx team fix below format
-  const vcxInviteDetails = {
-    sc: invite_details.statusCode,
-    id: invite_details.connReqId,
-    s: {
-      n: invite_details.senderDetail.name,
-      dp: {
-        d: invite_details.senderDetail.agentKeyDlgProof.agentDID,
-        k: invite_details.senderDetail.agentKeyDlgProof.agentDelegatedKey,
-        s: invite_details.senderDetail.agentKeyDlgProof.signature,
-      },
-      d: invite_details.senderDetail.DID,
-      l: invite_details.senderDetail.logoUrl,
-      v: invite_details.senderDetail.verKey,
-    },
-    sa: {
-      d: invite_details.senderAgencyDetail.DID,
-      v: invite_details.senderAgencyDetail.verKey,
-      e: invite_details.senderAgencyDetail.endpoint,
-    },
-    t: invite_details.targetName,
-    sm: invite_details.statusCode,
-  }
   const connectionHandle: number = await RNIndy.createConnectionWithInvite(
     invitation.requestId,
-    JSON.stringify(vcxInviteDetails)
+    JSON.stringify(invite_details)
   )
 
   return connectionHandle
@@ -594,7 +581,7 @@ export async function serializeConnection(
   connectionHandle: number
 ): Promise<string> {
   const serializedConnection: string = await RNIndy.getSerializedConnection(
-    parseInt(connectionHandle)
+    connectionHandle
   )
 
   return serializedConnection

@@ -77,39 +77,18 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
                 return "";
             }).thenAccept(result -> {
                 Log.d(TAG, "vcx::APP::async result Prov: " + result);
-                JSONObject resultJson = null;
-                try {
-                    resultJson = new JSONObject(result);
-
-                    WritableMap oneTimeInfo = Arguments.createMap();
-                    oneTimeInfo.putString("sdk_to_remote_did", resultJson.getString("sdk_to_remote_did"));
-                    oneTimeInfo.putString("sdk_to_remote_verkey", resultJson.getString("sdk_to_remote_verkey"));
-                    oneTimeInfo.putString("institution_did", resultJson.getString("institution_did"));
-                    oneTimeInfo.putString("institution_verkey", resultJson.getString("institution_verkey"));
-                    oneTimeInfo.putString("remote_to_sdk_did", resultJson.getString("remote_to_sdk_did"));
-                    oneTimeInfo.putString("remote_to_sdk_verkey", resultJson.getString("remote_to_sdk_verkey"));
-                    BridgeUtils.resolveIfValid(promise, oneTimeInfo);
-                } catch (JSONException e) {
-                    promise.reject("JSONException", e.getMessage());
-                    e.printStackTrace();
-                }
-
-
+                BridgeUtils.resolveIfValid(promise, result);
             });
-
         } catch (VcxException e) {
             promise.reject("VCXException", e.getMessage());
             e.printStackTrace();
         }
-
-
     }
 
-
     @ReactMethod
-    public void getGenesisPathWithConfig(String poolConfig, Promise promise) {
+    public void getGenesisPathWithConfig(String poolConfig, String fileName, Promise promise) {
         Log.d(TAG, "getGenesisPathWithConfig() called with: poolConfig = [" + poolConfig + "], promise = [" + promise + "]");
-        File genFile = new File(Environment.getExternalStorageDirectory().getPath() + "/genesis.txn");
+        File genFile = new File(Environment.getExternalStorageDirectory().getPath() + "/genesis_" + fileName +".txn");
         if (!genFile.exists()) {
             try (FileOutputStream fos = new FileOutputStream(genFile)) {
                 fos.write(poolConfig.getBytes());
@@ -133,11 +112,20 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
                 Log.e(TAG, "init: ", t);
                 promise.reject("FutureException", t.getMessage());
                 return -1;
-            }).thenAccept(result -> promise.resolve(true));
+            }).thenAccept(result -> {
+                promise.resolve(true);
+            });
 
         } catch (VcxException e) {
+            // TODO:KS Raise already init exception instead of VcxException
+            // and resolve only in that exception
             e.printStackTrace();
-            promise.reject(e);
+            String vcxErrorMessage = e.getMessage();
+            if (vcxErrorMessage.contains("1044")) {
+                promise.resolve(true);
+            } else {
+                promise.reject(e);
+            }
         }
 
     }
@@ -158,11 +146,11 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void acceptInvitation(int connectionHandle, String connectionType, Promise promise) {
+    public void vcxAcceptInvitation(int connectionHandle, String connectionType, Promise promise) {
         Log.d(TAG, "acceptInvitation() called with: connectionHandle = [" + connectionHandle + "], connectionType = [" + connectionType + "], promise = [" + promise + "]");
         try {
             ConnectionApi.vcxConnectionCreate(String.valueOf(connectionHandle)).exceptionally((t) -> {
-                Log.e(TAG, "createOneTimeInfo: ", t);
+                Log.e(TAG, "vcxAcceptInvitation: ", t);
                 promise.reject("FutureException", t.getMessage());
                 return -1;
             }).thenAccept(result -> BridgeUtils.resolveIfValid(promise, result));
@@ -173,10 +161,10 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void updatePushToken(String config, Promise promise) {
+    public void vcxUpdatePushToken(String config, Promise promise) {
         try {
             UtilsApi.vcxUpdateAgentInfo(config).exceptionally((t) -> {
-                Log.e(TAG, "createOneTimeInfo: ", t);
+                Log.e(TAG, "vcxUpdatePushToken: ", t);
                 promise.reject("FutureException", t.getMessage());
                 return -1;
             }).thenAccept(result -> {

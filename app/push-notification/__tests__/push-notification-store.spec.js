@@ -145,7 +145,15 @@ describe('push notification store should work properly', () => {
     const vcxInitSuccessState = {
       config: {
         vcxInitializationState: VCX_INIT_SUCCESS,
+        isHydrated: true,
       },
+      connections: {
+        data: null,
+      },
+      deepLink: {
+        tokens: { token: { status: '', token: 'token' } },
+      },
+      invitation: {},
     }
     const id = await uniqueId()
     const cxsPushTokenConfig = { uniqueId: id, pushToken: `FCM:${pushToken}` }

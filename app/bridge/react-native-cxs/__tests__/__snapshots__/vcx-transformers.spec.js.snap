@@ -55,6 +55,7 @@ Object {
       "verKey": "senderVerificationKey1",
     },
     "statusCode": "MS-102",
+    "statusMsg": "message sent",
     "targetName": "sender1",
   },
   "source_id": "requestId1",

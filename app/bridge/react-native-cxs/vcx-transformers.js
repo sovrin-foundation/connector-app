@@ -92,23 +92,23 @@ export function convertInvitationToVcxConnectionCreate(
       senderDetail: invitation.senderDetail,
       senderAgencyDetail: invitation.senderAgencyDetail,
       targetName: invitation.senderName,
+      // hard coding this for now, because this field does not matter anywhere for processing
+      // and it will always be message sent for the purpose of connection create
+      statusMsg: 'message sent',
     },
   }
 }
 
 export function convertVcxConnectionToCxsConnection(
-  vcxConnectionString: string
+  vcxConnection: VcxConnectionConnectResult
 ): MyPairwiseInfo {
-  const vcxConnection: VcxConnectionConnectResult = JSON.parse(
-    vcxConnectionString
-  )
   return {
-    myPairwiseDid: vcxConnection.sa.d,
-    myPairwiseVerKey: vcxConnection.sa.v,
-    myPairwiseAgentDid: vcxConnection.s.dp.d,
-    myPairwiseAgentVerKey: vcxConnection.s.dp.k,
-    myPairwisePeerVerKey: vcxConnection.s.v,
-    senderDID: vcxConnection.s.d,
+    myPairwiseDid: vcxConnection.pw_did,
+    myPairwiseVerKey: vcxConnection.pw_verkey,
+    myPairwiseAgentDid: vcxConnection.agent_did,
+    myPairwiseAgentVerKey: vcxConnection.agent_vk,
+    myPairwisePeerVerKey: vcxConnection.their_pw_verkey,
+    senderDID: vcxConnection.their_pw_did,
   }
 }
 
