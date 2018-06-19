@@ -27,6 +27,8 @@ import {
   VERIFY_INPUT_PLACEHOLDER,
 } from './backup-constants'
 
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 const { height } = Dimensions.get('window')
 const transparentBands = require('../images/transparentBands2.png')
 const backImage = require('../images/icon_backArrow_white.png')
@@ -104,32 +106,40 @@ export class VerifyRecoveryPhrase extends Component<
         testID={VERIFY_CONTAINER_TEST_ID}
         style={[styles.verifyMainContainer]}
         onPress={Keyboard.dismiss}
+        safeArea
       >
         <Image
           source={transparentBands}
           style={[styles.backgroundImageVerify]}
         />
-        <Container>
-          <CustomView center>
-            <CustomText transparentBg center style={[styles.title]}>
-              Verify Your Recovery Phrase
-            </CustomText>
-          </CustomView>
-          <CustomView center doubleVerticalSpace>
-            <CustomText center transparentBg h5 style={[styles.verifyMainText]}>
-              To verify that you have copied down your recovery phrase
-              correctly, please enter it below.
-            </CustomText>
-          </CustomView>
-          <TextInput
-            onChangeText={this.recoveryPhrase}
-            style={[styles.inputBox]}
-            placeholder={VERIFY_INPUT_PLACEHOLDER}
-            placeholderTextColor="white"
-            autoCorrect={false}
-            underlineColorAndroid="transparent"
-          />
-        </Container>
+        <KeyboardAwareScrollView extraHeight={50}>
+          <Container>
+            <CustomView center>
+              <CustomText transparentBg center style={[styles.title]}>
+                Verify Your Recovery Phrase
+              </CustomText>
+            </CustomView>
+            <CustomView center doubleVerticalSpace>
+              <CustomText
+                center
+                transparentBg
+                h5
+                style={[styles.verifyMainText]}
+              >
+                To verify that you have copied down your recovery phrase
+                correctly, please enter it below.
+              </CustomText>
+            </CustomView>
+            <TextInput
+              onChangeText={this.recoveryPhrase}
+              style={[styles.inputBox]}
+              placeholder={VERIFY_INPUT_PLACEHOLDER}
+              placeholderTextColor="white"
+              autoCorrect={false}
+              underlineColorAndroid="transparent"
+            />
+          </Container>
+        </KeyboardAwareScrollView>
         <CustomView>
           <CustomButton
             large={height > SHORT_DEVICE ? true : false}

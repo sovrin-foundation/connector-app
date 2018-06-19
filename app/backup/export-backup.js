@@ -93,6 +93,7 @@ export class ExportBackupFile extends PureComponent<
         height: 0,
       },
       shadowRadius: 0,
+      borderBottomWidth: 0,
       elevation: 0,
     },
     gesturesEnabled: true,
@@ -100,30 +101,30 @@ export class ExportBackupFile extends PureComponent<
 
   render() {
     return (
-      <Container style={[styles.exportBackup]}>
+      <Container style={[styles.exportBackup]} safeArea>
         <Image source={transparentBands} style={[styles.backgroundImage]} />
         <Container style={[styles.wrapper]}>
-          <CustomView center>
+          <CustomView center verticalSpace>
             <CustomText transparentBg center style={[styles.title]}>
               Export Your Encrypted Backup File
             </CustomText>
           </CustomView>
-          <CustomView center doubleVerticalSpace>
+          <CustomView center verticalSpace>
             <CustomText center transparentBg h5 style={[styles.verifyMainText]}>
               You will need your recovery phrase to unlock this backup file.
             </CustomText>
           </CustomView>
-          <CustomView center doubleVerticalSpace>
+          <CustomView center verticalSpace>
             <CustomText center transparentBg h5 style={[styles.verifyMainText]}>
               Don’t worry, only you can decrypt the backup with your recovery
               phrase.
             </CustomText>
           </CustomView>
 
-          <CustomView center>
+          <CustomView center style={[styles.lockIconImage]}>
             <Image source={encryptedFile} />
           </CustomView>
-          <CustomView center verticalSpace>
+          <CustomView center>
             <CustomText
               center
               transparentBg
@@ -134,7 +135,9 @@ export class ExportBackupFile extends PureComponent<
               {this.parseFilePath(this.props.backupPath)}
             </CustomText>
           </CustomView>
+        </Container>
 
+        <CustomView>
           <CustomView center doubleVerticalSpace>
             <CustomText
               center
@@ -146,7 +149,6 @@ export class ExportBackupFile extends PureComponent<
               somewhere safe.
             </CustomText>
           </CustomView>
-
           <CustomButton
             large={height > SHORT_DEVICE ? true : false}
             onPress={this.encryptAndBackup}
@@ -160,7 +162,7 @@ export class ExportBackupFile extends PureComponent<
             }}
             title={EXPORT_BACKUP_BUTTON_TITLE}
           />
-        </Container>
+        </CustomView>
       </Container>
     )
   }

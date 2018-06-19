@@ -46,7 +46,9 @@ export class GenerateRecoveryPhrase extends PureComponent<
   }
 
   static navigationOptions = ({ navigation }) => ({
-    headerTitle: (
+    headerLeft: <CustomView />,
+    headerTitle: <CustomView />,
+    headerRight: (
       <CustomView style={[styles.genRecoveryHeader]}>
         <Icon
           medium
@@ -55,24 +57,18 @@ export class GenerateRecoveryPhrase extends PureComponent<
           iconStyle={[styles.headerCloseIcon]}
           src={closeImage}
         />
-        <CustomText
-          transparentBg
-          numberOfLines={1}
-          style={[styles.genRecoveryText]}
-        >
-          Recovery Phrase Generated
-        </CustomText>
       </CustomView>
     ),
     headerStyle: {
       backgroundColor: color.bg.eleventh.color,
-      height: 120,
       shadowOpacity: 0,
       shadowOffset: {
         height: 0,
       },
       shadowRadius: 0,
       elevation: 0,
+      borderBottomWidth: 0,
+      shadowColor: 'transparent',
     },
     gesturesEnabled: true,
   })
@@ -80,54 +76,74 @@ export class GenerateRecoveryPhrase extends PureComponent<
   render() {
     const { navigation: { state } } = this.props
     return (
-      <Container style={[styles.genRecovery]}>
+      <Container style={[styles.genRecovery]} safeArea>
         <Image source={transparentBands} style={[styles.backgroundImage]} />
-        <CustomView center style={[styles.genRecoveryWrapper]}>
-          <CustomText center transparentBg style={[styles.genRecoveryMessage]}>
-            This is your recovery phrase. Write it down, and don't share it with
-            anyone.
-          </CustomText>
-        </CustomView>
         <Container>
-          <Image source={textBubble} />
-          <Container style={[styles.genRecoveryPhraseContainer]}>
-            <CustomText transparentBg style={[styles.genRecoveryPhrase]}>
-              {this.state.recoveryPassphrase}
+          <CustomView>
+            <CustomText
+              transparentBg
+              numberOfLines={1}
+              style={[styles.genRecoveryText]}
+            >
+              Recovery Phrase Generated
             </CustomText>
-          </Container>
+          </CustomView>
+          <CustomView
+            center
+            style={[styles.genRecoveryWrapper]}
+            doubleVerticalSpace
+          >
+            <CustomText
+              center
+              transparentBg
+              style={[styles.genRecoveryMessage]}
+            >
+              This is your recovery phrase. Write it down, and don't share it
+              with anyone.
+            </CustomText>
+          </CustomView>
+          <CustomView center verticalSpace>
+            <Image source={textBubble} />
+            <CustomView style={[styles.genRecoveryPhraseContainer]}>
+              <CustomText transparentBg style={[styles.genRecoveryPhrase]}>
+                {this.state.recoveryPassphrase}
+              </CustomText>
+            </CustomView>
+          </CustomView>
+          <CustomView center verticalSpace>
+            <CustomText
+              center
+              transparentBg
+              style={[styles.genRecoverySecondMessage]}
+            >
+              You will need this recovery phrase to restore from a backup. Keep
+              it safe.
+            </CustomText>
+          </CustomView>
         </Container>
-        <CustomView center>
-          <CustomText
-            center
-            transparentBg
-            style={[styles.genRecoverySecondMessage]}
-          >
-            You will need this recovery phrase to restore from a backup. Keep it
-            safe.
-          </CustomText>
+        <CustomView>
+          <CustomView center>
+            <CustomText
+              transparentBg
+              center
+              style={[styles.genRecoverySmallMessage]}
+            >
+              Are you sure you wrote it down?
+            </CustomText>
+          </CustomView>
+          <CustomButton
+            large={height > SHORT_DEVICE ? true : false}
+            onPress={this.verifyRecoveryPhrase}
+            testID={SUBMIT_RECOVERY_PHRASE_TEST_ID}
+            style={[styles.submitButton]}
+            customColor={{
+              color: color.bg.eleventh.color,
+              fontWeight: '600',
+              fontSize: 18,
+            }}
+            title={SUBMIT_RECOVERY_PHRASE_BUTTON_TITLE}
+          />
         </CustomView>
-        <CustomView center>
-          <CustomText
-            transparentBg
-            center
-            style={[styles.genRecoverySmallMessage]}
-          >
-            Are you sure you wrote it down?
-          </CustomText>
-        </CustomView>
-
-        <CustomButton
-          large={height > SHORT_DEVICE ? true : false}
-          onPress={this.verifyRecoveryPhrase}
-          testID={SUBMIT_RECOVERY_PHRASE_TEST_ID}
-          style={[styles.submitButton]}
-          customColor={{
-            color: color.bg.eleventh.color,
-            fontWeight: '600',
-            fontSize: 18,
-          }}
-          title={SUBMIT_RECOVERY_PHRASE_BUTTON_TITLE}
-        />
       </Container>
     )
   }

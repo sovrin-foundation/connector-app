@@ -53,6 +53,7 @@ export class BackupComplete extends PureComponent<BackupCompleteProps, void> {
         height: 0,
       },
       shadowRadius: 0,
+      borderBottomWidth: 0,
       elevation: 0,
     },
     gesturesEnabled: true,
@@ -60,7 +61,7 @@ export class BackupComplete extends PureComponent<BackupCompleteProps, void> {
 
   render() {
     return (
-      <Container style={[styles.backupComplete]}>
+      <Container style={[styles.backupComplete]} safeArea>
         <Image source={transparentBands} style={[styles.backgroundImage]} />
         <Container style={[styles.wrapper]}>
           <Container>

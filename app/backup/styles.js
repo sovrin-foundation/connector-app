@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     backgroundColor: color.bg.eleventh.color,
   },
   genRecoveryWrapper: {
-    height: 80,
+    // height: 80,
   },
   genRecoveryHeader: {
     width: '100%',
@@ -70,20 +70,21 @@ const styles = StyleSheet.create({
   genRecoveryPhrase: {
     textAlign: 'center',
     color: color.bg.eleventh.color,
+    marginTop: 10,
     fontSize: 20,
     lineHeight: 30,
     fontFamily: 'Lato',
     fontWeight: '900',
   },
   genRecoveryText: {
-    marginBottom: 20,
+    marginBottom: '2%',
     alignSelf: 'center',
     fontSize: 22,
     fontWeight: '600',
     fontFamily: 'Lato',
   },
   genRecoveryMessage: {
-    marginBottom: 40,
+    // marginBottom: 40,
     paddingHorizontal: 20,
     alignSelf: 'center',
     fontSize: 18,
@@ -92,8 +93,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato',
   },
   genRecoverySecondMessage: {
-    marginBottom: 40,
-    paddingHorizontal: 20,
+    // marginBottom: 40,
+    // paddingHorizontal: 20,
+    paddingLeft: '10%',
+    paddingRight: '10%',
     alignSelf: 'center',
     fontSize: 18,
     lineHeight: 22,
@@ -105,7 +108,7 @@ const styles = StyleSheet.create({
     lineHeight: 17,
     fontWeight: 'bold',
     fontFamily: 'Lato',
-    marginBottom: 30,
+    marginBottom: '3%',
   },
   verifyMainContainer: {
     flex: 1,
@@ -205,6 +208,9 @@ const styles = StyleSheet.create({
   customButtonColor: {
     fontWeight: '600',
     fontSize: 18,
+  },
+  lockIconImage: {
+    paddingTop: '5%',
   },
 })
 
