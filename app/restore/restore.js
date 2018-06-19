@@ -1,15 +1,40 @@
 // @flow
 
 import React, { PureComponent } from 'react'
-import { Image, StyleSheet, Dimensions } from 'react-native'
+import { Image, StyleSheet, Dimensions, Platform } from 'react-native'
 import { Container, CustomView, CustomText, CustomButton } from '../components'
 import { SHORT_DEVICE, grey } from '../common/styles/constant'
 import { lockSelectionRoute } from '../common'
+import { DocumentPicker } from 'react-native-document-picker'
+import { saveFileDocumentsDirectory } from '../bridge/react-native-cxs/RNCxs'
+import RNFetchBlob from 'react-native-fetch-blob'
 
 const { height } = Dimensions.get('window')
 
 export class RestoreScreen extends PureComponent<*, void> {
-  restoreBackup = () => {}
+  restoreBackup = () => {
+    DocumentPicker.show(
+      {
+        filetype: [
+          Platform.OS === 'android' ? 'application/zip' : 'public.zip-archive',
+        ],
+      },
+      (error, res) => {
+        if (res) {
+          const split = res.uri.split('/')
+          const name = split.pop()
+          const inbox = split.pop()
+          const realPath = `${inbox}/${name}`
+
+          const documentDirectory = RNFetchBlob.fs.dirs.DocumentDir
+          saveFileDocumentsDirectory(realPath, documentDirectory, 'restore.zip')
+        } else {
+          console.log('err', error)
+        }
+      }
+    )
+  }
+
   startFresh = () => {
     this.props.navigation.navigate(lockSelectionRoute)
   }

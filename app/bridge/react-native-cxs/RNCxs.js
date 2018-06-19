@@ -718,6 +718,18 @@ export async function getZippedWalletBackupPath({
   return backupPath
 }
 
+export async function saveFileDocumentsDirectory(
+  tempFilePath: string,
+  documentDirectory: string,
+  restoreFileName: string
+): Promise<string> {
+  return await RNIndy.saveFileDocumentsDirectory(
+    tempFilePath,
+    documentDirectory,
+    restoreFileName
+  )
+}
+
 export async function updateClaimOfferState(claimHandle: number) {
   const updatedState: number = await RNIndy.updateClaimOfferState(claimHandle)
 

@@ -637,6 +637,27 @@ RCT_EXPORT_METHOD(deserializeConnection: (NSString *)serializedConnection
   });
 }
 
+RCT_EXPORT_METHOD(
+  saveFileDocumentsDirectory: (NSString *) tempPath
+                  documentsDirectory:(NSString *)documentsDirectory 
+                  restoredFileName:(NSString *) restoredFileName
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  NSString *filePath = [documentsDirectory stringByAppendingPathComponent:restoredFileName];
+  NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingString: tempPath];
+  NSError *error;
+  NSFileManager *fileManager = [NSFileManager defaultManager];
+  if ([fileManager fileExistsAtPath: filePath]){
+    [fileManager removeItemAtPath:filePath error:NULL];
+  }
+  BOOL success;
+  success = [fileManager copyItemAtPath:tempFilePath toPath:filePath error:&error];
+  if(!success){
+    NSLog(@"error at savefiledocumentsdirectory");
+  }
+}
+
 RCT_EXPORT_METHOD(credentialCreateWithMsgId: (NSString *) sourceId
                   withConnectionHandle: (NSInteger) connectionHandle
                   withMessageId: (NSString *) messageId

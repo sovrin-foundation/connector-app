@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Image, TouchableWithoutFeedback, View } from 'react-native'
+import { Image, TouchableWithoutFeedback, View, Platform } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import RNFetchBlob from 'react-native-fetch-blob'
