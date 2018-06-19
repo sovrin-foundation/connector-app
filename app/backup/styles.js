@@ -154,11 +154,6 @@ const styles = StyleSheet.create({
     flex: 1,
     position: 'absolute',
   },
-  verifyTitle: {
-    fontSize: 22,
-    marginBottom: 20,
-    width: '100%',
-  },
   exportBackup: {
     backgroundColor: color.bg.thirteenth.color,
   },
@@ -166,6 +161,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: PADDING_HORIZONTAL,
   },
   title: {
+    fontFamily: 'Lato',
+    fontWeight: '600',
+    lineHeight: 27,
     fontSize: 22,
     marginBottom: 20,
     width: '100%',
@@ -191,20 +189,10 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   backupCompleteText: {
-    marginBottom: 20,
-    backgroundColor: color.bg.fourteenth.color,
-    alignSelf: 'center',
-    fontSize: 22,
-  },
-  backupCompleteMessage: {
-    backgroundColor: color.bg.fourteenth.color,
-    alignSelf: 'center',
     fontSize: 18,
-  },
-  backupCompleteSmallMessage: {
-    backgroundColor: color.bg.fourteenth.color,
-    alignSelf: 'center',
-    fontSize: 14,
+    fontFamily: 'Lato',
+    fontWeight: '500',
+    lineHeight: 22,
   },
   alignItemsCenter: {
     marginBottom: 6,

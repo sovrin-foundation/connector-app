@@ -41,12 +41,12 @@ export class VerifyRecoveryPhrase extends Component<
     recoveryPassphrase: '',
   }
 
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({ navigation: { goBack, navigate, state } }) => ({
     headerLeft: (
       <CustomView style={[styles.headerSpacer]}>
         <Icon
           medium
-          onPress={() => navigation.goBack(null)}
+          onPress={() => goBack(null)}
           testID={VERIFY_BACK_TEST_ID}
           iconStyle={[styles.headerBackIcon]}
           src={backImage}
@@ -57,8 +57,7 @@ export class VerifyRecoveryPhrase extends Component<
       <CustomView style={[styles.headerSpacer]}>
         <Icon
           medium
-          // TODO: change to go back 2 routes??
-          onPress={() => navigation.goBack(null)}
+          onPress={() => navigate(state.params.initialRoute)}
           testID={VERIFY_CLOSE_TEST_ID}
           iconStyle={[styles.headerIcon]}
           src={closeImage}
@@ -74,10 +73,15 @@ export class VerifyRecoveryPhrase extends Component<
   })
 
   verifyRecoveryPhrase = async () => {
-    const { recoveryPassphrase } = this.props.navigation.state.params
+    const {
+      recoveryPassphrase,
+      initialRoute,
+    } = this.props.navigation.state.params
 
     if (recoveryPassphrase === this.state.recoveryPassphrase) {
-      this.props.navigation.navigate(exportBackupFileRoute)
+      this.props.navigation.navigate(exportBackupFileRoute, {
+        initialRoute,
+      })
       this.setState({ error: false })
     } else {
       this.setState({ error: true })
@@ -107,7 +111,7 @@ export class VerifyRecoveryPhrase extends Component<
         />
         <Container>
           <CustomView center>
-            <CustomText transparentBg center style={[styles.verifyTitle]}>
+            <CustomText transparentBg center style={[styles.title]}>
               Verify Your Recovery Phrase
             </CustomText>
           </CustomView>

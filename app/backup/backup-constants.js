@@ -16,3 +16,8 @@ export const EXPORT_BACKUP_BACK_TEST_ID = 'export-backup-back-image'
 export const EXPORT_BACKUP_CLOSE_TEST_ID = 'export-backup-close-image'
 export const EXPORT_BACKUP_SUBMIT_BUTTON_TEST_ID = 'export-encrypted-backup'
 export const EXPORT_BACKUP_BUTTON_TITLE = 'Export Encrypted Backup'
+
+export const BACKUP_COMPLETE_CLOSE_TEST_ID =
+  'backup-complete-passphrase-close-image'
+export const BACKUP_COMPLETE_SUBMIT_BUTTON = 'backup-complete-submit-button'
+export const BACKUP_COMPLETE_SUBMIT_BUTTON_TITLE = 'Done'

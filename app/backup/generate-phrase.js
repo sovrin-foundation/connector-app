@@ -41,6 +41,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
     const { navigation: { navigate, state } } = this.props
     navigate(verifyRecoveryPhraseRoute, {
       recoveryPassphrase: this.state.recoveryPassphrase,
+      initialRoute: state.params.initialRoute,
     })
   }
 
@@ -77,16 +78,12 @@ export class GenerateRecoveryPhrase extends PureComponent<
   })
 
   render() {
+    const { navigation: { state } } = this.props
     return (
       <Container style={[styles.genRecovery]}>
         <Image source={transparentBands} style={[styles.backgroundImage]} />
         <CustomView center style={[styles.genRecoveryWrapper]}>
-          <CustomText
-            center
-            demiBold
-            transparentBg
-            style={[styles.genRecoveryMessage]}
-          >
+          <CustomText center transparentBg style={[styles.genRecoveryMessage]}>
             This is your recovery phrase. Write it down, and don't share it with
             anyone.
           </CustomText>
@@ -102,7 +99,6 @@ export class GenerateRecoveryPhrase extends PureComponent<
         <CustomView center>
           <CustomText
             center
-            demiBold
             transparentBg
             style={[styles.genRecoverySecondMessage]}
           >
@@ -113,7 +109,6 @@ export class GenerateRecoveryPhrase extends PureComponent<
         <CustomView center>
           <CustomText
             transparentBg
-            semiBold
             center
             style={[styles.genRecoverySmallMessage]}
           >

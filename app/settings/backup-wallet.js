@@ -2,19 +2,24 @@
 
 import React, { PureComponent } from 'react'
 import { View } from 'react-native'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import get from 'lodash.get'
 import type { Store } from '../store/type-store'
 import type { BackupWalletProps } from '../wallet/type-wallet'
 import { walletBackup } from '../wallet/wallet-store'
-import { genRecoveryPhraseRoute } from '../common'
+import { genRecoveryPhraseRoute, settingsRoute } from '../common'
 
 class BackupWallet extends PureComponent<BackupWalletProps, void> {
   backupWallet = () => {
-    const { navigation: { navigate }, walletBackup } = this.props
+    const { navigation: { navigate, state }, walletBackup } = this.props
+    // If no there is no route, then default to Settings
+    const initialRoute = get(state, 'routeName', settingsRoute)
 
     walletBackup()
-    navigate(genRecoveryPhraseRoute)
+    navigate(genRecoveryPhraseRoute, {
+      initialRoute,
+    })
   }
   render() {
     const { render, backup }: BackupWalletProps = this.props

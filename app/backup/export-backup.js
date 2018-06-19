@@ -44,11 +44,14 @@ export class ExportBackupFile extends PureComponent<
   }
 
   componentDidUpdate(prevProps: ExportBackupFileProps) {
+    const { navigation: { navigate, state } } = this.props
     if (
       prevProps.backupStatus !== 'SUCCESS' &&
       this.props.backupStatus === 'SUCCESS'
     ) {
-      this.props.navigation.navigate(backupCompleteRoute)
+      navigate(backupCompleteRoute, {
+        initialRoute: state.params.initialRoute,
+      })
     }
   }
 
@@ -58,13 +61,14 @@ export class ExportBackupFile extends PureComponent<
     this.props.walletBackupShare(backupPath)
   }
 
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({ navigation: { goBack, navigate, state } }) => ({
     headerLeft: (
       <CustomView style={[styles.headerSpacer]}>
         <Icon
           medium
-          onPress={() => navigation.goBack(null)}
+          onPress={() => goBack(null)}
           testID={EXPORT_BACKUP_BACK_TEST_ID}
+          testID="export-backup-back'-image"
           iconStyle={[styles.headerBackIcon]}
           src={backImage}
         />
@@ -74,7 +78,7 @@ export class ExportBackupFile extends PureComponent<
       <CustomView style={[styles.headerSpacer]}>
         <Icon
           medium
-          onPress={() => navigation.goBack(null)}
+          onPress={() => navigate(state.params.initialRoute)}
           testID={EXPORT_BACKUP_CLOSE_TEST_ID}
           iconStyle={[styles.headerIcon]}
           src={closeImage}
