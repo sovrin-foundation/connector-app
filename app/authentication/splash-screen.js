@@ -219,6 +219,13 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
           this.props.navigation.navigate(restoreRoute)
         }
       } else {
+        // TODO: We MUST remove things from stack and should do this asap
+        // we can reach to this point even after app is unlocked
+        // so we don't want to run below logic again
+        if (this.props.lock.isAppLocked === false) {
+          return
+        }
+
         // not the first time user is opening app
         if (this.props.lock.isTouchIdEnabled) {
           this.props.navigation.navigate(lockEnterFingerprintRoute)
