@@ -56,7 +56,7 @@ export class BackupComplete extends PureComponent<BackupCompleteProps, void> {
       borderBottomWidth: 0,
       elevation: 0,
     },
-    gesturesEnabled: true,
+    gesturesEnabled: false,
   })
 
   render() {

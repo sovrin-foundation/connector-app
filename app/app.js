@@ -69,6 +69,8 @@ const backButtonDisableRoutes = [
   lockSelectionRoute,
   lockPinSetupHomeRoute,
   lockAuthorizationHomeRoute,
+  genRecoveryPhraseRoute,
+  backupCompleteRoute,
   restoreRoute,
 ]
 

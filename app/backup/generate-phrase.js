@@ -70,7 +70,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
       borderBottomWidth: 0,
       shadowColor: 'transparent',
     },
-    gesturesEnabled: true,
+    gesturesEnabled: false,
   })
 
   render() {
