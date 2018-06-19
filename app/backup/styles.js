@@ -212,6 +212,10 @@ const styles = StyleSheet.create({
   lockIconImage: {
     paddingTop: '5%',
   },
+  imageIcon: {
+    resizeMode: 'contain',
+    width: '100%',
+  },
 })
 
 export default styles

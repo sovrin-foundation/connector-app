@@ -91,7 +91,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
           <CustomView
             center
             style={[styles.genRecoveryWrapper]}
-            doubleVerticalSpace
+            doubleVerticalSpace={height > SHORT_DEVICE ? true : false}
           >
             <CustomText
               center
@@ -102,15 +102,21 @@ export class GenerateRecoveryPhrase extends PureComponent<
               with anyone.
             </CustomText>
           </CustomView>
-          <CustomView center verticalSpace>
-            <Image source={textBubble} />
+          <CustomView
+            center
+            verticalSpace={height > SHORT_DEVICE ? true : false}
+          >
+            <Image source={textBubble} style={[styles.imageIcon]} />
             <CustomView style={[styles.genRecoveryPhraseContainer]}>
               <CustomText transparentBg style={[styles.genRecoveryPhrase]}>
                 {this.state.recoveryPassphrase}
               </CustomText>
             </CustomView>
           </CustomView>
-          <CustomView center verticalSpace>
+          <CustomView
+            center
+            verticalSpace={height > SHORT_DEVICE ? true : false}
+          >
             <CustomText
               center
               transparentBg

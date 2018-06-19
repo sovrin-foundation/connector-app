@@ -227,3 +227,4 @@ export const PIN_CODE_BORDER_BOTTOM = 4
 const { width, height } = Dimensions.get('screen')
 export const isiPhone5 = width >= 320 && width < 375
 export const SHORT_DEVICE = 600
+export const VERY_SHORT_DEVICE = 550

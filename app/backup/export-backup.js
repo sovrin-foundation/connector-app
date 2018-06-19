@@ -13,7 +13,7 @@ import {
   CustomButton,
 } from '../components'
 import { exportBackupFileRoute, backupCompleteRoute } from '../common'
-import { SHORT_DEVICE } from '../common/styles'
+import { SHORT_DEVICE, VERY_SHORT_DEVICE } from '../common/styles'
 import { color } from '../common/styles/constant'
 import type { ExportBackupFileProps } from './type-backup'
 import styles from './styles'
@@ -104,17 +104,26 @@ export class ExportBackupFile extends PureComponent<
       <Container style={[styles.exportBackup]} safeArea>
         <Image source={transparentBands} style={[styles.backgroundImage]} />
         <Container style={[styles.wrapper]}>
-          <CustomView center verticalSpace>
+          <CustomView
+            center
+            verticalSpace={height > VERY_SHORT_DEVICE ? true : false}
+          >
             <CustomText transparentBg center style={[styles.title]}>
               Export Your Encrypted Backup File
             </CustomText>
           </CustomView>
-          <CustomView center verticalSpace>
+          <CustomView
+            center
+            verticalSpace={height > VERY_SHORT_DEVICE ? true : false}
+          >
             <CustomText center transparentBg h5 style={[styles.verifyMainText]}>
               You will need your recovery phrase to unlock this backup file.
             </CustomText>
           </CustomView>
-          <CustomView center verticalSpace>
+          <CustomView
+            center
+            verticalSpace={height > VERY_SHORT_DEVICE ? true : false}
+          >
             <CustomText center transparentBg h5 style={[styles.verifyMainText]}>
               Don’t worry, only you can decrypt the backup with your recovery
               phrase.
@@ -122,7 +131,7 @@ export class ExportBackupFile extends PureComponent<
           </CustomView>
 
           <CustomView center style={[styles.lockIconImage]}>
-            <Image source={encryptedFile} />
+            <Image source={encryptedFile} style={[styles.imageIcon]} />
           </CustomView>
           <CustomView center>
             <CustomText
@@ -138,7 +147,10 @@ export class ExportBackupFile extends PureComponent<
         </Container>
 
         <CustomView>
-          <CustomView center doubleVerticalSpace>
+          <CustomView
+            center
+            doubleVerticalSpace={height > VERY_SHORT_DEVICE ? true : false}
+          >
             <CustomText
               center
               transparentBg
