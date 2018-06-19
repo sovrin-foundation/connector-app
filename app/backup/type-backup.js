@@ -17,6 +17,7 @@ export type VerifyRecoveryPhraseState = {
 
 export type ExportBackupFileProps = {
   walletBackup: () => void,
+  backupPath: string,
 } & ReactNavigation
 
 export type ExportBackupFileState = {

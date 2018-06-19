@@ -115,6 +115,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     lineHeight: 22,
   },
+  CircleShapeView: {
+    width: 100,
+    height: 100,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 100 / 2,
+    backgroundColor: 'white',
+  },
   inputBox: {
     marginBottom: 24,
     marginRight: 20,
@@ -173,8 +182,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   exportBackupSmallMessage: {
-    backgroundColor: color.bg.thirteenth.color,
-    alignSelf: 'center',
     fontSize: 14,
   },
   backupComplete: {

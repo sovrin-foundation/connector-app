@@ -1025,6 +1025,7 @@ export const backup = {
   status: STORE_STATUS.IDLE,
   error: null,
   latest: '2017-09-06T00:00:00+05:30',
+  backupPath: 'hibob',
   encryptionKey: 'walletEncryptionKey',
 }
 

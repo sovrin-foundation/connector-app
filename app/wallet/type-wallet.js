@@ -6,12 +6,13 @@ import type { IsValid } from '../components/input-control/type-input-control'
 export type BackupWalletProps = {
   backup: BackupInfo,
   render: (backup: string, backupWallet: () => void) => void,
-  //walletBackup: () => void,
+  walletBackup: () => void,
 } & ReactNavigation
 
 export type BackupInfo = {
   latest: ?string,
   error: ?CustomError,
+  backupPath: ?string,
 } & StoreStatus
 
 export const BACKUP_WALLET = 'BACKUP_WALLET'
@@ -21,6 +22,10 @@ export const BACKUP_WALLET_FAIL = 'BACKUP_WALLET_FAIL'
 export const BACKUP_WALLET_SUCCESS = 'BACKUP_WALLET_SUCCESS'
 
 export const GET_WALLET_ENCRYPTION_KEY = 'GET_WALLET_ENCRYPTION_KEY'
+
+export const BACKUP_WALLET_PATH = 'BACKUP_WALLET_PATH'
+
+export const SHARE_WALLET_BACKUP = 'SHARE_WALLET_BACKUP'
 
 export const ERROR_BACKUP_WALLET = {
   code: 'WB-001',
@@ -39,6 +44,11 @@ export type WalletTabSendDetailsProps = {
 
 export type BackupWalletAction = {
   type: typeof BACKUP_WALLET,
+  data: BackupInfo,
+}
+
+export type ShareBackupAction = {
+  type: typeof SHARE_WALLET_BACKUP,
   data: BackupInfo,
 }
 

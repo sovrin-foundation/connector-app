@@ -41,6 +41,8 @@ import {
   BACKUP_WALLET,
   BACKUP_WALLET_FAIL,
   BACKUP_WALLET_SUCCESS,
+  BACKUP_WALLET_PATH,
+  SHARE_WALLET_BACKUP,
   GET_WALLET_ENCRYPTION_KEY,
   ERROR_BACKUP_WALLET,
   ERROR_BACKUP_WALLET_SHARE,
@@ -66,6 +68,7 @@ import type {
   WalletBalance,
   WalletAddresses,
   SendTokensAction,
+  ShareBackupAction,
   PromptBackupBannerAction,
 } from './type-wallet'
 import type { CustomError } from '../common/type-common'
@@ -94,6 +97,7 @@ const initialState = {
     status: STORE_STATUS.IDLE,
     latest: null,
     error: null,
+    backupPath: null,
     showBanner: false,
   },
   payment: { tokenAmount: 0, status: STORE_STATUS.IDLE, error: null },
@@ -117,42 +121,12 @@ export function* backupWalletSaga(
   }
   try {
     const documentDirectory = RNFetchBlob.fs.dirs.DocumentDir
-    const backup = yield call(getZippedWalletBackupPath, {
+    const backupPath = yield call(getZippedWalletBackupPath, {
       documentDirectory,
       agencyConfig,
     })
 
-    // SHARE BACKUP FLOW
-    try {
-      Platform.OS === 'android'
-        ? yield call(Share.open, {
-            title: 'Share Your Data Wallet',
-            url: `file://${backup}`,
-            type: 'application/zip',
-          })
-        : yield call(Share.open, {
-            title: 'Share Your Data Wallet',
-            url: backup,
-            type: 'application/zip',
-            message: 'here we go!',
-            subject: 'something here maybe?',
-          })
-      yield put(walletBackupComplete())
-      yield put(promptBackupBanner(false))
-      let encryptionKey = yield call(getItem, WALLET_ENCRYPTION_KEY)
-      // TODO: has to be removed, only for android testing and the above let has to be changed to const
-      if (encryptionKey === null) {
-        encryptionKey = WALLET_ENCRYPTION_KEY
-      }
-      yield put(walletEncryptionKey(encryptionKey))
-    } catch (e) {
-      yield put(
-        backupWalletFail({
-          ...ERROR_BACKUP_WALLET_SHARE,
-          message: `${ERROR_BACKUP_WALLET_SHARE.message}.${e}`,
-        })
-      )
-    }
+    yield put(backupWalletPath(backupPath))
   } catch (e) {
     yield put(
       backupWalletFail({
@@ -163,12 +137,53 @@ export function* backupWalletSaga(
   }
 }
 
+export function* shareBackupSaga(
+  action: ShareBackupAction
+): Generator<*, *, *> {
+  // SHARE BACKUP FLOW
+  const { data } = action
+  const { backupPath }: { backupPath: any } = data
+
+  try {
+    Platform.OS === 'android'
+      ? yield call(Share.open, {
+          title: 'Share Your Data Wallet',
+          url: `file://${backupPath}`,
+          type: 'application/zip',
+        })
+      : yield call(Share.open, {
+          title: 'Share Your Data Wallet',
+          url: backupPath,
+          type: 'application/zip',
+          message: 'here we go!',
+          subject: 'something here maybe?',
+        })
+    yield put(walletBackupComplete(backupPath))
+    yield put(promptBackupBanner(false))
+    let encryptionKey = yield call(getItem, WALLET_ENCRYPTION_KEY)
+    // TODO: has to be removed, only for android testing and the above let has to be changed to const
+    if (encryptionKey === null) {
+      encryptionKey = WALLET_ENCRYPTION_KEY
+    }
+    yield put(walletEncryptionKey(encryptionKey))
+  } catch (e) {
+    yield put(
+      backupWalletFail({
+        ...ERROR_BACKUP_WALLET_SHARE,
+        message: `${ERROR_BACKUP_WALLET_SHARE.message}.${e}`,
+      })
+    )
+  }
+}
 export const backupWalletFail = (error: CustomError) => ({
   type: BACKUP_WALLET_FAIL,
   error,
   status: STORE_STATUS.ERROR,
 })
-
+export const backupWalletPath = (backupPath: string) => ({
+  type: BACKUP_WALLET_PATH,
+  backupPath,
+})
 export const walletEncryptionKey = (WALLET_ENCRYPTION_KEY: string) => ({
   type: GET_WALLET_ENCRYPTION_KEY,
   data: {
@@ -184,12 +199,20 @@ export const walletBackup = () => ({
     error: null,
   },
 })
-
-export const walletBackupComplete = () => ({
+export const walletBackupShare = (WALLET_BACKUP_PATH: string) => ({
+  type: SHARE_WALLET_BACKUP,
+  data: {
+    status: STORE_STATUS.IN_PROGRESS,
+    backupPath: WALLET_BACKUP_PATH,
+    error: null,
+  },
+})
+export const walletBackupComplete = (WALLET_BACKUP_PATH: string) => ({
   type: BACKUP_WALLET_SUCCESS,
   data: {
     status: STORE_STATUS.SUCCESS,
     latest: moment().format(),
+    backupPath: WALLET_BACKUP_PATH,
     error: null,
   },
 })
@@ -197,10 +220,11 @@ export const walletBackupComplete = () => ({
 function* watchWalletBackup(): any {
   yield takeLatest(BACKUP_WALLET, backupWalletSaga)
 }
-
-// TODO: persist wallet back state in AsyncStorage
+function* watchBackupShare(): any {
+  yield takeLatest(SHARE_WALLET_BACKUP, shareBackupSaga)
+} // TODO: persist wallet back state in AsyncStorage
 export function* watchBackup(): any {
-  yield all([watchWalletBackup()])
+  yield all([watchWalletBackup(), watchBackupShare()])
 }
 
 export function* watchBackupBanner(): any {
@@ -691,7 +715,6 @@ export default function walletReducer(
     }
     case BACKUP_WALLET: {
       const { status, error } = action.data
-
       return {
         ...state,
         backup: {
@@ -701,8 +724,18 @@ export default function walletReducer(
         },
       }
     }
+    case BACKUP_WALLET_PATH: {
+      const { backupPath } = action
+      return {
+        ...state,
+        backup: {
+          ...state.backup,
+          backupPath,
+        },
+      }
+    }
     case BACKUP_WALLET_SUCCESS: {
-      const { status, error, latest } = action.data
+      const { status, error, latest, backupPath } = action.data
 
       return {
         ...state,
@@ -710,6 +743,7 @@ export default function walletReducer(
           latest,
           status,
           error,
+          backupPath,
         },
       }
     }

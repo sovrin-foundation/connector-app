@@ -62,6 +62,7 @@ describe('store: wallet-store: ', () => {
         status: STORE_STATUS.IDLE,
         latest: null,
         error: null,
+        backupPath: null,
         showBanner: false,
       },
       payment: { tokenAmount: 0, status: STORE_STATUS.IDLE, error: null },
@@ -74,7 +75,7 @@ describe('store: wallet-store: ', () => {
 
   it('action: BACKUP_WALLET_SUCCESS', () => {
     expect(
-      walletReducer(initialState, walletBackupComplete())
+      walletReducer(initialState, walletBackupComplete('hibob'))
     ).toMatchSnapshot()
   })
 

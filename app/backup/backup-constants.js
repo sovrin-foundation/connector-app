@@ -11,3 +11,8 @@ export const VERIFY_CONTAINER_TEST_ID = 'verify-passphrase-container'
 export const VERIFY_SUBMIT_BUTTON_TEST_ID = 'verify-passphrase-submit-button'
 export const VERIFY_INPUT_PLACEHOLDER = 'Enter recovery phrase here'
 export const VERIFY_BUTTON_TITLE = 'Submit'
+
+export const EXPORT_BACKUP_BACK_TEST_ID = 'export-backup-back-image'
+export const EXPORT_BACKUP_CLOSE_TEST_ID = 'export-backup-close-image'
+export const EXPORT_BACKUP_SUBMIT_BUTTON_TEST_ID = 'export-encrypted-backup'
+export const EXPORT_BACKUP_BUTTON_TITLE = 'Export Encrypted Backup'

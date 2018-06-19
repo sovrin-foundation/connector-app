@@ -1,7 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react'
-import { Platform, Image, Dimensions } from 'react-native'
+import { Platform, Image, Dimensions, View } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -17,19 +17,31 @@ import { SHORT_DEVICE } from '../common/styles'
 import { color } from '../common/styles/constant'
 import type { ExportBackupFileProps } from './type-backup'
 import styles from './styles'
-import { walletBackup } from '../wallet/wallet-store'
+import { walletBackupShare } from '../wallet/wallet-store'
 import type { Store } from '../store/type-store'
+import {
+  EXPORT_BACKUP_BACK_TEST_ID,
+  EXPORT_BACKUP_CLOSE_TEST_ID,
+  EXPORT_BACKUP_SUBMIT_BUTTON_TEST_ID,
+  EXPORT_BACKUP_BUTTON_TITLE,
+} from './backup-constants'
 
 const { height } = Dimensions.get('window')
 const transparentBands = require('../images/transparentBands.png')
 const backImage = require('../images/icon_backArrow_white.png')
 const closeImage = require('../images/iconClose.png')
+const encryptedFile = require('../images/encryptedFile.png')
 
 export class ExportBackupFile extends PureComponent<
   ExportBackupFileProps,
   void
 > {
-  doNothing = () => {}
+  parseFilePath = (path: string) => {
+    const beginning = path.lastIndexOf('/') + 1
+    const end = path.length
+
+    return path.slice(beginning, end)
+  }
 
   componentDidUpdate(prevProps: ExportBackupFileProps) {
     if (
@@ -41,7 +53,9 @@ export class ExportBackupFile extends PureComponent<
   }
 
   encryptAndBackup = () => {
-    this.props.walletBackup()
+    const { backupPath } = this.props
+
+    this.props.walletBackupShare(backupPath)
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -50,7 +64,7 @@ export class ExportBackupFile extends PureComponent<
         <Icon
           medium
           onPress={() => navigation.goBack(null)}
-          testID="export-backup-back'-image"
+          testID={EXPORT_BACKUP_BACK_TEST_ID}
           iconStyle={[styles.headerBackIcon]}
           src={backImage}
         />
@@ -60,9 +74,8 @@ export class ExportBackupFile extends PureComponent<
       <CustomView style={[styles.headerSpacer]}>
         <Icon
           medium
-          // TODO: change to go back 3 routes??
           onPress={() => navigation.goBack(null)}
-          testID="export-backup-close-image"
+          testID={EXPORT_BACKUP_CLOSE_TEST_ID}
           iconStyle={[styles.headerIcon]}
           src={closeImage}
         />
@@ -91,18 +104,57 @@ export class ExportBackupFile extends PureComponent<
               Export Your Encrypted Backup File
             </CustomText>
           </CustomView>
+          <CustomView center doubleVerticalSpace>
+            <CustomText center transparentBg h5 style={[styles.verifyMainText]}>
+              You will need your recovery phrase to unlock this backup file.
+            </CustomText>
+          </CustomView>
+          <CustomView center doubleVerticalSpace>
+            <CustomText center transparentBg h5 style={[styles.verifyMainText]}>
+              Don’t worry, only you can decrypt the backup with your recovery
+              phrase.
+            </CustomText>
+          </CustomView>
+
+          <CustomView center>
+            <Image source={encryptedFile} />
+          </CustomView>
+          <CustomView center verticalSpace>
+            <CustomText
+              center
+              transparentBg
+              bold
+              h5
+              style={[styles.exportBackupSmallMessage]}
+            >
+              {this.parseFilePath(this.props.backupPath)}
+            </CustomText>
+          </CustomView>
+
+          <CustomView center doubleVerticalSpace>
+            <CustomText
+              center
+              transparentBg
+              h6
+              style={[styles.exportBackupSmallMessage]}
+            >
+              This backup contains all your data in Connect.Me. Store it
+              somewhere safe.
+            </CustomText>
+          </CustomView>
+
           <CustomButton
             large={height > SHORT_DEVICE ? true : false}
             onPress={this.encryptAndBackup}
-            testID="export-encrypted-backup"
+            testID={EXPORT_BACKUP_SUBMIT_BUTTON_TEST_ID}
             style={[styles.submitButton]}
             customColor={{
               color: color.bg.thirteenth.color,
               fontWeight: '600',
               fontSize: 18,
-              fontFamily: Platform.OS === 'ios' ? 'Arial' : 'sans-serif-thin',
+              fontFamily: 'Lato',
             }}
-            title="Export Encrypted Backup"
+            title={EXPORT_BACKUP_BUTTON_TITLE}
           />
         </Container>
       </Container>
@@ -111,11 +163,12 @@ export class ExportBackupFile extends PureComponent<
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ walletBackup }, dispatch)
+  bindActionCreators({ walletBackupShare }, dispatch)
 
 const mapStateToProps = (state: Store) => {
   return {
     backupStatus: state.wallet.backup.status,
+    backupPath: state.wallet.backup.backupPath,
   }
 }
 

@@ -3,6 +3,7 @@
 exports[`store: wallet-store:  action: BACKUP_WALLET 1`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -34,6 +35,7 @@ Object {
 exports[`store: wallet-store:  action: BACKUP_WALLET_SUCCESS 1`] = `
 Object {
   "backup": Object {
+    "backupPath": "hibob",
     "error": null,
     "latest": "2018-01-10T04:32:43+05:30",
     "status": "SUCCESS",
@@ -64,6 +66,7 @@ Object {
 exports[`store: wallet-store:  action: ERROR_BACKUP_WALLET 1`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": Object {
       "code": "WB-001",
       "message": "Error while backing up wallet",
@@ -98,6 +101,7 @@ Object {
 exports[`store: wallet-store:  action: ERROR_BACKUP_WALLET_SHARE 1`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": Object {
       "code": "WB-002",
       "message": "Error while sharing zipped backup",
@@ -132,6 +136,7 @@ Object {
 exports[`store: wallet-store:  action: HYDRATE_WALLET_ADDRESSES 1`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -165,6 +170,7 @@ Object {
 exports[`store: wallet-store:  action: HYDRATE_WALLET_ADDRESSES_FAIL 1`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -199,6 +205,7 @@ Object {
 exports[`store: wallet-store:  action: HYDRATE_WALLET_ADDRESSES_FAIL 2`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -233,6 +240,7 @@ Object {
 exports[`store: wallet-store:  action: HYDRATE_WALLET_BALANCE 1`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -264,6 +272,7 @@ Object {
 exports[`store: wallet-store:  action: HYDRATE_WALLET_BALANCE_FAIL 1`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -298,6 +307,7 @@ Object {
 exports[`store: wallet-store:  action: HYDRATE_WALLET_BALANCE_FAIL 2`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -332,6 +342,7 @@ Object {
 exports[`store: wallet-store:  action: HYDRATE_WALLET_HISTORY 1`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -379,6 +390,7 @@ Object {
 exports[`store: wallet-store:  action: HYDRATE_WALLET_HISTORY_FAIL 1`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -413,6 +425,7 @@ Object {
 exports[`store: wallet-store:  action: HYDRATE_WALLET_HISTORY_FAIL 2`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -447,6 +460,7 @@ Object {
 exports[`store: wallet-store:  action: PROMPT_WALLET_BACKUP_BANNER 1`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": true,
@@ -478,6 +492,7 @@ Object {
 exports[`store: wallet-store:  action: REFRESH_WALLET_ADDRESSES_FAIL 1`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -512,6 +527,7 @@ Object {
 exports[`store: wallet-store:  action: REFRESH_WALLET_BALANCE_FAIL 1`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -546,6 +562,7 @@ Object {
 exports[`store: wallet-store:  action: SEND_TOKENS_FAIL 1`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -580,6 +597,7 @@ Object {
 exports[`store: wallet-store:  action: SEND_TOKENS_FAIL 2`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -614,6 +632,7 @@ Object {
 exports[`store: wallet-store:  action: WALLET_ADDRESSES_REFRESHED 1`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -647,6 +666,7 @@ Object {
 exports[`store: wallet-store:  action: WALLET_ADDRESSES_REFRESHED 2`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -680,6 +700,7 @@ Object {
 exports[`store: wallet-store:  action: WALLET_BALANCE_REFRESHED 1`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -714,6 +735,7 @@ Object {
 exports[`store: wallet-store:  action: WALLET_BALANCE_REFRESHED 2`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -745,6 +767,7 @@ Object {
 exports[`store: wallet-store:  action: WALLET_HISTORY_REFRESHED 1`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
@@ -792,6 +815,7 @@ Object {
 exports[`store: wallet-store:  action: WALLET_HISTORY_REFRESHED 2`] = `
 Object {
   "backup": Object {
+    "backupPath": null,
     "error": null,
     "latest": null,
     "showBanner": false,
