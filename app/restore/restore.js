@@ -41,50 +41,62 @@ export class RestoreScreen extends PureComponent<*, void> {
   render() {
     return (
       <Container safeArea fifth testID={'restore-container'}>
-        <Container center>
-          <Image
-            source={require('../images/logo_connectme.png')}
-            style={[styles.imageContainer]}
-          />
-          <CustomText center transparentBg tertiary h5>
-            Identity Wallet
-          </CustomText>
-          <CustomText transparentBg tertiary h5 style={[styles.secondText]}>
-            Thanks for installing connect.me.
-          </CustomText>
-          <CustomText
-            center
-            transparentBg
-            tertiary
-            h5
-            style={[styles.marginHorizontal]}
-          >
-            You can restore from a backup or start with a brand new install.
-          </CustomText>
-          <CustomText transparentBg tertiary h5>
-            How would you like to proceed?
-          </CustomText>
+        <Image
+          source={require('../images/wave2.png')}
+          style={[styles.backgroundWaveImage]}
+        />
+        <Container testID={'restore-innercontainer'}>
+          <CustomView center>
+            <Image
+              source={require('../images/logo_connectme.png')}
+              style={[styles.imageContainer]}
+            />
+          </CustomView>
         </Container>
         <CustomView
           horizontalSpace
           doubleVerticalSpace
           testID={'restore-buttons-view'}
         >
+          <CustomView center style={[styles.textContainer]}>
+            <CustomText
+              transparentBg
+              style={[styles.secondText, styles.textBox]}
+            >
+              Thanks for installing connect.me.
+            </CustomText>
+            <CustomText
+              center
+              transparentBg
+              style={[styles.marginHorizontal, styles.textBox]}
+            >
+              You can restore from a backup or start with a brand new install.
+            </CustomText>
+            <CustomText transparentBg style={[styles.textBox]}>
+              How would you like to proceed?
+            </CustomText>
+          </CustomView>
           <CustomButton
             large={height > SHORT_DEVICE ? true : false}
             style={[styles.customButton, styles.buttonShadow]}
-            fifth
             title={'Restore From A Backup'}
             onPress={this.restoreBackup}
             testID={'restore-from-backup'}
+            customColor={{
+              color: 'rgba(74,143,227,1)',
+              fontWeight: '600',
+            }}
           />
           <CustomButton
             large={height > SHORT_DEVICE ? true : false}
             style={[styles.customButton, styles.buttonShadow]}
-            fifth
             title={'Start Fresh'}
             onPress={this.startFresh}
             testID={'start-fresh'}
+            customColor={{
+              color: 'rgba(74,143,227,1)',
+              fontWeight: '600',
+            }}
           />
         </CustomView>
       </Container>
@@ -93,6 +105,14 @@ export class RestoreScreen extends PureComponent<*, void> {
 }
 
 const styles = StyleSheet.create({
+  backgroundWaveImage: {
+    position: 'absolute',
+    top: height > SHORT_DEVICE ? '30%' : '20%',
+    left: 0,
+    right: 0,
+    resizeMode: 'stretch',
+    width: '100%',
+  },
   customButton: {
     width: '100%',
     height: height > SHORT_DEVICE ? 57 : 43,
@@ -110,16 +130,25 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   imageContainer: {
-    marginBottom: '8%',
-    marginTop: '15%',
+    marginTop: height > SHORT_DEVICE ? '30%' : '20%',
+    zIndex: -1,
+  },
+  textContainer: {
+    marginBottom: '10%',
   },
   secondText: {
-    marginTop: '30%',
-    marginBottom: 15,
+    marginBottom: '6%',
   },
   marginHorizontal: {
-    marginLeft: '13%',
-    marginRight: '13%',
-    marginBottom: 15,
+    marginLeft: '6%',
+    marginRight: '6%',
+    marginBottom: '6%',
+  },
+  textBox: {
+    fontWeight: '500',
+    color: 'rgba(112,112,112,1)',
+    fontSize: 18,
+    lineHeight: 22,
+    fontFamily: 'Lato',
   },
 })
