@@ -94,6 +94,8 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
 
   static navigationOptions = {
     title: settingsRoute,
+    headerLeft: <CustomView />,
+    headerRight: <CustomView />,
     headerStyle: tertiaryHeaderStyles.header,
     headerTitleStyle: tertiaryHeaderStyles.title,
   }

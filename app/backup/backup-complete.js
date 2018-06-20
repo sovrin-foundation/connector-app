@@ -35,6 +35,7 @@ export class BackupComplete extends PureComponent<BackupCompleteProps, void> {
   }
 
   static navigationOptions = ({ navigation: { navigate, state } }) => ({
+    headerLeft: <CustomView />,
     headerRight: (
       <CustomView style={[styles.headerSpacer]}>
         <Icon
