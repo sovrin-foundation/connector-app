@@ -48,11 +48,12 @@ export class ExportBackupFile extends PureComponent<
   }
 
   componentDidUpdate(prevProps: ExportBackupFileProps) {
-    const { navigation: { navigate, state } } = this.props
+    const { navigation: { navigate, state, goBack } } = this.props
     if (
       prevProps.backupStatus !== 'SUCCESS' &&
       this.props.backupStatus === 'SUCCESS'
     ) {
+      goBack(null)
       navigate(backupCompleteRoute, {
         initialRoute: state.params.initialRoute,
       })

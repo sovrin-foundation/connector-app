@@ -38,7 +38,8 @@ export class GenerateRecoveryPhrase extends PureComponent<
   }
 
   verifyRecoveryPhrase = () => {
-    const { navigation: { navigate, state } } = this.props
+    const { navigation: { navigate, state, goBack } } = this.props
+    goBack(null)
     navigate(verifyRecoveryPhraseRoute, {
       recoveryPassphrase: this.state.recoveryPassphrase,
       initialRoute: state.params.initialRoute,

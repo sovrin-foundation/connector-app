@@ -29,8 +29,8 @@ const successCheck = require('../images/successCheck.png')
 
 export class BackupComplete extends PureComponent<BackupCompleteProps, void> {
   backupComplete = () => {
-    const { navigation: { navigate, state } } = this.props
-
+    const { navigation: { navigate, state, goBack } } = this.props
+    goBack(null)
     return navigate(state.params.initialRoute)
   }
 

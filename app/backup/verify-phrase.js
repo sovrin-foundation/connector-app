@@ -80,8 +80,8 @@ export class VerifyRecoveryPhrase extends Component<
       recoveryPassphrase,
       initialRoute,
     } = this.props.navigation.state.params
-
     if (recoveryPassphrase === this.state.recoveryPassphrase) {
+      this.props.navigation.goBack(null)
       this.props.navigation.navigate(exportBackupFileRoute, {
         initialRoute,
       })
