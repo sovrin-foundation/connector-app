@@ -26,3 +26,5 @@
 ## Checklist
 
 - [ ] I have created new screen, and I have checked the header of new screen on Android. I have also set the status bar color in app.js
+- [ ] I have checked the back button functionality required for the screens in Android. I have added the routeNames that are need to be handled for the back button in app.js
+- [ ] I have checked the back behaviour by swiping left or swiping down on screens and they behave as expected. Back behaviour of these screens has been approved by product team
