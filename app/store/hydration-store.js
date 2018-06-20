@@ -108,7 +108,7 @@ export function* appHydration(action: {
         AsyncStorage.getItem,
         STORAGE_KEY_EULA_ACCEPTANCE
       )
-      yield put(eulaAccept(eulaAcceptance))
+      yield put(eulaAccept(JSON.parse(eulaAcceptance)))
 
       const token = yield call(getItem, PUSH_COM_METHOD)
       yield put(updatePushToken(token))
@@ -117,7 +117,7 @@ export function* appHydration(action: {
         AsyncStorage.getItem,
         STORAGE_KEY_SHOW_BANNER
       )
-      yield put(promptBackupBanner(backupBanner))
+      yield put(promptBackupBanner(JSON.parse(backupBanner)))
 
       let fetchedConnections = yield call(getItem, CONNECTIONS)
       connections = fetchedConnections ? JSON.parse(fetchedConnections) : {}
