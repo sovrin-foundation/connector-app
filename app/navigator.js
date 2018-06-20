@@ -62,11 +62,13 @@ import {
   exportBackupFileRoute,
   backupCompleteRoute,
   restoreRoute,
+  restorePassphraseRoute,
 } from './common/'
 import { color } from './common/styles'
 import WalletTabSendDetails from './wallet/wallet-tab-send-details'
 import EulaScreen from './eula/eula'
 import { RestoreScreen } from './restore/restore'
+import RestorePassphrase from './restore/restore-passphrase'
 
 if (__DEV__) {
   require('../tools/reactotron-config')
@@ -199,6 +201,13 @@ const CardStack = StackNavigator(
     [restoreRoute]: {
       screen: RestoreScreen,
     },
+    [restorePassphraseRoute]: {
+      screen: RestorePassphrase,
+    },
+    [genRecoveryPhraseRoute]: { screen: GenerateRecoveryPhrase },
+    [verifyRecoveryPhraseRoute]: { screen: VerifyRecoveryPhrase },
+    [exportBackupFileRoute]: { screen: ExportBackupFile },
+    [backupCompleteRoute]: { screen: BackupComplete },
   },
   {
     headerMode: 'none',
@@ -255,10 +264,6 @@ const ConnectMeAppNavigator = StackNavigator(
     [connectionHistoryRoute]: {
       screen: ConnectionHistoryNavigator,
     },
-    [genRecoveryPhraseRoute]: { screen: GenerateRecoveryPhrase },
-    [verifyRecoveryPhraseRoute]: { screen: VerifyRecoveryPhrase },
-    [exportBackupFileRoute]: { screen: ExportBackupFile },
-    [backupCompleteRoute]: { screen: BackupComplete },
     [walletRoute]: { screen: Wallet },
     [walletTabSendDetailsRoute]: {
       screen: WalletTabSendDetails,

@@ -4,7 +4,7 @@ import React, { PureComponent } from 'react'
 import { Image, StyleSheet, Dimensions, Platform } from 'react-native'
 import { Container, CustomView, CustomText, CustomButton } from '../components'
 import { SHORT_DEVICE, grey } from '../common/styles/constant'
-import { lockSelectionRoute } from '../common'
+import { lockSelectionRoute, restorePassphraseRoute } from '../common'
 import { DocumentPicker } from 'react-native-document-picker'
 import { saveFileDocumentsDirectory } from '../bridge/react-native-cxs/RNCxs'
 import RNFetchBlob from 'react-native-fetch-blob'
@@ -23,11 +23,22 @@ export class RestoreScreen extends PureComponent<*, void> {
         if (res) {
           const split = res.uri.split('/')
           const name = split.pop()
+          let filename = ''
+
+          if (Platform.OS === 'android') {
+            filename = name.split('%2F').pop()
+          } else {
+            filename = name
+          }
+
           const inbox = split.pop()
           const realPath = `${inbox}/${name}`
 
           const documentDirectory = RNFetchBlob.fs.dirs.DocumentDir
           saveFileDocumentsDirectory(realPath, documentDirectory, 'restore.zip')
+          this.props.navigation.navigate(restorePassphraseRoute, {
+            filename,
+          })
         } else {
           console.log('err', error)
         }
@@ -122,8 +133,8 @@ const styles = StyleSheet.create({
   buttonShadow: {
     shadowColor: grey,
     shadowOffset: {
-      width: 1,
-      height: 1,
+      width: 0,
+      height: 5,
     },
     shadowRadius: 5,
     shadowOpacity: 0.3,

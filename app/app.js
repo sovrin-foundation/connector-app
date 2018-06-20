@@ -211,7 +211,10 @@ class ConnectMeApp extends PureComponent<void, AppState> {
         store.dispatch(updateStatusBarTheme(color.actions.font.seventh))
       } else if (currentScreen === genRecoveryPhraseRoute) {
         store.dispatch(updateStatusBarTheme(color.bg.eleventh.color))
-      } else if (currentScreen === verifyRecoveryPhraseRoute) {
+      } else if (
+        currentScreen === verifyRecoveryPhraseRoute ||
+        currentScreen === 'RestorePassphrase'
+      ) {
         store.dispatch(updateStatusBarTheme(color.bg.twelfth.color))
       } else if (currentScreen === exportBackupFileRoute) {
         store.dispatch(updateStatusBarTheme(color.bg.thirteenth.color))

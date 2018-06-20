@@ -28,6 +28,7 @@ import {
 } from './backup-constants'
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import VerifyPhrase from '../components/backup-restore-passphrase/backup-restore-passphrase'
 
 const { height } = Dimensions.get('window')
 const transparentBands = require('../images/transparentBands2.png')
@@ -71,7 +72,7 @@ export class VerifyRecoveryPhrase extends Component<
       borderBottomWidth: 0,
       elevation: 0,
     },
-    gesturesEnabled: true,
+    gesturesEnabled: false,
   })
 
   verifyRecoveryPhrase = async () => {
@@ -102,48 +103,12 @@ export class VerifyRecoveryPhrase extends Component<
   render() {
     // TODO: Add error UI when that is designed
     return (
-      <Container
+      <VerifyPhrase
         testID={VERIFY_CONTAINER_TEST_ID}
-        style={[styles.verifyMainContainer]}
-        onPress={Keyboard.dismiss}
-        safeArea
-      >
-        <Image
-          source={transparentBands}
-          style={[styles.backgroundImageVerify]}
-        />
-        <KeyboardAwareScrollView extraHeight={50}>
-          <Container>
-            <CustomView center>
-              <CustomText transparentBg center style={[styles.title]}>
-                Verify Your Recovery Phrase
-              </CustomText>
-            </CustomView>
-            <CustomView center>
-              <CustomText
-                center
-                transparentBg
-                h5
-                style={[styles.verifyMainText]}
-              >
-                To verify that you have copied down your recovery phrase
-                correctly, please enter it below.
-              </CustomText>
-            </CustomView>
-            <TextInput
-              autoCapitalize="none"
-              returnKeyType="send"
-              onSubmitEditing={this.verifyRecoveryPhrase}
-              onChangeText={this.recoveryPhrase}
-              style={[styles.inputBox]}
-              placeholder={VERIFY_INPUT_PLACEHOLDER}
-              placeholderTextColor="white"
-              autoCorrect={false}
-              underlineColorAndroid="transparent"
-            />
-          </Container>
-        </KeyboardAwareScrollView>
-      </Container>
+        placeholder={VERIFY_INPUT_PLACEHOLDER}
+        onSubmit={this.verifyRecoveryPhrase}
+        onChangeText={this.recoveryPhrase}
+      />
     )
   }
 }

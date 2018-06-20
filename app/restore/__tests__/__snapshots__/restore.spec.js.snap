@@ -257,8 +257,8 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
                 "elevation": 4,
                 "shadowColor": "#777777",
                 "shadowOffset": Object {
-                  "height": 1,
-                  "width": 1,
+                  "height": 5,
+                  "width": 0,
                 },
                 "shadowOpacity": 0.3,
                 "shadowRadius": 5,
@@ -307,8 +307,8 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
                   "elevation": 4,
                   "shadowColor": "#777777",
                   "shadowOffset": Object {
-                    "height": 1,
-                    "width": 1,
+                    "height": 5,
+                    "width": 0,
                   },
                   "shadowOpacity": 0.3,
                   "shadowRadius": 5,
@@ -410,8 +410,8 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
                 "elevation": 4,
                 "shadowColor": "#777777",
                 "shadowOffset": Object {
-                  "height": 1,
-                  "width": 1,
+                  "height": 5,
+                  "width": 0,
                 },
                 "shadowOpacity": 0.3,
                 "shadowRadius": 5,
@@ -460,8 +460,8 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
                   "elevation": 4,
                   "shadowColor": "#777777",
                   "shadowOffset": Object {
-                    "height": 1,
-                    "width": 1,
+                    "height": 5,
+                    "width": 0,
                   },
                   "shadowOpacity": 0.3,
                   "shadowRadius": 5,
