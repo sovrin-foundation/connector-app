@@ -37,10 +37,14 @@ export class ExportBackupFile extends PureComponent<
   void
 > {
   parseFilePath = (path: string) => {
-    const beginning = path.lastIndexOf('/') + 1
-    const end = path.length
+    if (path) {
+      const beginning = path.lastIndexOf('/') + 1
+      const end = path.length
 
-    return path.slice(beginning, end)
+      return path.slice(beginning, end)
+    }
+
+    return 'backup.zip'
   }
 
   componentDidUpdate(prevProps: ExportBackupFileProps) {
@@ -68,7 +72,6 @@ export class ExportBackupFile extends PureComponent<
           medium
           onPress={() => goBack(null)}
           testID={EXPORT_BACKUP_BACK_TEST_ID}
-          testID="export-backup-back'-image"
           iconStyle={[styles.headerBackIcon]}
           src={backImage}
         />
@@ -104,11 +107,8 @@ export class ExportBackupFile extends PureComponent<
       <Container style={[styles.exportBackup]} safeArea>
         <Image source={transparentBands} style={[styles.backgroundImage]} />
         <Container style={[styles.wrapper]}>
-          <CustomView
-            center
-            verticalSpace={height > VERY_SHORT_DEVICE ? true : false}
-          >
-            <CustomText transparentBg center style={[styles.title]}>
+          <CustomView center>
+            <CustomText transparentBg center style={[styles.exportBackupTitle]}>
               Export Your Encrypted Backup File
             </CustomText>
           </CustomView>
@@ -116,7 +116,11 @@ export class ExportBackupFile extends PureComponent<
             center
             verticalSpace={height > VERY_SHORT_DEVICE ? true : false}
           >
-            <CustomText center transparentBg h5 style={[styles.verifyMainText]}>
+            <CustomText
+              center
+              transparentBg
+              style={[styles.exportBackupMainText]}
+            >
               You will need your recovery phrase to unlock this backup file.
             </CustomText>
           </CustomView>
@@ -124,7 +128,11 @@ export class ExportBackupFile extends PureComponent<
             center
             verticalSpace={height > VERY_SHORT_DEVICE ? true : false}
           >
-            <CustomText center transparentBg h5 style={[styles.verifyMainText]}>
+            <CustomText
+              center
+              transparentBg
+              style={[styles.exportBackupMainText]}
+            >
               Don’t worry, only you can decrypt the backup with your recovery
               phrase.
             </CustomText>
@@ -134,27 +142,18 @@ export class ExportBackupFile extends PureComponent<
             <Image source={encryptedFile} style={[styles.imageIcon]} />
           </CustomView>
           <CustomView center>
-            <CustomText
-              center
-              transparentBg
-              bold
-              h5
-              style={[styles.exportBackupSmallMessage]}
-            >
+            <CustomText center transparentBg style={[styles.exportBackupFile]}>
               {this.parseFilePath(this.props.backupPath)}
             </CustomText>
           </CustomView>
         </Container>
 
         <CustomView>
-          <CustomView
-            center
-            doubleVerticalSpace={height > VERY_SHORT_DEVICE ? true : false}
-          >
+          <CustomView center>
             <CustomText
               center
               transparentBg
-              h6
+              bold
               style={[styles.exportBackupSmallMessage]}
             >
               This backup contains all your data in Connect.Me. Store it

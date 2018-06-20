@@ -13,7 +13,7 @@ const SPACE_FILLER = 50
 const amountSpacing = height > SHORT_DEVICE ? PADDING_VERTICAL * 2 : 0
 const submitButtonHeight = height > SHORT_DEVICE ? 63 : 43
 const showRecoveryButtonHeight = height > SHORT_DEVICE ? 150 : 100
-const inputBoxHeight = height > SHORT_DEVICE && Platform.OS === 'ios' ? 137 : 40
+const inputBoxHeight = height > SHORT_DEVICE || Platform.OS === 'ios' ? 137 : 40
 
 const styles = StyleSheet.create({
   tabContainer: {
@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     position: 'absolute',
-    transform: [{ rotate: '135deg' }],
   },
   headerCloseIcon: {
     marginRight: PADDING_HORIZONTAL,
@@ -55,9 +54,6 @@ const styles = StyleSheet.create({
   genRecovery: {
     backgroundColor: color.bg.eleventh.color,
   },
-  genRecoveryWrapper: {
-    // height: 80,
-  },
   genRecoveryHeader: {
     width: '100%',
   },
@@ -77,26 +73,23 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
   genRecoveryText: {
-    marginBottom: '2%',
+    marginBottom: height > SHORT_DEVICE ? 50 : '2%',
     alignSelf: 'center',
     fontSize: 22,
     fontWeight: '600',
     fontFamily: 'Lato',
   },
   genRecoveryMessage: {
-    // marginBottom: 40,
     paddingHorizontal: 20,
     alignSelf: 'center',
     fontSize: 18,
     lineHeight: 22,
     fontWeight: '500',
     fontFamily: 'Lato',
+    marginBottom: height > SHORT_DEVICE ? 49 : 0,
   },
   genRecoverySecondMessage: {
-    // marginBottom: 40,
-    // paddingHorizontal: 20,
-    paddingLeft: '10%',
-    paddingRight: '10%',
+    paddingHorizontal: 20,
     alignSelf: 'center',
     fontSize: 18,
     lineHeight: 22,
@@ -108,7 +101,7 @@ const styles = StyleSheet.create({
     lineHeight: 17,
     fontWeight: 'bold',
     fontFamily: 'Lato',
-    marginBottom: '3%',
+    marginBottom: height > SHORT_DEVICE ? 40 : '3%',
   },
   verifyMainContainer: {
     flex: 1,
@@ -116,23 +109,25 @@ const styles = StyleSheet.create({
   },
   verifyMainText: {
     paddingHorizontal: 20,
+    fontSize: 18,
     lineHeight: 22,
+    fontWeight: '500',
+    fontFamily: 'Lato',
+    marginTop: height > SHORT_DEVICE ? 40 : 20,
+    marginBottom: height > SHORT_DEVICE ? 40 : 20,
   },
-  CircleShapeView: {
-    width: 100,
-    height: 100,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 100 / 2,
-    backgroundColor: 'white',
+  exportBackupMainText: {
+    paddingHorizontal: 20,
+    fontSize: 18,
+    lineHeight: 22,
+    fontWeight: '500',
+    fontFamily: 'Lato',
   },
   inputBox: {
     marginBottom: 24,
     marginRight: 20,
     marginLeft: 20,
     height: inputBoxHeight,
-    borderRadius: 10,
     backgroundColor: 'rgba(0,0,0,0.33)',
     color: 'white',
     padding: 10,
@@ -171,6 +166,15 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     width: '100%',
   },
+  exportBackupTitle: {
+    fontFamily: 'Lato',
+    fontWeight: '600',
+    lineHeight: 27,
+    fontSize: 22,
+    marginBottom: height > SHORT_DEVICE ? 40 : 0,
+    marginTop: height > SHORT_DEVICE ? 10 : 0,
+    maxWidth: 290,
+  },
   exportBackupText: {
     marginBottom: 20,
     backgroundColor: color.bg.thirteenth.color,
@@ -182,8 +186,18 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 18,
   },
+  exportBackupFile: {
+    fontSize: 15,
+    lineHeight: 18,
+    fontWeight: '900',
+    fontFamily: 'Lato',
+  },
   exportBackupSmallMessage: {
     fontSize: 14,
+    maxWidth: 300,
+    lineHeight: 17,
+    fontFamily: 'Lato',
+    marginBottom: height > SHORT_DEVICE ? 30 : 10,
   },
   backupComplete: {
     backgroundColor: color.bg.fourteenth.color,
@@ -210,11 +224,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   lockIconImage: {
-    paddingTop: '5%',
+    paddingTop: height > SHORT_DEVICE ? 40 : '2%',
   },
   imageIcon: {
     resizeMode: 'contain',
     width: '100%',
+    marginBottom: height > SHORT_DEVICE ? 40 : 0,
   },
 })
 

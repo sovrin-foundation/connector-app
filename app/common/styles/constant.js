@@ -34,10 +34,10 @@ export const iPhoneXHeight = 812
 const dodgerBlue = '#0d8ffc'
 const black = '#000000'
 const yellowSea = '#EB9B2D'
-const backupBlue = '#4A8FE3'
-const backupGreen = '#87ba3b'
-const backupGold = '#de8f12'
-const backupPurple = '#8c12ff'
+const cornFlowerBlue = '#4A90E2'
+const atlantis = '#86B93B'
+const gamboge = '#DD9012'
+const blueViolet = '#8D13FE'
 const seaBuckthorn = '#f79347'
 const pumpkin = '#F68127'
 const olivine = '#97C85F'
@@ -162,16 +162,16 @@ export const color = {
       },
     },
     eleventh: {
-      color: backupBlue,
+      color: cornFlowerBlue,
     },
     twelfth: {
-      color: backupGreen,
+      color: atlantis,
     },
     thirteenth: {
-      color: backupGold,
+      color: gamboge,
     },
     fourteenth: {
-      color: backupPurple,
+      color: blueViolet,
     },
     dark: {
       color: black,

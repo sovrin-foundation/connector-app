@@ -119,7 +119,7 @@ export class VerifyRecoveryPhrase extends Component<
                 Verify Your Recovery Phrase
               </CustomText>
             </CustomView>
-            <CustomView center doubleVerticalSpace>
+            <CustomView center>
               <CustomText
                 center
                 transparentBg
@@ -131,6 +131,9 @@ export class VerifyRecoveryPhrase extends Component<
               </CustomText>
             </CustomView>
             <TextInput
+              autoCapitalize="none"
+              returnKeyType="send"
+              onSubmitEditing={this.verifyRecoveryPhrase}
               onChangeText={this.recoveryPhrase}
               style={[styles.inputBox]}
               placeholder={VERIFY_INPUT_PLACEHOLDER}
@@ -140,18 +143,6 @@ export class VerifyRecoveryPhrase extends Component<
             />
           </Container>
         </KeyboardAwareScrollView>
-        <CustomView>
-          <CustomButton
-            large={height > SHORT_DEVICE ? true : false}
-            title={VERIFY_BUTTON_TITLE}
-            onPress={this.verifyRecoveryPhrase}
-            style={[styles.submitButton]}
-            customColor={{
-              fontWeight: '600',
-              fontSize: 18,
-            }}
-          />
-        </CustomView>
       </Container>
     )
   }

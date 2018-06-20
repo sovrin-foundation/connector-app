@@ -88,11 +88,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
               Recovery Phrase Generated
             </CustomText>
           </CustomView>
-          <CustomView
-            center
-            style={[styles.genRecoveryWrapper]}
-            doubleVerticalSpace={height > SHORT_DEVICE ? true : false}
-          >
+          <CustomView center>
             <CustomText
               center
               transparentBg
@@ -102,10 +98,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
               with anyone.
             </CustomText>
           </CustomView>
-          <CustomView
-            center
-            verticalSpace={height > SHORT_DEVICE ? true : false}
-          >
+          <CustomView center>
             <Image source={textBubble} style={[styles.imageIcon]} />
             <CustomView style={[styles.genRecoveryPhraseContainer]}>
               <CustomText transparentBg style={[styles.genRecoveryPhrase]}>
@@ -113,10 +106,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
               </CustomText>
             </CustomView>
           </CustomView>
-          <CustomView
-            center
-            verticalSpace={height > SHORT_DEVICE ? true : false}
-          >
+          <CustomView center>
             <CustomText
               center
               transparentBg

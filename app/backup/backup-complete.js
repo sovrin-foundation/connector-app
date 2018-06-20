@@ -11,7 +11,7 @@ import {
   CustomButton,
 } from '../components'
 import { backupCompleteRoute } from '../common'
-import { SHORT_DEVICE } from '../common/styles'
+import { SHORT_DEVICE, VERY_SHORT_DEVICE } from '../common/styles'
 import { color } from '../common/styles/constant'
 import type { BackupCompleteProps, BackupCompleteState } from './type-backup'
 import {
@@ -70,11 +70,16 @@ export class BackupComplete extends PureComponent<BackupCompleteProps, void> {
                 Backup Complete
               </CustomText>
             </CustomView>
-            <CustomView center doubleVerticalSpace>
+            <CustomView
+              center
+              doubleVerticalSpace={height > VERY_SHORT_DEVICE ? true : false}
+            >
               <Image source={successCheck} />
             </CustomView>
             <CustomView horizontalSpace>
-              <CustomView doubleVerticalSpace>
+              <CustomView
+                doubleVerticalSpace={height > VERY_SHORT_DEVICE ? true : false}
+              >
                 <CustomText
                   transparentBg
                   center
