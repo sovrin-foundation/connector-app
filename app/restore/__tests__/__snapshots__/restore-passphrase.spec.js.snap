@@ -195,8 +195,8 @@ exports[`Restore Passphrase screen should render properly and match the snapshot
           onSubmitEditing={[Function]}
           placeholder="Enter recovery phrase here"
           placeholderTextColor="white"
-          returnKeyLabel="go"
-          returnKeyType="go"
+          returnKeyLabel="done"
+          returnKeyType="done"
           style={
             Array [
               Object {

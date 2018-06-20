@@ -64,7 +64,6 @@ export default class BackupRestorePassphrase extends PureComponent<
             </CustomView>
             <TextInput
               autoCapitalize="none"
-              returnKeyType="send"
               testID={`${testID}-text-input`}
               accessible={true}
               accessibilityLabel={`${testID}-text-input`}
@@ -77,8 +76,8 @@ export default class BackupRestorePassphrase extends PureComponent<
               underlineColorAndroid="transparent"
               multiline={Platform.OS === 'ios' ? true : false}
               clearButtonMode="always"
-              returnKeyType="go"
-              returnKeyLabel="go"
+              returnKeyType="done"
+              returnKeyLabel="done"
               numberOfLines={1}
             />
           </Container>
