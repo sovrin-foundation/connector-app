@@ -374,7 +374,7 @@ Object {
   "from_did": "userPairwiseDid",
   "issuer_did": "issuer_did",
   "mid": "1",
-  "msg_type": "claimReq",
+  "msg_type": "credReq",
   "schema_seq_no": 12,
   "tid": "1",
   "to_did": "remoteDid",

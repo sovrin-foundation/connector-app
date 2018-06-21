@@ -25,11 +25,11 @@ export const GENESIS_FILE_NAME = 'pool_transactions_genesis'
 
 export const MESSAGE_TYPE = {
   AUTH: 'auth-req',
-  CLAIM_OFFER: 'claimOffer',
-  CLAIM_REQUEST: 'claimReq',
+  CLAIM_OFFER: 'credOffer',
+  CLAIM_REQUEST: 'credReq',
   PROOF_REQUEST: 'proofReq',
   PROOF: 'proof',
-  CLAIM: 'claim',
+  CLAIM: 'cred',
 }
 
 export const PAYLOAD_TYPE = {
