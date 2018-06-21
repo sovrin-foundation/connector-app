@@ -16,6 +16,7 @@ import { CustomText, Container, FooterActions } from '../components'
 import { eulaRoute, restoreRoute } from '../common'
 import { eulaAccept } from './eula-store'
 import type { Store } from '../store/type-store'
+import { EULA_URL } from './type-eula'
 
 export class EulaScreen extends PureComponent<*, void> {
   static navigationOptions = ({ navigation }) => ({
@@ -42,7 +43,7 @@ export class EulaScreen extends PureComponent<*, void> {
       <Container fifth>
         <WebView
           source={{
-            uri: 'https://www.evernym.com',
+            uri: EULA_URL,
           }}
         />
         <FooterActions
