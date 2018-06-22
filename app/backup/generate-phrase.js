@@ -23,6 +23,7 @@ import {
   SUBMIT_RECOVERY_PHRASE_BUTTON_TITLE,
 } from './backup-constants'
 import styles from './styles'
+import { getWords } from './secure-passphrase'
 
 const { height } = Dimensions.get('window')
 const closeImage = require('../images/iconClose.png')
@@ -34,7 +35,13 @@ export class GenerateRecoveryPhrase extends PureComponent<
   GenerateRecoveryPhraseState
 > {
   state = {
-    recoveryPassphrase: 'one two three',
+    recoveryPassphrase: '',
+  }
+
+  componentDidMount() {
+    getWords(8, 5).then(words => {
+      return this.setState({ recoveryPassphrase: words.join(' ') })
+    })
   }
 
   verifyRecoveryPhrase = () => {

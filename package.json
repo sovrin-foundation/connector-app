@@ -23,6 +23,7 @@
   "dependencies": {
     "ajv": "^5.2.2",
     "apptentive-react-native": "^5.0.0",
+    "buffer": "^5.1.0",
     "lodash.debounce": "^4.0.8",
     "lodash.findkey": "^4.6.0",
     "lodash.get": "^4.4.2",
@@ -45,6 +46,7 @@
     "react-native-keyboard-aware-scroll-view": "^0.4.4",
     "react-native-modal": "5.0.0",
     "react-native-radial-gradient": "^1.0.3",
+    "react-native-randombytes": "^3.2.0",
     "react-native-sensitive-info": "5.2.0",
     "react-native-sentry": "0.33.0",
     "react-native-share": "^1.0.27",
