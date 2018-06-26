@@ -14,7 +14,6 @@ export type CustomTextProps = {
   bg: string,
   primary: string,
   secondary: string,
-  proText: string,
   tertiary: string,
   quaternary: string,
   style: Array<GenericObject>,

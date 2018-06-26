@@ -82,7 +82,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
                 "fontSize": 17,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#ffffff",
@@ -202,7 +202,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
                 "fontSize": 17,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#ffffff",
@@ -296,7 +296,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
             "fontSize": 17,
           },
           Object {
-            "fontFamily": "SF Pro Text",
+            "fontFamily": "Lato",
           },
           Object {
             "backgroundColor": "#333333",
@@ -349,7 +349,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
             "fontSize": 17,
           },
           Object {
-            "fontFamily": "SF Pro Text",
+            "fontFamily": "Lato",
           },
           Object {
             "backgroundColor": "#333333",
@@ -473,7 +473,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
             "fontSize": 17,
           },
           Object {
-            "fontFamily": "SF Pro Text",
+            "fontFamily": "Lato",
           },
           Object {
             "backgroundColor": "#333333",
@@ -597,7 +597,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
                 "fontSize": 17,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#ffffff",
@@ -637,7 +637,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
                 "fontSize": 17,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#ffffff",

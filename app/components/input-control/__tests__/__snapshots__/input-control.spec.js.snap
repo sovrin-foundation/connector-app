@@ -51,7 +51,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
               "fontSize": 17,
             },
             Object {
-              "fontFamily": "SF Pro Display",
+              "fontFamily": "Lato",
             },
             Object {
               "backgroundColor": "#ffffff",

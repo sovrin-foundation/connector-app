@@ -28,7 +28,7 @@ exports[`<WalletTabHistory /> should render no history view properly and match t
             "fontSize": 17,
           },
           Object {
-            "fontFamily": "SF Pro Display",
+            "fontFamily": "Lato",
           },
           Object {
             "backgroundColor": "#ffffff",
@@ -213,7 +213,7 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                                 "fontSize": 17,
                               },
                               Object {
-                                "fontFamily": "SF Pro Display",
+                                "fontFamily": "Lato",
                               },
                               Object {
                                 "backgroundColor": "#ffffff",
@@ -250,7 +250,7 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                                 "fontSize": 17,
                               },
                               Object {
-                                "fontFamily": "SF Pro Display",
+                                "fontFamily": "Lato",
                               },
                               Object {
                                 "backgroundColor": "#ffffff",
@@ -284,7 +284,7 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                               "fontSize": 17,
                             },
                             Object {
-                              "fontFamily": "SF Pro Display",
+                              "fontFamily": "Lato",
                             },
                             Object {
                               "backgroundColor": "#ffffff",
@@ -326,7 +326,7 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                               "fontSize": 17,
                             },
                             Object {
-                              "fontFamily": "SF Pro Display",
+                              "fontFamily": "Lato",
                             },
                             Object {
                               "backgroundColor": "#ffffff",
@@ -361,7 +361,7 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                               "fontSize": 17,
                             },
                             Object {
-                              "fontFamily": "SF Pro Display",
+                              "fontFamily": "Lato",
                             },
                             Object {
                               "backgroundColor": "#ffffff",
@@ -526,7 +526,7 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                                 "fontSize": 17,
                               },
                               Object {
-                                "fontFamily": "SF Pro Display",
+                                "fontFamily": "Lato",
                               },
                               Object {
                                 "backgroundColor": "#ffffff",
@@ -563,7 +563,7 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                                 "fontSize": 17,
                               },
                               Object {
-                                "fontFamily": "SF Pro Display",
+                                "fontFamily": "Lato",
                               },
                               Object {
                                 "backgroundColor": "#ffffff",
@@ -597,7 +597,7 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                               "fontSize": 17,
                             },
                             Object {
-                              "fontFamily": "SF Pro Display",
+                              "fontFamily": "Lato",
                             },
                             Object {
                               "backgroundColor": "#ffffff",
@@ -639,7 +639,7 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                               "fontSize": 17,
                             },
                             Object {
-                              "fontFamily": "SF Pro Display",
+                              "fontFamily": "Lato",
                             },
                             Object {
                               "backgroundColor": "#ffffff",
@@ -674,7 +674,7 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                               "fontSize": 17,
                             },
                             Object {
-                              "fontFamily": "SF Pro Display",
+                              "fontFamily": "Lato",
                             },
                             Object {
                               "backgroundColor": "#ffffff",

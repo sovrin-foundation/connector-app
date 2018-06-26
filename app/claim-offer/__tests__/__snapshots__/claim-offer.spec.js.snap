@@ -209,7 +209,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 "fontSize": 17,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#ffffff",
@@ -250,7 +250,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 "fontSize": 20,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#ffffff",
@@ -370,7 +370,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontSize": 12,
                     },
                     Object {
-                      "fontFamily": "SF Pro Display",
+                      "fontFamily": "Lato",
                     },
                     Object {
                       "backgroundColor": "#ffffff",
@@ -417,7 +417,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontSize": 15,
                     },
                     Object {
-                      "fontFamily": "SF Pro Display",
+                      "fontFamily": "Lato",
                     },
                     Object {
                       "backgroundColor": "#ffffff",
@@ -490,7 +490,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontSize": 12,
                     },
                     Object {
-                      "fontFamily": "SF Pro Display",
+                      "fontFamily": "Lato",
                     },
                     Object {
                       "backgroundColor": "#ffffff",
@@ -537,7 +537,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                       "fontSize": 15,
                     },
                     Object {
-                      "fontFamily": "SF Pro Display",
+                      "fontFamily": "Lato",
                     },
                     Object {
                       "backgroundColor": "#ffffff",
@@ -1097,7 +1097,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 "fontSize": 17,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#ffffff",
@@ -1135,7 +1135,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 "fontSize": 17,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#ffffff",
@@ -1175,7 +1175,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 "fontSize": 17,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#ffffff",
@@ -1214,7 +1214,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 "fontSize": 17,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#ffffff",
@@ -1578,7 +1578,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                 "fontSize": 17,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#ffffff",
@@ -1619,7 +1619,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                 "fontSize": 20,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#ffffff",
@@ -1670,7 +1670,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                   "fontSize": 20,
                 },
                 Object {
-                  "fontFamily": "SF Pro Display",
+                  "fontFamily": "Lato",
                 },
                 Object {
                   "backgroundColor": "#ffffff",
@@ -1709,7 +1709,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                   "fontSize": 40,
                 },
                 Object {
-                  "fontFamily": "SF Pro Display",
+                  "fontFamily": "Lato",
                 },
                 Object {
                   "backgroundColor": "#ffffff",
@@ -1814,7 +1814,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                 "fontSize": 12,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#333333",
@@ -1961,7 +1961,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                       "fontSize": 12,
                     },
                     Object {
-                      "fontFamily": "SF Pro Display",
+                      "fontFamily": "Lato",
                     },
                     Object {
                       "backgroundColor": "#ffffff",
@@ -2008,7 +2008,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                       "fontSize": 15,
                     },
                     Object {
-                      "fontFamily": "SF Pro Display",
+                      "fontFamily": "Lato",
                     },
                     Object {
                       "backgroundColor": "#ffffff",
@@ -2081,7 +2081,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                       "fontSize": 12,
                     },
                     Object {
-                      "fontFamily": "SF Pro Display",
+                      "fontFamily": "Lato",
                     },
                     Object {
                       "backgroundColor": "#ffffff",
@@ -2128,7 +2128,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                       "fontSize": 15,
                     },
                     Object {
-                      "fontFamily": "SF Pro Display",
+                      "fontFamily": "Lato",
                     },
                     Object {
                       "backgroundColor": "#ffffff",
@@ -2688,7 +2688,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                 "fontSize": 17,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#ffffff",
@@ -2726,7 +2726,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                 "fontSize": 17,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#ffffff",
@@ -2766,7 +2766,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                 "fontSize": 17,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#ffffff",
@@ -2805,7 +2805,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                 "fontSize": 17,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#ffffff",
@@ -2845,7 +2845,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                 "fontSize": 17,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#ffffff",
@@ -2883,7 +2883,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                 "fontSize": 17,
               },
               Object {
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
               },
               Object {
                 "backgroundColor": "#ffffff",

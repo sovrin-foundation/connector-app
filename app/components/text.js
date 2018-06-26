@@ -31,7 +31,6 @@ const CustomText = (props: GenericObject) => {
     bg = 'primary',
     primary,
     secondary,
-    proText,
     tertiary,
     quaternary,
     quinaryText,
@@ -56,7 +55,7 @@ const CustomText = (props: GenericObject) => {
     ? 'Quaternary'
     : secondary ? 'Secondary' : tertiary ? 'Tertiary' : 'Primary'
   const size = h3 ? 'h3' : h4 ? 'h4' : h6 ? 'h6' : h7 ? 'h7' : 'h5'
-  const fontFamily = proText ? 'fontFamilySFProText' : 'fontFamilySFProDisplay'
+  const fontFamily = 'fontLato'
   const textStyles = [
     styles[size],
     styles[fontFamily],
@@ -206,11 +205,8 @@ export const styles = StyleSheet.create({
   primary: {
     color: color.bg.primary.color,
   },
-  fontFamilySFProDisplay: {
-    fontFamily: 'SF Pro Display',
-  },
-  fontFamilySFProText: {
-    fontFamily: 'SF Pro Text',
+  fontLato: {
+    fontFamily: 'Lato',
   },
   fullWidth: {
     width: '100%',

@@ -325,7 +325,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                   "fontSize": 17,
                 },
                 Object {
-                  "fontFamily": "SF Pro Display",
+                  "fontFamily": "Lato",
                 },
                 Object {
                   "backgroundColor": "#ffffff",
@@ -392,7 +392,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                   "fontSize": 20,
                 },
                 Object {
-                  "fontFamily": "SF Pro Display",
+                  "fontFamily": "Lato",
                 },
                 Object {
                   "backgroundColor": "#f0f0f0",
@@ -527,7 +527,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                                 "fontSize": 17,
                               },
                               Object {
-                                "fontFamily": "SF Pro Display",
+                                "fontFamily": "Lato",
                               },
                               Object {
                                 "backgroundColor": "#ffffff",
@@ -569,7 +569,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                                 "fontSize": 17,
                               },
                               Object {
-                                "fontFamily": "SF Pro Display",
+                                "fontFamily": "Lato",
                               },
                               Object {
                                 "backgroundColor": "#ffffff",
@@ -623,7 +623,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                               "fontSize": 12,
                             },
                             Object {
-                              "fontFamily": "SF Pro Display",
+                              "fontFamily": "Lato",
                             },
                             Object {
                               "backgroundColor": "#ffffff",

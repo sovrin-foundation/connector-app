@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 20,
     lineHeight: 30,
-    fontFamily: 'Lato',
     fontWeight: '900',
   },
   genRecoveryText: {
@@ -77,7 +76,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 22,
     fontWeight: '600',
-    fontFamily: 'Lato',
   },
   genRecoveryMessage: {
     paddingHorizontal: 20,
@@ -85,7 +83,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 22,
     fontWeight: '500',
-    fontFamily: 'Lato',
     marginBottom: height > SHORT_DEVICE ? 49 : 0,
   },
   genRecoverySecondMessage: {
@@ -94,13 +91,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 22,
     fontWeight: 'bold',
-    fontFamily: 'Lato',
   },
   genRecoverySmallMessage: {
     fontSize: 14,
     lineHeight: 17,
     fontWeight: 'bold',
-    fontFamily: 'Lato',
     marginBottom: height > SHORT_DEVICE ? 40 : '3%',
   },
   verifyMainContainer: {
@@ -112,7 +107,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 22,
     fontWeight: '500',
-    fontFamily: 'Lato',
     marginTop: height > SHORT_DEVICE ? 40 : 20,
     marginBottom: height > SHORT_DEVICE ? 40 : 20,
   },
@@ -121,7 +115,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 22,
     fontWeight: '500',
-    fontFamily: 'Lato',
   },
   inputBox: {
     marginBottom: 24,
@@ -159,7 +152,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: PADDING_HORIZONTAL,
   },
   title: {
-    fontFamily: 'Lato',
     fontWeight: '600',
     lineHeight: 27,
     fontSize: 22,
@@ -167,7 +159,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   exportBackupTitle: {
-    fontFamily: 'Lato',
     fontWeight: '600',
     lineHeight: 27,
     fontSize: 22,
@@ -190,13 +181,11 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 18,
     fontWeight: '900',
-    fontFamily: 'Lato',
   },
   exportBackupSmallMessage: {
     fontSize: 14,
     maxWidth: 300,
     lineHeight: 17,
-    fontFamily: 'Lato',
     marginBottom: height > SHORT_DEVICE ? 30 : 10,
   },
   backupComplete: {
@@ -207,7 +196,6 @@ const styles = StyleSheet.create({
   },
   backupCompleteText: {
     fontSize: 18,
-    fontFamily: 'Lato',
     fontWeight: '500',
     lineHeight: 22,
   },

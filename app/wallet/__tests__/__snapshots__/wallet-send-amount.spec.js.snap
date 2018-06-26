@@ -39,7 +39,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
             Object {
               "backgroundColor": "transparent",
               "color": "#EB9B2D",
-              "fontFamily": "SF Pro Display",
+              "fontFamily": "Lato",
               "fontSize": 70,
               "height": 70,
               "lineHeight": 75,
@@ -65,7 +65,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
               "fontSize": 15,
             },
             Object {
-              "fontFamily": "SF Pro Display",
+              "fontFamily": "Lato",
             },
             Object {
               "backgroundColor": "#333333",
@@ -140,7 +140,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
               Object {
                 "backgroundColor": "transparent",
                 "color": "#EB9B2D",
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
                 "fontSize": 28,
                 "fontWeight": "500",
                 "textAlign": "center",
@@ -183,7 +183,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
               Object {
                 "backgroundColor": "transparent",
                 "color": "#EB9B2D",
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
                 "fontSize": 28,
                 "fontWeight": "500",
                 "textAlign": "center",
@@ -226,7 +226,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
               Object {
                 "backgroundColor": "transparent",
                 "color": "#EB9B2D",
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
                 "fontSize": 28,
                 "fontWeight": "500",
                 "textAlign": "center",
@@ -280,7 +280,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
               Object {
                 "backgroundColor": "transparent",
                 "color": "#EB9B2D",
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
                 "fontSize": 28,
                 "fontWeight": "500",
                 "textAlign": "center",
@@ -323,7 +323,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
               Object {
                 "backgroundColor": "transparent",
                 "color": "#EB9B2D",
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
                 "fontSize": 28,
                 "fontWeight": "500",
                 "textAlign": "center",
@@ -366,7 +366,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
               Object {
                 "backgroundColor": "transparent",
                 "color": "#EB9B2D",
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
                 "fontSize": 28,
                 "fontWeight": "500",
                 "textAlign": "center",
@@ -420,7 +420,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
               Object {
                 "backgroundColor": "transparent",
                 "color": "#EB9B2D",
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
                 "fontSize": 28,
                 "fontWeight": "500",
                 "textAlign": "center",
@@ -463,7 +463,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
               Object {
                 "backgroundColor": "transparent",
                 "color": "#EB9B2D",
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
                 "fontSize": 28,
                 "fontWeight": "500",
                 "textAlign": "center",
@@ -506,7 +506,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
               Object {
                 "backgroundColor": "transparent",
                 "color": "#EB9B2D",
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
                 "fontSize": 28,
                 "fontWeight": "500",
                 "textAlign": "center",
@@ -560,7 +560,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
               Object {
                 "backgroundColor": "transparent",
                 "color": "#EB9B2D",
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
                 "fontSize": 28,
                 "fontWeight": "500",
                 "textAlign": "center",
@@ -603,7 +603,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
               Object {
                 "backgroundColor": "transparent",
                 "color": "#EB9B2D",
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
                 "fontSize": 28,
                 "fontWeight": "500",
                 "textAlign": "center",
@@ -653,7 +653,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
               Object {
                 "backgroundColor": "transparent",
                 "color": "#EB9B2D",
-                "fontFamily": "SF Pro Display",
+                "fontFamily": "Lato",
                 "fontSize": 28,
                 "fontWeight": "500",
                 "textAlign": "center",

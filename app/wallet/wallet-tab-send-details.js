@@ -74,7 +74,6 @@ export class WalletTabSendDetails extends Component<
             color: color.bg.seventh.font.sixth,
           },
         ]}
-        proText
         transparentBg
         h5
         center
@@ -87,7 +86,6 @@ export class WalletTabSendDetails extends Component<
       <CustomView horizontalSpace>
         <CustomText
           uppercase
-          proText
           bold
           quinaryText
           transparentBg
@@ -200,7 +198,6 @@ export class WalletTabSendDetails extends Component<
           <CustomText
             quinaryText
             formatNumber
-            proText
             transparentBg
             center
             style={[styles.tokenAmountText]}
@@ -210,7 +207,7 @@ export class WalletTabSendDetails extends Component<
           </CustomText>
         </CustomView>
         <CustomView center>
-          <CustomText proText transparentBg style={[styles.textSovrinTokens]}>
+          <CustomText transparentBg style={[styles.textSovrinTokens]}>
             SOVRIN TOKENS
           </CustomText>
         </CustomView>
@@ -247,7 +244,6 @@ export class WalletTabSendDetails extends Component<
               center
               transparentBg
               quinaryText
-              proText
               style={[styles.walletAddressText]}
             >
               Enter wallet address above

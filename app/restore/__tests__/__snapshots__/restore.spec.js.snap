@@ -94,7 +94,7 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
               "fontSize": 17,
             },
             Object {
-              "fontFamily": "SF Pro Display",
+              "fontFamily": "Lato",
             },
             Object {
               "backgroundColor": "#333333",
@@ -115,7 +115,6 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
             },
             Object {
               "color": "rgba(112,112,112,1)",
-              "fontFamily": "Lato",
               "fontSize": 18,
               "fontWeight": "500",
               "lineHeight": 22,
@@ -135,7 +134,7 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
               "fontSize": 17,
             },
             Object {
-              "fontFamily": "SF Pro Display",
+              "fontFamily": "Lato",
             },
             Object {
               "backgroundColor": "#333333",
@@ -160,7 +159,6 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
             },
             Object {
               "color": "rgba(112,112,112,1)",
-              "fontFamily": "Lato",
               "fontSize": 18,
               "fontWeight": "500",
               "lineHeight": 22,
@@ -180,7 +178,7 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
               "fontSize": 17,
             },
             Object {
-              "fontFamily": "SF Pro Display",
+              "fontFamily": "Lato",
             },
             Object {
               "backgroundColor": "#333333",
@@ -198,7 +196,6 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
             null,
             Object {
               "color": "rgba(112,112,112,1)",
-              "fontFamily": "Lato",
               "fontSize": 18,
               "fontWeight": "500",
               "lineHeight": 22,

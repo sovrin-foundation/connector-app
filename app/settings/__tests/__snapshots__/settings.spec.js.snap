@@ -224,7 +224,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                         "fontSize": 17,
                       },
                       Object {
-                        "fontFamily": "SF Pro Display",
+                        "fontFamily": "Lato",
                       },
                       Object {
                         "backgroundColor": "#ffffff",
@@ -259,7 +259,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                         "fontSize": 17,
                       },
                       Object {
-                        "fontFamily": "SF Pro Display",
+                        "fontFamily": "Lato",
                       },
                       Object {
                         "backgroundColor": "#ffffff",
@@ -454,7 +454,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                           "fontSize": 17,
                         },
                         Object {
-                          "fontFamily": "SF Pro Display",
+                          "fontFamily": "Lato",
                         },
                         Object {
                           "backgroundColor": "#ffffff",
@@ -621,7 +621,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                           "fontSize": 17,
                         },
                         Object {
-                          "fontFamily": "SF Pro Display",
+                          "fontFamily": "Lato",
                         },
                         Object {
                           "backgroundColor": "#ffffff",
@@ -761,7 +761,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                           "fontSize": 17,
                         },
                         Object {
-                          "fontFamily": "SF Pro Display",
+                          "fontFamily": "Lato",
                         },
                         Object {
                           "backgroundColor": "#ffffff",
@@ -902,7 +902,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                             "fontSize": 17,
                           },
                           Object {
-                            "fontFamily": "SF Pro Display",
+                            "fontFamily": "Lato",
                           },
                           Object {
                             "backgroundColor": "#ffffff",

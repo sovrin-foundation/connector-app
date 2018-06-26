@@ -64,7 +64,7 @@ exports[`<LockSetupSuccess /> should display Loading while fetching the invitati
             "fontSize": 20,
           },
           Object {
-            "fontFamily": "SF Pro Display",
+            "fontFamily": "Lato",
           },
           Object {
             "backgroundColor": "#ffffff",
@@ -100,7 +100,7 @@ exports[`<LockSetupSuccess /> should display Loading while fetching the invitati
             "fontSize": 15,
           },
           Object {
-            "fontFamily": "SF Pro Display",
+            "fontFamily": "Lato",
           },
           Object {
             "backgroundColor": "#ffffff",
@@ -337,7 +337,7 @@ exports[`<LockSetupSuccess /> should render Lock setup success Screen 1`] = `
             "fontSize": 20,
           },
           Object {
-            "fontFamily": "SF Pro Display",
+            "fontFamily": "Lato",
           },
           Object {
             "backgroundColor": "#ffffff",
@@ -373,7 +373,7 @@ exports[`<LockSetupSuccess /> should render Lock setup success Screen 1`] = `
             "fontSize": 15,
           },
           Object {
-            "fontFamily": "SF Pro Display",
+            "fontFamily": "Lato",
           },
           Object {
             "backgroundColor": "#ffffff",

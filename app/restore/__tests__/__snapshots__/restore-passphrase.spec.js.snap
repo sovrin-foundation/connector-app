@@ -99,7 +99,7 @@ exports[`Restore Passphrase screen should render properly and match the snapshot
                   "fontSize": 17,
                 },
                 Object {
-                  "fontFamily": "SF Pro Display",
+                  "fontFamily": "Lato",
                 },
                 Object {
                   "backgroundColor": "#333333",
@@ -118,7 +118,6 @@ exports[`Restore Passphrase screen should render properly and match the snapshot
                 null,
                 null,
                 Object {
-                  "fontFamily": "Lato",
                   "fontSize": 22,
                   "fontWeight": "600",
                   "lineHeight": 27,
@@ -150,7 +149,7 @@ exports[`Restore Passphrase screen should render properly and match the snapshot
                   "fontSize": 17,
                 },
                 Object {
-                  "fontFamily": "SF Pro Display",
+                  "fontFamily": "Lato",
                 },
                 Object {
                   "backgroundColor": "#333333",
@@ -169,7 +168,6 @@ exports[`Restore Passphrase screen should render properly and match the snapshot
                 null,
                 null,
                 Object {
-                  "fontFamily": "Lato",
                   "fontSize": 18,
                   "fontWeight": "500",
                   "lineHeight": 22,
@@ -202,7 +200,6 @@ exports[`Restore Passphrase screen should render properly and match the snapshot
               Object {
                 "backgroundColor": "rgba(0,0,0,0.33)",
                 "color": "white",
-                "fontFamily": "Lato",
                 "fontSize": 20,
                 "fontStyle": "italic",
                 "height": 137,

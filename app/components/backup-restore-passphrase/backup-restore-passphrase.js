@@ -97,11 +97,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   filename: {
-    fontFamily: 'Lato',
     fontWeight: 'bold',
   },
   title: {
-    fontFamily: 'Lato',
     fontWeight: '600',
     lineHeight: 27,
     fontSize: 22,
@@ -113,7 +111,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 22,
     fontWeight: '500',
-    fontFamily: 'Lato',
     marginTop: height > SHORT_DEVICE ? 40 : 20,
     marginBottom: height > SHORT_DEVICE ? 40 : 20,
   },
@@ -128,6 +125,5 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
     fontSize: 20,
     fontStyle: 'italic',
-    fontFamily: 'Lato',
   },
 })

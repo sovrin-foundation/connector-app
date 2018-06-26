@@ -28,7 +28,7 @@ exports[`<LockPinCodeSetup /> should render pin code box 1`] = `
             "fontSize": 20,
           },
           Object {
-            "fontFamily": "SF Pro Display",
+            "fontFamily": "Lato",
           },
           Object {
             "backgroundColor": "#ffffff",
@@ -364,7 +364,7 @@ exports[`<LockPinCodeSetup /> should show "pass code mismatch ..." message and r
             "fontSize": 20,
           },
           Object {
-            "fontFamily": "SF Pro Display",
+            "fontFamily": "Lato",
           },
           Object {
             "backgroundColor": "#ffffff",
@@ -700,7 +700,7 @@ exports[`<LockPinCodeSetup /> should show re enter pass code after first entry 1
             "fontSize": 20,
           },
           Object {
-            "fontFamily": "SF Pro Display",
+            "fontFamily": "Lato",
           },
           Object {
             "backgroundColor": "#ffffff",

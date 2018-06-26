@@ -170,7 +170,6 @@ export class ExportBackupFile extends PureComponent<
               color: color.bg.thirteenth.color,
               fontWeight: '600',
               fontSize: 18,
-              fontFamily: 'Lato',
             }}
             title={EXPORT_BACKUP_BUTTON_TITLE}
           />

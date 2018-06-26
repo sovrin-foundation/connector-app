@@ -42,7 +42,7 @@ exports[`<WalletTabReceive /> should render properly and match the snapshot 1`] 
                   "fontSize": 15,
                 },
                 Object {
-                  "fontFamily": "SF Pro Text",
+                  "fontFamily": "Lato",
                 },
                 Object {
                   "backgroundColor": "#333333",
@@ -84,7 +84,7 @@ exports[`<WalletTabReceive /> should render properly and match the snapshot 1`] 
                   "fontSize": 17,
                 },
                 Object {
-                  "fontFamily": "SF Pro Text",
+                  "fontFamily": "Lato",
                 },
                 Object {
                   "backgroundColor": "#333333",

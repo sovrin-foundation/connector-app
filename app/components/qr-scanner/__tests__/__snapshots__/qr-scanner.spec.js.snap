@@ -33,7 +33,7 @@ exports[`<QRScanner /> should match snapshot 1`] = `
               "fontSize": 20,
             },
             Object {
-              "fontFamily": "SF Pro Display",
+              "fontFamily": "Lato",
             },
             Object {
               "backgroundColor": "#333333",
@@ -162,7 +162,7 @@ exports[`<QRScanner /> should match snapshot 1`] = `
               "fontSize": 17,
             },
             Object {
-              "fontFamily": "SF Pro Display",
+              "fontFamily": "Lato",
             },
             Object {
               "backgroundColor": "#333333",

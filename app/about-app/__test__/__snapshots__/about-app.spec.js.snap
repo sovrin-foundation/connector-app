@@ -45,7 +45,7 @@ exports[`user about app screen should render properly and snapshot should match 
               "fontSize": 17,
             },
             Object {
-              "fontFamily": "SF Pro Display",
+              "fontFamily": "Lato",
             },
             Object {
               "backgroundColor": "#ffffff",
@@ -93,7 +93,7 @@ exports[`user about app screen should render properly and snapshot should match 
               "fontSize": 17,
             },
             Object {
-              "fontFamily": "SF Pro Display",
+              "fontFamily": "Lato",
             },
             Object {
               "backgroundColor": "#ffffff",
@@ -149,7 +149,7 @@ exports[`user about app screen should render properly and snapshot should match 
               "fontSize": 12,
             },
             Object {
-              "fontFamily": "SF Pro Display",
+              "fontFamily": "Lato",
             },
             Object {
               "backgroundColor": "#ffffff",
@@ -195,7 +195,7 @@ exports[`user about app screen should render properly and snapshot should match 
               "fontSize": 12,
             },
             Object {
-              "fontFamily": "SF Pro Display",
+              "fontFamily": "Lato",
             },
             Object {
               "backgroundColor": "#ffffff",
@@ -307,7 +307,7 @@ exports[`user about app screen should render properly and snapshot should match 
                         "fontSize": 17,
                       },
                       Object {
-                        "fontFamily": "SF Pro Display",
+                        "fontFamily": "Lato",
                       },
                       Object {
                         "backgroundColor": "#ffffff",
@@ -487,7 +487,7 @@ exports[`user about app screen should render properly and snapshot should match 
                         "fontSize": 17,
                       },
                       Object {
-                        "fontFamily": "SF Pro Display",
+                        "fontFamily": "Lato",
                       },
                       Object {
                         "backgroundColor": "#ffffff",

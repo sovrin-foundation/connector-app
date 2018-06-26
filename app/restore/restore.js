@@ -160,6 +160,5 @@ const styles = StyleSheet.create({
     color: 'rgba(112,112,112,1)',
     fontSize: 18,
     lineHeight: 22,
-    fontFamily: 'Lato',
   },
 })

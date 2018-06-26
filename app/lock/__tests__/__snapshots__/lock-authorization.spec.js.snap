@@ -54,7 +54,7 @@ exports[`<LockAuthorization /> should match snapshot 1`] = `
             "fontSize": 20,
           },
           Object {
-            "fontFamily": "SF Pro Display",
+            "fontFamily": "Lato",
           },
           Object {
             "backgroundColor": "#ffffff",

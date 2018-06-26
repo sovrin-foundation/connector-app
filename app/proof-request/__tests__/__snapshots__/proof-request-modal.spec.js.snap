@@ -214,7 +214,7 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
               "fontSize": 15,
             },
             Object {
-              "fontFamily": "SF Pro Display",
+              "fontFamily": "Lato",
             },
             Object {
               "backgroundColor": "#ffffff",
@@ -255,7 +255,7 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
               "fontSize": 17,
             },
             Object {
-              "fontFamily": "SF Pro Display",
+              "fontFamily": "Lato",
             },
             Object {
               "backgroundColor": "#ffffff",
@@ -627,7 +627,7 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
               "fontSize": 15,
             },
             Object {
-              "fontFamily": "SF Pro Display",
+              "fontFamily": "Lato",
             },
             Object {
               "backgroundColor": "#ffffff",
@@ -668,7 +668,7 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
               "fontSize": 17,
             },
             Object {
-              "fontFamily": "SF Pro Display",
+              "fontFamily": "Lato",
             },
             Object {
               "backgroundColor": "#ffffff",
@@ -1036,7 +1036,7 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
               "fontSize": 15,
             },
             Object {
-              "fontFamily": "SF Pro Display",
+              "fontFamily": "Lato",
             },
             Object {
               "backgroundColor": "#ffffff",
@@ -1077,7 +1077,7 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
               "fontSize": 17,
             },
             Object {
-              "fontFamily": "SF Pro Display",
+              "fontFamily": "Lato",
             },
             Object {
               "backgroundColor": "#ffffff",

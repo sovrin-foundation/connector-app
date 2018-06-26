@@ -99,7 +99,7 @@ exports[`<ConnectionHistoryDetails /> should ConnectionHistoryDetails render pro
                         "fontSize": 12,
                       },
                       Object {
-                        "fontFamily": "SF Pro Display",
+                        "fontFamily": "Lato",
                       },
                       Object {
                         "backgroundColor": "#ffffff",
@@ -146,7 +146,7 @@ exports[`<ConnectionHistoryDetails /> should ConnectionHistoryDetails render pro
                         "fontSize": 15,
                       },
                       Object {
-                        "fontFamily": "SF Pro Display",
+                        "fontFamily": "Lato",
                       },
                       Object {
                         "backgroundColor": "#ffffff",

@@ -62,7 +62,6 @@ export class WalletTabReceive extends PureComponent<
                 h6
                 bold
                 center
-                proText
                 transparentBg
                 quinaryText
                 style={[styles.heading]}
@@ -72,7 +71,6 @@ export class WalletTabReceive extends PureComponent<
               {walletAddresses.map((walletAddress, index) => {
                 return (
                   <CustomText
-                    proText
                     center
                     transparentBg
                     borderColor
