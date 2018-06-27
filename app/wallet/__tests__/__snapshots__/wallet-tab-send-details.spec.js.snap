@@ -102,6 +102,9 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
               null,
               null,
               null,
+              null,
+              null,
+              null,
               Object {
                 "lineHeight": 20,
               },
@@ -222,6 +225,9 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
               null,
               null,
               null,
+              null,
+              null,
+              null,
               Object {
                 "lineHeight": 20,
               },
@@ -318,6 +324,9 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
           Object {
             "width": "100%",
           },
+          null,
+          null,
+          null,
           Object {
             "fontSize": 75,
             "letterSpacing": -1.87,
@@ -360,6 +369,9 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
           Object {
             "backgroundColor": "transparent",
           },
+          null,
+          null,
+          null,
           null,
           null,
           null,
@@ -493,6 +505,9 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
           null,
           null,
           null,
+          null,
+          null,
+          null,
           Object {
             "flexWrap": "wrap",
             "fontSize": 14,
@@ -617,6 +632,9 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
               null,
               null,
               null,
+              null,
+              null,
+              null,
               Object {
                 "marginBottom": 5,
               },
@@ -652,6 +670,9 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
               Object {
                 "backgroundColor": "transparent",
               },
+              null,
+              null,
+              null,
               null,
               null,
               null,

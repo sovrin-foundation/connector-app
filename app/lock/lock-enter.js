@@ -1,15 +1,21 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { InteractionManager, StyleSheet } from 'react-native'
+import {
+  InteractionManager,
+  StyleSheet,
+  Platform,
+  Dimensions,
+  Image,
+} from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import {
   Container,
   CustomText,
-  CustomButton,
   PinCodeBox,
   CustomView,
+  Icon,
 } from '../components'
 import {
   color,
@@ -29,7 +35,18 @@ import { checkPinAction, checkPinStatusIdle } from './lock-store'
 import { switchErrorAlerts } from '../store/config-store'
 import type { Store } from '../store/type-store'
 import { ENTER_YOUR_PASS_CODE_MESSAGE } from '../common/message-constants'
-import { whiteSmokeRGBA, whisper } from '../common/styles/constant'
+import {
+  whiteSmokeRGBA,
+  whisper,
+  SHORT_DEVICE,
+  grey,
+  matterhornSecondary,
+} from '../common/styles/constant'
+
+const lockImage = require('../images/lockCombo.png')
+const backgroundImg = require('../images/wave1.png')
+
+const { height } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   //TODO : add animations when keyboard popups.
@@ -113,31 +130,138 @@ export class LockEnter extends PureComponent<LockEnterProps, LockEnterState> {
     )
 
     return (
-      <Container tertiary>
-        <CustomView
-          style={[styles.text]}
-          center
-          onPress={this.props.switchErrorAlerts}
-          testID="pin-code-input-boxes"
-        >
-          {checkPinStatus === CHECK_PIN_IDLE && EnterPinText}
-          {checkPinStatus === CHECK_PIN_SUCCESS && EnterPinText}
-          {checkPinStatus === CHECK_PIN_FAIL && WrongPinText}
-        </CustomView>
-        <CustomView center>
-          {this.state.interactionsDone && (
-            <PinCodeBox
-              ref={pinCodeBox => {
-                this.pinCodeBox = pinCodeBox
-              }}
-              onPinComplete={this.onPinComplete}
+      <Container>
+        {this.props.fromRecovery ? (
+          <Container safeArea fifth>
+            <Image
+              source={backgroundImg}
+              style={[stylesRecovery.backgroundImg]}
             />
-          )}
-        </CustomView>
+            <CustomView
+              center
+              transparentBg
+              style={[stylesRecovery.topLockIcon]}
+            >
+              <CustomView style={[stylesRecovery.blackStrip]} />
+              <CustomView style={[stylesRecovery.lockIconWrapper]}>
+                <Icon extraLarge halo src={lockImage} />
+              </CustomView>
+            </CustomView>
+            <CustomView center verticalSpace>
+              <CustomText
+                center
+                transparentBg
+                style={[stylesRecovery.lockHeading]}
+                heavy
+                charcoal
+              >
+                Please Enter Your Current Connect.Me Pass Code!
+              </CustomText>
+            </CustomView>
+            <CustomView center>
+              {this.state.interactionsDone && (
+                <PinCodeBox
+                  ref={pinCodeBox => {
+                    this.pinCodeBox = pinCodeBox
+                  }}
+                  onPinComplete={this.onPinComplete}
+                />
+              )}
+            </CustomView>
+            <CustomView center doubleVerticalSpace>
+              <CustomText
+                transparentBg
+                center
+                h6
+                heavy
+                secondaryColor
+                style={[stylesRecovery.newPasscodeText]}
+                onPress={this.props.setupNewPassCode}
+                testID={'set-up-new-passcode-recovery'}
+              >
+                Or setup new Pass Code
+              </CustomText>
+            </CustomView>
+          </Container>
+        ) : (
+          <Container tertiary>
+            <CustomView
+              style={[styles.text]}
+              center
+              onPress={this.props.switchErrorAlerts}
+              testID="pin-code-input-boxes"
+            >
+              {checkPinStatus === CHECK_PIN_IDLE && EnterPinText}
+              {checkPinStatus === CHECK_PIN_SUCCESS && EnterPinText}
+              {checkPinStatus === CHECK_PIN_FAIL && WrongPinText}
+            </CustomView>
+            <CustomView center>
+              {this.state.interactionsDone && (
+                <PinCodeBox
+                  ref={pinCodeBox => {
+                    this.pinCodeBox = pinCodeBox
+                  }}
+                  onPinComplete={this.onPinComplete}
+                />
+              )}
+            </CustomView>
+          </Container>
+        )}
       </Container>
     )
   }
 }
+
+const stylesRecovery = StyleSheet.create({
+  backgroundImg: {
+    position: 'absolute',
+    transform: [{ rotate: '-180deg' }],
+    marginTop: '-92%',
+    width: '100%',
+  },
+  topLockIcon: {
+    ...Platform.select({
+      ios: {
+        marginTop: height > SHORT_DEVICE ? '18%' : '12%',
+      },
+      android: {
+        marginTop: height > SHORT_DEVICE ? '12%' : '8%',
+      },
+    }),
+  },
+  blackStrip: {
+    position: 'absolute',
+    height: 8,
+    backgroundColor: matterhornSecondary,
+    width: '100%',
+  },
+  lockIconWrapper: {
+    backgroundColor: matterhornSecondary,
+    borderRadius: 50,
+  },
+  lockHeading: {
+    fontSize: height > SHORT_DEVICE ? 23 : 16,
+    width: '80%',
+    ...Platform.select({
+      ios: {
+        marginTop: height > SHORT_DEVICE ? '8%' : '2%',
+      },
+      android: {
+        marginTop: height > SHORT_DEVICE ? '2%' : 0,
+      },
+    }),
+  },
+  newPasscodeText: {
+    ...Platform.select({
+      ios: {
+        marginTop: height > SHORT_DEVICE ? '6.1%' : '2%',
+      },
+      android: {
+        marginTop: height > SHORT_DEVICE ? '2%' : 0,
+      },
+    }),
+  },
+})
 
 const mapStateToProps = (state: Store) => ({
   checkPinStatus: state.lock.checkPinStatus,

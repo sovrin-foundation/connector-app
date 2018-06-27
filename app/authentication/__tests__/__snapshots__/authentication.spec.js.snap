@@ -97,6 +97,9 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                     null,
                     null,
                     null,
+                    null,
+                    null,
+                    null,
                     Object {
                       "lineHeight": 30,
                       "marginHorizontal": 30,
@@ -131,6 +134,9 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
                     Object {
                       "textAlign": "center",
                     },
+                    null,
+                    null,
+                    null,
                     null,
                     null,
                     null,
@@ -854,6 +860,9 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
               Object {
                 "backgroundColor": "transparent",
               },
+              null,
+              null,
+              null,
               null,
               null,
               null,

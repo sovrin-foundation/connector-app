@@ -101,6 +101,9 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
             null,
             null,
             null,
+            null,
+            null,
+            null,
             Object {
               "marginBottom": "6%",
             },
@@ -142,6 +145,9 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
             null,
             null,
             null,
+            null,
+            null,
+            null,
             Object {
               "marginBottom": "6%",
               "marginLeft": "6%",
@@ -178,6 +184,9 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
             Object {
               "backgroundColor": "transparent",
             },
+            null,
+            null,
+            null,
             null,
             null,
             null,

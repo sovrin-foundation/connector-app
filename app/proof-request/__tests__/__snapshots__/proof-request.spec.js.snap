@@ -365,6 +365,9 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
               null,
               null,
               null,
+              null,
+              null,
+              null,
               Array [],
             ]
           }
@@ -390,6 +393,9 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
               Object {
                 "fontWeight": "900",
               },
+              null,
+              null,
+              null,
               null,
               null,
               null,
@@ -647,6 +653,9 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                                 null,
                                 null,
                                 null,
+                                null,
+                                null,
+                                null,
                                 Object {
                                   "paddingVertical": 2,
                                 },
@@ -688,6 +697,9 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                                 Object {
                                   "backgroundColor": "transparent",
                                 },
+                                null,
+                                null,
+                                null,
                                 null,
                                 null,
                                 null,
@@ -893,6 +905,9 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                                 null,
                                 null,
                                 null,
+                                null,
+                                null,
+                                null,
                                 Object {
                                   "paddingVertical": 2,
                                 },
@@ -934,6 +949,9 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                                 Object {
                                   "backgroundColor": "transparent",
                                 },
+                                null,
+                                null,
+                                null,
                                 null,
                                 null,
                                 null,
@@ -1549,6 +1567,9 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
               null,
               null,
               null,
+              null,
+              null,
+              null,
               Object {
                 "marginBottom": 5,
                 "paddingTop": 10,
@@ -1585,6 +1606,9 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
               Object {
                 "backgroundColor": "transparent",
               },
+              null,
+              null,
+              null,
               null,
               null,
               null,

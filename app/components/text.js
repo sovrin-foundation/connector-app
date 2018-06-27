@@ -50,6 +50,9 @@ const CustomText = (props: GenericObject) => {
     adjustsFontSizeToFit,
     allowFontScaling,
     animated,
+    charcoal,
+    secondaryColor,
+    darkgray,
     medium,
   } = props
 
@@ -81,6 +84,9 @@ const CustomText = (props: GenericObject) => {
     borderColor ? styles.borderColor : null,
     primary ? styles.primary : null,
     fullWidth ? styles.fullWidth : null,
+    charcoal ? styles.colorCharcoal : null,
+    secondaryColor ? styles.greyColor : null,
+    darkgray ? styles.darkgray : null,
     ...style,
   ]
   const TextComponent = animated ? Animated.Text : Text
@@ -222,5 +228,14 @@ export const styles = StyleSheet.create({
   },
   fullWidth: {
     width: '100%',
+  },
+  colorCharcoal: {
+    color: color.textColor.charcoal,
+  },
+  greyColor: {
+    color: color.textColor.grey,
+  },
+  darkgray: {
+    color: color.textColor.darkgray,
   },
 })

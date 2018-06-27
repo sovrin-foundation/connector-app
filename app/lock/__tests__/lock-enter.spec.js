@@ -34,7 +34,10 @@ describe('<LockEnter />', () => {
 
   beforeEach(() => {
     props = getProps()
-    component = renderer.create(<LockEnter {...props} />, options)
+    component = renderer.create(
+      <LockEnter {...props} fromRecovery={false} />,
+      options
+    )
   })
 
   it('should match snapshot', () => {
@@ -43,14 +46,24 @@ describe('<LockEnter />', () => {
 
   it('call onSuccess if pin matches', () => {
     component.update(
-      <LockEnter {...props} checkPinStatus={CHECK_PIN_SUCCESS} />
+      <LockEnter
+        {...props}
+        checkPinStatus={CHECK_PIN_SUCCESS}
+        fromRecovery={false}
+      />
     )
     expect(props.onSuccess).toHaveBeenCalled()
   })
 
   it('clear pin code box if pin check fails', () => {
     jest.useFakeTimers()
-    component.update(<LockEnter {...props} checkPinStatus={CHECK_PIN_FAIL} />)
+    component.update(
+      <LockEnter
+        {...props}
+        checkPinStatus={CHECK_PIN_FAIL}
+        fromRecovery={false}
+      />
+    )
     jest.runAllTimers()
     expect(props.checkPinStatusIdle).toHaveBeenCalled()
   })

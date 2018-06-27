@@ -68,6 +68,9 @@ exports[`app lock selection page should render properly 1`] = `
           null,
           null,
           null,
+          null,
+          null,
+          null,
         ]
       }
     >
@@ -105,6 +108,9 @@ exports[`app lock selection page should render properly 1`] = `
           Object {
             "textAlign": "center",
           },
+          null,
+          null,
+          null,
           null,
           null,
           null,
@@ -215,6 +221,9 @@ exports[`app lock selection page should render properly 1`] = `
             null,
             null,
             null,
+            null,
+            null,
+            null,
           ]
         }
         testID="use-touch-id-text"
@@ -272,6 +281,9 @@ exports[`app lock selection page should render properly 1`] = `
             Object {
               "backgroundColor": "transparent",
             },
+            null,
+            null,
+            null,
             null,
             null,
             null,
@@ -378,6 +390,9 @@ exports[`app lock selection page should render properly 1`] = `
                 null,
                 null,
                 null,
+                null,
+                null,
+                null,
               ]
             }
           >
@@ -417,6 +432,9 @@ exports[`app lock selection page should render properly 1`] = `
                 Object {
                   "textAlign": "center",
                 },
+                null,
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -468,6 +486,9 @@ exports[`app lock selection page should render properly 1`] = `
                 null,
                 null,
                 null,
+                null,
+                null,
+                null,
               ]
             }
           >
@@ -507,6 +528,9 @@ exports[`app lock selection page should render properly 1`] = `
                 Object {
                   "textAlign": "center",
                 },
+                null,
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -558,6 +582,9 @@ exports[`app lock selection page should render properly 1`] = `
                 null,
                 null,
                 null,
+                null,
+                null,
+                null,
               ]
             }
           >
@@ -603,6 +630,9 @@ exports[`app lock selection page should render properly 1`] = `
                 null,
                 null,
                 null,
+                null,
+                null,
+                null,
               ]
             }
           >
@@ -638,6 +668,9 @@ exports[`app lock selection page should render properly 1`] = `
             Object {
               "backgroundColor": "transparent",
             },
+            null,
+            null,
+            null,
             null,
             null,
             null,

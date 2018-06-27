@@ -114,6 +114,9 @@ exports[`RestoreWait screen should render properly and match the snapshot 1`] = 
             null,
             null,
             null,
+            null,
+            null,
+            null,
             Object {
               "color": "#505050",
               "fontSize": 23,

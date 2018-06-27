@@ -20,9 +20,14 @@ type CustomModalProps = {
   testID: string,
   isVisible: boolean,
   accessibilityLabel?: string,
+  backdropOpacity?: number,
 }
 
 export default class CustomModal extends PureComponent<CustomModalProps, void> {
+  static defaultProps = {
+    backdropOpacity: 1,
+  }
+
   onPressDebounce = debounce(
     event => {
       if (this.props.onPress) {
@@ -41,11 +46,12 @@ export default class CustomModal extends PureComponent<CustomModalProps, void> {
       testID,
       isVisible,
       accessibilityLabel = 'Continue to see your new connection',
+      backdropOpacity,
     } = this.props
     return (
       <Modal
         backdropColor={color.bg.tertiary.color}
-        backdropOpacity={1}
+        backdropOpacity={backdropOpacity}
         isVisible={isVisible}
         animationIn="zoomIn"
         animationOut="zoomOut"

@@ -25,6 +25,9 @@ exports[`<CustomDate /> should ConnectionHistoryDetails render properly 1`] = `
       null,
       null,
       null,
+      null,
+      null,
+      null,
     ]
   }
 >

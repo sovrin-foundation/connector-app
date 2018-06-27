@@ -2,13 +2,15 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { StyleSheet } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 
-import { CustomText } from '../components'
 import LockEnter from './lock-enter'
-import { color, OFFSET_2X } from '../common/styles'
-import { lockEnterPinRoute, lockPinSetupRoute, homeRoute } from '../common'
+import {
+  lockEnterPinRoute,
+  lockPinSetupRoute,
+  homeRoute,
+  lockSelectionRoute,
+} from '../common'
 import type { ReactNavigation } from '../common/type-common'
 import type { Store } from '../store/type-store'
 import type { LockEnterPinProps, LockEnterPinState } from './type-lock'
@@ -29,10 +31,15 @@ export class LockEnterPin extends PureComponent<
     authenticationSuccess: false,
   }
 
-  static navigationOptions = () => ({
+  static navigationOptions = ({ navigation }) => ({
     title: 'App Security',
     headerStyle: tertiaryHeaderStyles.header,
     headerTitleStyle: tertiaryHeaderStyles.title,
+    header:
+      navigation.state.params &&
+      navigation.state.params.fromScreen === 'recovery'
+        ? null
+        : undefined,
   })
 
   componentWillReceiveProps(nextProps: LockEnterPinProps) {
@@ -88,9 +95,20 @@ export class LockEnterPin extends PureComponent<
     }
   }
 
-  render() {
-    const { isFetchingInvitation } = this.props
+  redirectToSetupPasscode = () => {
+    this.props.navigation.navigate(lockSelectionRoute)
+  }
 
+  render() {
+    const { isFetchingInvitation, navigation } = this.props
+    let fromRecovery = false
+    if (navigation.state) {
+      fromRecovery =
+        navigation.state.params &&
+        navigation.state.params.fromScreen === 'recovery'
+          ? true
+          : false
+    }
     let message = this.props.existingPin
       ? ENTER_YOUR_PASS_CODE_MESSAGE
       : ENTER_PASS_CODE_MESSAGE
@@ -99,7 +117,14 @@ export class LockEnterPin extends PureComponent<
       message = UNLOCKING_APP_WAIT_MESSAGE
     }
 
-    return <LockEnter onSuccess={this.onSuccess} message={message} />
+    return (
+      <LockEnter
+        fromRecovery={fromRecovery}
+        onSuccess={this.onSuccess}
+        message={message}
+        setupNewPassCode={this.redirectToSetupPasscode}
+      />
+    )
   }
 }
 

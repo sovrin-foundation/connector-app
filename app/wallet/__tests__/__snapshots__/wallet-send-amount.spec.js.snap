@@ -83,6 +83,9 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
             null,
             null,
             null,
+            null,
+            null,
+            null,
           ]
         }
       >

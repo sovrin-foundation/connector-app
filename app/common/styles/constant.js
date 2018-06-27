@@ -7,6 +7,8 @@ import { Dimensions, Platform } from 'react-native'
 const zircon = '#ebebea'
 export const nightRider = '#333333'
 export const grey = '#777777'
+export const matterhornSecondary = '#505050'
+export const charcoal = '#464646'
 export const whiteSmoke = '#f0f0f0'
 export const whiteSmokeSecondary = '#f7f7f7'
 export const whiteSmokeRGBA = 'rgba(240, 240, 240, 0)'
@@ -47,6 +49,7 @@ const orange = 'rgba(237, 156, 46, 1)'
 const orangeDisabled = 'rgba(237, 156, 46, 0.5)'
 const darkOrange = 'rgba(207, 127, 20, 1)'
 const errorBg = 'rgba(255, 214, 219, 1)'
+const darkgray = '#4A4A4A'
 
 // color shades
 const primaryShade = '1.0'
@@ -184,6 +187,11 @@ export const color = {
   border: {
     primary: whisper,
     secondary: yellowSea,
+  },
+  textColor: {
+    charcoal: charcoal,
+    grey: grey,
+    darkgray: darkgray,
   },
 }
 

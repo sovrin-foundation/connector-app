@@ -227,6 +227,9 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
             null,
             null,
             null,
+            null,
+            null,
+            null,
             Object {
               "marginBottom": 5,
             },
@@ -262,6 +265,9 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
             Object {
               "backgroundColor": "transparent",
             },
+            null,
+            null,
+            null,
             null,
             null,
             null,
@@ -305,6 +311,9 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
             null,
             null,
             null,
+            null,
+            null,
+            null,
             Object {
               "marginBottom": 5,
             },
@@ -341,6 +350,9 @@ exports[`<ClaimRequestModal /> should match snapshot 1`] = `
             Object {
               "backgroundColor": "transparent",
             },
+            null,
+            null,
+            null,
             null,
             null,
             null,
@@ -712,6 +724,9 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
             null,
             null,
             null,
+            null,
+            null,
+            null,
             Object {
               "marginBottom": 5,
             },
@@ -747,6 +762,9 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
             Object {
               "backgroundColor": "transparent",
             },
+            null,
+            null,
+            null,
             null,
             null,
             null,
@@ -790,6 +808,9 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
             null,
             null,
             null,
+            null,
+            null,
+            null,
             Object {
               "marginBottom": 5,
             },
@@ -826,6 +847,9 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
             Object {
               "backgroundColor": "transparent",
             },
+            null,
+            null,
+            null,
             null,
             null,
             null,

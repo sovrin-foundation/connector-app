@@ -200,6 +200,8 @@ export type LockEnterProps = {
   onSuccess: () => void,
   message?: string,
   checkPinStatus: CheckPinStatus,
+  fromRecovery: boolean,
+  setupNewPassCode?: () => void,
 }
 
 export type LockAuthorizationProps = {

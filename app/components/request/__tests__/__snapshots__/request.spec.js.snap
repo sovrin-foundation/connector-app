@@ -90,6 +90,9 @@ exports[`<Request /> should match snapshot 1`] = `
                   null,
                   null,
                   null,
+                  null,
+                  null,
+                  null,
                   Object {
                     "lineHeight": 30,
                     "marginHorizontal": 30,
@@ -124,6 +127,9 @@ exports[`<Request /> should match snapshot 1`] = `
                   Object {
                     "textAlign": "center",
                   },
+                  null,
+                  null,
+                  null,
                   null,
                   null,
                   null,

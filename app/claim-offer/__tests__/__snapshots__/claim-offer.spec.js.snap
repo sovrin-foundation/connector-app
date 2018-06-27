@@ -227,6 +227,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               null,
               null,
               null,
+              null,
+              null,
+              null,
               Array [
                 Object {
                   "backgroundColor": "transparent",
@@ -259,6 +262,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               Object {
                 "fontWeight": "900",
               },
+              null,
+              null,
+              null,
               null,
               null,
               null,
@@ -388,6 +394,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     null,
                     null,
                     null,
+                    null,
+                    null,
+                    null,
                     Object {
                       "lineHeight": 19,
                     },
@@ -430,6 +439,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     Object {
                       "backgroundColor": "transparent",
                     },
+                    null,
+                    null,
+                    null,
                     null,
                     null,
                     null,
@@ -508,6 +520,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     null,
                     null,
                     null,
+                    null,
+                    null,
+                    null,
                     Object {
                       "lineHeight": 19,
                     },
@@ -550,6 +565,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     Object {
                       "backgroundColor": "transparent",
                     },
+                    null,
+                    null,
+                    null,
                     null,
                     null,
                     null,
@@ -1115,6 +1133,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               null,
               null,
               null,
+              null,
+              null,
+              null,
               Object {
                 "marginBottom": 5,
               },
@@ -1150,6 +1171,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               Object {
                 "backgroundColor": "transparent",
               },
+              null,
+              null,
+              null,
               null,
               null,
               null,
@@ -1193,6 +1217,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               null,
               null,
               null,
+              null,
+              null,
+              null,
               Object {
                 "marginBottom": 5,
               },
@@ -1229,6 +1256,9 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
               Object {
                 "backgroundColor": "transparent",
               },
+              null,
+              null,
+              null,
               null,
               null,
               null,
@@ -1596,6 +1626,9 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
               null,
               null,
               null,
+              null,
+              null,
+              null,
               Array [
                 Object {
                   "backgroundColor": "transparent",
@@ -1628,6 +1661,9 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
               Object {
                 "fontWeight": "900",
               },
+              null,
+              null,
+              null,
               null,
               null,
               null,
@@ -1684,6 +1720,9 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                 null,
                 null,
                 null,
+                null,
+                null,
+                null,
                 Object {
                   "fontSize": 14,
                   "marginTop": 15,
@@ -1715,6 +1754,9 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                   "backgroundColor": "#ffffff",
                   "color": "#777777",
                 },
+                null,
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -1824,6 +1866,9 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
               Object {
                 "textAlign": "center",
               },
+              null,
+              null,
+              null,
               null,
               null,
               null,
@@ -1979,6 +2024,9 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                     null,
                     null,
                     null,
+                    null,
+                    null,
+                    null,
                     Object {
                       "lineHeight": 19,
                     },
@@ -2021,6 +2069,9 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                     Object {
                       "backgroundColor": "transparent",
                     },
+                    null,
+                    null,
+                    null,
                     null,
                     null,
                     null,
@@ -2099,6 +2150,9 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                     null,
                     null,
                     null,
+                    null,
+                    null,
+                    null,
                     Object {
                       "lineHeight": 19,
                     },
@@ -2141,6 +2195,9 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                     Object {
                       "backgroundColor": "transparent",
                     },
+                    null,
+                    null,
+                    null,
                     null,
                     null,
                     null,
@@ -2706,6 +2763,9 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
               null,
               null,
               null,
+              null,
+              null,
+              null,
               Object {
                 "marginBottom": 5,
               },
@@ -2746,6 +2806,9 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
               null,
               null,
               null,
+              null,
+              null,
+              null,
               Object {
                 "marginBottom": 5,
               },
@@ -2779,6 +2842,9 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
               Object {
                 "backgroundColor": "transparent",
               },
+              null,
+              null,
+              null,
               null,
               null,
               null,
@@ -2825,6 +2891,9 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
               null,
               null,
               null,
+              null,
+              null,
+              null,
               Object {
                 "marginBottom": 5,
               },
@@ -2858,6 +2927,9 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
               Object {
                 "backgroundColor": "transparent",
               },
+              null,
+              null,
+              null,
               null,
               null,
               null,
@@ -2898,6 +2970,9 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
               Object {
                 "backgroundColor": "transparent",
               },
+              null,
+              null,
+              null,
               null,
               null,
               null,
