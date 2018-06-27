@@ -2,10 +2,10 @@
 import 'react-native'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import RestoreScreen from '../restore'
+import { RestoreWaitScreen } from '../restore-wait'
 import { getNavigation, getStore } from '../../../__mocks__/static-data'
 
-describe('Restore screen', () => {
+describe('RestoreWait screen', () => {
   function getProps() {
     return {
       store: getStore(),
@@ -20,7 +20,7 @@ describe('Restore screen', () => {
 
   it('should render properly and match the snapshot', () => {
     const { props } = setup()
-    const tree = renderer.create(<RestoreScreen {...props} />).toJSON()
+    const tree = renderer.create(<RestoreWaitScreen {...props} />).toJSON()
     expect(tree).toMatchSnapshot()
   })
 

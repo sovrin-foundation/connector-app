@@ -62,12 +62,14 @@ import {
   exportBackupFileRoute,
   backupCompleteRoute,
   restoreRoute,
+  restoreWaitRoute,
   restorePassphraseRoute,
 } from './common/'
 import { color } from './common/styles'
 import WalletTabSendDetails from './wallet/wallet-tab-send-details'
 import EulaScreen from './eula/eula'
-import { RestoreScreen } from './restore/restore'
+import RestoreStartScreen from './restore/restore'
+import { RestoreWaitScreen } from './restore/restore-wait'
 import RestorePassphrase from './restore/restore-passphrase'
 
 if (__DEV__) {
@@ -199,10 +201,13 @@ const CardStack = StackNavigator(
       screen: EulaScreen,
     },
     [restoreRoute]: {
-      screen: RestoreScreen,
+      screen: RestoreStartScreen,
     },
     [restorePassphraseRoute]: {
       screen: RestorePassphrase,
+    },
+    [restoreWaitRoute]: {
+      screen: RestoreWaitScreen,
     },
     [genRecoveryPhraseRoute]: { screen: GenerateRecoveryPhrase },
     [verifyRecoveryPhraseRoute]: { screen: VerifyRecoveryPhrase },

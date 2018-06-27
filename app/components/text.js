@@ -20,6 +20,7 @@ const CustomText = (props: GenericObject) => {
   const {
     h3,
     h4,
+    h4a,
     h5,
     h6,
     h7,
@@ -49,12 +50,15 @@ const CustomText = (props: GenericObject) => {
     adjustsFontSizeToFit,
     allowFontScaling,
     animated,
+    medium,
   } = props
 
   const colorType = quaternary
     ? 'Quaternary'
     : secondary ? 'Secondary' : tertiary ? 'Tertiary' : 'Primary'
-  const size = h3 ? 'h3' : h4 ? 'h4' : h6 ? 'h6' : h7 ? 'h7' : 'h5'
+  const size = h3
+    ? 'h3'
+    : h4 ? 'h4' : h4a ? 'h4a' : h6 ? 'h6' : h7 ? 'h7' : 'h5'
   const fontFamily = 'fontLato'
   const textStyles = [
     styles[size],
@@ -67,7 +71,9 @@ const CustomText = (props: GenericObject) => {
         ? styles.semiBold
         : thick
           ? styles.thick
-          : demiBold ? styles.demiBold : heavy ? styles.heavy : null,
+          : demiBold
+            ? styles.demiBold
+            : heavy ? styles.heavy : medium ? styles.medium : null,
     center ? styles.center : null,
     transparentBg ? styles.transparentBg : null,
     quinaryText ? styles.orangeText : null,
@@ -127,6 +133,9 @@ export const styles = StyleSheet.create({
   h3: {
     fontSize: font.size.L,
   },
+  h4a: {
+    fontSize: font.size.M1,
+  },
   h4: {
     fontSize: font.size.ML,
   },
@@ -138,6 +147,9 @@ export const styles = StyleSheet.create({
   },
   h7: {
     fontSize: font.size.XS,
+  },
+  medium: {
+    fontWeight: '500',
   },
   semiBold: {
     fontWeight: '600',

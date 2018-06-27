@@ -22,6 +22,7 @@ export class RestorePassphrase extends Component<RestorePassPhraseProps, void> {
     const filename =
       this.props.navigation.state.params &&
       this.props.navigation.state.params.filename
+
     return (
       <EnterPassphrase
         testID={'restore-encrypt-phrase'}

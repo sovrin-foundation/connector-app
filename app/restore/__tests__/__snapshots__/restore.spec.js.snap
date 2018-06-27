@@ -4,7 +4,6 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
 <RCTSafeAreaView
   accessibilityLabel="restore-container"
   accessible={true}
-  fifth={true}
   safeArea={true}
   style={
     Object {
@@ -60,27 +59,15 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
         }
       />
     </View>
-  </View>
-  <View
-    accessibilityLabel="restore-buttons-view"
-    accessible={true}
-    doubleVerticalSpace={true}
-    horizontalSpace={true}
-    style={
-      Object {
-        "paddingHorizontal": 15,
-        "paddingVertical": 16,
-      }
-    }
-    testID="restore-buttons-view"
-  >
     <View
       center={true}
+      doubleVerticalSpace={true}
       style={
         Object {
           "alignItems": "center",
           "justifyContent": "center",
           "marginBottom": "10%",
+          "paddingVertical": 16,
         }
       }
     >
@@ -91,7 +78,7 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
         style={
           Array [
             Object {
-              "fontSize": 17,
+              "fontSize": 18,
             },
             Object {
               "fontFamily": "Lato",
@@ -100,8 +87,12 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
               "backgroundColor": "#333333",
               "color": "#ffffff",
             },
-            null,
-            null,
+            Object {
+              "fontWeight": "500",
+            },
+            Object {
+              "textAlign": "center",
+            },
             Object {
               "backgroundColor": "transparent",
             },
@@ -114,10 +105,7 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
               "marginBottom": "6%",
             },
             Object {
-              "color": "rgba(112,112,112,1)",
-              "fontSize": 18,
-              "fontWeight": "500",
-              "lineHeight": 22,
+              "color": "#717171",
             },
           ]
         }
@@ -131,7 +119,7 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
         style={
           Array [
             Object {
-              "fontSize": 17,
+              "fontSize": 18,
             },
             Object {
               "fontFamily": "Lato",
@@ -140,7 +128,9 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
               "backgroundColor": "#333333",
               "color": "#ffffff",
             },
-            null,
+            Object {
+              "fontWeight": "500",
+            },
             Object {
               "textAlign": "center",
             },
@@ -158,10 +148,7 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
               "marginRight": "6%",
             },
             Object {
-              "color": "rgba(112,112,112,1)",
-              "fontSize": 18,
-              "fontWeight": "500",
-              "lineHeight": 22,
+              "color": "#717171",
             },
           ]
         }
@@ -175,7 +162,7 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
         style={
           Array [
             Object {
-              "fontSize": 17,
+              "fontSize": 18,
             },
             Object {
               "fontFamily": "Lato",
@@ -184,7 +171,9 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
               "backgroundColor": "#333333",
               "color": "#ffffff",
             },
-            null,
+            Object {
+              "fontWeight": "500",
+            },
             null,
             Object {
               "backgroundColor": "transparent",
@@ -195,10 +184,7 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
             null,
             null,
             Object {
-              "color": "rgba(112,112,112,1)",
-              "fontSize": 18,
-              "fontWeight": "500",
-              "lineHeight": 22,
+              "color": "#717171",
             },
           ]
         }
@@ -206,94 +192,62 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
         How would you like to proceed?
       </Text>
     </View>
+  </View>
+  <View
+    style={
+      Object {
+        "flex": 1,
+        "justifyContent": "flex-end",
+      }
+    }
+  >
     <View
+      pad={true}
       style={
-        Array [
-          Object {
-            "marginLeft": 15,
-            "marginRight": 15,
-          },
-          undefined,
-          Object {
-            "marginLeft": 0,
-            "marginRight": 0,
-          },
-          undefined,
-        ]
+        Object {
+          "paddingHorizontal": 15,
+          "paddingVertical": 8,
+        }
       }
     >
       <View
-        accessibilityComponentType={undefined}
-        accessibilityLabel="restore-from-backup"
-        accessibilityTraits={undefined}
-        accessible={true}
-        hasTVPreferredFocus={undefined}
-        hitSlop={undefined}
-        isTVSelectable={true}
-        nativeID={undefined}
-        onLayout={undefined}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
           Array [
             Object {
-              "backgroundColor": "transparent",
+              "marginLeft": 15,
+              "marginRight": 15,
             },
-            Array [
-              Object {
-                "borderRadius": 5,
-                "height": 43,
-                "marginTop": 10,
-                "width": "100%",
-              },
-              Object {
-                "elevation": 4,
-                "shadowColor": "#777777",
-                "shadowOffset": Object {
-                  "height": 5,
-                  "width": 0,
-                },
-                "shadowOpacity": 0.3,
-                "shadowRadius": 5,
-              },
-            ],
+            undefined,
+            Object {
+              "marginLeft": 0,
+              "marginRight": 0,
+            },
+            undefined,
           ]
         }
-        testID="restore-from-backup"
-        tvParallaxProperties={undefined}
       >
         <View
-          pointerEvents="box-only"
+          accessibilityComponentType={undefined}
+          accessibilityLabel="restore-from-backup"
+          accessibilityTraits={undefined}
+          accessible={true}
+          hasTVPreferredFocus={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Array [
               Object {
-                "alignItems": "center",
-                "backgroundColor": "#9E9E9E",
-                "flexDirection": "row",
-                "justifyContent": "center",
-                "padding": 19,
+                "backgroundColor": "transparent",
               },
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              Object {
-                "backgroundColor": "#ffffff",
-              },
-              undefined,
-              Object {
-                "padding": 12,
-              },
-              undefined,
-              undefined,
-              undefined,
               Array [
-                null,
                 Object {
                   "borderRadius": 5,
                   "height": 43,
@@ -311,142 +265,142 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
                   "shadowRadius": 5,
                 },
               ],
-              undefined,
-              undefined,
             ]
           }
+          testID="restore-from-backup"
+          tvParallaxProperties={undefined}
         >
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
+          <View
+            pointerEvents="box-only"
             style={
               Array [
-                Object {},
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#9E9E9E",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "padding": 19,
+                },
                 undefined,
                 undefined,
                 undefined,
                 undefined,
                 undefined,
+                Object {
+                  "backgroundColor": "#ffffff",
+                },
                 undefined,
+                Object {
+                  "padding": 12,
+                },
                 undefined,
                 undefined,
                 undefined,
                 Array [
+                  null,
                   Object {
-                    "color": "white",
-                    "fontSize": 16,
+                    "borderRadius": 5,
+                    "height": 43,
+                    "marginTop": 10,
+                    "width": "100%",
                   },
                   Object {
-                    "color": "rgba(74,143,227,1)",
+                    "elevation": 4,
+                    "shadowColor": "#777777",
+                    "shadowOffset": Object {
+                      "height": 5,
+                      "width": 0,
+                    },
+                    "shadowOpacity": 0.3,
+                    "shadowRadius": 5,
                   },
-                  Object {
-                    "fontSize": 14,
-                  },
-                  undefined,
-                  undefined,
-                  Object {
-                    "fontWeight": "600",
-                  },
-                  undefined,
-                  undefined,
                 ],
+                undefined,
+                undefined,
               ]
             }
           >
-            Restore From A Backup
-          </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {},
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  Array [
+                    Object {
+                      "color": "white",
+                      "fontSize": 16,
+                    },
+                    Object {
+                      "color": "#4A90E2",
+                    },
+                    Object {
+                      "fontSize": 14,
+                    },
+                    undefined,
+                    undefined,
+                    Object {
+                      "fontWeight": "600",
+                    },
+                    undefined,
+                    undefined,
+                  ],
+                ]
+              }
+            >
+              Restore From A Backup
+            </Text>
+          </View>
         </View>
       </View>
-    </View>
-    <View
-      style={
-        Array [
-          Object {
-            "marginLeft": 15,
-            "marginRight": 15,
-          },
-          undefined,
-          Object {
-            "marginLeft": 0,
-            "marginRight": 0,
-          },
-          undefined,
-        ]
-      }
-    >
       <View
-        accessibilityComponentType={undefined}
-        accessibilityLabel="start-fresh"
-        accessibilityTraits={undefined}
-        accessible={true}
-        hasTVPreferredFocus={undefined}
-        hitSlop={undefined}
-        isTVSelectable={true}
-        nativeID={undefined}
-        onLayout={undefined}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
         style={
           Array [
             Object {
-              "backgroundColor": "transparent",
+              "marginLeft": 15,
+              "marginRight": 15,
             },
-            Array [
-              Object {
-                "borderRadius": 5,
-                "height": 43,
-                "marginTop": 10,
-                "width": "100%",
-              },
-              Object {
-                "elevation": 4,
-                "shadowColor": "#777777",
-                "shadowOffset": Object {
-                  "height": 5,
-                  "width": 0,
-                },
-                "shadowOpacity": 0.3,
-                "shadowRadius": 5,
-              },
-            ],
+            undefined,
+            Object {
+              "marginLeft": 0,
+              "marginRight": 0,
+            },
+            undefined,
           ]
         }
-        testID="start-fresh"
-        tvParallaxProperties={undefined}
       >
         <View
-          pointerEvents="box-only"
+          accessibilityComponentType={undefined}
+          accessibilityLabel="start-fresh"
+          accessibilityTraits={undefined}
+          accessible={true}
+          hasTVPreferredFocus={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Array [
               Object {
-                "alignItems": "center",
-                "backgroundColor": "#9E9E9E",
-                "flexDirection": "row",
-                "justifyContent": "center",
-                "padding": 19,
+                "backgroundColor": "transparent",
               },
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              Object {
-                "backgroundColor": "#ffffff",
-              },
-              undefined,
-              Object {
-                "padding": 12,
-              },
-              undefined,
-              undefined,
-              undefined,
               Array [
-                null,
                 Object {
                   "borderRadius": 5,
                   "height": 43,
@@ -464,51 +418,102 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
                   "shadowRadius": 5,
                 },
               ],
-              undefined,
-              undefined,
             ]
           }
+          testID="start-fresh"
+          tvParallaxProperties={undefined}
         >
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
+          <View
+            pointerEvents="box-only"
             style={
               Array [
-                Object {},
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#9E9E9E",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "padding": 19,
+                },
                 undefined,
                 undefined,
                 undefined,
                 undefined,
                 undefined,
+                Object {
+                  "backgroundColor": "#ffffff",
+                },
                 undefined,
+                Object {
+                  "padding": 12,
+                },
                 undefined,
                 undefined,
                 undefined,
                 Array [
+                  null,
                   Object {
-                    "color": "white",
-                    "fontSize": 16,
+                    "borderRadius": 5,
+                    "height": 43,
+                    "marginTop": 10,
+                    "width": "100%",
                   },
                   Object {
-                    "color": "rgba(74,143,227,1)",
+                    "elevation": 4,
+                    "shadowColor": "#777777",
+                    "shadowOffset": Object {
+                      "height": 5,
+                      "width": 0,
+                    },
+                    "shadowOpacity": 0.3,
+                    "shadowRadius": 5,
                   },
-                  Object {
-                    "fontSize": 14,
-                  },
-                  undefined,
-                  undefined,
-                  Object {
-                    "fontWeight": "600",
-                  },
-                  undefined,
-                  undefined,
                 ],
+                undefined,
+                undefined,
               ]
             }
           >
-            Start Fresh
-          </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {},
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  Array [
+                    Object {
+                      "color": "white",
+                      "fontSize": 16,
+                    },
+                    Object {
+                      "color": "#4A90E2",
+                    },
+                    Object {
+                      "fontSize": 14,
+                    },
+                    undefined,
+                    undefined,
+                    Object {
+                      "fontWeight": "600",
+                    },
+                    undefined,
+                    undefined,
+                  ],
+                ]
+              }
+            >
+              Start Fresh
+            </Text>
+          </View>
         </View>
       </View>
     </View>

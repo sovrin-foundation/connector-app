@@ -222,7 +222,8 @@ class ConnectMeApp extends PureComponent<void, AppState> {
         store.dispatch(updateStatusBarTheme(color.bg.fourteenth.color))
       } else if (
         currentScreen !== connectionHistoryRoute &&
-        currentScreen !== claimOfferRoute
+        currentScreen !== claimOfferRoute &&
+        currentScreen !== restoreRoute
       ) {
         // Any screen that handles its own statusbar theme should be included above.
         store.dispatch(updateStatusBarTheme())

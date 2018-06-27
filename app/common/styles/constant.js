@@ -16,6 +16,7 @@ export const greyRGB = '119, 119, 119'
 export const white = '#ffffff'
 export const whisper = '#EAEAEA'
 export const lightDarkBlue = '#4A8FE3'
+export const darkGray = '#505050'
 
 const sirocco = '#636564'
 const corduroy = '#3f4140'
@@ -27,14 +28,14 @@ const dimGraySecondary = '#6D6D6D'
 export const lightGray = '#D8D8D8'
 const nobel = '#a0a0a0'
 const nobelSecondary = '#9B9B9B'
-const venetianRed = '#d0021b'
+export const venetianRed = '#d0021b'
 export const veniceBlue = '#2A5270'
 export const hitSlop = { top: 15, bottom: 15, left: 15, right: 15 }
 export const iPhoneXHeight = 812
 const dodgerBlue = '#0d8ffc'
 const black = '#000000'
 const yellowSea = '#EB9B2D'
-const cornFlowerBlue = '#4A90E2'
+export const cornFlowerBlue = '#4A90E2'
 const atlantis = '#86B93B'
 const gamboge = '#DD9012'
 const blueViolet = '#8D13FE'
@@ -191,6 +192,7 @@ export const font = {
     XS: 12,
     S: 15,
     M: 17,
+    M1: 18,
     ML: 20,
     L: 40,
     PREFIX: 14,
