@@ -22,7 +22,7 @@ export default class BackupRestorePassphrase extends PureComponent<
   void
 > {
   render() {
-    const { filename, testID } = this.props
+    const { filename, testID, onSubmit, onChangeText, placeholder } = this.props
     return (
       <Container
         testID={`${testID}-container`}
@@ -67,10 +67,11 @@ export default class BackupRestorePassphrase extends PureComponent<
               testID={`${testID}-text-input`}
               accessible={true}
               accessibilityLabel={`${testID}-text-input`}
-              onSubmitEditing={this.props.onSubmit}
-              onChangeText={this.props.onChangeText}
+              autoFocus={true}
+              onSubmitEditing={onSubmit}
+              onChangeText={onChangeText}
               style={[styles.inputBox]}
-              placeholder={this.props.placeholder}
+              placeholder={placeholder}
               placeholderTextColor="white"
               autoCorrect={false}
               underlineColorAndroid="transparent"

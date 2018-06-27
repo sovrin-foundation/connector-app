@@ -1,18 +1,11 @@
 // @flow
 
 import React, { Component } from 'react'
-import { Dimensions, TextInput, Image, Keyboard } from 'react-native'
+import { Dimensions, Keyboard } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 
-import {
-  Container,
-  CustomView,
-  CustomButton,
-  Icon,
-  CustomText,
-} from '../components'
+import { CustomView, Icon } from '../components'
 import { verifyRecoveryPhraseRoute, exportBackupFileRoute } from '../common'
-import { SHORT_DEVICE } from '../common/styles'
 import { color } from '../common/styles/constant'
 import styles from './styles'
 import type {
@@ -23,7 +16,6 @@ import {
   VERIFY_BACK_TEST_ID,
   VERIFY_CLOSE_TEST_ID,
   VERIFY_CONTAINER_TEST_ID,
-  VERIFY_BUTTON_TITLE,
   VERIFY_INPUT_PLACEHOLDER,
 } from './backup-constants'
 

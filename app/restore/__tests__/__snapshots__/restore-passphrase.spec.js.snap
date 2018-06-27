@@ -186,6 +186,7 @@ exports[`Restore Passphrase screen should render properly and match the snapshot
           accessible={true}
           autoCapitalize="none"
           autoCorrect={false}
+          autoFocus={true}
           clearButtonMode="always"
           multiline={true}
           numberOfLines={1}
