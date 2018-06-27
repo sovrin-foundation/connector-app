@@ -4,9 +4,9 @@ import EnterPassphrase from '../components/backup-restore-passphrase/backup-rest
 import { StackNavigator } from 'react-navigation'
 import { color } from '../common/styles/constant'
 import { restorePassphraseRoute } from '../common'
-import { Alert } from 'react-native'
+import type { RestorePassPhraseProps } from './type-restore'
 
-export class RestorePassphrase extends Component<*, void> {
+export class RestorePassphrase extends Component<RestorePassPhraseProps, void> {
   static navigationOptions = {
     headerStyle: {
       backgroundColor: color.bg.twelfth.color,
@@ -17,7 +17,7 @@ export class RestorePassphrase extends Component<*, void> {
   }
 
   submitPhrase = () => {}
-  textPhraseInput = (txt: string) => {}
+
   render() {
     const filename =
       this.props.navigation.state.params &&
@@ -26,7 +26,6 @@ export class RestorePassphrase extends Component<*, void> {
       <EnterPassphrase
         testID={'restore-encrypt-phrase'}
         onSubmit={this.submitPhrase}
-        onChangeText={this.textPhraseInput}
         placeholder={'Enter recovery phrase here'}
         filename={filename}
       />

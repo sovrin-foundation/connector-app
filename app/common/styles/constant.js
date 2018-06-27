@@ -1,6 +1,6 @@
 // @flow
 import { StyleSheet } from 'react-native'
-import { Dimensions } from 'react-native'
+import { Dimensions, Platform } from 'react-native'
 
 // TODO:KS Add support for themes as well
 // Color name taken from http://www.htmlcsscolor.com/
@@ -228,3 +228,7 @@ const { width, height } = Dimensions.get('screen')
 export const isiPhone5 = width >= 320 && width < 375
 export const SHORT_DEVICE = 600
 export const VERY_SHORT_DEVICE = 550
+export const errorBoxVerifyPassphraseContainer = height > SHORT_DEVICE ? 60 : 90
+export const dangerBannerHeight = height > SHORT_DEVICE ? 64 : 90
+export const inputBoxVerifyPassphraseHeight =
+  height > SHORT_DEVICE || Platform.OS === 'ios' ? 137 : 40

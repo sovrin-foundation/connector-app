@@ -11,18 +11,23 @@ import {
 import { Container, CustomView, CustomText } from '../index'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { color } from '../../common/styles/constant'
-import { SHORT_DEVICE } from '../../common/styles/constant'
+import {
+  SHORT_DEVICE,
+  errorBoxVerifyPassphraseContainer,
+  inputBoxVerifyPassphraseHeight,
+  dangerBannerHeight,
+} from '../../common/styles/constant'
 import type { BackupRestorePassphraseProps } from './type-backup-restore-passphrase'
+import ErrorBanner from '../banner/banner-danger'
 
 const { height } = Dimensions.get('window')
-const inputBoxHeight = height > SHORT_DEVICE || Platform.OS === 'ios' ? 137 : 40
 
 export default class BackupRestorePassphrase extends PureComponent<
   BackupRestorePassphraseProps,
   void
 > {
   render() {
-    const { filename, testID, onSubmit, onChangeText, placeholder } = this.props
+    const { filename, testID, onSubmit, placeholder, errorState } = this.props
     return (
       <Container
         testID={`${testID}-container`}
@@ -39,7 +44,9 @@ export default class BackupRestorePassphrase extends PureComponent<
             <CustomView center>
               {filename ? (
                 <CustomView center>
-                  <Image source={require('../../images/encryptedFile.png')} />
+                  <Image
+                    source={require('../../images/encryptedFileGreen.png')}
+                  />
                   <CustomText center transparentBg h5 style={[styles.filename]}>
                     {filename}
                   </CustomText>
@@ -62,6 +69,14 @@ export default class BackupRestorePassphrase extends PureComponent<
                   : 'To verify that you have copied down your recovery phrase correctly, please enter it below.'}
               </CustomText>
             </CustomView>
+            {errorState ? (
+              <ErrorBanner
+                bannerTitle={'Recovery Phrase Does Not Match!'}
+                bannerSubtitle={'Try entering it again or go back and verify'}
+                style={[styles.dangerBannerBox]}
+                testID={'verify-passphrase-error-banner'}
+              />
+            ) : null}
             <TextInput
               autoCapitalize="none"
               testID={`${testID}-text-input`}
@@ -69,7 +84,6 @@ export default class BackupRestorePassphrase extends PureComponent<
               accessibilityLabel={`${testID}-text-input`}
               autoFocus={true}
               onSubmitEditing={onSubmit}
-              onChangeText={onChangeText}
               style={[styles.inputBox]}
               placeholder={placeholder}
               placeholderTextColor="white"
@@ -119,12 +133,17 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     marginRight: 20,
     marginLeft: 20,
-    height: inputBoxHeight,
+    height: inputBoxVerifyPassphraseHeight,
     backgroundColor: 'rgba(0,0,0,0.33)',
     color: 'white',
     padding: 10,
     textAlignVertical: 'top',
     fontSize: 20,
     fontStyle: 'italic',
+  },
+  dangerBannerBox: {
+    marginLeft: 20,
+    marginRight: 20,
+    height: dangerBannerHeight,
   },
 })

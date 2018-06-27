@@ -33,7 +33,6 @@ export class VerifyRecoveryPhrase extends Component<
 > {
   state = {
     error: false,
-    recoveryPassphrase: '',
   }
 
   static navigationOptions = ({ navigation: { goBack, navigate, state } }) => ({
@@ -67,12 +66,12 @@ export class VerifyRecoveryPhrase extends Component<
     gesturesEnabled: false,
   })
 
-  verifyRecoveryPhrase = async () => {
+  verifyRecoveryPhrase = async (event: any) => {
     const {
       recoveryPassphrase,
       initialRoute,
     } = this.props.navigation.state.params
-    if (recoveryPassphrase === this.state.recoveryPassphrase) {
+    if (recoveryPassphrase === event.nativeEvent.text) {
       this.props.navigation.navigate(exportBackupFileRoute, {
         initialRoute,
       })
@@ -82,9 +81,6 @@ export class VerifyRecoveryPhrase extends Component<
     }
 
     Keyboard.dismiss()
-  }
-  recoveryPhrase = (input: string) => {
-    this.setState({ recoveryPassphrase: input })
   }
 
   componentWillUnmount = () => {
@@ -98,7 +94,7 @@ export class VerifyRecoveryPhrase extends Component<
         testID={VERIFY_CONTAINER_TEST_ID}
         placeholder={VERIFY_INPUT_PLACEHOLDER}
         onSubmit={this.verifyRecoveryPhrase}
-        onChangeText={this.recoveryPhrase}
+        errorState={this.state.error}
       />
     )
   }

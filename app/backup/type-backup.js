@@ -22,7 +22,6 @@ export type ExportBackupFileProps = {
 
 export type ExportBackupFileState = {
   submitButtonText: string,
-  recoveryPassphrase: string,
 }
 
 export type BackupCompleteProps = {} & ReactNavigation

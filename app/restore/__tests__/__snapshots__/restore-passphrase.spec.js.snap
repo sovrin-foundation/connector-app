@@ -190,7 +190,6 @@ exports[`Restore Passphrase screen should render properly and match the snapshot
           clearButtonMode="always"
           multiline={true}
           numberOfLines={1}
-          onChangeText={[Function]}
           onSubmitEditing={[Function]}
           placeholder="Enter recovery phrase here"
           placeholderTextColor="white"

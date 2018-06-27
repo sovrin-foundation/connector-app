@@ -20,6 +20,7 @@ import {
   BANNER_HEIGHT,
 } from './banner-constants'
 import type { BannerProps } from './type-banner'
+import DangerBanner from './banner-danger'
 
 class Banner extends PureComponent<BannerProps, void> {
   render() {
@@ -31,27 +32,12 @@ class Banner extends PureComponent<BannerProps, void> {
           <BackupWallet
             navigation={navigation}
             render={(status, backupWallet) => (
-              <CustomView
-                row
-                vCenter
-                horizontalSpace
-                style={[styles.bannerContainer]}
+              <DangerBanner
                 onPress={backupWallet}
                 testID={BACKUP_BANNER_TEST_ID}
-              >
-                <Icon
-                  iconStyle={[styles.labelImage, { tintColor: 'white' }]}
-                  src={require('../../images/Alert.png')}
-                />
-                <CustomView center horizontalSpace>
-                  <CustomText fullWidth center bold transparentBg>
-                    Setup Data Recovery Now!
-                  </CustomText>
-                  <CustomText fullWidth center transparentBg>
-                    2 easy steps, takes 3 minutes.
-                  </CustomText>
-                </CustomView>
-              </CustomView>
+                bannerTitle={'Setup Data Recovery Now!'}
+                bannerSubtitle={'2 easy steps, takes 3 minutes.'}
+              />
             )}
           />
         </CustomView>
@@ -60,17 +46,6 @@ class Banner extends PureComponent<BannerProps, void> {
     return null
   }
 }
-
-const styles = StyleSheet.create({
-  bannerContainer: {
-    height: BANNER_HEIGHT,
-    backgroundColor: color.actions.dangerous,
-  },
-  labelImage: {
-    width: IMAGE_WIDTH,
-    height: IMAGE_HEIGHT,
-  },
-})
 
 const mapStateToProps = (state: Store) => {
   return {
