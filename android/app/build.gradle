@@ -166,6 +166,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-aes-crypto')
     compile project(':react-native-randombytes')
     compile project(':react-native-document-picker')
     compile project(':react-native-sensitive-info')

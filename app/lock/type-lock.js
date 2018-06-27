@@ -25,6 +25,7 @@ export type ClearPendingRedirectAction = {
 }
 
 export const PIN_STORAGE_KEY = 'APP_PIN_LOCK'
+export const SALT_STORAGE_KEY = 'APP_PIN_SALT'
 export const SET_PIN = 'SET_PIN'
 export type SetPinAction = {
   type: typeof SET_PIN,

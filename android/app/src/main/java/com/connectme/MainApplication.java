@@ -4,6 +4,7 @@ import android.app.Application;
 import com.apptentive.android.sdk.reactlibrary.RNApptentivePackage;
 import com.surajit.rnrg.RNRadialGradientPackage;
 import com.facebook.react.ReactApplication;
+import com.tectiv3.aes.RCTAesPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
 import com.reactnativedocumentpicker.ReactNativeDocumentPicker;
 import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
@@ -46,6 +47,7 @@ public class MainApplication extends Application implements ShareApplication, Re
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new RCTAesPackage(),
             new RandomBytesPackage(),
             new ReactNativeDocumentPicker(),
             new RNSensitiveInfoPackage(),

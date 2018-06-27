@@ -66,7 +66,6 @@ export class LockEnter extends PureComponent<LockEnterProps, LockEnterState> {
   }
 
   onPinComplete = (pin: string) => {
-    // user entered 6 digits in pin box
     this.props.checkPinAction(pin)
   }
 

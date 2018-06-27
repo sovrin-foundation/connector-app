@@ -22,6 +22,7 @@ import {
   DISABLE_TOUCHID,
   CHECK_TOUCHID,
   TOUCHID_STORAGE_KEY,
+  SALT_STORAGE_KEY,
 } from './type-lock'
 import type {
   PendingRedirection,
@@ -47,6 +48,7 @@ import type {
   DisableTouchIdAction,
 } from './type-lock'
 import { getItem, setItem, deleteItem } from '../services/secure-storage'
+import { pinHash, generateSalt } from './pin-hash'
 
 const initialState: LockStore = {
   pendingRedirection: null,
@@ -95,7 +97,10 @@ export const lockFail = (error: CustomError): LockFail => ({
 
 export function* setPin(action: SetPinAction): Generator<*, *, *> {
   try {
-    yield call(setItem, PIN_STORAGE_KEY, action.pin)
+    const salt = yield call(generateSalt)
+    const hashedPin = yield call(pinHash, action.pin, salt)
+    yield call(setItem, PIN_STORAGE_KEY, hashedPin)
+    yield call(setItem, SALT_STORAGE_KEY, salt)
     yield put(lockEnable(true))
   } catch (e) {
     yield put(lockFail(e))
@@ -160,8 +165,10 @@ export const disableDevMode = (): DisableDevMode => ({
 })
 
 export function* checkPin(action: CheckPinAction): Generator<*, *, *> {
-  const expectedPin = yield call(getItem, PIN_STORAGE_KEY)
-  if (expectedPin === action.pin) {
+  const salt = yield call(getItem, SALT_STORAGE_KEY)
+  const enteredPinHash = yield call(pinHash, action.pin, salt)
+  const expectedPinHash = yield call(getItem, PIN_STORAGE_KEY)
+  if (expectedPinHash === enteredPinHash) {
     yield put(checkPinSuccess())
   } else {
     yield put(checkPinFail())

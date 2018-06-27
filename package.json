@@ -34,6 +34,7 @@
     "moment": "^2.20.1",
     "react": "16.0.0",
     "react-native": "0.51.0",
+    "react-native-aes-crypto": "^1.2.1",
     "react-native-animatable": "1.2.4",
     "react-native-branch": "2.2.4",
     "react-native-camera": "0.10",

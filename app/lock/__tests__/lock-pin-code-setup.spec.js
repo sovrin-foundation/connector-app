@@ -6,6 +6,7 @@ import { PIN_SETUP_STATE } from '../type-lock'
 import { LockPinSetup } from '../lock-pin-code-setup'
 import { lockSetupSuccessRoute } from '../../common'
 import { getNavigation } from '../../../__mocks__/static-data'
+import { pinHash } from '../pin-hash'
 
 describe('<LockPinCodeSetup />', () => {
   const getProps = () => ({
@@ -68,5 +69,14 @@ describe('<LockPinCodeSetup />', () => {
     expect(instance.state.pinSetupState).toEqual(PIN_SETUP_STATE.REENTER_FAIL)
     jest.runAllTimers()
     expect(instance.state.pinSetupState).toBe(PIN_SETUP_STATE.INITIAL)
+  })
+
+  it('hashed lock code not equal plain text lock code', () => {
+    let pin = '123456'
+    let salt = 'salt'
+    let instance = component.getInstance()
+    let hashedPin = pinHash(pin, salt)
+    instance.onPinComplete(pin)
+    expect(hashedPin).not.toEqual(instance.state.enteredPin)
   })
 })

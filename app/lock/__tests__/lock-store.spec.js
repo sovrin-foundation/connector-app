@@ -7,6 +7,7 @@ import {
   CHECK_PIN,
   CHECK_PIN_IDLE,
   LOCK_ENABLE,
+  SALT_STORAGE_KEY,
 } from '../type-lock'
 import lockReducer, {
   addPendingRedirection,
@@ -20,6 +21,7 @@ import lockReducer, {
   checkPinStatusIdle,
 } from '../lock-store'
 import { setItem, getItem } from '../../services/secure-storage'
+import { generateSalt, pinHash } from '../pin-hash'
 
 const initialState: LockStore = {
   pendingRedirection: null,
@@ -54,30 +56,47 @@ describe('LockStore', () => {
 
   it('set pin should work fine', () => {
     const pin = '123456'
+    const salt = 'salt'
     const gen = setPin(setPinAction(pin))
-    expect(gen.next().value).toEqual(call(setItem, PIN_STORAGE_KEY, pin))
+    expect(gen.next().value).toEqual(call(generateSalt))
+    const hashedPin: any = gen.next(salt).value
+    expect(hashedPin).toEqual(call(pinHash, pin, salt))
+
+    const pinStorage: any = gen.next(pin).value
+    expect(pinStorage).toEqual(call(setItem, PIN_STORAGE_KEY, pin))
+
+    const saltStorage: any = gen.next(salt).value
+    expect(saltStorage).toEqual(call(setItem, SALT_STORAGE_KEY, salt))
+
     const lockEnableAction: any = gen.next(pin).value
     expect(lockEnableAction['PUT'].action).toEqual(
       expect.objectContaining({
         type: LOCK_ENABLE,
       })
     )
+
     expect(gen.next().done).toBe(true)
   })
 
   it('check pin flow should work if correct pin is passed', () => {
     const pin = '123456'
+    const salt = 'salt'
     const gen = checkPin({ type: CHECK_PIN, pin })
-    expect(gen.next().value).toEqual(call(getItem, PIN_STORAGE_KEY))
+    expect(gen.next().value).toEqual(call(getItem, SALT_STORAGE_KEY))
+    expect(gen.next(salt).value).toEqual(call(pinHash, pin, salt))
+    expect(gen.next(pin).value).toEqual(call(getItem, PIN_STORAGE_KEY))
     expect(gen.next(pin).value).toEqual(put(checkPinSuccess()))
     expect(gen.next().done).toBe(true)
   })
 
   it('check pin flow should fail if incorrect pin is passed', () => {
     const pin = '123456'
+    const salt = 'salt'
     const wrongPin = '123444'
     const gen = checkPin({ type: CHECK_PIN, pin })
-    expect(gen.next().value).toEqual(call(getItem, PIN_STORAGE_KEY))
+    expect(gen.next().value).toEqual(call(getItem, SALT_STORAGE_KEY))
+    expect(gen.next(salt).value).toEqual(call(pinHash, pin, salt))
+    expect(gen.next(pin).value).toEqual(call(getItem, PIN_STORAGE_KEY))
     expect(gen.next(wrongPin).value).toEqual(put(checkPinFail()))
     expect(gen.next().done).toBe(true)
   })
