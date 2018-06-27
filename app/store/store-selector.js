@@ -235,3 +235,11 @@ export const getUseVcx = (state: Store) => state.config.useVcx
 export const getInvitations = (state: Store) => state.invitation
 
 export const getDeepLinkTokens = (state: Store) => state.deepLink.tokens
+
+export const getBackupPassPhrase = (state: Store) =>
+  state.backup.passPhrase.value
+
+export const getBackupStatus = (state: Store) => state.backup.status
+
+export const getBackupWalletPath = (state: Store) =>
+  state.backup.backupWalletPath

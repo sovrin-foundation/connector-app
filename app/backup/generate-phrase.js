@@ -1,8 +1,12 @@
 // @flow
 
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { Image, Dimensions } from 'react-native'
 import { StackNavigator } from 'react-navigation'
+import type { Store } from '../store/type-store'
+import type { ReactNavigation } from '../common/type-common'
 import {
   Container,
   CustomView,
@@ -17,13 +21,14 @@ import type {
   GenerateRecoveryPhraseProps,
   GenerateRecoveryPhraseState,
 } from './type-backup'
+import { generateRecoveryPhrase } from './backup-store'
 import {
   RECOVERY_PHRASE_CLOSE_TEST_ID,
   SUBMIT_RECOVERY_PHRASE_TEST_ID,
   SUBMIT_RECOVERY_PHRASE_BUTTON_TITLE,
 } from './backup-constants'
 import styles from './styles'
-import { getWords } from './secure-passphrase'
+import { getBackupPassPhrase } from '../store/store-selector'
 
 const { height } = Dimensions.get('window')
 const closeImage = require('../images/iconClose.png')
@@ -34,21 +39,15 @@ export class GenerateRecoveryPhrase extends PureComponent<
   GenerateRecoveryPhraseProps,
   GenerateRecoveryPhraseState
 > {
-  state = {
-    recoveryPassphrase: '',
-  }
-
   componentDidMount() {
-    getWords(8, 5).then(words => {
-      return this.setState({ recoveryPassphrase: words.join(' ') })
-    })
+    this.props.generateRecoveryPhrase()
   }
 
   verifyRecoveryPhrase = () => {
     const { navigation: { navigate, state } } = this.props
 
     navigate(verifyRecoveryPhraseRoute, {
-      recoveryPassphrase: this.state.recoveryPassphrase,
+      recoveryPassphrase: this.props.recoveryPassphrase,
       initialRoute: state.params.initialRoute,
     })
   }
@@ -110,7 +109,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
             <Image source={textBubble} style={[styles.imageIcon]} />
             <CustomView style={[styles.genRecoveryPhraseContainer]}>
               <CustomText transparentBg style={[styles.genRecoveryPhrase]}>
-                {this.state.recoveryPassphrase}
+                {this.props.recoveryPassphrase}
               </CustomText>
             </CustomView>
           </CustomView>
@@ -153,8 +152,19 @@ export class GenerateRecoveryPhrase extends PureComponent<
   }
 }
 
+const mapStateToProps = (state: Store, props: ReactNavigation) => {
+  return {
+    recoveryPassphrase: getBackupPassPhrase(state),
+  }
+}
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ generateRecoveryPhrase }, dispatch)
+
 export default StackNavigator({
   [genRecoveryPhraseRoute]: {
-    screen: GenerateRecoveryPhrase,
+    screen: connect(mapStateToProps, mapDispatchToProps)(
+      GenerateRecoveryPhrase
+    ),
   },
 })

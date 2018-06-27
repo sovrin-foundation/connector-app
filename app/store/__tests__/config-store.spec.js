@@ -166,7 +166,7 @@ describe('server environment should change', () => {
     // those tests are being taken care in other test
     gen.next(environmentDetails)
     // TODO: Change index value to constant that better describes what the number represents
-    for (let index = 0; index < 15; index++) {
+    for (let index = 0; index < 16; index++) {
       gen.next()
     }
 
@@ -298,7 +298,7 @@ describe('hydration should work correctly', () => {
     gen.next()
     gen.next()
     gen.next()
-
+    gen.next()
     expect(gen.next().value).toEqual(put(hydrated()))
   })
 })

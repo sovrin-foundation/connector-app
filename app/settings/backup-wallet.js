@@ -3,11 +3,9 @@
 import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import get from 'lodash.get'
 import type { Store } from '../store/type-store'
 import type { BackupWalletProps } from '../wallet/type-wallet'
-import { walletBackup } from '../wallet/wallet-store'
 import { genRecoveryPhraseRoute, settingsRoute } from '../common'
 
 class BackupWallet extends PureComponent<BackupWalletProps, void> {
@@ -16,7 +14,6 @@ class BackupWallet extends PureComponent<BackupWalletProps, void> {
     // If no there is no route, then default to Settings
     const initialRoute = get(state, 'routeName', settingsRoute)
     goBack(null)
-    walletBackup()
     navigate(genRecoveryPhraseRoute, {
       initialRoute,
     })
@@ -27,11 +24,8 @@ class BackupWallet extends PureComponent<BackupWalletProps, void> {
   }
 }
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ walletBackup }, dispatch)
-
 const mapStateToProps = ({ wallet }: Store) => ({
   backup: wallet.backup,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(BackupWallet)
+export default connect(mapStateToProps, null)(BackupWallet)

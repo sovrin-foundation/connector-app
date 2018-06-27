@@ -17,6 +17,7 @@ import {
   IS_CONSUMER_AGENT_ALREADY_CREATED,
   CLAIM_MAP,
   USE_VCX_KEY,
+  LAST_SUCCESSFUL_BACKUP,
 } from '../common'
 import { TOUCHID_STORAGE_KEY } from '../lock/type-lock'
 import type { CustomError } from '../common/type-common'
@@ -76,6 +77,7 @@ export function* deleteStoredData(): Generator<*, *, *> {
   yield call(deleteItem, CLAIM_MAP)
   yield call(deleteItem, HISTORY_EVENT_STORAGE_KEY)
   yield call(AsyncStorage.removeItem, USE_VCX_KEY)
+  yield call(deleteItem, LAST_SUCCESSFUL_BACKUP)
   try {
     yield* deletePersistedWalletBalance()
   } catch (e) {

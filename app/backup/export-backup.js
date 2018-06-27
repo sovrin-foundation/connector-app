@@ -17,7 +17,7 @@ import { SHORT_DEVICE, VERY_SHORT_DEVICE } from '../common/styles'
 import { color } from '../common/styles/constant'
 import type { ExportBackupFileProps } from './type-backup'
 import styles from './styles'
-import { walletBackupShare } from '../wallet/wallet-store'
+import { exportBackup } from './backup-store'
 import type { Store } from '../store/type-store'
 import {
   EXPORT_BACKUP_BACK_TEST_ID,
@@ -25,6 +25,8 @@ import {
   EXPORT_BACKUP_SUBMIT_BUTTON_TEST_ID,
   EXPORT_BACKUP_BUTTON_TITLE,
 } from './backup-constants'
+import { BACKUP_STORE_STATUS } from './type-backup'
+import { getBackupStatus, getBackupWalletPath } from '../store/store-selector'
 
 const { height } = Dimensions.get('window')
 const transparentBands = require('../images/transparentBands.png')
@@ -50,8 +52,8 @@ export class ExportBackupFile extends PureComponent<
   componentDidUpdate(prevProps: ExportBackupFileProps) {
     const { navigation: { navigate, state, goBack } } = this.props
     if (
-      prevProps.backupStatus !== 'SUCCESS' &&
-      this.props.backupStatus === 'SUCCESS'
+      prevProps.backupStatus !== BACKUP_STORE_STATUS.BACKUP_COMPLETE &&
+      this.props.backupStatus === BACKUP_STORE_STATUS.BACKUP_COMPLETE
     ) {
       goBack(null)
       navigate(backupCompleteRoute, {
@@ -63,7 +65,7 @@ export class ExportBackupFile extends PureComponent<
   encryptAndBackup = () => {
     const { backupPath } = this.props
 
-    this.props.walletBackupShare(backupPath)
+    this.props.exportBackup(backupPath)
   }
 
   static navigationOptions = ({ navigation: { goBack, navigate, state } }) => ({
@@ -180,12 +182,12 @@ export class ExportBackupFile extends PureComponent<
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ walletBackupShare }, dispatch)
+  bindActionCreators({ exportBackup }, dispatch)
 
 const mapStateToProps = (state: Store) => {
   return {
-    backupStatus: state.wallet.backup.status,
-    backupPath: state.wallet.backup.backupPath,
+    backupStatus: getBackupStatus(state),
+    backupPath: getBackupWalletPath(state),
   }
 }
 

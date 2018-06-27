@@ -36,10 +36,10 @@ import history, {
 import historyRecorder from '../connection-history/history-middleware'
 import wallet, {
   watchWalletStore,
-  watchBackup,
   watchBackupBanner,
 } from '../wallet/wallet-store'
 import eula, { watchEula } from '../eula/eula-store'
+import backup, { watchBackup } from '../backup/backup-store'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -61,6 +61,7 @@ const appReducer = combineReducers({
   history,
   wallet,
   eula,
+  backup,
 })
 
 let middlewares = [historyRecorder]
@@ -114,6 +115,7 @@ export * from '../claim-offer/claim-offer-store'
 export * from '../proof-request/proof-request-store'
 export * from '../proof/proof-store'
 export * from '../invitation/invitation-store'
+export * from '../backup/backup-store'
 
 // make default export as the store
 export default store
