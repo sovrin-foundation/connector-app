@@ -58,6 +58,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   genRecoveryPhraseContainer: {
+    marginLeft: PADDING_HORIZONTAL,
+    marginRight: PADDING_HORIZONTAL,
     position: 'absolute',
     top: 20,
     left: 20,
@@ -66,7 +68,6 @@ const styles = StyleSheet.create({
   genRecoveryPhrase: {
     textAlign: 'center',
     color: color.bg.eleventh.color,
-    marginTop: 10,
     fontSize: 20,
     lineHeight: 30,
     fontWeight: '900',

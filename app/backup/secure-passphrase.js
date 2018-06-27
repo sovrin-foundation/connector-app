@@ -43,7 +43,6 @@ export const secureRandom = async (count: number = 6) => {
       randIndex = 0
     }
     const randVal = randVals[randIndex++] //.charCodeAt(0)
-    console.log('randVal: ', randVal)
     result = randVal & 0x7fffffff
   } while (result >= skip)
 
@@ -72,7 +71,6 @@ export const getWords = async (
 
     for (j = 0; j < numRollsPerWord; j += 1) {
       // roll a 6 sided die
-      console.log('getWords loop: ', j)
       const randVal = await secureRandom(6)
       rollResults.push(randVal + 1)
     }
