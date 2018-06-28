@@ -77,7 +77,7 @@ export function* deleteStoredData(): Generator<*, *, *> {
   yield call(deleteItem, CLAIM_MAP)
   yield call(deleteItem, HISTORY_EVENT_STORAGE_KEY)
   yield call(AsyncStorage.removeItem, USE_VCX_KEY)
-  yield call(deleteItem, LAST_SUCCESSFUL_BACKUP)
+  yield call(AsyncStorage.removeItem, LAST_SUCCESSFUL_BACKUP)
   try {
     yield* deletePersistedWalletBalance()
   } catch (e) {

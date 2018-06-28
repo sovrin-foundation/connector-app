@@ -17,7 +17,7 @@ describe('store: backup-store: ', () => {
   let initialState
   beforeEach(() => {
     initialState = {
-      passPhrase: { value: '' },
+      passPhrase: { data: '' },
       status: BACKUP_STORE_STATUS.IDLE,
       error: null,
       showBanner: false,
@@ -36,7 +36,7 @@ describe('store: backup-store: ', () => {
   )
   const generateRecoveryPhraseSuccessState = backupReducer(
     generateRecoveryPhraseState,
-    generateRecoveryPhraseSuccess(passPhrase.value)
+    generateRecoveryPhraseSuccess(passPhrase.data)
   )
   const generateBackupFileState = backupReducer(
     generateRecoveryPhraseState,
@@ -61,7 +61,7 @@ describe('store: backup-store: ', () => {
     expect(
       backupReducer(
         generateRecoveryPhraseState,
-        generateRecoveryPhraseSuccess(passPhrase.value)
+        generateRecoveryPhraseSuccess(passPhrase.data)
       )
     ).toMatchSnapshot()
   })

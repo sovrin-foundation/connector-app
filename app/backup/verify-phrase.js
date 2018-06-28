@@ -71,7 +71,7 @@ export class VerifyRecoveryPhrase extends Component<
       recoveryPassphrase,
       initialRoute,
     } = this.props.navigation.state.params
-    if (recoveryPassphrase === event.nativeEvent.text) {
+    if (recoveryPassphrase === event.nativeEvent.text.trim()) {
       this.props.navigation.navigate(exportBackupFileRoute, {
         initialRoute,
       })

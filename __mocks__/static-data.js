@@ -913,10 +913,9 @@ export function getStore(store?: Store) {
           backupWalletPath:
             '/Users/CoreSimulator/Devices/5F89AA14-B694-465F-82C3-838552AB4B85/data/Containers/Data/Application/4536A441-4B70-4A30-8DCC-5274E6781535/Documents/backup.zip',
           error: null,
-          isLoading: true,
           lastSuccessfulBackup: '2018-06-27T18:27:35+05:30',
           passPhrase: {
-            value:
+            data:
               'gander troubling deodorize justify twitter darkish confront politely',
           },
           showBanner: false,

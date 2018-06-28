@@ -17,6 +17,7 @@ exports[`<CustomActivityIndicator /> should render properly and match the snapsh
     style={
       Object {
         "height": 30,
+        "tintColor": "#777777",
         "transform": Array [
           Object {
             "rotate": "0deg",

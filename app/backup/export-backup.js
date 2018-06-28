@@ -1,7 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react'
-import { Platform, Image, Dimensions, View } from 'react-native'
+import { Image, Dimensions } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -12,6 +12,8 @@ import {
   Icon,
   CustomButton,
 } from '../components'
+import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
+
 import { exportBackupFileRoute, backupCompleteRoute } from '../common'
 import { SHORT_DEVICE, VERY_SHORT_DEVICE } from '../common/styles'
 import { color } from '../common/styles/constant'
@@ -39,21 +41,17 @@ export class ExportBackupFile extends PureComponent<
   void
 > {
   parseFilePath = (path: string) => {
-    if (path) {
-      const beginning = path.lastIndexOf('/') + 1
-      const end = path.length
+    const beginning = path.lastIndexOf('/') + 1
+    const end = path.length
 
-      return path.slice(beginning, end)
-    }
-
-    return 'backup.zip'
+    return path.slice(beginning, end)
   }
 
   componentDidUpdate(prevProps: ExportBackupFileProps) {
-    const { navigation: { navigate, state, goBack } } = this.props
+    const { navigation: { navigate, state, goBack }, backupStatus } = this.props
     if (
       prevProps.backupStatus !== BACKUP_STORE_STATUS.BACKUP_COMPLETE &&
-      this.props.backupStatus === BACKUP_STORE_STATUS.BACKUP_COMPLETE
+      backupStatus === BACKUP_STORE_STATUS.BACKUP_COMPLETE
     ) {
       goBack(null)
       navigate(backupCompleteRoute, {
@@ -66,6 +64,36 @@ export class ExportBackupFile extends PureComponent<
     const { backupPath } = this.props
 
     this.props.exportBackup(backupPath)
+  }
+
+  BackupPath = (path: string) => {
+    if (path) {
+      return (
+        <CustomView center>
+          <CustomText center transparentBg style={[styles.exportBackupFile]}>
+            {this.parseFilePath(path)}
+          </CustomText>
+        </CustomView>
+      )
+    }
+
+    return null
+  }
+
+  ExportImage = (status: BACKUP_STORE_STATUS) => {
+    if (status === BACKUP_STORE_STATUS.EXPORT_BACKUP_LOADING) {
+      return (
+        <CustomView doubleVerticalSpace>
+          <CustomActivityIndicator tintColor={color.actions.none} />
+        </CustomView>
+      )
+    }
+
+    return (
+      <CustomView center style={[styles.lockIconImage]}>
+        <Image source={encryptedFile} style={[styles.imageIcon]} />
+      </CustomView>
+    )
   }
 
   static navigationOptions = ({ navigation: { goBack, navigate, state } }) => ({
@@ -106,6 +134,15 @@ export class ExportBackupFile extends PureComponent<
   })
 
   render() {
+    const { backupPath, backupStatus } = this.props
+    const disableButton =
+      backupStatus === BACKUP_STORE_STATUS.EXPORT_BACKUP_LOADING ? true : false
+
+    const exportButtonTitle =
+      backupStatus === BACKUP_STORE_STATUS.EXPORT_BACKUP_FAILURE
+        ? 'Try Again'
+        : EXPORT_BACKUP_BUTTON_TITLE
+
     return (
       <Container style={[styles.exportBackup]} safeArea>
         <Image source={transparentBands} style={[styles.backgroundImage]} />
@@ -141,14 +178,8 @@ export class ExportBackupFile extends PureComponent<
             </CustomText>
           </CustomView>
 
-          <CustomView center style={[styles.lockIconImage]}>
-            <Image source={encryptedFile} style={[styles.imageIcon]} />
-          </CustomView>
-          <CustomView center>
-            <CustomText center transparentBg style={[styles.exportBackupFile]}>
-              {this.parseFilePath(this.props.backupPath)}
-            </CustomText>
-          </CustomView>
+          {this.ExportImage(backupStatus)}
+          {this.BackupPath(backupPath)}
         </Container>
 
         <CustomView>
@@ -165,6 +196,7 @@ export class ExportBackupFile extends PureComponent<
           </CustomView>
           <CustomButton
             large={height > SHORT_DEVICE ? true : false}
+            disabled={disableButton}
             onPress={this.encryptAndBackup}
             testID={EXPORT_BACKUP_SUBMIT_BUTTON_TEST_ID}
             style={[styles.submitButton]}
@@ -173,7 +205,7 @@ export class ExportBackupFile extends PureComponent<
               fontWeight: '600',
               fontSize: 18,
             }}
-            title={EXPORT_BACKUP_BUTTON_TITLE}
+            title={exportButtonTitle}
           />
         </CustomView>
       </Container>

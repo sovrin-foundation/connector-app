@@ -7,10 +7,9 @@ Object {
     "code": "WB-001",
     "message": "Error while backing up wallet",
   },
-  "isLoading": undefined,
   "lastSuccessfulBackup": null,
   "passPhrase": Object {
-    "value": "",
+    "data": "",
   },
   "showBanner": false,
   "status": "IDLE",
@@ -21,13 +20,12 @@ exports[`store: backup-store:  action: EXPORT_BACKUP 1`] = `
 Object {
   "backupWalletPath": "/Users/CoreSimulator/Devices/5F89AA14-B694-465F-82C3-838552AB4B85/data/Containers/Data/Application/4536A441-4B70-4A30-8DCC-5274E6781535/Documents/backup.zip",
   "error": null,
-  "isLoading": true,
   "lastSuccessfulBackup": null,
   "passPhrase": Object {
-    "value": "",
+    "data": "",
   },
   "showBanner": false,
-  "status": "EXPORT_BACKUP",
+  "status": "EXPORT_BACKUP_LOADING",
 }
 `;
 
@@ -35,10 +33,9 @@ exports[`store: backup-store:  action: EXPORT_BACKUP_SUCCESS 1`] = `
 Object {
   "backupWalletPath": "/Users/CoreSimulator/Devices/5F89AA14-B694-465F-82C3-838552AB4B85/data/Containers/Data/Application/4536A441-4B70-4A30-8DCC-5274E6781535/Documents/backup.zip",
   "error": null,
-  "isLoading": true,
   "lastSuccessfulBackup": "2018-06-27T18:27:35+05:30",
   "passPhrase": Object {
-    "value": "",
+    "data": "",
   },
   "showBanner": false,
   "status": "BACKUP_COMPLETE",
@@ -48,14 +45,13 @@ Object {
 exports[`store: backup-store:  action: GENERATE_BACKUP_FILE 1`] = `
 Object {
   "backupWalletPath": "",
-  "error": undefined,
-  "isLoading": true,
+  "error": null,
   "lastSuccessfulBackup": null,
   "passPhrase": Object {
-    "value": "gander troubling deodorize justify twitter darkish confront politely",
+    "data": "gander troubling deodorize justify twitter darkish confront politely",
   },
   "showBanner": false,
-  "status": "GENERATE_BACKUP_FILE",
+  "status": "GENERATE_BACKUP_FILE_LOADING",
 }
 `;
 
@@ -63,13 +59,12 @@ exports[`store: backup-store:  action: GENERATE_BACKUP_FILE_SUCCESS 1`] = `
 Object {
   "backupWalletPath": "/Users/CoreSimulator/Devices/5F89AA14-B694-465F-82C3-838552AB4B85/data/Containers/Data/Application/4536A441-4B70-4A30-8DCC-5274E6781535/Documents/backup.zip",
   "error": null,
-  "isLoading": false,
   "lastSuccessfulBackup": null,
   "passPhrase": Object {
-    "value": "",
+    "data": "",
   },
   "showBanner": false,
-  "status": "GENERATE_BACKUP_FILE",
+  "status": "GENERATE_BACKUP_FILE_SUCCESS",
 }
 `;
 
@@ -77,27 +72,25 @@ exports[`store: backup-store:  action: GENERATE_RECOVERY_PHRASE 1`] = `
 Object {
   "backupWalletPath": "",
   "error": null,
-  "isLoading": true,
   "lastSuccessfulBackup": null,
   "passPhrase": Object {
-    "value": "",
+    "data": "",
   },
   "showBanner": false,
-  "status": "GENERATE_PHRASE",
+  "status": "GENERATE_PHRASE_LOADING",
 }
 `;
 
 exports[`store: backup-store:  action: GENERATE_RECOVERY_PHRASE_SUCCESS 1`] = `
 Object {
   "backupWalletPath": "",
-  "error": null,
-  "isLoading": false,
+  "error": undefined,
   "lastSuccessfulBackup": null,
   "passPhrase": Object {
-    "value": "gander troubling deodorize justify twitter darkish confront politely",
+    "data": "gander troubling deodorize justify twitter darkish confront politely",
   },
   "showBanner": false,
-  "status": "GENERATE_PHRASE",
+  "status": "GENERATE_BACKUP_FILE_SUCCESS",
 }
 `;
 
@@ -107,7 +100,7 @@ Object {
   "error": null,
   "lastSuccessfulBackup": null,
   "passPhrase": Object {
-    "value": "",
+    "data": "",
   },
   "showBanner": true,
   "status": "IDLE",

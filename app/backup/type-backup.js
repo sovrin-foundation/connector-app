@@ -33,15 +33,20 @@ export type BackupCompleteState = {
 
 export const BACKUP_STORE_STATUS = {
   IDLE: 'IDLE',
-  GENERATE_PHRASE: 'GENERATE_PHRASE',
-  GENERATE_BACKUP_FILE: 'GENERATE_BACKUP_FILE',
-  EXPORT_BACKUP: 'EXPORT_BACKUP',
+  GENERATE_PHRASE_LOADING: 'GENERATE_PHRASE_LOADING',
+  GENERATE_PHRASE_SUCCESS: 'GENERATE_PHRASE_SUCCESS',
+  GENERATE_PHRASE_FAILURE: 'GENERATE_PHRASE_FAILURE',
+  GENERATE_BACKUP_FILE_LOADING: 'GENERATE_BACKUP_FILE_LOADING',
+  GENERATE_BACKUP_FILE_SUCCESS: 'GENERATE_BACKUP_FILE_SUCCESS',
+  GENERATE_BACKUP_FILE_FAILURE: 'GENERATE_BACKUP_FILE_FAILURE',
+  EXPORT_BACKUP_LOADING: 'EXPORT_BACKUP_LOADING',
+  EXPORT_BACKUP_SUCCESS: 'EXPORT_BACKUP_SUCCESS',
+  EXPORT_BACKUP_FAILURE: 'EXPORT_BACKUP_FAILURE',
   BACKUP_COMPLETE: 'BACKUP_COMPLETE',
 }
 
 export type PassPhrase = {
-  passPhrase: string,
-  hash: string,
+  data: string,
 }
 
 export type BackupStore = {
@@ -49,32 +54,41 @@ export type BackupStore = {
   backupWalletPath: string,
   showBanner: boolean,
   lastSuccessfulBackup: string,
-  isLoading: boolean,
 } & StoreError &
   BackupStoreStatus
 
 export type StoreError = { error: ?CustomError }
 export type BackupStoreStatus = { status: $Keys<typeof BACKUP_STORE_STATUS> }
 
-export const ERROR_BACKUP_WALLET = {
+export const ERROR_EXPORT_BACKUP = {
   code: 'WB-001',
-  message: 'Error while backing up wallet',
+  message: 'Error while exporting backup file',
 }
 
-export const ERROR_BACKUP_WALLET_SHARE = {
+export const ERROR_GENERATE_BACKUP_FILE = {
   code: 'WB-002',
-  message: 'Error while sharing zipped backup',
+  message: 'Error while generating backup file',
+}
+
+export const ERROR_GENERATE_RECOVERY_PHRASE = {
+  code: 'WB-003',
+  message: 'Error while generating recovery phrase',
 }
 
 export const START_BACKUP = 'START_BACKUP'
-export const GENERATE_BACKUP_FILE = 'GENERATE_BACKUP_FILE'
+export const GENERATE_BACKUP_FILE_LOADING = 'GENERATE_BACKUP_FILE_LOADING'
 export const GENERATE_BACKUP_FILE_SUCCESS = 'GENERATE_BACKUP_FILE_SUCCESS'
+export const GENERATE_BACKUP_FILE_FAILURE = 'GENERATE_BACKUP_FILE_FAILURE'
 export const BACKUP_WALLET_FAIL = 'BACKUP_WALLET_FAIL'
-export const GENERATE_RECOVERY_PHRASE = 'GENERATE_RECOVERY_PHRASE'
+export const GENERATE_RECOVERY_PHRASE_LOADING =
+  'GENERATE_RECOVERY_PHRASE_LOADING'
 export const GENERATE_RECOVERY_PHRASE_SUCCESS =
   'GENERATE_RECOVERY_PHRASE_SUCCESS'
-export const EXPORT_BACKUP = 'EXPORT_BACKUP'
+export const GENERATE_RECOVERY_PHRASE_FAILURE =
+  'GENERATE_RECOVERY_PHRASE_FAILURE'
+export const EXPORT_BACKUP_LOADING = 'EXPORT_BACKUP_LOADING'
 export const EXPORT_BACKUP_SUCCESS = 'EXPORT_BACKUP_SUCCESS'
+export const EXPORT_BACKUP_FAILURE = 'EXPORT_BACKUP_FAILURE'
 export const BACKUP_COMPLETE = 'BACKUP_COMPLETE'
 export const RESET_BACKUP = 'RESET_BACKUP'
 export const PROMPT_WALLET_BACKUP_BANNER = 'PROMPT_WALLET_BACKUP_BANNER'
@@ -82,58 +96,61 @@ export const PROMPT_WALLET_BACKUP_BANNER = 'PROMPT_WALLET_BACKUP_BANNER'
 export type BackupStartAction = {
   type: typeof START_BACKUP,
   status: BACKUP_STORE_STATUS,
-  isLoading: boolean,
   error: CustomError,
 }
 
-export type GenerateBackupFileAction = {
+export type GenerateBackupFileLoadingAction = {
   type: typeof GENERATE_BACKUP_FILE_LOADING,
   status: BACKUP_STORE_STATUS,
-  isLoading: boolean,
-  error: CustomError,
 }
 
 export type GenerateBackupFileSuccessAction = {
   type: typeof GENERATE_BACKUP_FILE_SUCCESS,
   backupWalletPath: string,
-  isLoading: boolean,
+}
+
+export type GenerateBackupFileFailureAction = {
+  type: typeof GENERATE_BACKUP_FILE_SUCCESS,
   error: CustomError,
 }
 
 export type BackupWalletFailAction = {
   type: typeof BACKUP_WALLET_FAIL,
   status: BACKUP_STORE_STATUS,
-  isLoading: boolean,
   error: CustomError,
 }
 
-export type GenerateRecoveryPhraseAction = {
-  type: typeof GENERATE_RECOVERY_PHRASE,
+export type GenerateRecoveryPhraseLoadingAction = {
+  type: typeof GENERATE_RECOVERY_PHRASE_LOADING,
   status: BACKUP_STORE_STATUS,
-  isLoading: boolean,
-  error: CustomError,
 }
 
 export type GenerateRecoveryPhraseSuccessAction = {
   type: typeof GENERATE_RECOVERY_PHRASE_SUCCESS,
   status: BACKUP_STORE_STATUS,
-  isLoading: boolean,
   passPhrase: PassPhrase,
+}
+
+export type GenerateRecoveryPhraseFailureAction = {
+  type: typeof GENERATE_RECOVERY_PHRASE_FAILURE,
+  status: BACKUP_STORE_STATUS,
   error: CustomError,
 }
 
-export type ExportBackupAction = {
-  type: typeof EXPORT_BACKUP,
+export type ExportBackupLoadingAction = {
+  type: typeof EXPORT_BACKUP_LOADING,
   status: BACKUP_STORE_STATUS,
   backupWalletPath: string,
-  isLoading: boolean,
-  error: CustomError,
 }
 
 export type ExportBackupSuccessAction = {
   type: typeof EXPORT_BACKUP_SUCCESS,
   status: BACKUP_STORE_STATUS,
-  isLoading: boolean,
+}
+
+export type ExportBackupFailureAction = {
+  type: typeof EXPORT_BACKUP_FAILURE,
+  status: BACKUP_STORE_STATUS,
   error: CustomError,
 }
 
@@ -149,13 +166,13 @@ export type ResetBackupAction = {
 
 export type BackupStoreAction =
   | BackupStartAction
-  | GenerateBackupFileAction
+  | GenerateBackupFileLoadingAction
   | GenerateBackupFileSuccessAction
   | BackupWalletFailAction
-  | GenerateRecoveryPhraseAction
   | GenerateRecoveryPhraseLoadingAction
   | GenerateRecoveryPhraseSuccessAction
-  | ExportBackupAction
+  | GenerateBackupFileFailureAction
+  | ExportBackupLoadingAction
   | ExportBackupSuccessAction
   | BackupCompleteAction
   | ResetBackupAction
