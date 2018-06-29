@@ -18,7 +18,9 @@ import {
   VERIFY_CONTAINER_TEST_ID,
   VERIFY_INPUT_PLACEHOLDER,
 } from './backup-constants'
-
+import { PASSPHRASE_SALT_STORAGE_KEY } from '../common/secure-storage-constants'
+import { getItem } from '../services/secure-storage'
+import { pinHash as generateKey } from '../lock/pin-hash'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import VerifyPhrase from '../components/backup-restore-passphrase/backup-restore-passphrase'
 
@@ -71,7 +73,19 @@ export class VerifyRecoveryPhrase extends Component<
       recoveryPassphrase,
       initialRoute,
     } = this.props.navigation.state.params
-    if (recoveryPassphrase === event.nativeEvent.text.trim()) {
+
+    // IMPORTANT: Because of the way that event.nativeEvent works, the nativeEvent property
+    // of event will be null if you invoke event.nativeEvent after the await calls below
+    const passphraseFromUser = event.nativeEvent.text.trim()
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    let passphraseSalt = await getItem(PASSPHRASE_SALT_STORAGE_KEY)
+    const hashedPassPhrase = await generateKey(
+      passphraseFromUser,
+      passphraseSalt
+    )
+
+    if (recoveryPassphrase === hashedPassPhrase) {
       this.props.navigation.navigate(exportBackupFileRoute, {
         initialRoute,
       })
