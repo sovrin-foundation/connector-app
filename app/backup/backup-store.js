@@ -18,6 +18,9 @@ import {
   ERROR_EXPORT_BACKUP,
   ERROR_GENERATE_RECOVERY_PHRASE,
   ERROR_GENERATE_BACKUP_FILE,
+  ERROR_HYDRATING_BACKUP,
+  HYDRATE_BACKUP,
+  HYDRATE_BACKUP_FAILURE,
 } from './type-backup'
 import type {
   GenerateBackupFileAction,
@@ -37,7 +40,7 @@ import type { CustomError } from '../common/type-common'
 import { RESET } from '../common/type-common'
 import { LAST_SUCCESSFUL_BACKUP } from '../common/secure-storage-constants'
 import { getZippedWalletBackupPath } from '../bridge/react-native-cxs/RNCxs'
-import { getConfig } from '../store/store-selector'
+import { getConfig, getBackupPassPhrase } from '../store/store-selector'
 import { STORAGE_KEY_SHOW_BANNER } from '../components/banner/banner-constants'
 import { getWords } from './secure-passphrase'
 import moment from 'moment'
@@ -67,11 +70,13 @@ export function* generateBackupSaga(
     agencyVerificationKey,
     poolConfig,
   }
+  const recoveryPassphrase = yield select(getBackupPassPhrase)
   try {
     const documentDirectory = RNFetchBlob.fs.dirs.DocumentDir
     const backupPath = yield call(getZippedWalletBackupPath, {
       documentDirectory,
       agencyConfig,
+      recoveryPassphrase,
     })
 
     yield put(generateBackupFileSuccess(backupPath))
@@ -124,11 +129,6 @@ export function* generateRecoveryPhraseSaga(
   action: GenerateRecoveryPhraseAction
 ): Generator<*, *, *> {
   try {
-    let lastSuccessfulBackup = yield call(
-      AsyncStorage.getItem,
-      LAST_SUCCESSFUL_BACKUP
-    )
-    yield put(reset(lastSuccessfulBackup))
     let words = yield call(getWords, 8, 5)
     yield put(generateRecoveryPhraseSuccess(words.join(' ')))
     yield put(generateBackupFile())
@@ -151,6 +151,11 @@ export const generateBackupFileSuccess = (backupWalletPath: string) => ({
 export const generateBackupFileFail = (error: CustomError) => ({
   type: GENERATE_BACKUP_FILE_FAILURE,
   status: BACKUP_STORE_STATUS.GENERATE_BACKUP_FILE_FAILURE,
+  error,
+})
+
+export const hydrateBackupFail = (error: CustomError) => ({
+  type: HYDRATE_BACKUP_FAILURE,
   error,
 })
 
@@ -184,6 +189,34 @@ export function* watchBackupBannerPrompt(): any {
   yield takeLatest(PROMPT_WALLET_BACKUP_BANNER, backupBannerSaga)
 }
 
+export function* hydrateBackupSaga(): Generator<*, *, *> {
+  try {
+    let lastSuccessfulBackup = yield call(
+      AsyncStorage.getItem,
+      LAST_SUCCESSFUL_BACKUP
+    )
+    if (lastSuccessfulBackup != null) {
+      yield put(hydrateBackup(lastSuccessfulBackup))
+    } else {
+      yield put(
+        hydrateBackupFail({
+          ...ERROR_HYDRATING_BACKUP,
+          message: `${ERROR_HYDRATING_BACKUP}`,
+        })
+      )
+    }
+  } catch (e) {
+    yield put(
+      yield put(
+        hydrateBackupFail({
+          ...ERROR_HYDRATING_BACKUP,
+          message: `${ERROR_HYDRATING_BACKUP}`,
+        })
+      )
+    )
+  }
+}
+
 export function* backupBannerSaga(
   action: PromptBackupBannerAction
 ): Generator<*, *, *> {
@@ -200,8 +233,8 @@ export function* backupBannerSaga(
   }
 }
 
-export const reset = (lastSuccessfulBackup: string) => ({
-  type: RESET,
+export const hydrateBackup = (lastSuccessfulBackup: string) => ({
+  type: HYDRATE_BACKUP,
   lastSuccessfulBackup,
 })
 
@@ -331,10 +364,15 @@ export default function backupReducer(
         error: action.error,
       }
     }
-    case RESET:
+    case HYDRATE_BACKUP:
       return {
         ...initialState,
         lastSuccessfulBackup: action.lastSuccessfulBackup,
+      }
+    case HYDRATE_BACKUP_FAILURE:
+      return {
+        ...initialState,
+        error: action.error,
       }
     default:
       return state

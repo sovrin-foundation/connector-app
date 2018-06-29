@@ -103,40 +103,6 @@ const initialState = {
   payment: { tokenAmount: 0, status: STORE_STATUS.IDLE, error: null },
 }
 
-export function* backupWalletSaga(
-  action: BackupWalletAction
-): Generator<*, *, *> {
-  // WALLET BACKUP ZIP FLOW
-  const {
-    agencyUrl,
-    agencyDID,
-    agencyVerificationKey,
-    poolConfig,
-  }: AgencyPoolConfig = yield select(getConfig)
-  const agencyConfig = {
-    agencyUrl,
-    agencyDID,
-    agencyVerificationKey,
-    poolConfig,
-  }
-  try {
-    const documentDirectory = RNFetchBlob.fs.dirs.DocumentDir
-    const backupPath = yield call(getZippedWalletBackupPath, {
-      documentDirectory,
-      agencyConfig,
-    })
-
-    yield put(backupWalletPath(backupPath))
-  } catch (e) {
-    yield put(
-      backupWalletFail({
-        ...ERROR_BACKUP_WALLET,
-        message: `${ERROR_BACKUP_WALLET.message}. ${e.message}`,
-      })
-    )
-  }
-}
-
 export function* shareBackupSaga(
   action: ShareBackupAction
 ): Generator<*, *, *> {
@@ -216,16 +182,6 @@ export const walletBackupComplete = (WALLET_BACKUP_PATH: string) => ({
     error: null,
   },
 })
-
-function* watchWalletBackup(): any {
-  yield takeLatest(BACKUP_WALLET, backupWalletSaga)
-}
-function* watchBackupShare(): any {
-  yield takeLatest(SHARE_WALLET_BACKUP, shareBackupSaga)
-} // TODO: persist wallet back state in AsyncStorage
-export function* watchBackup(): any {
-  yield all([watchWalletBackup(), watchBackupShare()])
-}
 
 export function* watchBackupBanner(): any {
   yield all([watchBackupBannerPrompt()])

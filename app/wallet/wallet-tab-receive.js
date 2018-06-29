@@ -19,7 +19,8 @@ import type {
 import type { Store } from '../store/type-store'
 import customStyles from './styles'
 import { getWalletAddresses } from '../store/store-selector'
-import { promptBackupBanner, refreshWalletAddresses } from './wallet-store'
+import { refreshWalletAddresses } from './wallet-store'
+import { promptBackupBanner } from '../backup/backup-store'
 
 export class WalletTabReceive extends PureComponent<
   WalletTabReceiveProps,

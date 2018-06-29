@@ -21,10 +21,11 @@ import {
 } from './banner-constants'
 import type { BannerProps } from './type-banner'
 import DangerBanner from './banner-danger'
+import { getBackupShowBanner } from '../../store/store-selector'
 
 class Banner extends PureComponent<BannerProps, void> {
   render() {
-    const { walletBackup: { showBanner }, navigation } = this.props
+    const { showBanner, navigation } = this.props
 
     if (showBanner) {
       return (
@@ -49,7 +50,7 @@ class Banner extends PureComponent<BannerProps, void> {
 
 const mapStateToProps = (state: Store) => {
   return {
-    walletBackup: state.wallet.backup,
+    showBanner: getBackupShowBanner(state),
   }
 }
 

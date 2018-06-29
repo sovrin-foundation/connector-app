@@ -299,6 +299,8 @@ describe('hydration should work correctly', () => {
     gen.next()
     gen.next()
     gen.next()
+    gen.next()
+    gen.next()
     expect(gen.next().value).toEqual(put(hydrated()))
   })
 })

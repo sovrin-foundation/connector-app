@@ -37,7 +37,7 @@ import type {
 import { deleteConnection } from '../bridge/react-native-cxs/RNCxs'
 import { RESET } from '../common/type-common'
 import type { UserOneTimeInfo } from './user/type-user-store'
-import { promptBackupBanner } from '../wallet/wallet-store'
+import { promptBackupBanner } from '../backup/backup-store'
 
 const UPDATE_CONNECTION_THEME = 'UPDATE_CONNECTION_THEME'
 export const NEW_CONNECTION_SUCCESS = 'NEW_CONNECTION_SUCCESS'

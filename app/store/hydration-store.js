@@ -36,12 +36,12 @@ import {
   removePersistedUserSelectedAvatarImage,
 } from './user/user-store'
 import {
-  promptBackupBanner,
   hydrateWalletStoreSaga,
   deletePersistedWalletBalance,
   deletePersistedWalletAddresses,
   deletePersistedWalletHistory,
 } from '../wallet/wallet-store'
+import { promptBackupBanner } from '../backup/backup-store'
 import { STORAGE_KEY_USER_ONE_TIME_INFO } from './user/type-user-store'
 import { STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL } from './type-config-store'
 import { STORAGE_KEY_SHOW_BANNER } from '../components/banner/banner-constants'
@@ -51,6 +51,7 @@ import {
   removePersistedSerializedClaimOffersSaga,
   hydrateSerializedClaimOffersSaga,
 } from '../claim-offer/claim-offer-store'
+import { hydrateBackupSaga } from '../backup/backup-store'
 
 export const hydrateApp = (isAlreadyInstalled: boolean) => ({
   type: HYDRATE_APP,
@@ -132,7 +133,7 @@ export function* appHydration(action: {
     yield put(hydrateConnections(connections))
     yield* hydrateThemes()
     yield* hydrateUserStoreSaga()
-
+    yield* hydrateBackupSaga()
     // restore claimMap
     yield* hydrateClaimMapSaga()
     yield* hydrateSerializedClaimOffersSaga()

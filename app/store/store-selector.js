@@ -243,3 +243,5 @@ export const getBackupStatus = (state: Store) => state.backup.status
 
 export const getBackupWalletPath = (state: Store) =>
   state.backup.backupWalletPath
+
+export const getBackupShowBanner = (state: Store) => state.backup.showBanner
