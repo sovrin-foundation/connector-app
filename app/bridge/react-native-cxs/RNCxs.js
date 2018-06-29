@@ -701,8 +701,7 @@ export async function getZippedWalletBackupPath({
 }): Promise<string> {
   const backupPath = await RNIndy.backupWallet(
     documentDirectory,
-    JSON.stringify(agencyConfig),
-    recoveryPassphrase
+    JSON.stringify(agencyConfig)
   )
 
   return backupPath

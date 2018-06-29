@@ -6,7 +6,7 @@ export type RestoreProps = {
   updateStatusBarTheme: string => void,
 } & ReactNavigation
 
-export type RestorePassPhraseProps = {
+export type RestorePassphraseProps = {
   navigation: {
     state: {
       params: {

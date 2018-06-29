@@ -236,8 +236,7 @@ export const getInvitations = (state: Store) => state.invitation
 
 export const getDeepLinkTokens = (state: Store) => state.deepLink.tokens
 
-export const getBackupPassPhrase = (state: Store) =>
-  state.backup.passPhrase.data
+export const getBackupPassphrase = (state: Store) => state.backup.passphrase
 
 export const getBackupStatus = (state: Store) => state.backup.status
 

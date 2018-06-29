@@ -7,9 +7,12 @@ Object {
     "code": "WB-001",
     "message": "Error while backing up wallet",
   },
+  "isLoading": undefined,
   "lastSuccessfulBackup": null,
-  "passPhrase": Object {
-    "data": "",
+  "passphrase": Object {
+    "hash": "h",
+    "phrase": "",
+    "salt": "s",
   },
   "showBanner": false,
   "status": "IDLE",
@@ -20,12 +23,15 @@ exports[`store: backup-store:  action: EXPORT_BACKUP 1`] = `
 Object {
   "backupWalletPath": "/Users/CoreSimulator/Devices/5F89AA14-B694-465F-82C3-838552AB4B85/data/Containers/Data/Application/4536A441-4B70-4A30-8DCC-5274E6781535/Documents/backup.zip",
   "error": null,
+  "isLoading": true,
   "lastSuccessfulBackup": null,
-  "passPhrase": Object {
-    "data": "",
+  "passphrase": Object {
+    "hash": "h",
+    "phrase": "",
+    "salt": "s",
   },
   "showBanner": false,
-  "status": "EXPORT_BACKUP_LOADING",
+  "status": "EXPORT_BACKUP",
 }
 `;
 
@@ -33,9 +39,12 @@ exports[`store: backup-store:  action: EXPORT_BACKUP_SUCCESS 1`] = `
 Object {
   "backupWalletPath": "/Users/CoreSimulator/Devices/5F89AA14-B694-465F-82C3-838552AB4B85/data/Containers/Data/Application/4536A441-4B70-4A30-8DCC-5274E6781535/Documents/backup.zip",
   "error": null,
+  "isLoading": true,
   "lastSuccessfulBackup": "2018-06-27T18:27:35+05:30",
-  "passPhrase": Object {
-    "data": "",
+  "passphrase": Object {
+    "hash": "h",
+    "phrase": "",
+    "salt": "s",
   },
   "showBanner": false,
   "status": "BACKUP_COMPLETE",
@@ -45,13 +54,16 @@ Object {
 exports[`store: backup-store:  action: GENERATE_BACKUP_FILE 1`] = `
 Object {
   "backupWalletPath": "",
-  "error": null,
+  "error": undefined,
+  "isLoading": true,
   "lastSuccessfulBackup": null,
-  "passPhrase": Object {
-    "data": "gander troubling deodorize justify twitter darkish confront politely",
+  "passphrase": Object {
+    "hash": "b7a563bcbbeb892b",
+    "phrase": "gander troubling deodorize justify twitter darkish confront politely",
+    "salt": "s",
   },
   "showBanner": false,
-  "status": "GENERATE_BACKUP_FILE_LOADING",
+  "status": "GENERATE_BACKUP_FILE",
 }
 `;
 
@@ -59,12 +71,15 @@ exports[`store: backup-store:  action: GENERATE_BACKUP_FILE_SUCCESS 1`] = `
 Object {
   "backupWalletPath": "/Users/CoreSimulator/Devices/5F89AA14-B694-465F-82C3-838552AB4B85/data/Containers/Data/Application/4536A441-4B70-4A30-8DCC-5274E6781535/Documents/backup.zip",
   "error": null,
+  "isLoading": false,
   "lastSuccessfulBackup": null,
-  "passPhrase": Object {
-    "data": "",
+  "passphrase": Object {
+    "hash": "h",
+    "phrase": "",
+    "salt": "s",
   },
   "showBanner": false,
-  "status": "GENERATE_BACKUP_FILE_SUCCESS",
+  "status": "GENERATE_BACKUP_FILE",
 }
 `;
 
@@ -72,25 +87,31 @@ exports[`store: backup-store:  action: GENERATE_RECOVERY_PHRASE 1`] = `
 Object {
   "backupWalletPath": "",
   "error": null,
+  "isLoading": true,
   "lastSuccessfulBackup": null,
-  "passPhrase": Object {
-    "data": "",
+  "passphrase": Object {
+    "hash": "h",
+    "phrase": "",
+    "salt": "s",
   },
   "showBanner": false,
-  "status": "GENERATE_PHRASE_LOADING",
+  "status": "GENERATE_PHRASE",
 }
 `;
 
 exports[`store: backup-store:  action: GENERATE_RECOVERY_PHRASE_SUCCESS 1`] = `
 Object {
   "backupWalletPath": "",
-  "error": undefined,
+  "error": null,
+  "isLoading": false,
   "lastSuccessfulBackup": null,
-  "passPhrase": Object {
-    "data": "gander troubling deodorize justify twitter darkish confront politely",
+  "passphrase": Object {
+    "hash": "b7a563bcbbeb892b",
+    "phrase": "gander troubling deodorize justify twitter darkish confront politely",
+    "salt": "s",
   },
   "showBanner": false,
-  "status": "GENERATE_BACKUP_FILE_SUCCESS",
+  "status": "GENERATE_PHRASE",
 }
 `;
 
@@ -99,8 +120,10 @@ Object {
   "backupWalletPath": "",
   "error": null,
   "lastSuccessfulBackup": null,
-  "passPhrase": Object {
-    "data": "",
+  "passphrase": Object {
+    "hash": "h",
+    "phrase": "",
+    "salt": "s",
   },
   "showBanner": true,
   "status": "IDLE",

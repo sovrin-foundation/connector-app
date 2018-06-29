@@ -914,9 +914,11 @@ export function getStore(store?: Store) {
             '/Users/CoreSimulator/Devices/5F89AA14-B694-465F-82C3-838552AB4B85/data/Containers/Data/Application/4536A441-4B70-4A30-8DCC-5274E6781535/Documents/backup.zip',
           error: null,
           lastSuccessfulBackup: '2018-06-27T18:27:35+05:30',
-          passPhrase: {
-            data:
+          passphrase: {
+            phrase:
               'gander troubling deodorize justify twitter darkish confront politely',
+            salt: 's',
+            hash: 'b7a563bcbbeb892b',
           },
           showBanner: false,
           status: 'BACKUP_COMPLETE',
@@ -1035,6 +1037,7 @@ export { userOneTimeInfo } from './data/user-store-mock-data'
 
 export const backup = {
   status: STORE_STATUS.IDLE,
+  fileStatus: STORE_STATUS.IDLE,
   error: null,
   latest: '2017-09-06T00:00:00+05:30',
   backupPath: 'hibob',

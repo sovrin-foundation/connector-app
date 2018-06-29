@@ -4,9 +4,9 @@ import EnterPassphrase from '../components/backup-restore-passphrase/backup-rest
 import { StackNavigator } from 'react-navigation'
 import { color } from '../common/styles/constant'
 import { restorePassphraseRoute } from '../common'
-import type { RestorePassPhraseProps } from './type-restore'
+import type { RestorePassphraseProps } from './type-restore'
 
-export class RestorePassphrase extends Component<RestorePassPhraseProps, void> {
+export class RestorePassphrase extends Component<RestorePassphraseProps, void> {
   static navigationOptions = {
     headerStyle: {
       backgroundColor: color.bg.twelfth.color,

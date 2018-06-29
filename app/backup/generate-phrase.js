@@ -1,10 +1,10 @@
 // @flow
 
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { Image, Dimensions } from 'react-native'
 import { StackNavigator } from 'react-navigation'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import type { Store } from '../store/type-store'
 import type { ReactNavigation } from '../common/type-common'
 import {
@@ -28,7 +28,7 @@ import {
   SUBMIT_RECOVERY_PHRASE_BUTTON_TITLE,
 } from './backup-constants'
 import styles from './styles'
-import { getBackupPassPhrase } from '../store/store-selector'
+import { getBackupPassphrase } from '../store/store-selector'
 
 const { height } = Dimensions.get('window')
 const closeImage = require('../images/iconClose.png')
@@ -47,7 +47,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
     const { navigation: { navigate, state } } = this.props
 
     navigate(verifyRecoveryPhraseRoute, {
-      recoveryPassphrase: this.props.recoveryPassphrase,
+      recoveryPassphrase: this.props.recoveryPassphrase.hash,
       initialRoute: state.params.initialRoute,
     })
   }
@@ -109,7 +109,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
             <Image source={textBubble} style={[styles.imageIcon]} />
             <CustomView style={[styles.genRecoveryPhraseContainer]}>
               <CustomText transparentBg style={[styles.genRecoveryPhrase]}>
-                {this.props.recoveryPassphrase}
+                {this.props.recoveryPassphrase.phrase}
               </CustomText>
             </CustomView>
           </CustomView>
@@ -154,10 +154,9 @@ export class GenerateRecoveryPhrase extends PureComponent<
 
 const mapStateToProps = (state: Store, props: ReactNavigation) => {
   return {
-    recoveryPassphrase: getBackupPassPhrase(state),
+    recoveryPassphrase: getBackupPassphrase(state),
   }
 }
-
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ generateRecoveryPhrase }, dispatch)
 
