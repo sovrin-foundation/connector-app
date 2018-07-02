@@ -80,12 +80,12 @@ export class VerifyRecoveryPhrase extends Component<
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     let passphraseSalt = await getItem(PASSPHRASE_SALT_STORAGE_KEY)
-    const hashedPassPhrase = await generateKey(
+    const hashedPassphrase = await generateKey(
       passphraseFromUser,
       passphraseSalt
     )
 
-    if (recoveryPassphrase === hashedPassPhrase) {
+    if (recoveryPassphrase === hashedPassphrase) {
       this.props.navigation.navigate(exportBackupFileRoute, {
         initialRoute,
       })

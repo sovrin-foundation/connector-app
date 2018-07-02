@@ -3,16 +3,13 @@
 import { put, takeLatest, call, all, select } from 'redux-saga/effects'
 import {
   GENERATE_RECOVERY_PHRASE_SUCCESS,
-  GENERATE_RECOVERY_PHRASE,
   GENERATE_BACKUP_FILE_SUCCESS,
-  EXPORT_BACKUP,
+  GENERATE_BACKUP_FILE_FAILURE,
   EXPORT_BACKUP_SUCCESS,
+  EXPORT_BACKUP_FAILURE,
   BACKUP_COMPLETE,
   BACKUP_STORE_STATUS,
-  GENERATE_BACKUP_FILE,
   BACKUP_WALLET_FAIL,
-  ERROR_BACKUP_WALLET,
-  ERROR_BACKUP_WALLET_SHARE,
   PROMPT_WALLET_BACKUP_BANNER,
   GENERATE_RECOVERY_PHRASE_FAILURE,
   GENERATE_RECOVERY_PHRASE_LOADING,
@@ -96,9 +93,9 @@ export function* generateBackupSaga(
     yield put(generateBackupFileSuccess(backupPath))
   } catch (e) {
     yield put(
-      backupWalletFail({
-        ...ERROR_BACKUP_WALLET,
-        message: `${ERROR_BACKUP_WALLET.message}. ${e.message}`,
+      generateBackupFileFail({
+        ...ERROR_GENERATE_BACKUP_FILE,
+        message: `${ERROR_GENERATE_BACKUP_FILE.message} ${e.message}`,
       })
     )
   }
@@ -123,14 +120,18 @@ export function* exportBackupSaga(
           subject: 'something here maybe?',
         })
     const lastSuccessfulBackup = moment().format()
-    yield call(setItem, LAST_SUCCESSFUL_BACKUP, lastSuccessfulBackup)
+    yield call(
+      AsyncStorage.setItem,
+      LAST_SUCCESSFUL_BACKUP,
+      lastSuccessfulBackup
+    )
     yield put(exportBackupSuccess(lastSuccessfulBackup))
     yield put(promptBackupBanner(false))
   } catch (e) {
     yield put(
-      backupWalletFail({
-        ...ERROR_BACKUP_WALLET,
-        message: `${ERROR_BACKUP_WALLET.message}.${e}`,
+      exportBackupFail({
+        ...ERROR_EXPORT_BACKUP,
+        message: `${ERROR_EXPORT_BACKUP.message} ${e.message}`,
       })
     )
   }
@@ -164,9 +165,9 @@ export function* generateRecoveryPhraseSaga(
     yield put(generateBackupFile())
   } catch (e) {
     yield put(
-      backupWalletFail({
-        ...ERROR_BACKUP_WALLET_SHARE,
-        message: `${ERROR_BACKUP_WALLET_SHARE.message}.${e}`,
+      generateRecoveryPhraseFail({
+        ...ERROR_GENERATE_RECOVERY_PHRASE,
+        message: `${ERROR_GENERATE_RECOVERY_PHRASE.message} ${e.message}`,
       })
     )
   }
@@ -174,13 +175,13 @@ export function* generateRecoveryPhraseSaga(
 
 export const generateBackupFileSuccess = (backupWalletPath: string) => ({
   type: GENERATE_BACKUP_FILE_SUCCESS,
-  isLoading: false,
+  status: BACKUP_STORE_STATUS.GENERATE_BACKUP_FILE_SUCCESS,
   backupWalletPath,
-  error: null,
 })
 
-export const backupWalletFail = (error: CustomError) => ({
-  type: BACKUP_WALLET_FAIL,
+export const generateBackupFileFail = (error: CustomError) => ({
+  type: GENERATE_BACKUP_FILE_FAILURE,
+  status: BACKUP_STORE_STATUS.GENERATE_BACKUP_FILE_FAILURE,
   error,
 })
 
@@ -190,21 +191,20 @@ export const hydrateBackupFail = (error: CustomError) => ({
 })
 
 export const generateBackupFile = () => ({
-  type: GENERATE_BACKUP_FILE,
-  status: BACKUP_STORE_STATUS.GENERATE_BACKUP_FILE,
-  isLoading: true,
+  type: GENERATE_BACKUP_FILE_LOADING,
+  status: BACKUP_STORE_STATUS.GENERATE_BACKUP_FILE_LOADING,
 })
 
 function* watchBackupStart(): any {
-  yield takeLatest(GENERATE_BACKUP_FILE, generateBackupSaga)
+  yield takeLatest(GENERATE_BACKUP_FILE_LOADING, generateBackupSaga)
 }
 
 function* watchExportBackup(): any {
-  yield takeLatest(EXPORT_BACKUP, exportBackupSaga)
+  yield takeLatest(EXPORT_BACKUP_LOADING, exportBackupSaga)
 }
 
 function* watchGenerateRecoveryPhrase(): any {
-  yield takeLatest(GENERATE_RECOVERY_PHRASE, generateRecoveryPhraseSaga)
+  yield takeLatest(GENERATE_RECOVERY_PHRASE_LOADING, generateRecoveryPhraseSaga)
 }
 
 export function* watchBackup(): any {
@@ -277,32 +277,37 @@ export const promptBackupBanner = (
 })
 
 export const generateRecoveryPhrase = () => ({
-  type: GENERATE_RECOVERY_PHRASE,
-  isLoading: true,
-  status: BACKUP_STORE_STATUS.GENERATE_PHRASE,
-  error: null,
+  type: GENERATE_RECOVERY_PHRASE_LOADING,
+  status: BACKUP_STORE_STATUS.GENERATE_PHRASE_LOADING,
 })
 
 export const generateRecoveryPhraseSuccess = (passphrase: Passphrase) => ({
   type: GENERATE_RECOVERY_PHRASE_SUCCESS,
-  isLoading: false,
-  error: null,
+  status: BACKUP_STORE_STATUS.GENERATE_BACKUP_FILE_SUCCESS,
   passphrase: passphrase,
 })
 
+export const generateRecoveryPhraseFail = (error: CustomError) => ({
+  type: GENERATE_RECOVERY_PHRASE_FAILURE,
+  status: BACKUP_STORE_STATUS.GENERATE_BACKUP_FILE_FAILURE,
+  error,
+})
+
 export const exportBackup = () => ({
-  type: EXPORT_BACKUP,
-  isLoading: true,
-  status: BACKUP_STORE_STATUS.EXPORT_BACKUP,
-  error: null,
+  type: EXPORT_BACKUP_LOADING,
+  status: BACKUP_STORE_STATUS.EXPORT_BACKUP_LOADING,
+})
+
+export const exportBackupFail = (error: CustomError) => ({
+  type: EXPORT_BACKUP_FAILURE,
+  error,
+  status: BACKUP_STORE_STATUS.EXPORT_BACKUP_FAILURE,
 })
 
 export const exportBackupSuccess = (lastSuccessfulBackup: string) => ({
   type: EXPORT_BACKUP_SUCCESS,
   status: BACKUP_COMPLETE,
   lastSuccessfulBackup,
-  isLoading: true,
-  error: null,
 })
 
 export default function backupReducer(
@@ -310,18 +315,17 @@ export default function backupReducer(
   action: BackupStoreAction
 ) {
   switch (action.type) {
-    case GENERATE_RECOVERY_PHRASE: {
+    case GENERATE_RECOVERY_PHRASE_LOADING: {
       return {
         ...state,
         status: action.status,
-        isLoading: action.isLoading,
-        error: action.error,
+        error: null,
       }
     }
     case GENERATE_RECOVERY_PHRASE_SUCCESS: {
       return {
         ...state,
-        isLoading: action.isLoading,
+        status: action.status,
         error: action.error,
         passphrase: {
           phrase: action.passphrase.phrase,
@@ -330,37 +334,55 @@ export default function backupReducer(
         },
       }
     }
-    case GENERATE_BACKUP_FILE: {
+    case GENERATE_RECOVERY_PHRASE_FAILURE: {
       return {
         ...state,
-        isLoading: action.isLoading,
         status: action.status,
         error: action.error,
+      }
+    }
+    case GENERATE_BACKUP_FILE_LOADING: {
+      return {
+        ...state,
+        status: action.status,
+        error: null,
       }
     }
     case GENERATE_BACKUP_FILE_SUCCESS: {
       return {
         ...state,
-        isLoading: action.isLoading,
-        error: action.error,
+        status: action.status,
+        error: null,
         backupWalletPath: action.backupWalletPath,
       }
     }
-    case EXPORT_BACKUP: {
+    case GENERATE_BACKUP_FILE_FAILURE: {
       return {
         ...state,
         status: action.status,
-        isLoading: action.isLoading,
         error: action.error,
+      }
+    }
+    case EXPORT_BACKUP_LOADING: {
+      return {
+        ...state,
+        status: action.status,
+        error: null,
       }
     }
     case EXPORT_BACKUP_SUCCESS: {
       return {
         ...state,
-        isLoading: action.isLoading,
-        error: action.error,
+        error: null,
         status: action.status,
         lastSuccessfulBackup: action.lastSuccessfulBackup,
+      }
+    }
+    case EXPORT_BACKUP_FAILURE: {
+      return {
+        ...state,
+        status: action.status,
+        error: action.error,
       }
     }
     case PROMPT_WALLET_BACKUP_BANNER: {
@@ -372,7 +394,6 @@ export default function backupReducer(
     case BACKUP_WALLET_FAIL: {
       return {
         ...state,
-        isLoading: action.isLoading,
         error: action.error,
       }
     }
