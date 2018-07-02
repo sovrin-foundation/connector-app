@@ -624,13 +624,13 @@ RCT_EXPORT_METHOD(deserializeConnection: (NSString *)serializedConnection
   // TODO call vcx_connection_deserialize and pass serializedConnection
   // it would return an error code and an integer connection handle in callback
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-    [[[ConnectMeVcx alloc] init] connectionDeserialize:serializedConnection completion:^(NSError *error, NSInteger credentialHandle) {
+    [[[ConnectMeVcx alloc] init] connectionDeserialize:serializedConnection completion:^(NSError *error, NSInteger connectionHandle) {
       if (error != nil && error.code != 0)
       {
         NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
         reject(indyErrorCode, @"Error occurred while deserializing claim offer", error);
       }else{
-        resolve(@(credentialHandle));
+        resolve(@(connectionHandle));
       }
     }];
   });

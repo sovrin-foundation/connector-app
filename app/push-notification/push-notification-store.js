@@ -95,32 +95,6 @@ export function* onPushTokenUpdateVcx(
   // TODO:KS Rename this method to onPushTokenUpdate
   // once integration with vcx is done for both ios and android
 
-  // We can come to this point in code from several paths
-  // 1. this is called when user is trying to accept connection first time
-  // 2. this can be called when we are hydrating app data and we put push token
-  // 3. can be called when Firebase Push plugin updates push token
-  // 4. for some reason this is called even when the app is launched for the first time
-  //    in that case this triggers vcx init, and we don't want to do that
-  //    because vcx init should only be called if we want to have connections
-  //    or if we want to perform token related work. So, if there is no connection or invitation
-  //    then we don't want to update any push token to server and hence will not call
-  //    vcx init
-
-  yield* ensureAppHydrated()
-  const connections: ?Connections = yield select(getAllConnection)
-  const numberOfConnections = connections ? Object.keys(connections).length : 0
-  const invitations = yield select(getInvitations)
-  const numberOfInvitations = invitations ? Object.keys(invitations).length : 0
-  const deepLinkTokens = yield select(getDeepLinkTokens)
-  const numberOfTokens = deepLinkTokens ? Object.keys(deepLinkTokens).length : 0
-  if (
-    numberOfInvitations === 0 &&
-    numberOfConnections === 0 &&
-    numberOfTokens === 0
-  ) {
-    return
-  }
-
   yield* ensureVcxInitSuccess()
 
   try {

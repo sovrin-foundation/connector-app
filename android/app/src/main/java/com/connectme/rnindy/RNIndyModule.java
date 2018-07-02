@@ -16,6 +16,7 @@ import com.evernym.sdk.vcx.credential.CredentialApi;
 import com.evernym.sdk.vcx.credential.GetCredentialCreateMsgidResult;
 import com.evernym.sdk.vcx.proof.ProofApi;
 import com.evernym.sdk.vcx.utils.UtilsApi;
+import com.evernym.sdk.vcx.vcx.AlreadyInitializedException;
 import com.evernym.sdk.vcx.vcx.VcxApi;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
@@ -109,25 +110,26 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
         Log.d(TAG, " ==> init() called with: config = [" + config + "], promise = [" + promise + "]");
         try {
             VcxApi.vcxInitWithConfig(config).exceptionally((t) -> {
+                Log.e(TAG, "init: inside exceptionally of init, should not be here, because exceptionally was not never called");
                 Log.e(TAG, "init: ", t);
                 promise.reject("FutureException", t.getMessage());
                 return -1;
             }).thenAccept(result -> {
-                promise.resolve(true);
+                if (result != -1) {
+                    promise.resolve(true);
+                }
             });
 
-        } catch (VcxException e) {
-            // TODO:KS Raise already init exception instead of VcxException
-            // and resolve only in that exception
-            e.printStackTrace();
-            String vcxErrorMessage = e.getMessage();
-            if (vcxErrorMessage.contains("1044")) {
-                promise.resolve(true);
-            } else {
-                promise.reject(e);
-            }
         }
-
+        catch (AlreadyInitializedException e) {
+            // even if we get already initialized exception
+            // then also we will resolve promise, because we don't care if vcx is already initialized
+            promise.resolve(true);
+        }
+        catch (VcxException e) {
+            e.printStackTrace();
+            promise.reject(e);
+        }
     }
 
     @ReactMethod
@@ -149,10 +151,10 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     public void vcxAcceptInvitation(int connectionHandle, String connectionType, Promise promise) {
         Log.d(TAG, "acceptInvitation() called with: connectionHandle = [" + connectionHandle + "], connectionType = [" + connectionType + "], promise = [" + promise + "]");
         try {
-            ConnectionApi.vcxConnectionCreate(String.valueOf(connectionHandle)).exceptionally((t) -> {
+            ConnectionApi.vcxAcceptInvitation(connectionHandle, connectionType).exceptionally((t) -> {
                 Log.e(TAG, "vcxAcceptInvitation: ", t);
                 promise.reject("FutureException", t.getMessage());
-                return -1;
+                return null;
             }).thenAccept(result -> BridgeUtils.resolveIfValid(promise, result));
         } catch (VcxException e) {
             e.printStackTrace();

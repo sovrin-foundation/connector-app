@@ -2,7 +2,6 @@ package com.connectme;
 
 import com.facebook.react.ReactActivity;
 
-
 import android.os.Bundle;
 import android.provider.Settings;
 import android.content.pm.PackageManager;
@@ -12,8 +11,6 @@ import org.devio.rn.splashscreen.SplashScreen;
 import io.branch.rnbranch.*;
 import android.content.Intent;
 import android.net.Uri;
-
-
 
 public class MainActivity extends ReactActivity {
 
@@ -50,6 +47,7 @@ public class MainActivity extends ReactActivity {
           checkPerms();
       }
     }
+
     @Override
     public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults){
         switch(permsRequestCode){
@@ -82,6 +80,5 @@ public class MainActivity extends ReactActivity {
        super.onCreate(savedInstanceState);
         checkPerms();
         SplashScreen.show(this);
-
    }
 }
