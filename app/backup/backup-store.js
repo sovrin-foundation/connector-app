@@ -49,7 +49,11 @@ import {
   PASSPHRASE_STORAGE_KEY,
 } from '../common/secure-storage-constants'
 import { getZippedWalletBackupPath } from '../bridge/react-native-cxs/RNCxs'
-import { getConfig, getBackupPassphrase } from '../store/store-selector'
+import {
+  getConfig,
+  getBackupPassphrase,
+  getBackupWalletPath,
+} from '../store/store-selector'
 import { STORAGE_KEY_SHOW_BANNER } from '../components/banner/banner-constants'
 import { getWords } from './secure-passphrase'
 import { pinHash as generateKey, generateSalt } from '../lock/pin-hash'
@@ -104,15 +108,16 @@ export function* exportBackupSaga(
   action: ExportBackupAction
 ): Generator<*, *, *> {
   try {
+    const backupWalletPath = yield select(getBackupWalletPath)
     Platform.OS === 'android'
       ? yield call(Share.open, {
           title: 'Share Your Data Wallet',
-          url: `file://${action.backupWalletPath}`,
+          url: `file://${backupWalletPath}`,
           type: 'application/zip',
         })
       : yield call(Share.open, {
           title: 'Share Your Data Wallet',
-          url: action.backupWalletPath,
+          url: backupWalletPath,
           type: 'application/zip',
           message: 'here we go!',
           subject: 'something here maybe?',
