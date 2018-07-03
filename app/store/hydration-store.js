@@ -41,7 +41,10 @@ import {
   deletePersistedWalletAddresses,
   deletePersistedWalletHistory,
 } from '../wallet/wallet-store'
-import { promptBackupBanner } from '../backup/backup-store'
+import {
+  promptBackupBanner,
+  deletePersistedPassphrase,
+} from '../backup/backup-store'
 import { STORAGE_KEY_USER_ONE_TIME_INFO } from './user/type-user-store'
 import { STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL } from './type-config-store'
 import { STORAGE_KEY_SHOW_BANNER } from '../components/banner/banner-constants'
@@ -97,6 +100,11 @@ export function* deleteStoredData(): Generator<*, *, *> {
   yield* removePersistedUserSelectedAvatarImage()
   yield* removePersistedThemes()
   yield* removePersistedSerializedClaimOffersSaga()
+  try {
+    yield* deletePersistedPassphrase()
+  } catch (e) {
+    //TODO handle catch
+  }
 }
 
 export function* appHydration(action: {

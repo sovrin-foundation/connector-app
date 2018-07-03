@@ -36,7 +36,7 @@ import RNFetchBlob from 'react-native-fetch-blob'
 import { AsyncStorage, Platform } from 'react-native'
 import Share from 'react-native-share'
 import type { Saga } from 'redux-saga'
-import { setItem, getItem } from '../services/secure-storage'
+import { setItem, getItem, deleteItem } from '../services/secure-storage'
 import type { AgencyPoolConfig } from '../store/type-config-store'
 import type { CustomError } from '../common/type-common'
 import { RESET } from '../common/type-common'
@@ -135,6 +135,12 @@ export function* exportBackupSaga(
       })
     )
   }
+}
+export function* deletePersistedPassphrase(): Generator<*, *, *> {
+  yield all([
+    call(deleteItem, PASSPHRASE_STORAGE_KEY),
+    call(deleteItem, PASSPHRASE_SALT_STORAGE_KEY),
+  ])
 }
 
 export function* generateRecoveryPhraseSaga(

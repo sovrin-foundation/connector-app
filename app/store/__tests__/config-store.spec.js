@@ -173,6 +173,7 @@ describe('server environment should change', () => {
     expect(gen.next().value).toEqual(
       put({ type: REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS })
     )
+    gen.next()
     expect(gen.next().value).toEqual(put({ type: RESET }))
     expect(gen.next().value).toEqual(
       put(
@@ -301,6 +302,8 @@ describe('hydration should work correctly', () => {
     gen.next()
     gen.next()
     gen.next()
+    gen.next()
+
     expect(gen.next().value).toEqual(put(hydrated()))
   })
 })
