@@ -2,14 +2,19 @@
 import 'react-native'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import RestoreScreen from '../restore'
+import { RestoreStartScreen } from '../restore'
 import { getNavigation, getStore } from '../../../__mocks__/static-data'
+import { restorePassphraseRoute } from '../../common'
 
 describe('Restore screen', () => {
   function getProps() {
     return {
       store: getStore(),
       navigation: getNavigation(),
+      restore: getStore().getState().restore,
+      route: restorePassphraseRoute,
+      updateStatusBarTheme: jest.fn(),
+      saveFileToAppDirectory: jest.fn(),
     }
   }
 
@@ -20,7 +25,7 @@ describe('Restore screen', () => {
 
   it('should render properly and match the snapshot', () => {
     const { props } = setup()
-    const tree = renderer.create(<RestoreScreen {...props} />).toJSON()
+    const tree = renderer.create(<RestoreStartScreen {...props} />).toJSON()
     expect(tree).toMatchSnapshot()
   })
 

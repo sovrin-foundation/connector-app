@@ -970,6 +970,17 @@ export function getStore(store?: Store) {
           backup,
           payment,
         },
+        restore: {
+          status: 'none',
+          error: null,
+          restoreFile: {
+            fileName: 'backup.zip',
+            fileSize: 22,
+            type: 'application/zip',
+            uri:
+              'file://data/Containers/Data/Application/021D78D1-044B-4874-BE8D-EC71781CA978/tmp/com.evernym.connectme.callcenter-Inbox/backup.zip',
+          },
+        },
       }
     },
     dispatch() {

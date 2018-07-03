@@ -69,7 +69,7 @@ import { color } from './common/styles'
 import WalletTabSendDetails from './wallet/wallet-tab-send-details'
 import EulaScreen from './eula/eula'
 import RestoreStartScreen from './restore/restore'
-import { RestoreWaitScreen } from './restore/restore-wait'
+import RestoreWaitScreen from './restore/restore-wait'
 import RestorePassphrase from './restore/restore-passphrase'
 
 if (__DEV__) {

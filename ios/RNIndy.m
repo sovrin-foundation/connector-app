@@ -610,7 +610,7 @@ RCT_EXPORT_METHOD(getSerializedConnection: (NSInteger)connectionHandle
         NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
         reject(indyErrorCode, @"Error occurred while serializing connection handle", error);
       }else{
-        
+
         resolve(state);
       }
     }];
@@ -638,22 +638,26 @@ RCT_EXPORT_METHOD(deserializeConnection: (NSString *)serializedConnection
 
 RCT_EXPORT_METHOD(
   saveFileDocumentsDirectory: (NSString *) tempPath
-                  documentsDirectory:(NSString *)documentsDirectory 
+                  documentsDirectory:(NSString *)documentsDirectory
                   restoredFileName:(NSString *) restoredFileName
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
   NSString *filePath = [documentsDirectory stringByAppendingPathComponent:restoredFileName];
   NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingString: tempPath];
-  NSError *error;
+  NSError *error = nil;
   NSFileManager *fileManager = [NSFileManager defaultManager];
   if ([fileManager fileExistsAtPath: filePath]){
     [fileManager removeItemAtPath:filePath error:NULL];
   }
-  BOOL success;
-  success = [fileManager copyItemAtPath:tempFilePath toPath:filePath error:&error];
-  if(!success){
-    NSLog(@"error at savefiledocumentsdirectory");
+  BOOL success = [fileManager copyItemAtPath:tempFilePath toPath:filePath error:&error];
+
+  if (success) {
+    resolve(filePath);
+  } else {
+    NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+
+    reject(indyErrorCode, @"Error at savefiledocumentsdirectory", error);
   }
 }
 
@@ -705,7 +709,7 @@ RCT_EXPORT_METHOD(serializeClaimOffer: (NSInteger)credentialHandle
       resolve(state);
     }
   }];
-    
+
   });
 }
 
@@ -773,7 +777,7 @@ RCT_EXPORT_METHOD(createOneTimeInfo: (NSString *)config
 {
   // pass a config as json string
   // callback would get an error code and a json string back in case of success
-  
+
   [[[ConnectMeVcx alloc] init] agentProvisionAsync:config completion:^(NSError *error, NSString *oneTimeInfo) {
     NSLog(@"applicationDidBecomeActive callback:%@",oneTimeInfo);
     if (error != nil && error.code != 0)
@@ -813,7 +817,7 @@ RCT_EXPORT_METHOD(vcxAcceptInvitation: (NSInteger )connectionHandle
    [[[ConnectMeVcx alloc] init] connectionConnect:connectionHandle
                                             connectionType:connectionType
                                                completion:^(NSError *error, NSString *inviteDetails) {
-  
+
   if (error != nil && error.code != 0)
   {
     NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
@@ -862,7 +866,7 @@ RCT_EXPORT_METHOD(generateProof: (NSString *)proofRequestId
   }
 }
 
-RCT_EXPORT_METHOD(getGenesisPathWithConfig: (NSString *)config 
+RCT_EXPORT_METHOD(getGenesisPathWithConfig: (NSString *)config
                         fileName: (NSString *)fileName
                        resolver: (RCTPromiseResolveBlock) resolve
                        rejecter: (RCTPromiseRejectBlock) reject)
@@ -876,7 +880,7 @@ RCT_EXPORT_METHOD(getGenesisPathWithConfig: (NSString *)config
     if(!success)
     {
       resolve(@"error while creating genesis file");
-    }  
+    }
   }
   resolve(filePath);
 }
@@ -887,7 +891,7 @@ RCT_EXPORT_METHOD(updateClaimOfferState: (int)credentialHandle
 {
   // TODO: Add bridge methods and vcx wrapper methods for update_state api call
   // call vcx_credential_update_state with credentialHandle
-  
+
   // TODO: Remove hard coded error when integration of vcx cocoapod is done
   NSError *error = nil;
   if (error != nil && error.code != 0)
@@ -903,10 +907,10 @@ RCT_EXPORT_METHOD(updateClaimOfferState: (int)credentialHandle
 RCT_EXPORT_METHOD(getClaimOfferState: (int)credentialHandle
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
-{   
+{
   // TODO: Add vcx wrapper method for vcx_credential_get_state
   // call vcx_credential_get_state and pass credentialHandle
-  
+
   // TODO: Remove hard coded error once integration of wrapper API is done
   NSError *error = nil;
   if (error != nil && error.code != 0)

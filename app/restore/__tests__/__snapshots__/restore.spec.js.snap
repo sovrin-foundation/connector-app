@@ -59,6 +59,15 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
         }
       />
     </View>
+  </View>
+  <View
+    style={
+      Object {
+        "paddingVertical": 8,
+      }
+    }
+    verticalSpace={true}
+  >
     <View
       center={true}
       doubleVerticalSpace={true}
@@ -201,15 +210,6 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
         How would you like to proceed?
       </Text>
     </View>
-  </View>
-  <View
-    style={
-      Object {
-        "flex": 1,
-        "justifyContent": "flex-end",
-      }
-    }
-  >
     <View
       pad={true}
       style={

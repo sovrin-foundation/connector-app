@@ -3,12 +3,14 @@ import 'react-native'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { RestorePassphrase } from '../restore-passphrase'
-import { getNavigation } from '../../../__mocks__/static-data'
+import { getNavigation, getStore } from '../../../__mocks__/static-data'
 
 describe('Restore Passphrase screen', () => {
   function getProps() {
     return {
       navigation: getNavigation(),
+      submitPassphrase: jest.fn(),
+      restore: getStore().getState().restore,
     }
   }
 

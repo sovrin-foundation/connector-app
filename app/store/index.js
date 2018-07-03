@@ -39,6 +39,7 @@ import wallet, {
   watchBackupBanner,
 } from '../wallet/wallet-store'
 import eula, { watchEula } from '../eula/eula-store'
+import restore, { watchRestore } from '../restore/restore-store'
 import backup, { watchBackup } from '../backup/backup-store'
 
 const sagaMiddleware = createSagaMiddleware()
@@ -61,6 +62,7 @@ const appReducer = combineReducers({
   history,
   wallet,
   eula,
+  restore,
   backup,
 })
 
@@ -98,6 +100,7 @@ sagaMiddleware.run(function*() {
     watchBackup(),
     watchBackupBanner(),
     watchEula(),
+    watchRestore(),
   ])
 })
 

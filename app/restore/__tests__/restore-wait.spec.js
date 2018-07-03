@@ -4,12 +4,14 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { RestoreWaitScreen } from '../restore-wait'
 import { getNavigation, getStore } from '../../../__mocks__/static-data'
+import { restoreWaitRoute } from '../../common'
 
 describe('RestoreWait screen', () => {
   function getProps() {
     return {
-      store: getStore(),
       navigation: getNavigation(),
+      route: restoreWaitRoute,
+      restore: getStore().getState().restore,
     }
   }
 

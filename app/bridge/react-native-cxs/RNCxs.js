@@ -707,16 +707,24 @@ export async function getZippedWalletBackupPath({
   return backupPath
 }
 
-export async function saveFileDocumentsDirectory(
-  tempFilePath: string,
-  documentDirectory: string,
-  restoreFileName: string
-): Promise<string> {
-  return await RNIndy.saveFileDocumentsDirectory(
-    tempFilePath,
-    documentDirectory,
-    restoreFileName
-  )
+export function saveFileDocumentsDirectory(uri: string): Promise<boolean> {
+  // TODO: Remove the below code (only for testing the UI flow)
+  const count = Math.random()
+  if (count < 0.7) {
+    return new Promise.resolve(true)
+  } else {
+    return new Promise.reject(false)
+  }
+}
+
+export function decryptWalletFile(passphrase: string): Promise<boolean> {
+  // TODO: Remove the below code (only for testing the UI flow)
+  const count = Math.random()
+  if (count < 0.7) {
+    return new Promise.resolve(true)
+  } else {
+    return new Promise.reject(false)
+  }
 }
 
 export async function updateClaimOfferState(claimHandle: number) {

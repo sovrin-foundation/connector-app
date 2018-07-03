@@ -50,6 +50,8 @@ import {
   lockAuthorizationHomeRoute,
   lockPinSetupRoute,
   restoreRoute,
+  restorePassphraseRoute,
+  restoreWaitRoute,
 } from './common'
 import { NavigationActions } from 'react-navigation'
 import { setupFeedback } from './feedback'
@@ -72,6 +74,7 @@ const backButtonDisableRoutes = [
   genRecoveryPhraseRoute,
   backupCompleteRoute,
   restoreRoute,
+  restoreWaitRoute,
 ]
 
 const backButtonExitRoutes = [

@@ -89,49 +89,58 @@ exports[`Restore Passphrase screen should render properly and match the snapshot
             }
           }
         >
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
+          <View
+            center={true}
             style={
-              Array [
-                Object {
-                  "fontSize": 17,
-                },
-                Object {
-                  "fontFamily": "Lato",
-                },
-                Object {
-                  "backgroundColor": "#333333",
-                  "color": "#ffffff",
-                },
-                null,
-                Object {
-                  "textAlign": "center",
-                },
-                Object {
-                  "backgroundColor": "transparent",
-                },
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                Object {
-                  "fontSize": 22,
-                  "fontWeight": "600",
-                  "lineHeight": 27,
-                  "marginBottom": 20,
-                  "width": "100%",
-                },
-              ]
+              Object {
+                "alignItems": "center",
+                "justifyContent": "center",
+              }
             }
           >
-            Verify Your Recovery Phrase
-          </Text>
+            <Image
+              source={1}
+            />
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "fontSize": 17,
+                  },
+                  Object {
+                    "fontFamily": "Lato",
+                  },
+                  Object {
+                    "backgroundColor": "#333333",
+                    "color": "#ffffff",
+                  },
+                  null,
+                  Object {
+                    "textAlign": "center",
+                  },
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  Object {
+                    "fontWeight": "bold",
+                  },
+                ]
+              }
+            >
+              backup.zip
+            </Text>
+          </View>
         </View>
         <View
           center={true}
@@ -184,7 +193,7 @@ exports[`Restore Passphrase screen should render properly and match the snapshot
               ]
             }
           >
-            To verify that you have copied down your recovery phrase correctly, please enter it below.
+            Enter the Recovery Phrase you used to create this backup.
           </Text>
         </View>
         <TextInput

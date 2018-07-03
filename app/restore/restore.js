@@ -12,16 +12,24 @@ import {
   cornFlowerBlue,
   white,
 } from '../common/styles/constant'
-import { lockSelectionRoute, restorePassphraseRoute } from '../common'
+import {
+  lockSelectionRoute,
+  restorePassphraseRoute,
+  restoreRoute,
+} from '../common'
 import { DocumentPicker } from 'react-native-document-picker'
-import { saveFileDocumentsDirectory } from '../bridge/react-native-cxs/RNCxs'
 import RNFetchBlob from 'react-native-fetch-blob'
 import { updateStatusBarTheme } from '../store/connections-store'
 import type { RestoreProps } from './type-restore'
 
+import { saveFileToAppDirectory } from './restore-store'
+import { NavigationActions } from 'react-navigation'
+import type { Store } from '../store/type-store'
+import { RestoreStatus } from './type-restore'
+
 const { height } = Dimensions.get('window')
 
-class RestoreStartScreen extends PureComponent<RestoreProps, void> {
+export class RestoreStartScreen extends PureComponent<RestoreProps, void> {
   restoreBackup = () => {
     DocumentPicker.show(
       {
@@ -31,26 +39,7 @@ class RestoreStartScreen extends PureComponent<RestoreProps, void> {
       },
       (error, res) => {
         if (res) {
-          try {
-            const split = res.uri.split('/')
-            const name = split.pop()
-            const inbox = split.pop()
-            const realPath = `${inbox}/${name}`
-
-            const documentDirectory = RNFetchBlob.fs.dirs.DocumentDir
-            //TODO fix things related to save file in Documents directory in another PR
-            saveFileDocumentsDirectory(
-              realPath,
-              documentDirectory,
-              'restore.zip'
-            )
-            this.props.navigation.navigate(restorePassphraseRoute, {
-              filename: res.fileName,
-            })
-          } catch (e) {
-            //TODO handle error
-            console.log(e)
-          }
+          this.props.saveFileToAppDirectory(res)
         } else {
           //TODO handle else
           console.log('err', error)
@@ -63,14 +52,36 @@ class RestoreStartScreen extends PureComponent<RestoreProps, void> {
     this.props.navigation.navigate(lockSelectionRoute)
   }
 
-  componentDidUpdate() {
-    //TODO updateStatusBar theme to venetianRed for error state
-    this.props.updateStatusBarTheme(white)
+  componentDidUpdate(prevProps: RestoreProps) {
+    if (
+      this.props.restore.status !== prevProps.restore.status &&
+      this.props.restore.status === RestoreStatus.fileSaved &&
+      this.props.route === restoreRoute
+    ) {
+      this.props.navigation.navigate(restorePassphraseRoute)
+    }
+    if (
+      this.props.restore.error !== prevProps.restore.error &&
+      this.props.route === restoreRoute
+    ) {
+      this.props.updateStatusBarTheme(venetianRed)
+    }
+  }
+
+  componentDidMount() {
+    if (!this.props.restore.error) {
+      this.props.updateStatusBarTheme(white)
+    } else {
+      this.props.updateStatusBarTheme(venetianRed)
+    }
   }
 
   render() {
     //TODO set error to display screen in error mode
-    const error = false
+    const error =
+      this.props.restore.status === RestoreStatus.failedStatus ||
+      (this.props.restore.status === RestoreStatus.FILE_SAVE_ERROR &&
+        this.props.restore.error)
     let restoreIcon = require('../images/logo_connectme.png')
     let restoreBackground = require('../images/wave2.png')
     let restoreButtonTitle = 'Restore From A Backup'
@@ -118,7 +129,10 @@ class RestoreStartScreen extends PureComponent<RestoreProps, void> {
                 file. Please try again or start fresh.
               </CustomText>
             </CustomView>
-          ) : (
+          ) : null}
+        </Container>
+        <CustomView verticalSpace>
+          {!error ? (
             <CustomView
               center
               doubleVerticalSpace
@@ -146,9 +160,7 @@ class RestoreStartScreen extends PureComponent<RestoreProps, void> {
                 How would you like to proceed?
               </CustomText>
             </CustomView>
-          )}
-        </Container>
-        <Container bottom>
+          ) : null}
           <CustomView pad>
             <CustomButton
               large={height > SHORT_DEVICE ? true : false}
@@ -173,7 +185,7 @@ class RestoreStartScreen extends PureComponent<RestoreProps, void> {
               }}
             />
           </CustomView>
-        </Container>
+        </CustomView>
       </Container>
     )
   }
@@ -237,12 +249,14 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      updateStatusBarTheme,
-    },
-    dispatch
-  )
+const mapStateToProps = (state: Store) => {
+  return {
+    restore: state.restore,
+    route: state.route.currentScreen,
+  }
+}
 
-export default connect(null, mapDispatchToProps)(RestoreStartScreen)
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ saveFileToAppDirectory, updateStatusBarTheme }, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(RestoreStartScreen)
