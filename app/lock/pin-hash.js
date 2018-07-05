@@ -21,7 +21,7 @@ export const generateSalt = async () => {
 
 export async function pinHash(pin: string, salt: string) {
   try {
-    var key = await generateKey(pin, salt)
+    const key = await generateKey(pin, salt)
     if (__DEV__) {
       console.log('salt', salt)
       console.log('key', key)

@@ -49,6 +49,7 @@ import type {
 } from './type-lock'
 import { getItem, setItem, deleteItem } from '../services/secure-storage'
 import { pinHash, generateSalt } from './pin-hash'
+import { Platform } from 'react-native'
 
 const initialState: LockStore = {
   pendingRedirection: null,
@@ -97,8 +98,11 @@ export const lockFail = (error: CustomError): LockFail => ({
 
 export function* setPin(action: SetPinAction): Generator<*, *, *> {
   try {
-    const salt = yield call(generateSalt)
-    const hashedPin = yield call(pinHash, action.pin, salt)
+    let salt = yield call(generateSalt)
+    if (Platform.OS === 'android') {
+      salt = salt.slice(0, -1)
+    }
+    const hashedPin = yield call(pinHash, action.pin.toString(), salt)
     yield call(setItem, PIN_STORAGE_KEY, hashedPin)
     yield call(setItem, SALT_STORAGE_KEY, salt)
     yield put(lockEnable(true))
