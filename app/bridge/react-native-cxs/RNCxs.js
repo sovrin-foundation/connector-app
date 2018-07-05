@@ -38,7 +38,10 @@ import type {
   ClaimOfferPushPayload,
   ClaimPushPayload,
 } from '../../push-notification/type-push-notification'
-import type { WalletHistoryEvent } from '../../wallet/type-wallet'
+import type {
+  WalletHistoryEvent,
+  WalletPayload,
+} from '../../wallet/type-wallet'
 import type { GenericStringObject } from '../../common/type-common'
 
 const { RNIndy } = NativeModules
@@ -703,6 +706,7 @@ export async function getZippedWalletBackupPath({
 }): Promise<string> {
   const backupPath = await RNIndy.backupWallet(
     documentDirectory,
+    recoveryPassphrase,
     JSON.stringify(agencyConfig)
   )
 
@@ -756,4 +760,22 @@ export async function getClaimVcx(claimHandle: number) {
     claimUuid: credential_id,
     claimPayload,
   }
+}
+
+export async function exportWallet(wallet: WalletPayload): Promise<number> {
+  const exportHandle: number = await RNIndy.exportWallet(
+    wallet.walletPath,
+    wallet.encryptionKey
+  )
+
+  return exportHandle
+}
+
+export async function importWallet(wallet: WalletPayload): Promise<number> {
+  const importHandle: number = await RNIndy.importWallet(
+    wallet.walletPath,
+    wallet.encryptionKey
+  )
+
+  return importHandle
 }

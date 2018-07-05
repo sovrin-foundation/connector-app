@@ -70,6 +70,11 @@ export type WalletSendAmountProps = {
 
 export type WalletProps = {} & ReactNavigation
 
+export type WalletPayload = {
+  walletPath: string,
+  encryptionKey: string,
+}
+
 export type WalletTabReceiveProps = {
   walletAddresses: Array<string>,
   refreshWalletAddresses: () => {},

@@ -215,6 +215,7 @@ RCT_EXPORT_METHOD(switchEnvironment: (NSString *)poolConfig
 
   // BACKUP DATA WALLET
 RCT_EXPORT_METHOD(backupWallet: (NSString *) documentsDirectory
+                  encryptedWith: (NSString *) encryptionKey
                   withNodesConfig:(NSString *) nodesConfig
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
@@ -940,6 +941,42 @@ RCT_EXPORT_METHOD(getClaimVcx: (int)credentialHandle
   } else {
     resolve(@"{\"claim_uuid\": \"{\"claim\":{\"name\":[\"test\",\"anon cred test\"],\"date_of_birth\":[\"20-2-1800\",\"anon cred date\"]},\"schema_seq_no\":36,\"issuer_did\":\"issuerDid\",\"signature\":{\"primary_claim\":{\"m2\":\"m2\",\"a\":\"a\",\"e\":\"e\",\"v\":\"v\"}},\"uid\":1,\"from_did\":\"from_did\",\"forDID\":\"forDID\",\"claim_uuid\":\"claim_uuid\"}\"}");
   }
+}
+
+RCT_EXPORT_METHOD(exportWallet: (NSString *)exportPath
+                               encryptWith: (NSString *)encryptionKey
+                                    resolver: (RCTPromiseResolveBlock) resolve
+                                    rejecter: (RCTPromiseRejectBlock) reject)
+{
+  [[[ConnectMeVcx alloc] init] exportWallet:exportPath
+                                encryptWith:encryptionKey
+                                completion:^(NSError *error, NSInteger exportHandle) {
+     if (error != nil && error.code != 0)
+     {
+       NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+       reject(indyErrorCode, @"Error occurred while exporting wallet", error);
+     } else {
+       resolve(@(exportHandle));
+     }
+  }];
+}
+
+RCT_EXPORT_METHOD(importWallet: (NSString *)importPath
+                               encryptWith: (NSString *)encryptionKey
+                                    resolver: (RCTPromiseResolveBlock) resolve
+                                    rejecter: (RCTPromiseRejectBlock) reject)
+{
+  [[[ConnectMeVcx alloc] init] importWallet:importPath
+                                encryptWith:encryptionKey
+                                completion:^(NSError *error, NSInteger importHandle) {
+     if (error != nil && error.code != 0)
+     {
+       NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+       reject(indyErrorCode, @"Error occurred while importing wallet", error);
+     } else {
+       resolve(@(importHandle));
+     }
+  }];
 }
 
 @end

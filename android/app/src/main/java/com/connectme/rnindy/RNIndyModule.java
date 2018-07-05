@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.connectme.BridgeUtils;
 import com.evernym.sdk.vcx.VcxException;
+import com.evernym.sdk.vcx.connection.WalletApi;
 import com.evernym.sdk.vcx.connection.ConnectionApi;
 import com.evernym.sdk.vcx.credential.CredentialApi;
 import com.evernym.sdk.vcx.credential.GetCredentialCreateMsgidResult;
@@ -354,7 +355,7 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void backupWallet(String documentDirectory, String agencyConfig, Promise promise) {
+    public void backupWallet(String documentDirectory, String encryptionKey, String agencyConfig, Promise promise) {
         // TODO: Remove this file, this is a dummy file, testing for backup the wallet
         String fileName = "backup.txt";
         File file = new File(documentDirectory, fileName);
@@ -577,6 +578,36 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
                 BridgeUtils.resolveIfValid(promise, result);
             });
         } catch (VcxException e) {
+            promise.reject("VCXException", e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void exportWallet(String exportPath, String encryptionKey, Promise promise) {
+        Log.d(TAG, "exportWallet() called with: exportPath = [" + exportPath + "], encryptionKey = [" + encryptionKey + "], promise = [" + promise + "]");
+        try {
+            WalletApi.exportWallet(exportPath, encryptionKey).exceptionally((t) -> {
+                Log.e(TAG, "createOneTimeInfo: ", t);
+                promise.reject("FutureException", t.getMessage());
+                return -1;
+            }).thenAccept(result -> BridgeUtils.resolveIfValid(promise, result));
+
+        } catch (Exception e) {
+            promise.reject("VCXException", e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void importWallet(String importPath, String encryptionKey, Promise promise) {
+        Log.d(TAG, "importWallet() called with: importPath = [" + importPath + "], encryptionKey = [" + encryptionKey + "], promise = [" + promise + "]");
+        try {
+            WalletApi.importWallet(importPath, encryptionKey).exceptionally((t) -> {
+                Log.e(TAG, "createOneTimeInfo: ", t);
+                promise.reject("FutureException", t.getMessage());
+                return -1;
+            }).thenAccept(result -> BridgeUtils.resolveIfValid(promise, result));
+
+        } catch (Exception e) {
             promise.reject("VCXException", e.getMessage());
         }
     }
