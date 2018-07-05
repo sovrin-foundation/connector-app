@@ -14,7 +14,11 @@ import {
 } from '../components'
 import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
 
-import { exportBackupFileRoute, backupCompleteRoute } from '../common'
+import {
+  exportBackupFileRoute,
+  backupCompleteRoute,
+  backupErrorRoute,
+} from '../common'
 import { SHORT_DEVICE, VERY_SHORT_DEVICE } from '../common/styles'
 import { color } from '../common/styles/constant'
 import type { ExportBackupFileProps } from './type-backup'
@@ -57,6 +61,14 @@ export class ExportBackupFile extends PureComponent<
       navigate(backupCompleteRoute, {
         initialRoute: state.params.initialRoute,
       })
+    } else if (
+      prevProps.backupStatus !== BACKUP_STORE_STATUS.EXPORT_BACKUP_FAILURE &&
+      backupStatus === BACKUP_STORE_STATUS.EXPORT_BACKUP_FAILURE
+    ) {
+      goBack(null)
+      navigate(backupErrorRoute, {
+        initialRoute: state.params.initialRoute,
+      })
     }
   }
 
@@ -81,7 +93,10 @@ export class ExportBackupFile extends PureComponent<
   }
 
   ExportImage = (status: BACKUP_STORE_STATUS) => {
-    if (status === BACKUP_STORE_STATUS.EXPORT_BACKUP_LOADING) {
+    if (
+      status === BACKUP_STORE_STATUS.EXPORT_BACKUP_LOADING ||
+      status === BACKUP_STORE_STATUS.GENERATE_BACKUP_FILE_LOADING
+    ) {
       return (
         <CustomView doubleVerticalSpace>
           <CustomActivityIndicator tintColor={color.actions.none} />
@@ -136,12 +151,9 @@ export class ExportBackupFile extends PureComponent<
   render() {
     const { backupPath, backupStatus } = this.props
     const disableButton =
-      backupStatus === BACKUP_STORE_STATUS.EXPORT_BACKUP_LOADING ? true : false
-
-    const exportButtonTitle =
-      backupStatus === BACKUP_STORE_STATUS.EXPORT_BACKUP_FAILURE
-        ? 'Try Again'
-        : EXPORT_BACKUP_BUTTON_TITLE
+      backupStatus === BACKUP_STORE_STATUS.GENERATE_BACKUP_FILE_LOADING
+        ? true
+        : false
 
     return (
       <Container style={[styles.exportBackup]} safeArea>
@@ -205,7 +217,7 @@ export class ExportBackupFile extends PureComponent<
               fontWeight: '600',
               fontSize: 18,
             }}
-            title={exportButtonTitle}
+            title={EXPORT_BACKUP_BUTTON_TITLE}
           />
         </CustomView>
       </Container>

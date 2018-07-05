@@ -29,6 +29,7 @@ import GenerateRecoveryPhrase from './backup/generate-phrase'
 import VerifyRecoveryPhrase from './backup/verify-phrase'
 import ExportBackupFile from './backup/export-backup'
 import BackupComplete from './backup/backup-complete'
+import BackupErrorScreen from './backup/backup-error'
 import WalletTabs from './wallet/wallet-tabs'
 import { Icon } from './components'
 import {
@@ -64,6 +65,7 @@ import {
   restoreRoute,
   restoreWaitRoute,
   restorePassphraseRoute,
+  backupErrorRoute,
 } from './common/'
 import { color } from './common/styles'
 import WalletTabSendDetails from './wallet/wallet-tab-send-details'
@@ -209,6 +211,7 @@ const CardStack = StackNavigator(
     [restoreWaitRoute]: {
       screen: RestoreWaitScreen,
     },
+    [backupErrorRoute]: { screen: BackupErrorScreen },
     [genRecoveryPhraseRoute]: { screen: GenerateRecoveryPhrase },
     [verifyRecoveryPhraseRoute]: { screen: VerifyRecoveryPhrase },
     [exportBackupFileRoute]: { screen: ExportBackupFile },

@@ -18,6 +18,7 @@ import {
   barStyleDark,
   whiteSmokeSecondary,
   color,
+  venetianRed,
 } from './common/styles/constant'
 import ConnectMeAppNavigator from './navigator'
 import {
@@ -50,6 +51,7 @@ import {
   lockAuthorizationHomeRoute,
   lockPinSetupRoute,
   restoreRoute,
+  backupErrorRoute,
   restorePassphraseRoute,
   restoreWaitRoute,
 } from './common'
@@ -223,6 +225,8 @@ class ConnectMeApp extends PureComponent<void, AppState> {
         store.dispatch(updateStatusBarTheme(color.bg.thirteenth.color))
       } else if (currentScreen === backupCompleteRoute) {
         store.dispatch(updateStatusBarTheme(color.bg.fourteenth.color))
+      } else if (currentScreen === backupErrorRoute) {
+        store.dispatch(updateStatusBarTheme(venetianRed))
       } else if (
         currentScreen !== connectionHistoryRoute &&
         currentScreen !== claimOfferRoute &&

@@ -368,7 +368,7 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
 
         // convert the file to zip
         String inputDir = documentDirectory + "/" + fileName;
-        String zipPath = documentDirectory + "/wallet-backup.zip";
+        String zipPath = documentDirectory + "/backup.zip";
         try (
                 FileOutputStream dest = new FileOutputStream(zipPath);
                 ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest));

@@ -20,6 +20,11 @@ export type ExportBackupFileProps = {
   backupPath: string,
 } & ReactNavigation
 
+export type BackupErrorProps = {
+  updateStatusBarTheme: string => void,
+  generateBackupFile: () => void,
+} & ReactNavigation
+
 export type ExportBackupFileState = {
   submitButtonText: string,
 }
@@ -42,6 +47,7 @@ export const BACKUP_STORE_STATUS = {
   EXPORT_BACKUP_LOADING: 'EXPORT_BACKUP_LOADING',
   EXPORT_BACKUP_SUCCESS: 'EXPORT_BACKUP_SUCCESS',
   EXPORT_BACKUP_FAILURE: 'EXPORT_BACKUP_FAILURE',
+  EXPORT_BACKUP_NO_SHARE: 'EXPORT_BACKUP_NO_SHARE',
   BACKUP_COMPLETE: 'BACKUP_COMPLETE',
 }
 
@@ -96,6 +102,7 @@ export const GENERATE_RECOVERY_PHRASE_FAILURE =
 export const EXPORT_BACKUP_LOADING = 'EXPORT_BACKUP_LOADING'
 export const EXPORT_BACKUP_SUCCESS = 'EXPORT_BACKUP_SUCCESS'
 export const EXPORT_BACKUP_FAILURE = 'EXPORT_BACKUP_FAILURE'
+export const EXPORT_BACKUP_NO_SHARE = 'EXPORT_BACKUP_NO_SHARE'
 export const BACKUP_COMPLETE = 'BACKUP_COMPLETE'
 export const HYDRATE_BACKUP = 'HYDRATE_BACKUP'
 export const HYDRATE_BACKUP_FAILURE = 'HYDRATE_BACKUP_FAILURE'
@@ -151,6 +158,11 @@ export type ExportBackupLoadingAction = {
   backupWalletPath: string,
 }
 
+export type ExportBackupNoShareAction = {
+  type: typeof EXPORT_BACKUP_NO_SHARE,
+  status: BACKUP_STORE_STATUS,
+}
+
 export type ExportBackupSuccessAction = {
   type: typeof EXPORT_BACKUP_SUCCESS,
   status: BACKUP_STORE_STATUS,
@@ -187,6 +199,8 @@ export type BackupStoreAction =
   | GenerateBackupFileFailureAction
   | ExportBackupLoadingAction
   | ExportBackupSuccessAction
+  | ExportBackupFailureAction
+  | ExportBackupNoShareAction
   | BackupCompleteAction
   | HydrateBackupAction
   | HydrateBackupFailAction

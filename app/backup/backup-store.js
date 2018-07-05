@@ -21,6 +21,7 @@ import {
   ERROR_HYDRATING_BACKUP,
   HYDRATE_BACKUP,
   HYDRATE_BACKUP_FAILURE,
+  EXPORT_BACKUP_NO_SHARE,
 } from './type-backup'
 import type {
   GenerateBackupFileAction,
@@ -39,7 +40,6 @@ import type { Saga } from 'redux-saga'
 import { setItem, getItem, deleteItem } from '../services/secure-storage'
 import type { AgencyPoolConfig } from '../store/type-config-store'
 import type { CustomError } from '../common/type-common'
-import { RESET } from '../common/type-common'
 import {
   LAST_SUCCESSFUL_BACKUP,
   PASSPHRASE_SALT_STORAGE_KEY,
@@ -106,18 +106,19 @@ export function* exportBackupSaga(
 ): Generator<*, *, *> {
   try {
     const backupWalletPath = yield select(getBackupWalletPath)
+    const title = `Export ${backupWalletPath.split('/').pop()}`
     Platform.OS === 'android'
       ? yield call(Share.open, {
-          title: 'Share Your Data Wallet',
+          title,
           url: `file://${backupWalletPath}`,
           type: 'application/zip',
         })
       : yield call(Share.open, {
-          title: 'Share Your Data Wallet',
+          title,
           url: backupWalletPath,
           type: 'application/zip',
-          message: 'here we go!',
-          subject: 'something here maybe?',
+          message: 'Export backup!',
+          subject: 'Export backup',
         })
     const lastSuccessfulBackup = moment().format()
     yield call(
@@ -128,12 +129,16 @@ export function* exportBackupSaga(
     yield put(exportBackupSuccess(lastSuccessfulBackup))
     yield put(promptBackupBanner(false))
   } catch (e) {
-    yield put(
-      exportBackupFail({
-        ...ERROR_EXPORT_BACKUP,
-        message: `${ERROR_EXPORT_BACKUP.message} ${e.message}`,
-      })
-    )
+    if (e.error === 'User did not share') {
+      yield put(exportBackupNoShare())
+    } else {
+      yield put(
+        exportBackupFail({
+          ...ERROR_EXPORT_BACKUP,
+          message: `${ERROR_EXPORT_BACKUP.message} ${e.message}`,
+        })
+      )
+    }
   }
 }
 export function* deletePersistedPassphrase(): Generator<*, *, *> {
@@ -147,9 +152,6 @@ export function* generateRecoveryPhraseSaga(
   action: GenerateRecoveryPhraseAction
 ): Generator<*, *, *> {
   try {
-    let lastSuccessfulBackup = yield call(getItem, LAST_SUCCESSFUL_BACKUP)
-    //yield put(reset(lastSuccessfulBackup))
-
     let passphrase = yield call(getItem, PASSPHRASE_STORAGE_KEY)
     let passphraseSalt = yield call(getItem, PASSPHRASE_SALT_STORAGE_KEY)
     if (!passphrase) {
@@ -316,6 +318,11 @@ export const exportBackupSuccess = (lastSuccessfulBackup: string) => ({
   lastSuccessfulBackup,
 })
 
+export const exportBackupNoShare = () => ({
+  type: EXPORT_BACKUP_NO_SHARE,
+  status: BACKUP_STORE_STATUS.EXPORT_BACKUP_NO_SHARE,
+})
+
 export default function backupReducer(
   state: BackupStore = initialState,
   action: BackupStoreAction
@@ -370,6 +377,13 @@ export default function backupReducer(
       }
     }
     case EXPORT_BACKUP_LOADING: {
+      return {
+        ...state,
+        status: action.status,
+        error: null,
+      }
+    }
+    case EXPORT_BACKUP_NO_SHARE: {
       return {
         ...state,
         status: action.status,
