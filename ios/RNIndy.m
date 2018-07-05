@@ -943,40 +943,40 @@ RCT_EXPORT_METHOD(getClaimVcx: (int)credentialHandle
   }
 }
 
-RCT_EXPORT_METHOD(exportWallet: (NSString *)exportPath
-                               encryptWith: (NSString *)encryptionKey
-                                    resolver: (RCTPromiseResolveBlock) resolve
-                                    rejecter: (RCTPromiseRejectBlock) reject)
-{
-  [[[ConnectMeVcx alloc] init] exportWallet:exportPath
-                                encryptWith:encryptionKey
-                                completion:^(NSError *error, NSInteger exportHandle) {
-     if (error != nil && error.code != 0)
-     {
-       NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
-       reject(indyErrorCode, @"Error occurred while exporting wallet", error);
-     } else {
-       resolve(@(exportHandle));
-     }
-  }];
-}
+// RCT_EXPORT_METHOD(exportWallet: (NSString *)exportPath
+//                                encryptWith: (NSString *)encryptionKey
+//                                     resolver: (RCTPromiseResolveBlock) resolve
+//                                     rejecter: (RCTPromiseRejectBlock) reject)
+// {
+//   [[[ConnectMeVcx alloc] init] exportWallet:exportPath
+//                                 encryptWith:encryptionKey
+//                                 completion:^(NSError *error, NSInteger exportHandle) {
+//      if (error != nil && error.code != 0)
+//      {
+//        NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+//        reject(indyErrorCode, @"Error occurred while exporting wallet", error);
+//      } else {
+//        resolve(@(exportHandle));
+//      }
+//   }];
+// }
 
-RCT_EXPORT_METHOD(importWallet: (NSString *)importPath
-                               encryptWith: (NSString *)encryptionKey
-                                    resolver: (RCTPromiseResolveBlock) resolve
-                                    rejecter: (RCTPromiseRejectBlock) reject)
-{
-  [[[ConnectMeVcx alloc] init] importWallet:importPath
-                                encryptWith:encryptionKey
-                                completion:^(NSError *error, NSInteger importHandle) {
-     if (error != nil && error.code != 0)
-     {
-       NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
-       reject(indyErrorCode, @"Error occurred while importing wallet", error);
-     } else {
-       resolve(@(importHandle));
-     }
-  }];
-}
+// RCT_EXPORT_METHOD(importWallet: (NSString *)importPath
+//                                encryptWith: (NSString *)encryptionKey
+//                                     resolver: (RCTPromiseResolveBlock) resolve
+//                                     rejecter: (RCTPromiseRejectBlock) reject)
+// {
+//   [[[ConnectMeVcx alloc] init] importWallet:importPath
+//                                 encryptWith:encryptionKey
+//                                 completion:^(NSError *error, NSInteger importHandle) {
+//      if (error != nil && error.code != 0)
+//      {
+//        NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+//        reject(indyErrorCode, @"Error occurred while importing wallet", error);
+//      } else {
+//        resolve(@(importHandle));
+//      }
+//   }];
+// }
 
 @end

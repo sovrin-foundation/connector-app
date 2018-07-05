@@ -17,7 +17,10 @@ App to connect Sovrin with 3rd party authentication
 ## For ios
 - `cd ios/fastlane`
 - `bundle install`
-- `bundle exec fastlane match development`. DO NOT use `--force` with this command. Do not use XCode automatic code signing.
+- Make sure you get added to the connectme-callcenter-certs repo so that the following command is successful --
+git clone 'git@github.com:evernym/connectme-callcenter-certs.git' '/var/folders/dt/sk594jpn40d0097bpg17gwc40000gn/T/d20180705-10510-lw9oue'
+- To get the development release certificates do `bundle exec fastlane match development`. DO NOT use `--force` with this command. Do not use XCode automatic code signing.
+- To get the beta release certificates do `bundle exec fastlane match adhoc`
 - You'll be prompted to enter 2 passwords. Slack a contributor for what those are.
 - `cd .. && pod install` (Make sure `pod` is installed or `sudo gem install cocoapods`)
 - `cd .. && npm run ios`
@@ -25,13 +28,21 @@ App to connect Sovrin with 3rd party authentication
 ## For android local Relase build
 
 - add my_keystore.jks file to ~/keystores folder
-- ask your team members for .bitirse.secrets.yml file and place it in directory with bitirse.yml file
+If you get this error during the ` bitrise run android ` build then you are missing the my_keystore.jks file
+What went wrong:
+Execution failed for task ':app:validateSigningRelease'.
+> Keystore file /Users/norm/keystores/my_keystore.jks not found for signing config 'release'.
+- ask your team members for .bitrise.secrets.yml file and place it in directory with bitirse.yml file
 - run ` brew install bitirse && bitrise setup `
-- run ` bitirise run android `
+- run ` bitrise run android `
+- If you get this error then rm -rf node_modules and re-run ` bitrise run android `
+What went wrong:
+Failed to capture snapshot of input files for task ':app:bundleReleaseJsAndAssets' property '$1' during up-to-date check.
+> Could not list contents of '/Users/norm/forge/work/code/evernym/ConnectMe/node_modules/jest-runtime/node_modules/babel-core/node_modules/.bin/babylon'. Couldn't follow symbolic link.
 - run ` brew install maven `
 - download the vcx.aar file
 - later run ` mvn install:install-file -Dfile=com.evernym-vcx_1.0.0-12-06-2018T16-17_x86-armv7-release.aar -DgroupId=com.connectme -DartifactId=vcx -Dversion=1.0.0-12-06-2018T16-17 -Dpackaging=aar `
-- remember to change file names as required
+- remember to change file names as required in the above mvn install command
 
 # To Read
 - [Coding guidelines](https://github.com/evernym/ConnectMe/blob/master/docs/CODING_GUIDELINES.md)
