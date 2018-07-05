@@ -7,6 +7,7 @@ export const RESTORE_STATUS: 'RESTORE_STATUS' = 'RESTORE_STATUS'
 export const ERROR_RESTORE: 'ERROR_RESTORE' = 'ERROR_RESTORE'
 export const RESTORE_SUBMIT_PASSPHRASE: 'RESTORE_SUBMIT_PASSPHRASE' =
   'RESTORE_SUBMIT_PASSPHRASE'
+export const RESTORE_RESET: 'RESTORE_RESET' = 'RESTORE_RESET'
 
 export const RestoreStatus = {
   ZIP_FILE_SELECTED: 'ZIP_FILE_SELECTED',
@@ -42,6 +43,10 @@ export type RestoreSubmitPassphrase = {
   passphrase: string,
 }
 
+export type ResetRestoreAction = {
+  type: typeof RESTORE_RESET,
+}
+
 export type SaveFiletoAppDirectoryAction = {
   type: typeof SAVE_FILE_TO_APP_DIRECTORY,
   data: SaveToAppDirectory,
@@ -67,6 +72,7 @@ export type RestoreActions =
   | ErrorRestoreAction
   | RestoreStatusAction
   | RestoreSubmitPassphraseAction
+  | ResetRestoreAction
 
 export type RestoreStore = {
   restoreFile: SaveToAppDirectory,
@@ -118,3 +124,6 @@ export const DECRYPT_FAILED_MESSAGE = (message: string) => ({
   code: 'WR-003',
   message: `Error while decryption:${message}`,
 })
+
+export const RESTORE_BACK_BUTTON_TEST_ID = 'restore-back-button'
+export const RESTORE_CLOSE_BUTTON_TEST_ID = 'restore-close-button'

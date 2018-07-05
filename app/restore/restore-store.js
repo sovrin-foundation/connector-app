@@ -14,6 +14,7 @@ import {
   initialState,
   FILE_SAVE_ERROR_MESSAGE,
   DECRYPT_FAILED_MESSAGE,
+  RESTORE_RESET,
 } from './type-restore'
 import type {
   SaveToAppDirectory,
@@ -41,6 +42,10 @@ export const errorRestore = (error: CustomError) => ({
 export const submitPassphrase = (passphrase: string) => ({
   type: RESTORE_SUBMIT_PASSPHRASE,
   passphrase,
+})
+
+export const resetRestore = () => ({
+  type: RESTORE_RESET,
 })
 
 export function* restoreFileDecrypt(
@@ -109,6 +114,8 @@ export default function restoreReducer(
         status: action.status,
         error: null,
       }
+    case RESTORE_RESET:
+      return initialState
     default:
       return state
   }

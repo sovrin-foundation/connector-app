@@ -9,21 +9,62 @@ import { bindActionCreators } from 'redux'
 import { submitPassphrase } from './restore-store'
 import type { RestorePassphraseProps } from './type-restore'
 import type { Store } from '../store/type-store'
+import { CustomView, Icon } from '../components'
+import {
+  RESTORE_BACK_BUTTON_TEST_ID,
+  RESTORE_CLOSE_BUTTON_TEST_ID,
+} from './type-restore'
+import styles from '../backup/styles'
+
+const backImage = require('../images/icon_backArrow_white.png')
+const closeImage = require('../images/iconClose.png')
 
 export class RestorePassphrase extends Component<RestorePassphraseProps, void> {
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
+    headerLeft: (
+      <CustomView style={[styles.headerSpacer]}>
+        <Icon
+          medium
+          onPress={() => {
+            navigation.goBack(null)
+          }}
+          testID={RESTORE_BACK_BUTTON_TEST_ID}
+          iconStyle={[styles.headerBackIcon]}
+          src={backImage}
+        />
+      </CustomView>
+    ),
+    headerRight: (
+      <CustomView style={[styles.headerSpacer]}>
+        <Icon
+          medium
+          onPress={() => {
+            navigation.goBack(null)
+          }}
+          testID={RESTORE_CLOSE_BUTTON_TEST_ID}
+          iconStyle={[styles.headerIcon]}
+          src={closeImage}
+        />
+      </CustomView>
+    ),
     headerStyle: {
       backgroundColor: color.bg.twelfth.color,
       borderBottomWidth: 0,
       elevation: 0,
     },
     gesturesEnabled: false,
-  }
+  })
 
   submitPhrase = (event: any) => {
     this.props.submitPassphrase(event.nativeEvent.text)
     this.props.navigation.goBack(null)
     this.props.navigation.navigate(restoreWaitRoute)
+  }
+
+  componentDidMount() {
+    this.props.navigation.setParams({
+      ...this.props,
+    })
   }
 
   render() {

@@ -60,12 +60,11 @@ export class RestoreStartScreen extends PureComponent<RestoreProps, void> {
     ) {
       this.props.navigation.navigate(restorePassphraseRoute)
     }
-    if (
-      this.props.restore.error !== prevProps.restore.error &&
-      this.props.route === restoreRoute
-    ) {
-      this.props.updateStatusBarTheme(venetianRed)
-    }
+    let statusBarColor =
+      this.props.restore.error && this.props.route === restoreRoute
+        ? venetianRed
+        : white
+    this.props.updateStatusBarTheme(statusBarColor)
   }
 
   componentDidMount() {
