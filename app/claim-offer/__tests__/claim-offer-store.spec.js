@@ -46,6 +46,7 @@ import {
   getHandleBySerializedConnection,
   getClaimHandleBySerializedClaimOffer,
   getClaimOfferState,
+  sendClaimRequest as sendClaimRequestApi,
 } from '../../bridge/react-native-cxs/RNCxs'
 import {
   CLAIM_STORAGE_FAIL,
@@ -358,12 +359,17 @@ describe('claim offer store', () => {
       ...claimOffer.payloadInfo,
     }
     const userDID = pairwiseConnection.identifier
+    const claimOfferSerialized = {
+      messageId: uid,
+      serialized: serializedClaimOffer,
+      state: 1,
+    }
     const stateWithClaimOfferAndSerialized = {
       claimOffer: {
         [uid]: claimOfferPayload,
         vcxSerializedClaimOffers: {
           [userDID]: {
-            [uid]: serializedClaimOffer,
+            [uid]: claimOfferSerialized,
           },
         },
       },
@@ -379,7 +385,7 @@ describe('claim offer store', () => {
     }
     const claimHandle = 1
     const connectionHandle = 1
-    const paymentHandle = 1
+    const paymentHandle = 0
 
     return expectSaga(claimOfferAcceptedVcx, acceptClaimOffer(uid))
       .withState(stateWithClaimOfferAndSerialized)
@@ -394,13 +400,22 @@ describe('claim offer store', () => {
         [
           matchers.call.fn(
             getClaimHandleBySerializedClaimOffer,
-            serializedClaimOffer
+            claimOfferSerialized
           ),
           claimHandle,
         ],
+        [
+          matchers.call.fn(
+            sendClaimRequestApi,
+            claimHandle,
+            connectionHandle,
+            paymentHandle
+          ),
+          true,
+        ],
       ])
       .dispatch({ type: CLAIM_STORAGE_SUCCESS, messageId: uid })
-      .call(sendClaimRequest, claimHandle, connectionHandle, paymentHandle)
+      .call(sendClaimRequestApi, claimHandle, connectionHandle, paymentHandle)
       .fork(
         saveSerializedClaimOffer,
         claimHandle,

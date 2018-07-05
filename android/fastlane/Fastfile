@@ -23,7 +23,7 @@ lane :alpha do
 end
 
   after_all do |lane|
-     slack(channel: "fastlane", message: "Successfully build new Android App.”)
+     slack(channel: "connectme_build", message: "Successfully build new Android App.")
   end
 
   error do |lane, exception|

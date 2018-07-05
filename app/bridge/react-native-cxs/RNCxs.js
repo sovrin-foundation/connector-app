@@ -611,7 +611,9 @@ export async function downloadClaimOffer(
     connectionHandle,
     messageId
   )
-  const vcxCredentialOffer: VcxCredentialOffer = JSON.parse(credential_offer)
+  const {
+    credential_offer: vcxCredentialOffer,
+  }: { credential_offer: VcxCredentialOffer } = JSON.parse(credential_offer)
 
   return {
     claimHandle: credential_handle,
@@ -630,7 +632,7 @@ export async function serializeClaimOffer(
 }
 
 export const getClaimHandleBySerializedClaimOffer = memoize(async function(
-  serializedClaimOffer
+  serializedClaimOffer: string
 ): Promise<number> {
   const claimHandle: number = await RNIndy.deserializeClaimOffer(
     serializedClaimOffer

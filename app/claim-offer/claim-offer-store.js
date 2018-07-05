@@ -45,6 +45,7 @@ import type {
   ClaimOfferPayload,
   AddSerializedClaimOfferAction,
   SerializedClaimOffers,
+  SerializedClaimOffer,
 } from './type-claim-offer'
 import type {
   AdditionalDataPayload,
@@ -72,6 +73,7 @@ import {
   getClaimHandleBySerializedClaimOffer,
   serializeClaimOffer,
   getClaimOfferState,
+  sendClaimRequest as sendClaimRequestApi,
 } from '../bridge/react-native-cxs/RNCxs'
 import type { IndyClaimRequest } from '../bridge/react-native-cxs/type-cxs'
 import {
@@ -293,7 +295,7 @@ export function* claimOfferAcceptedVcx(
   )
   const remoteDid = claimOfferPayload.remotePairwiseDID
   const [connection]: Connection[] = yield select(getConnection, remoteDid)
-  const vcxSerializedClaimOffer: string | null = yield select(
+  const vcxSerializedClaimOffer: SerializedClaimOffer | null = yield select(
     getSerializedClaimOffer,
     connection.identifier,
     messageId
@@ -314,12 +316,20 @@ export function* claimOfferAcceptedVcx(
     // so we wait here till both calls are done
     const [connectionHandle, claimHandle] = yield all([
       call(getHandleBySerializedConnection, connection.vcxSerializedConnection),
-      call(getClaimHandleBySerializedClaimOffer, vcxSerializedClaimOffer),
+      call(
+        getClaimHandleBySerializedClaimOffer,
+        vcxSerializedClaimOffer.serialized
+      ),
     ])
-    // TODO We don't have any payment handle as of now, so hard code to 1
-    const paymentHandle = 1
+    // TODO We don't have any payment handle as of now, so hard code to 0
+    const paymentHandle = 0
 
-    yield call(sendClaimRequest, claimHandle, connectionHandle, paymentHandle)
+    yield call(
+      sendClaimRequestApi,
+      claimHandle,
+      connectionHandle,
+      paymentHandle
+    )
 
     // since we have sent claim request, state of claim offer in vcx is changed
     // so we need to update stored serialized claim offer in store

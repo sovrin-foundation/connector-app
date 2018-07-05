@@ -201,7 +201,7 @@ dependencies {
     compile project(':react-native-radial-gradient')
     compile 'net.hockeyapp.android:HockeySDK:4.1.4'
     compile 'com.android.support:palette-v7:26.1.0'
-    compile 'com.connectme:vcx:1.0.0-03-07-2018T09-40@aar'
+    compile 'com.connectme:vcx:1.0.0-05-07-2018T12-08@aar'
     implementation 'net.sourceforge.streamsupport:android-retrofuture:1.6.2'
     implementation group: 'net.sourceforge.streamsupport', name: 'android-retrostreams', version: '1.6.2'
     implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.59'

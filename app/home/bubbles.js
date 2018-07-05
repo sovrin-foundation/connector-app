@@ -53,6 +53,12 @@ export class Bubble extends PureComponent<BubbleProps, BubbleState> {
     }
 
     return (
+      // TODO:KS Add longPress back
+      // onLongPress={() => showDID(senderDID, identifier)}
+      // Somehow on Android if we have a debounced onPress
+      // then android fires longPress event even if element is tapped
+      // because of this we are not able to go to history view
+      // Find some solution quickly and add onLongPress back
       <Avatar
         radius={this.props.radius}
         shadow
@@ -63,7 +69,6 @@ export class Bubble extends PureComponent<BubbleProps, BubbleState> {
         onPress={() =>
           this.goHistoryView(senderName, image, senderDID, identifier)
         }
-        onLongPress={() => showDID(senderDID, identifier)}
       />
     )
   }
