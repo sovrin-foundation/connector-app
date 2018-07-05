@@ -45,7 +45,7 @@ export class RestoreWaitScreen extends PureComponent<
   render() {
     return (
       <Container fifth safeArea center>
-        <CustomView>
+        <CustomView style={[styles.mainContainer]}>
           <Image
             source={require('../images/bkgCurve.png')}
             style={[styles.backgroundImage]}
@@ -55,7 +55,7 @@ export class RestoreWaitScreen extends PureComponent<
             <CustomView style={[styles.strip]} />
 
             <Icon
-              extraLarge
+              xxLarge
               style={[styles.iconStyle]}
               src={require('../images/dataRestore.png')}
             />
@@ -79,27 +79,31 @@ export class RestoreWaitScreen extends PureComponent<
 }
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    marginTop: '-20%',
+  },
   textContainer: {
     marginBottom: '6%',
-    marginTop: '20%',
+    marginTop: '15%',
     paddingHorizontal: '5%',
     color: darkGray,
     fontSize: 23,
   },
   backgroundImage: {
     position: 'absolute',
+    marginTop: '-58%',
+    width: '100%',
     zIndex: -1,
   },
 
   iconStyle: {
     borderRadius: 80,
-    borderColor: darkGray,
-    borderWidth: 30,
+    padding: 15,
     backgroundColor: darkGray,
   },
   strip: {
     position: 'absolute',
-    width: '100%',
+    width: '110%',
     height: 8,
     backgroundColor: darkGray,
   },

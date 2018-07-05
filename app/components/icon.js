@@ -15,6 +15,7 @@ const Icon = (props: GenericObject) => {
     mediumLarge,
     large,
     extraLarge,
+    xxLarge,
     iconStyle = empty,
     testID,
     resizeMode = 'contain',
@@ -28,7 +29,9 @@ const Icon = (props: GenericObject) => {
     ? 'small'
     : medium
       ? 'medium'
-      : extraLarge ? 'extraLarge' : mediumLarge ? 'mediumLarge' : 'large'
+      : extraLarge
+        ? 'extraLarge'
+        : mediumLarge ? 'mediumLarge' : xxLarge ? 'xxLarge' : 'large'
   const roundImageStyle =
     halo || round
       ? // $FlowFixMe flow does not support dynamic object key
@@ -75,6 +78,7 @@ const size = {
   mediumLarge: 40,
   large: 50,
   extraLarge: 80,
+  xxLarge: 90,
 }
 
 const styles = StyleSheet.create({
@@ -97,6 +101,10 @@ const styles = StyleSheet.create({
   extraLarge: {
     width: size.extraLarge,
     height: size.extraLarge,
+  },
+  xxLarge: {
+    width: size.xxLarge,
+    height: size.xxLarge,
   },
   smallRoundIcon: {
     borderRadius: size.small / 2,

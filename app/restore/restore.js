@@ -124,8 +124,9 @@ export class RestoreStartScreen extends PureComponent<RestoreProps, void> {
                 h4a
                 center
               >
-                The file you selected is corrupted or is not a Connect.Me backup
-                file. Please try again or start fresh.
+                Either your passphrase was incorrect or the backup file you
+                chose is corrupt or not a Connect.Me backup file. Please try
+                again or start fresh.
               </CustomText>
             </CustomView>
           ) : null}
@@ -237,6 +238,8 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: white,
+    paddingLeft: '5%',
+    paddingRight: '5%',
   },
   marginHorizontal: {
     marginLeft: '6%',

@@ -15,14 +15,20 @@ exports[`RestoreWait screen should render properly and match the snapshot 1`] = 
   }
 >
   <View
-    style={Object {}}
+    style={
+      Object {
+        "marginTop": "-20%",
+      }
+    }
   >
     <Image
       source={1}
       style={
         Array [
           Object {
+            "marginTop": "-58%",
             "position": "absolute",
+            "width": "100%",
             "zIndex": -1,
           },
         ]
@@ -43,22 +49,21 @@ exports[`RestoreWait screen should render properly and match the snapshot 1`] = 
             "backgroundColor": "#505050",
             "height": 8,
             "position": "absolute",
-            "width": "100%",
+            "width": "110%",
           }
         }
       />
       <View
         clearBg={true}
-        extraLarge={true}
         src={1}
         style={
           Object {
             "backgroundColor": "#505050",
-            "borderColor": "#505050",
             "borderRadius": 80,
-            "borderWidth": 30,
+            "padding": 15,
           }
         }
+        xxLarge={true}
       >
         <Image
           resizeMode="contain"
@@ -66,8 +71,8 @@ exports[`RestoreWait screen should render properly and match the snapshot 1`] = 
           style={
             Array [
               Object {
-                "height": 80,
-                "width": 80,
+                "height": 90,
+                "width": 90,
               },
               null,
             ]
@@ -121,7 +126,7 @@ exports[`RestoreWait screen should render properly and match the snapshot 1`] = 
               "color": "#505050",
               "fontSize": 23,
               "marginBottom": "6%",
-              "marginTop": "20%",
+              "marginTop": "15%",
               "paddingHorizontal": "5%",
             },
           ]
