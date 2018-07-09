@@ -13,7 +13,6 @@ class BackupWallet extends PureComponent<BackupWalletProps, void> {
     const { navigation: { navigate, state, goBack } } = this.props
     // If no there is no route, then default to Settings
     const initialRoute = get(state, 'routeName', settingsRoute)
-    goBack(null)
     navigate(genRecoveryPhraseRoute, {
       initialRoute,
     })

@@ -43,6 +43,7 @@ import type {
   WalletPayload,
 } from '../../wallet/type-wallet'
 import type { GenericStringObject } from '../../common/type-common'
+import type { Passphrase } from '../../backup/type-backup'
 
 const { RNIndy } = NativeModules
 
@@ -702,11 +703,11 @@ export async function getZippedWalletBackupPath({
 }: {
   documentDirectory: string,
   agencyConfig: AgencyPoolConfig,
-  recoveryPassphrase: string,
+  recoveryPassphrase: Passphrase,
 }): Promise<string> {
   const backupPath = await RNIndy.backupWallet(
     documentDirectory,
-    recoveryPassphrase,
+    JSON.stringify(recoveryPassphrase),
     JSON.stringify(agencyConfig)
   )
 
