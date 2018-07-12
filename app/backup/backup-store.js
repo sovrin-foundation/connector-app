@@ -24,14 +24,14 @@ import {
   EXPORT_BACKUP_NO_SHARE,
 } from './type-backup'
 import type {
-  GenerateBackupFileAction,
-  GenerateRecoveryPhraseAction,
-  ExportBackupAction,
   PromptBackupBannerAction,
   BackupStore,
   BackupStoreStatus,
   BackupStoreAction,
   Passphrase,
+  ExportBackupLoadingAction,
+  GenerateRecoveryPhraseLoadingAction,
+  GenerateBackupFileLoadingAction,
 } from './type-backup'
 import RNFetchBlob from 'react-native-fetch-blob'
 import { AsyncStorage, Platform } from 'react-native'
@@ -61,12 +61,12 @@ const initialState = {
   status: BACKUP_STORE_STATUS.IDLE,
   error: null,
   showBanner: false,
-  lastSuccessfulBackup: null,
+  lastSuccessfulBackup: '',
   backupWalletPath: '',
 }
 
 export function* generateBackupSaga(
-  action: GenerateBackupFileAction
+  action: GenerateBackupFileLoadingAction
 ): Generator<*, *, *> {
   // WALLET BACKUP ZIP FLOW
   const {
@@ -81,10 +81,10 @@ export function* generateBackupSaga(
     agencyVerificationKey,
     poolConfig,
   }
-  const recoveryPassphrase = yield select(getBackupPassphrase)
+  const recoveryPassphrase: Passphrase = yield select(getBackupPassphrase)
   try {
-    const documentDirectory = RNFetchBlob.fs.dirs.DocumentDir
-    const backupPath = yield call(getZippedWalletBackupPath, {
+    const documentDirectory: string = RNFetchBlob.fs.dirs.DocumentDir
+    const backupPath: string = yield call(getZippedWalletBackupPath, {
       documentDirectory,
       agencyConfig,
       recoveryPassphrase,
@@ -102,11 +102,11 @@ export function* generateBackupSaga(
 }
 
 export function* exportBackupSaga(
-  action: ExportBackupAction
+  action: ExportBackupLoadingAction
 ): Generator<*, *, *> {
   try {
-    const backupWalletPath = yield select(getBackupWalletPath)
-    const title = `Export ${backupWalletPath.split('/').pop()}`
+    const backupWalletPath: string = yield select(getBackupWalletPath)
+    const title: string = `Export ${backupWalletPath.split('/').pop()}`
     Platform.OS === 'android'
       ? yield call(Share.open, {
           title,
@@ -149,18 +149,25 @@ export function* deletePersistedPassphrase(): Generator<*, *, *> {
 }
 
 export function* generateRecoveryPhraseSaga(
-  action: GenerateRecoveryPhraseAction
+  action: GenerateRecoveryPhraseLoadingAction
 ): Generator<*, *, *> {
   try {
-    let passphrase = yield call(getItem, PASSPHRASE_STORAGE_KEY)
-    let passphraseSalt = yield call(getItem, PASSPHRASE_SALT_STORAGE_KEY)
+    let passphrase: string = yield call(getItem, PASSPHRASE_STORAGE_KEY)
+    let passphraseSalt: string = yield call(
+      getItem,
+      PASSPHRASE_SALT_STORAGE_KEY
+    )
     if (!passphrase) {
-      const words = yield call(getWords, 8, 5)
+      const words: string[] = yield call(getWords, 8, 5)
       passphrase = words.join(' ')
       passphraseSalt = yield call(generateSalt)
     }
 
-    const hashedPassphrase = yield call(generateKey, passphrase, passphraseSalt)
+    const hashedPassphrase: string = yield call(
+      generateKey,
+      passphrase,
+      passphraseSalt
+    )
     yield call(setItem, PASSPHRASE_STORAGE_KEY, passphrase)
     yield call(setItem, PASSPHRASE_SALT_STORAGE_KEY, passphraseSalt)
     yield put(
@@ -230,7 +237,7 @@ export function* watchBackupBannerPrompt(): any {
 
 export function* hydrateBackupSaga(): Generator<*, *, *> {
   try {
-    let lastSuccessfulBackup = yield call(
+    let lastSuccessfulBackup: ?string = yield call(
       AsyncStorage.getItem,
       LAST_SUCCESSFUL_BACKUP
     )
@@ -240,7 +247,7 @@ export function* hydrateBackupSaga(): Generator<*, *, *> {
       yield put(
         hydrateBackupFail({
           ...ERROR_HYDRATING_BACKUP,
-          message: `${ERROR_HYDRATING_BACKUP}`,
+          message: `${ERROR_HYDRATING_BACKUP.message}`,
         })
       )
     }
@@ -249,7 +256,7 @@ export function* hydrateBackupSaga(): Generator<*, *, *> {
       yield put(
         hydrateBackupFail({
           ...ERROR_HYDRATING_BACKUP,
-          message: `${ERROR_HYDRATING_BACKUP}`,
+          message: `${ERROR_HYDRATING_BACKUP.message} ${e.message}`,
         })
       )
     )

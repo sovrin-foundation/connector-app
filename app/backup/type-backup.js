@@ -1,35 +1,50 @@
+// @flow
 import type { ReactNavigation } from '../common/type-common'
 import type { CustomError } from '../common/type-common'
 import type { IsValid } from '../components/input-control/type-input-control'
 
+export type ReactNavigationBackup = {
+  navigation: {
+    navigate: (route: string, params?: any) => void,
+    goBack: (route?: ?string) => void,
+    state: {
+      params: {
+        recoveryPassphrase?: string,
+        initialRoute: string,
+      },
+    },
+  },
+}
+
 export type GenerateRecoveryPhraseProps = {
-  recoveryPassphrase: string,
-} & ReactNavigation
+  generateRecoveryPhrase: () => void,
+  recoveryPassphrase: Passphrase,
+} & ReactNavigationBackup
 
 export type GenerateRecoveryPhraseState = {}
 
-export type VerifyRecoveryPhraseProps = {} & ReactNavigation
+export type VerifyRecoveryPhraseProps = {} & ReactNavigationBackup
 
 export type VerifyRecoveryPhraseState = {
-  recoveryPassphrase: string,
   error: boolean,
 }
 
 export type ExportBackupFileProps = {
-  walletBackup: () => void,
   backupPath: string,
-} & ReactNavigation
+  backupStatus: string,
+  exportBackup: () => void,
+} & ReactNavigationBackup
 
 export type BackupErrorProps = {
   updateStatusBarTheme: string => void,
   generateBackupFile: () => void,
-} & ReactNavigation
+} & ReactNavigationBackup
 
 export type ExportBackupFileState = {
   submitButtonText: string,
 }
 
-export type BackupCompleteProps = {} & ReactNavigation
+export type BackupCompleteProps = {} & ReactNavigationBackup
 
 export type BackupCompleteState = {
   submitButtonText: string,
@@ -62,8 +77,10 @@ export type BackupStore = {
   backupWalletPath: string,
   showBanner: boolean,
   lastSuccessfulBackup: string,
-} & StoreError &
-  BackupStoreStatus
+  // TODO: fix flow type
+  error: any,
+  status: string,
+}
 
 export type StoreError = { error: ?CustomError }
 export type BackupStoreStatus = { status: $Keys<typeof BACKUP_STORE_STATUS> }
@@ -110,83 +127,93 @@ export const PROMPT_WALLET_BACKUP_BANNER = 'PROMPT_WALLET_BACKUP_BANNER'
 
 export type BackupStartAction = {
   type: typeof START_BACKUP,
-  status: BACKUP_STORE_STATUS,
+  status: $Keys<typeof BACKUP_STORE_STATUS>,
   error: CustomError,
 }
 
 export type GenerateBackupFileLoadingAction = {
   type: typeof GENERATE_BACKUP_FILE_LOADING,
-  status: BACKUP_STORE_STATUS,
+  status: $Keys<typeof BACKUP_STORE_STATUS>,
 }
 
 export type GenerateBackupFileSuccessAction = {
   type: typeof GENERATE_BACKUP_FILE_SUCCESS,
   backupWalletPath: string,
+  status: $Keys<typeof BACKUP_STORE_STATUS>,
 }
 
 export type GenerateBackupFileFailureAction = {
-  type: typeof GENERATE_BACKUP_FILE_SUCCESS,
+  type: typeof GENERATE_BACKUP_FILE_FAILURE,
   error: CustomError,
+  status: $Keys<typeof BACKUP_STORE_STATUS>,
 }
 
 export type BackupWalletFailAction = {
   type: typeof BACKUP_WALLET_FAIL,
-  status: BACKUP_STORE_STATUS,
+  status: $Keys<typeof BACKUP_STORE_STATUS>,
   error: CustomError,
 }
 
 export type GenerateRecoveryPhraseLoadingAction = {
   type: typeof GENERATE_RECOVERY_PHRASE_LOADING,
-  status: BACKUP_STORE_STATUS,
+  status: $Keys<typeof BACKUP_STORE_STATUS>,
 }
 
 export type GenerateRecoveryPhraseSuccessAction = {
   type: typeof GENERATE_RECOVERY_PHRASE_SUCCESS,
-  status: BACKUP_STORE_STATUS,
+  status: $Keys<typeof BACKUP_STORE_STATUS>,
   passphrase: Passphrase,
+  error: CustomError,
 }
 
 export type GenerateRecoveryPhraseFailureAction = {
   type: typeof GENERATE_RECOVERY_PHRASE_FAILURE,
-  status: BACKUP_STORE_STATUS,
+  status: $Keys<typeof BACKUP_STORE_STATUS>,
   error: CustomError,
 }
 
 export type ExportBackupLoadingAction = {
   type: typeof EXPORT_BACKUP_LOADING,
-  status: BACKUP_STORE_STATUS,
+  status: $Keys<typeof BACKUP_STORE_STATUS>,
   backupWalletPath: string,
 }
 
 export type ExportBackupNoShareAction = {
   type: typeof EXPORT_BACKUP_NO_SHARE,
-  status: BACKUP_STORE_STATUS,
+  status: $Keys<typeof BACKUP_STORE_STATUS>,
 }
 
 export type ExportBackupSuccessAction = {
   type: typeof EXPORT_BACKUP_SUCCESS,
-  status: BACKUP_STORE_STATUS,
+  status: $Keys<typeof BACKUP_STORE_STATUS>,
+  lastSuccessfulBackup: string,
 }
 
 export type ExportBackupFailureAction = {
   type: typeof EXPORT_BACKUP_FAILURE,
-  status: BACKUP_STORE_STATUS,
+  status: $Keys<typeof BACKUP_STORE_STATUS>,
   error: CustomError,
 }
 
 export type BackupCompleteAction = {
   type: typeof BACKUP_COMPLETE,
-  status: BACKUP_STORE_STATUS,
+  status: $Keys<typeof BACKUP_STORE_STATUS>,
 }
 
 export type HydrateBackupAction = {
   type: typeof HYDRATE_BACKUP,
-  status: BACKUP_STORE_STATUS,
+  status: $Keys<typeof BACKUP_STORE_STATUS>,
+  lastSuccessfulBackup: string,
 }
 
 export type HydrateBackupFailAction = {
   type: typeof HYDRATE_BACKUP_FAILURE,
   error: CustomError,
+}
+
+export type PromptBackupBannerAction = {
+  type: typeof PROMPT_WALLET_BACKUP_BANNER,
+  showBanner: boolean,
 }
 
 export type BackupStoreAction =

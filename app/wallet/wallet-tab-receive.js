@@ -41,7 +41,7 @@ export class WalletTabReceive extends PureComponent<
       promptBackupBanner(true)
       Clipboard.setString(walletAddresses[0])
       this.setState({
-        copyButtonText: 'Copied !',
+        copyButtonText: 'Copied!',
       })
       setTimeout(() => {
         this.setState({

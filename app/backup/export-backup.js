@@ -73,9 +73,7 @@ export class ExportBackupFile extends PureComponent<
   }
 
   encryptAndBackup = () => {
-    const { backupPath } = this.props
-
-    this.props.exportBackup(backupPath)
+    this.props.exportBackup()
   }
 
   BackupPath = (path: string) => {
@@ -92,7 +90,7 @@ export class ExportBackupFile extends PureComponent<
     return null
   }
 
-  ExportImage = (status: BACKUP_STORE_STATUS) => {
+  ExportImage = (status: string) => {
     if (
       status === BACKUP_STORE_STATUS.EXPORT_BACKUP_LOADING ||
       status === BACKUP_STORE_STATUS.GENERATE_BACKUP_FILE_LOADING

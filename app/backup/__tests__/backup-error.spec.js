@@ -9,7 +9,17 @@ describe('Restore screen', () => {
   function getProps() {
     return {
       store: getStore(),
-      navigation: getNavigation(),
+      navigation: {
+        navigate: jest.fn(),
+        goBack: jest.fn(),
+        state: {
+          params: {
+            recoveryPassphrase: '',
+            initialRoute: '',
+          },
+        },
+      },
+      generateBackupFile: jest.fn(),
       updateStatusBarTheme: jest.fn(),
     }
   }

@@ -81,7 +81,6 @@ export class GenerateRecoveryPhrase extends PureComponent<
   })
 
   render() {
-    const { navigation: { state } } = this.props
     return (
       <Container style={[styles.genRecovery]} safeArea>
         <Image source={transparentBands} style={[styles.backgroundImage]} />
@@ -152,7 +151,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
   }
 }
 
-const mapStateToProps = (state: Store, props: ReactNavigation) => {
+const mapStateToProps = (state: Store) => {
   return {
     recoveryPassphrase: getBackupPassphrase(state),
   }
