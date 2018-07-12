@@ -244,3 +244,5 @@ export const getBackupWalletPath = (state: Store) =>
   state.backup.backupWalletPath
 
 export const getBackupShowBanner = (state: Store) => state.backup.showBanner
+
+export const getRestoreStatus = (state: Store) => state.restore.status
