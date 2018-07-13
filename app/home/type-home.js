@@ -13,6 +13,7 @@ export type BubbleProps = {
   senderDID: string,
   radius: number,
   identifier: string,
+  allowInteractions: boolean,
 } & ReactNavigation
 
 export type BubbleState = {
@@ -31,4 +32,8 @@ export type HomeProps = {
 export type HomeState = {
   // Don't have react-native Animated API type definition
   scrollY: any,
+}
+
+export type ConnectionBubblesState = {
+  interactionsDone: boolean,
 }

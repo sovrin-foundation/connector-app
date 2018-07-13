@@ -11,7 +11,12 @@ import { View as AnimationView } from 'react-native-animatable'
 import { Avatar } from '../components'
 import { connectionHistoryRoute } from '../common/route-constants'
 import showDID from '../components/show-pairwise-info'
-import type { BubbleState, BubbleProps, BubblesProps } from './type-home'
+import type {
+  BubbleState,
+  BubbleProps,
+  BubblesProps,
+  ConnectionBubblesState,
+} from './type-home'
 
 export class Bubble extends PureComponent<BubbleProps, BubbleState> {
   state = {
@@ -41,7 +46,14 @@ export class Bubble extends PureComponent<BubbleProps, BubbleState> {
   }
 
   render() {
-    const { image, testID, senderName, senderDID, identifier } = this.props
+    const {
+      image,
+      testID,
+      senderName,
+      senderDID,
+      identifier,
+      allowInteractions,
+    } = this.props
     let source
 
     if (this.state.failed || Number.isInteger(image) || !image) {
@@ -67,7 +79,9 @@ export class Bubble extends PureComponent<BubbleProps, BubbleState> {
         onError={this._onError}
         testID={testID}
         onPress={() =>
-          this.goHistoryView(senderName, image, senderDID, identifier)
+          allowInteractions
+            ? this.goHistoryView(senderName, image, senderDID, identifier)
+            : null
         }
       />
     )
@@ -76,8 +90,16 @@ export class Bubble extends PureComponent<BubbleProps, BubbleState> {
 
 export default class ConnectionBubbles extends PureComponent<
   BubblesProps,
-  void
+  ConnectionBubblesState
 > {
+  state = {
+    interactionsDone: false,
+  }
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ interactionsDone: true })
+    })
+  }
   getBubblePosition = (
     bubbleIndex: number,
     deviceWidth: number,
@@ -208,6 +230,7 @@ export default class ConnectionBubbles extends PureComponent<
                 senderDID={senderDID}
                 identifier={identifier}
                 navigation={this.props.navigation}
+                allowInteractions={this.state.interactionsDone}
               />
             </AnimationView>
           )
