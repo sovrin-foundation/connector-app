@@ -26,6 +26,7 @@ import { Apptentive } from 'apptentive-react-native'
 import WalletBalance from '../wallet/wallet-balance'
 import type { Connection } from '../store/type-connection-store'
 import Banner from '../components/banner/banner'
+import { NavigationActions } from 'react-navigation'
 
 export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
   state = {
@@ -40,7 +41,13 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
             horizontalSpace
             row
             center
-            onPress={() => navigation.navigate(walletRoute)}
+            onPress={() => {
+              const navigateAction = NavigationActions.navigate({
+                routeName: walletRoute,
+                key: walletRoute,
+              })
+              navigation.dispatch(navigateAction)
+            }}
             testID={SOVRINTOKEN_AMOUNT_TEST_ID}
           >
             <Icon

@@ -21,7 +21,7 @@ export default class CustomButton extends PureComponent<*, void> {
         this.props.onPress(event)
       }
     },
-    500,
+    600,
     { leading: true, trailing: false }
   )
 

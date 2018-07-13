@@ -34,7 +34,7 @@ export default class CustomModal extends PureComponent<CustomModalProps, void> {
         this.props.onPress(event)
       }
     },
-    300,
+    600,
     { leading: true, trailing: false }
   )
 
