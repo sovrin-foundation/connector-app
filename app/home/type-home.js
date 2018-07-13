@@ -13,6 +13,8 @@ export type BubbleProps = {
   senderDID: string,
   radius: number,
   identifier: string,
+  disableTaps: boolean,
+  disableTopView: () => void,
   allowInteractions: boolean,
 } & ReactNavigation
 
@@ -35,5 +37,6 @@ export type HomeState = {
 }
 
 export type ConnectionBubblesState = {
+  disableTaps: boolean,
   interactionsDone: boolean,
 }

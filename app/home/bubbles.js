@@ -1,5 +1,5 @@
 // @flow
-import React, { PureComponent } from 'react'
+import React, { PureComponent, Component } from 'react'
 import {
   Animated,
   InteractionManager,
@@ -37,12 +37,15 @@ export class Bubble extends PureComponent<BubbleProps, BubbleState> {
     senderDID: string,
     identifier: string
   ) => {
-    this.props.navigation.navigate(connectionHistoryRoute, {
-      senderName,
-      image,
-      senderDID,
-      identifier,
-    })
+    this.props.disableTopView()
+    if (!this.props.disableTaps) {
+      this.props.navigation.navigate(connectionHistoryRoute, {
+        senderName,
+        image,
+        senderDID,
+        identifier,
+      })
+    }
   }
 
   render() {
@@ -93,6 +96,7 @@ export default class ConnectionBubbles extends PureComponent<
   ConnectionBubblesState
 > {
   state = {
+    disableTaps: false,
     interactionsDone: false,
   }
   componentDidMount() {
@@ -165,6 +169,17 @@ export default class ConnectionBubbles extends PureComponent<
     }
   }
 
+  disableViewTaps = () => {
+    this.setState({
+      disableTaps: true,
+    })
+    setTimeout(() => {
+      this.setState({
+        disableTaps: false,
+      })
+    }, 500)
+  }
+
   render() {
     let { width, height } = Dimensions.get('window')
     //Adjusting height in android due to navigational bar
@@ -230,6 +245,8 @@ export default class ConnectionBubbles extends PureComponent<
                 senderDID={senderDID}
                 identifier={identifier}
                 navigation={this.props.navigation}
+                disableTopView={this.disableViewTaps}
+                disableTaps={this.state.disableTaps}
                 allowInteractions={this.state.interactionsDone}
               />
             </AnimationView>
