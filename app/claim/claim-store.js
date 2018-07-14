@@ -203,6 +203,7 @@ export function* claimReceivedVcxSaga(
     getClaimOffers,
     forDID
   )
+
   if (connectionHandle != null) {
     for (const serializedClaimOffer of serializedClaimOffers) {
       // run each claim offer check in parallel and wait for all of them to finish
@@ -230,7 +231,6 @@ export function* checkForClaim(
       updateClaimOfferState,
       claimHandle
     )
-
     if (vcxClaimOfferState === VCX_CLAIM_OFFER_STATE.ACCEPTED) {
       // once we know that this claim offer state was updated to accepted
       // that means that we downloaded the claim for this claim offer

@@ -67,6 +67,8 @@ export function convertCxsInitToVcxInit(
     // TODO: These should be removed after we sdk team fix these as optional
     institution_name: 'some-random-name',
     institution_logo_url: 'https://robothash.com/logo.png',
+    institution_did: init.oneTimeAgencyDid,
+    institution_verkey: init.oneTimeAgencyVerificationKey,
   }
 }
 

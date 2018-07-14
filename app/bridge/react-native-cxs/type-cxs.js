@@ -4,7 +4,10 @@ import type { SMSPendingInvitationPayload } from '../../sms-pending-invitation/t
 import type { UserOneTimeInfo } from '../../store/user/type-user-store'
 import type { AgencyPoolConfig } from '../../store/type-config-store'
 import type { GenericObject } from '../../common/type-common'
-import type { ClaimOfferPushPayload } from '../../push-notification/type-push-notification'
+import type {
+  ClaimOfferPushPayload,
+  ClaimPushPayload,
+} from '../../push-notification/type-push-notification'
 
 export type Metadata = {
   [string]: any,
@@ -104,6 +107,8 @@ export type VcxInitConfig = {
   remote_to_sdk_verkey: string,
   sdk_to_remote_did: string,
   sdk_to_remote_verkey: string,
+  institution_did: string,
+  institution_verkey: string,
 }
 
 export type VcxPushTokenConfig = {
@@ -162,7 +167,7 @@ export type VcxSendCredentialRequest = {}
 
 export type VcxClaimInfo = {
   credential_id?: string,
-  credential?: string,
+  credential?: ClaimPushPayload,
   price: string,
   payment_address: string,
   credential_offer?: string,

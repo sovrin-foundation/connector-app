@@ -126,5 +126,5 @@ export const VCX_CLAIM_OFFER_STATE = {
 
 export type GetClaimVcxResult = {
   claimUuid: string,
-  claimPayload: ClaimPushPayload,
+  claim: ClaimPushPayload,
 }

@@ -44,6 +44,7 @@ import type {
 } from '../../wallet/type-wallet'
 import type { GenericStringObject } from '../../common/type-common'
 import type { Passphrase } from '../../backup/type-backup'
+import type { GetClaimVcxResult } from '../../claim/type-claim'
 
 const { RNIndy } = NativeModules
 
@@ -746,7 +747,9 @@ export async function getClaimOfferState(claimHandle: number): Promise<number> {
   return state
 }
 
-export async function getClaimVcx(claimHandle: number) {
+export async function getClaimVcx(
+  claimHandle: number
+): Promise<GetClaimVcxResult> {
   const vcxClaimResult: string = await RNIndy.getClaimVcx(claimHandle)
   const vcxClaim: VcxClaimInfo = JSON.parse(vcxClaimResult)
   const { credential, credential_id } = vcxClaim
@@ -755,11 +758,9 @@ export async function getClaimVcx(claimHandle: number) {
     throw new Error('credential not found in vcx')
   }
 
-  const claimPayload: ClaimPushPayload = JSON.parse(credential)
-
   return {
     claimUuid: credential_id,
-    claimPayload,
+    claim: credential,
   }
 }
 
