@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>563</string>
+	<string>564</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<true/>
 	<key>ITSEncryptionExportComplianceCode</key>
@@ -94,7 +94,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Please allow us access to Camera so that we can scan QR code</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Please allow us access to Photo library so that you can change your profile photo</string>
 	<key>UIAppFonts</key>

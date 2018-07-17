@@ -22,6 +22,12 @@ git clone 'git@github.com:evernym/connectme-callcenter-certs.git' '/var/folders/
 - To get the development release certificates do `bundle exec fastlane match development`. DO NOT use `--force` with this command. Do not use XCode automatic code signing.
 - To get the beta release certificates do `bundle exec fastlane match adhoc`
 - You'll be prompted to enter 2 passwords. Slack a contributor for what those are.
+- Make sure that the ios/ConnectMe/Info.plist, ios/ConnectMeTests/Info.plist, ios/ConnectMe-tvOS/Info.plist, ios/ConnectMe-tvOSTests/Info.plist,  have their CFBundleVersion <string> set to the NEXT build number
+- Make sure that the ios/ConnectMe.xcodeproj/project.pbxproj has it's 2 CURRENT_PROJECT_VERSION attributes set to the NEXT build number
+- To get releasable .ipa launch Xcode and open the ios/ConnectMe.xcworkspace project
+- Select the "Generic iOS Device"
+- Then run Product -> Archive
+- After it is done then login to hockeyapp.net and click on QA ConnectMe and then click add version button and upload it
 - `cd .. && pod install` (Make sure `pod` is installed or `sudo gem install cocoapods`)
 - `cd .. && npm run ios`
 
@@ -34,6 +40,7 @@ Execution failed for task ':app:validateSigningRelease'.
 > Keystore file /Users/norm/keystores/my_keystore.jks not found for signing config 'release'.
 - ask your team members for .bitrise.secrets.yml file and place it in directory with bitirse.yml file
 - run ` brew install bitirse && bitrise setup `
+- Make sure that the android/app/build.gradle has it's versionCode attribute set to the PREVIOUS build number (be aware that a failed "bitrise run android" will STILL increment the number and so you will need to decrement it back to the PREVIOUS build number after a failure)
 - run ` bitrise run android `
 - If you get this error then rm -rf node_modules and re-run ` bitrise run android `
 What went wrong:
