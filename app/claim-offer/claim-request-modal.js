@@ -67,10 +67,11 @@ export default class ClaimRequestStatusModal extends PureComponent<
       message1,
       message3,
       message5,
+      message6, //message6 is for payTokenValue related usage
     }: ClaimRequestStatusModalProps = this.props
     let message2 = data.name
     let message4 = issuer.name
-    let message6 = payTokenValue
+    let message7 = payTokenValue
     if (isPending) {
       message2 = issuer.name
       message4 = data.name
@@ -87,7 +88,10 @@ export default class ClaimRequestStatusModal extends PureComponent<
           middleImage: require('../images/checkMark.png'),
           middleImageStyle: null,
         }
-
+    const conditionalMessage =
+      message6 !== undefined
+        ? message7 !== undefined ? message6 : null
+        : message5
     return (
       <CustomModal
         onPress={this.onContinue}
@@ -101,7 +105,6 @@ export default class ClaimRequestStatusModal extends PureComponent<
           avatarRight={avatarRight}
           testID={'claim-request'}
         />
-
         <CustomText
           h5
           center
@@ -148,20 +151,20 @@ export default class ClaimRequestStatusModal extends PureComponent<
         >
           {message4}
         </CustomText>
-        {message6 !== undefined ? (
-          <CustomText
-            h5
-            center
-            tertiary
-            bg="tertiary"
-            transparentBg
-            style={[styles.message]}
-            testID={`claim-request-message`}
-          >
-            {message5}
-          </CustomText>
-        ) : null}
-        {message6 !== undefined ? (
+
+        <CustomText
+          h5
+          center
+          tertiary
+          bg="tertiary"
+          transparentBg
+          style={[styles.message]}
+          testID={`claim-request-message`}
+        >
+          {conditionalMessage}
+        </CustomText>
+
+        {message7 !== undefined ? (
           <CustomText
             h5
             bold
@@ -172,7 +175,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
             style={[styles.message]}
             testID={`claim-request-message`}
           >
-            {message6} {' tokens'}
+            {message7} {' tokens'}
           </CustomText>
         ) : null}
       </CustomModal>

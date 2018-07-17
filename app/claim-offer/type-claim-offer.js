@@ -179,6 +179,7 @@ export type ClaimRequestStatusModalProps = {
   message1: string,
   message3: string,
   message5?: string,
+  message6?: string,
 }
 
 export type ClaimRequestStatusModalState = {
