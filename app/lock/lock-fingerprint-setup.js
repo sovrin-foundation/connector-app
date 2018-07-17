@@ -39,7 +39,8 @@ export class LockFingerprintSetup extends PureComponent<
             text: 'OK',
             onPress: () => this.props.navigation.navigate(settingsTabRoute),
           },
-        ]
+        ],
+        { cancelable: false }
       )
     } else {
       this.props.enableTouchIdAction()
