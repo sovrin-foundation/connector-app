@@ -34,10 +34,7 @@ import history, {
   watchConnectionHistory,
 } from '../connection-history/connection-history-store'
 import historyRecorder from '../connection-history/history-middleware'
-import wallet, {
-  watchWalletStore,
-  watchBackupBanner,
-} from '../wallet/wallet-store'
+import wallet, { watchWalletStore } from '../wallet/wallet-store'
 import eula, { watchEula } from '../eula/eula-store'
 import restore, { watchRestore } from '../restore/restore-store'
 import backup, { watchBackup } from '../backup/backup-store'
@@ -98,7 +95,6 @@ sagaMiddleware.run(function*() {
     watchUserStore(),
     watchWalletStore(),
     watchBackup(),
-    watchBackupBanner(),
     watchEula(),
     watchRestore(),
   ])

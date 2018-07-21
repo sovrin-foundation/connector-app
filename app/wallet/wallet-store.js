@@ -85,6 +85,7 @@ import {
   getZippedWalletBackupPath,
   sendTokenAmount,
 } from '../bridge/react-native-cxs/RNCxs'
+import { promptBackupBanner } from '../backup/backup-store'
 import { getConfig } from '../store/store-selector'
 import { WALLET_ENCRYPTION_KEY } from '../common/secure-storage-constants'
 import { STORAGE_KEY_SHOW_BANNER } from '../components/banner/banner-constants'
@@ -98,7 +99,6 @@ const initialState = {
     latest: null,
     error: null,
     backupPath: null,
-    showBanner: false,
   },
   payment: { tokenAmount: 0, status: STORE_STATUS.IDLE, error: null },
 }
@@ -182,30 +182,6 @@ export const walletBackupComplete = (WALLET_BACKUP_PATH: string) => ({
     error: null,
   },
 })
-
-export function* watchBackupBanner(): any {
-  yield all([watchBackupBannerPrompt()])
-}
-
-export function* watchBackupBannerPrompt(): any {
-  yield takeLatest(PROMPT_WALLET_BACKUP_BANNER, backupBannerSaga)
-}
-
-export function* backupBannerSaga(
-  action: PromptBackupBannerAction
-): Generator<*, *, *> {
-  try {
-    const { showBanner } = action
-
-    yield call(
-      AsyncStorage.setItem,
-      STORAGE_KEY_SHOW_BANNER,
-      JSON.stringify(showBanner)
-    )
-  } catch (e) {
-    yield put(promptBackupBanner(false))
-  }
-}
 
 export function* hydrateWalletStoreSaga(): Generator<*, *, *> {
   yield all([
@@ -447,13 +423,6 @@ export const refreshWalletAddresses = () => ({
   type: REFRESH_WALLET_ADDRESSES,
 })
 
-export const promptBackupBanner = (
-  showBanner: boolean
-): PromptBackupBannerAction => ({
-  type: PROMPT_WALLET_BACKUP_BANNER,
-  showBanner,
-})
-
 export const refreshWalletHistory = () => ({
   type: REFRESH_WALLET_HISTORY,
 })
@@ -552,24 +521,6 @@ export default function walletReducer(
   action: WalletStoreAction
 ) {
   switch (action.type) {
-    case NEW_CONNECTION_SUCCESS: {
-      return {
-        ...state,
-        backup: {
-          ...state.backup,
-          showBanner: true,
-        },
-      }
-    }
-    case PROMPT_WALLET_BACKUP_BANNER: {
-      return {
-        ...state,
-        backup: {
-          ...state.backup,
-          showBanner: action.showBanner,
-        },
-      }
-    }
     case HYDRATE_WALLET_BALANCE: {
       return {
         ...state,

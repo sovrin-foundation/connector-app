@@ -21,7 +21,6 @@ import walletReducer, {
   walletBackup,
   walletBackupComplete,
   sendTokensFail,
-  promptBackupBanner,
 } from '../wallet-store'
 import { initialTestAction } from '../../common/type-common'
 import {
@@ -63,7 +62,6 @@ describe('store: wallet-store: ', () => {
         latest: null,
         error: null,
         backupPath: null,
-        showBanner: false,
       },
       payment: { tokenAmount: 0, status: STORE_STATUS.IDLE, error: null },
     }
@@ -247,12 +245,6 @@ describe('store: wallet-store: ', () => {
   it('action: SEND_TOKENS_FAIL', () => {
     expect(
       walletReducer(initialState, sendTokensFail(5656, ERROR_SENDING_TOKENS))
-    ).toMatchSnapshot()
-  })
-
-  it('action: PROMPT_WALLET_BACKUP_BANNER', () => {
-    expect(
-      walletReducer(initialState, promptBackupBanner(true))
     ).toMatchSnapshot()
   })
 

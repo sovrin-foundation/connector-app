@@ -51,6 +51,7 @@ import {
   getBackupPassphrase,
   getBackupWalletPath,
 } from '../store/store-selector'
+import { NEW_CONNECTION_SUCCESS } from '../store/connections-store'
 import { STORAGE_KEY_SHOW_BANNER } from '../components/banner/banner-constants'
 import { getWords } from './secure-passphrase'
 import { pinHash as generateKey, generateSalt } from '../lock/pin-hash'
@@ -431,7 +432,7 @@ export default function backupReducer(
       }
     case HYDRATE_BACKUP_FAILURE:
       return {
-        ...initialState,
+        ...state,
         error: action.error,
       }
     default:
