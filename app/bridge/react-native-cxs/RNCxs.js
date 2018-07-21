@@ -330,11 +330,12 @@ export async function acceptInvitationVcx(
   const serializedConnection: string = await serializeConnection(
     connectionHandle
   )
-  const vcxConnection: VcxConnectionConnectResult = JSON.parse(
+
+  const vcxConnection: { data: VcxConnectionConnectResult } = JSON.parse(
     serializedConnection
   )
 
-  return convertVcxConnectionToCxsConnection(vcxConnection)
+  return convertVcxConnectionToCxsConnection(vcxConnection.data)
 }
 
 export async function updatePushToken({

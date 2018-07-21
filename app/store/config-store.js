@@ -124,8 +124,16 @@ export const baseUrls = {
   },
 }
 
+// making defaults sane so that developers don't need to remember
+// what settings should be in dev environment
+const isDevEnvironment = __DEV__ && process.env.NODE_ENV !== 'test'
+const defaultEnvironment = isDevEnvironment
+  ? SERVER_ENVIRONMENT.DEVELOPMENT
+  : SERVER_ENVIRONMENT.DEMO
+const defaultUseVcx = isDevEnvironment ? true : false
+
 const initialState: ConfigStore = {
-  ...baseUrls[SERVER_ENVIRONMENT.DEMO],
+  ...baseUrls[defaultEnvironment],
   isAlreadyInstalled: false,
   // this flag is used to identify if we got the already stored data
   // from the phone and loaded in app
@@ -137,7 +145,7 @@ const initialState: ConfigStore = {
   // to call bridge methods that deals claims, connections, proofs, etc.
   vcxInitializationState: VCX_INIT_NOT_STARTED,
   vcxInitializationError: null,
-  useVcx: false,
+  useVcx: defaultUseVcx,
 }
 
 export const hydrated = () => ({

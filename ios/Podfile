@@ -6,7 +6,7 @@ source 'git@github.com:hyperledger/indy-sdk.git'
 source 'https://github.com/CocoaPods/Specs.git'
 source 'git@github.com:evernym/sdk.git' 
 pod 'ConnectMeIndy','0.0.38'
-pod 'vcx', '0.0.13'
+pod 'vcx', '0.0.20'
 pod 'Firebase/Messaging', '4.8.0'
 pod 'SSZipArchive'
 

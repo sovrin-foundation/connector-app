@@ -200,7 +200,7 @@ Also Comment out the sendMessage native bridge call
       }
 
 ```
-## To trigger claim offer success pop up
+#### To trigger claim offer success pop up
 
   in claim-request-modal.js add the following code 
 
@@ -215,6 +215,25 @@ Also Comment out the sendMessage native bridge call
     }, 4000)
   }
 
+```
+
+#### Test credentials and proofs on simulator
+
+In componentDidMount of push-notification.js. Add below code at end
+
+```js
+this.props.fetchAdditionalData({
+      // forDID can be extracted from redux logs inside connection reducer, it is named as `identifier`
+      forDID: 'Mua2EG3rZphtwj88LWRpcw',
+      // uid can get from network request log in verity-ui and checking the response for that particular credential or proof request
+      uid: 'njaxymv',
+      // types supported are credOffer cred, proofReq
+      type: 'credOffer',
+      // can be extracted from same place as forDID, key named as senderDID
+      remotePairwiseDID: '4yKr2YScm8o7nRXRvbHvzA',
+      // can be kept the same
+      senderLogoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEc_lUYZc74j-ArO9tldKiyLusNRGQE1X4dBR8Yz-J1ZcrAduLYg',
+    })
 ```
 
 ## How to know what tests to write

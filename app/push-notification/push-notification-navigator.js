@@ -179,21 +179,15 @@ export class PushNotificationNavigator extends PureComponent<
               break
 
             case MESSAGE_TYPE.CLAIM:
-              if (Platform.OS === 'android') {
-                // raise an action as per vcx
-                this.props.claimReceivedVcx({
-                  connectionHandle: additionalData.connectionHandle,
-                  uid,
-                  type,
-                  forDID,
-                  remotePairwiseDID,
-                })
-                break
-              }
-
-              this.props.claimReceived(
-                convertClaimPushPayloadToAppClaim(additionalData, uid, forDID)
-              )
+              // TODO: Rename this to just claimReceived
+              // we have removed other dependency and now we are only relying on vcx
+              this.props.claimReceivedVcx({
+                connectionHandle: additionalData.connectionHandle,
+                uid,
+                type,
+                forDID,
+                remotePairwiseDID,
+              })
               break
           }
     }

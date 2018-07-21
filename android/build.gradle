@@ -17,7 +17,6 @@ allprojects {
     repositories {
         mavenLocal()
         jcenter()
-//        maven { url "http://localhost:8085/artifactory/gradle-dev-local/" }
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
@@ -28,11 +27,12 @@ allprojects {
         flatDir {
             dirs 'libs'
         }
-        maven { url "https://jitpack.io" }
-//        maven { url "http://06115d9e.ngrok.io/artifactory/generic-local/" }
-
+        maven {
+            url "https://jitpack.io"
+        }
     }
 }
+
 subprojects {
     afterEvaluate {project ->
         if (project.hasProperty("android")) {

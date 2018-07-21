@@ -514,14 +514,10 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
             promise.reject("VCXException", e.getMessage());
             e.printStackTrace();
         }
-        // promise.resolve("");
     }
 
     @ReactMethod
     public void updateClaimOfferState(int credentialHandle, Promise promise) {
-        // TODO: Add bridge methods and vcx wrapper methods for update_state api call
-        // call vcx_credential_update_state with credentialHandle
-
         try {
             CredentialApi.credentialUpdateState(credentialHandle).exceptionally((t) -> {
                 Log.e(TAG, "updateClaimOfferState: ",t );
@@ -536,15 +532,10 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
             promise.reject("VCXException", e.getMessage());
             e.printStackTrace();
         }
-        // number as 4 refers to accepted state from vcx
-        // promise.resolve(4);
     }
 
     @ReactMethod
     public void getClaimOfferState(int credentialHandle, Promise promise) {
-        // TODO: Add vcx wrapper method for vcx_credential_get_state
-        // call vcx_credential_get_state and pass credentialHandle
-
         try {
             CredentialApi.credentialGetState(credentialHandle).exceptionally((t) -> {
                 Log.e(TAG, "getClaimOfferState: ",t);
@@ -559,16 +550,10 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
             promise.reject("VCXException", e.getMessage());
             e.printStackTrace();
         }
-        // number as 4 refers to accepted state from vcx
-        // promise.resolve(4);
     }
 
     @ReactMethod
     public void getClaimVcx(int credentialHandle, Promise promise) {
-        // TODO: Add method in wrapper and call vcx_get_credential
-        // it will return a json string of format {claimUUID: <stringifiedClaimJson>}
-        // or error number as a code
-
         try {
             CredentialApi.getCredential(credentialHandle).exceptionally((t) -> {
                 Log.e(TAG, "getClaimVcx: ",t );

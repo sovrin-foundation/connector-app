@@ -208,7 +208,10 @@ export const fetchAdditionalDataError = (error: CustomError) => ({
 export function* fetchAdditionalDataSaga(
   action: FetchAdditionalDataAction
 ): Generator<*, *, *> {
-  if (Platform.OS === 'android') {
+  yield* ensureAppHydrated()
+  const useVcx = yield select(getUseVcx)
+
+  if (Platform.OS === 'android' || useVcx) {
     // TODO: KS Once integration with vcx is done for both ios and android
     // we will remove fetchAdditionalDataSaga and use fetchAdditionalDataSagaVcx
     yield* fetchAdditionalDataSagaVcx(action)
@@ -217,10 +220,6 @@ export function* fetchAdditionalDataSaga(
   }
 
   const { forDID, uid, type, senderLogoUrl } = action.notificationPayload
-  const isHydrated = yield select(getHydrationState)
-  if (!isHydrated) {
-    yield take(HYDRATED)
-  }
 
   if (forDID) {
     const { remotePairwiseDID, remoteName, ...connection } = yield select(
@@ -381,8 +380,8 @@ export function* fetchAdditionalDataSagaVcx(
       pushNotificationReceived({
         type,
         additionalData: {
-          remoteName,
           ...additionalData,
+          remoteName,
         },
         uid,
         senderLogoUrl,
