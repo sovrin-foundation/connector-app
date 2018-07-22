@@ -569,6 +569,11 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod 
+    public void exitAppAndroid() {
+      android.os.Process.killProcess(android.os.Process.myPid());
+    } 
+
     // @ReactMethod
     // public void exportWallet(String exportPath, String encryptionKey, Promise promise) {
     //     Log.d(TAG, "exportWallet() called with: exportPath = [" + exportPath + "], encryptionKey = [" + encryptionKey + "], promise = [" + promise + "]");

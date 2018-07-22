@@ -1,5 +1,5 @@
 // @flow
-import { NativeModules } from 'react-native'
+import { NativeModules, Platform } from 'react-native'
 import memoize from 'lodash.memoize'
 import type {
   Metadata,
@@ -771,6 +771,12 @@ export async function importWallet(wallet: WalletPayload): Promise<number> {
   return importHandle
 }
 
+export function exitAppAndroid() {
+  if (Platform.OS === 'android') {
+    RNIndy.exitAppAndroid()
+  }
+}
+ 
 export async function getMatchingCredentials(
   proofHandle: number
 ): Promise<string> {

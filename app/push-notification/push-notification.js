@@ -69,8 +69,6 @@ export class PushNotification extends PureComponent<
   componentWillUnmount() {
     // stop listening for events
     this.notificationListener && this.notificationListener.remove()
-    this.initialNotificationListener &&
-      this.initialNotificationListener.remove()
     this.refreshTokenListener && this.refreshTokenListener.remove()
   }
 

@@ -62,6 +62,7 @@ import { NavigationActions } from 'react-navigation'
 import { setupFeedback } from './feedback'
 import { updateStatusBarTheme } from './store/connections-store'
 import type { AppState } from './type-app'
+import { exitAppAndroid } from './bridge/react-native-cxs/RNCxs'
 
 const backButtonDisableRoutes = [
   lockEnterPinRoute,
@@ -169,7 +170,7 @@ class ConnectMeApp extends PureComponent<void, AppState> {
 
   onBackPressExit() {
     if (this.exitTimeout && this.exitTimeout + 2000 >= Date.now()) {
-      BackHandler.exitApp()
+      exitAppAndroid()
     }
     this.exitTimeout = Date.now()
     ToastAndroid.show('Press again to exit!', ToastAndroid.SHORT)
