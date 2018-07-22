@@ -74,7 +74,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
     let message7 = payTokenValue
     if (isPending) {
       message2 = issuer.name
-      message4 = data.name
+      message4 = `"${data.name}"`
     }
     const avatarRight = senderLogoUrl
       ? { uri: senderLogoUrl }

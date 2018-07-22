@@ -903,7 +903,7 @@ exports[`<ClaimRequestModal /> should match snapshot when pending popOver 1`] = 
         }
         testID="claim-request-message"
       >
-        Home Address
+        "Home Address"
       </Text>
       <Text
         accessibilityLabel="claim-request-message"

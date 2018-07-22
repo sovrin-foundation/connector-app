@@ -291,8 +291,7 @@ export const MESSAGE_MISSING_ATTRIBUTES_DESCRIPTION = (
   Click 'Generate'. Once you have filled all missing attributes we will auto fill the rest of them.`
 
 export const MESSAGE_ERROR_PROOF_GENERATION_TITLE = 'Error generating proof'
-export const MESSAGE_ERROR_PROOF_GENERATION_DESCRIPTION =
-  'Please try again after some time.'
+export const MESSAGE_ERROR_PROOF_GENERATION_DESCRIPTION = 'Please try again.'
 
 export const ERROR_SEND_PROOF = (message: string) => ({
   code: 'PR-001',
