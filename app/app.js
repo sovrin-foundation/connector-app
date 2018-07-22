@@ -19,6 +19,7 @@ import {
   whiteSmokeSecondary,
   color,
   venetianRed,
+  white,
 } from './common/styles/constant'
 import ConnectMeAppNavigator from './navigator'
 import {
@@ -54,6 +55,7 @@ import {
   backupErrorRoute,
   restorePassphraseRoute,
   restoreWaitRoute,
+  expiredTokenRoute,
   connectionHistoryDetailsRoute,
 } from './common'
 import { NavigationActions } from 'react-navigation'
@@ -228,6 +230,8 @@ class ConnectMeApp extends PureComponent<void, AppState> {
         store.dispatch(updateStatusBarTheme(color.bg.fourteenth.color))
       } else if (currentScreen === backupErrorRoute) {
         store.dispatch(updateStatusBarTheme(venetianRed))
+      } else if (currentScreen === expiredTokenRoute) {
+        store.dispatch(updateStatusBarTheme(white))
       } else if (
         currentScreen !== connectionHistoryRoute &&
         currentScreen !== claimOfferRoute &&

@@ -6,26 +6,19 @@ import { Container, CustomView, CustomText } from '../components'
 export default class ExpiredToken extends PureComponent<void, void> {
   render() {
     return (
-      <Container primary style={[styles.expiredTokenContainer]}>
-        <CustomView vCenter>
-          <Image
-            source={require('../images/appIcon.png')}
-            style={styles.sovrinLogo}
-            resizeMode="contain"
-          />
-        </CustomView>
+      <Container center fifth>
         <CustomView vCenter>
           <Image
             style={styles.connectMeLogo}
-            source={require('../images/launchConnectMe.png')}
+            source={require('../images/logo_connectme.png')}
             resizeMode="contain"
           />
         </CustomView>
         <CustomView vCenter style={[styles.textContainer]}>
-          <CustomText h1 style={[styles.sorryText]}>
+          <CustomText transparentBg primary h1 style={[styles.sorryText]}>
             Sorry!
           </CustomText>
-          <CustomText h3 secondary bold center>
+          <CustomText transparentBg primary h3 bold center>
             This invitation has expired!
           </CustomText>
         </CustomView>
