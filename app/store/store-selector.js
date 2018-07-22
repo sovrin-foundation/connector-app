@@ -105,8 +105,10 @@ export const getProofRequesterName = (state: Store, proofRequestId: string) => {
   ) {
     return state.proofRequest[proofRequestId].requester.name
   }
+
   return 'requester'
 }
+
 export const getOriginalProofRequestData = (
   state: Store,
   proofRequestId: string

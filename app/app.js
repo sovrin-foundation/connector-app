@@ -54,6 +54,7 @@ import {
   backupErrorRoute,
   restorePassphraseRoute,
   restoreWaitRoute,
+  connectionHistoryDetailsRoute,
 } from './common'
 import { NavigationActions } from 'react-navigation'
 import { setupFeedback } from './feedback'
@@ -230,7 +231,8 @@ class ConnectMeApp extends PureComponent<void, AppState> {
       } else if (
         currentScreen !== connectionHistoryRoute &&
         currentScreen !== claimOfferRoute &&
-        currentScreen !== restoreRoute
+        currentScreen !== restoreRoute &&
+        currentScreen !== connectionHistoryDetailsRoute
       ) {
         // Any screen that handles its own statusbar theme should be included above.
         store.dispatch(updateStatusBarTheme())

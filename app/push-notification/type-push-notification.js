@@ -11,6 +11,7 @@ import type {
 import type { PendingRedirection } from '../lock/type-lock'
 import type { Claim, ClaimVcx } from '../claim/type-claim'
 import type { AdditionalProofDataPayload } from '../proof-request/type-proof-request'
+import type { MatchingCredential } from '../proof/type-proof'
 
 export const PUSH_NOTIFICATION_PERMISSION = 'PUSH_NOTIFICATION_PERMISSION'
 export type PushNotificationPermissionAction = {
@@ -85,6 +86,7 @@ export type Attribute = {
   data?: string,
   logoUrl?: string,
   claimUuid?: ?string,
+  cred_info?: MatchingCredential,
 }
 
 export type AdditionalData = {

@@ -8,6 +8,7 @@ import type {
   ClaimOfferPushPayload,
   ClaimPushPayload,
 } from '../../push-notification/type-push-notification'
+import type { ProofRequestPushPayload } from '../../proof-request/type-proof-request'
 
 export type Metadata = {
   [string]: any,
@@ -172,3 +173,5 @@ export type VcxClaimInfo = {
   payment_address: string,
   credential_offer?: string,
 }
+
+export type VcxProofRequest = ProofRequestPushPayload

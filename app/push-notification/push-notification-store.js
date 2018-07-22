@@ -5,6 +5,7 @@ import {
   call,
   all,
   takeLatest,
+  takeEvery,
   take,
   select,
   put,
@@ -367,8 +368,12 @@ export function* fetchAdditionalDataSagaVcx(
     }
 
     if (type === MESSAGE_TYPE.PROOF_REQUEST) {
-      // TODO:KS Pass parameters that are needed to download proof request
-      additionalData = yield call(downloadProofRequest)
+      additionalData = yield call(
+        downloadProofRequest,
+        uid,
+        connectionHandle,
+        uid
+      )
     }
 
     if (!additionalData) {
@@ -400,7 +405,7 @@ export function* fetchAdditionalDataSagaVcx(
 }
 
 function* watchFetchAdditionalData(): any {
-  yield takeLatest(FETCH_ADDITIONAL_DATA, fetchAdditionalDataSaga)
+  yield takeEvery(FETCH_ADDITIONAL_DATA, fetchAdditionalDataSaga)
 }
 
 export function* watchPushNotification(): any {

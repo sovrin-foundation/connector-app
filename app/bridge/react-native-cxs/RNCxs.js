@@ -20,6 +20,7 @@ import type {
   VcxCredentialOffer,
   VcxClaimInfo,
   VcxConnectionConnectResult,
+  VcxProofRequest,
 } from './type-cxs'
 import type { InvitationPayload } from '../../invitation/type-invitation'
 import {
@@ -115,35 +116,6 @@ export async function addClaim(claim: string, poolConfig: string) {
 export async function getClaim(filterJSON: string, poolConfig: string) {
   // be sure to call ensureInitVcx before calling this method
   return await RNIndy.getClaim(filterJSON, poolConfig)
-}
-
-export async function prepareProof(proofRequest: string, poolConfig: string) {
-  // be sure to call ensureInitVcx before calling this method
-  const prepareProofJSON: string = await RNIndy.prepareProof(
-    proofRequest,
-    poolConfig
-  )
-
-  return prepareProofJSON
-}
-
-export async function generateProof(
-  proofRequest: string,
-  remoteDid: string,
-  prepareProof: string,
-  requestedClaims: string,
-  poolConfig: string
-) {
-  // be sure to call ensureInitVcx before calling this method
-  const proof: string = await RNIndy.getProof(
-    proofRequest,
-    remoteDid,
-    prepareProof,
-    requestedClaims,
-    poolConfig
-  )
-
-  return proof
 }
 
 export async function connectToAgency({
@@ -659,9 +631,25 @@ export async function sendClaimRequest(
   )
 }
 
-export async function downloadProofRequest() {
-  // TODO:KS Complete signature as per vcx
-  // Add this methods in Java & objective-c wrapper
+export async function downloadProofRequest(
+  sourceId: string,
+  connectionHandle: number,
+  messageId: string
+): Promise<VcxProofRequest> {
+  const {
+    proofHandle,
+    proofRequest,
+  }: {
+    proofHandle: number,
+    proofRequest: string,
+  } = await RNIndy.proofCreateWithMsgId(sourceId, connectionHandle, messageId)
+
+  const vcxProofRequest: VcxProofRequest = JSON.parse(proofRequest)
+
+  return {
+    ...vcxProofRequest,
+    proofHandle,
+  }
 }
 
 export async function getWalletBalance(): Promise<number> {
@@ -781,4 +769,30 @@ export async function importWallet(wallet: WalletPayload): Promise<number> {
   )
 
   return importHandle
+}
+
+export async function getMatchingCredentials(
+  proofHandle: number
+): Promise<string> {
+  // TODO:KS Add a transformer here, for now we are just passing through
+  return await RNIndy.proofRetrieveCredentials(proofHandle)
+}
+
+export async function generateProof(
+  proofHandle: number,
+  selectedCredentials: string,
+  selfAttestedAttributes: string
+): Promise<void> {
+  return await RNIndy.proofGenerate(
+    proofHandle,
+    selectedCredentials,
+    selfAttestedAttributes
+  )
+}
+
+export async function sendProof(
+  proofHandle: number,
+  connectionHandle: number
+): Promise<void> {
+  return await RNIndy.proofSend(proofHandle, connectionHandle)
 }

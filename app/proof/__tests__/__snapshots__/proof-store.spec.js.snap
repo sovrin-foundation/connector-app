@@ -5,6 +5,16 @@ Array [
   Array [
     Object {
       "claimUuid": "claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73",
+      "cred_info": Object {
+        "cred_info": Object {
+          "attrs": Object {
+            "Address 1": "Address 1",
+          },
+          "cred_def_id": "V4SGRU86Z58d6TV7PBUe6f:3:CL:24:tag1",
+          "referent": "claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73",
+          "schema_id": "V4SGRU86Z58d6TV7Pf:2:slKljrSQ80tCQ40F:33089",
+        },
+      },
       "data": "Address 1",
       "key": "attr1_uuid",
       "label": "Address 1",
@@ -13,6 +23,16 @@ Array [
   Array [
     Object {
       "claimUuid": "claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5",
+      "cred_info": Object {
+        "cred_info": Object {
+          "attrs": Object {
+            "Address 2": "Address 2",
+          },
+          "cred_def_id": "V4SGRU86Z58d6TV7PBUe6f:3:CL:24:tag1",
+          "referent": "claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5",
+          "schema_id": "V4SGRU86Z58d6TV7Pf:2:slKljrSQ80tCQ40F:33089",
+        },
+      },
       "data": "Address 2",
       "key": "attr2_uuid",
       "label": "Address 2",
@@ -26,6 +46,16 @@ Array [
   Array [
     Object {
       "claimUuid": "claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73",
+      "cred_info": Object {
+        "cred_info": Object {
+          "attrs": Object {
+            "Address 1": "Address 1",
+          },
+          "cred_def_id": "V4SGRU86Z58d6TV7PBUe6f:3:CL:24:tag1",
+          "referent": "claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73",
+          "schema_id": "V4SGRU86Z58d6TV7Pf:2:slKljrSQ80tCQ40F:33089",
+        },
+      },
       "data": "Address 1",
       "key": "attr1_uuid",
       "label": "Address 1",
@@ -34,6 +64,16 @@ Array [
   Array [
     Object {
       "claimUuid": "claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5",
+      "cred_info": Object {
+        "cred_info": Object {
+          "attrs": Object {
+            "Address 2": "Address 2",
+          },
+          "cred_def_id": "V4SGRU86Z58d6TV7PBUe6f:3:CL:24:tag1",
+          "referent": "claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5",
+          "schema_id": "V4SGRU86Z58d6TV7Pf:2:slKljrSQ80tCQ40F:33089",
+        },
+      },
       "data": "Address 2",
       "key": "attr2_uuid",
       "label": "Address 2",

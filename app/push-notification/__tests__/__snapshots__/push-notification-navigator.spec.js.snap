@@ -63,69 +63,32 @@ Object {
 exports[`convertProofRequestPushPayloadToAppProofRequest should convert push payload to proof request format correctly 1`] = `
 Object {
   "data": Object {
-    "name": "Home Address",
+    "name": "proof_req_1",
     "requestedAttributes": Array [
       Object {
-        "label": "your_name",
+        "label": "Address 1",
       },
       Object {
-        "label": "address_1",
-      },
-      Object {
-        "label": "address_2",
-      },
-      Object {
-        "label": "city",
-      },
-      Object {
-        "label": "state",
-      },
-      Object {
-        "label": "zip",
+        "label": "Address 2",
       },
     ],
     "version": "0.1",
   },
   "originalProofRequestData": Object {
-    "name": "Home Address",
+    "name": "proof_req_1",
     "nonce": "123432421212",
-    "requested_attrs": Object {
-      "<attr1_uuid>": Object {
-        "name": "your_name",
+    "requested_attributes": Object {
+      "attr1_uuid": Object {
+        "name": "Address 1",
       },
-      "<attr2_uuid>": Object {
-        "name": "address_1",
-        "schema_seq_no": 1,
-      },
-      "<attr3_uuid>": Object {
-        "issuer_did": "ISSUER_DID2",
-        "name": "address_2",
-        "schema_seq_no": 2,
-      },
-      "<attr4_uuid>": Object {
-        "name": "city",
-        "schema_seq_no": 1,
-      },
-      "<attr5_uuid>": Object {
-        "name": "state",
-        "schema_seq_no": 1,
-      },
-      "<attr6_uuid>": Object {
-        "name": "zip",
-        "schema_seq_no": 1,
+      "attr2_uuid": Object {
+        "name": "Address 2",
       },
     },
-    "requested_predicates": Object {
-      "predicate1_uuid": Object {
-        "attr_name": "age",
-        "issuer_did": "DID1",
-        "p_type": "GE",
-        "schema_seq_no": 1,
-        "value": 18,
-      },
-    },
+    "requested_predicates": Object {},
     "version": "0.1",
   },
+  "proofHandle": 1,
   "requester": Object {
     "name": "Evernym",
   },

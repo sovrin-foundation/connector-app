@@ -16,6 +16,7 @@ import type {
   IndyRequestedProof,
   RequestedClaimsJson,
   RequestedAttrsJson,
+  VcxSelectedCredentials,
 } from './type-proof'
 import type {
   ProofRequestData,
@@ -24,6 +25,7 @@ import type {
   IndySelfAttested,
   SelfAttestedAttribute,
   ProofRequestedAttributes,
+  ProofRequestPayload,
 } from '../proof-request/type-proof-request'
 import {
   UPDATE_ATTRIBUTE_CLAIM,
@@ -34,7 +36,10 @@ import {
   USER_SELF_ATTESTED_ATTRIBUTES,
 } from './type-proof'
 import type { CustomError } from '../common/type-common'
-import { prepareProof, generateProof } from '../bridge/react-native-cxs/RNCxs'
+import {
+  generateProof,
+  getMatchingCredentials,
+} from '../bridge/react-native-cxs/RNCxs'
 import {
   proofRequestAutoFill,
   missingAttributesFound,
@@ -46,6 +51,7 @@ import {
   getProofRequestPairwiseDid,
   getPoolConfig,
   getProofRequesterName,
+  getProofRequest,
 } from '../store/store-selector'
 import type { Attribute } from '../push-notification/type-push-notification'
 import { RESET } from '../common/type-common'
@@ -108,26 +114,25 @@ export function convertPreparedProofToRequestedAttributes(
   // apart from conversion, it finds attributes that are not in any claim
 
   const missingAttributes: MissingAttribute[] = []
-  const requestedAttributes = Object.keys(proofRequest.requested_attrs).reduce(
-    (acc, attrKey) => {
-      const attributeClaimData = preparedProof.attrs[attrKey]
+  const requestedAttributes = Object.keys(
+    proofRequest.requested_attributes
+  ).reduce((acc, attrKey) => {
+    const attributeClaimData = preparedProof.attrs[attrKey]
 
-      if (!attributeClaimData || !attributeClaimData[0]) {
-        missingAttributes.push({
-          key: attrKey,
-          name: proofRequest.requested_attrs[attrKey].name,
-        })
+    if (!attributeClaimData || !attributeClaimData[0]) {
+      missingAttributes.push({
+        key: attrKey,
+        name: proofRequest.requested_attributes[attrKey].name,
+      })
 
-        return acc
-      }
+      return acc
+    }
 
-      return {
-        ...acc,
-        [attrKey]: [attributeClaimData[0].claim_uuid, true],
-      }
-    },
-    {}
-  )
+    return {
+      ...acc,
+      [attrKey]: [attributeClaimData[0].cred_info.referent, true],
+    }
+  }, {})
 
   return [requestedAttributes, missingAttributes]
 }
@@ -144,8 +149,12 @@ export function convertIndyPreparedProofToAttributes(
       return revealedAttributes.map(revealedAttribute => ({
         label,
         key: attributeKey,
-        data: revealedAttribute && revealedAttribute.attrs[label],
-        claimUuid: revealedAttribute && revealedAttribute.claim_uuid,
+        data: revealedAttribute && revealedAttribute.cred_info.attrs[label],
+        claimUuid: revealedAttribute && revealedAttribute.cred_info.referent,
+        // TODO:KS Refactor this logic to not put cred_info here
+        // We are putting cred_info here because we don't want to iterate
+        // later to find whole credential
+        cred_info: revealedAttribute ? revealedAttribute : null,
       }))
     }
 
@@ -165,28 +174,75 @@ export function convertIndyPreparedProofToAttributes(
   return attributes
 }
 
+export function convertUserSelectedCredentialToVcxSelectedCredentials(
+  userSelectedCredentials: IndyRequestedAttributes
+): VcxSelectedCredentials {
+  const attrs = Object.keys(userSelectedCredentials).reduce(
+    (acc, attributeKey) => ({
+      ...acc,
+      [attributeKey]: userSelectedCredentials[attributeKey][2],
+    }),
+    {}
+  )
+
+  return {
+    attrs,
+  }
+}
+
+export function convertSelectedCredentialAttributesToIndyProof(
+  userSelectedCredentials: IndyRequestedAttributes
+) {
+  const credentialFilledAttributes = Object.keys(userSelectedCredentials)
+
+  return credentialFilledAttributes.reduce((acc, attributeKey) => {
+    const selectedAttribute = userSelectedCredentials[attributeKey]
+    // we only have attribute key at this point, we can still get attribute name
+    // but then we would have to do a lot of other mapping
+    // we should still do that but for now we know that attribute keys are formed
+    // by adding _<index> after the name of attribute
+    // so we are removing that last _<index> from attribute key and generating attribute name
+    // We will remove this logic and have it work without below hack
+    // when we will refactor whole proof generation logic
+    const attributeLabel = attributeKey
+      .split('_')
+      .slice(0, -1)
+      .join('_')
+    return {
+      ...acc,
+      [attributeKey]: [
+        selectedAttribute[0],
+        selectedAttribute[2].cred_info.attrs[attributeLabel],
+      ],
+    }
+  }, {})
+}
+
 export function* generateProofSaga(
   action: GenerateProofAction
 ): Generator<*, *, *> {
   try {
     const { uid } = action
-    const proofRequest: ProofRequestData = yield select(
-      getOriginalProofRequestData,
+    const proofRequestPayload: ProofRequestPayload = yield select(
+      getProofRequest,
       uid
     )
-    const poolConfig: string = yield select(getPoolConfig)
-
-    const preparedProofJson: string = yield call(
-      prepareProof,
-      JSON.stringify(proofRequest),
-      poolConfig
+    const proofRequest = proofRequestPayload.originalProofRequestData
+    const { proofHandle } = proofRequestPayload
+    const matchingCredentialsJson: string = yield call(
+      getMatchingCredentials,
+      proofHandle
     )
-
-    const preparedProof: IndyPreparedProof = JSON.parse(preparedProofJson)
+    const matchingCredentials: IndyPreparedProof = JSON.parse(
+      matchingCredentialsJson
+    )
     const [
       requestedAttrsJson,
       missingAttributes,
-    ] = convertPreparedProofToRequestedAttributes(preparedProof, proofRequest)
+    ] = convertPreparedProofToRequestedAttributes(
+      matchingCredentials,
+      proofRequest
+    )
     let selfAttestedAttributes: SelfAttestedAttributes = {}
 
     if (missingAttributes.length > 0) {
@@ -204,43 +260,55 @@ export function* generateProofSaga(
       selfAttestedAttributes = selfAttestedFilledAction.selfAttestedAttributes
     }
 
-    const requestedClaimsJson = {
-      self_attested_attributes: convertSelfAttestedToIndySelfAttested(
-        selfAttestedAttributes
-      ),
-      requested_attrs: requestedAttrsJson,
-      requested_predicates: {},
-    }
-
     // auto-fill proof request
     const requestedAttributes = convertIndyPreparedProofToAttributes(
-      { ...preparedProof, self_attested_attrs: { ...selfAttestedAttributes } },
-      proofRequest.requested_attrs
+      {
+        ...matchingCredentials,
+        self_attested_attrs: { ...selfAttestedAttributes },
+      },
+      proofRequest.requested_attributes
     )
-
     yield put(proofRequestAutoFill(uid, requestedAttributes))
 
-    const remoteDid: string = yield select(getProofRequestPairwiseDid, uid)
-
     const updateAttributeClaim = yield take(UPDATE_ATTRIBUTE_CLAIM)
-    requestedClaimsJson.requested_attrs =
-      updateAttributeClaim.requestedAttrsJson
 
     yield put(sendProof(uid))
 
-    // call generate proof api
-    const proofJson = yield call(
-      generateProof,
-      JSON.stringify(proofRequest),
-      remoteDid,
-      JSON.stringify(requestedClaimsJson),
-      preparedProofJson,
-      poolConfig
+    const selectedCredentials = convertUserSelectedCredentialToVcxSelectedCredentials(
+      updateAttributeClaim.requestedAttrsJson
     )
-    const proof: Proof = JSON.parse(proofJson)
+    const selectedSelfAttestedAttributes = convertSelfAttestedToIndySelfAttested(
+      selfAttestedAttributes
+    )
+    yield call(
+      generateProof,
+      proofHandle,
+      JSON.stringify(selectedCredentials),
+      JSON.stringify(selectedSelfAttestedAttributes)
+    )
 
-    yield put(proofSuccess(proof, uid))
     yield put(acceptProofRequest(uid))
+    // create a proof object so that history store and others that depend on proof
+    // can use this proof object, previously proof object was generated with libIndy
+    // now that we have removed libIndy and use vcx, we are generating this object
+    // We should re-write whole proof generation logic and events in a single saga
+    // and merge two stores proof-request-store and proof-store
+    const proof: Proof = {
+      proofs: {},
+      aggregated_proof: {
+        c_hash: '',
+        c_list: [[0]],
+      },
+      requested_proof: {
+        revealed_attrs: convertSelectedCredentialAttributesToIndyProof(
+          updateAttributeClaim.requestedAttrsJson
+        ),
+        unrevealed_attrs: {},
+        self_attested_attrs: selectedSelfAttestedAttributes,
+        predicates: {},
+      },
+    }
+    yield put(proofSuccess(proof, uid))
   } catch (e) {
     yield put(proofFail(action.uid, e))
   }

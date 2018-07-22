@@ -42,6 +42,9 @@ export default StyleSheet.create({
     height: OFFSET_9X + (Platform.OS === 'ios' ? 0 : OFFSET_1X),
   },
   clearBg: { backgroundColor: 'transparent' },
+  centerTitle: {
+    alignSelf: 'center',
+  },
 })
 
 export const primaryHeaderStyles = StyleSheet.create({

@@ -109,21 +109,31 @@ export type UserSelfAttestedAttributesAction = {
   uid: string,
 }
 
+export type MatchingCredential = {
+  cred_info: {
+    referent: string,
+    attrs: { [claimAttributeName: string]: string },
+    schema_id: string,
+    cred_def_id: string,
+  },
+}
+
 export type IndyPreparedProof = {
   attrs: {
-    [attributeName: string]: ?Array<{
-      claim_uuid: string,
-      attrs: { [claimAttributeName: string]: string },
-      schema_seq_no: number,
-      issuer_did: string,
-    } | null>,
+    [attributeName: string]: ?Array<MatchingCredential | null>,
   },
   predicates: {},
   self_attested_attrs?: {},
 }
 
 export type IndyRequestedAttributes = {
-  [attributeName: string]: [string, boolean],
+  [attributeName: string]: [string, boolean, MatchingCredential],
+}
+
+export type VcxSelectedCredentials = {
+  attrs: {
+    [attributeKey: string]: MatchingCredential,
+  },
 }
 
 export type ProofAction =

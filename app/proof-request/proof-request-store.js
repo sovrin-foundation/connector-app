@@ -20,13 +20,9 @@ import type {
 
 import {
   getUserPairwiseDid,
-  getAgencyUrl,
-  getProof,
   getProofRequestPairwiseDid,
-  getUserOneTimeInfo,
-  getAgencyVerificationKey,
   getRemotePairwiseDidAndName,
-  getPoolConfig,
+  getProofRequest,
 } from '../store/store-selector'
 import {
   PROOF_REQUEST_RECEIVED,
@@ -41,12 +37,16 @@ import {
   SEND_PROOF_SUCCESS,
   SEND_PROOF_FAIL,
   MISSING_ATTRIBUTES_FOUND,
+  ERROR_SEND_PROOF,
 } from './type-proof-request'
 import type {
   NotificationPayloadInfo,
   Attribute,
 } from '../push-notification/type-push-notification'
-import { sendMessage } from '../bridge/react-native-cxs/RNCxs'
+import {
+  sendProof as sendProofApi,
+  getHandleBySerializedConnection,
+} from '../bridge/react-native-cxs/RNCxs'
 import type { Connection } from '../store/type-connection-store'
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
 import { MESSAGE_TYPE } from '../api/api-constants'
@@ -124,67 +124,51 @@ export function* watchProofRequestAccepted(): any {
 export function* proofAccepted(
   action: ProofRequestAcceptedAction
 ): Generator<*, *, *> {
-  const remoteDid: string = yield select(getProofRequestPairwiseDid, action.uid)
+  const { uid } = action
+  const remoteDid: string = yield select(getProofRequestPairwiseDid, uid)
   const userPairwiseDid: string | null = yield select(
     getUserPairwiseDid,
     remoteDid
   )
-
-  if (userPairwiseDid) {
-    // set status that we are generating and sending proof
-    yield put(sendProof(action.uid))
-    try {
-      const agencyUrl: string = yield select(getAgencyUrl)
-      const poolConfig: string = yield select(getPoolConfig)
-      const messageId: string = action.uid
-      const payload = yield select(getProof, messageId)
-      const proof = {
-        ...payload,
-        remoteDid,
-        userPairwiseDid,
-      }
-      const agencyVerificationKey: string = yield select(
-        getAgencyVerificationKey
-      )
-      const connection: Connection = yield select(
-        getRemotePairwiseDidAndName,
-        userPairwiseDid
-      )
-      const userOneTimeInfo: UserOneTimeInfo = yield select(getUserOneTimeInfo)
-
-      const url = `${agencyUrl}/agency/msg`
-      try {
-        const sendProofStatus = yield call(sendMessage, {
-          url,
-          messageType: MESSAGE_TYPE.PROOF,
-          messageReplyId: messageId,
-          message: JSON.stringify(proof),
-          myPairwiseDid: connection.myPairwiseDid,
-          myPairwiseVerKey: connection.myPairwiseVerKey,
-          myPairwiseAgentDid: connection.myPairwiseAgentDid,
-          myPairwiseAgentVerKey: connection.myPairwiseAgentVerKey,
-          myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
-          myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
-          myOneTimeDid: userOneTimeInfo.myOneTimeDid,
-          myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
-          myAgencyVerKey: agencyVerificationKey,
-          myPairwisePeerVerKey: connection.myPairwisePeerVerKey,
-          poolConfig,
-        })
-        yield put(sendProofSuccess(action.uid))
-      } catch (e) {
-        yield put(sendProofFail(action.uid, e))
-      }
-    } catch (e) {
-      yield put(sendProofFail(action.uid, e))
-    }
-  } else {
+  if (!userPairwiseDid) {
     yield put(
-      sendProofFail(action.uid, {
+      sendProofFail(uid, {
         code: 'OCS-002',
         message: 'No pairwise connection found',
       })
     )
+    return
+  }
+
+  const proofRequestPayload: ProofRequestPayload = yield select(
+    getProofRequest,
+    uid
+  )
+  const { proofHandle } = proofRequestPayload
+  const connection: {
+    remotePairwiseDID: string,
+    remoteName: string,
+  } & Connection = yield select(getRemotePairwiseDidAndName, userPairwiseDid)
+
+  if (!connection.vcxSerializedConnection) {
+    yield put(
+      sendProofFail(uid, {
+        code: 'OCS-002',
+        message: 'No pairwise connection found',
+      })
+    )
+    return
+  }
+
+  try {
+    const connectionHandle: number = yield call(
+      getHandleBySerializedConnection,
+      connection.vcxSerializedConnection
+    )
+    yield call(sendProofApi, proofHandle, connectionHandle)
+    yield put(sendProofSuccess(uid))
+  } catch (e) {
+    yield put(sendProofFail(uid, ERROR_SEND_PROOF(e.message)))
   }
 }
 

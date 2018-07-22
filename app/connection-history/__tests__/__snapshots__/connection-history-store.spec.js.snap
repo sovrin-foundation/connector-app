@@ -272,21 +272,18 @@ Object {
       "originalProofRequestData": Object {
         "name": "proof_req_1",
         "nonce": "123432421212",
-        "requested_attrs": Object {
+        "requested_attributes": Object {
           "attr1_uuid": Object {
-            "issuer_did": "issuerDid",
             "name": "Address 1",
-            "schema_seq_no": 36,
           },
           "attr2_uuid": Object {
-            "issuer_did": "issuerDid",
             "name": "Address 2",
-            "schema_seq_no": 36,
           },
         },
         "requested_predicates": Object {},
         "version": "0.1",
       },
+      "proofHandle": 1,
       "requester": Object {
         "name": "Test Issuer",
       },
@@ -505,21 +502,18 @@ Object {
             "originalProofRequestData": Object {
               "name": "proof_req_1",
               "nonce": "123432421212",
-              "requested_attrs": Object {
+              "requested_attributes": Object {
                 "attr1_uuid": Object {
-                  "issuer_did": "issuerDid",
                   "name": "Address 1",
-                  "schema_seq_no": 36,
                 },
                 "attr2_uuid": Object {
-                  "issuer_did": "issuerDid",
                   "name": "Address 2",
-                  "schema_seq_no": 36,
                 },
               },
               "requested_predicates": Object {},
               "version": "0.1",
             },
+            "proofHandle": 1,
             "requester": Object {
               "name": "Test Issuer",
             },

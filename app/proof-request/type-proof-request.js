@@ -19,11 +19,9 @@ import type {
 import type { Proof, RequestedAttrsJson } from '../proof/type-proof'
 import type { ClaimMap } from '../claim/type-claim'
 
-export type RequestedAttribute = {
-  schema_seq_no?: number,
-  issuer_did?: string,
+export type RequestedAttribute = {|
   name: string,
-}
+|}
 
 export type RequestedPredicates = {
   attr_name: string,
@@ -41,7 +39,7 @@ export type ProofRequestData = {
   nonce: string,
   name: string,
   version: string,
-  requested_attrs: ProofRequestedAttributes,
+  requested_attributes: ProofRequestedAttributes,
   requested_predicates?: ?{
     +[string]: RequestedPredicates,
   },
@@ -53,6 +51,7 @@ export type ProofRequestPushPayload = {
   intended_use?: string,
   proof_request_data: ProofRequestData,
   remoteName: string,
+  proofHandle: number,
 }
 
 export type ProofApiData = {
@@ -80,6 +79,7 @@ export type AdditionalProofDataPayload = {
   },
   originalProofRequestData: ProofRequestData,
   statusMsg?: string,
+  proofHandle: number,
 }
 
 export type ProofRequestAttributeListProp = {
@@ -293,3 +293,8 @@ export const MESSAGE_MISSING_ATTRIBUTES_DESCRIPTION = (
 export const MESSAGE_ERROR_PROOF_GENERATION_TITLE = 'Error generating proof'
 export const MESSAGE_ERROR_PROOF_GENERATION_DESCRIPTION =
   'Please try again after some time.'
+
+export const ERROR_SEND_PROOF = (message: string) => ({
+  code: 'PR-001',
+  message: `Error sending proof: ${message}`,
+})

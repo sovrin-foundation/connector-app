@@ -830,24 +830,6 @@ RCT_EXPORT_METHOD(vcxUpdatePushToken: (NSString *)config
   }];
 }
 
-RCT_EXPORT_METHOD(generateProof: (NSString *)proofRequestId
-                 requestedAttrs: (NSString *)requestedAttrs
-            requestedPredicates: (NSString *)requestedPredicates
-                      proofName: (NSString *)proofName
-                       resolver: (RCTPromiseResolveBlock) resolve
-                       rejecter: (RCTPromiseRejectBlock) reject)
-{
-  // TODO: call vcx_proof_create of libvcx
-  NSError *error = nil; // remove this line after integrating libvcx method
-  if (error != nil && error.code != 0)
-  {
-    NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
-    reject(indyErrorCode, @"Error occurred while generating proof", error);
-  } else {
-    resolve(@{});
-  }
-}
-
 RCT_EXPORT_METHOD(getGenesisPathWithConfig: (NSString *)config
                         fileName: (NSString *)fileName
                        resolver: (RCTPromiseResolveBlock) resolve
@@ -952,5 +934,86 @@ RCT_EXPORT_METHOD(getClaimVcx: (int)credentialHandle
 //      }
 //   }];
 // }
+
+RCT_EXPORT_METHOD(proofCreateWithMsgId: (NSString *)sourceId
+                  withConnectionHandle: (vcx_connection_handle_t)connectionHandle
+                  withMsgId: (NSString *)msgId
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  [[[ConnectMeVcx alloc] init] proofCreateWithMsgId:sourceId
+                               withConnectionHandle:connectionHandle
+                                          withMsgId:msgId
+                                     withCompletion:^(NSError *error, vcx_proof_handle_t proofHandle, NSString *proofRequest)
+  {
+    if (error != nil && error.code != 0) {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while downloading proof request", error);
+    }
+    else {
+      resolve(@{
+                @"proofHandle": @(proofHandle),
+                @"proofRequest": proofRequest
+                });
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(proofRetrieveCredentials:(vcx_proof_handle_t)proofHandle
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  [[[ConnectMeVcx alloc] init] proofRetrieveCredentials:proofHandle
+                                         withCompletion:^(NSError *error, NSString *matchingCredentials)
+  {
+    if (error != nil && error.code != 0) {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while retrieving matching credentials", error);
+    }
+    else {
+      resolve(matchingCredentials);
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(proofGenerate:(vcx_proof_handle_t)proofHandle
+                  withSelectedCredentials:(NSString *)selectedCredentials
+                  withSelfAttestedAttrs:(NSString *)selfAttestedAttributes
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  [[[ConnectMeVcx alloc] init] proofGenerate:proofHandle
+                     withSelectedCredentials:selectedCredentials
+                       withSelfAttestedAttrs:selfAttestedAttributes
+                              withCompletion:^(NSError *error)
+  {
+    if (error != nil && error.code != 0) {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while generating proof", error);
+    }
+    else {
+      resolve(@{});
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(proofSend:(vcx_proof_handle_t)proof_handle
+                  withConnectionHandle:(vcx_connection_handle_t)connection_handle
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  [[[ConnectMeVcx alloc] init] proofSend:proof_handle
+                    withConnectionHandle:connection_handle
+                          withCompletion:^(NSError *error)
+  {
+    if (error != nil && error.code != 0) {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while sending proof", error);
+    }
+    else {
+      resolve(@{});
+    }
+  }];
+}
 
 @end

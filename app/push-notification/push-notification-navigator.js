@@ -80,11 +80,12 @@ export function convertClaimOfferPushPayloadToAppClaimOffer(
 export function convertProofRequestPushPayloadToAppProofRequest(
   pushPayload: ProofRequestPushPayload
 ): AdditionalProofDataPayload {
-  const { proof_request_data, remoteName } = pushPayload
-  const { requested_attrs, name, version } = proof_request_data
-  const requestedAttributes = Object.keys(requested_attrs).map(
+  const { proof_request_data, remoteName, proofHandle } = pushPayload
+  const { requested_attributes, name, version } = proof_request_data
+
+  const requestedAttributes = Object.keys(requested_attributes).map(
     attributeKey => ({
-      label: requested_attrs[attributeKey].name,
+      label: requested_attributes[attributeKey].name,
     })
   )
 
@@ -98,6 +99,7 @@ export function convertProofRequestPushPayloadToAppProofRequest(
       name: remoteName,
     },
     originalProofRequestData: proof_request_data,
+    proofHandle,
   }
 }
 

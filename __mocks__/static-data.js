@@ -68,6 +68,7 @@ export const senderAgentDID1 = 'senderAgentDID1'
 export const endpoint = 'endpoint'
 export const uid = 'uid'
 export const smsToken = 'gm76ku'
+export const proofHandle = 1
 
 export const senderAgentKeyDelegationProof = {
   agentDID: senderAgentDID1,
@@ -185,15 +186,11 @@ export const originalProofRequestData = {
   nonce: '123432421212',
   name: 'proof_req_1',
   version: '0.1',
-  requested_attrs: {
+  requested_attributes: {
     attr1_uuid: {
-      schema_seq_no: claimDefinitionSchemaSequenceNumber,
-      issuer_did: issuerDid,
       name: 'Address 1',
     },
     attr2_uuid: {
-      schema_seq_no: claimDefinitionSchemaSequenceNumber,
-      issuer_did: issuerDid,
       name: 'Address 2',
     },
   },
@@ -204,55 +201,35 @@ export const originalProofRequestData10Attributes = {
   nonce: '123432421212',
   name: 'proof_req_2',
   version: '0.1',
-  requested_attrs: {
+  requested_attributes: {
     attr1_uuid: {
-      schema_seq_no: claimDefinitionSchemaSequenceNumber,
-      issuer_did: issuerDid,
       name: 'Address 1',
     },
     attr2_uuid: {
-      schema_seq_no: claimDefinitionSchemaSequenceNumber,
-      issuer_did: issuerDid,
       name: 'Address 2',
     },
     attr3_uuid: {
-      schema_seq_no: claimDefinitionSchemaSequenceNumber,
-      issuer_did: issuerDid,
       name: 'Address 3',
     },
     attr4_uuid: {
-      schema_seq_no: claimDefinitionSchemaSequenceNumber,
-      issuer_did: issuerDid,
       name: 'Address 4',
     },
     attr5_uuid: {
-      schema_seq_no: claimDefinitionSchemaSequenceNumber,
-      issuer_did: issuerDid,
       name: 'Address 5',
     },
     attr6_uuid: {
-      schema_seq_no: claimDefinitionSchemaSequenceNumber,
-      issuer_did: issuerDid,
       name: 'Address 6',
     },
     attr7_uuid: {
-      schema_seq_no: claimDefinitionSchemaSequenceNumber,
-      issuer_did: issuerDid,
       name: 'Address 7',
     },
     attr8_uuid: {
-      schema_seq_no: claimDefinitionSchemaSequenceNumber,
-      issuer_did: issuerDid,
       name: 'Address 8',
     },
     attr9_uuid: {
-      schema_seq_no: claimDefinitionSchemaSequenceNumber,
-      issuer_did: issuerDid,
       name: 'Address 9',
     },
     attr10_uuid: {
-      schema_seq_no: claimDefinitionSchemaSequenceNumber,
-      issuer_did: issuerDid,
       name: 'Address 10',
     },
   },
@@ -263,20 +240,14 @@ export const originalProofRequestDataMissingAttribute = {
   nonce: '123432421212',
   name: 'proof_req_1',
   version: '0.1',
-  requested_attrs: {
+  requested_attributes: {
     attr1_uuid: {
-      schema_seq_no: claimDefinitionSchemaSequenceNumber,
-      issuer_did: issuerDid,
       name: 'address1',
     },
     attr2_uuid: {
-      schema_seq_no: claimDefinitionSchemaSequenceNumber,
-      issuer_did: issuerDid,
       name: 'address2',
     },
     attr3_uuid: {
-      schema_seq_no: claimDefinitionSchemaSequenceNumber,
-      issuer_did: issuerDid,
       name: 'address3',
     },
   },
@@ -503,6 +474,7 @@ export const proofRequest = {
     },
     originalProofRequestData,
     statusMsg: 'pending',
+    proofHandle,
   },
   payloadInfo: {
     uid: proofRequestId,
@@ -794,18 +766,22 @@ export const preparedProof = {
   attrs: {
     attr1_uuid: [
       {
-        claim_uuid: 'claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73',
-        attrs: { name: 'Alex', sex: 'male' },
-        schema_seq_no: 295,
-        issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
+        cred_info: {
+          referent: 'claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73',
+          attrs: { name: 'Alex', sex: 'male' },
+          cred_def_id: 'V4SGRU86Z58d6TV7PBUe6f:3:CL:24:tag1',
+          schema_id: 'V4SGRU86Z58d6TV7Pf:2:slKljrSQ80tCQ40F:33089',
+        },
       },
     ],
     attr2_uuid: [
       {
-        claim_uuid: 'claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5',
-        attrs: { height: '150' },
-        schema_seq_no: 296,
-        issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
+        cred_info: {
+          referent: 'claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5',
+          attrs: { height: '150' },
+          cred_def_id: 'V4SGRU86Z58d6TV7PBUe6f:3:CL:24:tag1',
+          schema_id: 'V4SGRU86Z58d6TV7Pf:2:slKljrSQ80tCQ40F:33089',
+        },
       },
     ],
   },
@@ -816,18 +792,22 @@ export const homeAddressPreparedProof = {
   attrs: {
     attr1_uuid: [
       {
-        claim_uuid: 'claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73',
-        attrs: { ['Address 1']: 'Address 1' },
-        schema_seq_no: 295,
-        issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
+        cred_info: {
+          referent: 'claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73',
+          attrs: { ['Address 1']: 'Address 1' },
+          cred_def_id: 'V4SGRU86Z58d6TV7PBUe6f:3:CL:24:tag1',
+          schema_id: 'V4SGRU86Z58d6TV7Pf:2:slKljrSQ80tCQ40F:33089',
+        },
       },
     ],
     attr2_uuid: [
       {
-        claim_uuid: 'claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5',
-        attrs: { ['Address 2']: 'Address 2' },
-        schema_seq_no: 296,
-        issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
+        cred_info: {
+          referent: 'claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5',
+          attrs: { ['Address 2']: 'Address 2' },
+          cred_def_id: 'V4SGRU86Z58d6TV7PBUe6f:3:CL:24:tag1',
+          schema_id: 'V4SGRU86Z58d6TV7Pf:2:slKljrSQ80tCQ40F:33089',
+        },
       },
     ],
   },
@@ -838,18 +818,22 @@ export const preparedProofWithMissingAttribute = {
   attrs: {
     attr1_uuid: [
       {
-        claim_uuid: 'claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73',
-        attrs: { name: 'Alex', sex: 'male' },
-        schema_seq_no: 295,
-        issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
+        cred_info: {
+          referent: 'claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73',
+          attrs: { name: 'Alex', sex: 'male' },
+          cred_def_id: 'V4SGRU86Z58d6TV7PBUe6f:3:CL:24:tag1',
+          schema_id: 'V4SGRU86Z58d6TV7Pf:2:slKljrSQ80tCQ40F:33089',
+        },
       },
     ],
     attr3_uuid: [
       {
-        claim_uuid: 'claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5',
-        attrs: { height: '150' },
-        schema_seq_no: 296,
-        issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
+        cred_info: {
+          referent: 'claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5',
+          attrs: { height: '150' },
+          cred_def_id: 'V4SGRU86Z58d6TV7PBUe6f:3:CL:24:tag1',
+          schema_id: 'V4SGRU86Z58d6TV7Pf:2:slKljrSQ80tCQ40F:33089',
+        },
       },
     ],
     [missingAttributes[0].key]: [null],
@@ -861,24 +845,30 @@ export const homeAddressPreparedProofWithMissingAttribute = {
   attrs: {
     attr1_uuid: [
       {
-        claim_uuid: 'claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73',
-        attrs: { ['Address 1']: 'Evernym Ltd, Hyd.' },
-        schema_seq_no: 295,
-        issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
+        cred_info: {
+          referent: 'claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73',
+          attrs: { ['Address 1']: 'Evernym Ltd, Hyd.' },
+          cred_def_id: 'V4SGRU86Z58d6TV7PBUe6f:3:CL:24:tag1',
+          schema_id: 'V4SGRU86Z58d6TV7Pf:2:slKljrSQ80tCQ40F:33089',
+        },
       },
       {
-        claim_uuid: 'claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73',
-        attrs: { ['Address 1']: 'Sovrin Ltd, Utah.' },
-        schema_seq_no: 295,
-        issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
+        cred_info: {
+          referent: 'claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73',
+          attrs: { ['Address 1']: 'Sovrin Ltd, Utah.' },
+          cred_def_id: 'V4SGRU86Z58d6TV7PBUe6f:3:CL:24:tag2',
+          schema_id: 'V4SGRU86Z58d6TV7P:3:slKljrSQ80tCQ40F:33089',
+        },
       },
     ],
     attr3_uuid: [
       {
-        claim_uuid: 'claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5',
-        attrs: { ['Address 2']: 'Address 2' },
-        schema_seq_no: 296,
-        issuer_did: 'V4SGRU86Z58d6TV7PBUe6f',
+        cred_info: {
+          referent: 'claim::6a0f42b4-1210-4bdb-ad53-10ed765276b5',
+          attrs: { ['Address 2']: 'Address 2' },
+          cred_def_id: 'V4SGRU86Z58d6TV7PBUe6f:3:CL:24:tag2',
+          schema_id: 'V4SGRU86Z58d6TV7P:3:slKljrSQ80tCQ40F:33089',
+        },
       },
     ],
     [missingAttributes[0].key]: [null],
@@ -1301,3 +1291,100 @@ export {
   vcxClaimOffer,
 } from './data/vcx-mock-data'
 export { connectionThemes } from './data/connections-mock-data'
+
+export const proofRequestPushPayloadAdditionalData = {
+  '@type': {
+    name: 'PROOF_REQUEST',
+    version: '1.0',
+  },
+  '@topic': {
+    tid: 1,
+    mid: 9,
+  },
+  proof_request_data: originalProofRequestData,
+  remoteName: 'Evernym',
+  proofHandle,
+}
+
+export const vcxMatchingCredentials = {
+  attrs: {
+    self_attest_3: [],
+    zip_2: [
+      {
+        cred_info: {
+          referent: 'bcee6e4e-77f9-4c72-9481-2aba8d263326',
+          attrs: {
+            city: 'Draper',
+            zip: '84000',
+            address1: '123 Main St',
+            address2: 'Suite 3',
+            state: 'UT',
+          },
+          schema_id:
+            'V4SGRU86Z58d6TV7PBUe6f:2:slKljrSQ80tCQ408c9HFU7oOF:3308974152.3403268968',
+          cred_def_id: 'V4SGRU86Z58d6TV7PBUe6f:3:CL:24:tag1',
+          rev_reg_id: null,
+          cred_rev_id: null,
+        },
+        interval: null,
+      },
+      {
+        cred_info: {
+          referent: '09165aee-8342-4c9b-829e-21435b0c57a6',
+          attrs: {
+            zip: '84000',
+            city: 'Draper',
+            address1: '123 Main St',
+            state: 'UT',
+            address2: 'Suite 3',
+          },
+          schema_id:
+            'V4SGRU86Z58d6TV7PBUe6f:2:azHf3YSoOUfnaLQF5hZIvibQB:1745712737.4068194863',
+          cred_def_id: 'V4SGRU86Z58d6TV7PBUe6f:3:CL:22:tag1',
+          rev_reg_id: null,
+          cred_rev_id: null,
+        },
+        interval: null,
+      },
+    ],
+    address1_1: [
+      {
+        cred_info: {
+          referent: 'bcee6e4e-77f9-4c72-9481-2aba8d263326',
+          attrs: {
+            city: 'Draper',
+            zip: '84000',
+            address1: '123 Main St',
+            address2: 'Suite 3',
+            state: 'UT',
+          },
+          schema_id:
+            'V4SGRU86Z58d6TV7PBUe6f:2:slKljrSQ80tCQ408c9HFU7oOF:3308974152.3403268968',
+          cred_def_id: 'V4SGRU86Z58d6TV7PBUe6f:3:CL:24:tag1',
+          rev_reg_id: null,
+          cred_rev_id: null,
+        },
+        interval: null,
+      },
+      {
+        cred_info: {
+          referent: '09165aee-8342-4c9b-829e-21435b0c57a6',
+          attrs: {
+            zip: '84000',
+            city: 'Draper',
+            address1: '123 Main St',
+            state: 'UT',
+            address2: 'Suite 3',
+          },
+          schema_id:
+            'V4SGRU86Z58d6TV7PBUe6f:2:azHf3YSoOUfnaLQF5hZIvibQB:1745712737.4068194863',
+          cred_def_id: 'V4SGRU86Z58d6TV7PBUe6f:3:CL:22:tag1',
+          rev_reg_id: null,
+          cred_rev_id: null,
+        },
+        interval: null,
+      },
+    ],
+  },
+  predicates: {},
+}

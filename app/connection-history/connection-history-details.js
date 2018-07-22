@@ -71,7 +71,7 @@ export class ConnectionHistoryDetails extends PureComponent<
       </CustomView>
     ),
     headerTitle: (
-      <CustomView>
+      <CustomView style={[headerStyles.centerTitle]}>
         {action && (
           <CustomText transparentBg center>
             {action}
@@ -102,6 +102,7 @@ export class ConnectionHistoryDetails extends PureComponent<
         )}
       </CustomView>
     ),
+    headerRight: <Container />,
     headerStyle: [
       headerStyles.header,
       styles.headerContainer,

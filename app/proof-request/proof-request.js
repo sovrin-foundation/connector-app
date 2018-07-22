@@ -460,7 +460,11 @@ export class ProofRequest extends PureComponent<
         (acc, item) => {
           const items = { ...acc }
           if (item[0].claimUuid) {
-            items[`${item[0].key}`] = [item[0].claimUuid, true]
+            items[`${item[0].key}`] = [
+              item[0].claimUuid,
+              true,
+              item[0].cred_info,
+            ]
           }
           return items
         },
@@ -474,7 +478,7 @@ export class ProofRequest extends PureComponent<
     if (this.state.selectedClaims && item && item.key) {
       const selectedClaims = {
         ...this.state.selectedClaims,
-        [`${item.key}`]: [item.claimUuid, true],
+        [`${item.key}`]: [item.claimUuid, true, item.cred_info],
       }
       this.setState({ selectedClaims })
     }

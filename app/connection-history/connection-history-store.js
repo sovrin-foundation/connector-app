@@ -240,7 +240,7 @@ export function convertProofSendToHistoryEvent(
   action: SendProofSuccessAction,
   {
     data: { name },
-    originalProofRequestData: { requested_attrs },
+    originalProofRequestData: { requested_attributes },
     remotePairwiseDID: remoteDid,
   }: ProofRequestPayload,
   { requested_proof: { revealed_attrs, self_attested_attrs } }: Proof
@@ -250,7 +250,7 @@ export function convertProofSendToHistoryEvent(
     data: mapSentAttributes(
       revealed_attrs,
       self_attested_attrs,
-      requested_attrs
+      requested_attributes
     ),
     id: uuid(),
     name,

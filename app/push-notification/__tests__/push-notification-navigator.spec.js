@@ -10,7 +10,10 @@ import {
   convertClaimPushPayloadToAppClaim,
   convertProofRequestPushPayloadToAppProofRequest,
 } from '../push-notification-navigator'
-import { claimOfferPushNotification } from '../../../__mocks__/static-data'
+import {
+  claimOfferPushNotification,
+  proofRequestPushPayloadAdditionalData,
+} from '../../../__mocks__/static-data'
 
 describe('<PushNotificationNavigator />', () => {
   let store = {}
@@ -68,61 +71,10 @@ describe('<PushNotificationNavigator />', () => {
 
 describe('convertProofRequestPushPayloadToAppProofRequest', () => {
   it('should convert push payload to proof request format correctly', () => {
-    const proofRequestPushPayload = {
-      '@type': {
-        name: 'PROOF_REQUEST',
-        version: '1.0',
-      },
-      '@topic': {
-        tid: 1,
-        mid: 9,
-      },
-      intended_use: 'Verify Home Address',
-      proof_request_data: {
-        nonce: '123432421212',
-        name: 'Home Address',
-        version: '0.1',
-        requested_attrs: {
-          '<attr1_uuid>': {
-            name: 'your_name',
-          },
-          '<attr2_uuid>': {
-            schema_seq_no: 1,
-            name: 'address_1',
-          },
-          '<attr3_uuid>': {
-            schema_seq_no: 2,
-            issuer_did: 'ISSUER_DID2',
-            name: 'address_2',
-          },
-          '<attr4_uuid>': {
-            schema_seq_no: 1,
-            name: 'city',
-          },
-          '<attr5_uuid>': {
-            schema_seq_no: 1,
-            name: 'state',
-          },
-          '<attr6_uuid>': {
-            schema_seq_no: 1,
-            name: 'zip',
-          },
-        },
-        requested_predicates: {
-          predicate1_uuid: {
-            attr_name: 'age',
-            p_type: 'GE',
-            value: 18,
-            schema_seq_no: 1,
-            issuer_did: 'DID1',
-          },
-        },
-      },
-      remoteName: 'Evernym',
-    }
-
     expect(
-      convertProofRequestPushPayloadToAppProofRequest(proofRequestPushPayload)
+      convertProofRequestPushPayloadToAppProofRequest(
+        proofRequestPushPayloadAdditionalData
+      )
     ).toMatchSnapshot()
   })
 })
