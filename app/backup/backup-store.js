@@ -428,6 +428,7 @@ export default function backupReducer(
       return {
         ...initialState,
         lastSuccessfulBackup: action.lastSuccessfulBackup,
+        showBanner: state.showBanner,
       }
     case HYDRATE_BACKUP_FAILURE:
       return {

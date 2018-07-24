@@ -47,7 +47,7 @@ export class Bubble extends PureComponent<BubbleProps, BubbleState> {
       })
     }
   }
-  allowInteractionsFunction = () => {
+  showHistory = () => {
     const {
       image,
 
@@ -88,7 +88,7 @@ export class Bubble extends PureComponent<BubbleProps, BubbleState> {
         onError={this._onError}
         testID={testID}
         onLongPress={() => showDID(senderDID, identifier)}
-        onPress={this.allowInteractionsFunction}
+        onPress={this.showHistory}
       />
     )
   }
