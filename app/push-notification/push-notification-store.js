@@ -90,94 +90,15 @@ export const updatePushToken = (token: string) => ({
   token,
 })
 
-export function* onPushTokenUpdateVcx(
+export function* onPushTokenUpdate(
   action: PushNotificationUpdateTokenAction
 ): Generator<*, *, *> {
-  // TODO:KS Rename this method to onPushTokenUpdate
-  // once integration with vcx is done for both ios and android
-
   yield* ensureVcxInitSuccess()
 
   try {
     const pushToken = `FCM:${action.token}`
     const id = yield uniqueId()
     yield call(updatePushTokenVcx, { uniqueId: id, pushToken })
-  } catch (e) {
-    captureError(e)
-  }
-}
-
-export function* onPushTokenUpdate(
-  action: PushNotificationUpdateTokenAction
-): any {
-  const useVcx: boolean = yield select(getUseVcx)
-  // TODO:KS Once we have integrated vcx with both ios and android
-  // then we will remove method onPushTokenUpdate
-  // and use onPushTokenUpdateVcx, because that is what flow will be when using vcx
-  if (Platform.OS === 'android' || useVcx) {
-    yield* onPushTokenUpdateVcx(action)
-
-    return
-  }
-
-  const { token } = action
-  // We can come to this point in code from several paths
-  // 1. this is called when user is trying to accept connection first time
-  // 2. this can be called when we are hydrating app data and we put push token
-  // 3. can be called when Firebase Push plugin updates push token
-
-  // we need to check first that app is hydrated
-  const isHydrated = yield select(getHydrationState)
-  if (!isHydrated) {
-    // if app is not hydrated and we still get push token update
-    // that means app is being hydrated and it is coming from scenario 2 or 3
-    // so we wait for app to be hydrated
-    // also, we need to wait for hydrated because we need user one time info
-    yield take(HYDRATED)
-  }
-
-  // now if app is hydrated, so we know that this can either of three scenarios
-
-  let userOneTimeInfo = yield select(getUserOneTimeInfo)
-  if (!userOneTimeInfo) {
-    // we tried to get user one time info from redux store and we did not find it
-    // this is for scenario 1
-    // if app is hydrated and this is the first time user is trying to establish
-    // connection, then we wait for one time process to complete,
-    // so that we have user one time info available for encryption
-    // wait (yield take) for one time registration process to complete
-    // and then we can update push token
-    const oneTimeProcessCompleteAction: {
-      userOneTimeInfo: UserOneTimeInfo,
-    } = yield take(CONNECT_REGISTER_CREATE_AGENT_DONE)
-    userOneTimeInfo = oneTimeProcessCompleteAction.userOneTimeInfo
-  }
-
-  // we don't need an else condition here because
-  // either we got one time info from store or from one time process action
-  // so for both scenario 2 & 3, we will get user one time info
-  // as soon as hydrated is success
-  const agencyUrl: string = yield select(getAgencyUrl)
-  const poolConfig: string = yield select(getPoolConfig)
-  const agencyVerificationKey: string = yield select(getAgencyVerificationKey)
-  const pushComMethod = `FCM:${token}`
-  try {
-    const id = yield uniqueId()
-    try {
-      const url = `${agencyUrl}/agency/msg`
-      const response = yield call(updatePushTokenApi, {
-        url,
-        token: pushComMethod,
-        uniqueDeviceId: id,
-        myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
-        myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
-        myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
-        myAgencyVerKey: agencyVerificationKey,
-        poolConfig,
-      })
-    } catch (e) {
-      captureError(e)
-    }
   } catch (e) {
     captureError(e)
   }
@@ -207,97 +128,6 @@ export const fetchAdditionalDataError = (error: CustomError) => ({
 })
 
 export function* fetchAdditionalDataSaga(
-  action: FetchAdditionalDataAction
-): Generator<*, *, *> {
-  yield* ensureAppHydrated()
-  const useVcx = yield select(getUseVcx)
-
-  if (Platform.OS === 'android' || useVcx) {
-    // TODO: KS Once integration with vcx is done for both ios and android
-    // we will remove fetchAdditionalDataSaga and use fetchAdditionalDataSagaVcx
-    yield* fetchAdditionalDataSagaVcx(action)
-
-    return
-  }
-
-  const { forDID, uid, type, senderLogoUrl } = action.notificationPayload
-
-  if (forDID) {
-    const { remotePairwiseDID, remoteName, ...connection } = yield select(
-      getRemotePairwiseDidAndName,
-      forDID
-    )
-
-    if (remotePairwiseDID) {
-      try {
-        const userOneTimeInfo: UserOneTimeInfo = yield select(
-          getUserOneTimeInfo
-        )
-        const agencyUrl: string = yield select(getAgencyUrl)
-        const poolConfig: string = yield select(getPoolConfig)
-        const agencyVerificationKey: string = yield select(
-          getAgencyVerificationKey
-        )
-        const url = `${agencyUrl}/agency/msg`
-        const additionalDataResponse: AdditionalDataResponse = yield call(
-          getMessage,
-          {
-            url,
-            requestId: uid,
-            myPairwiseDid: connection.myPairwiseDid,
-            myPairwiseVerKey: connection.myPairwiseVerKey,
-            myPairwiseAgentDid: connection.myPairwiseAgentDid,
-            myPairwiseAgentVerKey: connection.myPairwiseAgentVerKey,
-            myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
-            myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
-            myOneTimeDid: userOneTimeInfo.myOneTimeDid,
-            myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
-            myAgencyVerKey: agencyVerificationKey,
-            poolConfig,
-          }
-        )
-
-        const additionalData = JSON.parse(additionalDataResponse.payload)
-        yield put(
-          pushNotificationReceived({
-            type,
-            additionalData: {
-              remoteName,
-              ...additionalData,
-            },
-            uid,
-            senderLogoUrl,
-            remotePairwiseDID,
-            forDID,
-          })
-        )
-      } catch (e) {
-        yield put(
-          fetchAdditionalDataError({
-            code: 'OCS-000',
-            message: 'Invalid additional data',
-          })
-        )
-      }
-    } else {
-      yield put(
-        fetchAdditionalDataError({
-          code: 'OCS-002',
-          message: 'No pairwise connection found',
-        })
-      )
-    }
-  } else {
-    yield put(
-      fetchAdditionalDataError({
-        code: 'OCS-001',
-        message: 'Missing forDID in notification payload',
-      })
-    )
-  }
-}
-
-export function* fetchAdditionalDataSagaVcx(
   action: FetchAdditionalDataAction
 ): Generator<*, *, *> {
   yield* ensureVcxInitSuccess()

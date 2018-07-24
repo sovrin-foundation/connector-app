@@ -936,7 +936,7 @@ RCT_EXPORT_METHOD(getClaimVcx: (int)credentialHandle
 // }
 
 RCT_EXPORT_METHOD(proofCreateWithMsgId: (NSString *)sourceId
-                  withConnectionHandle: (vcx_connection_handle_t)connectionHandle
+                  withConnectionHandle: (NSInteger)connectionHandle
                   withMsgId: (NSString *)msgId
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
@@ -959,7 +959,7 @@ RCT_EXPORT_METHOD(proofCreateWithMsgId: (NSString *)sourceId
   }];
 }
 
-RCT_EXPORT_METHOD(proofRetrieveCredentials:(vcx_proof_handle_t)proofHandle
+RCT_EXPORT_METHOD(proofRetrieveCredentials:(NSInteger)proofHandle
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
@@ -976,7 +976,7 @@ RCT_EXPORT_METHOD(proofRetrieveCredentials:(vcx_proof_handle_t)proofHandle
   }];
 }
 
-RCT_EXPORT_METHOD(proofGenerate:(vcx_proof_handle_t)proofHandle
+RCT_EXPORT_METHOD(proofGenerate:(NSInteger)proofHandle
                   withSelectedCredentials:(NSString *)selectedCredentials
                   withSelfAttestedAttrs:(NSString *)selfAttestedAttributes
                   resolver: (RCTPromiseResolveBlock) resolve
@@ -997,8 +997,8 @@ RCT_EXPORT_METHOD(proofGenerate:(vcx_proof_handle_t)proofHandle
   }];
 }
 
-RCT_EXPORT_METHOD(proofSend:(vcx_proof_handle_t)proof_handle
-                  withConnectionHandle:(vcx_connection_handle_t)connection_handle
+RCT_EXPORT_METHOD(proofSend:(NSInteger)proof_handle
+                  withConnectionHandle:(NSInteger)connection_handle
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {

@@ -15,7 +15,6 @@ import pushNotificationReducer, {
   pushNotificationReceived,
   updatePushToken,
   onPushTokenUpdate,
-  onPushTokenUpdateVcx,
 } from '../push-notification-store'
 import {
   updatePushToken as updatePushTokenApi,
@@ -85,49 +84,6 @@ describe('push notification store should work properly', () => {
     expect(actualState).toMatchObject(expectedState)
   })
 
-  it('should send updated push token for each connection', () => {
-    const pushToken = 'test:APA91bFOyY3at1DzdKO-Z4G_5dG12cXvKC1GuICX3jH'
-    const useVcx = true
-    const gen = onPushTokenUpdate(updatePushToken(pushToken))
-    expect(gen.next().value).toEqual(select(getUseVcx))
-    expect(gen.next().value).toEqual(select(getHydrationState))
-
-    const hydrationState = true
-
-    expect(gen.next(hydrationState).value).toEqual(select(getUserOneTimeInfo))
-
-    expect(gen.next().value).toMatchObject(
-      take(CONNECT_REGISTER_CREATE_AGENT_DONE)
-    )
-
-    expect(gen.next({ userOneTimeInfo }).value).toMatchObject(
-      select(getAgencyUrl)
-    )
-
-    const agencyUrl = 'https://agencyurl.com'
-    const uniqueDeviceId = 'uniqueDeviceId'
-    expect(gen.next(agencyUrl).value).toEqual(select(getPoolConfig))
-
-    expect(gen.next(poolConfig).value).toEqual(select(getAgencyVerificationKey))
-    const agencyVerificationKey = 'agencyVerificationKey'
-    expect(gen.next(agencyVerificationKey).value).toEqual(uniqueId())
-
-    expect(gen.next(uniqueDeviceId).value).toEqual(
-      call(updatePushTokenApi, {
-        url: `${agencyUrl}/agency/msg`,
-        token: `FCM:${pushToken}`,
-        uniqueDeviceId,
-        myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
-        myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
-        myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
-        myAgencyVerKey: agencyVerificationKey,
-        poolConfig,
-      })
-    )
-
-    expect(gen.next().done).toBe(true)
-  })
-
   it('should reset push notification store, if RESET action is raised', () => {
     const afterPushNotificationReceivedState = pushNotificationReducer(
       initialState,
@@ -158,7 +114,7 @@ describe('push notification store should work properly', () => {
     const id = await uniqueId()
     const cxsPushTokenConfig = { uniqueId: id, pushToken: `FCM:${pushToken}` }
 
-    return expectSaga(onPushTokenUpdateVcx, updatePushToken(pushToken))
+    return expectSaga(onPushTokenUpdate, updatePushToken(pushToken))
       .withState(vcxInitSuccessState)
       .call(updatePushTokenVcx, cxsPushTokenConfig)
       .run()

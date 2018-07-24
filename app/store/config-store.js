@@ -487,14 +487,6 @@ export function* initVcx(): Generator<*, *, *> {
     yield take(SAFE_TO_DOWNLOAD_SMS_INVITATION)
   }
 
-  if (Platform.OS !== 'android') {
-    const useVcx: boolean = yield select(getUseVcx)
-    // if we are not going to use vcx, then don't proceed with vcx
-    if (!useVcx) {
-      return
-    }
-  }
-
   // check if we already have user one time info
   // if we already have one time info, that means we don't have to register
   // with agency again, and we can just raise success action for VCX_INIT
