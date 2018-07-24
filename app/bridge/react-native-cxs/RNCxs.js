@@ -46,6 +46,7 @@ import type {
 import type { GenericStringObject } from '../../common/type-common'
 import type { Passphrase } from '../../backup/type-backup'
 import type { GetClaimVcxResult } from '../../claim/type-claim'
+import uniqueId from 'react-native-unique-id'
 
 const { RNIndy } = NativeModules
 
@@ -516,8 +517,11 @@ export async function sendTokenAmount(
 export async function createOneTimeInfo(
   agencyConfig: AgencyPoolConfig
 ): Promise<UserOneTimeInfo> {
+  const walletPoolName = await getWalletPoolName()
   const provisionVcxResult: string = await RNIndy.createOneTimeInfo(
-    JSON.stringify(convertAgencyConfigToVcxProvision(agencyConfig))
+    JSON.stringify(
+      convertAgencyConfigToVcxProvision(agencyConfig, walletPoolName)
+    )
   )
   const provisionResult: VcxProvisionResult = JSON.parse(provisionVcxResult)
   return convertVcxProvisionResultToUserOneTimeInfo(provisionResult)
@@ -536,11 +540,27 @@ export async function init(
     ...config,
     genesis_path,
   }
+  const walletPoolName = await getWalletPoolName()
   const initResult: boolean = await RNIndy.init(
-    JSON.stringify(convertCxsInitToVcxInit(initConfig))
+    JSON.stringify(convertCxsInitToVcxInit(initConfig, walletPoolName))
   )
 
   return initResult
+}
+
+export async function getWalletPoolName() {
+  const appUniqueId = await uniqueId()
+  const walletName = `${appUniqueId}-cm-wallet`
+  // Not sure why, but VCX is applying validation check on pool name
+  // they don't like alphanumeric or _, so we have to remove "-"
+  // from our guid that we generated
+  const strippedAppUniqueId = appUniqueId.replace(/\-/g, '')
+  const poolName = `${strippedAppUniqueId}cmpool`
+
+  return {
+    walletName,
+    poolName,
+  }
 }
 
 export async function createConnectionWithInvite(
@@ -776,7 +796,7 @@ export function exitAppAndroid() {
     RNIndy.exitAppAndroid()
   }
 }
- 
+
 export async function getMatchingCredentials(
   proofHandle: number
 ): Promise<string> {

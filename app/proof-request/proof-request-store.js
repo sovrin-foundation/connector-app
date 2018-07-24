@@ -51,6 +51,7 @@ import type { Connection } from '../store/type-connection-store'
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
 import { MESSAGE_TYPE } from '../api/api-constants'
 import { RESET } from '../common/type-common'
+import { PROOF_FAIL } from '../proof/type-proof'
 
 const proofRequestInitialState = {}
 
@@ -272,6 +273,7 @@ export default function proofRequestReducer(
         },
       }
 
+    case PROOF_FAIL:
     case SEND_PROOF_FAIL:
       return {
         ...state,
@@ -289,6 +291,7 @@ export default function proofRequestReducer(
           missingAttributes: action.missingAttributes,
         },
       }
+
     case RESET:
       return proofRequestInitialState
     default:

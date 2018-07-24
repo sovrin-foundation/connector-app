@@ -175,3 +175,8 @@ export type VcxClaimInfo = {
 }
 
 export type VcxProofRequest = ProofRequestPushPayload
+
+export type WalletPoolName = {
+  walletName: string,
+  poolName: string,
+}

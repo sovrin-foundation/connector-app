@@ -11,6 +11,7 @@ import type {
   VcxCreateConnection,
   VcxConnectionConnectResult,
   VcxCredentialOffer,
+  WalletPoolName,
 } from './type-cxs'
 import type { UserOneTimeInfo } from '../../store/user/type-user-store'
 import type { InvitationPayload } from '../../invitation/type-invitation'
@@ -18,13 +19,14 @@ import type { MyPairwiseInfo } from '../../store/type-connection-store'
 import type { ClaimOfferPushPayload } from '../../push-notification/type-push-notification'
 
 export function convertAgencyConfigToVcxProvision(
-  config: AgencyPoolConfig
+  config: AgencyPoolConfig,
+  walletPoolName: WalletPoolName
 ): VcxProvision {
   return {
     agency_url: config.agencyUrl,
     agency_did: config.agencyDID,
     agency_verkey: config.agencyVerificationKey,
-    wallet_name: 'walletName',
+    wallet_name: walletPoolName.walletName,
     // TODO: wallet key needs to be handled on libvcx wrapper or on bridge for both ios and android not  tobe passed from js layer.
     wallet_key: 'walletKey',
     agent_seed: null,
@@ -46,7 +48,8 @@ export function convertVcxProvisionResultToUserOneTimeInfo(
 }
 
 export function convertCxsInitToVcxInit(
-  init: InitWithGenesisPathConfig
+  init: InitWithGenesisPathConfig,
+  walletPoolName: WalletPoolName
 ): VcxInitConfig {
   return {
     agency_endpoint: init.agencyUrl,
@@ -55,8 +58,8 @@ export function convertCxsInitToVcxInit(
     config: init.poolConfig,
     // TODO: Move these to constants,for now they will always be needed only here
     // but we still have to move these to constants
-    pool_name: 'poolName',
-    wallet_name: 'walletName',
+    pool_name: walletPoolName.poolName,
+    wallet_name: walletPoolName.walletName,
     // TODO: wallet key needs to be handled on libvcx wrapper or on bridge for both ios and android not  tobe passed from js layer.
     wallet_key: 'walletKey',
     genesis_path: init.genesis_path,

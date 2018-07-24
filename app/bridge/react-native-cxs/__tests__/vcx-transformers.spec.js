@@ -30,11 +30,15 @@ const initWithGenesisPathConfig = {
   ...agencyPoolConfig,
   genesis_path: 'genesis_path',
 }
+const walletPoolName = {
+  walletName: 'walletName',
+  poolName: 'poolName',
+}
 
 describe('transformer:VCX', () => {
   it('convertAgencyConfigToVcxProvision', () => {
     expect(
-      convertAgencyConfigToVcxProvision(agencyPoolConfig)
+      convertAgencyConfigToVcxProvision(agencyPoolConfig, walletPoolName)
     ).toMatchSnapshot()
   })
 
@@ -45,7 +49,9 @@ describe('transformer:VCX', () => {
   })
 
   it('convertCxsInitToVcxInit', () => {
-    expect(convertCxsInitToVcxInit(initWithGenesisPathConfig)).toMatchSnapshot()
+    expect(
+      convertCxsInitToVcxInit(initWithGenesisPathConfig, walletPoolName)
+    ).toMatchSnapshot()
   })
 
   it('convertInvitationToVcxConnectionCreate', () => {
