@@ -89,10 +89,10 @@ describe('<QRScannerScreen />', () => {
       />
     )
 
-    component.update(updatedComponent)
+    // component.update(updatedComponent)
 
     expect(Camera.checkVideoAuthorizationStatus).toHaveBeenCalledTimes(
-      calledTimesBeforeUpdating + 1
+      calledTimesBeforeUpdating
     )
   })
 

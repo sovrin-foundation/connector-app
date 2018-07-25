@@ -37,14 +37,14 @@ export class LockFingerprintSetup extends PureComponent<
         [
           {
             text: 'OK',
-            onPress: () => this.props.navigation.navigate(settingsTabRoute),
+            onPress: () => this.props.navigation.goBack(null),
           },
         ],
         { cancelable: false }
       )
     } else {
       this.props.enableTouchIdAction()
-      this.props.navigation.navigate(settingsTabRoute)
+      this.props.navigation.goBack(null)
     }
   }
 
@@ -66,7 +66,7 @@ export class LockFingerprintSetup extends PureComponent<
             captureError(error)
             if (AllowedFallbackToucheIDErrors.indexOf(error.name) >= 0) {
               this.props.fromSettings
-                ? this.props.navigation.navigate(settingsTabRoute)
+                ? this.props.navigation.goBack(null)
                 : this.props.navigation.navigate(lockSelectionRoute)
             }
           })
@@ -75,7 +75,7 @@ export class LockFingerprintSetup extends PureComponent<
         captureError(error)
         if (AllowedFallbackToucheIDErrors.indexOf(error.name) >= 0) {
           this.props.fromSettings
-            ? this.props.navigation.navigate(settingsTabRoute)
+            ? this.props.navigation.goBack(null)
             : this.props.navigation.navigate(lockSelectionRoute)
         }
       })

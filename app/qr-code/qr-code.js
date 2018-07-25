@@ -45,6 +45,7 @@ import {
 } from './type-qr-code'
 import type { EnvironmentSwitchUrlQrCode } from '../components/qr-scanner/type-qr-scanner'
 import { changeEnvironmentUrl } from '../store/config-store'
+import { captureError } from '../services/error/error-handler'
 
 export function convertQrCodeToInvitation(qrCode: QrCode) {
   const qrSenderDetail = qrCode[QR_CODE_SENDER_DETAIL]
@@ -93,6 +94,9 @@ export class QRCodeScannerScreen extends Component<
   state = {
     isCameraAuthorized: false,
   }
+
+  permissionCheckIntervalId = 0
+  checkPermission = false
 
   onRead = (qrCode: QrCode) => {
     if (this.props.currentScreen === qrCodeScannerTabRoute) {
@@ -182,7 +186,32 @@ export class QRCodeScannerScreen extends Component<
       // such as `cwrp` or `cdu`, we are `cwrp` to check the status every time
       // also, we check status only on the basis of screen switching
       // and only check status if user is redirecting to QrCodeScanScreen
-      this.checkCameraAuthorization()
+
+      if (Platform.OS === 'android') {
+        this.permissionCheckIntervalId = setInterval(() => {
+          PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.CAMERA)
+            .then(result => {
+              if (result) {
+                this.checkCameraAuthorization()
+                clearInterval(this.permissionCheckIntervalId)
+              } else {
+                if (!this.checkPermission) {
+                  this.checkCameraAuthorization()
+                }
+                this.checkPermission = true
+              }
+            })
+            .catch(err => {
+              captureError(err)
+            })
+        }, 1000)
+      } else {
+        this.checkCameraAuthorization()
+      }
+    } else {
+      this.permissionCheckIntervalId &&
+        clearInterval(this.permissionCheckIntervalId)
+      this.checkPermission = false
     }
   }
 
@@ -207,13 +236,14 @@ export class QRCodeScannerScreen extends Component<
       //empty black screen will be returned
       //so that it doesn't look odd
       <Container dark>
-        {this.state.isCameraAuthorized && (
-          <QRScanner
-            onRead={this.onRead}
-            onClose={this.onClose}
-            onEnvironmentSwitchUrl={this.onEnvironmentSwitchUrl}
-          />
-        )}
+        {this.state.isCameraAuthorized &&
+          this.props.currentScreen === qrCodeScannerTabRoute && (
+            <QRScanner
+              onRead={this.onRead}
+              onClose={this.onClose}
+              onEnvironmentSwitchUrl={this.onEnvironmentSwitchUrl}
+            />
+          )}
       </Container>
     )
   }
