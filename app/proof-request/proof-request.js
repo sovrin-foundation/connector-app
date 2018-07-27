@@ -68,6 +68,7 @@ import {
   MESSAGE_MISSING_ATTRIBUTES_TITLE,
   MESSAGE_ERROR_PROOF_GENERATION_TITLE,
   MESSAGE_ERROR_PROOF_GENERATION_DESCRIPTION,
+  PROOF_STATUS,
 } from './type-proof-request'
 import {
   userSelfAttestedAttributes,
@@ -446,10 +447,12 @@ export class ProofRequest extends PureComponent<
       this.props.proofGenerationError !== nextProps.proofGenerationError &&
       nextProps.proofGenerationError
     ) {
-      Alert.alert(
-        MESSAGE_ERROR_PROOF_GENERATION_TITLE,
-        MESSAGE_ERROR_PROOF_GENERATION_DESCRIPTION
-      )
+      setTimeout(() => {
+        Alert.alert(
+          MESSAGE_ERROR_PROOF_GENERATION_TITLE,
+          MESSAGE_ERROR_PROOF_GENERATION_DESCRIPTION
+        )
+      }, 300)
     }
 
     if (
@@ -615,13 +618,15 @@ export class ProofRequest extends PureComponent<
           }
           testID={testID}
         />
-        <ProofModal
-          proofStatus={proofStatus}
-          title={title}
-          name={name}
-          onContinue={this.close}
-          logoUrl={logoUrl}
-        />
+        {proofStatus !== PROOF_STATUS.SEND_PROOF_FAIL ? (
+          <ProofModal
+            proofStatus={proofStatus}
+            title={title}
+            name={name}
+            onContinue={this.close}
+            logoUrl={logoUrl}
+          />
+        ) : null}
       </Container>
     )
   }
