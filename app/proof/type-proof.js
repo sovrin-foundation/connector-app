@@ -131,7 +131,7 @@ export type IndyRequestedAttributes = {
 }
 
 export type VcxSelectedCredentials = {
-  attrs: {
+  attrs?: {
     [attributeKey: string]: MatchingCredential,
   },
 }

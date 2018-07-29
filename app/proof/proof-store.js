@@ -185,6 +185,10 @@ export function convertUserSelectedCredentialToVcxSelectedCredentials(
     {}
   )
 
+  if (Object.keys(attrs).length === 0) {
+    return {}
+  }
+
   return {
     attrs,
   }
