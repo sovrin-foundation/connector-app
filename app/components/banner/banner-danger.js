@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform, Dimensions } from 'react-native'
 import { CustomView, Icon, CustomText } from '../index'
 import {
   IMAGE_WIDTH,
@@ -10,6 +10,12 @@ import {
 } from './banner-constants'
 import { color, dangerBannerHeight } from '../../common/styles'
 import type { DangerBannerProps } from './type-banner'
+
+const { width } = Dimensions.get('window')
+let deviceClass = ''
+if (Platform.OS === 'ios') {
+  deviceClass = width === 320 ? 'iPhone5' : 'other'
+}
 
 export default class DangerBanner extends PureComponent<
   DangerBannerProps,
@@ -34,7 +40,7 @@ export default class DangerBanner extends PureComponent<
             {this.props.bannerTitle}
           </CustomText>
           <CustomText transparentBg h6>
-            {this.props.bannerSubtitle}
+            {this.props.bannerSubtext}
           </CustomText>
         </CustomView>
       </CustomView>
@@ -44,7 +50,7 @@ export default class DangerBanner extends PureComponent<
 
 const styles = StyleSheet.create({
   bannerContainer: {
-    height: BANNER_HEIGHT,
+    height: BANNER_HEIGHT + (deviceClass === 'iPhone5' ? 16 : 0),
     backgroundColor: color.actions.dangerous,
   },
   labelImage: {

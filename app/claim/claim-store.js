@@ -60,6 +60,7 @@ import { ensureVcxInitSuccess } from '../store/config-store'
 import type { SerializedClaimOffer } from '../claim-offer/type-claim-offer'
 import { saveSerializedClaimOffer } from '../claim-offer/claim-offer-store'
 import type { Connection } from '../store/type-connection-store'
+import { promptBackupBanner } from '../backup/backup-store'
 
 export const claimReceived = (claim: Claim): ClaimReceivedAction => ({
   type: CLAIM_RECEIVED,
@@ -210,6 +211,7 @@ export function* claimReceivedVcxSaga(
       yield fork(checkForClaim, serializedClaimOffer, connectionHandle, forDID)
     }
   }
+  yield put(promptBackupBanner(true))
 }
 
 export function* checkForClaim(

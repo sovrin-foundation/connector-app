@@ -72,7 +72,7 @@ export default class BackupRestorePassphrase extends PureComponent<
             {errorState ? (
               <ErrorBanner
                 bannerTitle={'Recovery Phrase Does Not Match!'}
-                bannerSubtitle={'Try entering it again or go back and verify'}
+                bannerSubtext={'Try entering it again or go back and verify'}
                 style={[styles.dangerBannerBox]}
                 testID={'verify-passphrase-error-banner'}
               />

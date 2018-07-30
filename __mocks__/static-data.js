@@ -910,7 +910,7 @@ export function getStore(store?: Store) {
             salt: 's',
             hash: 'b7a563bcbbeb892b',
           },
-          showBanner: false,
+          showBanner: true,
           status: 'BACKUP_COMPLETE',
         },
         config: configStoreNotHydratedInstalledVcxInit,

@@ -247,4 +247,7 @@ export const getBackupWalletPath = (state: Store) =>
 
 export const getBackupShowBanner = (state: Store) => state.backup.showBanner
 
+export const getLastSuccessfulBackupTimeStamp = (state: Store) =>
+  state.backup.lastSuccessfulBackup
+
 export const getRestoreStatus = (state: Store) => state.restore.status

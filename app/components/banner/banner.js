@@ -21,12 +21,27 @@ import {
 } from './banner-constants'
 import type { BannerProps } from './type-banner'
 import DangerBanner from './banner-danger'
-import { getBackupShowBanner } from '../../store/store-selector'
+import {
+  getBackupShowBanner,
+  getLastSuccessfulBackupTimeStamp,
+} from '../../store/store-selector'
+import {
+  LAST_SUCCESSFUL_BACKUP,
+  FIRST_BACKUP_SUBTEXT,
+  FIRST_BACKUP_TITLE,
+  SUBSEQUENT_BACKUP_SUBTEXT,
+  SUBSEQUENT_BACKUP_TITLE,
+} from '../../common'
 
 class Banner extends PureComponent<BannerProps, void> {
   render() {
-    const { showBanner, navigation } = this.props
-
+    const { showBanner, navigation, lastSuccessfulBackupTimeStamp } = this.props
+    let title = FIRST_BACKUP_TITLE
+    let subtext = FIRST_BACKUP_SUBTEXT
+    if (lastSuccessfulBackupTimeStamp !== '') {
+      title = SUBSEQUENT_BACKUP_TITLE
+      subtext = SUBSEQUENT_BACKUP_SUBTEXT
+    }
     if (showBanner) {
       return (
         <CustomView>
@@ -36,8 +51,8 @@ class Banner extends PureComponent<BannerProps, void> {
               <DangerBanner
                 onPress={backupWallet}
                 testID={BACKUP_BANNER_TEST_ID}
-                bannerTitle={'Setup Data Recovery Now!'}
-                bannerSubtitle={'2 easy steps, takes 3 minutes.'}
+                bannerTitle={title}
+                bannerSubtext={subtext}
               />
             )}
           />
@@ -51,6 +66,7 @@ class Banner extends PureComponent<BannerProps, void> {
 const mapStateToProps = (state: Store) => {
   return {
     showBanner: getBackupShowBanner(state),
+    lastSuccessfulBackupTimeStamp: getLastSuccessfulBackupTimeStamp(state),
   }
 }
 

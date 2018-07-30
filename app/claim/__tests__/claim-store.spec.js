@@ -30,6 +30,7 @@ import {
 } from '../../../__mocks__/static-data'
 import { getItem, setItem } from '../../services/secure-storage'
 import type { ClaimWithUuid } from '../../claim/type-claim'
+import { promptBackupBanner } from '../../store'
 
 describe('Claim Store', () => {
   let initialState = { claimMap: {} }
@@ -98,7 +99,6 @@ describe('Claim Store', () => {
 
     // TODO: Fix this
     gen.next()
-
     expect(gen.next().done).toBe(true)
   })
 
