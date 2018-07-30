@@ -51,12 +51,13 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
               "alignItems": "center",
               "backgroundColor": "#d0021b",
               "flexDirection": "row",
-              "height": 80,
               "paddingHorizontal": 15,
+              "paddingVertical": 8,
             }
           }
           testID="wallet-backup-banner-label-touchable"
           vCenter={true}
+          verticalSpace={true}
         >
           <View
             clearBg={true}

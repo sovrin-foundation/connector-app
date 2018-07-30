@@ -49,12 +49,13 @@ exports[`user settings screen should render properly and snapshot should match 1
               "alignItems": "center",
               "backgroundColor": "#d0021b",
               "flexDirection": "row",
-              "height": 80,
               "paddingHorizontal": 15,
+              "paddingVertical": 8,
             }
           }
           testID="wallet-backup-banner-label-touchable"
           vCenter={true}
+          verticalSpace={true}
         >
           <View
             clearBg={true}
