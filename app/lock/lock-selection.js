@@ -85,11 +85,7 @@ export class LockSelection extends PureComponent<LockSelectionProps, void> {
 
   render() {
     return (
-      <Container
-        tertiary
-        testID="lock-selection-view"
-        style={[style.pinSelectionContainer]}
-      >
+      <Container tertiary style={[style.pinSelectionContainer]}>
         <CustomView
           onPress={this.props.switchErrorAlerts}
           onLongPress={this._onLongPressButton}
