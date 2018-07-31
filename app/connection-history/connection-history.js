@@ -120,7 +120,7 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
       })
     },
     300,
-    { leading: true, trailing: false }
+    { leading: false, trailing: true }
   )
 
   componentDidMount() {
