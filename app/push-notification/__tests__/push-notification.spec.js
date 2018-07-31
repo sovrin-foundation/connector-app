@@ -17,6 +17,7 @@ describe('<PushNotification />', () => {
       fetchAdditionalData: jest.fn(),
       pushNotificationPermissionAction: jest.fn(),
       updatePushToken: jest.fn(),
+      isAllowed: false,
     }
   }
 

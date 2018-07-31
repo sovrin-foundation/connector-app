@@ -42,7 +42,7 @@ import {
   ERROR_SENDING_TOKENS,
 } from '../type-wallet'
 import { WALLET_BALANCE, WALLET_ADDRESSES, WALLET_HISTORY } from '../../common'
-import { setItem, getItem } from '../../services/secure-storage'
+import { secureGet } from '../../services/storage'
 
 //TODO fix test
 describe('store: wallet-store: ', () => {
@@ -261,7 +261,7 @@ describe('store: wallet-store: ', () => {
 
   xit('saga: hydrateWalletBalanceSaga => success', () => {
     const gen = hydrateWalletBalanceSaga()
-    expect(gen.next().value).toEqual(call(getItem, WALLET_BALANCE))
+    expect(gen.next().value).toEqual(call(secureGet, WALLET_BALANCE))
   })
 
   xit('saga: sendTokensSaga => success', () => {})

@@ -1,105 +1,87 @@
 // @flow
-import { takeLatest, call, put } from 'redux-saga/effects'
-import { AsyncStorage } from 'react-native'
-import { getItem, deleteItem } from '../services/secure-storage'
-import { updatePushToken } from '../push-notification/push-notification-store'
-import { eulaAccept } from '../eula/eula-store'
+import { call, put, fork, all } from 'redux-saga/effects'
+import {
+  safeDelete,
+  safeGet,
+  safeSet,
+  secureGet,
+  safeMultiRemove,
+} from '../services/storage'
+import { hydratePushTokenSaga } from '../push-notification/push-notification-store'
+import { hydrateEulaAccept } from '../eula/eula-store'
 import {
   hydrateConnections,
   hydrateThemes,
   removePersistedThemes,
+  hydrateConnectionSaga,
 } from '../store/connections-store'
 import { hydrateClaimMapSaga } from '../claim/claim-store'
 import {
-  WALLET_ENCRYPTION_KEY,
   CONNECTIONS,
   PUSH_COM_METHOD,
   IS_CONSUMER_AGENT_ALREADY_CREATED,
-  CLAIM_MAP,
   USE_VCX_KEY,
   LAST_SUCCESSFUL_BACKUP,
 } from '../common'
-import { TOUCHID_STORAGE_KEY } from '../lock/type-lock'
-import type { CustomError } from '../common/type-common'
 import {
-  HYDRATE_APP,
-  HYDRATE_APP_FAIL,
-  HYDRATE_APP_SUCCESS,
-  hydrationInitialState as initialState,
-} from './type-hydration-store'
-import type {
-  HydrationStoreAction,
-  HydrationStore,
-} from './type-hydration-store'
+  TOUCH_ID_STORAGE_KEY,
+  PIN_ENABLED_KEY,
+  IN_RECOVERY,
+} from '../lock/type-lock'
 import {
   hydrateUserStoreSaga,
   removePersistedUserSelectedAvatarImage,
 } from './user/user-store'
-import {
-  hydrateWalletStoreSaga,
-  deletePersistedWalletBalance,
-  deletePersistedWalletAddresses,
-  deletePersistedWalletHistory,
-} from '../wallet/wallet-store'
+import { hydrateWalletStoreSaga } from '../wallet/wallet-store'
 import {
   promptBackupBanner,
   deletePersistedPassphrase,
 } from '../backup/backup-store'
-import { STORAGE_KEY_USER_ONE_TIME_INFO } from './user/type-user-store'
 import { STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL } from './type-config-store'
 import { STORAGE_KEY_SHOW_BANNER } from '../components/banner/banner-constants'
-import { HISTORY_EVENT_STORAGE_KEY } from '../connection-history/type-connection-history'
 import { STORAGE_KEY_EULA_ACCEPTANCE } from '../eula/type-eula'
-import {
-  removePersistedSerializedClaimOffersSaga,
-  hydrateSerializedClaimOffersSaga,
-} from '../claim-offer/claim-offer-store'
+import { hydrateSerializedClaimOffersSaga } from '../claim-offer/claim-offer-store'
 import { hydrateBackupSaga } from '../backup/backup-store'
+import { loadHistorySaga } from '../connection-history/connection-history-store'
+import { IS_ALREADY_INSTALLED } from '../common'
+import {
+  alreadyInstalledAction,
+  hydrated,
+  ensureVcxInitSuccess,
+  hydrateSwitchedEnvironmentDetails,
+  initialized,
+} from './config-store'
+import {
+  lockEnable,
+  enableTouchIdAction,
+  disableTouchIdAction,
+  setInRecovery,
+} from '../lock/lock-store'
+import { captureError } from '../services/error/error-handler'
+import { simpleInit, vcxShutdown } from '../bridge/react-native-cxs/RNCxs'
+import { STORAGE_KEY_USER_AVATAR_NAME } from './user/type-user-store'
+import { safeToDownloadSmsInvitation } from '.'
 
-export const hydrateApp = (isAlreadyInstalled: boolean) => ({
-  type: HYDRATE_APP,
-  isAlreadyInstalled,
-})
-
-export const hydrateAppSuccess = () => ({
-  type: HYDRATE_APP_SUCCESS,
-})
-
-export const hydrateAppFail = (error: CustomError) => ({
-  type: HYDRATE_APP_FAIL,
-  error,
-})
-
-export function* deleteStoredData(): Generator<*, *, *> {
-  yield call(deleteItem, WALLET_ENCRYPTION_KEY)
-  yield call(deleteItem, CONNECTIONS)
-  yield call(AsyncStorage.removeItem, IS_CONSUMER_AGENT_ALREADY_CREATED)
-  yield call(deleteItem, STORAGE_KEY_USER_ONE_TIME_INFO)
-  yield call(AsyncStorage.removeItem, STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL)
-  yield call(AsyncStorage.removeItem, STORAGE_KEY_SHOW_BANNER)
-  yield call(AsyncStorage.removeItem, STORAGE_KEY_EULA_ACCEPTANCE)
-  yield call(deleteItem, CLAIM_MAP)
-  yield call(deleteItem, HISTORY_EVENT_STORAGE_KEY)
-  yield call(AsyncStorage.removeItem, USE_VCX_KEY)
-  yield call(AsyncStorage.removeItem, LAST_SUCCESSFUL_BACKUP)
+export function* deleteDeviceSpecificData(): Generator<*, *, *> {
   try {
-    yield* deletePersistedWalletBalance()
+    const keysToDelete = [
+      IS_CONSUMER_AGENT_ALREADY_CREATED,
+      STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL,
+      STORAGE_KEY_SHOW_BANNER,
+      STORAGE_KEY_EULA_ACCEPTANCE,
+      PUSH_COM_METHOD,
+      LAST_SUCCESSFUL_BACKUP,
+      STORAGE_KEY_USER_AVATAR_NAME,
+    ]
+    yield call(safeMultiRemove, keysToDelete)
   } catch (e) {
-    //TODO handle catch
+    console.log(e)
+    // deletion fails, now what to do
+    captureError(e)
   }
-  try {
-    yield* deletePersistedWalletAddresses()
-  } catch (e) {
-    //TODO handle catch
-  }
-  try {
-    yield* deletePersistedWalletHistory()
-  } catch (e) {
-    //TODO handle catch
-  }
-  yield* removePersistedUserSelectedAvatarImage()
-  yield* removePersistedThemes()
-  yield* removePersistedSerializedClaimOffersSaga()
+}
+
+export function* deleteWallet(): Generator<*, *, *> {
   try {
     yield* deletePersistedPassphrase()
   } catch (e) {
@@ -107,73 +89,112 @@ export function* deleteStoredData(): Generator<*, *, *> {
   }
 }
 
-export function* appHydration(action: {
-  isAlreadyInstalled: boolean,
-}): Generator<*, *, *> {
+export function* alreadyInstalledNotFound(): Generator<*, *, *> {
+  yield put(alreadyInstalledAction(false))
+  // delete data in background, and don't wait for data to be deleted
+  // We should not need to remove this data, let us see when we need it
+  // yield fork(deleteDeviceSpecificData)
+  yield put(lockEnable('false'))
+  yield put(initialized())
+  yield put(hydrated())
+
   try {
-    let connections = {}
-    if (action.isAlreadyInstalled) {
-      // app was already installed and user is just opening the app again
-      // or waking up from background
-      const eulaAcceptance = yield call(
-        AsyncStorage.getItem,
-        STORAGE_KEY_EULA_ACCEPTANCE
-      )
-      yield put(eulaAccept(JSON.parse(eulaAcceptance)))
-
-      const token = yield call(getItem, PUSH_COM_METHOD)
-      yield put(updatePushToken(token))
-
-      const backupBanner = yield call(
-        AsyncStorage.getItem,
-        STORAGE_KEY_SHOW_BANNER
-      )
-      yield put(promptBackupBanner(JSON.parse(backupBanner)))
-
-      let fetchedConnections = yield call(getItem, CONNECTIONS)
-      connections = fetchedConnections ? JSON.parse(fetchedConnections) : {}
-    } else {
-      // this is the fresh installation of app
-      // delete previous stored connections
-      yield* deleteStoredData()
-    }
-    yield* hydrateWalletStoreSaga()
-    yield put(hydrateConnections(connections))
-    yield* hydrateThemes()
-    yield* hydrateUserStoreSaga()
-    yield* hydrateBackupSaga()
-    // restore claimMap
-    yield* hydrateClaimMapSaga()
-    yield* hydrateSerializedClaimOffersSaga()
-    yield put(hydrateAppSuccess())
+    yield call(safeSet, IS_ALREADY_INSTALLED, 'true')
   } catch (e) {
-    yield put(hydrateAppFail(e))
+    // somehow the storage failed, so we need to find someway to store
+    // maybe we fallback to file based storage
+
+    // Capture AsyncStorage failed
+    captureError(e)
   }
 }
 
-export default function hydration(
-  state: HydrationStore = initialState,
-  action: HydrationStoreAction
-) {
-  switch (action.type) {
-    case HYDRATE_APP:
-      return {
-        ...state,
-        isFetching: true,
-        isPristine: false,
+export function* hydrate(): any {
+  try {
+    let isAlreadyInstalled = yield call(safeGet, IS_ALREADY_INSTALLED)
+    if (isAlreadyInstalled !== 'true') {
+      yield* alreadyInstalledNotFound()
+      // do not move forward and end here
+      return
+    }
+
+    yield put(alreadyInstalledAction(true))
+    try {
+      // check if privacy policy was accepted or not
+      let isEulaAccept = yield call(safeGet, STORAGE_KEY_EULA_ACCEPTANCE)
+      if (!isEulaAccept) {
+        // if eula was not accepted, then we know that lock was never set
+        // so no need to go any further
+        yield* alreadyInstalledNotFound()
+        return
       }
-    case HYDRATE_APP_SUCCESS:
-      return {
-        ...state,
-        isFetching: false,
+      isEulaAccept = JSON.parse(isEulaAccept)
+      yield put(hydrateEulaAccept(isEulaAccept))
+
+      // restore app lock settings
+      const [isLockEnabled, isTouchIdEnabled] = yield all([
+        call(safeGet, PIN_ENABLED_KEY),
+        call(safeGet, TOUCH_ID_STORAGE_KEY),
+      ])
+
+      if (isLockEnabled !== 'true') {
+        yield* alreadyInstalledNotFound()
+        // do not move forward and end here
+        return
       }
-    case HYDRATE_APP_FAIL:
-      return {
-        ...state,
-        error: action.error,
-        isFetching: false,
+      yield put(lockEnable(isLockEnabled))
+
+      //InRecovery determines if we are in the recovery flow
+      //and still need to choose if we want to use previous pin or set new pin
+      let inRecovery = yield call(safeGet, IN_RECOVERY)
+      if (inRecovery === 'true') {
+        yield put(setInRecovery(inRecovery))
       }
-    default:
-      return state
+      if (isTouchIdEnabled === 'true') {
+        yield put(enableTouchIdAction())
+      } else {
+        yield put(disableTouchIdAction())
+      }
+      // Splash screen does redirection on the basis of three flags
+      // 1. if app is opened for first time or not
+      // 2. If user has already accepted privacy policy or not
+      // 3. If user has enabled any type of lock (pass code, touch id, face id, etc.)
+      // Splash screen can start redirection as soon as we have above three flags
+      // so we are raising this action which tells splash screen that we have values
+      // for all three flags and redirection logic can move forward
+      yield put(initialized())
+
+      // replace below line with wallet init saga
+      yield call(simpleInit)
+
+      yield* hydrateSwitchedEnvironmentDetails()
+      // since we hydrated environment details, so now we can start downloading sms
+      yield put(safeToDownloadSmsInvitation())
+
+      yield* hydratePushTokenSaga()
+      yield* hydrateWalletStoreSaga()
+      yield* hydrateConnectionSaga()
+      yield* hydrateThemes()
+      yield* hydrateUserStoreSaga()
+      yield* hydrateBackupSaga()
+      yield* hydrateClaimMapSaga()
+      yield* hydrateSerializedClaimOffersSaga()
+      yield* loadHistorySaga()
+
+      // TODO: Move vcx shutdown logic inside ensureVcxInitSuccess
+      yield call(vcxShutdown, false)
+      yield put(hydrated())
+      yield* ensureVcxInitSuccess()
+    } catch (e) {
+      console.error(`hydrateSaga: ${e}`)
+      // somehow the secure storage failed, so we need to find someway to store
+      // maybe we fallback to file based storage
+    }
+  } catch (e) {
+    // if we did not find any value in user default storage
+    // it means that user uninstalled the app and is now trying again
+    // or this is a new installation
+    console.error(`hydrateSaga: ${e}`)
+    yield* alreadyInstalledNotFound()
   }
 }

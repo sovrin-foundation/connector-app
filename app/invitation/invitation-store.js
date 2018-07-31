@@ -1,5 +1,5 @@
 // @flow
-import { AsyncStorage, Platform } from 'react-native'
+import { Platform } from 'react-native'
 import { put, takeLatest, call, all, select } from 'redux-saga/effects'
 import {
   INVITATION_RECEIVED,
@@ -61,9 +61,10 @@ import type {
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
 import { connectRegisterCreateAgentDone } from '../store/user/user-store'
 import { RESET } from '../common/type-common'
-import { initVcx, ensureVcxInitSuccess } from '../store/config-store'
+import { ensureVcxInitSuccess } from '../store/config-store'
 import { VCX_INIT_SUCCESS } from '../store/type-config-store'
 import type { MyPairwiseInfo } from '../store/type-connection-store'
+import { safeSet, safeGet } from '../services/storage'
 
 export const invitationInitialState = {}
 
@@ -167,11 +168,7 @@ function* createConsumerAgencyAgent(
 
     // now save the key in user's default storage in phone
     try {
-      yield call(
-        AsyncStorage.setItem,
-        IS_CONSUMER_AGENT_ALREADY_CREATED,
-        'true'
-      )
+      yield call(safeSet, IS_CONSUMER_AGENT_ALREADY_CREATED, 'true')
     } catch (e) {
       // somehow the storage failed, so we need to find someway to store
       // maybe we fallback to file based storage
@@ -237,7 +234,7 @@ export function* sendResponse(action: InvitationResponseSendAction): any {
         ...payload,
       }
       const isConsumerAgentCreated = yield call(
-        AsyncStorage.getItem,
+        safeGet,
         IS_CONSUMER_AGENT_ALREADY_CREATED
       )
       if (isConsumerAgentCreated !== 'true') {

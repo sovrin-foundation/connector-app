@@ -6,6 +6,7 @@ import {
   agencyVerificationKey,
 } from './config-store-mock-data'
 import { userOneTimeInfo } from './user-store-mock-data'
+import { WALLET_FILE_NAME } from '../../app/backup/type-backup'
 
 // I believe now is the time when we should start splitting static-data.js
 // we are starting to see that we shy away from utilizing existing data,
@@ -17,7 +18,7 @@ import { userOneTimeInfo } from './user-store-mock-data'
 // and for tests we need some mocked data which will be used throughout tests
 
 export const vcxProvisionResult = {
-  wallet_name: 'walletName',
+  wallet_name: WALLET_FILE_NAME,
   wallet_key: 'walletKey',
   agency_endpoint: agencyUrl,
   agency_did: agencyDID,

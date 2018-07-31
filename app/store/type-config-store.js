@@ -27,6 +27,10 @@ export type HydratedAction = {
   type: typeof HYDRATED,
 }
 
+export const INITIALIZED = 'INITIALIZED'
+export type InitializedAction = {
+  type: typeof INITIALIZED,
+}
 export const ALREADY_INSTALLED_RESULT = 'ALREADY_INSTALLED_RESULT'
 export type AlreadyInstalledAction = {
   type: typeof ALREADY_INSTALLED_RESULT,
@@ -108,6 +112,7 @@ export type UseVcxAction = {
 
 export type ConfigAction =
   | HydratedAction
+  | InitializedAction
   | AppInstalledSuccessAction
   | AlreadyInstalledAction
   | ServerEnvironmentChangedAction
@@ -142,6 +147,7 @@ export type ConfigStore = {
   vcxInitializationState: VcxInitializationState,
   vcxInitializationError: null | CustomError,
   useVcx: boolean,
+  isInitialized: boolean,
 } & AgencyPoolConfig
 
 export const STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL =

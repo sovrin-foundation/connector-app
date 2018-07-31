@@ -53,7 +53,6 @@ describe('<SplashScreen />', () => {
       smsPendingInvitation,
       addPendingRedirection: jest.fn(),
       getSmsPendingInvitation: jest.fn(),
-      loadHistory: jest.fn(),
       safeToDownloadSmsInvitation: jest.fn(),
       deepLinkProcessed: jest.fn(),
       ...overrideProps,

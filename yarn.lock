@@ -6672,6 +6672,10 @@ react-native-version-number@^0.3.3:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/react-native-version-number/-/react-native-version-number-0.3.3.tgz#2a8df3a3f9e9ed272d748da7736309996182d55d"
 
+react-native-zip-archive@^2.2.6:
+  version "2.2.6"
+  resolved "https://registry.yarnpkg.com/react-native-zip-archive/-/react-native-zip-archive-2.2.6.tgz#590c3c43447d7dba7e9daf8b1276870986866311"
+
 react-native@0.51.0:
   version "0.51.0"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.51.0.tgz#fe25934b3030fd323f3ca1a70f034133465955ed"

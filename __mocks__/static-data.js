@@ -923,9 +923,10 @@ export function getStore(store?: Store) {
           checkPinStatus: CHECK_PIN_IDLE,
           pendingRedirection: undefined,
           isAppLocked: false,
-          isLockEnabled: true,
+          isLockEnabled: 'true',
           isTouchIdEnabled: true,
           showDevMode: false,
+          inRecovery: 'false',
         },
         connections: {
           connectionThemes: {

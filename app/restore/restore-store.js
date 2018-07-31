@@ -1,8 +1,7 @@
 // @flow
-import {
-  saveFileDocumentsDirectory,
-  decryptWalletFile,
-} from '../bridge/react-native-cxs/RNCxs'
+import { decryptWalletFile, copyToPath } from '../bridge/react-native-cxs/RNCxs'
+import { unzip } from 'react-native-zip-archive'
+import FCM from 'react-native-fcm'
 import { takeLatest, all, put, call, take, select } from 'redux-saga/effects'
 import type { CustomError } from '../common/type-common'
 import {
@@ -14,7 +13,10 @@ import {
   initialState,
   FILE_SAVE_ERROR_MESSAGE,
   DECRYPT_FAILED_MESSAGE,
+  RESTORE_RESET,
+  RESTORE_DATA_FAILED_MESSAGE,
 } from './type-restore'
+import { WALLET_FILE_NAME } from '../backup/type-backup'
 import type {
   SaveToAppDirectory,
   RestoreActions,
@@ -23,9 +25,15 @@ import type {
   RestoreStore,
 } from './type-restore'
 import RNFetchBlob from 'react-native-fetch-blob'
-import { getRestoreStatus } from '../store/store-selector'
-
+import { getRestoreStatus, getRestoreFileName } from '../store/store-selector'
+import { pinHash as generateKey } from '../lock/pin-hash'
+import { safeToDownloadSmsInvitation } from '../sms-pending-invitation/sms-pending-invitation-store'
 import { Platform } from 'react-native'
+import type { Store } from '../store/type-store.js'
+import { hydrate } from '../store/hydration-store'
+import { pushNotificationPermissionAction } from '../push-notification/push-notification-store'
+import { safeGet, safeSet } from '../services/storage'
+import { PIN_ENABLED_KEY, IN_RECOVERY } from '../lock/type-lock'
 
 export const saveFileToAppDirectory = (data: SaveToAppDirectory) => ({
   type: SAVE_FILE_TO_APP_DIRECTORY,
@@ -47,6 +55,10 @@ export const submitPassphrase = (passphrase: string) => ({
   passphrase,
 })
 
+export const resetRestore = () => ({
+  type: RESTORE_RESET,
+})
+
 export function* restoreFileDecrypt(
   action: RestoreSubmitPassphrase
 ): Generator<*, *, *> {
@@ -63,8 +75,61 @@ export function* restoreFileDecrypt(
     }
 
     yield put(restoreStatus(RestoreStatus.DECRYPTION_START))
-    yield call(decryptWalletFile, passphrase)
+    const { fs } = RNFetchBlob
+    const restoreZipFilePath = `${fs.dirs.DocumentDir}/restore.zip`
+    const restoreDirectoryPath = `${fs.dirs.DocumentDir}/restoreDirectory`
+    let walletFilePath = `${restoreDirectoryPath}/${WALLET_FILE_NAME}.wallet`
+    let restoreSaltPath = `${restoreDirectoryPath}/salt.json`
+    yield call(unzip, restoreZipFilePath, restoreDirectoryPath)
+    let restoreSalt = ''
+    try {
+      restoreSalt = yield call(fs.readFile, restoreSaltPath, 'utf8')
+    } catch (e) {
+      //TODO fix hack - for IOS the restoreDirectoryPath is having an extra level
+      // when backup is exported from android and imported in IOS
+      let fileName = yield select(getRestoreFileName)
+      let restorePath = `${restoreDirectoryPath}/${fileName.split('.zip')[0]}`
+
+      walletFilePath = `${restorePath}/${WALLET_FILE_NAME}.wallet`
+      restoreSaltPath = `${restorePath}/salt.json`
+
+      restoreSalt = yield call(fs.readFile, restoreSaltPath, 'utf8')
+    }
+
+    const parsedRestoreSalt = JSON.parse(restoreSalt)
+    const hashedPassphrase = yield call(
+      generateKey,
+      passphrase,
+      parsedRestoreSalt.salt
+    )
+    //TODO fix hack - for IOS need to do hash is having extra characters
+    // when doing cross platform export/import then it becomes incompatible
+    yield call(
+      decryptWalletFile,
+      walletFilePath,
+      hashedPassphrase.substring(0, 16)
+    )
     yield put(restoreStatus(RestoreStatus.FILE_DECRYPT_SUCCESS))
+
+    // since we have decrypted file successfully, now we restore data from wallet
+    // Need to set this here manually, because in normal flow this flag
+    // will be set when user sets pin code. However, since user is importing
+    // wallet file, we know that user has already enabled pin code
+    // so we set this flag manually
+    yield call(safeSet, PIN_ENABLED_KEY, 'true')
+    yield call(safeSet, IN_RECOVERY, 'true')
+    yield* hydrate()
+
+    //Push Notification permissions are asked when we do our first connection
+
+    //but in this case if connections are imported from backup then that case is missed
+    //since connection is already there
+    // so after push token update
+    //we need to do requestPermission or else push notifications won't come
+
+    yield call(FCM.requestPermissions)
+    yield put(pushNotificationPermissionAction(true))
+    yield put(restoreStatus(RestoreStatus.RESTORE_DATA_STORE_SUCCESS))
   } catch (e) {
     yield put(errorRestore(DECRYPT_FAILED_MESSAGE(e.message)))
   }
@@ -84,24 +149,25 @@ export function* saveZipFile(
     //For android device the content uri is of form "Content://com.android.providers.downloads.documents/document/223" which can be used directly
     //For IOS device uri is like "file:///private/var/mobile/Containers/Data/Application/A80FE508-BCED-4950-B9D0-8F1AA1E967B6/tmp/com.evernym.connectme.callcenter-Inbox/backup.zip"
     // which we need to split from /private to get the real path
+
+    //TODO move the copy logic for android to RNLayer
     if (Platform.OS === 'android') {
-      tempUri = decodeURIComponent(uri).split('/raw:')[1]
-        ? decodeURIComponent(uri).split('/raw:')[1]
-        : uri
-    } else {
-      tempUri = uri.split('/private')[1]
-    }
+      copyToPath(tempUri, destPath)
+      yield put(restoreStatus(RestoreStatus.fileSaved))
+    } else if (Platform.OS === 'ios') {
+      tempUri = uri.substr('file://'.length)
 
-    let sourceFileExists =
-      tempUri != null ? yield call(fs.exists, tempUri) : false
+      let sourceFileExists =
+        tempUri != null ? yield call(fs.exists, tempUri) : false
 
-    if (sourceFileExists) {
-      const destFileExists = yield call(fs.exists, destPath)
-      if (destFileExists) {
-        yield call(fs.unlink, destPath)
+      if (sourceFileExists) {
+        const destFileExists = yield call(fs.exists, destPath)
+        if (destFileExists) {
+          yield call(fs.unlink, destPath)
+        }
+
+        yield call(fs.cp, tempUri, destPath)
       }
-
-      yield call(fs.cp, tempUri, destPath)
       yield put(restoreStatus(RestoreStatus.fileSaved))
     } else {
       yield put(restoreStatus(RestoreStatus.FILE_SAVE_ERROR))

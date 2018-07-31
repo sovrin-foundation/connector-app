@@ -77,6 +77,8 @@ export const isDuplicateConnection = (state: Store, senderDID: string) => {
 
 export const getHydrationState = (state: Store) => state.config.isHydrated
 
+export const getInitializedState = (state: Store) => state.config.isInitialized
+
 export const getClaimOffer = (state: Store, claimOfferId: string) =>
   state.claimOffer[claimOfferId]
 
@@ -194,6 +196,11 @@ export const getThemes = (state: Store) => state.connections.connectionThemes
 export const getVcxInitializationState = (state: Store) =>
   state.config.vcxInitializationState
 
+export const getIsLockEnabledState = (state: Store) => state.lock.isLockEnabled
+
+export const getIsAlreadyInstalledState = (state: Store) =>
+  state.config.isAlreadyInstalled
+
 export const getSerializedClaimOffers = (state: Store) =>
   state.claimOffer.vcxSerializedClaimOffers
 
@@ -252,5 +259,19 @@ export const getLastSuccessfulBackupTimeStamp = (state: Store) =>
 
 export const getRestoreStatus = (state: Store) => state.restore.status
 
+export const getRestoreFileSize = (state: Store) =>
+  state.restore.restoreFile.fileSize
+
+export const getRouteCurrentScreen = (state: Store) => state.route.currentScreen
+
+export const getRestoreFilePath = (state: Store) =>
+  state.restore.restoreFile.uri
+
+export const getRestoreFileName = (state: Store) =>
+  state.restore.restoreFile.fileName
+
+export const getSalt = (state: Store) => state.backup.passphrase.salt
+
+export const getHistory = (state: Store) => state.history.data
 export const getPendingFetchAdditionalDataKey = (state: Store) =>
   state.pushNotification.pendingFetchAdditionalDataKey

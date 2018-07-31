@@ -18,6 +18,10 @@ import type { InvitationPayload } from '../../invitation/type-invitation'
 import type { MyPairwiseInfo } from '../../store/type-connection-store'
 import type { ClaimOfferPushPayload } from '../../push-notification/type-push-notification'
 
+// TODO: wallet key needs to be handled on libvcx wrapper or on bridge
+// for both ios and android not to be passed from js layer
+export const wallet_key = 'walletKey'
+
 export function convertAgencyConfigToVcxProvision(
   config: AgencyPoolConfig,
   walletPoolName: WalletPoolName
@@ -27,8 +31,7 @@ export function convertAgencyConfigToVcxProvision(
     agency_did: config.agencyDID,
     agency_verkey: config.agencyVerificationKey,
     wallet_name: walletPoolName.walletName,
-    // TODO: wallet key needs to be handled on libvcx wrapper or on bridge for both ios and android not  tobe passed from js layer.
-    wallet_key: 'walletKey',
+    wallet_key,
     agent_seed: null,
     enterprise_seed: null,
   }
@@ -56,12 +59,9 @@ export function convertCxsInitToVcxInit(
     agency_did: init.agencyDID,
     agency_verkey: init.agencyVerificationKey,
     config: init.poolConfig,
-    // TODO: Move these to constants,for now they will always be needed only here
-    // but we still have to move these to constants
     pool_name: walletPoolName.poolName,
     wallet_name: walletPoolName.walletName,
-    // TODO: wallet key needs to be handled on libvcx wrapper or on bridge for both ios and android not  tobe passed from js layer.
-    wallet_key: 'walletKey',
+    wallet_key,
     genesis_path: init.genesis_path,
     remote_to_sdk_did: init.myOneTimeAgentDid,
     remote_to_sdk_verkey: init.myOneTimeAgentVerificationKey,

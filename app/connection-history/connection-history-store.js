@@ -6,6 +6,7 @@ import {
   put,
   call,
   select,
+  take,
 } from 'redux-saga/effects'
 import merge from 'lodash.merge'
 import { CONNECTIONS } from '../common'
@@ -62,12 +63,13 @@ import {
   PROOF_REQUEST_RECEIVED,
   SEND_PROOF_SUCCESS,
 } from '../proof-request/type-proof-request'
-import { setItem, getItem } from '../services/secure-storage'
+import { secureGet, secureSet } from '../services/storage'
 import {
   getProofRequest,
   getProof,
   getClaimOffer,
   getPendingHistoryEvent,
+  getHistory,
 } from '../store/store-selector'
 import { CLAIM_STORAGE_SUCCESS } from '../claim/type-claim'
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
@@ -94,8 +96,9 @@ export const loadHistoryFail = (error: CustomError) => ({
 })
 
 export function* loadHistorySaga(): Generator<*, *, *> {
+  yield put(loadHistory())
   try {
-    const historyEvents = yield call(getItem, HISTORY_EVENT_STORAGE_KEY)
+    const historyEvents = yield call(secureGet, HISTORY_EVENT_STORAGE_KEY)
     if (historyEvents) {
       yield put(loadHistorySuccess(JSON.parse(historyEvents)))
     }
@@ -107,10 +110,6 @@ export function* loadHistorySaga(): Generator<*, *, *> {
       })
     )
   }
-}
-
-export function* watchLoadHistory(): any {
-  yield takeLatest(LOAD_HISTORY, loadHistorySaga)
 }
 
 // receive invitation
@@ -336,12 +335,36 @@ export function* historyEventOccurredSaga(
   }
 }
 
+export function* watchRecordHistoryEvent(): any {
+  yield takeEvery(RECORD_HISTORY_EVENT, persistHistory)
+}
+
+export function* persistHistory(action): any {
+  // if we get action to record history event
+  // that means our history store is updated with data
+  // we can now store history data to secure storage
+
+  const historyData: ConnectionHistoryData | null = yield select(getHistory)
+  if (historyData) {
+    try {
+      yield call(
+        secureSet,
+        HISTORY_EVENT_STORAGE_KEY,
+        JSON.stringify(historyData)
+      )
+    } catch (e) {
+      // Need to figure out what happens if storage fails
+      console.error(`persistHistory: ${e}`)
+    }
+  }
+}
+
 export function* watchHistoryEventOccurred(): any {
   yield takeEvery(HISTORY_EVENT_OCCURRED, historyEventOccurredSaga)
 }
 
 export function* watchConnectionHistory(): any {
-  yield all([watchLoadHistory(), watchHistoryEventOccurred()])
+  yield all([watchHistoryEventOccurred(), watchRecordHistoryEvent()])
 }
 
 export default function connectionHistoryReducer(

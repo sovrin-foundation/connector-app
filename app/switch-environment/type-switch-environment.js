@@ -13,7 +13,6 @@ export type SwitchEnvironmentProps = {
   agencyUrl: string,
   poolConfig: string,
   disableDevMode: () => void,
-  useVcx: () => void,
 } & ReactNavigation
 
 export type SwitchEnvironmentState = {

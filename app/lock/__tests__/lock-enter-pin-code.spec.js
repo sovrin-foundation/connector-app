@@ -23,6 +23,7 @@ describe('<LockPinCodeEnter />', () => {
     unlockApp: jest.fn(),
     isFetchingInvitation: false,
     isAppLocked: true,
+    inRecovery: 'false',
   })
 
   let component

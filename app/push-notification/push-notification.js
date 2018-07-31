@@ -9,10 +9,9 @@ import {
   updatePushToken,
   fetchAdditionalData,
 } from '../store'
-import { PUSH_COM_METHOD } from '../common'
-import { setItem } from '../services/secure-storage'
 import PushNotificationNavigator from './push-notification-navigator'
 import type { PushNotificationProps } from './type-push-notification'
+import type { Store } from '../store/type-store'
 import type { NotificationPayload } from '../common/type-common'
 
 export class PushNotification extends PureComponent<
@@ -24,13 +23,11 @@ export class PushNotification extends PureComponent<
   refreshTokenListener = null
 
   componentDidMount() {
+    // TODO: refactor to run this based off of actions so that we're not creating a new push notification token when user is trying to restore wallet
     // reset ios badge count to zero
     // iOS only and there's no way to set it in Android, yet.
     FCM.setBadgeNumber(0)
     FCM.removeAllDeliveredNotifications()
-    FCM.getFCMToken().then(token => {
-      this.saveDeviceToken(token)
-    })
 
     this.notificationListener = FCM.on(FCMEvent.Notification, notification => {
       this.onPushNotificationReceived(notification)
@@ -55,13 +52,18 @@ export class PushNotification extends PureComponent<
 
   saveDeviceToken(token: string) {
     if (token) {
-      setItem(PUSH_COM_METHOD, token)
-        .then(() => {
-          this.props.pushNotificationPermissionAction(true)
-          this.props.updatePushToken(token)
+      this.props.updatePushToken(token)
+    }
+  }
+
+  componentWillReceiveProps(nextProps: PushNotificationProps) {
+    if (this.props.isAllowed !== nextProps.isAllowed) {
+      FCM.getFCMToken()
+        .then(token => {
+          this.saveDeviceToken(token)
         })
-        .catch(function(error) {
-          console.log('LOG: error saveDeviceToken setItem, ', error)
+        .catch(e => {
+          console.log(e)
         })
     }
   }
@@ -89,4 +91,11 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default connect(null, mapDispatchToProps)(PushNotification)
+const mapStateToProps = (state: Store) => {
+  return {
+    isAllowed: state.pushNotification.isAllowed,
+    pushToken: state.pushNotification.pushToken,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PushNotification)

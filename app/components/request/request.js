@@ -2,6 +2,7 @@
 import React, { PureComponent } from 'react'
 import { View } from 'react-native'
 import FCM from 'react-native-fcm'
+import { bindActionCreators } from 'redux'
 import { Container, TouchId } from '../../components'
 import { connect } from 'react-redux'
 import { TOUCH_ID_MESSAGE, TOUCH_ID_NOT_AVAILABLE } from '../../common'
@@ -11,6 +12,7 @@ import type { RequestProps, RequestState, ResponseTypes } from './type-request'
 import { captureError } from '../../services/error/error-handler'
 import { lockAuthorizationRoute } from '../../common/route-constants'
 import type { Store } from '../../store/type-store'
+import { pushNotificationPermissionAction } from '../../push-notification/push-notification-store'
 
 export class Request extends PureComponent<RequestProps, RequestState> {
   state = {
@@ -65,7 +67,10 @@ export class Request extends PureComponent<RequestProps, RequestState> {
 
   onAction = (response: ResponseTypes) => {
     return FCM.requestPermissions()
-      .then(() => this.checkIfTouchIdEnabled(response))
+      .then(() => {
+        this.props.pushNotificationPermissionAction(true)
+        this.checkIfTouchIdEnabled(response)
+      })
       .catch(error => {
         // astute readers will notice that we are calling authenticate
         // in success and fail both, so we can move it outside of promise
@@ -107,10 +112,18 @@ export class Request extends PureComponent<RequestProps, RequestState> {
   }
 }
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      pushNotificationPermissionAction,
+    },
+    dispatch
+  )
+
 const mapStateToProps = ({ lock }: Store) => {
   return {
     isTouchIdEnabled: lock.isTouchIdEnabled,
   }
 }
 
-export default connect(mapStateToProps)(Request)
+export default connect(mapStateToProps, mapDispatchToProps)(Request)

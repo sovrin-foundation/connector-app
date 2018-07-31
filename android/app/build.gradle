@@ -115,7 +115,7 @@ android {
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
             targetCompatibility JavaVersion.VERSION_1_8
-            // incremental = false; //If you see any build issues, try uncommenting this line development phases. Do not commit this line uncommented
+            incremental = false; //If you see any build issues, try uncommenting this line development phases. Do not commit this line uncommented
         }
          ndk {
              abiFilters 'x86', 'armeabi-v7a'//, 'x86_64', 'armeabi',  'arm64-v8a' // <- only the supported ones
@@ -167,6 +167,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-zip-archive')
     compile project(':react-native-aes-crypto')
     compile project(':react-native-randombytes')
     compile project(':react-native-document-picker')
@@ -201,7 +202,7 @@ dependencies {
     compile project(':react-native-radial-gradient')
     compile 'net.hockeyapp.android:HockeySDK:4.1.4'
     compile 'com.android.support:palette-v7:26.1.0'
-    compile 'com.connectme:vcx:1.0.0-29-07-2018T09-48@aar'
+    compile 'com.connectme:vcx:1.0.0-30-07-2018T09-23@aar'
     implementation 'net.sourceforge.streamsupport:android-retrofuture:1.6.2'
     implementation group: 'net.sourceforge.streamsupport', name: 'android-retrostreams', version: '1.6.2'
     implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.59'

@@ -31,6 +31,7 @@ export type RequestProps = RequestDetailProps & {
   onAction: (response: ResponseTypes) => void,
   showErrorAlerts: boolean,
   isTouchIdEnabled: boolean,
+  pushNotificationPermissionAction: boolean => void,
 } & ReactNavigation
 
 export type RequestState = {

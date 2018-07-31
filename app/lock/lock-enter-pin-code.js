@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { StackNavigator } from 'react-navigation'
-
+import { safeGet, safeSet } from '../services/storage'
 import LockEnter from './lock-enter'
 import {
   lockEnterPinRoute,
@@ -100,14 +100,14 @@ export class LockEnterPin extends PureComponent<
   }
 
   render() {
-    const { isFetchingInvitation, navigation } = this.props
+    const { isFetchingInvitation, navigation, inRecovery } = this.props
     let fromRecovery = false
     if (navigation.state) {
       fromRecovery =
-        navigation.state.params &&
+        (navigation.state.params &&
         navigation.state.params.fromScreen === 'recovery'
           ? true
-          : false
+          : false) || inRecovery === 'true'
     }
     let message = this.props.existingPin
       ? ENTER_YOUR_PASS_CODE_MESSAGE
@@ -139,6 +139,7 @@ const mapStateToProps = (state: Store, { navigation }: ReactNavigation) => ({
     ? navigation.state.params ? navigation.state.params.existingPin : false
     : false,
   isAppLocked: state.lock.isAppLocked,
+  inRecovery: state.lock.inRecovery,
 })
 
 const mapDispatchToProps = dispatch =>

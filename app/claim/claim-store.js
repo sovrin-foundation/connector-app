@@ -53,7 +53,7 @@ import {
   getConnectionByUserDid,
   getUseVcx,
 } from '../store/store-selector'
-import { setItem, getItem } from '../services/secure-storage'
+import { secureSet, secureGet } from '../services/storage'
 import { CLAIM_MAP } from '../common/secure-storage-constants'
 import { RESET } from '../common/type-common'
 import { ensureVcxInitSuccess } from '../store/config-store'
@@ -129,7 +129,7 @@ export function* claimReceivedSaga(
           },
         })
 
-        yield call(setItem, CLAIM_MAP, JSON.stringify(claimMap))
+        yield call(secureSet, CLAIM_MAP, JSON.stringify(claimMap))
         break
       }
     }
@@ -164,7 +164,7 @@ export const hydrateClaimMapFail = (error: CustomError) => ({
 
 export function* hydrateClaimMapSaga(): Generator<*, *, *> {
   try {
-    const fetchedClaimMap = yield call(getItem, CLAIM_MAP)
+    const fetchedClaimMap = yield call(secureGet, CLAIM_MAP)
     if (fetchedClaimMap) {
       const claimMap: ClaimMap = JSON.parse(fetchedClaimMap)
       yield put(hydrateClaimMap(claimMap))
@@ -278,7 +278,7 @@ export function* saveClaimUuidMap(): Generator<*, *, *> {
   const claimMap: ClaimMap = yield select(getClaimMap)
 
   try {
-    yield call(setItem, CLAIM_MAP, JSON.stringify(claimMap))
+    yield call(secureSet, CLAIM_MAP, JSON.stringify(claimMap))
   } catch (e) {
     // TODO:KS what should we do if storage fails
     console.error(`Failed to store claim uuid map:${e}`)

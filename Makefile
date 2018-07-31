@@ -61,6 +61,15 @@ clean: ## Cleans dependencies, previous builds and temp files
 	@rm -rf android/app/build
 	@echo Cleanup finished
 
+cleancache: ## Cleans the npm packaging cache
+	@echo Cleaning cache started - Use Ctrl+c to exit when you see \'Loading dependency graph, done\'
+	@watchman watch-del-all
+	@rm -rf ${TMPDIR}/react-*
+	@rm -rf ${TMPDIR}/metro-bundler-cache-*
+	@npm cache verify
+	@yarn install --pure-lockfile
+	@npm start -- --reset-cache
+
 post-install:
 	@./node_modules/.bin/remotedev-debugger --hostname localhost --port 5678 --injectserver
 	@# Must remove the .babelrc for 0.42.0 to work correctly

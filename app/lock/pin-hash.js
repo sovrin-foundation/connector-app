@@ -1,6 +1,7 @@
 // @flow
 import Aes from 'react-native-aes-crypto'
-import { NativeModules } from 'react-native'
+import { NativeModules, Platform } from 'react-native'
+
 const { RNRandomBytes } = NativeModules
 
 const generateKey = (password: string, salt: string) =>
@@ -13,7 +14,11 @@ export const generateSalt = async () => {
       if (err) {
         reject(err)
       } else {
-        resolve(bytes)
+        if (Platform.OS === 'android') {
+          resolve(bytes.slice(0, -1))
+        } else {
+          resolve(bytes)
+        }
       }
     })
   })
@@ -23,12 +28,12 @@ export async function pinHash(pin: string, salt: string) {
   try {
     const key = await generateKey(pin, salt)
     if (__DEV__) {
-      console.log('salt', salt)
-      console.log('key', key)
+      console.log('pinHash: salt: ', salt)
+      console.log('pinHash: key: ', key)
     }
     return key
   } catch (e) {
-    console.error(e)
+    console.error(`pinHash: ${e}`)
     return null
   }
 }

@@ -1,7 +1,6 @@
 // @flow
-import { put, call, select } from 'redux-saga/effects'
+import { put, call, select, take } from 'redux-saga/effects'
 import RNFetchBlob from 'react-native-fetch-blob'
-import { AsyncStorage } from 'react-native'
 
 import userReducer, {
   connectRegisterCreateAgentDone,
@@ -35,10 +34,16 @@ import {
   ERROR_SAVE_USER_SELECTED_IMAGE,
   ERROR_SELECT_USER_AVATAR,
 } from '../type-user-store'
-import { setItem, getItem } from '../../../services/secure-storage'
+import {
+  secureSet,
+  secureGet,
+  safeSet,
+  safeGet,
+} from '../../../services/storage'
 import { getUserAvatarName } from '../../store-selector'
 import { uuid } from '../../../services/uuid'
 import ImagePicker from 'react-native-image-crop-picker'
+import { VCX_INIT_SUCCESS } from '../../type-config-store'
 
 jest.mock('../../../services/uuid')
 
@@ -116,9 +121,10 @@ describe('store: user-store: ', () => {
     const gen = saveUserOneTimeInfoSaga(
       connectRegisterCreateAgentDone(userOneTimeInfo)
     )
+    expect(gen.next().value).toEqual(take(VCX_INIT_SUCCESS))
     expect(gen.next().value).toEqual(
       call(
-        setItem,
+        secureSet,
         STORAGE_KEY_USER_ONE_TIME_INFO,
         JSON.stringify(userOneTimeInfo)
       )
@@ -130,10 +136,10 @@ describe('store: user-store: ', () => {
     const gen = saveUserOneTimeInfoSaga(
       connectRegisterCreateAgentDone(userOneTimeInfo)
     )
-
+    expect(gen.next().value).toEqual(take(VCX_INIT_SUCCESS))
     expect(gen.next().value).toEqual(
       call(
-        setItem,
+        secureSet,
         STORAGE_KEY_USER_ONE_TIME_INFO,
         JSON.stringify(userOneTimeInfo)
       )
@@ -154,13 +160,13 @@ describe('store: user-store: ', () => {
   it('saga: hydrateUserStoreSaga => success', () => {
     const gen = hydrateUserStoreSaga()
     expect(gen.next().value).toEqual(
-      call(getItem, STORAGE_KEY_USER_ONE_TIME_INFO)
+      call(secureGet, STORAGE_KEY_USER_ONE_TIME_INFO)
     )
     expect(gen.next(JSON.stringify(userOneTimeInfo)).value).toEqual(
       put(hydrateUserStore({ userOneTimeInfo }))
     )
     expect(gen.next().value).toEqual(
-      call(AsyncStorage.getItem, STORAGE_KEY_USER_AVATAR_NAME)
+      call(safeGet, STORAGE_KEY_USER_AVATAR_NAME)
     )
     expect(gen.next(userAvatarImageName).value).toEqual(
       put(hydrateUserStore({ avatarName: userAvatarImageName }))
@@ -171,7 +177,7 @@ describe('store: user-store: ', () => {
   it('saga: hydrateUserStoreSaga => fail', () => {
     const gen = hydrateUserStoreSaga()
     expect(gen.next().value).toEqual(
-      call(getItem, STORAGE_KEY_USER_ONE_TIME_INFO)
+      call(secureGet, STORAGE_KEY_USER_ONE_TIME_INFO)
     )
     const error = 'test error'
     expect(gen.throw(new Error(error)).value).toEqual(
@@ -183,7 +189,7 @@ describe('store: user-store: ', () => {
       )
     )
     expect(gen.next().value).toEqual(
-      call(AsyncStorage.getItem, STORAGE_KEY_USER_AVATAR_NAME)
+      call(safeGet, STORAGE_KEY_USER_AVATAR_NAME)
     )
     const errorMessage = 'test error in storage key'
     expect(gen.throw(new Error(errorMessage)).value).toEqual(
@@ -212,7 +218,7 @@ describe('store: user-store: ', () => {
       call(RNFetchBlob.fs.cp, userAvatarImagePath, newImagePath)
     )
     expect(gen.next().value).toEqual(
-      call(AsyncStorage.setItem, STORAGE_KEY_USER_AVATAR_NAME, newImageName)
+      call(safeSet, STORAGE_KEY_USER_AVATAR_NAME, newImageName)
     )
     expect(gen.next().value).toEqual(
       put(saveUserSelectedAvatarSuccess(newImageName))
@@ -251,11 +257,7 @@ describe('store: user-store: ', () => {
   it('saga: persistUserSelectedAvatar', () => {
     const gen = persistUserSelectedAvatar(userAvatarImageName)
     expect(gen.next().value).toEqual(
-      call(
-        AsyncStorage.setItem,
-        STORAGE_KEY_USER_AVATAR_NAME,
-        userAvatarImageName
-      )
+      call(safeSet, STORAGE_KEY_USER_AVATAR_NAME, userAvatarImageName)
     )
     expect(gen.next().done).toBe(true)
   })
@@ -263,7 +265,7 @@ describe('store: user-store: ', () => {
   it('saga: hydrateUserSelectedAvatarImage => success', () => {
     const gen = hydrateUserSelectedAvatarImage()
     expect(gen.next().value).toEqual(
-      call(AsyncStorage.getItem, STORAGE_KEY_USER_AVATAR_NAME)
+      call(safeGet, STORAGE_KEY_USER_AVATAR_NAME)
     )
     expect(gen.next(userAvatarImageName).value).toEqual(
       put(hydrateUserStore({ avatarName: userAvatarImageName }))
@@ -274,7 +276,7 @@ describe('store: user-store: ', () => {
   it('saga: hydrateUserSelectedAvatarImage => failure', () => {
     const gen = hydrateUserSelectedAvatarImage()
     expect(gen.next().value).toEqual(
-      call(AsyncStorage.getItem, STORAGE_KEY_USER_AVATAR_NAME)
+      call(safeGet, STORAGE_KEY_USER_AVATAR_NAME)
     )
     const errorMessage = 'error getting user avatar name'
     expect(gen.throw(new Error(errorMessage)).value).toEqual(

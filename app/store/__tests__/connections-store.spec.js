@@ -1,5 +1,4 @@
 // @flow
-import { AsyncStorage } from 'react-native'
 import renderer from 'react-test-renderer'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import { expectSaga } from 'redux-saga-test-plan'
@@ -27,7 +26,7 @@ import {
   getStore,
   connectionThemes,
 } from '../../../__mocks__/static-data'
-import { getItem, deleteItem, setItem } from '../../services/secure-storage'
+import { safeGet, safeSet, secureSet, secureGet } from '../../services/storage'
 import { CONNECTIONS } from '../../common'
 import { deleteConnection } from '../../bridge/react-native-cxs/RNCxs'
 import { STORAGE_KEY_THEMES } from '../type-connection-store'
@@ -102,10 +101,10 @@ describe('connections should update correctly', () => {
       .withState(stateWithConnection)
       .provide([
         [matchers.call.like({ fn: deleteConnection }), true],
-        [matchers.call.fn(setItem, CONNECTIONS, '{}'), true],
+        [matchers.call.fn(secureSet, CONNECTIONS, '{}'), true],
       ])
       .call.like({ fn: deleteConnection })
-      .call(setItem, CONNECTIONS, '{}')
+      .call(secureSet, CONNECTIONS, '{}')
       .put(deleteConnectionSuccess({}))
       .run()
   })
@@ -154,7 +153,7 @@ describe('connections should update correctly', () => {
     const stateWithThemes = getStore().getState()
     const result = await expectSaga(persistThemes)
       .withState(stateWithThemes)
-      .provide([[matchers.call.like({ fn: AsyncStorage.setItem }), true]])
+      .provide([[matchers.call.like({ fn: secureSet }), true]])
       .run()
     expect(result).toMatchSnapshot()
   })
@@ -163,7 +162,7 @@ describe('connections should update correctly', () => {
     const result = await expectSaga(hydrateThemes)
       .provide([
         [
-          matchers.call.fn(AsyncStorage.getItem, STORAGE_KEY_THEMES),
+          matchers.call.fn(secureGet, STORAGE_KEY_THEMES),
           JSON.stringify(connectionThemes),
         ],
       ])

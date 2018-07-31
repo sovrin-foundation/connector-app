@@ -1,21 +1,8 @@
 // @flow
-import { AsyncStorage, Alert, Platform } from 'react-native'
-import {
-  put,
-  take,
-  race,
-  all,
-  call,
-  select,
-  takeLatest,
-  spawn,
-} from 'redux-saga/effects'
-import { IS_ALREADY_INSTALLED } from '../common'
-import { hydrateApp } from '../store/hydration-store'
-import { setItem, getItem, deleteItem } from '../services/secure-storage'
-import { captureError } from '../services/error/error-handler'
-import { lockEnable } from '../lock/lock-store'
-import { PIN_STORAGE_KEY, TOUCHID_STORAGE_KEY } from '../lock/type-lock'
+import { Alert } from 'react-native'
+import { put, take, all, call, select, takeLatest } from 'redux-saga/effects'
+
+import { secureGet, secureSet } from '../services/storage'
 import {
   getErrorAlertsSwitchValue,
   getPushToken,
@@ -23,14 +10,12 @@ import {
   getConfig,
   getUserOneTimeInfo,
   getVcxInitializationState,
-  getAgencyUrl,
   getCurrentScreen,
-  getUseVcx,
 } from '../store/store-selector'
-import { enableTouchIdAction, disableTouchIdAction } from '../lock/lock-store'
 import {
   SERVER_ENVIRONMENT,
   HYDRATED,
+  INITIALIZED,
   APP_INSTALLED,
   ALREADY_INSTALLED_RESULT,
   SERVER_ENVIRONMENT_CHANGED,
@@ -55,7 +40,6 @@ import {
   ERROR_VCX_INIT_FAIL,
   ERROR_VCX_PROVISION_FAIL,
   VCX_INIT_NOT_STARTED,
-  USE_VCX,
   UNSAFE_SCREENS_TO_DOWNLOAD_SMS,
 } from './type-config-store'
 import type {
@@ -67,7 +51,6 @@ import type {
   ChangeEnvironment,
   ChangeEnvironmentUrlAction,
 } from './type-config-store'
-import { appHydration, deleteStoredData } from './hydration-store'
 import type { CustomError } from '../common/type-common'
 import { downloadEnvironmentDetails } from '../api/api'
 import schemaValidator from '../services/schema-validator'
@@ -76,6 +59,8 @@ import {
   reset as resetNative,
   init,
   createOneTimeInfo,
+  simpleInit,
+  vcxShutdown,
 } from '../bridge/react-native-cxs/RNCxs'
 import { RESET } from '../common/type-common'
 import { updatePushToken } from '../push-notification/push-notification-store'
@@ -85,7 +70,6 @@ import { connectRegisterCreateAgentDone } from './user/user-store'
 import findKey from 'lodash.findkey'
 import { SAFE_TO_DOWNLOAD_SMS_INVITATION } from '../sms-pending-invitation/type-sms-pending-invitation'
 import { GENESIS_FILE_NAME } from '../api/api-constants'
-import { USE_VCX_KEY } from '../common/secure-storage-constants'
 
 /**
  * this file contains configuration which is changed only from user action
@@ -128,9 +112,10 @@ export const baseUrls = {
 // what settings should be in dev environment
 const isDevEnvironment = __DEV__ && process.env.NODE_ENV !== 'test'
 const defaultEnvironment = isDevEnvironment
-  ? SERVER_ENVIRONMENT.DEVELOPMENT
+  ? SERVER_ENVIRONMENT.SANDBOX
   : SERVER_ENVIRONMENT.DEMO
-const defaultUseVcx = isDevEnvironment ? true : false
+// default to use vcx, we will remove useVcx flag itself sometime later
+const defaultUseVcx = true
 
 const initialState: ConfigStore = {
   ...baseUrls[defaultEnvironment],
@@ -146,10 +131,15 @@ const initialState: ConfigStore = {
   vcxInitializationState: VCX_INIT_NOT_STARTED,
   vcxInitializationError: null,
   useVcx: defaultUseVcx,
+  isInitialized: false,
 }
 
 export const hydrated = () => ({
   type: HYDRATED,
+})
+
+export const initialized = () => ({
+  type: INITIALIZED,
 })
 
 export const alreadyInstalledAction = (isAlreadyInstalled: boolean) => ({
@@ -170,8 +160,6 @@ export function* resetStore(): Generator<*, *, *> {
   yield put({ type: RESET })
 }
 
-// had to specify type to any instead of generator
-// due to redux-saga type definition failing for if with yield
 export function* onChangeEnvironmentUrl(
   action: ChangeEnvironmentUrlAction
 ): Generator<*, *, *> {
@@ -198,7 +186,10 @@ export function* onChangeEnvironmentUrl(
       return
     }
 
-    yield* deleteStoredData()
+    // TODO:KS When we pick up environment switch story using QR code
+    // then we need to fix below stuff
+    // yield* deleteDeviceSpecificData()
+    // yield* deleteWallet()
     yield* resetStore()
 
     yield put(
@@ -279,8 +270,15 @@ export function* onEnvironmentSwitch(
 ): Generator<*, *, *> {
   const { type, ...switchedEnvironmentDetail } = action
   try {
+    // these assumptions needs to be fixed, this is a hack for now
+    // ideally we would like to have a walletInitSuccess saga
+    // which would be inside secureSet directly
+    // and if wallet is initialized, then we would go ahead and set values to wallet
+    // for now, we just know that environment switch can only before vcx init is called
+    // so we wait for VCX_INIT_SUCCESS to fire and then we can save data to wallet
+    yield take(VCX_INIT_SUCCESS)
     yield call(
-      AsyncStorage.setItem,
+      secureSet,
       STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL,
       JSON.stringify(switchedEnvironmentDetail)
     )
@@ -303,7 +301,7 @@ export function* watchSwitchEnvironment(): any {
 export function* hydrateSwitchedEnvironmentDetails(): any {
   try {
     const switchedEnvironmentDetail = yield call(
-      AsyncStorage.getItem,
+      secureGet,
       STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL
     )
     if (switchedEnvironmentDetail) {
@@ -364,89 +362,6 @@ export function* watchSwitchErrorAlerts(): any {
   }
 }
 
-export function* alreadyInstalledNotFound(): Generator<*, *, *> {
-  yield put(alreadyInstalledAction(false))
-
-  // clear security setup flag
-  yield call(deleteItem, PIN_STORAGE_KEY)
-  yield call(deleteItem, TOUCHID_STORAGE_KEY)
-  yield put(lockEnable(false))
-
-  // now save the key in user's default storage in phone
-  try {
-    yield call(AsyncStorage.setItem, IS_ALREADY_INSTALLED, 'true')
-  } catch (e) {
-    // somehow the storage failed, so we need to find someway to store
-    // maybe we fallback to file based storage
-
-    // Capture AsyncStorage failed
-    captureError(e)
-  }
-}
-
-export function* onUseVcx(): Generator<*, *, *> {
-  yield call(AsyncStorage.setItem, USE_VCX_KEY, 'true')
-}
-
-export function* watchOnUseVcx(): any {
-  yield takeLatest(USE_VCX, onUseVcx)
-}
-
-export function* hydrateOnUseVcx(): any {
-  try {
-    const useVcxFlag = yield call(AsyncStorage.getItem, USE_VCX_KEY)
-    if (useVcxFlag) {
-      yield put(useVcx())
-    }
-  } catch (e) {
-    captureError(e)
-  }
-}
-
-export function* hydrateConfig(): any {
-  let isAlreadyInstalled = false
-  try {
-    isAlreadyInstalled = yield call(AsyncStorage.getItem, IS_ALREADY_INSTALLED)
-    if (isAlreadyInstalled) {
-      yield put(alreadyInstalledAction(true))
-      try {
-        // restore app lock settings
-        const isLockEnabled = yield call(getItem, PIN_STORAGE_KEY)
-        if (isLockEnabled) {
-          yield put(lockEnable(true))
-        }
-        const isTouchIdEnabled = yield call(getItem, TOUCHID_STORAGE_KEY)
-        if (isTouchIdEnabled === 'true') {
-          yield put(enableTouchIdAction())
-        } else {
-          yield put(disableTouchIdAction())
-        }
-      } catch (e) {
-        // somehow the secure storage failed, so we need to find someway to store
-        // maybe we fallback to file based storage
-
-        // Capture AsyncStorage failed
-        captureError(e)
-      }
-    } else {
-      // if the value we got for isAlreadyInstalled as null
-      yield* alreadyInstalledNotFound()
-    }
-  } catch (e) {
-    // if we did not find any value in user default storage
-    // it means that user uninstalled the app and is now trying again
-    // or this is a new installation
-    yield* alreadyInstalledNotFound()
-  }
-
-  // hydrating connections and push token
-  yield put(hydrateApp(isAlreadyInstalled))
-  yield* appHydration({ isAlreadyInstalled })
-  yield* hydrateSwitchedEnvironmentDetails()
-  yield* hydrateOnUseVcx()
-  yield put(hydrated())
-}
-
 export const vcxInitStart = () => ({
   type: VCX_INIT_START,
 })
@@ -473,7 +388,6 @@ export function* ensureAppHydrated(): Generator<*, *, *> {
 
 export function* initVcx(): Generator<*, *, *> {
   yield* ensureAppHydrated()
-
   // Since we have added a feature flag, so we need to wait
   // to know that user is going to enable the feature flag or not
   // now problem is how do we know when to stop waiting
@@ -519,18 +433,30 @@ export function* initVcx(): Generator<*, *, *> {
 
   // once we reach here, we are sure that either user one time info is loaded from disk
   // or we provisioned one time agent for current user if not already available
-  try {
-    yield call(
-      init,
-      {
-        ...userOneTimeInfo,
-        ...agencyConfig,
-      },
-      getGenesisFileName(agencyUrl)
-    )
-    yield put(vcxInitSuccess())
-  } catch (e) {
-    yield put(vcxInitFail(ERROR_VCX_INIT_FAIL(e.message)))
+
+  // re-try vcx init 4 times, if it does not get success in 4 attempts, raise fail
+  let retryCount = 0
+  let lastInitException = new Error('')
+  while (retryCount < 4) {
+    try {
+      yield call(
+        init,
+        {
+          ...userOneTimeInfo,
+          ...agencyConfig,
+        },
+        getGenesisFileName(agencyUrl)
+      )
+      yield put(vcxInitSuccess())
+      break
+    } catch (e) {
+      lastInitException = e
+      retryCount++
+    }
+  }
+
+  if (retryCount > 3) {
+    yield put(vcxInitFail(ERROR_VCX_INIT_FAIL(lastInitException.message)))
   }
 }
 
@@ -576,9 +502,7 @@ export function* watchConfig(): any {
   yield all([
     watchSwitchErrorAlerts(),
     watchSwitchEnvironment(),
-    hydrateConfig(),
     watchChangeEnvironmentUrl(),
-    watchOnUseVcx(),
     watchVcxInitStart(),
   ])
 }
@@ -588,10 +512,6 @@ export const getEnvironmentName = (configStore: ConfigStore) => {
 
   return findKey(baseUrls, environment => environment.agencyUrl === agencyUrl)
 }
-
-export const useVcx = () => ({
-  type: USE_VCX,
-})
 
 export default function configReducer(
   state: ConfigStore = initialState,
@@ -613,6 +533,11 @@ export default function configReducer(
       return {
         ...state,
         isHydrated: true,
+      }
+    case INITIALIZED:
+      return {
+        ...state,
+        isInitialized: true,
       }
     case APP_INSTALLED:
       return {
@@ -654,11 +579,6 @@ export default function configReducer(
         ...state,
         vcxInitializationState: VCX_INIT_FAIL,
         vcxInitializationError: action.error,
-      }
-    case USE_VCX:
-      return {
-        ...state,
-        useVcx: true,
       }
     default:
       return state

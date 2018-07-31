@@ -58,6 +58,7 @@
     "react-native-unique-id": "^1.0.4",
     "react-native-vector-icons": "4.5.0",
     "react-native-version-number": "^0.3.3",
+    "react-native-zip-archive": "^2.2.6",
     "react-navigation": "1.0.0",
     "react-redux": "^5.0.4",
     "redux": "^3.6.0",

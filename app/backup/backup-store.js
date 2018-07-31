@@ -1,6 +1,7 @@
 // @flow
 
-import { put, takeLatest, call, all, select } from 'redux-saga/effects'
+import { put, takeLatest, call, all, select, fork } from 'redux-saga/effects'
+import { zip } from 'react-native-zip-archive'
 import {
   GENERATE_RECOVERY_PHRASE_SUCCESS,
   GENERATE_BACKUP_FILE_SUCCESS,
@@ -22,6 +23,7 @@ import {
   HYDRATE_BACKUP,
   HYDRATE_BACKUP_FAILURE,
   EXPORT_BACKUP_NO_SHARE,
+  WALLET_FILE_NAME,
 } from './type-backup'
 import type {
   PromptBackupBannerAction,
@@ -34,10 +36,16 @@ import type {
   GenerateBackupFileLoadingAction,
 } from './type-backup'
 import RNFetchBlob from 'react-native-fetch-blob'
-import { AsyncStorage, Platform } from 'react-native'
+import { Platform } from 'react-native'
 import Share from 'react-native-share'
 import type { Saga } from 'redux-saga'
-import { setItem, getItem, deleteItem } from '../services/secure-storage'
+import {
+  secureSet,
+  secureGet,
+  secureDelete,
+  safeSet,
+  safeGet,
+} from '../services/storage'
 import type { AgencyPoolConfig } from '../store/type-config-store'
 import type { CustomError } from '../common/type-common'
 import {
@@ -45,8 +53,9 @@ import {
   PASSPHRASE_SALT_STORAGE_KEY,
   PASSPHRASE_STORAGE_KEY,
 } from '../common/secure-storage-constants'
-import { getZippedWalletBackupPath } from '../bridge/react-native-cxs/RNCxs'
+import { encryptWallet } from '../bridge/react-native-cxs/RNCxs'
 import {
+  getSalt,
   getConfig,
   getBackupPassphrase,
   getBackupWalletPath,
@@ -69,28 +78,46 @@ export function* generateBackupSaga(
   action: GenerateBackupFileLoadingAction
 ): Generator<*, *, *> {
   // WALLET BACKUP ZIP FLOW
-  const {
-    agencyUrl,
-    agencyDID,
-    agencyVerificationKey,
-    poolConfig,
-  }: AgencyPoolConfig = yield select(getConfig)
-  const agencyConfig = {
-    agencyUrl,
-    agencyDID,
-    agencyVerificationKey,
-    poolConfig,
-  }
   const recoveryPassphrase: Passphrase = yield select(getBackupPassphrase)
+  const { fs } = RNFetchBlob
   try {
-    const documentDirectory: string = RNFetchBlob.fs.dirs.DocumentDir
-    const backupPath: string = yield call(getZippedWalletBackupPath, {
-      documentDirectory,
-      agencyConfig,
+    const documentDirectory: string = fs.dirs.DocumentDir
+    const backupTimeStamp = moment().format('YYYY-MM-DD-HH-mm-ss')
+    const zipupDirectory: string = `${documentDirectory}/Backup-${backupTimeStamp}`
+
+    // delete zip up directory if it already exists
+    const destFileExists = yield call(fs.exists, zipupDirectory)
+    if (destFileExists) {
+      yield call(fs.unlink, zipupDirectory)
+    }
+
+    // create a new zip up directory
+    yield call(fs.mkdir, zipupDirectory)
+    const destinationZipPath: string = `${documentDirectory}/${WALLET_FILE_NAME}-${backupTimeStamp}.zip`
+    const encryptedFileName: string = `${WALLET_FILE_NAME}.wallet`
+    const encryptedFileLocation: string = `${zipupDirectory}/${encryptedFileName}`
+
+    // create a file which contains salt needed to decrypt the wallet inside of zip up directory
+    const saltValue = yield select(getSalt)
+    const saltFileContents = JSON.stringify({ salt: saltValue })
+    const saltFileName = `${zipupDirectory}/salt.json`
+
+    const saltFile = yield call(
+      fs.createFile,
+      saltFileName,
+      saltFileContents,
+      'utf8'
+    )
+
+    // call VCX method to encrypt wallet. Given path to store it, file name, & key to encrypt it
+    yield call(encryptWallet, {
+      encryptedFileLocation,
       recoveryPassphrase,
     })
 
-    yield put(generateBackupFileSuccess(backupPath))
+    // create zip file of zip up directory contents to be used as backup
+    const backupZipFile = yield call(zip, zipupDirectory, destinationZipPath)
+    yield put(generateBackupFileSuccess(backupZipFile))
   } catch (e) {
     yield put(
       generateBackupFileFail({
@@ -117,19 +144,13 @@ export function* exportBackupSaga(
           title,
           url: backupWalletPath,
           type: 'application/zip',
-          message: 'Export backup!',
-          subject: 'Export backup',
         })
     const lastSuccessfulBackup = moment().format()
-    yield call(
-      AsyncStorage.setItem,
-      LAST_SUCCESSFUL_BACKUP,
-      lastSuccessfulBackup
-    )
     yield put(exportBackupSuccess(lastSuccessfulBackup))
     yield put(promptBackupBanner(false))
+    yield call(safeSet, LAST_SUCCESSFUL_BACKUP, lastSuccessfulBackup)
   } catch (e) {
-    if (e.error === 'User did not share') {
+    if (e.message === 'User did not share') {
       yield put(exportBackupNoShare())
     } else {
       yield put(
@@ -141,10 +162,13 @@ export function* exportBackupSaga(
     }
   }
 }
+
+// we should not need to call this now
+// TODO:KS Verify and remove this
 export function* deletePersistedPassphrase(): Generator<*, *, *> {
   yield all([
-    call(deleteItem, PASSPHRASE_STORAGE_KEY),
-    call(deleteItem, PASSPHRASE_SALT_STORAGE_KEY),
+    call(secureDelete, PASSPHRASE_STORAGE_KEY),
+    call(secureDelete, PASSPHRASE_SALT_STORAGE_KEY),
   ])
 }
 
@@ -152,33 +176,29 @@ export function* generateRecoveryPhraseSaga(
   action: GenerateRecoveryPhraseLoadingAction
 ): Generator<*, *, *> {
   try {
-    let passphrase: string = yield call(getItem, PASSPHRASE_STORAGE_KEY)
-    let passphraseSalt: string = yield call(
-      getItem,
-      PASSPHRASE_SALT_STORAGE_KEY
-    )
+    let passphrase = yield call(secureGet, PASSPHRASE_STORAGE_KEY)
+    let passphraseSalt = yield call(secureGet, PASSPHRASE_SALT_STORAGE_KEY)
     if (!passphrase) {
-      const words: string[] = yield call(getWords, 8, 5)
+      const words: string[] = yield call(getWords, 2, 5)
       passphrase = words.join(' ')
       passphraseSalt = yield call(generateSalt)
     }
 
-    const hashedPassphrase: string = yield call(
-      generateKey,
-      passphrase,
-      passphraseSalt
-    )
-    yield call(setItem, PASSPHRASE_STORAGE_KEY, passphrase)
-    yield call(setItem, PASSPHRASE_SALT_STORAGE_KEY, passphraseSalt)
+    //TODO fix hack - for IOS need to do hash is having extra characters
+    // when doing cross platform export/import then it becomes incompatible
+    const hashedPassphrase = yield call(generateKey, passphrase, passphraseSalt)
+    yield call(secureSet, PASSPHRASE_STORAGE_KEY, passphrase)
+    yield call(secureSet, PASSPHRASE_SALT_STORAGE_KEY, passphraseSalt)
     yield put(
       generateRecoveryPhraseSuccess({
         phrase: passphrase,
         salt: passphraseSalt,
-        hash: hashedPassphrase,
+        hash: hashedPassphrase.substring(0, 16),
       })
     )
     yield put(generateBackupFile())
   } catch (e) {
+    console.log('generateRecoveryPhraseSaga e.message ', e.message)
     yield put(
       generateRecoveryPhraseFail({
         ...ERROR_GENERATE_RECOVERY_PHRASE,
@@ -232,50 +252,61 @@ export function* watchBackup(): any {
 }
 
 export function* watchBackupBannerPrompt(): any {
-  yield takeLatest(PROMPT_WALLET_BACKUP_BANNER, backupBannerSaga)
+  yield takeLatest(PROMPT_WALLET_BACKUP_BANNER, persistBackupBannerStatusSaga)
 }
 
 export function* hydrateBackupSaga(): Generator<*, *, *> {
+  // We run two hydrations that are needed by this store in single saga
+  // we could have merged these two into single hydration and followed
+  // one hydration per reducer, for now we are just moving ahead with two
+  // Also, these two hydrations runs in parallel, and even if one hydration fails
+  // other hydration will continue
+  // reason for not using "all" effect of redux-saga is that in all if one saga fails
+  // then whole "all" effect is cancelled and other saga are not run to completion
+  yield fork(hydrateLastSuccessfulBackupSaga)
+  yield fork(hydrateBackupBannerStatusSaga)
+}
+
+export function* hydrateLastSuccessfulBackupSaga(): Generator<*, *, *> {
   try {
-    let lastSuccessfulBackup: ?string = yield call(
-      AsyncStorage.getItem,
-      LAST_SUCCESSFUL_BACKUP
-    )
+    let lastSuccessfulBackup = yield call(safeGet, LAST_SUCCESSFUL_BACKUP)
     if (lastSuccessfulBackup != null) {
       yield put(hydrateBackup(lastSuccessfulBackup))
-    } else {
-      yield put(
-        hydrateBackupFail({
-          ...ERROR_HYDRATING_BACKUP,
-          message: `${ERROR_HYDRATING_BACKUP.message}`,
-        })
-      )
     }
   } catch (e) {
     yield put(
-      yield put(
-        hydrateBackupFail({
-          ...ERROR_HYDRATING_BACKUP,
-          message: `${ERROR_HYDRATING_BACKUP.message} ${e.message}`,
-        })
-      )
+      hydrateBackupFail({
+        ...ERROR_HYDRATING_BACKUP,
+        message: `${ERROR_HYDRATING_BACKUP.message} ${e.message}`,
+      })
     )
   }
 }
 
-export function* backupBannerSaga(
+export function* hydrateBackupBannerStatusSaga(): Generator<*, *, *> {
+  try {
+    const backupBannerStatus = yield call(safeGet, STORAGE_KEY_SHOW_BANNER)
+    if (backupBannerStatus) {
+      yield put(promptBackupBanner(JSON.parse(backupBannerStatus)))
+    }
+  } catch (e) {
+    yield put(
+      hydrateBackupFail({
+        ...ERROR_HYDRATING_BACKUP,
+        message: `${ERROR_HYDRATING_BACKUP.message} ${e.message}`,
+      })
+    )
+  }
+}
+
+export function* persistBackupBannerStatusSaga(
   action: PromptBackupBannerAction
 ): Generator<*, *, *> {
+  const { showBanner } = action
   try {
-    const { showBanner } = action
-
-    yield call(
-      AsyncStorage.setItem,
-      STORAGE_KEY_SHOW_BANNER,
-      JSON.stringify(showBanner)
-    )
+    yield call(safeSet, STORAGE_KEY_SHOW_BANNER, JSON.stringify(showBanner))
   } catch (e) {
-    yield put(promptBackupBanner(false))
+    yield put(promptBackupBanner(showBanner))
   }
 }
 

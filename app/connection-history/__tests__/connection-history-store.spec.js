@@ -71,7 +71,7 @@ import {
   getClaimOffer,
   getPendingHistoryEvent,
 } from '../../store/store-selector'
-import { getItem } from '../../services/secure-storage'
+import { secureGet } from '../../services/storage'
 import { sendClaimRequest } from '../../claim-offer/claim-offer-store'
 import { RESET } from '../../common/type-common'
 
@@ -307,9 +307,10 @@ describe('Store: ConnectionHistory', () => {
     ).toMatchSnapshot()
   })
 
-  it('should raise failure in case data getItem fails', () => {
+  it('should raise failure in case data secureGet fails', () => {
     const gen = loadHistorySaga()
-    expect(gen.next().value).toEqual(call(getItem, HISTORY_EVENT_STORAGE_KEY))
+    gen.next()
+    expect(gen.next().value).toEqual(call(secureGet, HISTORY_EVENT_STORAGE_KEY))
     const error = new Error()
     expect(gen.throw(error).value).toEqual(
       put(

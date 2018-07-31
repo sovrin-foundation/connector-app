@@ -87,7 +87,7 @@ import type { ApiClaimRequest, EdgeClaimRequest } from '../api/type-api'
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
 import type { Connection } from '../store/type-connection-store'
 import { RESET } from '../common/type-common'
-import { setItem, getItem, deleteItem } from '../services/secure-storage'
+import { secureSet, secureGet, secureDelete } from '../services/storage'
 
 const claimOfferInitialState = {
   vcxSerializedClaimOffers: {},
@@ -420,7 +420,7 @@ export function* saveSerializedClaimOffersSaga(
   try {
     const serializedClaimOffers = yield select(getSerializedClaimOffers)
     yield call(
-      setItem,
+      secureSet,
       KEY_SERIALIZED_CLAIM_OFFERS,
       JSON.stringify(serializedClaimOffers)
     )
@@ -439,7 +439,7 @@ export function* removePersistedSerializedClaimOffersSaga(): Generator<
   *
 > {
   try {
-    yield call(deleteItem, KEY_SERIALIZED_CLAIM_OFFERS)
+    yield call(secureDelete, KEY_SERIALIZED_CLAIM_OFFERS)
     yield put({ type: REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS })
   } catch (e) {
     yield put({ type: REMOVE_SERIALIZED_CLAIM_OFFERS_FAIL })
@@ -449,7 +449,7 @@ export function* removePersistedSerializedClaimOffersSaga(): Generator<
 export function* hydrateSerializedClaimOffersSaga(): Generator<*, *, *> {
   try {
     const serializedClaimOffersJson = yield call(
-      getItem,
+      secureGet,
       KEY_SERIALIZED_CLAIM_OFFERS
     )
     if (serializedClaimOffersJson) {

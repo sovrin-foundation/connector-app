@@ -2,7 +2,6 @@
 import 'react-native'
 import { Alert } from 'react-native'
 import renderer from 'react-test-renderer'
-import { AsyncStorage } from 'react-native'
 import { put, take, call, select } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
@@ -12,7 +11,6 @@ import configReducer, {
   changeServerEnvironment,
   toggleErrorAlerts,
   baseUrls,
-  hydrateConfig,
   alreadyInstalledAction,
   hydrated,
   onEnvironmentSwitch,
@@ -27,7 +25,6 @@ import configReducer, {
   initVcx,
   ensureVcxInitSuccess,
   getEnvironmentName,
-  useVcx,
 } from '../config-store'
 import {
   SERVER_ENVIRONMENT_CHANGED,
@@ -63,6 +60,7 @@ import { updatePushToken } from '../../push-notification/push-notification-store
 import { getPushToken } from '../../store/store-selector'
 import { connectRegisterCreateAgentDone } from '../user/user-store'
 import { homeRoute } from '../../common/route-constants'
+import { secureGet, secureSet } from '../../services/storage'
 
 const getConfigStoreInitialState = () =>
   configReducer(undefined, { type: 'INITIAL_TEST_ACTION' })
@@ -120,9 +118,10 @@ describe('server environment should change', () => {
     const gen = onEnvironmentSwitch(
       changeEnvironment(agencyUrl, agencyDID, agencyVerificationKey, poolConfig)
     )
+    expect(gen.next().value).toEqual(take(VCX_INIT_SUCCESS))
     expect(gen.next().value).toEqual(
       call(
-        AsyncStorage.setItem,
+        secureSet,
         STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL,
         serializedEnvironmentDetail
       )
@@ -132,7 +131,7 @@ describe('server environment should change', () => {
   it('should hydrate switched environment details', () => {
     const gen = hydrateSwitchedEnvironmentDetails()
     expect(gen.next().value).toEqual(
-      call(AsyncStorage.getItem, STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL)
+      call(secureGet, STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL)
     )
     expect(gen.next(serializedEnvironmentDetail).value).toEqual(
       put(
@@ -164,17 +163,16 @@ describe('server environment should change', () => {
     }
     // delete stored data, not interested in actual calls
     // those tests are being taken care in other test
-    gen.next(environmentDetails)
     // TODO: Change index value to constant that better describes what the number represents
-    for (let index = 0; index < 16; index++) {
-      gen.next()
-    }
+    // for (let index = 0; index < 6; index++) {
+    //   gen.next()
+    // }
 
-    expect(gen.next().value).toEqual(
-      put({ type: REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS })
-    )
-    gen.next()
-    expect(gen.next().value).toEqual(put({ type: RESET }))
+    // expect(gen.next().value).toEqual(
+    //   put({ type: REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS })
+    // )
+    // gen.next()
+    expect(gen.next(environmentDetails).value).toEqual(put({ type: RESET }))
     expect(gen.next().value).toEqual(
       put(
         changeEnvironment(
@@ -241,73 +239,6 @@ describe('server environment should change', () => {
   })
 })
 
-describe('hydration should work correctly', () => {
-  // TODO Write this test in proper way and check for all generators and values
-  // TODO: Document when we need to do this
-  it('should raise correct action with correct data', () => {
-    const gen = hydrateConfig()
-    // call async storage to get data
-    gen.next()
-    // dispatch an action to tell app was not already installed
-    gen.next()
-    // clear app setup settings
-    gen.next()
-    gen.next()
-    // clear app lock settings
-    gen.next()
-
-    // hydrate connections and push token
-    gen.next()
-    // hydrate lock settings
-    gen.next()
-    // save data in async storage
-    gen.next()
-    gen.next()
-
-    gen.next()
-    gen.next()
-    gen.next()
-
-    // hydrate wallet backup banner
-    gen.next()
-    // hydrate user store
-    gen.next()
-    gen.next()
-    gen.next()
-    // hydrate themes
-    gen.next()
-    gen.next()
-    gen.next()
-    // hydrate claimMap from claim store
-    gen.next()
-    gen.next()
-
-    // hydrate serialized claim offers
-    gen.next()
-    gen.next()
-    gen.next()
-
-    // hydrate app success
-    gen.next()
-    // hydrate user switched environment details
-    gen.next()
-    gen.next()
-    gen.next()
-    gen.next()
-    gen.next()
-    gen.next()
-    gen.next()
-    gen.next()
-    gen.next()
-    gen.next()
-    gen.next()
-    gen.next()
-    gen.next()
-
-    expect(gen.next().value).toEqual(put(hydrated()))
-  })
-})
-
 describe('reducer:config', () => {
   it('action:VCX_INIT_NOT_STARTED', () => {
     const initialState = getConfigStoreInitialState()
@@ -328,11 +259,6 @@ describe('reducer:config', () => {
     const initialState = getConfigStoreInitialState()
     const error = ERROR_VCX_INIT_FAIL('error from test')
     expect(configReducer(initialState, vcxInitFail(error))).toMatchSnapshot()
-  })
-
-  it('action:USE_VCX', () => {
-    const initialState = getConfigStoreInitialState()
-    expect(configReducer(initialState, useVcx())).toMatchSnapshot()
   })
 })
 

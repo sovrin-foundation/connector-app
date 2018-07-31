@@ -1,7 +1,13 @@
 // @flow
-import { put, takeLatest, call, select, all } from 'redux-saga/effects'
-import { AsyncStorage } from 'react-native'
-import { setItem, getItem } from '../services/secure-storage'
+import {
+  put,
+  takeLatest,
+  takeEvery,
+  call,
+  select,
+  all,
+} from 'redux-saga/effects'
+import { secureSet, secureGet, secureDelete } from '../services/storage'
 import { CONNECTIONS } from '../common'
 import {
   getAgencyUrl,
@@ -12,7 +18,7 @@ import {
   getThemes,
   getConnection as getConnectionBySenderDid,
 } from './store-selector'
-import { color, white } from '../common/styles/constant'
+import { color } from '../common/styles/constant'
 import { bubbleSize } from '../common/styles'
 import type { CustomError, GenericObject } from '../common/type-common'
 import type {
@@ -46,7 +52,7 @@ const NEW_CONNECTION_FAIL = 'NEW_CONNECTION_FAIL'
 const HYDRATE_CONNECTIONS = 'HYDRATE_CONNECTIONS'
 
 const initialState: ConnectionStore = {
-  data: null,
+  data: {},
   isFetching: false,
   isPristine: true,
   connectionThemes: {
@@ -147,7 +153,7 @@ export function* deleteConnectionOccurredSaga(
       poolConfig,
     })
 
-    yield call(setItem, CONNECTIONS, JSON.stringify(rest))
+    yield call(secureSet, CONNECTIONS, JSON.stringify(rest))
     yield put(deleteConnectionSuccess(rest))
   } catch (e) {
     yield put(deleteConnectionFailure(connection, e))
@@ -190,29 +196,42 @@ export function* loadNewConnectionSaga(
       vcxSerializedConnection,
     }
 
-    let connections = yield call(getItem, CONNECTIONS)
-    connections = connections ? JSON.parse(connections) : {}
-
-    Object.assign(connections, {
-      [identifier]: connectionMapper(connection),
-    })
-
-    yield call(setItem, CONNECTIONS, JSON.stringify(connections))
     yield put(promptBackupBanner(true))
     yield put(saveNewConnectionSuccess(connection))
+    yield* persistConnections()
   } catch (e) {
     yield put(saveNewConnectionFailed(e))
   }
 }
 
 export function* watchNewConnection(): any {
-  yield takeLatest(NEW_CONNECTION, loadNewConnectionSaga)
+  yield takeEvery(NEW_CONNECTION, loadNewConnectionSaga)
+}
+
+export function* persistConnections(): Generator<*, *, *> {
+  try {
+    const connections = yield select(getAllConnection)
+    yield call(secureSet, CONNECTIONS, JSON.stringify(connections))
+  } catch (e) {
+    console.log(`hydrateConnectionSaga: ${e}`)
+  }
 }
 
 export const hydrateConnections = (connections: Connections) => ({
   type: HYDRATE_CONNECTIONS,
   connections,
 })
+
+export function* hydrateConnectionSaga(): Generator<*, *, *> {
+  try {
+    const connections = yield call(secureGet, CONNECTIONS)
+    if (connections) {
+      yield put(hydrateConnections(JSON.parse(connections)))
+    }
+  } catch (e) {
+    console.log(`hydrateConnectionSaga: ${e}`)
+  }
+}
 
 export const getConnections = (connectionsData: ?Connections) =>
   connectionsData ? Object.values(connectionsData) : []
@@ -252,28 +271,28 @@ export const hydrateConnectionThemes = (themes: ConnectionThemes) => ({
 export function* persistThemes(): Generator<*, *, *> {
   const themes = yield select(getThemes)
   try {
-    yield call(AsyncStorage.setItem, STORAGE_KEY_THEMES, JSON.stringify(themes))
+    yield call(secureSet, STORAGE_KEY_THEMES, JSON.stringify(themes))
   } catch (e) {
-    console.log(e)
+    console.error(`persistThemes: ${e}`)
   }
 }
 
 export function* hydrateThemes(): Generator<*, *, *> {
   try {
-    const themes = yield call(AsyncStorage.getItem, STORAGE_KEY_THEMES)
+    const themes = yield call(secureGet, STORAGE_KEY_THEMES)
     if (themes) {
       yield put(hydrateConnectionThemes(JSON.parse(themes)))
     }
   } catch (e) {
-    console.log(e)
+    console.error(`hydrateThemes: ${e}`)
   }
 }
 
 export function* removePersistedThemes(): Generator<*, *, *> {
   try {
-    yield call(AsyncStorage.removeItem, STORAGE_KEY_THEMES)
+    yield call(secureDelete, STORAGE_KEY_THEMES)
   } catch (e) {
-    console.log(e)
+    console.error(`removePersistedThemes: ${e}`)
   }
 }
 

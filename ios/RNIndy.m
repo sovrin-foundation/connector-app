@@ -1,7 +1,6 @@
 //  Created by react-native-create-bridge
 
 #import "RNIndy.h"
-#import "SSZipArchive.h"
 
 // import RCTBridge
 #if __has_include(<React/RCTBridge.h>)
@@ -211,35 +210,6 @@ RCT_EXPORT_METHOD(switchEnvironment: (NSString *)poolConfig
     indy.pool = [[CMPoolObject alloc] initWithName:@"pool" nodesConfig:poolConfig];
     resolve(@YES);
   }
-}
-
-  // BACKUP DATA WALLET
-RCT_EXPORT_METHOD(backupWallet: (NSString *) documentsDirectory
-                  encryptedWith: (NSString *) encryptionKey
-                  withNodesConfig:(NSString *) nodesConfig
-                  resolver: (RCTPromiseResolveBlock) resolve
-                  rejecter: (RCTPromiseRejectBlock) reject)
-{
-  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
-        NSError *error = nil;
-        // TODO: replace this block with the CMWallet file location
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        NSString *dataWalletFile = [documentsDirectory stringByAppendingPathComponent:@"backup.txt"];
-        [fileManager createFileAtPath:dataWalletFile contents:[@"tomato tomatoe, potato, potatoe" dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
-
-        // Path of the zip file
-        NSString *walletZipPath = [documentsDirectory stringByAppendingString:@"/backup.zip"];
-
-        // Creates zip file
-        BOOL success = [SSZipArchive createZipFileAtPath:walletZipPath withContentsOfDirectory:dataWalletFile];
-
-        if (success) {
-          resolve(walletZipPath);
-        } else {
-          NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
-
-          reject(indyErrorCode, @"Error backing up wallet", error);
-        }
 }
 
 #pragma mark msg pack apis
@@ -581,7 +551,7 @@ RCT_EXPORT_METHOD(init: (NSString *)config
     if (error != nil && error.code != 0 && error.code != 1044)
     {
       NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
-      reject(indyErrorCode, @"Error occurred while initializing vcx", error);
+      reject(indyErrorCode, [NSString stringWithFormat:@"Error occurred while initializing vcx: %@ :: %ld",error.domain, (long)error.code], error);
     }else{
       resolve(@true);
     }
@@ -633,30 +603,29 @@ RCT_EXPORT_METHOD(deserializeConnection: (NSString *)serializedConnection
   }];
 }
 
-RCT_EXPORT_METHOD(
-  saveFileDocumentsDirectory: (NSString *) tempPath
-                  documentsDirectory:(NSString *)documentsDirectory
-                  restoredFileName:(NSString *) restoredFileName
-                  resolver: (RCTPromiseResolveBlock) resolve
-                  rejecter: (RCTPromiseRejectBlock) reject)
+RCT_EXPORT_METHOD(decryptWalletFile: (NSString *) config
+                           resolver: (RCTPromiseResolveBlock) resolve
+                           rejecter: (RCTPromiseRejectBlock) reject)
 {
-  NSString *filePath = [documentsDirectory stringByAppendingPathComponent:restoredFileName];
-  NSString *tempFilePath = [NSTemporaryDirectory() stringByAppendingString: tempPath];
-  NSError *error = nil;
-  NSFileManager *fileManager = [NSFileManager defaultManager];
-  if ([fileManager fileExistsAtPath: filePath]){
-    [fileManager removeItemAtPath:filePath error:NULL];
-  }
-  BOOL success = [fileManager copyItemAtPath:tempFilePath toPath:filePath error:&error];
-
-  if (success) {
-    resolve(filePath);
-  } else {
-    NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
-
-    reject(indyErrorCode, @"Error at savefiledocumentsdirectory", error);
-  }
+  [[[ConnectMeVcx alloc] init] importWallet: config
+                               completion:^(NSError *error) {
+    if(error != nil && error.code != 0){
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, [NSString stringWithFormat:@"Error occurred while importing wallet: %@ :: %ld",error.domain, (long)error.code], error);
+    }else {
+      resolve(@{});
+    }
+  }];
 }
+
+
+RCT_EXPORT_METHOD(shutdownVcx: (BOOL *) deletePool
+                    resolver: (RCTPromiseResolveBlock) resolve
+                    rejecter: (RCTPromiseRejectBlock) reject)
+{
+  resolve([NSNumber numberWithInt:[[[ConnectMeVcx alloc] init] vcxShutdown: deletePool]]);
+}
+
 
 RCT_EXPORT_METHOD(credentialCreateWithMsgId: (NSString *) sourceId
                   withConnectionHandle: (NSInteger) connectionHandle
@@ -765,7 +734,8 @@ RCT_EXPORT_METHOD(createOneTimeInfo: (NSString *)config
     if (error != nil && error.code != 0)
     {
       NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
-      reject(indyErrorCode, @"Error occurred while creating one time info", error);
+      reject(indyErrorCode, [NSString stringWithFormat:@"Error occurred while creating one time info: %@ :: %ld",error.domain, (long)error.code], error);
+
     }else{
       resolve(oneTimeInfo);
     }
@@ -899,41 +869,101 @@ RCT_EXPORT_METHOD(getClaimVcx: (int)credentialHandle
   }];
 }
 
-// RCT_EXPORT_METHOD(exportWallet: (NSString *)exportPath
-//                                encryptWith: (NSString *)encryptionKey
-//                                     resolver: (RCTPromiseResolveBlock) resolve
-//                                     rejecter: (RCTPromiseRejectBlock) reject)
-// {
-//   [[[ConnectMeVcx alloc] init] exportWallet:exportPath
-//                                 encryptWith:encryptionKey
-//                                 completion:^(NSError *error, NSInteger exportHandle) {
-//      if (error != nil && error.code != 0)
-//      {
-//        NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
-//        reject(indyErrorCode, @"Error occurred while exporting wallet", error);
-//      } else {
-//        resolve(@(exportHandle));
-//      }
-//   }];
-// }
+RCT_EXPORT_METHOD(exportWallet: (NSString *)exportPath
+                               encryptWith: (NSString *)encryptionKey
+                                    resolver: (RCTPromiseResolveBlock) resolve
+                                    rejecter: (RCTPromiseRejectBlock) reject)
+{
+  [[[ConnectMeVcx alloc] init] exportWallet:exportPath
+                                encryptWith:encryptionKey
+                                completion:^(NSError *error, NSInteger exportHandle) {
+     if (error != nil && error.code != 0)
+     {
+       NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+       reject(indyErrorCode, @"Error occurred while exporting wallet", error);
+     } else {
+       resolve(@(exportHandle));
+     }
+  }];
+}
 
-// RCT_EXPORT_METHOD(importWallet: (NSString *)importPath
-//                                encryptWith: (NSString *)encryptionKey
-//                                     resolver: (RCTPromiseResolveBlock) resolve
-//                                     rejecter: (RCTPromiseRejectBlock) reject)
-// {
-//   [[[ConnectMeVcx alloc] init] importWallet:importPath
-//                                 encryptWith:encryptionKey
-//                                 completion:^(NSError *error, NSInteger importHandle) {
-//      if (error != nil && error.code != 0)
-//      {
-//        NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
-//        reject(indyErrorCode, @"Error occurred while importing wallet", error);
-//      } else {
-//        resolve(@(importHandle));
-//      }
-//   }];
-// }
+RCT_EXPORT_METHOD(setWalletItem: (NSString *) key
+                          value: (NSString *) value
+                       resolver: (RCTPromiseResolveBlock) resolve
+                       rejecter: (RCTPromiseRejectBlock)reject)
+{
+  NSString *recordType = @"record_type";
+  [[[ConnectMeVcx alloc] init] addRecordWallet:recordType
+                                      recordId:key
+                                   recordValue:value
+                                    completion:^(NSError *error) {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, [NSString stringWithFormat:@"Error occurred while adding wallet item: %@ :: %ld",error.domain, (long)error.code], error);
+    } else {
+      resolve(@0);
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(getWalletItem: (NSString *) key
+                       resolver: (RCTPromiseResolveBlock) resolve
+                       rejecter: (RCTPromiseRejectBlock) reject)
+{
+  NSString *recordType = @"record_type";
+  [[[ConnectMeVcx alloc] init] getRecordWallet:recordType
+                                      recordId:key
+                                    completion:^(NSError *error, NSString *result)
+   {
+     if (error != nil && error.code != 0)
+     {
+       NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+       reject(indyErrorCode, [NSString stringWithFormat:@"Error occurred while getting wallet item: %@ :: %ld",error.domain, (long)error.code], error);
+     } else {
+       resolve(result);
+     }
+   }];
+}
+
+RCT_EXPORT_METHOD(deleteWalletItem: (NSString *) key
+                       resolver: (RCTPromiseResolveBlock) resolve
+                       rejecter: (RCTPromiseRejectBlock) reject)
+{
+  NSString *recordType = @"record_type";
+  [[[ConnectMeVcx alloc] init] deleteRecordWallet:recordType
+                                         recordId:key
+                                       completion:^(NSError *error) {
+     if (error != nil && error.code != 0)
+     {
+       NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+       reject(indyErrorCode, [NSString stringWithFormat:@"Error occurred while deleting wallet item: %@ :: %ld",error.domain, (long)error.code], error);
+     } else {
+       resolve(@0);
+     }
+  }];
+}
+
+RCT_EXPORT_METHOD(updateWalletItem: (NSString *) key
+                             value: (NSString *) value
+                          resolver: (RCTPromiseResolveBlock) resolve
+                          rejecter: (RCTPromiseRejectBlock) reject)
+{
+  NSString *recordType = @"record_type";
+
+  [[[ConnectMeVcx alloc] init] updateRecordWallet:recordType
+                                     withRecordId:key
+                                  withRecordValue:value
+                                   withCompletion:^(NSError *error) {
+     if (error != nil && error.code != 0)
+     {
+       NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+       reject(indyErrorCode, [NSString stringWithFormat:@"Error occurred while updating wallet item: %@ :: %ld",error.domain, (long)error.code], error);
+     } else {
+       resolve(@0);
+     }
+  }];
+}
 
 RCT_EXPORT_METHOD(proofCreateWithMsgId: (NSString *)sourceId
                   withConnectionHandle: (NSInteger)connectionHandle

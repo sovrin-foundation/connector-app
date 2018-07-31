@@ -32,6 +32,7 @@ import {
   PUSH_NOTIFICATION_RECEIVED,
   FETCH_ADDITIONAL_DATA,
   FETCH_ADDITIONAL_DATA_ERROR,
+  HYDRATE_PUSH_TOKEN,
   FETCH_ADDITIONAL_DATA_PENDING_KEYS,
 } from './type-push-notification'
 
@@ -48,6 +49,7 @@ import type {
   DownloadedNotification,
   ClaimOfferPushPayload,
   ClaimPushPayload,
+  HydratePushTokenAction,
 } from './type-push-notification'
 import type { Connections } from '../connection/type-connection'
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
@@ -64,15 +66,15 @@ import { HYDRATED } from '../store/type-config-store'
 import { CONNECT_REGISTER_CREATE_AGENT_DONE } from '../store/user/type-user-store'
 import uniqueId from 'react-native-unique-id'
 import { RESET } from '../common/type-common'
-import { ensureVcxInitSuccess, ensureAppHydrated } from '../store/config-store'
+import { ensureVcxInitSuccess } from '../store/config-store'
 import type { Connection } from '../store/type-connection-store'
 import type { CxsCredentialOfferResult } from '../bridge/react-native-cxs/type-cxs'
 import type { ProofRequestPushPayload } from '../proof-request/type-proof-request'
 import { saveSerializedClaimOffer } from '../claim-offer/claim-offer-store'
 import type { ClaimPushPayloadVcx } from '../claim/type-claim'
+import { safeGet, safeSet } from '../services/storage'
+import { PUSH_COM_METHOD } from '../common'
 
-// TODO:PS: handle other/multiple Push Notification while
-// one Push Notification is already downloading
 const initialState = {
   isAllowed: false,
   notification: null,
@@ -96,12 +98,12 @@ export const updatePushToken = (token: string) => ({
 export function* onPushTokenUpdate(
   action: PushNotificationUpdateTokenAction
 ): Generator<*, *, *> {
-  yield* ensureVcxInitSuccess()
-
   try {
     const pushToken = `FCM:${action.token}`
     const id = yield uniqueId()
+    yield* ensureVcxInitSuccess()
     yield call(updatePushTokenVcx, { uniqueId: id, pushToken })
+    yield* savePushTokenSaga(pushToken)
   } catch (e) {
     captureError(e)
   }
@@ -142,6 +144,7 @@ export const setFetchAdditionalDataPendingKeys = (
 export function* fetchAdditionalDataSaga(
   action: FetchAdditionalDataAction
 ): Generator<*, *, *> {
+  yield* ensureVcxInitSuccess()
   const { forDID, uid, type, senderLogoUrl } = action.notificationPayload
   if (forDID && uid) {
     const fetchDataAlreadyExists = yield select(
@@ -198,6 +201,7 @@ export function* fetchAdditionalDataSaga(
       | ClaimPushPayload
       | ClaimPushPayloadVcx
       | null = null
+
     if (type === MESSAGE_TYPE.CLAIM_OFFER) {
       const { claimHandle, claimOffer }: CxsCredentialOfferResult = yield call(
         downloadClaimOffer,
@@ -259,6 +263,31 @@ function* watchFetchAdditionalData(): any {
   yield takeEvery(FETCH_ADDITIONAL_DATA, fetchAdditionalDataSaga)
 }
 
+export const hydratePushToken = (token: string): HydratePushTokenAction => ({
+  type: HYDRATE_PUSH_TOKEN,
+  token,
+})
+
+export function* hydratePushTokenSaga(): Generator<*, *, *> {
+  try {
+    const token = yield call(safeGet, PUSH_COM_METHOD)
+    if (token) {
+      yield put(hydratePushToken(token))
+    }
+  } catch (e) {
+    console.error(`hydratePushTokenSaga: ${e}`)
+  }
+}
+
+export function* savePushTokenSaga(pushToken: string): Generator<*, *, *> {
+  try {
+    yield call(safeSet, PUSH_COM_METHOD, pushToken)
+  } catch (e) {
+    // Need to figure out what should be done if storage fails
+    console.error(`savePushTokenSaga: ${e}`)
+  }
+}
+
 export function* watchPushNotification(): any {
   yield all([watchPushTokenUpdate(), watchFetchAdditionalData()])
 }
@@ -273,6 +302,7 @@ export default function pushNotification(
         ...state,
         isAllowed: action.isAllowed,
       }
+    case HYDRATE_PUSH_TOKEN:
     case PUSH_NOTIFICATION_UPDATE_TOKEN:
       return {
         ...state,

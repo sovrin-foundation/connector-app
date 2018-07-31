@@ -25,7 +25,9 @@ describe('store: backup-store: ', () => {
     }
   })
   const { restoreFile } = getStore().getState().restore
+  const dataStore = getStore().getState()
   const passphrase = 'one two three'
+  const salt = 'salty spoon'
   it('action: SAVE_FILE_TO_APP_DIRECTORY', () => {
     expect(
       restoreReducer(initialState, saveFileToAppDirectory(restoreFile))

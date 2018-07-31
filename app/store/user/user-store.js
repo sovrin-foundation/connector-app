@@ -1,11 +1,16 @@
 // @flow
-import { put, takeLatest, call, all, select } from 'redux-saga/effects'
-import { AsyncStorage } from 'react-native'
+import { put, takeLatest, call, all, select, take } from 'redux-saga/effects'
 import type { Saga } from 'redux-saga'
 import RNFetchBlob from 'react-native-fetch-blob'
 import ImagePicker from 'react-native-image-crop-picker'
 
-import { setItem, getItem, deleteItem } from '../../services/secure-storage'
+import {
+  secureSet,
+  secureGet,
+  safeSet,
+  safeGet,
+  safeDelete,
+} from '../../services/storage'
 import {
   CONNECT_REGISTER_CREATE_AGENT_DONE,
   HYDRATE_USER_STORE,
@@ -37,6 +42,7 @@ import type { CustomError } from '../../common/type-common'
 import { RESET } from '../../common/type-common'
 import { uuid } from '../../services/uuid'
 import { getUserAvatarName } from '../../store/store-selector'
+import { VCX_INIT_SUCCESS } from '../type-config-store'
 
 const initialState = {
   isFetching: false,
@@ -62,8 +68,17 @@ export function* saveUserOneTimeInfoSaga(
 ): Saga<void> {
   const { userOneTimeInfo } = action
   try {
+    // we know that user one time info is only created once
+    // also this saga will only run while we are calling
+    // vcx_init, that saga raises this action
+    // so we can assume that when vcxInitSuccess Saga raises this action
+    // then we can safely call secureSet
+    // Ideally, we should run walletInitSuccess Saga inside all secure*
+    // api calls, so that those APIs that needs only wallet access
+    // has that wallet handle inside vcx and that should work
+    yield take(VCX_INIT_SUCCESS)
     yield call(
-      setItem,
+      secureSet,
       STORAGE_KEY_USER_ONE_TIME_INFO,
       JSON.stringify(userOneTimeInfo)
     )
@@ -96,7 +111,7 @@ export const hydrateUserStoreFail = (error: CustomError) => ({
 export function* hydrateUserStoreSaga(): Generator<*, *, *> {
   try {
     const userOneTimeInfoJson: string = yield call(
-      getItem,
+      secureGet,
       STORAGE_KEY_USER_ONE_TIME_INFO
     )
     if (userOneTimeInfoJson) {
@@ -172,15 +187,12 @@ export function* saveUserSelectedAvatarSaga(
 export function* persistUserSelectedAvatar(
   userAvatarName: string
 ): Generator<*, *, *> {
-  yield call(AsyncStorage.setItem, STORAGE_KEY_USER_AVATAR_NAME, userAvatarName)
+  yield call(safeSet, STORAGE_KEY_USER_AVATAR_NAME, userAvatarName)
 }
 
 export function* hydrateUserSelectedAvatarImage(): Generator<*, *, *> {
   try {
-    const avatarName = yield call(
-      AsyncStorage.getItem,
-      STORAGE_KEY_USER_AVATAR_NAME
-    )
+    const avatarName = yield call(safeGet, STORAGE_KEY_USER_AVATAR_NAME)
     if (avatarName) {
       yield put(
         hydrateUserStore({
@@ -196,7 +208,10 @@ export function* hydrateUserSelectedAvatarImage(): Generator<*, *, *> {
 }
 
 export function* removePersistedUserSelectedAvatarImage(): Generator<*, *, *> {
-  yield call(AsyncStorage.removeItem, STORAGE_KEY_USER_AVATAR_NAME)
+  // TODO:KS User avatar should be moved inside wallet
+  // either in zip or inside wallet
+  // we need to store user avatar, so that on restore user sees same avatar
+  yield call(safeDelete, STORAGE_KEY_USER_AVATAR_NAME)
 }
 
 export function* watchSaveUserSelectedAvatar(): any {

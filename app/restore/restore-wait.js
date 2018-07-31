@@ -19,7 +19,7 @@ export class RestoreWaitScreen extends PureComponent<
   componentDidUpdate(prevProps: RestoreWaitScreenProps) {
     if (
       !this.props.restore.error &&
-      this.props.restore.status === RestoreStatus.FILE_DECRYPT_SUCCESS &&
+      this.props.restore.status === RestoreStatus.RESTORE_DATA_STORE_SUCCESS &&
       this.props.route === restoreWaitRoute
     ) {
       // TODO: the params have to be removed when the lockEnterPinRoute design is changed in according with the recovery screen.
@@ -31,6 +31,7 @@ export class RestoreWaitScreen extends PureComponent<
         })
       }, 1000)
     }
+
     if (
       this.props.restore.error !== prevProps.restore.error &&
       this.props.route === restoreWaitRoute
@@ -38,10 +39,15 @@ export class RestoreWaitScreen extends PureComponent<
       // TODO: for testing - Remove the setTimeout, as this is only the UI flow, so as there is no functionality going on in the decrypt of the zip file,
       // so to see the restore please wait screen had to put it, when we are implementing the actual decrypt of the zip file, the setTimeout will be removed
       setTimeout(() => {
+        //the navigation stack here is like Restore Start-> Restore Wait->Restore Start
+        // So before going to Restore Start goBack two times and remove the routes from the stack
+        this.props.navigation.goBack(null)
+        this.props.navigation.goBack(null)
         this.props.navigation.navigate(restoreRoute)
       }, 1000)
     }
   }
+
   render() {
     return (
       <Container fifth safeArea center>

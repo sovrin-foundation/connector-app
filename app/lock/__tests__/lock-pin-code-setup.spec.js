@@ -13,6 +13,7 @@ describe('<LockPinCodeSetup />', () => {
     setPinAction: jest.fn(),
     enableTouchIdAction: jest.fn(),
     navigation: getNavigation(),
+    lockEnable: jest.fn(),
   })
   const options = {
     createNodeMock: element => {

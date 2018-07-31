@@ -11,7 +11,7 @@ import android.util.Log;
 
 import com.connectme.BridgeUtils;
 import com.evernym.sdk.vcx.VcxException;
-//import com.evernym.sdk.vcx.connection.WalletApi;
+import com.evernym.sdk.vcx.wallet.WalletApi;
 import com.evernym.sdk.vcx.connection.ConnectionApi;
 import com.evernym.sdk.vcx.credential.CredentialApi;
 import com.evernym.sdk.vcx.credential.GetCredentialCreateMsgidResult;
@@ -44,6 +44,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+import android.net.Uri;
+import java.io.InputStream;
 
 public class RNIndyModule extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "RNIndy";
@@ -71,7 +73,7 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void createOneTimeInfo(String agencyConfig, Promise promise) {
         Log.d(TAG, "createOneTimeInfo() called with: agencyConfig = [" + agencyConfig + "]");
-        //We have top create thew ca cert for the openssl to work properly on android
+        // We have top create thew ca cert for the openssl to work properly on android
         BridgeUtils.writeCACert(this.getReactApplicationContext());
 
         try {
@@ -91,8 +93,9 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void getGenesisPathWithConfig(String poolConfig, String fileName, Promise promise) {
-        Log.d(TAG, "getGenesisPathWithConfig() called with: poolConfig = [" + poolConfig + "], promise = [" + promise + "]");
-        File genFile = new File(Environment.getExternalStorageDirectory().getPath() + "/genesis_" + fileName +".txn");
+        Log.d(TAG, "getGenesisPathWithConfig() called with: poolConfig = [" + poolConfig + "], promise = [" + promise
+                + "]");
+        File genFile = new File(Environment.getExternalStorageDirectory().getPath() + "/genesis_" + fileName + ".txn");
         if (genFile.exists()) {
             genFile.delete();
         }
@@ -115,26 +118,30 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
                 promise.reject("FutureException", t.getMessage());
                 return -1;
             }).thenAccept(result -> {
-                // Need to put this logic in every accept because that is how ugly Java's promise API is
+                // Need to put this logic in every accept because that is how ugly Java's
+                // promise API is
                 // even if exceptionally is called, then also thenAccept block will be called
-                // we either need to switch to complete method and pass two callbacks as parameter
+                // we either need to switch to complete method and pass two callbacks as
+                // parameter
                 // till we change to that API, we have to live with this IF condition
-                // also reason to add this if condition is because we already rejected promise in
-                // exceptionally block, if we call promise.resolve now, then it `thenAccept` block
-                // would throw an exception that would not be caught here, because this is an async
+                // also reason to add this if condition is because we already rejected promise
+                // in
+                // exceptionally block, if we call promise.resolve now, then it `thenAccept`
+                // block
+                // would throw an exception that would not be caught here, because this is an
+                // async
                 // block and above try catch would not catch this exception
                 if (result != -1) {
                     promise.resolve(true);
                 }
             });
 
-        }
-        catch (AlreadyInitializedException e) {
+        } catch (AlreadyInitializedException e) {
             // even if we get already initialized exception
-            // then also we will resolve promise, because we don't care if vcx is already initialized
+            // then also we will resolve promise, because we don't care if vcx is already
+            // initialized
             promise.resolve(true);
-        }
-        catch (VcxException e) {
+        } catch (VcxException e) {
             e.printStackTrace();
             promise.reject(e);
         }
@@ -142,7 +149,8 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void createConnectionWithInvite(String invitationId, String inviteDetails, Promise promise) {
-        Log.d(TAG, "createConnectionWithInvite() called with: invitationId = [" + invitationId + "], inviteDetails = [" + inviteDetails + "], promise = [" + promise + "]");
+        Log.d(TAG, "createConnectionWithInvite() called with: invitationId = [" + invitationId + "], inviteDetails = ["
+                + inviteDetails + "], promise = [" + promise + "]");
         try {
             ConnectionApi.vcxCreateConnectionWithInvite(invitationId, inviteDetails).exceptionally((t) -> {
                 Log.e(TAG, "createOneTimeInfo: ", t);
@@ -161,7 +169,8 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void vcxAcceptInvitation(int connectionHandle, String connectionType, Promise promise) {
-        Log.d(TAG, "acceptInvitation() called with: connectionHandle = [" + connectionHandle + "], connectionType = [" + connectionType + "], promise = [" + promise + "]");
+        Log.d(TAG, "acceptInvitation() called with: connectionHandle = [" + connectionHandle + "], connectionType = ["
+                + connectionType + "], promise = [" + promise + "]");
         try {
             ConnectionApi.vcxAcceptInvitation(connectionHandle, connectionType).exceptionally((t) -> {
                 Log.e(TAG, "vcxAcceptInvitation: ", t);
@@ -193,55 +202,25 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getMessage(String url,
-                           String requestId,
-                           String myPairwiseDid,
-                           String myPairwiseVerKey,
-                           String myPairwiseAgentDid,
-                           String myPairwiseAgentVerKey,
-                           String myOneTimeAgentDid,
-                           String myOneTimeAgentVerKey,
-                           String myOneTimeDid,
-                           String myOneTimeVerKey,
-                           String myAgencyVerKey,
-                           String poolConfig,
-                           Promise promise) {
+    public void getMessage(String url, String requestId, String myPairwiseDid, String myPairwiseVerKey,
+            String myPairwiseAgentDid, String myPairwiseAgentVerKey, String myOneTimeAgentDid,
+            String myOneTimeAgentVerKey, String myOneTimeDid, String myOneTimeVerKey, String myAgencyVerKey,
+            String poolConfig, Promise promise) {
         promise.resolve(staticData.getMessage());
     }
 
     @ReactMethod
-    public void sendMessage(String url,
-                            String messageType,
-                            String messageReplyId,
-                            String message,
-                            String myPairwiseDid,
-                            String myPairwiseVerKey,
-                            String myPairwiseAgentDid,
-                            String myPairwiseAgentVerKey,
-                            String myOneTimeAgentDid,
-                            String myOneTimeAgentVerKey,
-                            String myOneTimeDid,
-                            String myOneTimeVerKey,
-                            String myAgencyVerKey,
-                            String myPairwisePeerVerKey,
-                            String poolConfig,
-                            Promise promise) {
+    public void sendMessage(String url, String messageType, String messageReplyId, String message, String myPairwiseDid,
+            String myPairwiseVerKey, String myPairwiseAgentDid, String myPairwiseAgentVerKey, String myOneTimeAgentDid,
+            String myOneTimeAgentVerKey, String myOneTimeDid, String myOneTimeVerKey, String myAgencyVerKey,
+            String myPairwisePeerVerKey, String poolConfig, Promise promise) {
         promise.resolve(true);
     }
 
     @ReactMethod
-    public void deleteConnection(String url,
-                                 String myPairwiseDid,
-                                 String myPairwiseVerKey,
-                                 String myPairwiseAgentDid,
-                                 String myPairwiseAgentVerKey,
-                                 String myOneTimeAgentDid,
-                                 String myOneTimeAgentVerKey,
-                                 String myOneTimeDid,
-                                 String myOneTimeVerKey,
-                                 String myAgencyVerKey,
-                                 String poolConfig,
-                                 Promise promise) {
+    public void deleteConnection(String url, String myPairwiseDid, String myPairwiseVerKey, String myPairwiseAgentDid,
+            String myPairwiseAgentVerKey, String myOneTimeAgentDid, String myOneTimeAgentVerKey, String myOneTimeDid,
+            String myOneTimeVerKey, String myAgencyVerKey, String poolConfig, Promise promise) {
         promise.resolve(true);
     }
 
@@ -266,14 +245,11 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void generateProof(String proofRequestId,
-                              String requestedAttrs,
-                              String requestedPredicates,
-                              String proofName,
-                              Promise promise) {
+    public void generateProof(String proofRequestId, String requestedAttrs, String requestedPredicates,
+            String proofName, Promise promise) {
         try {
             ProofApi.proofCreate(proofRequestId, requestedAttrs, requestedPredicates, proofName).exceptionally((t) -> {
-                Log.e(TAG, "generateProof: ",t );
+                Log.e(TAG, "generateProof: ", t);
                 promise.reject("FutureException", t.getMessage());
                 return -1;
             }).thenAccept(result -> {
@@ -290,57 +266,55 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getColor(String imagePath, final Promise promise) {
         Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-        Palette.from(bitmap).generate(
-                new Palette.PaletteAsyncListener() {
-                    @Override
-                    public void onGenerated(Palette palette) {
-                        try {
-                            Palette.Swatch swatch = palette.getVibrantSwatch();
-                            if (swatch == null) {
-                                swatch = palette.getDarkVibrantSwatch();
+        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(Palette palette) {
+                try {
+                    Palette.Swatch swatch = palette.getVibrantSwatch();
+                    if (swatch == null) {
+                        swatch = palette.getDarkVibrantSwatch();
+                    }
+                    if (swatch == null) {
+                        swatch = palette.getLightVibrantSwatch();
+                    }
+                    if (swatch == null) {
+                        swatch = palette.getMutedSwatch();
+                    }
+                    if (swatch == null) {
+                        swatch = palette.getDarkMutedSwatch();
+                    }
+                    if (swatch == null) {
+                        swatch = palette.getLightMutedSwatch();
+                    }
+                    if (swatch == null) {
+                        swatch = palette.getDominantSwatch();
+                    }
+                    if (swatch == null) {
+                        List<Palette.Swatch> swatchList = palette.getSwatches();
+                        for (Palette.Swatch swatchItem : swatchList) {
+                            if (swatchItem != null) {
+                                swatch = swatchItem;
+                                break;
                             }
-                            if (swatch == null) {
-                                swatch = palette.getLightVibrantSwatch();
-                            }
-                            if (swatch == null) {
-                                swatch = palette.getMutedSwatch();
-                            }
-                            if (swatch == null) {
-                                swatch = palette.getDarkMutedSwatch();
-                            }
-                            if (swatch == null) {
-                                swatch = palette.getLightMutedSwatch();
-                            }
-                            if (swatch == null) {
-                                swatch = palette.getDominantSwatch();
-                            }
-                            if (swatch == null) {
-                                List<Palette.Swatch> swatchList = palette.getSwatches();
-                                for (Palette.Swatch swatchItem : swatchList) {
-                                    if (swatchItem != null) {
-                                        swatch = swatchItem;
-                                        break;
-                                    }
-                                }
-                            }
-
-                            int rgb = swatch.getRgb();
-                            int r = Color.red(rgb);
-                            int g = Color.green(rgb);
-                            int b = Color.blue(rgb);
-                            WritableArray colors = Arguments.createArray();
-                            colors.pushString(String.valueOf(r));
-                            colors.pushString(String.valueOf(g));
-                            colors.pushString(String.valueOf(b));
-                            // add a value for alpha factor
-                            colors.pushString("1");
-                            promise.resolve(colors);
-                        } catch (Exception e) {
-                            promise.reject("No color", e);
                         }
                     }
+
+                    int rgb = swatch.getRgb();
+                    int r = Color.red(rgb);
+                    int g = Color.green(rgb);
+                    int b = Color.blue(rgb);
+                    WritableArray colors = Arguments.createArray();
+                    colors.pushString(String.valueOf(r));
+                    colors.pushString(String.valueOf(g));
+                    colors.pushString(String.valueOf(b));
+                    // add a value for alpha factor
+                    colors.pushString("1");
+                    promise.resolve(colors);
+                } catch (Exception e) {
+                    promise.reject("No color", e);
                 }
-        );
+            }
+        });
     }
 
     @ReactMethod
@@ -372,12 +346,10 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
         // convert the file to zip
         String inputDir = documentDirectory + "/" + fileName;
         String zipPath = documentDirectory + "/backup.zip";
-        try (
-                FileOutputStream dest = new FileOutputStream(zipPath);
+        try (FileOutputStream dest = new FileOutputStream(zipPath);
                 ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(dest));
                 FileInputStream fi = new FileInputStream(inputDir);
-                BufferedInputStream origin = new BufferedInputStream(fi);
-        ) {
+                BufferedInputStream origin = new BufferedInputStream(fi);) {
             byte data[] = new byte[BUFFER];
             // fileName will be the wallet filename
             ZipEntry entry = new ZipEntry(fileName);
@@ -398,7 +370,7 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
         // TODO:KS call vcx_connection_serialize and pass connectionHandle
         try {
             ConnectionApi.connectionSerialize(connectionHandle).exceptionally((t) -> {
-                Log.e(TAG, "getSerializedConnection: ",t );
+                Log.e(TAG, "getSerializedConnection: ", t);
                 promise.reject("FutureException", t.getMessage());
                 return null;
             }).thenAccept(result -> {
@@ -416,7 +388,7 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
         // it would return an error code and an integer connection handle in callback
         try {
             ConnectionApi.connectionDeserialize(serializedConnection).exceptionally((t) -> {
-                Log.e(TAG, "deserializeConnection: ",t );
+                Log.e(TAG, "deserializeConnection: ", t);
                 promise.reject("FutureException", t.getMessage());
                 return -1;
             }).thenAccept(result -> {
@@ -434,10 +406,12 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     public void credentialCreateWithMsgId(String sourceId, int connectionHandle, String messageId, Promise promise) {
         // TODO call vcx_credential_create_with_msgid
         // pass sourceId, connectionHandle, & messageId
-        // it would return an error code, an integer credential handle, a json string of credential offer in callback
+        // it would return an error code, an integer credential handle, a json string of
+        // credential offer in callback
         // notice that we are returning a Map from here, not string or error code
         // JavaScript layer is expecting a map with two keys defined below
-        // with one as an integer and another as json string of claim offer received from vcx
+        // with one as an integer and another as json string of claim offer received
+        // from vcx
 
         try {
             CredentialApi.credentialCreateWithMsgid(sourceId, connectionHandle, messageId).exceptionally((t) -> {
@@ -457,7 +431,6 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
         }
 
     }
-
 
     @ReactMethod
     public void serializeClaimOffer(int credentialHandle, Promise promise) {
@@ -484,7 +457,7 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
 
         try {
             CredentialApi.credentialDeserialize(serializedCredential).exceptionally((t) -> {
-                Log.e(TAG, "deserializeClaimOffer: ",t );
+                Log.e(TAG, "deserializeClaimOffer: ", t);
                 promise.reject("FutureException", t.getMessage());
                 return -1;
             }).thenAccept(result -> {
@@ -505,13 +478,14 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
         // or reject promise with error code
 
         try {
-            CredentialApi.credentialSendRequest(credentialHandle, connectionHandle, paymentHandle).exceptionally((t) -> {
-                Log.e(TAG, "sendClaimRequest: ",t );
-                promise.reject("FutureException", t.getMessage());
-                return null;
-            }).thenAccept(result -> {
-                BridgeUtils.resolveIfValid(promise, result);
-            });
+            CredentialApi.credentialSendRequest(credentialHandle, connectionHandle, paymentHandle)
+                    .exceptionally((t) -> {
+                        Log.e(TAG, "sendClaimRequest: ", t);
+                        promise.reject("FutureException", t.getMessage());
+                        return null;
+                    }).thenAccept(result -> {
+                        BridgeUtils.resolveIfValid(promise, result);
+                    });
         } catch (VcxException e) {
             promise.reject("VCXException", e.getMessage());
             e.printStackTrace();
@@ -522,7 +496,7 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     public void updateClaimOfferState(int credentialHandle, Promise promise) {
         try {
             CredentialApi.credentialUpdateState(credentialHandle).exceptionally((t) -> {
-                Log.e(TAG, "updateClaimOfferState: ",t );
+                Log.e(TAG, "updateClaimOfferState: ", t);
                 promise.reject("FutureException", t.getMessage());
                 return -1;
             }).thenAccept(result -> {
@@ -540,7 +514,7 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     public void getClaimOfferState(int credentialHandle, Promise promise) {
         try {
             CredentialApi.credentialGetState(credentialHandle).exceptionally((t) -> {
-                Log.e(TAG, "getClaimOfferState: ",t);
+                Log.e(TAG, "getClaimOfferState: ", t);
                 promise.reject("FutureException", t.getMessage());
                 return -1;
             }).thenAccept(result -> {
@@ -558,7 +532,7 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     public void getClaimVcx(int credentialHandle, Promise promise) {
         try {
             CredentialApi.getCredential(credentialHandle).exceptionally((t) -> {
-                Log.e(TAG, "getClaimVcx: ",t );
+                Log.e(TAG, "getClaimVcx: ", t);
                 promise.reject("FutureException", t.getMessage());
                 return null;
             }).thenAccept(result -> {
@@ -569,48 +543,141 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
         }
     }
 
-    @ReactMethod 
+    @ReactMethod
+    public void exportWallet(String exportPath, String encryptionKey, Promise promise) {
+        Log.d(TAG, "exportWallet() called with: exportPath = [" + exportPath + "], encryptionKey = [" + encryptionKey
+                + "], promise = [" + promise + "]");
+        try {
+            WalletApi.exportWallet(exportPath, encryptionKey).exceptionally((t) -> {
+                Log.e(TAG, "exportWallet: ", t);
+                promise.reject("FutureException", t.getMessage());
+                return -1;
+            }).thenAccept(result -> BridgeUtils.resolveIfValid(promise, result));
+
+        } catch (Exception e) {
+            promise.reject("VCXException", e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void decryptWalletFile(String config, Promise promise) {
+        try {
+            WalletApi.importWallet(config).exceptionally((t) -> {
+                Log.e(TAG, "importWallet: ", t);
+                promise.reject("FutureException", t.getMessage());
+                return -1;
+            }).thenAccept(result -> {
+                if (result != -1) {
+                    BridgeUtils.resolveIfValid(promise, result);
+                }
+            });
+        } catch (Exception e) {
+            promise.reject("VCXException", e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void copyToPath(String uri, String zipPath, Promise promise) {
+
+        InputStream input = null;
+        BufferedOutputStream output = null;
+        try {
+
+            input = reactContext.getContentResolver().openInputStream(Uri.parse(uri));
+            output = new BufferedOutputStream(new FileOutputStream(zipPath));
+
+            {
+                byte data[] = new byte[BUFFER];
+                int count;
+                while ((count = input.read(data, 0, BUFFER)) != -1) {
+                    output.write(data, 0, count);
+                }
+                input.close();
+                output.close();
+                promise.resolve(zipPath);
+            }
+        }
+
+        catch (IOException e) {
+            promise.reject("copyToPathException", e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @ReactMethod
+    public void setWalletItem(String key, String value, Promise promise) {
+        try {
+            WalletApi.addRecordWallet("record_type", key, value).exceptionally((t) -> {
+                Log.e(TAG, "setWalletItem: ", t);
+                promise.reject("FutureException", t.getMessage());
+                return -1;
+            }).thenAccept(result -> {
+                if (result != -1) {
+                    BridgeUtils.resolveIfValid(promise, result);
+                }
+            });
+        } catch (VcxException e) {
+            promise.reject("VcxException", e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void getWalletItem(String key, Promise promise) {
+        try {
+            WalletApi.getRecordWallet("record_type", key, "").exceptionally((t) -> {
+                Log.e(TAG, "getWalletItem: ", t);
+                promise.reject("FutureException", t.getMessage());
+                return null;
+            }).thenAccept(result -> {
+                BridgeUtils.resolveIfValid(promise, result);
+            });
+        } catch (VcxException e) {
+            promise.reject("VcxException", e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void deleteWalletItem(String key, Promise promise) {
+        try {
+            WalletApi.deleteRecordWallet("record_type", key).exceptionally((t) -> {
+                Log.e(TAG, "deleteWalletItem: ", t);
+                promise.reject("FutureException", t.getMessage());
+                return null;
+            }).thenAccept(result -> {
+                BridgeUtils.resolveIfValid(promise, result);
+            });
+        } catch (VcxException e) {
+            promise.reject("VcxException", e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void updateWalletItem(String key, String value, Promise promise) {
+        try {
+            WalletApi.updateRecordWallet("record_type", key, value).exceptionally((t) -> {
+                Log.e(TAG, "updateWalletItem: ", t);
+                promise.reject("FutureException", t.getMessage());
+                return null;
+            }).thenAccept(result -> {
+                BridgeUtils.resolveIfValid(promise, result);
+            });
+        } catch (VcxException e) {
+            promise.reject("VcxException", e.getMessage());
+        }
+    }
+
+    @ReactMethod
     public void exitAppAndroid() {
-      android.os.Process.killProcess(android.os.Process.myPid());
-    } 
-
-    // @ReactMethod
-    // public void exportWallet(String exportPath, String encryptionKey, Promise promise) {
-    //     Log.d(TAG, "exportWallet() called with: exportPath = [" + exportPath + "], encryptionKey = [" + encryptionKey + "], promise = [" + promise + "]");
-    //     try {
-    //         WalletApi.exportWallet(exportPath, encryptionKey).exceptionally((t) -> {
-    //             Log.e(TAG, "createOneTimeInfo: ", t);
-    //             promise.reject("FutureException", t.getMessage());
-    //             return -1;
-    //         }).thenAccept(result -> BridgeUtils.resolveIfValid(promise, result));
-
-    //     } catch (Exception e) {
-    //         promise.reject("VCXException", e.getMessage());
-    //     }
-    // }
-
-    // @ReactMethod
-    // public void importWallet(String importPath, String encryptionKey, Promise promise) {
-    //     Log.d(TAG, "importWallet() called with: importPath = [" + importPath + "], encryptionKey = [" + encryptionKey + "], promise = [" + promise + "]");
-    //     try {
-    //         WalletApi.importWallet(importPath, encryptionKey).exceptionally((t) -> {
-    //             Log.e(TAG, "createOneTimeInfo: ", t);
-    //             promise.reject("FutureException", t.getMessage());
-    //             return -1;
-    //         }).thenAccept(result -> BridgeUtils.resolveIfValid(promise, result));
-
-    //     } catch (Exception e) {
-    //         promise.reject("VCXException", e.getMessage());
-    //     }
-    // }
+        android.os.Process.killProcess(android.os.Process.myPid());
+    }
 
     @ReactMethod
     public void proofCreateWithMsgId(String sourceId, int connectionHandle, String messageId, Promise promise) {
         try {
             DisclosedProofApi.proofCreateWithMsgId(sourceId, connectionHandle, messageId).exceptionally((t) -> {
-               Log.e(TAG, "proofCreateWithMsgId: ", t);
-               promise.reject("FutureException: ", t.getMessage());
-               return null;
+                Log.e(TAG, "proofCreateWithMsgId: ", t);
+                promise.reject("FutureException: ", t.getMessage());
+                return null;
             }).thenAccept(result -> {
                 if (result != null) {
                     CreateProofMsgIdResult typedResult = (CreateProofMsgIdResult) result;
@@ -633,26 +700,27 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
                 promise.reject("FutureException", t.getMessage());
                 return null;
             }).thenAccept(result -> {
-               BridgeUtils.resolveIfValid(promise, result);
+                BridgeUtils.resolveIfValid(promise, result);
             });
         } catch (VcxException e) {
             promise.reject("VCXException", e.getMessage());
         }
     }
 
-
     @ReactMethod
-    public void proofGenerate(int proofHandle, String selectedCredentials, String selfAttestedAttributes, Promise promise) {
+    public void proofGenerate(int proofHandle, String selectedCredentials, String selfAttestedAttributes,
+            Promise promise) {
         try {
-            DisclosedProofApi.proofGenerate(proofHandle, selectedCredentials, selfAttestedAttributes).exceptionally((t) -> {
-                Log.e(TAG, "proofGenerate: ", t);
-                promise.reject("FutureException", t.getMessage());
-                return -1;
-            }).thenAccept(result -> {
-                if (result != -1) {
-                    BridgeUtils.resolveIfValid(promise, result);
-                }
-            });
+            DisclosedProofApi.proofGenerate(proofHandle, selectedCredentials, selfAttestedAttributes)
+                    .exceptionally((t) -> {
+                        Log.e(TAG, "proofGenerate: ", t);
+                        promise.reject("FutureException", t.getMessage());
+                        return -1;
+                    }).thenAccept(result -> {
+                        if (result != -1) {
+                            BridgeUtils.resolveIfValid(promise, result);
+                        }
+                    });
         } catch (VcxException e) {
             promise.reject("VCXException", e.getMessage());
         }
@@ -670,6 +738,17 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
                     BridgeUtils.resolveIfValid(promise, result);
                 }
             });
+        } catch (VcxException e) {
+            promise.reject("VCXException", e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void shutdownVcx(Boolean deleteWallet, Promise promise) {
+        Log.d(TAG, " ==> shutdownVcx() called with: deleteWallet = [" + deleteWallet);
+        try {
+            VcxApi.vcxShutdown(deleteWallet);
+            promise.resolve("");
         } catch (VcxException e) {
             promise.reject("VCXException", e.getMessage());
         }

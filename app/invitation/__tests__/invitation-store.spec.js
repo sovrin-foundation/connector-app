@@ -1,6 +1,5 @@
 // @flow
 import React from 'react'
-import { AsyncStorage } from 'react-native'
 import renderer from 'react-test-renderer'
 import { put, call, select } from 'redux-saga/effects'
 import { expectSaga } from 'redux-saga-test-plan'
@@ -56,6 +55,7 @@ import {
 } from '../../../__mocks__/static-data'
 import { connectRegisterCreateAgentDone } from '../../store/user/user-store'
 import { VCX_INIT_SUCCESS } from '../../store/type-config-store'
+import { safeGet, safeSet } from '../../services/storage'
 
 // TODO:KS These should be moved to a separate file that handles
 // all of the static data of whole app, so that if we change
@@ -198,7 +198,7 @@ describe('Invitation Store', () => {
         select(isDuplicateConnection, senderDID)
       )
       expect(gen.next().value).toEqual(
-        call(AsyncStorage.getItem, IS_CONSUMER_AGENT_ALREADY_CREATED)
+        call(safeGet, IS_CONSUMER_AGENT_ALREADY_CREATED)
       )
       expect(gen.next(senderDID).value).toEqual(select(getAgencyUrl))
       expect(gen.next(agencyUrl).value).toEqual(select(getPushToken))
@@ -272,7 +272,7 @@ describe('Invitation Store', () => {
       )
 
       expect(gen.next().value).toEqual(
-        call(AsyncStorage.setItem, IS_CONSUMER_AGENT_ALREADY_CREATED, 'true')
+        call(safeSet, IS_CONSUMER_AGENT_ALREADY_CREATED, 'true')
       )
 
       expect(gen.next(senderDID).value).toEqual(
@@ -378,7 +378,7 @@ describe('Invitation Store', () => {
         select(isDuplicateConnection, senderDID)
       )
       expect(gen.next().value).toEqual(
-        call(AsyncStorage.getItem, IS_CONSUMER_AGENT_ALREADY_CREATED)
+        call(safeGet, IS_CONSUMER_AGENT_ALREADY_CREATED)
       )
 
       expect(gen.next(senderDID).value).toEqual(select(getAgencyUrl))
@@ -454,7 +454,7 @@ describe('Invitation Store', () => {
       )
 
       expect(gen.next().value).toEqual(
-        call(AsyncStorage.setItem, IS_CONSUMER_AGENT_ALREADY_CREATED, 'true')
+        call(safeSet, IS_CONSUMER_AGENT_ALREADY_CREATED, 'true')
       )
 
       expect(gen.next().value).toEqual(

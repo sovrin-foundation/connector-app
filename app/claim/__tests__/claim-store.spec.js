@@ -28,7 +28,6 @@ import {
   poolConfig,
   claimMap,
 } from '../../../__mocks__/static-data'
-import { getItem, setItem } from '../../services/secure-storage'
 import type { ClaimWithUuid } from '../../claim/type-claim'
 import { promptBackupBanner } from '../../store'
 

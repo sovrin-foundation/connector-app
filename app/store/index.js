@@ -38,6 +38,7 @@ import wallet, { watchWalletStore } from '../wallet/wallet-store'
 import eula, { watchEula } from '../eula/eula-store'
 import restore, { watchRestore } from '../restore/restore-store'
 import backup, { watchBackup } from '../backup/backup-store'
+import { hydrate } from './hydration-store'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -97,6 +98,7 @@ sagaMiddleware.run(function*() {
     watchBackup(),
     watchEula(),
     watchRestore(),
+    hydrate(),
   ])
 })
 
@@ -105,7 +107,6 @@ export * from './connections-store'
 export * from '../connection-history/connection-history-store'
 export * from './config-store'
 export * from './route-store'
-export * from './hydration-store'
 export * from '../authentication/authentication-store'
 export * from '../deep-link/deep-link-store'
 export * from '../lock/lock-store'

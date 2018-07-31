@@ -1,5 +1,6 @@
 // @flow
 import type { ReactNavigation, CustomError } from '../common/type-common'
+import type { Store } from '../store/type-store'
 
 export const SAVE_FILE_TO_APP_DIRECTORY: 'SAVE_FILE_TO_APP_DIRECTORY' =
   'SAVE_FILE_TO_APP_DIRECTORY'
@@ -15,6 +16,8 @@ export const RestoreStatus = {
   FILE_SAVE_ERROR: 'FILE_SAVE_ERROR',
   DECRYPTION_START: 'DECRYPTION_START',
   FILE_DECRYPT_SUCCESS: 'FILE_DECRYPT_SUCCESS',
+  RESTORE_DATA_STORE_START: 'RESTORE_DATA_STORE_START',
+  RESTORE_DATA_STORE_SUCCESS: 'RESTORE_DATA_STORE_SUCCESS',
   success: 'RESTORE_SUCCESS',
   failedStatus: 'RESTORE_FAILED',
   none: 'none',
@@ -127,3 +130,7 @@ export const DECRYPT_FAILED_MESSAGE = (message: string) => ({
 
 export const RESTORE_BACK_BUTTON_TEST_ID = 'restore-back-button'
 export const RESTORE_CLOSE_BUTTON_TEST_ID = 'restore-close-button'
+export const RESTORE_DATA_FAILED_MESSAGE = (message: string) => ({
+  code: 'WR-004',
+  message: `Error while restoring data store:${message}`,
+})

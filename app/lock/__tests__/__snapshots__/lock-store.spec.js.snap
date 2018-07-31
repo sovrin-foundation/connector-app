@@ -3,8 +3,9 @@
 exports[`LockStore add pending redirection change state correctly 1`] = `
 Object {
   "checkPinStatus": "CHECK_PIN_IDLE",
+  "inRecovery": "false",
   "isAppLocked": true,
-  "isLockEnabled": false,
+  "isLockEnabled": "false",
   "isTouchIdEnabled": false,
   "pendingRedirection": Array [
     Object {
@@ -18,8 +19,9 @@ Object {
 exports[`LockStore clear pending redirect if clear action is raised 1`] = `
 Object {
   "checkPinStatus": "CHECK_PIN_IDLE",
+  "inRecovery": "false",
   "isAppLocked": true,
-  "isLockEnabled": false,
+  "isLockEnabled": "false",
   "isTouchIdEnabled": false,
   "pendingRedirection": null,
   "showDevMode": false,
@@ -29,8 +31,9 @@ Object {
 exports[`LockStore should set checkPinStatus to idle 1`] = `
 Object {
   "checkPinStatus": "CHECK_PIN_FAIL",
+  "inRecovery": "false",
   "isAppLocked": true,
-  "isLockEnabled": false,
+  "isLockEnabled": "false",
   "isTouchIdEnabled": false,
   "pendingRedirection": null,
   "showDevMode": false,
@@ -40,8 +43,9 @@ Object {
 exports[`LockStore should set checkPinStatus to idle 2`] = `
 Object {
   "checkPinStatus": "CHECK_PIN_IDLE",
+  "inRecovery": "false",
   "isAppLocked": true,
-  "isLockEnabled": false,
+  "isLockEnabled": "false",
   "isTouchIdEnabled": false,
   "pendingRedirection": null,
   "showDevMode": false,

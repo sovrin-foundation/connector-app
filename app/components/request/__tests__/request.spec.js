@@ -26,6 +26,7 @@ describe('<Request />', () => {
     showErrorAlerts: false,
     testID: 'request',
     isTouchIdEnabled: true,
+    pushNotificationPermissionAction: jest.fn(),
   }
   let navigation
 

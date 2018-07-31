@@ -25,6 +25,12 @@ export type ClearPendingRedirectAction = {
 }
 
 export const PIN_STORAGE_KEY = 'APP_PIN_LOCK'
+export const PIN_ENABLED_KEY = 'APP_PIN_LOCK_ENABLED'
+export const IN_RECOVERY = 'IN_RECOVERY'
+export type InRecovery = {
+  type: typeof IN_RECOVERY,
+  inRecovery: string,
+}
 export const SALT_STORAGE_KEY = 'APP_PIN_SALT'
 export const SET_PIN = 'SET_PIN'
 export type SetPinAction = {
@@ -32,7 +38,7 @@ export type SetPinAction = {
   pin: string,
 }
 
-export const TOUCHID_STORAGE_KEY = 'APP_TOUCHID_LOCK'
+export const TOUCH_ID_STORAGE_KEY = 'APP_TOUCHID_LOCK'
 export const ENABLE_TOUCHID = 'ENABLE_TOUCHID'
 export type EnableTouchIdAction = {
   type: typeof ENABLE_TOUCHID,
@@ -51,7 +57,7 @@ export type CheckTouchIdAction = {
 export const LOCK_ENABLE = 'LOCK_ENABLE'
 export type LockEnable = {
   type: typeof LOCK_ENABLE,
-  isLockEnable: boolean,
+  isLockEnable: string,
 }
 
 export const LOCK_FAIL = 'LOCK_FAIL'
@@ -116,9 +122,10 @@ export type LockStore = {
   pendingRedirection: ?Array<PendingRedirection>,
   checkPinStatus: CheckPinStatus,
   isAppLocked: boolean,
-  isLockEnabled: boolean,
+  isLockEnabled: string,
   isTouchIdEnabled: boolean,
   showDevMode: boolean,
+  inRecovery: string,
 }
 
 export type LockSelectionProps = {
@@ -149,6 +156,7 @@ export type LockEnterPinProps = {
   unlockApp: () => void,
   existingPin: boolean,
   isAppLocked: boolean,
+  inRecovery: string,
 } & ReactNavigation
 
 export type LockEnterFingerProps = {
@@ -219,6 +227,7 @@ export type LockFingerprintSetupProps = {
 export type LockPinCodeSetupProps = {
   setPinAction: (pin: string) => void,
   enableTouchIdAction: () => void,
+  lockEnable: (enableLock: string) => void,
 } & ReactNavigation
 
 export type LockSetupSuccessProps = {

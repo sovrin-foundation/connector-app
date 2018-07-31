@@ -21,8 +21,10 @@ import {
   ENABLE_TOUCHID,
   DISABLE_TOUCHID,
   CHECK_TOUCHID,
-  TOUCHID_STORAGE_KEY,
+  TOUCH_ID_STORAGE_KEY,
   SALT_STORAGE_KEY,
+  PIN_ENABLED_KEY,
+  IN_RECOVERY,
 } from './type-lock'
 import type {
   PendingRedirection,
@@ -31,6 +33,7 @@ import type {
   ClearPendingRedirectAction,
   SetPinAction,
   LockEnable,
+  InRecovery,
   LockFail,
   CheckPinAction,
   CheckPinFailAction,
@@ -47,9 +50,11 @@ import type {
   EnableTouchIdAction,
   DisableTouchIdAction,
 } from './type-lock'
-import { getItem, setItem, deleteItem } from '../services/secure-storage'
+import { secureGet, secureSet, safeGet, safeSet } from '../services/storage'
 import { pinHash, generateSalt } from './pin-hash'
 import { Platform } from 'react-native'
+import { getVcxInitializationState } from '../store/store-selector'
+import { ensureVcxInitSuccess } from '../store/config-store'
 
 const initialState: LockStore = {
   pendingRedirection: null,
@@ -59,7 +64,8 @@ const initialState: LockStore = {
   // or user unlock the app every time user opens the app
   // this property needs to be set accordingly
   isAppLocked: true,
-  isLockEnabled: false,
+  isLockEnabled: 'false',
+  inRecovery: 'false',
   isTouchIdEnabled: false,
   showDevMode: false,
   error: {
@@ -86,9 +92,14 @@ export const setPinAction = (pin: string): SetPinAction => ({
   pin,
 })
 
-export const lockEnable = (isLockEnable: boolean): LockEnable => ({
+export const lockEnable = (isLockEnable: string): LockEnable => ({
   type: LOCK_ENABLE,
   isLockEnable,
+})
+
+export const setInRecovery = (inRecovery: string): InRecovery => ({
+  type: IN_RECOVERY,
+  inRecovery,
 })
 
 export const lockFail = (error: CustomError): LockFail => ({
@@ -98,20 +109,20 @@ export const lockFail = (error: CustomError): LockFail => ({
 
 export function* setPin(action: SetPinAction): Generator<*, *, *> {
   try {
-    let salt = yield call(generateSalt)
-    if (Platform.OS === 'android') {
-      salt = salt.slice(0, -1)
-    }
+    const salt = yield call(generateSalt)
     const hashedPin = yield call(pinHash, action.pin.toString(), salt)
-    yield call(setItem, PIN_STORAGE_KEY, hashedPin)
-    yield call(setItem, SALT_STORAGE_KEY, salt)
-    yield put(lockEnable(true))
+    yield* ensureVcxInitSuccess()
+    yield call(secureSet, PIN_STORAGE_KEY, hashedPin)
+    yield call(secureSet, SALT_STORAGE_KEY, salt)
+    yield call(safeSet, PIN_ENABLED_KEY, 'true')
+    yield call(safeSet, IN_RECOVERY, 'false')
+    yield put(lockEnable('true'))
   } catch (e) {
     yield put(lockFail(e))
   }
 }
 
-export const enableTouchIdAction = (): EnableTouchIdAction => ({
+export const enableTouchIdAction = () => ({
   type: ENABLE_TOUCHID,
 })
 export const disableTouchIdAction = (): DisableTouchIdAction => ({
@@ -121,8 +132,9 @@ export const disableTouchIdAction = (): DisableTouchIdAction => ({
 export function* enableTouchId(
   action: EnableTouchIdAction
 ): Generator<*, *, *> {
+  TOUCH_ID_STORAGE_KEY
   try {
-    yield call(setItem, TOUCHID_STORAGE_KEY, 'true')
+    yield call(safeSet, TOUCH_ID_STORAGE_KEY, 'true')
   } catch (e) {
     yield e
   }
@@ -131,7 +143,7 @@ export function* disableTouchId(
   action: DisableTouchIdAction
 ): Generator<*, *, *> {
   try {
-    yield call(setItem, TOUCHID_STORAGE_KEY, 'false')
+    yield call(safeSet, TOUCH_ID_STORAGE_KEY, 'false')
   } catch (e) {
     yield e
   }
@@ -164,16 +176,21 @@ export const checkPinAction = (pin: string): CheckPinAction => ({
 export const enableDevMode = (): EnableDevMode => ({
   type: SHOW_DEV_MODE,
 })
+
 export const disableDevMode = (): DisableDevMode => ({
   type: HIDE_DEV_MODE,
 })
 
+//TODO fix hack - for IOS need to do hash is having extra characters
+// when doing cross platform export/import then it becomes incompatible
 export function* checkPin(action: CheckPinAction): Generator<*, *, *> {
-  const salt = yield call(getItem, SALT_STORAGE_KEY)
+  yield* ensureVcxInitSuccess()
+  const salt = yield call(secureGet, SALT_STORAGE_KEY)
   const enteredPinHash = yield call(pinHash, action.pin, salt)
-  const expectedPinHash = yield call(getItem, PIN_STORAGE_KEY)
-  if (expectedPinHash === enteredPinHash) {
+  const expectedPinHash = yield call(secureGet, PIN_STORAGE_KEY)
+  if (expectedPinHash === enteredPinHash.substring(0, 16)) {
     yield put(checkPinSuccess())
+    yield call(safeSet, IN_RECOVERY, 'false')
   } else {
     yield put(checkPinFail())
   }
@@ -195,7 +212,7 @@ export const checkTouchIdAction = (
 })
 
 export function* checkTouchId(action: CheckTouchIdAction): Generator<*, *, *> {
-  const isTouchIdEnabled = yield call(getItem, TOUCHID_STORAGE_KEY)
+  const isTouchIdEnabled = yield call(safeGet, TOUCH_ID_STORAGE_KEY)
   if (isTouchIdEnabled === true) {
     yield put(checkPinSuccess())
   } else {
@@ -249,10 +266,15 @@ export default function lockReducer(
         ...state,
         isLockEnabled: action.isLockEnable,
       }
+    case IN_RECOVERY:
+      return {
+        ...state,
+        inRecovery: action.inRecovery,
+      }
     case LOCK_FAIL:
       return {
         ...state,
-        isLockEnabled: false,
+        isLockEnabled: 'false',
         error: action.error,
       }
     case CLEAR_PENDING_REDIRECT:

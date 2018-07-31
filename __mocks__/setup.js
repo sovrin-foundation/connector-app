@@ -208,6 +208,9 @@ jest.mock('react-native-image-crop-picker', () => ({
 // which is what we need to mock
 NativeModules.RNIndy = {
   deserializeConnection: jest.fn(_ => Promise.resolve(1)),
+  setWalletItem: jest.fn(_ => Promise.resolve(1)),
+  deleteWalletItem: jest.fn(_ => Promise.resolve(1)),
+  updateWalletItem: jest.fn(_ => Promise.resolve(1)),
 }
 
 jest.mock('react-native-version-number', () => ({

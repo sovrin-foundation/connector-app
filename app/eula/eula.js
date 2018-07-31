@@ -2,9 +2,7 @@
 
 // this is page displays, a webview with of our terms and conditions
 // you should get the url value and title from constants
-// on click accept take user to lock selection screen.
-// add to redux state that eulaAccept : true -> this should happen in splash screen.
-// TODO: add eulaAccept to async storage.
+// on click accept take user to lock selection screen
 
 import React, { PureComponent } from 'react'
 import { WebView, Alert } from 'react-native'

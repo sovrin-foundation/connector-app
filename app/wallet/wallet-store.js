@@ -9,11 +9,16 @@ import {
   takeEvery,
 } from 'redux-saga/effects'
 import RNFetchBlob from 'react-native-fetch-blob'
-import { AsyncStorage, Platform } from 'react-native'
+import { Platform } from 'react-native'
 import Share from 'react-native-share'
 import type { Saga } from 'redux-saga'
 import moment from 'moment'
-import { setItem, getItem, deleteItem } from '../services/secure-storage'
+import {
+  secureSet,
+  secureGet,
+  secureDelete,
+  safeSet,
+} from '../services/storage'
 import {
   HYDRATE_WALLET_BALANCE_FAIL,
   HYDRATE_WALLET_ADDRESSES_FAIL,
@@ -82,13 +87,11 @@ import {
   getWalletBalance,
   getWalletAddresses,
   getWalletHistory,
-  getZippedWalletBackupPath,
   sendTokenAmount,
 } from '../bridge/react-native-cxs/RNCxs'
 import { promptBackupBanner } from '../backup/backup-store'
 import { getConfig } from '../store/store-selector'
 import { WALLET_ENCRYPTION_KEY } from '../common/secure-storage-constants'
-import { STORAGE_KEY_SHOW_BANNER } from '../components/banner/banner-constants'
 
 const initialState = {
   walletBalance: { data: 0, status: STORE_STATUS.IDLE, error: null },
@@ -126,7 +129,7 @@ export function* shareBackupSaga(
         })
     yield put(walletBackupComplete(backupPath))
     yield put(promptBackupBanner(false))
-    let encryptionKey = yield call(getItem, WALLET_ENCRYPTION_KEY)
+    let encryptionKey = yield call(secureGet, WALLET_ENCRYPTION_KEY)
     // TODO: has to be removed, only for android testing and the above let has to be changed to const
     if (encryptionKey === null) {
       encryptionKey = WALLET_ENCRYPTION_KEY
@@ -193,7 +196,7 @@ export function* hydrateWalletStoreSaga(): Generator<*, *, *> {
 
 export function* hydrateWalletBalanceSaga(): Generator<*, *, *> {
   try {
-    const walletBalanceJson = yield call(getItem, WALLET_BALANCE)
+    const walletBalanceJson = yield call(secureGet, WALLET_BALANCE)
     if (walletBalanceJson !== null) {
       const walletBalance = JSON.parse(walletBalanceJson)
       yield put(hydrateWalletBalanceStore(walletBalance))
@@ -217,7 +220,7 @@ export function* hydrateWalletBalanceSaga(): Generator<*, *, *> {
 
 export function* hydrateWalletAddressesSaga(): Generator<*, *, *> {
   try {
-    const walletAddressesJson = yield call(getItem, WALLET_ADDRESSES)
+    const walletAddressesJson = yield call(secureGet, WALLET_ADDRESSES)
     if (walletAddressesJson !== null) {
       const walletAddresses = JSON.parse(walletAddressesJson)
       yield put(hydrateWalletAddressesStore(walletAddresses))
@@ -241,7 +244,7 @@ export function* hydrateWalletAddressesSaga(): Generator<*, *, *> {
 
 export function* hydrateWalletHistorySaga(): Generator<*, *, *> {
   try {
-    const walletHistoryJson = yield call(getItem, WALLET_HISTORY)
+    const walletHistoryJson = yield call(secureGet, WALLET_HISTORY)
     if (walletHistoryJson !== null) {
       const walletHistory = JSON.parse(walletHistoryJson)
       yield put(hydrateWalletHistoryStore(walletHistory))
@@ -264,15 +267,15 @@ export function* hydrateWalletHistorySaga(): Generator<*, *, *> {
 }
 
 export function* deletePersistedWalletBalance(): Generator<*, *, *> {
-  yield call(deleteItem, WALLET_BALANCE)
+  yield call(secureDelete, WALLET_BALANCE)
 }
 
 export function* deletePersistedWalletAddresses(): Generator<*, *, *> {
-  yield call(deleteItem, WALLET_ADDRESSES)
+  yield call(secureDelete, WALLET_ADDRESSES)
 }
 
 export function* deletePersistedWalletHistory(): Generator<*, *, *> {
-  yield call(deleteItem, WALLET_HISTORY)
+  yield call(secureDelete, WALLET_HISTORY)
 }
 
 export function* watchWalletStore(): any {
@@ -327,7 +330,7 @@ export function* refreshWalletBalanceSaga(): any {
   const walletBalanceData = yield call(getWalletBalance)
   try {
     yield put(walletBalanceRefreshed(walletBalanceData))
-    yield call(setItem, WALLET_BALANCE, JSON.stringify(walletBalanceData))
+    yield call(secureSet, WALLET_BALANCE, JSON.stringify(walletBalanceData))
   } catch (e) {
     yield put(
       refreshWalletBalanceFail({
@@ -342,7 +345,7 @@ export function* refreshWalletHistorySaga(): any {
   try {
     const walletHistoryData = yield call(getWalletHistory)
     yield put(walletHistoryRefreshed(walletHistoryData))
-    yield call(setItem, WALLET_HISTORY, JSON.stringify(walletHistoryData))
+    yield call(secureSet, WALLET_HISTORY, JSON.stringify(walletHistoryData))
   } catch (e) {
     yield put(
       refreshWalletHistoryFail({
@@ -357,7 +360,7 @@ export function* refreshWalletAddressesSaga(): Generator<*, *, *> {
   try {
     const walletAddressesData = yield call(getWalletAddresses)
     yield put(walletAddressesRefreshed(walletAddressesData))
-    yield call(setItem, WALLET_ADDRESSES, JSON.stringify(walletAddressesData))
+    yield call(secureSet, WALLET_ADDRESSES, JSON.stringify(walletAddressesData))
   } catch (e) {
     yield put(
       refreshWalletAddressesFail({

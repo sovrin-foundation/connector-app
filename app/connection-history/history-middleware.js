@@ -13,10 +13,15 @@ import {
   HISTORY_EVENT_STORAGE_KEY,
 } from './type-connection-history'
 import { historyEventOccurred } from './connection-history-store'
-import { setItem } from '../services/secure-storage'
+import { secureSet } from '../services/storage'
 
 const actionToRecord = [
-  INVITATION_RECEIVED,
+  // removing invitation received from record array
+  // because anyway we will not show this event in history view
+  // also it uses secure set that is only accessible after vcx_init
+  // and we don't want to trigger vxc_init just because invitation
+  // is downloaded
+  // INVITATION_RECEIVED,
   NEW_CONNECTION_SUCCESS,
   PROOF_REQUEST_RECEIVED,
   SEND_CLAIM_REQUEST,
@@ -35,16 +40,6 @@ const history = (store: any) => (next: any) => (action: any) => {
     // dispatch an action, that starts from beginning of middleware chain
     // we are dispatching a new action here
     store.dispatch(historyEventOccurred(action))
-  }
-
-  // if we get action to record history event
-  // that means our history store is updated with data
-  // we can now store history data to secure storage
-  if (action.type === RECORD_HISTORY_EVENT) {
-    setItem(
-      HISTORY_EVENT_STORAGE_KEY,
-      JSON.stringify(store.getState().history.data)
-    )
   }
 
   return nextState

@@ -24,7 +24,6 @@ import {
   getSmsPendingInvitation,
   safeToDownloadSmsInvitation,
 } from '../sms-pending-invitation/sms-pending-invitation-store'
-import { loadHistory } from '../connection-history/connection-history-store'
 import type { SplashScreenProps } from './type-splash-screen'
 import type { Store } from '../store/type-store'
 import { SMSPendingInvitationStatus } from '../sms-pending-invitation/type-sms-pending-invitation'
@@ -149,14 +148,17 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
     }
   }
 
-  componentWillReceiveProps(nextProps: SplashScreenProps) {
-    if (nextProps.config.isHydrated !== this.props.config.isHydrated) {
+  async componentWillReceiveProps(nextProps: SplashScreenProps) {
+    if (nextProps.config.isInitialized !== this.props.config.isInitialized) {
       // hydrated is changed, and if it is changed to true,
       // that means this is the only time we would get inside this if condition
-      if (nextProps.config.isHydrated) {
+      if (nextProps.config.isInitialized) {
         SplashScreen.hide()
         // now we can safely check value of isAlreadyInstalled
-        if (nextProps.lock.isLockEnabled === false) {
+        if (
+          !nextProps.lock.isLockEnabled ||
+          nextProps.lock.isLockEnabled === 'false'
+        ) {
           // user is opening the app for first time after installing
           if (!nextProps.eula.isEulaAccept) {
             this.props.navigation.navigate(eulaRoute)
@@ -170,15 +172,7 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
           } else {
             this.props.navigation.navigate(lockEnterPinRoute)
           }
-
-          // if we are redirecting user to either of authentication screen
-          // we are sure that now user can't change the environment
-          // so we need to raise an action for safe to download invitation
-          // from environment information available after app is hydrated
-          this.props.safeToDownloadSmsInvitation()
         }
-
-        this.props.loadHistory()
       }
     }
 
@@ -208,10 +202,10 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
     // even before component is mounted,
     // so we need to check for pin code here as well
 
-    if (this.props.config.isHydrated) {
+    if (this.props.config.isInitialized) {
       SplashScreen.hide()
       // now we can safely check value of isAlreadyInstalled
-      if (this.props.lock.isLockEnabled === false) {
+      if (this.props.lock.isLockEnabled === 'false') {
         // user is opening the app for first time after installing
         if (!this.props.eula.isEulaAccept) {
           this.props.navigation.navigate(eulaRoute)
@@ -219,28 +213,13 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
           this.props.navigation.navigate(restoreRoute)
         }
       } else {
-        // TODO: We MUST remove things from stack and should do this asap
-        // we can reach to this point even after app is unlocked
-        // so we don't want to run below logic again
-        // if (this.props.lock.isAppLocked === false) {
-        //   return
-        // }
-
         // not the first time user is opening app
         if (this.props.lock.isTouchIdEnabled) {
           this.props.navigation.navigate(lockEnterFingerprintRoute)
         } else {
           this.props.navigation.navigate(lockEnterPinRoute)
         }
-
-        // if we are redirecting user to either of authentication screen
-        // we are sure that now user can't change the environment
-        // so we need to raise an action for safe to download invitation
-        // from environment information available after app is hydrated
-        this.props.safeToDownloadSmsInvitation()
       }
-
-      this.props.loadHistory()
     }
   }
 
@@ -256,10 +235,15 @@ const mapStateToProps = ({
   smsPendingInvitation,
   eula,
 }: Store) => ({
+  // only need isHydrated from this store, we should not bind anything more than necessary
   config,
+  // DeepLink should be it's own component that will handle only deep link logic
+  // in that way, we will be able to restrict re-render and re-run of code
   deepLink,
+  // only need 3 props
   lock,
   smsPendingInvitation,
+  // only need isEulaAccept
   eula,
 })
 
@@ -268,7 +252,6 @@ const mapDispatchToProps = dispatch =>
     {
       getSmsPendingInvitation,
       addPendingRedirection,
-      loadHistory,
       safeToDownloadSmsInvitation,
       deepLinkProcessed,
     },

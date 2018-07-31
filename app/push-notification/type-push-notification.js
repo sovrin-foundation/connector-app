@@ -60,6 +60,7 @@ export type PushNotificationAction =
   | FetchAdditionalDataAction
   | FetchAdditionalDataErrorAction
   | InitialTestAction
+  | HydratePushTokenAction
   | ResetAction
   | PendingSetFetchAdditionalDataAction
 
@@ -213,4 +214,12 @@ export type PushNotificationProps = {
   pushNotificationPermissionAction: boolean => void,
   updatePushToken: string => void,
   navigateToRoute: (routeName: string, params: NavigationParams) => void,
+  isAllowed: boolean,
+  pushToken?: string,
+}
+
+export const HYDRATE_PUSH_TOKEN = 'HYDRATE_PUSH_TOKEN'
+export type HydratePushTokenAction = {
+  type: typeof HYDRATE_PUSH_TOKEN,
+  token: string,
 }

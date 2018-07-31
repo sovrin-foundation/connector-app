@@ -3,7 +3,8 @@
 import React, { Component } from 'react'
 import { Dimensions, Keyboard } from 'react-native'
 import { StackNavigator } from 'react-navigation'
-
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { CustomView, Icon } from '../components'
 import { verifyRecoveryPhraseRoute, exportBackupFileRoute } from '../common'
 import { color } from '../common/styles/constant'
@@ -19,10 +20,11 @@ import {
   VERIFY_INPUT_PLACEHOLDER,
 } from './backup-constants'
 import { PASSPHRASE_SALT_STORAGE_KEY } from '../common/secure-storage-constants'
-import { getItem } from '../services/secure-storage'
 import { pinHash as generateKey } from '../lock/pin-hash'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import VerifyPhrase from '../components/backup-restore-passphrase/backup-restore-passphrase'
+import { getBackupPassphrase } from '../store/store-selector'
+import type { Store } from '../store/type-store'
 
 const { height } = Dimensions.get('window')
 const transparentBands = require('../images/transparentBands2.png')
@@ -69,23 +71,23 @@ export class VerifyRecoveryPhrase extends Component<
   })
 
   verifyRecoveryPhrase = async (event: any) => {
-    const {
-      recoveryPassphrase,
-      initialRoute,
-    } = this.props.navigation.state.params
+    const { recoveryPassphrase } = this.props
+    const { initialRoute } = this.props.navigation.state.params
 
     // IMPORTANT: Because of the way that event.nativeEvent works, the nativeEvent property
     // of event will be null if you invoke event.nativeEvent after the await calls below
     const passphraseFromUser = event.nativeEvent.text.trim()
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    let passphraseSalt = await getItem(PASSPHRASE_SALT_STORAGE_KEY)
     const hashedPassphrase = await generateKey(
       passphraseFromUser,
-      passphraseSalt
+      this.props.recoveryPassphrase.salt
     )
+    // TODO: fix hack - for IOS need to do hash is having extra characters
+    // when doing cross platform export/import then it becomes incompatible
+    const hashedPassphrasePatch = await hashedPassphrase
 
-    if (recoveryPassphrase === hashedPassphrase) {
+    if (recoveryPassphrase.hash === hashedPassphrasePatch.substring(0, 16)) {
       this.props.navigation.navigate(exportBackupFileRoute, {
         initialRoute,
       })
@@ -114,8 +116,15 @@ export class VerifyRecoveryPhrase extends Component<
   }
 }
 
+const mapStateToProps = (state: Store) => {
+  return {
+    recoveryPassphrase: getBackupPassphrase(state),
+  }
+}
+const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch)
+
 export default StackNavigator({
   [verifyRecoveryPhraseRoute]: {
-    screen: VerifyRecoveryPhrase,
+    screen: connect(mapStateToProps, mapDispatchToProps)(VerifyRecoveryPhrase),
   },
 })

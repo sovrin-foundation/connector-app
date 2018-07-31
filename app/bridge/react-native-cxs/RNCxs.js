@@ -31,6 +31,7 @@ import {
   convertInvitationToVcxConnectionCreate,
   convertVcxConnectionToCxsConnection,
   convertVcxCredentialOfferToCxsClaimOffer,
+  wallet_key,
 } from './vcx-transformers'
 import type { UserOneTimeInfo } from '../../store/user/type-user-store'
 import type { AgencyPoolConfig } from '../../store/type-config-store'
@@ -94,7 +95,6 @@ export async function generateClaimRequest(
   claimOffer: IndyClaimOffer,
   poolConfig: string
 ) {
-  // be sure to call initVcx before calling this method
   const indyClaimOffer = {
     issuer_did: claimOffer.issuerDid,
     schema_seq_no: claimOffer.schemaSequenceNumber,
@@ -500,6 +500,12 @@ export async function resetVcx(removeData: boolean): Promise<boolean> {
   return result
 }
 
+export async function vcxShutdown(deletePool: boolean): Promise<boolean> {
+  const result: Number = await RNIndy.shutdownVcx(deletePool)
+
+  return true
+}
+
 export async function getColor(imagePath: string): Promise<Array<string>> {
   return RNIndy.getColor(imagePath)
 }
@@ -548,7 +554,18 @@ export async function init(
   return initResult
 }
 
-export async function getWalletPoolName() {
+// TODO:KS Need to rename this to something like walletInit
+export async function simpleInit(): Promise<boolean> {
+  const walletPoolName = await getWalletPoolName()
+  const initConfig = {
+    wallet_name: walletPoolName.walletName,
+    wallet_key,
+  }
+  const initResult: boolean = await RNIndy.init(JSON.stringify(initConfig))
+  return initResult
+}
+
+export const getWalletPoolName = memoize(async function() {
   const appUniqueId = await uniqueId()
   const walletName = `${appUniqueId}-cm-wallet`
   // Not sure why, but VCX is applying validation check on pool name
@@ -561,7 +578,7 @@ export async function getWalletPoolName() {
     walletName,
     poolName,
   }
-}
+})
 
 export async function createConnectionWithInvite(
   invitation: InvitationPayload
@@ -706,42 +723,43 @@ export async function getWalletHistory(): Promise<WalletHistoryEvent[]> {
   return new Promise.resolve(walletHistoryData)
 }
 
-export async function getZippedWalletBackupPath({
-  documentDirectory,
-  agencyConfig,
+export async function encryptWallet({
+  encryptedFileLocation,
   recoveryPassphrase,
 }: {
-  documentDirectory: string,
-  agencyConfig: AgencyPoolConfig,
+  encryptedFileLocation: string,
   recoveryPassphrase: Passphrase,
-}): Promise<string> {
-  const backupPath = await RNIndy.backupWallet(
-    documentDirectory,
-    JSON.stringify(recoveryPassphrase),
-    JSON.stringify(agencyConfig)
+}): Promise<number> {
+  const exportHandle: number = await RNIndy.exportWallet(
+    encryptedFileLocation,
+    recoveryPassphrase.hash
   )
 
-  return backupPath
+  return exportHandle
 }
 
-export function saveFileDocumentsDirectory(uri: string): Promise<boolean> {
-  // TODO: Remove the below code (only for testing the UI flow)
-  const count = Math.random()
-  if (count < 0.7) {
-    return new Promise.resolve(true)
-  } else {
-    return new Promise.reject(false)
-  }
+export async function decryptWalletFile(
+  walletPath: string,
+  decryptionKey: string
+): Promise<number> {
+  const { walletName } = await getWalletPoolName()
+
+  const config = JSON.stringify({
+    wallet_name: walletName,
+    wallet_key,
+    exported_wallet_path: walletPath,
+    backup_key: decryptionKey,
+  })
+  const importHandle: number = await RNIndy.decryptWalletFile(config)
+
+  return importHandle
 }
 
-export function decryptWalletFile(passphrase: string): Promise<boolean> {
-  // TODO: Remove the below code (only for testing the UI flow)
-  const count = Math.random()
-  if (count < 0.7) {
-    return new Promise.resolve(true)
-  } else {
-    return new Promise.reject(false)
-  }
+export async function copyToPath(
+  uri: string,
+  destPath: string
+): Promise<number> {
+  return await RNIndy.copyToPath(uri, destPath)
 }
 
 export async function updateClaimOfferState(claimHandle: number) {
@@ -789,6 +807,40 @@ export async function importWallet(wallet: WalletPayload): Promise<number> {
   )
 
   return importHandle
+}
+
+export async function setWalletItem(
+  key: string,
+  value: string
+): Promise<number> {
+  return await RNIndy.setWalletItem(key, value)
+}
+
+export async function getWalletItem(key: string): Promise<string> {
+  const response: string = await RNIndy.getWalletItem(key)
+  if (response) {
+    const itemValue = JSON.parse(response)
+    const { value } = itemValue
+
+    if (!value) {
+      throw new Error('cannot get value')
+    }
+
+    return value
+  } else {
+    return response
+  }
+}
+
+export async function deleteWalletItem(key: string): Promise<number> {
+  return await RNIndy.deleteWalletItem(key)
+}
+
+export async function updateWalletItem(
+  key: string,
+  data: string
+): Promise<number> {
+  return await RNIndy.updateWalletItem(key, data)
 }
 
 export function exitAppAndroid() {

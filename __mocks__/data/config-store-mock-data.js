@@ -21,4 +21,5 @@ export const configStoreNotHydratedInstalledVcxInit = {
   vcxInitializationError,
   vcxInitializationState,
   useVcx: false,
+  isInitialized: false,
 }
