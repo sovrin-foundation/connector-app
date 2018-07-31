@@ -24,6 +24,7 @@ import {
   getUseVcx,
   getInvitations,
   getDeepLinkTokens,
+  getPendingFetchAdditionalDataKey,
 } from '../store/store-selector'
 import {
   PUSH_NOTIFICATION_PERMISSION,
@@ -31,6 +32,7 @@ import {
   PUSH_NOTIFICATION_RECEIVED,
   FETCH_ADDITIONAL_DATA,
   FETCH_ADDITIONAL_DATA_ERROR,
+  FETCH_ADDITIONAL_DATA_PENDING_KEYS,
 } from './type-push-notification'
 
 import type { CustomError, NotificationPayload } from '../common/type-common'
@@ -78,6 +80,7 @@ const initialState = {
   isPristine: true,
   isFetching: false,
   error: null,
+  pendingFetchAdditionalDataKey: null,
 }
 
 export const pushNotificationPermissionAction = (isAllowed: boolean) => ({
@@ -127,12 +130,30 @@ export const fetchAdditionalDataError = (error: CustomError) => ({
   error,
 })
 
+export const setFetchAdditionalDataPendingKeys = (
+  uid: string,
+  forDID: string
+) => ({
+  type: FETCH_ADDITIONAL_DATA_PENDING_KEYS,
+  uid,
+  forDID,
+})
+
 export function* fetchAdditionalDataSaga(
   action: FetchAdditionalDataAction
 ): Generator<*, *, *> {
-  yield* ensureVcxInitSuccess()
-
   const { forDID, uid, type, senderLogoUrl } = action.notificationPayload
+  if (forDID && uid) {
+    const fetchDataAlreadyExists = yield select(
+      getPendingFetchAdditionalDataKey
+    )
+    if (fetchDataAlreadyExists && fetchDataAlreadyExists[`${uid}-${forDID}`]) {
+      return
+    }
+    yield put(setFetchAdditionalDataPendingKeys(uid, forDID))
+  }
+
+  yield* ensureVcxInitSuccess()
 
   if (!forDID) {
     yield put(
@@ -274,6 +295,14 @@ export default function pushNotification(
       return {
         ...state,
         notification: action.notification,
+      }
+    case FETCH_ADDITIONAL_DATA_PENDING_KEYS:
+      return {
+        ...state,
+        pendingFetchAdditionalDataKey: {
+          ...state.pendingFetchAdditionalDataKey,
+          [`${action.uid}-${action.forDID}`]: true,
+        },
       }
     case RESET:
       return {

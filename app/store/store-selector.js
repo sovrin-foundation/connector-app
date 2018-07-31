@@ -251,3 +251,6 @@ export const getLastSuccessfulBackupTimeStamp = (state: Store) =>
   state.backup.lastSuccessfulBackup
 
 export const getRestoreStatus = (state: Store) => state.restore.status
+
+export const getPendingFetchAdditionalDataKey = (state: Store) =>
+  state.pushNotification.pendingFetchAdditionalDataKey

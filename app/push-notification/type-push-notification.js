@@ -37,6 +37,14 @@ export type FetchAdditionalDataAction = {
   notificationPayload: NotificationPayload,
 }
 
+export const FETCH_ADDITIONAL_DATA_PENDING_KEYS =
+  'FETCH_ADDITIONAL_DATA_PENDING_KEYS'
+export type PendingSetFetchAdditionalDataAction = {
+  type: typeof FETCH_ADDITIONAL_DATA_PENDING_KEYS,
+  uid: string,
+  forDID: string,
+}
+
 export const FETCH_ADDITIONAL_DATA_ERROR = 'FETCH_ADDITIONAL_DATA_ERROR'
 export type FetchAdditionalDataErrorAction = {
   type: typeof FETCH_ADDITIONAL_DATA_ERROR,
@@ -53,6 +61,7 @@ export type PushNotificationAction =
   | FetchAdditionalDataErrorAction
   | InitialTestAction
   | ResetAction
+  | PendingSetFetchAdditionalDataAction
 
 export type DownloadedNotification = {
   additionalData: GenericObject,
@@ -70,6 +79,9 @@ export type PushNotificationStore = {
   isPristine: boolean,
   isFetching: boolean,
   error: ?CustomError,
+  pendingFetchAdditionalDataKey?: ?{
+    [string]: boolean,
+  },
 }
 
 export type AdditionalDataResponse = {

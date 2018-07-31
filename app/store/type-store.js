@@ -23,6 +23,9 @@ export type PushNotificationStore = {
     [string]: any,
   },
   pushToken: ?string,
+  pendingFetchAdditionalDataKey?: ?{
+    [string]: boolean,
+  },
 }
 
 export type RouteStore = {
