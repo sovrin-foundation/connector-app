@@ -25,6 +25,8 @@ import {
   SALT_STORAGE_KEY,
   PIN_ENABLED_KEY,
   IN_RECOVERY,
+  PIN_HASH,
+  SALT,
 } from './type-lock'
 import type {
   PendingRedirection,
@@ -55,6 +57,7 @@ import { pinHash, generateSalt } from './pin-hash'
 import { Platform } from 'react-native'
 import { getVcxInitializationState } from '../store/store-selector'
 import { ensureVcxInitSuccess } from '../store/config-store'
+import { setItem, getItem } from '../services/secure-storage'
 
 const initialState: LockStore = {
   pendingRedirection: null,
@@ -109,13 +112,17 @@ export const lockFail = (error: CustomError): LockFail => ({
 
 export function* setPin(action: SetPinAction): Generator<*, *, *> {
   try {
+    //TODO fix hack - as of now store pinHash and salt
+    //secure-storage and use it from there without fetching from wallet
     const salt = yield call(generateSalt)
     const hashedPin = yield call(pinHash, action.pin.toString(), salt)
+    yield call(setItem, PIN_HASH, hashedPin)
+    yield call(setItem, SALT, salt)
+    yield call(safeSet, PIN_ENABLED_KEY, 'true')
+    yield call(safeSet, IN_RECOVERY, 'false')
     yield* ensureVcxInitSuccess()
     yield call(secureSet, PIN_STORAGE_KEY, hashedPin)
     yield call(secureSet, SALT_STORAGE_KEY, salt)
-    yield call(safeSet, PIN_ENABLED_KEY, 'true')
-    yield call(safeSet, IN_RECOVERY, 'false')
     yield put(lockEnable('true'))
   } catch (e) {
     yield put(lockFail(e))
@@ -184,12 +191,25 @@ export const disableDevMode = (): DisableDevMode => ({
 //TODO fix hack - for IOS need to do hash is having extra characters
 // when doing cross platform export/import then it becomes incompatible
 export function* checkPin(action: CheckPinAction): Generator<*, *, *> {
-  yield* ensureVcxInitSuccess()
-  const salt = yield call(secureGet, SALT_STORAGE_KEY)
-  const enteredPinHash = yield call(pinHash, action.pin, salt)
-  const expectedPinHash = yield call(secureGet, PIN_STORAGE_KEY)
+  const inRecovery = yield call(safeGet, IN_RECOVERY)
+  let expectedPinHash = ''
+  let salt = ''
+  // TODO fix hack - as of now if checkPin is called from recovery flow then
+  // compare it from wallet else use the hashed stored in secure storage
+  if (inRecovery === 'true') {
+    yield* ensureVcxInitSuccess()
+    salt = yield call(secureGet, SALT_STORAGE_KEY)
+
+    expectedPinHash = yield call(secureGet, PIN_STORAGE_KEY)
+  } else {
+    salt = yield call(getItem, SALT)
+    expectedPinHash = yield call(getItem, PIN_HASH)
+  }
+  let enteredPinHash = yield call(pinHash, action.pin, salt)
   if (expectedPinHash === enteredPinHash) {
     yield put(checkPinSuccess())
+    yield call(setItem, PIN_HASH, enteredPinHash)
+    yield call(setItem, SALT, salt)
     yield call(safeSet, IN_RECOVERY, 'false')
   } else {
     yield put(checkPinFail())

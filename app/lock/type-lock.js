@@ -24,6 +24,8 @@ export type ClearPendingRedirectAction = {
   type: typeof CLEAR_PENDING_REDIRECT,
 }
 
+export const PIN_HASH = 'PIN_HASH'
+export const SALT = 'SALT'
 export const PIN_STORAGE_KEY = 'APP_PIN_LOCK'
 export const PIN_ENABLED_KEY = 'APP_PIN_LOCK_ENABLED'
 export const IN_RECOVERY = 'IN_RECOVERY'

@@ -164,7 +164,7 @@ export class ExportBackupFile extends PureComponent<
           </CustomView>
           <CustomView
             center
-            verticalSpace={height > VERY_SHORT_DEVICE ? true : false}
+            //  verticalSpace={height > VERY_SHORT_DEVICE ? true : false}
           >
             <CustomText
               center
