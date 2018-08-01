@@ -188,7 +188,7 @@ export function* checkPin(action: CheckPinAction): Generator<*, *, *> {
   const salt = yield call(secureGet, SALT_STORAGE_KEY)
   const enteredPinHash = yield call(pinHash, action.pin, salt)
   const expectedPinHash = yield call(secureGet, PIN_STORAGE_KEY)
-  if (expectedPinHash === enteredPinHash.substring(0, 16)) {
+  if (expectedPinHash === enteredPinHash) {
     yield put(checkPinSuccess())
     yield call(safeSet, IN_RECOVERY, 'false')
   } else {

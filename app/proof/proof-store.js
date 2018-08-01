@@ -208,10 +208,11 @@ export function convertSelectedCredentialAttributesToIndyProof(
     // so we are removing that last _<index> from attribute key and generating attribute name
     // We will remove this logic and have it work without below hack
     // when we will refactor whole proof generation logic
-    const attributeLabel = attributeKey
-      .split('_')
-      .slice(0, -1)
-      .join('_')
+    let attributeLabel = attributeKey.split('_')
+    if (attributeLabel.length > 1) {
+      attributeLabel = attributeLabel.slice(0, -1)
+    }
+    attributeLabel = attributeLabel.join('_')
     return {
       ...acc,
       [attributeKey]: [

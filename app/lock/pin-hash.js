@@ -31,7 +31,8 @@ export async function pinHash(pin: string, salt: string) {
       console.log('pinHash: salt: ', salt)
       console.log('pinHash: key: ', key)
     }
-    return key
+    //TODO: This is hack due to android
+    return key.substring(0, 16)
   } catch (e) {
     console.error(`pinHash: ${e}`)
     return null

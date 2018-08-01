@@ -79,15 +79,12 @@ export class VerifyRecoveryPhrase extends Component<
     const passphraseFromUser = event.nativeEvent.text.trim()
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    const hashedPassphrase = await generateKey(
+    const hashedPassphrase: string | null = await generateKey(
       passphraseFromUser,
       this.props.recoveryPassphrase.salt
     )
-    // TODO: fix hack - for IOS need to do hash is having extra characters
-    // when doing cross platform export/import then it becomes incompatible
-    const hashedPassphrasePatch = await hashedPassphrase
 
-    if (recoveryPassphrase.hash === hashedPassphrasePatch.substring(0, 16)) {
+    if (recoveryPassphrase.hash === hashedPassphrase) {
       this.props.navigation.navigate(exportBackupFileRoute, {
         initialRoute,
       })

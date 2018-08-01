@@ -193,7 +193,7 @@ export function* generateRecoveryPhraseSaga(
       generateRecoveryPhraseSuccess({
         phrase: passphrase,
         salt: passphraseSalt,
-        hash: hashedPassphrase.substring(0, 16),
+        hash: hashedPassphrase,
       })
     )
     yield put(generateBackupFile())

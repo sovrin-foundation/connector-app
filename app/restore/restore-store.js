@@ -104,11 +104,7 @@ export function* restoreFileDecrypt(
     )
     //TODO fix hack - for IOS need to do hash is having extra characters
     // when doing cross platform export/import then it becomes incompatible
-    yield call(
-      decryptWalletFile,
-      walletFilePath,
-      hashedPassphrase.substring(0, 16)
-    )
+    yield call(decryptWalletFile, walletFilePath, hashedPassphrase)
     yield put(restoreStatus(RestoreStatus.FILE_DECRYPT_SUCCESS))
 
     // since we have decrypted file successfully, now we restore data from wallet
