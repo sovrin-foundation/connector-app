@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Camera from 'react-native-camera'
@@ -87,7 +87,7 @@ export function convertQrCodeToInvitation(qrCode: QrCode) {
   }
 }
 
-export class QRCodeScannerScreen extends Component<
+export class QRCodeScannerScreen extends PureComponent<
   QRCodeScannerScreenProps,
   QRCodeScannerScreenState
 > {
@@ -215,13 +215,6 @@ export class QRCodeScannerScreen extends Component<
     }
   }
 
-  shouldComponentUpdate(nextProps: QRCodeScannerScreenProps) {
-    // due to the behavior of react navigation which caches the component
-    // so, all connected props update will still propagate to this component
-    // and we don't want to re-render camera and related stuff
-    return nextProps.currentScreen === qrCodeScannerTabRoute
-  }
-
   componentDidMount() {
     if (this.props.currentScreen === qrCodeScannerTabRoute) {
       // when this component is mounted first time, `cwrp` will not be called
@@ -237,13 +230,13 @@ export class QRCodeScannerScreen extends Component<
       //so that it doesn't look odd
       <Container dark>
         {this.state.isCameraAuthorized &&
-          this.props.currentScreen === qrCodeScannerTabRoute && (
-            <QRScanner
-              onRead={this.onRead}
-              onClose={this.onClose}
-              onEnvironmentSwitchUrl={this.onEnvironmentSwitchUrl}
-            />
-          )}
+        this.props.currentScreen === qrCodeScannerTabRoute ? (
+          <QRScanner
+            onRead={this.onRead}
+            onClose={this.onClose}
+            onEnvironmentSwitchUrl={this.onEnvironmentSwitchUrl}
+          />
+        ) : null}
       </Container>
     )
   }
