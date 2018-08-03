@@ -38,10 +38,6 @@ export class PushNotification extends PureComponent<
         this.onPushNotificationReceived(notification)
       }
     )
-
-    this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, token => {
-      this.saveDeviceToken(token)
-    })
   }
 
   onPushNotificationReceived(notificationPayload: ?NotificationPayload) {
@@ -56,11 +52,21 @@ export class PushNotification extends PureComponent<
     }
   }
 
-  componentWillReceiveProps(nextProps: PushNotificationProps) {
-    if (this.props.isAllowed !== nextProps.isAllowed) {
+  listenForTokenUpdate() {
+    this.refreshTokenListener = FCM.on(FCMEvent.RefreshToken, token => {
+      this.saveDeviceToken(token)
+    })
+  }
+
+  componentDidUpdate(prevProps: PushNotificationProps) {
+    if (
+      this.props.isAllowed !== prevProps.isAllowed &&
+      this.props.isAllowed === true
+    ) {
       FCM.getFCMToken()
         .then(token => {
           this.saveDeviceToken(token)
+          this.listenForTokenUpdate()
         })
         .catch(e => {
           console.log(e)

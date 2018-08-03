@@ -75,6 +75,7 @@ describe('push notification store should work properly', () => {
     const pushToken = 'test:APA91bFOyY3at1DzdKO-Z4G_5dG12cXvKC1GuI…CX3jH'
     const expectedState = {
       ...initialState,
+      isAllowed: true,
       pushToken,
     }
     const actualState = pushNotificationReducer(

@@ -307,6 +307,7 @@ export default function pushNotification(
       return {
         ...state,
         pushToken: action.token,
+        isAllowed: true,
       }
     case FETCH_ADDITIONAL_DATA:
       return {
