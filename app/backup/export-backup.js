@@ -162,10 +162,7 @@ export class ExportBackupFile extends PureComponent<
               Export Your Encrypted Backup File
             </CustomText>
           </CustomView>
-          <CustomView
-            center
-            //  verticalSpace={height > VERY_SHORT_DEVICE ? true : false}
-          >
+          <CustomView center>
             <CustomText
               center
               transparentBg
@@ -192,7 +189,7 @@ export class ExportBackupFile extends PureComponent<
           {this.BackupPath(backupPath)}
         </Container>
 
-        <CustomView>
+        <CustomView verticalSpace>
           <CustomView center>
             <CustomText
               center

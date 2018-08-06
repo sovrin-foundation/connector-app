@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     marginBottom: height > SHORT_DEVICE ? 40 : 20,
   },
   exportBackupMainText: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     fontSize: 18,
     lineHeight: 22,
     fontWeight: '500',
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     lineHeight: 27,
     fontSize: 22,
-    marginBottom: height > SHORT_DEVICE ? 40 : 0,
+    marginBottom: height > SHORT_DEVICE ? 30 : 0,
     marginTop: height > SHORT_DEVICE ? 10 : 0,
     maxWidth: 290,
   },
