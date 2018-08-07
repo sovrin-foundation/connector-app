@@ -462,12 +462,14 @@ export class ProofRequest extends PureComponent<
       const selectedClaims = nextProps.data.requestedAttributes.reduce(
         (acc, item) => {
           const items = { ...acc }
-          if (item[0].claimUuid) {
-            items[`${item[0].key}`] = [
-              item[0].claimUuid,
-              true,
-              item[0].cred_info,
-            ]
+          if (Array.isArray(item)) {
+            if (item[0].claimUuid) {
+              items[`${item[0].key}`] = [
+                item[0].claimUuid,
+                true,
+                item[0].cred_info,
+              ]
+            }
           }
           return items
         },
