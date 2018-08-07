@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Image, TouchableWithoutFeedback } from 'react-native'
+import { Image, TouchableWithoutFeedback, View, StyleSheet } from 'react-native'
 import debounce from 'lodash.debounce'
 import { CustomView } from '../layout/custom-view'
 import avatarStyle from './avatar-style'

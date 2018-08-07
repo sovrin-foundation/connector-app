@@ -425,17 +425,21 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
           </Text>
           <View
             avatar={
-              <Icon
-                iconStyle={
-                  Array [
-                    Object {
-                      "tintColor": "rgba(119, 119, 119, 1.0)",
-                    },
-                  ]
-                }
-                small={true}
-                src={1}
-              />
+              <CustomView
+                center={true}
+              >
+                <Icon
+                  iconStyle={
+                    Array [
+                      Object {
+                        "tintColor": "rgba(119, 119, 119, 1.0)",
+                      },
+                    ]
+                  }
+                  small={true}
+                  src={1}
+                />
+              </CustomView>
             }
             disabled={false}
             onLongPress={undefined}
@@ -472,38 +476,48 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
               }
             >
               <View
-                clearBg={true}
-                iconStyle={
-                  Array [
-                    Object {
-                      "tintColor": "rgba(119, 119, 119, 1.0)",
-                    },
-                  ]
-                }
-                small={true}
-                src={1}
+                center={true}
                 style={
                   Object {
-                    "backgroundColor": "transparent",
+                    "alignItems": "center",
+                    "justifyContent": "center",
                   }
                 }
               >
-                <Image
-                  resizeMode="contain"
-                  source={1}
-                  style={
+                <View
+                  clearBg={true}
+                  iconStyle={
                     Array [
-                      Object {
-                        "height": 20,
-                        "width": 20,
-                      },
-                      null,
                       Object {
                         "tintColor": "rgba(119, 119, 119, 1.0)",
                       },
                     ]
                   }
-                />
+                  small={true}
+                  src={1}
+                  style={
+                    Object {
+                      "backgroundColor": "transparent",
+                    }
+                  }
+                >
+                  <Image
+                    resizeMode="contain"
+                    source={1}
+                    style={
+                      Array [
+                        Object {
+                          "height": 20,
+                          "width": 20,
+                        },
+                        null,
+                        Object {
+                          "tintColor": "rgba(119, 119, 119, 1.0)",
+                        },
+                      ]
+                    }
+                  />
+                </View>
               </View>
               <View
                 style={

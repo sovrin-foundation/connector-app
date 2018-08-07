@@ -218,58 +218,102 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
         }
       >
         <View
-          accessibilityLabel="bubble-3nj819kkjywdppuje79"
-          accessible={true}
-          imageShadow="imageShadow"
+          row={true}
           style={
             Object {
-              "borderRadius": 50,
-              "elevation": 3,
-              "shadowColor": "rgba(0, 0, 0, 0.25)",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 8,
+              "flexDirection": "row",
             }
           }
-          testID="bubble-3nj819kkjywdppuje79"
         >
-          <Image
-            accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
-            accessibilityTraits={undefined}
-            accessible={true}
-            hitSlop={undefined}
-            nativeID={undefined}
-            onError={[Function]}
-            onLayout={undefined}
-            onLoad={[Function]}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            source={
-              Object {
-                "uri": "https://logourl.com/logo.png",
-              }
-            }
+          <View
             style={
               Array [
                 Object {
-                  "height": 66,
-                  "width": 66,
-                },
-                Object {
-                  "borderRadius": 33,
+                  "zIndex": 0,
                 },
               ]
             }
-            testID={undefined}
-          />
+          >
+            <View
+              accessibilityLabel="bubble-3nj819kkjywdppuje79"
+              accessible={true}
+              imageShadow="imageShadow"
+              style={
+                Object {
+                  "borderRadius": 50,
+                  "elevation": 3,
+                  "shadowColor": "rgba(0, 0, 0, 0.25)",
+                  "shadowOffset": Object {
+                    "height": 3,
+                    "width": 0,
+                  },
+                  "shadowOpacity": 1,
+                  "shadowRadius": 8,
+                }
+              }
+              testID="bubble-3nj819kkjywdppuje79"
+            >
+              <Image
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
+                accessible={true}
+                hitSlop={undefined}
+                nativeID={undefined}
+                onError={[Function]}
+                onLayout={undefined}
+                onLoad={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                source={
+                  Object {
+                    "uri": "https://logourl.com/logo.png",
+                  }
+                }
+                style={
+                  Array [
+                    Object {
+                      "height": 66,
+                      "width": 66,
+                    },
+                    Object {
+                      "borderRadius": 33,
+                    },
+                  ]
+                }
+                testID={undefined}
+              />
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "marginLeft": -20,
+                "zIndex": 1,
+              }
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#d1021b",
+                    "borderColor": "#ffffff",
+                    "borderWidth": 0.2,
+                  },
+                  Object {
+                    "borderRadius": 10,
+                    "height": 20,
+                    "width": 20,
+                  },
+                ]
+              }
+            />
+          </View>
         </View>
       </Animatable.View>
     </View>

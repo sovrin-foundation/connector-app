@@ -6,9 +6,10 @@ import {
   Platform,
   Dimensions,
   StyleSheet,
+  View,
 } from 'react-native'
 import { View as AnimationView } from 'react-native-animatable'
-import { Avatar } from '../components'
+import { Avatar, CustomView } from '../components'
 import { connectionHistoryRoute } from '../common/route-constants'
 import showDID from '../components/show-pairwise-info'
 import type {
@@ -17,6 +18,7 @@ import type {
   BubblesProps,
   ConnectionBubblesState,
 } from './type-home'
+import { Dot as BadgeDot } from '../components/badges-dot'
 
 export class Bubble extends PureComponent<BubbleProps, BubbleState> {
   state = {
@@ -80,19 +82,38 @@ export class Bubble extends PureComponent<BubbleProps, BubbleState> {
     }
 
     return (
-      <Avatar
-        radius={this.props.radius}
-        shadow
-        src={source}
-        onLoad={this._onLoad}
-        onError={this._onError}
-        testID={testID}
-        onLongPress={() => showDID(senderDID, identifier)}
-        onPress={this.showHistory}
-      />
+      <CustomView row>
+        <View style={[badgeDotStyles.avatarBack]}>
+          <Avatar
+            radius={this.props.radius}
+            shadow
+            src={source}
+            onLoad={this._onLoad}
+            onError={this._onError}
+            testID={testID}
+            onLongPress={() => showDID(senderDID, identifier)}
+            onPress={this.showHistory}
+            showBadge
+          />
+        </View>
+        {/* TODO: the badge has to be put on a condition when there is any unread cred is pending inside this connection */}
+        <CustomView style={[badgeDotStyles.badge]}>
+          <BadgeDot size="medium" />
+        </CustomView>
+      </CustomView>
     )
   }
 }
+
+const badgeDotStyles = StyleSheet.create({
+  badge: {
+    marginLeft: -20,
+    zIndex: 1,
+  },
+  avatarBack: {
+    zIndex: 0,
+  },
+})
 
 export default class ConnectionBubbles extends PureComponent<
   BubblesProps,

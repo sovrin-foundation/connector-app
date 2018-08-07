@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import RadialGradient from 'react-native-radial-gradient'
-import { Alert, ScrollView, StyleSheet, Dimensions } from 'react-native'
+import { Alert, ScrollView, StyleSheet, Dimensions, View } from 'react-native'
 import { connect } from 'react-redux'
 import { List, ListItem } from 'react-native-elements'
 import moment from 'moment'
@@ -51,6 +51,7 @@ import {
 } from '../claim-offer/type-claim-offer'
 import { deleteConnectionAction } from '../store/connections-store'
 import { getConnection, getConnectionTheme } from '../store/store-selector'
+import { Dot as BadgeDot } from '../components/badges-dot'
 
 import debounce from 'lodash.debounce'
 
@@ -146,11 +147,19 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
 
   getHistoryIcons = (action: string) => {
     return (
-      <Icon
-        src={historyIcons[action]}
-        iconStyle={[{ tintColor: this.props.activeConnectionThemePrimary }]}
-        small
-      />
+      <CustomView center>
+        {/* TODO: The condition for the dot should be visible only when the cred is new and is not opened */}
+        {action === 'PENDING' && (
+          <View style={[styles.badgeDotStyle]}>
+            <BadgeDot size="small" />
+          </View>
+        )}
+        <Icon
+          src={historyIcons[action]}
+          iconStyle={[{ tintColor: this.props.activeConnectionThemePrimary }]}
+          small
+        />
+      </CustomView>
     )
   }
 
@@ -419,4 +428,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   avatarOverlayContainerStyle: { backgroundColor: 'transparent' },
+  badgeDotStyle: {
+    marginBottom: 5,
+  },
 })

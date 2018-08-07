@@ -19,6 +19,7 @@ export const white = '#ffffff'
 export const whisper = '#EAEAEA'
 export const lightDarkBlue = '#4A8FE3'
 export const darkGray = '#505050'
+export const maroonRed = '#d1021b'
 
 const sirocco = '#636564'
 const corduroy = '#3f4140'
