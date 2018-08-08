@@ -144,7 +144,6 @@ export const setFetchAdditionalDataPendingKeys = (
 export function* fetchAdditionalDataSaga(
   action: FetchAdditionalDataAction
 ): Generator<*, *, *> {
-  yield* ensureVcxInitSuccess()
   const { forDID, uid, type, senderLogoUrl } = action.notificationPayload
   if (forDID && uid) {
     const fetchDataAlreadyExists = yield select(
