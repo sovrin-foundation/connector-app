@@ -19,6 +19,7 @@ export function formatNumbers(num: string) {
 const CustomText = (props: GenericObject) => {
   const {
     h3,
+    h3a,
     h4,
     h4a,
     h5,
@@ -61,7 +62,7 @@ const CustomText = (props: GenericObject) => {
     : secondary ? 'Secondary' : tertiary ? 'Tertiary' : 'Primary'
   const size = h3
     ? 'h3'
-    : h4 ? 'h4' : h4a ? 'h4a' : h6 ? 'h6' : h7 ? 'h7' : 'h5'
+    : h3a ? 'h3a' : h4 ? 'h4' : h4a ? 'h4a' : h6 ? 'h6' : h7 ? 'h7' : 'h5'
   const fontFamily = 'fontLato'
   const textStyles = [
     styles[size],
@@ -138,6 +139,9 @@ export default CustomText
 export const styles = StyleSheet.create({
   h3: {
     fontSize: font.size.L,
+  },
+  h3a: {
+    fontSize: font.size.L1,
   },
   h4a: {
     fontSize: font.size.M1,

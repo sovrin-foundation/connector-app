@@ -56,18 +56,18 @@ const Tabs = TabNavigator(
         },
       },
     },
-    [historyTabRoute]: {
-      screen: WalletTabHistory,
-      navigationOptions: {
-        tabBarLabel: HISTORY_TAB,
-        tabBarTestIDProps: {
-          testID: HISTORY_TAB_TEST_ID,
-          accessible: true,
-          accessibleLabel: HISTORY_TAB_TEST_ID,
-          accessibilityLabel: HISTORY_TAB_TEST_ID,
-        },
-      },
-    },
+    // [historyTabRoute]: {
+    //   screen: WalletTabHistory,
+    //   navigationOptions: {
+    //     tabBarLabel: HISTORY_TAB,
+    //     tabBarTestIDProps: {
+    //       testID: HISTORY_TAB_TEST_ID,
+    //       accessible: true,
+    //       accessibleLabel: HISTORY_TAB_TEST_ID,
+    //       accessibilityLabel: HISTORY_TAB_TEST_ID,
+    //     },
+    //   },
+    // },
   },
   {
     animationEnabled: true,
@@ -75,7 +75,7 @@ const Tabs = TabNavigator(
     swipeEnabled: true,
     lazy: true,
     initialRouteName: receiveTabRoute,
-    order: [receiveTabRoute, sendTabRoute, historyTabRoute],
+    order: [receiveTabRoute, sendTabRoute],
     initialLayout: {
       height: 52,
       width,

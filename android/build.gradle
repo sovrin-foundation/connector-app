@@ -22,6 +22,9 @@ allprojects {
             url "$rootDir/../node_modules/react-native/android"
         }
         maven {
+             url 'https://evernym.mycloudrepo.io/public/repositories/libvcx-android'
+         }
+        maven {
             url "https://maven.google.com"
         }
         flatDir {

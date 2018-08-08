@@ -40,7 +40,10 @@ import type {
   DeleteConnectionFailureEventAction,
   DeleteConnectionEventAction,
 } from './type-connection-store'
-import { deleteConnection } from '../bridge/react-native-cxs/RNCxs'
+import {
+  deleteConnection,
+  getHandleBySerializedConnection,
+} from '../bridge/react-native-cxs/RNCxs'
 import { RESET } from '../common/type-common'
 import type { UserOneTimeInfo } from './user/type-user-store'
 import { promptBackupBanner } from '../backup/backup-store'
@@ -125,10 +128,6 @@ export const deleteConnectionAction = (
 export function* deleteConnectionOccurredSaga(
   action: DeleteConnectionEventAction
 ): Generator<*, *, *> {
-  const userOneTimeInfo: UserOneTimeInfo = yield select(getUserOneTimeInfo)
-  const agencyVerificationKey: string = yield select(getAgencyVerificationKey)
-  const agencyUrl: string = yield select(getAgencyUrl)
-  const poolConfig: string = yield select(getPoolConfig)
   const connections: GenericObject = yield select(getAllConnection)
 
   const [connection]: Array<Connection> = yield select(
@@ -137,24 +136,15 @@ export function* deleteConnectionOccurredSaga(
   )
   const { [connection.myPairwiseDid]: deleted, ...rest } = connections
 
-  const url = `${agencyUrl}/agency/msg`
-  try {
-    yield call(deleteConnection, {
-      url,
-      myPairwiseDid: connection.myPairwiseDid,
-      myPairwiseVerKey: connection.myPairwiseVerKey,
-      myPairwiseAgentDid: connection.myPairwiseAgentDid,
-      myPairwiseAgentVerKey: connection.myPairwiseAgentVerKey,
-      myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
-      myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
-      myOneTimeDid: userOneTimeInfo.myOneTimeDid,
-      myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
-      myAgencyVerKey: agencyVerificationKey,
-      poolConfig,
-    })
+  const connectionHandle = yield call(
+    getHandleBySerializedConnection,
+    connection.vcxSerializedConnection
+  )
 
+  try {
     yield call(secureSet, CONNECTIONS, JSON.stringify(rest))
     yield put(deleteConnectionSuccess(rest))
+    yield call(deleteConnection, connectionHandle)
   } catch (e) {
     yield put(deleteConnectionFailure(connection, e))
   }

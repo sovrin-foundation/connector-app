@@ -203,6 +203,7 @@ export const font = {
     M: 17,
     M1: 18,
     ML: 20,
+    L1: 34,
     L: 40,
     PREFIX: 14,
   },

@@ -53,7 +53,7 @@ export type ShareBackupAction = {
 }
 
 export type WalletBalanceProps = {
-  walletBalance: WalletBalance,
+  walletBalance: string,
   refreshWalletBalance: () => {},
   render: Function,
 }
@@ -66,6 +66,7 @@ export type WalletSendAmountProps = {
   screenProps: ReactNavigation,
   selectTokenAmount: (tokenAmount: string) => {},
   walletBalance: string,
+  paymentStatus: $Keys<typeof STORE_STATUS>,
 } & ReactNavigation
 
 export type WalletProps = {} & ReactNavigation
@@ -79,6 +80,7 @@ export type WalletTabReceiveProps = {
   walletAddresses: Array<string>,
   refreshWalletAddresses: () => {},
   promptBackupBanner: (showBackup: boolean) => {},
+  addressStatus: $Keys<typeof STORE_STATUS>,
 }
 
 export type WalletTabReceiveState = {
@@ -108,12 +110,12 @@ export type WalletHistoryEvent = {
   senderName?: string,
   senderAddress: string,
   action: string,
-  tokenAmount: number,
+  tokenAmount: string,
   timeStamp: string,
 }
 
 export type WalletBalance = {
-  data: number,
+  data: string,
 } & StoreStatus &
   StoreError
 
@@ -128,7 +130,7 @@ export type WalletHistory = {
   StoreError
 
 export type Payment = {
-  tokenAmount: number,
+  tokenAmount: string,
 } & StoreStatus &
   StoreError
 
@@ -210,14 +212,14 @@ export type HydrateWalletHistoryFailAction = {
 
 export type SendTokensAction = {
   type: typeof SEND_TOKENS,
-  tokenAmount: number,
+  tokenAmount: string,
   recipientWalletAddress: string,
   senderWalletAddress: string,
 }
 
 export type SelectTokensAction = {
   type: typeof SEND_TOKENS,
-  tokenAmount: number,
+  tokenAmount: string,
 }
 
 export const HYDRATE_WALLET_BALANCE_FAIL = 'HYDRATE_WALLET_BALANCE_FAIL'
@@ -241,13 +243,14 @@ export const SEND_TOKENS_FAIL = 'SEND_TOKENS_FAIL'
 export const TOKEN_SENT_SUCCESS = 'TOKEN_SENT_SUCCESS'
 export const SELECT_TOKEN_AMOUNT = 'SELECT_TOKEN_AMOUNT'
 export const PROMPT_WALLET_BACKUP_BANNER = 'PROMPT_WALLET_BACKUP_BANNER'
+export const WALLET_ADDRESSES_FETCH_START = 'WALLET_ADDRESSES_FETCH_START'
 
 export type PromptBackupBannerAction = {
   type: typeof PROMPT_WALLET_BACKUP_BANNER,
   showBanner: boolean,
 }
 
-export type HydrateWalletBalanceData = number
+export type HydrateWalletBalanceData = string
 
 export type HydrateWalletAddressesData = Array<string>
 
@@ -318,5 +321,3 @@ export type WalletStoreAction =
   | SendTokensAction
   | TokenSentSuccessAction
   | SelectTokensAction
-
-// TODO: add BackupWalletAction types for action of success and failure

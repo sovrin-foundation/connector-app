@@ -56,6 +56,7 @@ import {
   ERROR_SENDING_TOKENS,
   TOKEN_SENT_SUCCESS,
   SELECT_TOKEN_AMOUNT,
+  WALLET_ADDRESSES_FETCH_START,
 } from './type-wallet'
 import { NEW_CONNECTION_SUCCESS } from '../store/connections-store'
 import type { AgencyPoolConfig } from '../store/type-config-store'
@@ -88,13 +89,15 @@ import {
   getWalletAddresses,
   getWalletHistory,
   sendTokenAmount,
+  createPaymentAddress,
 } from '../bridge/react-native-cxs/RNCxs'
 import { promptBackupBanner } from '../backup/backup-store'
 import { getConfig } from '../store/store-selector'
 import { WALLET_ENCRYPTION_KEY } from '../common/secure-storage-constants'
+import { ensureVcxInitSuccess } from '../store/config-store'
 
-const initialState = {
-  walletBalance: { data: 0, status: STORE_STATUS.IDLE, error: null },
+export const walletInitialState = {
+  walletBalance: { data: '0', status: STORE_STATUS.IDLE, error: null },
   walletAddresses: { data: [], status: STORE_STATUS.IDLE, error: null },
   walletHistory: { transactions: [], status: STORE_STATUS.IDLE, error: null },
   backup: {
@@ -103,7 +106,7 @@ const initialState = {
     error: null,
     backupPath: null,
   },
-  payment: { tokenAmount: 0, status: STORE_STATUS.IDLE, error: null },
+  payment: { tokenAmount: '0', status: STORE_STATUS.IDLE, error: null },
 }
 
 export function* shareBackupSaga(
@@ -144,15 +147,18 @@ export function* shareBackupSaga(
     )
   }
 }
+
 export const backupWalletFail = (error: CustomError) => ({
   type: BACKUP_WALLET_FAIL,
   error,
   status: STORE_STATUS.ERROR,
 })
+
 export const backupWalletPath = (backupPath: string) => ({
   type: BACKUP_WALLET_PATH,
   backupPath,
 })
+
 export const walletEncryptionKey = (WALLET_ENCRYPTION_KEY: string) => ({
   type: GET_WALLET_ENCRYPTION_KEY,
   data: {
@@ -168,6 +174,7 @@ export const walletBackup = () => ({
     error: null,
   },
 })
+
 export const walletBackupShare = (WALLET_BACKUP_PATH: string) => ({
   type: SHARE_WALLET_BACKUP,
   data: {
@@ -176,6 +183,7 @@ export const walletBackupShare = (WALLET_BACKUP_PATH: string) => ({
     error: null,
   },
 })
+
 export const walletBackupComplete = (WALLET_BACKUP_PATH: string) => ({
   type: BACKUP_WALLET_SUCCESS,
   data: {
@@ -196,9 +204,8 @@ export function* hydrateWalletStoreSaga(): Generator<*, *, *> {
 
 export function* hydrateWalletBalanceSaga(): Generator<*, *, *> {
   try {
-    const walletBalanceJson = yield call(secureGet, WALLET_BALANCE)
-    if (walletBalanceJson !== null) {
-      const walletBalance = JSON.parse(walletBalanceJson)
+    const walletBalance: string = yield call(secureGet, WALLET_BALANCE)
+    if (walletBalance !== null) {
       yield put(hydrateWalletBalanceStore(walletBalance))
     } else {
       yield put(
@@ -304,6 +311,7 @@ function* watchSendTokens(): any {
 }
 
 export function* sendTokensSaga(action: SendTokensAction): Saga<void> {
+  yield* ensureVcxInitSuccess()
   try {
     yield call(
       sendTokenAmount,
@@ -327,10 +335,11 @@ export function* sendTokensSaga(action: SendTokensAction): Saga<void> {
 }
 
 export function* refreshWalletBalanceSaga(): any {
-  const walletBalanceData = yield call(getWalletBalance)
+  yield* ensureVcxInitSuccess()
+  const walletBalanceData: string = yield call(getWalletBalance)
   try {
     yield put(walletBalanceRefreshed(walletBalanceData))
-    yield call(secureSet, WALLET_BALANCE, JSON.stringify(walletBalanceData))
+    yield call(secureSet, WALLET_BALANCE, walletBalanceData)
   } catch (e) {
     yield put(
       refreshWalletBalanceFail({
@@ -342,6 +351,7 @@ export function* refreshWalletBalanceSaga(): any {
 }
 
 export function* refreshWalletHistorySaga(): any {
+  yield* ensureVcxInitSuccess()
   try {
     const walletHistoryData = yield call(getWalletHistory)
     yield put(walletHistoryRefreshed(walletHistoryData))
@@ -357,8 +367,20 @@ export function* refreshWalletHistorySaga(): any {
 }
 
 export function* refreshWalletAddressesSaga(): Generator<*, *, *> {
+  yield* ensureVcxInitSuccess()
   try {
-    const walletAddressesData = yield call(getWalletAddresses)
+    yield put(walletAddressesFetchStart())
+    let walletAddressesData: string[] = yield call(getWalletAddresses)
+    if (walletAddressesData.length === 0) {
+      // not passing any seed for now
+      yield call(createPaymentAddress, null)
+      // we could put recursion here as well
+      // but we would have to change saga signature so that we can have
+      // exit condition for recursion, for now we are just trying once
+      // and if we don't get any address even after creating it
+      // we won't try again
+      walletAddressesData = yield call(getWalletAddresses)
+    }
     yield put(walletAddressesRefreshed(walletAddressesData))
     yield call(secureSet, WALLET_ADDRESSES, JSON.stringify(walletAddressesData))
   } catch (e) {
@@ -371,7 +393,7 @@ export function* refreshWalletAddressesSaga(): Generator<*, *, *> {
   }
 }
 
-export const walletBalanceRefreshed = (walletBalanceData: number) => ({
+export const walletBalanceRefreshed = (walletBalanceData: string) => ({
   type: WALLET_BALANCE_REFRESHED,
   walletBalance: {
     data: walletBalanceData,
@@ -380,7 +402,7 @@ export const walletBalanceRefreshed = (walletBalanceData: number) => ({
   },
 })
 
-export const tokenSentSuccess = (tokenAmount: number) => ({
+export const tokenSentSuccess = (tokenAmount: string) => ({
   type: TOKEN_SENT_SUCCESS,
   payment: {
     tokenAmount,
@@ -389,7 +411,7 @@ export const tokenSentSuccess = (tokenAmount: number) => ({
   },
 })
 
-export const selectTokenAmount = (tokenAmount: number) => ({
+export const selectTokenAmount = (tokenAmount: string) => ({
   type: SELECT_TOKEN_AMOUNT,
   payment: {
     tokenAmount,
@@ -407,6 +429,10 @@ export const walletAddressesRefreshed = (
     status: STORE_STATUS.SUCCESS,
     error: null,
   },
+})
+
+export const walletAddressesFetchStart = () => ({
+  type: WALLET_ADDRESSES_FETCH_START,
 })
 
 export const walletHistoryRefreshed = (walletHistoryData: any) => ({
@@ -487,7 +513,7 @@ export const refreshWalletBalanceFail = (error: CustomError) => ({
   status: STORE_STATUS.ERROR,
 })
 
-export const sendTokensFail = (tokenAmount: number, error: CustomError) => ({
+export const sendTokensFail = (tokenAmount: string, error: CustomError) => ({
   type: SEND_TOKENS_FAIL,
   payment: {
     tokenAmount,
@@ -520,7 +546,7 @@ export const sendTokens = (
 })
 
 export default function walletReducer(
-  state: WalletStore = initialState,
+  state: WalletStore = walletInitialState,
   action: WalletStoreAction
 ) {
   switch (action.type) {
@@ -586,6 +612,17 @@ export default function walletReducer(
         walletAddresses,
       }
     }
+
+    case WALLET_ADDRESSES_FETCH_START:
+      return {
+        ...state,
+        walletAddresses: {
+          ...state.walletAddresses,
+          status: STORE_STATUS.IN_PROGRESS,
+          error: null,
+        },
+      }
+
     case WALLET_HISTORY_REFRESHED: {
       const { walletHistory } = action
       return {
@@ -687,6 +724,16 @@ export default function walletReducer(
         payment,
       }
     }
+
+    case SEND_TOKENS:
+      return {
+        ...state,
+        payment: {
+          ...state.payment,
+          status: STORE_STATUS.IN_PROGRESS,
+        },
+      }
+
     case SEND_TOKENS_FAIL: {
       const { payment } = action
       return {
@@ -703,7 +750,7 @@ export default function walletReducer(
     }
 
     case RESET:
-      return initialState
+      return walletInitialState
     default:
       return state
   }

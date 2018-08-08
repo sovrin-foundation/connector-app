@@ -14,6 +14,7 @@ describe('<WalletTabSendDetails />', () => {
   let navigation = {
     ...getNavigation(),
   }
+
   function setup() {
     const component = renderer.create(
       <Provider store={store}>
@@ -27,8 +28,10 @@ describe('<WalletTabSendDetails />', () => {
     const instance = component.root.findByType(WalletTabSendDetails).instance
     return { component, instance }
   }
+
   it('should render properly and match the snapshot', () => {
-    const { component } = setup()
+    const { component, instance } = setup()
+    instance.onTextChange('pay:sov:somepaymentaddress', 'paymentTo')
     const tree = component.toJSON()
     expect(tree).toMatchSnapshot()
   })

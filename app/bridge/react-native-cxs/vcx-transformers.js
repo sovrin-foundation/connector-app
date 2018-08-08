@@ -18,6 +18,7 @@ import type { InvitationPayload } from '../../invitation/type-invitation'
 import type { MyPairwiseInfo } from '../../store/type-connection-store'
 import type { ClaimOfferPushPayload } from '../../push-notification/type-push-notification'
 
+export const paymentHandle = 0
 // TODO: wallet key needs to be handled on libvcx wrapper or on bridge
 // for both ios and android not to be passed from js layer
 export const wallet_key = 'walletKey'

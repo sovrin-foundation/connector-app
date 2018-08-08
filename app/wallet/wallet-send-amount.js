@@ -17,18 +17,21 @@ import { walletTabSendDetailsRoute } from '../common/route-constants'
 import { selectTokenAmount } from './wallet-store'
 import { getWalletBalance } from '../store/store-selector'
 import type { Store } from '../store/type-store'
+import { STORE_STATUS } from './type-wallet'
 
-const FONT_SIZE_MAPPING = {
-  '0': 70,
-  '1': 70,
-  '2': 70,
-  '3': 70,
-  '4': 70,
-  '5': 60,
-  '6': 60,
-  '7': 50,
-  '8': 50,
-  '9': 50,
+const FONT_SIZE_MAPPING = (length: number) => {
+  switch (true) {
+    case length < 5:
+      return 70
+    case length < 7:
+      return 60
+    case length < 10:
+      return 50
+    case length < 12:
+      return 40
+    default:
+      return 20
+  }
 }
 
 class WalletSendAmount extends PureComponent<
@@ -36,14 +39,17 @@ class WalletSendAmount extends PureComponent<
   WalletSendAmountState
 > {
   _shake: any
+  _tokenKeyboard: null | Keyboard
   state = {
     text: '',
   }
-  componentWillMount() {
+
+  constructor(props) {
+    super(props)
     this._shake = new Animated.Value(0)
   }
 
-  changeText(text: string, animate: boolean) {
+  changeText = (text: string, animate: boolean) => {
     if (animate) {
       return this.shake()
     }
@@ -65,19 +71,21 @@ class WalletSendAmount extends PureComponent<
   sendTokenAmount = () => {
     this.props.selectTokenAmount(this.state.text)
     if (this.state.text.length) {
-      // TODO route to send token amount details with state.text as a parameter
-
       this.props.screenProps.navigation.navigate(walletTabSendDetailsRoute, {
         ...this.props.navigation,
       })
     }
   }
 
+  saveTokenKeyboardRef = tokenKeyboard => {
+    this._tokenKeyboard = tokenKeyboard
+  }
+
   render() {
     const { text } = this.state
 
     // adjust fontSize based on text length
-    const fontSize = FONT_SIZE_MAPPING[text.length]
+    const fontSize = FONT_SIZE_MAPPING(text.length)
     const animatedStyle = {
       transform: [
         {
@@ -88,6 +96,7 @@ class WalletSendAmount extends PureComponent<
         },
       ],
     }
+    const isSendDisabled = text.length < 1 || text === '0'
 
     return (
       <Container tertiary>
@@ -119,13 +128,14 @@ class WalletSendAmount extends PureComponent<
           </CustomView>
           <Keyboard
             color={color.bg.seventh.font.fifth}
-            onPress={(val, animate) => this.changeText(val, animate)}
+            onPress={this.changeText}
             maxValue={this.props.walletBalance}
+            ref={this.saveTokenKeyboardRef}
           />
         </Container>
         <CustomView safeArea style={[styles.alignItemsCenter]}>
           <CustomButton
-            disabled={text.length < 1}
+            disabled={isSendDisabled}
             customColor={{ backgroundColor: color.bg.eighth.color }}
             onPress={this.sendTokenAmount}
             testID={SEND_TOKEN_BUTTON}
@@ -137,12 +147,26 @@ class WalletSendAmount extends PureComponent<
       </Container>
     )
   }
-}
-const mapStateToProps = (state: Store) => {
-  return {
-    walletBalance: getWalletBalance(state).toString(),
+
+  componentDidUpdate(prevProps: WalletSendAmountProps) {
+    if (
+      this.props.paymentStatus !== prevProps.paymentStatus &&
+      this.props.paymentStatus === STORE_STATUS.SUCCESS
+    ) {
+      // if payment is successful, we can now reset token amount and keyboard
+      this.setState({ text: '' })
+      this._tokenKeyboard && this._tokenKeyboard.clear()
+    }
   }
 }
+
+const mapStateToProps = (state: Store) => {
+  return {
+    walletBalance: getWalletBalance(state),
+    paymentStatus: state.wallet.payment.status,
+  }
+}
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
@@ -150,4 +174,5 @@ const mapDispatchToProps = dispatch =>
     },
     dispatch
   )
+
 export default connect(mapStateToProps, mapDispatchToProps)(WalletSendAmount)

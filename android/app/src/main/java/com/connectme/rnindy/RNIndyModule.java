@@ -18,6 +18,7 @@ import com.evernym.sdk.vcx.credential.GetCredentialCreateMsgidResult;
 import com.evernym.sdk.vcx.proof.CreateProofMsgIdResult;
 import com.evernym.sdk.vcx.proof.DisclosedProofApi;
 import com.evernym.sdk.vcx.proof.ProofApi;
+import com.evernym.sdk.vcx.token.TokenApi;
 import com.evernym.sdk.vcx.utils.UtilsApi;
 import com.evernym.sdk.vcx.vcx.AlreadyInitializedException;
 import com.evernym.sdk.vcx.vcx.VcxApi;
@@ -214,13 +215,6 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
             String myPairwiseVerKey, String myPairwiseAgentDid, String myPairwiseAgentVerKey, String myOneTimeAgentDid,
             String myOneTimeAgentVerKey, String myOneTimeDid, String myOneTimeVerKey, String myAgencyVerKey,
             String myPairwisePeerVerKey, String poolConfig, Promise promise) {
-        promise.resolve(true);
-    }
-
-    @ReactMethod
-    public void deleteConnection(String url, String myPairwiseDid, String myPairwiseVerKey, String myPairwiseAgentDid,
-            String myPairwiseAgentVerKey, String myOneTimeAgentDid, String myOneTimeAgentVerKey, String myOneTimeDid,
-            String myOneTimeVerKey, String myAgencyVerKey, String poolConfig, Promise promise) {
         promise.resolve(true);
     }
 
@@ -754,4 +748,65 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
+    public void getTokenInfo(int paymentHandle, Promise promise) {
+        try {
+            TokenApi.getTokenInfo(paymentHandle).exceptionally((t) -> {
+                Log.e(TAG, "getTokenInfo: ", t);
+                promise.reject("FutureException", t.getMessage());
+                return null;
+            }).thenAccept(result -> {
+                BridgeUtils.resolveIfValid(promise, result);
+            });
+        } catch (VcxException e) {
+            promise.reject("VCXException", e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void sendTokens(int paymentHandle, String tokens, String recipient, Promise promise) {
+        try {
+            TokenApi.sendTokens(paymentHandle, tokens, recipient).exceptionally((t) -> {
+                Log.e(TAG, "sendTokens: ", t);
+                promise.reject("FutureException", t.getMessage());
+                return null;
+            }).thenAccept(result -> {
+                BridgeUtils.resolveIfValid(promise, result);
+            });
+        } catch (VcxException e) {
+            promise.reject("VCXException", e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void createPaymentAddress(String seed, Promise promise) {
+        try {
+            TokenApi.createPaymentAddress(seed).exceptionally((t) -> {
+                Log.e(TAG, "createPaymentAddress: ", t);
+                promise.reject("FutureException", t.getMessage());
+                return null;
+            }).thenAccept(result -> {
+                BridgeUtils.resolveIfValid(promise, result);
+            });
+        } catch (VcxException e) {
+            promise.reject("VCXException", e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void deleteConnection(int connectionHandle, Promise promise) {
+        try {
+            ConnectionApi.deleteConnection(connectionHandle).exceptionally((t) -> {
+                Log.e(TAG, "deleteConnection: ", t);
+                promise.reject("FutureException", t.getMessage());
+                return -1;
+            }).thenAccept(result -> {
+                if (result != -1) {
+                    BridgeUtils.resolveIfValid(promise, result);
+                }
+            });
+        } catch (VcxException e) {
+            promise.reject("VCXException", e.getMessage());
+        }
+    }
 }

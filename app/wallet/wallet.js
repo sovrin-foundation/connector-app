@@ -22,7 +22,7 @@ export class Wallet extends PureComponent<WalletProps, void> {
     headerLeft: <Container style={[styles.headerSpacer]} />,
     headerTitle: (
       <WalletBalance
-        render={balance => (
+        render={(balance: string) => (
           <Container style={[styles.balanceHeader]}>
             <Container center style={[styles.sovrinLogoWrapper]}>
               <Image large source={sovrinLogo} />
@@ -30,8 +30,24 @@ export class Wallet extends PureComponent<WalletProps, void> {
             <CustomView row center>
               <Icon medium src={tokenLogo} />
               <CustomView horizontalSpace>
+                {/**
+                 * TODO:KS below logic to select size as per length is an ugly logic
+                 * adjustsFontSizeToFit is not working due to center alignment and no width
+                 * on parent container, we can't set width as well from Dimensions module
+                 * because there are other elements besides this which are taking up space
+                 * also, other elements width are not defined, so we can't calculate width as well
+                 * Even if we would have used adjustsFontSizeToFit, we can't control the scale
+                 * with which font size is reduced on Android, a scale factor is provided for ios
+                 * So, for now as a hack we are providing font by ourselves.
+                 * Normally, we would have preferred to just wrap the text, but we can't wrap it
+                 * because it is a number. Also, header is hard coded with a height
+                 */}
                 <CustomText
-                  h3
+                  {...{
+                    h3: balance.length < 11,
+                    h3a: balance.length > 10 && balance.length < 13,
+                    h4: balance.length > 12,
+                  }}
                   demiBold
                   formatNumber
                   transparentBg

@@ -6,7 +6,3 @@ export type KeyboardProps = {
   color: string,
   maxValue: string,
 }
-
-export type KeyboardState = {
-  text: string,
-}

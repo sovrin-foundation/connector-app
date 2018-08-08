@@ -1,18 +1,5 @@
 // @flow
 
-// this file would satisfy 1322
-// the component in which user can enter payment address, validation on address, error and how the text input would expand on the basis of how much text user has typed
-// and other things would be combined into a component which could be used as
-// <ControlInput validation={this.throttledAsyncValidationFunction} name="payment address" label="To" />
-// <ControlInput label="For" />
-// if validation prop is not specified then validation will not be applied
-// if validation prop is specified, then we would throttle the function calls and assumes that validation function is async
-// we should also be canceling the previous validation function calls, because ordering in async results are not guaranteed
-// we could use saga to throttle and cancel previous calls if a new call is made during the progress of previous call
-// we could use throttle and takeLatest combined to make this happen
-// This input control does not need to over designed whatever can satisfy our requirements for now
-// when and if we would new features, we would add those later
-
 import React, { Component } from 'react'
 import { StyleSheet, Keyboard, Platform } from 'react-native'
 import { connect } from 'react-redux'
@@ -20,6 +7,7 @@ import { bindActionCreators } from 'redux'
 import { StackNavigator, NavigationActions } from 'react-navigation'
 import { Container, CustomText, CustomView, CustomButton } from '../components'
 import { primaryHeaderStyles } from '../components/layout/header-styles'
+import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
 import Icon from '../components/icon'
 import {
   OFFSET_1X,
@@ -38,7 +26,7 @@ import type {
   WalletTabSendDetailsState,
 } from './type-wallet'
 import { formatNumbers } from '../components/text'
-import { historyTabRoute } from '../common'
+import { receiveTabRoute } from '../common'
 import { walletAddresses } from '../../__mocks__/static-data'
 import {
   SEND_TOKENS_TO_PAYMENT_ADDRESS,
@@ -94,8 +82,9 @@ export class WalletTabSendDetails extends Component<
           testID={SEND_TOKENS_TO_PAYMENT_ADDRESS}
           onPress={() => {
             if (navigation.state.params.isValid) {
+              const amount: string = navigation.state.params.tokenAmount
               navigation.state.params.sendTokens(
-                navigation.state.params.tokenAmount,
+                amount,
                 navigation.state.params.senderWalletAddress,
                 navigation.state.params.receipientWalletAddress
               )
@@ -125,7 +114,7 @@ export class WalletTabSendDetails extends Component<
       if (this.props.tokenSentStatus === STORE_STATUS.SUCCESS) {
         this.props.navigation.goBack(null)
         this.props.navigation.state &&
-          this.props.navigation.state.params.navigate(historyTabRoute)
+          this.props.navigation.state.params.navigate(receiveTabRoute)
       } else if (this.props.tokenSentStatus === STORE_STATUS.ERROR) {
         this.setState({ tokenSentFailedVisible: true })
       }
@@ -160,7 +149,7 @@ export class WalletTabSendDetails extends Component<
 
     // the isPaymentAddressValid state need to be changed to true if the payment address validation is success and vice-versa
     let status = ''
-    if (this.paymentData['paymentTo'] === walletAddresses.data[0]) {
+    if (this.paymentData['paymentTo'].length > 20) {
       status = 'SUCCESS'
       this.props.navigation.setParams({ isValid: true })
     } else if (this.paymentData['paymentTo'].length <= 0) {
@@ -174,6 +163,7 @@ export class WalletTabSendDetails extends Component<
       isPaymentAddressValid: status,
     })
   }
+
   render() {
     const testID = 'wallet-tab-send-details'
     return (
@@ -211,6 +201,9 @@ export class WalletTabSendDetails extends Component<
             SOVRIN TOKENS
           </CustomText>
         </CustomView>
+        {this.props.tokenSentStatus === STORE_STATUS.IN_PROGRESS && (
+          <CustomActivityIndicator />
+        )}
         <CustomView center style={[{ marginTop: 36 }]}>
           <CustomView center style={[{ width: '65%' }]}>
             <Text style={[styles.walletContextText]}>
@@ -262,7 +255,7 @@ export class WalletTabSendDetails extends Component<
             <CustomView spaceBetween style={[styles.innerContainer]}>
               <Icon
                 iconStyle={[{ margin: 10 }]}
-                src={require('../images/EDCU.png')}
+                src={require('../images/alertRed.png')}
                 extraLarge
                 center
                 resizeMode="contain"
@@ -290,7 +283,9 @@ export class WalletTabSendDetails extends Component<
                 demiBold
                 testID={`${testID}-modal-content`}
               >
-                {'Something went wrong trying to pay EDCU. Please try again.'}
+                {`Something went wrong trying to pay ${
+                  this.paymentData.paymentTo
+                }. Please try again.`}
               </CustomText>
             </CustomView>
             <CustomView row spaceAround>

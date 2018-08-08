@@ -1246,13 +1246,13 @@ export const userAvatarImageName = `user-avatar.jpeg`
 export const userAvatarImagePath = `/var/application/DocumentDir/${userAvatarImageName}`
 
 export const walletBalance = {
-  data: 1000,
+  data: '1000',
   status: STORE_STATUS.SUCCESS,
   error: null,
 }
 
 export const payment = {
-  tokenAmount: 5656,
+  tokenAmount: '5656',
   status: STORE_STATUS.SUCCESS,
   error: null,
 }
@@ -1269,7 +1269,7 @@ export const walletHistory = {
       id: 'asd',
       senderAddress: 'sov:senderAddress',
       action: 'Withdraw',
-      tokenAmount: 5656,
+      tokenAmount: '5656',
       timeStamp: 'Tue, 04 Aug 2015 12:38:41 GMT',
     },
     {
@@ -1277,7 +1277,7 @@ export const walletHistory = {
       senderName: 'senderName',
       senderAddress: 'sov:senderAddress',
       action: 'Purchase',
-      tokenAmount: 10000,
+      tokenAmount: '10000',
       timeStamp: 'Tue, 04 Aug 2015 14:38:41 GMT',
     },
   ],

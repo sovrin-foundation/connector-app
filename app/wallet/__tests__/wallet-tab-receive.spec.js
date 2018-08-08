@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import { WalletTabReceive } from '../wallet-tab-receive'
 import { Clipboard } from 'react-native'
 import { walletAddresses, getStore } from '../../../__mocks__/static-data'
+import { STORE_STATUS } from '../type-wallet'
 
 describe('<WalletTabReceive />', () => {
   const store = getStore()
@@ -16,6 +17,7 @@ describe('<WalletTabReceive />', () => {
           walletAddresses={walletAddresses.data}
           refreshWalletAddresses={jest.fn()}
           promptBackupBanner={jest.fn()}
+          addressStatus={STORE_STATUS.IN_PROGRESS}
         />
       </Provider>
     )

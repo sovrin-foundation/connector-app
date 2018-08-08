@@ -505,41 +505,20 @@ RCT_EXPORT_METHOD(sendMessage: (NSString *)url
 }
 
 // delete connection
-RCT_EXPORT_METHOD(deleteConnection: (NSString *)url
-                  withMyPairwiseDid: (NSString *)myPairwiseDid
-                  withMyPairwiseVerKey: (NSString *)myPairwiseVerKey
-                  withMyPairwiseAgentDid: (NSString *)myPairwiseAgentDid
-                  withMyPairwiseAgentVerKey: (NSString *)myPairwiseAgentVerKey
-                  withMyOneTimeAgentDid: (NSString *)myOneTimeAgentDid
-                  withMyOneTimeAgentVerKey: (NSString *)myOneTimeAgentVerKey
-                  withMyOneTimeDid: (NSString *)myOneTimeDid
-                  withMyOneTimeVerKey: (NSString *)myOneTimeVerKey
-                  withMyAgencyVerKey: (NSString *)myAgencyVerKey
-                  withNodesConfig:(NSString *)nodesConfig
+RCT_EXPORT_METHOD(deleteConnection:(NSInteger) connectionHandle
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 {
-  ConnectMeIndy *indy = [RNIndy sharedIndyInstance:nodesConfig];
-
-  [indy deleteConnectionWithUrl:url
-              withMyPairwiseDid:myPairwiseDid
-           withMyPairwiseVerKey:myPairwiseVerKey
-         withMyPairwiseAgentDid:myPairwiseAgentDid
-      withMyPairwiseAgentVerKey:myPairwiseAgentVerKey
-          withMyOneTimeAgentDid:myOneTimeAgentDid
-       withMyOneTimeAgentVerKey:myOneTimeAgentVerKey
-               withMyOneTimeDid:myOneTimeDid
-            withMyOneTimeVerKey:myOneTimeVerKey
-             withMyAgencyVerKey:myAgencyVerKey
-                 withCompletion:^(NSError *error, NSDictionary *dataFromServer)
+  [[[ConnectMeVcx alloc] init] deleteConnection:connectionHandle
+                                 withCompletion:^(NSError *error)
   {
-    if (error != nil && error.code != 0)
-    {
-      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
-      reject(indyErrorCode, @"Error occurred while deleting connection", error);
-    } else {
-      resolve(dataFromServer);
-    }
+     if (error != nil && error.code != 0)
+     {
+       NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+       reject(indyErrorCode, @"Error occurred while deleting connection", error);
+     } else {
+       resolve(@true);
+     }
   }];
 }
 
@@ -709,9 +688,6 @@ RCT_EXPORT_METHOD(initWithConfig: (NSString *)config
               resolver: (RCTPromiseResolveBlock) resolve
               rejecter: (RCTPromiseRejectBlock) reject)
 {
-  // TODO: call vcx_init_with_config of libvcx
-  // pass a config as json string
-  // callback would get an error code and a json string back in case of success
   NSError *error = nil; // remove this line after integrating libvcx method
   if (error != nil && error.code != 0)
   {
@@ -726,9 +702,6 @@ RCT_EXPORT_METHOD(createOneTimeInfo: (NSString *)config
                            resolver: (RCTPromiseResolveBlock) resolve
                            rejecter: (RCTPromiseRejectBlock) reject)
 {
-  // pass a config as json string
-  // callback would get an error code and a json string back in case of success
-
   [[[ConnectMeVcx alloc] init] agentProvisionAsync:config completion:^(NSError *error, NSString *oneTimeInfo) {
     NSLog(@"applicationDidBecomeActive callback:%@",oneTimeInfo);
     if (error != nil && error.code != 0)
@@ -760,7 +733,6 @@ RCT_EXPORT_METHOD(createConnectionWithInvite: (NSString *)invitationId
   }];
 }
 
-// TODO:repalce with acceptInvitation when vcx integration done
 RCT_EXPORT_METHOD(vcxAcceptInvitation: (NSInteger )connectionHandle
                     connectionType: (NSString *)connectionType
                           resolver: (RCTPromiseResolveBlock) resolve
@@ -781,14 +753,10 @@ RCT_EXPORT_METHOD(vcxAcceptInvitation: (NSInteger )connectionHandle
 
 }
 
-// TODO:repalce with updatePushToken when vcx integration done
 RCT_EXPORT_METHOD(vcxUpdatePushToken: (NSString *)config
                          resolver: (RCTPromiseResolveBlock) resolve
                          rejecter: (RCTPromiseRejectBlock) reject)
 {
-  // TODO: call vcx_agent_update_info of libvcx
-  // pass a config as json string
-  // callback would get an error code
   [[[ConnectMeVcx alloc] init] agentUpdateInfo:config completion:^(NSError *error) {
     if (error != nil && error.code != 0)
     {
@@ -1042,6 +1010,59 @@ RCT_EXPORT_METHOD(proofSend:(NSInteger)proof_handle
     }
     else {
       resolve(@{});
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(getTokenInfo:(NSInteger) paymentHandle
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  [[[ConnectMeVcx alloc] init] getTokenInfo:paymentHandle withCompletion:^(NSError *error, NSString *tokenInfo) {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while getting token info", error);
+    } else {
+      resolve(tokenInfo);
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(sendTokens:(NSInteger) paymentHandle
+                  withTokens:(NSString *) tokens
+                  withRecipient:(NSString *) recipient
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  [[[ConnectMeVcx alloc] init] sendTokens:paymentHandle
+                               withTokens:tokens
+                            withRecipient:recipient
+                           withCompletion:^(NSError *error, NSString *recipient)
+  {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while sending tokens", error);
+    } else {
+      resolve(recipient);
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(createPaymentAddress:(NSString*)seed
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  [[[ConnectMeVcx alloc] init] createPaymentAddress:seed
+                                     withCompletion:^(NSError *error, NSString *address)
+  {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while creating payment address", error);
+    } else {
+      resolve(address);
     }
   }];
 }

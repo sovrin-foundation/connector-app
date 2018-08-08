@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { Animated, TouchableWithoutFeedback } from 'react-native'
 import { CustomView, CustomText, Container } from '../../components'
-import type { KeyboardProps, KeyboardState } from './type-keyboard'
+import type { KeyboardProps } from './type-keyboard'
 import {
   KEYBOARD_TEST_ID,
   SPECIAL_DECIMAL_FORMAT,
@@ -24,19 +24,19 @@ import {
 } from './keyboard-constants'
 import styles from './styles'
 import { WALLET_BALANCE } from '../../common'
+import { BigNumber } from 'bignumber.js'
 
 const inputRange = [0, 0.5, 1]
 const outputRange = [28, 35, 42]
 
-export default class Keyboard extends Component<KeyboardProps, KeyboardState> {
+export default class Keyboard extends Component<KeyboardProps, void> {
   originalOptions: Array<string>
   _animation: any
+  _walletBalance: BigNumber = new BigNumber('0')
+  text: string = ''
 
   constructor(props: KeyboardProps) {
     super(props)
-    this.state = {
-      text: '',
-    }
     this.originalOptions = [
       ONE,
       TWO,
@@ -53,8 +53,10 @@ export default class Keyboard extends Component<KeyboardProps, KeyboardState> {
     ]
     this._animation = this.originalOptions.map(i => new Animated.Value(0))
   }
+
   static defaultProps = {
-    maxLength: 9,
+    // when we enable decimal DOT, then we have to increase length by 1
+    maxLength: 19,
   }
 
   animation = (key: string) => {
@@ -126,7 +128,7 @@ export default class Keyboard extends Component<KeyboardProps, KeyboardState> {
         accessible={true}
         accessibilityLabel={`${KEYBOARD_TEST_ID}-${symbol}`}
         onPressIn={() => {
-          maxLength && maxLength > this.state.text.length
+          maxLength && maxLength > this.text.length
             ? this.onPress(symbol)
             : this.onPress(symbol, MAX_LENGTH)
         }}
@@ -151,7 +153,7 @@ export default class Keyboard extends Component<KeyboardProps, KeyboardState> {
   onPress(key: string, MAX_LENGTH: ?string) {
     this.animation(key)
 
-    const { text } = this.state
+    const text = this.text
     const NO_DECIMAL = !text.includes(DECIMAL)
     const HAS_INPUT = text.length
 
@@ -159,7 +161,7 @@ export default class Keyboard extends Component<KeyboardProps, KeyboardState> {
 
     if (MAX_LENGTH) {
       const animate = true
-      this.setState({ text: curText })
+      this.text = curText
 
       return this.props.onPress(curText, animate)
     } else if (key === BACK_SPACE_SYMBOL) {
@@ -170,7 +172,7 @@ export default class Keyboard extends Component<KeyboardProps, KeyboardState> {
       // animate if backspace is pressed with nothing stored in text
       const animate = HAS_INPUT ? false : true
 
-      this.setState({ text: updatedText })
+      this.text = updatedText
 
       return this.props.onPress(updatedText, animate)
     } else if (key === DECIMAL) {
@@ -180,27 +182,36 @@ export default class Keyboard extends Component<KeyboardProps, KeyboardState> {
         : SPECIAL_DECIMAL_FORMAT
       const animate = HAS_INPUT ? (NO_DECIMAL ? false : true) : false
 
-      this.setState({ text: updatedText })
+      this.text = updatedText
 
       return this.props.onPress(updatedText, animate)
     } else if (key === ZERO && !HAS_INPUT) {
       const animate = true
-      this.setState({ text })
+      this.text = text
 
       return this.props.onPress(text, animate)
     } else {
       let updatedText = (curText += key)
       let animate = false
-
-      if (parseFloat(this.state.text) == parseFloat(this.props.maxValue)) {
+      const previousEnteredValue = new BigNumber(this.text)
+      const updatedEnteredValue = new BigNumber(updatedText)
+      if (previousEnteredValue.isEqualTo(this._walletBalance)) {
         animate = true
         updatedText = this.props.maxValue
-      } else if (parseFloat(updatedText) > parseFloat(this.props.maxValue)) {
+      } else if (updatedEnteredValue.isGreaterThan(this._walletBalance)) {
         updatedText = this.props.maxValue
       }
-      this.setState({ text: updatedText })
+      this.text = updatedText
       return this.props.onPress(updatedText, animate)
     }
+  }
+
+  clear() {
+    this.text = ''
+  }
+
+  componentDidMount() {
+    this._walletBalance = new BigNumber(this.props.maxValue)
   }
 
   render() {
@@ -210,11 +221,18 @@ export default class Keyboard extends Component<KeyboardProps, KeyboardState> {
         {this.Row([FOUR, FIVE, SIX])}
         {this.Row([SEVEN, EIGHT, NINE])}
         <CustomView row style={[styles.row]}>
-          {this.Cell(DECIMAL)}
+          {/* disable decimal dot for now, we are only going to show whole number */}
+          {/* {this.Cell(DECIMAL)} */}
           {this.Cell(ZERO)}
           {this.Backspace(BACK_SPACE_SYMBOL)}
         </CustomView>
       </CustomView>
     )
+  }
+
+  componentDidUpdate(prevProps: KeyboardProps) {
+    if (this.props.maxValue !== prevProps.maxValue) {
+      this._walletBalance = new BigNumber(this.props.maxValue)
+    }
   }
 }

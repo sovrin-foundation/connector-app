@@ -180,3 +180,21 @@ export type WalletPoolName = {
   walletName: string,
   poolName: string,
 }
+
+export type UTXO = {
+  amount: number,
+  extra: string,
+  paymentAddress: string,
+  source: string,
+}
+
+export type PaymentAddress = {
+  address: string,
+  balance: number,
+  utxo: UTXO[],
+}
+
+export type WalletTokenInfo = {
+  balance_str: string,
+  addresses: PaymentAddress[],
+}

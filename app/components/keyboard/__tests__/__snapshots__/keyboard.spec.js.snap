@@ -441,49 +441,6 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
   >
     <View
       accessibilityComponentType={undefined}
-      accessibilityLabel="wallet-keyboard-id-label-."
-      accessibilityTraits={undefined}
-      accessible={true}
-      center={true}
-      hitSlop={undefined}
-      nativeID={undefined}
-      onLayout={undefined}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "flex": 1,
-          "justifyContent": "center",
-        }
-      }
-      testID="wallet-keyboard-id-label-."
-    >
-      <Text
-        accessible={true}
-        allowFontScaling={true}
-        collapsable={undefined}
-        ellipsizeMode="tail"
-        style={
-          Object {
-            "backgroundColor": "transparent",
-            "color": "#fff",
-            "fontFamily": "Lato",
-            "fontSize": 28,
-            "fontWeight": "500",
-            "textAlign": "center",
-          }
-        }
-      >
-        .
-      </Text>
-    </View>
-    <View
-      accessibilityComponentType={undefined}
       accessibilityLabel="wallet-keyboard-id-label-0"
       accessibilityTraits={undefined}
       accessible={true}

@@ -11,7 +11,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -19,7 +19,7 @@ Object {
     "status": "IDLE",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": null,
     "status": "IDLE",
   },
@@ -42,7 +42,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -50,7 +50,7 @@ Object {
     "status": "IDLE",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": null,
     "status": "IDLE",
   },
@@ -76,7 +76,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -84,7 +84,7 @@ Object {
     "status": "IDLE",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": null,
     "status": "IDLE",
   },
@@ -110,7 +110,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -118,7 +118,7 @@ Object {
     "status": "IDLE",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": null,
     "status": "IDLE",
   },
@@ -141,7 +141,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [
@@ -151,7 +151,7 @@ Object {
     "status": "SUCCESS",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": null,
     "status": "IDLE",
   },
@@ -174,7 +174,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -185,7 +185,7 @@ Object {
     "status": "ERROR",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": null,
     "status": "IDLE",
   },
@@ -208,7 +208,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -219,7 +219,7 @@ Object {
     "status": "ERROR",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": null,
     "status": "IDLE",
   },
@@ -242,7 +242,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -250,7 +250,7 @@ Object {
     "status": "IDLE",
   },
   "walletBalance": Object {
-    "data": 1000,
+    "data": "1000",
     "error": null,
     "status": "SUCCESS",
   },
@@ -273,7 +273,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -281,7 +281,7 @@ Object {
     "status": "IDLE",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": Object {
       "code": "W005",
       "message": "Error while loading wallet balance",
@@ -307,7 +307,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -315,7 +315,7 @@ Object {
     "status": "IDLE",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": Object {
       "code": "W005",
       "message": "Error while loading wallet balance",
@@ -341,7 +341,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -349,7 +349,7 @@ Object {
     "status": "IDLE",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": null,
     "status": "IDLE",
   },
@@ -362,7 +362,7 @@ Object {
         "id": "asd",
         "senderAddress": "sov:senderAddress",
         "timeStamp": "Tue, 04 Aug 2015 12:38:41 GMT",
-        "tokenAmount": 5656,
+        "tokenAmount": "5656",
       },
       Object {
         "action": "Purchase",
@@ -370,7 +370,7 @@ Object {
         "senderAddress": "sov:senderAddress",
         "senderName": "senderName",
         "timeStamp": "Tue, 04 Aug 2015 14:38:41 GMT",
-        "tokenAmount": 10000,
+        "tokenAmount": "10000",
       },
     ],
   },
@@ -388,7 +388,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -396,7 +396,7 @@ Object {
     "status": "IDLE",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": null,
     "status": "IDLE",
   },
@@ -422,7 +422,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -430,7 +430,7 @@ Object {
     "status": "IDLE",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": null,
     "status": "IDLE",
   },
@@ -456,7 +456,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -467,7 +467,7 @@ Object {
     "status": "ERROR",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": null,
     "status": "IDLE",
   },
@@ -490,7 +490,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -498,7 +498,7 @@ Object {
     "status": "IDLE",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": Object {
       "code": "W002",
       "message": "Error while refreshing wallet balance",
@@ -527,7 +527,7 @@ Object {
       "message": "Error sending tokens",
     },
     "status": "ERROR",
-    "tokenAmount": 5656,
+    "tokenAmount": "5656",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -535,7 +535,7 @@ Object {
     "status": "IDLE",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": null,
     "status": "IDLE",
   },
@@ -561,7 +561,7 @@ Object {
       "message": "Error sending tokens",
     },
     "status": "ERROR",
-    "tokenAmount": 5656,
+    "tokenAmount": "5656",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -569,7 +569,7 @@ Object {
     "status": "IDLE",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": null,
     "status": "IDLE",
   },
@@ -592,7 +592,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [
@@ -602,7 +602,7 @@ Object {
     "status": "SUCCESS",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": null,
     "status": "IDLE",
   },
@@ -625,7 +625,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [
@@ -635,7 +635,7 @@ Object {
     "status": "SUCCESS",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": null,
     "status": "IDLE",
   },
@@ -658,7 +658,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -666,7 +666,7 @@ Object {
     "status": "IDLE",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": Object {
       "code": "W005",
       "message": "Error while loading wallet balance",
@@ -692,7 +692,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -700,7 +700,7 @@ Object {
     "status": "IDLE",
   },
   "walletBalance": Object {
-    "data": 1000,
+    "data": "1000",
     "error": null,
     "status": "SUCCESS",
   },
@@ -723,7 +723,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -731,7 +731,7 @@ Object {
     "status": "IDLE",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": null,
     "status": "IDLE",
   },
@@ -744,7 +744,7 @@ Object {
         "id": "asd",
         "senderAddress": "sov:senderAddress",
         "timeStamp": "Tue, 04 Aug 2015 12:38:41 GMT",
-        "tokenAmount": 5656,
+        "tokenAmount": "5656",
       },
       Object {
         "action": "Purchase",
@@ -752,7 +752,7 @@ Object {
         "senderAddress": "sov:senderAddress",
         "senderName": "senderName",
         "timeStamp": "Tue, 04 Aug 2015 14:38:41 GMT",
-        "tokenAmount": 10000,
+        "tokenAmount": "10000",
       },
     ],
   },
@@ -770,7 +770,7 @@ Object {
   "payment": Object {
     "error": null,
     "status": "IDLE",
-    "tokenAmount": 0,
+    "tokenAmount": "0",
   },
   "walletAddresses": Object {
     "data": Array [],
@@ -778,7 +778,7 @@ Object {
     "status": "IDLE",
   },
   "walletBalance": Object {
-    "data": 0,
+    "data": "0",
     "error": null,
     "status": "IDLE",
   },
@@ -791,7 +791,7 @@ Object {
         "id": "asd",
         "senderAddress": "sov:senderAddress",
         "timeStamp": "Tue, 04 Aug 2015 12:38:41 GMT",
-        "tokenAmount": 5656,
+        "tokenAmount": "5656",
       },
       Object {
         "action": "Purchase",
@@ -799,7 +799,7 @@ Object {
         "senderAddress": "sov:senderAddress",
         "senderName": "senderName",
         "timeStamp": "Tue, 04 Aug 2015 14:38:41 GMT",
-        "tokenAmount": 10000,
+        "tokenAmount": "10000",
       },
     ],
   },

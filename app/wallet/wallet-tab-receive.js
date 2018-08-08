@@ -1,9 +1,5 @@
 // @flow
 
-// component to render inside token screen, receive tab
-// we have to design this tab content by assuming that
-// we would get a list of payment addresses and for now we would take first item out of it
-// and that first item would be displayed
 import React, { PureComponent } from 'react'
 import { StyleSheet, Clipboard, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
@@ -12,6 +8,7 @@ import { Container } from '../components/layout/container'
 import { CustomView } from '../components/layout/custom-view'
 import CustomText from '../components/text'
 import CustomButton from '../components/button'
+import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
 import type {
   WalletTabReceiveProps,
   WalletTabReceiveState,
@@ -21,6 +18,7 @@ import customStyles from './styles'
 import { getWalletAddresses } from '../store/store-selector'
 import { refreshWalletAddresses } from './wallet-store'
 import { promptBackupBanner } from '../backup/backup-store'
+import { STORE_STATUS } from './type-wallet'
 
 export class WalletTabReceive extends PureComponent<
   WalletTabReceiveProps,
@@ -51,9 +49,11 @@ export class WalletTabReceive extends PureComponent<
     }
   }
 
-  // TODO handle IN_PROGRESS, success and error state
+  // TODO handle error state
   render() {
-    const { walletAddresses } = this.props
+    const { walletAddresses, addressStatus } = this.props
+    const isLoading =
+      addressStatus === STORE_STATUS.IN_PROGRESS && walletAddresses.length === 0
     return (
       <Container testID={'wallet-receive-container'}>
         <Container testID={'wallet-receive-container1'}>
@@ -67,9 +67,12 @@ export class WalletTabReceive extends PureComponent<
                 quinaryText
                 style={[styles.heading]}
               >
-                YOUR SOVRIN TOKEN PAYMENT ADDRESS IS:
+                {isLoading
+                  ? 'FETCHING YOUR SOVRIN TOKEN PAYMENT ADDRESS...'
+                  : 'YOUR SOVRIN TOKEN PAYMENT ADDRESS IS:'}
               </CustomText>
-              {walletAddresses.map((walletAddress, index) => {
+              {isLoading && <CustomActivityIndicator />}
+              {walletAddresses.map((walletAddress: string) => {
                 return (
                   <CustomText
                     center
@@ -131,6 +134,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: Store) => {
   return {
     walletAddresses: getWalletAddresses(state),
+    addressStatus: state.wallet.walletAddresses.status,
   }
 }
 

@@ -21,6 +21,8 @@ import type {
   VcxClaimInfo,
   VcxConnectionConnectResult,
   VcxProofRequest,
+  WalletTokenInfo,
+  PaymentAddress,
 } from './type-cxs'
 import type { InvitationPayload } from '../../invitation/type-invitation'
 import {
@@ -31,6 +33,7 @@ import {
   convertInvitationToVcxConnectionCreate,
   convertVcxConnectionToCxsConnection,
   convertVcxCredentialOfferToCxsClaimOffer,
+  paymentHandle,
   wallet_key,
 } from './vcx-transformers'
 import type { UserOneTimeInfo } from '../../store/user/type-user-store'
@@ -444,45 +447,8 @@ export async function sendMessage({
   )
 }
 
-export async function deleteConnection({
-  url,
-  myPairwiseDid,
-  myPairwiseVerKey,
-  myPairwiseAgentDid,
-  myPairwiseAgentVerKey,
-  myOneTimeAgentDid,
-  myOneTimeAgentVerKey,
-  myOneTimeDid,
-  myOneTimeVerKey,
-  myAgencyVerKey,
-  poolConfig,
-}: {
-  url: string,
-  myPairwiseDid: string,
-  myPairwiseVerKey: string,
-  myPairwiseAgentDid: string,
-  myPairwiseAgentVerKey: string,
-  myOneTimeAgentDid: string,
-  myOneTimeAgentVerKey: string,
-  myOneTimeDid: string,
-  myOneTimeVerKey: string,
-  myAgencyVerKey: string,
-  poolConfig: string,
-}) {
-  // be sure to call ensureInitVcx before calling this method
-  return await RNIndy.deleteConnection(
-    url,
-    myPairwiseDid,
-    myPairwiseVerKey,
-    myPairwiseAgentDid,
-    myPairwiseAgentVerKey,
-    myOneTimeAgentDid,
-    myOneTimeAgentVerKey,
-    myOneTimeDid,
-    myOneTimeVerKey,
-    myAgencyVerKey,
-    poolConfig
-  )
+export async function deleteConnection(connectionHandle: number) {
+  return await RNIndy.deleteConnection(connectionHandle)
 }
 
 // TODO remove this API when vcx is available
@@ -511,13 +477,11 @@ export async function getColor(imagePath: string): Promise<Array<string>> {
 }
 
 export async function sendTokenAmount(
-  tokenAmount: number,
+  tokenAmount: string,
   recipientWalletAddress: string,
   senderWalletAddress: string
 ): Promise<boolean> {
-  return new Promise.resolve(true)
-  // TODO:KS Complete signature as per vcx
-  // Add these methods in Java & objective-c wrapper
+  return RNIndy.sendTokens(paymentHandle, tokenAmount, recipientWalletAddress)
 }
 
 export async function createOneTimeInfo(
@@ -689,15 +653,19 @@ export async function downloadProofRequest(
   }
 }
 
-export async function getWalletBalance(): Promise<number> {
-  return new Promise.resolve(10000)
+export async function getWalletBalance(): Promise<string> {
+  const { balance_str: balance }: WalletTokenInfo = await getWalletTokenInfo()
+
+  return balance
 }
 
-export async function getWalletAddresses(): Promise<Array<string>> {
-  const walletAddressesData = [
-    'sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030',
-  ]
-  return new Promise.resolve(walletAddressesData)
+export async function getWalletAddresses(): Promise<string[]> {
+  const { addresses }: WalletTokenInfo = await getWalletTokenInfo()
+
+  // TODO:KS For now we don't need to store any other data on our react-native
+  // when we need to store all data, then we would return only addresses
+  // for now we are just returning addresses and ignoring anything else
+  return addresses.map((address: PaymentAddress) => address.address)
 }
 
 export async function getWalletHistory(): Promise<WalletHistoryEvent[]> {
@@ -707,7 +675,7 @@ export async function getWalletHistory(): Promise<WalletHistoryEvent[]> {
       senderAddress:
         'sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030',
       action: 'Withdraw',
-      tokenAmount: 5656,
+      tokenAmount: '5656',
       timeStamp: 'Tue, 04 Aug 2015 12:38:41 GMT',
     },
     {
@@ -716,10 +684,11 @@ export async function getWalletHistory(): Promise<WalletHistoryEvent[]> {
       senderAddress:
         'sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030',
       action: 'Purchase',
-      tokenAmount: 10000,
+      tokenAmount: '10000',
       timeStamp: 'Tue, 04 Aug 2015 14:38:41 GMT',
     },
   ]
+
   return new Promise.resolve(walletHistoryData)
 }
 
@@ -873,4 +842,14 @@ export async function sendProof(
   connectionHandle: number
 ): Promise<void> {
   return await RNIndy.proofSend(proofHandle, connectionHandle)
+}
+
+export async function getWalletTokenInfo(): Promise<WalletTokenInfo> {
+  const paymentHandle = 0
+  const tokenInfo: string = await RNIndy.getTokenInfo(paymentHandle)
+  return JSON.parse(tokenInfo)
+}
+
+export async function createPaymentAddress(seed: ?string) {
+  return RNIndy.createPaymentAddress(seed)
 }

@@ -468,10 +468,12 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
   </View>
   <View
     center={true}
+    horizontalSpace={true}
     style={
       Object {
         "alignItems": "center",
         "justifyContent": "center",
+        "paddingHorizontal": 15,
       }
     }
   >
@@ -498,27 +500,26 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
           Object {
             "backgroundColor": "transparent",
           },
+          null,
+          null,
+          null,
           Object {
-            "color": "rgba(237, 156, 46, 1)",
+            "color": "#333333",
           },
           null,
           null,
           null,
           null,
-          null,
-          null,
-          null,
           Object {
-            "flexWrap": "wrap",
-            "fontSize": 14,
-            "lineHeight": 16,
-            "marginBottom": 15,
-            "marginTop": 11,
+            "marginTop": 10,
+          },
+          Object {
+            "color": "#d0021b",
           },
         ]
       }
     >
-      Enter wallet address above
+      pay:sov:somepaymentaddress
     </Text>
   </View>
   <Modal
@@ -685,7 +686,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
           }
           testID="wallet-tab-send-details-modal-content"
         >
-          Something went wrong trying to pay EDCU. Please try again.
+          Something went wrong trying to pay pay:sov:somepaymentaddress. Please try again.
         </Text>
       </View>
       <View

@@ -23,6 +23,7 @@
   "dependencies": {
     "ajv": "^5.2.2",
     "apptentive-react-native": "^5.0.0",
+    "bignumber.js": "^7.2.1",
     "buffer": "^5.1.0",
     "lodash.debounce": "^4.0.8",
     "lodash.findkey": "^4.6.0",

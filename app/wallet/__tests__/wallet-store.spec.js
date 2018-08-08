@@ -21,6 +21,7 @@ import walletReducer, {
   walletBackup,
   walletBackupComplete,
   sendTokensFail,
+  walletInitialState,
 } from '../wallet-store'
 import { initialTestAction } from '../../common/type-common'
 import {
@@ -44,27 +45,11 @@ import {
 import { WALLET_BALANCE, WALLET_ADDRESSES, WALLET_HISTORY } from '../../common'
 import { secureGet } from '../../services/storage'
 
-//TODO fix test
 describe('store: wallet-store: ', () => {
   let initialState
 
   beforeEach(() => {
-    initialState = {
-      walletBalance: { data: 0, status: STORE_STATUS.IDLE, error: null },
-      walletAddresses: { data: [], status: STORE_STATUS.IDLE, error: null },
-      walletHistory: {
-        transactions: [],
-        status: STORE_STATUS.IDLE,
-        error: null,
-      },
-      backup: {
-        status: STORE_STATUS.IDLE,
-        latest: null,
-        error: null,
-        backupPath: null,
-      },
-      payment: { tokenAmount: 0, status: STORE_STATUS.IDLE, error: null },
-    }
+    initialState = walletInitialState
   })
 
   it('action: BACKUP_WALLET', () => {
@@ -238,13 +223,13 @@ describe('store: wallet-store: ', () => {
 
   it('action: SEND_TOKENS_FAIL', () => {
     expect(
-      walletReducer(initialState, sendTokensFail(5656, ERROR_SENDING_TOKENS))
+      walletReducer(initialState, sendTokensFail('5656', ERROR_SENDING_TOKENS))
     ).toMatchSnapshot()
   })
 
   it('action: SEND_TOKENS_FAIL', () => {
     expect(
-      walletReducer(initialState, sendTokensFail(5656, ERROR_SENDING_TOKENS))
+      walletReducer(initialState, sendTokensFail('5656', ERROR_SENDING_TOKENS))
     ).toMatchSnapshot()
   })
 
