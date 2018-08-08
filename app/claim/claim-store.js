@@ -211,7 +211,6 @@ export function* claimReceivedVcxSaga(
       yield fork(checkForClaim, serializedClaimOffer, connectionHandle, forDID)
     }
   }
-  yield put(promptBackupBanner(true))
 }
 
 export function* checkForClaim(
@@ -256,6 +255,7 @@ export function* checkForClaim(
       }
 
       yield put(claimStorageSuccess(serializedClaimOffer.messageId))
+      yield put(promptBackupBanner(true))
     }
 
     // since we asked vcx to update state, we should also update serialized state in redux
