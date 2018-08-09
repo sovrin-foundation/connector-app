@@ -116,6 +116,7 @@ export type AdditionalDataPayload = {
     did: string,
   },
   statusMsg?: string,
+  price?: ?string,
 }
 
 export type ClaimOfferPushPayload = {
@@ -137,6 +138,7 @@ export type ClaimOfferPushPayload = {
   nonce?: string,
   optional_data?: GenericObject,
   remoteName: string,
+  price?: ?string,
 }
 
 export type NotificationPayloadInfo = {

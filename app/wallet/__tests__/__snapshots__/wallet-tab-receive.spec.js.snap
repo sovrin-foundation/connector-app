@@ -229,8 +229,8 @@ exports[`<WalletTabReceive /> should render properly and match the snapshot 1`] 
                   "width": "100%",
                 },
               ],
-              undefined,
-              undefined,
+              false,
+              false,
             ]
           }
         >
@@ -265,7 +265,7 @@ exports[`<WalletTabReceive /> should render properly and match the snapshot 1`] 
                   undefined,
                   undefined,
                   undefined,
-                  undefined,
+                  false,
                 ],
               ]
             }

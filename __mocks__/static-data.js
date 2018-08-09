@@ -383,9 +383,6 @@ export const paidClaimOffer = {
     status: 'RECEIVED',
     claimRequestStatus: 'CLAIM_REQUEST_SUCCESS',
     payTokenValue: '8000.0675854',
-    issuerWalletAddress:
-      'sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030',
-    claimOfferInvoiceNumber: 'hkgnqrs98ydf98fg7gks8fjhkss8f030',
   },
   payloadInfo: {
     uid: claimOfferId,

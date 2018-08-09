@@ -157,6 +157,8 @@ export type VcxCredentialOffer = {
   schema_seq_no: number,
   claim_name: string,
   claim_id: string,
+  payment_address?: ?string,
+  price?: ?string,
 }
 
 export type CxsCredentialOfferResult = {
@@ -169,8 +171,6 @@ export type VcxSendCredentialRequest = {}
 export type VcxClaimInfo = {
   credential_id?: string,
   credential?: ClaimPushPayload,
-  price: string,
-  payment_address: string,
   credential_offer?: string,
 }
 

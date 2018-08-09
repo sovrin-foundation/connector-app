@@ -44,8 +44,8 @@ export class Wallet extends PureComponent<WalletProps, void> {
                  */}
                 <CustomText
                   {...{
-                    h3: balance.length < 11,
-                    h3a: balance.length > 10 && balance.length < 13,
+                    h3: balance.length < 10,
+                    h3a: balance.length >= 10 && balance.length < 13,
                     h4: balance.length > 12,
                   }}
                   demiBold

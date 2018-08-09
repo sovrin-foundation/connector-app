@@ -643,7 +643,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
           }
           testID="wallet-tab-send-details-modal-title"
         >
-          Payment failure
+          Payment Failure
         </Text>
         <Text
           accessibilityLabel="wallet-tab-send-details-modal-content"

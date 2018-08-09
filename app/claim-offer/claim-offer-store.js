@@ -35,6 +35,10 @@ import {
   ERROR_HYDRATE_SERIALIZED_CLAIM_OFFERS,
   ERROR_NO_SERIALIZED_CLAIM_OFFER,
   ERROR_SEND_CLAIM_REQUEST,
+  INSUFFICIENT_BALANCE,
+  SEND_PAID_CREDENTIAL_REQUEST,
+  PAID_CREDENTIAL_REQUEST_SUCCESS,
+  PAID_CREDENTIAL_REQUEST_FAIL,
 } from './type-claim-offer'
 import type {
   ClaimOfferStore,
@@ -64,6 +68,7 @@ import {
   getConnection,
   getSerializedClaimOffer,
   getUseVcx,
+  getWalletBalance,
 } from '../store/store-selector'
 import type { IndyClaimOffer } from '../bridge/react-native-cxs/type-cxs'
 import {
@@ -88,6 +93,7 @@ import type { UserOneTimeInfo } from '../store/user/type-user-store'
 import type { Connection } from '../store/type-connection-store'
 import { RESET } from '../common/type-common'
 import { secureSet, secureGet, secureDelete } from '../services/storage'
+import { BigNumber } from 'bignumber.js'
 
 const claimOfferInitialState = {
   vcxSerializedClaimOffers: {},
@@ -136,6 +142,30 @@ export const claimRequestSuccess = (uid: string) => ({
 export const claimRequestFail = (uid: string, error: CustomError) => ({
   type: CLAIM_REQUEST_FAIL,
   error,
+  uid,
+})
+
+export const inSufficientBalance = (uid: string) => ({
+  type: INSUFFICIENT_BALANCE,
+  uid,
+})
+
+export const sendPaidCredentialRequest = (
+  uid: string,
+  payload: ClaimOfferPayload
+) => ({
+  type: SEND_PAID_CREDENTIAL_REQUEST,
+  uid,
+  payload,
+})
+
+export const paidCredentialRequestSuccess = (uid: string) => ({
+  type: PAID_CREDENTIAL_REQUEST_SUCCESS,
+  uid,
+})
+
+export const paidCredentialRequestFail = (uid: string) => ({
+  type: PAID_CREDENTIAL_REQUEST_FAIL,
   uid,
 })
 
@@ -293,6 +323,8 @@ export function* claimOfferAcceptedVcx(
     getClaimOffer,
     messageId
   )
+  const payTokenAmount = new BigNumber(claimOfferPayload.payTokenValue || '0')
+  const isPaidCredential = payTokenAmount.isGreaterThan(0)
   const remoteDid = claimOfferPayload.remotePairwiseDID
   const [connection]: Connection[] = yield select(getConnection, remoteDid)
   const vcxSerializedClaimOffer: SerializedClaimOffer | null = yield select(
@@ -310,7 +342,17 @@ export function* claimOfferAcceptedVcx(
   }
 
   try {
-    yield put(sendClaimRequest(messageId, claimOfferPayload))
+    if (isPaidCredential) {
+      const walletBalance: string = yield select(getWalletBalance)
+      const balanceAmount = new BigNumber(walletBalance)
+      if (balanceAmount.isLessThan(payTokenAmount)) {
+        yield put(inSufficientBalance(messageId))
+        return
+      }
+      yield put(sendPaidCredentialRequest(messageId, claimOfferPayload))
+    } else {
+      yield put(sendClaimRequest(messageId, claimOfferPayload))
+    }
     // since these two api calls are independent, we can call them in parallel
     // but result of both calls are needed before we can move on with other logic
     // so we wait here till both calls are done
@@ -321,6 +363,7 @@ export function* claimOfferAcceptedVcx(
         vcxSerializedClaimOffer.serialized
       ),
     ])
+
     // TODO We don't have any payment handle as of now, so hard code to 0
     const paymentHandle = 0
 
@@ -352,18 +395,32 @@ export function* claimOfferAcceptedVcx(
 
       if (success) {
         if (success.messageId === messageId) {
-          yield put(claimRequestSuccess(messageId))
+          if (isPaidCredential) {
+            yield put(paidCredentialRequestSuccess(messageId))
+          } else {
+            yield put(claimRequestSuccess(messageId))
+          }
           break
         }
       } else {
         if (fail.messageId === messageId) {
-          yield put(claimRequestFail(messageId, CLAIM_STORAGE_ERROR()))
+          if (isPaidCredential) {
+            yield put(paidCredentialRequestFail(messageId))
+          } else {
+            yield put(claimRequestFail(messageId, CLAIM_STORAGE_ERROR()))
+          }
           break
         }
       }
     }
   } catch (e) {
-    yield put(claimRequestFail(messageId, ERROR_SEND_CLAIM_REQUEST(e.message)))
+    if (isPaidCredential) {
+      yield put(paidCredentialRequestFail(messageId))
+    } else {
+      yield put(
+        claimRequestFail(messageId, ERROR_SEND_CLAIM_REQUEST(e.message))
+      )
+    }
   }
 }
 
@@ -545,6 +602,40 @@ export default function claimOfferReducer(
         [action.uid]: {
           ...state[action.uid],
           claimRequestStatus: CLAIM_REQUEST_STATUS.CLAIM_REQUEST_FAIL,
+        },
+      }
+    case INSUFFICIENT_BALANCE:
+      return {
+        ...state,
+        [action.uid]: {
+          ...state[action.uid],
+          claimRequestStatus: CLAIM_REQUEST_STATUS.INSUFFICIENT_BALANCE,
+        },
+      }
+    case SEND_PAID_CREDENTIAL_REQUEST:
+      return {
+        ...state,
+        [action.uid]: {
+          ...state[action.uid],
+          claimRequestStatus:
+            CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST,
+        },
+      }
+    case PAID_CREDENTIAL_REQUEST_SUCCESS:
+      return {
+        ...state,
+        [action.uid]: {
+          ...state[action.uid],
+          claimRequestStatus:
+            CLAIM_REQUEST_STATUS.PAID_CREDENTIAL_REQUEST_SUCCESS,
+        },
+      }
+    case PAID_CREDENTIAL_REQUEST_FAIL:
+      return {
+        ...state,
+        [action.uid]: {
+          ...state[action.uid],
+          claimRequestStatus: CLAIM_REQUEST_STATUS.PAID_CREDENTIAL_REQUEST_FAIL,
         },
       }
     case RESET:

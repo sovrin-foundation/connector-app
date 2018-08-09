@@ -27,6 +27,7 @@ Object {
     "did": "V4SGRU86Z58d6TV7PBUe6f",
     "name": "Test Enterprise",
   },
+  "payTokenValue": undefined,
 }
 `;
 

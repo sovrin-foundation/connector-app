@@ -10,7 +10,6 @@ import { STORE_STATUS } from '../type-wallet'
 
 describe('<WalletTabSendDetails />', () => {
   const store = getStore()
-  let onTextChange = jest.fn()
   let navigation = {
     ...getNavigation(),
   }
@@ -22,6 +21,7 @@ describe('<WalletTabSendDetails />', () => {
           tokenAmount="12345"
           tokenSentStatus={STORE_STATUS.SUCCESS}
           navigation={navigation}
+          sendTokens={jest.fn()}
         />
       </Provider>
     )

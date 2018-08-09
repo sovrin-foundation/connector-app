@@ -132,5 +132,6 @@ export function convertVcxCredentialOfferToCxsClaimOffer(
     issuer_did: vcxCredentialOffer.from_did,
     // should override it when generating claim offer object
     remoteName: '',
+    price: vcxCredentialOffer.price,
   }
 }

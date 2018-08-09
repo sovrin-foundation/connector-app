@@ -478,8 +478,7 @@ export async function getColor(imagePath: string): Promise<Array<string>> {
 
 export async function sendTokenAmount(
   tokenAmount: string,
-  recipientWalletAddress: string,
-  senderWalletAddress: string
+  recipientWalletAddress: string
 ): Promise<boolean> {
   return RNIndy.sendTokens(paymentHandle, tokenAmount, recipientWalletAddress)
 }
@@ -590,9 +589,15 @@ export async function downloadClaimOffer(
     connectionHandle,
     messageId
   )
+
   const {
     credential_offer: vcxCredentialOffer,
-  }: { credential_offer: VcxCredentialOffer } = JSON.parse(credential_offer)
+    price,
+  }: { credential_offer: VcxCredentialOffer, price: number } = JSON.parse(
+    credential_offer
+  )
+
+  vcxCredentialOffer.price = price ? price.toString() : null
 
   return {
     claimHandle: credential_handle,

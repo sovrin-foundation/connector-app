@@ -68,7 +68,7 @@ export class WalletTabReceive extends PureComponent<
                 style={[styles.heading]}
               >
                 {isLoading
-                  ? 'FETCHING YOUR SOVRIN TOKEN PAYMENT ADDRESS...'
+                  ? 'FETCHING YOUR SOVRIN TOKEN PAYMENT ADDRESS'
                   : 'YOUR SOVRIN TOKEN PAYMENT ADDRESS IS:'}
               </CustomText>
               {isLoading && <CustomActivityIndicator />}
@@ -96,6 +96,7 @@ export class WalletTabReceive extends PureComponent<
             style={[customStyles.ctaButton]}
             primary
             title={this.state.copyButtonText}
+            disabled={isLoading}
           />
         </CustomView>
       </Container>

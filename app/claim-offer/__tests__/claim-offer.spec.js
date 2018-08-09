@@ -49,9 +49,6 @@ describe('Paid <ClaimOffer />', () => {
     uid: 'asd123',
     remotePairwiseDID: 'ha66899sadfjZJGINKN0770',
     payTokenValue: '8000.0675854',
-    issuerWalletAddress:
-      'sov:ksudgyi8f98gsih7655hgifuyg79s89s98ydf98fg7gks8fjhkss8f030',
-    claimOfferInvoiceNumber: 'hkgnqrs98ydf98fg7gks8fjhkss8f030',
     status: CLAIM_OFFER_STATUS.RECEIVED,
     claimRequestStatus: CLAIM_REQUEST_STATUS.NONE,
     error: null,

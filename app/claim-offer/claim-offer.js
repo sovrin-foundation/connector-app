@@ -40,6 +40,7 @@ import type {
   ClaimOfferAttributeListProps,
   ClaimOfferState,
 } from './type-claim-offer'
+import { CLAIM_REQUEST_STATUS } from './type-claim-offer'
 import type { Store } from '../store/type-store'
 import ClaimRequestModal from './claim-request-modal'
 import {
@@ -49,6 +50,8 @@ import {
 
 import type { ReactNavigation } from '../common/type-common'
 import { updateStatusBarTheme } from '../../app/store/connections-store'
+import { CustomModal } from '../components'
+import PaymentFailureModal from '../wallet/payment-failure-modal'
 
 class ClaimOfferAttributeList extends PureComponent<
   ClaimOfferAttributeListProps,
@@ -219,11 +222,44 @@ export class ClaimOffer extends PureComponent<
             payload={claimOfferData}
             onContinue={this.close}
             senderLogoUrl={logoUrl}
+            payTokenValue={payTokenValue}
             message1="You accepted"
             message3="from"
             message6="for"
+            isPending={
+              claimRequestStatus ===
+              CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
+            }
           />
         )}
+        {isValid &&
+        payTokenValue &&
+        claimRequestStatus === CLAIM_REQUEST_STATUS.INSUFFICIENT_BALANCE ? (
+          <CustomModal
+            buttonText="OK"
+            onPress={this.close}
+            testID={`no-sufficient-balance`}
+            isVisible={true}
+          >
+            <CustomView center doubleVerticalSpace>
+              <Icon src={require('../images/alertInfo.png')} />
+              <CustomText transparentBg primary center bold>
+                You do not have enough tokens to purchase this credential
+              </CustomText>
+            </CustomView>
+          </CustomModal>
+        ) : null}
+        {payTokenValue &&
+        claimRequestStatus ===
+          CLAIM_REQUEST_STATUS.PAID_CREDENTIAL_REQUEST_FAIL ? (
+          <PaymentFailureModal
+            isModalVisible={true}
+            connectionName={issuer.name}
+            testID={`${testID}-payment-failure-modal`}
+            onClose={this.close}
+            onRetry={this.onAccept}
+          />
+        ) : null}
       </Container>
     )
   }

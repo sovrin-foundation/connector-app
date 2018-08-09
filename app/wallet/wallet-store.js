@@ -316,8 +316,7 @@ export function* sendTokensSaga(action: SendTokensAction): Saga<void> {
     yield call(
       sendTokenAmount,
       action.tokenAmount,
-      action.recipientWalletAddress,
-      action.senderWalletAddress
+      action.recipientWalletAddress
     )
     yield all([
       put(tokenSentSuccess(action.tokenAmount)),
@@ -367,9 +366,9 @@ export function* refreshWalletHistorySaga(): any {
 }
 
 export function* refreshWalletAddressesSaga(): Generator<*, *, *> {
+  yield put(walletAddressesFetchStart())
   yield* ensureVcxInitSuccess()
   try {
-    yield put(walletAddressesFetchStart())
     let walletAddressesData: string[] = yield call(getWalletAddresses)
     if (walletAddressesData.length === 0) {
       // not passing any seed for now
@@ -415,7 +414,7 @@ export const selectTokenAmount = (tokenAmount: string) => ({
   type: SELECT_TOKEN_AMOUNT,
   payment: {
     tokenAmount,
-    status: STORE_STATUS.IN_PROGRESS,
+    status: STORE_STATUS.IDLE,
     error: null,
   },
 })
@@ -535,14 +534,12 @@ export const refreshWalletHistoryFail = (error: CustomError) => ({
 })
 
 export const sendTokens = (
-  tokenAmount: number,
-  recipientWalletAddress: string,
-  senderWalletAddress: string
+  tokenAmount: string,
+  recipientWalletAddress: string
 ) => ({
   type: SEND_TOKENS,
   tokenAmount,
   recipientWalletAddress,
-  senderWalletAddress,
 })
 
 export default function walletReducer(

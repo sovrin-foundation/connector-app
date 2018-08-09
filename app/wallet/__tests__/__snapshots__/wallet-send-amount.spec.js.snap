@@ -531,6 +531,13 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
         }
       >
         <View
+          style={
+            Object {
+              "flex": 1,
+            }
+          }
+        />
+        <View
           accessibilityComponentType={undefined}
           accessibilityLabel="wallet-keyboard-id-label-0"
           accessibilityTraits={undefined}

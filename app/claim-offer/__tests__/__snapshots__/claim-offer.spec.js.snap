@@ -1385,8 +1385,8 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                 Array [
                   null,
                 ],
-                undefined,
-                undefined,
+                false,
+                false,
               ]
             }
           >
@@ -1423,7 +1423,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                     },
                     undefined,
                     undefined,
-                    undefined,
+                    false,
                   ],
                 ]
               }
@@ -3024,9 +3024,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
           }
           testID="claim-request-message"
         >
-          8000.0675854
-           
-           tokens
+          8,000.0675854 tokens
         </Text>
       </View>
       <View
@@ -3101,8 +3099,8 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                 Array [
                   null,
                 ],
-                undefined,
-                undefined,
+                false,
+                false,
               ]
             }
           >
@@ -3139,7 +3137,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                     },
                     undefined,
                     undefined,
-                    undefined,
+                    false,
                   ],
                 ]
               }

@@ -22,9 +22,13 @@ export const CLAIM_OFFER_STATUS = {
 
 export const CLAIM_REQUEST_STATUS = {
   NONE: 'NONE',
+  INSUFFICIENT_BALANCE: 'INSUFFICIENT_BALANCE',
+  SENDING_PAID_CREDENTIAL_REQUEST: 'SENDING_PAID_CREDENTIAL_REQUEST',
   SENDING_CLAIM_REQUEST: 'SENDING_CLAIM_REQUEST',
   CLAIM_REQUEST_FAIL: 'CLAIM_REQUEST_FAIL',
   CLAIM_REQUEST_SUCCESS: 'CLAIM_REQUEST_SUCCESS',
+  PAID_CREDENTIAL_REQUEST_SUCCESS: 'PAID_CREDENTIAL_REQUEST_SUCCESS',
+  PAID_CREDENTIAL_REQUEST_FAIL: 'PAID_CREDENTIAL_REQUEST_FAIL',
 }
 
 export type ClaimOfferStatus = $Keys<typeof CLAIM_OFFER_STATUS>
@@ -81,6 +85,31 @@ export type ClaimRequestSuccessAction = {
   uid: string,
 }
 
+export const INSUFFICIENT_BALANCE = 'INSUFFICIENT_BALANCE'
+export type InsufficientBalanceAction = {
+  type: typeof INSUFFICIENT_BALANCE,
+  uid: string,
+}
+
+export const SEND_PAID_CREDENTIAL_REQUEST = 'SEND_PAID_CREDENTIAL_REQUEST'
+export type SendPaidCredentialRequestAction = {
+  type: typeof SEND_PAID_CREDENTIAL_REQUEST,
+  uid: string,
+  payload: ClaimOfferPayload,
+}
+
+export const PAID_CREDENTIAL_REQUEST_SUCCESS = 'PAID_CREDENTIAL_REQUEST_SUCCESS'
+export type PaidCredentialRequestSuccessAction = {
+  type: typeof PAID_CREDENTIAL_REQUEST_SUCCESS,
+  uid: string,
+}
+
+export const PAID_CREDENTIAL_REQUEST_FAIL = 'PAID_CREDENTIAL_REQUEST_FAIL'
+export type PaidCredentialRequestFailAction = {
+  type: typeof PAID_CREDENTIAL_REQUEST_FAIL,
+  uid: string,
+}
+
 export const CLAIM_REQUEST_FAIL = 'CLAIM_REQUEST_FAIL'
 export type ClaimRequestFailAction = {
   type: typeof CLAIM_REQUEST_FAIL,
@@ -114,11 +143,11 @@ export type ClaimOfferAction =
   | AddSerializedClaimOfferAction
   | HydrateSerializedClaimOffersSuccessAction
   | ResetAction
+  | InsufficientBalanceAction
+  | SendPaidCredentialRequestAction
+  | PaidCredentialRequestSuccessAction
+  | PaidCredentialRequestFailAction
 
-// Assumption is that paid claim will have below listed in ClaimOfferPayload/claimOfferData. CO-1329
-// 1) Payment address of issuer
-// 2) Invoice number
-// 3) Payable Token amount
 export type ClaimOfferPayload = AdditionalDataPayload & {
   uid: string,
   senderLogoUrl?: ?string,
@@ -126,8 +155,6 @@ export type ClaimOfferPayload = AdditionalDataPayload & {
   status: ClaimOfferStatus,
   claimRequestStatus: ClaimRequestStatus,
   payTokenValue?: ?string,
-  issuerWalletAddress?: ?string,
-  claimOfferInvoiceNumber?: ?string,
 }
 
 export type SerializedClaimOffer = {
@@ -176,10 +203,12 @@ export type ClaimRequestStatusModalProps = {
   onContinue: () => void,
   senderLogoUrl?: string,
   isPending?: boolean,
-  message1: string,
+  message1?: string,
   message3: string,
   message5?: string,
   message6?: string,
+  buttonDisabled?: boolean,
+  payTokenValue?: ?string,
 }
 
 export type ClaimRequestStatusModalState = {

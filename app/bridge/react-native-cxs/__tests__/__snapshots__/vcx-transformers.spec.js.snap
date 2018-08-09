@@ -78,6 +78,7 @@ Object {
   "from_did": "ha66899sadfjZJGINKN0770",
   "issuer_did": "ha66899sadfjZJGINKN0770",
   "msg_type": "CLAIM_OFFER",
+  "price": undefined,
   "remoteName": "",
   "schema_seq_no": 36,
   "to_did": "8XFh8yBzrpJQmNyZzgoTqB",

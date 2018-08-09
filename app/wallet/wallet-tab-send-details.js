@@ -38,6 +38,7 @@ import { getWalletAddresses, getTokenAmount } from '../store/store-selector'
 import type { Store } from '../store/type-store'
 import { STORE_STATUS } from './type-wallet'
 import Modal from 'react-native-modal'
+import PaymentFailureModal from './payment-failure-modal'
 
 export class WalletTabSendDetails extends Component<
   WalletTabSendDetailsProps,
@@ -80,16 +81,7 @@ export class WalletTabSendDetails extends Component<
           h5
           style={[navigation.state.params.isValid ? {} : styles.disabledText]}
           testID={SEND_TOKENS_TO_PAYMENT_ADDRESS}
-          onPress={() => {
-            if (navigation.state.params.isValid) {
-              const amount: string = navigation.state.params.tokenAmount
-              navigation.state.params.sendTokens(
-                amount,
-                navigation.state.params.senderWalletAddress,
-                navigation.state.params.receipientWalletAddress
-              )
-            }
-          }}
+          onPress={() => navigation.state.params.onSendTokens()}
         >
           Send
         </CustomText>
@@ -123,7 +115,7 @@ export class WalletTabSendDetails extends Component<
 
   componentDidMount() {
     this.props.navigation.setParams({
-      ...this.props,
+      onSendTokens: this.onSendTokens,
     })
   }
 
@@ -145,9 +137,6 @@ export class WalletTabSendDetails extends Component<
   }
 
   throttledAsyncValidationFunction = () => {
-    // the validationFunction will be running here
-
-    // the isPaymentAddressValid state need to be changed to true if the payment address validation is success and vice-versa
     let status = ''
     if (this.paymentData['paymentTo'].length > 20) {
       status = 'SUCCESS'
@@ -162,6 +151,12 @@ export class WalletTabSendDetails extends Component<
     this.setState({
       isPaymentAddressValid: status,
     })
+  }
+
+  onSendTokens = () => {
+    if (this.state.isPaymentAddressValid === 'SUCCESS') {
+      this.props.sendTokens(this.props.tokenAmount, this.paymentData.paymentTo)
+    }
   }
 
   render() {
@@ -184,6 +179,11 @@ export class WalletTabSendDetails extends Component<
           placeholder="credential, gift, etc."
           onChangeText={this.onTextChange}
         />
+        {this.props.tokenSentStatus === STORE_STATUS.IN_PROGRESS && (
+          <CustomView center style={[styles.loaderContainer]}>
+            <CustomActivityIndicator />
+          </CustomView>
+        )}
         <CustomView row center style={[{ width: '100%' }]} horizontalSpace>
           <CustomText
             quinaryText
@@ -201,9 +201,6 @@ export class WalletTabSendDetails extends Component<
             SOVRIN TOKENS
           </CustomText>
         </CustomView>
-        {this.props.tokenSentStatus === STORE_STATUS.IN_PROGRESS && (
-          <CustomActivityIndicator />
-        )}
         <CustomView center style={[{ marginTop: 36 }]}>
           <CustomView center style={[{ width: '65%' }]}>
             <Text style={[styles.walletContextText]}>
@@ -228,7 +225,7 @@ export class WalletTabSendDetails extends Component<
                   : styles.invalidTextColor,
               ]}
             >
-              {this.paymentData['paymentTo']}
+              {this.paymentData.paymentTo}
             </CustomText>
           </CustomView>
         ) : (
@@ -244,68 +241,13 @@ export class WalletTabSendDetails extends Component<
           </CustomView>
         )}
 
-        <Modal
-          backdropOpacity={0.5}
-          isVisible={this.state.tokenSentFailedVisible}
-          animationIn="zoomIn"
-          animationOut="zoomOut"
-          animationOutTiming={100}
-        >
-          <CustomView fifth shadow style={[styles.container]}>
-            <CustomView spaceBetween style={[styles.innerContainer]}>
-              <Icon
-                iconStyle={[{ margin: 10 }]}
-                src={require('../images/alertRed.png')}
-                extraLarge
-                center
-                resizeMode="contain"
-                testID={`${testID}-modal-header-icon`}
-              />
-              <CustomText
-                h5
-                center
-                tertiary
-                bg="tertiary"
-                transparentBg
-                style={[styles.message]}
-                demiBold
-                testID={`${testID}-modal-title`}
-              >
-                {'Payment failure'}
-              </CustomText>
-              <CustomText
-                h5
-                center
-                tertiary
-                bg="tertiary"
-                transparentBg
-                style={[styles.message]}
-                demiBold
-                testID={`${testID}-modal-content`}
-              >
-                {`Something went wrong trying to pay ${
-                  this.paymentData.paymentTo
-                }. Please try again.`}
-              </CustomText>
-            </CustomView>
-            <CustomView row spaceAround>
-              <CustomButton
-                fifth
-                onPress={this.onTokenSentFailedClose}
-                title={'Cancel'}
-                testID={`${testID}-modal-cancel`}
-                textStyle={{ fontWeight: 'bold' }}
-              />
-              <CustomButton
-                fifth
-                onPress={this.onTokenSentFailedClose}
-                title={'Retry'}
-                testID={`${testID}-modal-retry`}
-                textStyle={{ fontWeight: 'bold' }}
-              />
-            </CustomView>
-          </CustomView>
-        </Modal>
+        <PaymentFailureModal
+          isModalVisible={this.state.tokenSentFailedVisible}
+          connectionName={this.paymentData.paymentTo}
+          testID={testID}
+          onClose={this.onTokenSentFailedClose}
+          onRetry={this.onSendTokens}
+        />
       </Container>
     )
   }
@@ -376,16 +318,16 @@ const styles = StyleSheet.create({
   disabledText: {
     color: color.bg.eighth.disabled,
   },
+  loaderContainer: {
+    height: 40,
+  },
 })
 
-const mapStateToProps = (state: Store) => {
-  return {
-    tokenAmount: getTokenAmount(state),
-    senderWalletAddress: getWalletAddresses(state)[0],
-    receipientWalletAddress: getWalletAddresses(state)[0],
-    tokenSentStatus: state.wallet.payment.status,
-  }
-}
+const mapStateToProps = (state: Store) => ({
+  tokenAmount: getTokenAmount(state),
+  tokenSentStatus: state.wallet.payment.status,
+})
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ sendTokens }, dispatch)
 

@@ -40,6 +40,10 @@ export const ERROR_BACKUP_WALLET_SHARE = {
 export type WalletTabSendDetailsProps = {
   tokenAmount: string,
   tokenSentStatus: $Keys<typeof STORE_STATUS>,
+  sendTokens: (
+    tokenAmount: string,
+    recipientAddress: string
+  ) => SendTokensAction,
 } & ReactNavigation
 
 export type BackupWalletAction = {
@@ -214,7 +218,6 @@ export type SendTokensAction = {
   type: typeof SEND_TOKENS,
   tokenAmount: string,
   recipientWalletAddress: string,
-  senderWalletAddress: string,
 }
 
 export type SelectTokensAction = {

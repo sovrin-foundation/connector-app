@@ -332,8 +332,7 @@ describe('claim offer store', () => {
       .run()
   })
 
-  //TODO unskip/remove if irrelevant
-  xit('saga: removePersistedSerializedClaimOffersSaga, success', () => {
+  it('saga: removePersistedSerializedClaimOffersSaga, success', () => {
     return expectSaga(removePersistedSerializedClaimOffersSaga)
       .call(secureDelete, KEY_SERIALIZED_CLAIM_OFFERS)
       .put({
