@@ -1,7 +1,13 @@
 // @flow
 import React, { PureComponent } from 'react'
 import { StyleSheet, Platform } from 'react-native'
-import { CustomView, Icon, CustomText, CustomButton } from '../components'
+import {
+  CustomView,
+  Icon,
+  CustomText,
+  CustomButton,
+  Container,
+} from '../components'
 import {
   OFFSET_1X,
   OFFSET_2X,
@@ -10,6 +16,7 @@ import {
   OFFSET_7X,
   color,
   HAIRLINE_WIDTH,
+  whiteSmoke,
 } from '../common/styles/constant'
 import Modal from 'react-native-modal'
 
@@ -26,14 +33,19 @@ export default class PaymentFailureModal extends PureComponent<
   void
 > {
   render() {
-    const { testID } = this.props
+    const { testID, onClose } = this.props
     return (
       <Modal
-        backdropOpacity={0.5}
+        backdropOpacity={0.7}
+        backdropColor={whiteSmoke}
         isVisible={this.props.isModalVisible}
         animationIn="zoomIn"
         animationOut="zoomOut"
         animationOutTiming={100}
+        useNativeDriver={true}
+        hideModalContentWhileAnimating={true}
+        onBackButtonPress={onClose}
+        onBackdropPress={onClose}
       >
         <CustomView fifth shadow style={[styles.container]}>
           <CustomView spaceBetween style={[styles.innerContainer]}>
@@ -72,21 +84,25 @@ export default class PaymentFailureModal extends PureComponent<
               }. Please try again.`}
             </CustomText>
           </CustomView>
-          <CustomView row spaceAround>
-            <CustomButton
-              fifth
-              onPress={this.props.onClose}
-              title={'Cancel'}
-              testID={`${testID}-modal-cancel`}
-              textStyle={{ fontWeight: 'bold' }}
-            />
-            <CustomButton
-              fifth
-              onPress={this.props.onRetry}
-              title={'Retry'}
-              testID={`${testID}-modal-retry`}
-              textStyle={{ fontWeight: 'bold' }}
-            />
+          <CustomView row>
+            <Container>
+              <CustomButton
+                fifth
+                onPress={onClose}
+                title={'Cancel'}
+                testID={`${testID}-modal-cancel`}
+                textStyle={{ fontWeight: 'bold' }}
+              />
+            </Container>
+            <Container>
+              <CustomButton
+                fifth
+                onPress={this.props.onRetry}
+                title={'Retry'}
+                testID={`${testID}-modal-retry`}
+                textStyle={{ fontWeight: 'bold' }}
+              />
+            </Container>
           </CustomView>
         </CustomView>
       </Modal>

@@ -94,6 +94,7 @@ import type { Connection } from '../store/type-connection-store'
 import { RESET } from '../common/type-common'
 import { secureSet, secureGet, secureDelete } from '../services/storage'
 import { BigNumber } from 'bignumber.js'
+import { refreshWalletBalance } from '../wallet/wallet-store'
 
 const claimOfferInitialState = {
   vcxSerializedClaimOffers: {},
@@ -374,6 +375,16 @@ export function* claimOfferAcceptedVcx(
       paymentHandle
     )
 
+    if (isPaidCredential) {
+      // if we are able to send claim request successfully,
+      // then we can raise an action to show that we have sent claim request
+      // so that our history middleware can record this event
+      yield put(sendClaimRequest(messageId, claimOfferPayload))
+      // it also means payment was successful and we can show success to user in modal
+      yield put(paidCredentialRequestSuccess(messageId))
+      yield put(refreshWalletBalance())
+    }
+
     // since we have sent claim request, state of claim offer in vcx is changed
     // so we need to update stored serialized claim offer in store
     // update serialized state in background
@@ -395,20 +406,12 @@ export function* claimOfferAcceptedVcx(
 
       if (success) {
         if (success.messageId === messageId) {
-          if (isPaidCredential) {
-            yield put(paidCredentialRequestSuccess(messageId))
-          } else {
-            yield put(claimRequestSuccess(messageId))
-          }
+          yield put(claimRequestSuccess(messageId))
           break
         }
       } else {
         if (fail.messageId === messageId) {
-          if (isPaidCredential) {
-            yield put(paidCredentialRequestFail(messageId))
-          } else {
-            yield put(claimRequestFail(messageId, CLAIM_STORAGE_ERROR()))
-          }
+          yield put(claimRequestFail(messageId, CLAIM_STORAGE_ERROR()))
           break
         }
       }

@@ -132,7 +132,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
         <TextInput
           accessibilityLabel="To-token-send-details-label"
           accessible={true}
-          maxLength={undefined}
+          maxLength={100}
           multiline={false}
           onChangeText={[Function]}
           placeholder="Enter Payee wallet address"
@@ -526,8 +526,13 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
     animationIn="zoomIn"
     animationOut="zoomOut"
     animationOutTiming={100}
-    backdropOpacity={0.5}
+    backdropColor="#f0f0f0"
+    backdropOpacity={0.7}
+    hideModalContentWhileAnimating={true}
     isVisible={false}
+    onBackButtonPress={[Function]}
+    onBackdropPress={[Function]}
+    useNativeDriver={true}
   >
     <View
       fifth={true}
@@ -691,251 +696,265 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
       </View>
       <View
         row={true}
-        spaceAround={true}
         style={
           Object {
             "flexDirection": "row",
-            "justifyContent": "space-around",
           }
         }
       >
         <View
           style={
-            Array [
-              Object {
-                "marginLeft": 15,
-                "marginRight": 15,
-              },
-              undefined,
-              Object {
-                "marginLeft": 0,
-                "marginRight": 0,
-              },
-              undefined,
-            ]
+            Object {
+              "flex": 1,
+            }
           }
         >
           <View
-            accessibilityComponentType={undefined}
-            accessibilityLabel="wallet-tab-send-details-modal-cancel"
-            accessibilityTraits={undefined}
-            accessible={true}
-            hasTVPreferredFocus={undefined}
-            hitSlop={undefined}
-            isTVSelectable={true}
-            nativeID={undefined}
-            onLayout={undefined}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
               Array [
                 Object {
-                  "backgroundColor": "transparent",
+                  "marginLeft": 15,
+                  "marginRight": 15,
+                },
+                undefined,
+                Object {
+                  "marginLeft": 0,
+                  "marginRight": 0,
                 },
                 undefined,
               ]
             }
-            testID="wallet-tab-send-details-modal-cancel"
-            tvParallaxProperties={undefined}
           >
             <View
-              pointerEvents="box-only"
+              accessibilityComponentType={undefined}
+              accessibilityLabel="wallet-tab-send-details-modal-cancel"
+              accessibilityTraits={undefined}
+              accessible={true}
+              hasTVPreferredFocus={undefined}
+              hitSlop={undefined}
+              isTVSelectable={true}
+              nativeID={undefined}
+              onLayout={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
               style={
                 Array [
                   Object {
-                    "alignItems": "center",
-                    "backgroundColor": "#9E9E9E",
-                    "flexDirection": "row",
-                    "justifyContent": "center",
-                    "padding": 19,
+                    "backgroundColor": "transparent",
                   },
-                  undefined,
-                  undefined,
-                  undefined,
-                  undefined,
-                  undefined,
-                  Object {
-                    "backgroundColor": "#ffffff",
-                  },
-                  undefined,
-                  Object {
-                    "padding": 12,
-                  },
-                  undefined,
-                  undefined,
-                  undefined,
-                  Array [
-                    null,
-                  ],
-                  undefined,
                   undefined,
                 ]
               }
+              testID="wallet-tab-send-details-modal-cancel"
+              tvParallaxProperties={undefined}
             >
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                ellipsizeMode="tail"
+              <View
+                pointerEvents="box-only"
                 style={
                   Array [
-                    Object {},
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#9E9E9E",
+                      "flexDirection": "row",
+                      "justifyContent": "center",
+                      "padding": 19,
+                    },
                     undefined,
                     undefined,
                     undefined,
                     undefined,
                     undefined,
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
                     undefined,
+                    Object {
+                      "padding": 12,
+                    },
                     undefined,
                     undefined,
                     undefined,
                     Array [
-                      Object {
-                        "color": "white",
-                        "fontSize": 16,
-                      },
-                      Object {
-                        "color": "#4A8FE3",
-                      },
-                      Object {
-                        "fontSize": 14,
-                      },
-                      undefined,
-                      Object {
-                        "fontWeight": "bold",
-                      },
-                      undefined,
-                      undefined,
-                      undefined,
+                      null,
                     ],
+                    undefined,
+                    undefined,
                   ]
                 }
               >
-                Cancel
-              </Text>
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {},
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      Array [
+                        Object {
+                          "color": "white",
+                          "fontSize": 16,
+                        },
+                        Object {
+                          "color": "#4A8FE3",
+                        },
+                        Object {
+                          "fontSize": 14,
+                        },
+                        undefined,
+                        Object {
+                          "fontWeight": "bold",
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                      ],
+                    ]
+                  }
+                >
+                  Cancel
+                </Text>
+              </View>
             </View>
           </View>
         </View>
         <View
           style={
-            Array [
-              Object {
-                "marginLeft": 15,
-                "marginRight": 15,
-              },
-              undefined,
-              Object {
-                "marginLeft": 0,
-                "marginRight": 0,
-              },
-              undefined,
-            ]
+            Object {
+              "flex": 1,
+            }
           }
         >
           <View
-            accessibilityComponentType={undefined}
-            accessibilityLabel="wallet-tab-send-details-modal-retry"
-            accessibilityTraits={undefined}
-            accessible={true}
-            hasTVPreferredFocus={undefined}
-            hitSlop={undefined}
-            isTVSelectable={true}
-            nativeID={undefined}
-            onLayout={undefined}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
               Array [
                 Object {
-                  "backgroundColor": "transparent",
+                  "marginLeft": 15,
+                  "marginRight": 15,
+                },
+                undefined,
+                Object {
+                  "marginLeft": 0,
+                  "marginRight": 0,
                 },
                 undefined,
               ]
             }
-            testID="wallet-tab-send-details-modal-retry"
-            tvParallaxProperties={undefined}
           >
             <View
-              pointerEvents="box-only"
+              accessibilityComponentType={undefined}
+              accessibilityLabel="wallet-tab-send-details-modal-retry"
+              accessibilityTraits={undefined}
+              accessible={true}
+              hasTVPreferredFocus={undefined}
+              hitSlop={undefined}
+              isTVSelectable={true}
+              nativeID={undefined}
+              onLayout={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
               style={
                 Array [
                   Object {
-                    "alignItems": "center",
-                    "backgroundColor": "#9E9E9E",
-                    "flexDirection": "row",
-                    "justifyContent": "center",
-                    "padding": 19,
+                    "backgroundColor": "transparent",
                   },
-                  undefined,
-                  undefined,
-                  undefined,
-                  undefined,
-                  undefined,
-                  Object {
-                    "backgroundColor": "#ffffff",
-                  },
-                  undefined,
-                  Object {
-                    "padding": 12,
-                  },
-                  undefined,
-                  undefined,
-                  undefined,
-                  Array [
-                    null,
-                  ],
-                  undefined,
                   undefined,
                 ]
               }
+              testID="wallet-tab-send-details-modal-retry"
+              tvParallaxProperties={undefined}
             >
-              <Text
-                accessible={true}
-                allowFontScaling={true}
-                ellipsizeMode="tail"
+              <View
+                pointerEvents="box-only"
                 style={
                   Array [
-                    Object {},
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#9E9E9E",
+                      "flexDirection": "row",
+                      "justifyContent": "center",
+                      "padding": 19,
+                    },
                     undefined,
                     undefined,
                     undefined,
                     undefined,
                     undefined,
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
                     undefined,
+                    Object {
+                      "padding": 12,
+                    },
                     undefined,
                     undefined,
                     undefined,
                     Array [
-                      Object {
-                        "color": "white",
-                        "fontSize": 16,
-                      },
-                      Object {
-                        "color": "#4A8FE3",
-                      },
-                      Object {
-                        "fontSize": 14,
-                      },
-                      undefined,
-                      Object {
-                        "fontWeight": "bold",
-                      },
-                      undefined,
-                      undefined,
-                      undefined,
+                      null,
                     ],
+                    undefined,
+                    undefined,
                   ]
                 }
               >
-                Retry
-              </Text>
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {},
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      Array [
+                        Object {
+                          "color": "white",
+                          "fontSize": 16,
+                        },
+                        Object {
+                          "color": "#4A8FE3",
+                        },
+                        Object {
+                          "fontSize": 14,
+                        },
+                        undefined,
+                        Object {
+                          "fontWeight": "bold",
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                      ],
+                    ]
+                  }
+                >
+                  Retry
+                </Text>
+              </View>
             </View>
           </View>
         </View>

@@ -154,6 +154,7 @@ export class WalletTabSendDetails extends Component<
   }
 
   onSendTokens = () => {
+    this.onTokenSentFailedClose()
     if (this.state.isPaymentAddressValid === 'SUCCESS') {
       this.props.sendTokens(this.props.tokenAmount, this.paymentData.paymentTo)
     }
@@ -170,6 +171,7 @@ export class WalletTabSendDetails extends Component<
           validation={this.throttledAsyncValidationFunction}
           onChangeText={this.onTextChange}
           isValid={this.state.isPaymentAddressValid}
+          maxLength={100}
         />
         <ControlInput
           label="For"
