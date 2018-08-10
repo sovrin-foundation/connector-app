@@ -9,6 +9,7 @@ import {
   UserAvatar,
   CustomText,
 } from '../components'
+import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
 import { StackNavigator } from 'react-navigation'
 import Bubbles from './bubbles'
 import { color, barStyleDark, OFFSET_3X, OFFSET_2X } from '../common/styles'
@@ -90,23 +91,24 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
       extrapolate: 'clamp',
     })
 
-    const { connections: { data } } = this.props
+    const { connections: { data, hydrated } } = this.props
     // type casting from Array<mixed> to any and then to what we need
     // because flow Array<mixed> can't be directly type casted as of now
     const connections: Connection[] = (getConnections(data): any)
+    const connectionsCheck = connections && connections.length > 0
 
     return (
       <Container tertiary>
         <Container tertiary>
           <Banner navigation={this.props.navigation} />
-          {connections &&
-            connections.length > 0 && (
-              <Bubbles
-                navigation={this.props.navigation}
-                height={bubblesHeight}
-                connections={connections}
-              />
-            )}
+          {connectionsCheck && (
+            <Bubbles
+              navigation={this.props.navigation}
+              height={bubblesHeight}
+              connections={connections}
+            />
+          )}
+          {!hydrated ? <CustomActivityIndicator /> : null}
         </Container>
         <CustomView vCenter style={[styles.userAvatarContainer]}>
           <UserAvatar />

@@ -47,6 +47,7 @@ import {
 import { RESET } from '../common/type-common'
 import type { UserOneTimeInfo } from './user/type-user-store'
 import { promptBackupBanner } from '../backup/backup-store'
+import { HYDRATED } from './type-config-store'
 
 const UPDATE_CONNECTION_THEME = 'UPDATE_CONNECTION_THEME'
 export const NEW_CONNECTION_SUCCESS = 'NEW_CONNECTION_SUCCESS'
@@ -69,6 +70,7 @@ const initialState: ConnectionStore = {
     code: '',
     message: '',
   },
+  hydrated: false,
 }
 
 // TODO:KS As of now we have added flow to this file and only checking imports
@@ -360,6 +362,11 @@ export default function connections(
       return {
         ...state,
         data: action.connections,
+      }
+    case HYDRATED:
+      return {
+        ...state,
+        hydrated: true,
       }
     case RESET:
       return initialState

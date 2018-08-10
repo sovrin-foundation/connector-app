@@ -317,6 +317,33 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
         </View>
       </Animatable.View>
     </View>
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Image
+        collapsable={undefined}
+        source={1}
+        style={
+          Object {
+            "height": 30,
+            "tintColor": "#777777",
+            "transform": Array [
+              Object {
+                "rotate": "0deg",
+              },
+            ],
+            "width": 30,
+          }
+        }
+      />
+    </View>
   </View>
   <View
     style={
