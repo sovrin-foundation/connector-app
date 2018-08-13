@@ -546,7 +546,12 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
                 Log.e(TAG, "exportWallet: ", t);
                 promise.reject("FutureException", t.getMessage());
                 return -1;
-            }).thenAccept(result -> BridgeUtils.resolveIfValid(promise, result));
+            }).thenAccept(result -> {
+                if(result != -1){
+                   BridgeUtils.resolveIfValid(promise, result);
+                }        
+            });
+           
 
         } catch (Exception e) {
             promise.reject("VCXException", e.getMessage());

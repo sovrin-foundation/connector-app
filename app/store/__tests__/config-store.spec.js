@@ -61,6 +61,7 @@ import { getPushToken } from '../../store/store-selector'
 import { connectRegisterCreateAgentDone } from '../user/user-store'
 import { homeRoute } from '../../common/route-constants'
 import { secureGet, secureSet } from '../../services/storage'
+import { getItem, setItem } from '../../services/secure-storage'
 
 const getConfigStoreInitialState = () =>
   configReducer(undefined, { type: 'INITIAL_TEST_ACTION' })
@@ -118,6 +119,19 @@ describe('server environment should change', () => {
     const gen = onEnvironmentSwitch(
       changeEnvironment(agencyUrl, agencyDID, agencyVerificationKey, poolConfig)
     )
+    let switchedEnvironmentDetails = {
+      poolConfig,
+      agencyDID,
+      agencyVerificationKey,
+      agencyUrl,
+    }
+    expect(gen.next().value).toEqual(
+      call(
+        setItem,
+        STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL,
+        JSON.stringify(switchedEnvironmentDetails)
+      )
+    )
     expect(gen.next().value).toEqual(take(VCX_INIT_SUCCESS))
     expect(gen.next().value).toEqual(
       call(
@@ -133,6 +147,12 @@ describe('server environment should change', () => {
     expect(gen.next().value).toEqual(
       call(secureGet, STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL)
     )
+    let switchedEnvironmentDetails = {
+      poolConfig,
+      agencyDID,
+      agencyVerificationKey,
+      agencyUrl,
+    }
     expect(gen.next(serializedEnvironmentDetail).value).toEqual(
       put(
         changeEnvironment(

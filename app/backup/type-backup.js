@@ -126,7 +126,7 @@ export const BACKUP_COMPLETE = 'BACKUP_COMPLETE'
 export const HYDRATE_BACKUP = 'HYDRATE_BACKUP'
 export const HYDRATE_BACKUP_FAILURE = 'HYDRATE_BACKUP_FAILURE'
 export const PROMPT_WALLET_BACKUP_BANNER = 'PROMPT_WALLET_BACKUP_BANNER'
-export const WALLET_FILE_NAME = 'Encrypted-ConnectMe-Wallet'
+export const WALLET_FILE_NAME = 'ConnectMe'
 
 export type BackupStartAction = {
   type: typeof START_BACKUP,

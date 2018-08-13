@@ -3,6 +3,7 @@ import { Alert } from 'react-native'
 import { put, take, all, call, select, takeLatest } from 'redux-saga/effects'
 
 import { secureGet, secureSet } from '../services/storage'
+import { setItem, getItem } from '../services/secure-storage'
 import {
   getErrorAlertsSwitchValue,
   getPushToken,
@@ -276,6 +277,11 @@ export function* onEnvironmentSwitch(
     // and if wallet is initialized, then we would go ahead and set values to wallet
     // for now, we just know that environment switch can only before vcx init is called
     // so we wait for VCX_INIT_SUCCESS to fire and then we can save data to wallet
+    yield call(
+      setItem,
+      STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL,
+      JSON.stringify(switchedEnvironmentDetail)
+    )
     yield take(VCX_INIT_SUCCESS)
     yield call(
       secureSet,
@@ -299,11 +305,18 @@ export function* watchSwitchEnvironment(): any {
 }
 
 export function* hydrateSwitchedEnvironmentDetails(): any {
+  let switchedEnvironmentDetail = null
   try {
-    const switchedEnvironmentDetail = yield call(
+    switchedEnvironmentDetail = yield call(
       secureGet,
       STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL
     )
+    if (switchedEnvironmentDetail === null) {
+      switchedEnvironmentDetail = yield call(
+        getItem,
+        STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL
+      )
+    }
     if (switchedEnvironmentDetail) {
       const {
         agencyUrl,
