@@ -120,7 +120,7 @@ export const CustomView = (props: GenericObject) => {
           event => {
             onPress(event)
           },
-          600,
+          900,
           { leading: true, trailing: false }
         )
       } else {
