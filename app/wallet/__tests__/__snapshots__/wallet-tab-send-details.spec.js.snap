@@ -328,10 +328,11 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
           null,
           null,
           Object {
-            "fontSize": 75,
-            "letterSpacing": -1.87,
             "lineHeight": 89,
             "marginTop": 19,
+          },
+          Object {
+            "fontSize": 54.857142857142854,
           },
         ]
       }

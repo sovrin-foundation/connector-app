@@ -3,6 +3,7 @@
 import React, { PureComponent } from 'react'
 import { Image } from 'react-native'
 import { StackNavigator } from 'react-navigation'
+import { scale } from 'react-native-size-matters'
 import { Container, CustomView, CustomText, Icon } from '../components'
 import { homeRoute, walletRoute } from '../common'
 import { color } from '../common/styles/constant'
@@ -43,15 +44,10 @@ export class Wallet extends PureComponent<WalletProps, void> {
                  * because it is a number. Also, header is hard coded with a height
                  */}
                 <CustomText
-                  {...{
-                    h3: balance.length < 10,
-                    h3a: balance.length >= 10 && balance.length < 13,
-                    h4: balance.length > 12,
-                  }}
-                  demiBold
+                  medium
                   formatNumber
                   transparentBg
-                  style={[{ width: '100%' }]}
+                  style={[{ width: '100%', fontSize: scale(30) }]}
                 >
                   {balance}
                 </CustomText>

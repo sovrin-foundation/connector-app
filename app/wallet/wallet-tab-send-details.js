@@ -5,6 +5,7 @@ import { StyleSheet, Keyboard, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { StackNavigator, NavigationActions } from 'react-navigation'
+import { scale } from 'react-native-size-matters'
 import { Container, CustomText, CustomView, CustomButton } from '../components'
 import { primaryHeaderStyles } from '../components/layout/header-styles'
 import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
@@ -32,6 +33,7 @@ import {
   SEND_TOKENS_TO_PAYMENT_ADDRESS,
   FOR_SEND_DETAILS_TEST_ID,
   TO_SEND_DETAILS_TEST_ID,
+  FONT_SIZE_MAPPING,
 } from './wallet-constants'
 import { sendTokens } from '../wallet/wallet-store'
 import { getWalletAddresses, getTokenAmount } from '../store/store-selector'
@@ -162,6 +164,8 @@ export class WalletTabSendDetails extends Component<
 
   render() {
     const testID = 'wallet-tab-send-details'
+    const fontSize = scale(FONT_SIZE_MAPPING(this.props.tokenAmount.length))
+
     return (
       <Container safeArea fifth onPress={Keyboard.dismiss} testID={testID}>
         <ControlInput
@@ -192,7 +196,12 @@ export class WalletTabSendDetails extends Component<
             formatNumber
             transparentBg
             center
-            style={[styles.tokenAmountText]}
+            style={[
+              styles.tokenAmountText,
+              {
+                fontSize,
+              },
+            ]}
             fullWidth
           >
             {this.props.tokenAmount}
@@ -312,8 +321,8 @@ const styles = StyleSheet.create({
     color: color.bg.seventh.font.seventh,
   },
   tokenAmountText: {
-    fontSize: 75,
-    letterSpacing: -1.87,
+    // fontSize: 75,
+    // letterSpacing: -1.87,
     marginTop: 19,
     lineHeight: 89,
   },

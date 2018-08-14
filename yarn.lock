@@ -6632,6 +6632,10 @@ react-native-share@^1.0.27:
   version "1.0.27"
   resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-1.0.27.tgz#1861afe0d1256bde95d19520ca5d5c3cd348ffad"
 
+react-native-size-matters@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-size-matters/-/react-native-size-matters-0.1.2.tgz#837d939992d5c7b4c2164e689e927276b5459239"
+
 react-native-splash-screen@3.0.6:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.0.6.tgz#c0bbf2c8ae40a313c4c7044f55e569414ff68332"

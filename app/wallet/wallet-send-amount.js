@@ -4,10 +4,11 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Text, Animated } from 'react-native'
+import { scale } from 'react-native-size-matters'
 import { Container, CustomView, CustomText, CustomButton } from '../components'
 import { Keyboard } from '../components'
 import { color } from '../common/styles/constant'
-import { SEND_TOKEN_BUTTON } from './wallet-constants'
+import { SEND_TOKEN_BUTTON, FONT_SIZE_MAPPING } from './wallet-constants'
 import styles from './styles'
 import type {
   WalletSendAmountState,
@@ -18,21 +19,6 @@ import { selectTokenAmount } from './wallet-store'
 import { getWalletBalance } from '../store/store-selector'
 import type { Store } from '../store/type-store'
 import { STORE_STATUS } from './type-wallet'
-
-const FONT_SIZE_MAPPING = (length: number) => {
-  switch (true) {
-    case length < 5:
-      return 70
-    case length < 7:
-      return 60
-    case length < 10:
-      return 50
-    case length < 12:
-      return 40
-    default:
-      return 20
-  }
-}
 
 class WalletSendAmount extends PureComponent<
   WalletSendAmountProps,
@@ -85,7 +71,7 @@ class WalletSendAmount extends PureComponent<
     const { text } = this.state
 
     // adjust fontSize based on text length
-    const fontSize = FONT_SIZE_MAPPING(text.length)
+    const fontSize = scale(FONT_SIZE_MAPPING(text.length))
     const animatedStyle = {
       transform: [
         {
