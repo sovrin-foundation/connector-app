@@ -2812,92 +2812,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
           }
           testID="claim-request-message"
         >
-          You accepted
-        </Text>
-        <Text
-          accessibilityLabel="claim-request-message"
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
-          style={
-            Array [
-              Object {
-                "fontSize": 17,
-              },
-              Object {
-                "fontFamily": "Lato",
-              },
-              Object {
-                "backgroundColor": "#ffffff",
-                "color": "#777777",
-              },
-              Object {
-                "fontWeight": "bold",
-              },
-              Object {
-                "textAlign": "center",
-              },
-              Object {
-                "backgroundColor": "transparent",
-              },
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              Object {
-                "marginBottom": 5,
-              },
-            ]
-          }
-          testID="claim-request-message"
-        >
-          Home Address
-        </Text>
-        <Text
-          accessibilityLabel="claim-request-message"
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
-          style={
-            Array [
-              Object {
-                "fontSize": 17,
-              },
-              Object {
-                "fontFamily": "Lato",
-              },
-              Object {
-                "backgroundColor": "#ffffff",
-                "color": "#777777",
-              },
-              null,
-              Object {
-                "textAlign": "center",
-              },
-              Object {
-                "backgroundColor": "transparent",
-              },
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              Object {
-                "marginBottom": 5,
-              },
-            ]
-          }
-          testID="claim-request-message"
-        >
-          from
-           
+          You paid
         </Text>
         <Text
           accessibilityLabel="claim-request-message"
@@ -2982,6 +2897,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
           testID="claim-request-message"
         >
           for
+           
         </Text>
         <Text
           accessibilityLabel="claim-request-message"
@@ -3024,7 +2940,48 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
           }
           testID="claim-request-message"
         >
-          8,000.0675854 tokens
+          Home Address.
+        </Text>
+        <Text
+          accessibilityLabel="claim-request-message"
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#ffffff",
+                "color": "#777777",
+              },
+              null,
+              Object {
+                "textAlign": "center",
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              Object {
+                "marginBottom": 5,
+              },
+            ]
+          }
+          testID="claim-request-message"
+        >
+          They will issue it to you shortly.
         </Text>
       </View>
       <View

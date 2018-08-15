@@ -223,9 +223,9 @@ export class ClaimOffer extends PureComponent<
             onContinue={this.close}
             senderLogoUrl={logoUrl}
             payTokenValue={payTokenValue}
-            message1="You accepted"
-            message3="from"
-            message6="for"
+            message1={payTokenValue ? 'You paid' : 'You accepted'}
+            message3={payTokenValue ? 'for' : 'from'}
+            message6={payTokenValue ? 'They will issue it to you shortly.' : ''}
             isPending={
               claimRequestStatus ===
               CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST

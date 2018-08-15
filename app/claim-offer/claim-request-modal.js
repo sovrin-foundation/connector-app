@@ -76,18 +76,28 @@ export default class ClaimRequestStatusModal extends PureComponent<
     }: ClaimRequestStatusModalProps = this.props
     let message2 = data.name
     let message4 = issuer.name
-    if (isPending) {
+    if (isPending || payTokenValue) {
       message2 = issuer.name
       message4 = `"${data.name}"`
+    }
+
+    if (payTokenValue) {
+      message2 = issuer.name
+      message4 = data.name
     }
     const avatarRight = senderLogoUrl
       ? { uri: senderLogoUrl }
       : require('../images/cb_evernym.png')
     const { middleImage, middleImageStyle } = isPending
-      ? {
-          middleImage: require('../images/connectArrows.png'),
-          middleImageStyle: styles.connectedArrow,
-        }
+      ? payTokenValue
+        ? {
+            middleImage: require('../images/connectArrowsRight.png'),
+            middleImageStyle: styles.connectedArrowRight,
+          }
+        : {
+            middleImage: require('../images/connectArrows.png'),
+            middleImageStyle: styles.connectedArrow,
+          }
       : {
           middleImage: require('../images/checkMark.png'),
           middleImageStyle: null,
@@ -137,7 +147,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
         >
           {claimRequestStatus ===
           CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
-            ? 'In Progress'
+            ? 'Paying'
             : message2}
         </CustomText>
         <CustomText
@@ -167,7 +177,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
           {claimRequestStatus ===
           CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
             ? ''
-            : message4}
+            : payTokenValue ? `${message4}.` : `${message4}`}
         </CustomText>
 
         <CustomText
@@ -184,23 +194,6 @@ export default class ClaimRequestStatusModal extends PureComponent<
             ? ''
             : conditionalMessage}
         </CustomText>
-
-        {payTokenValue &&
-        claimRequestStatus !==
-          CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST ? (
-          <CustomText
-            h5
-            bold
-            center
-            tertiary
-            bg="tertiary"
-            transparentBg
-            style={[styles.message]}
-            testID={`claim-request-message`}
-          >
-            {`${formatNumbers(payTokenValue)} tokens`}
-          </CustomText>
-        ) : null}
       </CustomModal>
     )
   }
@@ -212,6 +205,11 @@ const styles = StyleSheet.create({
     width: 80,
     zIndex: -1,
     right: 7,
+  },
+  connectedArrowRight: {
+    height: 20,
+    width: 80,
+    zIndex: -1,
   },
   message: {
     marginBottom: OFFSET_1X / 2,

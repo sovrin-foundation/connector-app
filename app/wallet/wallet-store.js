@@ -335,8 +335,8 @@ export function* sendTokensSaga(action: SendTokensAction): Saga<void> {
 
 export function* refreshWalletBalanceSaga(): any {
   yield* ensureVcxInitSuccess()
-  const walletBalanceData: string = yield call(getWalletBalance)
   try {
+    const walletBalanceData: string = yield call(getWalletBalance)
     yield put(walletBalanceRefreshed(walletBalanceData))
     yield call(secureSet, WALLET_BALANCE, walletBalanceData)
   } catch (e) {
