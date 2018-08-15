@@ -224,7 +224,7 @@ export class ClaimOffer extends PureComponent<
             senderLogoUrl={logoUrl}
             payTokenValue={payTokenValue}
             message1={payTokenValue ? 'You paid' : 'You accepted'}
-            message3={payTokenValue ? 'for' : 'from'}
+            message3={payTokenValue ? '' : 'from'}
             message6={payTokenValue ? 'They will issue it to you shortly.' : ''}
             isPending={
               claimRequestStatus ===

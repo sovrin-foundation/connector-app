@@ -82,9 +82,10 @@ export default class ClaimRequestStatusModal extends PureComponent<
     }
 
     if (payTokenValue) {
-      message2 = issuer.name
-      message4 = data.name
+      message2 = `for ${data.name}`
+      message4 = ''
     }
+
     const avatarRight = senderLogoUrl
       ? { uri: senderLogoUrl }
       : require('../images/cb_evernym.png')
@@ -135,6 +136,22 @@ export default class ClaimRequestStatusModal extends PureComponent<
             ? ''
             : message1}
         </CustomText>
+        {payTokenValue &&
+        claimRequestStatus !==
+          CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST ? (
+          <CustomText
+            h5
+            bold
+            center
+            tertiary
+            bg="tertiary"
+            transparentBg
+            style={[styles.message]}
+            testID={`claim-request-message`}
+          >
+            {`${formatNumbers(payTokenValue)} tokens`}
+          </CustomText>
+        ) : null}
         <CustomText
           h5
           bold
@@ -147,7 +164,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
         >
           {claimRequestStatus ===
           CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
-            ? 'Paying'
+            ? 'Paying...'
             : message2}
         </CustomText>
         <CustomText
@@ -177,7 +194,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
           {claimRequestStatus ===
           CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
             ? ''
-            : payTokenValue ? `${message4}.` : `${message4}`}
+            : payTokenValue ? '' : message4}
         </CustomText>
 
         <CustomText
