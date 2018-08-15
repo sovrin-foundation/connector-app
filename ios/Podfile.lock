@@ -40,7 +40,7 @@ PODS:
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - OpenSSL-Universal (1.0.1.20)
-  - Protobuf (3.6.0)
+  - Protobuf (3.6.1)
   - QBImagePickerController (3.4.0)
   - React (0.51.0):
     - React/Core (= 0.51.0)
@@ -171,7 +171,7 @@ SPEC CHECKSUMS:
   MPMessagePack: 5251dcd15e0c626cc50c192bdfcb5af6004cedb4
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   OpenSSL-Universal: 71f2c4b2ae758e2218090f905e95ca0ac5c01be7
-  Protobuf: 0fc0ad8bec688b2a3017a139953e01374fedbd5f
+  Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
   React: 541ba768b9855e10cdc76f55427a5cd0653ca806
   react-native-image-resizer: 04a3409e7d4ad646c4468671c69dec490def139c
@@ -179,7 +179,7 @@ SPEC CHECKSUMS:
   RNShare: 80d4472ab25e77d9f824cb8d49d7e85af91c66e0
   RNZipArchive: 4f72d162e01ba473a6c2365b4e949183fd208f35
   RSKImageCropper: 0d0c6d8525a2381f03fde32a47c6703817a2feed
-  vcx: d6524ec5b2f1bb212c938cbdc71ae7935fb24003
+  vcx: 26c236fa4cfb612edc8645d147eb2f7c19e706e6
   yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
 PODFILE CHECKSUM: 5094237cc3fc5f1207d1f1ead32edcd3e2d1663a
