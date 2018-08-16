@@ -176,6 +176,9 @@ export class WalletTabSendDetails extends Component<
           onChangeText={this.onTextChange}
           isValid={this.state.isPaymentAddressValid}
           maxLength={100}
+          autoCorrect={false}
+          autoCapitalize="none"
+          autoFocus={true}
         />
         <ControlInput
           label="For"

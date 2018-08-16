@@ -101,7 +101,6 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
       <TextInput
         accessibilityLabel="To-token-send-details-label"
         accessible={true}
-        maxLength={undefined}
         multiline={false}
         onChangeText={[Function]}
         placeholder="test"

@@ -44,7 +44,16 @@ export default class ControlInput extends PureComponent<
   }
 
   render() {
-    let { placeholder, label, multiline, isValid, maxLength } = this.props
+    // Here we should call out any special props we need, otherwise any native props that <TextInput /> uses will be assigned to textInputProps
+    const {
+      label,
+      multiline,
+      isValid,
+      onChangeText,
+      validation,
+      name,
+      ...textInputProps
+    } = this.props
     return (
       <CustomView
         style={[styles.container]}
@@ -86,10 +95,9 @@ export default class ControlInput extends PureComponent<
               accessibilityLabel={`${label}-token-send-details-label`}
               style={[styles.textInput]}
               underlineColorAndroid="transparent"
-              placeholder={placeholder}
               multiline={multiline ? true : false}
-              maxLength={maxLength}
               onChangeText={this.onTextChange}
+              {...textInputProps}
             />
           </CustomView>
           {this.props.validation && isValid === 'SUCCESS' ? (
