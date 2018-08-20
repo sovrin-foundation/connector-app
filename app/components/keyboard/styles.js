@@ -6,9 +6,9 @@ import { PUSH_NOTIFICATION_PERMISSION } from '../../push-notification/type-push-
 
 const { height } = Dimensions.get('window')
 
-const ROW_MARGIN = height > SHORT_DEVICE ? 36 : 22
+const ROW_MARGIN = height > SHORT_DEVICE ? 36 : 15
 const FIRST_ROW_MARGIN = height > SHORT_DEVICE ? 24 : 8
-const ROW_HEIGHT = 33
+const ROW_HEIGHT = height > SHORT_DEVICE ? 33 : 28
 
 const styles = StyleSheet.create({
   container: {

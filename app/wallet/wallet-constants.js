@@ -14,7 +14,7 @@ export const FOR_SEND_DETAILS_TEST_ID = 'for-send-details-test-id'
 export const FONT_SIZE_MAPPING = (length: number) => {
   switch (true) {
     case length < 5:
-      return 65
+      return 60
     case length < 7:
       return 60
     case length < 10:

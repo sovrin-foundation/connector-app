@@ -40,7 +40,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
               "backgroundColor": "transparent",
               "color": "#EB9B2D",
               "fontFamily": "Lato",
-              "fontSize": 59.42857142857142,
+              "fontSize": 54.857142857142854,
               "height": 70,
               "lineHeight": 75,
               "textAlign": "center",
@@ -105,7 +105,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
         style={
           Object {
             "flexDirection": "row",
-            "height": 33,
+            "height": 28,
             "marginTop": 8,
           }
         }
@@ -245,8 +245,8 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
         style={
           Object {
             "flexDirection": "row",
-            "height": 33,
-            "marginTop": 22,
+            "height": 28,
+            "marginTop": 15,
           }
         }
       >
@@ -385,8 +385,8 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
         style={
           Object {
             "flexDirection": "row",
-            "height": 33,
-            "marginTop": 22,
+            "height": 28,
+            "marginTop": 15,
           }
         }
       >
@@ -525,8 +525,8 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
         style={
           Object {
             "flexDirection": "row",
-            "height": 33,
-            "marginTop": 22,
+            "height": 28,
+            "marginTop": 15,
           }
         }
       >

@@ -26,7 +26,7 @@ export class Wallet extends PureComponent<WalletProps, void> {
         render={(balance: string) => (
           <Container style={[styles.balanceHeader]}>
             <Container center style={[styles.sovrinLogoWrapper]}>
-              <Image large source={sovrinLogo} />
+              <Icon extraLarge src={sovrinLogo} />
             </Container>
             <CustomView row center>
               <Icon medium src={tokenLogo} />

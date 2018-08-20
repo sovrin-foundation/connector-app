@@ -13,6 +13,8 @@ export const SERVER_ENVIRONMENT = {
   SANDBOX: 'SANDBOX',
   STAGING: 'STAGING',
   DEVELOPMENT: 'DEVELOPMENT',
+  QATEST1: 'QATEST1',
+  QATEST2: 'QATEST2',
 }
 
 export type ServerEnvironment = $Keys<typeof SERVER_ENVIRONMENT>
