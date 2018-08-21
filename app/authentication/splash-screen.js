@@ -38,46 +38,45 @@ const isReceived = ({ payload, status }) =>
 
 export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
   ifDeepLinkFoundGoToWaitForInvitationScreenNFetchInvitation = (
-    nextProps: SplashScreenProps
+    prevProps: SplashScreenProps
   ) => {
-    const nextDeepLinkTokens = nextProps.deepLink.tokens
+    const nextDeepLinkTokens = this.props.deepLink.tokens
     if (
-      nextProps.deepLink.isLoading === false &&
+      this.props.deepLink.isLoading === false &&
       Object.keys(nextDeepLinkTokens).length >
-        Object.keys(this.props.deepLink.tokens).length
+        Object.keys(prevProps.deepLink.tokens).length
     ) {
       Object.keys(nextDeepLinkTokens).map(
         smsToken =>
           nextDeepLinkTokens[smsToken].status !== DEEP_LINK_STATUS.PROCESSED &&
-          nextProps.getSmsPendingInvitation(smsToken)
+          this.props.getSmsPendingInvitation(smsToken)
       )
-      if (nextProps.lock.isAppLocked === false) {
-        nextProps.navigation.navigate(waitForInvitationRoute)
+      if (this.props.lock.isAppLocked === false) {
+        this.props.navigation.navigate(waitForInvitationRoute)
       }
     }
   }
 
-  getUnHandledSmsPendingInvitations = (nextProps: SplashScreenProps) => {
+  getUnHandledSmsPendingInvitations = () => {
     const smsPendingInvitations = Object.keys(
-      nextProps.smsPendingInvitation
+      this.props.smsPendingInvitation
     ).map(invitationToken => {
       return {
-        ...nextProps.smsPendingInvitation[invitationToken],
+        ...this.props.smsPendingInvitation[invitationToken],
         invitationToken,
       }
     })
     const unHandledSmsPendingInvitations: SMSPendingInvitations = smsPendingInvitations.filter(
       ({ invitationToken }) =>
         invitationToken &&
-        nextProps.deepLink.tokens[invitationToken].status !==
+        this.props.deepLink.tokens[invitationToken].status !==
           DEEP_LINK_STATUS.PROCESSED
     )
     return unHandledSmsPendingInvitations
   }
 
   handleExpiredTokens = (
-    unHandledSmsPendingInvitations: SMSPendingInvitations,
-    nextProps: SplashScreenProps
+    unHandledSmsPendingInvitations: SMSPendingInvitations
   ) => {
     const isAnyOneOfSmsPendingInvitationHasError: boolean = unHandledSmsPendingInvitations.some(
       ({ error }) => error
@@ -88,7 +87,7 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
     if (isAnyOneOfSmsPendingInvitationWasExpired) {
       // TODO: This conditions pops up too many times, we should create a common function for this.
       // TODO: It should be something like this this.redirect(nextProps.lock, routeName)
-      if (nextProps.lock.isAppLocked === false) {
+      if (this.props.lock.isAppLocked === false) {
         this.props.navigation.navigate(expiredTokenRoute)
       } else {
         this.props.addPendingRedirection([{ routeName: expiredTokenRoute }])
@@ -96,27 +95,25 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
     } else if (isAnyOneOfSmsPendingInvitationHasError) {
       // * This condition is needed to avoid un wanted redirection to home screen if unHandledSmsPendingInvitations are empty
       // * or if we are in middle of other invitation fetching process
-      if (nextProps.lock.isAppLocked === false) {
+      if (this.props.lock.isAppLocked === false) {
         this.props.navigation.navigate(homeRoute)
       } else {
         this.props.addPendingRedirection([{ routeName: homeRoute }])
       }
     }
     unHandledSmsPendingInvitations.map(({ error, invitationToken }) => {
-      error ? nextProps.deepLinkProcessed(invitationToken) : null
+      error ? this.props.deepLinkProcessed(invitationToken) : null
     })
   }
 
-  handleSmsPendingInvitations = (nextProps: SplashScreenProps) => {
-    const nextDeepLinkTokens = nextProps.deepLink.tokens
+  handleSmsPendingInvitations = (prevProps: SplashScreenProps) => {
+    const nextDeepLinkTokens = this.props.deepLink.tokens
     if (
-      JSON.stringify(nextProps.smsPendingInvitation) !==
+      JSON.stringify(prevProps.smsPendingInvitation) !==
       JSON.stringify(this.props.smsPendingInvitation)
     ) {
-      const unHandledSmsPendingInvitations = this.getUnHandledSmsPendingInvitations(
-        nextProps
-      )
-      this.handleExpiredTokens(unHandledSmsPendingInvitations, nextProps)
+      const unHandledSmsPendingInvitations = this.getUnHandledSmsPendingInvitations()
+      this.handleExpiredTokens(unHandledSmsPendingInvitations)
       const unseenSmsPendingInvitations = unHandledSmsPendingInvitations.filter(
         isReceived
       )
@@ -125,9 +122,9 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
         ({ payload, invitationToken }) => {
           if (payload) {
             const senderDID = payload.senderDetail.DID
-            nextProps.deepLinkProcessed(invitationToken)
-            if (nextProps.lock.isAppLocked === false) {
-              nextProps.navigation.navigate(invitationRoute, {
+            this.props.deepLinkProcessed(invitationToken)
+            if (this.props.lock.isAppLocked === false) {
+              this.props.navigation.navigate(invitationRoute, {
                 senderDID,
                 token: invitationToken,
               })
@@ -141,33 +138,33 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
       )
 
       pendingRedirectionList.length !== 0 &&
-        nextProps.lock.isAppLocked === true &&
-        nextProps.addPendingRedirection(pendingRedirectionList)
+        this.props.lock.isAppLocked === true &&
+        this.props.addPendingRedirection(pendingRedirectionList)
 
       // * all error token links should be processed
     }
   }
 
-  async componentWillReceiveProps(nextProps: SplashScreenProps) {
-    if (nextProps.config.isInitialized !== this.props.config.isInitialized) {
+  componentDidUpdate(prevProps: SplashScreenProps) {
+    if (this.props.isInitialized !== prevProps.isInitialized) {
       // hydrated is changed, and if it is changed to true,
       // that means this is the only time we would get inside this if condition
-      if (nextProps.config.isInitialized) {
+      if (this.props.isInitialized) {
         SplashScreen.hide()
         // now we can safely check value of isAlreadyInstalled
         if (
-          !nextProps.lock.isLockEnabled ||
-          nextProps.lock.isLockEnabled === 'false'
+          !this.props.lock.isLockEnabled ||
+          this.props.lock.isLockEnabled === 'false'
         ) {
           // user is opening the app for first time after installing
-          if (!nextProps.eula.isEulaAccept) {
+          if (!this.props.eula.isEulaAccept) {
             this.props.navigation.navigate(eulaRoute)
           } else {
             this.props.navigation.navigate(restoreRoute)
           }
         } else {
           // not the first time user is opening app
-          if (nextProps.lock.isTouchIdEnabled) {
+          if (this.props.lock.isTouchIdEnabled) {
             this.props.navigation.navigate(lockEnterFingerprintRoute)
           } else {
             this.props.navigation.navigate(lockEnterPinRoute)
@@ -178,13 +175,13 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
 
     // check if deepLink is changed, then that means we either got token
     // or we got error or nothing happened with deep link
-    const nextDeepLinkTokens = nextProps.deepLink.tokens
+    const nextDeepLinkTokens = this.props.deepLink.tokens
     if (
-      nextProps.deepLink.isLoading !== this.props.deepLink.isLoading &&
-      nextProps.deepLink.isLoading === false &&
+      prevProps.deepLink.isLoading !== this.props.deepLink.isLoading &&
+      this.props.deepLink.isLoading === false &&
       Object.keys(nextDeepLinkTokens).length === 0
     ) {
-      if (nextProps.lock.isAppLocked === false) {
+      if (this.props.lock.isAppLocked === false) {
         // we did not get any token and deepLink data loading is done
         SplashScreen.hide()
         this.props.navigation.navigate(homeRoute)
@@ -193,8 +190,8 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
       }
     }
 
-    this.ifDeepLinkFoundGoToWaitForInvitationScreenNFetchInvitation(nextProps)
-    this.handleSmsPendingInvitations(nextProps)
+    this.ifDeepLinkFoundGoToWaitForInvitationScreenNFetchInvitation(prevProps)
+    this.handleSmsPendingInvitations(prevProps)
   }
 
   componentDidMount() {
@@ -202,7 +199,7 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
     // even before component is mounted,
     // so we need to check for pin code here as well
 
-    if (this.props.config.isInitialized) {
+    if (this.props.isInitialized) {
       SplashScreen.hide()
       // now we can safely check value of isAlreadyInstalled
       if (this.props.lock.isLockEnabled === 'false') {
@@ -235,8 +232,7 @@ const mapStateToProps = ({
   smsPendingInvitation,
   eula,
 }: Store) => ({
-  // only need isHydrated from this store, we should not bind anything more than necessary
-  config,
+  isInitialized: config.isInitialized,
   // DeepLink should be it's own component that will handle only deep link logic
   // in that way, we will be able to restrict re-render and re-run of code
   deepLink,

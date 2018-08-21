@@ -9,7 +9,7 @@ import type { EulaStore } from '../eula/type-eula'
 
 export type SplashScreenProps = {
   eula: EulaStore,
-  config: ConfigStore,
+  isInitialized: boolean,
   deepLink: DeepLinkStore,
   smsPendingInvitation: SMSPendingInvitationStore,
   lock: LockStore,

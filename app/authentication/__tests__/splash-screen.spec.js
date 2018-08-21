@@ -47,7 +47,7 @@ describe('<SplashScreen />', () => {
     const props = {
       navigation: getNavigation(),
       deepLink,
-      config,
+      isInitialized: config.isInitialized,
       lock,
       eula,
       smsPendingInvitation,
