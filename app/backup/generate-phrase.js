@@ -14,13 +14,16 @@ import {
   Icon,
   CustomButton,
 } from '../components'
+import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
 import { SHORT_DEVICE } from '../common/styles'
 import { genRecoveryPhraseRoute, verifyRecoveryPhraseRoute } from '../common'
 import { color } from '../common/styles/constant'
 import type {
   GenerateRecoveryPhraseProps,
   GenerateRecoveryPhraseState,
+  Passphrase,
 } from './type-backup'
+import { BACKUP_STORE_STATUS } from './type-backup'
 import { generateRecoveryPhrase } from './backup-store'
 import {
   RECOVERY_PHRASE_CLOSE_TEST_ID,
@@ -28,12 +31,39 @@ import {
   SUBMIT_RECOVERY_PHRASE_BUTTON_TITLE,
 } from './backup-constants'
 import styles from './styles'
-import { getBackupPassphrase } from '../store/store-selector'
+import { getBackupPassphrase, getBackupStatus } from '../store/store-selector'
+import { PASSPHRASE_GENERATION_ERROR } from '../common'
 
 const { height } = Dimensions.get('window')
 const closeImage = require('../images/iconClose.png')
 const transparentBands = require('../images/transparentBands.png')
 const textBubble = require('../images/textBubble.png')
+
+const PassphraseLoader = (
+  <CustomView style={[styles.genRecoveryPhraseContainer]}>
+    <CustomView style={[styles.genRecoveryPhraseLoadingContainer]}>
+      <CustomActivityIndicator />
+    </CustomView>
+  </CustomView>
+)
+
+const PassphraseError = (
+  <CustomView style={[styles.genRecoveryPhraseContainer]}>
+    <CustomText transparentBg darkgray center>
+      {PASSPHRASE_GENERATION_ERROR}
+    </CustomText>
+  </CustomView>
+)
+
+const PassphraseText = (recoveryPassphrase: Passphrase) => {
+  return (
+    <CustomView style={[styles.genRecoveryPhraseContainer]}>
+      <CustomText transparentBg style={[styles.genRecoveryPhrase]}>
+        {recoveryPassphrase.phrase}
+      </CustomText>
+    </CustomView>
+  )
+}
 
 export class GenerateRecoveryPhrase extends PureComponent<
   GenerateRecoveryPhraseProps,
@@ -79,8 +109,29 @@ export class GenerateRecoveryPhrase extends PureComponent<
     },
     gesturesEnabled: false,
   })
+  ImageContents = (recoveryStatus: string, recoveryPassphrase: Passphrase) => {
+    if (recoveryStatus === BACKUP_STORE_STATUS.GENERATE_PHRASE_LOADING) {
+      return PassphraseLoader
+    }
+
+    if (
+      recoveryStatus === BACKUP_STORE_STATUS.GENERATE_PHRASE_FAILURE ||
+      recoveryStatus === BACKUP_STORE_STATUS.GENERATE_BACKUP_FILE_FAILURE
+    ) {
+      // This block is where we need to try handling passphrase generation differently
+      return PassphraseError
+    }
+
+    return <PassphraseText {...recoveryPassphrase} />
+  }
 
   render() {
+    const { recoveryPassphrase, recoveryStatus } = this.props
+    const disableButton =
+      recoveryStatus === BACKUP_STORE_STATUS.GENERATE_PHRASE_FAILURE ||
+      recoveryStatus === BACKUP_STORE_STATUS.GENERATE_PHRASE_LOADING ||
+      recoveryStatus === BACKUP_STORE_STATUS.GENERATE_BACKUP_FILE_FAILURE
+
     return (
       <Container style={[styles.genRecovery]} safeArea>
         <Image source={transparentBands} style={[styles.backgroundImage]} />
@@ -106,11 +157,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
           </CustomView>
           <CustomView center>
             <Image source={textBubble} style={[styles.imageIcon]} />
-            <CustomView style={[styles.genRecoveryPhraseContainer]}>
-              <CustomText transparentBg style={[styles.genRecoveryPhrase]}>
-                {this.props.recoveryPassphrase.phrase}
-              </CustomText>
-            </CustomView>
+            {this.ImageContents(recoveryStatus, recoveryPassphrase)}
           </CustomView>
           <CustomView center>
             <CustomText
@@ -134,6 +181,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
             </CustomText>
           </CustomView>
           <CustomButton
+            disabled={disableButton}
             large={height > SHORT_DEVICE ? true : false}
             onPress={this.verifyRecoveryPhrase}
             testID={SUBMIT_RECOVERY_PHRASE_TEST_ID}
@@ -154,6 +202,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
 const mapStateToProps = (state: Store) => {
   return {
     recoveryPassphrase: getBackupPassphrase(state),
+    recoveryStatus: getBackupStatus(state),
   }
 }
 const mapDispatchToProps = dispatch =>

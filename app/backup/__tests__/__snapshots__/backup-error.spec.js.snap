@@ -115,10 +115,13 @@ exports[`Restore screen should render properly and match the snapshot 1`] = `
     </View>
   </View>
   <View
+    pad={true}
     style={
       Object {
         "flex": 1,
         "justifyContent": "flex-end",
+        "paddingHorizontal": 15,
+        "paddingVertical": 8,
       }
     }
   >

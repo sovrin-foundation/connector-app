@@ -179,13 +179,11 @@ export function* generateRecoveryPhraseSaga(
     let passphrase = yield call(secureGet, PASSPHRASE_STORAGE_KEY)
     let passphraseSalt = yield call(secureGet, PASSPHRASE_SALT_STORAGE_KEY)
     if (!passphrase) {
-      const words: string[] = yield call(getWords, 2, 5)
+      const words: string[] = yield call(getWords, 8, 5)
       passphrase = words.join(' ')
       passphraseSalt = yield call(generateSalt)
     }
 
-    //TODO fix hack - for IOS need to do hash is having extra characters
-    // when doing cross platform export/import then it becomes incompatible
     const hashedPassphrase = yield call(generateKey, passphrase, passphraseSalt)
     yield call(secureSet, PASSPHRASE_STORAGE_KEY, passphrase)
     yield call(secureSet, PASSPHRASE_SALT_STORAGE_KEY, passphraseSalt)
@@ -198,13 +196,48 @@ export function* generateRecoveryPhraseSaga(
     )
     yield put(generateBackupFile())
   } catch (e) {
-    console.log('generateRecoveryPhraseSaga e.message ', e.message)
-    yield put(
-      generateRecoveryPhraseFail({
-        ...ERROR_GENERATE_RECOVERY_PHRASE,
-        message: `${ERROR_GENERATE_RECOVERY_PHRASE.message} ${e.message}`,
-      })
-    )
+    // If it failed then we'll retry it a few times
+    let retryCount = 0
+    let lastInitException = new Error('')
+    while (retryCount < 4) {
+      try {
+        let passphrase = yield call(secureGet, PASSPHRASE_STORAGE_KEY)
+        let passphraseSalt = yield call(secureGet, PASSPHRASE_SALT_STORAGE_KEY)
+        if (!passphrase) {
+          const words: string[] = yield call(getWords, 2, 5)
+          passphrase = words.join(' ')
+          passphraseSalt = yield call(generateSalt)
+        }
+        const hashedPassphrase = yield call(
+          generateKey,
+          passphrase,
+          passphraseSalt
+        )
+        yield call(secureSet, PASSPHRASE_STORAGE_KEY, passphrase)
+        yield call(secureSet, PASSPHRASE_SALT_STORAGE_KEY, passphraseSalt)
+        yield put(
+          generateRecoveryPhraseSuccess({
+            phrase: passphrase,
+            salt: passphraseSalt,
+            hash: hashedPassphrase,
+          })
+        )
+        yield put(generateBackupFile())
+        break
+      } catch (e) {
+        lastInitException = e
+        retryCount++
+      }
+    }
+    if (retryCount > 3) {
+      console.log('generateRecoveryPhraseSaga e.message ', e.message)
+      yield put(
+        generateRecoveryPhraseFail({
+          ...ERROR_GENERATE_RECOVERY_PHRASE,
+          message: `${ERROR_GENERATE_RECOVERY_PHRASE.message} ${e.message}`,
+        })
+      )
+    }
   }
 }
 

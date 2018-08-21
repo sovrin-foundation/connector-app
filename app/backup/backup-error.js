@@ -111,7 +111,7 @@ export class BackupErrorScreen extends PureComponent<BackupErrorProps, void> {
             </CustomText>
           </CustomView>
         </Container>
-        <Container bottom>
+        <Container bottom pad>
           <CustomView pad>
             <CustomButton
               large={height > SHORT_DEVICE ? true : false}

@@ -19,6 +19,7 @@ export type ReactNavigationBackup = {
 export type GenerateRecoveryPhraseProps = {
   generateRecoveryPhrase: () => void,
   recoveryPassphrase: Passphrase,
+  recoveryStatus: $Keys<typeof BACKUP_STORE_STATUS>,
 } & ReactNavigationBackup
 
 export type GenerateRecoveryPhraseState = {}

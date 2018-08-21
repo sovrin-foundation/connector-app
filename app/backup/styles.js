@@ -65,6 +65,9 @@ const styles = StyleSheet.create({
     left: 20,
     right: 20,
   },
+  genRecoveryPhraseLoadingContainer: {
+    padding: 40,
+  },
   genRecoveryPhrase: {
     textAlign: 'center',
     color: color.bg.eleventh.color,

@@ -34,3 +34,6 @@ export const SUBSEQUENT_BACKUP_TITLE =
 
 export const SUBSEQUENT_BACKUP_SUBTEXT =
   "Create another backup so you don't lose anything."
+
+export const PASSPHRASE_GENERATION_ERROR =
+  'Uh oh... Looks like something went wrong.'
