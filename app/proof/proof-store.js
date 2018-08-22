@@ -144,18 +144,39 @@ export function convertIndyPreparedProofToAttributes(
   let attributes = Object.keys(requestedAttributes).map(attributeKey => {
     const label = requestedAttributes[attributeKey].name
     const revealedAttributes = preparedProof.attrs[attributeKey]
-
     if (revealedAttributes && revealedAttributes.length > 0) {
-      return revealedAttributes.map(revealedAttribute => ({
-        label,
-        key: attributeKey,
-        data: revealedAttribute && revealedAttribute.cred_info.attrs[label],
-        claimUuid: revealedAttribute && revealedAttribute.cred_info.referent,
-        // TODO:KS Refactor this logic to not put cred_info here
-        // We are putting cred_info here because we don't want to iterate
-        // later to find whole credential
-        cred_info: revealedAttribute ? revealedAttribute : null,
-      }))
+      return revealedAttributes.map(revealedAttribute => {
+        // convert attrs props to lowercase
+        // maintain a mapping that will map case insensitive name to actual name in `attrs`
+        let caseInsensitiveMap = null
+        if (revealedAttribute) {
+          caseInsensitiveMap = Object.keys(
+            revealedAttribute.cred_info.attrs
+          ).reduce(
+            (acc, attributeName) => ({
+              ...acc,
+              [attributeName.toLowerCase()]: attributeName,
+            }),
+            {}
+          )
+        }
+
+        return {
+          label,
+          key: attributeKey.toLowerCase(),
+          data:
+            revealedAttribute &&
+            caseInsensitiveMap &&
+            revealedAttribute.cred_info.attrs[
+              caseInsensitiveMap[label.toLowerCase()]
+            ],
+          claimUuid: revealedAttribute && revealedAttribute.cred_info.referent,
+          // TODO:KS Refactor this logic to not put cred_info here
+          // We are putting cred_info here because we don't want to iterate
+          // later to find whole credential
+          cred_info: revealedAttribute ? revealedAttribute : null,
+        }
+      })
     }
 
     const selfAttestedAttribute =
