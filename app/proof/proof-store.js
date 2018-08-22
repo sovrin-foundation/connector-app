@@ -163,7 +163,7 @@ export function convertIndyPreparedProofToAttributes(
 
         return {
           label,
-          key: attributeKey.toLowerCase(),
+          key: attributeKey,
           data:
             revealedAttribute &&
             caseInsensitiveMap &&
