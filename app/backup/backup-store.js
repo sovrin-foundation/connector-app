@@ -1,6 +1,14 @@
 // @flow
 
-import { put, takeLatest, call, all, select, fork } from 'redux-saga/effects'
+import {
+  put,
+  takeLatest,
+  call,
+  all,
+  select,
+  fork,
+  take,
+} from 'redux-saga/effects'
 import { zip } from 'react-native-zip-archive'
 import {
   GENERATE_RECOVERY_PHRASE_SUCCESS,
@@ -59,9 +67,11 @@ import {
   getConfig,
   getBackupPassphrase,
   getBackupWalletPath,
+  getVcxInitializationState,
 } from '../store/store-selector'
 import { STORAGE_KEY_SHOW_BANNER } from '../components/banner/banner-constants'
 import { getWords } from './secure-passphrase'
+import { VCX_INIT_SUCCESS } from '../store/type-config-store'
 import { pinHash as generateKey, generateSalt } from '../lock/pin-hash'
 import moment from 'moment'
 
@@ -175,69 +185,50 @@ export function* deletePersistedPassphrase(): Generator<*, *, *> {
 export function* generateRecoveryPhraseSaga(
   action: GenerateRecoveryPhraseLoadingAction
 ): Generator<*, *, *> {
-  try {
-    let passphrase = yield call(secureGet, PASSPHRASE_STORAGE_KEY)
-    let passphraseSalt = yield call(secureGet, PASSPHRASE_SALT_STORAGE_KEY)
-    if (!passphrase) {
-      const words: string[] = yield call(getWords, 8, 5)
-      passphrase = words.join(' ')
-      passphraseSalt = yield call(generateSalt)
-    }
-
-    const hashedPassphrase = yield call(generateKey, passphrase, passphraseSalt)
-    yield call(secureSet, PASSPHRASE_STORAGE_KEY, passphrase)
-    yield call(secureSet, PASSPHRASE_SALT_STORAGE_KEY, passphraseSalt)
-    yield put(
-      generateRecoveryPhraseSuccess({
-        phrase: passphrase,
-        salt: passphraseSalt,
-        hash: hashedPassphrase,
-      })
-    )
-    yield put(generateBackupFile())
-  } catch (e) {
-    // If it failed then we'll retry it a few times
-    let retryCount = 0
-    let lastInitException = new Error('')
-    while (retryCount < 4) {
-      try {
-        let passphrase = yield call(secureGet, PASSPHRASE_STORAGE_KEY)
-        let passphraseSalt = yield call(secureGet, PASSPHRASE_SALT_STORAGE_KEY)
-        if (!passphrase) {
-          const words: string[] = yield call(getWords, 2, 5)
-          passphrase = words.join(' ')
-          passphraseSalt = yield call(generateSalt)
-        }
-        const hashedPassphrase = yield call(
-          generateKey,
-          passphrase,
-          passphraseSalt
-        )
-        yield call(secureSet, PASSPHRASE_STORAGE_KEY, passphrase)
-        yield call(secureSet, PASSPHRASE_SALT_STORAGE_KEY, passphraseSalt)
-        yield put(
-          generateRecoveryPhraseSuccess({
-            phrase: passphrase,
-            salt: passphraseSalt,
-            hash: hashedPassphrase,
-          })
-        )
-        yield put(generateBackupFile())
-        break
-      } catch (e) {
-        lastInitException = e
-        retryCount++
+  const vcxInitializedState = yield select(getVcxInitializationState)
+  if (vcxInitializedState !== VCX_INIT_SUCCESS) {
+    yield take(VCX_INIT_SUCCESS)
+  }
+  // If it failed then we'll retry it a few times
+  let retryCount = 0
+  let lastInitException = new Error('')
+  while (retryCount < 4) {
+    try {
+      let passphrase = yield call(secureGet, PASSPHRASE_STORAGE_KEY)
+      let passphraseSalt = yield call(secureGet, PASSPHRASE_SALT_STORAGE_KEY)
+      if (!passphrase) {
+        const words: string[] = yield call(getWords, 8, 5)
+        passphrase = words.join(' ')
+        passphraseSalt = yield call(generateSalt)
       }
-    }
-    if (retryCount > 3) {
-      console.log('generateRecoveryPhraseSaga e.message ', e.message)
+      const hashedPassphrase = yield call(
+        generateKey,
+        passphrase,
+        passphraseSalt
+      )
+      yield call(secureSet, PASSPHRASE_STORAGE_KEY, passphrase)
+      yield call(secureSet, PASSPHRASE_SALT_STORAGE_KEY, passphraseSalt)
       yield put(
-        generateRecoveryPhraseFail({
-          ...ERROR_GENERATE_RECOVERY_PHRASE,
-          message: `${ERROR_GENERATE_RECOVERY_PHRASE.message} ${e.message}`,
+        generateRecoveryPhraseSuccess({
+          phrase: passphrase,
+          salt: passphraseSalt,
+          hash: hashedPassphrase,
         })
       )
+      yield put(generateBackupFile())
+      break
+    } catch (e) {
+      lastInitException = e
+      retryCount++
     }
+  }
+  if (retryCount > 3) {
+    yield put(
+      generateRecoveryPhraseFail({
+        ...ERROR_GENERATE_RECOVERY_PHRASE,
+        message: `${ERROR_GENERATE_RECOVERY_PHRASE.message}`,
+      })
+    )
   }
 }
 
