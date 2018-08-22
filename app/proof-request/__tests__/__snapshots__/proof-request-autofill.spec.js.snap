@@ -1125,8 +1125,8 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                             "paddingVertical": 17,
                           },
                         ],
-                        undefined,
-                        undefined,
+                        false,
+                        false,
                       ]
                     }
                   >
@@ -1161,7 +1161,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                             undefined,
                             undefined,
                             undefined,
-                            undefined,
+                            false,
                           ],
                         ]
                       }

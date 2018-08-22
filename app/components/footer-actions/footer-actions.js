@@ -34,6 +34,7 @@ export class FooterActions extends PureComponent<FooterActionsProps, void> {
       onAccept = noop,
       testID,
       disableAccept = false,
+      disableDeny = false,
       hidePrimary = false,
       useColorPicker = false,
     } = this.props
@@ -46,10 +47,11 @@ export class FooterActions extends PureComponent<FooterActionsProps, void> {
           <ConnectionTheme logoUrl={logoUrl}>
             <CustomView row>
               <Container>
-                <ConnectionTheme logoUrl={logoUrl}>
+                <ConnectionTheme logoUrl={logoUrl} disabled={disableDeny}>
                   <CustomButton
                     primary
                     medium
+                    disabled={disableDeny}
                     title={denyTitle}
                     onPress={onDecline}
                     testID={`${testID}-deny`}

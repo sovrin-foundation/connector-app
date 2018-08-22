@@ -453,8 +453,8 @@ exports[`<Invitation /> should match snapshot 1`] = `
                               "paddingVertical": 17,
                             },
                           ],
-                          undefined,
-                          undefined,
+                          false,
+                          false,
                         ]
                       }
                     >
@@ -489,7 +489,7 @@ exports[`<Invitation /> should match snapshot 1`] = `
                               undefined,
                               undefined,
                               undefined,
-                              undefined,
+                              false,
                             ],
                           ]
                         }

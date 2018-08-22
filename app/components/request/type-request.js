@@ -1,5 +1,5 @@
 // @flow
-import type { ReactNavigation } from '../../common/type-common'
+import type { ReactNavigation, CustomError } from '../../common/type-common'
 
 export type noop = () => any
 
@@ -32,6 +32,7 @@ export type RequestProps = RequestDetailProps & {
   showErrorAlerts: boolean,
   isTouchIdEnabled: boolean,
   pushNotificationPermissionAction: boolean => void,
+  invitationError?: ?CustomError,
 } & ReactNavigation
 
 export type RequestState = {

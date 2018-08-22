@@ -712,8 +712,8 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                             "paddingVertical": 17,
                           },
                         ],
-                        undefined,
-                        undefined,
+                        false,
+                        false,
                       ]
                     }
                   >
@@ -748,7 +748,7 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
                             undefined,
                             undefined,
                             undefined,
-                            undefined,
+                            false,
                           ],
                         ]
                       }
@@ -2381,8 +2381,8 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                             "paddingVertical": 17,
                           },
                         ],
-                        undefined,
-                        undefined,
+                        false,
+                        false,
                       ]
                     }
                   >
@@ -2417,7 +2417,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                             undefined,
                             undefined,
                             undefined,
-                            undefined,
+                            false,
                           ],
                         ]
                       }

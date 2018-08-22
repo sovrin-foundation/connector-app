@@ -422,6 +422,7 @@ export default function invitationReducer(
           ...state[action.data.senderDID],
           isFetching: true,
           status: action.data.response,
+          error: null,
         },
       }
 

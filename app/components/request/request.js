@@ -86,6 +86,17 @@ export class Request extends PureComponent<RequestProps, RequestState> {
       })
   }
 
+  componentDidUpdate(prevProps: RequestProps) {
+    if (
+      this.props.invitationError !== prevProps.invitationError &&
+      this.props.invitationError
+    ) {
+      this.setState({
+        disableAccept: false,
+      })
+    }
+  }
+
   render() {
     const { title, message, senderLogoUrl, testID }: RequestProps = this.props
 
@@ -101,6 +112,7 @@ export class Request extends PureComponent<RequestProps, RequestState> {
         </Container>
         <FooterActions
           disableAccept={this.state.disableAccept}
+          disableDeny={this.state.disableAccept}
           onAccept={this.onAccept}
           onDecline={this.onDecline}
           logoUrl={senderLogoUrl}

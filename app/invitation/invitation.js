@@ -119,6 +119,7 @@ export class Invitation extends PureComponent<
               testID={'invitation'}
               navigation={this.props.navigation}
               showErrorAlerts={this.props.showErrorAlerts}
+              invitationError={this.props.invitation.error}
             />
             <ConnectionSuccessModal
               isModalVisible={this.state.isSuccessModalVisible}
@@ -142,7 +143,6 @@ const mapStateToProps = (state: Store, { navigation }: ReactNavigation) => {
     state.smsPendingInvitation[smsToken] &&
     state.smsPendingInvitation[smsToken].status !==
       SMSPendingInvitationStatus.SEEN
-
   return {
     invitation: state.invitation[senderDID],
     showErrorAlerts: state.config.showErrorAlerts,

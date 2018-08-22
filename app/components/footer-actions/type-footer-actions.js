@@ -14,4 +14,5 @@ export type FooterActionsProps = {
   useColorPicker?: boolean,
   accessible: boolean,
   accessibilityLabel: string,
+  disableDeny?: boolean,
 } & ReactNavigation
