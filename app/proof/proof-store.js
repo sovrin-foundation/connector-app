@@ -229,6 +229,15 @@ export function convertSelectedCredentialAttributesToIndyProof(
     // so we are removing that last _<index> from attribute key and generating attribute name
     // We will remove this logic and have it work without below hack
     // when we will refactor whole proof generation logic
+    const caseInsensitiveMap = Object.keys(
+      selectedAttribute[2].cred_info.attrs
+    ).reduce(
+      (acc, attributeName) => ({
+        ...acc,
+        [attributeName.toLowerCase()]: attributeName,
+      }),
+      {}
+    )
     let attributeLabel = attributeKey.split('_')
     if (attributeLabel.length > 1) {
       attributeLabel = attributeLabel.slice(0, -1)
@@ -238,7 +247,9 @@ export function convertSelectedCredentialAttributesToIndyProof(
       ...acc,
       [attributeKey]: [
         selectedAttribute[0],
-        selectedAttribute[2].cred_info.attrs[attributeLabel],
+        selectedAttribute[2].cred_info.attrs[
+          caseInsensitiveMap[attributeLabel.toLowerCase()]
+        ],
       ],
     }
   }, {})
