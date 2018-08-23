@@ -100,7 +100,7 @@
          <EnvironmentVariable
             key = "RUST_BACKTRACE"
             value = "full"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </EnvironmentVariable>
       </EnvironmentVariables>
       <AdditionalOptions>

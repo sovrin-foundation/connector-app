@@ -236,6 +236,30 @@ this.props.fetchAdditionalData({
     })
 ```
 
+### How to enable Android RUST logs
+- un-comment this line in android/app/build.gradle
+```js
+// compile group: 'com.mobidevelop.robovm', name: 'robovm-rt', version: '2.3.4'
+```
+- un-comment these line in `MainActivity.java`
+```java
+//import libcore.io.ErrnoException;
+//import libcore.io.Libcore;
+...
+//        try {
+//            Libcore.os.setenv("RUST_LOG", "TRACE", true);
+//        } catch (ErrnoException e) {
+//            e.printStackTrace();
+//        }
+```
+
+### How to enable RUST logs in ios
+- Open connectme workspace in xcode
+- From Menu Product -> Scheme -> Scroll down to bottom -> Edit Scheme
+- A window will open. On left side of this window, select "Run", on right side click on "Arguments"
+- Expand "Environment Variables"
+- Check checkboxes for RUST_LOG and RUST_BACKTRACE
+
 ## How to know what tests to write
 
 Check this small video https://drive.google.com/open?id=1t83ZTe4RdgozuIRs6Pi140fU7cIp-8wx

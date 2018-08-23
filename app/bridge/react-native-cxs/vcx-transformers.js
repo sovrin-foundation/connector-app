@@ -1,4 +1,6 @@
 // @flow
+import { NativeModules, Platform } from 'react-native'
+import memoize from 'lodash.memoize'
 import type { AgencyPoolConfig } from '../../store/type-config-store'
 import type {
   VcxProvision,
@@ -17,16 +19,40 @@ import type { UserOneTimeInfo } from '../../store/user/type-user-store'
 import type { InvitationPayload } from '../../invitation/type-invitation'
 import type { MyPairwiseInfo } from '../../store/type-connection-store'
 import type { ClaimOfferPushPayload } from '../../push-notification/type-push-notification'
+import { setItem, getItem, deleteItem } from '../../services/secure-storage'
+
+const { RNIndy } = NativeModules
 
 export const paymentHandle = 0
-// TODO: wallet key needs to be handled on libvcx wrapper or on bridge
-// for both ios and android not to be passed from js layer
-export const wallet_key = 'walletKey'
 
-export function convertAgencyConfigToVcxProvision(
+export const WALLET_KEY = 'WALLET_KEY'
+export const getWalletKey = memoize(async function(): Promise<string> {
+  try {
+    let walletKey: string | null = await getItem(WALLET_KEY)
+    if (walletKey) {
+      return walletKey
+    }
+
+    const lengthOfKey = 64
+    walletKey = await RNIndy.createWalletKey(lengthOfKey)
+    if (Platform.OS === 'android') {
+      walletKey = walletKey.slice(0, -1)
+    }
+
+    await setItem(WALLET_KEY, walletKey)
+
+    return walletKey
+  } catch (e) {
+    // not sure what to do if keychain/keystore fails
+    throw e
+  }
+})
+
+export async function convertAgencyConfigToVcxProvision(
   config: AgencyPoolConfig,
   walletPoolName: WalletPoolName
-): VcxProvision {
+): Promise<VcxProvision> {
+  const wallet_key = await getWalletKey()
   return {
     agency_url: config.agencyUrl,
     agency_did: config.agencyDID,
@@ -51,10 +77,11 @@ export function convertVcxProvisionResultToUserOneTimeInfo(
   }
 }
 
-export function convertCxsInitToVcxInit(
+export async function convertCxsInitToVcxInit(
   init: InitWithGenesisPathConfig,
   walletPoolName: WalletPoolName
-): VcxInitConfig {
+): Promise<VcxInitConfig> {
+  const wallet_key = await getWalletKey()
   return {
     agency_endpoint: init.agencyUrl,
     agency_did: init.agencyDID,

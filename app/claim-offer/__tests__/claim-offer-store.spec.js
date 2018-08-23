@@ -8,7 +8,6 @@ import claimOfferStore, {
   sendClaimRequest,
   claimRequestSuccess,
   claimRequestFail,
-  claimOfferAccepted,
   acceptClaimOffer,
   convertClaimRequestToEdgeClaimRequest,
   addSerializedClaimOffer,
@@ -17,7 +16,7 @@ import claimOfferStore, {
   removePersistedSerializedClaimOffersSaga,
   hydrateSerializedClaimOffersSaga,
   saveSerializedClaimOffer,
-  claimOfferAcceptedVcx,
+  claimOfferAccepted,
 } from '../claim-offer-store'
 import {
   CLAIM_OFFER_ACCEPTED,
@@ -37,11 +36,8 @@ import {
   getAgencyVerificationKey,
   getRemotePairwiseDidAndName,
   getPoolConfig,
-  getUseVcx,
 } from '../../store/store-selector'
 import {
-  generateClaimRequest,
-  sendMessage,
   serializeClaimOffer,
   getHandleBySerializedConnection,
   getClaimHandleBySerializedClaimOffer,
@@ -152,131 +148,6 @@ describe('claim offer store', () => {
     expect(newState).toMatchSnapshot()
   })
 
-  it('claim request saga works fine after claim offer is accepted', () => {
-    const afterClaimOfferReceived = {
-      ...claimOffer.payload,
-      ...claimOffer.payloadInfo,
-    }
-    const gen = claimOfferAccepted(acceptClaimOffer(uid))
-    expect(gen.next().value).toEqual(select(getUseVcx))
-    expect(gen.next().value).toEqual(select(getClaimOffer, uid))
-
-    const remoteDid = claimOffer.payloadInfo.remotePairwiseDID
-    expect(gen.next(afterClaimOfferReceived).value).toEqual(
-      select(getUserPairwiseDid, remoteDid)
-    )
-
-    const userPairwiseDid = pairwiseConnection.identifier
-    expect(gen.next(userPairwiseDid).value).toEqual(
-      put(sendClaimRequest(uid, claimOfferPayload))
-    )
-    expect(gen.next().value).toEqual(select(getAgencyUrl))
-
-    const agencyUrl = 'https://agencyUrl.com'
-    expect(gen.next(agencyUrl).value).toEqual(select(getPoolConfig))
-
-    const expectedIndyClaimOffer = {
-      issuerDid: claimOffer.payload.issuer.did,
-      schemaSequenceNumber:
-        claimOffer.payload.data.claimDefinitionSchemaSequenceNumber,
-    }
-    expect(gen.next(poolConfig).value).toEqual(
-      call(generateClaimRequest, remoteDid, expectedIndyClaimOffer, poolConfig)
-    )
-
-    const claimRequest = {
-      blinded_ms: {
-        prover_did: userPairwiseDid,
-        u: 'u',
-        ur: 'ur',
-      },
-      schema_seq_no: 12,
-      issuer_did: 'issuer_did',
-    }
-
-    expect(gen.next(JSON.stringify(claimRequest)).value).toEqual(
-      select(getUserOneTimeInfo)
-    )
-
-    const userOneTimeInfo = {
-      oneTimeAgencyDid: 'oneTimeAgencyDid',
-      oneTimeAgencyVerificationKey: 'oneTimeAgencyVerificationKey',
-      myOneTimeDid: 'myOneTimeDid',
-      myOneTimeVerificationKey: 'myOneTimeVerificationKey',
-      myOneTimeAgentDid: 'myOneTimeAgentDid',
-      myOneTimeAgentVerificationKey: 'myOneTimeAgentVerificationKey',
-    }
-    expect(gen.next(userOneTimeInfo).value).toEqual(
-      select(getAgencyVerificationKey)
-    )
-
-    const agencyVerificationKey = 'agencyVerificationKey'
-    expect(gen.next(agencyVerificationKey).value).toEqual(
-      select(getRemotePairwiseDidAndName, userPairwiseDid)
-    )
-
-    const connection = {
-      identifier: userPairwiseDid,
-      senderDID: remoteDid,
-      myPairwiseDid: userPairwiseDid,
-      myPairwiseVerKey: 'myPairwiseVerKey',
-      myPairwiseAgentDid: 'myPairwiseAgentDid',
-      myPairwiseAgentVerKey: 'myPairwiseAgentVerKey',
-      myPairwisePeerVerKey: 'myPairwisePeerVerKey',
-    }
-
-    const url = `${agencyUrl}/agency/msg`
-    const expectedData = {
-      url,
-      messageType: MESSAGE_TYPE.CLAIM_REQUEST,
-      messageReplyId: uid,
-      message: JSON.stringify(
-        convertClaimRequestToEdgeClaimRequest({
-          ...claimRequest,
-          remoteDid,
-          userPairwiseDid,
-        })
-      ),
-      myPairwiseDid: connection.myPairwiseDid,
-      myPairwiseVerKey: connection.myPairwiseVerKey,
-      myPairwiseAgentDid: connection.myPairwiseAgentDid,
-      myPairwiseAgentVerKey: connection.myPairwiseAgentVerKey,
-      myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
-      myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
-      myOneTimeDid: userOneTimeInfo.myOneTimeDid,
-      myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
-      myAgencyVerKey: agencyVerificationKey,
-      myPairwisePeerVerKey: connection.myPairwisePeerVerKey,
-      poolConfig,
-    }
-
-    expect(gen.next(connection).value).toEqual(call(sendMessage, expectedData))
-
-    expect(gen.next().value).toEqual(
-      race({
-        success: take(CLAIM_STORAGE_SUCCESS),
-        fail: take(CLAIM_STORAGE_FAIL),
-      })
-    )
-
-    // race should go on if message id does not match
-    expect(
-      gen.next({ success: { messageId: 'non matching' } }).value
-    ).toMatchObject(
-      race({
-        success: take(CLAIM_STORAGE_SUCCESS),
-        fail: take(CLAIM_STORAGE_FAIL),
-      })
-    )
-
-    // if message id matches then, saga should stop and put success action
-    expect(gen.next({ success: { messageId: uid } }).value).toMatchObject(
-      put(claimRequestSuccess(uid))
-    )
-
-    expect(gen.next().done).toBe(true)
-  })
-
   it('should reset claim offer store, if RESET action is raised', () => {
     expect(claimOfferStore(newState, { type: 'RESET' })).toMatchSnapshot()
   })
@@ -353,7 +224,7 @@ describe('claim offer store', () => {
       .run()
   })
 
-  it('saga: claimOfferAcceptedVcx, success', () => {
+  it('saga: claimOfferAccepted, success', () => {
     const claimOfferPayload = {
       ...claimOffer.payload,
       ...claimOffer.payloadInfo,
@@ -387,7 +258,7 @@ describe('claim offer store', () => {
     const connectionHandle = 1
     const paymentHandle = 0
 
-    return expectSaga(claimOfferAcceptedVcx, acceptClaimOffer(uid))
+    return expectSaga(claimOfferAccepted, acceptClaimOffer(uid))
       .withState(stateWithClaimOfferAndSerialized)
       .provide([
         [

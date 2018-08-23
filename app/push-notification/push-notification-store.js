@@ -21,7 +21,6 @@ import {
   getAgencyVerificationKey,
   getHydrationState,
   getPoolConfig,
-  getUseVcx,
   getInvitations,
   getDeepLinkTokens,
   getPendingFetchAdditionalDataKey,
@@ -54,8 +53,6 @@ import type {
 import type { Connections } from '../connection/type-connection'
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
 import {
-  updatePushToken as updatePushTokenApi,
-  getMessage,
   updatePushTokenVcx,
   downloadClaimOffer,
   downloadProofRequest,

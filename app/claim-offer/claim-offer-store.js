@@ -67,13 +67,10 @@ import {
   getSerializedClaimOffers,
   getConnection,
   getSerializedClaimOffer,
-  getUseVcx,
   getWalletBalance,
 } from '../store/store-selector'
 import type { IndyClaimOffer } from '../bridge/react-native-cxs/type-cxs'
 import {
-  generateClaimRequest,
-  sendMessage,
   getHandleBySerializedConnection,
   getClaimHandleBySerializedClaimOffer,
   serializeClaimOffer,
@@ -197,128 +194,6 @@ export function convertClaimRequestToEdgeClaimRequest(
 export function* claimOfferAccepted(
   action: ClaimOfferAcceptedAction
 ): Generator<*, *, *> {
-  const useVcx: boolean = yield select(getUseVcx)
-  if (Platform.OS === 'android' || useVcx) {
-    // once we have integrated vcx, then we would remove this saga
-    // and only use claimOfferAcceptedVcx
-    yield* claimOfferAcceptedVcx(action)
-
-    return
-  }
-
-  const claimOfferPayload: ClaimOfferPayload = yield select(
-    getClaimOffer,
-    action.uid
-  )
-  const indyClaimOffer: IndyClaimOffer = {
-    issuerDid: claimOfferPayload.issuer.did,
-    schemaSequenceNumber:
-      claimOfferPayload.data.claimDefinitionSchemaSequenceNumber,
-  }
-  const remoteDid = claimOfferPayload.remotePairwiseDID
-  const userPairwiseDid: string | null = yield select(
-    getUserPairwiseDid,
-    remoteDid
-  )
-
-  if (userPairwiseDid) {
-    // set status that we are generating and sending claim request
-    yield put(sendClaimRequest(action.uid, claimOfferPayload))
-    try {
-      const agencyUrl: string = yield select(getAgencyUrl)
-      const poolConfig: string = yield select(getPoolConfig)
-      const messageId: string = action.uid
-      const stringifiedClaimRequest: string = yield call(
-        generateClaimRequest,
-        remoteDid,
-        indyClaimOffer,
-        poolConfig
-      )
-      // TODO:KS Add error handling if claim request parse fails
-      const parsedClaimRequest: IndyClaimRequest = JSON.parse(
-        stringifiedClaimRequest
-      )
-      const claimRequest = {
-        ...parsedClaimRequest,
-        remoteDid,
-        userPairwiseDid,
-      }
-      const userOneTimeInfo: UserOneTimeInfo = yield select(getUserOneTimeInfo)
-      const agencyVerificationKey: string = yield select(
-        getAgencyVerificationKey
-      )
-      const connection: Connection = yield select(
-        getRemotePairwiseDidAndName,
-        userPairwiseDid
-      )
-
-      const url = `${agencyUrl}/agency/msg`
-      try {
-        const sendClaimRequestStatus = yield call(sendMessage, {
-          url,
-          messageType: MESSAGE_TYPE.CLAIM_REQUEST,
-          messageReplyId: messageId,
-          message: JSON.stringify(
-            convertClaimRequestToEdgeClaimRequest(claimRequest)
-          ),
-          myPairwiseDid: connection.myPairwiseDid,
-          myPairwiseVerKey: connection.myPairwiseVerKey,
-          myPairwiseAgentDid: connection.myPairwiseAgentDid,
-          myPairwiseAgentVerKey: connection.myPairwiseAgentVerKey,
-          myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
-          myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
-          myOneTimeDid: userOneTimeInfo.myOneTimeDid,
-          myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
-          myAgencyVerKey: agencyVerificationKey,
-          myPairwisePeerVerKey: connection.myPairwisePeerVerKey,
-          poolConfig,
-        })
-
-        // keep the race open b/w success and fail for claim storage
-        // until success and fail is fired for same claim offer id
-        // for which we are running this saga, i.e. showing waiting pop up
-        while (true) {
-          const { success, fail } = yield race({
-            success: take(CLAIM_STORAGE_SUCCESS),
-            fail: take(CLAIM_STORAGE_FAIL),
-          })
-
-          if (success) {
-            if (success.messageId === action.uid) {
-              yield put(claimRequestSuccess(action.uid))
-              break
-            }
-          } else {
-            if (fail.messageId === action.uid) {
-              yield put(claimRequestFail(action.uid, CLAIM_STORAGE_ERROR()))
-              break
-            }
-          }
-        }
-      } catch (e) {
-        // TODO: Need to know what to do if claim request fails
-        // sending claim request failed, what to do now?
-        yield put(claimRequestFail(action.uid, e))
-      }
-    } catch (e) {
-      // generation of claim request failed, what to do now?
-      yield put(claimRequestFail(action.uid, e))
-    }
-  } else {
-    yield put(
-      claimRequestFail(action.uid, {
-        code: 'OCS-002',
-        message: 'No pairwise connection found',
-      })
-    )
-  }
-}
-
-export function* claimOfferAcceptedVcx(
-  action: ClaimOfferAcceptedAction
-): Generator<*, *, *> {
-  // TODO:KS Once vcx is integrated, rename this method to claimOfferAccepted
-
   const messageId = action.uid
   const claimOfferPayload: ClaimOfferPayload = yield select(
     getClaimOffer,

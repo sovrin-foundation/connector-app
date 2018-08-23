@@ -10,7 +10,10 @@ import android.os.Build;
 import org.devio.rn.splashscreen.SplashScreen;
 import io.branch.rnbranch.*;
 import android.content.Intent;
-import android.net.Uri;
+
+// Un-comment below lines to enable vcx, indy logs
+//import libcore.io.ErrnoException;
+//import libcore.io.Libcore;
 
 public class MainActivity extends ReactActivity {
 
@@ -54,13 +57,18 @@ public class MainActivity extends ReactActivity {
             case PERMISSION_REQ_CODE:
                 checkPerms();
                 break;
-
         }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        // un-comment to enable logging in vcx, indy & sovtoken libraries
+//        try {
+//            Libcore.os.setenv("RUST_LOG", "TRACE", true);
+//        } catch (ErrnoException e) {
+//            e.printStackTrace();
+//        }
         RNBranchModule.initSession(getIntent().getData(), this);
     }
 

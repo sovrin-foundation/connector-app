@@ -34,7 +34,7 @@ import {
   convertVcxConnectionToCxsConnection,
   convertVcxCredentialOfferToCxsClaimOffer,
   paymentHandle,
-  wallet_key,
+  getWalletKey,
 } from './vcx-transformers'
 import type { UserOneTimeInfo } from '../../store/user/type-user-store'
 import type { AgencyPoolConfig } from '../../store/type-config-store'
@@ -53,237 +53,6 @@ import type { GetClaimVcxResult } from '../../claim/type-claim'
 import uniqueId from 'react-native-unique-id'
 
 const { RNIndy } = NativeModules
-
-export async function addConnection(
-  remoteDid: string,
-  senderVerificationKey: string,
-  metadata: Metadata = {},
-  poolConfig: string
-) {
-  let identifier
-  let verificationKey
-  try {
-    const pairwiseInfo = await RNIndy.addConnection(
-      remoteDid,
-      senderVerificationKey,
-      {
-        ...metadata,
-      },
-      poolConfig
-    )
-
-    try {
-      const pairwise = JSON.parse(pairwiseInfo)
-      identifier = pairwise.userDID
-      verificationKey = pairwise.verificationKey
-    } catch (e) {
-      // what to do if indy-sdk doesn't give user did
-      console.error(e)
-    }
-  } catch (e) {
-    // what to do if indy sdk returns error
-    console.error(e)
-    throw e
-  }
-
-  // TODO: What if Indy throws error and we don't get any DID
-  return {
-    identifier,
-    verificationKey,
-  }
-}
-
-export async function generateClaimRequest(
-  remoteDid: string,
-  claimOffer: IndyClaimOffer,
-  poolConfig: string
-) {
-  const indyClaimOffer = {
-    issuer_did: claimOffer.issuerDid,
-    schema_seq_no: claimOffer.schemaSequenceNumber,
-  }
-
-  const claimRequest: string = await RNIndy.generateClaimRequest(
-    remoteDid,
-    JSON.stringify(indyClaimOffer),
-    poolConfig
-  )
-
-  return claimRequest
-}
-
-export async function addClaim(claim: string, poolConfig: string) {
-  // be sure to call ensureInitVcx before calling this method
-  return await RNIndy.addClaim(claim, poolConfig)
-}
-
-export async function getClaim(filterJSON: string, poolConfig: string) {
-  // be sure to call ensureInitVcx before calling this method
-  return await RNIndy.getClaim(filterJSON, poolConfig)
-}
-
-export async function connectToAgency({
-  url,
-  myDid,
-  agencyDid,
-  myVerKey,
-  agencyVerKey,
-  poolConfig,
-}: {
-  url: string,
-  myDid: string,
-  agencyDid: string,
-  myVerKey: string,
-  agencyVerKey: string,
-  poolConfig: string,
-}) {
-  const connectResponse: ConnectAgencyResponse = await RNIndy.connectToAgency(
-    url,
-    myDid,
-    agencyDid,
-    myVerKey,
-    agencyVerKey,
-    poolConfig
-  )
-
-  return connectResponse
-}
-
-export async function registerWithAgency({
-  url,
-  oneTimeAgencyVerKey,
-  oneTimeAgencyDid,
-  myOneTimeVerKey,
-  agencyVerKey,
-  poolConfig,
-}: {
-  url: string,
-  oneTimeAgencyVerKey: string,
-  oneTimeAgencyDid: string,
-  myOneTimeVerKey: string,
-  agencyVerKey: string,
-  poolConfig: string,
-}) {
-  const registerResponse: RegisterAgencyResponse = await RNIndy.signupWithAgency(
-    url,
-    oneTimeAgencyVerKey,
-    oneTimeAgencyDid,
-    myOneTimeVerKey,
-    agencyVerKey,
-    poolConfig
-  )
-
-  return registerResponse
-}
-
-export async function createOneTimeAgent({
-  url,
-  oneTimeAgencyVerKey,
-  oneTimeAgencyDid,
-  myOneTimeVerKey,
-  agencyVerKey,
-  poolConfig,
-}: {
-  url: string,
-  oneTimeAgencyVerKey: string,
-  oneTimeAgencyDid: string,
-  myOneTimeVerKey: string,
-  agencyVerKey: string,
-  poolConfig: string,
-}) {
-  const createOneTimeAgentResponse: CreateOneTimeAgentResponse = await RNIndy.createOneTimeAgent(
-    url,
-    oneTimeAgencyVerKey,
-    oneTimeAgencyDid,
-    myOneTimeVerKey,
-    agencyVerKey,
-    poolConfig
-  )
-
-  return createOneTimeAgentResponse
-}
-
-export async function createPairwiseAgent({
-  url,
-  myPairwiseDid,
-  myPairwiseVerKey,
-  oneTimeAgentVerKey,
-  oneTimeAgentDid,
-  myOneTimeVerKey,
-  agencyVerKey,
-  poolConfig,
-}: {
-  url: string,
-  myPairwiseDid: string,
-  myPairwiseVerKey: string,
-  oneTimeAgentVerKey: string,
-  oneTimeAgentDid: string,
-  myOneTimeVerKey: string,
-  agencyVerKey: string,
-  poolConfig: string,
-}) {
-  const createPairwiseAgentResponse: CreatePairwiseAgentResponse = await RNIndy.createPairwiseAgent(
-    url,
-    myPairwiseDid,
-    myPairwiseVerKey,
-    oneTimeAgentVerKey,
-    oneTimeAgentDid,
-    myOneTimeVerKey,
-    agencyVerKey,
-    poolConfig
-  )
-
-  return createPairwiseAgentResponse
-}
-
-export async function acceptInvitation({
-  url,
-  requestId,
-  myPairwiseDid,
-  myPairwiseVerKey,
-  invitation,
-  myPairwiseAgentDid,
-  myPairwiseAgentVerKey,
-  myOneTimeAgentDid,
-  myOneTimeAgentVerKey,
-  myOneTimeDid,
-  myOneTimeVerKey,
-  myAgencyVerKey,
-  poolConfig,
-}: {
-  url: string,
-  requestId: string,
-  myPairwiseDid: string,
-  myPairwiseVerKey: string,
-  invitation: InvitationPayload,
-  myPairwiseAgentDid: string,
-  myPairwiseAgentVerKey: string,
-  myOneTimeAgentDid: string,
-  myOneTimeAgentVerKey: string,
-  myOneTimeDid: string,
-  myOneTimeVerKey: string,
-  myAgencyVerKey: string,
-  poolConfig: string,
-}) {
-  // be sure to call ensureInitVcx before calling this method
-  const acceptInvitationResponse: AcceptInvitationResponse = await RNIndy.acceptInvitation(
-    url,
-    requestId,
-    myPairwiseDid,
-    myPairwiseVerKey,
-    invitation,
-    myPairwiseAgentDid,
-    myPairwiseAgentVerKey,
-    myOneTimeAgentDid,
-    myOneTimeAgentVerKey,
-    myOneTimeDid,
-    myOneTimeVerKey,
-    myAgencyVerKey,
-    poolConfig
-  )
-
-  return acceptInvitationResponse
-}
 
 export async function acceptInvitationVcx(
   connectionHandle: number
@@ -314,148 +83,14 @@ export async function acceptInvitationVcx(
   return convertVcxConnectionToCxsConnection(vcxConnection.data)
 }
 
-export async function updatePushToken({
-  url,
-  token,
-  uniqueDeviceId,
-  myOneTimeAgentDid,
-  myOneTimeAgentVerKey,
-  myOneTimeVerKey,
-  myAgencyVerKey,
-  poolConfig,
-}: {
-  url: string,
-  token: string,
-  uniqueDeviceId: string,
-  myOneTimeAgentDid: string,
-  myOneTimeAgentVerKey: string,
-  myOneTimeVerKey: string,
-  myAgencyVerKey: string,
-  poolConfig: string,
-}) {
-  // be sure to call ensureInitVcx before calling this method
-  return await RNIndy.updatePushToken(
-    url,
-    token,
-    uniqueDeviceId,
-    myOneTimeAgentDid,
-    myOneTimeAgentVerKey,
-    myOneTimeVerKey,
-    myAgencyVerKey,
-    poolConfig
-  )
-}
-
 export async function updatePushTokenVcx(pushTokenConfig: CxsPushTokenConfig) {
   return await RNIndy.vcxUpdatePushToken(
     JSON.stringify(convertCxsPushConfigToVcxPushTokenConfig(pushTokenConfig))
   )
 }
 
-export async function getMessage({
-  url,
-  requestId,
-  myPairwiseDid,
-  myPairwiseVerKey,
-  myPairwiseAgentDid,
-  myPairwiseAgentVerKey,
-  myOneTimeAgentDid,
-  myOneTimeAgentVerKey,
-  myOneTimeDid,
-  myOneTimeVerKey,
-  myAgencyVerKey,
-  poolConfig,
-}: {
-  url: string,
-  requestId: string,
-  myPairwiseDid: string,
-  myPairwiseVerKey: string,
-  myPairwiseAgentDid: string,
-  myPairwiseAgentVerKey: string,
-  myOneTimeAgentDid: string,
-  myOneTimeAgentVerKey: string,
-  myOneTimeDid: string,
-  myOneTimeVerKey: string,
-  myAgencyVerKey: string,
-  poolConfig: string,
-}) {
-  return await RNIndy.getMessage(
-    url,
-    requestId,
-    myPairwiseDid,
-    myPairwiseVerKey,
-    myPairwiseAgentDid,
-    myPairwiseAgentVerKey,
-    myOneTimeAgentDid,
-    myOneTimeAgentVerKey,
-    myOneTimeDid,
-    myOneTimeVerKey,
-    myAgencyVerKey,
-    poolConfig
-  )
-}
-
-export async function sendMessage({
-  url,
-  messageType,
-  messageReplyId,
-  message,
-  myPairwiseDid,
-  myPairwiseVerKey,
-  myPairwiseAgentDid,
-  myPairwiseAgentVerKey,
-  myOneTimeAgentDid,
-  myOneTimeAgentVerKey,
-  myOneTimeDid,
-  myOneTimeVerKey,
-  myAgencyVerKey,
-  myPairwisePeerVerKey,
-  poolConfig,
-}: {
-  url: string,
-  messageType: string,
-  messageReplyId: string,
-  message: string,
-  myPairwiseDid: string,
-  myPairwiseVerKey: string,
-  myPairwiseAgentDid: string,
-  myPairwiseAgentVerKey: string,
-  myOneTimeAgentDid: string,
-  myOneTimeAgentVerKey: string,
-  myOneTimeDid: string,
-  myOneTimeVerKey: string,
-  myAgencyVerKey: string,
-  myPairwisePeerVerKey: string,
-  poolConfig: string,
-}) {
-  return await RNIndy.sendMessage(
-    url,
-    messageType,
-    messageReplyId,
-    message,
-    myPairwiseDid,
-    myPairwiseVerKey,
-    myPairwiseAgentDid,
-    myPairwiseAgentVerKey,
-    myOneTimeAgentDid,
-    myOneTimeAgentVerKey,
-    myOneTimeDid,
-    myOneTimeVerKey,
-    myAgencyVerKey,
-    myPairwisePeerVerKey,
-    poolConfig
-  )
-}
-
 export async function deleteConnection(connectionHandle: number) {
   return await RNIndy.deleteConnection(connectionHandle)
-}
-
-// TODO remove this API when vcx is available
-// instead of this we should use shutdown
-export async function reset(poolConfig: string) {
-  // be sure to call ensureInitVcx before calling this method
-  return await RNIndy.switchEnvironment(poolConfig)
 }
 
 export async function resetVcx(removeData: boolean): Promise<boolean> {
@@ -487,10 +122,12 @@ export async function createOneTimeInfo(
   agencyConfig: AgencyPoolConfig
 ): Promise<UserOneTimeInfo> {
   const walletPoolName = await getWalletPoolName()
+  const vcxProvisionConfig: VcxProvision = await convertAgencyConfigToVcxProvision(
+    agencyConfig,
+    walletPoolName
+  )
   const provisionVcxResult: string = await RNIndy.createOneTimeInfo(
-    JSON.stringify(
-      convertAgencyConfigToVcxProvision(agencyConfig, walletPoolName)
-    )
+    JSON.stringify(vcxProvisionConfig)
   )
   const provisionResult: VcxProvisionResult = JSON.parse(provisionVcxResult)
   return convertVcxProvisionResultToUserOneTimeInfo(provisionResult)
@@ -510,9 +147,11 @@ export async function init(
     genesis_path,
   }
   const walletPoolName = await getWalletPoolName()
-  const initResult: boolean = await RNIndy.init(
-    JSON.stringify(convertCxsInitToVcxInit(initConfig, walletPoolName))
+  const vcxInitConfig: VcxInitConfig = await convertCxsInitToVcxInit(
+    initConfig,
+    walletPoolName
   )
+  const initResult: boolean = await RNIndy.init(JSON.stringify(vcxInitConfig))
 
   return initResult
 }
@@ -520,6 +159,7 @@ export async function init(
 // TODO:KS Need to rename this to something like walletInit
 export async function simpleInit(): Promise<boolean> {
   const walletPoolName = await getWalletPoolName()
+  const wallet_key = await getWalletKey()
   const initConfig = {
     wallet_name: walletPoolName.walletName,
     wallet_key,
@@ -717,6 +357,7 @@ export async function decryptWalletFile(
   decryptionKey: string
 ): Promise<number> {
   const { walletName } = await getWalletPoolName()
+  const wallet_key = await getWalletKey()
 
   const config = JSON.stringify({
     wallet_name: walletName,
@@ -772,15 +413,6 @@ export async function exportWallet(wallet: WalletPayload): Promise<number> {
   )
 
   return exportHandle
-}
-
-export async function importWallet(wallet: WalletPayload): Promise<number> {
-  const importHandle: number = await RNIndy.importWallet(
-    wallet.walletPath,
-    wallet.encryptionKey
-  )
-
-  return importHandle
 }
 
 export async function setWalletItem(

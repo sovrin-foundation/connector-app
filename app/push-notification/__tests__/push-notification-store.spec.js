@@ -8,7 +8,6 @@ import {
   getHydrationState,
   getUserOneTimeInfo,
   getPoolConfig,
-  getUseVcx,
 } from '../../store/store-selector'
 import pushNotificationReducer, {
   pushNotificationPermissionAction,
@@ -16,10 +15,7 @@ import pushNotificationReducer, {
   updatePushToken,
   onPushTokenUpdate,
 } from '../push-notification-store'
-import {
-  updatePushToken as updatePushTokenApi,
-  updatePushTokenVcx,
-} from '../../bridge/react-native-cxs/RNCxs'
+import { updatePushTokenVcx } from '../../bridge/react-native-cxs/RNCxs'
 import { PAYLOAD_TYPE } from '../../api/api-constants'
 import {
   userOneTimeInfo,

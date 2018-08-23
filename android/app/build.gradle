@@ -202,13 +202,15 @@ dependencies {
     compile project(':react-native-radial-gradient')
     compile 'net.hockeyapp.android:HockeySDK:4.1.4'
     compile 'com.android.support:palette-v7:26.1.0'
-    compile 'com.evernym:vcx:1.0.0-08-08-2018T01-47@aar'
+    compile 'com.evernym:vcx:1.0.0-21-08-2018T10-28@aar'
     implementation 'net.sourceforge.streamsupport:android-retrofuture:1.6.2'
     implementation group: 'net.sourceforge.streamsupport', name: 'android-retrostreams', version: '1.6.2'
     implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.59'
     //TODO remove JNA when vcx.aar is resolved from repo instead of flat file
     //TODO JNA only needed when vcx.aar is resolved from flat file
     implementation 'net.java.dev.jna:jna:4.5.0@aar'
+    // un-comment below lines to enable logging in vcx and indy
+    // compile group: 'com.mobidevelop.robovm', name: 'robovm-rt', version: '2.3.4'
 }
 
 // Run this once to be able to run the application with BUCK

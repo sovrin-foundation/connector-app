@@ -38,8 +38,6 @@ import {
 } from './type-claim'
 import type { CustomError } from '../common/type-common'
 import {
-  addClaim,
-  getClaim,
   getClaimHandleBySerializedClaimOffer,
   updateClaimOfferState,
   getClaimVcx,
@@ -51,7 +49,6 @@ import {
   getClaimMap,
   getClaimOffers,
   getConnectionByUserDid,
-  getUseVcx,
 } from '../store/store-selector'
 import { secureSet, secureGet } from '../services/storage'
 import { CLAIM_MAP } from '../common/secure-storage-constants'
@@ -82,62 +79,6 @@ export const claimStorageFail = (
   messageId,
   error,
 })
-
-export function* claimReceivedSaga(
-  action: ClaimReceivedAction
-): Generator<*, *, *> {
-  const useVcx: boolean = yield select(getUseVcx)
-  if (Platform.OS === 'android' || useVcx) {
-    yield* claimReceivedVcxSaga(action)
-    return
-  }
-
-  try {
-    const { claim: { from_did: senderDID, forDID: myPairwiseDid } } = action
-    const poolConfig: string = yield select(getPoolConfig)
-    const claimFilterJSON: string = yield call(
-      addClaim,
-      JSON.stringify(action.claim),
-      poolConfig
-    )
-
-    const claims: Array<ClaimWithUuid> = yield call(
-      getClaim,
-      claimFilterJSON,
-      poolConfig
-    )
-    const claimMap: ClaimMap = yield select(getClaimMap)
-
-    // There will only be one claim which will be missing from claimMap
-    // thats why raising action from loop and it will run only once.
-    // We had to do this because api is returning all claims issued by a particular issuer
-    for (let c of claims) {
-      if (!claimMap[c.claim_uuid]) {
-        const logoUrl = yield select(getConnectionLogoUrl, senderDID)
-        yield put(
-          mapClaimToSender(c.claim_uuid, senderDID, myPairwiseDid, logoUrl)
-        )
-        yield put(claimStorageSuccess(action.claim.messageId))
-
-        // persist claimMap to secure storage
-        // TODO:PS: replace with fork redux-effect
-        Object.assign(claimMap, {
-          [c.claim_uuid]: {
-            senderDID,
-            myPairwiseDid,
-            logoUrl,
-          },
-        })
-
-        yield call(secureSet, CLAIM_MAP, JSON.stringify(claimMap))
-        break
-      }
-    }
-  } catch (e) {
-    // we got error while saving claim in wallet, what to do now?
-    yield put(claimStorageFail(action.claim.messageId, CLAIM_STORAGE_ERROR(e)))
-  }
-}
 
 export const mapClaimToSender = (
   claimUuid: string,
@@ -177,10 +118,6 @@ export function* hydrateClaimMapSaga(): Generator<*, *, *> {
       })
     )
   }
-}
-
-export function* watchClaimReceived(): any {
-  yield takeLatest(CLAIM_RECEIVED, claimReceivedSaga)
 }
 
 export const claimReceivedVcx = (claim: ClaimVcx): ClaimReceivedVcxAction => ({
@@ -290,7 +227,7 @@ export function* watchClaimReceivedVcx(): any {
 }
 
 export function* watchClaim(): any {
-  yield all([watchClaimReceived(), watchClaimReceivedVcx()])
+  yield all([watchClaimReceivedVcx()])
 }
 
 const initialState = { claimMap: {} }

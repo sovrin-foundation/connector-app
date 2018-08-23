@@ -20,6 +20,5 @@ export const configStoreNotHydratedInstalledVcxInit = {
   poolConfig,
   vcxInitializationError,
   vcxInitializationState,
-  useVcx: false,
   isInitialized: false,
 }

@@ -211,6 +211,7 @@ NativeModules.RNIndy = {
   setWalletItem: jest.fn(_ => Promise.resolve(1)),
   deleteWalletItem: jest.fn(_ => Promise.resolve(1)),
   updateWalletItem: jest.fn(_ => Promise.resolve(1)),
+  createWalletKey: jest.fn(_ => Promise.resolve('walletKey')),
 }
 
 jest.mock('react-native-version-number', () => ({

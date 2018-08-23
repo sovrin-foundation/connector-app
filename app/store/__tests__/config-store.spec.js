@@ -52,7 +52,7 @@ import {
   REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS,
 } from '../../common/type-common'
 import {
-  reset as resetNative,
+  resetVcx as resetNative,
   createOneTimeInfo,
   init,
 } from '../../bridge/react-native-cxs/RNCxs'
@@ -165,7 +165,10 @@ describe('server environment should change', () => {
     )
   })
 
-  it('should change environment via url, show success alert', () => {
+  // Below test is written for switching environment with scanning QR code
+  // we are not using this feature as of now, we will come to this feature later
+  // when we add this with vcx, and then we will un-skip this test
+  xit('should change environment via url, show success alert', () => {
     const alertSpy = jest.spyOn(Alert, 'alert')
     const gen = onChangeEnvironmentUrl(
       changeEnvironmentUrl(validQrCodeEnvironmentSwitchUrl)
@@ -206,7 +209,7 @@ describe('server environment should change', () => {
     expect(gen.next().value).toEqual(select(getPushToken))
     const pushToken = 'token'
     expect(gen.next(pushToken).value).toEqual(put(updatePushToken(pushToken)))
-    expect(gen.next().value).toEqual(call(resetNative, poolConfig))
+    expect(gen.next().value).toEqual(call(resetNative, true))
     expect(gen.next().value).toEqual(put(vcxInitReset()))
 
     expect(gen.next().done).toBe(true)
@@ -287,7 +290,6 @@ describe('config-store:saga', () => {
     config: {
       isHydrated: false,
       vcxInitializationState: VCX_INIT_NOT_STARTED,
-      useVcx: true,
     },
     user: {},
     route: {

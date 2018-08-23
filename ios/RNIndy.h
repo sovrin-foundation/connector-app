@@ -18,10 +18,6 @@
 #import “React/RCTEventEmitter.h” // Required when used as a Pod in a Swift project
 #endif
 
-#import <ConnectMeIndy/ConnectMeIndy.h>
-
 @interface RNIndy : RCTEventEmitter <RCTBridgeModule>
-
-+ (ConnectMeIndy *)sharedIndyInstance:(NSString *)config;
 
 @end

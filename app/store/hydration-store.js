@@ -16,13 +16,7 @@ import {
   hydrateConnectionSaga,
 } from '../store/connections-store'
 import { hydrateClaimMapSaga } from '../claim/claim-store'
-import {
-  CONNECTIONS,
-  PUSH_COM_METHOD,
-  IS_CONSUMER_AGENT_ALREADY_CREATED,
-  USE_VCX_KEY,
-  LAST_SUCCESSFUL_BACKUP,
-} from '../common'
+import { CONNECTIONS, PUSH_COM_METHOD, LAST_SUCCESSFUL_BACKUP } from '../common'
 import {
   TOUCH_ID_STORAGE_KEY,
   PIN_ENABLED_KEY,
@@ -61,12 +55,12 @@ import { captureError } from '../services/error/error-handler'
 import { simpleInit, vcxShutdown } from '../bridge/react-native-cxs/RNCxs'
 import { STORAGE_KEY_USER_AVATAR_NAME } from './user/type-user-store'
 import { safeToDownloadSmsInvitation } from '.'
+import { deleteItem } from '../services/secure-storage'
+import { WALLET_KEY } from '../bridge/react-native-cxs/vcx-transformers'
 
 export function* deleteDeviceSpecificData(): Generator<*, *, *> {
   try {
     const keysToDelete = [
-      IS_CONSUMER_AGENT_ALREADY_CREATED,
-      STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL,
       STORAGE_KEY_SHOW_BANNER,
       STORAGE_KEY_EULA_ACCEPTANCE,
       PUSH_COM_METHOD,
@@ -74,9 +68,31 @@ export function* deleteDeviceSpecificData(): Generator<*, *, *> {
       STORAGE_KEY_USER_AVATAR_NAME,
     ]
     yield call(safeMultiRemove, keysToDelete)
+    yield call(deleteSecureStorageData)
   } catch (e) {
     console.log(e)
     // deletion fails, now what to do
+    captureError(e)
+  }
+}
+
+function* deleteSecureStorageData(): Generator<*, *, *> {
+  try {
+    const secureKeysToDelete = [
+      WALLET_KEY,
+      STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL,
+    ]
+    const deleteOperations = []
+    for (let index = 0; index < secureKeysToDelete.length; index++) {
+      const secureKey = secureKeysToDelete[index]
+      // not waiting for one delete operation to finish
+      deleteOperations.push(call(deleteItem, secureKey))
+    }
+    // wait till all delete operations are done in parallel
+    yield all(deleteOperations)
+  } catch (e) {
+    console.log(e)
+    // not sure what to do when deletion fails
     captureError(e)
   }
 }
@@ -91,9 +107,7 @@ export function* deleteWallet(): Generator<*, *, *> {
 
 export function* alreadyInstalledNotFound(): Generator<*, *, *> {
   yield put(alreadyInstalledAction(false))
-  // delete data in background, and don't wait for data to be deleted
-  // We should not need to remove this data, let us see when we need it
-  // yield fork(deleteDeviceSpecificData)
+  yield call(deleteDeviceSpecificData)
   yield put(lockEnable('false'))
   yield put(initialized())
   yield put(hydrated())

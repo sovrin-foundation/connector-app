@@ -57,7 +57,6 @@ import { downloadEnvironmentDetails } from '../api/api'
 import schemaValidator from '../services/schema-validator'
 import type { EnvironmentDetailUrlDownloaded } from '../api/type-api'
 import {
-  reset as resetNative,
   init,
   createOneTimeInfo,
   simpleInit,
@@ -129,8 +128,6 @@ const isDevEnvironment = __DEV__ && process.env.NODE_ENV !== 'test'
 const defaultEnvironment = isDevEnvironment
   ? SERVER_ENVIRONMENT.SANDBOX
   : SERVER_ENVIRONMENT.DEMO
-// default to use vcx, we will remove useVcx flag itself sometime later
-const defaultUseVcx = true
 
 const initialState: ConfigStore = {
   ...baseUrls[defaultEnvironment],
@@ -145,7 +142,6 @@ const initialState: ConfigStore = {
   // to call bridge methods that deals claims, connections, proofs, etc.
   vcxInitializationState: VCX_INIT_NOT_STARTED,
   vcxInitializationError: null,
-  useVcx: defaultUseVcx,
   isInitialized: false,
 }
 
@@ -218,7 +214,8 @@ export function* onChangeEnvironmentUrl(
 
     const pushToken: string = yield select(getPushToken)
     yield put(updatePushToken(pushToken))
-    yield call(resetNative, environmentDetails.poolConfig)
+    // TODO Un-comment and call vcx reset when we re-enable this feature
+    // yield call(reset, environmentDetails.poolConfig)
     yield put(vcxInitReset())
 
     // if we did not get any exception till this point

@@ -148,7 +148,6 @@ export type ConfigStore = {
   showErrorAlerts: boolean,
   vcxInitializationState: VcxInitializationState,
   vcxInitializationError: null | CustomError,
-  useVcx: boolean,
   isInitialized: boolean,
 } & AgencyPoolConfig
 

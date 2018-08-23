@@ -1,11 +1,8 @@
 # Uncomment the next line to define a global platform for your project
 
 platform :ios, '10.2'
-source 'git@github.com:evernym/connect-me-indy-wrapper.git'
-source 'git@github.com:hyperledger/indy-sdk.git'
 source 'https://github.com/CocoaPods/Specs.git'
 source 'git@github.com:evernym/sdk.git'
-pod 'ConnectMeIndy','0.0.38'
 pod 'vcx', '0.0.30'
 pod 'Firebase/Messaging', '4.8.0'
 

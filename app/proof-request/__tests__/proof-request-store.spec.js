@@ -28,7 +28,6 @@ import {
 } from '../../store/store-selector'
 
 import { MESSAGE_TYPE } from '../../api/api-constants'
-import { sendMessage } from '../../bridge/react-native-cxs/RNCxs'
 import {
   proofRequest,
   proofRequestId as uid,
@@ -118,93 +117,6 @@ describe('proof request store', () => {
         proofRequestAutoFill(uid, fulfilledRequestedAttributes)
       )
     ).toMatchSnapshot()
-  })
-
-  // TODO:KS Fix this test before July 25
-  xit('proofAccepted saga works fine after proof request is accepted', () => {
-    const payload = {
-      requested: {
-        attr1_uuid: ['claim_proof1_uuid', 'Address 1', '234234324324324324'],
-        attr2_uuid: ['claim_proof2_uuid', 'Address 2', '324324324324234234'],
-      },
-      claim_proofs: {
-        claim_proof1_uuid: ['<claim_proof>', 'V4SGRU86Z58d6TV7PBUe6f', '2'],
-      },
-      aggregated_proof: '<aggregated_proof>',
-    }
-    const gen = proofAccepted(acceptProofRequest(uid))
-
-    expect(gen.next().value).toEqual(select(getProofRequestPairwiseDid, uid))
-    const remoteDid = proofRequest.payloadInfo.remotePairwiseDID
-
-    expect(gen.next(remoteDid).value).toEqual(
-      select(getUserPairwiseDid, remoteDid)
-    )
-
-    const userPairwiseDid = 'userPairwiseDID1'
-    expect(gen.next(userPairwiseDid).value).toEqual(put(sendProof(uid)))
-    expect(gen.next().value).toEqual(select(getAgencyUrl))
-    const agencyUrl = 'https://agencyUrl.com'
-    expect(gen.next(agencyUrl).value).toEqual(select(getPoolConfig))
-
-    expect(gen.next(poolConfig).value).toEqual(select(getProof, uid))
-    const proof = {
-      ...payload,
-      remoteDid,
-      userPairwiseDid,
-    }
-
-    expect(gen.next(payload).value).toEqual(select(getAgencyVerificationKey))
-
-    const agencyVerificationKey = 'agencyVerificationKey'
-    expect(gen.next(agencyVerificationKey).value).toEqual(
-      select(getRemotePairwiseDidAndName, userPairwiseDid)
-    )
-
-    const connection = {
-      identifier: userPairwiseDid,
-      senderDID: remoteDid,
-      myPairwiseDid: userPairwiseDid,
-      myPairwiseVerKey: 'myPairwiseVerKey',
-      myPairwiseAgentDid: 'myPairwiseAgentDid',
-      myPairwiseAgentVerKey: 'myPairwiseAgentVerKey',
-      myPairwisePeerVerKey: 'myPairwisePeerVerKey',
-    }
-    expect(gen.next(connection).value).toEqual(select(getUserOneTimeInfo))
-
-    const userOneTimeInfo = {
-      oneTimeAgencyDid: 'oneTimeAgencyDid',
-      oneTimeAgencyVerificationKey: 'oneTimeAgencyVerificationKey',
-      myOneTimeDid: 'myOneTimeDid',
-      myOneTimeVerificationKey: 'myOneTimeVerificationKey',
-      myOneTimeAgentDid: 'myOneTimeAgentDid',
-      myOneTimeAgentVerificationKey: 'myOneTimeAgentVerificationKey',
-    }
-    const url = `${agencyUrl}/agency/msg`
-    expect(gen.next(userOneTimeInfo).value).toEqual(
-      call(sendMessage, {
-        url,
-        messageType: MESSAGE_TYPE.PROOF,
-        messageReplyId: uid,
-        message: JSON.stringify(proof),
-        myPairwiseDid: connection.myPairwiseDid,
-        myPairwiseVerKey: connection.myPairwiseVerKey,
-        myPairwiseAgentDid: connection.myPairwiseAgentDid,
-        myPairwiseAgentVerKey: connection.myPairwiseAgentVerKey,
-        myOneTimeAgentDid: userOneTimeInfo.myOneTimeAgentDid,
-        myOneTimeAgentVerKey: userOneTimeInfo.myOneTimeAgentVerificationKey,
-        myOneTimeDid: userOneTimeInfo.myOneTimeDid,
-        myOneTimeVerKey: userOneTimeInfo.myOneTimeVerificationKey,
-        myAgencyVerKey: agencyVerificationKey,
-        myPairwisePeerVerKey: connection.myPairwisePeerVerKey,
-        poolConfig,
-      })
-    )
-
-    // if message id matches then, saga should stop and put success action
-    expect(gen.next().value).toMatchObject(put(sendProofSuccess(uid)))
-
-    expect(gen.next().done).toBe(true)
   })
 
   it('should convert missing attributes to self attested attributes', () => {

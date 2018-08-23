@@ -36,10 +36,12 @@ const walletPoolName = {
 }
 
 describe('transformer:VCX', () => {
-  it('convertAgencyConfigToVcxProvision', () => {
-    expect(
-      convertAgencyConfigToVcxProvision(agencyPoolConfig, walletPoolName)
-    ).toMatchSnapshot()
+  it('convertAgencyConfigToVcxProvision', async () => {
+    const vcxProvisionConfig = await convertAgencyConfigToVcxProvision(
+      agencyPoolConfig,
+      walletPoolName
+    )
+    expect(vcxProvisionConfig).toMatchSnapshot()
   })
 
   it('convertVcxProvisionResultToUserOneTimeInfo', () => {
@@ -48,10 +50,12 @@ describe('transformer:VCX', () => {
     ).toMatchSnapshot()
   })
 
-  it('convertCxsInitToVcxInit', () => {
-    expect(
-      convertCxsInitToVcxInit(initWithGenesisPathConfig, walletPoolName)
-    ).toMatchSnapshot()
+  it('convertCxsInitToVcxInit', async () => {
+    const vcxInitConfig = await convertCxsInitToVcxInit(
+      initWithGenesisPathConfig,
+      walletPoolName
+    )
+    expect(vcxInitConfig).toMatchSnapshot()
   })
 
   it('convertInvitationToVcxConnectionCreate', () => {

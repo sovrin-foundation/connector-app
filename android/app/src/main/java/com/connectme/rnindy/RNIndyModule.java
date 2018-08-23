@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Environment;
 import android.support.v7.graphics.Palette;
+import android.util.Base64;
 import android.util.Log;
 
 import com.connectme.BridgeUtils;
@@ -40,6 +41,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -812,6 +815,19 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
             });
         } catch (VcxException e) {
             promise.reject("VCXException", e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void createWalletKey(int lengthOfKey, Promise promise) {
+        try {
+            SecureRandom random = new SecureRandom();
+            byte bytes[] = new byte[lengthOfKey];
+            random.nextBytes(bytes);
+            promise.resolve(Base64.encodeToString(bytes, Base64.NO_WRAP));
+        } catch(Exception e) {
+            Log.e(TAG, "createWalletKey: ", e);
+            promise.reject("Exception", e.getMessage());
         }
     }
 }

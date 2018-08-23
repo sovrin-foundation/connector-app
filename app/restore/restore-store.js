@@ -102,6 +102,7 @@ export function* restoreFileDecrypt(
       passphrase,
       parsedRestoreSalt.salt
     )
+
     //TODO fix hack - for IOS need to do hash is having extra characters
     // when doing cross platform export/import then it becomes incompatible
     yield call(decryptWalletFile, walletFilePath, hashedPassphrase)
