@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { StyleSheet, Dimensions, Platform } from 'react-native'
+import { StyleSheet, Dimensions, Platform, ScrollView } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import type { ConnectionHistoryDetailsProps } from './type-connection-history'
 import {
@@ -136,7 +136,9 @@ export class ConnectionHistoryDetails extends PureComponent<
       return (
         <Container style={[this.getContainerStyle(deviceClass)]}>
           {data && (
-            <CustomList items={data} type={listType} claimMap={claimMap} />
+            <ScrollView>
+              <CustomList items={data} type={listType} claimMap={claimMap} />
+            </ScrollView>
           )}
         </Container>
       )
