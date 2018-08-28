@@ -35,6 +35,7 @@ export type ReactNavigation = {
     // and use their type, also need to use Generics here
     dispatch: any => void,
     setParams: (params?: any) => void,
+    isFocused: boolean,
   },
 }
 

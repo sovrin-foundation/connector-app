@@ -1,7 +1,7 @@
 // @flow
 import React, { Component, PureComponent } from 'react'
 import EnterPassphrase from '../components/backup-restore-passphrase/backup-restore-passphrase'
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import { color } from '../common/styles/constant'
 import { restorePassphraseRoute, restoreWaitRoute } from '../common'
 import { connect } from 'react-redux'
@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux'
 import { submitPassphrase } from './restore-store'
 import type { RestorePassphraseProps } from './type-restore'
 import type { Store } from '../store/type-store'
-import { CustomView, Icon } from '../components'
+import { CustomView, Icon, CustomHeader } from '../components'
 import {
   RESTORE_BACK_BUTTON_TEST_ID,
   RESTORE_CLOSE_BUTTON_TEST_ID,
@@ -21,37 +21,33 @@ const closeImage = require('../images/iconClose.png')
 
 export class RestorePassphrase extends Component<RestorePassphraseProps, void> {
   static navigationOptions = ({ navigation }) => ({
-    headerLeft: (
-      <CustomView style={[styles.headerSpacer]}>
-        <Icon
-          medium
-          onPress={() => {
-            navigation.goBack(null)
-          }}
-          testID={RESTORE_BACK_BUTTON_TEST_ID}
-          iconStyle={[styles.headerBackIcon]}
-          src={backImage}
-        />
-      </CustomView>
+    header: (
+      <CustomHeader flatHeader backgroundColor={color.bg.twelfth.color}>
+        <CustomView style={[styles.headerSpacer]}>
+          <Icon
+            medium
+            onPress={() => {
+              navigation.goBack(null)
+            }}
+            testID={RESTORE_BACK_BUTTON_TEST_ID}
+            iconStyle={[styles.headerBackIcon]}
+            src={backImage}
+          />
+        </CustomView>
+
+        <CustomView style={[styles.headerSpacer]}>
+          <Icon
+            medium
+            onPress={() => {
+              navigation.goBack(null)
+            }}
+            testID={RESTORE_CLOSE_BUTTON_TEST_ID}
+            iconStyle={[styles.headerIcon]}
+            src={closeImage}
+          />
+        </CustomView>
+      </CustomHeader>
     ),
-    headerRight: (
-      <CustomView style={[styles.headerSpacer]}>
-        <Icon
-          medium
-          onPress={() => {
-            navigation.goBack(null)
-          }}
-          testID={RESTORE_CLOSE_BUTTON_TEST_ID}
-          iconStyle={[styles.headerIcon]}
-          src={closeImage}
-        />
-      </CustomView>
-    ),
-    headerStyle: {
-      backgroundColor: color.bg.twelfth.color,
-      borderBottomWidth: 0,
-      elevation: 0,
-    },
     gesturesEnabled: false,
   })
 
@@ -91,7 +87,7 @@ const mapStateToProps = (state: Store) => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ submitPassphrase }, dispatch)
 
-export default StackNavigator({
+export default createStackNavigator({
   [restorePassphraseRoute]: {
     screen: connect(mapStateToProps, mapDispatchToProps)(RestorePassphrase),
   },

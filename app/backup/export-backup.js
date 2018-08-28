@@ -2,7 +2,7 @@
 
 import React, { PureComponent } from 'react'
 import { Image, Dimensions } from 'react-native'
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {
@@ -11,6 +11,7 @@ import {
   CustomText,
   Icon,
   CustomButton,
+  CustomHeader,
 } from '../components'
 import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
 
@@ -110,39 +111,33 @@ export class ExportBackupFile extends PureComponent<
   }
 
   static navigationOptions = ({ navigation: { goBack, navigate, state } }) => ({
-    headerLeft: (
-      <CustomView style={[styles.headerSpacer]}>
-        <Icon
-          medium
-          onPress={() => goBack(null)}
-          testID={EXPORT_BACKUP_BACK_TEST_ID}
-          iconStyle={[styles.headerBackIcon]}
-          src={backImage}
-        />
-      </CustomView>
+    header: (
+      <CustomHeader
+        flatHeader
+        largeHeader
+        backgroundColor={color.bg.thirteenth.color}
+      >
+        <CustomView style={[styles.headerSpacer]}>
+          <Icon
+            medium
+            onPress={() => goBack(null)}
+            testID={EXPORT_BACKUP_BACK_TEST_ID}
+            iconStyle={[styles.headerBackIcon]}
+            src={backImage}
+          />
+        </CustomView>
+
+        <CustomView style={[styles.headerSpacer]}>
+          <Icon
+            medium
+            onPress={() => navigate(state.params.initialRoute)}
+            testID={EXPORT_BACKUP_CLOSE_TEST_ID}
+            iconStyle={[styles.headerIcon]}
+            src={closeImage}
+          />
+        </CustomView>
+      </CustomHeader>
     ),
-    headerRight: (
-      <CustomView style={[styles.headerSpacer]}>
-        <Icon
-          medium
-          onPress={() => navigate(state.params.initialRoute)}
-          testID={EXPORT_BACKUP_CLOSE_TEST_ID}
-          iconStyle={[styles.headerIcon]}
-          src={closeImage}
-        />
-      </CustomView>
-    ),
-    headerStyle: {
-      backgroundColor: color.bg.thirteenth.color,
-      borderBottomWidth: 0,
-      shadowOpacity: 0,
-      shadowOffset: {
-        height: 0,
-      },
-      shadowRadius: 0,
-      borderBottomWidth: 0,
-      elevation: 0,
-    },
     gesturesEnabled: true,
   })
 
@@ -230,7 +225,7 @@ const mapStateToProps = (state: Store) => {
   }
 }
 
-export default StackNavigator({
+export default createStackNavigator({
   [exportBackupFileRoute]: {
     screen: connect(mapStateToProps, mapDispatchToProps)(ExportBackupFile),
   },

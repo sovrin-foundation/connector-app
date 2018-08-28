@@ -1,5 +1,5 @@
 // @flow
-import type { ReactNavigation } from '../common/type-common'
+import type { NavigationScreenProp } from 'react-navigation'
 
 export type SettingsProps = {
   touchIdActive: boolean,
@@ -8,7 +8,7 @@ export type SettingsProps = {
     status: string,
     encryptionKey: string,
   },
-} & ReactNavigation
+} & NavigationScreenProp
 
 export type SettingsState = {
   walletBackupModalVisible: boolean,

@@ -1,7 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react'
 import { Dimensions } from 'react-native'
-import { TabBarTop, TabNavigator } from 'react-navigation'
+import { TabBarTop, createTabNavigator } from 'react-navigation'
 import { CustomView } from '../components'
 import {
   RECEIVE_TAB,
@@ -30,7 +30,7 @@ export default class WalletTabs extends PureComponent<WalletTabsProps, void> {
   }
 }
 
-const Tabs = TabNavigator(
+const Tabs = createTabNavigator(
   {
     [receiveTabRoute]: {
       screen: WalletTabReceive,

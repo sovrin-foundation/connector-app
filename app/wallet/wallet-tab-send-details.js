@@ -4,9 +4,15 @@ import React, { Component } from 'react'
 import { StyleSheet, Keyboard, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { StackNavigator, NavigationActions } from 'react-navigation'
+import { createStackNavigator, NavigationActions } from 'react-navigation'
 import { scale } from 'react-native-size-matters'
-import { Container, CustomText, CustomView, CustomButton } from '../components'
+import {
+  Container,
+  CustomText,
+  CustomView,
+  CustomButton,
+  CustomHeader,
+} from '../components'
 import { primaryHeaderStyles } from '../components/layout/header-styles'
 import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
 import Icon from '../components/icon'
@@ -18,6 +24,7 @@ import {
   OFFSET_7X,
   color,
   HAIRLINE_WIDTH,
+  whiteSmokeSecondary,
 } from '../common/styles/constant'
 import ControlInput from '../components/input-control/input-control'
 import { Text } from 'react-native-elements'
@@ -47,34 +54,25 @@ export class WalletTabSendDetails extends Component<
   WalletTabSendDetailsState
 > {
   static navigationOptions = ({ navigation, screenProps }) => ({
-    headerLeft: (
-      <CustomView horizontalSpace>
+    header: (
+      <CustomHeader flatHeader backgroundColor={whiteSmokeSecondary}>
         <Icon
           testID={'back-arrow'}
           iconStyle={[styles.headerLeft]}
           src={require('../images/icon_backArrow.png')}
           resizeMode="contain"
           onPress={() => navigation.goBack(null)}
+          small
         />
-      </CustomView>
-    ),
-    headerTitle: (
-      <CustomText
-        style={[
-          {
-            color: color.bg.seventh.font.sixth,
-          },
-        ]}
-        transparentBg
-        h5
-        center
-        fullWidth
-      >
-        Pay Tokens
-      </CustomText>
-    ),
-    headerRight: (
-      <CustomView horizontalSpace>
+
+        <CustomText
+          style={[{ color: color.bg.seventh.font.sixth }]}
+          transparentBg
+          h5
+        >
+          Pay Tokens
+        </CustomText>
+
         <CustomText
           uppercase
           bold
@@ -87,9 +85,8 @@ export class WalletTabSendDetails extends Component<
         >
           Send
         </CustomText>
-      </CustomView>
+      </CustomHeader>
     ),
-    headerStyle: primaryHeaderStyles.header,
   })
 
   state = {
@@ -345,7 +342,7 @@ const mapStateToProps = (state: Store) => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ sendTokens }, dispatch)
 
-export default StackNavigator({
+export default createStackNavigator({
   WalletTabSendDetails: {
     screen: connect(mapStateToProps, mapDispatchToProps)(WalletTabSendDetails),
   },

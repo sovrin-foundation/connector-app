@@ -6,22 +6,36 @@
 
 import React, { PureComponent } from 'react'
 import { WebView, Alert } from 'react-native'
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { tertiaryHeaderStyles } from '../components/layout/header-styles'
-import { CustomText, Container, FooterActions } from '../components'
+import {
+  CustomText,
+  Container,
+  FooterActions,
+  CustomHeader,
+} from '../components'
 import { eulaRoute, restoreRoute } from '../common'
 import { eulaAccept } from './eula-store'
 import type { Store } from '../store/type-store'
 import { EULA_URL } from './type-eula'
+import { color } from '../common/styles/constant'
 
 export class EulaScreen extends PureComponent<*, void> {
   static navigationOptions = ({ navigation }) => ({
-    title: 'Terms and Conditions',
-    headerStyle: tertiaryHeaderStyles.header,
+    header: (
+      <CustomHeader
+        backgroundColor={color.bg.tertiary.color}
+        flatHeader
+        centerComponent={
+          <CustomText bg="tertiary" tertiary transparentBg semiBold>
+            Terms and Conditions
+          </CustomText>
+        }
+      />
+    ),
     swipeEnabled: false,
-    headerTitleStyle: tertiaryHeaderStyles.title,
   })
 
   onReject = () => {
@@ -68,7 +82,7 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default StackNavigator({
+export default createStackNavigator({
   [eulaRoute]: {
     screen: connect(mapStateToProps, mapDispatchToProps)(EulaScreen),
   },

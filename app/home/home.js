@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Animated, StyleSheet, SafeAreaView, Platform } from 'react-native'
+import { Animated, StyleSheet, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import {
   Container,
@@ -8,11 +8,18 @@ import {
   Icon,
   UserAvatar,
   CustomText,
+  CustomHeader,
 } from '../components'
 import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import Bubbles from './bubbles'
-import { color, barStyleDark, OFFSET_3X, OFFSET_2X } from '../common/styles'
+import {
+  color,
+  barStyleDark,
+  OFFSET_3X,
+  OFFSET_2X,
+  whiteSmokeSecondary,
+} from '../common/styles'
 import { primaryHeaderStyles } from '../components/layout/header-styles'
 import { homeRoute, walletRoute } from '../common'
 import { getConnections } from '../store'
@@ -35,53 +42,53 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
   }
 
   static navigationOptions = ({ navigation }) => ({
-    headerLeft: (
-      <WalletBalance
-        render={balance => (
-          <CustomView
-            horizontalSpace
-            row
-            center
-            onPress={() => {
-              const navigateAction = NavigationActions.navigate({
-                routeName: walletRoute,
-                key: walletRoute,
-              })
-              navigation.dispatch(navigateAction)
-            }}
-            testID={SOVRINTOKEN_AMOUNT_TEST_ID}
-          >
-            <Icon
-              small
-              testID={SOVRINTOKEN_TEST_ID}
-              src={require('../images/sovrinTokenOrange.png')}
-            />
-            <CustomText
-              h5
-              demiBold
+    header: (
+      <CustomHeader backgroundColor={whiteSmokeSecondary} largeHeader>
+        <WalletBalance
+          render={balance => (
+            <CustomView
+              horizontalSpace
+              row
               center
-              style={[styles.floatTokenAmount]}
-              transparentBg
+              onPress={() => {
+                const navigateAction = NavigationActions.navigate({
+                  routeName: walletRoute,
+                  key: walletRoute,
+                })
+                navigation.dispatch(navigateAction)
+              }}
               testID={SOVRINTOKEN_AMOUNT_TEST_ID}
-              formatNumber
             >
-              {balance}
-            </CustomText>
-          </CustomView>
-        )}
-      />
-    ),
-    headerRight: (
-      <CustomView horizontalSpace>
-        <Icon
-          medium
-          onPress={() => Apptentive.presentMessageCenter()}
-          testID={FEEDBACK_TEST_ID}
-          src={require('../images/icon_feedback_grey.png')}
+              <Icon
+                small
+                testID={SOVRINTOKEN_TEST_ID}
+                src={require('../images/sovrinTokenOrange.png')}
+              />
+              <CustomText
+                h5
+                demiBold
+                center
+                style={[styles.floatTokenAmount]}
+                transparentBg
+                testID={SOVRINTOKEN_AMOUNT_TEST_ID}
+                formatNumber
+              >
+                {balance}
+              </CustomText>
+            </CustomView>
+          )}
         />
-      </CustomView>
+
+        <CustomView horizontalSpace>
+          <Icon
+            medium
+            onPress={() => Apptentive.presentMessageCenter()}
+            testID={FEEDBACK_TEST_ID}
+            src={require('../images/icon_feedback_grey.png')}
+          />
+        </CustomView>
+      </CustomHeader>
     ),
-    headerStyle: primaryHeaderStyles.header,
   })
 
   render() {
@@ -122,7 +129,7 @@ const mapStateToProps = (state: Store) => ({
   connections: state.connections,
 })
 
-export default StackNavigator({
+export default createStackNavigator({
   [homeRoute]: {
     screen: connect(mapStateToProps)(DashboardScreen),
   },

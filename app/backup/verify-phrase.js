@@ -2,10 +2,10 @@
 
 import React, { Component } from 'react'
 import { Dimensions, Keyboard } from 'react-native'
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { CustomView, Icon } from '../components'
+import { CustomView, Icon, CustomHeader } from '../components'
 import { verifyRecoveryPhraseRoute, exportBackupFileRoute } from '../common'
 import { color } from '../common/styles/constant'
 import styles from './styles'
@@ -40,33 +40,33 @@ export class VerifyRecoveryPhrase extends Component<
   }
 
   static navigationOptions = ({ navigation: { goBack, navigate, state } }) => ({
-    headerLeft: (
-      <CustomView style={[styles.headerSpacer]}>
-        <Icon
-          medium
-          onPress={() => goBack(null)}
-          testID={VERIFY_BACK_TEST_ID}
-          iconStyle={[styles.headerBackIcon]}
-          src={backImage}
-        />
-      </CustomView>
+    header: (
+      <CustomHeader
+        backgroundColor={color.bg.twelfth.color}
+        largeHeader
+        flatHeader
+      >
+        <CustomView style={[styles.headerSpacer]}>
+          <Icon
+            medium
+            onPress={() => goBack(null)}
+            testID={VERIFY_BACK_TEST_ID}
+            iconStyle={[styles.headerBackIcon]}
+            src={backImage}
+          />
+        </CustomView>
+
+        <CustomView style={[styles.headerSpacer]}>
+          <Icon
+            medium
+            onPress={() => navigate(state.params.initialRoute)}
+            testID={VERIFY_CLOSE_TEST_ID}
+            iconStyle={[styles.headerIcon]}
+            src={closeImage}
+          />
+        </CustomView>
+      </CustomHeader>
     ),
-    headerRight: (
-      <CustomView style={[styles.headerSpacer]}>
-        <Icon
-          medium
-          onPress={() => navigate(state.params.initialRoute)}
-          testID={VERIFY_CLOSE_TEST_ID}
-          iconStyle={[styles.headerIcon]}
-          src={closeImage}
-        />
-      </CustomView>
-    ),
-    headerStyle: {
-      backgroundColor: color.bg.twelfth.color,
-      borderBottomWidth: 0,
-      elevation: 0,
-    },
     gesturesEnabled: false,
   })
 
@@ -120,7 +120,7 @@ const mapStateToProps = (state: Store) => {
 }
 const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch)
 
-export default StackNavigator({
+export default createStackNavigator({
   [verifyRecoveryPhraseRoute]: {
     screen: connect(mapStateToProps, mapDispatchToProps)(VerifyRecoveryPhrase),
   },

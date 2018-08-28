@@ -2,7 +2,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import { safeGet, safeSet } from '../services/storage'
 import LockEnter from './lock-enter'
 import {
@@ -19,9 +19,10 @@ import {
   ENTER_PASS_CODE_MESSAGE,
   ENTER_YOUR_PASS_CODE_MESSAGE,
 } from '../common/message-constants'
-import { tertiaryHeaderStyles } from '../components/layout/header-styles'
+import { color } from '../common/styles'
 import { UNLOCKING_APP_WAIT_MESSAGE } from '../common/message-constants'
 import { unlockApp } from './lock-store'
+import { CustomText, CustomHeader } from '../components'
 
 export class LockEnterPin extends PureComponent<
   LockEnterPinProps,
@@ -32,14 +33,21 @@ export class LockEnterPin extends PureComponent<
   }
 
   static navigationOptions = ({ navigation }) => ({
-    title: 'App Security',
-    headerStyle: tertiaryHeaderStyles.header,
-    headerTitleStyle: tertiaryHeaderStyles.title,
     header:
       navigation.state.params &&
-      navigation.state.params.fromScreen === 'recovery'
-        ? null
-        : undefined,
+      navigation.state.params.fromScreen === 'recovery' ? (
+        <CustomHeader flatHeader backgroundColor={color.bg.tertiary.color} />
+      ) : (
+        <CustomHeader
+          flatHeader
+          backgroundColor={color.bg.tertiary.color}
+          centerComponent={
+            <CustomText bg="tertiary" tertiary transparentBg semiBold>
+              App Security
+            </CustomText>
+          }
+        />
+      ),
   })
 
   componentWillReceiveProps(nextProps: LockEnterPinProps) {
@@ -151,7 +159,7 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default StackNavigator({
+export default createStackNavigator({
   [lockEnterPinRoute]: {
     screen: connect(mapStateToProps, mapDispatchToProps)(LockEnterPin),
   },

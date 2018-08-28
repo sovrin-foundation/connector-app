@@ -115,4 +115,7 @@ export default StyleSheet.create({
   spaceAround: {
     justifyContent: 'space-around',
   },
+  zeroWidthBottomBorder: {
+    borderBottomWidth: 0,
+  },
 })

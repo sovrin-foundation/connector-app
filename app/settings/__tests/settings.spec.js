@@ -18,6 +18,7 @@ describe('user settings screen', () => {
       navigation: getNavigation(),
       selectUserAvatar: jest.fn(),
       touchIdActive: false,
+      navigationOptions: jest.fn(),
     }
   }
 

@@ -1,7 +1,14 @@
 // @flow
 import React, { Component } from 'react'
 import RadialGradient from 'react-native-radial-gradient'
-import { Alert, ScrollView, StyleSheet, Dimensions, View } from 'react-native'
+import {
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Dimensions,
+  View,
+  StatusBar,
+} from 'react-native'
 import { connect } from 'react-redux'
 import { List, ListItem } from 'react-native-elements'
 import moment from 'moment'
@@ -54,6 +61,7 @@ import { getConnection, getConnectionTheme } from '../store/store-selector'
 import { Dot as BadgeDot } from '../components/badges-dot'
 
 import debounce from 'lodash.debounce'
+import Color from 'color'
 
 const statusMsg = {
   ['PENDING']: 'Pending',
@@ -197,6 +205,15 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
         ? { uri: image }
         : require('../images/cb_evernym.png')
 
+      const barStyle = activeConnectionThemePrimary => {
+        console.log(activeConnectionThemePrimary)
+        if (Color(activeConnectionThemePrimary).isLight) {
+          return 'light-content'
+        } else {
+          return 'dark-content'
+        }
+      }
+
       const historySenderDIDs = Object.keys(connectionHistory)
       const historyList = historySenderDIDs.map((sdid, i) => {
         const historyItems = connectionHistory[sdid].map((h, i) => {
@@ -258,6 +275,10 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
 
       return (
         <Container fifth>
+          <StatusBar
+            backgroundColor={this.props.activeConnectionThemePrimary}
+            barStyle={barStyle(this.props.activeConnectionThemePrimary)}
+          />
           <RadialGradient
             colors={[
               this.props.activeConnectionThemePrimary,

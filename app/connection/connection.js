@@ -7,7 +7,7 @@ import {
   TouchableHighlight,
   StyleSheet,
 } from 'react-native'
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import { Icon } from 'react-native-elements'
 import { Badge, InfoSectionList, CustomView } from '../components'
 import ConnectionStatus from './connection-status'
@@ -46,7 +46,7 @@ const headerTitle = (
     resizeMode="contain"
   />
 )
-
+//Note: This page is not in use. [ND 23/08/2018]
 export class ConnectionHome extends PureComponent<void, void> {
   static navigationOptions = ({ navigation }) => ({
     headerLeft: headerLeft,
@@ -87,7 +87,7 @@ export class ConnectionHome extends PureComponent<void, void> {
   }
 }
 
-export default StackNavigator({
+export default createStackNavigator({
   [connectionRoute]: {
     screen: ConnectionHome,
   },

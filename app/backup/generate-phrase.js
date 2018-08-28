@@ -2,7 +2,7 @@
 
 import React, { PureComponent } from 'react'
 import { Image, Dimensions } from 'react-native'
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import type { Store } from '../store/type-store'
@@ -13,6 +13,7 @@ import {
   CustomText,
   Icon,
   CustomButton,
+  CustomHeader,
 } from '../components'
 import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
 import { SHORT_DEVICE } from '../common/styles'
@@ -83,30 +84,25 @@ export class GenerateRecoveryPhrase extends PureComponent<
   }
 
   static navigationOptions = ({ navigation }) => ({
-    headerLeft: <CustomView />,
-    headerTitle: <CustomView />,
-    headerRight: (
-      <CustomView style={[styles.genRecoveryHeader]}>
-        <Icon
-          medium
-          onPress={() => navigation.goBack(null)}
-          testID={RECOVERY_PHRASE_CLOSE_TEST_ID}
-          iconStyle={[styles.headerCloseIcon]}
-          src={closeImage}
-        />
-      </CustomView>
+    header: (
+      <CustomHeader
+        flatHeader
+        largeHeader
+        backgroundColor={color.bg.eleventh.color}
+      >
+        <CustomView />
+
+        <CustomView style={[styles.genRecoveryHeader]}>
+          <Icon
+            medium
+            onPress={() => navigation.goBack(null)}
+            testID={RECOVERY_PHRASE_CLOSE_TEST_ID}
+            iconStyle={[styles.headerCloseIcon]}
+            src={closeImage}
+          />
+        </CustomView>
+      </CustomHeader>
     ),
-    headerStyle: {
-      backgroundColor: color.bg.eleventh.color,
-      shadowOpacity: 0,
-      shadowOffset: {
-        height: 0,
-      },
-      shadowRadius: 0,
-      elevation: 0,
-      borderBottomWidth: 0,
-      shadowColor: 'transparent',
-    },
     gesturesEnabled: false,
   })
   ImageContents = (recoveryStatus: string, recoveryPassphrase: Passphrase) => {
@@ -208,7 +204,7 @@ const mapStateToProps = (state: Store) => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ generateRecoveryPhrase }, dispatch)
 
-export default StackNavigator({
+export default createStackNavigator({
   [genRecoveryPhraseRoute]: {
     screen: connect(mapStateToProps, mapDispatchToProps)(
       GenerateRecoveryPhrase

@@ -2,7 +2,7 @@
 
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { TabNavigator } from 'react-navigation'
+import { createTabNavigator } from 'react-navigation'
 import { walletRoute } from '../../common'
 import { getNavigation } from '../../../__mocks__/static-data'
 import WalletTabs from '../wallet-tabs'

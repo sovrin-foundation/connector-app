@@ -9,58 +9,31 @@ import {
   Platform,
 } from 'react-native'
 import store, { ROUTE_UPDATE } from './store'
-import { getStatusBarTheme } from './store/store-selector'
 import { Container } from './components'
 import { PushNotification } from './push-notification'
 import DeepLink from './deep-link'
-import {
-  barStyleLight,
-  barStyleDark,
-  whiteSmokeSecondary,
-  color,
-  venetianRed,
-  white,
-} from './common/styles/constant'
+import { barStyleDark, whiteSmokeSecondary } from './common/styles/constant'
 import ConnectMeAppNavigator from './navigator'
 import {
   qrCodeScannerTabRoute,
   homeRoute,
-  walletRoute,
   genRecoveryPhraseRoute,
-  verifyRecoveryPhraseRoute,
-  exportBackupFileRoute,
   backupCompleteRoute,
-  connectionHistoryRoute,
-  claimOfferRoute,
-  walletTabSendDetailsRoute,
-  lockTouchIdSetupRoute,
   lockPinSetupHomeRoute,
   settingsTabRoute,
   settingsRoute,
-  authenticationRoute,
   lockSetupSuccessRoute,
   invitationRoute,
-  proofRequestRoute,
   lockEnterPinRoute,
   homeTabRoute,
   splashScreenRoute,
-  privacyTNCRoute,
-  aboutAppRoute,
   eulaRoute,
   lockSelectionRoute,
-  lockAuthorizationRoute,
   lockAuthorizationHomeRoute,
-  lockPinSetupRoute,
   restoreRoute,
-  backupErrorRoute,
-  restorePassphraseRoute,
   restoreWaitRoute,
-  expiredTokenRoute,
-  connectionHistoryDetailsRoute,
 } from './common'
 import { NavigationActions } from 'react-navigation'
-import { setupFeedback } from './feedback'
-import { updateStatusBarTheme } from './store/connections-store'
 import type { AppState } from './type-app'
 import { exitAppAndroid } from './bridge/react-native-cxs/RNCxs'
 
@@ -97,10 +70,6 @@ const backButtonConditionalRoutes = [
 ]
 
 class ConnectMeApp extends PureComponent<void, AppState> {
-  state = {
-    statusBarTheme: whiteSmokeSecondary,
-  }
-
   currentRouteKey: string = ''
   currentRoute: string = ''
   navigatorRef = null
@@ -108,14 +77,6 @@ class ConnectMeApp extends PureComponent<void, AppState> {
   exitTimeout: number = 0
 
   componentDidMount() {
-    this.setState({
-      statusBarTheme: getStatusBarTheme(store.getState()),
-    })
-    store.dispatch(updateStatusBarTheme())
-    store.subscribe(() => {
-      this.handleChange()
-    })
-
     if (Platform.OS === 'android') {
       BackHandler.addEventListener(
         'hardwareBackPress',
@@ -176,12 +137,6 @@ class ConnectMeApp extends PureComponent<void, AppState> {
     ToastAndroid.show('Press again to exit!', ToastAndroid.SHORT)
   }
 
-  handleChange = () => {
-    if (this.state.statusBarTheme !== getStatusBarTheme(store.getState())) {
-      this.setState({ statusBarTheme: getStatusBarTheme(store.getState()) })
-    }
-  }
-
   // gets the current screen from navigation state
   getCurrentRoute = navigationState => {
     const route = navigationState.routes[navigationState.index]
@@ -206,42 +161,6 @@ class ConnectMeApp extends PureComponent<void, AppState> {
         type: ROUTE_UPDATE,
         currentScreen,
       })
-
-      StatusBar.setBarStyle(barStyleDark, true)
-      if (currentScreen === qrCodeScannerTabRoute) {
-        store.dispatch(updateStatusBarTheme(color.bg.primary.color))
-        StatusBar.setBarStyle(barStyleLight, true)
-      } else if (
-        currentScreen === homeRoute ||
-        currentScreen === walletTabSendDetailsRoute
-      ) {
-        store.dispatch(updateStatusBarTheme(whiteSmokeSecondary))
-      } else if (currentScreen === walletRoute) {
-        store.dispatch(updateStatusBarTheme(color.actions.font.seventh))
-      } else if (currentScreen === genRecoveryPhraseRoute) {
-        store.dispatch(updateStatusBarTheme(color.bg.eleventh.color))
-      } else if (
-        currentScreen === verifyRecoveryPhraseRoute ||
-        currentScreen === 'RestorePassphrase'
-      ) {
-        store.dispatch(updateStatusBarTheme(color.bg.twelfth.color))
-      } else if (currentScreen === exportBackupFileRoute) {
-        store.dispatch(updateStatusBarTheme(color.bg.thirteenth.color))
-      } else if (currentScreen === backupCompleteRoute) {
-        store.dispatch(updateStatusBarTheme(color.bg.fourteenth.color))
-      } else if (currentScreen === backupErrorRoute) {
-        store.dispatch(updateStatusBarTheme(venetianRed))
-      } else if (currentScreen === expiredTokenRoute) {
-        store.dispatch(updateStatusBarTheme(white))
-      } else if (
-        currentScreen !== connectionHistoryRoute &&
-        currentScreen !== claimOfferRoute &&
-        currentScreen !== restoreRoute &&
-        currentScreen !== connectionHistoryDetailsRoute
-      ) {
-        // Any screen that handles its own statusbar theme should be included above.
-        store.dispatch(updateStatusBarTheme())
-      }
     }
   }
 
@@ -257,7 +176,10 @@ class ConnectMeApp extends PureComponent<void, AppState> {
     return (
       <Provider store={store}>
         <Container>
-          <StatusBar backgroundColor={this.state.statusBarTheme} />
+          <StatusBar
+            backgroundColor={whiteSmokeSecondary}
+            barStyle={barStyleDark}
+          />
           <PushNotification navigateToRoute={this.navigateToRoute} />
           <DeepLink />
           <ConnectMeAppNavigator

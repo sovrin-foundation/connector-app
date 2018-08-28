@@ -2,13 +2,14 @@
 
 import React, { PureComponent } from 'react'
 import { Image, Dimensions } from 'react-native'
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import {
   Container,
   CustomView,
   CustomText,
   Icon,
   CustomButton,
+  CustomHeader,
 } from '../components'
 import { backupCompleteRoute } from '../common'
 import { SHORT_DEVICE, VERY_SHORT_DEVICE } from '../common/styles'
@@ -35,28 +36,25 @@ export class BackupComplete extends PureComponent<BackupCompleteProps, void> {
   }
 
   static navigationOptions = ({ navigation: { navigate, state } }) => ({
-    headerLeft: <CustomView />,
-    headerRight: (
-      <CustomView style={[styles.headerSpacer]}>
-        <Icon
-          medium
-          onPress={() => navigate(state.params.initialRoute)}
-          testID={BACKUP_COMPLETE_CLOSE_TEST_ID}
-          iconStyle={[styles.headerIcon]}
-          src={closeImage}
-        />
-      </CustomView>
+    header: (
+      <CustomHeader
+        backgroundColor={color.bg.fourteenth.color}
+        largeHeader
+        flatHeader
+      >
+        <CustomView style={[styles.headerSpacer]} />
+
+        <CustomView style={[styles.headerSpacer]}>
+          <Icon
+            medium
+            onPress={() => navigate(state.params.initialRoute)}
+            testID={BACKUP_COMPLETE_CLOSE_TEST_ID}
+            iconStyle={[styles.headerIcon]}
+            src={closeImage}
+          />
+        </CustomView>
+      </CustomHeader>
     ),
-    headerStyle: {
-      backgroundColor: color.bg.fourteenth.color,
-      shadowOpacity: 0,
-      shadowOffset: {
-        height: 0,
-      },
-      shadowRadius: 0,
-      borderBottomWidth: 0,
-      elevation: 0,
-    },
     gesturesEnabled: false,
   })
 
@@ -121,7 +119,7 @@ export class BackupComplete extends PureComponent<BackupCompleteProps, void> {
   }
 }
 
-export default StackNavigator({
+export default createStackNavigator({
   [backupCompleteRoute]: {
     screen: BackupComplete,
   },

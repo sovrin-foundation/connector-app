@@ -1,7 +1,11 @@
 // @flow
 import React from 'react'
 import { StyleSheet, Animated, Easing } from 'react-native'
-import { StackNavigator, TabNavigator, TabBarBottom } from 'react-navigation'
+import {
+  createStackNavigator,
+  TabBarBottom,
+  createTabNavigator,
+} from 'react-navigation'
 import AboutApp from './about-app/about-app'
 import AuthenticationScreen from './authentication/authentication'
 import HomeScreen from './home/home'
@@ -85,7 +89,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const Tabs = TabNavigator(
+const Tabs = createTabNavigator(
   {
     [homeTabRoute]: {
       screen: HomeScreen,
@@ -154,7 +158,7 @@ const Tabs = TabNavigator(
   }
 )
 
-const CardStack = StackNavigator(
+const CardStack = createStackNavigator(
   {
     [splashScreenRoute]: {
       screen: SplashScreenView,
@@ -261,7 +265,7 @@ const transitionConfig = () => {
 
 // TODO:KS create a custom navigator to track page changes
 // for flows to support deep link, etc.
-const ConnectMeAppNavigator = StackNavigator(
+const ConnectMeAppNavigator = createStackNavigator(
   {
     CardStack: { screen: CardStack },
     [claimOfferRoute]: { screen: ClaimOffer },

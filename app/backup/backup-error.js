@@ -2,7 +2,7 @@
 
 import React, { PureComponent } from 'react'
 import { Image, StyleSheet, Dimensions } from 'react-native'
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import {
@@ -11,6 +11,7 @@ import {
   CustomText,
   CustomButton,
   Icon,
+  CustomHeader,
 } from '../components'
 import {
   SHORT_DEVICE,
@@ -34,39 +35,29 @@ const backImage = require('../images/icon_backArrow_white.png')
 const closeImage = require('../images/iconClose.png')
 export class BackupErrorScreen extends PureComponent<BackupErrorProps, void> {
   static navigationOptions = ({ navigation: { goBack, navigate, state } }) => ({
-    headerLeft: (
-      <CustomView style={[headerStyles.headerSpacer]}>
-        <Icon
-          medium
-          onPress={() => goBack(null)}
-          testID={BACKUP_ERROR_BACK_TEST_ID}
-          iconStyle={[headerStyles.headerBackIcon]}
-          src={backImage}
-        />
-      </CustomView>
+    header: (
+      <CustomHeader backgroundColor={venetianRed} largeHeader flatHeader>
+        <CustomView style={[headerStyles.headerSpacer]}>
+          <Icon
+            medium
+            onPress={() => goBack(null)}
+            testID={BACKUP_ERROR_BACK_TEST_ID}
+            iconStyle={[headerStyles.headerBackIcon]}
+            src={backImage}
+          />
+        </CustomView>
+
+        <CustomView style={[headerStyles.headerSpacer]}>
+          <Icon
+            medium
+            onPress={() => navigate(state.params.initialRoute)}
+            testID={BACKUP_ERROR_CLOSE_TEST_ID}
+            iconStyle={[headerStyles.headerIcon]}
+            src={closeImage}
+          />
+        </CustomView>
+      </CustomHeader>
     ),
-    headerRight: (
-      <CustomView style={[headerStyles.headerSpacer]}>
-        <Icon
-          medium
-          onPress={() => navigate(state.params.initialRoute)}
-          testID={BACKUP_ERROR_CLOSE_TEST_ID}
-          iconStyle={[headerStyles.headerIcon]}
-          src={closeImage}
-        />
-      </CustomView>
-    ),
-    headerStyle: {
-      backgroundColor: venetianRed,
-      borderBottomWidth: 0,
-      shadowOpacity: 0,
-      shadowOffset: {
-        height: 0,
-      },
-      shadowRadius: 0,
-      borderBottomWidth: 0,
-      elevation: 0,
-    },
     gesturesEnabled: true,
   })
 
@@ -177,7 +168,7 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default StackNavigator({
+export default createStackNavigator({
   [backupErrorRoute]: {
     screen: connect(null, mapDispatchToProps)(BackupErrorScreen),
   },

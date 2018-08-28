@@ -1,5 +1,5 @@
 // @flow
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 
 import {
   connectionHistoryDetailsRoute,
@@ -10,7 +10,7 @@ import ConnectionHistory from './connection-history'
 import ConnectionHistoryDetails from './connection-history-details'
 import ConnectionHistoryPending from './connection-history-pending'
 
-export default StackNavigator(
+export default createStackNavigator(
   {
     [connectionHistoryRoute]: {
       screen: ConnectionHistory,

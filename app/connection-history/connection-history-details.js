@@ -1,7 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react'
 import { StyleSheet, Dimensions, Platform, ScrollView } from 'react-native'
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import type { ConnectionHistoryDetailsProps } from './type-connection-history'
 import {
   Container,
@@ -71,7 +71,7 @@ export class ConnectionHistoryDetails extends PureComponent<
       </CustomView>
     ),
     headerTitle: (
-      <CustomView style={[headerStyles.centerTitle]}>
+      <Container clearBg center style={[headerStyles.centerTitle]}>
         {action && (
           <CustomText transparentBg center>
             {action}
@@ -100,7 +100,7 @@ export class ConnectionHistoryDetails extends PureComponent<
             {timestamp}
           </CustomDate>
         )}
-      </CustomView>
+      </Container>
     ),
     headerRight: <Container />,
     headerStyle: [
@@ -149,7 +149,7 @@ export class ConnectionHistoryDetails extends PureComponent<
   }
 }
 
-export default StackNavigator({
+export default createStackNavigator({
   [connectionHistoryDetailsRoute]: {
     screen: ConnectionHistoryDetails,
   },

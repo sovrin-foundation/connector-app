@@ -3,8 +3,14 @@ import React, { PureComponent } from 'react'
 import { StyleSheet, Image, WebView } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { StackNavigator } from 'react-navigation'
-import { Container, CustomText, CustomView, Icon } from '../components'
+import { createStackNavigator } from 'react-navigation'
+import {
+  Container,
+  CustomText,
+  CustomView,
+  Icon,
+  CustomHeader,
+} from '../components'
 import {
   color,
   OFFSET_1X,
@@ -36,20 +42,24 @@ export class PrivacyTNC extends PureComponent<PrivacyTNCProps> {
   }
 
   static navigationOptions = ({ navigation }) => ({
-    headerLeft: (
-      <Icon
-        testID={'back-arrow'}
-        iconStyle={[styles.headerLeft]}
-        src={require('../images/icon_backArrow.png')}
-        resizeMode="contain"
-        onPress={() => navigation.goBack()}
-      />
+    header: (
+      <CustomHeader flatHeader backgroundColor={color.bg.tertiary.color}>
+        <Icon
+          small
+          testID={'back-arrow'}
+          iconStyle={[styles.headerLeft]}
+          src={require('../images/icon_backArrow.png')}
+          resizeMode="contain"
+          onPress={() => navigation.goBack()}
+        />
+
+        <CustomText bg="tertiary" tertiary transparentBg semiBold>
+          {navigation.state.params.title}
+        </CustomText>
+
+        <CustomView />
+      </CustomHeader>
     ),
-    headerRight: <CustomView />, // fill space to properly align title for android
-    title: navigation.state.params.title,
-    headerStyle: tertiaryHeaderStyles.header,
-    headerTitleStyle: tertiaryHeaderStyles.title,
-    tabBarVisible: false,
     swipeEnabled: false,
   })
 

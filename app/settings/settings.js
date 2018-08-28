@@ -1,9 +1,15 @@
 // @flow
 import React, { PureComponent } from 'react'
 import { Text, Switch, StyleSheet, Platform, ScrollView } from 'react-native'
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import BackupWallet from './backup-wallet'
-import { UserAvatar, CustomText, Icon, Avatar } from '../components'
+import {
+  UserAvatar,
+  CustomText,
+  Icon,
+  Avatar,
+  CustomHeader,
+} from '../components'
 import { CustomList, CustomView, Container } from '../components/layout'
 import {
   settingsRoute,
@@ -67,7 +73,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
     walletBackupModalVisible: false,
   }
   onChangePinClick = () => {
-    this.props.navigation.navigate(lockEnterPinRoute, {
+    this.props.navigation.push(lockEnterPinRoute, {
       existingPin: true,
     })
   }
@@ -78,7 +84,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
     // solution: the if condition will check for the current state of the switch and compares with the actual state of the switch
     // this confirms to make the onChangeTouchId function to invoke only once at all the times
     if (this.props.touchIdActive !== switchState) {
-      this.props.navigation.navigate(lockTouchIdSetupRoute, {
+      this.props.navigation.push(lockTouchIdSetupRoute, {
         fromSettings: true,
       })
     }
@@ -93,11 +99,17 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
   }
 
   static navigationOptions = {
-    title: settingsRoute,
-    headerLeft: <CustomView />,
-    headerRight: <CustomView />,
-    headerStyle: tertiaryHeaderStyles.header,
-    headerTitleStyle: tertiaryHeaderStyles.title,
+    header: (
+      <CustomHeader
+        backgroundColor={color.bg.tertiary.color}
+        flatHeader
+        centerComponent={
+          <CustomText bg="tertiary" tertiary transparentBg semiBold>
+            {settingsRoute}
+          </CustomText>
+        }
+      />
+    ),
   }
 
   renderAvatarWithSource = (avatarSource: number | ImageSource) => (
@@ -295,7 +307,7 @@ const mapStateToProps = (state: Store) => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ selectUserAvatar }, dispatch)
 
-export default StackNavigator({
+export const SettingStack = createStackNavigator({
   [settingsRoute]: {
     screen: connect(mapStateToProps, mapDispatchToProps)(Settings),
   },
@@ -306,3 +318,15 @@ export default StackNavigator({
     screen: PrivacyTNC,
   },
 })
+
+SettingStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true
+  if (navigation.state.index > 0) {
+    tabBarVisible = false
+  }
+  return {
+    tabBarVisible,
+  }
+}
+
+export default SettingStack

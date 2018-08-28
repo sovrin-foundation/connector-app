@@ -1,7 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react'
 import { StyleSheet, InteractionManager } from 'react-native'
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
@@ -11,6 +11,7 @@ import {
   CustomView,
   PinCodeBox,
   Icon,
+  CustomHeader,
 } from '../components'
 import {
   lockSelectionRoute,
@@ -65,26 +66,31 @@ export class LockPinSetup extends PureComponent<
   pinCodeBox = null
 
   static navigationOptions = ({ navigation }) => ({
-    headerLeft: (
-      <CustomView>
-        <Icon
-          testID={'back-arrow'}
-          iconStyle={[styles.headerLeft]}
-          src={require('../images/icon_backArrow.png')}
-          resizeMode="contain"
-          onPress={() =>
-            navigation.state.params &&
-            navigation.state.params.existingPin === true
-              ? navigation.navigate(settingsTabRoute)
-              : navigation.navigate(lockSelectionRoute)
-          }
-        />
-      </CustomView>
+    header: (
+      <CustomHeader flatHeader backgroundColor={color.bg.tertiary.color}>
+        <CustomView>
+          <Icon
+            small
+            testID={'back-arrow'}
+            iconStyle={[styles.headerLeft]}
+            src={require('../images/icon_backArrow.png')}
+            resizeMode="contain"
+            onPress={() =>
+              navigation.state.params &&
+              navigation.state.params.existingPin === true
+                ? navigation.navigate(settingsTabRoute)
+                : navigation.navigate(lockSelectionRoute)
+            }
+          />
+        </CustomView>
+
+        <CustomText bg="tertiary" tertiary transparentBg semiBold>
+          App Security
+        </CustomText>
+
+        <CustomView />
+      </CustomHeader>
     ),
-    headerRight: <CustomView />, // fill space to properly align title for android
-    title: 'App Security',
-    headerStyle: tertiaryHeaderStyles.header,
-    headerTitleStyle: tertiaryHeaderStyles.title,
   })
 
   setPinSetupStateToInitial = () => {
@@ -228,7 +234,7 @@ const mapDispatchToProps = dispatch =>
     dispatch
   )
 
-export default StackNavigator({
+export default createStackNavigator({
   [lockPinSetupHomeRoute]: {
     screen: connect(null, mapDispatchToProps)(LockPinSetup),
   },

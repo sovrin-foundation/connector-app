@@ -11,11 +11,11 @@ import { StyleSheet } from 'react-native'
 import LockEnter from './lock-enter'
 import type { LockAuthorizationProps } from './type-lock'
 import { Icon } from '../components'
-import { CustomView } from '../components'
-import { OFFSET_2X } from '../common/styles'
+import { CustomView, CustomHeader } from '../components'
+import { OFFSET_2X, color } from '../common/styles'
 import { tertiaryHeaderStyles } from '../components/layout/header-styles'
 import { lockAuthorizationHomeRoute } from '../common'
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import type { ReactNavigation } from '../common/type-common'
 
 const styles = StyleSheet.create({
@@ -29,23 +29,25 @@ export class LockAuthorization extends PureComponent<
   void
 > {
   static navigationOptions = ({ navigation }: ReactNavigation) => ({
-    headerLeft: (
-      <CustomView>
-        <Icon
-          testID={'back-arrow'}
-          iconStyle={[styles.headerLeft]}
-          src={require('../images/icon_backArrow.png')}
-          resizeMode="contain"
-          onPress={() => {
-            navigation.goBack(null)
-            if (navigation.state && navigation.state.params.onAvoid) {
-              navigation.state.params.onAvoid()
-            }
-          }}
-        />
-      </CustomView>
+    header: (
+      <CustomHeader flatHeader backgroundColor={color.bg.tertiary.color}>
+        <CustomView>
+          <Icon
+            small
+            testID={'back-arrow'}
+            iconStyle={[styles.headerLeft]}
+            src={require('../images/icon_backArrow.png')}
+            resizeMode="contain"
+            onPress={() => {
+              navigation.goBack(null)
+              if (navigation.state && navigation.state.params.onAvoid) {
+                navigation.state.params.onAvoid()
+              }
+            }}
+          />
+        </CustomView>
+      </CustomHeader>
     ),
-    headerStyle: tertiaryHeaderStyles.header,
   })
 
   onSuccess = () => {
@@ -69,7 +71,7 @@ export class LockAuthorization extends PureComponent<
   }
 }
 
-export default StackNavigator({
+export default createStackNavigator({
   [lockAuthorizationHomeRoute]: {
     screen: LockAuthorization,
   },

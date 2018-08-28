@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Camera from 'react-native-camera'
-import { Alert, Platform, PermissionsAndroid } from 'react-native'
+import { Alert, Platform, PermissionsAndroid, StatusBar } from 'react-native'
 import { Container, QRScanner } from '../components'
 import { color, barStyleLight } from '../common/styles/constant'
 import { invitationReceived } from '../store'
@@ -229,6 +229,12 @@ export class QRCodeScannerScreen extends PureComponent<
       //empty black screen will be returned
       //so that it doesn't look odd
       <Container dark>
+        {this.props.navigation.isFocused ? (
+          <StatusBar
+            backgroundColor={color.bg.sixth.color}
+            barStyle={barStyleLight}
+          />
+        ) : null}
         {this.state.isCameraAuthorized &&
         this.props.currentScreen === qrCodeScannerTabRoute ? (
           <QRScanner

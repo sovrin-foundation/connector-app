@@ -1,9 +1,15 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { StyleSheet, Image, View } from 'react-native'
+import { StyleSheet, Image } from 'react-native'
 import { connect } from 'react-redux'
-import { StackNavigator } from 'react-navigation'
-import { Container, CustomText, CustomView, Icon } from '../components'
+import { createStackNavigator } from 'react-navigation'
+import {
+  Container,
+  CustomText,
+  CustomView,
+  Icon,
+  CustomHeader,
+} from '../components'
 import {
   color,
   OFFSET_1X,
@@ -83,20 +89,27 @@ export class AboutApp extends PureComponent<AboutAppProps, void> {
   }
 
   static navigationOptions = ({ navigation }) => ({
-    headerLeft: (
-      <Icon
-        testID={'back-arrow'}
-        iconStyle={[styles.headerLeft]}
-        src={require('../images/icon_backArrow.png')}
-        resizeMode="contain"
-        onPress={() => navigation.goBack()}
-      />
+    header: (
+      <CustomHeader
+        backgroundColor={color.bg.tertiary.color}
+        outerContainerStyles={{ borderBottomWidth: 0 }}
+      >
+        <Icon
+          testID={'back-arrow'}
+          iconStyle={[styles.headerLeft]}
+          src={require('../images/icon_backArrow.png')}
+          resizeMode="contain"
+          onPress={() => navigation.goBack()}
+          small
+        />
+
+        <CustomText bg="tertiary" tertiary transparentBg semiBold>
+          About this App
+        </CustomText>
+
+        <CustomView />
+      </CustomHeader>
     ),
-    headerRight: <CustomView />, // fill space to properly align title for android
-    title: 'About This App',
-    headerStyle: tertiaryHeaderStyles.header,
-    headerTitleStyle: tertiaryHeaderStyles.title,
-    tabBarVisible: false,
     swipeEnabled: false,
   })
 
