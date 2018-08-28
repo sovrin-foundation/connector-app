@@ -22,12 +22,9 @@ import {
   EIGHT,
   NINE,
 } from './keyboard-constants'
-import styles from './styles'
+import { styles, INPUT_RANGE, OUTPUT_RANGE } from './styles'
 import { WALLET_BALANCE } from '../../common'
 import { BigNumber } from 'bignumber.js'
-
-const inputRange = [0, 0.5, 1]
-const outputRange = [28, 35, 42]
 
 export default class Keyboard extends Component<KeyboardProps, void> {
   originalOptions: Array<string>
@@ -76,8 +73,8 @@ export default class Keyboard extends Component<KeyboardProps, void> {
   Backspace(symbol: string) {
     const animationKey = this.originalOptions.indexOf(symbol)
     const textSize = this._animation[animationKey].interpolate({
-      inputRange,
-      outputRange,
+      inputRange: INPUT_RANGE,
+      outputRange: OUTPUT_RANGE,
     })
     return (
       <Container
@@ -118,8 +115,8 @@ export default class Keyboard extends Component<KeyboardProps, void> {
     const animationKey = this.originalOptions.indexOf(symbol)
     const { maxLength } = this.props
     const textSize = this._animation[animationKey].interpolate({
-      inputRange,
-      outputRange,
+      inputRange: INPUT_RANGE,
+      outputRange: OUTPUT_RANGE,
     })
     return (
       <TouchableWithoutFeedback

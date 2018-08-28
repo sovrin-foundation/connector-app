@@ -9,8 +9,11 @@ const { height } = Dimensions.get('window')
 const ROW_MARGIN = height > SHORT_DEVICE ? 36 : 15
 const FIRST_ROW_MARGIN = height > SHORT_DEVICE ? 24 : 8
 const ROW_HEIGHT = height > SHORT_DEVICE ? 33 : 28
+const FONT_SIZE = height > SHORT_DEVICE ? 28 : 26
+export const INPUT_RANGE = [0, 0.5, 1]
+export const OUTPUT_RANGE = height > SHORT_DEVICE ? [28, 35, 42] : [26, 30, 34]
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     marginHorizontal: 32, // TODO: update style guide to reflect new constant
   },
@@ -23,9 +26,7 @@ const styles = StyleSheet.create({
     marginTop: ROW_MARGIN,
   },
   number: {
-    fontSize: 28, // TODO: update style guide to reflect new constant
+    fontSize: FONT_SIZE,
     fontWeight: '500', // TODO: update style guide to reflect new constant
   },
 })
-
-export default styles
