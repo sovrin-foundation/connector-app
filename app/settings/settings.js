@@ -321,11 +321,14 @@ export const SettingStack = createStackNavigator({
 
 SettingStack.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true
+  let swipeEnabled = true
   if (navigation.state.index > 0) {
     tabBarVisible = false
+    swipeEnabled = false
   }
   return {
     tabBarVisible,
+    swipeEnabled,
   }
 }
 
