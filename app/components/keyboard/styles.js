@@ -8,10 +8,10 @@ const { height } = Dimensions.get('window')
 
 const ROW_MARGIN = height > SHORT_DEVICE ? 36 : 15
 const FIRST_ROW_MARGIN = height > SHORT_DEVICE ? 24 : 8
-const ROW_HEIGHT = height > SHORT_DEVICE ? 33 : 28
+const ROW_HEIGHT = height > SHORT_DEVICE ? 36 : 30
 const FONT_SIZE = height > SHORT_DEVICE ? 28 : 26
 export const INPUT_RANGE = [0, 0.5, 1]
-export const OUTPUT_RANGE = height > SHORT_DEVICE ? [28, 35, 42] : [26, 30, 34]
+export const OUTPUT_RANGE = height > SHORT_DEVICE ? [28, 34, 40] : [26, 30, 34]
 
 export const styles = StyleSheet.create({
   container: {
