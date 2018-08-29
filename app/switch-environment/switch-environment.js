@@ -14,7 +14,8 @@ import {
   OFFSET_7X,
 } from '../common/styles'
 import { switchEnvironmentRoute, lockSelectionRoute } from '../common'
-import { changeEnvironment, disableDevMode } from '../store'
+import { changeEnvironment } from '../store/config-store'
+import { disableDevMode } from '../lock/lock-store'
 import type {
   SwitchEnvironmentState,
   SwitchEnvironmentProps,

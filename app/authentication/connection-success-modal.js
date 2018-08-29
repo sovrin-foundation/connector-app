@@ -5,7 +5,7 @@ import { View, Image, StyleSheet } from 'react-native'
 import { CustomModal, AvatarsPair, CustomText } from '../components'
 import { color, OFFSET_1X, OFFSET_2X } from '../common/styles'
 import { connectionRoute } from '../common'
-import { getConnectionLogo } from '../store'
+import { getConnectionLogo } from '../store/connections-store'
 
 // TODO:KS Move these props to type-* file
 // we will move this file as well to components directory

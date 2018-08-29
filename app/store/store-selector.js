@@ -1,15 +1,19 @@
 // @flow
 import type { Store } from './type-store'
+import type { ClaimOfferStore } from '../claim-offer/type-claim-offer'
+import type { ProofRequestStore } from '../proof-request/type-proof-request'
 import type {
   ClaimOfferPayload,
   SerializedClaimOffersPerDid,
-  SerializedClaimOffers,
 } from '../claim-offer/type-claim-offer'
 import type { Connections, Connection } from './type-connection-store'
 import type { ConnectionHistoryEvent } from '../connection-history/type-connection-history'
 import RNFetchBlob from 'react-native-fetch-blob'
 import { Platform } from 'react-native'
 import { whiteSmoke } from '../common/styles/constant'
+import memoize from 'lodash.memoize'
+import { CLAIM_OFFER_STATUS } from './../claim-offer/type-claim-offer'
+import { PROOF_REQUEST_STATUS } from './../proof-request/type-proof-request'
 
 export const getConfig = (state: Store) => state.config
 
@@ -96,6 +100,58 @@ export const getPendingHistoryEvent = (
   })[0]
 }
 
+export const getHistoryEvent = (
+  state: Store,
+  uid: string,
+  remoteDid: string,
+  type: string
+) => {
+  const historyItems =
+    state.history && state.history.data ? state.history.data[remoteDid] : []
+  return historyItems.filter(item => {
+    return (
+      item.originalPayload &&
+      item.originalPayload.type === type &&
+      item.originalPayload.payloadInfo &&
+      item.originalPayload.payloadInfo.uid === uid
+    )
+  })[0]
+}
+
+export const getPendingHistory = (
+  state: Store,
+  uid: string,
+  remoteDid: string,
+  type: string
+) => {
+  const historyItems =
+    state.history && state.history.data ? state.history.data[remoteDid] : []
+  return historyItems.filter(item => {
+    return (
+      item.originalPayload &&
+      item.originalPayload.type === type &&
+      item.originalPayload.uid === uid
+    )
+  })[0]
+}
+
+export const getClaimReceivedHistory = (
+  state: Store,
+  uid: string,
+  remoteDid: string,
+  type: string
+) => {
+  const historyItems =
+    state.history && state.history.data ? state.history.data[remoteDid] : []
+  return historyItems.filter(item => {
+    return (
+      item.originalPayload &&
+      item.originalPayload.type === type &&
+      item.originalPayload.messageId === uid
+    )
+  })[0]
+}
+
 export const getProofRequest = (state: Store, proofRequestId: string) =>
   state.proofRequest[proofRequestId]
 
@@ -123,6 +179,7 @@ export const getProofRequestPairwiseDid = (
 
 export const getProof = (state: Store, proofRequestId: string) =>
   state.proof[proofRequestId]
+export const getProofRequests = (state: Store) => state.proofRequest
 
 export const getUserPairwiseDid = (state: Store, senderDID: string) => {
   const connections = getConnection(state, senderDID)
@@ -197,12 +254,12 @@ export const getVcxInitializationState = (state: Store) =>
   state.config.vcxInitializationState
 
 export const getIsLockEnabledState = (state: Store) => state.lock.isLockEnabled
+export const getIsAppLocked = (state: Store) => state.lock.isAppLocked
 
 export const getIsAlreadyInstalledState = (state: Store) =>
   state.config.isAlreadyInstalled
 
-export const getSerializedClaimOffers = (state: Store) =>
-  state.claimOffer.vcxSerializedClaimOffers
+export const getClaimOffers = (state: Store) => state.claimOffer
 
 export const getSerializedClaimOffer = (
   state: Store,
@@ -218,7 +275,7 @@ export const getSerializedClaimOffer = (
   return userClaimOffers[messageId]
 }
 
-export const getClaimOffers = (state: Store, userDID: string) => {
+export const getSerializedClaimOffers = (state: Store, userDID: string) => {
   const serializedClaimOffers: SerializedClaimOffersPerDid =
     state.claimOffer.vcxSerializedClaimOffers[userDID]
 
@@ -227,6 +284,17 @@ export const getClaimOffers = (state: Store, userDID: string) => {
   }
 
   return []
+}
+
+export const getAllConnectionsPairwiseDid = (state: Store) => {
+  const connections = getAllConnection(state)
+
+  if (connections) {
+    return Object.keys(connections).map(
+      userDID => connections[userDID].myPairwiseDid
+    )
+  }
+  return null
 }
 
 export const getConnectionByUserDid = (state: Store, userDID: string) => {
@@ -251,6 +319,40 @@ export const getBackupWalletPath = (state: Store) =>
   state.backup.backupWalletPath
 
 export const getBackupShowBanner = (state: Store) => state.backup.showBanner
+
+const addUidsWithStatusToConnections = (
+  events: ProofRequestStore | ClaimOfferStore,
+  filterStatus,
+  obj
+) => {
+  ;(Object.keys(events): Array<string>).map(uid => {
+    if (events[uid].status === filterStatus) {
+      const remoteDid: string = events[uid].remotePairwiseDID
+      obj[remoteDid] = obj[remoteDid] || []
+      obj[remoteDid].push(uid)
+    }
+  })
+}
+
+//  getUnseenMessages should take a connection, and parse though claim store and proof requests for unseen messages and return a json object like bellow.
+export const getUnseenMessages = memoize(
+  (state: Store) => {
+    const { claimOffer, proofRequest } = state
+    let obj = {}
+
+    addUidsWithStatusToConnections(claimOffer, CLAIM_OFFER_STATUS.RECEIVED, obj)
+    addUidsWithStatusToConnections(
+      proofRequest,
+      PROOF_REQUEST_STATUS.RECEIVED,
+      obj
+    )
+    return obj
+  },
+  ({ claimOffer, proofRequest }) => ({
+    ...claimOffer,
+    ...proofRequest,
+  })
+)
 
 export const getLastSuccessfulBackupTimeStamp = (state: Store) =>
   state.backup.lastSuccessfulBackup

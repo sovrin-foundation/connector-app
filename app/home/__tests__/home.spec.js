@@ -48,6 +48,7 @@ function props(claimOfferStatus) {
     getUserInfo: jest.fn(),
     pushNotificationReceived: jest.fn(),
     authenticationRequestReceived: jest.fn(),
+    unSeenMessages: {},
   }
 }
 

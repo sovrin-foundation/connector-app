@@ -61,6 +61,8 @@ import { getConnection, getConnectionTheme } from '../store/store-selector'
 import { Dot as BadgeDot } from '../components/badges-dot'
 
 import debounce from 'lodash.debounce'
+import { getUnseenMessages } from '../store/store-selector'
+import { goToUIScreen } from '../push-notification/push-notification-store'
 import Color from 'color'
 
 const statusMsg = {
@@ -69,15 +71,21 @@ const statusMsg = {
   ['RECEIVED']: 'Accepted on',
   ['ACCEPTED & SAVED']: 'Accepted on',
   ['SHARED']: 'Sent on',
+  ['PROOF RECEIVED']: 'New request to share',
+  ['CLAIM OFFER RECEIVED']: 'New credential offer',
 }
 
 const historyIcons = {
   ['PENDING']: require('../images/received.png'),
   ['CONNECTED']: require('../images/linked.png'),
   ['RECEIVED']: require('../images/received.png'),
+  ['CLAIM OFFER RECEIVED']: require('../images/received.png'),
+  ['PROOF RECEIVED']: require('../images/received.png'),
   ['ACCEPTED & SAVED']: require('../images/received.png'),
   ['SHARED']: require('../images/sent.png'),
 }
+
+const historyShowUI = ['CLAIM OFFER RECEIVED', 'PROOF RECEIVED']
 
 const HistoryTitle = ({ action, name, theme }) => (
   <CustomView>
@@ -89,7 +97,9 @@ const HistoryTitle = ({ action, name, theme }) => (
         bg="fifth"
         style={[styles.listItemAction, { color: theme }]}
       >
-        {action}
+        {action && historyShowUI.indexOf(action) > -1
+          ? statusMsg[action]
+          : action}
       </CustomText>
     </CustomView>
     <CustomView>
@@ -153,11 +163,11 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
     }
   }
 
-  getHistoryIcons = (action: string) => {
+  getHistoryIcons = (action: string, showBadge?: boolean) => {
     return (
       <CustomView center>
-        {/* TODO: The condition for the dot should be visible only when the cred is new and is not opened */}
-        {action === 'PENDING' && (
+        {}
+        {showBadge && (
           <View style={[styles.badgeDotStyle]}>
             <BadgeDot size="small" />
           </View>
@@ -169,6 +179,30 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
         />
       </CustomView>
     )
+  }
+
+  handleRedirectionScreens(
+    h: ConnectionHistoryEvent,
+    activeConnectionThemePrimary: string,
+    senderName: string,
+    image: string,
+    senderDID: string
+  ) {
+    if (h.showBadge || historyShowUI.indexOf(h.action) != -1) {
+      this.props.goToUIScreen(
+        h.originalPayload.type,
+        h.originalPayload.payloadInfo.uid,
+        this.props.navigation
+      )
+    } else {
+      this.connectionDetailHandlerDebounce({
+        h,
+        activeConnectionThemePrimary,
+        senderName,
+        image,
+        senderDID,
+      })
+    }
   }
 
   close = () => {
@@ -218,7 +252,7 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
       const historyList = historySenderDIDs.map((sdid, i) => {
         const historyItems = connectionHistory[sdid].map((h, i) => {
           const itemProps = {
-            avatar: this.getHistoryIcons(h.action),
+            avatar: this.getHistoryIcons(h.action, h.showBadge),
             key: h.id,
             title: <HistoryTitle {...h} theme={activeConnectionThemePrimary} />,
             subtitle: <HistoryBody {...h} />,
@@ -240,13 +274,13 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
                 }
               ),
             onPress: () => {
-              this.connectionDetailHandlerDebounce({
+              this.handleRedirectionScreens(
                 h,
                 activeConnectionThemePrimary,
                 senderName,
                 image,
-                senderDID,
-              })
+                senderDID
+              )
             },
           }
 
@@ -372,6 +406,27 @@ const mapStateToProps = (state: Store, props: ReactNavigation) => {
     })
   }
 
+  const unSeenMessages = getUnseenMessages(state)
+  if (connectionHistory) {
+    connectionHistory = connectionHistory.map(history => {
+      if (
+        history.originalPayload &&
+        history.originalPayload.payloadInfo &&
+        history.originalPayload.payloadInfo.uid &&
+        unSeenMessages[history.remoteDid] &&
+        unSeenMessages[history.remoteDid].length > 0 &&
+        unSeenMessages[history.remoteDid].indexOf(
+          history.originalPayload.payloadInfo.uid
+        ) >= 0
+      ) {
+        history.showBadge = true
+      } else {
+        history.showBadge = false
+      }
+      return history
+    })
+  }
+
   const themeForLogo = getConnectionTheme(
     state,
     props.navigation.state ? props.navigation.state.params.image : ''
@@ -391,7 +446,10 @@ const mapStateToProps = (state: Store, props: ReactNavigation) => {
 }
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ deleteConnectionAction, updateStatusBarTheme }, dispatch)
+  bindActionCreators(
+    { deleteConnectionAction, updateStatusBarTheme, goToUIScreen },
+    dispatch
+  )
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConnectionHistory)
 

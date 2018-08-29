@@ -556,6 +556,89 @@ RCT_EXPORT_METHOD(proofSend:(NSInteger)proof_handle
   }];
 }
 
+RCT_EXPORT_METHOD(proofCreateWithRequest:(NSString*)sourceId
+                  withProofRequest:(NSString*)proofRequest
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  [[[ConnectMeVcx alloc] init] proofCreateWithRequest:sourceId
+                                     withProofRequest:proofRequest
+                                       withCompletion:^(NSError *error, vcx_proof_handle_t proofHandle)
+  {
+    if (error != nil && error.code != 0) {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while creating proof request", error);
+    }
+    else {
+      resolve(@(proofHandle));
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(proofSerialize:(NSInteger)proofHandle
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  [[[ConnectMeVcx alloc] init] proofSerialize:proofHandle
+                               withCompletion:^(NSError *error, NSString *proof_request)
+  {
+    if (error != nil && error.code != 0) {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while serializing proof request", error);
+    }
+    else {
+      resolve(proof_request);
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(proofDeserialize:(NSString *)serializedProof
+                  resolver: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  [[[ConnectMeVcx alloc] init] proofDeserialize:serializedProof
+                                 withCompletion:^(NSError *error, vcx_proof_handle_t proofHandle)
+  {
+    if (error != nil && error.code != 0) {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while de-serializing proof request", error);
+    }
+    else {
+      resolve(@(proofHandle));
+    }
+  }];
+}
+
+RCT_EXPORT_METHOD(downloadMessages: (NSString *) messageStatus
+                             uid_s: (NSString *) uid_s
+                            pwdids: (NSString *) pwdids
+                          resolver: (RCTPromiseResolveBlock) resolve
+                          rejecter: (RCTPromiseRejectBlock) reject)
+{
+  [[[ConnectMeVcx alloc] init] downloadMessages: messageStatus uid_s:uid_s pwdids:pwdids completion:^(NSError *error, NSString *messages) {
+    if (error != nil && error.code !=0) {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occured while downloading messages", error);
+    } else{
+      resolve(messages);
+    }
+  }];
+}
+ RCT_EXPORT_METHOD(updateMessages: (NSString *)messageStatus
+                      pwdidsJson: (NSString *)pwdidsJson
+                        resolver: (RCTPromiseResolveBlock) resolve
+                        rejecter: (RCTPromiseRejectBlock) reject)
+{
+  [[[ConnectMeVcx alloc] init] updateMessages:messageStatus pwdidsJson:pwdidsJson completion:^(NSError *error) {
+    if (error != nil && error.code !=0) {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occured while updating message status", error);
+    } else {
+      resolve(@{});
+    }
+  }];
+}
+
 RCT_EXPORT_METHOD(getTokenInfo:(NSInteger) paymentHandle
                   resolver: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)

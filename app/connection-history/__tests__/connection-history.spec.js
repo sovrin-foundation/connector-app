@@ -30,6 +30,7 @@ describe('<ConnectionHistory />', () => {
       claimMap: undefined,
       updateStatusBarTheme: () => {},
       deleteConnectionAction: jest.fn(),
+      goToUIScreen: jest.fn(),
     }
   }
 

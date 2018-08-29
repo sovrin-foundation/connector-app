@@ -1,6 +1,6 @@
 // @flow
 import React, { Component, PureComponent } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Platform } from 'react-native'
 import { HAIRLINE_WIDTH, maroonRed, white } from '../common/styles/constant'
 
 type DotProps = {
@@ -21,7 +21,14 @@ export class Dot extends PureComponent<DotProps, void> {
 const styles = StyleSheet.create({
   badge: {
     backgroundColor: maroonRed,
-    borderWidth: HAIRLINE_WIDTH,
+    ...Platform.select({
+      ios: {
+        borderWidth: HAIRLINE_WIDTH,
+      },
+      android: {
+        borderWidth: 1,
+      },
+    }),
     borderColor: white,
   },
   badgeSmall: {

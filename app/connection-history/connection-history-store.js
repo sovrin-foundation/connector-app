@@ -50,6 +50,7 @@ import { NEW_CONNECTION_SUCCESS } from '../store/connections-store'
 import type {
   SendClaimRequestAction,
   ClaimOfferPayload,
+  ClaimOfferReceivedAction,
 } from '../claim-offer/type-claim-offer'
 import type { ClaimStorageSuccessAction } from '../claim/type-claim'
 import type { Proof } from '../proof/type-proof'
@@ -70,10 +71,14 @@ import {
   getClaimOffer,
   getPendingHistoryEvent,
   getHistory,
+  getPendingHistory,
+  getHistoryEvent,
+  getClaimReceivedHistory,
 } from '../store/store-selector'
 import { CLAIM_STORAGE_SUCCESS } from '../claim/type-claim'
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
 import { RESET } from '../common/type-common'
+import { CLAIM_OFFER_RECEIVED } from '../claim-offer/type-claim-offer'
 
 const initialState = {
   error: null,
@@ -137,7 +142,12 @@ export function convertConnectionSuccessToHistoryEvent(
 
   return {
     action: HISTORY_EVENT_STATUS[NEW_CONNECTION_SUCCESS],
-    data: [{ label: 'Established On', data: moment().format() }],
+    data: [
+      {
+        label: 'Established On',
+        data: moment().format(),
+      },
+    ],
     id: uuid(),
     name: senderName,
     status: HISTORY_EVENT_STATUS[NEW_CONNECTION_SUCCESS],
@@ -154,9 +164,9 @@ export function convertSendClaimRequestToHistoryEvent(
 ): ConnectionHistoryEvent {
   return {
     action: HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST],
-    data: action.payload.data.revealedAttributes,
+    data: action.payload.data && action.payload.data.revealedAttributes,
     id: uuid(),
-    name: action.payload.data.name,
+    name: action.payload.data && action.payload.data.name,
     status: HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST],
     timestamp: moment().format(),
     type: HISTORY_EVENT_TYPE.CLAIM,
@@ -174,9 +184,9 @@ export function convertClaimStorageSuccessToHistoryEvent(
 ): ConnectionHistoryEvent {
   return {
     action: HISTORY_EVENT_STATUS[CLAIM_STORAGE_SUCCESS],
-    data: claim.data.revealedAttributes,
+    data: claim.data && claim.data.revealedAttributes,
     id: uuid(),
-    name: claim.data.name,
+    name: claim.data && claim.data.name,
     status: HISTORY_EVENT_STATUS[CLAIM_STORAGE_SUCCESS],
     timestamp: moment().format(),
     type: HISTORY_EVENT_TYPE.CLAIM,
@@ -198,6 +208,23 @@ export function convertProofRequestToHistoryEvent(
     timestamp: moment().format(),
     type: HISTORY_EVENT_TYPE.PROOF,
     remoteDid: action.payloadInfo.remotePairwiseDID,
+    originalPayload: action,
+  }
+}
+
+// TODO:SC change the action type from any to appropriate type
+export function convertClaimOfferToHistoryEvent(
+  action: ClaimOfferReceivedAction
+): ConnectionHistoryEvent {
+  return {
+    action: HISTORY_EVENT_STATUS[CLAIM_OFFER_RECEIVED],
+    data: action.payload.data.revealedAttributes,
+    id: uuid(),
+    name: action.payload.data.name,
+    status: HISTORY_EVENT_STATUS[CLAIM_OFFER_RECEIVED],
+    timestamp: moment().format(),
+    type: HISTORY_EVENT_TYPE.CLAIM,
+    remoteDid: action.payload.issuer.did,
     originalPayload: action,
   }
 }
@@ -295,6 +322,22 @@ export function* historyEventOccurredSaga(
 
     if (event.type === SEND_CLAIM_REQUEST) {
       historyEvent = convertSendClaimRequestToHistoryEvent(event)
+      const claimOfferReceivedEvent = yield select(
+        getHistoryEvent,
+        historyEvent.originalPayload.uid,
+        historyEvent.remoteDid,
+        CLAIM_OFFER_RECEIVED
+      )
+
+      const existingEvent = yield select(
+        getPendingHistory,
+        historyEvent.originalPayload.uid,
+        historyEvent.remoteDid,
+        SEND_CLAIM_REQUEST
+      )
+      if (existingEvent) historyEvent = null
+      if (claimOfferReceivedEvent)
+        yield put(deleteHistoryEvent(claimOfferReceivedEvent))
     }
 
     if (event.type === CLAIM_STORAGE_SUCCESS) {
@@ -303,14 +346,38 @@ export function* historyEventOccurredSaga(
         event.messageId
       )
       historyEvent = convertClaimStorageSuccessToHistoryEvent(event, claim)
-
+      const existingEvent = yield select(
+        getClaimReceivedHistory,
+        historyEvent.originalPayload.messageId,
+        historyEvent.remoteDid,
+        CLAIM_STORAGE_SUCCESS
+      )
+      if (existingEvent) historyEvent = null
       const pendingHistory = yield select(getPendingHistoryEvent, claim)
 
-      yield put(deleteHistoryEvent(pendingHistory))
+      if (pendingHistory) yield put(deleteHistoryEvent(pendingHistory))
     }
 
     if (event.type === PROOF_REQUEST_RECEIVED) {
       historyEvent = convertProofRequestToHistoryEvent(event)
+      const existingEvent = yield select(
+        getHistoryEvent,
+        historyEvent.originalPayload.payloadInfo.uid,
+        historyEvent.remoteDid,
+        PROOF_REQUEST_RECEIVED
+      )
+      if (existingEvent) historyEvent = null
+    }
+
+    if (event.type === CLAIM_OFFER_RECEIVED) {
+      historyEvent = convertClaimOfferToHistoryEvent(event)
+      const existingEvent = yield select(
+        getHistoryEvent,
+        historyEvent.originalPayload.payloadInfo.uid,
+        historyEvent.remoteDid,
+        CLAIM_OFFER_RECEIVED
+      )
+      if (existingEvent) historyEvent = null
     }
 
     if (event.type === SEND_PROOF_SUCCESS) {
@@ -320,6 +387,13 @@ export function* historyEventOccurredSaga(
       )
       const proof: ProofRequestPayload = yield select(getProof, event.uid)
       historyEvent = convertProofSendToHistoryEvent(event, proofRequest, proof)
+      const oldHistoryEvent = yield select(
+        getHistoryEvent,
+        historyEvent.originalPayload.uid,
+        historyEvent.remoteDid,
+        PROOF_REQUEST_RECEIVED
+      )
+      if (oldHistoryEvent) yield put(deleteHistoryEvent(oldHistoryEvent))
     }
 
     if (historyEvent) {

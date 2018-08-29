@@ -83,6 +83,10 @@ export type PushNotificationStore = {
   pendingFetchAdditionalDataKey?: ?{
     [string]: boolean,
   },
+  navigateRoute?: ?{
+    routeName: string,
+    params: GenericObject,
+  },
 }
 
 export type AdditionalDataResponse = {
@@ -141,9 +145,25 @@ export type ClaimOfferPushPayload = {
   price?: ?string,
 }
 
+export type ClaimOfferMessagePayload = {
+  msg_type: string,
+  version: string,
+  to_did: string,
+  from_did: string,
+  cred_def_id: string,
+  claim: {
+    [string]: Array<string>,
+  },
+  claim_name: string,
+  schema_seq_no: number,
+  issuer_did: string,
+  issuer_name?: string,
+  remoteName?: string,
+}
+
 export type NotificationPayloadInfo = {
   uid: string,
-  senderLogoUrl: string,
+  senderLogoUrl: ?string,
   remotePairwiseDID: string,
 }
 
@@ -153,7 +173,9 @@ export type ClaimPushPayload = {
   claim_offer_id: string,
   from_did: string,
   to_did: string,
-  claim: { [string]: Array<string> },
+  claim: {
+    [string]: Array<string>,
+  },
   schema_seq_no: number,
   issuer_did: string,
   signature: {
@@ -171,10 +193,12 @@ export type ClaimPushPayload = {
 export type NextPropsPushNotificationNavigator = {
   pushNotification: {
     notification: DownloadedNotification,
+    navigateRoute: ?{
+      routeName: string,
+      params: GenericObject,
+    },
   },
-  notificationPayload?: ?NotificationPayload,
-  currentScreen: string,
-  isAppLocked: boolean,
+  navigateToRoute: (routeName: string, params: NavigationParams) => void,
 }
 
 export type PairwiseIdentifyingInfo = {
@@ -184,23 +208,17 @@ export type PairwiseIdentifyingInfo = {
 }
 
 export type PushNotificationNavigatorProps = {
-  fetchAdditionalData: (notificationPayload: NotificationPayload) => void,
-  authenticationRequestReceived: (data: DownloadedNotification) => void,
-  claimOfferReceived: (
-    payload: AdditionalDataPayload,
-    info: PairwiseIdentifyingInfo
+  clearNavigateToRoutePN: () => void,
+  updatePayloadToRelevantStoreAndRedirect: (
+    notification: DownloadedNotification
   ) => void,
-  proofRequestReceived: (
-    payload: AdditionalProofDataPayload,
-    info: PairwiseIdentifyingInfo
-  ) => void,
-  addPendingRedirection: (
-    pendingRedirection: Array<PendingRedirection>
-  ) => void,
-  navigateToRoute: (routeName: string, params: NavigationParams) => void,
-  claimReceived: (claim: Claim) => void,
-  claimReceivedVcx: (claim: ClaimVcx) => void,
 } & NextPropsPushNotificationNavigator
+
+export type UiType = {
+  uiType?: ?string,
+}
+
+export type RedirectToRelevantScreen = DownloadedNotification & UiType
 
 export type ClaimProofNavigation = {
   goBack: () => void,
@@ -224,4 +242,16 @@ export const HYDRATE_PUSH_TOKEN = 'HYDRATE_PUSH_TOKEN'
 export type HydratePushTokenAction = {
   type: typeof HYDRATE_PUSH_TOKEN,
   token: string,
+}
+export const UPDATE_RELEVANT_PUSH_PAYLOAD_STORE_AND_REDIRECT =
+  'UPDATE_RELEVANT_PUSH_PAYLOAD_STORE_AND_REDIRECT'
+export type updatePayloadToRelevantStoreAndRedirectAction = {
+  type: typeof UPDATE_RELEVANT_PUSH_PAYLOAD_STORE_AND_REDIRECT,
+  notification: DownloadedNotification,
+}
+export const UPDATE_RELEVANT_PUSH_PAYLOAD_STORE =
+  'UPDATE_RELEVANT_PUSH_PAYLOAD_STORE'
+export type updatePayloadToRelevantStoreAction = {
+  type: typeof UPDATE_RELEVANT_PUSH_PAYLOAD_STORE,
+  notification: DownloadedNotification,
 }

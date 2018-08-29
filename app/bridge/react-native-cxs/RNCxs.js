@@ -481,6 +481,37 @@ export async function sendProof(
   return await RNIndy.proofSend(proofHandle, connectionHandle)
 }
 
+export async function proofCreateWithRequest(
+  sourceId: string,
+  proofRequest: string
+): Promise<number> {
+  return await RNIndy.proofCreateWithRequest(sourceId, proofRequest)
+}
+
+export async function proofSerialize(proofHandle: number): Promise<string> {
+  return await RNIndy.proofSerialize(proofHandle)
+}
+
+export async function proofDeserialize(
+  serializedProofRequest: string
+): Promise<number> {
+  return await RNIndy.proofDeserialize(serializedProofRequest)
+}
+
+export async function downloadMessages(
+  messageStatus: string,
+  uid_s: ?string,
+  pwdids: string
+): Promise<string> {
+  return await RNIndy.downloadMessages(messageStatus, uid_s, pwdids)
+}
+export async function updateMessages(
+  messageStatus: string,
+  pwdidsJson: string
+): Promise<number> {
+  return await RNIndy.updateMessages(messageStatus, pwdidsJson)
+}
+
 export async function getWalletTokenInfo(): Promise<WalletTokenInfo> {
   const paymentHandle = 0
   const tokenInfo: string = await RNIndy.getTokenInfo(paymentHandle)

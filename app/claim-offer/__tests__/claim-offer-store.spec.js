@@ -11,19 +11,19 @@ import claimOfferStore, {
   acceptClaimOffer,
   convertClaimRequestToEdgeClaimRequest,
   addSerializedClaimOffer,
-  hydrateSerializedClaimOffers,
-  saveSerializedClaimOffersSaga,
+  hydrateClaimOffers,
+  saveClaimOffersSaga,
   removePersistedSerializedClaimOffersSaga,
-  hydrateSerializedClaimOffersSaga,
+  hydrateClaimOffersSaga,
   saveSerializedClaimOffer,
   claimOfferAccepted,
 } from '../claim-offer-store'
 import {
   CLAIM_OFFER_ACCEPTED,
-  KEY_SERIALIZED_CLAIM_OFFERS,
-  SAVE_SERIALIZED_CLAIM_OFFERS_SUCCESS,
-  SAVE_SERIALIZED_CLAIM_OFFERS_FAIL,
-  ERROR_SAVE_SERIALIZED_CLAIM_OFFERS,
+  CLAIM_OFFERS,
+  SAVE_CLAIM_OFFERS_SUCCESS,
+  SAVE_CLAIM_OFFERS_FAIL,
+  ERROR_SAVE_CLAIM_OFFERS,
   REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS,
 } from '../type-claim-offer'
 import { INITIAL_TEST_ACTION } from '../../common/type-common'
@@ -152,17 +152,17 @@ describe('claim offer store', () => {
     expect(claimOfferStore(newState, { type: 'RESET' })).toMatchSnapshot()
   })
 
-  it('action: HYDRATE_SERIALIZED_CLAIM_OFFERS_SUCCESS', () => {
+  it('action: HYDRATE_CLAIM_OFFERS_SUCCESS', () => {
     newState = claimOfferStore(
       newState,
-      hydrateSerializedClaimOffers(JSON.parse(serializedClaimOffers))
+      hydrateClaimOffers(JSON.parse(serializedClaimOffers))
     )
     expect(newState).toMatchSnapshot()
   })
 
   it('saga: saveSerializedClaimOfferSaga, success', () => {
     return expectSaga(
-      saveSerializedClaimOffersSaga,
+      saveClaimOffersSaga,
       addSerializedClaimOffer(
         serializedClaimOffer,
         pairwiseConnection.identifier,
@@ -171,8 +171,8 @@ describe('claim offer store', () => {
       )
     )
       .withState({ claimOffer: { vcxSerializedClaimOffers: {} } })
-      .call(secureSet, KEY_SERIALIZED_CLAIM_OFFERS, '{}')
-      .put({ type: SAVE_SERIALIZED_CLAIM_OFFERS_SUCCESS })
+      .call(secureSet, CLAIM_OFFERS, '{"vcxSerializedClaimOffers":{}}')
+      .put({ type: SAVE_CLAIM_OFFERS_SUCCESS })
       .run()
   })
 
@@ -181,7 +181,7 @@ describe('claim offer store', () => {
     const failSaveSerializedClaimOffers = new Error(errorMessage)
 
     return expectSaga(
-      saveSerializedClaimOffersSaga,
+      saveClaimOffersSaga,
       addSerializedClaimOffer(
         serializedClaimOffer,
         pairwiseConnection.identifier,
@@ -192,35 +192,32 @@ describe('claim offer store', () => {
       .withState({ claimOffer: { vcxSerializedClaimOffers: {} } })
       .provide([
         [
-          matchers.call.fn(secureSet, KEY_SERIALIZED_CLAIM_OFFERS, '{}'),
+          matchers.call.fn(secureSet, CLAIM_OFFERS, '{}'),
           throwError(failSaveSerializedClaimOffers),
         ],
       ])
       .put({
-        type: SAVE_SERIALIZED_CLAIM_OFFERS_FAIL,
-        error: ERROR_SAVE_SERIALIZED_CLAIM_OFFERS(errorMessage),
+        type: SAVE_CLAIM_OFFERS_FAIL,
+        error: ERROR_SAVE_CLAIM_OFFERS(errorMessage),
       })
       .run()
   })
 
   it('saga: removePersistedSerializedClaimOffersSaga, success', () => {
     return expectSaga(removePersistedSerializedClaimOffersSaga)
-      .call(secureDelete, KEY_SERIALIZED_CLAIM_OFFERS)
+      .call(secureDelete, CLAIM_OFFERS)
       .put({
         type: REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS,
       })
       .run()
   })
 
-  it('saga: hydrateSerializedClaimOffersSaga, success', () => {
-    return expectSaga(hydrateSerializedClaimOffersSaga)
+  it('saga: hydrateClaimOffersSaga, success', () => {
+    return expectSaga(hydrateClaimOffersSaga)
       .provide([
-        [
-          matchers.call.fn(secureGet, KEY_SERIALIZED_CLAIM_OFFERS),
-          serializedClaimOffers,
-        ],
+        [matchers.call.fn(secureGet, CLAIM_OFFERS), serializedClaimOffers],
       ])
-      .put(hydrateSerializedClaimOffers(JSON.parse(serializedClaimOffers)))
+      .put(hydrateClaimOffers(JSON.parse(serializedClaimOffers)))
       .run()
   })
 
@@ -287,14 +284,13 @@ describe('claim offer store', () => {
       ])
       .dispatch({ type: CLAIM_STORAGE_SUCCESS, messageId: uid })
       .call(sendClaimRequestApi, claimHandle, connectionHandle, paymentHandle)
-      .fork(
+      .call(
         saveSerializedClaimOffer,
         claimHandle,
         pairwiseConnection.identifier,
         uid
       )
       .put(sendClaimRequest(uid, claimOfferPayload))
-      .put(claimRequestSuccess(uid))
       .run()
   })
 

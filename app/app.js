@@ -8,7 +8,9 @@ import {
   ToastAndroid,
   Platform,
 } from 'react-native'
-import store, { ROUTE_UPDATE } from './store'
+import store from './store'
+import { ROUTE_UPDATE } from './store/route-store'
+import { getStatusBarTheme } from './store/store-selector'
 import { Container } from './components'
 import { PushNotification } from './push-notification'
 import DeepLink from './deep-link'
@@ -36,6 +38,8 @@ import {
 import { NavigationActions } from 'react-navigation'
 import type { AppState } from './type-app'
 import { exitAppAndroid } from './bridge/react-native-cxs/RNCxs'
+import AppStatus from './app-status/app-status'
+import { setupFeedback } from './feedback'
 
 const backButtonDisableRoutes = [
   lockEnterPinRoute,
@@ -182,6 +186,7 @@ class ConnectMeApp extends PureComponent<void, AppState> {
           />
           <PushNotification navigateToRoute={this.navigateToRoute} />
           <DeepLink />
+          <AppStatus />
           <ConnectMeAppNavigator
             ref={navigatorRef => (this.navigatorRef = navigatorRef)}
             onNavigationStateChange={this.navigationChangeHandler}

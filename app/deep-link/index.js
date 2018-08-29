@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import branch from 'react-native-branch'
-import { deepLinkData, deepLinkEmpty, deepLinkError } from '../store'
+import { deepLinkData, deepLinkEmpty, deepLinkError } from './deep-link-store'
 import type { DeepLinkProps, DeepLinkBundle } from './type-deep-link'
 
 export class DeepLink extends PureComponent<DeepLinkProps, void> {

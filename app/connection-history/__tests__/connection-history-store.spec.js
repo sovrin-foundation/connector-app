@@ -54,6 +54,7 @@ import {
   claimRequestSuccess,
 } from '../../claim-offer/claim-offer-store'
 import { claimReceived, claimStorageSuccess } from '../../claim/claim-store'
+import { CLAIM_STORAGE_SUCCESS } from '../../claim/type-claim'
 import {
   proofRequestReceived,
   sendProof,
@@ -70,10 +71,18 @@ import {
   getProof,
   getClaimOffer,
   getPendingHistoryEvent,
+  getHistoryEvent,
+  getPendingHistory,
+  getClaimReceivedHistory,
 } from '../../store/store-selector'
 import { secureGet } from '../../services/storage'
+import {
+  CLAIM_OFFER_RECEIVED,
+  SEND_CLAIM_REQUEST,
+} from './../../claim-offer/type-claim-offer'
 import { sendClaimRequest } from '../../claim-offer/claim-offer-store'
 import { RESET } from '../../common/type-common'
+import { PROOF_REQUEST_RECEIVED } from '../../proof-request/type-proof-request'
 
 jest.mock('../../services/uuid')
 
@@ -199,6 +208,23 @@ describe('Store: ConnectionHistory', () => {
       historyEventOccurred(sendClaimRequestEvent)
     )
     historyEvent = convertSendClaimRequestToHistoryEvent(sendClaimRequestEvent)
+    expect(gen.next().value).toEqual(
+      select(
+        getHistoryEvent,
+        historyEvent.originalPayload.uid,
+        historyEvent.remoteDid,
+        CLAIM_OFFER_RECEIVED
+      )
+    )
+    expect(gen.next().value).toEqual(
+      select(
+        getPendingHistory,
+        historyEvent.originalPayload.uid,
+        historyEvent.remoteDid,
+        SEND_CLAIM_REQUEST
+      )
+    )
+
     expect(gen.next().value).toEqual(put(recordHistoryEvent(historyEvent)))
   })
 
@@ -216,11 +242,18 @@ describe('Store: ConnectionHistory', () => {
       claimReceivedSuccessEvent,
       claimOfferPayload
     )
-
     expect(gen.next(claimOfferPayload).value).toEqual(
-      select(getPendingHistoryEvent, claimOfferPayload)
+      select(
+        getClaimReceivedHistory,
+        historyEvent.originalPayload.messageId,
+        historyEvent.remoteDid,
+        CLAIM_STORAGE_SUCCESS
+      )
     )
 
+    expect(gen.next().value).toEqual(
+      select(getPendingHistoryEvent, claimOfferPayload)
+    )
     expect(gen.next(pendingClaimHistory).value).toEqual(
       put(deleteHistoryEvent(pendingClaimHistory))
     )
@@ -232,6 +265,14 @@ describe('Store: ConnectionHistory', () => {
       historyEventOccurred(proofRequestReceivedEvent)
     )
     historyEvent = convertProofRequestToHistoryEvent(proofRequestReceivedEvent)
+    expect(gen.next().value).toEqual(
+      select(
+        getHistoryEvent,
+        historyEvent.originalPayload.payloadInfo.uid,
+        historyEvent.remoteDid,
+        PROOF_REQUEST_RECEIVED
+      )
+    )
     expect(gen.next().value).toEqual(put(recordHistoryEvent(historyEvent)))
   })
 
@@ -333,7 +374,9 @@ describe('Store: ConnectionHistory', () => {
       )
     )
     expect(
-      connectionHistoryReducer(afterOneHistoryEventState, { type: RESET })
+      connectionHistoryReducer(afterOneHistoryEventState, {
+        type: RESET,
+      })
     ).toMatchSnapshot()
   })
 })

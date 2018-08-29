@@ -80,7 +80,7 @@ PODS:
   - RNZipArchive/RNZASSZipArchive (2.2.6):
     - React
   - RSKImageCropper (2.1.0)
-  - vcx (0.0.30)
+  - vcx (0.0.35)
   - yoga (0.51.0.React)
 
 DEPENDENCIES:
@@ -101,7 +101,7 @@ DEPENDENCIES:
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNShare (from `../node_modules/react-native-share`)
   - RNZipArchive (from `../node_modules/react-native-zip-archive`)
-  - vcx (= 0.0.30)
+  - vcx (= 0.0.35)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
 SPEC REPOS:
@@ -157,9 +157,9 @@ SPEC CHECKSUMS:
   RNShare: 80d4472ab25e77d9f824cb8d49d7e85af91c66e0
   RNZipArchive: 4f72d162e01ba473a6c2365b4e949183fd208f35
   RSKImageCropper: 0d0c6d8525a2381f03fde32a47c6703817a2feed
-  vcx: 26c236fa4cfb612edc8645d147eb2f7c19e706e6
+  vcx: 01a303192223b473e7e6ce38fd763186d921df1e
   yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
-PODFILE CHECKSUM: abd57b3df4b47c840f5d45c1c265cea486281ed2
+PODFILE CHECKSUM: ce0fed5b2326d505c3ff708bb9f1b553b56f29be
 
 COCOAPODS: 1.5.3

@@ -24,15 +24,15 @@ import {
   CLAIM_OFFER_IGNORED,
   CLAIM_REQUEST_STATUS,
   ADD_SERIALIZED_CLAIM_OFFER,
-  KEY_SERIALIZED_CLAIM_OFFERS,
-  SAVE_SERIALIZED_CLAIM_OFFERS_SUCCESS,
-  SAVE_SERIALIZED_CLAIM_OFFERS_FAIL,
-  ERROR_SAVE_SERIALIZED_CLAIM_OFFERS,
+  CLAIM_OFFERS,
+  SAVE_CLAIM_OFFERS_SUCCESS,
+  SAVE_CLAIM_OFFERS_FAIL,
+  ERROR_SAVE_CLAIM_OFFERS,
   REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS,
   REMOVE_SERIALIZED_CLAIM_OFFERS_FAIL,
-  HYDRATE_SERIALIZED_CLAIM_OFFERS_SUCCESS,
-  HYDRATE_SERIALIZED_CLAIM_OFFERS_FAIL,
-  ERROR_HYDRATE_SERIALIZED_CLAIM_OFFERS,
+  HYDRATE_CLAIM_OFFERS_SUCCESS,
+  HYDRATE_CLAIM_OFFERS_FAIL,
+  ERROR_HYDRATE_CLAIM_OFFERS,
   ERROR_NO_SERIALIZED_CLAIM_OFFER,
   ERROR_SEND_CLAIM_REQUEST,
   INSUFFICIENT_BALANCE,
@@ -48,7 +48,6 @@ import type {
   ClaimOfferResponse,
   ClaimOfferPayload,
   AddSerializedClaimOfferAction,
-  SerializedClaimOffers,
   SerializedClaimOffer,
 } from './type-claim-offer'
 import type {
@@ -64,7 +63,7 @@ import {
   getAgencyVerificationKey,
   getRemotePairwiseDidAndName,
   getPoolConfig,
-  getSerializedClaimOffers,
+  getClaimOffers,
   getConnection,
   getSerializedClaimOffer,
   getWalletBalance,
@@ -78,11 +77,7 @@ import {
   sendClaimRequest as sendClaimRequestApi,
 } from '../bridge/react-native-cxs/RNCxs'
 import type { IndyClaimRequest } from '../bridge/react-native-cxs/type-cxs'
-import {
-  CLAIM_STORAGE_FAIL,
-  CLAIM_STORAGE_SUCCESS,
-  VCX_CLAIM_OFFER_STATE,
-} from '../claim/type-claim'
+import { CLAIM_STORAGE_FAIL, CLAIM_STORAGE_SUCCESS } from '../claim/type-claim'
 import { CLAIM_STORAGE_ERROR } from '../services/error/error-code'
 import { MESSAGE_TYPE } from '../api/api-constants'
 import type { ApiClaimRequest, EdgeClaimRequest } from '../api/type-api'
@@ -92,6 +87,10 @@ import { RESET } from '../common/type-common'
 import { secureSet, secureGet, secureDelete } from '../services/storage'
 import { BigNumber } from 'bignumber.js'
 import { refreshWalletBalance } from '../wallet/wallet-store'
+import type {
+  ClaimStorageSuccessAction,
+  ClaimStorageFailAction,
+} from '../claim/type-claim'
 
 const claimOfferInitialState = {
   vcxSerializedClaimOffers: {},
@@ -254,8 +253,8 @@ export function* claimOfferAccepted(
       // if we are able to send claim request successfully,
       // then we can raise an action to show that we have sent claim request
       // so that our history middleware can record this event
-      yield put(sendClaimRequest(messageId, claimOfferPayload))
       // it also means payment was successful and we can show success to user in modal
+      yield put(sendClaimRequest(messageId, claimOfferPayload))
       yield put(paidCredentialRequestSuccess(messageId))
       yield put(refreshWalletBalance())
     }
@@ -263,34 +262,13 @@ export function* claimOfferAccepted(
     // since we have sent claim request, state of claim offer in vcx is changed
     // so we need to update stored serialized claim offer in store
     // update serialized state in background
-    yield fork(
+    yield call(
       saveSerializedClaimOffer,
       claimHandle,
       connection.identifier,
       messageId
     )
-
-    // keep the race open b/w success and fail for claim storage
-    // until success and fail is fired for same claim offer id
-    // for which we are running this saga, i.e. showing waiting pop up
-    while (true) {
-      const { success, fail } = yield race({
-        success: take(CLAIM_STORAGE_SUCCESS),
-        fail: take(CLAIM_STORAGE_FAIL),
-      })
-
-      if (success) {
-        if (success.messageId === messageId) {
-          yield put(claimRequestSuccess(messageId))
-          break
-        }
-      } else {
-        if (fail.messageId === messageId) {
-          yield put(claimRequestFail(messageId, CLAIM_STORAGE_ERROR()))
-          break
-        }
-      }
-    }
+    // now the updated claim offer is secure stored now we can update claim request
   } catch (e) {
     if (isPaidCredential) {
       yield put(paidCredentialRequestFail(messageId))
@@ -300,6 +278,28 @@ export function* claimOfferAccepted(
       )
     }
   }
+}
+
+function* claimStorageSuccessSaga(
+  action: ClaimStorageSuccessAction
+): Generator<*, *, *> {
+  const { messageId } = action
+  yield put(claimRequestSuccess(messageId))
+}
+
+export function* watchClaimStorageSuccess(): any {
+  yield takeEvery(CLAIM_STORAGE_SUCCESS, claimStorageSuccessSaga)
+}
+
+function* claimStorageFailSaga(
+  action: ClaimStorageFailAction
+): Generator<*, *, *> {
+  const { messageId } = action
+  yield put(claimRequestFail(messageId, CLAIM_STORAGE_ERROR()))
+}
+
+export function* watchClaimStorageFail(): any {
+  yield takeEvery(CLAIM_STORAGE_FAIL, claimStorageFailSaga)
 }
 
 export function* saveSerializedClaimOffer(
@@ -346,24 +346,31 @@ export const addSerializedClaimOffer = (
 })
 
 export function* watchAddSerializedClaimOffer(): any {
-  yield takeEvery(ADD_SERIALIZED_CLAIM_OFFER, saveSerializedClaimOffersSaga)
+  //save claimOffers as well or rename to save ClaimOfferSaga
+  yield takeEvery(
+    [
+      ADD_SERIALIZED_CLAIM_OFFER,
+      CLAIM_OFFER_RECEIVED,
+      SEND_CLAIM_REQUEST,
+      CLAIM_OFFER_SHOWN,
+    ],
+    saveClaimOffersSaga
+  )
 }
 
-export function* saveSerializedClaimOffersSaga(
+export function* saveClaimOffersSaga(
   action: AddSerializedClaimOfferAction
 ): Generator<*, *, *> {
   try {
-    const serializedClaimOffers = yield select(getSerializedClaimOffers)
-    yield call(
-      secureSet,
-      KEY_SERIALIZED_CLAIM_OFFERS,
-      JSON.stringify(serializedClaimOffers)
-    )
-    yield put({ type: SAVE_SERIALIZED_CLAIM_OFFERS_SUCCESS })
+    const claimOffers = yield select(getClaimOffers)
+    yield call(secureSet, CLAIM_OFFERS, JSON.stringify(claimOffers))
+    yield put({
+      type: SAVE_CLAIM_OFFERS_SUCCESS,
+    })
   } catch (e) {
     yield put({
-      type: SAVE_SERIALIZED_CLAIM_OFFERS_FAIL,
-      error: ERROR_SAVE_SERIALIZED_CLAIM_OFFERS(e.message),
+      type: SAVE_CLAIM_OFFERS_FAIL,
+      error: ERROR_SAVE_CLAIM_OFFERS(e.message),
     })
   }
 }
@@ -374,40 +381,44 @@ export function* removePersistedSerializedClaimOffersSaga(): Generator<
   *
 > {
   try {
-    yield call(secureDelete, KEY_SERIALIZED_CLAIM_OFFERS)
-    yield put({ type: REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS })
-  } catch (e) {
-    yield put({ type: REMOVE_SERIALIZED_CLAIM_OFFERS_FAIL })
-  }
-}
-
-export function* hydrateSerializedClaimOffersSaga(): Generator<*, *, *> {
-  try {
-    const serializedClaimOffersJson = yield call(
-      secureGet,
-      KEY_SERIALIZED_CLAIM_OFFERS
-    )
-    if (serializedClaimOffersJson) {
-      const serializedClaimOffers = JSON.parse(serializedClaimOffersJson)
-      yield put(hydrateSerializedClaimOffers(serializedClaimOffers))
-    }
+    yield call(secureDelete, CLAIM_OFFERS)
+    yield put({
+      type: REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS,
+    })
   } catch (e) {
     yield put({
-      type: HYDRATE_SERIALIZED_CLAIM_OFFERS_FAIL,
-      error: ERROR_HYDRATE_SERIALIZED_CLAIM_OFFERS(e.message),
+      type: REMOVE_SERIALIZED_CLAIM_OFFERS_FAIL,
     })
   }
 }
 
-export const hydrateSerializedClaimOffers = (
-  serializedClaimOffers: SerializedClaimOffers
-) => ({
-  type: HYDRATE_SERIALIZED_CLAIM_OFFERS_SUCCESS,
-  serializedClaimOffers,
+export function* hydrateClaimOffersSaga(): Generator<*, *, *> {
+  try {
+    const claimOffersJson = yield call(secureGet, CLAIM_OFFERS)
+    if (claimOffersJson) {
+      const serializedClaimOffers = JSON.parse(claimOffersJson)
+      yield put(hydrateClaimOffers(serializedClaimOffers))
+    }
+  } catch (e) {
+    yield put({
+      type: HYDRATE_CLAIM_OFFERS_FAIL,
+      error: ERROR_HYDRATE_CLAIM_OFFERS(e.message),
+    })
+  }
+}
+
+export const hydrateClaimOffers = (claimOffers: ClaimOfferStore) => ({
+  type: HYDRATE_CLAIM_OFFERS_SUCCESS,
+  claimOffers,
 })
 
 export function* watchClaimOffer(): any {
-  yield all([watchClaimOfferAccepted(), watchAddSerializedClaimOffer()])
+  yield all([
+    watchClaimOfferAccepted(),
+    watchAddSerializedClaimOffer(),
+    watchClaimStorageSuccess(),
+    watchClaimStorageFail(),
+  ])
 }
 
 export default function claimOfferReducer(
@@ -533,11 +544,8 @@ export default function claimOfferReducer(
           },
         },
       }
-    case HYDRATE_SERIALIZED_CLAIM_OFFERS_SUCCESS:
-      return {
-        ...state,
-        vcxSerializedClaimOffers: action.serializedClaimOffers,
-      }
+    case HYDRATE_CLAIM_OFFERS_SUCCESS:
+      return action.claimOffers
     default:
       return state
   }

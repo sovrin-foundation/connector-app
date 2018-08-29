@@ -26,7 +26,7 @@ import {
   claimMap,
 } from '../../../__mocks__/static-data'
 import type { ClaimWithUuid } from '../../claim/type-claim'
-import { promptBackupBanner } from '../../store'
+import { promptBackupBanner } from '../../backup/backup-store'
 
 describe('Claim Store', () => {
   let initialState = { claimMap: {} }

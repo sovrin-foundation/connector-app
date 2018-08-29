@@ -8,7 +8,7 @@ import {
   pushNotificationPermissionAction,
   updatePushToken,
   fetchAdditionalData,
-} from '../store'
+} from './push-notification-store'
 import PushNotificationNavigator from './push-notification-navigator'
 import type { PushNotificationProps } from './type-push-notification'
 import type { Store } from '../store/type-store'

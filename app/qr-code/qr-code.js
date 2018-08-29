@@ -6,7 +6,7 @@ import Camera from 'react-native-camera'
 import { Alert, Platform, PermissionsAndroid, StatusBar } from 'react-native'
 import { Container, QRScanner } from '../components'
 import { color, barStyleLight } from '../common/styles/constant'
-import { invitationReceived } from '../store'
+import { invitationReceived } from '../invitation/invitation-store'
 import {
   PENDING_CONNECTION_REQUEST_CODE,
   QR_CODE_SENDER_DID,

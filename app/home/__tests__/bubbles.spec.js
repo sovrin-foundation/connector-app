@@ -6,14 +6,27 @@ import { connections, getNavigation } from '../../../__mocks__/static-data'
 import type { Connection } from '../../connection/type-connection'
 
 describe('<Bubbles/>', () => {
-  it('should render Bubbles', () => {
+  function getProps() {
     const allConnections: any[] = Object.values(connections)
-    const props = {
+    return {
       connections: allConnections,
       navigation: getNavigation(),
       height: 300,
+      unSeenMessages: {},
     }
-    const wrapper = renderer.create(<Bubbles {...props} />).toJSON()
+  }
+  it('should render Bubbles', () => {
+    const props = getProps()
+    const wrapper = renderer
+      .create(<Bubbles {...props} showBadge={false} />)
+      .toJSON()
+    expect(wrapper).toMatchSnapshot()
+  })
+  it('should show the dot on the Bubbles', () => {
+    const props = getProps()
+    const wrapper = renderer
+      .create(<Bubbles {...props} showBadge={true} />)
+      .toJSON()
     expect(wrapper).toMatchSnapshot()
   })
 })

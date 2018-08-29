@@ -8,6 +8,7 @@ import { withNavigationFocus } from 'react-navigation'
 import style from '../layout/layout-style'
 import { Header } from 'react-native-elements'
 import Color from 'color'
+
 class CustomHeader extends PureComponent<CustomHeaderProps, void> {
   render() {
     const {

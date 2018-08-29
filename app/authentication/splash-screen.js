@@ -19,7 +19,7 @@ import {
   TOKEN_EXPIRED_CODE,
   PENDING_CONNECTION_REQUEST_CODE,
 } from '../api/api-constants'
-import { addPendingRedirection } from '../store'
+import { addPendingRedirection } from '../lock/lock-store'
 import {
   getSmsPendingInvitation,
   safeToDownloadSmsInvitation,

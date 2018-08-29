@@ -30,12 +30,8 @@ import {
   isiPhone5,
   PIN_CODE_BORDER_BOTTOM,
 } from '../common/styles/constant'
-import {
-  switchErrorAlerts,
-  longPressedInLockSelectionScreen,
-  pressedOnOrInLockSelectionScreen,
-  disableDevMode,
-} from '../store'
+import { switchErrorAlerts } from '../store/config-store'
+import { disableDevMode, longPressedInLockSelectionScreen, pressedOnOrInLockSelectionScreen } from './lock-store'
 import { safeToDownloadSmsInvitation } from '../sms-pending-invitation/sms-pending-invitation-store'
 
 export class LockSelection extends PureComponent<LockSelectionProps, void> {

@@ -22,7 +22,7 @@ import {
 } from '../common/styles'
 import { primaryHeaderStyles } from '../components/layout/header-styles'
 import { homeRoute, walletRoute } from '../common'
-import { getConnections } from '../store'
+import { getConnections } from '../store/connections-store'
 import type { Store } from '../store/type-store'
 import type { HomeProps, HomeState } from './type-home'
 import {
@@ -35,6 +35,7 @@ import WalletBalance from '../wallet/wallet-balance'
 import type { Connection } from '../store/type-connection-store'
 import Banner from '../components/banner/banner'
 import { NavigationActions } from 'react-navigation'
+import { getUnseenMessages } from '../store/store-selector'
 
 export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
   state = {
@@ -98,7 +99,7 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
       extrapolate: 'clamp',
     })
 
-    const { connections: { data, hydrated } } = this.props
+    const { connections: { data, hydrated }, unSeenMessages } = this.props
     // type casting from Array<mixed> to any and then to what we need
     // because flow Array<mixed> can't be directly type casted as of now
     const connections: Connection[] = (getConnections(data): any)
@@ -113,6 +114,7 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
               navigation={this.props.navigation}
               height={bubblesHeight}
               connections={connections}
+              unSeenMessages={unSeenMessages}
             />
           )}
           {!hydrated ? <CustomActivityIndicator /> : null}
@@ -125,9 +127,16 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
   }
 }
 
-const mapStateToProps = (state: Store) => ({
-  connections: state.connections,
-})
+const mapStateToProps = (state: Store) => {
+  // when ever there is change in claimOffer state and proof request state
+  // getUnseenMessages selector will return updated data
+  // this data is used to update red dots on connection bubbles.
+  let unSeenMessages = getUnseenMessages(state)
+  return {
+    connections: state.connections,
+    unSeenMessages,
+  }
+}
 
 export default createStackNavigator({
   [homeRoute]: {

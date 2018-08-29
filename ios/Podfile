@@ -3,7 +3,7 @@
 platform :ios, '10.2'
 source 'https://github.com/CocoaPods/Specs.git'
 source 'git@github.com:evernym/sdk.git'
-pod 'vcx', '0.0.30'
+pod 'vcx', '0.0.35'
 pod 'Firebase/Messaging', '4.8.0'
 
 target 'ConnectMe' do

@@ -42,40 +42,10 @@ Object {
 }
 `;
 
-exports[`claim offer store action: HYDRATE_SERIALIZED_CLAIM_OFFERS_SUCCESS 1`] = `
+exports[`claim offer store action: HYDRATE_CLAIM_OFFERS_SUCCESS 1`] = `
 Object {
-  "usd123": Object {
-    "claimRequestStatus": "CLAIM_REQUEST_FAIL",
-    "data": Object {
-      "claimDefinitionSchemaSequenceNumber": 36,
-      "name": "Home Address",
-      "revealedAttributes": Array [
-        Object {
-          "data": "Address Address Address",
-          "label": "Address 1",
-        },
-        Object {
-          "data": "Address 2 Address 2 Address 2",
-          "label": "Address 2",
-        },
-      ],
-      "version": "1.0.0",
-    },
-    "error": null,
-    "issuer": Object {
-      "did": "issuerDid",
-      "name": "Test Issuer",
-    },
-    "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
-    "senderLogoUrl": "http://testissuer.com/logoUrl.png",
-    "status": "ACCEPTED",
-    "statusMsg": "pending",
-    "uid": "usd123",
-  },
-  "vcxSerializedClaimOffers": Object {
-    "pairwiseIdentifier1": Object {
-      "uid": "{}",
-    },
+  "pairwiseIdentifier1": Object {
+    "uid": "{}",
   },
 }
 `;

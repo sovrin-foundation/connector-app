@@ -4,12 +4,12 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 import { homeTabRoute } from '../../common'
+import { PushNotificationNavigator } from '../push-notification-navigator'
 import {
-  PushNotificationNavigator,
   convertClaimOfferPushPayloadToAppClaimOffer,
   convertClaimPushPayloadToAppClaim,
   convertProofRequestPushPayloadToAppProofRequest,
-} from '../push-notification-navigator'
+} from '../push-notification-store'
 import {
   claimOfferPushNotification,
   proofRequestPushPayloadAdditionalData,
@@ -21,9 +21,8 @@ describe('<PushNotificationNavigator />', () => {
   const storeToProps = {
     pushNotification: {
       notification: claimOfferPushNotification,
+      navigateRoute: null,
     },
-    currentScreen: homeTabRoute,
-    isAppLocked: false,
   }
 
   beforeAll(() => {
@@ -45,15 +44,9 @@ describe('<PushNotificationNavigator />', () => {
   function props() {
     return {
       ...storeToProps,
+      updatePayloadToRelevantStoreAndRedirect: jest.fn(),
+      clearNavigateToRoutePN: jest.fn(),
       navigateToRoute: jest.fn(),
-      fetchAdditionalData: jest.fn(),
-      authenticationRequestReceived: jest.fn(),
-      claimOfferReceived: jest.fn(),
-      proofRequestReceived: jest.fn(),
-      pushNotificationReceived: jest.fn(),
-      addPendingRedirection: jest.fn(),
-      claimReceived: jest.fn(),
-      claimReceivedVcx: jest.fn(),
     }
   }
 

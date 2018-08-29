@@ -8,7 +8,7 @@ import pushNotification, {
   watchPushNotification,
 } from '../push-notification/push-notification-store'
 import connections, { watchConnection } from './connections-store'
-import config, { watchConfig } from './config-store'
+import config, { watchConfig, watchGetMessagesSaga } from './config-store'
 import authentication, {
   watchAuthentication,
 } from '../authentication/authentication-store'
@@ -26,6 +26,8 @@ import smsPendingInvitation, {
 import claimOffer, { watchClaimOffer } from '../claim-offer/claim-offer-store'
 import proofRequest, {
   watchProofRequestAccepted,
+  watchPersistProofRequests,
+  watchProofRequestReceived,
 } from '../proof-request/proof-request-store'
 import invitation, { watchInvitation } from '../invitation/invitation-store'
 import claim, { watchClaim } from '../claim/claim-store'
@@ -99,23 +101,10 @@ sagaMiddleware.run(function*() {
     watchEula(),
     watchRestore(),
     hydrate(),
+    watchGetMessagesSaga(),
+    watchPersistProofRequests(),
+    watchProofRequestReceived(),
   ])
 })
 
-export * from '../push-notification/push-notification-store'
-export * from './connections-store'
-export * from '../connection-history/connection-history-store'
-export * from './config-store'
-export * from './route-store'
-export * from '../authentication/authentication-store'
-export * from '../deep-link/deep-link-store'
-export * from '../lock/lock-store'
-export * from '../sms-pending-invitation/sms-pending-invitation-store'
-export * from '../claim-offer/claim-offer-store'
-export * from '../proof-request/proof-request-store'
-export * from '../proof/proof-store'
-export * from '../invitation/invitation-store'
-export * from '../backup/backup-store'
-
-// make default export as the store
 export default store

@@ -819,6 +819,91 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void downloadMessages(String messageStatus, String uid_s, String pwdids, Promise promise) {
+      Log.d(TAG, "downloadMessages() called with: messageStatus = [ " + messageStatus + "] , uid_s =[" + uid_s
+          + "] and pwdids =[ " + pwdids);
+      try {
+        UtilsApi.vcxGetMessages(messageStatus, uid_s, pwdids).exceptionally((t) -> {
+          Log.d(TAG, "downloadMessages: ", t);
+          promise.reject("FutureException", t.getMessage());
+          return null;
+        }).thenAccept(result -> BridgeUtils.resolveIfValid(promise, result));
+  
+      } catch (VcxException e) {
+        promise.reject("VCXException", e.getMessage());
+      }
+    }
+  
+    @ReactMethod
+    public void updateMessages(String messageStatus, String pwdidsJson, Promise promise) {
+      Log.d(TAG, "updateMessages() called with messageStatus = [ " + messageStatus + "], pwdidJson = [" + pwdidsJson);
+  
+      try {
+        UtilsApi.vcxUpdateMessages(messageStatus, pwdidsJson).exceptionally((t) -> {
+          Log.d(TAG, "updateMessages: ", t);
+          promise.reject("FutureException", t.getMessage());
+          return null;
+        }).thenAccept(result -> BridgeUtils.resolveIfValid(promise, result));
+      } catch (VcxException e) {
+        promise.reject("FutureException", e.getMessage());
+      }
+    }
+
+    @ReactMethod
+    public void proofCreateWithRequest(String sourceId, String proofRequest, Promise promise) {
+        Log.d(TAG, "proofCreateWithRequest() called with sourceId = ["+ sourceId +"], proofRequest =["+ proofRequest +"]");
+
+        try {
+            DisclosedProofApi.proofCreateWithRequest(sourceId, proofRequest).exceptionally((t)-> {
+                Log.d(TAG, "proofCreateWithRequest", t);
+                promise.reject("VcxException", t.getMessage());
+                return -1;
+            }).thenAccept(result -> {
+                if (result != -1) {
+                    BridgeUtils.resolveIfValid(promise, result);
+                }
+            });
+        } catch(VcxException e) {
+            promise.reject("VcxException", e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void proofSerialize(int proofHandle, Promise promise) {
+        Log.d(TAG, "proofSerialize() called with proofHandle = ["+ proofHandle +"]");
+        try {
+            DisclosedProofApi.proofSerialize(proofHandle).exceptionally((e) -> {
+                Log.d(TAG, "proofSerialize", e);
+                promise.reject("VcxException", e.getMessage());
+                return null;
+            }).thenAccept(result -> {
+                BridgeUtils.resolveIfValid(promise, result);
+            });
+        } catch(VcxException e) {
+            promise.reject("VcxException", e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void proofDeserialize(String serializedProof, Promise promise) {
+        Log.d(TAG, "proofDeserialize() called with serializedProof = ["+ serializedProof +"]");
+
+        try {
+            DisclosedProofApi.proofDeserialize(serializedProof).exceptionally((e)-> {
+                Log.d(TAG, "proofDeserialize", e);
+                promise.reject("VcxException", e.getMessage());
+                return -1;
+            }).thenAccept(result -> {
+                if (result != -1) {
+                    BridgeUtils.resolveIfValid(promise, result);
+                }
+            });
+        } catch(VcxException e) {
+            promise.reject("VcxException", e.getMessage());
+        }
+    }
+
+    @ReactMethod
     public void createWalletKey(int lengthOfKey, Promise promise) {
         try {
             SecureRandom random = new SecureRandom();

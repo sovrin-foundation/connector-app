@@ -4,15 +4,15 @@ import { View, Text, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { connectionRoute, homeRoute } from '../common'
-import {
-  resetAuthenticationStatus,
-  sendUserAuthenticationResponse,
-  getConnection,
-} from '../store'
+import { getConnection } from '../store/connections-store'
 import type { Store } from '../store/type-store'
 import { Container, Request } from '../components'
 import ConnectionSuccessModal from './connection-success-modal'
-import { AUTHENTICATION_STATUS } from './authentication-store'
+import {
+  AUTHENTICATION_STATUS,
+  resetAuthenticationStatus,
+  sendUserAuthenticationResponse,
+} from './authentication-store'
 import type { Connection } from '../store/type-connection-store'
 
 // TODO:KS Fix type for this screen, we are not using this screen

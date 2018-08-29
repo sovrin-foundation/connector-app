@@ -34,7 +34,7 @@ import {
 import { STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL } from './type-config-store'
 import { STORAGE_KEY_SHOW_BANNER } from '../components/banner/banner-constants'
 import { STORAGE_KEY_EULA_ACCEPTANCE } from '../eula/type-eula'
-import { hydrateSerializedClaimOffersSaga } from '../claim-offer/claim-offer-store'
+import { hydrateClaimOffersSaga } from '../claim-offer/claim-offer-store'
 import { hydrateBackupSaga } from '../backup/backup-store'
 import { loadHistorySaga } from '../connection-history/connection-history-store'
 import { IS_ALREADY_INSTALLED } from '../common'
@@ -54,7 +54,8 @@ import {
 import { captureError } from '../services/error/error-handler'
 import { simpleInit, vcxShutdown } from '../bridge/react-native-cxs/RNCxs'
 import { STORAGE_KEY_USER_AVATAR_NAME } from './user/type-user-store'
-import { safeToDownloadSmsInvitation } from '.'
+import { safeToDownloadSmsInvitation } from '../sms-pending-invitation/sms-pending-invitation-store'
+import { hydrateProofRequestsSaga } from './../proof-request/proof-request-store'
 import { deleteItem } from '../services/secure-storage'
 import { WALLET_KEY } from '../bridge/react-native-cxs/vcx-transformers'
 
@@ -188,11 +189,12 @@ export function* hydrate(): any {
       yield* hydratePushTokenSaga()
       yield* hydrateWalletStoreSaga()
       yield* hydrateConnectionSaga()
+      yield* hydrateProofRequestsSaga()
       yield* hydrateThemes()
       yield* hydrateUserStoreSaga()
       yield* hydrateBackupSaga()
       yield* hydrateClaimMapSaga()
-      yield* hydrateSerializedClaimOffersSaga()
+      yield* hydrateClaimOffersSaga()
       yield* loadHistorySaga()
 
       // TODO: Move vcx shutdown logic inside ensureVcxInitSuccess

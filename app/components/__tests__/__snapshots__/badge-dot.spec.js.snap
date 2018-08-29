@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Dot /> should render with large Dot 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#d1021b",
+        "borderColor": "#ffffff",
+        "borderWidth": 0.2,
+      },
+      Object {
+        "borderRadius": 15,
+        "height": 25,
+        "width": 25,
+      },
+    ]
+  }
+/>
+`;
+
+exports[`<Dot /> should render with medium Dot 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#d1021b",
+        "borderColor": "#ffffff",
+        "borderWidth": 0.2,
+      },
+      Object {
+        "borderRadius": 10,
+        "height": 20,
+        "width": 20,
+      },
+    ]
+  }
+/>
+`;
+
+exports[`<Dot /> should render with small Dot 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#d1021b",
+        "borderColor": "#ffffff",
+        "borderWidth": 0.2,
+      },
+      Object {
+        "borderRadius": 10,
+        "height": 15,
+        "width": 15,
+      },
+    ]
+  }
+/>
+`;

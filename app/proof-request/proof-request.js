@@ -49,7 +49,7 @@ import {
   acceptProofRequest,
   ignoreProofRequest,
   proofRequestShown,
-} from '../store'
+} from './proof-request-store'
 import {
   getConnectionLogoUrl,
   getUserAvatarSource,

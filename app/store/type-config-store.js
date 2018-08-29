@@ -167,10 +167,18 @@ export const ERROR_HYDRATE_SWITCH_ENVIRONMENT = {
 export const schemaDownloadedEnvironmentDetails = {
   type: 'object',
   properties: {
-    agencyUrl: { type: 'string' },
-    agencyDID: { type: 'string' },
-    agencyVerificationKey: { type: 'string' },
-    poolConfig: { type: 'string' },
+    agencyUrl: {
+      type: 'string',
+    },
+    agencyDID: {
+      type: 'string',
+    },
+    agencyVerificationKey: {
+      type: 'string',
+    },
+    poolConfig: {
+      type: 'string',
+    },
   },
   required: ['agencyDID', 'agencyUrl', 'agencyVerificationKey', 'poolConfig'],
 }
@@ -206,3 +214,118 @@ export const UNSAFE_SCREENS_TO_DOWNLOAD_SMS = [
   eulaRoute,
   restoreRoute,
 ]
+
+export type DownloadedMessage = {
+  statusCode: string,
+  payload?: ?any,
+  senderDID: string,
+  uid: string,
+  type: string,
+  refMsgId?: ?string,
+  deliveryDetails: Array<any>,
+  decryptedPayload?: string,
+}
+export type DownloadedConnectionMessages = {
+  pairwiseDID: string,
+  msgs: Array<DownloadedMessage>,
+}
+export type DownloadedConnectionsWithMessages = Array<
+  DownloadedConnectionMessages
+>
+export type AcknowledgeServerData = Array<{
+  pairwiseDID: string,
+  uids: Array<string>,
+}>
+
+export const MESSAGE_RESPONSE_CODE = {
+  MESSAGE_CREATED: 'MS-101',
+  MESSAGE_SENT: 'MS-102',
+  MESSAGE_PENDING: 'MS-103',
+  MESSAGE_ACCEPTED: 'MS-104',
+  MESSAGE_REJECTED: 'MS-105',
+  MESSAGE_ANSWERED: 'MS-106',
+}
+
+export type MessageClaimOfferDetails = {|
+  claim_id: string,
+  claim_name: string,
+  cred_def_id: string,
+  credential_attrs: {
+    [string]: string,
+  },
+  from_did: string,
+  libindy_offer: string,
+  msg_ref_id: ?string,
+  msg_type: string,
+  schema_seq_no: number,
+  to_did: string,
+  version: string,
+|}
+
+export type SerializedClaimOfferData = {
+  agent_did: null,
+  agent_vk: null,
+  cred_id: null,
+  credential: null,
+  credential_name: null,
+  credential_offer: ?MessageClaimOfferDetails,
+  credential_request: null,
+  msg_uid: null,
+  my_did: null,
+  my_vk: null,
+  payment_info: ?MessagePaymentDetails,
+  payment_txn: null,
+  source_id: string,
+  state: number,
+  their_did: null,
+  their_vk: null,
+}
+
+export type MessagePaymentDetails = {|
+  payment_addr: string,
+  payment_required: string,
+  price: number,
+|}
+
+export type ParsedDecryptedPayloadMessage = Array<
+  MessageClaimOfferDetails | MessagePaymentDetails
+>
+export type ParsedDecryptedPayload = {
+  '@msg': string,
+  '@type': {
+    fmt: string,
+    name: string,
+    ver: string,
+  },
+}
+
+export const ACKNOWLEDGE_MESSAGES_FAIL = 'ACKNOWLEDGE_MESSAGES_FAIL'
+export const GET_MESSAGES_FAIL = 'GET_MESSAGES_FAIL'
+export const ACKNOWLEDGE_MESSAGES = 'ACKNOWLEDGE_MESSAGES'
+export const GET_MESSAGES_SUCCESS = 'GET_MESSAGES_SUCCESS'
+export const GET_MESSAGES_LOADING = 'GET_MESSAGES_LOADING'
+export const GET_UN_ACKNOWLEDGED_MESSAGES = 'GET_UN_ACKNOWLEDGED_MESSAGES'
+
+export type GetUnacknowledgedMessagesAction = {
+  type: typeof GET_UN_ACKNOWLEDGED_MESSAGES,
+}
+export type GetMessagesLoadingAction = {
+  type: typeof GET_MESSAGES_LOADING,
+}
+
+export type GetMessagesSuccessAction = {
+  type: typeof GET_MESSAGES_SUCCESS,
+}
+
+export type AcknowledgeMessagesAction = {
+  type: typeof ACKNOWLEDGE_MESSAGES,
+}
+
+export type GetMessagesFailAction = {
+  type: typeof GET_MESSAGES_FAIL,
+}
+
+export type AcknowledgeMessagesFailAction = {
+  type: typeof ACKNOWLEDGE_MESSAGES_FAIL,
+  error: string,
+}

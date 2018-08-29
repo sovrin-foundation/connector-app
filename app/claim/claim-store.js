@@ -34,7 +34,6 @@ import {
   HYDRATE_CLAIM_MAP_FAIL,
   ERROR_CLAIM_HYDRATE_FAIL,
   CLAIM_RECEIVED_VCX,
-  VCX_CLAIM_OFFER_STATE,
 } from './type-claim'
 import type { CustomError } from '../common/type-common'
 import {
@@ -47,14 +46,18 @@ import {
   getConnectionLogoUrl,
   getPoolConfig,
   getClaimMap,
-  getClaimOffers,
+  getSerializedClaimOffers,
   getConnectionByUserDid,
 } from '../store/store-selector'
 import { secureSet, secureGet } from '../services/storage'
 import { CLAIM_MAP } from '../common/secure-storage-constants'
 import { RESET } from '../common/type-common'
-import { ensureVcxInitSuccess } from '../store/config-store'
+import {
+  ensureVcxInitSuccess,
+  updateMessageStatus,
+} from '../store/config-store'
 import type { SerializedClaimOffer } from '../claim-offer/type-claim-offer'
+import { VCX_CLAIM_OFFER_STATE } from '../claim-offer/type-claim-offer'
 import { saveSerializedClaimOffer } from '../claim-offer/claim-offer-store'
 import type { Connection } from '../store/type-connection-store'
 import { promptBackupBanner } from '../backup/backup-store'
@@ -138,14 +141,20 @@ export function* claimReceivedVcxSaga(
   // and then check each claim offer for update and download latest message
   // for each claim offer and see which claim offer received claim
   const serializedClaimOffers: SerializedClaimOffer[] = yield select(
-    getClaimOffers,
+    getSerializedClaimOffers,
     forDID
   )
 
   if (connectionHandle != null) {
     for (const serializedClaimOffer of serializedClaimOffers) {
       // run each claim offer check in parallel and wait for all of them to finish
-      yield fork(checkForClaim, serializedClaimOffer, connectionHandle, forDID)
+      yield call(
+        checkForClaim,
+        serializedClaimOffer,
+        connectionHandle,
+        forDID,
+        uid
+      )
     }
   }
 }
@@ -153,13 +162,14 @@ export function* claimReceivedVcxSaga(
 export function* checkForClaim(
   serializedClaimOffer: SerializedClaimOffer,
   connectionHandle: number,
-  userDID: string
+  userDID: string,
+  uid: string
 ): Generator<*, *, *> {
   if (serializedClaimOffer.state === VCX_CLAIM_OFFER_STATE.ACCEPTED) {
     // if claim offer is already in accepted state, then we don't want to update state
     return
   }
-
+  const { messageId } = serializedClaimOffer
   try {
     const claimHandle: number = yield call(
       getClaimHandleBySerializedClaimOffer,
@@ -169,6 +179,7 @@ export function* checkForClaim(
       updateClaimOfferState,
       claimHandle
     )
+
     if (vcxClaimOfferState === VCX_CLAIM_OFFER_STATE.ACCEPTED) {
       // once we know that this claim offer state was updated to accepted
       // that means that we downloaded the claim for this claim offer
@@ -178,7 +189,6 @@ export function* checkForClaim(
         getConnectionByUserDid,
         userDID
       )
-
       if (connection) {
         yield put(
           mapClaimToSender(
@@ -192,17 +202,23 @@ export function* checkForClaim(
       }
 
       yield put(claimStorageSuccess(serializedClaimOffer.messageId))
+      yield* updateMessageStatus([
+        {
+          pairwiseDID: userDID,
+          uids: [messageId, uid],
+        },
+      ])
       yield put(promptBackupBanner(true))
-    }
 
-    // since we asked vcx to update state, we should also update serialized state in redux
-    // so that we don't go out of sync with vcx
-    yield fork(
-      saveSerializedClaimOffer,
-      claimHandle,
-      userDID,
-      serializedClaimOffer.messageId
-    )
+      // since we asked vcx to update state, we should also update serialized state in redux
+      // so that we don't go out of sync with vcx
+      yield fork(
+        saveSerializedClaimOffer,
+        claimHandle,
+        userDID,
+        serializedClaimOffer.messageId
+      )
+    }
   } catch (e) {
     // we got error while saving claim in wallet, what to do now?
     yield put(
@@ -230,7 +246,9 @@ export function* watchClaim(): any {
   yield all([watchClaimReceivedVcx()])
 }
 
-const initialState = { claimMap: {} }
+const initialState = {
+  claimMap: {},
+}
 
 export default function claimReducer(
   state: ClaimStore = initialState,

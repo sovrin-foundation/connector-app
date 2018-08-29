@@ -39,12 +39,14 @@ import type { CustomError } from '../common/type-common'
 import {
   generateProof,
   getMatchingCredentials,
+  proofDeserialize,
 } from '../bridge/react-native-cxs/RNCxs'
 import {
   proofRequestAutoFill,
   missingAttributesFound,
   acceptProofRequest,
   sendProof,
+  updateProofHandle,
 } from '../proof-request/proof-request-store'
 import {
   getOriginalProofRequestData,
@@ -265,11 +267,44 @@ export function* generateProofSaga(
       uid
     )
     const proofRequest = proofRequestPayload.originalProofRequestData
-    const { proofHandle } = proofRequestPayload
-    const matchingCredentialsJson: string = yield call(
-      getMatchingCredentials,
-      proofHandle
-    )
+    let proofHandle = proofRequestPayload.proofHandle
+    let matchingCredentialsJson: string | null = null
+
+    try {
+      matchingCredentialsJson = yield call(getMatchingCredentials, proofHandle)
+    } catch (e) {
+      // the reason why are we doing this here is
+      // we persist proofHandle along with proof request
+      // proofHandle is given by vcx for the their internal object which is in memory
+      // and using that proofHandle we can query data
+      // However, if user kills the app, then vcx looses all in memory object
+      // and proofHandle that we persisted no longer points to proof object
+      // so we catch that exception here and we get new proofHandle
+      // and then try to query data again
+      // if it fails again, then there must be some error from vcx side which we bubble up
+
+      // the way we achieve what is written above is that we take the serialized proof request
+      // from vcx and store that object on our side and then we pass that serialized object
+      // back to vcx, so that vcx can create it's internal proof object again
+      const serializedProofRequest =
+        proofRequestPayload.vcxSerializedProofRequest
+      if (serializedProofRequest) {
+        // it might happen that we won't have serialized proof request
+        // so we guard against it and let fail
+        proofHandle = yield call(proofDeserialize, serializedProofRequest)
+        // update proof handle in store, because it would be used by proof-request store
+        yield put(updateProofHandle(proofHandle, uid))
+        matchingCredentialsJson = yield call(
+          getMatchingCredentials,
+          proofHandle
+        )
+      }
+    }
+
+    if (!matchingCredentialsJson) {
+      throw new Error('No matching credential json result')
+    }
+
     const matchingCredentials: IndyPreparedProof = JSON.parse(
       matchingCredentialsJson
     )

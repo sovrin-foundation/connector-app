@@ -38,8 +38,8 @@ If you get this error during the ` bitrise run android ` build then you are miss
 What went wrong:
 Execution failed for task ':app:validateSigningRelease'.
 > Keystore file /Users/norm/keystores/my_keystore.jks not found for signing config 'release'.
-- ask your team members for .bitrise.secrets.yml file and place it in directory with bitirse.yml file
-- run ` brew install bitirse && bitrise setup `
+- ask your team members for .bitrise.secrets.yml file and place it in directory with bitrise.yml file
+- run ` brew install bitrise && bitrise setup `
 - Make sure that the android/app/build.gradle has it's versionCode attribute set to the PREVIOUS build number (be aware that a failed "bitrise run android" will STILL increment the number and so you will need to decrement it back to the PREVIOUS build number after a failure)
 - run ` bitrise run android `
 - If you get this error then rm -rf node_modules and re-run ` bitrise run android `
@@ -125,6 +125,6 @@ and then the software keyboard will come up and allow you to use the mouse to in
 try to re-enable The MacBook Pro keyboard but if it still fails then use this workaround again.
 
 ## Android OPENSSL Issue
-- On Android https calls to the webserver will result in _verify failed_ error. This is because of the known issue in openssl crate in rust https://github.com/seanmonstar/reqwest/issues/70 . 
+- On Android https calls to the webserver will result in _verify failed_ error. This is because of the known issue in openssl crate in rust https://github.com/seanmonstar/reqwest/issues/70 .
   - Workaround: Download the cacert.pem from the here https://curl.haxx.se/ca/cacert.pem . Push the cert to the device to a accessbile location (like sd card `SSL_CERT_FILE=/sdcard/cacert.pem`) so that the rust binary can access the cert.
   - As of the cacert.pem is a part of assets in android app and is created in createOneTimeInfo()

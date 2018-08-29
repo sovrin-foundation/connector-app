@@ -93,13 +93,14 @@ export class Bubble extends PureComponent<BubbleProps, BubbleState> {
             testID={testID}
             onLongPress={() => showDID(senderDID, identifier)}
             onPress={this.showHistory}
-            showBadge
           />
         </View>
         {/* TODO: the badge has to be put on a condition when there is any unread cred is pending inside this connection */}
-        <CustomView style={[badgeDotStyles.badge]}>
-          <BadgeDot size="medium" />
-        </CustomView>
+        {this.props.showBadge ? (
+          <CustomView style={[badgeDotStyles.badge]}>
+            <BadgeDot size="medium" />
+          </CustomView>
+        ) : null}
       </CustomView>
     )
   }
@@ -226,11 +227,19 @@ export default class ConnectionBubbles extends PureComponent<
       'edcu',
       'agency',
     ]
-    const connections = this.props.connections.map((connection, index) => ({
-      ...connection,
-      name: enterprises[index] || 'verizon',
-      index,
-    }))
+    const connections = this.props.connections.map((connection, index) => {
+      let showBadge =
+        this.props.unSeenMessages[connection.senderDID] &&
+        this.props.unSeenMessages[connection.senderDID].length > 0
+          ? true
+          : false
+      return {
+        ...connection,
+        name: enterprises[index] || 'verizon',
+        index,
+        showBadge,
+      }
+    })
 
     return (
       <Animated.View
@@ -249,6 +258,7 @@ export default class ConnectionBubbles extends PureComponent<
             senderName,
             senderDID,
             index,
+            showBadge,
           }) => (
             <AnimationView
               animation="zoomIn"
@@ -272,6 +282,7 @@ export default class ConnectionBubbles extends PureComponent<
                 disableTopView={this.disableViewTaps}
                 disableTaps={this.state.disableTaps}
                 allowInteractions={this.state.interactionsDone}
+                showBadge={showBadge}
               />
             </AnimationView>
           )

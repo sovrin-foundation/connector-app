@@ -119,11 +119,6 @@ export const ERROR_CLAIM_HYDRATE_FAIL = {
   code: 'CL-001',
 }
 
-export const VCX_CLAIM_OFFER_STATE = {
-  INITIALIZED: 0,
-  ACCEPTED: 4,
-}
-
 export type GetClaimVcxResult = {
   claimUuid: string,
   claim: ClaimPushPayload,

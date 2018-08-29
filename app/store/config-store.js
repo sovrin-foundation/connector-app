@@ -1,6 +1,14 @@
 // @flow
 import { Alert } from 'react-native'
-import { put, take, all, call, select, takeLatest } from 'redux-saga/effects'
+import {
+  put,
+  take,
+  all,
+  call,
+  fork,
+  select,
+  takeLatest,
+} from 'redux-saga/effects'
 
 import { secureGet, secureSet } from '../services/storage'
 import { setItem, getItem } from '../services/secure-storage'
@@ -12,6 +20,12 @@ import {
   getUserOneTimeInfo,
   getVcxInitializationState,
   getCurrentScreen,
+  getAllConnectionsPairwiseDid,
+  getConnection,
+  getSerializedClaimOffer,
+  getPendingHistory,
+  getClaimOffer,
+  getClaimOffers,
 } from '../store/store-selector'
 import {
   SERVER_ENVIRONMENT,
@@ -42,6 +56,13 @@ import {
   ERROR_VCX_PROVISION_FAIL,
   VCX_INIT_NOT_STARTED,
   UNSAFE_SCREENS_TO_DOWNLOAD_SMS,
+  MESSAGE_RESPONSE_CODE,
+  ACKNOWLEDGE_MESSAGES_FAIL,
+  GET_MESSAGES_FAIL,
+  ACKNOWLEDGE_MESSAGES,
+  GET_MESSAGES_SUCCESS,
+  GET_MESSAGES_LOADING,
+  GET_UN_ACKNOWLEDGED_MESSAGES,
 } from './type-config-store'
 import type {
   ServerEnvironment,
@@ -51,6 +72,21 @@ import type {
   SwitchEnvironmentAction,
   ChangeEnvironment,
   ChangeEnvironmentUrlAction,
+  DownloadedMessage,
+  DownloadedConnectionsWithMessages,
+  AcknowledgeServerData,
+  DownloadedConnectionMessages,
+  ParsedDecryptedPayloadMessage,
+  ParsedDecryptedPayload,
+  MessageClaimOfferDetails,
+  MessagePaymentDetails,
+  SerializedClaimOfferData,
+  GetUnacknowledgedMessagesAction,
+  GetMessagesLoadingAction,
+  GetMessagesSuccessAction,
+  AcknowledgeMessagesAction,
+  GetMessagesFailAction,
+  AcknowledgeMessagesFailAction,
 } from './type-config-store'
 import type { CustomError } from '../common/type-common'
 import { downloadEnvironmentDetails } from '../api/api'
@@ -61,15 +97,54 @@ import {
   createOneTimeInfo,
   simpleInit,
   vcxShutdown,
+  downloadMessages,
+  updateMessages,
+  downloadProofRequest,
+  getHandleBySerializedConnection,
+  getClaimHandleBySerializedClaimOffer,
+  proofDeserialize,
 } from '../bridge/react-native-cxs/RNCxs'
 import { RESET } from '../common/type-common'
-import { updatePushToken } from '../push-notification/push-notification-store'
+import type { Connection } from './type-connection-store'
+import {
+  updatePushToken,
+  updatePayloadToRelevantStore,
+  fetchAdditionalDataError,
+  updatePayloadToRelevantStoreSaga,
+} from '../push-notification/push-notification-store'
 import type { VcxProvisionResult } from '../bridge/react-native-cxs/type-cxs'
 import type { UserOneTimeInfo } from './user/type-user-store'
 import { connectRegisterCreateAgentDone } from './user/user-store'
 import findKey from 'lodash.findkey'
 import { SAFE_TO_DOWNLOAD_SMS_INVITATION } from '../sms-pending-invitation/type-sms-pending-invitation'
 import { GENESIS_FILE_NAME } from '../api/api-constants'
+import type {
+  ClaimOfferMessagePayload,
+  ClaimPushPayload,
+} from './../push-notification/type-push-notification'
+import type {
+  ProofRequestPushPayload,
+  StringifiableProofRequest,
+  ProofRequest,
+  ProofRequestData,
+} from '../proof-request/type-proof-request'
+import type { ClaimPushPayloadVcx } from './../claim/type-claim'
+import { MESSAGE_TYPE } from '../api/api-constants'
+import {
+  saveSerializedClaimOffer,
+  claimOfferAccepted,
+  acceptClaimOffer,
+  addSerializedClaimOffer,
+} from './../claim-offer/claim-offer-store'
+import {
+  CLAIM_REQUEST_STATUS,
+  VCX_CLAIM_OFFER_STATE,
+} from './../claim-offer/type-claim-offer'
+import { claimReceivedVcx, claimReceivedVcxSaga } from './../claim/claim-store'
+import type { SerializedClaimOffer } from '../claim-offer/type-claim-offer'
+import { SEND_CLAIM_REQUEST } from '../claim-offer/type-claim-offer'
+import { getPendingFetchAdditionalDataKey } from './store-selector'
+import FCM from 'react-native-fcm'
 
 /**
  * this file contains configuration which is changed only from user action
@@ -168,7 +243,9 @@ export const changeEnvironmentUrl = (url: string) => ({
 })
 
 export function* resetStore(): Generator<*, *, *> {
-  yield put({ type: RESET })
+  yield put({
+    type: RESET,
+  })
 }
 
 export function* onChangeEnvironmentUrl(
@@ -522,12 +599,487 @@ export function* ensureVcxInitSuccess(): Generator<*, *, *> {
   // and then if we get fail, we can retry with exponential backoff
 }
 
+//TODO getMessageSaga
+export function* getMessagesSaga(): Generator<*, *, *> {
+  try {
+    //make sure vcx is initialized
+    yield* ensureVcxInitSuccess()
+    const allConnectionsPairwiseDids = yield select(
+      getAllConnectionsPairwiseDid
+    )
+    yield put(getMessagesLoading())
+    const data = yield call(
+      downloadMessages,
+      MESSAGE_RESPONSE_CODE.MESSAGE_PENDING,
+      null,
+      allConnectionsPairwiseDids.join(',')
+    )
+    if (data && data.length != 0) {
+      try {
+        // Remove all the FCM notifications from the tray
+        FCM.removeAllDeliveredNotifications()
+        const parsedData: DownloadedConnectionsWithMessages = JSON.parse(data)
+        yield* processMessages(parsedData)
+        yield* acknowledgeServer(parsedData)
+      } catch (e) {
+        // throw error
+        console.log('acknowledgeServer error:', e)
+      }
+    }
+    yield put(getMessagesSuccess())
+  } catch (e) {
+    //ask about retry scenario
+    yield put(getMessagesFail())
+  }
+}
+
+const traverseAndGetAllMessages = (
+  data: DownloadedConnectionsWithMessages
+): Array<DownloadedMessage> => {
+  let messages: Array<DownloadedMessage> = []
+  data.map(connection =>
+    connection.msgs.map(message => {
+      messages.push(message)
+    })
+  )
+  return messages
+}
+
+export function* processMessages(
+  data: DownloadedConnectionsWithMessages
+): Generator<*, *, *> {
+  const msgTypes = [
+    MESSAGE_TYPE.PROOF_REQUEST,
+    MESSAGE_TYPE.CLAIM,
+    MESSAGE_TYPE.CLAIM_OFFER,
+  ]
+  // send each message in data to handleMessage
+  // additional data will be fetched and passed to relevant( claim, claimOffer, proofRequest,etc )store.
+  const messages: Array<DownloadedMessage> = traverseAndGetAllMessages(data)
+  const dataAlreadyExists = yield select(getPendingFetchAdditionalDataKey)
+  for (let i = 0; i < messages.length; i++) {
+    try {
+      let connection = yield select(getConnection, messages[i].senderDID)
+      let pairwiseDID = connection && connection[0].myPairwiseDid
+
+      if (
+        !(
+          dataAlreadyExists &&
+          dataAlreadyExists[`${messages[i].uid}-${pairwiseDID}`] &&
+          msgTypes.indexOf(messages[i].type) > -1
+        )
+      ) {
+        yield fork(handleMessage, messages[i])
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+const convertSerializedCredentialOfferToAditionalData = (
+  convertedSerializedClaimOffer,
+  senderName,
+  senderDID
+): ClaimOfferMessagePayload => {
+  const vcxCredential = JSON.parse(convertedSerializedClaimOffer).data
+  const {
+    credential_offer: credentialOffer,
+    payment_info: paymentInfo,
+  } = vcxCredential
+
+  const {
+    msg_type,
+    version,
+    to_did,
+    from_did,
+    cred_def_id,
+    credential_attrs: claim,
+    claim_name,
+    schema_seq_no,
+  } = credentialOffer
+
+  return {
+    msg_type,
+    version,
+    to_did,
+    from_did,
+    cred_def_id,
+    claim,
+    claim_name,
+    schema_seq_no,
+    issuer_did: senderDID,
+    issuer_name: senderName,
+    remoteName: senderName,
+    price:
+      paymentInfo && paymentInfo.price ? paymentInfo.price.toString() : null,
+  }
+}
+
+const convertToSerializedClaimOffer = (
+  decryptedPayload: string,
+  uid: string
+) => {
+  let claimOffer: SerializedClaimOfferData = {
+    agent_did: null,
+    agent_vk: null,
+    cred_id: null,
+    credential: null,
+    credential_name: null,
+    credential_offer: null,
+    credential_request: null,
+    msg_uid: null,
+    my_did: null,
+    my_vk: null,
+    payment_info: null,
+    payment_txn: null,
+    source_id: uid,
+    state: 3,
+    their_did: null,
+    their_vk: null,
+  }
+  const payload: ParsedDecryptedPayload = JSON.parse(decryptedPayload)
+  const message: ParsedDecryptedPayloadMessage = JSON.parse(payload['@msg'])
+  const msg0: MessageClaimOfferDetails | MessagePaymentDetails = message[0]
+  const msg1: MessageClaimOfferDetails | MessagePaymentDetails = message[1]
+
+  let credentialOffer: MessageClaimOfferDetails | null = null
+  let paymentInfo: MessagePaymentDetails | null = null
+
+  if (msg0 && msg0.claim_id) {
+    credentialOffer = msg0
+  } else if (msg1 && msg1.claim_id) {
+    credentialOffer = msg1
+  }
+
+  if (msg0 && msg0.payment_addr) {
+    paymentInfo = msg0
+  } else if (msg1 && msg1.payment_addr) {
+    paymentInfo = msg1
+  }
+
+  if (credentialOffer) {
+    claimOffer.credential_offer = credentialOffer
+    claimOffer.credential_offer.msg_ref_id = uid
+    claimOffer.payment_info = paymentInfo
+    return JSON.stringify({
+      data: claimOffer,
+      version: credentialOffer.version,
+    })
+  }
+
+  return ''
+}
+
+const convertDecryptedPayloadToAdditionalPayload = (
+  decryptedPayload: string,
+  uid: string,
+  senderName: string = '',
+  proofHandle: number
+): ProofRequestPushPayload => {
+  const parsedPayload = JSON.parse(decryptedPayload)
+  const parsedMsg: ProofRequest = JSON.parse(parsedPayload['@msg'])
+
+  return {
+    '@type': parsedMsg['@type'],
+    '@topic': parsedMsg['@topic'],
+    proof_request_data: parsedMsg.proof_request_data,
+    remoteName: senderName,
+    proofHandle,
+  }
+}
+
+const convertDecryptedPayloadToSerializedProofRequest = (
+  decryptedPayload: string,
+  uid: string
+) => {
+  let stringifiableProofRequest: StringifiableProofRequest = {
+    data: {
+      agent_did: null,
+      agent_vk: null,
+      link_secret_alias: 'main',
+      my_did: null,
+      my_vk: null,
+      proof: null,
+      proof_request: null,
+      source_id: uid,
+      state: 3,
+      their_did: null,
+      their_vk: null,
+    },
+    version: '1.0',
+  }
+
+  const parsedPayload = JSON.parse(decryptedPayload)
+  const parsedMsg: ProofRequest = JSON.parse(parsedPayload['@msg'])
+  const parsedType: {
+    fmt: string,
+    name: string,
+    ver: string,
+  } =
+    parsedPayload['@type']
+  stringifiableProofRequest.data.proof_request = {
+    ...parsedMsg,
+    msg_ref_id: uid,
+  }
+  stringifiableProofRequest.version = parsedType.ver
+
+  return JSON.stringify(stringifiableProofRequest)
+}
+
+export function* acceptClaimOffersIfInPending(
+  forDID: string,
+  senderDID: string
+): any {
+  const claimOffers = yield select(getClaimOffers)
+  const uids = Object.keys(claimOffers)
+
+  for (let i = 0; i < uids.length; i++) {
+    if (uids[i] !== 'vcxSerializedClaimOffers') {
+      let claimRequestStatus = null
+      const uid = uids[i]
+      const claimOffer = yield select(getClaimOffer, uid)
+      if (claimOffer) claimRequestStatus = claimOffer.claimRequestStatus
+      const vcxSerializedClaimOffer: SerializedClaimOffer | null = yield select(
+        getSerializedClaimOffer,
+        forDID,
+        uid
+      )
+      if (
+        vcxSerializedClaimOffer &&
+        vcxSerializedClaimOffer.state === VCX_CLAIM_OFFER_STATE.RECEIVED &&
+        claimRequestStatus === CLAIM_REQUEST_STATUS.CLAIM_REQUEST_FAIL
+      ) {
+        let vcxClaimOffer = JSON.parse(vcxSerializedClaimOffer.serialized)
+        vcxClaimOffer.data.state = VCX_CLAIM_OFFER_STATE.SENT
+        yield put(
+          addSerializedClaimOffer(
+            JSON.stringify(vcxClaimOffer),
+            forDID,
+            uid,
+            VCX_CLAIM_OFFER_STATE.SENT
+          )
+        )
+        yield call(
+          getClaimHandleBySerializedClaimOffer,
+          JSON.stringify(vcxClaimOffer)
+        )
+        continue
+      }
+      if (
+        vcxSerializedClaimOffer &&
+        vcxSerializedClaimOffer.state === VCX_CLAIM_OFFER_STATE.RECEIVED &&
+        claimRequestStatus === CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST
+      ) {
+        yield call(
+          getClaimHandleBySerializedClaimOffer,
+          vcxSerializedClaimOffer.serialized
+        )
+        yield* claimOfferAccepted(acceptClaimOffer(uid))
+      }
+    }
+  }
+}
+
+export function* handleMessage(message: DownloadedMessage): Generator<*, *, *> {
+  const { senderDID, uid, type } = message
+  const remotePairwiseDID = senderDID
+  const connection: Connection[] = yield select(getConnection, senderDID)
+  const {
+    identifier: forDID,
+    vcxSerializedConnection,
+    logoUrl: senderLogoUrl,
+    senderName,
+  }: Connection = connection[0]
+  const connectionHandle = yield call(
+    getHandleBySerializedConnection,
+    vcxSerializedConnection
+  )
+  try {
+    let additionalData:
+      | ClaimOfferMessagePayload
+      | ProofRequestPushPayload
+      | ClaimPushPayload
+      | ClaimPushPayloadVcx
+      | null = null
+    if (type === MESSAGE_TYPE.CLAIM_OFFER) {
+      const { decryptedPayload } = message
+      // convert message decrypted payload to claim serialized claimOffer
+      if (decryptedPayload) {
+        // TODO:KS It should not be with serialized claim offer
+        // we should be calling createCredentialWithOffer
+        // and vcx should take care of converting to it's own internal format
+        // connect.me should not change any of these offer to vcx's state
+        const convertedSerializedClaimOffer = convertToSerializedClaimOffer(
+          decryptedPayload,
+          uid
+        )
+
+        const vcxSerializedClaimOffer: SerializedClaimOffer | null = yield select(
+          getSerializedClaimOffer,
+          forDID,
+          uid
+        )
+        if (!vcxSerializedClaimOffer) {
+          additionalData = convertSerializedCredentialOfferToAditionalData(
+            convertedSerializedClaimOffer,
+            senderName,
+            senderDID
+          )
+          const claimHandle: number = yield call(
+            getClaimHandleBySerializedClaimOffer,
+            convertedSerializedClaimOffer
+          )
+          yield fork(saveSerializedClaimOffer, claimHandle, forDID, uid)
+        }
+      }
+    }
+
+    if (type === MESSAGE_TYPE.CLAIM) {
+      // as per vcx apis we are not downloading claim
+      // we will update state of existing claim offer instance
+      // and vcx will internally download claim and store inside wallet
+      // TODO:KS Check to see where to use it, and if we even we need it
+      // yield* acceptClaimOffersIfInPending(forDID, senderDID)
+      const { decryptedPayload } = message
+      additionalData = {
+        connectionHandle,
+        decryptedPayload,
+      }
+    }
+
+    if (type === MESSAGE_TYPE.PROOF_REQUEST) {
+      const { decryptedPayload } = message
+      if (!decryptedPayload) return
+      const serializedProof = convertDecryptedPayloadToSerializedProofRequest(
+        decryptedPayload,
+        uid
+      )
+      const proofHandle = yield call(proofDeserialize, serializedProof)
+      additionalData = convertDecryptedPayloadToAdditionalPayload(
+        decryptedPayload,
+        uid,
+        senderName,
+        proofHandle
+      )
+    }
+
+    if (!additionalData) {
+      // we did not get any data or either push notification type is not supported
+      return
+    }
+
+    yield* updatePayloadToRelevantStoreSaga({
+      type,
+      additionalData: {
+        remoteName: senderName,
+        ...additionalData,
+      },
+      uid,
+      senderLogoUrl,
+      remotePairwiseDID,
+      forDID,
+    })
+  } catch (e) {
+    console.log(e)
+    yield put(
+      fetchAdditionalDataError({
+        code: 'OCS-000',
+        message: 'Invalid additional data',
+      })
+    )
+  }
+}
+
+// TODO: change the data type from any to proper type
+export function* acknowledgeServer(
+  data: Array<DownloadedConnectionMessages>
+): Generator<*, *, *> {
+  const msgTypes = [MESSAGE_TYPE.PROOF_REQUEST]
+  let acknowledgeServerData: AcknowledgeServerData = []
+  let tempData = data
+  if (Array.isArray(tempData)) {
+    tempData.map(msgData => {
+      let pairwiseDID = msgData.pairwiseDID
+      let uids = []
+      if (msgData['msgs'] && Array.isArray(msgData['msgs'])) {
+        msgData['msgs'].map(msg => {
+          if (
+            msg.statusCode === MESSAGE_RESPONSE_CODE.MESSAGE_PENDING &&
+            msgTypes.indexOf(msg.type) >= 0
+          ) {
+            uids.push(msg.uid)
+          }
+        })
+      }
+      if (uids.length > 0)
+        acknowledgeServerData.push({
+          pairwiseDID,
+          uids,
+        })
+    })
+    if (acknowledgeServerData.length > 0)
+      yield updateMessageStatus(acknowledgeServerData)
+  }
+}
+
+export function* updateMessageStatus(
+  acknowledgeServerData: AcknowledgeServerData
+): Generator<*, *, *> {
+  if (!Array.isArray(acknowledgeServerData)) {
+    yield put(acknowledgeMessagesFail('Empty Array'))
+    return
+  }
+  try {
+    yield call(updateMessages, 'MS-106', JSON.stringify(acknowledgeServerData))
+  } catch (e) {
+    yield put(
+      acknowledgeMessagesFail(`failed at updateMessages api, ${e.message}`)
+    )
+  }
+}
+
+export function* watchOnHydrationDownloadMessages(): any {
+  yield takeLatest(VCX_INIT_SUCCESS, getMessagesSaga)
+}
+
+export function* watchGetMessagesSaga(): any {
+  yield takeLatest(GET_UN_ACKNOWLEDGED_MESSAGES, getMessagesSaga)
+}
+
+export const getUnacknowledgedMessages = (): GetUnacknowledgedMessagesAction => ({
+  type: GET_UN_ACKNOWLEDGED_MESSAGES,
+})
+export const getMessagesLoading = (): GetMessagesLoadingAction => ({
+  type: GET_MESSAGES_LOADING,
+})
+
+export const getMessagesSuccess = (): GetMessagesSuccessAction => ({
+  type: GET_MESSAGES_SUCCESS,
+})
+
+export const acknowledgeMessages = (): AcknowledgeMessagesAction => ({
+  type: ACKNOWLEDGE_MESSAGES,
+})
+
+export const getMessagesFail = (): GetMessagesFailAction => ({
+  type: GET_MESSAGES_FAIL,
+})
+
+export const acknowledgeMessagesFail = (
+  message: string
+): AcknowledgeMessagesFailAction => ({
+  type: ACKNOWLEDGE_MESSAGES_FAIL,
+  error: message,
+})
+
 export function* watchConfig(): any {
   yield all([
     watchSwitchErrorAlerts(),
     watchSwitchEnvironment(),
     watchChangeEnvironmentUrl(),
     watchVcxInitStart(),
+    watchOnHydrationDownloadMessages(),
   ])
 }
 

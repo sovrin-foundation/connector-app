@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import ImageResizer from 'react-native-image-resizer'
 
-import { updateConnectionTheme } from '../../store'
+import { updateConnectionTheme } from '../../store/connections-store'
 import type { ImagePickerProps, ImagePickerStates } from './type-color-picker'
 import { color, greyRGB } from '../../common/styles/constant'
 import { captureError } from '../../services/error/error-handler'

@@ -22,7 +22,6 @@ import type { ClaimMap } from '../claim/type-claim'
 export type RequestedAttribute = {|
   name: string,
 |}
-
 export type RequestedPredicates = {
   attr_name: string,
   p_type: string,
@@ -43,6 +42,36 @@ export type ProofRequestData = {
   requested_predicates?: ?{
     +[string]: RequestedPredicates,
   },
+}
+
+export type ProofRequest = {
+  '@topic': {
+    mid: number,
+    tid: number,
+  },
+  '@type': {
+    name: string,
+    version: string,
+  },
+  msg_ref_id: string,
+  proof_request_data: ProofRequestData,
+}
+
+export type StringifiableProofRequest = {
+  data: {
+    agent_did: null,
+    agent_vk: null,
+    link_secret_alias: string,
+    my_did: null,
+    my_vk: null,
+    proof: null,
+    proof_request: ?ProofRequest,
+    source_id: string,
+    state: number,
+    their_did: null,
+    their_vk: null,
+  },
+  version: string,
 }
 
 export type ProofRequestPushPayload = {
@@ -118,6 +147,7 @@ export type ProofRequestPayload = AdditionalProofDataPayload & {
   senderLogoUrl?: ?string,
   remotePairwiseDID: string,
   missingAttributes?: MissingAttributes,
+  vcxSerializedProofRequest?: string,
 }
 
 export type ProofRequestProps = {
@@ -153,7 +183,7 @@ export type ProofRequestState = {
   selectedClaims: RequestedAttrsJson,
   disableSendButton: boolean,
 }
-
+export const PROOF_REQUESTS = 'PROOF_REQUESTS'
 export const PROOF_REQUEST_RECEIVED = 'PROOF_REQUEST_RECEIVED'
 export type ProofRequestReceivedAction = {
   type: typeof PROOF_REQUEST_RECEIVED,
@@ -190,6 +220,12 @@ export const SEND_PROOF_SUCCESS = 'SEND_PROOF_SUCCESS'
 export type SendProofSuccessAction = {
   type: typeof SEND_PROOF_SUCCESS,
   uid: string,
+}
+
+export const HYDRATE_PROOF_REQUESTS = 'HYDRATE_PROOF_REQUESTS'
+export type HydrateProofRequestsAction = {
+  type: typeof HYDRATE_PROOF_REQUESTS,
+  proofRequests: ProofRequestStore,
 }
 
 export const SEND_PROOF_FAIL = 'SEND_PROOF_FAIL'
@@ -260,6 +296,20 @@ export type ProofRequestInitialAction = {
   type: typeof INITIAL_TEST_ACTION,
 }
 
+export const PROOF_SERIALIZED = 'PROOF_SERIALIZED'
+export type ProofSerializedAction = {
+  type: typeof PROOF_SERIALIZED,
+  serializedProof: string,
+  uid: string,
+}
+
+export const UPDATE_PROOF_HANDLE = 'UPDATE_PROOF_HANDLE'
+export type UpdateProofHandleAction = {
+  type: typeof UPDATE_PROOF_HANDLE,
+  proofHandle: number,
+  uid: string,
+}
+
 export type ProofRequestAction =
   | ProofRequestReceivedAction
   | SendProofSuccessAction
@@ -272,6 +322,8 @@ export type ProofRequestAction =
   | ProofRequestRejectedAction
   | ProofRequestAutoFillAction
   | MissingAttributesFoundAction
+  | ProofSerializedAction
+  | UpdateProofHandleAction
   | ResetAction
 
 export type ProofRequestStore = {

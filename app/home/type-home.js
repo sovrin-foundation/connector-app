@@ -16,6 +16,7 @@ export type BubbleProps = {
   disableTaps: boolean,
   disableTopView: () => void,
   allowInteractions: boolean,
+  showBadge: boolean,
 } & ReactNavigation
 
 export type BubbleState = {
@@ -25,10 +26,16 @@ export type BubbleState = {
 export type BubblesProps = {
   connections: Array<Connection>,
   height: number,
+  unSeenMessages: {
+    [string]: [string],
+  },
 } & ReactNavigation
 
 export type HomeProps = {
   connections: ConnectionStore,
+  unSeenMessages: {
+    [string]: [string],
+  },
 } & ReactNavigation
 
 export type HomeState = {

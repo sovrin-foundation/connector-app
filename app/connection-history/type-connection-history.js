@@ -51,7 +51,7 @@ export const HISTORY_EVENT_STATUS = {
   [NEW_CONNECTION_SUCCESS]: 'CONNECTED',
   [INVITATION_REJECTED]: 'CONNECTION REJECTED',
   [SEND_CLAIM_REQUEST]: 'PENDING',
-  [CLAIM_OFFER_RECEIVED]: 'RECEIVED',
+  [CLAIM_OFFER_RECEIVED]: 'CLAIM OFFER RECEIVED',
   [CLAIM_OFFER_ACCEPTED]: 'ACCEPTED OFFER',
   [CLAIM_OFFER_IGNORED]: 'IGNORED OFFER',
   [CLAIM_OFFER_REJECTED]: 'REJECTED OFFER',
@@ -104,6 +104,7 @@ export type ConnectionHistoryEvent = {
   type: HistoryEventType,
   remoteDid: string,
   originalPayload: GenericObject,
+  showBadge?: boolean,
 }
 
 export type ConnectionHistoryItem = {
@@ -231,4 +232,9 @@ export type ConnectionHistoryProps = {
   },
   updateStatusBarTheme: (color?: string) => void,
   deleteConnectionAction: (senderDID: string) => void,
+  goToUIScreen: (
+    string,
+    string,
+    $PropertyType<ReactNavigation, 'navigation'>
+  ) => void,
 } & ReactNavigation

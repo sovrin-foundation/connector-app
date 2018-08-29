@@ -1,5 +1,12 @@
 // @flow
-import { put, takeLatest, call, select, all } from 'redux-saga/effects'
+import {
+  put,
+  takeLatest,
+  takeEvery,
+  call,
+  select,
+  all,
+} from 'redux-saga/effects'
 import type { CustomError } from '../common/type-common'
 import type {
   ProofRequestStore,
@@ -16,6 +23,7 @@ import type {
   MissingAttribute,
   SelfAttestedAttributes,
   MissingAttributes,
+  ProofRequestReceivedAction,
 } from './type-proof-request'
 
 import {
@@ -25,6 +33,7 @@ import {
   getProofRequest,
 } from '../store/store-selector'
 import {
+  PROOF_REQUESTS,
   PROOF_REQUEST_RECEIVED,
   PROOF_REQUEST_STATUS,
   PROOF_STATUS,
@@ -38,6 +47,9 @@ import {
   SEND_PROOF_FAIL,
   MISSING_ATTRIBUTES_FOUND,
   ERROR_SEND_PROOF,
+  HYDRATE_PROOF_REQUESTS,
+  PROOF_SERIALIZED,
+  UPDATE_PROOF_HANDLE,
 } from './type-proof-request'
 import type {
   NotificationPayloadInfo,
@@ -46,12 +58,15 @@ import type {
 import {
   sendProof as sendProofApi,
   getHandleBySerializedConnection,
+  proofSerialize,
 } from '../bridge/react-native-cxs/RNCxs'
 import type { Connection } from '../store/type-connection-store'
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
 import { MESSAGE_TYPE } from '../api/api-constants'
 import { RESET } from '../common/type-common'
 import { PROOF_FAIL } from '../proof/type-proof'
+import { getProofRequests } from './../store/store-selector'
+import { secureSet, secureGet } from '../services/storage'
 
 const proofRequestInitialState = {}
 
@@ -82,6 +97,10 @@ export const sendProof = (uid: string): SendProofAction => ({
 export const sendProofSuccess = (uid: string): SendProofSuccessAction => ({
   type: SEND_PROOF_SUCCESS,
   uid,
+})
+export const hydrateProofRequests = (proofRequests: ProofRequestStore) => ({
+  type: HYDRATE_PROOF_REQUESTS,
+  proofRequests,
 })
 
 export const sendProofFail = (
@@ -118,8 +137,24 @@ export const missingAttributesFound = (
   uid,
 })
 
-export function* watchProofRequestAccepted(): any {
-  yield takeLatest(PROOF_REQUEST_ACCEPTED, proofAccepted)
+export function* persistProofRequestsSaga(): Generator<*, *, *> {
+  try {
+    const proofRequests = yield select(getProofRequests)
+    yield call(secureSet, PROOF_REQUESTS, JSON.stringify(proofRequests))
+  } catch (e) {
+    console.log(`persistProofRequestsSaga: ${e}`)
+  }
+}
+
+export function* hydrateProofRequestsSaga(): Generator<*, *, *> {
+  try {
+    const proofRequests: string = yield call(secureGet, PROOF_REQUESTS)
+    if (proofRequests) {
+      yield put(hydrateProofRequests(JSON.parse(proofRequests)))
+    }
+  } catch (e) {
+    console.log(`hydrateProofRequestSaga: ${e}`)
+  }
 }
 
 export function* proofAccepted(
@@ -173,6 +208,17 @@ export function* proofAccepted(
   }
 }
 
+export function* watchProofRequestAccepted(): any {
+  yield takeLatest(PROOF_REQUEST_ACCEPTED, proofAccepted)
+}
+
+export function* watchPersistProofRequests(): any {
+  yield takeEvery(
+    [PROOF_REQUEST_SHOWN, PROOF_REQUEST_RECEIVED, PROOF_SERIALIZED],
+    persistProofRequestsSaga
+  )
+}
+
 export const proofRequestAutoFill = (
   uid: string,
   requestedAttributes: Array<Attribute>
@@ -189,6 +235,36 @@ export const proofRequestReceived = (
   type: PROOF_REQUEST_RECEIVED,
   payload,
   payloadInfo,
+})
+
+export const proofSerialized = (serializedProof: string, uid: string) => ({
+  type: PROOF_SERIALIZED,
+  serializedProof,
+  uid,
+})
+
+export function* serializeProofRequestSaga(
+  action: ProofRequestReceivedAction
+): Generator<*, *, *> {
+  try {
+    const { proofHandle } = action.payload
+    const serializedProof: string = yield call(proofSerialize, proofHandle)
+    yield put(proofSerialized(serializedProof, action.payloadInfo.uid))
+  } catch (e) {
+    // TODO:KS Add action for serialization failure
+    // need to figure out what happens if serialization fails
+    console.log('failed to serialize proof')
+  }
+}
+
+export function* watchProofRequestReceived(): any {
+  yield takeEvery(PROOF_REQUEST_RECEIVED, serializeProofRequestSaga)
+}
+
+export const updateProofHandle = (proofHandle: number, uid: string) => ({
+  type: UPDATE_PROOF_HANDLE,
+  proofHandle,
+  uid,
 })
 
 export default function proofRequestReducer(
@@ -291,9 +367,29 @@ export default function proofRequestReducer(
           missingAttributes: action.missingAttributes,
         },
       }
+    case HYDRATE_PROOF_REQUESTS:
+      return action.proofRequests
 
     case RESET:
       return proofRequestInitialState
+
+    case PROOF_SERIALIZED:
+      return {
+        ...state,
+        [action.uid]: {
+          ...state[action.uid],
+          vcxSerializedProofRequest: action.serializedProof,
+        },
+      }
+
+    case UPDATE_PROOF_HANDLE:
+      return {
+        ...state,
+        [action.uid]: {
+          ...state[action.uid],
+          proofHandle: action.proofHandle,
+        },
+      }
     default:
       return state
   }

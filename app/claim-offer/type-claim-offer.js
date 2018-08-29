@@ -19,6 +19,16 @@ export const CLAIM_OFFER_STATUS = {
   IGNORED: 'IGNORED',
   REJECTED: 'REJECTED',
 }
+export const VCX_CLAIM_OFFER_STATE = {
+  NONE: 0,
+  INITIALIZED: 1,
+  UNFULFILLED: 5,
+  EXPIRED: 6,
+  REVOKED: 7,
+  RECEIVED: 3,
+  SENT: 2,
+  ACCEPTED: 4,
+}
 
 export const CLAIM_REQUEST_STATUS = {
   NONE: 'NONE',
@@ -231,11 +241,9 @@ export type ClaimOfferAttributeListProps = {
   list: Array<Attribute>,
 }
 
-export const SAVE_SERIALIZED_CLAIM_OFFERS_SUCCESS =
-  'SAVE_SERIALIZED_CLAIM_OFFERS_SUCCESS'
-export const SAVE_SERIALIZED_CLAIM_OFFERS_FAIL =
-  'SAVE_SERIALIZED_CLAIM_OFFERS_FAIL'
-export const ERROR_SAVE_SERIALIZED_CLAIM_OFFERS = (message: string) => ({
+export const SAVE_CLAIM_OFFERS_SUCCESS = 'SAVE_CLAIM_OFFERS_SUCCESS'
+export const SAVE_CLAIM_OFFERS_FAIL = 'SAVE_CLAIM_OFFERS_FAIL'
+export const ERROR_SAVE_CLAIM_OFFERS = (message: string) => ({
   code: 'CO-001',
   message: `Error saving serialized claim offers: ${message}`,
 })
@@ -249,21 +257,19 @@ export const ERROR_REMOVE_SERIALIZED_CLAIM_OFFERS = (message: string) => ({
   message: `Error removing persisted serialized claim offers: ${message}`,
 })
 
-export const HYDRATE_SERIALIZED_CLAIM_OFFERS_SUCCESS =
-  'HYDRATE_SERIALIZED_CLAIM_OFFERS_SUCCESS'
+export const HYDRATE_CLAIM_OFFERS_SUCCESS = 'HYDRATE_CLAIM_OFFERS_SUCCESS'
 export type HydrateSerializedClaimOffersSuccessAction = {
-  type: typeof HYDRATE_SERIALIZED_CLAIM_OFFERS_SUCCESS,
-  serializedClaimOffers: SerializedClaimOffers,
+  type: typeof HYDRATE_CLAIM_OFFERS_SUCCESS,
+  claimOffers: ClaimOfferStore,
 }
 
-export const HYDRATE_SERIALIZED_CLAIM_OFFERS_FAIL =
-  'HYDRATE_SERIALIZED_CLAIM_OFFERS_FAIL'
-export const ERROR_HYDRATE_SERIALIZED_CLAIM_OFFERS = (message: string) => ({
+export const HYDRATE_CLAIM_OFFERS_FAIL = 'HYDRATE_CLAIM_OFFERS_FAIL'
+export const ERROR_HYDRATE_CLAIM_OFFERS = (message: string) => ({
   code: 'CO-003',
   message: `Error hydrating serialized claim offers: ${message}`,
 })
 
-export const KEY_SERIALIZED_CLAIM_OFFERS = 'KEY_SERIALIZED_CLAIM_OFFERS'
+export const CLAIM_OFFERS = 'CLAIM_OFFERS'
 
 export const ERROR_NO_SERIALIZED_CLAIM_OFFER = (message: string) => ({
   code: 'CO-004',
