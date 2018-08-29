@@ -144,7 +144,7 @@ import { claimReceivedVcx, claimReceivedVcxSaga } from './../claim/claim-store'
 import type { SerializedClaimOffer } from '../claim-offer/type-claim-offer'
 import { SEND_CLAIM_REQUEST } from '../claim-offer/type-claim-offer'
 import { getPendingFetchAdditionalDataKey } from './store-selector'
-import FCM from 'react-native-fcm'
+import firebase from 'react-native-firebase'
 
 /**
  * this file contains configuration which is changed only from user action
@@ -617,7 +617,7 @@ export function* getMessagesSaga(): Generator<*, *, *> {
     if (data && data.length != 0) {
       try {
         // Remove all the FCM notifications from the tray
-        FCM.removeAllDeliveredNotifications()
+        firebase.notifications().removeAllDeliveredNotifications()
         const parsedData: DownloadedConnectionsWithMessages = JSON.parse(data)
         yield* processMessages(parsedData)
         yield* acknowledgeServer(parsedData)
