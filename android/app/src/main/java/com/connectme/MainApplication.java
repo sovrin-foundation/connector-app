@@ -4,9 +4,6 @@ import android.app.Application;
 import com.apptentive.android.sdk.reactlibrary.RNApptentivePackage;
 import com.surajit.rnrg.RNRadialGradientPackage;
 import com.facebook.react.ReactApplication;
-import io.invertase.firebase.RNFirebasePackage;
-import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
-import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 import com.rnziparchive.RNZipArchivePackage;
 import com.tectiv3.aes.RCTAesPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
@@ -26,6 +23,7 @@ import io.sentry.RNSentryPackage;
 import io.branch.rnbranch.RNBranchPackage;
 import io.branch.referral.Branch;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.evollu.react.fcm.FIRMessagingPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.connectme.rnindy.RNIndyPackage;
 import com.facebook.react.ReactNativeHost;
@@ -49,29 +47,27 @@ public class MainApplication extends Application implements ShareApplication, Re
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-        new MainReactPackage(),
-        new RNFirebasePackage(),
-        new RNFirebaseNotificationsPackage(),
-        new RNFirebaseMessagingPackage(),
-        new RNZipArchivePackage(),
-        new RCTAesPackage(),
-        new RandomBytesPackage(),
-        new ReactNativeDocumentPicker(),
-        new RNSensitiveInfoPackage(),
-        new RNSharePackage(),
-        new RNVersionNumberPackage(),
-        new PickerPackage(),
-        new ImageResizerPackage(),
-        new FingerprintAuthPackage(),
-        new RNFetchBlobPackage(),
-        new RCTCameraPackage(),
-        new RNSentryPackage(MainApplication.this),
-        new RNBranchPackage(),
-        new VectorIconsPackage(),
-        new SplashScreenReactPackage(),
-        new RNIndyPackage(),
-        new RNRadialGradientPackage(),
-        new RNApptentivePackage()
+            new MainReactPackage(),
+            new RNZipArchivePackage(),
+            new RCTAesPackage(),
+            new RandomBytesPackage(),
+            new ReactNativeDocumentPicker(),
+            new RNSensitiveInfoPackage(),
+            new RNSharePackage(),
+            new RNVersionNumberPackage(),
+            new PickerPackage(),
+            new ImageResizerPackage(),
+            new FingerprintAuthPackage(),
+            new RNFetchBlobPackage(),
+            new RCTCameraPackage(),
+            new RNSentryPackage(MainApplication.this),
+            new RNBranchPackage(),
+            new VectorIconsPackage(),
+            new FIRMessagingPackage(),
+            new SplashScreenReactPackage(),
+            new RNIndyPackage(),
+            new RNRadialGradientPackage(),
+            new RNApptentivePackage()
       );
     }
 

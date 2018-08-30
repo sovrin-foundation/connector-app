@@ -4,8 +4,7 @@ import 'react-native'
 import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 import TouchId from 'react-native-touch-id'
-import firebase from 'react-native-firebase'
-
+import FCM from 'react-native-fcm'
 import { Request } from '../request'
 import type { RequestProps, ResponseTypes } from '../type-request'
 import { color } from '../../../common/styles/constant'
@@ -79,9 +78,7 @@ describe('<Request />', () => {
   })
 
   it('call authenticate even if user does not allow push notification', async () => {
-    firebase
-      .messaging()
-      .requestPermission.mockImplementation(() => Promise.reject())
+    FCM.requestPermissions.mockImplementation(() => Promise.reject())
     await requestComponent.onAction(accepted)
     expect(defaultProps.onAction).toHaveBeenCalledWith(accepted)
   })

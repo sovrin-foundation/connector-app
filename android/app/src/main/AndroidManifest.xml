@@ -5,7 +5,6 @@
     android:versionName="1.0">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.CAMERA" />
@@ -16,7 +15,7 @@
     <uses-sdk
         android:minSdkVersion="23"
         android:targetSdkVersion="26" />
-
+    
     <uses-feature android:name="android.hardware.fingerprint" android:required="false" />
 
     <application
@@ -27,22 +26,20 @@
         android:theme="@style/AppTheme"
         android:icon="@mipmap/ic_launcher">
 
-        <service android:name="io.invertase.firebase.messaging.RNFirebaseMessagingService">
-            <intent-filter>
-            <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
-        <service android:name="io.invertase.firebase.messaging.RNFirebaseInstanceIdService">
-            <intent-filter>
-            <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>
-
-        <service android:name="io.invertase.firebase.messaging.RNFirebaseBackgroundMessagingService" />
-
         <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@mipmap/ic_launcher"/>
-        <!-- launchMode needs to be singleTask, otherwise deep links will not work correctly -->
+
+        <service android:name="com.evollu.react.fcm.MessagingService" android:enabled="true" android:exported="true">
+          <intent-filter>
+            <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+          </intent-filter>
+        </service>
+
+        <service android:name="com.evollu.react.fcm.InstanceIdService" android:exported="false">
+          <intent-filter>
+            <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+          </intent-filter>
+        </service>
+
       <activity
         android:name=".MainActivity"
         android:launchMode="singleTask"
