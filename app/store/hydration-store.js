@@ -63,7 +63,6 @@ export function* deleteDeviceSpecificData(): Generator<*, *, *> {
   try {
     const keysToDelete = [
       STORAGE_KEY_SHOW_BANNER,
-      STORAGE_KEY_EULA_ACCEPTANCE,
       PUSH_COM_METHOD,
       LAST_SUCCESSFUL_BACKUP,
       STORAGE_KEY_USER_AVATAR_NAME,
