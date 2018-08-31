@@ -11,6 +11,7 @@ import type {
   ProofRequestData,
   SelfAttestedAttributes,
   IndySelfAttested,
+  ProofRequestShowStartAction,
 } from '../proof-request/type-proof-request'
 
 export type ProofRevealedDetails = {
@@ -141,6 +142,7 @@ export type ProofAction =
   | ProofSuccessAction
   | ProofFailAction
   | UserSelfAttestedAttributesAction
+  | ProofRequestShowStartAction
   | InitialTestAction
   | ResetAction
 

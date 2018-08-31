@@ -39,6 +39,8 @@ import {
   SEND_PAID_CREDENTIAL_REQUEST,
   PAID_CREDENTIAL_REQUEST_SUCCESS,
   PAID_CREDENTIAL_REQUEST_FAIL,
+  CLAIM_OFFER_SHOW_START,
+  RESET_CLAIM_REQUEST_STATUS,
 } from './type-claim-offer'
 import type {
   ClaimOfferStore,
@@ -421,6 +423,16 @@ export function* watchClaimOffer(): any {
   ])
 }
 
+export const claimOfferShowStart = (uid: string) => ({
+  type: CLAIM_OFFER_SHOW_START,
+  uid,
+})
+
+export const resetClaimRequestStatus = (uid: string) => ({
+  type: RESET_CLAIM_REQUEST_STATUS,
+  uid,
+})
+
 export default function claimOfferReducer(
   state: ClaimOfferStore = claimOfferInitialState,
   action: ClaimOfferAction
@@ -546,6 +558,25 @@ export default function claimOfferReducer(
       }
     case HYDRATE_CLAIM_OFFERS_SUCCESS:
       return action.claimOffers
+
+    case CLAIM_OFFER_SHOW_START:
+      return {
+        ...state,
+        [action.uid]: {
+          ...state[action.uid],
+          status: CLAIM_OFFER_STATUS.RECEIVED,
+          claimRequestStatus: CLAIM_REQUEST_STATUS.NONE,
+        },
+      }
+
+    case RESET_CLAIM_REQUEST_STATUS:
+      return {
+        ...state,
+        [action.uid]: {
+          ...state[action.uid],
+          claimRequestStatus: CLAIM_REQUEST_STATUS.NONE,
+        },
+      }
     default:
       return state
   }

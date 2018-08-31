@@ -3,7 +3,16 @@
 platform :ios, '10.2'
 source 'https://github.com/CocoaPods/Specs.git'
 source 'git@github.com:evernym/sdk.git'
-pod 'vcx', '0.0.35'
+
+def vcx_version_for_debug_or_release
+    if ENV['CONNECTME_DEBUG'] == "true"
+        '0.0.34'
+    else
+        '0.0.35'
+    end
+end
+
+pod 'vcx', vcx_version_for_debug_or_release
 pod 'Firebase/Messaging', '4.8.0'
 
 target 'ConnectMe' do

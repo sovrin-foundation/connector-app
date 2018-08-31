@@ -11,6 +11,7 @@ import {
 } from '../common/styles'
 import { CustomView, CustomButton } from '../components'
 import debounce from 'lodash.debounce'
+import { noop } from '../common'
 
 type CustomModalProps = {
   onPress: (event: any) => void,
@@ -21,6 +22,7 @@ type CustomModalProps = {
   isVisible: boolean,
   accessibilityLabel?: string,
   backdropOpacity?: number,
+  onModalHide?: () => void,
 }
 
 export default class CustomModal extends PureComponent<CustomModalProps, void> {
@@ -47,6 +49,7 @@ export default class CustomModal extends PureComponent<CustomModalProps, void> {
       isVisible,
       accessibilityLabel = 'Continue to see your new connection',
       backdropOpacity,
+      onModalHide = noop,
     } = this.props
     return (
       <Modal
@@ -56,6 +59,9 @@ export default class CustomModal extends PureComponent<CustomModalProps, void> {
         animationIn="zoomIn"
         animationOut="zoomOut"
         animationOutTiming={100}
+        onModalHide={onModalHide}
+        useNativeDriver={true}
+        hideModalContentWhileAnimating={true}
       >
         <CustomView fifth shadow style={[styles.container]}>
           <CustomView spaceBetween style={[styles.innerContainer]}>

@@ -24,6 +24,8 @@ describe('Paid <ClaimOffer />', () => {
   let tree
   let navigation
   let componentInstance
+  let claimOfferShowStart
+  let resetClaimRequestStatus
   const logoUrl = senderLogoUrl1
 
   const paidClaimOfferData = {
@@ -64,6 +66,8 @@ describe('Paid <ClaimOffer />', () => {
     acceptClaimOffer = jest.fn()
     claimOfferRejected = jest.fn()
     claimOfferIgnored = jest.fn()
+    claimOfferShowStart = jest.fn()
+    resetClaimRequestStatus = jest.fn()
     navigation = {
       goBack: jest.fn(),
       state: {
@@ -87,6 +91,8 @@ describe('Paid <ClaimOffer />', () => {
           claimThemeSecondary={claimThemeSecondary}
           claimThemePrimary={claimThemePrimary}
           updateStatusBarTheme={updateStatusBarTheme}
+          claimOfferShowStart={claimOfferShowStart}
+          resetClaimRequestStatus={resetClaimRequestStatus}
         />
       </Provider>
     )
@@ -113,6 +119,8 @@ describe('<ClaimOffer />', () => {
   let tree
   let navigation
   let componentInstance
+  let claimOfferShowStart
+  let resetClaimRequestStatus
   const logoUrl = senderLogoUrl1
   const claimOfferData = {
     data: {
@@ -150,6 +158,8 @@ describe('<ClaimOffer />', () => {
     acceptClaimOffer = jest.fn()
     claimOfferRejected = jest.fn()
     claimOfferIgnored = jest.fn()
+    claimOfferShowStart = jest.fn()
+    resetClaimRequestStatus = jest.fn()
     navigation = {
       goBack: jest.fn(),
       state: {
@@ -173,6 +183,8 @@ describe('<ClaimOffer />', () => {
           claimThemeSecondary={claimThemeSecondary}
           claimThemePrimary={claimThemePrimary}
           updateStatusBarTheme={updateStatusBarTheme}
+          claimOfferShowStart={claimOfferShowStart}
+          resetClaimRequestStatus={resetClaimRequestStatus}
         />
       </Provider>
     )

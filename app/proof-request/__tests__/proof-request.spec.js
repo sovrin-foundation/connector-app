@@ -40,6 +40,7 @@ describe('<ProofRequest />', () => {
   let navigation
   let componentInstance
   let userSelfAttestedAttributes
+  let proofRequestShowStart
   const isValid = true
   let proofStatus = PROOF_STATUS.NONE
 
@@ -52,6 +53,7 @@ describe('<ProofRequest />', () => {
     getProof = jest.fn()
     updateAttributeClaim = jest.fn()
     navigation = getNavigation({ uid })
+    proofRequestShowStart = jest.fn()
 
     wrapper = renderer.create(
       <Provider store={store}>
@@ -75,6 +77,7 @@ describe('<ProofRequest />', () => {
           missingAttributes={{}}
           userSelfAttestedAttributes={userSelfAttestedAttributes}
           userAvatarSource={undefined}
+          proofRequestShowStart={proofRequestShowStart}
         />
       </Provider>
     )

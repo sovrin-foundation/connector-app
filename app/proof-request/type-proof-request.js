@@ -173,6 +173,7 @@ export type ProofRequestProps = {
     uid: string
   ) => void,
   userAvatarSource: ?ImageSource,
+  proofRequestShowStart: (uid: string) => ProofRequestShowStartAction,
 } & ReactNavigation
 
 export type ProofRequestState = {
@@ -183,6 +184,7 @@ export type ProofRequestState = {
   selectedClaims: RequestedAttrsJson,
   disableSendButton: boolean,
 }
+
 export const PROOF_REQUESTS = 'PROOF_REQUESTS'
 export const PROOF_REQUEST_RECEIVED = 'PROOF_REQUEST_RECEIVED'
 export type ProofRequestReceivedAction = {
@@ -310,6 +312,12 @@ export type UpdateProofHandleAction = {
   uid: string,
 }
 
+export const PROOF_REQUEST_SHOW_START = 'PROOF_REQUEST_SHOW_START'
+export type ProofRequestShowStartAction = {
+  type: typeof PROOF_REQUEST_SHOW_START,
+  uid: string,
+}
+
 export type ProofRequestAction =
   | ProofRequestReceivedAction
   | SendProofSuccessAction
@@ -324,6 +332,7 @@ export type ProofRequestAction =
   | MissingAttributesFoundAction
   | ProofSerializedAction
   | UpdateProofHandleAction
+  | ProofRequestShowStartAction
   | ResetAction
 
 export type ProofRequestStore = {

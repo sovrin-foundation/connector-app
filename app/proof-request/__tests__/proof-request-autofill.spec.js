@@ -29,6 +29,7 @@ describe('<ProofRequest />', () => {
   let navigation
   let componentInstance
   let userSelfAttestedAttributes
+  let proofRequestShowStart
   const isValid = true
   let proofStatus = PROOF_STATUS.NONE
 
@@ -38,6 +39,7 @@ describe('<ProofRequest />', () => {
     rejectProofRequest = jest.fn()
     ignoreProofRequest = jest.fn()
     userSelfAttestedAttributes = jest.fn()
+    proofRequestShowStart = jest.fn()
 
     getProof = jest.fn()
     updateAttributeClaim = jest.fn()
@@ -63,6 +65,7 @@ describe('<ProofRequest />', () => {
           missingAttributes={{}}
           userSelfAttestedAttributes={userSelfAttestedAttributes}
           userAvatarSource={undefined}
+          proofRequestShowStart={proofRequestShowStart}
         />
       </Provider>
     )

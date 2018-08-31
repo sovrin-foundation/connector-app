@@ -17,6 +17,8 @@ import claimOfferStore, {
   hydrateClaimOffersSaga,
   saveSerializedClaimOffer,
   claimOfferAccepted,
+  claimOfferShowStart,
+  resetClaimRequestStatus,
 } from '../claim-offer-store'
 import {
   CLAIM_OFFER_ACCEPTED,
@@ -146,6 +148,25 @@ describe('claim offer store', () => {
       )
     )
     expect(newState).toMatchSnapshot()
+  })
+
+  it('action: CLAIM_OFFER_SHOW_START', () => {
+    expect(
+      claimOfferStore(newState, claimOfferShowStart(uid))
+    ).toMatchSnapshot()
+  })
+
+  it('action: RESET_CLAIM_REQUEST_STATUS', () => {
+    const stateAfterClaimRequestFail = claimOfferStore(
+      newState,
+      claimRequestFail(uid, {
+        code: 'TEST-100',
+        message: 'Claim request failed',
+      })
+    )
+    expect(
+      claimOfferStore(stateAfterClaimRequestFail, resetClaimRequestStatus(uid))
+    ).toMatchSnapshot()
   })
 
   it('should reset claim offer store, if RESET action is raised', () => {

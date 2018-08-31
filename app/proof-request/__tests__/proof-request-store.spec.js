@@ -14,6 +14,7 @@ import proofRequestStore, {
   convertMissingAttributeListToObject,
   missingAttributesFound,
   proofRequestAutoFill,
+  proofRequestShowStart,
 } from '../proof-request-store'
 import { INITIAL_TEST_ACTION } from '../../common/type-common'
 import {
@@ -130,5 +131,15 @@ describe('proof request store', () => {
 
   it('should reset proof request store, if RESET action is raised', () => {
     expect(proofRequestStore(newState, { type: 'RESET' })).toMatchSnapshot()
+  })
+
+  it('ACTION: PROOF_REQUEST_SHOWN, after missing attributes were found', () => {
+    const afterMissingAttributesState = proofRequestStore(
+      newState,
+      missingAttributesFound(missingAttributes, uid)
+    )
+    expect(
+      proofRequestStore(newState, proofRequestShowStart(uid))
+    ).toMatchSnapshot()
   })
 })

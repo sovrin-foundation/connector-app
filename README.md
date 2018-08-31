@@ -4,22 +4,40 @@ App to connect Sovrin with 3rd party authentication
 # Pre requisite to run
 
 - Mac machine
-- [React native setup](http://facebook.github.io/react-native/docs/getting-started.html). Use tab `Building Projects with Native Code`
 - XCode 9
+- Node 8+. Preferred way to install node is via [nvm](https://www.sitepoint.com/quick-tip-multiple-versions-node-nvm/)
+- [React native setup](http://facebook.github.io/react-native/docs/getting-started.html). Use tab `Building Projects with Native Code`. 
 - Ruby
-- Node 8+
+- Make sure `pod` (1.5.3) is installed or run `sudo gem install cocoapods -v 1.5.3`
+- Android Studio 3+
 
 # Steps to run
 
 - Clone this repository with `SSH`
-- `yarn install`
+- `yarn` or `yarn install`
+- `yarn start`
 
-## For ios
+## Run on ios simulator
+- `yarn pod:install`
+- `yarn react-native run-ios`
+
+## Run on Android simulator
+- Make sure a simulator is created already and is running. Otherwise create one from Android studio
+- `yarn react-native run-android`
+
+## Run ios on device
+- Do not use XCode automatic code signing
 - `cd ios/fastlane`
+- `sudo gem install bundle`
 - `bundle install`
 - Make sure you get added to the connectme-callcenter-certs repo so that the following command is successful --
 git clone 'git@github.com:evernym/connectme-callcenter-certs.git' '/var/folders/dt/sk594jpn40d0097bpg17gwc40000gn/T/d20180705-10510-lw9oue'
-- To get the development release certificates do `bundle exec fastlane match development`. DO NOT use `--force` with this command. Do not use XCode automatic code signing.
+- To get the development release certificates do `bundle exec fastlane match development`. DO NOT use `--force` with this command.
+- You'll be prompted to enter 2 passwords. Slack a contributor for credentials
+- Open Xcode, select your device and run
+
+## Create a release build for ios
+- `cd ios && pod install`
 - To get the beta release certificates do `bundle exec fastlane match adhoc`
 - You'll be prompted to enter 2 passwords. Slack a contributor for what those are.
 - Make sure that the ios/ConnectMe/Info.plist, ios/ConnectMeTests/Info.plist, ios/ConnectMe-tvOS/Info.plist, ios/ConnectMe-tvOSTests/Info.plist,  have their CFBundleVersion <string> set to the NEXT build number
@@ -28,8 +46,6 @@ git clone 'git@github.com:evernym/connectme-callcenter-certs.git' '/var/folders/
 - Select the "Generic iOS Device"
 - Then run Product -> Archive
 - After it is done then login to hockeyapp.net and click on QA ConnectMe and then click add version button and upload it
-- `cd .. && pod install` (Make sure `pod` is installed or `sudo gem install cocoapods`)
-- `cd .. && npm run ios`
 
 ## For android local Relase build
 
@@ -123,8 +139,3 @@ Keyboard -> Connect Hardware Keyboard to unselect that option). Then only using 
 bring up the React Native Developer Menu and then you select the Reload option from the React Native Developer Menu
 and then the software keyboard will come up and allow you to use the mouse to input characters. After a while you can
 try to re-enable The MacBook Pro keyboard but if it still fails then use this workaround again.
-
-## Android OPENSSL Issue
-- On Android https calls to the webserver will result in _verify failed_ error. This is because of the known issue in openssl crate in rust https://github.com/seanmonstar/reqwest/issues/70 .
-  - Workaround: Download the cacert.pem from the here https://curl.haxx.se/ca/cacert.pem . Push the cert to the device to a accessbile location (like sd card `SSL_CERT_FILE=/sdcard/cacert.pem`) so that the rust binary can access the cert.
-  - As of the cacert.pem is a part of assets in android app and is created in createOneTimeInfo()

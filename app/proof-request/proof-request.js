@@ -49,6 +49,7 @@ import {
   acceptProofRequest,
   ignoreProofRequest,
   proofRequestShown,
+  proofRequestShowStart,
 } from './proof-request-store'
 import {
   getConnectionLogoUrl,
@@ -360,6 +361,13 @@ export class ProofRequest extends PureComponent<
   ProofRequestProps,
   ProofRequestState
 > {
+  constructor(props: ProofRequestProps) {
+    super(props)
+    if (props.navigation.state) {
+      props.proofRequestShowStart(props.navigation.state.params.uid)
+    }
+  }
+
   state = {
     allMissingAttributesFilled: false,
     generateProofClicked: false,
@@ -675,6 +683,7 @@ const mapDispatchToProps = dispatch =>
       updateAttributeClaim,
       getProof,
       userSelfAttestedAttributes,
+      proofRequestShowStart,
     },
     dispatch
   )

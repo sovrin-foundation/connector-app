@@ -95,6 +95,50 @@ Object {
 }
 `;
 
+exports[`proof request store ACTION: PROOF_REQUEST_SHOWN, after missing attributes were found 1`] = `
+Object {
+  "pid123": Object {
+    "data": Object {
+      "name": "Home Address",
+      "requestedAttributes": Array [
+        Object {
+          "label": "Address 1",
+        },
+        Object {
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "missingAttributes": Object {},
+    "originalProofRequestData": Object {
+      "name": "proof_req_1",
+      "nonce": "123432421212",
+      "requested_attributes": Object {
+        "attr1_uuid": Object {
+          "name": "Address 1",
+        },
+        "attr2_uuid": Object {
+          "name": "Address 2",
+        },
+      },
+      "requested_predicates": Object {},
+      "version": "0.1",
+    },
+    "proofHandle": 1,
+    "proofStatus": "NONE",
+    "remotePairwiseDID": "senderDID1",
+    "requester": Object {
+      "name": "Test Issuer",
+    },
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
+    "status": "RECEIVED",
+    "statusMsg": "pending",
+    "uid": "pid123",
+  },
+}
+`;
+
 exports[`proof request store proof request is accepted 1`] = `
 Object {
   "pid123": Object {

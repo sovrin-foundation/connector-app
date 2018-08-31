@@ -12,7 +12,8 @@
     "coverage": "npm test -- --coverage",
     "test:e2e": "detox test -c ios.sim.release",
     "test:e2e:build": "detox build",
-    "test:e2e:android": "detox build --configuration android.emu.debug && detox test --configuration android.emu.debug"
+    "test:e2e:android": "detox build --configuration android.emu.debug && detox test --configuration android.emu.debug",
+    "pod:install": "cd ios && CONNECTME_DEBUG=true pod install"
   },
   "lint-staged": {
     "*.js": [

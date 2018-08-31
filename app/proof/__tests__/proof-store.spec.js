@@ -16,6 +16,7 @@ import {
   missingAttributesFound,
   proofRequestAutoFill,
   sendProof,
+  proofRequestShowStart,
 } from '../../proof-request/proof-request-store'
 import { generateProof } from '../../bridge/react-native-cxs/RNCxs'
 import {
@@ -44,6 +45,7 @@ import {
   USER_SELF_ATTESTED_ATTRIBUTES,
   UPDATE_ATTRIBUTE_CLAIM,
 } from '../type-proof'
+import { PROOF_REQUEST_SHOW_START } from '../../proof-request/type-proof-request'
 
 describe('Proof Store', () => {
   const remoteDid = proofRequest.payloadInfo.remotePairwiseDID
@@ -239,5 +241,18 @@ describe('Proof Store', () => {
 
   it('should reset proof store, if RESET action is raised', () => {
     expect(proofReducer(afterProofSuccess, { type: 'RESET' })).toMatchSnapshot()
+  })
+
+  it('proof store should reset for a given proof request if PROOF_REQUEST_SHOW_START is raised', () => {
+    const proofStateAfterFail = proofReducer(
+      initialState,
+      proofFail(uid, {
+        code: 'TEST-CODE',
+        message: 'test error message',
+      })
+    )
+    expect(
+      proofReducer(proofStateAfterFail, proofRequestShowStart(uid))
+    ).toMatchSnapshot()
   })
 })

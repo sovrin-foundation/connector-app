@@ -8,6 +8,8 @@ import {
   acceptClaimOffer,
   claimOfferRejected,
   claimOfferIgnored,
+  claimOfferShowStart,
+  resetClaimRequestStatus,
 } from './claim-offer-store'
 import {
   Container,
@@ -103,11 +105,34 @@ export class ClaimOffer extends PureComponent<
   ClaimOfferProps,
   ClaimOfferState
 > {
+  constructor(props: ClaimOfferProps) {
+    super(props)
+    if (props.navigation.state) {
+      props.claimOfferShowStart(props.navigation.state.params.uid)
+    }
+  }
+
   state = {
     disableAcceptButton: false,
+    insufficientBalanceModalHidden: false,
   }
+
   close = () => {
     this.props.navigation.goBack()
+  }
+
+  hideInsufficientBalanceModal = () => {
+    // the reason why we can't just use close method is our CustomModal
+    // somehow on some Android devices, if we open claim offer screen again
+    // modal component flashes for a second and then goes away
+    // however, props to the component are updated ones and does not satisfy
+    // condition to show modal, but Modal still shows up
+    // We have tried using this format as well isValid ? <Modal /> : null
+    // However, in this format, Modal freezes the screen with Modal's background
+    // and user can't tap anywhere on screen and app seems to be frozen
+    // then only workaround is to kill the app and run again
+    // So we can't go back to ternary based null rendering as well
+    this.props.resetClaimRequestStatus(this.props.uid)
   }
 
   onIgnore = () => {
@@ -127,10 +152,28 @@ export class ClaimOffer extends PureComponent<
     this.props.acceptClaimOffer(this.props.uid)
   }
 
+  onInsufficientModalHide = () => {
+    this.setState({
+      insufficientBalanceModalHidden: true,
+    })
+  }
+
   componentDidMount() {
     // update store that offer is shown to user
     this.props.claimOfferShown(this.props.uid)
     this.props.updateStatusBarTheme(this.props.claimThemePrimary)
+  }
+
+  componentDidUpdate(prevProps: ClaimOfferProps, prevState: ClaimOfferState) {
+    if (
+      this.state.insufficientBalanceModalHidden !==
+        prevState.insufficientBalanceModalHidden &&
+      this.state.insufficientBalanceModalHidden
+    ) {
+      // once we are sure that insufficient balance modal was properly hidden
+      // we can go ahead and close claim offer screen as well
+      this.close()
+    }
   }
 
   render() {
@@ -233,33 +276,36 @@ export class ClaimOffer extends PureComponent<
           />
         )}
         {isValid &&
-        payTokenValue &&
-        claimRequestStatus === CLAIM_REQUEST_STATUS.INSUFFICIENT_BALANCE ? (
-          <CustomModal
-            buttonText="OK"
-            onPress={this.close}
-            testID={`no-sufficient-balance`}
-            isVisible={true}
-          >
-            <CustomView center doubleVerticalSpace>
-              <Icon src={require('../images/alertInfo.png')} />
-              <CustomText transparentBg primary center bold>
-                You do not have enough tokens to purchase this credential
-              </CustomText>
-            </CustomView>
-          </CustomModal>
-        ) : null}
-        {payTokenValue &&
-        claimRequestStatus ===
-          CLAIM_REQUEST_STATUS.PAID_CREDENTIAL_REQUEST_FAIL ? (
+          payTokenValue && (
+            <CustomModal
+              buttonText="OK"
+              onPress={this.hideInsufficientBalanceModal}
+              onModalHide={this.onInsufficientModalHide}
+              testID={`no-sufficient-balance`}
+              isVisible={
+                claimRequestStatus === CLAIM_REQUEST_STATUS.INSUFFICIENT_BALANCE
+              }
+            >
+              <CustomView center doubleVerticalSpace>
+                <Icon src={require('../images/alertInfo.png')} />
+                <CustomText transparentBg primary center bold>
+                  You do not have enough tokens to purchase this credential
+                </CustomText>
+              </CustomView>
+            </CustomModal>
+          )}
+        {payTokenValue && (
           <PaymentFailureModal
-            isModalVisible={true}
+            isModalVisible={
+              claimRequestStatus ===
+              CLAIM_REQUEST_STATUS.PAID_CREDENTIAL_REQUEST_FAIL
+            }
             connectionName={issuer.name}
             testID={`${testID}-payment-failure-modal`}
             onClose={this.close}
             onRetry={this.onAccept}
           />
-        ) : null}
+        )}
       </Container>
     )
   }
@@ -298,6 +344,8 @@ const mapDispatchToProps = dispatch =>
       claimOfferRejected,
       claimOfferIgnored,
       updateStatusBarTheme,
+      claimOfferShowStart,
+      resetClaimRequestStatus,
     },
     dispatch
   )

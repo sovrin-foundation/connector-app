@@ -50,6 +50,7 @@ import {
   HYDRATE_PROOF_REQUESTS,
   PROOF_SERIALIZED,
   UPDATE_PROOF_HANDLE,
+  PROOF_REQUEST_SHOW_START,
 } from './type-proof-request'
 import type {
   NotificationPayloadInfo,
@@ -267,6 +268,11 @@ export const updateProofHandle = (proofHandle: number, uid: string) => ({
   uid,
 })
 
+export const proofRequestShowStart = (uid: string) => ({
+  type: PROOF_REQUEST_SHOW_START,
+  uid,
+})
+
 export default function proofRequestReducer(
   state: ProofRequestStore = proofRequestInitialState,
   action: ProofRequestAction
@@ -280,6 +286,17 @@ export default function proofRequestReducer(
           ...action.payloadInfo,
           status: PROOF_REQUEST_STATUS.RECEIVED,
           proofStatus: PROOF_STATUS.NONE,
+        },
+      }
+
+    case PROOF_REQUEST_SHOW_START:
+      return {
+        ...state,
+        [action.uid]: {
+          ...state[action.uid],
+          status: PROOF_REQUEST_STATUS.RECEIVED,
+          proofStatus: PROOF_STATUS.NONE,
+          missingAttributes: {},
         },
       }
 

@@ -655,7 +655,10 @@ exports[`<Invitation /> should match snapshot 1`] = `
     animationOutTiming={100}
     backdropColor="#ffffff"
     backdropOpacity={1}
+    hideModalContentWhileAnimating={true}
     isVisible={false}
+    onModalHide={[Function]}
+    useNativeDriver={true}
   >
     <View
       fifth={true}

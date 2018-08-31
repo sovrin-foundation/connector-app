@@ -85,8 +85,6 @@ export function* restoreFileDecrypt(
     try {
       restoreSalt = yield call(fs.readFile, restoreSaltPath, 'utf8')
     } catch (e) {
-      //TODO fix hack - for IOS the restoreDirectoryPath is having an extra level
-      // when backup is exported from android and imported in IOS
       let fileName = yield select(getRestoreFileName)
       let restorePath = `${restoreDirectoryPath}/${fileName.split('.zip')[0]}`
 
@@ -103,8 +101,6 @@ export function* restoreFileDecrypt(
       parsedRestoreSalt.salt
     )
 
-    //TODO fix hack - for IOS need to do hash is having extra characters
-    // when doing cross platform export/import then it becomes incompatible
     yield call(decryptWalletFile, walletFilePath, hashedPassphrase)
     yield put(restoreStatus(RestoreStatus.FILE_DECRYPT_SUCCESS))
 

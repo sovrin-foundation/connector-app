@@ -240,7 +240,6 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
         : require('../images/cb_evernym.png')
 
       const barStyle = activeConnectionThemePrimary => {
-        console.log(activeConnectionThemePrimary)
         if (Color(activeConnectionThemePrimary).isLight) {
           return 'light-content'
         } else {

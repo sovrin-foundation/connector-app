@@ -143,6 +143,12 @@ Object {
 }
 `;
 
+exports[`Proof Store proof store should reset for a given proof request if PROOF_REQUEST_SHOW_START is raised 1`] = `
+Object {
+  "pid123": undefined,
+}
+`;
+
 exports[`Proof Store should convert prepared proof to indy proof format 1`] = `
 Array [
   Object {

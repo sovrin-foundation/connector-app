@@ -140,6 +140,18 @@ export type AddSerializedClaimOfferAction = {
   claimOfferVcxState: number,
 }
 
+export const CLAIM_OFFER_SHOW_START = 'CLAIM_OFFER_SHOW_START'
+export type ClaimOfferShowStartAction = {
+  type: typeof CLAIM_OFFER_SHOW_START,
+  uid: string,
+}
+
+export const RESET_CLAIM_REQUEST_STATUS = 'RESET_CLAIM_REQUEST_STATUS'
+export type ResetClaimRequestStatusAction = {
+  type: typeof RESET_CLAIM_REQUEST_STATUS,
+  uid: string,
+}
+
 export type ClaimOfferAction =
   | ClaimOfferReceivedAction
   | ClaimOfferFailedAction
@@ -157,6 +169,8 @@ export type ClaimOfferAction =
   | SendPaidCredentialRequestAction
   | PaidCredentialRequestSuccessAction
   | PaidCredentialRequestFailAction
+  | ClaimOfferShowStartAction
+  | ResetClaimRequestStatusAction
 
 export type ClaimOfferPayload = AdditionalDataPayload & {
   uid: string,
@@ -194,6 +208,8 @@ export type ClaimOfferProps = {
   claimOfferRejected: (uid: string) => void,
   claimOfferIgnored: (uid: string) => void,
   updateStatusBarTheme: (color?: string) => void,
+  claimOfferShowStart: (uid: string) => ClaimOfferShowStartAction,
+  resetClaimRequestStatus: (uid: string) => ResetClaimRequestStatusAction,
   navigation: ClaimProofNavigation,
   uid: string,
   claimOfferData: ClaimOfferPayload,
@@ -205,6 +221,7 @@ export type ClaimOfferProps = {
 
 export type ClaimOfferState = {
   disableAcceptButton: boolean,
+  insufficientBalanceModalHidden: boolean,
 }
 
 export type ClaimRequestStatusModalProps = {

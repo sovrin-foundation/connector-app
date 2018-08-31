@@ -57,6 +57,7 @@ import {
 } from '../store/store-selector'
 import type { Attribute } from '../push-notification/type-push-notification'
 import { RESET } from '../common/type-common'
+import { PROOF_REQUEST_SHOW_START } from '../proof-request/type-proof-request'
 
 export const updateAttributeClaim = (
   requestedAttrsJson: RequestedAttrsJson
@@ -418,6 +419,13 @@ export default function proofReducer(
           error: action.error,
         },
       }
+
+    case PROOF_REQUEST_SHOW_START: {
+      return {
+        ...state,
+        [action.uid]: undefined,
+      }
+    }
 
     case RESET:
       return initialState
