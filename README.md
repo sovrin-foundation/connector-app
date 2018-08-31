@@ -18,11 +18,11 @@ App to connect Sovrin with 3rd party authentication
 - `yarn start`
 
 ## Run on ios simulator
-- `yarn pod:install`
+- `yarn pod:dev:install`
 - `yarn react-native run-ios`
 
 ## Run on Android simulator
-- Make sure a simulator is created already and is running. Otherwise create one from Android studio
+- Make sure a simulator is already created. Otherwise create one from Android studio
 - `yarn react-native run-android`
 
 ## Run ios on device
@@ -37,7 +37,7 @@ git clone 'git@github.com:evernym/connectme-callcenter-certs.git' '/var/folders/
 - Open Xcode, select your device and run
 
 ## Create a release build for ios
-- `cd ios && pod install`
+- `yarn pod:install`
 - To get the beta release certificates do `bundle exec fastlane match adhoc`
 - You'll be prompted to enter 2 passwords. Slack a contributor for what those are.
 - Make sure that the ios/ConnectMe/Info.plist, ios/ConnectMeTests/Info.plist, ios/ConnectMe-tvOS/Info.plist, ios/ConnectMe-tvOSTests/Info.plist,  have their CFBundleVersion <string> set to the NEXT build number
