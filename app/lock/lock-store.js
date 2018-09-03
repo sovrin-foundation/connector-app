@@ -211,6 +211,7 @@ export function* checkPin(action: CheckPinAction): Generator<*, *, *> {
     yield call(setItem, PIN_HASH, enteredPinHash)
     yield call(setItem, SALT, salt)
     yield call(safeSet, IN_RECOVERY, 'false')
+    yield put(setInRecovery('false'))
   } else {
     yield put(checkPinFail())
   }
