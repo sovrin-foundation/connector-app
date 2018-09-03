@@ -30,17 +30,18 @@ jest.mock('react-navigation', () => ({
   },
 }))
 
-jest.mock('react-native-fcm', () => ({
-  setBadgeNumber: jest.fn(),
-  removeAllDeliveredNotifications: jest.fn(),
-  requestPermissions: jest.fn(() => Promise.resolve()),
-  getFCMToken: jest.fn(() => Promise.resolve()),
-  getInitialNotification: jest.fn(() => Promise.resolve()),
-  on: jest.fn(),
-  FCMEvent: {
-    Notification: 'Notification',
-    RefreshToken: 'RefreshToken',
-  },
+jest.mock('react-native-firebase', () => ({
+  notifications: jest.fn(() => ({
+    onNotificationDisplayed: jest.fn(() => Promise.resolve()),
+    onNotification: jest.fn(() => Promise.resolve()),
+    onNotificationOpened: jest.fn(() => Promise.resolve()),
+    getInitialNotification: jest.fn(() => Promise.resolve()),
+  })),
+  messaging: jest.fn(() => ({
+    requestPermission: jest.fn(() => Promise.resolve()),
+    onTokenRefresh: jest.fn(() => Promise.resolve()),
+    getToken: jest.fn(() => Promise.resolve()),
+  })),
 }))
 
 jest.mock('PixelRatio', () => ({

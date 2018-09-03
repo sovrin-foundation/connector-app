@@ -1,7 +1,7 @@
 // @flow
 import { decryptWalletFile, copyToPath } from '../bridge/react-native-cxs/RNCxs'
 import { unzip } from 'react-native-zip-archive'
-import FCM from 'react-native-fcm'
+import firebase from 'react-native-firebase'
 import { takeLatest, all, put, call, take, select } from 'redux-saga/effects'
 import type { CustomError } from '../common/type-common'
 import {
@@ -119,8 +119,10 @@ export function* restoreFileDecrypt(
     //since connection is already there
     // so after push token update
     //we need to do requestPermission or else push notifications won't come
-
-    yield call(FCM.requestPermissions)
+    const requestPushNotificationPermission = () => {
+      firebase.messaging().requestPermission()
+    }
+    yield call(requestPushNotificationPermission)
     yield put(pushNotificationPermissionAction(true))
     yield put(restoreStatus(RestoreStatus.RESTORE_DATA_STORE_SUCCESS))
   } catch (e) {

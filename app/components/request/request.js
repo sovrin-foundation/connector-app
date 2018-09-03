@@ -1,7 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react'
 import { View } from 'react-native'
-import FCM from 'react-native-fcm'
+import firebase from 'react-native-firebase'
 import { bindActionCreators } from 'redux'
 import { Container, TouchId } from '../../components'
 import { connect } from 'react-redux'
@@ -66,7 +66,9 @@ export class Request extends PureComponent<RequestProps, RequestState> {
   }
 
   onAction = (response: ResponseTypes) => {
-    return FCM.requestPermissions()
+    return firebase
+      .messaging()
+      .requestPermission()
       .then(() => {
         this.props.pushNotificationPermissionAction(true)
         this.checkIfTouchIdEnabled(response)

@@ -167,6 +167,9 @@ android {
 }
 
 dependencies {
+    compile(project(":react-native-firebase")){
+        exclude group: "com.google.android.gms" // very important
+    }
     compile project(':react-native-zip-archive')
     compile project(':react-native-aes-crypto')
     compile project(':react-native-randombytes')
@@ -178,6 +181,11 @@ dependencies {
     compile project(':react-native-image-crop-picker')
     compile project(':react-native-image-resizer')
     compile 'com.google.firebase:firebase-messaging:11.8.0'
+    implementation 'me.leolin:ShortcutBadger:1.1.21@aar' // <-- Add this line if you wish to use badge on Android
+
+    // If you are receiving Google Play API availability issues, add the following dependency
+    compile "com.google.android.gms:play-services-base:11.8.0"
+
     compile project(':react-native-touch-id')
     compile project(':react-native-fetch-blob')
     compile project(':react-native-camera')
@@ -198,7 +206,6 @@ dependencies {
     compile ('com.facebook.react:react-native:0.51.0') { force=true }
     // From node_modules
     compile project(':react-native-vector-icons')
-    compile project(':react-native-fcm')
     compile project(':react-native-radial-gradient')
     compile 'net.hockeyapp.android:HockeySDK:4.1.4'
     compile 'com.android.support:palette-v7:26.1.0'
