@@ -167,11 +167,18 @@ export function convertVcxCredentialOfferToCxsClaimOffer(
 // 1 sovrin token = 100M sovrin atoms
 const sovrinAtomsToSovrinTokensConversionFactor = 100000000
 
+// this determines what is the length after decimal separator
+export const conversionFactorLength =
+  `${sovrinAtomsToSovrinTokensConversionFactor}`.length - 1
+
 export function convertSovrinAtomsToSovrinTokens(
   sovrinAtoms: string | number
 ): string {
   const atoms = new BigNumber(sovrinAtoms)
-  return atoms.dividedBy(sovrinAtomsToSovrinTokensConversionFactor).toString()
+  return atoms
+    .dividedBy(sovrinAtomsToSovrinTokensConversionFactor)
+    .toFixed()
+    .toString()
 }
 
 export function convertSovrinTokensToSovrinAtoms(sovrinTokens: string): string {
@@ -179,5 +186,6 @@ export function convertSovrinTokensToSovrinAtoms(sovrinTokens: string): string {
 
   return tokens
     .multipliedBy(sovrinAtomsToSovrinTokensConversionFactor)
+    .toFixed()
     .toString()
 }

@@ -5,4 +5,5 @@ export type KeyboardProps = {
   onPress: (text: string, animate: boolean) => void,
   color: string,
   maxValue: string,
+  afterDecimalSeparatorMaxLength: number,
 }

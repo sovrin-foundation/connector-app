@@ -19,6 +19,7 @@ import { selectTokenAmount } from './wallet-store'
 import { getWalletBalance } from '../store/store-selector'
 import type { Store } from '../store/type-store'
 import { STORE_STATUS } from './type-wallet'
+import { conversionFactorLength } from '../bridge/react-native-cxs/vcx-transformers'
 
 class WalletSendAmount extends PureComponent<
   WalletSendAmountProps,
@@ -117,6 +118,7 @@ class WalletSendAmount extends PureComponent<
             onPress={this.changeText}
             maxValue={this.props.walletBalance}
             ref={this.saveTokenKeyboardRef}
+            afterDecimalSeparatorMaxLength={conversionFactorLength}
           />
         </Container>
         <CustomView safeArea style={[styles.alignItemsCenter]}>

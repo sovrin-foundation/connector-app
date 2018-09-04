@@ -52,8 +52,7 @@ export default class Keyboard extends Component<KeyboardProps, void> {
   }
 
   static defaultProps = {
-    // when we enable decimal DOT, then we have to increase length by 1
-    maxLength: 19,
+    maxLength: 20,
   }
 
   animation = (key: string) => {
@@ -156,7 +155,24 @@ export default class Keyboard extends Component<KeyboardProps, void> {
 
     let curText: string = text
 
-    if (MAX_LENGTH) {
+    let isAfterDecimalMaxLengthReached = false
+    if (!NO_DECIMAL) {
+      // if user has already entered decimal separator, then we need to validate
+      // length after decimal separator does not exceed set value in props
+      const afterDecimalSeparatorText = text.split(DECIMAL)
+      if (afterDecimalSeparatorText.length === 2) {
+        // there can be only two values after we split string with a valid
+        // decimal number
+        isAfterDecimalMaxLengthReached =
+          afterDecimalSeparatorText[1].length ===
+          this.props.afterDecimalSeparatorMaxLength
+      }
+    }
+
+    if (
+      MAX_LENGTH ||
+      (isAfterDecimalMaxLengthReached && key !== BACK_SPACE_SYMBOL)
+    ) {
       const animate = true
       this.text = curText
 

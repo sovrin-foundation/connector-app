@@ -7,10 +7,11 @@ import { walletBalance } from '../../../../__mocks__/static-data'
 
 describe('<Keyboard />', () => {
   const keyboardProps = {
-    maxLength: 9,
+    maxLength: 20,
     color: '#fff',
     onPress: jest.fn(),
     maxValue: walletBalance.data.toString(),
+    afterDecimalSeparatorMaxLength: 8,
   }
 
   function setup() {
@@ -19,9 +20,12 @@ describe('<Keyboard />', () => {
 
     return { component, instance }
   }
+
   it('should render properly and match the snapshot', () => {
     const { component } = setup()
     const tree = component.toJSON()
     expect(tree).toMatchSnapshot()
   })
+
+  // TODO: Add extensive tests for onPress function of Keyboard
 })
