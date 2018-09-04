@@ -218,10 +218,7 @@ export default class Keyboard extends Component<KeyboardProps, void> {
         {this.Row([FOUR, FIVE, SIX])}
         {this.Row([SEVEN, EIGHT, NINE])}
         <CustomView row style={[styles.row]}>
-          {/* disable decimal dot for now, we are only going to show whole number */}
-          {/* {this.Cell(DECIMAL)} */}
-          {/* Add empty container so we can align zero in middle */}
-          <Container />
+          {this.Cell(DECIMAL)}
           {this.Cell(ZERO)}
           {this.Backspace(BACK_SPACE_SYMBOL)}
         </CustomView>

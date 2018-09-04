@@ -331,7 +331,6 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
           null,
           null,
           Object {
-            "lineHeight": 89,
             "marginTop": 19,
           },
           Object {

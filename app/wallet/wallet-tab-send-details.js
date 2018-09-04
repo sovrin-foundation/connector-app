@@ -321,10 +321,7 @@ const styles = StyleSheet.create({
     color: color.bg.seventh.font.seventh,
   },
   tokenAmountText: {
-    // fontSize: 75,
-    // letterSpacing: -1.87,
     marginTop: 19,
-    lineHeight: 89,
   },
   disabledText: {
     color: color.bg.eighth.disabled,

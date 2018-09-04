@@ -35,6 +35,8 @@ import {
   convertVcxCredentialOfferToCxsClaimOffer,
   paymentHandle,
   getWalletKey,
+  convertSovrinTokensToSovrinAtoms,
+  convertSovrinAtomsToSovrinTokens,
 } from './vcx-transformers'
 import type { UserOneTimeInfo } from '../../store/user/type-user-store'
 import type { AgencyPoolConfig } from '../../store/type-config-store'
@@ -115,7 +117,8 @@ export async function sendTokenAmount(
   tokenAmount: string,
   recipientWalletAddress: string
 ): Promise<boolean> {
-  return RNIndy.sendTokens(paymentHandle, tokenAmount, recipientWalletAddress)
+  const sovrinAtoms = convertSovrinTokensToSovrinAtoms(tokenAmount)
+  return RNIndy.sendTokens(paymentHandle, sovrinAtoms, recipientWalletAddress)
 }
 
 export async function createOneTimeInfo(
@@ -237,6 +240,9 @@ export async function downloadClaimOffer(
     credential_offer
   )
 
+  // TODO:KS Need to be sure that verity-ui send the token amount in tokens
+  // if verity-ui does not send price in sovrin tokens, then we need to add
+  // conversion function from our side to convert it
   vcxCredentialOffer.price = price ? price.toString() : null
 
   return {
@@ -301,7 +307,7 @@ export async function downloadProofRequest(
 export async function getWalletBalance(): Promise<string> {
   const { balance_str: balance }: WalletTokenInfo = await getWalletTokenInfo()
 
-  return balance
+  return convertSovrinAtomsToSovrinTokens(balance)
 }
 
 export async function getWalletAddresses(): Promise<string[]> {

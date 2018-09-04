@@ -238,6 +238,10 @@ export const PIN_CODE_BORDER_BOTTOM = 4
 
 const { width, height } = Dimensions.get('screen')
 export const isiPhone5 = width >= 320 && width < 375
+export const isSmallWidthDevice = isiPhone5
+export const responsiveHorizontalPadding = isSmallWidthDevice
+  ? 5
+  : PADDING_HORIZONTAL
 export const SHORT_DEVICE = 600
 export const VERY_SHORT_DEVICE = 550
 export const errorBoxVerifyPassphraseContainer = height > SHORT_DEVICE ? 60 : 90

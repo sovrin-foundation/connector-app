@@ -19,6 +19,7 @@ import {
   OFFSET_3X,
   OFFSET_2X,
   whiteSmokeSecondary,
+  responsiveHorizontalPadding,
 } from '../common/styles'
 import { primaryHeaderStyles } from '../components/layout/header-styles'
 import { homeRoute, walletRoute } from '../common'
@@ -36,6 +37,7 @@ import type { Connection } from '../store/type-connection-store'
 import Banner from '../components/banner/banner'
 import { NavigationActions } from 'react-navigation'
 import { getUnseenMessages } from '../store/store-selector'
+import { scale } from 'react-native-size-matters'
 
 export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
   state = {
@@ -44,11 +46,14 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
 
   static navigationOptions = ({ navigation }) => ({
     header: (
-      <CustomHeader backgroundColor={whiteSmokeSecondary} largeHeader>
+      <CustomHeader
+        backgroundColor={whiteSmokeSecondary}
+        outerContainerStyles={styles.headerOuterContainer}
+        largeHeader
+      >
         <WalletBalance
           render={balance => (
             <CustomView
-              horizontalSpace
               row
               center
               onPress={() => {
@@ -69,7 +74,12 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
                 h5
                 demiBold
                 center
-                style={[styles.floatTokenAmount]}
+                style={[
+                  styles.floatTokenAmount,
+                  {
+                    fontSize: tokenAmountSize(balance.length),
+                  },
+                ]}
                 transparentBg
                 testID={SOVRINTOKEN_AMOUNT_TEST_ID}
                 formatNumber
@@ -144,13 +154,27 @@ export default createStackNavigator({
   },
 })
 
+const tokenAmountSize = (tokenAmountLength: number): number => {
+  // this resizing logic is different than wallet tabs header
+  switch (true) {
+    case tokenAmountLength < 16:
+      return scale(26)
+    case tokenAmountLength < 20:
+      return scale(20)
+    default:
+      return scale(19)
+  }
+}
+
 const styles = StyleSheet.create({
   userAvatarContainer: {
     marginVertical: Platform.OS === 'ios' ? OFFSET_3X : OFFSET_3X / 2,
   },
   floatTokenAmount: {
-    paddingLeft: 10,
     color: color.actions.font.seventh,
-    fontSize: 26,
+    paddingHorizontal: 8,
+  },
+  headerOuterContainer: {
+    paddingHorizontal: responsiveHorizontalPadding,
   },
 })

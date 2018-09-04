@@ -20,6 +20,7 @@ import type { InvitationPayload } from '../../invitation/type-invitation'
 import type { MyPairwiseInfo } from '../../store/type-connection-store'
 import type { ClaimOfferPushPayload } from '../../push-notification/type-push-notification'
 import { setItem, getItem, deleteItem } from '../../services/secure-storage'
+import { BigNumber } from 'bignumber.js'
 
 const { RNIndy } = NativeModules
 
@@ -161,4 +162,22 @@ export function convertVcxCredentialOfferToCxsClaimOffer(
     remoteName: '',
     price: vcxCredentialOffer.price,
   }
+}
+
+// 1 sovrin token = 100M sovrin atoms
+const sovrinAtomsToSovrinTokensConversionFactor = 100000000
+
+export function convertSovrinAtomsToSovrinTokens(
+  sovrinAtoms: string | number
+): string {
+  const atoms = new BigNumber(sovrinAtoms)
+  return atoms.dividedBy(sovrinAtomsToSovrinTokensConversionFactor).toString()
+}
+
+export function convertSovrinTokensToSovrinAtoms(sovrinTokens: string): string {
+  const tokens = new BigNumber(sovrinTokens)
+
+  return tokens
+    .multipliedBy(sovrinAtomsToSovrinTokensConversionFactor)
+    .toString()
 }
