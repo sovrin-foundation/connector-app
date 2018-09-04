@@ -13,6 +13,7 @@ describe('hydration store should update dependant store correctly', () => {
     gen.next()
     gen.next()
     gen.next()
+    gen.next()
 
     expect(gen.next().value).toEqual(put(hydrated()))
   })

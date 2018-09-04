@@ -17,6 +17,8 @@ export const SERVER_ENVIRONMENT = {
   QATEST2: 'QATEST2',
 }
 
+export const __uniqueId = '__uniqueId'
+
 export type ServerEnvironment = $Keys<typeof SERVER_ENVIRONMENT>
 
 export const APP_INSTALLED = 'APP_INSTALLED'
@@ -185,6 +187,8 @@ export const schemaDownloadedEnvironmentDetails = {
 
 export const MESSAGE_FAIL_ENVIRONMENT_SWITCH_TITLE =
   'Failed to switch environment'
+
+export const ERROR_NO_WALLET_NAME = 'Wallet name not found'
 
 export const MESSAGE_FAIL_ENVIRONMENT_SWITCH_INVALID_DATA = (url: string) =>
   `Data returned by ${url} is not valid as per our requirements.`

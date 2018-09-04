@@ -31,7 +31,11 @@ import {
   promptBackupBanner,
   deletePersistedPassphrase,
 } from '../backup/backup-store'
-import { STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL } from './type-config-store'
+import {
+  STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL,
+  __uniqueId,
+  ERROR_NO_WALLET_NAME,
+} from './type-config-store'
 import { STORAGE_KEY_SHOW_BANNER } from '../components/banner/banner-constants'
 import { STORAGE_KEY_EULA_ACCEPTANCE } from '../eula/type-eula'
 import { hydrateClaimOffersSaga } from '../claim-offer/claim-offer-store'
@@ -52,12 +56,18 @@ import {
   setInRecovery,
 } from '../lock/lock-store'
 import { captureError } from '../services/error/error-handler'
-import { simpleInit, vcxShutdown } from '../bridge/react-native-cxs/RNCxs'
+import {
+  simpleInit,
+  vcxShutdown,
+  getWalletPoolName,
+} from '../bridge/react-native-cxs/RNCxs'
 import { STORAGE_KEY_USER_AVATAR_NAME } from './user/type-user-store'
 import { safeToDownloadSmsInvitation } from '../sms-pending-invitation/sms-pending-invitation-store'
 import { hydrateProofRequestsSaga } from './../proof-request/proof-request-store'
-import { deleteItem } from '../services/secure-storage'
+import { deleteItem, getItem } from '../services/secure-storage'
 import { WALLET_KEY } from '../bridge/react-native-cxs/vcx-transformers'
+import RNFetchBlob from 'react-native-fetch-blob'
+import { Platform } from 'react-native'
 
 export function* deleteDeviceSpecificData(): Generator<*, *, *> {
   try {
@@ -123,13 +133,42 @@ export function* alreadyInstalledNotFound(): Generator<*, *, *> {
   }
 }
 
+export function* confirmFirstInstallationWithWallet(): Generator<*, *, *> {
+  const appUniqueId = yield call(getItem, __uniqueId)
+  const walletName = appUniqueId && `${appUniqueId}-cm-wallet`
+  if (!walletName && Platform.OS === 'ios') {
+    throw new Error(ERROR_NO_WALLET_NAME)
+  }
+  // TODO: has to remove the below condition when the wallet storage is moved from shared storage to app directory
+  if (Platform.OS === 'android') {
+    throw new Error(ERROR_NO_WALLET_NAME)
+  }
+  const { fs } = RNFetchBlob
+  const documentDirectory: string = fs.dirs.DocumentDir
+  const walletNameExists = yield call(
+    fs.exists,
+    `${documentDirectory}/.indy_client/wallet/${walletName}`
+  )
+  if (!walletNameExists) {
+    throw new Error(ERROR_NO_WALLET_NAME)
+  }
+  // do the async set operations
+  yield call(safeSet, IS_ALREADY_INSTALLED, 'true')
+  yield call(safeSet, STORAGE_KEY_EULA_ACCEPTANCE, 'true')
+  yield call(safeSet, PIN_ENABLED_KEY, 'true')
+  yield call(safeSet, __uniqueId, appUniqueId)
+}
+
 export function* hydrate(): any {
   try {
     let isAlreadyInstalled = yield call(safeGet, IS_ALREADY_INSTALLED)
     if (isAlreadyInstalled !== 'true') {
-      yield* alreadyInstalledNotFound()
-      // do not move forward and end here
-      return
+      try {
+        yield* confirmFirstInstallationWithWallet()
+      } catch (e) {
+        yield* alreadyInstalledNotFound()
+        return
+      }
     }
 
     yield put(alreadyInstalledAction(true))
