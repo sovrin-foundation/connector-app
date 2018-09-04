@@ -55,6 +55,7 @@ import showDID from '../components/show-pairwise-info'
 import {
   SEND_CLAIM_REQUEST,
   CLAIM_REQUEST_STATUS,
+  SEND_CLAIM_REQUEST_SUCCESS,
 } from '../claim-offer/type-claim-offer'
 import { deleteConnectionAction } from '../store/connections-store'
 import { getConnection, getConnectionTheme } from '../store/store-selector'
@@ -147,7 +148,7 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
   }
 
   connectionDetailHandler = (history: any) => {
-    if (history.h.action === HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST]) {
+    if (history.h.action === HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST_SUCCESS]) {
       this.props.navigation.navigate(connectionHistoryPendingRoute, {
         payload: history.h.originalPayload.payload,
       })
@@ -261,10 +262,7 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
             containerStyle: styles.listItemContainer,
             hideChevron: false,
             rightIcon:
-              h.action === HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST] ? (
-                // Type definition for react-native-elements is wrong
-                // this will be fixed, once we move this Image to Icon component
-                // $FlowFixMe
+              h.action === HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST_SUCCESS] ? (
                 <Icon src={require('../images/e15c.1.png')} small />
               ) : (
                 {

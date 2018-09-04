@@ -3,7 +3,7 @@ import type { Middleware, MiddlewareAPI, Dispatch } from 'redux'
 import { INVITATION_RECEIVED } from '../invitation/type-invitation'
 import { NEW_CONNECTION_SUCCESS } from '../store/connections-store'
 import {
-  SEND_CLAIM_REQUEST,
+  SEND_CLAIM_REQUEST_SUCCESS,
   CLAIM_OFFER_RECEIVED,
 } from '../claim-offer/type-claim-offer'
 import { CLAIM_STORAGE_SUCCESS } from '../claim/type-claim'
@@ -28,7 +28,7 @@ const actionToRecord = [
   NEW_CONNECTION_SUCCESS,
   PROOF_REQUEST_RECEIVED,
   CLAIM_OFFER_RECEIVED,
-  SEND_CLAIM_REQUEST,
+  SEND_CLAIM_REQUEST_SUCCESS,
   CLAIM_STORAGE_SUCCESS,
   SEND_PROOF_SUCCESS,
 ]

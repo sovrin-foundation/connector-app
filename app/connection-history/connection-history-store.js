@@ -48,13 +48,13 @@ import moment from 'moment'
 import type { NewConnectionAction } from '../store/type-connection-store'
 import { NEW_CONNECTION_SUCCESS } from '../store/connections-store'
 import type {
-  SendClaimRequestAction,
+  SendClaimRequestSuccessAction,
   ClaimOfferPayload,
   ClaimOfferReceivedAction,
 } from '../claim-offer/type-claim-offer'
 import type { ClaimStorageSuccessAction } from '../claim/type-claim'
 import type { Proof } from '../proof/type-proof'
-import { SEND_CLAIM_REQUEST } from '../claim-offer/type-claim-offer'
+import { SEND_CLAIM_REQUEST_SUCCESS } from '../claim-offer/type-claim-offer'
 import type {
   ProofRequestReceivedAction,
   SendProofSuccessAction,
@@ -159,15 +159,15 @@ export function convertConnectionSuccessToHistoryEvent(
 }
 
 // claim request pending
-export function convertSendClaimRequestToHistoryEvent(
-  action: SendClaimRequestAction
+export function convertSendClaimRequestSuccessToHistoryEvent(
+  action: SendClaimRequestSuccessAction
 ): ConnectionHistoryEvent {
   return {
-    action: HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST],
+    action: HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST_SUCCESS],
     data: action.payload.data && action.payload.data.revealedAttributes,
     id: uuid(),
     name: action.payload.data && action.payload.data.name,
-    status: HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST],
+    status: HISTORY_EVENT_STATUS[SEND_CLAIM_REQUEST_SUCCESS],
     timestamp: moment().format(),
     type: HISTORY_EVENT_TYPE.CLAIM,
     remoteDid: action.payload.remotePairwiseDID,
@@ -320,8 +320,8 @@ export function* historyEventOccurredSaga(
       historyEvent = convertConnectionSuccessToHistoryEvent(event)
     }
 
-    if (event.type === SEND_CLAIM_REQUEST) {
-      historyEvent = convertSendClaimRequestToHistoryEvent(event)
+    if (event.type === SEND_CLAIM_REQUEST_SUCCESS) {
+      historyEvent = convertSendClaimRequestSuccessToHistoryEvent(event)
       const claimOfferReceivedEvent = yield select(
         getHistoryEvent,
         historyEvent.originalPayload.uid,
@@ -333,7 +333,7 @@ export function* historyEventOccurredSaga(
         getPendingHistory,
         historyEvent.originalPayload.uid,
         historyEvent.remoteDid,
-        SEND_CLAIM_REQUEST
+        SEND_CLAIM_REQUEST_SUCCESS
       )
       if (existingEvent) historyEvent = null
       if (claimOfferReceivedEvent)

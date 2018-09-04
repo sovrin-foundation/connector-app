@@ -1231,7 +1231,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           testID="claim-request-message"
         >
           from
-           
         </Text>
         <Text
           accessibilityLabel="claim-request-message"
@@ -1276,45 +1275,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
         >
           Test Issuer
         </Text>
-        <Text
-          accessibilityLabel="claim-request-message"
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
-          style={
-            Array [
-              Object {
-                "fontSize": 17,
-              },
-              Object {
-                "fontFamily": "Lato",
-              },
-              Object {
-                "backgroundColor": "#ffffff",
-                "color": "#777777",
-              },
-              null,
-              Object {
-                "textAlign": "center",
-              },
-              Object {
-                "backgroundColor": "transparent",
-              },
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              Object {
-                "marginBottom": 5,
-              },
-            ]
-          }
-          testID="claim-request-message"
-        />
       </View>
       <View
         style={
@@ -2905,91 +2865,6 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
           testID="claim-request-message"
         >
           for Home Address
-        </Text>
-        <Text
-          accessibilityLabel="claim-request-message"
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
-          style={
-            Array [
-              Object {
-                "fontSize": 17,
-              },
-              Object {
-                "fontFamily": "Lato",
-              },
-              Object {
-                "backgroundColor": "#ffffff",
-                "color": "#777777",
-              },
-              null,
-              Object {
-                "textAlign": "center",
-              },
-              Object {
-                "backgroundColor": "transparent",
-              },
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              Object {
-                "marginBottom": 5,
-              },
-            ]
-          }
-          testID="claim-request-message"
-        >
-          
-           
-        </Text>
-        <Text
-          accessibilityLabel="claim-request-message"
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
-          style={
-            Array [
-              Object {
-                "fontSize": 17,
-              },
-              Object {
-                "fontFamily": "Lato",
-              },
-              Object {
-                "backgroundColor": "#ffffff",
-                "color": "#777777",
-              },
-              Object {
-                "fontWeight": "bold",
-              },
-              Object {
-                "textAlign": "center",
-              },
-              Object {
-                "backgroundColor": "transparent",
-              },
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              null,
-              Object {
-                "marginBottom": 5,
-              },
-            ]
-          }
-          testID="claim-request-message"
-        >
-          
         </Text>
         <Text
           accessibilityLabel="claim-request-message"

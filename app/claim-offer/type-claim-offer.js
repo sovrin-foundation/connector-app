@@ -30,19 +30,7 @@ export const VCX_CLAIM_OFFER_STATE = {
   ACCEPTED: 4,
 }
 
-export const CLAIM_REQUEST_STATUS = {
-  NONE: 'NONE',
-  INSUFFICIENT_BALANCE: 'INSUFFICIENT_BALANCE',
-  SENDING_PAID_CREDENTIAL_REQUEST: 'SENDING_PAID_CREDENTIAL_REQUEST',
-  SENDING_CLAIM_REQUEST: 'SENDING_CLAIM_REQUEST',
-  CLAIM_REQUEST_FAIL: 'CLAIM_REQUEST_FAIL',
-  CLAIM_REQUEST_SUCCESS: 'CLAIM_REQUEST_SUCCESS',
-  PAID_CREDENTIAL_REQUEST_SUCCESS: 'PAID_CREDENTIAL_REQUEST_SUCCESS',
-  PAID_CREDENTIAL_REQUEST_FAIL: 'PAID_CREDENTIAL_REQUEST_FAIL',
-}
-
 export type ClaimOfferStatus = $Keys<typeof CLAIM_OFFER_STATUS>
-export type ClaimRequestStatus = $Keys<typeof CLAIM_REQUEST_STATUS>
 
 export const CLAIM_OFFER_RECEIVED = 'CLAIM_OFFER_RECEIVED'
 export type ClaimOfferReceivedAction = {
@@ -87,6 +75,19 @@ export type SendClaimRequestAction = {
   type: typeof SEND_CLAIM_REQUEST,
   uid: string,
   payload: ClaimOfferPayload,
+}
+
+export const SEND_CLAIM_REQUEST_SUCCESS = 'SEND_CLAIM_REQUEST_SUCCESS'
+export type SendClaimRequestSuccessAction = {
+  type: typeof SEND_CLAIM_REQUEST_SUCCESS,
+  uid: string,
+  payload: ClaimOfferPayload,
+}
+
+export const SEND_CLAIM_REQUEST_FAIL = 'SEND_CLAIM_REQUEST_FAIL'
+export type SendClaimRequestFailAction = {
+  type: typeof SEND_CLAIM_REQUEST_FAIL,
+  uid: string,
 }
 
 export const CLAIM_REQUEST_SUCCESS = 'CLAIM_REQUEST_SUCCESS'
@@ -171,6 +172,8 @@ export type ClaimOfferAction =
   | PaidCredentialRequestFailAction
   | ClaimOfferShowStartAction
   | ResetClaimRequestStatusAction
+  | SendClaimRequestSuccessAction
+  | SendClaimRequestFailAction
 
 export type ClaimOfferPayload = AdditionalDataPayload & {
   uid: string,
@@ -230,7 +233,7 @@ export type ClaimRequestStatusModalProps = {
   onContinue: () => void,
   senderLogoUrl?: string,
   isPending?: boolean,
-  message1?: string,
+  message1: string,
   message3: string,
   message5?: string,
   message6?: string,
@@ -297,3 +300,18 @@ export const ERROR_SEND_CLAIM_REQUEST = (message: string) => ({
   code: 'CO-005',
   message: `Error occurred while trying to send/generate claim request: ${message}`,
 })
+
+export const CLAIM_REQUEST_STATUS = {
+  NONE: 'NONE',
+  INSUFFICIENT_BALANCE,
+  SENDING_PAID_CREDENTIAL_REQUEST: 'SENDING_PAID_CREDENTIAL_REQUEST',
+  SENDING_CLAIM_REQUEST: 'SENDING_CLAIM_REQUEST',
+  SEND_CLAIM_REQUEST_SUCCESS,
+  SEND_CLAIM_REQUEST_FAIL,
+  CLAIM_REQUEST_FAIL,
+  CLAIM_REQUEST_SUCCESS,
+  PAID_CREDENTIAL_REQUEST_SUCCESS,
+  PAID_CREDENTIAL_REQUEST_FAIL,
+}
+
+export type ClaimRequestStatus = $Keys<typeof CLAIM_REQUEST_STATUS>

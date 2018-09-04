@@ -19,6 +19,7 @@ import {
   CLAIM_OFFER_IGNORED,
   CLAIM_OFFER_REJECTED,
   SEND_CLAIM_REQUEST,
+  SEND_CLAIM_REQUEST_SUCCESS,
 } from '../claim-offer/type-claim-offer'
 import type { SendClaimRequestAction } from '../claim-offer/type-claim-offer'
 import type { ClaimReceivedAction } from '../claim/type-claim'
@@ -50,7 +51,7 @@ export const HISTORY_EVENT_STATUS = {
   [INVITATION_RECEIVED]: 'CONNECTION REQUEST',
   [NEW_CONNECTION_SUCCESS]: 'CONNECTED',
   [INVITATION_REJECTED]: 'CONNECTION REJECTED',
-  [SEND_CLAIM_REQUEST]: 'PENDING',
+  [SEND_CLAIM_REQUEST_SUCCESS]: 'PENDING',
   [CLAIM_OFFER_RECEIVED]: 'CLAIM OFFER RECEIVED',
   [CLAIM_OFFER_ACCEPTED]: 'ACCEPTED OFFER',
   [CLAIM_OFFER_IGNORED]: 'IGNORED OFFER',

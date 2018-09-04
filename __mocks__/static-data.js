@@ -15,7 +15,7 @@ import { CLAIM_OFFER_ACCEPTED } from '../app/claim-offer/type-claim-offer'
 import { invitationReceived } from '../app/invitation/invitation-store'
 import {
   claimOfferReceived,
-  sendClaimRequest,
+  sendClaimRequestSuccess,
 } from '../app/claim-offer/claim-offer-store'
 import { claimReceived, claimStorageSuccess } from '../app/claim/claim-store'
 import { saveNewConnectionSuccess } from '../app/store/connections-store'
@@ -999,7 +999,10 @@ export const claimOfferReceivedEvent = claimOfferReceived(
 
 export const claimReceivedEvent = claimReceived(claim)
 
-export const sendClaimRequestEvent = sendClaimRequest(uid, claimOfferPayload)
+export const sendClaimRequestSuccessEvent = sendClaimRequestSuccess(
+  uid,
+  claimOfferPayload
+)
 
 export const claimReceivedSuccessEvent = claimStorageSuccess(uid)
 

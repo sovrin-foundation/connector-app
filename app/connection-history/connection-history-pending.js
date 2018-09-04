@@ -4,22 +4,28 @@ import { connect } from 'react-redux'
 import { Container } from '../components'
 import type { ReactNavigation } from '../common/type-common'
 import type { Store } from '../store/type-store'
-import ClaimRequestModal from '../claim-offer/claim-request-modal'
+import { ClaimRequestStatusModal } from '../claim-offer/claim-request-modal'
 import { CLAIM_REQUEST_STATUS } from '../claim-offer/type-claim-offer'
 
-// TODO: Need to Add prop types
-export class ConnectionHistoryPending extends PureComponent<void, void> {
+type ConnectionHistoryPendingProps = {} & ReactNavigation
+
+export class ConnectionHistoryPending extends PureComponent<
+  ConnectionHistoryPendingProps,
+  void
+> {
   close = () => {
-    this.props && this.props.navigation ? this.props.navigation.goBack() : ''
+    this.props.navigation.goBack()
   }
 
   render() {
-    const { payload } = this.props ? this.props : {}
+    const { payload } = this.props.navigation.state
+      ? this.props.navigation.state.params
+      : {}
 
     return (
       <Container fifth>
-        <ClaimRequestModal
-          claimRequestStatus={CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST}
+        <ClaimRequestStatusModal
+          claimRequestStatus={CLAIM_REQUEST_STATUS.SEND_CLAIM_REQUEST_SUCCESS}
           payload={payload}
           onContinue={this.close}
           senderLogoUrl={payload.senderLogoUrl}
@@ -32,17 +38,3 @@ export class ConnectionHistoryPending extends PureComponent<void, void> {
     )
   }
 }
-
-//TODO: - fix - it should not be connected component
-const mapStateToProps = (state: Store, props: ReactNavigation) => {
-  const { payload } =
-    props.navigation.state && props.navigation.state.params
-      ? props.navigation.state.params
-      : {}
-
-  return {
-    payload,
-  }
-}
-
-export default connect(mapStateToProps)(ConnectionHistoryPending)

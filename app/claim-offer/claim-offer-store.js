@@ -41,6 +41,8 @@ import {
   PAID_CREDENTIAL_REQUEST_FAIL,
   CLAIM_OFFER_SHOW_START,
   RESET_CLAIM_REQUEST_STATUS,
+  SEND_CLAIM_REQUEST_SUCCESS,
+  SEND_CLAIM_REQUEST_FAIL,
 } from './type-claim-offer'
 import type {
   ClaimOfferStore,
@@ -131,6 +133,20 @@ export const sendClaimRequest = (uid: string, payload: ClaimOfferPayload) => ({
   type: SEND_CLAIM_REQUEST,
   uid,
   payload,
+})
+
+export const sendClaimRequestSuccess = (
+  uid: string,
+  payload: ClaimOfferPayload
+) => ({
+  type: SEND_CLAIM_REQUEST_SUCCESS,
+  uid,
+  payload,
+})
+
+export const sendClaimRequestFail = (uid: string) => ({
+  type: SEND_CLAIM_REQUEST_FAIL,
+  uid,
 })
 
 export const claimRequestSuccess = (uid: string) => ({
@@ -244,21 +260,24 @@ export function* claimOfferAccepted(
     // TODO We don't have any payment handle as of now, so hard code to 0
     const paymentHandle = 0
 
-    yield call(
-      sendClaimRequestApi,
-      claimHandle,
-      connectionHandle,
-      paymentHandle
-    )
-
-    if (isPaidCredential) {
+    try {
+      yield call(
+        sendClaimRequestApi,
+        claimHandle,
+        connectionHandle,
+        paymentHandle
+      )
+      yield put(sendClaimRequestSuccess(messageId, claimOfferPayload))
       // if we are able to send claim request successfully,
       // then we can raise an action to show that we have sent claim request
       // so that our history middleware can record this event
-      // it also means payment was successful and we can show success to user in modal
-      yield put(sendClaimRequest(messageId, claimOfferPayload))
-      yield put(paidCredentialRequestSuccess(messageId))
-      yield put(refreshWalletBalance())
+      if (isPaidCredential) {
+        // it also means payment was successful and we can show success to user in modal
+        yield put(paidCredentialRequestSuccess(messageId))
+        yield put(refreshWalletBalance())
+      }
+    } catch (e) {
+      yield put(sendClaimRequestFail(messageId))
     }
 
     // since we have sent claim request, state of claim offer in vcx is changed
@@ -575,6 +594,24 @@ export default function claimOfferReducer(
         [action.uid]: {
           ...state[action.uid],
           claimRequestStatus: CLAIM_REQUEST_STATUS.NONE,
+        },
+      }
+
+    case SEND_CLAIM_REQUEST_SUCCESS:
+      return {
+        ...state,
+        [action.uid]: {
+          ...state[action.uid],
+          claimRequestStatus: CLAIM_REQUEST_STATUS.SEND_CLAIM_REQUEST_SUCCESS,
+        },
+      }
+
+    case SEND_CLAIM_REQUEST_FAIL:
+      return {
+        ...state,
+        [action.uid]: {
+          ...state[action.uid],
+          claimRequestStatus: CLAIM_REQUEST_STATUS.SEND_CLAIM_REQUEST_FAIL,
         },
       }
     default:

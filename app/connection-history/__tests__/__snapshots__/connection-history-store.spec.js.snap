@@ -58,117 +58,6 @@ Object {
 }
 `;
 
-exports[`Store: ConnectionHistory convertConnectionSuccessToHistoryEvent should raise success 2`] = `
-Object {
-  "action": "PENDING",
-  "data": Array [
-    Object {
-      "data": "Address Address Address",
-      "label": "Address 1",
-    },
-    Object {
-      "data": "Address 2 Address 2 Address 2",
-      "label": "Address 2",
-    },
-  ],
-  "id": "a4f35623-b50c-40ea-a2b0-f7cd06e03142",
-  "name": "Home Address",
-  "originalPayload": Object {
-    "payload": Object {
-      "claimRequestStatus": "CLAIM_REQUEST_SUCCESS",
-      "data": Object {
-        "claimDefinitionSchemaSequenceNumber": 36,
-        "name": "Home Address",
-        "revealedAttributes": Array [
-          Object {
-            "data": "Address Address Address",
-            "label": "Address 1",
-          },
-          Object {
-            "data": "Address 2 Address 2 Address 2",
-            "label": "Address 2",
-          },
-        ],
-        "version": "1.0.0",
-      },
-      "issuer": Object {
-        "did": "issuerDid",
-        "name": "Test Issuer",
-      },
-      "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
-      "senderLogoUrl": "http://testissuer.com/logoUrl.png",
-      "status": "RECEIVED",
-      "statusMsg": "pending",
-      "uid": "usd123",
-    },
-    "type": "SEND_CLAIM_REQUEST",
-    "uid": "uid",
-  },
-  "remoteDid": "ha66899sadfjZJGINKN0770",
-  "status": "PENDING",
-  "timestamp": "2018-01-10T04:32:43+05:30",
-  "type": "CLAIM",
-}
-`;
-
-exports[`Store: ConnectionHistory convertConnectionSuccessToHistoryEvent should raise success 3`] = `
-Object {
-  "action": "CONNECTED",
-  "data": Array [
-    Object {
-      "data": "2018-01-10T04:32:43+05:30",
-      "label": "Established On",
-    },
-  ],
-  "id": "a4f35623-b50c-40ea-a2b0-f7cd06e03142",
-  "name": "sender1",
-  "originalPayload": Object {
-    "connection": Object {
-      "identifier": "pairwiseIdentifier1",
-      "logoUrl": "lu",
-      "myPairwiseAgentDid": "myPairwiseAgentDID",
-      "myPairwiseAgentVerKey": "myPairwiseAgentVerKey",
-      "myPairwiseDid": "pairwiseIdentifier1",
-      "myPairwisePeerVerKey": "senderVerificationKey1",
-      "myPairwiseVerKey": "pairwiseVerificationKey1",
-      "requestId": "requestId1",
-      "senderAgencyDetail": Object {
-        "DID": "senderDID1",
-        "endpoint": "endpoint",
-        "verKey": "senderVerificationKey1",
-      },
-      "senderAgentKeyDelegationProof": Object {
-        "agentDID": "senderAgentDID1",
-        "agentDelegatedKey": "agentDelegatedKey",
-        "signature": "signature",
-      },
-      "senderDID": "senderDID1",
-      "senderDetail": Object {
-        "DID": "senderDID1",
-        "agentKeyDlgProof": Object {
-          "agentDID": "senderAgentDID1",
-          "agentDelegatedKey": "agentDelegatedKey",
-          "signature": "signature",
-        },
-        "logoUrl": "http://testissuer.com/logoUrl.png",
-        "name": "sender1",
-        "verKey": "senderVerificationKey1",
-      },
-      "senderEndpoint": "endpoint",
-      "senderLogoUrl": "lu",
-      "senderName": "sender1",
-      "senderVerificationKey": "sVk",
-      "targetName": "target name",
-    },
-    "type": "NEW_CONNECTION_SUCCESS",
-  },
-  "remoteDid": "senderDID1",
-  "status": "CONNECTED",
-  "timestamp": "2018-01-10T04:32:43+05:30",
-  "type": "INVITATION",
-}
-`;
-
 exports[`Store: ConnectionHistory convertInvitationToHistoryEvent should raise success 1`] = `
 Object {
   "action": "CONNECTION REQUEST",
@@ -300,6 +189,59 @@ Object {
   "status": "PROOF RECEIVED",
   "timestamp": "2018-01-10T04:32:43+05:30",
   "type": "PROOF",
+}
+`;
+
+exports[`Store: ConnectionHistory convertSendClaimRequestSuccessToHistoryEvent should raise success 1`] = `
+Object {
+  "action": "PENDING",
+  "data": Array [
+    Object {
+      "data": "Address Address Address",
+      "label": "Address 1",
+    },
+    Object {
+      "data": "Address 2 Address 2 Address 2",
+      "label": "Address 2",
+    },
+  ],
+  "id": "a4f35623-b50c-40ea-a2b0-f7cd06e03142",
+  "name": "Home Address",
+  "originalPayload": Object {
+    "payload": Object {
+      "claimRequestStatus": "CLAIM_REQUEST_SUCCESS",
+      "data": Object {
+        "claimDefinitionSchemaSequenceNumber": 36,
+        "name": "Home Address",
+        "revealedAttributes": Array [
+          Object {
+            "data": "Address Address Address",
+            "label": "Address 1",
+          },
+          Object {
+            "data": "Address 2 Address 2 Address 2",
+            "label": "Address 2",
+          },
+        ],
+        "version": "1.0.0",
+      },
+      "issuer": Object {
+        "did": "issuerDid",
+        "name": "Test Issuer",
+      },
+      "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+      "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+      "status": "RECEIVED",
+      "statusMsg": "pending",
+      "uid": "usd123",
+    },
+    "type": "SEND_CLAIM_REQUEST_SUCCESS",
+    "uid": "uid",
+  },
+  "remoteDid": "ha66899sadfjZJGINKN0770",
+  "status": "PENDING",
+  "timestamp": "2018-01-10T04:32:43+05:30",
+  "type": "CLAIM",
 }
 `;
 
@@ -465,7 +407,7 @@ Object {
             "statusMsg": "pending",
             "uid": "usd123",
           },
-          "type": "SEND_CLAIM_REQUEST",
+          "type": "SEND_CLAIM_REQUEST_SUCCESS",
           "uid": "uid",
         },
         "remoteDid": "ha66899sadfjZJGINKN0770",
@@ -611,7 +553,7 @@ Object {
             "statusMsg": "pending",
             "uid": "usd123",
           },
-          "type": "SEND_CLAIM_REQUEST",
+          "type": "SEND_CLAIM_REQUEST_SUCCESS",
           "uid": "uid",
         },
         "remoteDid": "ha66899sadfjZJGINKN0770",

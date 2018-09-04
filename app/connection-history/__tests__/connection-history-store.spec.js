@@ -20,7 +20,7 @@ import connectionHistoryReducer, {
   convertClaimStorageSuccessToHistoryEvent,
   convertProofRequestToHistoryEvent,
   convertProofSendToHistoryEvent,
-  convertSendClaimRequestToHistoryEvent,
+  convertSendClaimRequestSuccessToHistoryEvent,
   deleteHistoryEvent,
 } from '../connection-history-store'
 import { initialTestAction } from '../../common/type-common'
@@ -37,7 +37,7 @@ import {
   fulfilledRequestedAttributes,
   invitationReceivedEvent,
   newConnectionSuccessEvent,
-  sendClaimRequestEvent,
+  sendClaimRequestSuccessEvent,
   claimReceivedEvent,
   claimReceivedSuccessEvent,
   proofRequestReceivedEvent,
@@ -52,6 +52,7 @@ import { saveNewConnection } from '../../store/connections-store'
 import {
   claimOfferReceived,
   claimRequestSuccess,
+  sendClaimRequestSuccess,
 } from '../../claim-offer/claim-offer-store'
 import { claimReceived, claimStorageSuccess } from '../../claim/claim-store'
 import { CLAIM_STORAGE_SUCCESS } from '../../claim/type-claim'
@@ -78,9 +79,8 @@ import {
 import { secureGet } from '../../services/storage'
 import {
   CLAIM_OFFER_RECEIVED,
-  SEND_CLAIM_REQUEST,
+  SEND_CLAIM_REQUEST_SUCCESS,
 } from './../../claim-offer/type-claim-offer'
-import { sendClaimRequest } from '../../claim-offer/claim-offer-store'
 import { RESET } from '../../common/type-common'
 import { PROOF_REQUEST_RECEIVED } from '../../proof-request/type-proof-request'
 
@@ -106,8 +106,8 @@ function getHistoryData() {
     )
   )
   sender1History.push(
-    convertSendClaimRequestToHistoryEvent(
-      sendClaimRequest(uid, claimOfferPayload)
+    convertSendClaimRequestSuccessToHistoryEvent(
+      sendClaimRequestSuccess(uid, claimOfferPayload)
     )
   )
 
@@ -170,8 +170,8 @@ describe('Store: ConnectionHistory', () => {
       connectionHistoryReducer(
         initialState,
         recordHistoryEvent(
-          convertSendClaimRequestToHistoryEvent(
-            sendClaimRequest(uid, claimOfferPayload)
+          convertSendClaimRequestSuccessToHistoryEvent(
+            sendClaimRequestSuccess(uid, claimOfferPayload)
           )
         )
       )
@@ -205,9 +205,11 @@ describe('Store: ConnectionHistory', () => {
   it('historyEventOccurredSaga should raise success for sending claim request ', () => {
     let historyEvent
     const gen = historyEventOccurredSaga(
-      historyEventOccurred(sendClaimRequestEvent)
+      historyEventOccurred(sendClaimRequestSuccessEvent)
     )
-    historyEvent = convertSendClaimRequestToHistoryEvent(sendClaimRequestEvent)
+    historyEvent = convertSendClaimRequestSuccessToHistoryEvent(
+      sendClaimRequestSuccessEvent
+    )
     expect(gen.next().value).toEqual(
       select(
         getHistoryEvent,
@@ -221,7 +223,7 @@ describe('Store: ConnectionHistory', () => {
         getPendingHistory,
         historyEvent.originalPayload.uid,
         historyEvent.remoteDid,
-        SEND_CLAIM_REQUEST
+        SEND_CLAIM_REQUEST_SUCCESS
       )
     )
 
@@ -320,15 +322,9 @@ describe('Store: ConnectionHistory', () => {
     ).toMatchSnapshot()
   })
 
-  it('convertConnectionSuccessToHistoryEvent should raise success', () => {
+  it('convertSendClaimRequestSuccessToHistoryEvent should raise success', () => {
     expect(
-      convertSendClaimRequestToHistoryEvent(sendClaimRequestEvent)
-    ).toMatchSnapshot()
-  })
-
-  it('convertConnectionSuccessToHistoryEvent should raise success', () => {
-    expect(
-      convertConnectionSuccessToHistoryEvent(newConnectionSuccessEvent)
+      convertSendClaimRequestSuccessToHistoryEvent(sendClaimRequestSuccessEvent)
     ).toMatchSnapshot()
   })
 
@@ -368,8 +364,8 @@ describe('Store: ConnectionHistory', () => {
     const afterOneHistoryEventState = connectionHistoryReducer(
       initialState,
       recordHistoryEvent(
-        convertSendClaimRequestToHistoryEvent(
-          sendClaimRequest(uid, claimOfferPayload)
+        convertSendClaimRequestSuccessToHistoryEvent(
+          sendClaimRequestSuccess(uid, claimOfferPayload)
         )
       )
     )

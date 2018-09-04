@@ -8,7 +8,7 @@ import {
 } from '../common/route-constants'
 import ConnectionHistory from './connection-history'
 import ConnectionHistoryDetails from './connection-history-details'
-import ConnectionHistoryPending from './connection-history-pending'
+import { ConnectionHistoryPending } from './connection-history-pending'
 
 export default createStackNavigator(
   {

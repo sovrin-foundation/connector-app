@@ -14,8 +14,22 @@ import type {
 } from './type-claim-offer'
 import { formatNumbers } from '../components/text'
 
-// TODO: Remove the default export and use the named export
-export default class ClaimRequestStatusModal extends PureComponent<
+const ClaimRequestModalText = (props: { children: string, bold?: boolean }) => (
+  <CustomText
+    h5
+    center
+    tertiary
+    bg="tertiary"
+    transparentBg
+    style={[styles.message]}
+    testID={`claim-request-message`}
+    bold={props.bold}
+  >
+    {props.children}
+  </CustomText>
+)
+
+export class ClaimRequestStatusModal extends PureComponent<
   ClaimRequestStatusModalProps,
   ClaimRequestStatusModalState
 > {
@@ -29,6 +43,7 @@ export default class ClaimRequestStatusModal extends PureComponent<
     CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS,
     CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST,
     CLAIM_REQUEST_STATUS.PAID_CREDENTIAL_REQUEST_SUCCESS,
+    CLAIM_REQUEST_STATUS.SEND_CLAIM_REQUEST_SUCCESS,
   ]
 
   onContinue = () => {
@@ -57,9 +72,11 @@ export default class ClaimRequestStatusModal extends PureComponent<
     this.toggleModal(this.props.claimRequestStatus)
   }
 
-  componentWillReceiveProps(nextProps: ClaimRequestStatusModalProps) {
-    // if component was not unmounted, and claim request status updates
-    this.toggleModal(nextProps.claimRequestStatus)
+  componentDidUpdate(prevProps: ClaimRequestStatusModalProps) {
+    if (this.props.claimRequestStatus !== prevProps.claimRequestStatus) {
+      // if component was not unmounted, and claim request status updates
+      this.toggleModal(this.props.claimRequestStatus)
+    }
   }
 
   render() {
@@ -86,35 +103,45 @@ export default class ClaimRequestStatusModal extends PureComponent<
       message4 = ''
     }
 
+    const isSendingPaidCredentialRequest =
+      claimRequestStatus ===
+      CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
+
+    const isSendingCredentialRequest =
+      claimRequestStatus === CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST
+
+    const isSending =
+      isSendingPaidCredentialRequest || isSendingCredentialRequest
+
     const avatarRight = senderLogoUrl
       ? { uri: senderLogoUrl }
       : require('../images/cb_evernym.png')
-    const { middleImage, middleImageStyle } = isPending
-      ? payTokenValue
-        ? {
-            middleImage: require('../images/connectArrowsRight.png'),
-            middleImageStyle: styles.connectedArrowRight,
-          }
+    const { middleImage, middleImageStyle } =
+      isPending || isSending
+        ? payTokenValue || isSending
+          ? {
+              middleImage: require('../images/connectArrowsRight.png'),
+              middleImageStyle: styles.connectedArrowRight,
+            }
+          : {
+              middleImage: require('../images/connectArrows.png'),
+              middleImageStyle: styles.connectedArrow,
+            }
         : {
-            middleImage: require('../images/connectArrows.png'),
-            middleImageStyle: styles.connectedArrow,
+            middleImage: require('../images/checkMark.png'),
+            middleImageStyle: null,
           }
-      : {
-          middleImage: require('../images/checkMark.png'),
-          middleImageStyle: null,
-        }
+
     const conditionalMessage =
       message6 !== undefined ? (payTokenValue ? message6 : null) : message5
+
     return (
       <CustomModal
         onPress={this.onContinue}
         buttonText="Continue"
         testID={'claim-request'}
         isVisible={this.state.isVisible}
-        disabled={
-          claimRequestStatus ===
-          CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
-        }
+        disabled={isSending}
       >
         <AvatarsPair
           middleImage={middleImage}
@@ -122,95 +149,34 @@ export default class ClaimRequestStatusModal extends PureComponent<
           avatarRight={avatarRight}
           testID={'claim-request'}
         />
-        <CustomText
-          h5
-          center
-          tertiary
-          bg="tertiary"
-          transparentBg
-          style={[styles.message]}
-          testID={`claim-request-message`}
-        >
-          {claimRequestStatus ===
-          CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
-            ? ''
-            : message1}
-        </CustomText>
-        {payTokenValue &&
-        claimRequestStatus !==
-          CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST ? (
-          <CustomText
-            h5
-            bold
-            center
-            tertiary
-            bg="tertiary"
-            transparentBg
-            style={[styles.message]}
-            testID={`claim-request-message`}
-          >
-            {`${formatNumbers(payTokenValue)} tokens`}
-          </CustomText>
-        ) : null}
-        <CustomText
-          h5
-          bold
-          center
-          tertiary
-          bg="tertiary"
-          transparentBg
-          style={[styles.message]}
-          testID={`claim-request-message`}
-        >
-          {claimRequestStatus ===
-          CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
-            ? 'Paying...'
-            : message2}
-        </CustomText>
-        <CustomText
-          h5
-          center
-          tertiary
-          bg="tertiary"
-          transparentBg
-          style={[styles.message]}
-          testID={`claim-request-message`}
-        >
-          {claimRequestStatus ===
-          CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
-            ? ''
-            : message3}{' '}
-        </CustomText>
-        <CustomText
-          h5
-          bold
-          center
-          tertiary
-          bg="tertiary"
-          transparentBg
-          style={[styles.message]}
-          testID={`claim-request-message`}
-        >
-          {claimRequestStatus ===
-          CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
-            ? ''
-            : payTokenValue ? '' : message4}
-        </CustomText>
+        {!isSending && (
+          <ClaimRequestModalText>{message1}</ClaimRequestModalText>
+        )}
 
-        <CustomText
-          h5
-          center
-          tertiary
-          bg="tertiary"
-          transparentBg
-          style={[styles.message]}
-          testID={`claim-request-message`}
-        >
-          {claimRequestStatus ===
-          CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
-            ? ''
-            : conditionalMessage}
-        </CustomText>
+        {payTokenValue && !isSendingPaidCredentialRequest ? (
+          <ClaimRequestModalText bold>
+            {`${formatNumbers(payTokenValue)} tokens`}
+          </ClaimRequestModalText>
+        ) : null}
+
+        <ClaimRequestModalText bold>
+          {isSendingPaidCredentialRequest
+            ? 'Paying...'
+            : isSendingCredentialRequest ? 'Accepting...' : message2}
+        </ClaimRequestModalText>
+
+        {!isSending && message3 ? (
+          <ClaimRequestModalText>{message3}</ClaimRequestModalText>
+        ) : null}
+
+        {!isSending && !payTokenValue ? (
+          <ClaimRequestModalText bold>{message4}</ClaimRequestModalText>
+        ) : null}
+
+        {conditionalMessage &&
+          !isSending && (
+            <ClaimRequestModalText>{conditionalMessage}</ClaimRequestModalText>
+          )}
       </CustomModal>
     )
   }

@@ -44,7 +44,7 @@ import type {
 } from './type-claim-offer'
 import { CLAIM_REQUEST_STATUS } from './type-claim-offer'
 import type { Store } from '../store/type-store'
-import ClaimRequestModal from './claim-request-modal'
+import { ClaimRequestStatusModal } from './claim-request-modal'
 import {
   getConnectionLogoUrl,
   getConnectionTheme,
@@ -195,7 +195,7 @@ export class ClaimOffer extends PureComponent<
       : require('../images/cb_evernym.png')
     const testID = 'claim-offer'
     let acceptButtonText = payTokenValue ? 'Accept & Pay' : 'Accept'
-    // TODO: Get text and background color from color-picker.
+
     return (
       <Container style={[{ backgroundColor: claimThemePrimary }]}>
         {isValid && (
@@ -260,7 +260,7 @@ export class ClaimOffer extends PureComponent<
           disableAccept={this.state.disableAcceptButton}
         />
         {isValid && (
-          <ClaimRequestModal
+          <ClaimRequestStatusModal
             claimRequestStatus={claimRequestStatus}
             payload={claimOfferData}
             onContinue={this.close}
