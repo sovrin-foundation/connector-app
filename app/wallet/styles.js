@@ -3,13 +3,14 @@ import { StyleSheet, Dimensions } from 'react-native'
 import {
   PADDING_HORIZONTAL,
   PADDING_VERTICAL,
-  SHORT_DEVICE,
+  isBiggerThanShortDevice,
   color,
 } from '../common/styles/constant'
 
-const { height } = Dimensions.get('window')
-const amountSpacing = height > SHORT_DEVICE ? PADDING_VERTICAL * 2 : 0
-const ctaButtonHeight = height > SHORT_DEVICE ? 63 : 43
+const { width } = Dimensions.get('window')
+const SPACE_FILLER = 50
+const amountSpacing = isBiggerThanShortDevice ? PADDING_VERTICAL * 2 : 0
+const ctaButtonHeight = isBiggerThanShortDevice ? 63 : 43
 
 const styles = StyleSheet.create({
   headerCloseIcon: {

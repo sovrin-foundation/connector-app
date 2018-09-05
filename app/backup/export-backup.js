@@ -20,7 +20,10 @@ import {
   backupCompleteRoute,
   backupErrorRoute,
 } from '../common'
-import { SHORT_DEVICE, VERY_SHORT_DEVICE } from '../common/styles'
+import {
+  isBiggerThanShortDevice,
+  isBiggerThanVeryShortDevice,
+} from '../common/styles'
 import { color } from '../common/styles/constant'
 import type { ExportBackupFileProps } from './type-backup'
 import styles from './styles'
@@ -35,7 +38,6 @@ import {
 import { BACKUP_STORE_STATUS } from './type-backup'
 import { getBackupStatus, getBackupWalletPath } from '../store/store-selector'
 
-const { height } = Dimensions.get('window')
 const transparentBands = require('../images/transparentBands.png')
 const backImage = require('../images/icon_backArrow_white.png')
 const closeImage = require('../images/iconClose.png')
@@ -168,7 +170,7 @@ export class ExportBackupFile extends PureComponent<
           </CustomView>
           <CustomView
             center
-            verticalSpace={height > VERY_SHORT_DEVICE ? true : false}
+            verticalSpace={isBiggerThanVeryShortDevice ? true : false}
           >
             <CustomText
               center
@@ -197,7 +199,7 @@ export class ExportBackupFile extends PureComponent<
             </CustomText>
           </CustomView>
           <CustomButton
-            large={height > SHORT_DEVICE ? true : false}
+            large={isBiggerThanShortDevice ? true : false}
             disabled={disableButton}
             onPress={this.encryptAndBackup}
             testID={EXPORT_BACKUP_SUBMIT_BUTTON_TEST_ID}

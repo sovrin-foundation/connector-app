@@ -14,7 +14,7 @@ import {
   CustomHeader,
 } from '../components'
 import {
-  SHORT_DEVICE,
+  isBiggerThanShortDevice,
   grey,
   venetianRed,
   white,
@@ -28,8 +28,6 @@ import {
   BACKUP_ERROR_BACK_TEST_ID,
   BACKUP_ERROR_CLOSE_TEST_ID,
 } from './backup-constants'
-
-const { height } = Dimensions.get('window')
 
 const backImage = require('../images/icon_backArrow_white.png')
 const closeImage = require('../images/iconClose.png')
@@ -105,7 +103,7 @@ export class BackupErrorScreen extends PureComponent<BackupErrorProps, void> {
         <Container bottom pad>
           <CustomView pad>
             <CustomButton
-              large={height > SHORT_DEVICE ? true : false}
+              large={isBiggerThanShortDevice ? true : false}
               style={[styles.customButton, styles.buttonShadow]}
               title={'Try Again'}
               onPress={this.tryAgain}
@@ -128,7 +126,7 @@ const styles = StyleSheet.create({
   },
   backgroundWaveImage: {
     position: 'absolute',
-    top: height > SHORT_DEVICE ? '30%' : '20%',
+    top: isBiggerThanShortDevice ? '30%' : '20%',
     left: 0,
     right: 0,
     resizeMode: 'stretch',
@@ -136,7 +134,7 @@ const styles = StyleSheet.create({
   },
   customButton: {
     width: '100%',
-    height: height > SHORT_DEVICE ? 57 : 43,
+    height: isBiggerThanShortDevice ? 57 : 43,
     borderRadius: 5,
     marginTop: 10,
   },

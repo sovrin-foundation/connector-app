@@ -319,75 +319,77 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
         }
       />
     </View>
-  </View>
-  <View
-    style={
-      Object {
-        "alignItems": "center",
-        "marginVertical": 30,
-      }
-    }
-    vCenter={true}
-  >
     <View
-      accessibilityComponentType={undefined}
-      accessibilityLabel="user-avatar-touchable"
-      accessibilityTraits={undefined}
-      accessible={false}
-      clearBg={true}
-      extraLarge={true}
-      hitSlop={
-        Object {
-          "bottom": 20,
-          "left": 20,
-          "right": 20,
-          "top": 20,
-        }
-      }
-      nativeID={undefined}
-      onLayout={undefined}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      resizeMode="cover"
-      round={true}
-      src={
-        Object {
-          "uri": "/var/application/DocumentDir/user-avatar.jpeg",
-        }
-      }
       style={
         Object {
           "backgroundColor": "transparent",
+          "left": 120,
+          "position": "absolute",
+          "top": 320,
+          "width": 80,
         }
       }
-      testID="user-avatar-touchable"
     >
-      <Image
-        accessibilityLabel="user-avatar"
-        accessible={true}
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel="user-avatar-touchable"
+        accessibilityTraits={undefined}
+        accessible={false}
+        clearBg={true}
+        extraLarge={true}
+        hitSlop={
+          Object {
+            "bottom": 20,
+            "left": 20,
+            "right": 20,
+            "top": 20,
+          }
+        }
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         resizeMode="cover"
-        source={
+        round={true}
+        src={
           Object {
             "uri": "/var/application/DocumentDir/user-avatar.jpeg",
           }
         }
         style={
-          Array [
-            Object {
-              "height": 80,
-              "width": 80,
-            },
-            Object {
-              "borderRadius": 40,
-            },
-          ]
+          Object {
+            "backgroundColor": "transparent",
+          }
         }
-        testID="user-avatar"
-      />
+        testID="user-avatar-touchable"
+      >
+        <Image
+          accessibilityLabel="user-avatar"
+          accessible={true}
+          resizeMode="cover"
+          source={
+            Object {
+              "uri": "/var/application/DocumentDir/user-avatar.jpeg",
+            }
+          }
+          style={
+            Array [
+              Object {
+                "height": 80,
+                "width": 80,
+              },
+              Object {
+                "borderRadius": 40,
+              },
+            ]
+          }
+          testID="user-avatar"
+        />
+      </View>
     </View>
   </View>
 </View>

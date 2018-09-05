@@ -26,7 +26,6 @@ import VerifyPhrase from '../components/backup-restore-passphrase/backup-restore
 import { getBackupPassphrase } from '../store/store-selector'
 import type { Store } from '../store/type-store'
 
-const { height } = Dimensions.get('window')
 const transparentBands = require('../images/transparentBands2.png')
 const backImage = require('../images/icon_backArrow_white.png')
 const closeImage = require('../images/iconClose.png')

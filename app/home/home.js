@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Animated, StyleSheet, Platform } from 'react-native'
+import { Animated, StyleSheet, Platform, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import {
   Container,
@@ -18,6 +18,8 @@ import {
   barStyleDark,
   OFFSET_3X,
   OFFSET_2X,
+  isBiggerThanShortDevice,
+  isBiggerThanVeryShortDevice,
   whiteSmokeSecondary,
   responsiveHorizontalPadding,
 } from '../common/styles'
@@ -38,6 +40,9 @@ import Banner from '../components/banner/banner'
 import { NavigationActions } from 'react-navigation'
 import { getUnseenMessages } from '../store/store-selector'
 import { scale } from 'react-native-size-matters'
+import { size } from './../components/icon'
+
+const { width, height } = Dimensions.get('window')
 
 export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
   state = {
@@ -128,10 +133,10 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
             />
           )}
           {!hydrated ? <CustomActivityIndicator /> : null}
+          <CustomView style={[styles.userAvatarContainer]}>
+            <UserAvatar />
+          </CustomView>
         </Container>
-        <CustomView vCenter style={[styles.userAvatarContainer]}>
-          <UserAvatar />
-        </CustomView>
       </Container>
     )
   }
@@ -147,7 +152,15 @@ const mapStateToProps = (state: Store) => {
     unSeenMessages,
   }
 }
-
+const getHeight = height => {
+  if (isBiggerThanVeryShortDevice && !isBiggerThanShortDevice) {
+    return height - 230
+  }
+  if (isBiggerThanShortDevice) {
+    return height - 250
+  }
+  return height - 220
+}
 export default createStackNavigator({
   [homeRoute]: {
     screen: connect(mapStateToProps)(DashboardScreen),
@@ -168,7 +181,11 @@ const tokenAmountSize = (tokenAmountLength: number): number => {
 
 const styles = StyleSheet.create({
   userAvatarContainer: {
-    marginVertical: Platform.OS === 'ios' ? OFFSET_3X : OFFSET_3X / 2,
+    backgroundColor: 'transparent',
+    width: size.extraLarge, // width of user avathar icon extraLarge
+    position: 'absolute',
+    left: (width - size.extraLarge) / 2,
+    top: getHeight(height),
   },
   floatTokenAmount: {
     color: color.actions.font.seventh,

@@ -12,15 +12,13 @@ import { Container, CustomView, CustomText } from '../index'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { color } from '../../common/styles/constant'
 import {
-  SHORT_DEVICE,
+  isBiggerThanShortDevice,
   errorBoxVerifyPassphraseContainer,
   inputBoxVerifyPassphraseHeight,
   dangerBannerHeight,
 } from '../../common/styles/constant'
 import type { BackupRestorePassphraseProps } from './type-backup-restore-passphrase'
 import ErrorBanner from '../banner/banner-danger'
-
-const { height } = Dimensions.get('window')
 
 export default class BackupRestorePassphrase extends PureComponent<
   BackupRestorePassphraseProps,
@@ -126,8 +124,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 22,
     fontWeight: '500',
-    marginTop: height > SHORT_DEVICE ? 40 : 20,
-    marginBottom: height > SHORT_DEVICE ? 40 : 20,
+    marginTop: isBiggerThanShortDevice ? 40 : 20,
+    marginBottom: isBiggerThanShortDevice ? 40 : 20,
   },
   inputBox: {
     marginBottom: 24,

@@ -3,14 +3,12 @@
 import React, { PureComponent } from 'react'
 import { Image, StyleSheet, Dimensions } from 'react-native'
 import { Container, CustomView, CustomText, Icon } from '../components'
-import { VERY_SHORT_DEVICE, darkGray } from '../common/styles/constant'
+import { darkGray } from '../common/styles/constant'
 import { connect } from 'react-redux'
 import { restoreRoute, restoreWaitRoute, lockEnterPinRoute } from '../common'
 import type { RestoreWaitScreenProps } from './type-restore'
 import type { Store } from '../store/type-store'
 import { RestoreStatus } from './type-restore'
-
-const { height } = Dimensions.get('window')
 
 export class RestoreWaitScreen extends PureComponent<
   RestoreWaitScreenProps,

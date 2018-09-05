@@ -72,7 +72,7 @@ const Icon = (props: GenericObject) => {
 
 export default Icon
 
-const size = {
+export const size = {
   small: 20,
   medium: 30,
   mediumLarge: 40,

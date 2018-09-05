@@ -16,7 +16,7 @@ import {
   CustomHeader,
 } from '../components'
 import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
-import { SHORT_DEVICE } from '../common/styles'
+import { isBiggerThanShortDevice } from '../common/styles'
 import { genRecoveryPhraseRoute, verifyRecoveryPhraseRoute } from '../common'
 import { color } from '../common/styles/constant'
 import type {
@@ -35,7 +35,6 @@ import styles from './styles'
 import { getBackupPassphrase, getBackupStatus } from '../store/store-selector'
 import { PASSPHRASE_GENERATION_ERROR } from '../common'
 
-const { height } = Dimensions.get('window')
 const closeImage = require('../images/iconClose.png')
 const transparentBands = require('../images/transparentBands.png')
 const textBubble = require('../images/textBubble.png')
@@ -178,7 +177,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
           </CustomView>
           <CustomButton
             disabled={disableButton}
-            large={height > SHORT_DEVICE ? true : false}
+            large={isBiggerThanShortDevice ? true : false}
             onPress={this.verifyRecoveryPhrase}
             testID={SUBMIT_RECOVERY_PHRASE_TEST_ID}
             style={[styles.submitButton]}

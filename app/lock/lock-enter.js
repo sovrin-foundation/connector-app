@@ -38,15 +38,13 @@ import { ENTER_YOUR_PASS_CODE_MESSAGE } from '../common/message-constants'
 import {
   whiteSmokeRGBA,
   whisper,
-  SHORT_DEVICE,
+  isBiggerThanShortDevice,
   grey,
   matterhornSecondary,
 } from '../common/styles/constant'
 
 const lockImage = require('../images/lockCombo.png')
 const backgroundImg = require('../images/wave1.png')
-
-const { height } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   //TODO : add animations when keyboard popups.
@@ -222,10 +220,10 @@ const stylesRecovery = StyleSheet.create({
   topLockIcon: {
     ...Platform.select({
       ios: {
-        marginTop: height > SHORT_DEVICE ? '18%' : '12%',
+        marginTop: isBiggerThanShortDevice ? '18%' : '12%',
       },
       android: {
-        marginTop: height > SHORT_DEVICE ? '12%' : '8%',
+        marginTop: isBiggerThanShortDevice ? '12%' : '8%',
       },
     }),
   },
@@ -240,24 +238,24 @@ const stylesRecovery = StyleSheet.create({
     borderRadius: 50,
   },
   lockHeading: {
-    fontSize: height > SHORT_DEVICE ? 23 : 16,
+    fontSize: isBiggerThanShortDevice ? 23 : 16,
     width: '80%',
     ...Platform.select({
       ios: {
-        marginTop: height > SHORT_DEVICE ? '8%' : '2%',
+        marginTop: isBiggerThanShortDevice ? '8%' : '2%',
       },
       android: {
-        marginTop: height > SHORT_DEVICE ? '2%' : 0,
+        marginTop: isBiggerThanShortDevice ? '2%' : 0,
       },
     }),
   },
   newPasscodeText: {
     ...Platform.select({
       ios: {
-        marginTop: height > SHORT_DEVICE ? '6.1%' : '2%',
+        marginTop: isBiggerThanShortDevice ? '6.1%' : '2%',
       },
       android: {
-        marginTop: height > SHORT_DEVICE ? '2%' : 0,
+        marginTop: isBiggerThanShortDevice ? '2%' : 0,
       },
     }),
   },

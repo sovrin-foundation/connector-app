@@ -12,7 +12,10 @@ import {
   CustomHeader,
 } from '../components'
 import { backupCompleteRoute } from '../common'
-import { SHORT_DEVICE, VERY_SHORT_DEVICE } from '../common/styles'
+import {
+  isBiggerThanVeryShortDevice,
+  isBiggerThanShortDevice,
+} from '../common/styles'
 import { color } from '../common/styles/constant'
 import type { BackupCompleteProps, BackupCompleteState } from './type-backup'
 import {
@@ -22,7 +25,6 @@ import {
 } from './backup-constants'
 import styles from './styles'
 
-const { height } = Dimensions.get('window')
 const transparentBands = require('../images/transparentBands.png')
 const closeImage = require('../images/iconClose.png')
 // TODO: use real asset
@@ -71,13 +73,13 @@ export class BackupComplete extends PureComponent<BackupCompleteProps, void> {
             </CustomView>
             <CustomView
               center
-              doubleVerticalSpace={height > VERY_SHORT_DEVICE ? true : false}
+              doubleVerticalSpace={isBiggerThanVeryShortDevice ? true : false}
             >
               <Image source={successCheck} />
             </CustomView>
             <CustomView horizontalSpace>
               <CustomView
-                doubleVerticalSpace={height > VERY_SHORT_DEVICE ? true : false}
+                doubleVerticalSpace={isBiggerThanVeryShortDevice ? true : false}
               >
                 <CustomText
                   transparentBg
@@ -102,7 +104,7 @@ export class BackupComplete extends PureComponent<BackupCompleteProps, void> {
             </CustomView>
           </Container>
           <CustomButton
-            large={height > SHORT_DEVICE ? true : false}
+            large={isBiggerThanShortDevice ? true : false}
             onPress={this.backupComplete}
             testID={BACKUP_COMPLETE_SUBMIT_BUTTON}
             style={[styles.submitButton]}

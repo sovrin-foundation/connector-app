@@ -3,17 +3,18 @@ import { StyleSheet, Dimensions, Platform } from 'react-native'
 import {
   PADDING_HORIZONTAL,
   PADDING_VERTICAL,
-  SHORT_DEVICE,
+  isBiggerThanShortDevice,
   color,
   grey,
 } from '../common/styles/constant'
 
 const { width, height } = Dimensions.get('window')
 const SPACE_FILLER = 50
-const amountSpacing = height > SHORT_DEVICE ? PADDING_VERTICAL * 2 : 0
-const submitButtonHeight = height > SHORT_DEVICE ? 63 : 43
-const showRecoveryButtonHeight = height > SHORT_DEVICE ? 150 : 100
-const inputBoxHeight = height > SHORT_DEVICE || Platform.OS === 'ios' ? 137 : 40
+const amountSpacing = isBiggerThanShortDevice ? PADDING_VERTICAL * 2 : 0
+const submitButtonHeight = isBiggerThanShortDevice ? 63 : 43
+const showRecoveryButtonHeight = isBiggerThanShortDevice ? 150 : 100
+const inputBoxHeight =
+  isBiggerThanShortDevice || Platform.OS === 'ios' ? 137 : 40
 
 const styles = StyleSheet.create({
   tabContainer: {
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
   genRecoveryText: {
-    marginBottom: height > SHORT_DEVICE ? 50 : '2%',
+    marginBottom: isBiggerThanShortDevice ? 50 : '2%',
     alignSelf: 'center',
     fontSize: 22,
     fontWeight: '600',
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 22,
     fontWeight: '500',
-    marginBottom: height > SHORT_DEVICE ? 49 : 0,
+    marginBottom: isBiggerThanShortDevice ? 49 : 0,
   },
   genRecoverySecondMessage: {
     paddingHorizontal: 20,
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 17,
     fontWeight: 'bold',
-    marginBottom: height > SHORT_DEVICE ? 40 : '3%',
+    marginBottom: isBiggerThanShortDevice ? 40 : '3%',
   },
   verifyMainContainer: {
     flex: 1,
@@ -111,8 +112,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 22,
     fontWeight: '500',
-    marginTop: height > SHORT_DEVICE ? 40 : 20,
-    marginBottom: height > SHORT_DEVICE ? 40 : 20,
+    marginTop: isBiggerThanShortDevice ? 40 : 20,
+    marginBottom: isBiggerThanShortDevice ? 40 : 20,
   },
   exportBackupMainText: {
     paddingHorizontal: 10,
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowOpacity: 0.3,
     elevation: 7,
-    height: height > SHORT_DEVICE ? 63 : 43,
+    height: isBiggerThanShortDevice ? 63 : 43,
   },
   backgroundImageVerify: {
     flex: 1,
@@ -166,8 +167,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     lineHeight: 27,
     fontSize: 22,
-    marginBottom: height > SHORT_DEVICE ? 30 : 0,
-    marginTop: height > SHORT_DEVICE ? 10 : 0,
+    marginBottom: isBiggerThanShortDevice ? 30 : 0,
+    marginTop: isBiggerThanShortDevice ? 10 : 0,
     maxWidth: 290,
   },
   exportBackupText: {
@@ -190,7 +191,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     maxWidth: 300,
     lineHeight: 17,
-    marginBottom: height > SHORT_DEVICE ? 30 : 10,
+    marginBottom: isBiggerThanShortDevice ? 30 : 10,
   },
   backupComplete: {
     backgroundColor: color.bg.fourteenth.color,
@@ -216,12 +217,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   lockIconImage: {
-    paddingTop: height > SHORT_DEVICE ? 40 : '2%',
+    paddingTop: isBiggerThanShortDevice ? 40 : '2%',
   },
   imageIcon: {
     resizeMode: 'contain',
     width: '100%',
-    marginBottom: height > SHORT_DEVICE ? 40 : 0,
+    marginBottom: isBiggerThanShortDevice ? 40 : 0,
   },
 })
 

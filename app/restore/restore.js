@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Container, CustomView, CustomText, CustomButton } from '../components'
 import {
-  SHORT_DEVICE,
+  isBiggerThanShortDevice,
   grey,
   venetianRed,
   cornFlowerBlue,
@@ -26,8 +26,6 @@ import { saveFileToAppDirectory } from './restore-store'
 import { NavigationActions } from 'react-navigation'
 import type { Store } from '../store/type-store'
 import { RestoreStatus } from './type-restore'
-
-const { height } = Dimensions.get('window')
 
 export class RestoreStartScreen extends PureComponent<RestoreProps, void> {
   restoreBackup = () => {
@@ -163,7 +161,7 @@ export class RestoreStartScreen extends PureComponent<RestoreProps, void> {
           ) : null}
           <CustomView pad>
             <CustomButton
-              large={height > SHORT_DEVICE ? true : false}
+              large={isBiggerThanShortDevice ? true : false}
               style={[styles.customButton, styles.buttonShadow]}
               title={restoreButtonTitle}
               onPress={this.restoreBackup}
@@ -174,7 +172,7 @@ export class RestoreStartScreen extends PureComponent<RestoreProps, void> {
               }}
             />
             <CustomButton
-              large={height > SHORT_DEVICE ? true : false}
+              large={isBiggerThanShortDevice ? true : false}
               style={[styles.customButton, styles.buttonShadow]}
               title={'Start Fresh'}
               onPress={this.startFresh}
@@ -200,7 +198,7 @@ const styles = StyleSheet.create({
   },
   backgroundWaveImage: {
     position: 'absolute',
-    top: height > SHORT_DEVICE ? '30%' : '20%',
+    top: isBiggerThanShortDevice ? '30%' : '20%',
     left: 0,
     right: 0,
     resizeMode: 'stretch',
@@ -208,7 +206,7 @@ const styles = StyleSheet.create({
   },
   customButton: {
     width: '100%',
-    height: height > SHORT_DEVICE ? 57 : 43,
+    height: isBiggerThanShortDevice ? 57 : 43,
     borderRadius: 5,
     marginTop: 10,
   },
@@ -223,7 +221,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   imageContainer: {
-    marginTop: height > SHORT_DEVICE ? '30%' : '20%',
+    marginTop: isBiggerThanShortDevice ? '30%' : '20%',
     zIndex: -1,
   },
   errorImageContainer: {

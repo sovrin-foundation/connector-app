@@ -248,3 +248,5 @@ export const errorBoxVerifyPassphraseContainer = height > SHORT_DEVICE ? 60 : 90
 export const dangerBannerHeight = height > SHORT_DEVICE ? 64 : 90
 export const inputBoxVerifyPassphraseHeight =
   height > SHORT_DEVICE || Platform.OS === 'ios' ? 137 : 40
+export const isBiggerThanShortDevice = height > SHORT_DEVICE
+export const isBiggerThanVeryShortDevice = height > VERY_SHORT_DEVICE
