@@ -29,11 +29,11 @@ import {
 } from '../components'
 import { dimGray, OFFSET_9X } from '../../app/common/styles'
 import {
+  homeRoute,
   connectionHistoryRoute,
   connectionHistoryDetailsRoute,
   connectionHistoryPendingRoute,
 } from '../common/route-constants'
-import { homeRoute } from '../common/index'
 import {
   color,
   OFFSET_1X,
@@ -143,6 +143,16 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
     { leading: false, trailing: true }
   )
 
+  closeDebounce = debounce(
+    () => {
+      const { navigation } = this.props
+
+      navigation.goBack(null)
+    },
+    300,
+    { leading: true, trailing: false }
+  )
+
   componentDidMount() {
     this.props.updateStatusBarTheme(this.props.activeConnectionThemePrimary)
   }
@@ -206,10 +216,6 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
     }
   }
 
-  close = () => {
-    this.props.navigation.goBack(null)
-  }
-
   onDeleteConnection = (senderName: string, senderDID: string) => {
     Alert.alert(
       `Delete ${senderName}?`,
@@ -219,10 +225,9 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
       [alertCancel, { text: 'Delete', onPress: () => this.delete(senderDID) }]
     )
   }
-
   delete = (senderDID: string) => {
     this.props.deleteConnectionAction(senderDID)
-    this.props.navigation.goBack(null)
+    this.closeDebounce()
   }
 
   render() {
@@ -321,7 +326,7 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
           >
             <ClaimProofHeader
               message={senderName}
-              onClose={this.close}
+              onClose={this.closeDebounce}
               logoUrl={image}
               testID={testID}
               containerStyle={{ backgroundColor: 'transparent' }}
@@ -349,7 +354,7 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
                   src={require('../images/close_white.png')}
                   small
                   testID={`${testID}-icon-close`}
-                  onPress={this.close}
+                  onPress={this.closeDebounce}
                   iconStyle={[styles.headerCloseIcon]}
                   style={[styles.headerIconContainer]}
                 />

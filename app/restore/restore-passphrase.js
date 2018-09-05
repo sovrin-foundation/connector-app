@@ -53,7 +53,6 @@ export class RestorePassphrase extends Component<RestorePassphraseProps, void> {
 
   submitPhrase = (event: any) => {
     this.props.submitPassphrase(event.nativeEvent.text)
-    this.props.navigation.goBack(null)
     this.props.navigation.navigate(restoreWaitRoute)
   }
 

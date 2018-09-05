@@ -32,8 +32,6 @@ export class RestoreWaitScreen extends PureComponent<
     ) {
       //the navigation stack here is like Restore Start-> Restore Wait->Restore Start
       // So before going to Restore Start goBack two times and remove the routes from the stack
-      this.props.navigation.goBack(null)
-      this.props.navigation.goBack(null)
       this.props.navigation.navigate(restoreRoute)
     }
   }

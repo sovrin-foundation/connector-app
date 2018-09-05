@@ -61,11 +61,11 @@ class SwitchEnvironment extends PureComponent<
       agencyVerificationKey,
       poolConfig
     )
-    this.props.navigation.goBack(null)
+    this.props.navigation.goBack()
   }
 
   onCancel = () => {
-    this.props.navigation.goBack(null)
+    this.props.navigation.goBack()
   }
 
   componentDidMount() {

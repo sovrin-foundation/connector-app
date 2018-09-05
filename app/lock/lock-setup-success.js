@@ -31,13 +31,11 @@ export class LockSetupSuccess extends PureComponent<
       this.props.navigation.navigate(settingsTabRoute)
     } else if (this.props.pendingRedirection) {
       // if there is a redirection pending, then redirect and clear it
-      this.props.pendingRedirection.forEach(pendingRedirection => {
-        setTimeout(() => {
-          this.props.navigation.navigate(
-            pendingRedirection.routeName,
-            pendingRedirection.params
-          )
-        }, 0)
+      this.props.pendingRedirection.map(pendingRedirection => {
+        this.props.navigation.navigate(
+          pendingRedirection.routeName,
+          pendingRedirection.params
+        )
       })
       this.props.clearPendingRedirect()
     } else {

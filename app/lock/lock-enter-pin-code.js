@@ -70,13 +70,11 @@ export class LockEnterPin extends PureComponent<
   redirect = (props: LockEnterPinProps) => {
     props.unlockApp()
     if (props.pendingRedirection) {
-      props.pendingRedirection.forEach(pendingRedirection => {
-        setTimeout(() => {
-          props.navigation.navigate(
-            pendingRedirection.routeName,
-            pendingRedirection.params
-          )
-        }, 0)
+      props.pendingRedirection.map(pendingRedirection => {
+        props.navigation.navigate(
+          pendingRedirection.routeName,
+          pendingRedirection.params
+        )
       })
       props.clearPendingRedirect()
     } else if (props.isAppLocked === true) {

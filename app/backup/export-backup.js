@@ -60,7 +60,6 @@ export class ExportBackupFile extends PureComponent<
       prevProps.backupStatus !== BACKUP_STORE_STATUS.BACKUP_COMPLETE &&
       backupStatus === BACKUP_STORE_STATUS.BACKUP_COMPLETE
     ) {
-      goBack(null)
       navigate(backupCompleteRoute, {
         initialRoute: state.params.initialRoute,
       })
@@ -68,7 +67,6 @@ export class ExportBackupFile extends PureComponent<
       prevProps.backupStatus !== BACKUP_STORE_STATUS.EXPORT_BACKUP_FAILURE &&
       backupStatus === BACKUP_STORE_STATUS.EXPORT_BACKUP_FAILURE
     ) {
-      goBack(null)
       navigate(backupErrorRoute, {
         initialRoute: state.params.initialRoute,
       })
