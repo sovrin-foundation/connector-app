@@ -20,10 +20,14 @@ class CustomHeader extends PureComponent<CustomHeaderProps, void> {
       flatHeader,
       rightComponent,
       largeHeader,
+      zeroBottomBorder,
     } = this.props
 
     const ContainerStyles = StyleSheet.flatten([
       flatHeader ? style.zeroWidthBottomBorder : null,
+    ])
+    const borderStyles = StyleSheet.flatten([
+      zeroBottomBorder ? style.zeroWidthBottomBorder : null,
     ])
     let barStyle
     if (Color(backgroundColor).isLight) {
@@ -47,7 +51,11 @@ class CustomHeader extends PureComponent<CustomHeaderProps, void> {
         ) : null}
         <Header
           backgroundColor={backgroundColor}
-          outerContainerStyles={[outerContainerStyles, ContainerStyles]}
+          outerContainerStyles={[
+            outerContainerStyles,
+            ContainerStyles,
+            borderStyles,
+          ]}
           centerComponent={centerComponent}
           leftComponent={leftComponent}
           rightComponent={rightComponent}

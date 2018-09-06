@@ -19,6 +19,7 @@ import {
   OFFSET_3X,
   OFFSET_2X,
   isBiggerThanShortDevice,
+  isIphoneX,
   isBiggerThanVeryShortDevice,
   whiteSmokeSecondary,
   responsiveHorizontalPadding,
@@ -153,6 +154,9 @@ const mapStateToProps = (state: Store) => {
   }
 }
 const getHeight = height => {
+  if (isIphoneX) {
+    return height - 300
+  }
   if (isBiggerThanVeryShortDevice && !isBiggerThanShortDevice) {
     return height - 230
   }

@@ -11,5 +11,6 @@ export type CustomHeaderProps = {
   rightComponent?: ReactChildren,
   outerContainerStyles?: GenericObject,
   flatHeader?: boolean,
+  zeroBottomBorder?: boolean,
   largeHeader?: boolean,
 }

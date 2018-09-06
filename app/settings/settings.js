@@ -103,6 +103,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
       <CustomHeader
         backgroundColor={color.bg.tertiary.color}
         largeHeader
+        zeroBottomBorder
         centerComponent={
           <CustomText bg="tertiary" tertiary transparentBg semiBold>
             {settingsRoute}
