@@ -158,7 +158,7 @@ export function convertIndyPreparedProofToAttributes(
           ).reduce(
             (acc, attributeName) => ({
               ...acc,
-              [attributeName.toLowerCase()]: attributeName,
+              [attributeName.toLowerCase().trim()]: attributeName,
             }),
             {}
           )
@@ -171,7 +171,7 @@ export function convertIndyPreparedProofToAttributes(
             revealedAttribute &&
             caseInsensitiveMap &&
             revealedAttribute.cred_info.attrs[
-              caseInsensitiveMap[label.toLowerCase()]
+              caseInsensitiveMap[label.toLowerCase().trim()]
             ],
           claimUuid: revealedAttribute && revealedAttribute.cred_info.referent,
           // TODO:KS Refactor this logic to not put cred_info here
@@ -184,7 +184,7 @@ export function convertIndyPreparedProofToAttributes(
 
     const selfAttestedAttribute =
       preparedProof.self_attested_attrs &&
-      preparedProof.self_attested_attrs[label.toLocaleLowerCase()].data
+      preparedProof.self_attested_attrs[label.toLowerCase().trim()].data
 
     return [
       {
@@ -237,7 +237,7 @@ export function convertSelectedCredentialAttributesToIndyProof(
     ).reduce(
       (acc, attributeName) => ({
         ...acc,
-        [attributeName.toLowerCase()]: attributeName,
+        [attributeName.toLowerCase().trim()]: attributeName,
       }),
       {}
     )
@@ -251,7 +251,7 @@ export function convertSelectedCredentialAttributesToIndyProof(
       [attributeKey]: [
         selectedAttribute[0],
         selectedAttribute[2].cred_info.attrs[
-          caseInsensitiveMap[attributeLabel.toLowerCase()]
+          caseInsensitiveMap[attributeLabel.toLowerCase().trim()]
         ],
       ],
     }
@@ -344,7 +344,6 @@ export function* generateProofSaga(
     yield put(proofRequestAutoFill(uid, requestedAttributes))
 
     const updateAttributeClaim = yield take(UPDATE_ATTRIBUTE_CLAIM)
-
     yield put(sendProof(uid))
 
     const selectedCredentials = convertUserSelectedCredentialToVcxSelectedCredentials(
