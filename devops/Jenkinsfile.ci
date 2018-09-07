@@ -36,18 +36,7 @@ pipelineWrapper({
 			    }
 			}
 
- 			if (env.shouldBuild) {
-		        //	FIXME: utils not used
-		        // 
-		        //  def utils = evLibrary.Utils.new(this)
-		        //	GIT_BRANCH = utils.branchName
-			    // 
-			    //  BECAUSE
-			    //  https://jenkins.io/blog/2017/01/19/converting-conditional-to-pipeline/#git_branch
-			    //  and need to approve
-			    //  https://jenkins/scriptApproval
-
-			    def GIT_BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim() 
+ 			if (env.shouldBuild) { 
 			    
 			    stage('Prepare') {
 			    	logger.info("yarn install")
@@ -86,11 +75,7 @@ pipelineWrapper({
 			            		security -v unlock-keychain -p "$PSWD"
 			            	'''
 			            }
-		            	
-		            	if (GIT_BRANCH == 'HEAD') {
-                        	GIT_BRANCH == env.BRANCH_NAME
-                   	 	}
-		                
+		                      
                    	 	sh "git config --local user.name 'Jenkins'"
                    	 	sh "git config --local user.email 'jenkins@ci.corp.evernym.com'"
 
