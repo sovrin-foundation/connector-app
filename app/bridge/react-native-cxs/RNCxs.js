@@ -37,6 +37,7 @@ import {
   getWalletKey,
   convertSovrinTokensToSovrinAtoms,
   convertSovrinAtomsToSovrinTokens,
+  convertVcxLedgerFeesToLedgerFees,
 } from './vcx-transformers'
 import type { UserOneTimeInfo } from '../../store/user/type-user-store'
 import type { AgencyPoolConfig } from '../../store/type-config-store'
@@ -55,6 +56,7 @@ import type { GetClaimVcxResult } from '../../claim/type-claim'
 import uniqueId from 'react-native-unique-id'
 import { setItem } from '../../services/secure-storage'
 import { __uniqueId } from '../../store/type-config-store'
+import type { LedgerFeesData } from '../../store/ledger/type-ledger-store'
 
 const { RNIndy } = NativeModules
 
@@ -242,10 +244,9 @@ export async function downloadClaimOffer(
     credential_offer
   )
 
-  // TODO:KS Need to be sure that verity-ui send the token amount in tokens
-  // if verity-ui does not send price in sovrin tokens, then we need to add
-  // conversion function from our side to convert it
-  vcxCredentialOffer.price = price ? price.toString() : null
+  vcxCredentialOffer.price = price
+    ? convertSovrinAtomsToSovrinTokens(price)
+    : null
 
   return {
     claimHandle: credential_handle,
@@ -513,6 +514,7 @@ export async function downloadMessages(
 ): Promise<string> {
   return await RNIndy.downloadMessages(messageStatus, uid_s, pwdids)
 }
+
 export async function updateMessages(
   messageStatus: string,
   pwdidsJson: string
@@ -528,4 +530,10 @@ export async function getWalletTokenInfo(): Promise<WalletTokenInfo> {
 
 export async function createPaymentAddress(seed: ?string) {
   return RNIndy.createPaymentAddress(seed)
+}
+
+export async function getLedgerFees(): Promise<LedgerFeesData> {
+  const fees: string = await RNIndy.getLedgerFees()
+
+  return convertVcxLedgerFeesToLedgerFees(fees)
 }

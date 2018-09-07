@@ -21,6 +21,7 @@ import type { MyPairwiseInfo } from '../../store/type-connection-store'
 import type { ClaimOfferPushPayload } from '../../push-notification/type-push-notification'
 import { setItem, getItem, deleteItem } from '../../services/secure-storage'
 import { BigNumber } from 'bignumber.js'
+import type { LedgerFeesData } from '../../store/ledger/type-ledger-store'
 
 const { RNIndy } = NativeModules
 
@@ -188,4 +189,31 @@ export function convertSovrinTokensToSovrinAtoms(sovrinTokens: string): string {
     .multipliedBy(sovrinAtomsToSovrinTokensConversionFactor)
     .toFixed()
     .toString()
+}
+
+const LEDGER_FEE_TRANSFER_CODE = '10001'
+const noTransferFees = {
+  transfer: '0',
+}
+
+export function convertVcxLedgerFeesToLedgerFees(
+  feesJson: string
+): LedgerFeesData {
+  const fees = JSON.parse(feesJson)
+  const transferFees: ?string = fees[LEDGER_FEE_TRANSFER_CODE]
+
+  if (!transferFees) {
+    return noTransferFees
+  }
+
+  const transferFeesAtoms = new BigNumber(transferFees)
+  if (transferFeesAtoms.isNaN()) {
+    return noTransferFees
+  }
+
+  // if there is value, then, that value is in sov-atoms
+  // so we need to convert that to sovrin tokens
+  return {
+    transfer: convertSovrinAtomsToSovrinTokens(transferFeesAtoms),
+  }
 }

@@ -57,6 +57,7 @@ import {
   TOKEN_SENT_SUCCESS,
   SELECT_TOKEN_AMOUNT,
   WALLET_ADDRESSES_FETCH_START,
+  ERROR_SENDING_TOKENS_WITH_FEES,
 } from './type-wallet'
 import { NEW_CONNECTION_SUCCESS } from '../store/connections-store'
 import type { AgencyPoolConfig } from '../store/type-config-store'
@@ -90,11 +91,17 @@ import {
   getWalletHistory,
   sendTokenAmount,
   createPaymentAddress,
+  getLedgerFees,
 } from '../bridge/react-native-cxs/RNCxs'
 import { promptBackupBanner } from '../backup/backup-store'
-import { getConfig } from '../store/store-selector'
+import {
+  getConfig,
+  getWalletBalance as getWalletBalanceSelector,
+} from '../store/store-selector'
 import { WALLET_ENCRYPTION_KEY } from '../common/secure-storage-constants'
 import { ensureVcxInitSuccess } from '../store/config-store'
+import type { LedgerFeesData } from '../store/ledger/type-ledger-store'
+import { BigNumber } from 'bignumber.js'
 
 export const walletInitialState = {
   walletBalance: { data: '0', status: STORE_STATUS.IDLE, error: null },
@@ -313,9 +320,45 @@ function* watchSendTokens(): any {
 export function* sendTokensSaga(action: SendTokensAction): Saga<void> {
   yield* ensureVcxInitSuccess()
   try {
+    const { transfer }: LedgerFeesData = yield call(getLedgerFees)
+    const transferFeesAmount = new BigNumber(transfer)
+    const transferAmount = new BigNumber(action.tokenAmount)
+    const walletBalance: string = yield select(getWalletBalanceSelector)
+    const walletBalanceAmount = new BigNumber(walletBalance)
+    let amountToTransfer = transferAmount
+
+    if (walletBalanceAmount.isEqualTo(transferAmount)) {
+      // if user is trying to transfer whole amount
+      // then deduct transfer fees
+      amountToTransfer = transferAmount.minus(transferFeesAmount)
+    }
+
+    if (
+      walletBalanceAmount.isGreaterThanOrEqualTo(
+        transferFeesAmount.plus(transferAmount)
+      )
+    ) {
+      // see if wallet has enough balance for transfer amount and transfer fees
+      amountToTransfer = transferAmount
+    }
+
+    if (
+      walletBalanceAmount.isLessThan(transferFeesAmount.plus(transferAmount))
+    ) {
+      // wallet does not have enough balance to pay fees and transfer amount
+      amountToTransfer = new BigNumber(0)
+    }
+
+    if (amountToTransfer.isLessThanOrEqualTo(0)) {
+      yield put(
+        sendTokensFail(action.tokenAmount, ERROR_SENDING_TOKENS_WITH_FEES)
+      )
+      return
+    }
+
     yield call(
       sendTokenAmount,
-      action.tokenAmount,
+      amountToTransfer.toFixed().toString(),
       action.recipientWalletAddress
     )
     yield all([

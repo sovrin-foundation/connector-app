@@ -915,4 +915,22 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
             promise.reject("Exception", e.getMessage());
         }
     }
+
+    @ReactMethod
+    public void getLedgerFees(Promise promise) {
+        Log.d(TAG, "getLedgerFees()");
+
+        try {
+            UtilsApi.getLedgerFees().exceptionally((e)-> {
+                Log.d(TAG, "getLedgerFees", e);
+                promise.reject("VcxException", e.getMessage());
+                return null;
+            }).thenAccept(result -> {
+                BridgeUtils.resolveIfValid(promise, result);
+            });
+        } catch(VcxException e) {
+            Log.e(TAG, "createWalletKey: ", e);
+            promise.reject("Exception", e.getMessage());
+        }
+    }
 }

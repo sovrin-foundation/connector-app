@@ -82,3 +82,13 @@ export type NotificationPayload = {
 export type ImmutableGenericStringObject = {
   +[string]: string,
 }
+
+export const STORE_STATUS = {
+  IDLE: 'IDLE',
+  IN_PROGRESS: 'IN_PROGRESS',
+  ERROR: 'ERROR',
+  SUCCESS: 'SUCCESS',
+}
+
+export type StoreError = { +error: ?CustomError }
+export type StoreStatus = { +status: $Keys<typeof STORE_STATUS> }

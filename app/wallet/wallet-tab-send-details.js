@@ -1,5 +1,4 @@
 // @flow
-
 import React, { Component } from 'react'
 import { StyleSheet, Keyboard, Platform } from 'react-native'
 import { connect } from 'react-redux'
@@ -48,6 +47,7 @@ import type { Store } from '../store/type-store'
 import { STORE_STATUS } from './type-wallet'
 import Modal from 'react-native-modal'
 import PaymentFailureModal from './payment-failure-modal'
+import { LedgerFeesModal } from '../components/ledger-fees-modal/ledger-fees-modal'
 
 export class WalletTabSendDetails extends Component<
   WalletTabSendDetailsProps,
@@ -93,6 +93,7 @@ export class WalletTabSendDetails extends Component<
     showPaymentAddress: false,
     isPaymentAddressValid: 'IDLE',
     tokenSentFailedVisible: false,
+    showTransactionFeesModal: false,
   }
 
   paymentData: WalletSendPaymentData = {
@@ -160,10 +161,27 @@ export class WalletTabSendDetails extends Component<
     })
   }
 
+  onShowTransactionFeesModal() {
+    this.setState({
+      showTransactionFeesModal: true,
+    })
+  }
+
+  onHideTransactionFeesModal = () => {
+    this.setState({
+      showTransactionFeesModal: false,
+    })
+  }
+
+  onStartTransfer = () => {
+    this.onHideTransactionFeesModal()
+    this.props.sendTokens(this.props.tokenAmount, this.paymentData.paymentTo)
+  }
+
   onSendTokens = () => {
     this.onTokenSentFailedClose()
     if (this.state.isPaymentAddressValid === 'SUCCESS') {
-      this.props.sendTokens(this.props.tokenAmount, this.paymentData.paymentTo)
+      this.onShowTransactionFeesModal()
     }
   }
 
@@ -267,6 +285,15 @@ export class WalletTabSendDetails extends Component<
           onClose={this.onTokenSentFailedClose}
           onRetry={this.onSendTokens}
         />
+
+        {this.state.showTransactionFeesModal && (
+          <LedgerFeesModal
+            isVisible={true}
+            onYes={this.onStartTransfer}
+            onNo={this.onHideTransactionFeesModal}
+            transferAmount={this.props.tokenAmount}
+          />
+        )}
       </Container>
     )
   }

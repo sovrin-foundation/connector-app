@@ -100,6 +100,7 @@ export type WalletTabSendDetailsState = {
   showPaymentAddress: boolean,
   isPaymentAddressValid: IsValid,
   tokenSentFailedVisible: boolean,
+  showTransactionFeesModal: boolean,
 }
 
 export type WalletHistoryProps = {
@@ -176,6 +177,12 @@ export const ERROR_LOADING_WALLET_HISTORY = {
 export const ERROR_SENDING_TOKENS = {
   code: 'W008',
   message: 'Error sending tokens',
+}
+
+export const ERROR_SENDING_TOKENS_WITH_FEES = {
+  code: 'W009',
+  message:
+    'Error sending tokens while transfer fees is greater than or equal to transfer amount',
 }
 
 export const STORE_STATUS = {

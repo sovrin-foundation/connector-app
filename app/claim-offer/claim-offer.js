@@ -54,6 +54,7 @@ import type { ReactNavigation } from '../common/type-common'
 import { updateStatusBarTheme } from '../../app/store/connections-store'
 import { CustomModal } from '../components'
 import PaymentFailureModal from '../wallet/payment-failure-modal'
+import { LedgerFeesModal } from '../components/ledger-fees-modal/ledger-fees-modal'
 
 class ClaimOfferAttributeList extends PureComponent<
   ClaimOfferAttributeListProps,
@@ -115,6 +116,7 @@ export class ClaimOffer extends PureComponent<
   state = {
     disableAcceptButton: false,
     insufficientBalanceModalHidden: false,
+    showLedgerFeesModal: false,
   }
 
   close = () => {
@@ -145,11 +147,29 @@ export class ClaimOffer extends PureComponent<
     this.close()
   }
 
+  onProceedPaidCredTransaction = () => {
+    this.setState({
+      showLedgerFeesModal: false,
+    })
+    this.props.acceptClaimOffer(this.props.uid)
+  }
+
+  onRejectPaidCredTransaction = () => {
+    this.setState({
+      showLedgerFeesModal: false,
+      disableAcceptButton: false,
+    })
+  }
+
   onAccept = () => {
     this.setState({
       disableAcceptButton: true,
     })
-    this.props.acceptClaimOffer(this.props.uid)
+    if (this.props.claimOfferData.payTokenValue) {
+      this.setState({ showLedgerFeesModal: true })
+    } else {
+      this.props.acceptClaimOffer(this.props.uid)
+    }
   }
 
   onInsufficientModalHide = () => {
@@ -306,6 +326,13 @@ export class ClaimOffer extends PureComponent<
             onRetry={this.onAccept}
           />
         )}
+        {payTokenValue && this.state.showLedgerFeesModal ? (
+          <LedgerFeesModal
+            isVisible={true}
+            onNo={this.onRejectPaidCredTransaction}
+            onYes={this.onProceedPaidCredTransaction}
+          />
+        ) : null}
       </Container>
     )
   }

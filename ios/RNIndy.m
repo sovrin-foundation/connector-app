@@ -707,4 +707,18 @@ RCT_EXPORT_METHOD(createWalletKey: (NSInteger) lengthOfKey
   }
 }
 
+RCT_EXPORT_METHOD(getLedgerFees: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+  [[[ConnectMeVcx alloc] init] getLedgerFees:^(NSError *error, NSString *fees) {
+    if (error != nil && error.code != 0)
+    {
+      NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
+      reject(indyErrorCode, @"Error occurred while getting ledger fees", error);
+    } else {
+      resolve(fees);
+    }
+  }];
+}
+
 @end

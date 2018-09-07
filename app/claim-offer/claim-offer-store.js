@@ -79,6 +79,7 @@ import {
   serializeClaimOffer,
   getClaimOfferState,
   sendClaimRequest as sendClaimRequestApi,
+  getLedgerFees,
 } from '../bridge/react-native-cxs/RNCxs'
 import type { IndyClaimRequest } from '../bridge/react-native-cxs/type-cxs'
 import { CLAIM_STORAGE_FAIL, CLAIM_STORAGE_SUCCESS } from '../claim/type-claim'
@@ -95,6 +96,8 @@ import type {
   ClaimStorageSuccessAction,
   ClaimStorageFailAction,
 } from '../claim/type-claim'
+import type { LedgerFeesData } from '../store/ledger/type-ledger-store'
+import moment from 'moment'
 
 const claimOfferInitialState = {
   vcxSerializedClaimOffers: {},
@@ -236,13 +239,34 @@ export function* claimOfferAccepted(
 
   try {
     if (isPaidCredential) {
+      yield put(sendPaidCredentialRequest(messageId, claimOfferPayload))
+
       const walletBalance: string = yield select(getWalletBalance)
       const balanceAmount = new BigNumber(walletBalance)
-      if (balanceAmount.isLessThan(payTokenAmount)) {
+      const getLedgerFeesStartTime = moment()
+      const { transfer }: LedgerFeesData = yield call(getLedgerFees)
+      const transferFeesAmount = new BigNumber(transfer)
+
+      if (balanceAmount.isLessThan(payTokenAmount.plus(transferFeesAmount))) {
+        const afterLedgerFeesCalculationDone = moment()
+        // add an artificial delay here because by the time we reach here
+        // user would already be seeing `Paying...` status modal
+        // and if ledger fees API takes less than 1-2 seconds
+        // then user would see UI jumping too quickly from one state to another
+        // UX will be bad
+        // TODO: this decision can also be effected with the device performance
+        // so if we have device with low configuration, then we may not want this
+        // Need to add package with device information and test how it behaves
+        if (
+          getLedgerFeesStartTime
+            .add(1.5, 'seconds')
+            .isAfter(afterLedgerFeesCalculationDone)
+        ) {
+          yield call(delay, 600)
+        }
         yield put(inSufficientBalance(messageId))
         return
       }
-      yield put(sendPaidCredentialRequest(messageId, claimOfferPayload))
     } else {
       yield put(sendClaimRequest(messageId, claimOfferPayload))
     }

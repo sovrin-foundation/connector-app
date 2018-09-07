@@ -41,6 +41,7 @@ import {
 } from './data/config-store-mock-data'
 import { userOneTimeInfo } from './data/user-store-mock-data'
 import { STORE_STATUS } from '../app/wallet/type-wallet'
+import { ledgerStoreWithTransferFees } from './data/ledger-store-mock-data'
 
 // sadly, we can't export all variables in one line and use them in file as well
 // to use them in this file, we have to import them first
@@ -970,6 +971,7 @@ export function getStore(store?: Store) {
               'file://data/Containers/Data/Application/021D78D1-044B-4874-BE8D-EC71781CA978/tmp/com.evernym.connectme.callcenter-Inbox/backup.zip',
           },
         },
+        ledger: ledgerStoreWithTransferFees,
       }
     },
     dispatch() {

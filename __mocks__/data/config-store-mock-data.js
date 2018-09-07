@@ -22,3 +22,16 @@ export const configStoreNotHydratedInstalledVcxInit = {
   vcxInitializationState,
   isInitialized: false,
 }
+
+export const configStoreHydratedInstalledVcxInitSuccess = {
+  isHydrated: true,
+  isAlreadyInstalled: true,
+  showErrorAlerts: false,
+  agencyUrl,
+  agencyDID,
+  agencyVerificationKey,
+  poolConfig,
+  vcxInitializationError,
+  vcxInitializationState,
+  isInitialized: true,
+}

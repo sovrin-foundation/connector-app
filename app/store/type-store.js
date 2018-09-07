@@ -16,6 +16,7 @@ import type { WalletStore } from '../wallet/type-wallet'
 import type { EulaStore } from '../eula/type-eula'
 import type { BackupStore } from '../backup/type-backup'
 import type { RestoreStore } from '../restore/type-restore'
+import type { LedgerStore } from './ledger/type-ledger-store'
 
 export type PushNotificationStore = {
   isAllowed: boolean,
@@ -52,6 +53,7 @@ export type Store = {
   eula: EulaStore,
   backup: BackupStore,
   restore: RestoreStore,
+  ledger: LedgerStore,
 }
 
 export type { AuthenticationStore } from '../authentication/type-authentication'

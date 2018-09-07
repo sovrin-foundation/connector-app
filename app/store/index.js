@@ -41,6 +41,10 @@ import eula, { watchEula } from '../eula/eula-store'
 import restore, { watchRestore } from '../restore/restore-store'
 import backup, { watchBackup } from '../backup/backup-store'
 import { hydrate } from './hydration-store'
+import {
+  watchLedgerStore,
+  ledgerStoreReducer as ledger,
+} from './ledger/ledger-store'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -64,6 +68,7 @@ const appReducer = combineReducers({
   eula,
   restore,
   backup,
+  ledger,
 })
 
 let middlewares = [historyRecorder]
@@ -104,6 +109,7 @@ sagaMiddleware.run(function*() {
     watchGetMessagesSaga(),
     watchPersistProofRequests(),
     watchProofRequestReceived(),
+    watchLedgerStore(),
   ])
 })
 

@@ -209,7 +209,7 @@ dependencies {
     compile project(':react-native-radial-gradient')
     compile 'net.hockeyapp.android:HockeySDK:4.1.4'
     compile 'com.android.support:palette-v7:26.1.0'
-    compile 'com.evernym:vcx:1.0.0-06-09-2018T22-19@aar'
+    compile 'com.evernym:vcx:1.0.0-28-08-2018T16-58@aar'
     implementation 'net.sourceforge.streamsupport:android-retrofuture:1.6.2'
     implementation group: 'net.sourceforge.streamsupport', name: 'android-retrostreams', version: '1.6.2'
     implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.59'
@@ -218,6 +218,8 @@ dependencies {
     implementation 'net.java.dev.jna:jna:4.5.0@aar'
     // un-comment below lines to enable logging in vcx and indy
     // compile group: 'com.mobidevelop.robovm', name: 'robovm-rt', version: '2.3.4'
+
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
 }
 
 // Run this once to be able to run the application with BUCK
