@@ -1103,7 +1103,6 @@
 				3F42336402924E59927A5D19 /* libTouchID.a */,
 				D5195723B48F485BA8835F82 /* libBVLinearGradient.a */,
 				7231FE0734E346B8B6A3B2B7 /* libRNSensitiveInfo.a */,
-
 				9427435001634D8E9FD0A12B /* libreact-native-branch.a */,
 				6289865CCC3A4745A77A87B9 /* libSplashScreen.a */,
 				46386B5F434B41B89C5D33F6 /* libRNSentry.a */,

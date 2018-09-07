@@ -7,89 +7,221 @@ default_platform :ios
 platform :ios do
   build_type = "QAConnectMe Build"
 
-  before_all do
-     ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+  before_all do 
+    ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
   end
-
-  lane :beta do
-      reset_git_repo(force: true)
-      cocoapods
-      
-      buildNumber = increment_build_number(xcodeproj: "ConnectMe.xcodeproj")      
-      path = '../../android/app/build.gradle'
-      re = /versionCode\s+(\d+)/ 
-      androidBuildGradleFileContent = File.read(path)
-      androidBuildGradleFileContent[re, 1] = buildNumber.to_s
-      androidBuildGradleFile = File.new(path, 'w')
-      androidBuildGradleFile.write(androidBuildGradleFileContent)
-      androidBuildGradleFile.close
-      
-      app_identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
-      match(
-        type: "adhoc",
-        app_identifier: "#{app_identifier}",
-        force_for_new_devices: true
-      )
-      disable_automatic_code_signing(path: "ConnectMe.xcodeproj")
-      profile = ENV["sigh_#{app_identifier}_adhoc"]
-      gym(
-        scheme: "ConnectMe",
-        xcargs: "PROVISIONING_PROFILE_SPECIFIER='#{profile}' DEVELOPMENT_TEAM='ES8QU3D2A4'",
-        clean: true
-      )
-      remote_branch = git_branch
-      remote_branch = remote_branch.split('/').last
-
-      if remote_branch == "master"
-        hockey(api_token: ENV["QA_HOCKEYAPP_TOKEN"])
-      elsif remote_branch == "stage"
-        build_type = "ConnectMe Stage Build"
-        hockey(api_token: ENV["STAGE_HOCKEYAPP_TOKEN"])
-      else
-        build_type = "ConnectMe Dev Build"
-        hockey(api_token: ENV["DEV_HOCKEYAPP_TOKEN"])
-      end
-     if remote_branch == "master" || remote_branch == "stage" || remote_branch == "stable" 
-       match(
-         type: "appstore",
-         app_identifier: "#{app_identifier}",
-         force_for_new_devices: true
-      )
-       disable_automatic_code_signing(path: "ConnectMe.xcodeproj")
-       profile = ENV["sigh_#{app_identifier}_appstore"]
-       gym(
-         scheme: "ConnectMe",
-         xcargs: "PROVISIONING_PROFILE_SPECIFIER='#{profile}' DEVELOPMENT_TEAM='ES8QU3D2A4'",
-         clean: true
-      )
-      deliver(force: true)
-     end
-      commit_version_bump(
-        message: "Build Version bump by Fastlane [ci skip]",
-        xcodeproj: "ConnectMe.xcodeproj",
-        force: true,
-        include: %w[ android/app/build.gradle ]
-      )
-      push_to_git_remote(
-        remote: "origin",         
-        local_branch: "HEAD",  
-        remote_branch: "#{remote_branch}",
-        force: true,
-        tags: false
-      )
-  end
-
+  
   after_all do |lane|
-     commit_message = ENV["GIT_CLONE_COMMIT_MESSAGE_BODY"]
-     build_number = get_build_number(xcodeproj: "ConnectMe.xcodeproj")
-     slack(channel: "connectme_build", message: "#{build_type} ##{build_number} Sandbox! #{commit_message}")
+    commit_message = ENV["currentBuild.changeSets"]
+    build_number = get_build_number(xcodeproj: "ConnectMe.xcodeproj")
+    slack(channel: "connectme_build", message: "#{build_type} ##{build_number} #{commit_message}")
   end
 
   error do |lane, exception|
-     slack(
-       channel: "connectme_build",
-       message: exception.message,
-       success: false
-     )
+    slack(
+      channel: "connectme_build",
+      message: exception.to_s,
+      success: false,
+      payload: { "Output" => exception.error_info.to_s }
+    )
+  end
+
+  lane :beta do
+    
+    UI.user_error!("You can't run this lane from CI!") if Helper.is_ci?
+    
+    reset_git_repo(force: true)
+    cocoapods
+      
+    project_version_bump
+      
+    app_identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
+    
+    build(
+        match_type: "adhoc",
+        compile_type: "adhoc",
+        app_identifier: "#{app_identifier}",
+    )
+    
+    remote_branch = git_branch
+    remote_branch = remote_branch.split('/').last
+    
+    if remote_branch == "master"
+      hockey(api_token: ENV["QA_HOCKEYAPP_TOKEN"])
+    elsif remote_branch == "stage"
+      build_type = "ConnectMe Stage Build"
+      hockey(api_token: ENV["STAGE_HOCKEYAPP_TOKEN"])
+    else
+      build_type = "ConnectMe Dev Build"
+      hockey(api_token: ENV["DEV_HOCKEYAPP_TOKEN"])
+    end
+      
+    if remote_branch == "master" || remote_branch == "stage" || remote_branch == "stable" 
+      
+      build(
+        match_type: "appstore",
+        compile_type: "appstore",
+        app_identifier: "#{app_identifier}",
+      )
+      
+     deliver(force: true)
+    end
+    
+    commit_and_push(
+        commit_message: "[ci skip] Build Version bump by Fastlane",
+        remote_branch: "#{remote_branch}"
+    )
+  end
+  
+  lane :ci do
+    
+    UI.user_error!("You can run this lane only on CI!") unless Helper.is_ci?
+    
+    reset_git_repo(force: true)
+    
+    cocoapods(
+      try_repo_update_on_error: true,
+    )
+
+    project_version_bump
+
+    app_identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
+    
+    build(
+        match_type: "adhoc",
+        compile_type: "adhoc",
+        app_identifier: "#{app_identifier}",
+    )
+    
+    hockey_token = ENV["HOCKEYAPP_TOKEN"] 
+    UI.user_error!("You don't set token for HockeyApp") if hockey_token.empty?
+    build_type = ENV["BUILD_TYPE"] || "#{build_type}"
+    hockey(api_token: hockey_token)
+    
+    commit_and_push(
+        commit_message: "[ci skip] Build Version bump by Fastlane on Jenkins. Build ID: #{ENV["BUILD_ID"]}",
+        remote_branch: "#{ENV["BRANCH_NAME"]}"
+    )
+  end
+  
+  lane :cd do
+    
+    UI.user_error!("You can run this lane only on CI!") unless Helper.is_ci?
+    
+    reset_git_repo(force: true)
+    cocoapods(
+      try_repo_update_on_error: true,
+    )
+    
+    project_version_bump
+    
+    app_identifier = CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier)
+    
+    build(
+        match_type: "adhoc",
+        compile_type: "adhoc",
+        app_identifier: "#{app_identifier}",
+    )
+    
+    hockey_token = ENV["HOCKEYAPP_TOKEN"]
+    UI.user_error!("You don't set token for HockeyApp") if hockey_token.empty?
+    build_type = ENV["BUILD_TYPE"] || "#{build_type}"
+    hockey(api_token: hockey_token)
+    
+    build(
+        match_type: "appstore",
+        compile_type: "appstore",
+        app_identifier: "#{app_identifier}",
+    )
+    
+    commit_and_push(
+        commit_message: "[ci skip] Build Version bump by Fastlane on Jenkins. Build ID: #{ENV["BUILD_ID"]}",
+        remote_branch: "#{ENV["BRANCH_NAME"]}"
+    )
+    
+  end
+  
+  #==============================================#
+  #              PRIVATE LANES                   #
+  #==============================================#
+  
+  ##### ----- PROJECT_VERSION_BUMP ----- #####
+  private_lane :project_version_bump do
+    buildNumber = increment_build_number(xcodeproj: "ConnectMe.xcodeproj")      
+    path = '../../android/app/build.gradle'
+    re = /versionCode\s+(\d+)/ 
+    
+    androidBuildGradleFileContent = File.read(path)
+    androidBuildGradleFileContent[re, 1] = buildNumber.to_s
+    androidBuildGradleFile = File.new(path, 'w')
+    androidBuildGradleFile.write(androidBuildGradleFileContent)
+    androidBuildGradleFile.close 
+  end
+  
+  ##### ----- BUILD ----- #####
+  private_lane :build do |options|
+    match_certificates(
+      type: options[:match_type],
+      app_identifier: options[:app_identifier]
+    )
+    
+    compile(
+      type: options[:compile_type],
+      app_identifier: options[:app_identifier]
+    ) 
+  end
+  
+  ##### ----- COMPILE ----- #####
+  private_lane :compile do |options|
+    types = [ "adhoc", "appstore" ]
+    type = options[:type]
+    unless types.include? type
+        UI.user_error!("Please specify a valid type! " + types.inspect)
+    end
+        
+    profile = ENV["sigh_#{options[:app_identifier]}_#{type}"]
+    disable_automatic_code_signing(path: "ConnectMe.xcodeproj")
+    
+    gym(
+      scheme: "ConnectMe",
+      xcargs: "PROVISIONING_PROFILE_SPECIFIER='#{profile}' DEVELOPMENT_TEAM='ES8QU3D2A4'",
+      clean: true
+    )
+  end
+  
+  ##### ----- MATCH_CERTIFICATES ----- #####
+  private_lane :match_certificates do |options|
+    
+    types = [ "development", "adhoc", "appstore" ]
+    type = options[:type]
+    
+    unless types.include? type
+        UI.user_error!("Please specify a valid type! " + types.inspect)
+    end
+    
+    match(
+      type: "#{type}",
+      app_identifier: "#{options[:app_identifier]}",
+      force_for_new_devices: true
+    )
+  end 
+  
+  ##### ----- COMMIT AND PUSH ----- #####
+  private_lane :commit_and_push do |options|
+    
+    commit_version_bump(
+      message: "#{options[:commit_message]}",
+      xcodeproj: "ConnectMe.xcodeproj",
+      force: true,
+      include: %w[ android/app/build.gradle ]
+    )
+    
+    push_to_git_remote(
+      remote: "origin",         
+      local_branch: "HEAD",  
+      remote_branch: "#{options[:remote_branch]}",
+      force: true,
+      tags: false
+    )
   end
 end
