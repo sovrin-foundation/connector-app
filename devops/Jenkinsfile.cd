@@ -9,17 +9,7 @@ notifier = evLibrary.Notifier.new(this)
 logger.setGlobalLevel('TRACE')
 
 def GEM_HOME = '~/.gem.connectme'
-def KEYCHAIN = "${env.JOB_NAME}-${env.BUILD_NUMBER}.keychain"
 
-properties ([
-    parameters ([
-        booleanParam(
-        	defaultValue: true, 
-        	description: 'Execute pipeline?', 
-        	name: 'shouldBuild'
-        ),
-    ])
-])
 
 pipelineWrapper({
     nodeWrapper('macos-connectme') {
@@ -28,96 +18,57 @@ pipelineWrapper({
 	            checkout scm
 	        }
 
-	        stage ("Skip build?") {
-			    result = sh (script: "git log -1 | grep '.*\\[ci[\\ \\-_]?skip\\].*'", returnStatus: true)
-			    if (result == 0) {
-			        logger.info("This build should be skipped. Aborting.")
-			        env.shouldBuild = "false"
-			    }
-			}
-
- 			if (env.shouldBuild) {
-
-		         
-			    
-			    stage('Prepare') {
-			    	logger.info("yarn install")
-			        sh 'yarn install'
-			    }
-		    
-			    stage('Build') {
-			        withEnv([ // WARNING: brew and curl added to PATH in the node configuration.
-			            "GEM_HOME=${GEM_HOME}",
-			            "LANG=en_US.UTF-8", // Needed for cocoapods and Fastlane
-			            "LC_ALL=en_US.UTF-8", // Needed for cocoapods and Fastlane
-			        ]) {
-		            	
-		            	// FIXME:
-						// [01:42:55]: If cloning the repo takes too long, you can use the `clone_branch_directly` option in match.
-						// [01:42:57]: 🔓  Successfully decrypted certificates repo
-						// [01:42:57]: Verifying that the certificate and profile are still valid on the Dev Portal...
-						// [01:42:58]: Installing certificate...
-						// security: SecKeychainSearchCopyNext: The specified item could not be found in the keychain.
-						// [01:42:59]: There are no local code signing identities found.
-						// You can run `security find-identity -v -p codesigning` to get this output.
-						// This Stack Overflow thread has more information: https://stackoverflow.com/q/35390072/774.
-						// (Check in Keychain Access for an expired WWDR certificate: https://stackoverflow.com/a/35409835/774 has more info.)
-
-		            	// logger.info("Creating of temporary keychain:")
-			            // withCredentials([usernamePassword(credentialsId: 'jenkins-keychain-userpass', usernameVariable: 'USRN', passwordVariable: 'PSWD')]) {
-			            //        sh """
-			            //        set +x
-			            //        security -v create-keychain -p '$PSWD' $KEYCHAIN
-			            //        security list-keychains -s $KEYCHAIN
-			            //        security -v unlock-keychain -p '$PSWD' $KEYCHAIN
-			            //        """
-			            // } 
-
-			            withCredentials([usernamePassword(credentialsId: 'jenkins-macos-userpass', usernameVariable: 'USRN', passwordVariable: 'PSWD')]) {
-			            	sh ''' set +x
-			            		security -v unlock-keychain -p "$PSWD"
-			            	'''
-			            }
-
-		                sh "git config --local user.name 'Jenkins'"
-                   	 	sh "git config --local user.email 'jenkins@ci.corp.evernym.com'"
-
-	                    switch (env.BRANCH_NAME) {
-	                        case 'master':
-	                            hockeyapp_credentials = '***REMOVED***'
-	                            break
-	                        case ['stage', 'stable']:
-	                            hockeyapp_credentials = '***REMOVED***'
-	                            env.BUILD_TYPE = 'ConnectMe Stage Build'
-	                            break
-	                        default:
-	                        	logger.error("You can't run the CD JOB on the branches, different from the 'master', 'stage', 'stable'. Your branch is ${GIT_BRANCH}")
-	                            error("You can't run the CD JOB on the branches, different from the 'master', 'stage', 'stable'. Your branch is ${GIT_BRANCH}") 
-	                            break       
-	                    }
-
-	                    sshagent(credentials: ['iosdev-evernym-rsa-key']) {
-		                    withEnv(["DEVELOPER_DIR=/Applications/Xcode_9.2.app/Contents/Developer/"]) {
-	                        // TODO: Add checks for Xcode version
-		                        withCredentials([
-		                        	string(credentialsId: hockeyapp_credentials, variable: 'HOCKEYAPP_TOKEN'),
-		                        	string(credentialsId: "***REMOVED***", variable: 'FASTLANE_PASSWORD'),
-		                        	string(credentialsId: "***REMOVED***", variable: 'MATCH_PASSWORD')
-		                        ]) {
-	                    			dir('ios'){
-			              				sh 'bundle install'
-			                            sh 'bundle exec fastlane cd --disable_runner_upgrades'
-			                        }
-			                    }
-			                }
-			            }
-			        }
-		    	}
-
-		    	// stage("Clean") {
-		    	// 	sh "security -v delete-keychain $KEYCHAIN"
-		    	// }
+	        stage('Prepare') {
+		    	logger.info("yarn install")
+		        sh 'yarn install'
 		    }
+	    
+		    stage('Build') {
+		        withEnv([ // WARNING: brew and curl added to PATH in the node configuration.
+		            "GEM_HOME=${GEM_HOME}",
+		            "LANG=en_US.UTF-8", // Needed for cocoapods and Fastlane
+		            "LC_ALL=en_US.UTF-8", // Needed for cocoapods and Fastlane
+		        ]) {
+	            	withCredentials([usernamePassword(credentialsId: 'jenkins-macos-userpass', usernameVariable: 'USRN', passwordVariable: 'PSWD')]) {
+		            	sh ''' set +x
+		            		security -v unlock-keychain -p "$PSWD"
+		            	'''
+		            }
+
+	                sh "git config --local user.name 'Jenkins'"
+               	 	sh "git config --local user.email 'jenkins@ci.corp.evernym.com'"
+
+                    switch (env.BRANCH_NAME) {
+                        case 'master':
+                            hockeyapp_credentials = '***REMOVED***'
+                            break
+                        case ['stage', 'stable']:
+                            hockeyapp_credentials = '***REMOVED***'
+                            env.BUILD_TYPE = 'ConnectMe Stage Build'
+                            break
+                        default:
+                        	logger.error("You can't run the CD JOB on the branches, different from the 'master', 'stage', 'stable'. Your branch is ${GIT_BRANCH}")
+                            error("You can't run the CD JOB on the branches, different from the 'master', 'stage', 'stable'. Your branch is ${GIT_BRANCH}") 
+                            break       
+                    }
+
+                    sshagent(credentials: ['iosdev-evernym-rsa-key']) {
+	                    withEnv(["DEVELOPER_DIR=/Applications/Xcode_9.2.app/Contents/Developer/"]) {
+                        // TODO: Add checks for Xcode version
+	                        withCredentials([
+	                        	string(credentialsId: hockeyapp_credentials, variable: 'HOCKEYAPP_TOKEN'),
+	                        	string(credentialsId: "***REMOVED***", variable: 'FASTLANE_PASSWORD'),
+	                        	string(credentialsId: "***REMOVED***", variable: 'MATCH_PASSWORD')
+	                        ]) {
+                    			dir('ios'){
+		              				sh 'bundle install'
+		                            sh 'bundle exec fastlane cd --disable_runner_upgrades'
+		                        }
+		                    }
+		                }
+		            }
+		        }
+	    	}
 		}
 	}
 }, { err ->
