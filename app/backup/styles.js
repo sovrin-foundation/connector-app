@@ -72,36 +72,36 @@ const styles = StyleSheet.create({
   genRecoveryPhrase: {
     textAlign: 'center',
     color: color.bg.eleventh.color,
-    fontSize: 20,
-    lineHeight: 30,
+    fontSize: isBiggerThanShortDevice ? 20 : 18,
+    lineHeight: isBiggerThanShortDevice ? 30 : 28,
     fontWeight: '900',
   },
   genRecoveryText: {
-    marginBottom: isBiggerThanShortDevice ? 50 : '2%',
+    marginBottom: isBiggerThanShortDevice ? 10 : '2%',
     alignSelf: 'center',
-    fontSize: 22,
+    fontSize: isBiggerThanShortDevice ? 22 : 20,
     fontWeight: '600',
   },
   genRecoveryMessage: {
     paddingHorizontal: 20,
     alignSelf: 'center',
-    fontSize: 18,
-    lineHeight: 22,
+    fontSize: isBiggerThanShortDevice ? 18 : 16,
+    lineHeight: isBiggerThanShortDevice ? 22 : 20,
     fontWeight: '500',
-    marginBottom: isBiggerThanShortDevice ? 49 : 0,
+    marginBottom: isBiggerThanShortDevice ? 20 : 0,
   },
   genRecoverySecondMessage: {
     paddingHorizontal: 20,
     alignSelf: 'center',
-    fontSize: 18,
-    lineHeight: 22,
+    fontSize: isBiggerThanShortDevice ? 18 : 16,
+    lineHeight: isBiggerThanShortDevice ? 22 : 20,
     fontWeight: 'bold',
   },
   genRecoverySmallMessage: {
     fontSize: 14,
     lineHeight: 17,
     fontWeight: 'bold',
-    marginBottom: isBiggerThanShortDevice ? 40 : '3%',
+    marginBottom: isBiggerThanShortDevice ? 15 : '3%',
   },
   verifyMainContainer: {
     flex: 1,
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowOpacity: 0.3,
     elevation: 7,
-    height: isBiggerThanShortDevice ? 63 : 43,
+    height: isBiggerThanShortDevice ? 53 : 43,
   },
   backgroundImageVerify: {
     flex: 1,
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
   imageIcon: {
     resizeMode: 'contain',
     width: '100%',
-    marginBottom: isBiggerThanShortDevice ? 40 : 0,
+    marginBottom: isBiggerThanShortDevice ? 20 : 0,
   },
 })
 
