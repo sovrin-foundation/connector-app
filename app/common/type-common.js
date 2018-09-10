@@ -1,6 +1,7 @@
 // @flow
 
 import type { Element } from 'react'
+import type { NavigationScreenProp } from 'react-navigation'
 
 export type CustomError = {
   code: string,
@@ -21,23 +22,7 @@ export type NavigationParams = {
   [string]: any,
 }
 
-export type ReactNavigation = {
-  navigation: {
-    navigate: (route: string, params?: any) => void,
-    state?: {
-      // TODO:KS This has to accept a Generic and every where we are using
-      // react navigation params, we have to pass a generic for type safety
-      params: NavigationParams,
-    },
-    goBack: (route?: ?string) => void,
-    // TODO: Had to use any here because we don't know type of beforehand
-    // need to move react navigation library to latest version
-    // and use their type, also need to use Generics here
-    dispatch: any => void,
-    setParams: (params?: any) => void,
-    isFocused: boolean,
-  },
-}
+export type ReactNavigation = NavigationScreenProp
 
 export type GenericObject = {
   [string]: any,

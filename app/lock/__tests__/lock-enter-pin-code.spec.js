@@ -61,7 +61,7 @@ describe('<LockPinCodeEnter />', () => {
 
   it('should navigate to pin setup onSuccess', () => {
     componentInstance.onSuccess()
-    expect(props.navigation.navigate).toHaveBeenCalledWith(lockPinSetupRoute, {
+    expect(props.navigation.push).toHaveBeenCalledWith(lockPinSetupRoute, {
       existingPin: true,
     })
   })

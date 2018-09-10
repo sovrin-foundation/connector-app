@@ -90,7 +90,7 @@ export class LockEnterPin extends PureComponent<
       // if we reach at this screen from settings page
       // then user is trying to enable/disable touch id
       if (this.props.existingPin) {
-        this.props.navigation.navigate(lockPinSetupRoute, {
+        this.props.navigation.push(lockPinSetupRoute, {
           existingPin: true,
         })
       } else if (this.props.isFetchingInvitation === false) {

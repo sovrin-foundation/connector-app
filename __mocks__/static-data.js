@@ -888,6 +888,8 @@ export function getNavigation(params?: NavigationParams) {
     // $FlowFixMe Don't know why this is failing, may be we upgrade to flow 0.63
     setParams: jest.fn(),
     isFocused: true,
+    // $FlowFixMe Don't know why this is failing, may be we upgrade to flow 0.63
+    push: jest.fn(),
   }
 }
 
