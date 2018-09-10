@@ -83,7 +83,6 @@
 		C869511A975941789D69AA79 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14412FD0B4DA4AA0A1E9C91B /* Lato-Light.ttf */; };
 		CBAF34C79DA848F495B816FB /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 83E7F1AAAA7843A8B868498C /* Lato-BoldItalic.ttf */; };
 		D7CF24B6CF8648649CD3E93E /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB524C73BEE14C70A0C552CB /* Lato-Bold.ttf */; };
-		DD858D8720A99E10004B3CB5 /* libvcx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD858D8620A99E0F004B3CB5 /* libvcx.a */; };
 		DDD4B74C1F65577400FBEE23 /* RNIndy.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD4B7271F65577300FBEE23 /* RNIndy.m */; };
 		EC657F2C78CA4325A7F0D28A /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A43B7EE6108C43AEA9443B36 /* Lato-Semibold.ttf */; };
 		F1F0B5451EF3B138006FBB0B /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F1F0B5441EF3B12D006FBB0B /* libSplashScreen.a */; };
@@ -617,7 +616,6 @@
 			files = (
 				09B2A97320D26D850034DDC8 /* libRNDocumentPicker.a in Frameworks */,
 				62BFBDD420D10F21009661B5 /* libRNVersionNumber.a in Frameworks */,
-				DD858D8720A99E10004B3CB5 /* libvcx.a in Frameworks */,
 				3DC102312077754D009B18A6 /* libRNApptentiveModule.a in Frameworks */,
 				09DEF3F22060FB8700EB316C /* libSRSRadialGradient.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
@@ -2137,15 +2135,11 @@
 				INFOPLIST_FILE = ConnectMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/vcx/vcx/vcx.framework/lib",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
-					"-lvcx",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.evernym.connectme.callcenter;
 				PRODUCT_NAME = ConnectMe;
@@ -2189,15 +2183,11 @@
 				INFOPLIST_FILE = ConnectMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Pods/vcx/vcx/vcx.framework/lib",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
-					"-lvcx",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.evernym.connectme.callcenter;
 				PRODUCT_NAME = ConnectMe;
