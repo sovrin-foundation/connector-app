@@ -16,8 +16,14 @@ pipelineWrapper({
 		ansiColor('xterm') {	   
 		    stage('Checkout from SCM') {
 	            checkout scm
+	            result = sh (script: "git log -1 | grep '\\[[Cc][Ii]\\s[Ss][Kk][Ii][Pp]\\]'", returnStatus: true)
 	        } 
-			    
+			
+			if (result == 0) {
+			    logger.info("This build should be skipped. Aborting.")
+			    return
+			}
+
 		    stage('Prepare') {
 		    	logger.info("yarn install")
 		        sh 'yarn install'
