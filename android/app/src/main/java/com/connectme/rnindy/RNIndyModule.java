@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.support.v7.graphics.Palette;
 import android.util.Base64;
 import android.util.Log;
+import android.content.ContextWrapper;
 
 import com.connectme.BridgeUtils;
 import com.evernym.sdk.vcx.VcxException;
@@ -99,7 +100,8 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     public void getGenesisPathWithConfig(String poolConfig, String fileName, Promise promise) {
         Log.d(TAG, "getGenesisPathWithConfig() called with: poolConfig = [" + poolConfig + "], promise = [" + promise
                 + "]");
-        File genFile = new File(Environment.getExternalStorageDirectory().getPath() + "/genesis_" + fileName + ".txn");
+        ContextWrapper cw = new ContextWrapper(reactContext);
+        File genFile = new File(cw.getFilesDir().toString() + "/genesis_" + fileName + ".txn");
         if (genFile.exists()) {
             genFile.delete();
         }

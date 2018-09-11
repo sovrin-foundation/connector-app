@@ -136,11 +136,7 @@ export function* alreadyInstalledNotFound(): Generator<*, *, *> {
 export function* confirmFirstInstallationWithWallet(): Generator<*, *, *> {
   const appUniqueId = yield call(getItem, __uniqueId)
   const walletName = appUniqueId && `${appUniqueId}-cm-wallet`
-  if (!walletName && Platform.OS === 'ios') {
-    throw new Error(ERROR_NO_WALLET_NAME)
-  }
-  // TODO: has to remove the below condition when the wallet storage is moved from shared storage to app directory
-  if (Platform.OS === 'android') {
+  if (!walletName) {
     throw new Error(ERROR_NO_WALLET_NAME)
   }
   const { fs } = RNFetchBlob

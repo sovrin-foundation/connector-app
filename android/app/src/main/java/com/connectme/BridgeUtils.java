@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import android.content.ContextWrapper;
 
 /**
  * Created by abdussami on 23/05/18.
@@ -35,7 +36,8 @@ public class BridgeUtils {
 
     public static void writeCACert(Context context) {
         Log.d(TAG, "writeCACert() called with: context = [" + context + "]");
-        File cert_file = new File(Environment.getExternalStorageDirectory().getPath() + "/cacert.pem");
+        ContextWrapper cw = new ContextWrapper(context);
+        File cert_file = new File(cw.getFilesDir().toString() + "/cacert.pem");
         if (!cert_file.exists()) {
             try {
                 FileWriter fw = new FileWriter(cert_file);

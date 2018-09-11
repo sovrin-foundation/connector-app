@@ -14,6 +14,8 @@ import android.content.Intent;
 // Un-comment below lines to enable vcx, indy logs
 //import libcore.io.ErrnoException;
 //import libcore.io.Libcore;
+import android.content.ContextWrapper;
+import android.system.Os;
 
 public class MainActivity extends ReactActivity {
 
@@ -69,6 +71,12 @@ public class MainActivity extends ReactActivity {
 //        } catch (ErrnoException e) {
 //            e.printStackTrace();
 //        }
+        try {
+          ContextWrapper c = new ContextWrapper(this);
+          Os.setenv("EXTERNAL_STORAGE", c.getFilesDir().toString(), true);
+        } catch(Exception e){
+          e.printStackTrace();
+        }
         RNBranchModule.initSession(getIntent().getData(), this);
     }
 
