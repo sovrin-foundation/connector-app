@@ -46,6 +46,11 @@ export class ClaimRequestStatusModal extends PureComponent<
     CLAIM_REQUEST_STATUS.SEND_CLAIM_REQUEST_SUCCESS,
   ]
 
+  noInitialStatesVisible = [
+    CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST,
+    CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST,
+  ]
+
   onContinue = () => {
     this.hideModal()
     this.props.onContinue()
@@ -69,7 +74,13 @@ export class ClaimRequestStatusModal extends PureComponent<
 
   componentDidMount() {
     // if modal is opened when it was unmounted or freshly mounted
-    this.toggleModal(this.props.claimRequestStatus)
+    if (
+      this.noInitialStatesVisible.indexOf(this.props.claimRequestStatus) < 0
+    ) {
+      this.toggleModal(this.props.claimRequestStatus)
+    } else {
+      this.hideModal()
+    }
   }
 
   componentDidUpdate(prevProps: ClaimRequestStatusModalProps) {

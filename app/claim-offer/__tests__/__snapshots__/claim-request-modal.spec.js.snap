@@ -1577,7 +1577,7 @@ exports[`<ClaimRequestStatusModal /> should show arrow right and accepting text,
   backdropColor="#ffffff"
   backdropOpacity={1}
   hideModalContentWhileAnimating={true}
-  isVisible={true}
+  isVisible={false}
   onModalHide={[Function]}
   useNativeDriver={true}
 >
@@ -1959,7 +1959,7 @@ exports[`<ClaimRequestStatusModal /> should show arrow right and only Paying tex
   backdropColor="#ffffff"
   backdropOpacity={1}
   hideModalContentWhileAnimating={true}
-  isVisible={true}
+  isVisible={false}
   onModalHide={[Function]}
   useNativeDriver={true}
 >
