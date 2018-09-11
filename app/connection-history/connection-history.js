@@ -44,6 +44,7 @@ import type { Store } from '../store/type-store'
 import type {
   ConnectionHistoryItem,
   ConnectionHistoryProps,
+  ConnectionHistoryState,
   ConnectionHistoryEvent,
 } from './type-connection-history'
 import {
@@ -128,7 +129,14 @@ const HistoryBody = ({ action, timestamp }) => {
   )
 }
 
-export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
+export class ConnectionHistory extends Component<
+  ConnectionHistoryProps,
+  ConnectionHistoryState
+> {
+  state = {
+    disableTaps: false,
+  }
+
   connectionDetailHandlerDebounce = debounce(
     ({ h, activeConnectionThemePrimary, senderName, image, senderDID }) => {
       this.connectionDetailHandler({
@@ -143,18 +151,17 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
     { leading: false, trailing: true }
   )
 
-  closeDebounce = debounce(
-    () => {
+  componentDidMount() {
+    this.props.updateStatusBarTheme(this.props.activeConnectionThemePrimary)
+  }
+
+  closeDebounce = () => {
+    if (!this.state.disableTaps) {
       const { navigation } = this.props
 
       navigation.goBack(null)
-    },
-    300,
-    { leading: true, trailing: false }
-  )
-
-  componentDidMount() {
-    this.props.updateStatusBarTheme(this.props.activeConnectionThemePrimary)
+      this.setState({ disableTaps: true })
+    }
   }
 
   connectionDetailHandler = (history: any) => {
@@ -225,6 +232,7 @@ export class ConnectionHistory extends Component<ConnectionHistoryProps, void> {
       [alertCancel, { text: 'Delete', onPress: () => this.delete(senderDID) }]
     )
   }
+
   delete = (senderDID: string) => {
     this.props.deleteConnectionAction(senderDID)
     this.closeDebounce()
