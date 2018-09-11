@@ -220,7 +220,7 @@ const stylesRecovery = StyleSheet.create({
   topLockIcon: {
     ...Platform.select({
       ios: {
-        marginTop: isBiggerThanShortDevice ? '18%' : '12%',
+        marginTop: isBiggerThanShortDevice ? '14%' : '3%',
       },
       android: {
         marginTop: isBiggerThanShortDevice ? '12%' : '8%',
@@ -242,7 +242,8 @@ const stylesRecovery = StyleSheet.create({
     width: '80%',
     ...Platform.select({
       ios: {
-        marginTop: isBiggerThanShortDevice ? '8%' : '2%',
+        marginTop: isBiggerThanShortDevice ? '7%' : '2%',
+        marginBottom: '-1%',
       },
       android: {
         marginTop: isBiggerThanShortDevice ? '2%' : 0,
@@ -252,7 +253,7 @@ const stylesRecovery = StyleSheet.create({
   newPasscodeText: {
     ...Platform.select({
       ios: {
-        marginTop: isBiggerThanShortDevice ? '6.1%' : '2%',
+        marginTop: isBiggerThanShortDevice ? '6.1%' : '1%',
       },
       android: {
         marginTop: isBiggerThanShortDevice ? '2%' : 0,
