@@ -6,9 +6,9 @@ source 'git@github.com:evernym/sdk.git'
 
 def vcx_version_for_debug_or_release
     if ENV['CONNECTME_DEBUG'] == "true"
-        '0.0.40'
+        '0.0.46'
     else
-        '0.0.41'
+        '0.0.45'
     end
 end
 

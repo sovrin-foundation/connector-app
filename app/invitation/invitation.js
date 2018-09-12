@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { View } from 'react-native'
+import { View, StatusBar } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { captureError } from '../services/error/error-handler'
@@ -16,6 +16,7 @@ import type { ReactNavigation } from '../common/type-common'
 import { smsPendingInvitationSeen } from '../sms-pending-invitation/sms-pending-invitation-store'
 import { SMSPendingInvitationStatus } from '../sms-pending-invitation/type-sms-pending-invitation'
 import { NavigationActions } from 'react-navigation'
+import { barStyleDark } from '../common/styles/constant'
 
 export class Invitation extends PureComponent<
   InvitationProps,
@@ -111,6 +112,7 @@ export class Invitation extends PureComponent<
         senderLogoUrl = payload.senderLogoUrl
         return (
           <Container>
+            <StatusBar barStyle={barStyleDark} />
             <Request
               title={title}
               message={message}

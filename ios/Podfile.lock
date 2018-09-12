@@ -31,7 +31,7 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - Protobuf (3.6.0)
+  - Protobuf (3.6.1)
   - QBImagePickerController (3.4.0)
   - React (0.51.0):
     - React/Core (= 0.51.0)
@@ -80,7 +80,7 @@ PODS:
   - RNZipArchive/RNZASSZipArchive (2.2.6):
     - React
   - RSKImageCropper (2.1.0)
-  - vcx (0.0.41)
+  - vcx (0.0.45)
   - yoga (0.51.0.React)
 
 DEPENDENCIES:
@@ -101,7 +101,7 @@ DEPENDENCIES:
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNShare (from `../node_modules/react-native-share`)
   - RNZipArchive (from `../node_modules/react-native-zip-archive`)
-  - vcx (= 0.0.41)
+  - vcx (= 0.0.45)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
 SPEC REPOS:
@@ -149,7 +149,7 @@ SPEC CHECKSUMS:
   FirebaseMessaging: dfdcd307c2382290a1e297a81d0f18370f5b1bcd
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  Protobuf: 0fc0ad8bec688b2a3017a139953e01374fedbd5f
+  Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
   React: 541ba768b9855e10cdc76f55427a5cd0653ca806
   react-native-image-resizer: 04a3409e7d4ad646c4468671c69dec490def139c
@@ -157,9 +157,9 @@ SPEC CHECKSUMS:
   RNShare: 80d4472ab25e77d9f824cb8d49d7e85af91c66e0
   RNZipArchive: 4f72d162e01ba473a6c2365b4e949183fd208f35
   RSKImageCropper: 0d0c6d8525a2381f03fde32a47c6703817a2feed
-  vcx: 38b465a30ab63607a33bb8267ed553038c22eae1
+  vcx: 1f650289f887407030678cc46d2087a7e5f25979
   yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
-PODFILE CHECKSUM: 63f9d6e71c8e170f610b1469994096052b13efa5
+PODFILE CHECKSUM: 58ff50f17b7e63fbd827e13a081ec123be2226eb
 
 COCOAPODS: 1.5.3
