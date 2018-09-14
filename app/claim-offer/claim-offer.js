@@ -117,6 +117,7 @@ export class ClaimOffer extends PureComponent<
     disableAcceptButton: false,
     insufficientBalanceModalHidden: false,
     showLedgerFeesModal: false,
+    showSendPaidCredentialRequestFailModal: false,
   }
 
   close = () => {
@@ -164,6 +165,7 @@ export class ClaimOffer extends PureComponent<
   onAccept = () => {
     this.setState({
       disableAcceptButton: true,
+      showSendPaidCredentialRequestFailModal: false,
     })
     if (this.props.claimOfferData.payTokenValue) {
       this.setState({ showLedgerFeesModal: true })
@@ -215,7 +217,15 @@ export class ClaimOffer extends PureComponent<
       : require('../images/cb_evernym.png')
     const testID = 'claim-offer'
     let acceptButtonText = payTokenValue ? 'Accept & Pay' : 'Accept'
-
+    if (
+      claimRequestStatus ===
+        CLAIM_REQUEST_STATUS.PAID_CREDENTIAL_REQUEST_FAIL &&
+      !this.state.showSendPaidCredentialRequestFailModal
+    ) {
+      setTimeout(() => {
+        this.setState({ showSendPaidCredentialRequestFailModal: true })
+      }, 1000)
+    }
     return (
       <Container style={[{ backgroundColor: claimThemePrimary }]}>
         {isValid && (
@@ -314,18 +324,19 @@ export class ClaimOffer extends PureComponent<
               </CustomView>
             </CustomModal>
           )}
-        {payTokenValue && (
-          <PaymentFailureModal
-            isModalVisible={
-              claimRequestStatus ===
-              CLAIM_REQUEST_STATUS.PAID_CREDENTIAL_REQUEST_FAIL
-            }
-            connectionName={issuer.name}
-            testID={`${testID}-payment-failure-modal`}
-            onClose={this.close}
-            onRetry={this.onAccept}
-          />
-        )}
+        {payTokenValue &&
+          this.state.showSendPaidCredentialRequestFailModal && (
+            <PaymentFailureModal
+              isModalVisible={
+                claimRequestStatus ===
+                CLAIM_REQUEST_STATUS.PAID_CREDENTIAL_REQUEST_FAIL
+              }
+              connectionName={issuer.name}
+              testID={`${testID}-payment-failure-modal`}
+              onClose={this.close}
+              onRetry={this.onAccept}
+            />
+          )}
         {payTokenValue && this.state.showLedgerFeesModal ? (
           <LedgerFeesModal
             isVisible={true}
