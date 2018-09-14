@@ -25,6 +25,7 @@ import {
   getPendingFetchAdditionalDataKey,
   getIsAppLocked,
   getSerializedClaimOffer,
+  getCurrentScreen,
 } from '../store/store-selector'
 import {
   PUSH_NOTIFICATION_PERMISSION,
@@ -96,6 +97,13 @@ import {
   proofRequestRoute,
   qrCodeScannerTabRoute,
   homeTabRoute,
+  lockPinSetupRoute,
+  lockTouchIdSetupRoute,
+  lockPinSetupHomeRoute,
+  lockEnterPinRoute,
+  lockEnterFingerprintRoute,
+  lockAuthorizationRoute,
+  lockAuthorizationHomeRoute,
 } from '../common'
 import type { Claim } from '../claim/type-claim'
 import { claimReceivedVcx } from '../claim/claim-store'
@@ -105,7 +113,17 @@ import type { SerializedClaimOffer } from './../claim-offer/type-claim-offer'
 async function delay(ms): Promise<number> {
   return new Promise(res => setTimeout(res, ms))
 }
-const blackListedRoute = {}
+const blackListedRoute = {
+  [proofRequestRoute]: proofRequestRoute,
+  [claimOfferRoute]: claimOfferRoute,
+  [lockPinSetupRoute]: lockPinSetupRoute,
+  [lockTouchIdSetupRoute]: lockTouchIdSetupRoute,
+  [lockPinSetupHomeRoute]: lockPinSetupHomeRoute,
+  [lockEnterPinRoute]: lockEnterPinRoute,
+  [lockEnterFingerprintRoute]: lockEnterFingerprintRoute,
+  [lockAuthorizationRoute]: lockAuthorizationRoute,
+  [lockAuthorizationHomeRoute]: lockAuthorizationHomeRoute,
+}
 
 const initialState = {
   isAllowed: false,
@@ -476,44 +494,46 @@ function* redirectToRelevantScreen({
   type,
   uid,
 }: RedirectToRelevantScreen) {
+  const currentScreen: string = yield select(getCurrentScreen)
   if (uiType || type)
-    switch (uiType || type) {
-      case 'CLAIM_OFFER_RECEIVED':
-        //TODO fix the scenario where claim-offer is not added to pending redirection when app is unlocked
-        //Redirect to claimOffer after 1 sec because after unlocking the app
-        //it redirects to home screen
-        //If we don't wait and redirect to claimOffer immediately , then
-        //sometimes claim offer screen disappears as home screen redirection will happen
-        //after it
-        // yield call(delay, 1000)
-        yield call(delay, 1000)
+    if (!blackListedRoute[currentScreen])
+      switch (uiType || type) {
+        case 'CLAIM_OFFER_RECEIVED':
+          //TODO fix the scenario where claim-offer is not added to pending redirection when app is unlocked
+          //Redirect to claimOffer after 1 sec because after unlocking the app
+          //it redirects to home screen
+          //If we don't wait and redirect to claimOffer immediately , then
+          //sometimes claim offer screen disappears as home screen redirection will happen
+          //after it
+          // yield call(delay, 1000)
+          yield call(delay, 1000)
 
-        yield handleRedirection(claimOfferRoute, {
-          uid,
-        })
+          yield handleRedirection(claimOfferRoute, {
+            uid,
+          })
 
-        break
+          break
 
-      case MESSAGE_TYPE.CLAIM_OFFER:
-        yield call(delay, 1000)
-        yield handleRedirection(claimOfferRoute, {
-          uid,
-        })
+        case MESSAGE_TYPE.CLAIM_OFFER:
+          yield call(delay, 1000)
+          yield handleRedirection(claimOfferRoute, {
+            uid,
+          })
 
-        break
+          break
 
-      case MESSAGE_TYPE.PROOF_REQUEST:
-        yield handleRedirection(proofRequestRoute, {
-          uid,
-        })
-        break
+        case MESSAGE_TYPE.PROOF_REQUEST:
+          yield handleRedirection(proofRequestRoute, {
+            uid,
+          })
+          break
 
-      case 'PROOF_REQUEST_RECEIVED':
-        yield handleRedirection(proofRequestRoute, {
-          uid,
-        })
-        break
-    }
+        case 'PROOF_REQUEST_RECEIVED':
+          yield handleRedirection(proofRequestRoute, {
+            uid,
+          })
+          break
+      }
 }
 
 function* handleRedirection(routeName: string, params: NavigationParams): any {
