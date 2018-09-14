@@ -343,13 +343,11 @@ export const PRIMARY_ACTION_SEND = 'Send'
 export const PRIMARY_ACTION_GENERATE_PROOF = 'Generate'
 export const SECONDARY_ACTION_IGNORE = 'Ignore'
 
-export const MESSAGE_MISSING_ATTRIBUTES_TITLE = 'Information missing'
+export const MESSAGE_MISSING_ATTRIBUTES_TITLE = 'Missing information'
 export const MESSAGE_MISSING_ATTRIBUTES_DESCRIPTION = (
-  missingAttributeNames: string
+  connectionname: string
 ) =>
-  `Some of requested attributes are missing from claims that you have. We can't automatically fill these attributes.
-  Please fill ${missingAttributeNames}.
-  Click 'Generate'. Once you have filled all missing attributes we will auto fill the rest of them.`
+  `You don't have all the attributes ${connectionname} is asking you to share with them. Manually fill in the missing attributes and tap Generate.`
 
 export const MESSAGE_ERROR_PROOF_GENERATION_TITLE = 'Error generating proof'
 export const MESSAGE_ERROR_PROOF_GENERATION_DESCRIPTION = 'Please try again.'

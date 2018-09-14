@@ -445,9 +445,7 @@ export class ProofRequest extends PureComponent<
     ) {
       Alert.alert(
         MESSAGE_MISSING_ATTRIBUTES_TITLE,
-        MESSAGE_MISSING_ATTRIBUTES_DESCRIPTION(
-          getMissingAttributeNames(nextProps.missingAttributes)
-        )
+        MESSAGE_MISSING_ATTRIBUTES_DESCRIPTION(nextProps.name)
       )
     }
 
