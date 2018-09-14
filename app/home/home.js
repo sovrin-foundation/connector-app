@@ -2,6 +2,7 @@
 import React, { PureComponent } from 'react'
 import { Animated, StyleSheet, Platform, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
+import firebase from 'react-native-firebase'
 import {
   Container,
   CustomView,
@@ -107,6 +108,16 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
       </CustomHeader>
     ),
   })
+
+  componentDidUpdate(prevProps: HomeProps) {
+    const noUnSeenMessages =
+      Object.keys(prevProps.unSeenMessages).length &&
+      !Object.keys(this.props.unSeenMessages).length
+
+    if (noUnSeenMessages) {
+      firebase.notifications().setBadge(0)
+    }
+  }
 
   render() {
     const bubblesHeight = this.state.scrollY.interpolate({
