@@ -93,15 +93,16 @@ platform :ios do
         app_identifier: "#{app_identifier}",
     )
     
+    commit_and_push(
+        commit_message: "[ci skip] Build Version bump by Fastlane on Jenkins. Build ID: #{ENV["BUILD_ID"]}",
+        remote_branch: "#{ENV["BRANCH_NAME"]}"
+    )
+
     hockey_token = ENV["HOCKEYAPP_TOKEN"] 
     UI.user_error!("You don't set token for HockeyApp") if hockey_token.empty?
     build_type = ENV["BUILD_TYPE"] || "#{build_type}"
     hockey(api_token: hockey_token)
     
-    commit_and_push(
-        commit_message: "[ci skip] Build Version bump by Fastlane on Jenkins. Build ID: #{ENV["BUILD_ID"]}",
-        remote_branch: "#{ENV["BRANCH_NAME"]}"
-    )
   end
   
   lane :cd do
@@ -123,6 +124,11 @@ platform :ios do
         app_identifier: "#{app_identifier}",
     )
     
+    commit_and_push(
+        commit_message: "[ci skip] Build Version bump by Fastlane on Jenkins. Build ID: #{ENV["BUILD_ID"]}",
+        remote_branch: "#{ENV["BRANCH_NAME"]}"
+    )
+
     hockey_token = ENV["HOCKEYAPP_TOKEN"]
     UI.user_error!("You don't set token for HockeyApp") if hockey_token.empty?
     build_type = ENV["BUILD_TYPE"] || "#{build_type}"
@@ -134,11 +140,7 @@ platform :ios do
         app_identifier: "#{app_identifier}",
     )
     
-    commit_and_push(
-        commit_message: "[ci skip] Build Version bump by Fastlane on Jenkins. Build ID: #{ENV["BUILD_ID"]}",
-        remote_branch: "#{ENV["BRANCH_NAME"]}"
-    )
-    
+    deliver(force: true)
   end
   
   #==============================================#

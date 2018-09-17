@@ -27,6 +27,7 @@ pipelineWrapper({
 		    stage('Prepare') {
 		    	logger.info("yarn install")
 		        sh 'yarn install'
+				sh 'yarn lint && yarn test'
 		    }
 	    
 		    stage('Build') {
