@@ -37,9 +37,8 @@ export const getWalletKey = memoize(async function(): Promise<string> {
 
     const lengthOfKey = 64
     walletKey = await RNIndy.createWalletKey(lengthOfKey)
-    if (Platform.OS === 'android') {
-      walletKey = walletKey.slice(0, -1)
-    }
+    // createWalletKey sometimes returns with a whitespace character at the end so we need to trim it
+    walletKey = walletKey.trim()
 
     await setItem(WALLET_KEY, walletKey)
 
