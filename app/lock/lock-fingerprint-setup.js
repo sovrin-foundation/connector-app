@@ -33,7 +33,7 @@ export class LockFingerprintSetup extends PureComponent<
       this.props.disableTouchIdAction()
       Alert.alert(
         null,
-        `You'll need to use your pass code to unlock this app from now on`,
+        `You'll need to use your passcode to unlock this app from now on`,
         [
           {
             text: 'OK',

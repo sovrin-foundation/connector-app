@@ -410,7 +410,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                   }
                   testID="settings-pass-code-label"
                 >
-                  Pass code:
+                  Passcode:
                    
                 </Text>
                 <Text
@@ -646,7 +646,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                     }
                     testID="settings-touch-id-label"
                   >
-                    Enable Touch ID
+                    Enable Biometrics
                   </Text>
                 </View>
               </View>

@@ -117,7 +117,7 @@ exports[`app lock selection page should render properly 1`] = `
         ]
       }
     >
-      This application must be protected by TouchID or a pin code at all times.
+      This application must be protected by Biometrics or a passcode at all times.
     </Text>
   </View>
   <View
@@ -225,7 +225,7 @@ exports[`app lock selection page should render properly 1`] = `
         }
         testID="use-touch-id-text"
       >
-        Use Touch ID
+        Use Biometrics
       </Text>
     </View>
     <View
@@ -681,7 +681,7 @@ exports[`app lock selection page should render properly 1`] = `
         }
         testID="use-pass-code-text"
       >
-        Use Pass Code
+        Use Passcode
       </Text>
     </View>
   </View>

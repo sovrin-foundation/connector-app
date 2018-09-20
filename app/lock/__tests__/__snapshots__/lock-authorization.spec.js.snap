@@ -90,7 +90,7 @@ exports[`<LockAuthorization /> should match snapshot 1`] = `
         }
         testID="pass-code-input-text"
       >
-        Enter your pass code
+        Enter your passcode
       </Text>
     </View>
     <View

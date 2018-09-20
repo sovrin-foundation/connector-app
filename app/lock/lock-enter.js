@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
 
 export const WrongPinText = (
   <CustomText h4 bg="tertiary" tertiary center>
-    Wrong pass code! Please try again
+    Wrong passcode! Please try again
   </CustomText>
 )
 
@@ -153,7 +153,7 @@ export class LockEnter extends PureComponent<LockEnterProps, LockEnterState> {
                 heavy
                 charcoal
               >
-                Please Enter Your Current Connect.Me Pass Code!
+                Please Enter Your Current Connect.Me Passcode!
               </CustomText>
             </CustomView>
             <CustomView center>
@@ -177,7 +177,7 @@ export class LockEnter extends PureComponent<LockEnterProps, LockEnterState> {
                 onPress={this.props.setupNewPassCode}
                 testID={'set-up-new-passcode-recovery'}
               >
-                Or setup new Pass Code
+                Or setup new Passcode
               </CustomText>
             </CustomView>
           </Container>

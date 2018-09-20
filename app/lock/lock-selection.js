@@ -31,7 +31,11 @@ import {
   PIN_CODE_BORDER_BOTTOM,
 } from '../common/styles/constant'
 import { switchErrorAlerts } from '../store/config-store'
-import { disableDevMode, longPressedInLockSelectionScreen, pressedOnOrInLockSelectionScreen } from './lock-store'
+import {
+  disableDevMode,
+  longPressedInLockSelectionScreen,
+  pressedOnOrInLockSelectionScreen,
+} from './lock-store'
 import { safeToDownloadSmsInvitation } from '../sms-pending-invitation/sms-pending-invitation-store'
 
 export class LockSelection extends PureComponent<LockSelectionProps, void> {
@@ -92,8 +96,8 @@ export class LockSelection extends PureComponent<LockSelectionProps, void> {
         </CustomView>
         <CustomView style={[style.messageText]}>
           <CustomText h5 bg="tertiary" tertiary bold center>
-            This application must be protected by TouchID or a pin code at all
-            times.
+            This application must be protected by Biometrics or a passcode at
+            all times.
           </CustomText>
         </CustomView>
         <Container spaceAround>
@@ -120,7 +124,7 @@ export class LockSelection extends PureComponent<LockSelectionProps, void> {
               onPress={this.goTouchIdSetup}
               onLongPress={this._onLongPressButton}
             >
-              Use Touch ID
+              Use Biometrics
             </CustomText>
           </CustomView>
           <CustomView
@@ -184,7 +188,7 @@ export class LockSelection extends PureComponent<LockSelectionProps, void> {
               testID="use-pass-code-text"
               onLongPress={this._onLongPressButton}
             >
-              Use Pass Code
+              Use Passcode
             </CustomText>
           </CustomView>
         </Container>

@@ -57,7 +57,7 @@ exports[`<LockPinCodeSetup /> should render pin code box 1`] = `
         ]
       }
     >
-      Set up a pass code
+      Set up a passcode
     </Text>
   </View>
   <View
@@ -396,7 +396,7 @@ exports[`<LockPinCodeSetup /> should show "pass code mismatch ..." message and r
         ]
       }
     >
-      Your pass codes do not match, please start over.
+      Your passcodes do not match, please start over.
     </Text>
   </View>
   <View
@@ -735,7 +735,7 @@ exports[`<LockPinCodeSetup /> should show re enter pass code after first entry 1
         ]
       }
     >
-      Re-enter pass code
+      Re-enter passcode
     </Text>
   </View>
   <View

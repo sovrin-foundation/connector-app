@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
 
 const ReEnterPinFailText = (
   <CustomText style={[styles.titleText]} center h4 bg="tertiary" tertiary thick>
-    Your pass codes do not match, please start over.
+    Your passcodes do not match, please start over.
   </CustomText>
 )
 
@@ -167,8 +167,8 @@ export class LockPinSetup extends PureComponent<
       this.props.navigation.state &&
       this.props.navigation.state.params &&
       this.props.navigation.state.params.touchIdActive === true
-        ? 'Set up a pass code in case TouchID/FaceID fails'
-        : 'Set up a pass code'
+        ? 'Set up a passcode in case Biometrics fails'
+        : 'Set up a passcode'
 
     const EnterPinText = (
       <CustomText
@@ -182,7 +182,7 @@ export class LockPinSetup extends PureComponent<
         {this.props.navigation.state &&
         this.props.navigation.state.params &&
         this.props.navigation.state.params.existingPin === true
-          ? 'Set up a new pass code'
+          ? 'Set up a new passcode'
           : passCodeSetupText}
       </CustomText>
     )
@@ -198,8 +198,8 @@ export class LockPinSetup extends PureComponent<
         {this.props.navigation.state &&
         this.props.navigation.state.params &&
         this.props.navigation.state.params.existingPin === true
-          ? 'Re-enter new pass code'
-          : 'Re-enter pass code'}
+          ? 'Re-enter new passcode'
+          : 'Re-enter passcode'}
       </CustomText>
     )
 

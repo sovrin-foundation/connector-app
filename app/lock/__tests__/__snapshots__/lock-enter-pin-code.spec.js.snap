@@ -90,7 +90,7 @@ exports[`<LockPinCodeEnter /> should render pin code box 1`] = `
         }
         testID="pass-code-input-text"
       >
-        Enter your pass code
+        Enter your passcode
       </Text>
     </View>
     <View

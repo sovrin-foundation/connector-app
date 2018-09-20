@@ -165,7 +165,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
     const passCode = (
       <CustomView row>
         <SettingText testID={PASS_CODE_TEST_ID} onPress={this.onChangePinClick}>
-          Pass code:{' '}
+          Passcode:{' '}
         </SettingText>
         <SettingText
           onPress={this.onChangePinClick}
@@ -184,7 +184,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
         />
         <CustomView center>
           <SettingText onPress={this.onChangeTouchId} testID={TOUCH_ID_TEST_ID}>
-            Enable Touch ID
+            Enable Biometrics
           </SettingText>
         </CustomView>
       </CustomView>
