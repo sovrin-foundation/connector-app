@@ -79,6 +79,7 @@ import { CLAIM_STORAGE_SUCCESS } from '../claim/type-claim'
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
 import { RESET } from '../common/type-common'
 import { CLAIM_OFFER_RECEIVED } from '../claim-offer/type-claim-offer'
+import { captureError } from '../services/error/error-handler'
 
 const initialState = {
   error: null,
@@ -108,6 +109,7 @@ export function* loadHistorySaga(): Generator<*, *, *> {
       yield put(loadHistorySuccess(JSON.parse(historyEvents)))
     }
   } catch (e) {
+    captureError(e)
     yield put(
       loadHistoryFail({
         ...ERROR_LOADING_HISTORY,
@@ -400,6 +402,7 @@ export function* historyEventOccurredSaga(
       yield put(recordHistoryEvent(historyEvent))
     }
   } catch (e) {
+    captureError(e)
     yield put(
       loadHistoryFail({
         ...ERROR_HISTORY_EVENT_OCCURRED,
@@ -428,6 +431,7 @@ export function* persistHistory(action): any {
       )
     } catch (e) {
       // Need to figure out what happens if storage fails
+      captureError(e)
       console.error(`persistHistory: ${e}`)
     }
   }

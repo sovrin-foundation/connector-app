@@ -102,6 +102,7 @@ import { WALLET_ENCRYPTION_KEY } from '../common/secure-storage-constants'
 import { ensureVcxInitSuccess } from '../store/config-store'
 import type { LedgerFeesData } from '../store/ledger/type-ledger-store'
 import { BigNumber } from 'bignumber.js'
+import { captureError } from '../services/error/error-handler'
 
 export const walletInitialState = {
   walletBalance: { data: '0', status: STORE_STATUS.IDLE, error: null },
@@ -367,6 +368,7 @@ export function* sendTokensSaga(action: SendTokensAction): Saga<void> {
       refreshWalletHistorySaga(),
     ])
   } catch (e) {
+    captureError(e)
     yield put(
       sendTokensFail(action.tokenAmount, {
         ...ERROR_SENDING_TOKENS,
@@ -383,6 +385,7 @@ export function* refreshWalletBalanceSaga(): any {
     yield put(walletBalanceRefreshed(walletBalanceData))
     yield call(secureSet, WALLET_BALANCE, walletBalanceData)
   } catch (e) {
+    captureError(e)
     yield put(
       refreshWalletBalanceFail({
         ...ERROR_REFRESHING_WALLET_BALANCE,
@@ -399,6 +402,7 @@ export function* refreshWalletHistorySaga(): any {
     yield put(walletHistoryRefreshed(walletHistoryData))
     yield call(secureSet, WALLET_HISTORY, JSON.stringify(walletHistoryData))
   } catch (e) {
+    captureError(e)
     yield put(
       refreshWalletHistoryFail({
         ...ERROR_REFRESHING_WALLET_HISTORY,
@@ -426,6 +430,7 @@ export function* refreshWalletAddressesSaga(): Generator<*, *, *> {
     yield put(walletAddressesRefreshed(walletAddressesData))
     yield call(secureSet, WALLET_ADDRESSES, JSON.stringify(walletAddressesData))
   } catch (e) {
+    captureError(e)
     yield put(
       refreshWalletAddressesFail({
         ...ERROR_REFRESHING_WALLET_ADDRESSES,

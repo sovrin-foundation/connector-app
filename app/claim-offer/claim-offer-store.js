@@ -98,6 +98,7 @@ import type {
 } from '../claim/type-claim'
 import type { LedgerFeesData } from '../store/ledger/type-ledger-store'
 import moment from 'moment'
+import { captureError } from '../services/error/error-handler'
 
 const claimOfferInitialState = {
   vcxSerializedClaimOffers: {},
@@ -230,6 +231,7 @@ export function* claimOfferAccepted(
   )
 
   if (!vcxSerializedClaimOffer) {
+    captureError(new Error(ERROR_NO_SERIALIZED_CLAIM_OFFER(messageId)))
     yield put(
       claimRequestFail(messageId, ERROR_NO_SERIALIZED_CLAIM_OFFER(messageId))
     )
@@ -301,6 +303,7 @@ export function* claimOfferAccepted(
         yield put(refreshWalletBalance())
       }
     } catch (e) {
+      captureError(e)
       yield put(sendClaimRequestFail(messageId))
     }
 
@@ -315,6 +318,7 @@ export function* claimOfferAccepted(
     )
     // now the updated claim offer is secure stored now we can update claim request
   } catch (e) {
+    captureError(e)
     if (isPaidCredential) {
       yield put(paidCredentialRequestFail(messageId))
     } else {
@@ -369,6 +373,7 @@ export function* saveSerializedClaimOffer(
       )
     )
   } catch (e) {
+    captureError(e)
     // TODO:KS need to think about what happens when serialize call from vcx fails
   }
 }
@@ -413,6 +418,8 @@ export function* saveClaimOffersSaga(
       type: SAVE_CLAIM_OFFERS_SUCCESS,
     })
   } catch (e) {
+    // capture error for safe set
+    captureError(e)
     yield put({
       type: SAVE_CLAIM_OFFERS_FAIL,
       error: ERROR_SAVE_CLAIM_OFFERS(e.message),
@@ -431,6 +438,8 @@ export function* removePersistedSerializedClaimOffersSaga(): Generator<
       type: REMOVE_SERIALIZED_CLAIM_OFFERS_SUCCESS,
     })
   } catch (e) {
+    // capture error for secure delete
+    captureError(e)
     yield put({
       type: REMOVE_SERIALIZED_CLAIM_OFFERS_FAIL,
     })
@@ -445,6 +454,7 @@ export function* hydrateClaimOffersSaga(): Generator<*, *, *> {
       yield put(hydrateClaimOffers(serializedClaimOffers))
     }
   } catch (e) {
+    captureError(e)
     yield put({
       type: HYDRATE_CLAIM_OFFERS_FAIL,
       error: ERROR_HYDRATE_CLAIM_OFFERS(e.message),

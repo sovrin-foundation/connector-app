@@ -61,6 +61,7 @@ import { VCX_CLAIM_OFFER_STATE } from '../claim-offer/type-claim-offer'
 import { saveSerializedClaimOffer } from '../claim-offer/claim-offer-store'
 import type { Connection } from '../store/type-connection-store'
 import { promptBackupBanner } from '../backup/backup-store'
+import { captureError } from '../services/error/error-handler'
 
 export const claimReceived = (claim: Claim): ClaimReceivedAction => ({
   type: CLAIM_RECEIVED,
@@ -114,6 +115,7 @@ export function* hydrateClaimMapSaga(): Generator<*, *, *> {
       yield put(hydrateClaimMap(claimMap))
     }
   } catch (e) {
+    captureError(e)
     yield put(
       hydrateClaimMapFail({
         code: ERROR_CLAIM_HYDRATE_FAIL.code,
@@ -221,6 +223,7 @@ export function* checkForClaim(
     }
   } catch (e) {
     // we got error while saving claim in wallet, what to do now?
+    captureError(e)
     yield put(
       claimStorageFail(serializedClaimOffer.messageId, CLAIM_STORAGE_ERROR(e))
     )
@@ -234,6 +237,7 @@ export function* saveClaimUuidMap(): Generator<*, *, *> {
     yield call(secureSet, CLAIM_MAP, JSON.stringify(claimMap))
   } catch (e) {
     // TODO:KS what should we do if storage fails
+    captureError(e)
     console.error(`Failed to store claim uuid map:${e}`)
   }
 }

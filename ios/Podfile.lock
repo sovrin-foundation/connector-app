@@ -80,6 +80,12 @@ PODS:
   - RNZipArchive/RNZASSZipArchive (2.2.6):
     - React
   - RSKImageCropper (2.1.0)
+  - Sentry (4.0.1):
+    - Sentry/Core (= 4.0.1)
+  - Sentry/Core (4.0.1)
+  - SentryReactNative (0.39.0):
+    - React
+    - Sentry (~> 4.0.1)
   - vcx (0.0.49)
   - yoga (0.51.0.React)
 
@@ -101,6 +107,7 @@ DEPENDENCIES:
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNShare (from `../node_modules/react-native-share`)
   - RNZipArchive (from `../node_modules/react-native-zip-archive`)
+  - SentryReactNative (from `../node_modules/react-native-sentry/SentryReactNative.podspec`)
   - vcx (= 0.0.49)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
 
@@ -118,6 +125,7 @@ SPEC REPOS:
     - Protobuf
     - QBImagePickerController
     - RSKImageCropper
+    - Sentry
 
 EXTERNAL SOURCES:
   apptentive-ios:
@@ -132,6 +140,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-share"
   RNZipArchive:
     :path: "../node_modules/react-native-zip-archive"
+  SentryReactNative:
+    :path: "../node_modules/react-native-sentry/SentryReactNative.podspec"
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga/yoga.podspec"
 
@@ -157,9 +167,11 @@ SPEC CHECKSUMS:
   RNShare: 80d4472ab25e77d9f824cb8d49d7e85af91c66e0
   RNZipArchive: 4f72d162e01ba473a6c2365b4e949183fd208f35
   RSKImageCropper: 0d0c6d8525a2381f03fde32a47c6703817a2feed
+  Sentry: a38f7879924c02239e121b19d993d23bdd1684db
+  SentryReactNative: d476259b21060a59dc637a29a40d60f0aac09cf7
   vcx: 75159414ffec9b8ad95247fa4a2ffb609fe27445
   yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
-PODFILE CHECKSUM: 3b5f4c64b800fb69e6b11e77d9aa364508513cea
+PODFILE CHECKSUM: b9454a514452afd462c06c5c16fa59206ade4ace
 
 COCOAPODS: 1.5.3

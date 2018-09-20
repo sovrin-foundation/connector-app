@@ -74,6 +74,7 @@ import { getWords } from './secure-passphrase'
 import { VCX_INIT_SUCCESS } from '../store/type-config-store'
 import { pinHash as generateKey, generateSalt } from '../lock/pin-hash'
 import moment from 'moment'
+import { captureError } from '../services/error/error-handler'
 
 const initialState = {
   passphrase: { phrase: '', salt: 's', hash: 'h' },
@@ -129,6 +130,7 @@ export function* generateBackupSaga(
     const backupZipFile = yield call(zip, zipupDirectory, destinationZipPath)
     yield put(generateBackupFileSuccess(backupZipFile))
   } catch (e) {
+    captureError(e)
     yield put(
       generateBackupFileFail({
         ...ERROR_GENERATE_BACKUP_FILE,
@@ -163,6 +165,7 @@ export function* exportBackupSaga(
     if (e.message === 'User did not share') {
       yield put(exportBackupNoShare())
     } else {
+      captureError(new Error(`${ERROR_EXPORT_BACKUP.message} ${e.message}`))
       yield put(
         exportBackupFail({
           ...ERROR_EXPORT_BACKUP,
@@ -223,6 +226,7 @@ export function* generateRecoveryPhraseSaga(
     }
   }
   if (retryCount > 3) {
+    captureError(new Error(`${ERROR_GENERATE_RECOVERY_PHRASE.message}`))
     yield put(
       generateRecoveryPhraseFail({
         ...ERROR_GENERATE_RECOVERY_PHRASE,
@@ -298,6 +302,7 @@ export function* hydrateLastSuccessfulBackupSaga(): Generator<*, *, *> {
       yield put(hydrateBackup(lastSuccessfulBackup))
     }
   } catch (e) {
+    captureError(e)
     yield put(
       hydrateBackupFail({
         ...ERROR_HYDRATING_BACKUP,
@@ -314,6 +319,7 @@ export function* hydrateBackupBannerStatusSaga(): Generator<*, *, *> {
       yield put(promptBackupBanner(JSON.parse(backupBannerStatus)))
     }
   } catch (e) {
+    captureError(e)
     yield put(
       hydrateBackupFail({
         ...ERROR_HYDRATING_BACKUP,

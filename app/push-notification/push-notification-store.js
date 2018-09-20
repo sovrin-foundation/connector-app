@@ -385,6 +385,7 @@ export function* fetchAdditionalDataSaga(
       })
     )
   } catch (e) {
+    captureError(e)
     yield put(
       fetchAdditionalDataError({
         code: 'OCS-000',
@@ -577,6 +578,8 @@ export function* hydratePushTokenSaga(): Generator<*, *, *> {
       yield put(hydratePushToken(token))
     }
   } catch (e) {
+    // capture error for safe get
+    captureError(e)
     console.error(`hydratePushTokenSaga: ${e}`)
   }
 }

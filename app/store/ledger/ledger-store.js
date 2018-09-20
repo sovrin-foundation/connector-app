@@ -18,6 +18,7 @@ import type {
 import { put, take, all, call, select, takeLatest } from 'redux-saga/effects'
 import { getLedgerFees } from '../../bridge/react-native-cxs/RNCxs'
 import { ensureVcxInitSuccess } from '../config-store'
+import { captureError } from '../../services/error/error-handler'
 
 const initialState = {
   fees: {
@@ -35,6 +36,7 @@ export function* getLedgerFeesSaga(): Generator<*, *, *> {
     const fees: LedgerFeesData = yield call(getLedgerFees)
     yield put(getLedgerFeesSuccess(fees))
   } catch (e) {
+    captureError(e)
     yield put(getLedgerFeesFail(ERROR_GET_LEDGER_FEES(e.message)))
   }
 }

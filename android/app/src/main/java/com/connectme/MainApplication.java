@@ -4,6 +4,7 @@ import android.app.Application;
 import com.apptentive.android.sdk.reactlibrary.RNApptentivePackage;
 import com.surajit.rnrg.RNRadialGradientPackage;
 import com.facebook.react.ReactApplication;
+import io.sentry.RNSentryPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
@@ -22,7 +23,6 @@ import com.rnfingerprint.FingerprintAuthPackage;
 //import com.horcrux.svg.SvgPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
-import io.sentry.RNSentryPackage;
 import io.branch.rnbranch.RNBranchPackage;
 import io.branch.referral.Branch;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -50,6 +50,7 @@ public class MainApplication extends Application implements ShareApplication, Re
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+        new RNSentryPackage(),
         new RNFirebasePackage(),
         new RNFirebaseNotificationsPackage(),
         new RNFirebaseMessagingPackage(),
@@ -65,7 +66,6 @@ public class MainApplication extends Application implements ShareApplication, Re
         new FingerprintAuthPackage(),
         new RNFetchBlobPackage(),
         new RCTCameraPackage(),
-        new RNSentryPackage(MainApplication.this),
         new RNBranchPackage(),
         new VectorIconsPackage(),
         new SplashScreenReactPackage(),

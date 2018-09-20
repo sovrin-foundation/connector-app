@@ -70,7 +70,6 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		87FBD37D8CBD436FBC57962F /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A44F43A44D54A14B590472B /* Foundation.ttf */; };
 		91F5774B57B249D291E502DC /* libreact-native-branch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9427435001634D8E9FD0A12B /* libreact-native-branch.a */; };
-		921B9695283643F79F6B0CEE /* libRNSentry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46386B5F434B41B89C5D33F6 /* libRNSentry.a */; };
 		944DD0B449D64AE19AF331C1 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B09965FBE6864F91A0D3FD4C /* Lato-Thin.ttf */; };
 		99110BC82DCA412080679731 /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00DE7DCFB73E4DF8B1201CE9 /* libRCTCamera.a */; };
 		9A273D51F4DB427AA24DEE95 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6FD2559F4CBF4E92A8E0C1B8 /* Lato-Italic.ttf */; };
@@ -440,13 +439,6 @@
 			remoteGlobalIDString = 134814201AA4EA6300B7C361;
 			remoteInfo = TouchID;
 		};
-		DD5733BE1F0F6FBB00F478B4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 43C4D2F9F2C347B189F642AF /* RNSentry.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = RNSentry;
-		};
 		DDC1533C1E8D04F300571A2A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F1F340A9F4AC4349928BD1D3 /* RNVectorIcons.xcodeproj */;
@@ -507,8 +499,6 @@
 		3E0816D0DD464898923E62FA /* libRNRandomBytes.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNRandomBytes.a; sourceTree = "<group>"; };
 		3F42336402924E59927A5D19 /* libTouchID.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libTouchID.a; sourceTree = "<group>"; };
 		421F24F4215B408B9F7C24E1 /* Lato-HairlineItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-HairlineItalic.ttf"; path = "../app/fonts/Lato/Lato-HairlineItalic.ttf"; sourceTree = "<group>"; };
-		43C4D2F9F2C347B189F642AF /* RNSentry.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSentry.xcodeproj; path = "../node_modules/react-native-sentry/ios/RNSentry.xcodeproj"; sourceTree = "<group>"; };
-		46386B5F434B41B89C5D33F6 /* libRNSentry.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSentry.a; sourceTree = "<group>"; };
 		47A962A206204795B77F3195 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		4E7C136EC20146D995AC728B /* Lato-Heavy.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Heavy.ttf"; path = "../app/fonts/Lato/Lato-Heavy.ttf"; sourceTree = "<group>"; };
 		519C21AEDA294F1A971EAD12 /* Lato-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Black.ttf"; path = "../app/fonts/Lato/Lato-Black.ttf"; sourceTree = "<group>"; };
@@ -638,7 +628,6 @@
 				2898CFCA7B859A90D66772AA /* libPods-ConnectMe.a in Frameworks */,
 				91F5774B57B249D291E502DC /* libreact-native-branch.a in Frameworks */,
 				08908E89D4E84FACB3C6F3A8 /* libSplashScreen.a in Frameworks */,
-				921B9695283643F79F6B0CEE /* libRNSentry.a in Frameworks */,
 				4B0AFC4C695A4198A3D2AB69 /* libz.tbd in Frameworks */,
 				99110BC82DCA412080679731 /* libRCTCamera.a in Frameworks */,
 				6DCB3A1C5B944A298B038611 /* libRNFetchBlob.a in Frameworks */,
@@ -902,7 +891,6 @@
 				0915D5E7C9B34B76A5B080C3 /* TouchID.xcodeproj */,
 				820E1643F10D4EC1A9D13C6C /* RNSensitiveInfo.xcodeproj */,
 				AEB54E1DD05B44129DEDADC0 /* RNBranch.xcodeproj */,
-				43C4D2F9F2C347B189F642AF /* RNSentry.xcodeproj */,
 				BA73A9E9FB4C4465B5AE372A /* RCTCamera.xcodeproj */,
 				FBB39EC84A9E4905B3E31600 /* RNFetchBlob.xcodeproj */,
 				0F945AEC1592437AAFED65F2 /* RNVersionNumber.xcodeproj */,
@@ -1070,14 +1058,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DD57339D1F0F6FBA00F478B4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				DD5733BF1F0F6FBB00F478B4 /* libRNSentry.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		DDC153201E8D04F300571A2A /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1103,7 +1083,6 @@
 				7231FE0734E346B8B6A3B2B7 /* libRNSensitiveInfo.a */,
 				9427435001634D8E9FD0A12B /* libreact-native-branch.a */,
 				6289865CCC3A4745A77A87B9 /* libSplashScreen.a */,
-				46386B5F434B41B89C5D33F6 /* libRNSentry.a */,
 				00DE7DCFB73E4DF8B1201CE9 /* libRCTCamera.a */,
 				66ACA94543464AB6BC1138FE /* libRNFetchBlob.a */,
 				3E0816D0DD464898923E62FA /* libRNRandomBytes.a */,
@@ -1354,10 +1333,6 @@
 				{
 					ProductGroup = 27C75C681EBA334C0072036E /* Products */;
 					ProjectRef = 820E1643F10D4EC1A9D13C6C /* RNSensitiveInfo.xcodeproj */;
-				},
-				{
-					ProductGroup = DD57339D1F0F6FBA00F478B4 /* Products */;
-					ProjectRef = 43C4D2F9F2C347B189F642AF /* RNSentry.xcodeproj */;
 				},
 				{
 					ProductGroup = DDC153201E8D04F300571A2A /* Products */;
@@ -1727,13 +1702,6 @@
 			remoteRef = DD564C8E1EA18FF5007629F6 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		DD5733BF1F0F6FBB00F478B4 /* libRNSentry.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNSentry.a;
-			remoteRef = DD5733BE1F0F6FBB00F478B4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		DDC1533D1E8D04F300571A2A /* libRNVectorIcons.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1834,7 +1802,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport DISABLE_XIP=true\nexport NODE_BINARY=node\nnode ../node_modules/sentry-cli-binary/bin/sentry-cli react-native xcode \n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export DISABLE_XIP=true\nexport NODE_BINARY=node\nnode ../node_modules/sentry-cli-binary/bin/sentry-cli react-native xcode \n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1848,7 +1816,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport DISABLE_XIP=true\nexport NODE_BINARY=node\nnode ../node_modules/sentry-cli-binary/bin/sentry-cli react-native xcode \n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export DISABLE_XIP=true\nexport NODE_BINARY=node\nnode ../node_modules/sentry-cli-binary/bin/sentry-cli react-native xcode \n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
 		4F25372745CB4C4B9757BA25 /* Upload Debug Symbols to Sentry */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2026,7 +1994,6 @@
 					"$(SRCROOT)/../node_modules/react-native-sensitive-info/ios/RNSensitiveInfo/**",
 					"$(SRCROOT)/../node_modules/react-native-branch/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
-					"$(SRCROOT)/../node_modules/react-native-sentry/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-version-number/ios",
@@ -2037,13 +2004,7 @@
 				INFOPLIST_FILE = ConnectMeTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -2071,7 +2032,6 @@
 					"$(SRCROOT)/../node_modules/react-native-sensitive-info/ios/RNSensitiveInfo/**",
 					"$(SRCROOT)/../node_modules/react-native-branch/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
-					"$(SRCROOT)/../node_modules/react-native-sentry/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-version-number/ios",
@@ -2082,13 +2042,7 @@
 				INFOPLIST_FILE = ConnectMeTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -2124,13 +2078,13 @@
 					"$(SRCROOT)/../node_modules/react-native-sensitive-info/ios/RNSensitiveInfo/**",
 					"$(SRCROOT)/../node_modules/react-native-branch/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
-					"$(SRCROOT)/../node_modules/react-native-sentry/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-version-number/ios",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 					"$(SRCROOT)/../node_modules/react-native-randombytes",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/react-native/ReactCommon",
 				);
 				INFOPLIST_FILE = ConnectMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -2172,13 +2126,13 @@
 					"$(SRCROOT)/../node_modules/react-native-sensitive-info/ios/RNSensitiveInfo/**",
 					"$(SRCROOT)/../node_modules/react-native-branch/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
-					"$(SRCROOT)/../node_modules/react-native-sentry/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-version-number/ios",
 					"$(SRCROOT)/../node_modules/react-native-aes-crypto/ios/RCTAes/**",
 					"$(SRCROOT)/../node_modules/react-native-randombytes",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/react-native/ReactCommon",
 				);
 				INFOPLIST_FILE = ConnectMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -2220,7 +2174,6 @@
 					"$(SRCROOT)/../node_modules/react-native-sensitive-info/ios/RNSensitiveInfo/**",
 					"$(SRCROOT)/../node_modules/react-native-branch/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
-					"$(SRCROOT)/../node_modules/react-native-sentry/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-version-number/ios",
@@ -2230,13 +2183,7 @@
 				);
 				INFOPLIST_FILE = "ConnectMe-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -2272,7 +2219,6 @@
 					"$(SRCROOT)/../node_modules/react-native-sensitive-info/ios/RNSensitiveInfo/**",
 					"$(SRCROOT)/../node_modules/react-native-branch/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
-					"$(SRCROOT)/../node_modules/react-native-sentry/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
 					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-version-number/ios",
@@ -2282,13 +2228,7 @@
 				);
 				INFOPLIST_FILE = "ConnectMe-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -2316,13 +2256,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "ConnectMe-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ConnectMe-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -2346,13 +2280,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "ConnectMe-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ConnectMe-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;

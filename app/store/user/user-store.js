@@ -43,6 +43,7 @@ import { RESET } from '../../common/type-common'
 import { uuid } from '../../services/uuid'
 import { getUserAvatarName } from '../../store/store-selector'
 import { VCX_INIT_SUCCESS } from '../type-config-store'
+import { captureError } from '../../services/error/error-handler'
 
 const initialState = {
   isFetching: false,
@@ -85,6 +86,7 @@ export function* saveUserOneTimeInfoSaga(
   } catch (e) {
     // we need to add some fallback if user storage is not available
     // or is full or if user deleted our data
+    captureError(e)
     yield put(
       saveUserOneTimeInfoFail({
         code: ERROR_SAVE_USER_INFO_FAIL.code,

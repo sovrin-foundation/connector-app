@@ -21,9 +21,9 @@ function configureSentryErrorHandler() {
   })
 }
 
-Sentry.config(
-  'https://66b7fcd2ca4943c6b7dfcc956ec5e2bf:af5734cc30d64be68aa4c0f8777f025e@sentry.io/188725',
-  { logLevel: SentryLog.Debug, disableNativeIntegration: true }
-).install()
+Sentry.config('https://66b7fcd2ca4943c6b7dfcc956ec5e2bf@sentry.io/188725', {
+  logLevel: SentryLog.Debug,
+  disableNativeIntegration: false,
+}).install()
 
 export default Sentry

@@ -58,6 +58,7 @@ import {
 import type { Attribute } from '../push-notification/type-push-notification'
 import { RESET } from '../common/type-common'
 import { PROOF_REQUEST_SHOW_START } from '../proof-request/type-proof-request'
+import { captureError } from '../services/error/error-handler'
 
 export const updateAttributeClaim = (
   requestedAttrsJson: RequestedAttrsJson
@@ -382,6 +383,7 @@ export function* generateProofSaga(
     }
     yield put(proofSuccess(proof, uid))
   } catch (e) {
+    captureError(e)
     yield put(proofFail(action.uid, e))
   }
 }

@@ -80,6 +80,11 @@ apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 apply from: "../../node_modules/react-native/react.gradle"
 
+project.ext.sentryCli = [
+    logLevel: "debug"
+]
+apply from: "../../node_modules/react-native-sentry/sentry.gradle"
+
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -167,6 +172,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-sentry')
     compile(project(":react-native-firebase")){
         exclude group: "com.google.android.gms" // very important
     }
@@ -189,7 +195,6 @@ dependencies {
     compile project(':react-native-touch-id')
     compile project(':react-native-fetch-blob')
     compile project(':react-native-camera')
-    compile project(':react-native-sentry')
     compile project(':react-native-branch')
     compile project(':react-native-splash-screen')
     compile project(':apptentive-react-native')

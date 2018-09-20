@@ -34,6 +34,7 @@ import { hydrate } from '../store/hydration-store'
 import { pushNotificationPermissionAction } from '../push-notification/push-notification-store'
 import { safeGet, safeSet } from '../services/storage'
 import { PIN_ENABLED_KEY, IN_RECOVERY } from '../lock/type-lock'
+import { captureError } from '../services/error/error-handler'
 
 export const saveFileToAppDirectory = (data: SaveToAppDirectory) => ({
   type: SAVE_FILE_TO_APP_DIRECTORY,
@@ -117,6 +118,7 @@ export function* restoreFileDecrypt(
 
     //but in this case if connections are imported from backup then that case is missed
     //since connection is already there
+
     // so after push token update
     //we need to do requestPermission or else push notifications won't come
     const requestPushNotificationPermission = () => {
@@ -126,6 +128,7 @@ export function* restoreFileDecrypt(
     yield put(pushNotificationPermissionAction(true))
     yield put(restoreStatus(RestoreStatus.RESTORE_DATA_STORE_SUCCESS))
   } catch (e) {
+    captureError(e)
     yield put(errorRestore(DECRYPT_FAILED_MESSAGE(e.message)))
   }
 }
@@ -171,6 +174,7 @@ export function* saveZipFile(
       )
     }
   } catch (e) {
+    captureError(e)
     yield put(restoreStatus(RestoreStatus.FILE_SAVE_ERROR))
     yield put(errorRestore(FILE_SAVE_ERROR_MESSAGE(e.message)))
   }

@@ -142,6 +142,7 @@ export function* sendResponse(
     }
     yield put(saveNewConnection(connection))
   } catch (e) {
+    captureError(e)
     yield put(invitationFail(ERROR_INVITATION_CONNECT(e.message), senderDID))
   }
 }

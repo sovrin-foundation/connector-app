@@ -111,6 +111,8 @@ export function* deleteWallet(): Generator<*, *, *> {
   try {
     yield* deletePersistedPassphrase()
   } catch (e) {
+    // if there is any error thrown from deletePersistedPassphrase
+    captureError(e)
     //TODO handle catch
   }
 }
@@ -236,6 +238,7 @@ export function* hydrate(): any {
       yield put(hydrated())
       yield* ensureVcxInitSuccess()
     } catch (e) {
+      captureError(e)
       console.error(`hydrateSaga: ${e}`)
       // somehow the secure storage failed, so we need to find someway to store
       // maybe we fallback to file based storage

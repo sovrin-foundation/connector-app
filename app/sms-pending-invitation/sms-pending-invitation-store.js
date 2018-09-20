@@ -41,6 +41,7 @@ import {
   UNSAFE_SCREENS_TO_DOWNLOAD_SMS,
 } from '../store/type-config-store'
 import { RESET } from '../common/type-common'
+import { captureError } from '../services/error/error-handler'
 
 const initialState = {}
 
@@ -168,7 +169,7 @@ export function* callSmsPendingInvitationRequest(
     try {
       error = JSON.parse(e.message)
     } catch (e) {}
-
+    captureError(e)
     yield put(smsPendingInvitationFail(smsToken, error))
   }
 }

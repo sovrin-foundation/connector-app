@@ -68,6 +68,7 @@ import { RESET } from '../common/type-common'
 import { PROOF_FAIL } from '../proof/type-proof'
 import { getProofRequests } from './../store/store-selector'
 import { secureSet, secureGet } from '../services/storage'
+import { captureError } from '../services/error/error-handler'
 
 const proofRequestInitialState = {}
 
@@ -143,6 +144,8 @@ export function* persistProofRequestsSaga(): Generator<*, *, *> {
     const proofRequests = yield select(getProofRequests)
     yield call(secureSet, PROOF_REQUESTS, JSON.stringify(proofRequests))
   } catch (e) {
+    // capture error for safe set
+    captureError(e)
     console.log(`persistProofRequestsSaga: ${e}`)
   }
 }
@@ -154,6 +157,8 @@ export function* hydrateProofRequestsSaga(): Generator<*, *, *> {
       yield put(hydrateProofRequests(JSON.parse(proofRequests)))
     }
   } catch (e) {
+    // capture error for safe get
+    captureError(e)
     console.log(`hydrateProofRequestSaga: ${e}`)
   }
 }
@@ -168,6 +173,7 @@ export function* proofAccepted(
     remoteDid
   )
   if (!userPairwiseDid) {
+    captureError(new Error('OCS-002 No pairwise connection found'))
     yield put(
       sendProofFail(uid, {
         code: 'OCS-002',
@@ -188,6 +194,7 @@ export function* proofAccepted(
   } & Connection = yield select(getRemotePairwiseDidAndName, userPairwiseDid)
 
   if (!connection.vcxSerializedConnection) {
+    captureError(new Error('OCS-002 No pairwise connection found'))
     yield put(
       sendProofFail(uid, {
         code: 'OCS-002',
@@ -205,6 +212,7 @@ export function* proofAccepted(
     yield call(sendProofApi, proofHandle, connectionHandle)
     yield put(sendProofSuccess(uid))
   } catch (e) {
+    captureError(e)
     yield put(sendProofFail(uid, ERROR_SEND_PROOF(e.message)))
   }
 }
@@ -252,6 +260,7 @@ export function* serializeProofRequestSaga(
     const serializedProof: string = yield call(proofSerialize, proofHandle)
     yield put(proofSerialized(serializedProof, action.payloadInfo.uid))
   } catch (e) {
+    captureError(e)
     // TODO:KS Add action for serialization failure
     // need to figure out what happens if serialization fails
     console.log('failed to serialize proof')

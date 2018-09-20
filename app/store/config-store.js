@@ -145,6 +145,7 @@ import type { SerializedClaimOffer } from '../claim-offer/type-claim-offer'
 import { SEND_CLAIM_REQUEST } from '../claim-offer/type-claim-offer'
 import { getPendingFetchAdditionalDataKey } from './store-selector'
 import firebase from 'react-native-firebase'
+import { captureError } from '../services/error/error-handler'
 
 /**
  * this file contains configuration which is changed only from user action
@@ -302,6 +303,7 @@ export function* onChangeEnvironmentUrl(
       MESSAGE_SUCCESS_ENVIRONMENT_SWITCH_DESCRIPTION
     )
   } catch (e) {
+    captureError(e)
     Alert.alert(
       MESSAGE_FAIL_ENVIRONMENT_SWITCH_TITLE,
       MESSAGE_FAIL_ENVIRONMENT_SWITCH_ERROR(e.message)
@@ -377,6 +379,7 @@ export function* onEnvironmentSwitch(
       JSON.stringify(switchedEnvironmentDetail)
     )
   } catch (e) {
+    captureError(e)
     // we need to add some fallback if user storage is not available
     // or is full or if user deleted our data
     yield put(
@@ -422,6 +425,7 @@ export function* hydrateSwitchedEnvironmentDetails(): any {
       )
     }
   } catch (e) {
+    captureError(e)
     yield put(
       hydrateSwitchedEnvironmentDetailFail({
         code: ERROR_HYDRATE_SWITCH_ENVIRONMENT.code,
@@ -526,6 +530,7 @@ export function* initVcx(): Generator<*, *, *> {
       userOneTimeInfo = yield call(createOneTimeInfo, agencyConfig)
       yield put(connectRegisterCreateAgentDone(userOneTimeInfo))
     } catch (e) {
+      captureError(e)
       yield put(vcxInitFail(ERROR_VCX_PROVISION_FAIL(e.message)))
 
       return
@@ -551,6 +556,7 @@ export function* initVcx(): Generator<*, *, *> {
       yield put(vcxInitSuccess())
       break
     } catch (e) {
+      captureError(e)
       lastInitException = e
       retryCount++
     }
@@ -622,12 +628,14 @@ export function* getMessagesSaga(): Generator<*, *, *> {
         yield* processMessages(parsedData)
         yield* acknowledgeServer(parsedData)
       } catch (e) {
+        captureError(e)
         // throw error
         console.log('acknowledgeServer error:', e)
       }
     }
     yield put(getMessagesSuccess())
   } catch (e) {
+    captureError(e)
     //ask about retry scenario
     yield put(getMessagesFail())
   }
@@ -672,6 +680,8 @@ export function* processMessages(
         yield fork(handleMessage, messages[i])
       }
     } catch (e) {
+      // capturing error for handleMessage fork
+      captureError(e)
       console.log(e)
     }
   }
@@ -981,7 +991,7 @@ export function* handleMessage(message: DownloadedMessage): Generator<*, *, *> {
       forDID,
     })
   } catch (e) {
-    console.log(e)
+    captureError(e)
     yield put(
       fetchAdditionalDataError({
         code: 'OCS-000',
@@ -1033,6 +1043,7 @@ export function* updateMessageStatus(
   try {
     yield call(updateMessages, 'MS-106', JSON.stringify(acknowledgeServerData))
   } catch (e) {
+    captureError(e)
     yield put(
       acknowledgeMessagesFail(`failed at updateMessages api, ${e.message}`)
     )

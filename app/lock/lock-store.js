@@ -58,6 +58,7 @@ import { Platform } from 'react-native'
 import { getVcxInitializationState } from '../store/store-selector'
 import { ensureVcxInitSuccess } from '../store/config-store'
 import { setItem, getItem } from '../services/secure-storage'
+import { captureError } from '../services/error/error-handler'
 
 const initialState: LockStore = {
   pendingRedirection: null,
@@ -125,6 +126,7 @@ export function* setPin(action: SetPinAction): Generator<*, *, *> {
     yield call(secureSet, SALT_STORAGE_KEY, salt)
     yield put(lockEnable('true'))
   } catch (e) {
+    captureError(e)
     yield put(lockFail(e))
   }
 }
@@ -213,6 +215,7 @@ export function* checkPin(action: CheckPinAction): Generator<*, *, *> {
     yield call(safeSet, IN_RECOVERY, 'false')
     yield put(setInRecovery('false'))
   } else {
+    captureError(new Error('Checkpin fail'))
     yield put(checkPinFail())
   }
 }

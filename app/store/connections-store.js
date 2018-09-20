@@ -48,6 +48,7 @@ import { RESET } from '../common/type-common'
 import type { UserOneTimeInfo } from './user/type-user-store'
 import { promptBackupBanner } from '../backup/backup-store'
 import { HYDRATED } from './type-config-store'
+import { captureError } from '../services/error/error-handler'
 
 const UPDATE_CONNECTION_THEME = 'UPDATE_CONNECTION_THEME'
 export const NEW_CONNECTION_SUCCESS = 'NEW_CONNECTION_SUCCESS'
@@ -148,6 +149,7 @@ export function* deleteConnectionOccurredSaga(
     yield put(deleteConnectionSuccess(rest))
     yield call(deleteConnection, connectionHandle)
   } catch (e) {
+    captureError(e)
     yield put(deleteConnectionFailure(connection, e))
   }
 }
@@ -205,6 +207,7 @@ export function* persistConnections(): Generator<*, *, *> {
     const connections = yield select(getAllConnection)
     yield call(secureSet, CONNECTIONS, JSON.stringify(connections))
   } catch (e) {
+    captureError(e)
     console.log(`hydrateConnectionSaga: ${e}`)
   }
 }
@@ -221,6 +224,8 @@ export function* hydrateConnectionSaga(): Generator<*, *, *> {
       yield put(hydrateConnections(JSON.parse(connections)))
     }
   } catch (e) {
+    // to capture secure get
+    captureError(e)
     console.log(`hydrateConnectionSaga: ${e}`)
   }
 }
@@ -265,6 +270,8 @@ export function* persistThemes(): Generator<*, *, *> {
   try {
     yield call(secureSet, STORAGE_KEY_THEMES, JSON.stringify(themes))
   } catch (e) {
+    // capture error for secure set
+    captureError(e)
     console.error(`persistThemes: ${e}`)
   }
 }
@@ -276,6 +283,8 @@ export function* hydrateThemes(): Generator<*, *, *> {
       yield put(hydrateConnectionThemes(JSON.parse(themes)))
     }
   } catch (e) {
+    // capture error for secure get
+    captureError(e)
     console.error(`hydrateThemes: ${e}`)
   }
 }
@@ -284,6 +293,8 @@ export function* removePersistedThemes(): Generator<*, *, *> {
   try {
     yield call(secureDelete, STORAGE_KEY_THEMES)
   } catch (e) {
+    // capture error for secure delete
+    captureError(e)
     console.error(`removePersistedThemes: ${e}`)
   }
 }
