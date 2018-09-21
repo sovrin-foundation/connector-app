@@ -248,7 +248,7 @@ export const LAErrorTouchIDNotAvailable = 'LAErrorTouchIDNotAvailable'
 export const LAErrorTouchIDNotEnrolled = 'LAErrorTouchIDNotEnrolled'
 export const LAErrorTouchIDUnknownError = 'RCTTouchIDUnknownError'
 export const LAErrorTouchIDNotSupported = 'RCTTouchIDNotSupported'
-export const TouchIDError = 'Biometrics Error'
+export const TouchIDError = 'Touch ID Error'
 
 export const AllowedFallbackToucheIDErrors = [
   LAErrorUserCancel,
