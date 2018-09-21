@@ -55,8 +55,8 @@ export class WalletTabReceive extends PureComponent<
     const isLoading =
       addressStatus === STORE_STATUS.IN_PROGRESS && walletAddresses.length === 0
     return (
-      <Container testID={'wallet-receive-container'}>
-        <Container testID={'wallet-receive-container1'}>
+      <Container>
+        <Container>
           <CustomView style={[styles.container]}>
             <ScrollView scrollEnabled={walletAddresses.length > 1}>
               <CustomText

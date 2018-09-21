@@ -13,8 +13,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
     style={Object {}}
   >
     <View
-      accessibilityLabel="claim-offer-header"
-      accessible={true}
       fifth={true}
       style={
         Object {
@@ -32,7 +30,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
           "zIndex": 4,
         }
       }
-      testID="claim-offer-header"
     >
       <View
         fifth={true}
@@ -1414,8 +1411,6 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
     style={Object {}}
   >
     <View
-      accessibilityLabel="claim-offer-header"
-      accessible={true}
       fifth={true}
       style={
         Object {
@@ -1433,7 +1428,6 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
           "zIndex": 4,
         }
       }
-      testID="claim-offer-header"
     >
       <View
         fifth={true}

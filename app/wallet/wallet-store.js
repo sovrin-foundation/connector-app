@@ -1,5 +1,6 @@
 // @flow
 
+import RNFetchBlob from 'react-native-fetch-blob'
 import {
   put,
   takeLatest,
@@ -8,10 +9,8 @@ import {
   select,
   takeEvery,
 } from 'redux-saga/effects'
-import RNFetchBlob from 'react-native-fetch-blob'
 import { Platform } from 'react-native'
 import Share from 'react-native-share'
-import type { Saga } from 'redux-saga'
 import moment from 'moment'
 import {
   secureSet,
@@ -318,37 +317,42 @@ function* watchSendTokens(): any {
   yield takeLatest(SEND_TOKENS, sendTokensSaga)
 }
 
-export function* sendTokensSaga(action: SendTokensAction): Saga<void> {
+export function* getAmountToTransfer(
+  action: SendTokensAction
+): Generator<*, *, *> {
+  const { transfer }: LedgerFeesData = yield call(getLedgerFees)
+  const transferFeesAmount = new BigNumber(transfer)
+  const transferAmount = new BigNumber(action.tokenAmount)
+  const walletBalance: string = yield select(getWalletBalanceSelector)
+  const walletBalanceAmount = new BigNumber(walletBalance)
+  let amountToTransfer = transferAmount
+
+  if (walletBalanceAmount.isEqualTo(transferAmount)) {
+    // if user is trying to transfer whole amount
+    // then deduct transfer fees
+    amountToTransfer = transferAmount.minus(transferFeesAmount)
+  }
+
+  if (
+    walletBalanceAmount.isLessThan(transferFeesAmount.plus(amountToTransfer))
+  ) {
+    // wallet does not have enough balance to pay fees and transfer amount
+    amountToTransfer = new BigNumber(0)
+  }
+
+  // if we are here, that means
+  // 1. wallet has enough balance for transfer amount and transfer fees
+  //  OR
+  // 2. if whole amount was transferred, then transfer amount is adjusted
+  //    after deducting ledger transfer fees
+
+  return amountToTransfer
+}
+
+export function* sendTokensSaga(action: SendTokensAction): Generator<*, *, *> {
   yield* ensureVcxInitSuccess()
   try {
-    const { transfer }: LedgerFeesData = yield call(getLedgerFees)
-    const transferFeesAmount = new BigNumber(transfer)
-    const transferAmount = new BigNumber(action.tokenAmount)
-    const walletBalance: string = yield select(getWalletBalanceSelector)
-    const walletBalanceAmount = new BigNumber(walletBalance)
-    let amountToTransfer = transferAmount
-
-    if (walletBalanceAmount.isEqualTo(transferAmount)) {
-      // if user is trying to transfer whole amount
-      // then deduct transfer fees
-      amountToTransfer = transferAmount.minus(transferFeesAmount)
-    }
-
-    if (
-      walletBalanceAmount.isGreaterThanOrEqualTo(
-        transferFeesAmount.plus(transferAmount)
-      )
-    ) {
-      // see if wallet has enough balance for transfer amount and transfer fees
-      amountToTransfer = transferAmount
-    }
-
-    if (
-      walletBalanceAmount.isLessThan(transferFeesAmount.plus(transferAmount))
-    ) {
-      // wallet does not have enough balance to pay fees and transfer amount
-      amountToTransfer = new BigNumber(0)
-    }
+    const amountToTransfer: BigNumber = yield* getAmountToTransfer(action)
 
     if (amountToTransfer.isLessThanOrEqualTo(0)) {
       yield put(

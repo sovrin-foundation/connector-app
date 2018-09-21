@@ -96,6 +96,7 @@ export class Invitation extends PureComponent<
     if (this.props.isSmsInvitationNotSeen) {
       this.props.smsPendingInvitationSeen(this.props.smsToken)
     }
+    StatusBar.setBarStyle(barStyleDark, true)
   }
 
   render() {

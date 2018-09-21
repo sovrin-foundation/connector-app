@@ -64,7 +64,6 @@ export default class ClaimProofHeader extends PureComponent<
     return (
       <CustomSafeAreaView>
         <CustomView
-          testID={`${testID}-header`}
           fifth
           style={[styles.header, containerStyle, { marginBottom: -OFFSET_1X }]}
         >

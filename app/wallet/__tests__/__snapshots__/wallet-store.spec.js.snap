@@ -805,3 +805,19 @@ Object {
   },
 }
 `;
+
+exports[`store: wallet-store:  getAmountToTransfer, transfer less than wallet balance, fees + transfer equal to wallet balance  1`] = `"0.5"`;
+
+exports[`store: wallet-store:  getAmountToTransfer, transfer less than wallet balance, fees + transfer less than wallet balance  1`] = `"0.5"`;
+
+exports[`store: wallet-store:  getAmountToTransfer, transfer less than wallet balance, fees + transfer more than wallet balance  1`] = `"0"`;
+
+exports[`store: wallet-store:  getAmountToTransfer, transfer less than wallet balance, fees zero 1`] = `"0.5"`;
+
+exports[`store: wallet-store:  getAmountToTransfer, transfer whole balance, fees equal to wallet balance 1`] = `"0"`;
+
+exports[`store: wallet-store:  getAmountToTransfer, transfer whole balance, fees greater than wallet balance 1`] = `"0"`;
+
+exports[`store: wallet-store:  getAmountToTransfer, transfer whole balance, fees more than zero less than wallet balance 1`] = `"0.9"`;
+
+exports[`store: wallet-store:  getAmountToTransfer, transfer whole balance, fees zero 1`] = `"1"`;

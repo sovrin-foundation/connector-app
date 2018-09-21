@@ -83,6 +83,4 @@ describe('<LedgerFeesModalComponent />', () => {
     const { wrapper } = setup({ ledgerFees: fees, walletBalance: '1' })
     expect(wrapper.toJSON()).toMatchSnapshot()
   })
-
-  // TODO:KS add more tests
 })

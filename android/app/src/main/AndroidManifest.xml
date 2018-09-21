@@ -21,9 +21,9 @@
 
     <application
       android:name=".MainApplication"
-        tools:replace="android:label"
+        tools:replace="android:label,allowBackup"
         android:label="ConnectMe"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:theme="@style/AppTheme"
         android:icon="@mipmap/ic_launcher">
 

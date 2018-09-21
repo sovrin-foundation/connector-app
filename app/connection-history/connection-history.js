@@ -226,9 +226,7 @@ export class ConnectionHistory extends Component<
   onDeleteConnection = (senderName: string, senderDID: string) => {
     Alert.alert(
       `Delete ${senderName}?`,
-      `Are you sure you want to delete ${senderName} as a connection?
-      You will still keep the information they have given you, but you will not
-      be able to contact them without re-establishing a new connection. Proceed?`,
+      `Are you sure you want to delete ${senderName} as a connection? You will still keep the information they have given you, but you will not be able to contact them without re-establishing a new connection. Proceed?`,
       [alertCancel, { text: 'Delete', onPress: () => this.delete(senderDID) }]
     )
   }
@@ -346,8 +344,6 @@ export class ConnectionHistory extends Component<
                 styles.senderName,
                 { backgroundColor: 'transparent' },
               ]}
-              accessibilityLabel="connection-history"
-              accessible={true}
             >
               <CustomView
                 fifth

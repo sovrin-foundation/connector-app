@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Privacy and TNC screen should render properly and snapshot should match 1`] = `
+<WebView
+  renderLoading={[Function]}
+  source={
+    Object {
+      "uri": Object {
+        "title": "Privacy Policy",
+        "url": "https://www.connect.me/privacy.html",
+      },
+    }
+  }
+  startInLoadingState={true}
+/>
+`;

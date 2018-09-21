@@ -117,6 +117,7 @@ const mapStateToProps = (state: Store) => {
     recoveryPassphrase: getBackupPassphrase(state),
   }
 }
+
 const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch)
 
 export default createStackNavigator({

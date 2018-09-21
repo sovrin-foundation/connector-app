@@ -22,6 +22,10 @@ import walletReducer, {
   walletBackupComplete,
   sendTokensFail,
   walletInitialState,
+  getAmountToTransfer,
+  sendTokens,
+  sendTokensSaga,
+  tokenSentSuccess,
 } from '../wallet-store'
 import { initialTestAction } from '../../common/type-common'
 import {
@@ -41,9 +45,18 @@ import {
   ERROR_REFRESHING_WALLET_ADDRESSES,
   ERROR_REFRESHING_WALLET_HISTORY,
   ERROR_SENDING_TOKENS,
+  ERROR_SENDING_TOKENS_WITH_FEES,
 } from '../type-wallet'
 import { WALLET_BALANCE, WALLET_ADDRESSES, WALLET_HISTORY } from '../../common'
 import { secureGet } from '../../services/storage'
+import { expectSaga } from 'redux-saga-test-plan'
+import * as matchers from 'redux-saga-test-plan/matchers'
+import {
+  getLedgerFees,
+  sendTokenAmount,
+} from '../../bridge/react-native-cxs/RNCxs'
+import BigNumber from 'bignumber.js'
+import { VCX_INIT_SUCCESS } from '../../store/type-config-store'
 
 describe('store: wallet-store: ', () => {
   let initialState
@@ -244,16 +257,147 @@ describe('store: wallet-store: ', () => {
     )
   })
 
-  xit('saga: hydrateWalletBalanceSaga => success', () => {
-    const gen = hydrateWalletBalanceSaga()
-    expect(gen.next().value).toEqual(call(secureGet, WALLET_BALANCE))
+  it('saga: hydrateWalletBalanceSaga => success', () => {
+    const walletBalance = '1'
+
+    return expectSaga(hydrateWalletBalanceSaga)
+      .provide([[matchers.call.fn(secureGet, WALLET_BALANCE), walletBalance]])
+      .put(hydrateWalletBalanceStore(walletBalance))
+      .run()
   })
 
-  xit('saga: sendTokensSaga => success', () => {})
+  function testGetAmountToTransfer(tokenAmountToTransfer: *, ledgerFees: *) {
+    const walletBalance = '1'
 
-  xit('saga: sendTokensSaga => fail', () => {})
+    return expectSaga(
+      getAmountToTransfer,
+      sendTokens(tokenAmountToTransfer, 'recipient-address')
+    )
+      .withState({
+        wallet: { walletBalance: { data: walletBalance } },
+      })
+      .provide([[matchers.call.fn(getLedgerFees), ledgerFees]])
+      .run()
+      .then(finalAmount => {
+        expect(finalAmount.returnValue.toJSON()).toMatchSnapshot()
+      })
+  }
 
-  xit('saga: refreshWalletSaga => success', () => {})
+  it('getAmountToTransfer, transfer whole balance, fees zero', () => {
+    const tokenAmountToTransfer = '1'
+    const ledgerFees = {
+      transfer: '0',
+    }
 
-  xit('saga: refreshWalletSaga => fail', () => {})
+    return testGetAmountToTransfer(tokenAmountToTransfer, ledgerFees)
+  })
+
+  it('getAmountToTransfer, transfer whole balance, fees equal to wallet balance', () => {
+    const tokenAmountToTransfer = '1'
+    const ledgerFees = {
+      transfer: '1',
+    }
+
+    return testGetAmountToTransfer(tokenAmountToTransfer, ledgerFees)
+  })
+
+  it('getAmountToTransfer, transfer whole balance, fees greater than wallet balance', () => {
+    const tokenAmountToTransfer = '1'
+    const ledgerFees = {
+      transfer: '1',
+    }
+
+    return testGetAmountToTransfer(tokenAmountToTransfer, ledgerFees)
+  })
+
+  it('getAmountToTransfer, transfer whole balance, fees more than zero less than wallet balance', () => {
+    const tokenAmountToTransfer = '1'
+    const ledgerFees = {
+      transfer: '0.1',
+    }
+
+    return testGetAmountToTransfer(tokenAmountToTransfer, ledgerFees)
+  })
+
+  it('getAmountToTransfer, transfer less than wallet balance, fees zero', () => {
+    const tokenAmountToTransfer = '0.5'
+    const ledgerFees = {
+      transfer: '0',
+    }
+
+    return testGetAmountToTransfer(tokenAmountToTransfer, ledgerFees)
+  })
+
+  it('getAmountToTransfer, transfer less than wallet balance, fees + transfer more than wallet balance ', () => {
+    const tokenAmountToTransfer = '0.5'
+    const ledgerFees = {
+      transfer: '0.6',
+    }
+
+    return testGetAmountToTransfer(tokenAmountToTransfer, ledgerFees)
+  })
+
+  it('getAmountToTransfer, transfer less than wallet balance, fees + transfer equal to wallet balance ', () => {
+    const tokenAmountToTransfer = '0.5'
+    const ledgerFees = {
+      transfer: '0.5',
+    }
+
+    return testGetAmountToTransfer(tokenAmountToTransfer, ledgerFees)
+  })
+
+  it('getAmountToTransfer, transfer less than wallet balance, fees + transfer less than wallet balance ', () => {
+    const tokenAmountToTransfer = '0.5'
+    const ledgerFees = {
+      transfer: '0.3',
+    }
+
+    return testGetAmountToTransfer(tokenAmountToTransfer, ledgerFees)
+  })
+
+  it('saga: sendTokensSaga => success', () => {
+    const walletBalance = '1'
+    const stateWithVcxInitSuccess = {
+      config: {
+        vcxInitializationState: VCX_INIT_SUCCESS,
+      },
+      wallet: { walletBalance: { data: walletBalance } },
+    }
+    const tokenAmount = '0.9'
+    const recipientAddress = 'recipientAddress'
+    const ledgerFees = {
+      transfer: '0.1',
+    }
+
+    return expectSaga(sendTokensSaga, sendTokens(tokenAmount, recipientAddress))
+      .withState(stateWithVcxInitSuccess)
+      .provide([
+        [matchers.call.fn(getLedgerFees), ledgerFees],
+        [matchers.call.fn(sendTokenAmount, tokenAmount, recipientAddress), {}],
+      ])
+      .call(sendTokenAmount, tokenAmount, recipientAddress)
+      .put(tokenSentSuccess(tokenAmount))
+      .run()
+  })
+
+  it('saga: sendTokensSaga => fail', () => {
+    const walletBalance = '1'
+    const stateWithVcxInitSuccess = {
+      config: {
+        vcxInitializationState: VCX_INIT_SUCCESS,
+      },
+      wallet: { walletBalance: { data: walletBalance } },
+    }
+    const tokenAmount = '2'
+    const recipientAddress = 'recipientAddress'
+    const ledgerFees = {
+      transfer: '0.1',
+    }
+
+    return expectSaga(sendTokensSaga, sendTokens(tokenAmount, recipientAddress))
+      .withState(stateWithVcxInitSuccess)
+      .provide([[matchers.call.fn(getLedgerFees), ledgerFees]])
+      .put(sendTokensFail(tokenAmount, ERROR_SENDING_TOKENS_WITH_FEES))
+      .run()
+  })
 })

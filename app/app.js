@@ -34,6 +34,7 @@ import {
   lockAuthorizationHomeRoute,
   restoreRoute,
   restoreWaitRoute,
+  expiredTokenRoute,
 } from './common'
 import { NavigationActions } from 'react-navigation'
 import type { AppState } from './type-app'
@@ -58,6 +59,7 @@ const backButtonDisableRoutes = [
   backupCompleteRoute,
   restoreRoute,
   restoreWaitRoute,
+  expiredTokenRoute,
 ]
 
 const backButtonExitRoutes = [

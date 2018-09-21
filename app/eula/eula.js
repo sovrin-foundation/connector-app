@@ -21,6 +21,7 @@ import { eulaAccept } from './eula-store'
 import type { Store } from '../store/type-store'
 import { EULA_URL } from './type-eula'
 import { color } from '../common/styles/constant'
+import { LoaderGif } from '../components/loader-gif/loader-gif'
 
 export class EulaScreen extends PureComponent<*, void> {
   static navigationOptions = ({ navigation }) => ({
@@ -57,6 +58,8 @@ export class EulaScreen extends PureComponent<*, void> {
           source={{
             uri: EULA_URL,
           }}
+          startInLoadingState={true}
+          renderLoading={() => LoaderGif}
         />
         <FooterActions
           onAccept={this.onAccept}

@@ -28,6 +28,7 @@ import {
   PrivacyPolicyTitle,
   PrivacyPolicyUrl,
 } from '../common/privacyTNC-constants'
+import { LoaderGif } from '../components/loader-gif/loader-gif'
 
 const styles = StyleSheet.create({
   headerLeft: {
@@ -70,6 +71,8 @@ export class PrivacyTNC extends PureComponent<PrivacyTNCProps> {
           // $FlowFixMe
           uri: this.props.navigation.state.params.url,
         }}
+        startInLoadingState={true}
+        renderLoading={() => LoaderGif}
       />
     )
   }

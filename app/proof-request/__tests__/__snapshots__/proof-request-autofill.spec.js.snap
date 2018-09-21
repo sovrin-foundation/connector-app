@@ -14,8 +14,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
     style={Object {}}
   >
     <View
-      accessibilityLabel="proof-request-header"
-      accessible={true}
       fifth={true}
       style={
         Object {
@@ -32,7 +30,6 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
           "zIndex": 4,
         }
       }
-      testID="proof-request-header"
     >
       <View
         absolute="TopRight"

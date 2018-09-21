@@ -4,18 +4,22 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 import { EulaScreen } from '../eula'
-import { getNavigation } from '../../../__mocks__/static-data'
+import { getNavigation, getStore } from '../../../__mocks__/static-data'
 
 describe('Eula screen', () => {
   const navigation = getNavigation()
+  const store = getStore()
 
-  // TODO:  ND : Test is failing with  TypeError: Cannot read property 'state' of undefined
-  // only found one reference https://github.com/facebook/react-native/issues/12440
-  // however was unable in implementing the feedback in above link.
-
-  xit('should render properly and snapshot should match', () => {
+  it('should render properly and snapshot should match', () => {
+    const eula = {
+      isEulaAccept: false,
+    }
     const tree = renderer
-      .create(<EulaScreen navigation={navigation} />)
+      .create(
+        <Provider store={store}>
+          <EulaScreen eula={eula} navigation={navigation} />
+        </Provider>
+      )
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

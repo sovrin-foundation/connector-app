@@ -47,8 +47,6 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
       style={Object {}}
     >
       <View
-        accessibilityLabel="connection-history-header"
-        accessible={true}
         fifth={true}
         style={
           Object {
@@ -65,7 +63,6 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
             "zIndex": 4,
           }
         }
-        testID="connection-history-header"
       >
         <View
           fifth={true}
