@@ -298,7 +298,8 @@ export default function proofRequestReducer(
         },
       }
 
-    case PROOF_REQUEST_SHOW_START:
+    case PROOF_REQUEST_SHOW_START: {
+      const data = state[action.uid].data
       return {
         ...state,
         [action.uid]: {
@@ -306,8 +307,20 @@ export default function proofRequestReducer(
           status: PROOF_REQUEST_STATUS.RECEIVED,
           proofStatus: PROOF_STATUS.NONE,
           missingAttributes: {},
+          data: {
+            ...data,
+            requestedAttributes: data.requestedAttributes.map(attribute => {
+              if (Array.isArray(attribute) && attribute.length > 0) {
+                return {
+                  label: attribute[0].label,
+                }
+              }
+              return { label: attribute.label }
+            }),
+          },
         },
       }
+    }
 
     case PROOF_REQUEST_SHOWN:
       return {

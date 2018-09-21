@@ -197,6 +197,20 @@ export const originalProofRequestData = {
   },
   requested_predicates: {},
 }
+export const originalProofRequestDataWithSpaces = {
+  nonce: '123432421212',
+  name: 'proof_req_1',
+  version: '0.1',
+  requested_attributes: {
+    attr1_uuid: {
+      name: 'A d d r e s s    1',
+    },
+    attr2_uuid: {
+      name: '  Ad  dress 2 ',
+    },
+  },
+  requested_predicates: {},
+}
 
 export const originalProofRequestData10Attributes = {
   nonce: '123432421212',

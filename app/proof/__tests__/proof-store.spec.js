@@ -35,6 +35,7 @@ import {
   selfAttestedAttributes,
   selfAttestedAttributes1,
   poolConfig,
+  originalProofRequestDataWithSpaces,
 } from '../../../__mocks__/static-data'
 import {
   getOriginalProofRequestData,
@@ -100,6 +101,13 @@ describe('Proof Store', () => {
       convertIndyPreparedProofToAttributes(
         homeAddressPreparedProof,
         originalProofRequestData10Attributes.requested_attributes
+      )
+    ).toMatchSnapshot()
+
+    expect(
+      convertIndyPreparedProofToAttributes(
+        homeAddressPreparedProof,
+        originalProofRequestDataWithSpaces.requested_attributes
       )
     ).toMatchSnapshot()
   })

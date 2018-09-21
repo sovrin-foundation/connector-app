@@ -159,7 +159,7 @@ export function convertIndyPreparedProofToAttributes(
           ).reduce(
             (acc, attributeName) => ({
               ...acc,
-              [attributeName.toLowerCase().trim()]: attributeName,
+              [attributeName.toLowerCase().replace(/ /g, '')]: attributeName,
             }),
             {}
           )
@@ -172,7 +172,7 @@ export function convertIndyPreparedProofToAttributes(
             revealedAttribute &&
             caseInsensitiveMap &&
             revealedAttribute.cred_info.attrs[
-              caseInsensitiveMap[label.toLowerCase().trim()]
+              caseInsensitiveMap[label.toLowerCase().replace(/ /g, '')]
             ],
           claimUuid: revealedAttribute && revealedAttribute.cred_info.referent,
           // TODO:KS Refactor this logic to not put cred_info here
@@ -238,7 +238,7 @@ export function convertSelectedCredentialAttributesToIndyProof(
     ).reduce(
       (acc, attributeName) => ({
         ...acc,
-        [attributeName.toLowerCase().trim()]: attributeName,
+        [attributeName.toLowerCase().replace(/ /g, '')]: attributeName,
       }),
       {}
     )
@@ -252,7 +252,7 @@ export function convertSelectedCredentialAttributesToIndyProof(
       [attributeKey]: [
         selectedAttribute[0],
         selectedAttribute[2].cred_info.attrs[
-          caseInsensitiveMap[attributeLabel.toLowerCase().trim()]
+          caseInsensitiveMap[attributeLabel.toLowerCase().replace(/ /g, '')]
         ],
       ],
     }
