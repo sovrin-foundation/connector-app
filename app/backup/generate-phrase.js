@@ -104,6 +104,12 @@ export class GenerateRecoveryPhrase extends PureComponent<
     ),
     gesturesEnabled: false,
   })
+  //TODO fix refactor UI
+  //first the image should be used as a ImageBackground component
+  //and it should not be absolutely positioned
+  //second, we need to set width of text container to whatever width of image is minus 20 or 10 on both sides
+  //and then if needed we can added flex-wrap to wrap for text container
+
   ImageContents = (recoveryStatus: string, recoveryPassphrase: Passphrase) => {
     if (recoveryStatus === BACKUP_STORE_STATUS.GENERATE_PHRASE_LOADING) {
       return PassphraseLoader

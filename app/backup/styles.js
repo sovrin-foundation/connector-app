@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     maxHeight: 60,
   },
   backgroundImage: {
+    width: '100%',
     flex: 1,
     position: 'absolute',
   },
@@ -59,8 +60,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   genRecoveryPhraseContainer: {
-    marginLeft: PADDING_HORIZONTAL,
-    marginRight: PADDING_HORIZONTAL,
+    marginLeft: '5%',
+    marginRight: '5%',
     position: 'absolute',
     top: 20,
     left: 20,
