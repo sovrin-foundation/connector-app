@@ -4,12 +4,12 @@ import android.app.Application;
 import com.apptentive.android.sdk.reactlibrary.RNApptentivePackage;
 import com.surajit.rnrg.RNRadialGradientPackage;
 import com.facebook.react.ReactApplication;
+import rnpbkdf2.PBKDF2Package;
 import io.sentry.RNSentryPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 import com.rnziparchive.RNZipArchivePackage;
-import com.tectiv3.aes.RCTAesPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
 import com.reactnativedocumentpicker.ReactNativeDocumentPicker;
 import br.com.classapp.RNSensitiveInfo.RNSensitiveInfoPackage;
@@ -50,12 +50,12 @@ public class MainApplication extends Application implements ShareApplication, Re
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+            new PBKDF2Package(),
         new RNSentryPackage(),
         new RNFirebasePackage(),
         new RNFirebaseNotificationsPackage(),
         new RNFirebaseMessagingPackage(),
         new RNZipArchivePackage(),
-        new RCTAesPackage(),
         new RandomBytesPackage(),
         new ReactNativeDocumentPicker(),
         new RNSensitiveInfoPackage(),

@@ -102,7 +102,7 @@ def enableProguardInReleaseBuilds = false
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.3'
+    buildToolsVersion '26.1.0'
 
     // IMPORTANT: This is required to fix this issue: https://github.com/android-ndk/ndk/issues/700
     packagingOptions{
@@ -171,13 +171,18 @@ android {
 
 }
 
+configurations.all {
+    resolutionStrategy.force 'com.android.support:support-v4:26.1.0'
+}
+
 dependencies {
+    compile project(':react-native-pbkdf2')
     compile project(':react-native-sentry')
     compile(project(":react-native-firebase")){
         exclude group: "com.google.android.gms" // very important
+        exclude group: 'com.android.support', module: 'support-content'
     }
     compile project(':react-native-zip-archive')
-    compile project(':react-native-aes-crypto')
     compile project(':react-native-randombytes')
     compile project(':react-native-document-picker')
     compile project(':react-native-sensitive-info')
@@ -200,7 +205,7 @@ dependencies {
     compile project(':apptentive-react-native')
     androidTestImplementation(project(path: ":detox"))
     androidTestImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support:support-annotations:26.0.1'
+    androidTestImplementation 'com.android.support:support-annotations:26.1.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test:rules:1.0.1'
 

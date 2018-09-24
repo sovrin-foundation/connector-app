@@ -1,11 +1,12 @@
 // @flow
-import Aes from 'react-native-aes-crypto'
+import PBKDF2 from 'react-native-pbkdf2'
 import { NativeModules, Platform } from 'react-native'
+import { captureError } from '../services/error/error-handler'
 
 const { RNRandomBytes } = NativeModules
 
 const generateKey = (password: string, salt: string) =>
-  Aes.pbkdf2(password, salt)
+  PBKDF2.derivationKey(password, salt, 1000)
 
 export const generateSalt = async () => {
   const numBytes = 32
@@ -35,6 +36,7 @@ export async function pinHash(pin: string, salt: string) {
     return key.substring(0, 16)
   } catch (e) {
     console.error(`pinHash: ${e}`)
+    captureError(new Error(`pinHash: ${e}`))
     return null
   }
 }

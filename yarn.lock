@@ -6798,10 +6798,6 @@ react-lifecycles-compat@^3, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
-react-native-aes-crypto@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/react-native-aes-crypto/-/react-native-aes-crypto-1.2.1.tgz#891c7466aabb343eefc6de01578bb2c07867e9b4"
-
 react-native-animatable@1.2.4, react-native-animatable@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.2.4.tgz#b5fb7657e8f6edadbc26697057a327fb920b3039"
@@ -6887,6 +6883,10 @@ react-native-modal@5.0.0:
   dependencies:
     prop-types "15.6.0"
     react-native-animatable "^1.2.4"
+
+"react-native-pbkdf2@https://github.com/quan-to/react-native-pbkdf2":
+  version "0.1.1"
+  resolved "https://github.com/quan-to/react-native-pbkdf2#56f8c5879efcac38f2ade16cba027540dc1e1bd8"
 
 react-native-radial-gradient@^1.0.3:
   version "1.0.3"
