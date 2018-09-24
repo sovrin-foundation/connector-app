@@ -5,7 +5,6 @@ import com.apptentive.android.sdk.reactlibrary.RNApptentivePackage;
 import com.surajit.rnrg.RNRadialGradientPackage;
 import com.facebook.react.ReactApplication;
 import rnpbkdf2.PBKDF2Package;
-import io.sentry.RNSentryPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
@@ -51,7 +50,6 @@ public class MainApplication extends Application implements ShareApplication, Re
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
             new PBKDF2Package(),
-        new RNSentryPackage(),
         new RNFirebasePackage(),
         new RNFirebaseNotificationsPackage(),
         new RNFirebaseMessagingPackage(),

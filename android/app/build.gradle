@@ -80,10 +80,6 @@ apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 
 apply from: "../../node_modules/react-native/react.gradle"
 
-project.ext.sentryCli = [
-    logLevel: "debug"
-]
-apply from: "../../node_modules/react-native-sentry/sentry.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -177,7 +173,6 @@ configurations.all {
 
 dependencies {
     compile project(':react-native-pbkdf2')
-    compile project(':react-native-sentry')
     compile(project(":react-native-firebase")){
         exclude group: "com.google.android.gms" // very important
         exclude group: 'com.android.support', module: 'support-content'

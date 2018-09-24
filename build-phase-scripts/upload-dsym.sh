@@ -20,7 +20,7 @@ fi
 [ -z "$NODE_BINARY" ] && export NODE_BINARY="node"
 
 # Run sentry cli script to upload debug symbols
-$NODE_BINARY ../node_modules/@sentry/cli/bin/sentry-cli upload-dsym
+# $NODE_BINARY ../node_modules/@sentry/cli/bin/sentry-cli upload-dsym
 
 nodejs_not_found()
 {

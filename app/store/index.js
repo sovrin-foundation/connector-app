@@ -73,7 +73,7 @@ const appReducer = combineReducers({
 
 let middlewares = [historyRecorder]
 
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'test' && __DEV__) {
   // skip logger middleware if we are running tests
   middlewares.push(logger)
 }
