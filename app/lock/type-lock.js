@@ -249,6 +249,7 @@ export const LAErrorTouchIDNotEnrolled = 'LAErrorTouchIDNotEnrolled'
 export const LAErrorTouchIDUnknownError = 'RCTTouchIDUnknownError'
 export const LAErrorTouchIDNotSupported = 'RCTTouchIDNotSupported'
 export const TouchIDError = 'Touch ID Error'
+export const LAErrorTouchIDTooManyAttempts = 'FINGERPRINT_ERROR_LOCKOUT'
 
 export const AllowedFallbackToucheIDErrors = [
   LAErrorUserCancel,

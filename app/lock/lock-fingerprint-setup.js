@@ -21,7 +21,10 @@ import {
   isiPhone5,
 } from '../common/styles/constant'
 import { disableTouchIdAction, enableTouchIdAction } from '../lock/lock-store'
-import { AllowedFallbackToucheIDErrors } from './type-lock'
+import {
+  AllowedFallbackToucheIDErrors,
+  LAErrorTouchIDTooManyAttempts,
+} from './type-lock'
 import type { LockFingerprintSetupProps } from './type-lock'
 
 export class LockFingerprintSetup extends PureComponent<
@@ -63,11 +66,30 @@ export class LockFingerprintSetup extends PureComponent<
               : this.goToPinSetupScreen()
           })
           .catch(error => {
-            captureError(error)
+            // captureError(error)
             if (AllowedFallbackToucheIDErrors.indexOf(error.name) >= 0) {
-              this.props.fromSettings
-                ? this.props.navigation.goBack(null)
-                : this.props.navigation.navigate(lockSelectionRoute)
+              if (error.code === LAErrorTouchIDTooManyAttempts) {
+                Alert.alert(
+                  null,
+                  `Maximum attempts reached. ${
+                    this.props.fromSettings ? '' : 'Please use Passcode'
+                  }`,
+                  [
+                    {
+                      text: 'OK',
+                      onPress: () =>
+                        this.props.fromSettings
+                          ? this.props.navigation.goBack(null)
+                          : this.props.navigation.navigate(lockSelectionRoute),
+                    },
+                  ],
+                  { cancelable: false }
+                )
+              } else {
+                this.props.fromSettings
+                  ? this.props.navigation.goBack(null)
+                  : this.props.navigation.navigate(lockSelectionRoute)
+              }
             }
           })
       })
