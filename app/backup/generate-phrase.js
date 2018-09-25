@@ -23,6 +23,8 @@ import type {
   GenerateRecoveryPhraseProps,
   GenerateRecoveryPhraseState,
   Passphrase,
+  ChatBubbleDimensions,
+  PassphraseTextProps,
 } from './type-backup'
 import { BACKUP_STORE_STATUS } from './type-backup'
 import { generateRecoveryPhrase } from './backup-store'
@@ -31,7 +33,7 @@ import {
   SUBMIT_RECOVERY_PHRASE_TEST_ID,
   SUBMIT_RECOVERY_PHRASE_BUTTON_TITLE,
 } from './backup-constants'
-import styles from './styles'
+import styles, { chatBubbleTextOffset } from './styles'
 import { getBackupPassphrase, getBackupStatus } from '../store/store-selector'
 import { PASSPHRASE_GENERATION_ERROR } from '../common'
 
@@ -55,11 +57,23 @@ const PassphraseError = (
   </CustomView>
 )
 
-const PassphraseText = (recoveryPassphrase: Passphrase) => {
+const PassphraseText = (props: PassphraseTextProps) => {
   return (
-    <CustomView style={[styles.genRecoveryPhraseContainer]}>
+    <CustomView
+      style={[
+        styles.genRecoveryPhraseContainer,
+        {
+          //width of textContainer is chatBubbleDimensions width minus chatBubbleTextOffset
+          //so that passPhrase text is not cutting beyond the chatBubble
+          width:
+            props.chatBubbleDimensions && props.chatBubbleDimensions.width
+              ? props.chatBubbleDimensions.width - chatBubbleTextOffset
+              : null,
+        },
+      ]}
+    >
       <CustomText transparentBg style={[styles.genRecoveryPhrase]}>
-        {recoveryPassphrase.phrase}
+        {props.recoveryPassphrase.phrase}
       </CustomText>
     </CustomView>
   )
@@ -69,6 +83,15 @@ export class GenerateRecoveryPhrase extends PureComponent<
   GenerateRecoveryPhraseProps,
   GenerateRecoveryPhraseState
 > {
+  state = {
+    chatBubbleDimensions: {
+      width: 0,
+      height: 0,
+      x: 0,
+      y: 0,
+    },
+  }
+
   componentDidMount() {
     this.props.generateRecoveryPhrase()
   }
@@ -104,13 +127,14 @@ export class GenerateRecoveryPhrase extends PureComponent<
     ),
     gesturesEnabled: false,
   })
+
   //TODO fix refactor UI
   //first the image should be used as a ImageBackground component
-  //and it should not be absolutely positioned
-  //second, we need to set width of text container to whatever width of image is minus 20 or 10 on both sides
-  //and then if needed we can added flex-wrap to wrap for text container
-
-  ImageContents = (recoveryStatus: string, recoveryPassphrase: Passphrase) => {
+  ImageContents = (
+    recoveryStatus: string,
+    recoveryPassphrase: Passphrase,
+    chatBubbleDimensions: ChatBubbleDimensions
+  ) => {
     if (recoveryStatus === BACKUP_STORE_STATUS.GENERATE_PHRASE_LOADING) {
       return PassphraseLoader
     }
@@ -122,8 +146,18 @@ export class GenerateRecoveryPhrase extends PureComponent<
       // This block is where we need to try handling passphrase generation differently
       return PassphraseError
     }
+    return (
+      <PassphraseText
+        recoveryPassphrase={recoveryPassphrase}
+        chatBubbleDimensions={chatBubbleDimensions}
+      />
+    )
+  }
 
-    return <PassphraseText {...recoveryPassphrase} />
+  setChatBubbleDimensions = (chatBubbleDimensions: ChatBubbleDimensions) => {
+    this.setState({
+      chatBubbleDimensions,
+    })
   }
 
   render() {
@@ -157,8 +191,18 @@ export class GenerateRecoveryPhrase extends PureComponent<
             </CustomText>
           </CustomView>
           <CustomView center>
-            <Image source={textBubble} style={[styles.imageIcon]} />
-            {this.ImageContents(recoveryStatus, recoveryPassphrase)}
+            <Image
+              source={textBubble}
+              style={[styles.imageIcon]}
+              onLayout={event =>
+                this.setChatBubbleDimensions(event.nativeEvent.layout)
+              }
+            />
+            {this.ImageContents(
+              recoveryStatus,
+              recoveryPassphrase,
+              this.state.chatBubbleDimensions
+            )}
           </CustomView>
           <CustomView center>
             <CustomText

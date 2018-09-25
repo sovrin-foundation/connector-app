@@ -138,6 +138,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot 1`] = `
       }
     >
       <Image
+        onLayout={[Function]}
         source={1}
         style={
           Array [
@@ -153,11 +154,9 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot 1`] = `
         style={
           Object {
             "left": 20,
-            "marginLeft": "5%",
-            "marginRight": "5%",
             "position": "absolute",
-            "right": 20,
             "top": 20,
+            "width": null,
           }
         }
       >
@@ -608,6 +607,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for error state 1`] = 
       }
     >
       <Image
+        onLayout={[Function]}
         source={1}
         style={
           Array [
@@ -623,10 +623,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for error state 1`] = 
         style={
           Object {
             "left": 20,
-            "marginLeft": "5%",
-            "marginRight": "5%",
             "position": "absolute",
-            "right": 20,
             "top": 20,
           }
         }
@@ -1084,6 +1081,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for loading state 1`] 
       }
     >
       <Image
+        onLayout={[Function]}
         source={1}
         style={
           Array [
@@ -1099,10 +1097,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for loading state 1`] 
         style={
           Object {
             "left": 20,
-            "marginLeft": "5%",
-            "marginRight": "5%",
             "position": "absolute",
-            "right": 20,
             "top": 20,
           }
         }

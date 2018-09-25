@@ -15,7 +15,7 @@ const submitButtonHeight = isBiggerThanShortDevice ? 63 : 43
 const showRecoveryButtonHeight = isBiggerThanShortDevice ? 150 : 100
 const inputBoxHeight =
   isBiggerThanShortDevice || Platform.OS === 'ios' ? 137 : 40
-
+export const chatBubbleTextOffset = 40
 const styles = StyleSheet.create({
   tabContainer: {
     maxHeight: 60,
@@ -60,12 +60,9 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   genRecoveryPhraseContainer: {
-    marginLeft: '5%',
-    marginRight: '5%',
     position: 'absolute',
     top: 20,
-    left: 20,
-    right: 20,
+    left: chatBubbleTextOffset / 2,
   },
   genRecoveryPhraseLoadingContainer: {
     padding: 40,

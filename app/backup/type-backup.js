@@ -22,7 +22,21 @@ export type GenerateRecoveryPhraseProps = {
   recoveryStatus: $Keys<typeof BACKUP_STORE_STATUS>,
 } & ReactNavigationBackup
 
-export type GenerateRecoveryPhraseState = {}
+export type GenerateRecoveryPhraseState = {
+  chatBubbleDimensions: ChatBubbleDimensions,
+}
+
+export type ChatBubbleDimensions = {
+  width: number,
+  height: number,
+  x: number,
+  y: number,
+}
+
+export type PassphraseTextProps = {
+  recoveryPassphrase: Passphrase,
+  chatBubbleDimensions: ChatBubbleDimensions,
+}
 
 export type VerifyRecoveryPhraseProps = {
   recoveryPassphrase: Passphrase,
