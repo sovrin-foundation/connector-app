@@ -124,7 +124,7 @@ export class SplashScreenView extends PureComponent<SplashScreenProps, void> {
             const senderDID = payload.senderDetail.DID
             this.props.deepLinkProcessed(invitationToken)
             if (this.props.lock.isAppLocked === false) {
-              this.props.navigation.navigate(invitationRoute, {
+              this.props.navigation.push(invitationRoute, {
                 senderDID,
                 token: invitationToken,
               })

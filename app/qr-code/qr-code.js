@@ -104,7 +104,7 @@ export class QRCodeScannerScreen extends PureComponent<
         payload: convertQrCodeToInvitation(qrCode),
       }
       this.props.invitationReceived(invitation)
-      this.props.navigation.navigate(invitationRoute, {
+      this.props.navigation.push(invitationRoute, {
         senderDID: invitation.payload.senderDID,
       })
     }

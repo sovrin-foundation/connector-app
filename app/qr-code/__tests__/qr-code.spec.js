@@ -66,7 +66,7 @@ describe('<QRScannerScreen />', () => {
         payload: convertQrCodeToInvitation(qrData),
       })
     )
-    expect(navigation.navigate).toHaveBeenCalledWith(invitationRoute, {
+    expect(navigation.push).toHaveBeenCalledWith(invitationRoute, {
       senderDID: qrData.s.d,
     })
   })

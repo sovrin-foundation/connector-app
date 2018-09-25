@@ -89,6 +89,7 @@ export class Request extends PureComponent<RequestProps, RequestState> {
   }
 
   componentDidUpdate(prevProps: RequestProps) {
+    // When Accept invitation errors out we are re-enabling accept button. Giving user the option to retry.
     if (
       this.props.invitationError !== prevProps.invitationError &&
       this.props.invitationError
