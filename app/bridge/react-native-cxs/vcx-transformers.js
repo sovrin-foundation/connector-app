@@ -19,7 +19,7 @@ import type { UserOneTimeInfo } from '../../store/user/type-user-store'
 import type { InvitationPayload } from '../../invitation/type-invitation'
 import type { MyPairwiseInfo } from '../../store/type-connection-store'
 import type { ClaimOfferPushPayload } from '../../push-notification/type-push-notification'
-import { setItem, getItem, deleteItem } from '../../services/secure-storage'
+import { secureSet, secureGet } from '../../services/storage'
 import { BigNumber } from 'bignumber.js'
 import type { LedgerFeesData } from '../../store/ledger/type-ledger-store'
 
@@ -30,7 +30,7 @@ export const paymentHandle = 0
 export const WALLET_KEY = 'WALLET_KEY'
 export const getWalletKey = memoize(async function(): Promise<string> {
   try {
-    let walletKey: string | null = await getItem(WALLET_KEY)
+    let walletKey: string | null = await secureGet(WALLET_KEY)
     if (walletKey) {
       return walletKey
     }
@@ -40,7 +40,7 @@ export const getWalletKey = memoize(async function(): Promise<string> {
     // createWalletKey sometimes returns with a whitespace character at the end so we need to trim it
     walletKey = walletKey.trim()
 
-    await setItem(WALLET_KEY, walletKey)
+    await secureSet(WALLET_KEY, walletKey)
 
     return walletKey
   } catch (e) {

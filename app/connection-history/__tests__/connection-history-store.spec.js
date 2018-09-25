@@ -76,7 +76,7 @@ import {
   getPendingHistory,
   getClaimReceivedHistory,
 } from '../../store/store-selector'
-import { secureGet } from '../../services/storage'
+import { getHydrationItem } from '../../services/storage'
 import {
   CLAIM_OFFER_RECEIVED,
   SEND_CLAIM_REQUEST_SUCCESS,
@@ -344,10 +344,12 @@ describe('Store: ConnectionHistory', () => {
     ).toMatchSnapshot()
   })
 
-  it('should raise failure in case data secureGet fails', () => {
+  it('should raise failure in case data getHydrationItem fails', () => {
     const gen = loadHistorySaga()
     gen.next()
-    expect(gen.next().value).toEqual(call(secureGet, HISTORY_EVENT_STORAGE_KEY))
+    expect(gen.next().value).toEqual(
+      call(getHydrationItem, HISTORY_EVENT_STORAGE_KEY)
+    )
     const error = new Error()
     expect(gen.throw(error).value).toEqual(
       put(

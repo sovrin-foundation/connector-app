@@ -39,6 +39,7 @@ import {
   secureGet,
   safeSet,
   safeGet,
+  getHydrationItem,
 } from '../../../services/storage'
 import { getUserAvatarName } from '../../store-selector'
 import { uuid } from '../../../services/uuid'
@@ -160,7 +161,7 @@ describe('store: user-store: ', () => {
   it('saga: hydrateUserStoreSaga => success', () => {
     const gen = hydrateUserStoreSaga()
     expect(gen.next().value).toEqual(
-      call(secureGet, STORAGE_KEY_USER_ONE_TIME_INFO)
+      call(getHydrationItem, STORAGE_KEY_USER_ONE_TIME_INFO)
     )
     expect(gen.next(JSON.stringify(userOneTimeInfo)).value).toEqual(
       put(hydrateUserStore({ userOneTimeInfo }))
@@ -177,7 +178,7 @@ describe('store: user-store: ', () => {
   it('saga: hydrateUserStoreSaga => fail', () => {
     const gen = hydrateUserStoreSaga()
     expect(gen.next().value).toEqual(
-      call(secureGet, STORAGE_KEY_USER_ONE_TIME_INFO)
+      call(getHydrationItem, STORAGE_KEY_USER_ONE_TIME_INFO)
     )
     const error = 'test error'
     expect(gen.throw(new Error(error)).value).toEqual(

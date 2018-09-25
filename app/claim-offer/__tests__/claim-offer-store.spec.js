@@ -65,7 +65,11 @@ import {
 import { expectSaga } from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import { throwError } from 'redux-saga-test-plan/providers'
-import { secureSet, secureDelete, secureGet } from '../../services/storage'
+import {
+  secureSet,
+  secureDelete,
+  getHydrationItem,
+} from '../../services/storage'
 
 describe('claim offer store', () => {
   const initialAction = { type: 'INITIAL_TEST_ACTION' }
@@ -236,7 +240,10 @@ describe('claim offer store', () => {
   it('saga: hydrateClaimOffersSaga, success', () => {
     return expectSaga(hydrateClaimOffersSaga)
       .provide([
-        [matchers.call.fn(secureGet, CLAIM_OFFERS), serializedClaimOffers],
+        [
+          matchers.call.fn(getHydrationItem, CLAIM_OFFERS),
+          serializedClaimOffers,
+        ],
       ])
       .put(hydrateClaimOffers(JSON.parse(serializedClaimOffers)))
       .run()

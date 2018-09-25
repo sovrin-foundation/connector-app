@@ -54,7 +54,7 @@ import type { GenericStringObject } from '../../common/type-common'
 import type { Passphrase } from '../../backup/type-backup'
 import type { GetClaimVcxResult } from '../../claim/type-claim'
 import uniqueId from 'react-native-unique-id'
-import { setItem } from '../../services/secure-storage'
+import { secureSet } from '../../services/storage'
 import { __uniqueId } from '../../store/type-config-store'
 import type { LedgerFeesData } from '../../store/ledger/type-ledger-store'
 
@@ -177,7 +177,7 @@ export async function simpleInit(): Promise<boolean> {
 
 export const getWalletPoolName = memoize(async function() {
   const appUniqueId = await uniqueId()
-  await setItem(__uniqueId, appUniqueId)
+  await secureSet(__uniqueId, appUniqueId)
   const walletName = `${appUniqueId}-cm-wallet`
   // Not sure why, but VCX is applying validation check on pool name
   // they don't like alphanumeric or _, so we have to remove "-"

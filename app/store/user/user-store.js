@@ -6,10 +6,10 @@ import ImagePicker from 'react-native-image-crop-picker'
 
 import {
   secureSet,
-  secureGet,
   safeSet,
   safeGet,
   safeDelete,
+  getHydrationItem,
 } from '../../services/storage'
 import {
   CONNECT_REGISTER_CREATE_AGENT_DONE,
@@ -113,7 +113,7 @@ export const hydrateUserStoreFail = (error: CustomError) => ({
 export function* hydrateUserStoreSaga(): Generator<*, *, *> {
   try {
     const userOneTimeInfoJson: string = yield call(
-      secureGet,
+      getHydrationItem,
       STORAGE_KEY_USER_ONE_TIME_INFO
     )
     if (userOneTimeInfoJson) {

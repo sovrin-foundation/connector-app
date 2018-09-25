@@ -67,8 +67,8 @@ import { MESSAGE_TYPE } from '../api/api-constants'
 import { RESET } from '../common/type-common'
 import { PROOF_FAIL } from '../proof/type-proof'
 import { getProofRequests } from './../store/store-selector'
-import { secureSet, secureGet } from '../services/storage'
 import { captureError } from '../services/error/error-handler'
+import { secureSet, secureGet, getHydrationItem } from '../services/storage'
 
 const proofRequestInitialState = {}
 
@@ -152,7 +152,7 @@ export function* persistProofRequestsSaga(): Generator<*, *, *> {
 
 export function* hydrateProofRequestsSaga(): Generator<*, *, *> {
   try {
-    const proofRequests: string = yield call(secureGet, PROOF_REQUESTS)
+    const proofRequests: string = yield call(getHydrationItem, PROOF_REQUESTS)
     if (proofRequests) {
       yield put(hydrateProofRequests(JSON.parse(proofRequests)))
     }

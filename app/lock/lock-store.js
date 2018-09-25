@@ -52,12 +52,18 @@ import type {
   EnableTouchIdAction,
   DisableTouchIdAction,
 } from './type-lock'
-import { secureGet, secureSet, safeGet, safeSet } from '../services/storage'
+import {
+  walletGet,
+  walletSet,
+  secureSet,
+  secureGet,
+  safeGet,
+  safeSet,
+} from '../services/storage'
 import { pinHash, generateSalt } from './pin-hash'
 import { Platform } from 'react-native'
 import { getVcxInitializationState } from '../store/store-selector'
 import { ensureVcxInitSuccess } from '../store/config-store'
-import { setItem, getItem } from '../services/secure-storage'
 import { captureError } from '../services/error/error-handler'
 
 const initialState: LockStore = {
@@ -117,13 +123,13 @@ export function* setPin(action: SetPinAction): Generator<*, *, *> {
     //secure-storage and use it from there without fetching from wallet
     const salt = yield call(generateSalt)
     const hashedPin = yield call(pinHash, action.pin.toString(), salt)
-    yield call(setItem, PIN_HASH, hashedPin)
-    yield call(setItem, SALT, salt)
+    yield call(secureSet, PIN_HASH, hashedPin)
+    yield call(secureSet, SALT, salt)
     yield call(safeSet, PIN_ENABLED_KEY, 'true')
     yield call(safeSet, IN_RECOVERY, 'false')
     yield* ensureVcxInitSuccess()
-    yield call(secureSet, PIN_STORAGE_KEY, hashedPin)
-    yield call(secureSet, SALT_STORAGE_KEY, salt)
+    yield call(walletSet, PIN_STORAGE_KEY, hashedPin)
+    yield call(walletSet, SALT_STORAGE_KEY, salt)
     yield put(lockEnable('true'))
   } catch (e) {
     captureError(e)
@@ -200,18 +206,18 @@ export function* checkPin(action: CheckPinAction): Generator<*, *, *> {
   // compare it from wallet else use the hashed stored in secure storage
   if (inRecovery === 'true') {
     yield* ensureVcxInitSuccess()
-    salt = yield call(secureGet, SALT_STORAGE_KEY)
+    salt = yield call(walletGet, SALT_STORAGE_KEY)
 
-    expectedPinHash = yield call(secureGet, PIN_STORAGE_KEY)
+    expectedPinHash = yield call(walletGet, PIN_STORAGE_KEY)
   } else {
-    salt = yield call(getItem, SALT)
-    expectedPinHash = yield call(getItem, PIN_HASH)
+    salt = yield call(secureGet, SALT)
+    expectedPinHash = yield call(secureGet, PIN_HASH)
   }
   let enteredPinHash = yield call(pinHash, action.pin, salt)
   if (expectedPinHash === enteredPinHash) {
     yield put(checkPinSuccess())
-    yield call(setItem, PIN_HASH, enteredPinHash)
-    yield call(setItem, SALT, salt)
+    yield call(secureSet, PIN_HASH, enteredPinHash)
+    yield call(secureSet, SALT, salt)
     yield call(safeSet, IN_RECOVERY, 'false')
     yield put(setInRecovery('false'))
   } else {

@@ -10,8 +10,7 @@ import {
   takeLatest,
 } from 'redux-saga/effects'
 
-import { secureGet, secureSet } from '../services/storage'
-import { setItem, getItem } from '../services/secure-storage'
+import { secureGet, secureSet, walletGet, walletSet } from '../services/storage'
 import {
   getErrorAlertsSwitchValue,
   getPushToken,
@@ -363,18 +362,18 @@ export function* onEnvironmentSwitch(
   try {
     // these assumptions needs to be fixed, this is a hack for now
     // ideally we would like to have a walletInitSuccess saga
-    // which would be inside secureSet directly
+    // which would be inside walletSet directly
     // and if wallet is initialized, then we would go ahead and set values to wallet
     // for now, we just know that environment switch can only before vcx init is called
     // so we wait for VCX_INIT_SUCCESS to fire and then we can save data to wallet
     yield call(
-      setItem,
+      secureSet,
       STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL,
       JSON.stringify(switchedEnvironmentDetail)
     )
     yield take(VCX_INIT_SUCCESS)
     yield call(
-      secureSet,
+      walletSet,
       STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL,
       JSON.stringify(switchedEnvironmentDetail)
     )
@@ -399,12 +398,12 @@ export function* hydrateSwitchedEnvironmentDetails(): any {
   let switchedEnvironmentDetail = null
   try {
     switchedEnvironmentDetail = yield call(
-      secureGet,
+      walletGet,
       STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL
     )
     if (switchedEnvironmentDetail === null) {
       switchedEnvironmentDetail = yield call(
-        getItem,
+        secureGet,
         STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL
       )
     }

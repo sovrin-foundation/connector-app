@@ -16,7 +16,7 @@ import {
   secureSet,
   secureGet,
   secureDelete,
-  safeSet,
+  getHydrationItem,
 } from '../services/storage'
 import {
   HYDRATE_WALLET_BALANCE_FAIL,
@@ -211,7 +211,7 @@ export function* hydrateWalletStoreSaga(): Generator<*, *, *> {
 
 export function* hydrateWalletBalanceSaga(): Generator<*, *, *> {
   try {
-    const walletBalance: string = yield call(secureGet, WALLET_BALANCE)
+    const walletBalance: string = yield call(getHydrationItem, WALLET_BALANCE)
     if (walletBalance !== null) {
       yield put(hydrateWalletBalanceStore(walletBalance))
     } else {
@@ -234,7 +234,7 @@ export function* hydrateWalletBalanceSaga(): Generator<*, *, *> {
 
 export function* hydrateWalletAddressesSaga(): Generator<*, *, *> {
   try {
-    const walletAddressesJson = yield call(secureGet, WALLET_ADDRESSES)
+    const walletAddressesJson = yield call(getHydrationItem, WALLET_ADDRESSES)
     if (walletAddressesJson !== null) {
       const walletAddresses = JSON.parse(walletAddressesJson)
       yield put(hydrateWalletAddressesStore(walletAddresses))
@@ -258,7 +258,7 @@ export function* hydrateWalletAddressesSaga(): Generator<*, *, *> {
 
 export function* hydrateWalletHistorySaga(): Generator<*, *, *> {
   try {
-    const walletHistoryJson = yield call(secureGet, WALLET_HISTORY)
+    const walletHistoryJson = yield call(getHydrationItem, WALLET_HISTORY)
     if (walletHistoryJson !== null) {
       const walletHistory = JSON.parse(walletHistoryJson)
       yield put(hydrateWalletHistoryStore(walletHistory))

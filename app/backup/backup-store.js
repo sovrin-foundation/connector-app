@@ -23,6 +23,9 @@ import {
   GENERATE_RECOVERY_PHRASE_FAILURE,
   GENERATE_RECOVERY_PHRASE_LOADING,
   GENERATE_BACKUP_FILE_LOADING,
+  PREPARE_BACKUP_LOADING,
+  PREPARE_BACKUP_SUCCESS,
+  PREPARE_BACKUP_FAILURE,
   EXPORT_BACKUP_LOADING,
   ERROR_EXPORT_BACKUP,
   ERROR_GENERATE_RECOVERY_PHRASE,
@@ -39,6 +42,7 @@ import type {
   BackupStoreStatus,
   BackupStoreAction,
   Passphrase,
+  PrepareBackupLoadingAction,
   ExportBackupLoadingAction,
   GenerateRecoveryPhraseLoadingAction,
   GenerateBackupFileLoadingAction,
@@ -50,9 +54,12 @@ import type { Saga } from 'redux-saga'
 import {
   secureSet,
   secureGet,
+  secureGetAll,
   secureDelete,
   safeSet,
   safeGet,
+  walletSet,
+  walletGet,
 } from '../services/storage'
 import type { AgencyPoolConfig } from '../store/type-config-store'
 import type { CustomError } from '../common/type-common'
@@ -61,6 +68,7 @@ import {
   PASSPHRASE_SALT_STORAGE_KEY,
   PASSPHRASE_STORAGE_KEY,
 } from '../common/secure-storage-constants'
+import { WALLET_KEY } from '../bridge/react-native-cxs/vcx-transformers'
 import { encryptWallet } from '../bridge/react-native-cxs/RNCxs'
 import {
   getSalt,
@@ -92,6 +100,8 @@ export function* generateBackupSaga(
   const recoveryPassphrase: Passphrase = yield select(getBackupPassphrase)
   const { fs } = RNFetchBlob
   try {
+    yield put(prepareBackup())
+
     const documentDirectory: string = fs.dirs.DocumentDir
     const backupTimeStamp = moment().format('YYYY-MM-DD-HH-mm-ss')
     const zipupDirectory: string = `${documentDirectory}/Backup-${backupTimeStamp}`
@@ -133,6 +143,33 @@ export function* generateBackupSaga(
     captureError(e)
     yield put(
       generateBackupFileFail({
+        ...ERROR_GENERATE_BACKUP_FILE,
+        message: `${ERROR_GENERATE_BACKUP_FILE.message} ${e.message}`,
+      })
+    )
+  }
+}
+
+export function* prepareBackupSaga(
+  action: PrepareBackupLoadingAction
+): Generator<*, *, *> {
+  try {
+    // get all items saved in secure storage
+    const secureStorage = yield call(secureGetAll)
+    yield all(
+      secureStorage[0].map(item => {
+        // check for things we don't want stored in the wallet
+        if (item.key !== WALLET_KEY) {
+          // store items into wallet
+          walletSet(item.key, item.value)
+        }
+      })
+    )
+
+    yield put(prepareBackupSuccess())
+  } catch (e) {
+    yield put(
+      prepareBackupFail({
         ...ERROR_GENERATE_BACKUP_FILE,
         message: `${ERROR_GENERATE_BACKUP_FILE.message} ${e.message}`,
       })
@@ -236,6 +273,17 @@ export function* generateRecoveryPhraseSaga(
   }
 }
 
+export const prepareBackupSuccess = () => ({
+  type: PREPARE_BACKUP_SUCCESS,
+  status: BACKUP_STORE_STATUS.PREPARE_BACKUP_SUCCESS,
+})
+
+export const prepareBackupFail = (error: CustomError) => ({
+  type: PREPARE_BACKUP_FAILURE,
+  status: BACKUP_STORE_STATUS.PREPARE_BACKUP_FAILURE,
+  error,
+})
+
 export const generateBackupFileSuccess = (backupWalletPath: string) => ({
   type: GENERATE_BACKUP_FILE_SUCCESS,
   status: BACKUP_STORE_STATUS.GENERATE_BACKUP_FILE_SUCCESS,
@@ -262,6 +310,10 @@ function* watchBackupStart(): any {
   yield takeLatest(GENERATE_BACKUP_FILE_LOADING, generateBackupSaga)
 }
 
+function* watchPrepareBackup(): any {
+  yield takeLatest(PREPARE_BACKUP_LOADING, prepareBackupSaga)
+}
+
 function* watchExportBackup(): any {
   yield takeLatest(EXPORT_BACKUP_LOADING, exportBackupSaga)
 }
@@ -273,6 +325,7 @@ function* watchGenerateRecoveryPhrase(): any {
 export function* watchBackup(): any {
   yield all([
     watchBackupStart(),
+    watchPrepareBackup(),
     watchGenerateRecoveryPhrase(),
     watchExportBackup(),
     watchBackupBannerPrompt(),
@@ -367,6 +420,11 @@ export const generateRecoveryPhraseFail = (error: CustomError) => ({
   type: GENERATE_RECOVERY_PHRASE_FAILURE,
   status: BACKUP_STORE_STATUS.GENERATE_BACKUP_FILE_FAILURE,
   error,
+})
+
+export const prepareBackup = () => ({
+  type: PREPARE_BACKUP_LOADING,
+  status: BACKUP_STORE_STATUS.PREPARE_BACKUP_LOADING,
 })
 
 export const exportBackup = () => ({

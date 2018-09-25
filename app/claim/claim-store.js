@@ -49,7 +49,7 @@ import {
   getSerializedClaimOffers,
   getConnectionByUserDid,
 } from '../store/store-selector'
-import { secureSet, secureGet } from '../services/storage'
+import { secureSet, secureGet, getHydrationItem } from '../services/storage'
 import { CLAIM_MAP } from '../common/secure-storage-constants'
 import { RESET } from '../common/type-common'
 import {
@@ -109,7 +109,7 @@ export const hydrateClaimMapFail = (error: CustomError) => ({
 
 export function* hydrateClaimMapSaga(): Generator<*, *, *> {
   try {
-    const fetchedClaimMap = yield call(secureGet, CLAIM_MAP)
+    const fetchedClaimMap = yield call(getHydrationItem, CLAIM_MAP)
     if (fetchedClaimMap) {
       const claimMap: ClaimMap = JSON.parse(fetchedClaimMap)
       yield put(hydrateClaimMap(claimMap))

@@ -64,7 +64,7 @@ import {
   PROOF_REQUEST_RECEIVED,
   SEND_PROOF_SUCCESS,
 } from '../proof-request/type-proof-request'
-import { secureGet, secureSet } from '../services/storage'
+import { secureGet, secureSet, getHydrationItem } from '../services/storage'
 import {
   getProofRequest,
   getProof,
@@ -104,7 +104,10 @@ export const loadHistoryFail = (error: CustomError) => ({
 export function* loadHistorySaga(): Generator<*, *, *> {
   yield put(loadHistory())
   try {
-    const historyEvents = yield call(secureGet, HISTORY_EVENT_STORAGE_KEY)
+    const historyEvents = yield call(
+      getHydrationItem,
+      HISTORY_EVENT_STORAGE_KEY
+    )
     if (historyEvents) {
       yield put(loadHistorySuccess(JSON.parse(historyEvents)))
     }
