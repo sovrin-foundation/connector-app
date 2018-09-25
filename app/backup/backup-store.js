@@ -79,7 +79,7 @@ import {
 } from '../store/store-selector'
 import { STORAGE_KEY_SHOW_BANNER } from '../components/banner/banner-constants'
 import { getWords } from './secure-passphrase'
-import { VCX_INIT_SUCCESS } from '../store/type-config-store'
+import { VCX_INIT_SUCCESS, __uniqueId } from '../store/type-config-store'
 import { pinHash as generateKey, generateSalt } from '../lock/pin-hash'
 import moment from 'moment'
 import { captureError } from '../services/error/error-handler'
@@ -153,15 +153,18 @@ export function* generateBackupSaga(
 export function* prepareBackupSaga(
   action: PrepareBackupLoadingAction
 ): Generator<*, *, *> {
+  const skipStates = [__uniqueId, WALLET_KEY]
+
   try {
     // get all items saved in secure storage
     const secureStorage = yield call(secureGetAll)
     yield all(
       secureStorage[0].map(item => {
+        const { key, value } = item
         // check for things we don't want stored in the wallet
-        if (item.key !== WALLET_KEY) {
+        if (skipStates.indexOf(key) === -1) {
           // store items into wallet
-          walletSet(item.key, item.value)
+          walletSet(key, value)
         }
       })
     )
