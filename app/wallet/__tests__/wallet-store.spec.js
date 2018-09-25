@@ -48,7 +48,7 @@ import {
   ERROR_SENDING_TOKENS_WITH_FEES,
 } from '../type-wallet'
 import { WALLET_BALANCE, WALLET_ADDRESSES, WALLET_HISTORY } from '../../common'
-import { secureGet } from '../../services/storage'
+import { secureGet, getHydrationItem } from '../../services/storage'
 import { expectSaga } from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {
@@ -261,7 +261,9 @@ describe('store: wallet-store: ', () => {
     const walletBalance = '1'
 
     return expectSaga(hydrateWalletBalanceSaga)
-      .provide([[matchers.call.fn(secureGet, WALLET_BALANCE), walletBalance]])
+      .provide([
+        [matchers.call.fn(getHydrationItem, WALLET_BALANCE), walletBalance],
+      ])
       .put(hydrateWalletBalanceStore(walletBalance))
       .run()
   })
