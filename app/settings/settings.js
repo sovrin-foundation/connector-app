@@ -244,7 +244,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
               src={require('../images/icon_backup.png')}
             />
             <CustomView center>
-              <SettingText>Backup my wallet</SettingText>
+              <SettingText>Back up my wallet</SettingText>
             </CustomView>
           </CustomView>
         )}

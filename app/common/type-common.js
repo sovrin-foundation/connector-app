@@ -77,3 +77,5 @@ export const STORE_STATUS = {
 
 export type StoreError = { +error: ?CustomError }
 export type StoreStatus = { +status: $Keys<typeof STORE_STATUS> }
+
+export type StatusBarStyle = 'default' | 'light-content' | 'dark-content'

@@ -113,6 +113,7 @@ import type { SerializedClaimOffer } from './../claim-offer/type-claim-offer'
 async function delay(ms): Promise<number> {
   return new Promise(res => setTimeout(res, ms))
 }
+
 const blackListedRoute = {
   [proofRequestRoute]: proofRequestRoute,
   [claimOfferRoute]: claimOfferRoute,
@@ -123,6 +124,7 @@ const blackListedRoute = {
   [lockEnterFingerprintRoute]: lockEnterFingerprintRoute,
   [lockAuthorizationRoute]: lockAuthorizationRoute,
   [lockAuthorizationHomeRoute]: lockAuthorizationHomeRoute,
+  [invitationRoute]: invitationRoute,
 }
 
 const initialState = {

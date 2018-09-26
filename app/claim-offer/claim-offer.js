@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { StyleSheet, Platform, FlatList, View } from 'react-native'
+import { StyleSheet, Platform, FlatList, View, StatusBar } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
@@ -55,6 +55,7 @@ import { updateStatusBarTheme } from '../../app/store/connections-store'
 import { CustomModal } from '../components'
 import PaymentFailureModal from '../wallet/payment-failure-modal'
 import { LedgerFeesModal } from '../components/ledger-fees-modal/ledger-fees-modal'
+import { getStatusBarStyle } from '../components/custom-header/custom-header'
 
 class ClaimOfferAttributeList extends PureComponent<
   ClaimOfferAttributeListProps,
@@ -226,8 +227,13 @@ export class ClaimOffer extends PureComponent<
         this.setState({ showSendPaidCredentialRequestFailModal: true })
       }, 1000)
     }
+
     return (
       <Container style={[{ backgroundColor: claimThemePrimary }]}>
+        <StatusBar
+          backgroundColor={claimThemePrimary}
+          barStyle={getStatusBarStyle(claimThemePrimary)}
+        />
         {isValid && (
           <ClaimProofHeader
             message={`${issuer.name} is offering you`}

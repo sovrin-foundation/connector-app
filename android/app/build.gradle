@@ -138,13 +138,19 @@ android {
         javaMaxHeapSize "4g"
     }
 
-    signingConfigs{
+    signingConfigs {
         release {
             // we need this configuration for fastlane step workflow in bitrise.
             storeFile file(System.getenv("HOME") + "/keystores/my_keystore.jks")
             storePassword System.getenv("ANDROID_KEYSTORE_PASSWORD")
             keyAlias System.getenv("ANDROID_KEYSTORE_ALIAS")
             keyPassword System.getenv("ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+        }
+        debug {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storePassword 'android'
+            storeFile file('../keystores/debug.keystore')
         }
     }
     // TODO:KS We might want to generate different APKs for separate ABIs
@@ -162,6 +168,9 @@ android {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -187,28 +196,25 @@ dependencies {
     compile project(':react-native-image-crop-picker')
     compile project(':react-native-image-resizer')
     compile 'com.google.firebase:firebase-messaging:11.8.0'
-    implementation 'me.leolin:ShortcutBadger:1.1.21@aar' // <-- Add this line if you wish to use badge on Android
-
+    implementation 'me.leolin:ShortcutBadger:1.1.21@aar'
+    // <-- Add this line if you wish to use badge on Android
     // If you are receiving Google Play API availability issues, add the following dependency
-    compile "com.google.android.gms:play-services-base:11.8.0"
-
+    compile 'com.google.android.gms:play-services-base:11.8.0'
     compile project(':react-native-touch-id')
     compile project(':react-native-fetch-blob')
     compile project(':react-native-camera')
     compile project(':react-native-branch')
     compile project(':react-native-splash-screen')
     compile project(':apptentive-react-native')
-    androidTestImplementation(project(path: ":detox"))
+    androidTestImplementation project(path: ':detox')
     androidTestImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support:support-annotations:26.1.0'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test:rules:1.0.1'
-
     implementation 'com.android.support:multidex:1.0.3'
-
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:26.1.0'
-    compile ('com.facebook.react:react-native:0.51.0') { force=true }
+    compile('com.facebook.react:react-native:0.51.0') { force = true }
     // From node_modules
     compile project(':react-native-vector-icons')
     compile project(':react-native-radial-gradient')
@@ -216,15 +222,14 @@ dependencies {
     compile 'com.android.support:palette-v7:26.1.0'
     compile 'com.evernym:vcx:1.0.0-22-09-2018T02-58@aar'
     implementation 'net.sourceforge.streamsupport:android-retrofuture:1.6.2'
-    implementation group: 'net.sourceforge.streamsupport', name: 'android-retrostreams', version: '1.6.2'
-    implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.59'
+    implementation 'net.sourceforge.streamsupport:android-retrostreams:1.6.2'
+    implementation 'org.bouncycastle:bcprov-jdk15on:1.59'
     //TODO remove JNA when vcx.aar is resolved from repo instead of flat file
     //TODO JNA only needed when vcx.aar is resolved from flat file
     implementation 'net.java.dev.jna:jna:4.5.0@aar'
     // un-comment below lines to enable logging in vcx and indy
     // compile group: 'com.mobidevelop.robovm', name: 'robovm-rt', version: '2.3.4'
-
-    implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+    implementation 'org.slf4j:slf4j-simple:1.7.25'
 }
 
 // Run this once to be able to run the application with BUCK

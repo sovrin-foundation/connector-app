@@ -66,6 +66,7 @@ import debounce from 'lodash.debounce'
 import { getUnseenMessages } from '../store/store-selector'
 import { goToUIScreen } from '../push-notification/push-notification-store'
 import Color from 'color'
+import { getStatusBarStyle } from '../components/custom-header/custom-header'
 
 const statusMsg = {
   ['PENDING']: 'Pending',
@@ -251,14 +252,6 @@ export class ConnectionHistory extends Component<
         ? { uri: image }
         : require('../images/cb_evernym.png')
 
-      const barStyle = activeConnectionThemePrimary => {
-        if (Color(activeConnectionThemePrimary).isLight) {
-          return 'light-content'
-        } else {
-          return 'dark-content'
-        }
-      }
-
       const historySenderDIDs = Object.keys(connectionHistory)
       const historyList = historySenderDIDs.map((sdid, i) => {
         const historyItems = connectionHistory[sdid].map((h, i) => {
@@ -319,7 +312,9 @@ export class ConnectionHistory extends Component<
         <Container fifth>
           <StatusBar
             backgroundColor={this.props.activeConnectionThemePrimary}
-            barStyle={barStyle(this.props.activeConnectionThemePrimary)}
+            barStyle={getStatusBarStyle(
+              this.props.activeConnectionThemePrimary
+            )}
           />
           <RadialGradient
             colors={[

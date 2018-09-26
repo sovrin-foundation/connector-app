@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import Camera from 'react-native-camera'
 import { Alert, Platform, PermissionsAndroid, StatusBar } from 'react-native'
 import { Container, QRScanner } from '../components'
-import { color, barStyleLight } from '../common/styles/constant'
+import { color, barStyleLight, barStyleDark } from '../common/styles/constant'
 import { invitationReceived } from '../invitation/invitation-store'
 import {
   PENDING_CONNECTION_REQUEST_CODE,
@@ -215,11 +215,27 @@ export class QRCodeScannerScreen extends PureComponent<
     }
   }
 
+  updateStatusBarTheme() {
+    if (this.props.navigation.isFocused) {
+      StatusBar.setBarStyle(barStyleLight, true)
+      if (Platform.OS === 'android') {
+        StatusBar.setBackgroundColor(color.bg.sixth.color)
+      }
+    }
+  }
+
   componentDidMount() {
     if (this.props.currentScreen === qrCodeScannerTabRoute) {
       // when this component is mounted first time, `cwrp` will not be called
       // so for the first time mount as well we need to check camera permission
       this.checkCameraAuthorization()
+      this.updateStatusBarTheme()
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.currentScreen === qrCodeScannerTabRoute) {
+      this.updateStatusBarTheme()
     }
   }
 
@@ -229,12 +245,6 @@ export class QRCodeScannerScreen extends PureComponent<
       //empty black screen will be returned
       //so that it doesn't look odd
       <Container dark>
-        {this.props.navigation.isFocused ? (
-          <StatusBar
-            backgroundColor={color.bg.sixth.color}
-            barStyle={barStyleLight}
-          />
-        ) : null}
         {this.state.isCameraAuthorized &&
         this.props.currentScreen === qrCodeScannerTabRoute ? (
           <QRScanner

@@ -36,8 +36,8 @@ export class Request extends PureComponent<RequestProps, RequestState> {
 
   onAvoidAuthorization = () => {
     /**
-     * User can choose to avoid entering pass code either by canceling
-     * or by pressing back button and choose to ignore pass code
+     * User can choose to avoid entering passcode either by canceling
+     * or by pressing back button and choose to ignore passcode
      * then once user comes back, we need to re-enable button
      * so that user can press accept or decline button again
      */
@@ -78,7 +78,7 @@ export class Request extends PureComponent<RequestProps, RequestState> {
         // in success and fail both, so we can move it outside of promise
         // but we need to authenticate after user take allow/deny action
         // for push notification, after user allows/denies push notification
-        // we need to authenticate user either with TouchId or pass code
+        // we need to authenticate user either with TouchId or passcode
         // unfortunately React-Native's (ES6's as well) Promise implementation
         // does not have finally block
         this.checkIfTouchIdEnabled(response)

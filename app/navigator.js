@@ -145,7 +145,7 @@ const Tabs = createTabNavigator(
   {
     animationEnabled: true,
     swipeEnabled: true,
-    lazy: true,
+    lazy: false,
     initialRouteName: homeTabRoute,
     order: [settingsTabRoute, homeTabRoute, qrCodeScannerTabRoute],
     tabBarOptions: {

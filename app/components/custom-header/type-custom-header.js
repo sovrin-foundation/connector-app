@@ -13,4 +13,5 @@ export type CustomHeaderProps = {
   flatHeader?: boolean,
   zeroBottomBorder?: boolean,
   largeHeader?: boolean,
+  isFocused?: boolean,
 }

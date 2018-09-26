@@ -89,6 +89,13 @@ class ConnectMeApp extends PureComponent<void, AppState> {
         this.handleBackButtonClick
       )
     }
+    // components that are mounted inside of the app can also
+    // change status bar style and it is getting overridden
+    // so we are setting status bar style again after component is mounted
+    StatusBar.setBarStyle(barStyleDark, true)
+    if (Platform.OS === 'android') {
+      StatusBar.setBackgroundColor(whiteSmokeSecondary)
+    }
   }
 
   componentWillUnmount() {

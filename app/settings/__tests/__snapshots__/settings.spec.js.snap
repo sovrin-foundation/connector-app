@@ -1102,7 +1102,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                         ]
                       }
                     >
-                      Backup my wallet
+                      Back up my wallet
                     </Text>
                   </View>
                 </View>

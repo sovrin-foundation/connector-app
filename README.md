@@ -21,10 +21,6 @@ App to connect Sovrin with 3rd party authentication
 - `yarn pod:dev:install`
 - `yarn react-native run-ios`
 
-## Run on Android simulator
-- Make sure a simulator is already created. Otherwise create one from Android studio
-- `yarn react-native run-android`
-
 ## Run ios on device
 - Do not use XCode automatic code signing
 - `cd ios/fastlane`
@@ -35,6 +31,11 @@ git clone 'git@github.com:evernym/connectme-callcenter-certs.git' '/var/folders/
 - To get the development release certificates do `bundle exec fastlane match development`. DO NOT use `--force` with this command.
 - You'll be prompted to enter 2 passwords. Slack a contributor for credentials
 - Open Xcode, select your device and run
+
+## Run on Android simulator
+- Make sure a simulator is already created. Otherwise create one from Android studio
+- `cd android/keystores && keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000`
+- `yarn react-native run-android`
 
 ## Create a release build for ios
 - `yarn pod:install`
@@ -47,7 +48,7 @@ git clone 'git@github.com:evernym/connectme-callcenter-certs.git' '/var/folders/
 - Then run Product -> Archive
 - After it is done then login to hockeyapp.net and click on QA ConnectMe and then click add version button and upload it
 
-## For android local Relase build
+## For android local Release build
 
 - add my_keystore.jks file to ~/keystores folder
 If you get this error during the ` bitrise run android ` build then you are missing the my_keystore.jks file

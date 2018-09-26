@@ -16,7 +16,7 @@ import type { ReactNavigation } from '../common/type-common'
 import { smsPendingInvitationSeen } from '../sms-pending-invitation/sms-pending-invitation-store'
 import { SMSPendingInvitationStatus } from '../sms-pending-invitation/type-sms-pending-invitation'
 import { NavigationActions } from 'react-navigation'
-import { barStyleDark } from '../common/styles/constant'
+import { barStyleDark, color } from '../common/styles/constant'
 
 export class Invitation extends PureComponent<
   InvitationProps,
@@ -96,7 +96,6 @@ export class Invitation extends PureComponent<
     if (this.props.isSmsInvitationNotSeen) {
       this.props.smsPendingInvitationSeen(this.props.smsToken)
     }
-    StatusBar.setBarStyle(barStyleDark, true)
   }
 
   render() {
@@ -113,7 +112,11 @@ export class Invitation extends PureComponent<
         senderLogoUrl = payload.senderLogoUrl
         return (
           <Container>
-            <StatusBar barStyle={barStyleDark} />
+            <StatusBar
+              barStyle={barStyleDark}
+              animated={true}
+              backgroundColor={color.bg.fifth.color}
+            />
             <Request
               title={title}
               message={message}

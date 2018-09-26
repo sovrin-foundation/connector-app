@@ -8,7 +8,7 @@ Object {
   "remoteConnectionId": "5iZiu2aLYrQXSdon123456",
   "senderDID": "123819kkjywdppuj987",
   "senderEndpoint": "https://test-endpoint.com",
-  "senderName": "Evernym",
+  "senderName": "Unknown",
   "size": 120,
 }
 `;
