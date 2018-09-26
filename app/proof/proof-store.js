@@ -1,6 +1,14 @@
 // @flow
 
-import { put, takeLatest, take, call, all, select } from 'redux-saga/effects'
+import {
+  put,
+  takeLatest,
+  take,
+  call,
+  all,
+  select,
+  takeEvery,
+} from 'redux-saga/effects'
 import type {
   Proof,
   ProofStore,
@@ -34,6 +42,10 @@ import {
   PROOF_FAIL,
   ERROR_MISSING_ATTRIBUTE_IN_CLAIMS,
   USER_SELF_ATTESTED_ATTRIBUTES,
+  PROOF_REQUEST_SEND_PROOF_HANDLE,
+  RESET_TEMP_PROOF_DATA,
+  ERROR_SEND_PROOF,
+  CLEAR_ERROR_SEND_PROOF,
 } from './type-proof'
 import type { CustomError } from '../common/type-common'
 import {
@@ -54,6 +66,7 @@ import {
   getPoolConfig,
   getProofRequesterName,
   getProofRequest,
+  getProofData,
 } from '../store/store-selector'
 import type { Attribute } from '../push-notification/type-push-notification'
 import { RESET } from '../common/type-common'
@@ -61,9 +74,11 @@ import { PROOF_REQUEST_SHOW_START } from '../proof-request/type-proof-request'
 import { captureError } from '../services/error/error-handler'
 
 export const updateAttributeClaim = (
+  uid: string,
   requestedAttrsJson: RequestedAttrsJson
 ): UpdateAttributeClaimAction => ({
   type: UPDATE_ATTRIBUTE_CLAIM,
+  uid,
   requestedAttrsJson,
 })
 
@@ -96,6 +111,33 @@ export const userSelfAttestedAttributes = (
 ) => ({
   type: USER_SELF_ATTESTED_ATTRIBUTES,
   selfAttestedAttributes,
+  uid,
+})
+
+export const proofRequestDataToStore = (
+  uid: string,
+  proofHandle: number,
+  selfAttestedAttributes: SelfAttestedAttributes
+) => ({
+  type: PROOF_REQUEST_SEND_PROOF_HANDLE,
+  uid,
+  proofHandle,
+  selfAttestedAttributes,
+})
+
+export const resetTempProofData = (uid: string) => ({
+  type: RESET_TEMP_PROOF_DATA,
+  uid,
+})
+
+export const errorSendProofFail = (uid: string, error: CustomError) => ({
+  type: ERROR_SEND_PROOF,
+  uid,
+  error,
+})
+
+export const clearSendProofFail = (uid: string) => ({
+  type: CLEAR_ERROR_SEND_PROOF,
   uid,
 })
 
@@ -344,11 +386,27 @@ export function* generateProofSaga(
     )
     yield put(proofRequestAutoFill(uid, requestedAttributes))
 
-    const updateAttributeClaim = yield take(UPDATE_ATTRIBUTE_CLAIM)
-    yield put(sendProof(uid))
+    yield put(proofRequestDataToStore(uid, proofHandle, selfAttestedAttributes))
+  } catch (e) {
+    // captureError(e)
+    yield put(proofFail(action.uid, e))
+  }
+}
+
+export function* updateAttributeClaimAndSendProof(
+  action: any
+): Generator<*, *, *> {
+  try {
+    yield put(clearSendProofFail(action.uid))
+    const { proofHandle, selfAttestedAttributes } = yield select(
+      getProofData,
+      action.uid
+    )
+    const requestedAttrsJson = action.requestedAttrsJson
+    yield put(sendProof(action.uid))
 
     const selectedCredentials = convertUserSelectedCredentialToVcxSelectedCredentials(
-      updateAttributeClaim.requestedAttrsJson
+      requestedAttrsJson
     )
     const selectedSelfAttestedAttributes = convertSelfAttestedToIndySelfAttested(
       selfAttestedAttributes
@@ -360,7 +418,7 @@ export function* generateProofSaga(
       JSON.stringify(selectedSelfAttestedAttributes)
     )
 
-    yield put(acceptProofRequest(uid))
+    yield put(acceptProofRequest(action.uid))
     // create a proof object so that history store and others that depend on proof
     // can use this proof object, previously proof object was generated with libIndy
     // now that we have removed libIndy and use vcx, we are generating this object
@@ -374,22 +432,23 @@ export function* generateProofSaga(
       },
       requested_proof: {
         revealed_attrs: convertSelectedCredentialAttributesToIndyProof(
-          updateAttributeClaim.requestedAttrsJson
+          requestedAttrsJson
         ),
         unrevealed_attrs: {},
         self_attested_attrs: selectedSelfAttestedAttributes,
         predicates: {},
       },
     }
-    yield put(proofSuccess(proof, uid))
+    yield put(proofSuccess(proof, action.uid))
   } catch (e) {
-    captureError(e)
-    yield put(proofFail(action.uid, e))
+    // captureError(e)
+    yield put(errorSendProofFail(action.uid, e))
   }
 }
 
 export function* watchGenerateProof(): any {
   yield takeLatest(GENERATE_PROOF, generateProofSaga)
+  yield takeLatest(UPDATE_ATTRIBUTE_CLAIM, updateAttributeClaimAndSendProof)
 }
 
 export function* watchProof(): any {
@@ -407,6 +466,7 @@ export default function proofReducer(
       return {
         ...state,
         [action.uid]: {
+          ...state[action.uid],
           ...action.proof,
         },
       }
@@ -425,6 +485,55 @@ export default function proofReducer(
       return {
         ...state,
         [action.uid]: undefined,
+      }
+    }
+
+    case PROOF_REQUEST_SEND_PROOF_HANDLE: {
+      return {
+        ...state,
+        [action.uid]: {
+          ...state[action.uid],
+          proofData: {
+            proofHandle: action.proofHandle,
+            selfAttestedAttributes: action.selfAttestedAttributes,
+          },
+        },
+      }
+    }
+
+    case RESET_TEMP_PROOF_DATA: {
+      return {
+        ...state,
+        [action.uid]: {
+          ...state[action.uid],
+          proofData: null,
+        },
+      }
+    }
+
+    case ERROR_SEND_PROOF: {
+      return {
+        ...state,
+        [action.uid]: {
+          ...state[action.uid],
+          proofData: {
+            ...state[action.uid].proofData,
+            error: action.error,
+          },
+        },
+      }
+    }
+
+    case CLEAR_ERROR_SEND_PROOF: {
+      return {
+        ...state,
+        [action.uid]: {
+          ...state[action.uid],
+          proofData: {
+            ...state[action.uid].proofData,
+            error: null,
+          },
+        },
       }
     }
 

@@ -67,6 +67,7 @@ export type RequestedAttrsJson = {
 export const UPDATE_ATTRIBUTE_CLAIM = 'UPDATE_ATTRIBUTE_CLAIM'
 export type UpdateAttributeClaimAction = {
   type: typeof UPDATE_ATTRIBUTE_CLAIM,
+  uid: string,
   requestedAttrsJson: RequestedAttrsJson,
 }
 
@@ -88,6 +89,33 @@ export type ProofFailAction = {
   type: typeof PROOF_FAIL,
   uid: string,
   error: CustomError,
+}
+
+export const PROOF_REQUEST_SEND_PROOF_HANDLE = 'PROOF_REQUEST_SEND_PROOF_HANDLE'
+export type proofRequestDataToStoreAction = {
+  type: typeof PROOF_REQUEST_SEND_PROOF_HANDLE,
+  uid: string,
+  proofHandle: number,
+  selfAttestedAttributes: SelfAttestedAttributes,
+}
+
+export const RESET_TEMP_PROOF_DATA = 'RESET_TEMP_PROOF_DATA'
+export type resetTempProofDataAction = {
+  type: typeof RESET_TEMP_PROOF_DATA,
+  uid: string,
+}
+
+export const ERROR_SEND_PROOF = 'ERROR_SEND_PROOF'
+export type errorSendProofFailAction = {
+  type: typeof ERROR_SEND_PROOF,
+  uid: string,
+  error: CustomError,
+}
+
+export const CLEAR_ERROR_SEND_PROOF = 'CLEAR_ERROR_SEND_PROOF'
+export type clearSendProofFailAction = {
+  type: typeof CLEAR_ERROR_SEND_PROOF,
+  uid: string,
 }
 
 export const ERROR_CODE_MISSING_ATTRIBUTE = 'P000'
@@ -145,11 +173,20 @@ export type ProofAction =
   | ProofRequestShowStartAction
   | InitialTestAction
   | ResetAction
+  | proofRequestDataToStoreAction
+  | resetTempProofDataAction
+  | errorSendProofFailAction
+  | clearSendProofFailAction
 
 export type ProofStore = {
   +[string]: {
     proof: Proof,
     error?: CustomError,
     selfAttestedAttributes?: SelfAttestedAttributes,
+    proofData?: {
+      proofHandle: number,
+      selfAttestedAttributes: SelfAttestedAttributes,
+      error?: CustomError,
+    },
   },
 }

@@ -375,3 +375,5 @@ export const getSalt = (state: Store) => state.backup.passphrase.salt
 export const getHistory = (state: Store) => state.history.data
 export const getPendingFetchAdditionalDataKey = (state: Store) =>
   state.pushNotification.pendingFetchAdditionalDataKey
+export const getProofData = (state: Store, proofRequestId: string) =>
+  state.proof[proofRequestId].proofData

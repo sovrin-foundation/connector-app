@@ -68,6 +68,7 @@ import { RESET } from '../common/type-common'
 import { PROOF_FAIL } from '../proof/type-proof'
 import { getProofRequests } from './../store/store-selector'
 import { captureError } from '../services/error/error-handler'
+import { resetTempProofData, errorSendProofFail } from '../proof/proof-store'
 import { secureSet, secureGet, getHydrationItem } from '../services/storage'
 
 const proofRequestInitialState = {}
@@ -175,7 +176,7 @@ export function* proofAccepted(
   if (!userPairwiseDid) {
     captureError(new Error('OCS-002 No pairwise connection found'))
     yield put(
-      sendProofFail(uid, {
+      errorSendProofFail(uid, {
         code: 'OCS-002',
         message: 'No pairwise connection found',
       })
@@ -196,7 +197,7 @@ export function* proofAccepted(
   if (!connection.vcxSerializedConnection) {
     captureError(new Error('OCS-002 No pairwise connection found'))
     yield put(
-      sendProofFail(uid, {
+      errorSendProofFail(uid, {
         code: 'OCS-002',
         message: 'No pairwise connection found',
       })
@@ -211,9 +212,10 @@ export function* proofAccepted(
     )
     yield call(sendProofApi, proofHandle, connectionHandle)
     yield put(sendProofSuccess(uid))
+    yield put(resetTempProofData(uid))
   } catch (e) {
     captureError(e)
-    yield put(sendProofFail(uid, ERROR_SEND_PROOF(e.message)))
+    yield put(errorSendProofFail(uid, ERROR_SEND_PROOF(e.message)))
   }
 }
 
