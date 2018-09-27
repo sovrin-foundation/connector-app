@@ -227,6 +227,8 @@ export type ClaimOfferState = {
   insufficientBalanceModalHidden: boolean,
   showLedgerFeesModal: boolean,
   showSendPaidCredentialRequestFailModal: boolean,
+  showInsufficientBalanceModal: boolean,
+  showClaimRequestFailModal: boolean,
 }
 
 export type ClaimRequestStatusModalProps = {
@@ -241,6 +243,7 @@ export type ClaimRequestStatusModalProps = {
   message6?: string,
   buttonDisabled?: boolean,
   payTokenValue?: ?string,
+  onModalHide?: () => void,
 }
 
 export type ClaimRequestStatusModalState = {

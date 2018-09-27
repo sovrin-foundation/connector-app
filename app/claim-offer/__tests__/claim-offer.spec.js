@@ -201,13 +201,102 @@ describe('<ClaimOffer />', () => {
     expect(acceptClaimOffer).toHaveBeenCalled()
   })
 
-  it('should call claimOfferIgnored if close button is pressed', () => {
+  it('should call claimOfferIgnored if ignored', () => {
     componentInstance.onIgnore()
     expect(claimOfferIgnored).toHaveBeenCalled()
     expect(navigation.goBack).toHaveBeenCalled()
   })
+  it('should show Insufficient Balance Modal', () => {
+    jest.useFakeTimers()
+    wrapper.update(
+      <Provider store={store}>
+        <ClaimOffer
+          claimOfferData={{
+            ...claimOfferData,
+            claimRequestStatus: CLAIM_REQUEST_STATUS.INSUFFICIENT_BALANCE,
+          }}
+          claimOfferShown={claimOfferShown}
+          acceptClaimOffer={acceptClaimOffer}
+          claimOfferIgnored={claimOfferIgnored}
+          claimOfferRejected={claimOfferRejected}
+          navigation={navigation}
+          uid={navigation.state.params.uid}
+          isValid={isValid}
+          logoUrl={logoUrl}
+          claimThemeSecondary={claimThemeSecondary}
+          claimThemePrimary={claimThemePrimary}
+          updateStatusBarTheme={updateStatusBarTheme}
+          claimOfferShowStart={claimOfferShowStart}
+          resetClaimRequestStatus={resetClaimRequestStatus}
+        />
+      </Provider>
+    )
+    componentInstance.onClaimRequestStatusModal()
+    jest.runAllTimers()
+    expect(componentInstance.state.showInsufficientBalanceModal).toBe(true)
+  })
+  it('should show Send Paid Credential Request Fail Modal', () => {
+    jest.useFakeTimers()
+    wrapper.update(
+      <Provider store={store}>
+        <ClaimOffer
+          claimOfferData={{
+            ...claimOfferData,
+            claimRequestStatus:
+              CLAIM_REQUEST_STATUS.PAID_CREDENTIAL_REQUEST_FAIL,
+          }}
+          claimOfferShown={claimOfferShown}
+          acceptClaimOffer={acceptClaimOffer}
+          claimOfferIgnored={claimOfferIgnored}
+          claimOfferRejected={claimOfferRejected}
+          navigation={navigation}
+          uid={navigation.state.params.uid}
+          isValid={isValid}
+          logoUrl={logoUrl}
+          claimThemeSecondary={claimThemeSecondary}
+          claimThemePrimary={claimThemePrimary}
+          updateStatusBarTheme={updateStatusBarTheme}
+          claimOfferShowStart={claimOfferShowStart}
+          resetClaimRequestStatus={resetClaimRequestStatus}
+        />
+      </Provider>
+    )
+    componentInstance.onClaimRequestStatusModal()
+    jest.runAllTimers()
+    expect(componentInstance.state.showSendPaidCredentialRequestFailModal).toBe(
+      true
+    )
+  })
+  it('should enable accept button if claim offer error occurs', () => {
+    jest.useFakeTimers()
+    wrapper.update(
+      <Provider store={store}>
+        <ClaimOffer
+          claimOfferData={{
+            ...claimOfferData,
+            claimRequestStatus: CLAIM_REQUEST_STATUS.SEND_CLAIM_REQUEST_FAIL,
+          }}
+          claimOfferShown={claimOfferShown}
+          acceptClaimOffer={acceptClaimOffer}
+          claimOfferIgnored={claimOfferIgnored}
+          claimOfferRejected={claimOfferRejected}
+          navigation={navigation}
+          uid={navigation.state.params.uid}
+          isValid={isValid}
+          logoUrl={logoUrl}
+          claimThemeSecondary={claimThemeSecondary}
+          claimThemePrimary={claimThemePrimary}
+          updateStatusBarTheme={updateStatusBarTheme}
+          claimOfferShowStart={claimOfferShowStart}
+          resetClaimRequestStatus={resetClaimRequestStatus}
+        />
+      </Provider>
+    )
+    jest.runAllTimers()
+    expect(componentInstance.state.disableAcceptButton).toBe(false)
+  })
 
-  it('should call claimOfferRejected if ignore button is pressed', () => {
+  it('should call claimOfferRejected if rejected', () => {
     componentInstance.onReject()
     expect(claimOfferRejected).toHaveBeenCalled()
     expect(navigation.goBack).toHaveBeenCalled()

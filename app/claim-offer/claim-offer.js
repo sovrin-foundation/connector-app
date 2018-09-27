@@ -1,6 +1,13 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { StyleSheet, Platform, FlatList, View, StatusBar } from 'react-native'
+import {
+  StyleSheet,
+  Platform,
+  FlatList,
+  View,
+  StatusBar,
+  Alert,
+} from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
@@ -119,6 +126,8 @@ export class ClaimOffer extends PureComponent<
     insufficientBalanceModalHidden: false,
     showLedgerFeesModal: false,
     showSendPaidCredentialRequestFailModal: false,
+    showInsufficientBalanceModal: false,
+    showClaimRequestFailModal: false,
   }
 
   close = () => {
@@ -167,6 +176,7 @@ export class ClaimOffer extends PureComponent<
     this.setState({
       disableAcceptButton: true,
       showSendPaidCredentialRequestFailModal: false,
+      showInsufficientBalanceModal: false,
     })
     if (this.props.claimOfferData.payTokenValue) {
       this.setState({ showLedgerFeesModal: true })
@@ -198,7 +208,34 @@ export class ClaimOffer extends PureComponent<
       this.close()
     }
   }
-
+  onClaimRequestStatusModal = () => {
+    const { claimOfferData } = this.props
+    const { claimRequestStatus }: ClaimOfferPayload = claimOfferData
+    if (
+      claimRequestStatus === CLAIM_REQUEST_STATUS.INSUFFICIENT_BALANCE &&
+      !this.state.showInsufficientBalanceModal
+    ) {
+      this.setState({ showInsufficientBalanceModal: true })
+    }
+    if (
+      claimRequestStatus === CLAIM_REQUEST_STATUS.SEND_CLAIM_REQUEST_FAIL ||
+      claimRequestStatus === CLAIM_REQUEST_STATUS.CLAIM_REQUEST_FAIL
+    ) {
+      if (this.state.disableAcceptButton === true) {
+        this.setState({
+          disableAcceptButton: false,
+          showClaimRequestFailModal: true,
+        })
+      }
+    }
+    if (
+      claimRequestStatus ===
+        CLAIM_REQUEST_STATUS.PAID_CREDENTIAL_REQUEST_FAIL &&
+      !this.state.showSendPaidCredentialRequestFailModal
+    ) {
+      this.setState({ showSendPaidCredentialRequestFailModal: true })
+    }
+  }
   render() {
     const {
       claimOfferData,
@@ -218,15 +255,6 @@ export class ClaimOffer extends PureComponent<
       : require('../images/cb_evernym.png')
     const testID = 'claim-offer'
     let acceptButtonText = payTokenValue ? 'Accept & Pay' : 'Accept'
-    if (
-      claimRequestStatus ===
-        CLAIM_REQUEST_STATUS.PAID_CREDENTIAL_REQUEST_FAIL &&
-      !this.state.showSendPaidCredentialRequestFailModal
-    ) {
-      setTimeout(() => {
-        this.setState({ showSendPaidCredentialRequestFailModal: true })
-      }, 1000)
-    }
 
     return (
       <Container style={[{ backgroundColor: claimThemePrimary }]}>
@@ -298,6 +326,7 @@ export class ClaimOffer extends PureComponent<
         {isValid && (
           <ClaimRequestStatusModal
             claimRequestStatus={claimRequestStatus}
+            onModalHide={this.onClaimRequestStatusModal}
             payload={claimOfferData}
             onContinue={this.close}
             senderLogoUrl={logoUrl}
@@ -312,6 +341,27 @@ export class ClaimOffer extends PureComponent<
           />
         )}
         {isValid &&
+          this.state.showClaimRequestFailModal && (
+            <CustomModal
+              buttonText="OK"
+              onPress={this.hideInsufficientBalanceModal}
+              testID={`error-accepting-credential`}
+              isVisible={
+                claimRequestStatus ===
+                  CLAIM_REQUEST_STATUS.SEND_CLAIM_REQUEST_FAIL ||
+                claimRequestStatus === CLAIM_REQUEST_STATUS.CLAIM_REQUEST_FAIL
+              }
+            >
+              <CustomView center doubleVerticalSpace>
+                <Icon src={require('../images/alertInfo.png')} />
+                <CustomText transparentBg primary center bold>
+                  Error accepting credential. Please try again.
+                </CustomText>
+              </CustomView>
+            </CustomModal>
+          )}
+        {isValid &&
+          this.state.showInsufficientBalanceModal &&
           payTokenValue && (
             <CustomModal
               buttonText="OK"

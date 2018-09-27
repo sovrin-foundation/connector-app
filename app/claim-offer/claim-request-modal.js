@@ -152,6 +152,7 @@ export class ClaimRequestStatusModal extends PureComponent<
         buttonText="Continue"
         testID={'claim-request'}
         isVisible={this.state.isVisible}
+        onModalHide={this.props.onModalHide}
         disabled={isSending}
       >
         <AvatarsPair
