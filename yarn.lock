@@ -6380,7 +6380,7 @@ prop-types@^15.0.0, prop-types@^15.5.10, prop-types@^15.5.8:
     fbjs "^0.8.9"
     loose-envify "^1.3.1"
 
-prop-types@^15.6.1:
+prop-types@^15.5.7, prop-types@^15.6.1:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -6613,6 +6613,12 @@ react-native-firebase@^4.3.8:
     opencollective "^1.0.3"
     postinstall-build "^5.0.1"
     prop-types "^15.6.1"
+
+react-native-flip-toggle-button@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-flip-toggle-button/-/react-native-flip-toggle-button-1.0.5.tgz#52d91ef03e846ab992dfcf68a3569d3d45a38701"
+  dependencies:
+    prop-types "^15.5.7"
 
 react-native-image-crop-picker@^0.20.1:
   version "0.20.1"

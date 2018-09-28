@@ -18,10 +18,16 @@ import {
   aboutAppRoute,
   privacyTNCRoute,
 } from '../common/route-constants'
-import { Switch as AndroidSwitch } from 'react-native-switch'
+import AndroidSwitch from 'react-native-flip-toggle-button'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { white, mantis, OFFSET_1X, color } from '../common/styles/constant'
+import {
+  white,
+  mantis,
+  OFFSET_1X,
+  color,
+  grey,
+} from '../common/styles/constant'
 import {
   EDIT_ICON_DIMENSIONS,
   PASS_CODE_ASTERISK_TOP_OFFSET,
@@ -198,10 +204,18 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
         />
       ) : (
         <AndroidSwitch
-          onTintColor={mantis}
-          tintColor={white}
-          onValueChange={this.onChangeTouchId}
+          onToggle={this.onChangeTouchId}
           value={this.props.touchIdActive}
+          buttonWidth={55}
+          buttonHeight={30}
+          buttonRadius={30}
+          sliderWidth={28}
+          sliderHeight={28}
+          sliderRadius={58}
+          buttonOnColor={mantis}
+          buttonOffColor={grey}
+          sliderOnColor={white}
+          sliderOffColor={white}
         />
       )
 
