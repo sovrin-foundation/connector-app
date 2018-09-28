@@ -156,7 +156,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot 1`] = `
             "left": 20,
             "position": "absolute",
             "top": 20,
-            "width": null,
+            "width": 320,
           }
         }
       >
@@ -1099,6 +1099,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for loading state 1`] 
             "left": 20,
             "position": "absolute",
             "top": 20,
+            "width": 320,
           }
         }
       >
