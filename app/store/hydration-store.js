@@ -71,6 +71,7 @@ import {
   enableTouchIdAction,
   disableTouchIdAction,
   setInRecovery,
+  checkBiometricsAvailable,
 } from '../lock/lock-store'
 import { captureError } from '../services/error/error-handler'
 import {
@@ -199,6 +200,7 @@ export function* hydrate(): any {
     }
 
     yield put(alreadyInstalledAction(true))
+    yield put(checkBiometricsAvailable())
     try {
       // check if privacy policy was accepted or not
       let isEulaAccept = yield call(safeGet, STORAGE_KEY_EULA_ACCEPTANCE)

@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Alert, StyleSheet } from 'react-native'
+import { Alert, StyleSheet, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { TouchId } from '../components/touch-id/touch-id'
@@ -24,19 +24,26 @@ import { disableTouchIdAction, enableTouchIdAction } from '../lock/lock-store'
 import {
   AllowedFallbackToucheIDErrors,
   LAErrorTouchIDTooManyAttempts,
+  LAErrorTouchIDNotSupported,
+  touchIDAlerts,
+  touchIDNotSupportAlertAndroid,
+  BIOMETRICS_AVAILABLE,
 } from './type-lock'
 import type { LockFingerprintSetupProps } from './type-lock'
+import { AsyncStorage } from 'react-native'
+import { safeSet } from '../services/storage'
 
 export class LockFingerprintSetup extends PureComponent<
   LockFingerprintSetupProps,
   void
 > {
+  checkIfBiometricsAvaliable = ''
   goToSettingsScreen = () => {
     if (this.props.touchIdActive) {
       this.props.disableTouchIdAction()
       Alert.alert(
         null,
-        `You'll need to use your passcode to unlock this app from now on`,
+        touchIDAlerts.usePasscodeAlert,
         [
           {
             text: 'OK',
@@ -59,6 +66,7 @@ export class LockFingerprintSetup extends PureComponent<
   touchIdHandler = () => {
     TouchId.isSupported()
       .then(success => {
+        safeSet(BIOMETRICS_AVAILABLE, 'true')
         TouchId.authenticate('', this.touchIdHandler)
           .then(success => {
             this.props.fromSettings
@@ -71,9 +79,7 @@ export class LockFingerprintSetup extends PureComponent<
               if (error.code === LAErrorTouchIDTooManyAttempts) {
                 Alert.alert(
                   null,
-                  `Maximum attempts reached. ${
-                    this.props.fromSettings ? '' : 'Please use Passcode'
-                  }`,
+                  touchIDAlerts.biometricsExceedAlert,
                   [
                     {
                       text: 'OK',
@@ -96,9 +102,33 @@ export class LockFingerprintSetup extends PureComponent<
       .catch(error => {
         captureError(error)
         if (AllowedFallbackToucheIDErrors.indexOf(error.name) >= 0) {
-          this.props.fromSettings
-            ? this.props.navigation.goBack(null)
-            : this.props.navigation.navigate(lockSelectionRoute)
+          let alertMessage = touchIDAlerts.notSupportedBiometrics
+          if (
+            Platform.OS === 'android' &&
+            touchIDNotSupportAlertAndroid.indexOf(error.code) < 0
+          ) {
+            alertMessage = touchIDAlerts.enableBiometrics
+          }
+          if (Platform.OS === 'ios') {
+            if (this.props.biometricsAvaliable === 'true') {
+              alertMessage = touchIDAlerts.iOSBiometricsAlert
+            }
+          }
+          Alert.alert(
+            null,
+            alertMessage,
+            [
+              {
+                text: 'Ok',
+                onPress: () => {
+                  this.props.fromSettings
+                    ? this.props.navigation.goBack(null)
+                    : this.props.navigation.navigate(lockSelectionRoute)
+                },
+              },
+            ],
+            { cancelable: false }
+          )
         }
       })
   }
@@ -118,6 +148,7 @@ const mapStateToProps = (state: Store, props) => ({
     props.navigation.state.params !== undefined
       ? props.navigation.state.params.fromSettings
       : false,
+  biometricsAvaliable: state.lock.biometricsAvaliable,
 })
 
 const mapDispatchToProps = dispatch =>

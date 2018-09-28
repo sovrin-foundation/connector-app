@@ -27,6 +27,8 @@ import {
   IN_RECOVERY,
   PIN_HASH,
   SALT,
+  BIOMETRICS_AVAILABLE_STORE,
+  BIOMETRICS_AVAILABLE,
 } from './type-lock'
 import type {
   PendingRedirection,
@@ -51,6 +53,8 @@ import type {
   CheckTouchIdAction,
   EnableTouchIdAction,
   DisableTouchIdAction,
+  CheckBiometricsAvailableAction,
+  PutBiometricsInStoreAction,
 } from './type-lock'
 import {
   walletGet,
@@ -272,12 +276,37 @@ export const checkPinStatusIdle = (): CheckPinIdleAction => ({
   type: CHECK_PIN_IDLE,
 })
 
+export const checkBiometricsAvailable = (): CheckBiometricsAvailableAction => ({
+  type: BIOMETRICS_AVAILABLE,
+})
+
+export const putBiometricsInStore = (
+  data: string
+): PutBiometricsInStoreAction => ({
+  type: BIOMETRICS_AVAILABLE_STORE,
+  data,
+})
+
+export function* getBiometricsAvailable(): Generator<*, *, *> {
+  try {
+    const getBiomentricsFlag = yield call(safeGet, BIOMETRICS_AVAILABLE)
+    yield put(putBiometricsInStore(getBiomentricsFlag))
+  } catch (e) {
+    yield put(putBiometricsInStore('false'))
+  }
+}
+
+export function* watchBiometricsAvailable(): any {
+  yield takeLatest(BIOMETRICS_AVAILABLE, getBiometricsAvailable)
+}
+
 export function* watchLock(): any {
   yield all([
     watchCheckPin(),
     watchSetPin(),
     watchEnableTouchId(),
     watchDisableTouchId(),
+    watchBiometricsAvailable(),
   ])
 }
 
@@ -356,6 +385,11 @@ export default function lockReducer(
       return {
         ...state,
         isTouchIdEnabled: action.isTouchIdEnabled,
+      }
+    case BIOMETRICS_AVAILABLE_STORE:
+      return {
+        ...state,
+        biometricsAvaliable: action.data,
       }
     default:
       return state

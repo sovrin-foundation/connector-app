@@ -128,6 +128,7 @@ export type LockStore = {
   isTouchIdEnabled: boolean,
   showDevMode: boolean,
   inRecovery: string,
+  biometricsAvaliable?: string,
 }
 
 export type LockSelectionProps = {
@@ -150,6 +151,7 @@ export type LockActions =
   | CheckPinSuccessAction
   | CheckPinFailAction
   | SwitchErrorAlerts
+  | PutBiometricsInStoreAction
 
 export type LockEnterPinProps = {
   pendingRedirection: Array<PendingRedirection>,
@@ -201,6 +203,17 @@ export type EnableDevMode = {
 export const HIDE_DEV_MODE = 'HIDE_DEV_MODE'
 export type DisableDevMode = {
   type: typeof HIDE_DEV_MODE,
+}
+
+export const BIOMETRICS_AVAILABLE = 'BIOMETRICS_AVAILABLE'
+export type CheckBiometricsAvailableAction = {
+  type: typeof BIOMETRICS_AVAILABLE,
+}
+
+export const BIOMETRICS_AVAILABLE_STORE = 'BIOMETRICS_AVAILABLE_STORE'
+export type PutBiometricsInStoreAction = {
+  type: typeof BIOMETRICS_AVAILABLE_STORE,
+  data: string,
 }
 
 export type LockEnterProps = {
@@ -262,4 +275,21 @@ export const AllowedFallbackToucheIDErrors = [
   LAErrorUserFallback,
   LAErrorTouchIDNotSupported,
   TouchIDError,
+]
+
+export const touchIDAlerts = {
+  notSupportedBiometrics: `Your phone doesn’t support biometrics.`,
+  enableBiometrics:
+    'You need to enable biometrics for Connect.Me in your device settings.',
+  iOSBiometricsAlert:
+    'You need to enable biometrics for Connect.Me or you have exceeded attempts for authentication',
+  biometricsExceedAlert:
+    'You have exceeded the maximum biometric attempts allowed by your phone. Try again later.',
+  usePasscodeAlert: `You'll need to use your passcode to unlock this app from now on`,
+}
+
+export const touchIDNotSupportAlertAndroid = [
+  'NOT_PRESENT',
+  'NOT_AVAILABLE',
+  'NOT_SUPPORTED',
 ]
