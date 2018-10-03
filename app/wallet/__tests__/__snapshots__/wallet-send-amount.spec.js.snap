@@ -31,7 +31,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
       >
         <Text
           accessible={true}
-          allowFontScaling={true}
+          allowFontScaling={false}
           collapsable={undefined}
           ellipsizeMode="tail"
           numberOfLines={1}
@@ -57,7 +57,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
       </View>
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -136,7 +136,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             collapsable={undefined}
             ellipsizeMode="tail"
             style={
@@ -179,7 +179,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             collapsable={undefined}
             ellipsizeMode="tail"
             style={
@@ -222,7 +222,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             collapsable={undefined}
             ellipsizeMode="tail"
             style={
@@ -276,7 +276,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             collapsable={undefined}
             ellipsizeMode="tail"
             style={
@@ -319,7 +319,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             collapsable={undefined}
             ellipsizeMode="tail"
             style={
@@ -362,7 +362,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             collapsable={undefined}
             ellipsizeMode="tail"
             style={
@@ -416,7 +416,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             collapsable={undefined}
             ellipsizeMode="tail"
             style={
@@ -459,7 +459,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             collapsable={undefined}
             ellipsizeMode="tail"
             style={
@@ -502,7 +502,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             collapsable={undefined}
             ellipsizeMode="tail"
             style={
@@ -556,7 +556,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             collapsable={undefined}
             ellipsizeMode="tail"
             style={
@@ -599,7 +599,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             collapsable={undefined}
             ellipsizeMode="tail"
             style={
@@ -649,7 +649,7 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             collapsable={undefined}
             ellipsizeMode="tail"
             style={

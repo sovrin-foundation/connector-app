@@ -56,7 +56,7 @@ exports[`<LockSetupSuccess /> should display Loading while fetching the invitati
     </View>
     <Text
       accessible={true}
-      allowFontScaling={true}
+      allowFontScaling={false}
       ellipsizeMode="tail"
       style={
         Array [
@@ -95,7 +95,7 @@ exports[`<LockSetupSuccess /> should display Loading while fetching the invitati
     </Text>
     <Text
       accessible={true}
-      allowFontScaling={true}
+      allowFontScaling={false}
       ellipsizeMode="tail"
       style={
         Array [
@@ -335,7 +335,7 @@ exports[`<LockSetupSuccess /> should render Lock setup success Screen 1`] = `
     </View>
     <Text
       accessible={true}
-      allowFontScaling={true}
+      allowFontScaling={false}
       ellipsizeMode="tail"
       style={
         Array [
@@ -374,7 +374,7 @@ exports[`<LockSetupSuccess /> should render Lock setup success Screen 1`] = `
     </Text>
     <Text
       accessible={true}
-      allowFontScaling={true}
+      allowFontScaling={false}
       ellipsizeMode="tail"
       style={
         Array [

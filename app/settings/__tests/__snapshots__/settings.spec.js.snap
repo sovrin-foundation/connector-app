@@ -108,7 +108,7 @@ exports[`user settings screen should render properly and snapshot should match 1
           >
             <Text
               accessible={true}
-              allowFontScaling={true}
+              allowFontScaling={false}
               ellipsizeMode="tail"
               style={
                 Array [
@@ -144,7 +144,7 @@ exports[`user settings screen should render properly and snapshot should match 1
             </Text>
             <Text
               accessible={true}
-              allowFontScaling={true}
+              allowFontScaling={false}
               ellipsizeMode="tail"
               style={
                 Array [
@@ -378,7 +378,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                 <Text
                   accessibilityLabel="settings-pass-code-label"
                   accessible={true}
-                  allowFontScaling={true}
+                  allowFontScaling={false}
                   ellipsizeMode="tail"
                   onPress={[Function]}
                   style={
@@ -416,7 +416,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                 <Text
                   accessibilityLabel="settings-pass-code-asterisk-label"
                   accessible={true}
-                  allowFontScaling={true}
+                  allowFontScaling={false}
                   ellipsizeMode="tail"
                   onPress={[Function]}
                   style={
@@ -614,7 +614,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                   <Text
                     accessibilityLabel="settings-touch-id-label"
                     accessible={true}
-                    allowFontScaling={true}
+                    allowFontScaling={false}
                     ellipsizeMode="tail"
                     onPress={[Function]}
                     style={
@@ -785,7 +785,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                 >
                   <Text
                     accessible={true}
-                    allowFontScaling={true}
+                    allowFontScaling={false}
                     ellipsizeMode="tail"
                     style={
                       Array [
@@ -928,7 +928,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                 >
                   <Text
                     accessible={true}
-                    allowFontScaling={true}
+                    allowFontScaling={false}
                     ellipsizeMode="tail"
                     style={
                       Array [
@@ -1072,7 +1072,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                   >
                     <Text
                       accessible={true}
-                      allowFontScaling={true}
+                      allowFontScaling={false}
                       ellipsizeMode="tail"
                       style={
                         Array [

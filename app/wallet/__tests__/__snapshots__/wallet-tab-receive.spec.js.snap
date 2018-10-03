@@ -28,7 +28,7 @@ exports[`<WalletTabReceive /> should render properly and match the snapshot 1`] 
         <View>
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             ellipsizeMode="tail"
             style={
               Array [
@@ -73,7 +73,7 @@ exports[`<WalletTabReceive /> should render properly and match the snapshot 1`] 
           </Text>
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             ellipsizeMode="tail"
             style={
               Array [

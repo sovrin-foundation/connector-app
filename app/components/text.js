@@ -123,8 +123,10 @@ const CustomText = (props: GenericObject) => {
   if (adjustsFontSizeToFit) {
     filteredProps.adjustsFontSizeToFit = adjustsFontSizeToFit
   }
-  if (allowFontScaling) {
+  if (allowFontScaling && animated) {
     filteredProps.allowFontScaling = allowFontScaling
+  } else {
+    filteredProps.allowFontScaling = false
   }
 
   return (
@@ -228,7 +230,7 @@ export const styles = StyleSheet.create({
     color: color.bg.primary.color,
   },
   fontLato: {
-    fontFamily: 'Lato',
+    fontFamily: font.family,
   },
   fullWidth: {
     width: '100%',

@@ -45,7 +45,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -88,7 +88,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -131,7 +131,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -185,7 +185,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -228,7 +228,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -271,7 +271,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -325,7 +325,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -368,7 +368,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -411,7 +411,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -465,7 +465,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -508,7 +508,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -558,7 +558,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={

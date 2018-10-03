@@ -34,7 +34,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         numberOfLines={1}
         style={
@@ -85,7 +85,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -162,7 +162,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot 1`] = `
       >
         <Text
           accessible={true}
-          allowFontScaling={true}
+          allowFontScaling={false}
           ellipsizeMode="tail"
           style={
             Array [
@@ -214,7 +214,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -271,7 +271,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -503,7 +503,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for error state 1`] = 
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         numberOfLines={1}
         style={
@@ -554,7 +554,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for error state 1`] = 
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -630,7 +630,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for error state 1`] = 
       >
         <Text
           accessible={true}
-          allowFontScaling={true}
+          allowFontScaling={false}
           ellipsizeMode="tail"
           style={
             Array [
@@ -679,7 +679,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for error state 1`] = 
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -736,7 +736,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for error state 1`] = 
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -977,7 +977,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for loading state 1`] 
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         numberOfLines={1}
         style={
@@ -1028,7 +1028,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for loading state 1`] 
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -1151,7 +1151,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for loading state 1`] 
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -1208,7 +1208,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for loading state 1`] 
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [

@@ -39,7 +39,7 @@ exports[`app lock selection page should render properly 1`] = `
   >
     <Text
       accessible={true}
-      allowFontScaling={true}
+      allowFontScaling={false}
       ellipsizeMode="tail"
       style={
         Array [
@@ -85,7 +85,7 @@ exports[`app lock selection page should render properly 1`] = `
   >
     <Text
       accessible={true}
-      allowFontScaling={true}
+      allowFontScaling={false}
       ellipsizeMode="tail"
       style={
         Array [
@@ -188,7 +188,7 @@ exports[`app lock selection page should render properly 1`] = `
       <Text
         accessibilityLabel="use-touch-id-text"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         onLongPress={[Function]}
         onPress={[Function]}
@@ -255,7 +255,7 @@ exports[`app lock selection page should render properly 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -361,7 +361,7 @@ exports[`app lock selection page should render properly 1`] = `
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             ellipsizeMode="tail"
             style={
               Array [
@@ -409,7 +409,7 @@ exports[`app lock selection page should render properly 1`] = `
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             ellipsizeMode="tail"
             style={
               Array [
@@ -457,7 +457,7 @@ exports[`app lock selection page should render properly 1`] = `
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             ellipsizeMode="tail"
             style={
               Array [
@@ -505,7 +505,7 @@ exports[`app lock selection page should render properly 1`] = `
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             ellipsizeMode="tail"
             style={
               Array [
@@ -553,7 +553,7 @@ exports[`app lock selection page should render properly 1`] = `
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             ellipsizeMode="tail"
             style={
               Array [
@@ -601,7 +601,7 @@ exports[`app lock selection page should render properly 1`] = `
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             ellipsizeMode="tail"
             style={
               Array [
@@ -640,7 +640,7 @@ exports[`app lock selection page should render properly 1`] = `
       <Text
         accessibilityLabel="use-pass-code-text"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         onLongPress={[Function]}
         onPress={[Function]}

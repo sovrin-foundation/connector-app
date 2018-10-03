@@ -314,7 +314,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             ellipsizeMode="tail"
             style={
               Array [
@@ -384,7 +384,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             ellipsizeMode="tail"
             style={
               Array [
@@ -536,7 +536,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                       >
                         <Text
                           accessible={true}
-                          allowFontScaling={true}
+                          allowFontScaling={false}
                           ellipsizeMode="tail"
                           style={
                             Array [
@@ -581,7 +581,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                       >
                         <Text
                           accessible={true}
-                          allowFontScaling={true}
+                          allowFontScaling={false}
                           ellipsizeMode="tail"
                           style={
                             Array [
@@ -638,7 +638,7 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                     >
                       <Text
                         accessible={true}
-                        allowFontScaling={true}
+                        allowFontScaling={false}
                         ellipsizeMode="tail"
                         style={
                           Array [

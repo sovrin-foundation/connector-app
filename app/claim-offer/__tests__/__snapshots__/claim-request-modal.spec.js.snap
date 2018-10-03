@@ -204,7 +204,7 @@ exports[`<ClaimRequestStatusModal /> should hideModal if continue is clicked 1`]
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -245,7 +245,7 @@ exports[`<ClaimRequestStatusModal /> should hideModal if continue is clicked 1`]
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -288,7 +288,7 @@ exports[`<ClaimRequestStatusModal /> should hideModal if continue is clicked 1`]
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -329,7 +329,7 @@ exports[`<ClaimRequestStatusModal /> should hideModal if continue is clicked 1`]
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -372,7 +372,7 @@ exports[`<ClaimRequestStatusModal /> should hideModal if continue is clicked 1`]
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -739,7 +739,7 @@ exports[`<ClaimRequestStatusModal /> should match paid credential success, if se
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -780,7 +780,7 @@ exports[`<ClaimRequestStatusModal /> should match paid credential success, if se
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -823,7 +823,7 @@ exports[`<ClaimRequestStatusModal /> should match paid credential success, if se
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -866,7 +866,7 @@ exports[`<ClaimRequestStatusModal /> should match paid credential success, if se
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -1238,7 +1238,7 @@ exports[`<ClaimRequestStatusModal /> should match snapshot when pending popOver 
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -1279,7 +1279,7 @@ exports[`<ClaimRequestStatusModal /> should match snapshot when pending popOver 
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -1322,7 +1322,7 @@ exports[`<ClaimRequestStatusModal /> should match snapshot when pending popOver 
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -1363,7 +1363,7 @@ exports[`<ClaimRequestStatusModal /> should match snapshot when pending popOver 
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -1406,7 +1406,7 @@ exports[`<ClaimRequestStatusModal /> should match snapshot when pending popOver 
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -1777,7 +1777,7 @@ exports[`<ClaimRequestStatusModal /> should show arrow right and accepting text,
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -2159,7 +2159,7 @@ exports[`<ClaimRequestStatusModal /> should show arrow right and only Paying tex
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -2537,7 +2537,7 @@ exports[`<ClaimRequestStatusModal /> should show check mark, token amount, if pa
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -2578,7 +2578,7 @@ exports[`<ClaimRequestStatusModal /> should show check mark, token amount, if pa
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -2621,7 +2621,7 @@ exports[`<ClaimRequestStatusModal /> should show check mark, token amount, if pa
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -2664,7 +2664,7 @@ exports[`<ClaimRequestStatusModal /> should show check mark, token amount, if pa
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -3031,7 +3031,7 @@ exports[`<ClaimRequestStatusModal /> should show check mark, you accepted text, 
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -3072,7 +3072,7 @@ exports[`<ClaimRequestStatusModal /> should show check mark, you accepted text, 
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -3115,7 +3115,7 @@ exports[`<ClaimRequestStatusModal /> should show check mark, you accepted text, 
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -3156,7 +3156,7 @@ exports[`<ClaimRequestStatusModal /> should show check mark, you accepted text, 
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -3199,7 +3199,7 @@ exports[`<ClaimRequestStatusModal /> should show check mark, you accepted text, 
       <Text
         accessibilityLabel="claim-request-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [

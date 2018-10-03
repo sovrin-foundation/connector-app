@@ -103,7 +103,7 @@ exports[`Restore Passphrase screen should render properly and match the snapshot
             />
             <Text
               accessible={true}
-              allowFontScaling={true}
+              allowFontScaling={false}
               ellipsizeMode="tail"
               style={
                 Array [
@@ -153,7 +153,7 @@ exports[`Restore Passphrase screen should render properly and match the snapshot
         >
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             ellipsizeMode="tail"
             style={
               Array [

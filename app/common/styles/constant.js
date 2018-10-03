@@ -207,6 +207,7 @@ export const font = {
     L: 40,
     PREFIX: 14,
   },
+  family: 'Lato',
 }
 
 export const PADDING_HORIZONTAL = 15

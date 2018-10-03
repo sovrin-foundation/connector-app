@@ -110,7 +110,7 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
           >
             <Text
               accessible={true}
-              allowFontScaling={true}
+              allowFontScaling={false}
               ellipsizeMode="tail"
               style={
                 Array [
@@ -146,7 +146,7 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
             </Text>
             <Text
               accessible={true}
-              allowFontScaling={true}
+              allowFontScaling={false}
               ellipsizeMode="tail"
               style={
                 Array [

@@ -74,7 +74,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
       >
         <Text
           accessible={true}
-          allowFontScaling={true}
+          allowFontScaling={false}
           ellipsizeMode="tail"
           style={
             Array [
@@ -200,7 +200,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
       >
         <Text
           accessible={true}
-          allowFontScaling={true}
+          allowFontScaling={false}
           ellipsizeMode="tail"
           style={
             Array [
@@ -297,7 +297,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
   >
     <Text
       accessible={true}
-      allowFontScaling={true}
+      allowFontScaling={false}
       ellipsizeMode="tail"
       style={
         Array [
@@ -353,7 +353,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
   >
     <Text
       accessible={true}
-      allowFontScaling={true}
+      allowFontScaling={false}
       ellipsizeMode="tail"
       style={
         Array [
@@ -412,29 +412,38 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
-            Object {},
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            Array [
-              Object {
-                "color": "#6D6D6D",
-                "fontSize": 14,
-                "letterSpacing": -0.35,
-                "lineHeight": 18,
-                "textAlign": "center",
-              },
-            ],
+            Object {
+              "fontSize": 17,
+            },
+            Object {
+              "fontFamily": "Lato",
+            },
+            Object {
+              "backgroundColor": "#333333",
+              "color": "#ffffff",
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "color": "#6D6D6D",
+              "fontSize": 14,
+              "letterSpacing": -0.35,
+              "lineHeight": 18,
+              "textAlign": "center",
+            },
           ]
         }
       >
@@ -442,23 +451,31 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
          
         <Text
           accessible={true}
-          allowFontScaling={true}
+          allowFontScaling={false}
           ellipsizeMode="tail"
           style={
             Array [
-              Object {},
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              undefined,
               Object {
-                "color": "rgba(237, 156, 46, 1)",
+                "fontSize": 17,
               },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#333333",
+                "color": "#ffffff",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
             ]
           }
         >
@@ -482,7 +499,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
   >
     <Text
       accessible={true}
-      allowFontScaling={true}
+      allowFontScaling={false}
       ellipsizeMode="tail"
       style={
         Array [
@@ -613,7 +630,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
         <Text
           accessibilityLabel="wallet-tab-send-details-modal-title"
           accessible={true}
-          allowFontScaling={true}
+          allowFontScaling={false}
           ellipsizeMode="tail"
           style={
             Array [
@@ -656,7 +673,7 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
         <Text
           accessibilityLabel="wallet-tab-send-details-modal-content"
           accessible={true}
-          allowFontScaling={true}
+          allowFontScaling={false}
           ellipsizeMode="tail"
           style={
             Array [

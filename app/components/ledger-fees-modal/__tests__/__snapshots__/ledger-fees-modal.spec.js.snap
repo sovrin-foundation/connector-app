@@ -89,7 +89,7 @@ exports[`<LedgerFeesModalComponent /> show error if fetching fees failed, show r
       <Text
         accessibilityLabel="ledger-fees-modal-content"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -480,7 +480,7 @@ exports[`<LedgerFeesModalComponent /> show loader, loading text, no buttons, if 
       <Text
         accessibilityLabel="ledger-fees-modal-content"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -612,7 +612,7 @@ exports[`<LedgerFeesModalComponent /> show transfer fees, Yes & No buttons, if f
       <Text
         accessibilityLabel="ledger-fees-modal-title"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -655,7 +655,7 @@ exports[`<LedgerFeesModalComponent /> show transfer fees, Yes & No buttons, if f
       <Text
         accessibilityLabel="ledger-fees-modal-title"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -698,7 +698,7 @@ exports[`<LedgerFeesModalComponent /> show transfer fees, Yes & No buttons, if f
       <Text
         accessibilityLabel="ledger-fees-modal-content"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -1089,7 +1089,7 @@ exports[`<LedgerFeesModalComponent /> trigger getLedgerFees to start fetching le
       <Text
         accessibilityLabel="ledger-fees-modal-content"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [

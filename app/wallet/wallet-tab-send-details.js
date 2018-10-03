@@ -26,7 +26,6 @@ import {
   whiteSmokeSecondary,
 } from '../common/styles/constant'
 import ControlInput from '../components/input-control/input-control'
-import { Text } from 'react-native-elements'
 import type {
   WalletSendPaymentData,
   WalletTabSendDetailsProps,
@@ -240,13 +239,13 @@ export class WalletTabSendDetails extends Component<
         </CustomView>
         <CustomView center style={[{ marginTop: 36 }]}>
           <CustomView center style={[{ width: '65%' }]}>
-            <Text style={[styles.walletContextText]}>
+            <CustomText style={[styles.walletContextText]}>
               You are sending{' '}
-              <Text style={{ color: color.bg.eighth.color }}>
+              <CustomText style={{ color: color.bg.eighth.color }}>
                 {formatNumbers(this.props.tokenAmount)}
-              </Text>{' '}
+              </CustomText>{' '}
               tokens to this wallet address:
-            </Text>
+            </CustomText>
           </CustomView>
         </CustomView>
         {this.state.showPaymentAddress ? (

@@ -37,7 +37,7 @@ exports[`user about app screen should render properly and snapshot should match 
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -88,7 +88,7 @@ exports[`user about app screen should render properly and snapshot should match 
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -147,7 +147,7 @@ exports[`user about app screen should render properly and snapshot should match 
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -196,7 +196,7 @@ exports[`user about app screen should render properly and snapshot should match 
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -311,7 +311,7 @@ exports[`user about app screen should render properly and snapshot should match 
               >
                 <Text
                   accessible={true}
-                  allowFontScaling={true}
+                  allowFontScaling={false}
                   ellipsizeMode="tail"
                   style={
                     Array [
@@ -494,7 +494,7 @@ exports[`user about app screen should render properly and snapshot should match 
               >
                 <Text
                   accessible={true}
-                  allowFontScaling={true}
+                  allowFontScaling={false}
                   ellipsizeMode="tail"
                   style={
                     Array [

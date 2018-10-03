@@ -64,7 +64,7 @@ exports[`<Request /> should match snapshot 1`] = `
             <Text
               accessibilityLabel="request-text-container-title"
               accessible={true}
-              allowFontScaling={true}
+              allowFontScaling={false}
               ellipsizeMode="tail"
               style={
                 Array [
@@ -107,7 +107,7 @@ exports[`<Request /> should match snapshot 1`] = `
             <Text
               accessibilityLabel="request-text-container-message"
               accessible={true}
-              allowFontScaling={true}
+              allowFontScaling={false}
               ellipsizeMode="tail"
               style={
                 Array [

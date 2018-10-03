@@ -25,7 +25,7 @@ exports[`<QRScanner /> should match snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -157,7 +157,7 @@ exports[`<QRScanner /> should match snapshot 1`] = `
       />
       <Text
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [

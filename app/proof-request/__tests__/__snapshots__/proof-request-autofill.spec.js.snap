@@ -336,7 +336,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
       >
         <Text
           accessible={true}
-          allowFontScaling={true}
+          allowFontScaling={false}
           ellipsizeMode="tail"
           style={
             Array [
@@ -373,7 +373,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
         </Text>
         <Text
           accessible={true}
-          allowFontScaling={true}
+          allowFontScaling={false}
           ellipsizeMode="tail"
           style={
             Array [
@@ -614,7 +614,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                         >
                           <Text
                             accessible={true}
-                            allowFontScaling={true}
+                            allowFontScaling={false}
                             ellipsizeMode="tail"
                             style={
                               Array [
@@ -663,7 +663,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                         >
                           <Text
                             accessible={true}
-                            allowFontScaling={true}
+                            allowFontScaling={false}
                             ellipsizeMode="tail"
                             style={
                               Array [
@@ -864,7 +864,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                         >
                           <Text
                             accessible={true}
-                            allowFontScaling={true}
+                            allowFontScaling={false}
                             ellipsizeMode="tail"
                             style={
                               Array [
@@ -913,7 +913,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                         >
                           <Text
                             accessible={true}
-                            allowFontScaling={true}
+                            allowFontScaling={false}
                             ellipsizeMode="tail"
                             style={
                               Array [
@@ -1534,7 +1534,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
         <Text
           accessibilityLabel="send-proof-message"
           accessible={true}
-          allowFontScaling={true}
+          allowFontScaling={false}
           ellipsizeMode="tail"
           style={
             Array [
@@ -1578,7 +1578,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
         <Text
           accessibilityLabel="proof-verify-name"
           accessible={true}
-          allowFontScaling={true}
+          allowFontScaling={false}
           ellipsizeMode="tail"
           style={
             Array [

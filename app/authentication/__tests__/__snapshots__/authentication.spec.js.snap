@@ -71,7 +71,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
               <Text
                 accessibilityLabel="authentication-request-text-container-title"
                 accessible={true}
-                allowFontScaling={true}
+                allowFontScaling={false}
                 ellipsizeMode="tail"
                 style={
                   Array [
@@ -114,7 +114,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
               <Text
                 accessibilityLabel="authentication-request-text-container-message"
                 accessible={true}
-                allowFontScaling={true}
+                allowFontScaling={false}
                 ellipsizeMode="tail"
                 style={
                   Array [
@@ -840,7 +840,7 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
         <Text
           accessibilityLabel="invitation-message"
           accessible={true}
-          allowFontScaling={true}
+          allowFontScaling={false}
           ellipsizeMode="tail"
           style={
             Array [

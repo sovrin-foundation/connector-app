@@ -97,6 +97,7 @@ const Tabs = createTabNavigator(
       },
       labelStyle: {
         fontSize: font.size.S,
+        fontFamily: font.family,
         fontWeight: 'bold',
       },
     },

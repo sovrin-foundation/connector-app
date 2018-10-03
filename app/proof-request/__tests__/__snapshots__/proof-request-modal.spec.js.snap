@@ -209,7 +209,7 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
       <Text
         accessibilityLabel="send-proof-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -253,7 +253,7 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
       <Text
         accessibilityLabel="proof-verify-name"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -631,7 +631,7 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
       <Text
         accessibilityLabel="send-proof-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -675,7 +675,7 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
       <Text
         accessibilityLabel="proof-verify-name"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -1049,7 +1049,7 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
       <Text
         accessibilityLabel="send-proof-message"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
@@ -1093,7 +1093,7 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
       <Text
         accessibilityLabel="proof-verify-name"
         accessible={true}
-        allowFontScaling={true}
+        allowFontScaling={false}
         ellipsizeMode="tail"
         style={
           Array [
