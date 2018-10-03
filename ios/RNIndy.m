@@ -1,6 +1,9 @@
 //  Created by react-native-create-bridge
 
 #import "RNIndy.h"
+#import <LocalAuthentication/LocalAuthentication.h>
+#import <React/RCTUtils.h>
+#import "React/RCTConvert.h"
 
 // import RCTBridge
 #if __has_include(<React/RCTBridge.h>)
@@ -719,6 +722,32 @@ RCT_EXPORT_METHOD(getLedgerFees: (RCTPromiseResolveBlock) resolve
       resolve(fees);
     }
   }];
+}
+
+RCT_EXPORT_METHOD(getBiometricError: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+{
+    LAContext *context = [[LAContext alloc] init];
+    NSError *error;
+
+    if ([context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error]) {
+      resolve(@"");
+        // Device does not support TouchID
+    } else {
+      NSString *errorReason;
+      switch (error.code) {
+          case kLAErrorBiometryNotEnrolled:
+              errorReason = @"BiometricsNotEnrolled";
+              break;
+          case kLAErrorBiometryLockout:
+              errorReason = @"BiometricsLockOut";
+              break;
+          default:
+              errorReason = @"default";
+              break;
+        }
+        reject(errorReason, @"TouchIDBiometricsLockOut", nil);
+    }
 }
 
 @end

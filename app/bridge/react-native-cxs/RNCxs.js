@@ -537,3 +537,10 @@ export async function getLedgerFees(): Promise<LedgerFeesData> {
 
   return convertVcxLedgerFeesToLedgerFees(fees)
 }
+
+export async function getBiometricError(): Promise<string> {
+  if (Platform.OS === 'ios') {
+    return await RNIndy.getBiometricError()
+  }
+  return ''
+}

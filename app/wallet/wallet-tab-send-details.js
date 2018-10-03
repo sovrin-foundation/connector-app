@@ -239,9 +239,9 @@ export class WalletTabSendDetails extends Component<
         </CustomView>
         <CustomView center style={[{ marginTop: 36 }]}>
           <CustomView center style={[{ width: '65%' }]}>
-            <CustomText style={[styles.walletContextText]}>
+            <CustomText transparentBg style={[styles.walletContextText]}>
               You are sending{' '}
-              <CustomText style={{ color: color.bg.eighth.color }}>
+              <CustomText transparentBg quinaryText>
                 {formatNumbers(this.props.tokenAmount)}
               </CustomText>{' '}
               tokens to this wallet address:

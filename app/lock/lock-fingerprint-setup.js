@@ -27,17 +27,16 @@ import {
   LAErrorTouchIDNotSupported,
   touchIDAlerts,
   touchIDNotSupportAlertAndroid,
-  BIOMETRICS_AVAILABLE,
 } from './type-lock'
 import type { LockFingerprintSetupProps } from './type-lock'
 import { AsyncStorage } from 'react-native'
 import { safeSet } from '../services/storage'
+import { getBiometricError } from '../bridge/react-native-cxs/RNCxs'
 
 export class LockFingerprintSetup extends PureComponent<
   LockFingerprintSetupProps,
   void
 > {
-  checkIfBiometricsAvaliable = ''
   goToSettingsScreen = () => {
     if (this.props.touchIdActive) {
       this.props.disableTouchIdAction()
@@ -63,10 +62,27 @@ export class LockFingerprintSetup extends PureComponent<
     this.props.navigation.navigate(lockPinSetupRoute, { touchIdActive: true })
   }
 
+  popUpNativeAlert = (message: string) => {
+    Alert.alert(
+      null,
+      message,
+      [
+        {
+          text: 'Ok',
+          onPress: () => {
+            this.props.fromSettings
+              ? this.props.navigation.goBack(null)
+              : this.props.navigation.navigate(lockSelectionRoute)
+          },
+        },
+      ],
+      { cancelable: false }
+    )
+  }
+
   touchIdHandler = () => {
     TouchId.isSupported()
       .then(success => {
-        safeSet(BIOMETRICS_AVAILABLE, 'true')
         TouchId.authenticate('', this.touchIdHandler)
           .then(success => {
             this.props.fromSettings
@@ -77,20 +93,7 @@ export class LockFingerprintSetup extends PureComponent<
             // captureError(error)
             if (AllowedFallbackToucheIDErrors.indexOf(error.name) >= 0) {
               if (error.code === LAErrorTouchIDTooManyAttempts) {
-                Alert.alert(
-                  null,
-                  touchIDAlerts.biometricsExceedAlert,
-                  [
-                    {
-                      text: 'OK',
-                      onPress: () =>
-                        this.props.fromSettings
-                          ? this.props.navigation.goBack(null)
-                          : this.props.navigation.navigate(lockSelectionRoute),
-                    },
-                  ],
-                  { cancelable: false }
-                )
+                this.popUpNativeAlert(touchIDAlerts.biometricsExceedAlert)
               } else {
                 this.props.fromSettings
                   ? this.props.navigation.goBack(null)
@@ -103,32 +106,25 @@ export class LockFingerprintSetup extends PureComponent<
         captureError(error)
         if (AllowedFallbackToucheIDErrors.indexOf(error.name) >= 0) {
           let alertMessage = touchIDAlerts.notSupportedBiometrics
-          if (
-            Platform.OS === 'android' &&
-            touchIDNotSupportAlertAndroid.indexOf(error.code) < 0
-          ) {
-            alertMessage = touchIDAlerts.enableBiometrics
-          }
-          if (Platform.OS === 'ios') {
-            if (this.props.biometricsAvaliable === 'true') {
-              alertMessage = touchIDAlerts.iOSBiometricsAlert
+          if (Platform.OS === 'android') {
+            if (touchIDNotSupportAlertAndroid.indexOf(error.code) < 0) {
+              alertMessage = touchIDAlerts.enableBiometrics
             }
+            this.popUpNativeAlert(alertMessage)
+          } else {
+            getBiometricError()
+              .then()
+              .catch(err => {
+                if (err.code === 'BiometricsLockOut') {
+                  alertMessage = touchIDAlerts.biometricsExceedAlert
+                } else if (err.code === 'BiometricsNotEnrolled') {
+                  alertMessage = touchIDAlerts.enableBiometrics
+                } else {
+                  alertMessage = touchIDAlerts.notSupportedBiometrics
+                }
+                this.popUpNativeAlert(alertMessage)
+              })
           }
-          Alert.alert(
-            null,
-            alertMessage,
-            [
-              {
-                text: 'Ok',
-                onPress: () => {
-                  this.props.fromSettings
-                    ? this.props.navigation.goBack(null)
-                    : this.props.navigation.navigate(lockSelectionRoute)
-                },
-              },
-            ],
-            { cancelable: false }
-          )
         }
       })
   }
@@ -148,7 +144,6 @@ const mapStateToProps = (state: Store, props) => ({
     props.navigation.state.params !== undefined
       ? props.navigation.state.params.fromSettings
       : false,
-  biometricsAvaliable: state.lock.biometricsAvaliable,
 })
 
 const mapDispatchToProps = dispatch =>

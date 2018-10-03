@@ -151,7 +151,6 @@ export type LockActions =
   | CheckPinSuccessAction
   | CheckPinFailAction
   | SwitchErrorAlerts
-  | PutBiometricsInStoreAction
 
 export type LockEnterPinProps = {
   pendingRedirection: Array<PendingRedirection>,
@@ -203,17 +202,6 @@ export type EnableDevMode = {
 export const HIDE_DEV_MODE = 'HIDE_DEV_MODE'
 export type DisableDevMode = {
   type: typeof HIDE_DEV_MODE,
-}
-
-export const BIOMETRICS_AVAILABLE = 'BIOMETRICS_AVAILABLE'
-export type CheckBiometricsAvailableAction = {
-  type: typeof BIOMETRICS_AVAILABLE,
-}
-
-export const BIOMETRICS_AVAILABLE_STORE = 'BIOMETRICS_AVAILABLE_STORE'
-export type PutBiometricsInStoreAction = {
-  type: typeof BIOMETRICS_AVAILABLE_STORE,
-  data: string,
 }
 
 export type LockEnterProps = {

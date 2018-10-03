@@ -428,7 +428,9 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
             },
             null,
             null,
-            null,
+            Object {
+              "backgroundColor": "transparent",
+            },
             null,
             null,
             null,
@@ -467,8 +469,12 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
               },
               null,
               null,
-              null,
-              null,
+              Object {
+                "backgroundColor": "transparent",
+              },
+              Object {
+                "color": "rgba(237, 156, 46, 1)",
+              },
               null,
               null,
               null,
