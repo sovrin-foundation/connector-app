@@ -42,6 +42,10 @@ export type PassphraseLoaderProps = {
   chatBubbleDimensions: ChatBubbleDimensions,
 }
 
+export type PassphraseErrorProps = {
+  chatBubbleDimensions: ChatBubbleDimensions,
+}
+
 export type VerifyRecoveryPhraseProps = {
   recoveryPassphrase: Passphrase,
 } & ReactNavigationBackup

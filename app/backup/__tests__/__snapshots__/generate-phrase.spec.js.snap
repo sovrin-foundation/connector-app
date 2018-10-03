@@ -154,6 +154,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot 1`] = `
         style={
           Object {
             "left": 20,
+            "paddingHorizontal": 15,
             "position": "absolute",
             "top": 20,
             "width": 320,
@@ -623,8 +624,10 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for error state 1`] = 
         style={
           Object {
             "left": 20,
+            "paddingHorizontal": 15,
             "position": "absolute",
             "top": 20,
+            "width": 320,
           }
         }
       >
@@ -1097,6 +1100,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for loading state 1`] 
         style={
           Object {
             "left": 20,
+            "paddingHorizontal": 15,
             "position": "absolute",
             "top": 20,
             "width": 320,

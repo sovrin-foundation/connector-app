@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 20,
     left: chatBubbleTextOffset / 2,
+    paddingHorizontal: PADDING_HORIZONTAL,
   },
   genRecoveryPhraseLoadingContainer: {
     padding: 40,

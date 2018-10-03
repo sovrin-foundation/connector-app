@@ -26,6 +26,7 @@ import type {
   ChatBubbleDimensions,
   PassphraseTextProps,
   PassphraseLoaderProps,
+  PassphraseErrorProps,
 } from './type-backup'
 import { BACKUP_STORE_STATUS } from './type-backup'
 import { generateRecoveryPhrase } from './backup-store'
@@ -62,13 +63,25 @@ const PassphraseLoader = (props: PassphraseLoaderProps) => {
   )
 }
 
-const PassphraseError = (
-  <CustomView style={[styles.genRecoveryPhraseContainer]}>
-    <CustomText transparentBg darkgray center>
-      {PASSPHRASE_GENERATION_ERROR}
-    </CustomText>
-  </CustomView>
-)
+const PassphraseError = (props: PassphraseErrorProps) => {
+  return (
+    <CustomView
+      style={[
+        styles.genRecoveryPhraseContainer,
+        {
+          width:
+            props.chatBubbleDimensions && props.chatBubbleDimensions.width
+              ? props.chatBubbleDimensions.width - chatBubbleTextOffset
+              : null,
+        },
+      ]}
+    >
+      <CustomText transparentBg darkgray center>
+        {PASSPHRASE_GENERATION_ERROR}
+      </CustomText>
+    </CustomView>
+  )
+}
 
 const PassphraseText = (props: PassphraseTextProps) => {
   return (
@@ -157,7 +170,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
       recoveryStatus === BACKUP_STORE_STATUS.GENERATE_BACKUP_FILE_FAILURE
     ) {
       // This block is where we need to try handling passphrase generation differently
-      return PassphraseError
+      return <PassphraseError chatBubbleDimensions={chatBubbleDimensions} />
     }
     return (
       <PassphraseText
