@@ -227,8 +227,6 @@ dependencies {
     //TODO remove JNA when vcx.aar is resolved from repo instead of flat file
     //TODO JNA only needed when vcx.aar is resolved from flat file
     implementation 'net.java.dev.jna:jna:4.5.0@aar'
-    // un-comment below lines to enable logging in vcx and indy
-    // compile group: 'com.mobidevelop.robovm', name: 'robovm-rt', version: '2.3.4'
     implementation 'org.slf4j:slf4j-simple:1.7.25'
 }
 

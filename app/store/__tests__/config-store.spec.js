@@ -65,6 +65,7 @@ import {
   walletSet,
   secureSet,
   secureGet,
+  getHydrationItem,
 } from '../../services/storage'
 
 const getConfigStoreInitialState = () =>
@@ -136,20 +137,13 @@ describe('server environment should change', () => {
         JSON.stringify(switchedEnvironmentDetails)
       )
     )
-    expect(gen.next().value).toEqual(take(VCX_INIT_SUCCESS))
-    expect(gen.next().value).toEqual(
-      call(
-        walletSet,
-        STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL,
-        serializedEnvironmentDetail
-      )
-    )
+    expect(gen.next().done).toBe(true)
   })
 
   it('should hydrate switched environment details', () => {
     const gen = hydrateSwitchedEnvironmentDetails()
     expect(gen.next().value).toEqual(
-      call(secureGet, STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL)
+      call(getHydrationItem, STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL)
     )
     let switchedEnvironmentDetails = {
       poolConfig,

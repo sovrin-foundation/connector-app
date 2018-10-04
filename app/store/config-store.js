@@ -10,7 +10,7 @@ import {
   takeLatest,
 } from 'redux-saga/effects'
 
-import { secureGet, secureSet, walletGet, walletSet } from '../services/storage'
+import { secureSet, getHydrationItem } from '../services/storage'
 import {
   getErrorAlertsSwitchValue,
   getPushToken,
@@ -360,20 +360,8 @@ export function* onEnvironmentSwitch(
 ): Generator<*, *, *> {
   const { type, ...switchedEnvironmentDetail } = action
   try {
-    // these assumptions needs to be fixed, this is a hack for now
-    // ideally we would like to have a walletInitSuccess saga
-    // which would be inside walletSet directly
-    // and if wallet is initialized, then we would go ahead and set values to wallet
-    // for now, we just know that environment switch can only before vcx init is called
-    // so we wait for VCX_INIT_SUCCESS to fire and then we can save data to wallet
     yield call(
       secureSet,
-      STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL,
-      JSON.stringify(switchedEnvironmentDetail)
-    )
-    yield take(VCX_INIT_SUCCESS)
-    yield call(
-      walletSet,
       STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL,
       JSON.stringify(switchedEnvironmentDetail)
     )
@@ -395,18 +383,11 @@ export function* watchSwitchEnvironment(): any {
 }
 
 export function* hydrateSwitchedEnvironmentDetails(): any {
-  let switchedEnvironmentDetail = null
   try {
-    switchedEnvironmentDetail = yield call(
-      secureGet,
+    const switchedEnvironmentDetail: string | null = yield call(
+      getHydrationItem,
       STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL
     )
-    if (switchedEnvironmentDetail === null) {
-      switchedEnvironmentDetail = yield call(
-        walletGet,
-        STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL
-      )
-    }
     if (switchedEnvironmentDetail) {
       const {
         agencyUrl,
