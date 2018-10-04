@@ -8,7 +8,9 @@ import {
   select,
   fork,
   take,
+  race,
 } from 'redux-saga/effects'
+import { delay } from 'redux-saga'
 import { zip } from 'react-native-zip-archive'
 import {
   GENERATE_RECOVERY_PHRASE_SUCCESS,
@@ -35,6 +37,7 @@ import {
   HYDRATE_BACKUP_FAILURE,
   EXPORT_BACKUP_NO_SHARE,
   WALLET_FILE_NAME,
+  PREPARE_BACK_IDLE,
 } from './type-backup'
 import type {
   PromptBackupBannerAction,
@@ -46,6 +49,7 @@ import type {
   ExportBackupLoadingAction,
   GenerateRecoveryPhraseLoadingAction,
   GenerateBackupFileLoadingAction,
+  PrepareBackupStatus,
 } from './type-backup'
 import RNFetchBlob from 'react-native-fetch-blob'
 import { Platform } from 'react-native'
@@ -76,6 +80,7 @@ import {
   getBackupPassphrase,
   getBackupWalletPath,
   getVcxInitializationState,
+  getPrepareBackupStatus,
 } from '../store/store-selector'
 import { STORAGE_KEY_SHOW_BANNER } from '../components/banner/banner-constants'
 import { getWords } from './secure-passphrase'
@@ -91,6 +96,7 @@ const initialState = {
   showBanner: false,
   lastSuccessfulBackup: '',
   backupWalletPath: '',
+  prepareBackupStatus: PREPARE_BACK_IDLE,
 }
 
 export function* generateBackupSaga(
@@ -130,6 +136,32 @@ export function* generateBackupSaga(
       'utf8'
     )
 
+    // check status for prepare backup, with status of prepare backup
+    // we would know whether we have moved all of data inside wallet or not
+    // only when we are sure that we have moved data inside of wallet
+    // we will go ahead and get a backup of wallet
+    const prepareBackupStatus: PrepareBackupStatus = yield select(
+      getPrepareBackupStatus
+    )
+    if (prepareBackupStatus !== PREPARE_BACKUP_SUCCESS) {
+      // prepare backup can only be in 3 states, loading, success, failure
+      // if it is not success, then we check for failure
+      if (prepareBackupStatus === PREPARE_BACKUP_FAILURE) {
+        throw new Error('Failed to write data back to wallet')
+      }
+      // if status is neither success nor failure, then we wait for it to success
+
+      // we will wait for 2 minutes for data to go into wallet
+      // and then we will timeout
+      const { prepareBackupSuccess, timeout } = yield race({
+        prepareBackupSuccess: take(PREPARE_BACKUP_SUCCESS),
+        timeout: call(delay, 120000),
+      })
+      if (timeout) {
+        throw new Error('Could not write data back to wallet in 2 minutes')
+      }
+    }
+
     // call VCX method to encrypt wallet. Given path to store it, file name, & key to encrypt it
     yield call(encryptWallet, {
       encryptedFileLocation,
@@ -150,24 +182,44 @@ export function* generateBackupSaga(
   }
 }
 
+const resolvedPromise = () => Promise.resolve()
+
 export function* prepareBackupSaga(
   action: PrepareBackupLoadingAction
 ): Generator<*, *, *> {
-  const skipStates = [__uniqueId, WALLET_KEY]
+  const skipItems = [__uniqueId, WALLET_KEY]
 
   try {
     // get all items saved in secure storage
     const secureStorage = yield call(secureGetAll)
-    yield all(
-      secureStorage[0].map(item => {
-        const { key, value } = item
-        // check for things we don't want stored in the wallet
-        if (skipStates.indexOf(key) === -1) {
-          // store items into wallet
-          walletSet(key, value)
-        }
-      })
-    )
+    // for Android secureGetAll returns an object
+    // while for ios it returns an array of array
+    if (Platform.OS === 'android') {
+      yield all(
+        Object.keys(secureStorage).map(key => {
+          if (skipItems.indexOf(key) === -1) {
+            return call(walletSet, key, secureStorage[key])
+          }
+
+          return call(resolvedPromise)
+        })
+      )
+    } else {
+      if (secureStorage.length > 0) {
+        yield all(
+          secureStorage[0].map(item => {
+            const { key, value } = item
+            // check for things we don't want stored in the wallet
+            if (skipItems.indexOf(key) === -1) {
+              // store items into wallet
+              return call(walletSet, key, value)
+            }
+
+            return call(resolvedPromise)
+          })
+        )
+      }
+    }
 
     yield put(prepareBackupSuccess())
   } catch (e) {
@@ -216,13 +268,27 @@ export function* exportBackupSaga(
   }
 }
 
-// we should not need to call this now
-// TODO:KS Verify and remove this
 export function* deletePersistedPassphrase(): Generator<*, *, *> {
   yield all([
     call(secureDelete, PASSPHRASE_STORAGE_KEY),
     call(secureDelete, PASSPHRASE_SALT_STORAGE_KEY),
   ])
+}
+
+export function* hydratePassphraseFromWallet(): Generator<*, *, *> {
+  try {
+    const [passphrase, passphraseSalt] = yield all([
+      call(walletGet, PASSPHRASE_STORAGE_KEY),
+      call(walletGet, PASSPHRASE_SALT_STORAGE_KEY),
+    ])
+    yield all([
+      call(secureSet, PASSPHRASE_STORAGE_KEY, passphrase),
+      call(secureSet, PASSPHRASE_SALT_STORAGE_KEY, passphraseSalt),
+    ])
+  } catch (e) {
+    // not sure what to do if we don't get passphrase data
+    // user would see new passphrase next time user is generating a backup
+  }
 }
 
 export function* generateRecoveryPhraseSaga(
@@ -415,7 +481,7 @@ export const generateRecoveryPhrase = () => ({
 
 export const generateRecoveryPhraseSuccess = (passphrase: Passphrase) => ({
   type: GENERATE_RECOVERY_PHRASE_SUCCESS,
-  status: BACKUP_STORE_STATUS.GENERATE_BACKUP_FILE_SUCCESS,
+  status: BACKUP_STORE_STATUS.GENERATE_PHRASE_SUCCESS,
   passphrase: passphrase,
 })
 
@@ -556,6 +622,13 @@ export default function backupReducer(
       return {
         ...state,
         error: action.error,
+      }
+    case PREPARE_BACKUP_LOADING:
+    case PREPARE_BACKUP_SUCCESS:
+    case PREPARE_BACKUP_FAILURE:
+      return {
+        ...state,
+        prepareBackupStatus: action.status,
       }
     default:
       return state

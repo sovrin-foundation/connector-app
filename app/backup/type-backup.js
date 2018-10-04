@@ -76,6 +76,11 @@ export type BackupCompleteState = {
   recoveryPassphrase: string,
 }
 
+export const PREPARE_BACK_IDLE = 'PREPARE_BACKUP_IDLE'
+export const PREPARE_BACKUP_LOADING = 'PREPARE_BACKUP_LOADING'
+export const PREPARE_BACKUP_SUCCESS = 'PREPARE_BACKUP_SUCCESS'
+export const PREPARE_BACKUP_FAILURE = 'PREPARE_BACKUP_FAILURE'
+
 export const BACKUP_STORE_STATUS = {
   IDLE: 'IDLE',
   GENERATE_PHRASE_LOADING: 'GENERATE_PHRASE_LOADING',
@@ -84,9 +89,10 @@ export const BACKUP_STORE_STATUS = {
   GENERATE_BACKUP_FILE_LOADING: 'GENERATE_BACKUP_FILE_LOADING',
   GENERATE_BACKUP_FILE_SUCCESS: 'GENERATE_BACKUP_FILE_SUCCESS',
   GENERATE_BACKUP_FILE_FAILURE: 'GENERATE_BACKUP_FILE_FAILURE',
-  PREPARE_BACKUP_LOADING: 'PREPARE_BACKUP_LOADING',
-  PREPARE_BACKUP_SUCCESS: 'PREPARE_BACKUP_SUCCESS',
-  PREPARE_BACKUP_FAILURE: 'PREPARE_BACKUP_FAILURE',
+  PREPARE_BACKUP_LOADING,
+  PREPARE_BACKUP_SUCCESS,
+  PREPARE_BACKUP_FAILURE,
+  PREPARE_BACK_IDLE,
   EXPORT_BACKUP_LOADING: 'EXPORT_BACKUP_LOADING',
   EXPORT_BACKUP_SUCCESS: 'EXPORT_BACKUP_SUCCESS',
   EXPORT_BACKUP_FAILURE: 'EXPORT_BACKUP_FAILURE',
@@ -100,6 +106,12 @@ export type Passphrase = {
   hash: string,
 }
 
+export type PrepareBackupStatus =
+  | typeof PREPARE_BACK_IDLE
+  | typeof PREPARE_BACKUP_LOADING
+  | typeof PREPARE_BACKUP_SUCCESS
+  | typeof PREPARE_BACKUP_FAILURE
+
 export type BackupStore = {
   passphrase: Passphrase,
   backupWalletPath: string,
@@ -108,6 +120,7 @@ export type BackupStore = {
   // TODO: fix flow type
   error: any,
   status: string,
+  prepareBackupStatus: PrepareBackupStatus,
 }
 
 export type StoreError = { error: ?CustomError }
@@ -144,9 +157,6 @@ export const GENERATE_RECOVERY_PHRASE_SUCCESS =
   'GENERATE_RECOVERY_PHRASE_SUCCESS'
 export const GENERATE_RECOVERY_PHRASE_FAILURE =
   'GENERATE_RECOVERY_PHRASE_FAILURE'
-export const PREPARE_BACKUP_LOADING = 'PREPARE_BACKUP_LOADING'
-export const PREPARE_BACKUP_SUCCESS = 'PREPARE_BACKUP_SUCCESS'
-export const PREPARE_BACKUP_FAILURE = 'PREPARE_BACKUP_FAILURE'
 export const EXPORT_BACKUP_LOADING = 'EXPORT_BACKUP_LOADING'
 export const EXPORT_BACKUP_SUCCESS = 'EXPORT_BACKUP_SUCCESS'
 export const EXPORT_BACKUP_FAILURE = 'EXPORT_BACKUP_FAILURE'
@@ -253,6 +263,16 @@ export type PromptBackupBannerAction = {
   showBanner: boolean,
 }
 
+export type PrepareBackupSuccessAction = {
+  type: typeof PREPARE_BACKUP_SUCCESS,
+  status: $Keys<typeof BACKUP_STORE_STATUS>,
+}
+
+export type PrepareBackupFailureAction = {
+  type: typeof PREPARE_BACKUP_FAILURE,
+  status: $Keys<typeof BACKUP_STORE_STATUS>,
+}
+
 export type BackupStoreAction =
   | BackupStartAction
   | GenerateBackupFileLoadingAction
@@ -269,3 +289,5 @@ export type BackupStoreAction =
   | BackupCompleteAction
   | HydrateBackupAction
   | HydrateBackupFailAction
+  | PrepareBackupSuccessAction
+  | PrepareBackupFailureAction

@@ -398,12 +398,12 @@ export function* hydrateSwitchedEnvironmentDetails(): any {
   let switchedEnvironmentDetail = null
   try {
     switchedEnvironmentDetail = yield call(
-      walletGet,
+      secureGet,
       STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL
     )
     if (switchedEnvironmentDetail === null) {
       switchedEnvironmentDetail = yield call(
-        secureGet,
+        walletGet,
         STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL
       )
     }
@@ -604,7 +604,6 @@ export function* ensureVcxInitSuccess(): Generator<*, *, *> {
   // and then if we get fail, we can retry with exponential backoff
 }
 
-//TODO getMessageSaga
 export function* getMessagesSaga(): Generator<*, *, *> {
   try {
     //make sure vcx is initialized

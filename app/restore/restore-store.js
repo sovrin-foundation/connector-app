@@ -2,7 +2,15 @@
 import { decryptWalletFile, copyToPath } from '../bridge/react-native-cxs/RNCxs'
 import { unzip } from 'react-native-zip-archive'
 import firebase from 'react-native-firebase'
-import { takeLatest, all, put, call, take, select } from 'redux-saga/effects'
+import {
+  takeLatest,
+  all,
+  put,
+  call,
+  take,
+  select,
+  fork,
+} from 'redux-saga/effects'
 import type { CustomError } from '../common/type-common'
 import {
   SAVE_FILE_TO_APP_DIRECTORY,
@@ -30,7 +38,7 @@ import { pinHash as generateKey } from '../lock/pin-hash'
 import { safeToDownloadSmsInvitation } from '../sms-pending-invitation/sms-pending-invitation-store'
 import { Platform } from 'react-native'
 import type { Store } from '../store/type-store.js'
-import { hydrate } from '../store/hydration-store'
+import { hydrate, hydrateNonReduxData } from '../store/hydration-store'
 import { pushNotificationPermissionAction } from '../push-notification/push-notification-store'
 import { safeGet, safeSet } from '../services/storage'
 import { PIN_ENABLED_KEY, IN_RECOVERY } from '../lock/type-lock'
@@ -113,14 +121,15 @@ export function* restoreFileDecrypt(
     yield call(safeSet, PIN_ENABLED_KEY, 'true')
     yield call(safeSet, IN_RECOVERY, 'true')
     yield* hydrate()
-
+    // hydrate data in secure storage which is not put in store by hydrate saga
+    yield fork(hydrateNonReduxData)
     //Push Notification permissions are asked when we do our first connection
 
     //but in this case if connections are imported from backup then that case is missed
     //since connection is already there
 
     // so after push token update
-    //we need to do requestPermission or else push notifications won't come
+    // we need to do requestPermission or else push notifications won't come
     const requestPushNotificationPermission = () => {
       firebase.messaging().requestPermission()
     }

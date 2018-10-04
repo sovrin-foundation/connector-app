@@ -69,7 +69,7 @@ import { PROOF_FAIL } from '../proof/type-proof'
 import { getProofRequests } from './../store/store-selector'
 import { captureError } from '../services/error/error-handler'
 import { resetTempProofData, errorSendProofFail } from '../proof/proof-store'
-import { secureSet, secureGet, getHydrationItem } from '../services/storage'
+import { secureSet, getHydrationItem } from '../services/storage'
 
 const proofRequestInitialState = {}
 

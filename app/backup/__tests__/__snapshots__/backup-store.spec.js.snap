@@ -13,6 +13,7 @@ Object {
     "phrase": "",
     "salt": "s",
   },
+  "prepareBackupStatus": "PREPARE_BACKUP_IDLE",
   "showBanner": false,
   "status": "IDLE",
 }
@@ -28,6 +29,7 @@ Object {
     "phrase": "",
     "salt": "s",
   },
+  "prepareBackupStatus": "PREPARE_BACKUP_IDLE",
   "showBanner": false,
   "status": "EXPORT_BACKUP_LOADING",
 }
@@ -43,6 +45,7 @@ Object {
     "phrase": "",
     "salt": "s",
   },
+  "prepareBackupStatus": "PREPARE_BACKUP_IDLE",
   "showBanner": false,
   "status": "BACKUP_COMPLETE",
 }
@@ -58,6 +61,7 @@ Object {
     "phrase": "gander troubling deodorize justify twitter darkish confront politely",
     "salt": "s",
   },
+  "prepareBackupStatus": "PREPARE_BACKUP_IDLE",
   "showBanner": false,
   "status": "GENERATE_BACKUP_FILE_LOADING",
 }
@@ -73,6 +77,7 @@ Object {
     "phrase": "",
     "salt": "s",
   },
+  "prepareBackupStatus": "PREPARE_BACKUP_IDLE",
   "showBanner": false,
   "status": "GENERATE_BACKUP_FILE_SUCCESS",
 }
@@ -88,6 +93,7 @@ Object {
     "phrase": "",
     "salt": "s",
   },
+  "prepareBackupStatus": "PREPARE_BACKUP_IDLE",
   "showBanner": false,
   "status": "GENERATE_PHRASE_LOADING",
 }
@@ -103,7 +109,56 @@ Object {
     "phrase": "gander troubling deodorize justify twitter darkish confront politely",
     "salt": "s",
   },
+  "prepareBackupStatus": "PREPARE_BACKUP_IDLE",
   "showBanner": false,
-  "status": "GENERATE_BACKUP_FILE_SUCCESS",
+  "status": "GENERATE_PHRASE_SUCCESS",
+}
+`;
+
+exports[`store: backup-store:  action: PREPARE_BACKUP_FAILURE 1`] = `
+Object {
+  "backupWalletPath": "",
+  "error": null,
+  "lastSuccessfulBackup": "",
+  "passphrase": Object {
+    "hash": "h",
+    "phrase": "",
+    "salt": "s",
+  },
+  "prepareBackupStatus": "PREPARE_BACKUP_FAILURE",
+  "showBanner": false,
+  "status": "IDLE",
+}
+`;
+
+exports[`store: backup-store:  action: PREPARE_BACKUP_LOADING 1`] = `
+Object {
+  "backupWalletPath": "",
+  "error": null,
+  "lastSuccessfulBackup": "",
+  "passphrase": Object {
+    "hash": "h",
+    "phrase": "",
+    "salt": "s",
+  },
+  "prepareBackupStatus": "PREPARE_BACKUP_LOADING",
+  "showBanner": false,
+  "status": "IDLE",
+}
+`;
+
+exports[`store: backup-store:  action: PREPARE_BACKUP_SUCCESS 1`] = `
+Object {
+  "backupWalletPath": "",
+  "error": null,
+  "lastSuccessfulBackup": "",
+  "passphrase": Object {
+    "hash": "h",
+    "phrase": "",
+    "salt": "s",
+  },
+  "prepareBackupStatus": "PREPARE_BACKUP_SUCCESS",
+  "showBanner": false,
+  "status": "IDLE",
 }
 `;

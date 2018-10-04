@@ -48,7 +48,7 @@ import {
   ERROR_SENDING_TOKENS_WITH_FEES,
 } from '../type-wallet'
 import { WALLET_BALANCE, WALLET_ADDRESSES, WALLET_HISTORY } from '../../common'
-import { secureGet, getHydrationItem } from '../../services/storage'
+import { getHydrationItem } from '../../services/storage'
 import { expectSaga } from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {

@@ -36,7 +36,6 @@ import {
 } from '../type-user-store'
 import {
   secureSet,
-  secureGet,
   safeSet,
   safeGet,
   getHydrationItem,

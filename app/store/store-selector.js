@@ -377,3 +377,6 @@ export const getPendingFetchAdditionalDataKey = (state: Store) =>
   state.pushNotification.pendingFetchAdditionalDataKey
 export const getProofData = (state: Store, proofRequestId: string) =>
   state.proof[proofRequestId].proofData
+
+export const getPrepareBackupStatus = (state: Store) =>
+  state.backup.prepareBackupStatus

@@ -49,7 +49,7 @@ import {
   getSerializedClaimOffers,
   getConnectionByUserDid,
 } from '../store/store-selector'
-import { secureSet, secureGet, getHydrationItem } from '../services/storage'
+import { secureSet, getHydrationItem } from '../services/storage'
 import { CLAIM_MAP } from '../common/secure-storage-constants'
 import { RESET } from '../common/type-common'
 import {

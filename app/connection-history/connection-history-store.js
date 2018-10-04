@@ -64,7 +64,7 @@ import {
   PROOF_REQUEST_RECEIVED,
   SEND_PROOF_SUCCESS,
 } from '../proof-request/type-proof-request'
-import { secureGet, secureSet, getHydrationItem } from '../services/storage'
+import { secureSet, getHydrationItem } from '../services/storage'
 import {
   getProofRequest,
   getProof,

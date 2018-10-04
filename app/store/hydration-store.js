@@ -38,6 +38,8 @@ import {
   TOUCH_ID_STORAGE_KEY,
   PIN_ENABLED_KEY,
   IN_RECOVERY,
+  PIN_HASH,
+  SALT,
 } from '../lock/type-lock'
 import {
   hydrateUserStoreSaga,
@@ -47,6 +49,7 @@ import { hydrateWalletStoreSaga } from '../wallet/wallet-store'
 import {
   promptBackupBanner,
   deletePersistedPassphrase,
+  hydratePassphraseFromWallet,
 } from '../backup/backup-store'
 import {
   STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL,
@@ -120,6 +123,8 @@ function* deleteSecureStorageData(): Generator<*, *, *> {
       STORAGE_KEY_USER_ONE_TIME_INFO,
       STORAGE_KEY_THEMES,
       HISTORY_EVENT_STORAGE_KEY,
+      PIN_HASH,
+      SALT,
     ]
     const deleteOperations = []
     for (let index = 0; index < secureKeysToDelete.length; index++) {
@@ -244,8 +249,10 @@ export function* hydrate(): any {
       // for all three flags and redirection logic can move forward
       yield put(initialized())
 
-      // replace below line with wallet init saga
-      yield call(simpleInit)
+      if (inRecovery === 'true') {
+        // replace below line with wallet init saga
+        yield call(simpleInit)
+      }
 
       yield* hydrateSwitchedEnvironmentDetails()
       // since we hydrated environment details, so now we can start downloading sms
@@ -262,8 +269,10 @@ export function* hydrate(): any {
       yield* hydrateClaimOffersSaga()
       yield* loadHistorySaga()
 
-      // TODO: Move vcx shutdown logic inside ensureVcxInitSuccess
-      yield call(vcxShutdown, false)
+      if (inRecovery === 'true') {
+        // TODO: Move vcx shutdown logic inside ensureVcxInitSuccess
+        yield call(vcxShutdown, false)
+      }
       yield put(hydrated())
       yield* ensureVcxInitSuccess()
     } catch (e) {
@@ -279,4 +288,14 @@ export function* hydrate(): any {
     console.error(`hydrateSaga: ${e}`)
     yield* alreadyInstalledNotFound()
   }
+}
+
+export function* hydrateNonReduxData(): Generator<*, *, *> {
+  // this saga is supposed to be run while restoring wallet
+  // gets the data from wallet and hydrate that data in keychain/keystore
+  // reason we are doing this separately than in hydrate saga
+  // is that this data is not stored in redux-store because we pull it
+  // when needed, so hydrate won't hydrate this data
+  // but we still need to take this data out of wallet and put in Keychain
+  yield* hydratePassphraseFromWallet()
 }

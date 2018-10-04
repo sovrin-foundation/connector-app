@@ -8,6 +8,9 @@ import backupReducer, {
   exportBackup,
   exportBackupSuccess,
   promptBackupBanner,
+  prepareBackup,
+  prepareBackupSuccess,
+  prepareBackupFail,
 } from '../backup-store'
 import { BACKUP_STORE_STATUS } from '../type-backup'
 import { getStore } from '../../../__mocks__/static-data'
@@ -23,6 +26,7 @@ describe('store: backup-store: ', () => {
       showBanner: false,
       lastSuccessfulBackup: '',
       backupWalletPath: '',
+      prepareBackupStatus: BACKUP_STORE_STATUS.PREPARE_BACK_IDLE,
     }
   })
   const {
@@ -108,4 +112,26 @@ describe('store: backup-store: ', () => {
       backupReducer(initialState, backupWalletFail(ERROR_BACKUP_WALLET))
     ).toMatchSnapshot()
   })
+
+  it('action: PREPARE_BACKUP_LOADING', () => {
+    expect(backupReducer(initialState, prepareBackup())).toMatchSnapshot()
+  })
+
+  it('action: PREPARE_BACKUP_SUCCESS', () => {
+    expect(
+      backupReducer(initialState, prepareBackupSuccess())
+    ).toMatchSnapshot()
+  })
+
+  it('action: PREPARE_BACKUP_FAILURE', () => {
+    const testError = {
+      code: '000',
+      message: 'test message',
+    }
+    expect(
+      backupReducer(initialState, prepareBackupFail(testError))
+    ).toMatchSnapshot()
+  })
+
+  // TODO:KS Start adding tests for all sagas inside backup store
 })

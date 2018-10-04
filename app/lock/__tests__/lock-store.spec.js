@@ -3,13 +3,13 @@ import { put, call } from 'redux-saga/effects'
 import type { LockStore } from '../type-lock'
 import {
   SET_PIN,
-  PIN_STORAGE_KEY,
   CHECK_PIN,
   CHECK_PIN_IDLE,
   LOCK_ENABLE,
-  SALT_STORAGE_KEY,
   PIN_ENABLED_KEY,
   IN_RECOVERY,
+  PIN_HASH,
+  SALT,
 } from '../type-lock'
 import lockReducer, {
   addPendingRedirection,
@@ -21,10 +21,22 @@ import lockReducer, {
   checkPinFail,
   setPinAction,
   checkPinStatusIdle,
+  checkPinAction,
+  setInRecovery,
 } from '../lock-store'
-import { secureSet, secureGet, safeSet } from '../../services/storage'
+import {
+  secureSet,
+  secureGet,
+  safeSet,
+  safeGet,
+  getHydrationItem,
+} from '../../services/storage'
 import { generateSalt, pinHash } from '../pin-hash'
 import { VCX_INIT_SUCCESS } from '../../store/type-config-store'
+import { expectSaga } from 'redux-saga-test-plan'
+import * as matchers from 'redux-saga-test-plan/matchers'
+import { throwError } from 'redux-saga-test-plan/providers'
+import { configStoreHydratedInstalledVcxInitSuccess } from '../../../__mocks__/data/config-store-mock-data'
 
 const initialState: LockStore = {
   pendingRedirection: null,
@@ -58,73 +70,74 @@ describe('LockStore', () => {
     expect(expectedState).toMatchSnapshot()
   })
 
-  //TODO fix test
-  xit('set pin should work fine', () => {
+  it('set pin should work fine', () => {
     const pin = '123456'
     const salt = 'salt'
-    const gen = setPin(setPinAction(pin))
-    expect(gen.next().value).toEqual(call(generateSalt))
-    const hashedPin: any = gen.next(salt).value
-    expect(hashedPin).toEqual(call(pinHash, pin, salt))
+    const hashedPin = 'some-hash'
 
-    gen.next(pin)
-    const initializationState = VCX_INIT_SUCCESS
-
-    const pinStorage: any = gen.next(initializationState).value
-    expect(pinStorage).toEqual(call(secureSet, PIN_STORAGE_KEY, pin))
-
-    const saltStorage: any = gen.next(salt).value
-    expect(saltStorage).toEqual(call(secureSet, SALT_STORAGE_KEY, salt))
-
-    const pinEnabled: any = gen.next(salt).value
-    expect(pinEnabled).toEqual(call(safeSet, PIN_ENABLED_KEY, 'true'))
-
-    const inRecovery: any = gen.next(salt).value
-    expect(inRecovery).toEqual(call(safeSet, IN_RECOVERY, 'false'))
-    const lockEnableAction: any = gen.next(pin).value
-    expect(lockEnableAction['PUT'].action).toEqual(
-      expect.objectContaining({
-        type: LOCK_ENABLE,
-      })
-    )
-
-    expect(gen.next().done).toBe(true)
+    return expectSaga(setPin, setPinAction(pin))
+      .provide([
+        [matchers.call.fn(generateSalt), salt],
+        [matchers.call.fn(pinHash, pin, salt), hashedPin],
+      ])
+      .call(secureSet, PIN_HASH, hashedPin)
+      .call(secureSet, SALT, salt)
+      .call(safeSet, PIN_ENABLED_KEY, 'true')
+      .call(safeSet, IN_RECOVERY, 'false')
+      .put(lockEnable('true'))
+      .run()
   })
 
-  //TODO fix skipped test
-  xit('check pin flow should work if correct pin is passed', () => {
+  it('check pin flow should work if correct pin is passed', () => {
     const pin = '123456'
     const salt = 'salt'
-    const gen = checkPin({ type: CHECK_PIN, pin })
-    // move forward for ensureVcxInitSuccess
-    gen.next()
-    const initializationState = VCX_INIT_SUCCESS
-    expect(gen.next(initializationState).value).toEqual(
-      call(secureGet, SALT_STORAGE_KEY)
-    )
-    expect(gen.next(salt).value).toEqual(call(pinHash, pin, salt))
-    expect(gen.next(pin).value).toEqual(call(secureGet, PIN_STORAGE_KEY))
-    expect(gen.next(pin).value).toEqual(put(checkPinSuccess()))
-    expect(gen.next(pin).value).toEqual(call(safeSet, IN_RECOVERY, 'false'))
-    expect(gen.next().done).toBe(true)
+    const expectedPinHash = 'expectedPinHash'
+
+    return expectSaga(checkPin, checkPinAction(pin))
+      .provide([
+        [matchers.call.fn(safeGet, IN_RECOVERY), null],
+        [call(getHydrationItem, SALT), salt],
+        [call(getHydrationItem, PIN_HASH), expectedPinHash],
+        [matchers.call.fn(pinHash, pin, salt), expectedPinHash],
+      ])
+      .put(checkPinSuccess())
+      .run()
   })
 
-  //TODO fix skipped test
-  xit('check pin flow should fail if incorrect pin is passed', () => {
+  it('check pin flow should work if correct pin is passed in recovery', () => {
     const pin = '123456'
     const salt = 'salt'
-    const wrongPin = '123444'
-    const gen = checkPin({ type: CHECK_PIN, pin })
-    // move forward for ensureVcxInitSuccess
-    gen.next()
-    const initializationState = VCX_INIT_SUCCESS
-    expect(gen.next(initializationState).value).toEqual(
-      call(secureGet, SALT_STORAGE_KEY)
-    )
-    expect(gen.next(salt).value).toEqual(call(pinHash, pin, salt))
-    expect(gen.next(pin).value).toEqual(call(secureGet, PIN_STORAGE_KEY))
-    expect(gen.next(wrongPin).value).toEqual(put(checkPinFail()))
-    expect(gen.next().done).toBe(true)
+    const expectedPinHash = 'expectedPinHash'
+
+    return expectSaga(checkPin, checkPinAction(pin))
+      .withState({ config: configStoreHydratedInstalledVcxInitSuccess })
+      .provide([
+        [matchers.call.fn(safeGet, IN_RECOVERY), 'true'],
+        [call(getHydrationItem, SALT), salt],
+        [call(getHydrationItem, PIN_HASH), expectedPinHash],
+        [matchers.call.fn(pinHash, pin, salt), expectedPinHash],
+      ])
+      .call(safeSet, IN_RECOVERY, 'false')
+      .put(setInRecovery('false'))
+      .put(checkPinSuccess())
+      .run()
+  })
+
+  it('check pin flow should fail if incorrect pin is passed', () => {
+    const pin = '123456'
+    const salt = 'salt'
+    const expectedPinHash = 'expectedPinHash'
+    const enteredPinHash = 'enteredPinHash'
+
+    return expectSaga(checkPin, checkPinAction(pin))
+      .provide([
+        [matchers.call.fn(safeGet, IN_RECOVERY), null],
+        [call(getHydrationItem, SALT), salt],
+        [call(getHydrationItem, PIN_HASH), expectedPinHash],
+        [matchers.call.fn(pinHash, pin, salt), enteredPinHash],
+      ])
+      .put(checkPinFail())
+      .run()
   })
 
   it('should set checkPinStatus to idle', () => {

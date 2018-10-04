@@ -89,12 +89,7 @@ import type { ApiClaimRequest, EdgeClaimRequest } from '../api/type-api'
 import type { UserOneTimeInfo } from '../store/user/type-user-store'
 import type { Connection } from '../store/type-connection-store'
 import { RESET } from '../common/type-common'
-import {
-  secureSet,
-  secureGet,
-  secureDelete,
-  getHydrationItem,
-} from '../services/storage'
+import { secureSet, secureDelete, getHydrationItem } from '../services/storage'
 import { BigNumber } from 'bignumber.js'
 import { refreshWalletBalance } from '../wallet/wallet-store'
 import type {

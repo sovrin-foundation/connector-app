@@ -26,14 +26,12 @@ export type ClearPendingRedirectAction = {
 
 export const PIN_HASH = 'PIN_HASH'
 export const SALT = 'SALT'
-export const PIN_STORAGE_KEY = 'APP_PIN_LOCK'
 export const PIN_ENABLED_KEY = 'APP_PIN_LOCK_ENABLED'
 export const IN_RECOVERY = 'IN_RECOVERY'
 export type InRecovery = {
   type: typeof IN_RECOVERY,
   inRecovery: string,
 }
-export const SALT_STORAGE_KEY = 'APP_PIN_SALT'
 export const SET_PIN = 'SET_PIN'
 export type SetPinAction = {
   type: typeof SET_PIN,

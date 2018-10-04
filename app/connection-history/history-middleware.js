@@ -16,7 +16,6 @@ import {
   HISTORY_EVENT_STORAGE_KEY,
 } from './type-connection-history'
 import { historyEventOccurred } from './connection-history-store'
-import { secureSet } from '../services/storage'
 
 const actionToRecord = [
   // removing invitation received from record array

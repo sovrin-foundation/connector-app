@@ -118,6 +118,12 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void init(String config, Promise promise) {
         Log.d(TAG, " ==> init() called with: config = [" + config + "], promise = [" + promise + "]");
+        // When we restore data, then we are not calling createOneTimeInfo
+        // and hence ca-crt is not written within app directory
+        // since the logic to write ca cert checks for file existence
+        // we won't have to pay too much cost for calling this function inside init
+        BridgeUtils.writeCACert(this.getReactApplicationContext());
+
         try {
             VcxApi.vcxInitWithConfig(config).exceptionally((t) -> {
                 Log.e(TAG, "init: ", t);

@@ -7,12 +7,7 @@ import {
   select,
   all,
 } from 'redux-saga/effects'
-import {
-  secureSet,
-  secureGet,
-  secureDelete,
-  getHydrationItem,
-} from '../services/storage'
+import { secureSet, secureDelete, getHydrationItem } from '../services/storage'
 import { CONNECTIONS } from '../common'
 import {
   getAgencyUrl,

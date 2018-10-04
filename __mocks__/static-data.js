@@ -42,6 +42,7 @@ import {
 import { userOneTimeInfo } from './data/user-store-mock-data'
 import { STORE_STATUS } from '../app/wallet/type-wallet'
 import { ledgerStoreWithTransferFees } from './data/ledger-store-mock-data'
+import { PREPARE_BACKUP_SUCCESS } from '../app/backup/type-backup'
 
 // sadly, we can't export all variables in one line and use them in file as well
 // to use them in this file, we have to import them first
@@ -927,6 +928,7 @@ export function getStore(store?: Store) {
           },
           showBanner: true,
           status: 'BACKUP_COMPLETE',
+          prepareBackupStatus: PREPARE_BACKUP_SUCCESS,
         },
         config: configStoreNotHydratedInstalledVcxInit,
         deepLink: {

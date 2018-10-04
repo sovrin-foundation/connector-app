@@ -11,6 +11,7 @@ import {
 } from '../bridge/react-native-cxs/RNCxs'
 import { captureError } from './error/error-handler'
 import { IN_RECOVERY } from '../lock/type-lock'
+import { noop } from '../common'
 
 const storageName = {
   sharedPreferencesName: 'ConnectMeSharedPref',
@@ -57,7 +58,7 @@ export const walletSet = async (key: string, data: string) => {
 
 export const walletGet = async (key: string) => {
   try {
-    const data = await getWalletItem(key)
+    const data: string = await getWalletItem(key)
     return data
   } catch (e) {
     captureError(e)
@@ -103,7 +104,15 @@ export const getHydrationItem = async (key: string) => {
   let inRecovery: string = await safeGet(IN_RECOVERY)
 
   if (inRecovery === 'true') {
-    const walletItem = await walletGet(key)
+    const walletItem: string | null = await walletGet(key)
+
+    if (walletItem) {
+      // put items inside secure storage in background
+      // not using await syntax, because we want this in background
+      secureSet(key, walletItem)
+        .then(noop)
+        .catch(noop)
+    }
 
     return walletItem
   } else {

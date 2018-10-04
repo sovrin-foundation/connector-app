@@ -60,7 +60,12 @@ import { updatePushToken } from '../../push-notification/push-notification-store
 import { getPushToken } from '../../store/store-selector'
 import { connectRegisterCreateAgentDone } from '../user/user-store'
 import { homeRoute } from '../../common/route-constants'
-import { walletGet, walletSet, secureSet } from '../../services/storage'
+import {
+  walletGet,
+  walletSet,
+  secureSet,
+  secureGet,
+} from '../../services/storage'
 
 const getConfigStoreInitialState = () =>
   configReducer(undefined, { type: 'INITIAL_TEST_ACTION' })
@@ -144,7 +149,7 @@ describe('server environment should change', () => {
   it('should hydrate switched environment details', () => {
     const gen = hydrateSwitchedEnvironmentDetails()
     expect(gen.next().value).toEqual(
-      call(walletGet, STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL)
+      call(secureGet, STORAGE_KEY_SWITCHED_ENVIRONMENT_DETAIL)
     )
     let switchedEnvironmentDetails = {
       poolConfig,
