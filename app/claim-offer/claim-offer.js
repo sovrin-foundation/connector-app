@@ -352,7 +352,7 @@ export class ClaimOffer extends PureComponent<
                 claimRequestStatus === CLAIM_REQUEST_STATUS.CLAIM_REQUEST_FAIL
               }
             >
-              <CustomView center doubleVerticalSpace>
+              <CustomView center horizontalSpace doubleVerticalSpace>
                 <Icon src={require('../images/alertInfo.png')} />
                 <CustomText transparentBg primary center bold>
                   Error accepting credential. Please try again.

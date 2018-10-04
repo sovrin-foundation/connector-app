@@ -221,6 +221,7 @@ export type LockAuthorizationProps = {
 export type LockFingerprintSetupProps = {
   touchIdActive: boolean,
   fromSettings: boolean,
+  currentScreen: string,
   disableTouchIdAction: () => void,
   enableTouchIdAction: () => void,
 } & ReactNavigation

@@ -4,7 +4,7 @@ import 'react-native'
 import renderer from 'react-test-renderer'
 import { PIN_SETUP_STATE } from '../type-lock'
 import { LockFingerprintSetup } from '../lock-fingerprint-setup'
-import { lockPinSetupRoute } from '../../common'
+import { lockPinSetupRoute, lockTouchIdSetupRoute } from '../../common'
 import { getNavigation } from '../../../__mocks__/static-data'
 
 describe('<LockFingerprintSetup />', () => {
@@ -12,6 +12,7 @@ describe('<LockFingerprintSetup />', () => {
     navigation: getNavigation({ touchIdActive: true }),
     touchIdActive: true,
     fromSettings: false,
+    currentScreen: lockTouchIdSetupRoute,
     disableTouchIdAction: jest.fn(),
     enableTouchIdAction: jest.fn(),
   })
