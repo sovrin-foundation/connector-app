@@ -23,6 +23,7 @@ import { color } from '../common/styles'
 import { UNLOCKING_APP_WAIT_MESSAGE } from '../common/message-constants'
 import { unlockApp } from './lock-store'
 import { CustomText, CustomHeader } from '../components'
+import { Keyboard } from 'react-native'
 
 export class LockEnterPin extends PureComponent<
   LockEnterPinProps,
@@ -30,7 +31,10 @@ export class LockEnterPin extends PureComponent<
 > {
   state = {
     authenticationSuccess: false,
+    isKeyboardHidden: false,
   }
+
+  keyboardListener = null
 
   static navigationOptions = ({ navigation }) => ({
     header:
@@ -50,19 +54,44 @@ export class LockEnterPin extends PureComponent<
       ),
   })
 
+  componentDidMount() {
+    this.keyboardListener = Keyboard.addListener(
+      'keyboardDidHide',
+      this.keyboardHideState
+    )
+  }
+
+  keyboardHideState = () => {
+    this.setState({
+      isKeyboardHidden: true,
+    })
+  }
+
   componentWillReceiveProps(nextProps: LockEnterPinProps) {
     if (
       this.props.isFetchingInvitation !== nextProps.isFetchingInvitation &&
       nextProps.isFetchingInvitation === false &&
       nextProps.pendingRedirection
     ) {
-      if (this.state.authenticationSuccess) {
+      if (this.state.authenticationSuccess && this.state.isKeyboardHidden) {
         // passing the nextProps in to the redirect function
         // the prop is being changed (pendingRedirection) from object to null
         // CLEAR_PENDING_REDIRECT clearing the pendingRedirection property to null
         // so, the previous props are being sent for the redirection
         this.redirect(nextProps)
       }
+    }
+
+    // we are removing the keyboard listener every time we navigate out of this screen.
+    if (nextProps.navigation.isFocused) {
+      if (!this.keyboardListener) {
+        this.keyboardListener = Keyboard.addListener(
+          'keyboardDidHide',
+          this.keyboardHideState
+        )
+      }
+    } else {
+      this.keyboardListener && this.keyboardListener.remove()
     }
   }
 
@@ -80,7 +109,9 @@ export class LockEnterPin extends PureComponent<
     } else if (props.isAppLocked === true) {
       // * if app is unlocked and invitation is fetched , with out this condition we are redirecting user to home screen from invitation screen.
       // * this condition will avoid redirecting user to home screen if app is already unlocked
-      props.navigation.navigate(homeRoute)
+      setTimeout(() => {
+        props.navigation.navigate(homeRoute)
+      }, 0)
     }
   }
 

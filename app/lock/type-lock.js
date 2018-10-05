@@ -170,6 +170,7 @@ export type LockEnterFingerProps = {
 
 export type LockEnterPinState = {
   authenticationSuccess: boolean,
+  isKeyboardHidden: boolean,
 }
 export type LockEnterFingerState = {
   authenticationSuccess: boolean,
@@ -238,6 +239,10 @@ export type LockSetupSuccessProps = {
   clearPendingRedirect: () => void,
   isFetchingInvitation: boolean,
 } & ReactNavigation
+
+export type LockSetupSuccessState = {
+  interactionsDone: boolean,
+}
 
 export const LAErrorAuthenticationFailed = 'LAErrorAuthenticationFailed'
 export const LAErrorUserCancel = 'LAErrorUserCancel'
