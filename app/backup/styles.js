@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 20,
     left: chatBubbleTextOffset / 2,
-    paddingHorizontal: PADDING_HORIZONTAL,
+    paddingHorizontal: '7%',
   },
   genRecoveryPhraseLoadingContainer: {
     padding: 40,
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     paddingTop: isBiggerThanShortDevice ? 40 : '2%',
   },
   imageIcon: {
-    resizeMode: 'contain',
+    resizeMode: 'stretch',
     width: '100%',
     marginBottom: isBiggerThanShortDevice ? 20 : 0,
   },
