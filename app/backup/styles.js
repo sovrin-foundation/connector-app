@@ -67,6 +67,8 @@ const styles = StyleSheet.create({
   },
   genRecoveryPhraseLoadingContainer: {
     padding: 40,
+    position: 'absolute',
+    top: 20,
   },
   genRecoveryPhrase: {
     textAlign: 'center',

@@ -25,7 +25,6 @@ import type {
   Passphrase,
   ChatBubbleDimensions,
   PassphraseTextProps,
-  PassphraseLoaderProps,
   PassphraseErrorProps,
 } from './type-backup'
 import { BACKUP_STORE_STATUS } from './type-backup'
@@ -43,22 +42,10 @@ const closeImage = require('../images/iconClose.png')
 const transparentBands = require('../images/transparentBands.png')
 const textBubble = require('../images/textBubble.png')
 
-const PassphraseLoader = (props: PassphraseLoaderProps) => {
+const PassphraseLoader = () => {
   return (
-    <CustomView
-      style={[
-        styles.genRecoveryPhraseContainer,
-        {
-          width:
-            props.chatBubbleDimensions && props.chatBubbleDimensions.width
-              ? props.chatBubbleDimensions.width - chatBubbleTextOffset
-              : null,
-        },
-      ]}
-    >
-      <CustomView style={[styles.genRecoveryPhraseLoadingContainer]}>
-        <CustomActivityIndicator />
-      </CustomView>
+    <CustomView center style={[styles.genRecoveryPhraseLoadingContainer]}>
+      <CustomActivityIndicator />
     </CustomView>
   )
 }
@@ -162,7 +149,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
     chatBubbleDimensions: ChatBubbleDimensions
   ) => {
     if (recoveryStatus === BACKUP_STORE_STATUS.GENERATE_PHRASE_LOADING) {
-      return <PassphraseLoader chatBubbleDimensions={chatBubbleDimensions} />
+      return <PassphraseLoader />
     }
 
     if (

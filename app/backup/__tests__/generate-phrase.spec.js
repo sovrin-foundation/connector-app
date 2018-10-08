@@ -56,15 +56,6 @@ describe('<GenerateRecoveryPhrase />', () => {
         navigation={navigation}
       />
     )
-
-    tree.getInstance().setState({
-      chatBubbleDimensions: {
-        width: 360,
-        height: 199,
-        x: 0,
-        y: 0,
-      },
-    })
     expect(tree.toJSON()).toMatchSnapshot()
   })
   it('should match snapshot for error state', () => {

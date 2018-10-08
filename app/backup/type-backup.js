@@ -38,10 +38,6 @@ export type PassphraseTextProps = {
   chatBubbleDimensions: ChatBubbleDimensions,
 }
 
-export type PassphraseLoaderProps = {
-  chatBubbleDimensions: ChatBubbleDimensions,
-}
-
 export type PassphraseErrorProps = {
   chatBubbleDimensions: ChatBubbleDimensions,
 }
