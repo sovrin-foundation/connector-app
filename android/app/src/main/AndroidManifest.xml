@@ -41,7 +41,8 @@
 
         <service android:name="io.invertase.firebase.messaging.RNFirebaseBackgroundMessagingService" />
 
-        <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@mipmap/ic_launcher"/>
+        <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@mipmap/ic_launcher_1"/>
+        <meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/ic_logo_color" />
         <!-- launchMode needs to be singleTask, otherwise deep links will not work correctly -->
       <activity
         android:name=".MainActivity"
