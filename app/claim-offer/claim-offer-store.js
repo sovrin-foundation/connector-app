@@ -304,7 +304,11 @@ export function* claimOfferAccepted(
       }
     } catch (e) {
       captureError(e)
-      yield put(sendClaimRequestFail(messageId))
+      if (isPaidCredential) {
+        yield put(paidCredentialRequestFail(messageId))
+      } else {
+        yield put(sendClaimRequestFail(messageId))
+      }
     }
 
     // since we have sent claim request, state of claim offer in vcx is changed
