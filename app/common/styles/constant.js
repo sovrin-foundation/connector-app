@@ -51,6 +51,7 @@ const orangeDisabled = 'rgba(237, 156, 46, 0.5)'
 const darkOrange = 'rgba(207, 127, 20, 1)'
 const errorBg = 'rgba(255, 214, 219, 1)'
 const darkgray = '#4A4A4A'
+const jordyBlue = '#79ade7'
 
 // color shades
 const primaryShade = '1.0'
@@ -177,6 +178,9 @@ export const color = {
     },
     fourteenth: {
       color: blueViolet,
+    },
+    fifteenth: {
+      color: jordyBlue,
     },
     dark: {
       color: black,

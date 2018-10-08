@@ -44,6 +44,14 @@ describe('<LockEnter />', () => {
     expect(component.toJSON()).toMatchSnapshot()
   })
 
+  it('should match snapshot for recovery flow', () => {
+    const component1 = renderer.create(
+      <LockEnter {...props} fromRecovery={true} />,
+      options
+    )
+    expect(component1.toJSON()).toMatchSnapshot()
+  })
+
   it('call onSuccess if pin matches', () => {
     component.update(
       <LockEnter

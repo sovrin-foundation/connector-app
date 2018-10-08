@@ -171,8 +171,7 @@ export class LockEnter extends PureComponent<LockEnterProps, LockEnterState> {
                 transparentBg
                 center
                 h6
-                heavy
-                secondaryColor
+                bold
                 style={[stylesRecovery.newPasscodeText]}
                 onPress={this.props.setupNewPassCode}
                 testID={'set-up-new-passcode-recovery'}
@@ -259,6 +258,7 @@ const stylesRecovery = StyleSheet.create({
         marginTop: isBiggerThanShortDevice ? '2%' : 0,
       },
     }),
+    color: color.bg.fifteenth.color,
   },
 })
 
