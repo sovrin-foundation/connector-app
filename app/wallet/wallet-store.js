@@ -212,7 +212,7 @@ export function* hydrateWalletStoreSaga(): Generator<*, *, *> {
 export function* hydrateWalletBalanceSaga(): Generator<*, *, *> {
   try {
     const walletBalance: string = yield call(getHydrationItem, WALLET_BALANCE)
-    if (walletBalance !== null) {
+    if (walletBalance) {
       yield put(hydrateWalletBalanceStore(walletBalance))
     } else {
       yield put(
