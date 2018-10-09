@@ -105,7 +105,7 @@ export class ExportBackupFile extends PureComponent<
 
     return (
       <CustomView center style={[styles.lockIconImage]}>
-        <Image source={encryptedFile} style={[styles.imageIcon]} />
+        <Image source={encryptedFile} style={[styles.imageIconEncryptFile]} />
       </CustomView>
     )
   }

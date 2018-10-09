@@ -225,6 +225,11 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: isBiggerThanShortDevice ? 20 : 0,
   },
+  imageIconEncryptFile: {
+    resizeMode: 'contain',
+    width: '100%',
+    marginBottom: isBiggerThanShortDevice ? 20 : 0,
+  },
 })
 
 export default styles
