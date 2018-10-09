@@ -27,6 +27,9 @@ lane :alpha do
   if remote_branch == "master"
     ENV["BUILD_NAME"] = "QA ConnectMe"
     hockey(api_token: ENV["HOCKEY_APP_API_TOKEN"])
+  elsif remote_branch == "stable" || remote_branch == "stage"
+    ENV["BUILD_NAME"] = "Stable ConnectMe"
+    hockey(api_token: ENV["HOCKEY_APP_STAGE_ANDROID_API_TOKEN"])
   else
     ENV["BUILD_NAME"] = "Dev ConnectMe"
     hockey(api_token: ENV["HOCKEY_APP_DEV_API_TOKEN"])
