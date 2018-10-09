@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { StyleSheet, InteractionManager } from 'react-native'
+import { StyleSheet, InteractionManager, Keyboard } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -61,9 +61,13 @@ export class LockPinSetup extends PureComponent<
     pinSetupState: PIN_SETUP_STATE.INITIAL,
     interactionsDone: false,
     enteredPin: null,
+    pinReEnterSuccessPin: null,
+    keyboardHidden: false,
   }
 
   pinCodeBox = null
+  keyboardDidHideListener = null
+  keyboardDidShowListener = null
 
   static navigationOptions = ({ navigation }) => ({
     header: (
@@ -103,6 +107,11 @@ export class LockPinSetup extends PureComponent<
 
   onPinSetup = (pin: string) => {
     this.props.setPinAction(pin)
+    this.setState({
+      pinSetupState: PIN_SETUP_STATE.INITIAL,
+      pinReEnterSuccessPin: null,
+      keyboardHidden: false,
+    })
     this.props.navigation.state &&
     this.props.navigation.state.params &&
     this.props.navigation.state.params.existingPin === true
@@ -129,8 +138,16 @@ export class LockPinSetup extends PureComponent<
     this.pinCodeBox && this.pinCodeBox.hideKeyboard()
     this.setState({
       pinSetupState: PIN_SETUP_STATE.REENTER_SUCCESS,
+      pinReEnterSuccessPin: pin,
     })
-    this.onPinSetup(pin)
+  }
+
+  onKeyboardHide = (status: boolean) => {
+    if (this.state.keyboardHidden !== status) {
+      this.setState({
+        keyboardHidden: status,
+      })
+    }
   }
 
   onFirstPinEnter = (enteredPin: string) => {
@@ -156,9 +173,57 @@ export class LockPinSetup extends PureComponent<
   }
 
   componentDidMount() {
+    this.keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        this.onKeyboardHide(true)
+      }
+    )
+    this.keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        this.onKeyboardHide(false)
+      }
+    )
     InteractionManager.runAfterInteractions(() => {
       this.setState({ interactionsDone: true })
     })
+  }
+
+  componentDidUpdate(prevProps: LockPinCodeSetupProps) {
+    if (
+      this.state.keyboardHidden &&
+      this.state.pinSetupState === PIN_SETUP_STATE.REENTER_SUCCESS &&
+      this.props.navigation.isFocused
+    ) {
+      const pin = this.state.pinReEnterSuccessPin || ''
+      this.onPinSetup(pin)
+    }
+
+    if (this.props.navigation.isFocused) {
+      if (!this.keyboardDidHideListener && !this.keyboardDidShowListener) {
+        this.keyboardDidHideListener = Keyboard.addListener(
+          'keyboardDidHide',
+          () => {
+            this.onKeyboardHide(true)
+          }
+        )
+        this.keyboardDidShowListener = Keyboard.addListener(
+          'keyboardDidShow',
+          () => {
+            this.onKeyboardHide(false)
+          }
+        )
+      }
+    } else {
+      this.keyboardDidShowListener && this.keyboardDidShowListener.remove()
+      this.keyboardDidHideListener && this.keyboardDidHideListener.remove()
+    }
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidShowListener && this.keyboardDidShowListener.remove()
+    this.keyboardDidHideListener && this.keyboardDidHideListener.remove()
   }
 
   render() {

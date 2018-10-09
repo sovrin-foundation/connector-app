@@ -191,6 +191,8 @@ export type LockPinSetupState = {
   pinSetupState: $Keys<typeof PIN_SETUP_STATE>,
   interactionsDone: boolean,
   enteredPin: ?string,
+  pinReEnterSuccessPin: ?string,
+  keyboardHidden: boolean,
 }
 
 export const SHOW_DEV_MODE = 'SHOW_DEV_MODE'

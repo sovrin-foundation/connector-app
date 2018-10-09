@@ -48,16 +48,33 @@ describe('<LockPinCodeSetup />', () => {
     expect(tree).toMatchSnapshot()
   })
 
-  it('should redirect to lockSetupSuccessRoute after pin is success', () => {
+  it('should set pinSetupState and pinReEnterSuccessPin for after pin is success for redirection', () => {
     let instance = component.getInstance()
     //manually trigger onComplete method by passing "pass code" for first time
     instance.onPinComplete('123456')
     //manually trigger onComplete method by passing "same pass code" for second time
     instance.onPinComplete('123456')
+    //checking if the states are fine with the values so that the redirection can take place in the next function
+    expect(instance.state.pinSetupState).toEqual(
+      PIN_SETUP_STATE.REENTER_SUCCESS
+    )
+    expect(instance.state.pinReEnterSuccessPin).toEqual('123456')
+  })
+
+  it('should redirect to lockSetupSuccessRoute after pin is success', () => {
+    let instance = component.getInstance()
+    instance.setState({
+      pinSetupState: PIN_SETUP_STATE.REENTER_SUCCESS,
+      pinReEnterSuccessPin: '123456',
+    })
+    // this is called after the keyboard is hidden
+    instance.onKeyboardHide(true)
+    // if the pinSetupState is in PIN_SETUP_STATE.REENTER_SUCCESS, then we will be navigating to the lockSetupSuccessRoute screen
     expect(props.navigation.navigate).toHaveBeenCalledWith(
       lockSetupSuccessRoute
     )
   })
+
   it('should show "pass code mismatch ..." message and reset to initial state after passcode mismatch', () => {
     jest.useFakeTimers()
 
