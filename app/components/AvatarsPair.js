@@ -12,12 +12,7 @@ import type { ImageSource } from '../common/type-common'
 // move this component to it's own folder, add type, tests, etc.
 export default class AvatarsPair extends PureComponent<*, void> {
   renderAvatarWithSource = (avatarSource: ImageSource | number) => (
-    <Avatar
-      medium
-      shadow
-      src={avatarSource}
-      testID={`avatars-pair-avatars-invitee`}
-    />
+    <Avatar medium src={avatarSource} testID={`avatars-pair-avatars-invitee`} />
   )
 
   render() {
@@ -43,7 +38,6 @@ export default class AvatarsPair extends PureComponent<*, void> {
         {avatarRight && (
           <Avatar
             medium
-            shadow
             src={avatarRight}
             testID={`${testID}-text-avatars-inviter`}
           />

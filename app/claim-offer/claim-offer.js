@@ -301,6 +301,7 @@ export class ClaimOffer extends PureComponent<
                 style={[styles.issuerLogo]}
                 iconStyle={[styles.issuerLogoIcon]}
                 testID={`${testID}-issuer-logo`}
+                backgroundRoundWhite
               />
             </CustomView>
           </ClaimProofHeader>

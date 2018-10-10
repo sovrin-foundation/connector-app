@@ -79,18 +79,10 @@ exports[`<ClaimRequestStatusModal /> should hideModal if continue is clicked 1`]
           <View
             accessibilityLabel="avatars-pair-avatars-invitee"
             accessible={true}
-            imageShadow="imageShadow"
+            imageShadow={null}
             style={
               Object {
                 "borderRadius": 38,
-                "elevation": 3,
-                "shadowColor": "rgba(0, 0, 0, 0.25)",
-                "shadowOffset": Object {
-                  "height": 3,
-                  "width": 0,
-                },
-                "shadowOpacity": 1,
-                "shadowRadius": 8,
               }
             }
             testID="avatars-pair-avatars-invitee"
@@ -149,18 +141,10 @@ exports[`<ClaimRequestStatusModal /> should hideModal if continue is clicked 1`]
         <View
           accessibilityLabel="claim-request-text-avatars-inviter"
           accessible={true}
-          imageShadow="imageShadow"
+          imageShadow={null}
           style={
             Object {
               "borderRadius": 38,
-              "elevation": 3,
-              "shadowColor": "rgba(0, 0, 0, 0.25)",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 8,
             }
           }
           testID="claim-request-text-avatars-inviter"
@@ -614,18 +598,10 @@ exports[`<ClaimRequestStatusModal /> should match paid credential success, if se
           <View
             accessibilityLabel="avatars-pair-avatars-invitee"
             accessible={true}
-            imageShadow="imageShadow"
+            imageShadow={null}
             style={
               Object {
                 "borderRadius": 38,
-                "elevation": 3,
-                "shadowColor": "rgba(0, 0, 0, 0.25)",
-                "shadowOffset": Object {
-                  "height": 3,
-                  "width": 0,
-                },
-                "shadowOpacity": 1,
-                "shadowRadius": 8,
               }
             }
             testID="avatars-pair-avatars-invitee"
@@ -684,18 +660,10 @@ exports[`<ClaimRequestStatusModal /> should match paid credential success, if se
         <View
           accessibilityLabel="claim-request-text-avatars-inviter"
           accessible={true}
-          imageShadow="imageShadow"
+          imageShadow={null}
           style={
             Object {
               "borderRadius": 38,
-              "elevation": 3,
-              "shadowColor": "rgba(0, 0, 0, 0.25)",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 8,
             }
           }
           testID="claim-request-text-avatars-inviter"
@@ -1108,18 +1076,10 @@ exports[`<ClaimRequestStatusModal /> should match snapshot when pending popOver 
           <View
             accessibilityLabel="avatars-pair-avatars-invitee"
             accessible={true}
-            imageShadow="imageShadow"
+            imageShadow={null}
             style={
               Object {
                 "borderRadius": 38,
-                "elevation": 3,
-                "shadowColor": "rgba(0, 0, 0, 0.25)",
-                "shadowOffset": Object {
-                  "height": 3,
-                  "width": 0,
-                },
-                "shadowOpacity": 1,
-                "shadowRadius": 8,
               }
             }
             testID="avatars-pair-avatars-invitee"
@@ -1183,18 +1143,10 @@ exports[`<ClaimRequestStatusModal /> should match snapshot when pending popOver 
         <View
           accessibilityLabel="claim-request-text-avatars-inviter"
           accessible={true}
-          imageShadow="imageShadow"
+          imageShadow={null}
           style={
             Object {
               "borderRadius": 38,
-              "elevation": 3,
-              "shadowColor": "rgba(0, 0, 0, 0.25)",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 8,
             }
           }
           testID="claim-request-text-avatars-inviter"
@@ -1648,18 +1600,10 @@ exports[`<ClaimRequestStatusModal /> should show arrow right and accepting text,
           <View
             accessibilityLabel="avatars-pair-avatars-invitee"
             accessible={true}
-            imageShadow="imageShadow"
+            imageShadow={null}
             style={
               Object {
                 "borderRadius": 38,
-                "elevation": 3,
-                "shadowColor": "rgba(0, 0, 0, 0.25)",
-                "shadowOffset": Object {
-                  "height": 3,
-                  "width": 0,
-                },
-                "shadowOpacity": 1,
-                "shadowRadius": 8,
               }
             }
             testID="avatars-pair-avatars-invitee"
@@ -1722,18 +1666,10 @@ exports[`<ClaimRequestStatusModal /> should show arrow right and accepting text,
         <View
           accessibilityLabel="claim-request-text-avatars-inviter"
           accessible={true}
-          imageShadow="imageShadow"
+          imageShadow={null}
           style={
             Object {
               "borderRadius": 38,
-              "elevation": 3,
-              "shadowColor": "rgba(0, 0, 0, 0.25)",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 8,
             }
           }
           testID="claim-request-text-avatars-inviter"
@@ -2030,18 +1966,10 @@ exports[`<ClaimRequestStatusModal /> should show arrow right and only Paying tex
           <View
             accessibilityLabel="avatars-pair-avatars-invitee"
             accessible={true}
-            imageShadow="imageShadow"
+            imageShadow={null}
             style={
               Object {
                 "borderRadius": 38,
-                "elevation": 3,
-                "shadowColor": "rgba(0, 0, 0, 0.25)",
-                "shadowOffset": Object {
-                  "height": 3,
-                  "width": 0,
-                },
-                "shadowOpacity": 1,
-                "shadowRadius": 8,
               }
             }
             testID="avatars-pair-avatars-invitee"
@@ -2104,18 +2032,10 @@ exports[`<ClaimRequestStatusModal /> should show arrow right and only Paying tex
         <View
           accessibilityLabel="claim-request-text-avatars-inviter"
           accessible={true}
-          imageShadow="imageShadow"
+          imageShadow={null}
           style={
             Object {
               "borderRadius": 38,
-              "elevation": 3,
-              "shadowColor": "rgba(0, 0, 0, 0.25)",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 8,
             }
           }
           testID="claim-request-text-avatars-inviter"
@@ -2412,18 +2332,10 @@ exports[`<ClaimRequestStatusModal /> should show check mark, token amount, if pa
           <View
             accessibilityLabel="avatars-pair-avatars-invitee"
             accessible={true}
-            imageShadow="imageShadow"
+            imageShadow={null}
             style={
               Object {
                 "borderRadius": 38,
-                "elevation": 3,
-                "shadowColor": "rgba(0, 0, 0, 0.25)",
-                "shadowOffset": Object {
-                  "height": 3,
-                  "width": 0,
-                },
-                "shadowOpacity": 1,
-                "shadowRadius": 8,
               }
             }
             testID="avatars-pair-avatars-invitee"
@@ -2482,18 +2394,10 @@ exports[`<ClaimRequestStatusModal /> should show check mark, token amount, if pa
         <View
           accessibilityLabel="claim-request-text-avatars-inviter"
           accessible={true}
-          imageShadow="imageShadow"
+          imageShadow={null}
           style={
             Object {
               "borderRadius": 38,
-              "elevation": 3,
-              "shadowColor": "rgba(0, 0, 0, 0.25)",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 8,
             }
           }
           testID="claim-request-text-avatars-inviter"
@@ -2906,18 +2810,10 @@ exports[`<ClaimRequestStatusModal /> should show check mark, you accepted text, 
           <View
             accessibilityLabel="avatars-pair-avatars-invitee"
             accessible={true}
-            imageShadow="imageShadow"
+            imageShadow={null}
             style={
               Object {
                 "borderRadius": 38,
-                "elevation": 3,
-                "shadowColor": "rgba(0, 0, 0, 0.25)",
-                "shadowOffset": Object {
-                  "height": 3,
-                  "width": 0,
-                },
-                "shadowOpacity": 1,
-                "shadowRadius": 8,
               }
             }
             testID="avatars-pair-avatars-invitee"
@@ -2976,18 +2872,10 @@ exports[`<ClaimRequestStatusModal /> should show check mark, you accepted text, 
         <View
           accessibilityLabel="claim-request-text-avatars-inviter"
           accessible={true}
-          imageShadow="imageShadow"
+          imageShadow={null}
           style={
             Object {
               "borderRadius": 38,
-              "elevation": 3,
-              "shadowColor": "rgba(0, 0, 0, 0.25)",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 8,
             }
           }
           testID="claim-request-text-avatars-inviter"

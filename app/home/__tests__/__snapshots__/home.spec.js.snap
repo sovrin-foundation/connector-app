@@ -79,26 +79,30 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
               }
             }
           >
-            <Image
-              resizeMode="contain"
-              source={1}
-              style={
-                Array [
-                  Object {
-                    "height": 50,
-                    "width": 50,
-                  },
-                  null,
-                  Object {
-                    "height": 25,
-                    "width": 29,
-                  },
-                  Object {
-                    "tintColor": "white",
-                  },
-                ]
-              }
-            />
+            <View
+              style={Object {}}
+            >
+              <Image
+                resizeMode="contain"
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "height": 50,
+                      "width": 50,
+                    },
+                    null,
+                    Object {
+                      "height": 25,
+                      "width": 29,
+                    },
+                    Object {
+                      "tintColor": "white",
+                    },
+                  ]
+                }
+              />
+            </View>
           </View>
           <View
             horizontalSpace={true}
@@ -237,18 +241,10 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
             <View
               accessibilityLabel="bubble-3nj819kkjywdppuje79"
               accessible={true}
-              imageShadow="imageShadow"
+              imageShadow={null}
               style={
                 Object {
                   "borderRadius": 50,
-                  "elevation": 3,
-                  "shadowColor": "rgba(0, 0, 0, 0.25)",
-                  "shadowOffset": Object {
-                    "height": 3,
-                    "width": 0,
-                  },
-                  "shadowOpacity": 1,
-                  "shadowRadius": 8,
                 }
               }
               testID="bubble-3nj819kkjywdppuje79"
@@ -367,28 +363,32 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
         }
         testID="user-avatar-touchable"
       >
-        <Image
-          accessibilityLabel="user-avatar"
-          accessible={true}
-          resizeMode="cover"
-          source={
-            Object {
-              "uri": "/var/application/DocumentDir/user-avatar.jpeg",
+        <View
+          style={Object {}}
+        >
+          <Image
+            accessibilityLabel="user-avatar"
+            accessible={true}
+            resizeMode="cover"
+            source={
+              Object {
+                "uri": "/var/application/DocumentDir/user-avatar.jpeg",
+              }
             }
-          }
-          style={
-            Array [
-              Object {
-                "height": 80,
-                "width": 80,
-              },
-              Object {
-                "borderRadius": 40,
-              },
-            ]
-          }
-          testID="user-avatar"
-        />
+            style={
+              Array [
+                Object {
+                  "height": 80,
+                  "width": 80,
+                },
+                Object {
+                  "borderRadius": 40,
+                },
+              ]
+            }
+            testID="user-avatar"
+          />
+        </View>
       </View>
     </View>
   </View>

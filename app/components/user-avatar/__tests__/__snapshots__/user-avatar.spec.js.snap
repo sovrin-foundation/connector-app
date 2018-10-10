@@ -34,24 +34,28 @@ exports[`<ConnectedUserAvatar /> should match snapshot when no user image is sel
   }
   testID="user-avatar-touchable"
 >
-  <Image
-    accessibilityLabel="user-avatar"
-    accessible={true}
-    resizeMode="cover"
-    source={1}
-    style={
-      Array [
-        Object {
-          "height": 80,
-          "width": 80,
-        },
-        Object {
-          "borderRadius": 40,
-        },
-      ]
-    }
-    testID="user-avatar"
-  />
+  <View
+    style={Object {}}
+  >
+    <Image
+      accessibilityLabel="user-avatar"
+      accessible={true}
+      resizeMode="cover"
+      source={1}
+      style={
+        Array [
+          Object {
+            "height": 80,
+            "width": 80,
+          },
+          Object {
+            "borderRadius": 40,
+          },
+        ]
+      }
+      testID="user-avatar"
+    />
+  </View>
 </View>
 `;
 
@@ -93,27 +97,31 @@ exports[`<ConnectedUserAvatar /> should match snapshot when user image is select
   }
   testID="user-avatar-touchable"
 >
-  <Image
-    accessibilityLabel="user-avatar"
-    accessible={true}
-    resizeMode="cover"
-    source={
-      Object {
-        "uri": "/var/application/DocumentDir/user-avatar.jpeg",
+  <View
+    style={Object {}}
+  >
+    <Image
+      accessibilityLabel="user-avatar"
+      accessible={true}
+      resizeMode="cover"
+      source={
+        Object {
+          "uri": "/var/application/DocumentDir/user-avatar.jpeg",
+        }
       }
-    }
-    style={
-      Array [
-        Object {
-          "height": 80,
-          "width": 80,
-        },
-        Object {
-          "borderRadius": 40,
-        },
-      ]
-    }
-    testID="user-avatar"
-  />
+      style={
+        Array [
+          Object {
+            "height": 80,
+            "width": 80,
+          },
+          Object {
+            "borderRadius": 40,
+          },
+        ]
+      }
+      testID="user-avatar"
+    />
+  </View>
 </View>
 `;

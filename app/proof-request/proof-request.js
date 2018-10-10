@@ -644,6 +644,7 @@ export class ProofRequest extends PureComponent<
                 style={[styles.verifierLogo]}
                 iconStyle={[styles.verifierLogoIcon]}
                 testID={`${testID}-verifier-logo`}
+                backgroundRoundWhite
               />
             </CustomView>
           </CustomView>

@@ -39,27 +39,31 @@ exports[`<Icon /> should match snapshot 1`] = `
       }
     }
   >
-    <Image
-      accessibilityLabel="test-icon-test"
-      accessible={true}
-      resizeMode="cover"
-      source={1}
-      style={
-        Array [
-          Object {
-            "height": 80,
-            "width": 80,
-          },
-          Object {
-            "borderRadius": 40,
-          },
-          Object {
-            "width": 90,
-          },
-        ]
-      }
-      testID="test-icon-test"
-    />
+    <View
+      style={Object {}}
+    >
+      <Image
+        accessibilityLabel="test-icon-test"
+        accessible={true}
+        resizeMode="cover"
+        source={1}
+        style={
+          Array [
+            Object {
+              "height": 80,
+              "width": 80,
+            },
+            Object {
+              "borderRadius": 40,
+            },
+            Object {
+              "width": 90,
+            },
+          ]
+        }
+        testID="test-icon-test"
+      />
+    </View>
   </View>
 </View>
 `;

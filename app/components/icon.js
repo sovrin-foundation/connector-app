@@ -1,8 +1,9 @@
 // @flow
 import React from 'react'
-import { StyleSheet, Image, TouchableWithoutFeedback } from 'react-native'
+import { StyleSheet, Image, TouchableWithoutFeedback, View } from 'react-native'
 import { CustomView } from './layout/custom-view'
 import type { GenericObject } from '../common/type-common'
+import { white } from '../common/styles'
 
 const empty = []
 
@@ -24,6 +25,7 @@ const Icon = (props: GenericObject) => {
     haloStyle = empty,
     onPress,
     onLongPress,
+    backgroundRoundWhite,
   } = props
   const size = small
     ? 'small'
@@ -43,13 +45,19 @@ const Icon = (props: GenericObject) => {
     filteredProps.accessible = true
     filteredProps.accessibilityLabel = testID
   }
+  const backgroundRoundWhiteImage = backgroundRoundWhite
+    ? // $FlowFixMe flow does not support dynamic object key
+      [styles.backgroundWhite, styles[`${size}RoundIcon`]]
+    : {}
   const iconImage = (
-    <Image
-      source={src}
-      style={[styles[size], roundImageStyle, ...iconStyle]}
-      resizeMode={resizeMode}
-      {...filteredProps}
-    />
+    <View style={backgroundRoundWhiteImage}>
+      <Image
+        source={src}
+        style={[styles[size], roundImageStyle, ...iconStyle]}
+        resizeMode={resizeMode}
+        {...filteredProps}
+      />
+    </View>
   )
 
   let haloView
@@ -127,5 +135,8 @@ const styles = StyleSheet.create({
     width: size.extraLarge + 20,
     height: size.extraLarge + 20,
     backgroundColor: 'rgba(0,0,0,0.07)',
+  },
+  backgroundWhite: {
+    backgroundColor: white,
   },
 })

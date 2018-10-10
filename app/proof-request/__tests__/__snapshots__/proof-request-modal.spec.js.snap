@@ -79,18 +79,10 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
           <View
             accessibilityLabel="avatars-pair-avatars-invitee"
             accessible={true}
-            imageShadow="imageShadow"
+            imageShadow={null}
             style={
               Object {
                 "borderRadius": 38,
-                "elevation": 3,
-                "shadowColor": "rgba(0, 0, 0, 0.25)",
-                "shadowOffset": Object {
-                  "height": 3,
-                  "width": 0,
-                },
-                "shadowOpacity": 1,
-                "shadowRadius": 8,
               }
             }
             testID="avatars-pair-avatars-invitee"
@@ -154,18 +146,10 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
         <View
           accessibilityLabel="send-proof-text-avatars-inviter"
           accessible={true}
-          imageShadow="imageShadow"
+          imageShadow={null}
           style={
             Object {
               "borderRadius": 38,
-              "elevation": 3,
-              "shadowColor": "rgba(0, 0, 0, 0.25)",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 8,
             }
           }
           testID="send-proof-text-avatars-inviter"
@@ -506,18 +490,10 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
           <View
             accessibilityLabel="avatars-pair-avatars-invitee"
             accessible={true}
-            imageShadow="imageShadow"
+            imageShadow={null}
             style={
               Object {
                 "borderRadius": 38,
-                "elevation": 3,
-                "shadowColor": "rgba(0, 0, 0, 0.25)",
-                "shadowOffset": Object {
-                  "height": 3,
-                  "width": 0,
-                },
-                "shadowOpacity": 1,
-                "shadowRadius": 8,
               }
             }
             testID="avatars-pair-avatars-invitee"
@@ -576,18 +552,10 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
         <View
           accessibilityLabel="send-proof-text-avatars-inviter"
           accessible={true}
-          imageShadow="imageShadow"
+          imageShadow={null}
           style={
             Object {
               "borderRadius": 38,
-              "elevation": 3,
-              "shadowColor": "rgba(0, 0, 0, 0.25)",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 8,
             }
           }
           testID="send-proof-text-avatars-inviter"
@@ -919,18 +887,10 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
           <View
             accessibilityLabel="avatars-pair-avatars-invitee"
             accessible={true}
-            imageShadow="imageShadow"
+            imageShadow={null}
             style={
               Object {
                 "borderRadius": 38,
-                "elevation": 3,
-                "shadowColor": "rgba(0, 0, 0, 0.25)",
-                "shadowOffset": Object {
-                  "height": 3,
-                  "width": 0,
-                },
-                "shadowOpacity": 1,
-                "shadowRadius": 8,
               }
             }
             testID="avatars-pair-avatars-invitee"
@@ -994,18 +954,10 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
         <View
           accessibilityLabel="send-proof-text-avatars-inviter"
           accessible={true}
-          imageShadow="imageShadow"
+          imageShadow={null}
           style={
             Object {
               "borderRadius": 38,
-              "elevation": 3,
-              "shadowColor": "rgba(0, 0, 0, 0.25)",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 8,
             }
           }
           testID="send-proof-text-avatars-inviter"

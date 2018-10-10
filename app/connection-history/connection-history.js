@@ -27,7 +27,7 @@ import {
   CustomDate,
   headerStyles,
 } from '../components'
-import { dimGray, OFFSET_9X } from '../../app/common/styles'
+import { dimGray, OFFSET_9X, white } from '../../app/common/styles'
 import {
   homeRoute,
   connectionHistoryRoute,
@@ -367,6 +367,7 @@ export class ConnectionHistory extends Component<
                   iconStyle={[styles.issuerLogoIcon]}
                   testID={`${testID}-issuer-logo`}
                   onLongPress={() => showDID(senderDID, identifier)}
+                  backgroundRoundWhite
                 />
                 <Icon
                   absolute="TopLeft"
@@ -510,5 +511,8 @@ const styles = StyleSheet.create({
   avatarOverlayContainerStyle: { backgroundColor: 'transparent' },
   badgeDotStyle: {
     marginBottom: 5,
+  },
+  issuerLogoHaloStyle: {
+    backgroundColor: white,
   },
 })

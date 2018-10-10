@@ -461,21 +461,25 @@ exports[`<LockEnter /> should match snapshot for recovery flow 1`] = `
               }
             }
           >
-            <Image
-              resizeMode="contain"
-              source={1}
-              style={
-                Array [
-                  Object {
-                    "height": 80,
-                    "width": 80,
-                  },
-                  Object {
-                    "borderRadius": 40,
-                  },
-                ]
-              }
-            />
+            <View
+              style={Object {}}
+            >
+              <Image
+                resizeMode="contain"
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "height": 80,
+                      "width": 80,
+                    },
+                    Object {
+                      "borderRadius": 40,
+                    },
+                  ]
+                }
+              />
+            </View>
           </View>
         </View>
       </View>

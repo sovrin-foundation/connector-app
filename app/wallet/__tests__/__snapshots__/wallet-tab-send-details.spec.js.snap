@@ -613,25 +613,29 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
           }
           testID="wallet-tab-send-details-modal-header-icon"
         >
-          <Image
-            accessibilityLabel="wallet-tab-send-details-modal-header-icon"
-            accessible={true}
-            resizeMode="contain"
-            source={1}
-            style={
-              Array [
-                Object {
-                  "height": 80,
-                  "width": 80,
-                },
-                null,
-                Object {
-                  "margin": 10,
-                },
-              ]
-            }
-            testID="wallet-tab-send-details-modal-header-icon"
-          />
+          <View
+            style={Object {}}
+          >
+            <Image
+              accessibilityLabel="wallet-tab-send-details-modal-header-icon"
+              accessible={true}
+              resizeMode="contain"
+              source={1}
+              style={
+                Array [
+                  Object {
+                    "height": 80,
+                    "width": 80,
+                  },
+                  null,
+                  Object {
+                    "margin": 10,
+                  },
+                ]
+              }
+              testID="wallet-tab-send-details-modal-header-icon"
+            />
+          </View>
         </View>
         <Text
           accessibilityLabel="wallet-tab-send-details-modal-title"

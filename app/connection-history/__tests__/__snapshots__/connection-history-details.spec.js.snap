@@ -193,21 +193,25 @@ exports[`<ConnectionHistoryDetails /> should ConnectionHistoryDetails render pro
                     }
                   }
                 >
-                  <Image
-                    resizeMode="cover"
-                    source={null}
-                    style={
-                      Array [
-                        Object {
-                          "height": 30,
-                          "width": 30,
-                        },
-                        Object {
-                          "borderRadius": 15,
-                        },
-                      ]
-                    }
-                  />
+                  <View
+                    style={Object {}}
+                  >
+                    <Image
+                      resizeMode="cover"
+                      source={null}
+                      style={
+                        Array [
+                          Object {
+                            "height": 30,
+                            "width": 30,
+                          },
+                          Object {
+                            "borderRadius": 15,
+                          },
+                        ]
+                      }
+                    />
+                  </View>
                 </View>
               </View>
             </View>

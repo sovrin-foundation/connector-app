@@ -37,22 +37,26 @@ exports[`<LockSetupSuccess /> should display Loading while fetching the invitati
       }
       testID="lock-success-lock-logo"
     >
-      <Image
-        accessibilityLabel="lock-success-lock-logo"
-        accessible={true}
-        resizeMode="cover"
-        source={1}
-        style={
-          Array [
-            Object {
-              "height": 80,
-              "width": 80,
-            },
-            null,
-          ]
-        }
-        testID="lock-success-lock-logo"
-      />
+      <View
+        style={Object {}}
+      >
+        <Image
+          accessibilityLabel="lock-success-lock-logo"
+          accessible={true}
+          resizeMode="cover"
+          source={1}
+          style={
+            Array [
+              Object {
+                "height": 80,
+                "width": 80,
+              },
+              null,
+            ]
+          }
+          testID="lock-success-lock-logo"
+        />
+      </View>
     </View>
     <Text
       accessible={true}
@@ -316,22 +320,26 @@ exports[`<LockSetupSuccess /> should render Lock setup success Screen 1`] = `
       }
       testID="lock-success-lock-logo"
     >
-      <Image
-        accessibilityLabel="lock-success-lock-logo"
-        accessible={true}
-        resizeMode="cover"
-        source={1}
-        style={
-          Array [
-            Object {
-              "height": 80,
-              "width": 80,
-            },
-            null,
-          ]
-        }
-        testID="lock-success-lock-logo"
-      />
+      <View
+        style={Object {}}
+      >
+        <Image
+          accessibilityLabel="lock-success-lock-logo"
+          accessible={true}
+          resizeMode="cover"
+          source={1}
+          style={
+            Array [
+              Object {
+                "height": 80,
+                "width": 80,
+              },
+              null,
+            ]
+          }
+          testID="lock-success-lock-logo"
+        />
+      </View>
     </View>
     <Text
       accessible={true}

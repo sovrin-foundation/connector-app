@@ -727,18 +727,10 @@ exports[`<Invitation /> should match snapshot 1`] = `
             <View
               accessibilityLabel="avatars-pair-avatars-invitee"
               accessible={true}
-              imageShadow="imageShadow"
+              imageShadow={null}
               style={
                 Object {
                   "borderRadius": 38,
-                  "elevation": 3,
-                  "shadowColor": "rgba(0, 0, 0, 0.25)",
-                  "shadowOffset": Object {
-                    "height": 3,
-                    "width": 0,
-                  },
-                  "shadowOpacity": 1,
-                  "shadowRadius": 8,
                 }
               }
               testID="avatars-pair-avatars-invitee"
@@ -793,18 +785,10 @@ exports[`<Invitation /> should match snapshot 1`] = `
           <View
             accessibilityLabel="invitation-text-avatars-inviter"
             accessible={true}
-            imageShadow="imageShadow"
+            imageShadow={null}
             style={
               Object {
                 "borderRadius": 38,
-                "elevation": 3,
-                "shadowColor": "rgba(0, 0, 0, 0.25)",
-                "shadowOffset": Object {
-                  "height": 3,
-                  "width": 0,
-                },
-                "shadowOpacity": 1,
-                "shadowRadius": 8,
               }
             }
             testID="invitation-text-avatars-inviter"

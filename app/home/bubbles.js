@@ -86,7 +86,6 @@ export class Bubble extends PureComponent<BubbleProps, BubbleState> {
         <View style={[badgeDotStyles.avatarBack]}>
           <Avatar
             radius={this.props.radius}
-            shadow
             src={source}
             onLoad={this._onLoad}
             onError={this._onError}

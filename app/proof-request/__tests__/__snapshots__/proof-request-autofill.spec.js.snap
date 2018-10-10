@@ -67,22 +67,26 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
         }
         testID="proof-request-icon-close-touchable"
       >
-        <Image
-          accessibilityLabel="proof-request-icon-close"
-          accessible={true}
-          resizeMode="contain"
-          source={1}
-          style={
-            Array [
-              Object {
-                "height": 20,
-                "width": 20,
-              },
-              null,
-            ]
-          }
-          testID="proof-request-icon-close"
-        />
+        <View
+          style={Object {}}
+        >
+          <Image
+            accessibilityLabel="proof-request-icon-close"
+            accessible={true}
+            resizeMode="contain"
+            source={1}
+            style={
+              Array [
+                Object {
+                  "height": 20,
+                  "width": 20,
+                },
+                null,
+              ]
+            }
+            testID="proof-request-icon-close"
+          />
+        </View>
       </View>
       <View
         fifth={true}
@@ -200,31 +204,35 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                   }
                 }
               >
-                <Image
-                  accessibilityLabel="proof-request-verifier-logo"
-                  accessible={true}
-                  resizeMode="cover"
-                  source={
-                    Object {
-                      "uri": "/var/application/DocumentDir/user-avatar.jpeg",
+                <View
+                  style={Object {}}
+                >
+                  <Image
+                    accessibilityLabel="proof-request-verifier-logo"
+                    accessible={true}
+                    resizeMode="cover"
+                    source={
+                      Object {
+                        "uri": "/var/application/DocumentDir/user-avatar.jpeg",
+                      }
                     }
-                  }
-                  style={
-                    Array [
-                      Object {
-                        "height": 80,
-                        "width": 80,
-                      },
-                      Object {
-                        "borderRadius": 40,
-                      },
-                      Object {
-                        "borderRadius": 35,
-                      },
-                    ]
-                  }
-                  testID="proof-request-verifier-logo"
-                />
+                    style={
+                      Array [
+                        Object {
+                          "height": 80,
+                          "width": 80,
+                        },
+                        Object {
+                          "borderRadius": 40,
+                        },
+                        Object {
+                          "borderRadius": 35,
+                        },
+                      ]
+                    }
+                    testID="proof-request-verifier-logo"
+                  />
+                </View>
               </View>
             </View>
           </View>
@@ -245,6 +253,7 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
           <View
             accessibilityLabel="proof-request-verifier-logo"
             accessible={true}
+            backgroundRoundWhite={true}
             center={true}
             clearBg={true}
             extraLarge={true}
@@ -291,31 +300,44 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                 }
               }
             >
-              <Image
-                accessibilityLabel="proof-request-verifier-logo"
-                accessible={true}
-                resizeMode="cover"
-                source={
-                  Object {
-                    "uri": "http://testissuer.com/logoUrl.png",
-                  }
-                }
+              <View
                 style={
                   Array [
                     Object {
-                      "height": 80,
-                      "width": 80,
+                      "backgroundColor": "#ffffff",
                     },
                     Object {
                       "borderRadius": 40,
                     },
-                    Object {
-                      "borderRadius": 35,
-                    },
                   ]
                 }
-                testID="proof-request-verifier-logo"
-              />
+              >
+                <Image
+                  accessibilityLabel="proof-request-verifier-logo"
+                  accessible={true}
+                  resizeMode="cover"
+                  source={
+                    Object {
+                      "uri": "http://testissuer.com/logoUrl.png",
+                    }
+                  }
+                  style={
+                    Array [
+                      Object {
+                        "height": 80,
+                        "width": 80,
+                      },
+                      Object {
+                        "borderRadius": 40,
+                      },
+                      Object {
+                        "borderRadius": 35,
+                      },
+                    ]
+                  }
+                  testID="proof-request-verifier-logo"
+                />
+              </View>
             </View>
           </View>
         </View>
@@ -715,24 +737,28 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                         }
                         testID="proof-requester-logo-0"
                       >
-                        <Image
-                          accessibilityLabel="proof-requester-logo-0"
-                          accessible={true}
-                          resizeMode="cover"
-                          source={null}
-                          style={
-                            Array [
-                              Object {
-                                "height": 30,
-                                "width": 30,
-                              },
-                              Object {
-                                "borderRadius": 15,
-                              },
-                            ]
-                          }
-                          testID="proof-requester-logo-0"
-                        />
+                        <View
+                          style={Object {}}
+                        >
+                          <Image
+                            accessibilityLabel="proof-requester-logo-0"
+                            accessible={true}
+                            resizeMode="cover"
+                            source={null}
+                            style={
+                              Array [
+                                Object {
+                                  "height": 30,
+                                  "width": 30,
+                                },
+                                Object {
+                                  "borderRadius": 15,
+                                },
+                              ]
+                            }
+                            testID="proof-requester-logo-0"
+                          />
+                        </View>
                       </View>
                     </View>
                   </View>
@@ -965,24 +991,28 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                         }
                         testID="proof-requester-logo-1"
                       >
-                        <Image
-                          accessibilityLabel="proof-requester-logo-1"
-                          accessible={true}
-                          resizeMode="cover"
-                          source={null}
-                          style={
-                            Array [
-                              Object {
-                                "height": 30,
-                                "width": 30,
-                              },
-                              Object {
-                                "borderRadius": 15,
-                              },
-                            ]
-                          }
-                          testID="proof-requester-logo-1"
-                        />
+                        <View
+                          style={Object {}}
+                        >
+                          <Image
+                            accessibilityLabel="proof-requester-logo-1"
+                            accessible={true}
+                            resizeMode="cover"
+                            source={null}
+                            style={
+                              Array [
+                                Object {
+                                  "height": 30,
+                                  "width": 30,
+                                },
+                                Object {
+                                  "borderRadius": 15,
+                                },
+                              ]
+                            }
+                            testID="proof-requester-logo-1"
+                          />
+                        </View>
                       </View>
                     </View>
                   </View>
@@ -1404,18 +1434,10 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
             <View
               accessibilityLabel="avatars-pair-avatars-invitee"
               accessible={true}
-              imageShadow="imageShadow"
+              imageShadow={null}
               style={
                 Object {
                   "borderRadius": 38,
-                  "elevation": 3,
-                  "shadowColor": "rgba(0, 0, 0, 0.25)",
-                  "shadowOffset": Object {
-                    "height": 3,
-                    "width": 0,
-                  },
-                  "shadowOpacity": 1,
-                  "shadowRadius": 8,
                 }
               }
               testID="avatars-pair-avatars-invitee"
@@ -1479,18 +1501,10 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
           <View
             accessibilityLabel="send-proof-text-avatars-inviter"
             accessible={true}
-            imageShadow="imageShadow"
+            imageShadow={null}
             style={
               Object {
                 "borderRadius": 38,
-                "elevation": 3,
-                "shadowColor": "rgba(0, 0, 0, 0.25)",
-                "shadowOffset": Object {
-                  "height": 3,
-                  "width": 0,
-                },
-                "shadowOpacity": 1,
-                "shadowRadius": 8,
               }
             }
             testID="send-proof-text-avatars-inviter"

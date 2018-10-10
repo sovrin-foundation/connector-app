@@ -65,19 +65,23 @@ exports[`RestoreWait screen should render properly and match the snapshot 1`] = 
         }
         xxLarge={true}
       >
-        <Image
-          resizeMode="contain"
-          source={1}
-          style={
-            Array [
-              Object {
-                "height": 90,
-                "width": 90,
-              },
-              null,
-            ]
-          }
-        />
+        <View
+          style={Object {}}
+        >
+          <Image
+            resizeMode="contain"
+            source={1}
+            style={
+              Array [
+                Object {
+                  "height": 90,
+                  "width": 90,
+                },
+                null,
+              ]
+            }
+          />
+        </View>
       </View>
     </View>
     <View

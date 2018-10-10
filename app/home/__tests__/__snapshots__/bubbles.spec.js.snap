@@ -56,18 +56,10 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
         <View
           accessibilityLabel="bubble-4ej819kkjywdppuje79"
           accessible={true}
-          imageShadow="imageShadow"
+          imageShadow={null}
           style={
             Object {
               "borderRadius": 50,
-              "elevation": 3,
-              "shadowColor": "rgba(0, 0, 0, 0.25)",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 8,
             }
           }
           testID="bubble-4ej819kkjywdppuje79"
@@ -146,18 +138,10 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
         <View
           accessibilityLabel="bubble-3nj819kkjywdppuje86"
           accessible={true}
-          imageShadow="imageShadow"
+          imageShadow={null}
           style={
             Object {
               "borderRadius": 50,
-              "elevation": 3,
-              "shadowColor": "rgba(0, 0, 0, 0.25)",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 8,
             }
           }
           testID="bubble-3nj819kkjywdppuje86"
@@ -236,18 +220,10 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
         <View
           accessibilityLabel="bubble-7fj819kkjywdppuje34"
           accessible={true}
-          imageShadow="imageShadow"
+          imageShadow={null}
           style={
             Object {
               "borderRadius": 50,
-              "elevation": 3,
-              "shadowColor": "rgba(0, 0, 0, 0.25)",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 8,
             }
           }
           testID="bubble-7fj819kkjywdppuje34"
@@ -349,18 +325,10 @@ exports[`<Bubbles/> should show the dot on the Bubbles 1`] = `
         <View
           accessibilityLabel="bubble-4ej819kkjywdppuje79"
           accessible={true}
-          imageShadow="imageShadow"
+          imageShadow={null}
           style={
             Object {
               "borderRadius": 50,
-              "elevation": 3,
-              "shadowColor": "rgba(0, 0, 0, 0.25)",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 8,
             }
           }
           testID="bubble-4ej819kkjywdppuje79"
@@ -439,18 +407,10 @@ exports[`<Bubbles/> should show the dot on the Bubbles 1`] = `
         <View
           accessibilityLabel="bubble-3nj819kkjywdppuje86"
           accessible={true}
-          imageShadow="imageShadow"
+          imageShadow={null}
           style={
             Object {
               "borderRadius": 50,
-              "elevation": 3,
-              "shadowColor": "rgba(0, 0, 0, 0.25)",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 8,
             }
           }
           testID="bubble-3nj819kkjywdppuje86"
@@ -529,18 +489,10 @@ exports[`<Bubbles/> should show the dot on the Bubbles 1`] = `
         <View
           accessibilityLabel="bubble-7fj819kkjywdppuje34"
           accessible={true}
-          imageShadow="imageShadow"
+          imageShadow={null}
           style={
             Object {
               "borderRadius": 50,
-              "elevation": 3,
-              "shadowColor": "rgba(0, 0, 0, 0.25)",
-              "shadowOffset": Object {
-                "height": 3,
-                "width": 0,
-              },
-              "shadowOpacity": 1,
-              "shadowRadius": 8,
             }
           }
           testID="bubble-7fj819kkjywdppuje34"

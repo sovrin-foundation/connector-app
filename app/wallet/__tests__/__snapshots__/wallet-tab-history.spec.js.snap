@@ -150,22 +150,26 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                 }
               }
             >
-              <Image
-                resizeMode="contain"
-                source={1}
-                style={
-                  Array [
-                    Object {
-                      "height": 20,
-                      "width": 20,
-                    },
-                    null,
-                    Object {
-                      "tintColor": "#333333",
-                    },
-                  ]
-                }
-              />
+              <View
+                style={Object {}}
+              >
+                <Image
+                  resizeMode="contain"
+                  source={1}
+                  style={
+                    Array [
+                      Object {
+                        "height": 20,
+                        "width": 20,
+                      },
+                      null,
+                      Object {
+                        "tintColor": "#333333",
+                      },
+                    ]
+                  }
+                />
+              </View>
             </View>
             <View
               style={
@@ -478,22 +482,26 @@ exports[`<WalletTabHistory /> should render properly and match the snapshot 1`] 
                 }
               }
             >
-              <Image
-                resizeMode="contain"
-                source={1}
-                style={
-                  Array [
-                    Object {
-                      "height": 20,
-                      "width": 20,
-                    },
-                    null,
-                    Object {
-                      "tintColor": "#333333",
-                    },
-                  ]
-                }
-              />
+              <View
+                style={Object {}}
+              >
+                <Image
+                  resizeMode="contain"
+                  source={1}
+                  style={
+                    Array [
+                      Object {
+                        "height": 20,
+                        "width": 20,
+                      },
+                      null,
+                      Object {
+                        "tintColor": "#333333",
+                      },
+                    ]
+                  }
+                />
+              </View>
             </View>
             <View
               style={

@@ -297,22 +297,26 @@ exports[`<QRScannerScreen /> should match snapshot 1`] = `
             }
             testID="close-qr-scanner-icon-touchable"
           >
-            <Image
-              accessibilityLabel="close-qr-scanner-icon"
-              accessible={true}
-              resizeMode="contain"
-              source={1}
-              style={
-                Array [
-                  Object {
-                    "height": 20,
-                    "width": 20,
-                  },
-                  null,
-                ]
-              }
-              testID="close-qr-scanner-icon"
-            />
+            <View
+              style={Object {}}
+            >
+              <Image
+                accessibilityLabel="close-qr-scanner-icon"
+                accessible={true}
+                resizeMode="contain"
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "height": 20,
+                      "width": 20,
+                    },
+                    null,
+                  ]
+                }
+                testID="close-qr-scanner-icon"
+              />
+            </View>
           </View>
         </View>
       </View>

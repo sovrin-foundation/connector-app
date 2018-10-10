@@ -118,31 +118,36 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
             }
             testID="connection-history-icon-close-touchable"
           >
-            <Image
-              accessibilityLabel="connection-history-icon-close"
-              accessible={true}
-              resizeMode="contain"
-              source={1}
-              style={
-                Array [
-                  Object {
-                    "height": 20,
-                    "width": 20,
-                  },
-                  null,
-                  Object {
-                    "marginRight": 15,
-                  },
-                ]
-              }
-              testID="connection-history-icon-close"
-            />
+            <View
+              style={Object {}}
+            >
+              <Image
+                accessibilityLabel="connection-history-icon-close"
+                accessible={true}
+                resizeMode="contain"
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "height": 20,
+                      "width": 20,
+                    },
+                    null,
+                    Object {
+                      "marginRight": 15,
+                    },
+                  ]
+                }
+                testID="connection-history-icon-close"
+              />
+            </View>
           </View>
           <View
             accessibilityComponentType={undefined}
             accessibilityLabel="connection-history-issuer-logo-touchable"
             accessibilityTraits={undefined}
             accessible={false}
+            backgroundRoundWhite={true}
             center={true}
             clearBg={true}
             extraLarge={true}
@@ -205,31 +210,44 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                 }
               }
             >
-              <Image
-                accessibilityLabel="connection-history-issuer-logo"
-                accessible={true}
-                resizeMode="cover"
-                source={
-                  Object {
-                    "uri": "https://test.com/image.png",
-                  }
-                }
+              <View
                 style={
                   Array [
                     Object {
-                      "height": 80,
-                      "width": 80,
-                    },
-                    Object {
-                      "borderRadius": 40,
+                      "backgroundColor": "#ffffff",
                     },
                     Object {
                       "borderRadius": 40,
                     },
                   ]
                 }
-                testID="connection-history-issuer-logo"
-              />
+              >
+                <Image
+                  accessibilityLabel="connection-history-issuer-logo"
+                  accessible={true}
+                  resizeMode="cover"
+                  source={
+                    Object {
+                      "uri": "https://test.com/image.png",
+                    }
+                  }
+                  style={
+                    Array [
+                      Object {
+                        "height": 80,
+                        "width": 80,
+                      },
+                      Object {
+                        "borderRadius": 40,
+                      },
+                      Object {
+                        "borderRadius": 40,
+                      },
+                    ]
+                  }
+                  testID="connection-history-issuer-logo"
+                />
+              </View>
             </View>
           </View>
           <View
@@ -276,25 +294,29 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
             }
             testID="connection-history-icon-delete-touchable"
           >
-            <Image
-              accessibilityLabel="connection-history-icon-delete"
-              accessible={true}
-              resizeMode="contain"
-              source={1}
-              style={
-                Array [
-                  Object {
-                    "height": 20,
-                    "width": 20,
-                  },
-                  null,
-                  Object {
-                    "marginLeft": 15,
-                  },
-                ]
-              }
-              testID="connection-history-icon-delete"
-            />
+            <View
+              style={Object {}}
+            >
+              <Image
+                accessibilityLabel="connection-history-icon-delete"
+                accessible={true}
+                resizeMode="contain"
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "height": 20,
+                      "width": 20,
+                    },
+                    null,
+                    Object {
+                      "marginLeft": 15,
+                    },
+                  ]
+                }
+                testID="connection-history-icon-delete"
+              />
+            </View>
           </View>
         </View>
         <View
@@ -498,22 +520,26 @@ exports[`<ConnectionHistory /> should ConnectionHistory render properly 1`] = `
                     }
                   }
                 >
-                  <Image
-                    resizeMode="contain"
-                    source={1}
-                    style={
-                      Array [
-                        Object {
-                          "height": 20,
-                          "width": 20,
-                        },
-                        null,
-                        Object {
-                          "tintColor": "rgba(119, 119, 119, 1.0)",
-                        },
-                      ]
-                    }
-                  />
+                  <View
+                    style={Object {}}
+                  >
+                    <Image
+                      resizeMode="contain"
+                      source={1}
+                      style={
+                        Array [
+                          Object {
+                            "height": 20,
+                            "width": 20,
+                          },
+                          null,
+                          Object {
+                            "tintColor": "rgba(119, 119, 119, 1.0)",
+                          },
+                        ]
+                      }
+                    />
+                  </View>
                 </View>
               </View>
               <View

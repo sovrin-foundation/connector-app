@@ -77,26 +77,30 @@ exports[`user settings screen should render properly and snapshot should match 1
               }
             }
           >
-            <Image
-              resizeMode="contain"
-              source={1}
-              style={
-                Array [
-                  Object {
-                    "height": 50,
-                    "width": 50,
-                  },
-                  null,
-                  Object {
-                    "height": 25,
-                    "width": 29,
-                  },
-                  Object {
-                    "tintColor": "white",
-                  },
-                ]
-              }
-            />
+            <View
+              style={Object {}}
+            >
+              <Image
+                resizeMode="contain"
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "height": 50,
+                      "width": 50,
+                    },
+                    null,
+                    Object {
+                      "height": 25,
+                      "width": 29,
+                    },
+                    Object {
+                      "tintColor": "white",
+                    },
+                  ]
+                }
+              />
+            </View>
           </View>
           <View
             horizontalSpace={true}
@@ -324,26 +328,30 @@ exports[`user settings screen should render properly and snapshot should match 1
                 }
                 testID={undefined}
               >
-                <Image
-                  resizeMode="contain"
-                  source={1}
-                  style={
-                    Array [
-                      Object {
-                        "height": 50,
-                        "width": 50,
-                      },
-                      null,
-                      Object {
-                        "height": 30,
-                        "width": 30,
-                      },
-                      Object {
-                        "tintColor": "grey",
-                      },
-                    ]
-                  }
-                />
+                <View
+                  style={Object {}}
+                >
+                  <Image
+                    resizeMode="contain"
+                    source={1}
+                    style={
+                      Array [
+                        Object {
+                          "height": 50,
+                          "width": 50,
+                        },
+                        null,
+                        Object {
+                          "height": 30,
+                          "width": 30,
+                        },
+                        Object {
+                          "tintColor": "grey",
+                        },
+                      ]
+                    }
+                  />
+                </View>
               </View>
             </View>
           </View>
@@ -504,26 +512,30 @@ exports[`user settings screen should render properly and snapshot should match 1
                 }
                 testID={undefined}
               >
-                <Image
-                  resizeMode="contain"
-                  source={1}
-                  style={
-                    Array [
-                      Object {
-                        "height": 50,
-                        "width": 50,
-                      },
-                      null,
-                      Object {
-                        "height": 30,
-                        "width": 30,
-                      },
-                      Object {
-                        "tintColor": "grey",
-                      },
-                    ]
-                  }
-                />
+                <View
+                  style={Object {}}
+                >
+                  <Image
+                    resizeMode="contain"
+                    source={1}
+                    style={
+                      Array [
+                        Object {
+                          "height": 50,
+                          "width": 50,
+                        },
+                        null,
+                        Object {
+                          "height": 30,
+                          "width": 30,
+                        },
+                        Object {
+                          "tintColor": "grey",
+                        },
+                      ]
+                    }
+                  />
+                </View>
               </View>
             </View>
           </View>
@@ -578,29 +590,33 @@ exports[`user settings screen should render properly and snapshot should match 1
                     }
                   }
                 >
-                  <Image
-                    resizeMode="contain"
-                    source={1}
-                    style={
-                      Array [
-                        Object {
-                          "height": 50,
-                          "width": 50,
-                        },
-                        null,
-                        Object {
-                          "marginRight": 10,
-                        },
-                        Object {
-                          "height": 30,
-                          "width": 30,
-                        },
-                        Object {
-                          "tintColor": "#85bf43",
-                        },
-                      ]
-                    }
-                  />
+                  <View
+                    style={Object {}}
+                  >
+                    <Image
+                      resizeMode="contain"
+                      source={1}
+                      style={
+                        Array [
+                          Object {
+                            "height": 50,
+                            "width": 50,
+                          },
+                          null,
+                          Object {
+                            "marginRight": 10,
+                          },
+                          Object {
+                            "height": 30,
+                            "width": 30,
+                          },
+                          Object {
+                            "tintColor": "#85bf43",
+                          },
+                        ]
+                      }
+                    />
+                  </View>
                 </View>
                 <View
                   center={true}
@@ -750,29 +766,33 @@ exports[`user settings screen should render properly and snapshot should match 1
                     }
                   }
                 >
-                  <Image
-                    resizeMode="contain"
-                    source={1}
-                    style={
-                      Array [
-                        Object {
-                          "height": 50,
-                          "width": 50,
-                        },
-                        null,
-                        Object {
-                          "marginRight": 10,
-                        },
-                        Object {
-                          "height": 30,
-                          "width": 30,
-                        },
-                        Object {
-                          "tintColor": "#85bf43",
-                        },
-                      ]
-                    }
-                  />
+                  <View
+                    style={Object {}}
+                  >
+                    <Image
+                      resizeMode="contain"
+                      source={1}
+                      style={
+                        Array [
+                          Object {
+                            "height": 50,
+                            "width": 50,
+                          },
+                          null,
+                          Object {
+                            "marginRight": 10,
+                          },
+                          Object {
+                            "height": 30,
+                            "width": 30,
+                          },
+                          Object {
+                            "tintColor": "#85bf43",
+                          },
+                        ]
+                      }
+                    />
+                  </View>
                 </View>
                 <View
                   center={true}
@@ -893,29 +913,33 @@ exports[`user settings screen should render properly and snapshot should match 1
                     }
                   }
                 >
-                  <Image
-                    resizeMode="contain"
-                    source={1}
-                    style={
-                      Array [
-                        Object {
-                          "height": 50,
-                          "width": 50,
-                        },
-                        null,
-                        Object {
-                          "marginRight": 10,
-                        },
-                        Object {
-                          "height": 30,
-                          "width": 30,
-                        },
-                        Object {
-                          "tintColor": "#85bf43",
-                        },
-                      ]
-                    }
-                  />
+                  <View
+                    style={Object {}}
+                  >
+                    <Image
+                      resizeMode="contain"
+                      source={1}
+                      style={
+                        Array [
+                          Object {
+                            "height": 50,
+                            "width": 50,
+                          },
+                          null,
+                          Object {
+                            "marginRight": 10,
+                          },
+                          Object {
+                            "height": 30,
+                            "width": 30,
+                          },
+                          Object {
+                            "tintColor": "#85bf43",
+                          },
+                        ]
+                      }
+                    />
+                  </View>
                 </View>
                 <View
                   center={true}
@@ -1037,29 +1061,33 @@ exports[`user settings screen should render properly and snapshot should match 1
                       }
                     }
                   >
-                    <Image
-                      resizeMode="contain"
-                      source={1}
-                      style={
-                        Array [
-                          Object {
-                            "height": 50,
-                            "width": 50,
-                          },
-                          null,
-                          Object {
-                            "marginRight": 10,
-                          },
-                          Object {
-                            "height": 30,
-                            "width": 30,
-                          },
-                          Object {
-                            "tintColor": "#85bf43",
-                          },
-                        ]
-                      }
-                    />
+                    <View
+                      style={Object {}}
+                    >
+                      <Image
+                        resizeMode="contain"
+                        source={1}
+                        style={
+                          Array [
+                            Object {
+                              "height": 50,
+                              "width": 50,
+                            },
+                            null,
+                            Object {
+                              "marginRight": 10,
+                            },
+                            Object {
+                              "height": 30,
+                              "width": 30,
+                            },
+                            Object {
+                              "tintColor": "#85bf43",
+                            },
+                          ]
+                        }
+                      />
+                    </View>
                   </View>
                   <View
                     center={true}

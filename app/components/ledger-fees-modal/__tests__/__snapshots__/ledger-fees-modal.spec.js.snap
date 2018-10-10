@@ -66,25 +66,29 @@ exports[`<LedgerFeesModalComponent /> show error if fetching fees failed, show r
         }
         testID="ledger-fees-modal-header-icon"
       >
-        <Image
-          accessibilityLabel="ledger-fees-modal-header-icon"
-          accessible={true}
-          resizeMode="contain"
-          source={1}
-          style={
-            Array [
-              Object {
-                "height": 30,
-                "width": 30,
-              },
-              null,
-              Object {
-                "margin": 10,
-              },
-            ]
-          }
-          testID="ledger-fees-modal-header-icon"
-        />
+        <View
+          style={Object {}}
+        >
+          <Image
+            accessibilityLabel="ledger-fees-modal-header-icon"
+            accessible={true}
+            resizeMode="contain"
+            source={1}
+            style={
+              Array [
+                Object {
+                  "height": 30,
+                  "width": 30,
+                },
+                null,
+                Object {
+                  "margin": 10,
+                },
+              ]
+            }
+            testID="ledger-fees-modal-header-icon"
+          />
+        </View>
       </View>
       <Text
         accessibilityLabel="ledger-fees-modal-content"
@@ -589,25 +593,29 @@ exports[`<LedgerFeesModalComponent /> show transfer fees, Yes & No buttons, if f
         }
         testID="ledger-fees-modal-header-icon"
       >
-        <Image
-          accessibilityLabel="ledger-fees-modal-header-icon"
-          accessible={true}
-          resizeMode="contain"
-          source={1}
-          style={
-            Array [
-              Object {
-                "height": 30,
-                "width": 30,
-              },
-              null,
-              Object {
-                "margin": 10,
-              },
-            ]
-          }
-          testID="ledger-fees-modal-header-icon"
-        />
+        <View
+          style={Object {}}
+        >
+          <Image
+            accessibilityLabel="ledger-fees-modal-header-icon"
+            accessible={true}
+            resizeMode="contain"
+            source={1}
+            style={
+              Array [
+                Object {
+                  "height": 30,
+                  "width": 30,
+                },
+                null,
+                Object {
+                  "margin": 10,
+                },
+              ]
+            }
+            testID="ledger-fees-modal-header-icon"
+          />
+        </View>
       </View>
       <Text
         accessibilityLabel="ledger-fees-modal-title"
