@@ -11,6 +11,8 @@ exports[`Eula screen should render properly and snapshot should match 1`] = `
   }
 >
   <WebView
+    onError={[Function]}
+    renderError={[Function]}
     renderLoading={[Function]}
     source={
       Object {

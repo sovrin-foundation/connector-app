@@ -5,7 +5,7 @@
 // on click accept take user to lock selection screen
 
 import React, { PureComponent } from 'react'
-import { WebView, Alert } from 'react-native'
+import { WebView, Alert, View } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -19,11 +19,17 @@ import {
 import { eulaRoute, restoreRoute } from '../common'
 import { eulaAccept } from './eula-store'
 import type { Store } from '../store/type-store'
-import { EULA_URL } from './type-eula'
+import { EULA_URL, localEulaSource } from './type-eula'
 import { color } from '../common/styles/constant'
 import { LoaderGif } from '../components/loader-gif/loader-gif'
+import type { EulaScreenState } from './type-eula'
+import type { CustomError } from '../common/type-common'
 
-export class EulaScreen extends PureComponent<*, void> {
+export class EulaScreen extends PureComponent<*, EulaScreenState> {
+  state = {
+    error: null,
+  }
+
   static navigationOptions = ({ navigation }) => ({
     header: (
       <CustomHeader
@@ -46,20 +52,28 @@ export class EulaScreen extends PureComponent<*, void> {
     )
   }
 
+  onError = (error: CustomError) => {
+    if (error) {
+      this.setState({ error })
+    }
+  }
+
   onAccept = () => {
     this.props.eulaAccept(true)
     this.props.navigation.navigate(restoreRoute)
   }
 
   render() {
+    const webViewUri = this.state.error ? localEulaSource : EULA_URL
+
     return (
       <Container fifth>
         <WebView
-          source={{
-            uri: EULA_URL,
-          }}
+          source={{ uri: webViewUri }}
           startInLoadingState={true}
           renderLoading={() => LoaderGif}
+          onError={this.onError}
+          renderError={() => <View />}
         />
         <FooterActions
           onAccept={this.onAccept}

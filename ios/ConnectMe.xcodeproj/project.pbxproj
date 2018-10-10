@@ -83,6 +83,10 @@
 		CBAF34C79DA848F495B816FB /* Lato-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 83E7F1AAAA7843A8B868498C /* Lato-BoldItalic.ttf */; };
 		D7CF24B6CF8648649CD3E93E /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB524C73BEE14C70A0C552CB /* Lato-Bold.ttf */; };
 		DDD4B74C1F65577400FBEE23 /* RNIndy.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD4B7271F65577300FBEE23 /* RNIndy.m */; };
+		DDD64CBD216D4A1000BE706A /* css in Resources */ = {isa = PBXBuildFile; fileRef = DDD64CB9216D4A0F00BE706A /* css */; };
+		DDD64CBE216D4A1000BE706A /* eula_ios.html in Resources */ = {isa = PBXBuildFile; fileRef = DDD64CBA216D4A0F00BE706A /* eula_ios.html */; };
+		DDD64CBF216D4A1000BE706A /* images in Resources */ = {isa = PBXBuildFile; fileRef = DDD64CBB216D4A0F00BE706A /* images */; };
+		DDD64CC0216D4A1000BE706A /* privacy.html in Resources */ = {isa = PBXBuildFile; fileRef = DDD64CBC216D4A1000BE706A /* privacy.html */; };
 		EC657F2C78CA4325A7F0D28A /* Lato-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A43B7EE6108C43AEA9443B36 /* Lato-Semibold.ttf */; };
 		F1F0B5451EF3B138006FBB0B /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F1F0B5441EF3B12D006FBB0B /* libSplashScreen.a */; };
 		F4231D8934B94C7795C3CCDF /* Lato-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7702F1E1DB794FE6803D1FB9 /* Lato-MediumItalic.ttf */; };
@@ -277,13 +281,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 32D980DD1BE9F11C00FA27E5;
 			remoteInfo = RCTPBKDF2;
-		};
-		3D8150562155114A00695C78 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 09DEF3EC2060FB7100EB316C /* SRSRadialGradient.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 47413E2820DBB5D000CCDA85;
-			remoteInfo = "SRSRadialGradien-tvOS";
 		};
 		3DAD3E831DF850E9000B6D8A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -585,6 +582,10 @@
 		DDCFDECA1F879B8900F932F8 /* SF-Pro-Text-SemiboldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-Pro-Text-SemiboldItalic.otf"; path = "../app/fonts/SF Pro/SF-Pro-Text-SemiboldItalic.otf"; sourceTree = "<group>"; };
 		DDD4B7271F65577300FBEE23 /* RNIndy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNIndy.m; sourceTree = "<group>"; };
 		DDD4B7281F65577300FBEE23 /* RNIndy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNIndy.h; sourceTree = "<group>"; };
+		DDD64CB9216D4A0F00BE706A /* css */ = {isa = PBXFileReference; lastKnownFileType = folder; name = css; path = ../../android/app/src/main/assets/external/connectme/css; sourceTree = "<group>"; };
+		DDD64CBA216D4A0F00BE706A /* eula_ios.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = eula_ios.html; path = ../../android/app/src/main/assets/external/connectme/eula_ios.html; sourceTree = "<group>"; };
+		DDD64CBB216D4A0F00BE706A /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = ../../android/app/src/main/assets/external/connectme/images; sourceTree = "<group>"; };
+		DDD64CBC216D4A1000BE706A /* privacy.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = privacy.html; path = ../../android/app/src/main/assets/external/connectme/privacy.html; sourceTree = "<group>"; };
 		E3B0FD8C0D858EC91E3F65F5 /* Pods-ConnectMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConnectMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-ConnectMe/Pods-ConnectMe.release.xcconfig"; sourceTree = "<group>"; };
 		EBC83535D6244D318A899CC5 /* Lato-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-LightItalic.ttf"; path = "../app/fonts/Lato/Lato-LightItalic.ttf"; sourceTree = "<group>"; };
 		EE0D23D481324711B3988D76 /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -740,7 +741,6 @@
 			isa = PBXGroup;
 			children = (
 				09DEF3F12060FB7100EB316C /* libSRSRadialGradient.a */,
-				3D8150572155114A00695C78 /* libSRSRadialGradien-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -768,6 +768,7 @@
 		13B07FAE1A68108700A75B9A /* ConnectMe */ = {
 			isa = PBXGroup;
 			children = (
+				DDD64CA8216D460A00BE706A /* connectme-website */,
 				DDD4B7281F65577300FBEE23 /* RNIndy.h */,
 				DDD4B7271F65577300FBEE23 /* RNIndy.m */,
 				2772C0BB1EF14F93009DE7B6 /* GoogleService-Info.plist */,
@@ -1080,6 +1081,17 @@
 				DDD0E1C71F34B1AD00C76C0B /* libRCTCamera.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		DDD64CA8216D460A00BE706A /* connectme-website */ = {
+			isa = PBXGroup;
+			children = (
+				DDD64CB9216D4A0F00BE706A /* css */,
+				DDD64CBA216D4A0F00BE706A /* eula_ios.html */,
+				DDD64CBB216D4A0F00BE706A /* images */,
+				DDD64CBC216D4A1000BE706A /* privacy.html */,
+			);
+			path = "connectme-website";
 			sourceTree = "<group>";
 		};
 		DDFFF3AC1F3834A200F66D71 /* Recovered References */ = {
@@ -1549,13 +1561,6 @@
 			remoteRef = 3D815053215502B200695C78 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		3D8150572155114A00695C78 /* libSRSRadialGradien-tvOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libSRSRadialGradien-tvOS.a";
-			remoteRef = 3D8150562155114A00695C78 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		3DAD3E841DF850E9000B6D8A /* libRCTImage-tvOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1753,11 +1758,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				DDD64CC0216D4A1000BE706A /* privacy.html in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				10E89B21A64B4DCB984BD9CA /* Entypo.ttf in Resources */,
 				05D9224847114A1D92BC5C1C /* EvilIcons.ttf in Resources */,
 				7B99A1FF6C664D67B643D6BB /* FontAwesome.ttf in Resources */,
+				DDD64CBF216D4A1000BE706A /* images in Resources */,
 				87FBD37D8CBD436FBC57962F /* Foundation.ttf in Resources */,
+				DDD64CBD216D4A1000BE706A /* css in Resources */,
 				9E3D2AA29C2F4863AFE8EA07 /* Ionicons.ttf in Resources */,
 				2776B0F1354D4CE79BD1A4C4 /* MaterialCommunityIcons.ttf in Resources */,
 				C24256F452854483AFC47DF9 /* MaterialIcons.ttf in Resources */,
@@ -1784,6 +1792,7 @@
 				575A61EB095A4965A504BA73 /* Lato-SemiboldItalic.ttf in Resources */,
 				944DD0B449D64AE19AF331C1 /* Lato-Thin.ttf in Resources */,
 				71BA4DB4E6B9494F923B36AB /* Lato-ThinItalic.ttf in Resources */,
+				DDD64CBE216D4A1000BE706A /* eula_ios.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

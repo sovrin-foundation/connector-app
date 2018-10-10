@@ -2,6 +2,8 @@
 
 exports[`Privacy and TNC screen should render properly and snapshot should match 1`] = `
 <WebView
+  onError={[Function]}
+  renderError={[Function]}
   renderLoading={[Function]}
   source={
     Object {
