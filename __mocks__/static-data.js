@@ -990,6 +990,9 @@ export function getStore(store?: Store) {
           },
         },
         ledger: ledgerStoreWithTransferFees,
+        offline: {
+          offline: false,
+        },
       }
     },
     dispatch() {

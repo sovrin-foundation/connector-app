@@ -41,6 +41,7 @@ import type { AppState } from './type-app'
 import { exitAppAndroid } from './bridge/react-native-cxs/RNCxs'
 import AppStatus from './app-status/app-status'
 import { setupFeedback } from './feedback'
+import Offline from './offline/offline'
 
 const backButtonDisableRoutes = [
   lockEnterPinRoute,
@@ -200,6 +201,7 @@ class ConnectMeApp extends PureComponent<void, AppState> {
             ref={navigatorRef => (this.navigatorRef = navigatorRef)}
             onNavigationStateChange={this.navigationChangeHandler}
           />
+          <Offline overlay />
         </Container>
       </Provider>
     )

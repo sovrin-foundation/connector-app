@@ -84,7 +84,7 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
                 style={[
                   styles.floatTokenAmount,
                   {
-                    fontSize: tokenAmountSize(balance.length),
+                    fontSize: tokenAmountSize(balance ? balance.length : 0),
                   },
                 ]}
                 transparentBg

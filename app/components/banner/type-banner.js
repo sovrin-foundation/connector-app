@@ -14,3 +14,9 @@ export type DangerBannerProps = {
   bannerTitle: string,
   bannerSubtext: string,
 }
+
+export type OfflineBannerProps = {
+  testID: string,
+  onPress?: () => void,
+  bannerTitle: string,
+}

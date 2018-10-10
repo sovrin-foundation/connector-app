@@ -307,6 +307,8 @@ export const getConnectionByUserDid = (state: Store, userDID: string) => {
   return null
 }
 
+export const getOfflineStatus = (state: Store) => state.offline.offline
+
 export const getInvitations = (state: Store) => state.invitation
 
 export const getDeepLinkTokens = (state: Store) => state.deepLink.tokens

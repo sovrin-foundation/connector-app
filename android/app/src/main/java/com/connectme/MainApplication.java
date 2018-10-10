@@ -4,6 +4,7 @@ import android.app.Application;
 import com.apptentive.android.sdk.reactlibrary.RNApptentivePackage;
 import com.surajit.rnrg.RNRadialGradientPackage;
 import com.facebook.react.ReactApplication;
+import com.horcrux.svg.SvgPackage;
 import rnpbkdf2.PBKDF2Package;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
@@ -19,7 +20,6 @@ import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
 import com.rnfingerprint.FingerprintAuthPackage;
-//import com.horcrux.svg.SvgPackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import io.branch.rnbranch.RNBranchPackage;
@@ -49,6 +49,7 @@ public class MainApplication extends Application implements ShareApplication, Re
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
+            new SvgPackage(),
             new PBKDF2Package(),
         new RNFirebasePackage(),
         new RNFirebaseNotificationsPackage(),

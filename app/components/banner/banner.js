@@ -13,6 +13,7 @@ import type { Store } from '../../store/type-store'
 import { CustomView, CustomText, Icon } from '../../components'
 import { color } from '../../common/styles'
 import BackupWallet from '../../settings/backup-wallet'
+import Offline from '../../offline/offline'
 import {
   IMAGE_WIDTH,
   IMAGE_HEIGHT,
@@ -21,7 +22,9 @@ import {
 } from './banner-constants'
 import type { BannerProps } from './type-banner'
 import DangerBanner from './banner-danger'
+import { OfflineBanner } from './banner-offline'
 import {
+  getOfflineStatus,
   getBackupShowBanner,
   getLastSuccessfulBackupTimeStamp,
 } from '../../store/store-selector'
@@ -35,14 +38,36 @@ import {
 
 class Banner extends PureComponent<BannerProps, void> {
   render() {
-    const { showBanner, navigation, lastSuccessfulBackupTimeStamp } = this.props
+    const {
+      offline,
+      showBanner,
+      navigation,
+      lastSuccessfulBackupTimeStamp,
+    } = this.props
     let title = FIRST_BACKUP_TITLE
     let subtext = FIRST_BACKUP_SUBTEXT
     if (lastSuccessfulBackupTimeStamp !== '') {
       title = SUBSEQUENT_BACKUP_TITLE
       subtext = SUBSEQUENT_BACKUP_SUBTEXT
     }
-    if (showBanner) {
+
+    if (offline) {
+      return (
+        <CustomView>
+          <Offline
+            navigation={navigation}
+            render={status => (
+              <OfflineBanner
+                testID={BACKUP_BANNER_TEST_ID}
+                bannerTitle="You are not connected to the internet"
+              />
+            )}
+          />
+        </CustomView>
+      )
+    }
+
+    if (showBanner && !offline) {
       return (
         <CustomView>
           <BackupWallet
@@ -59,12 +84,14 @@ class Banner extends PureComponent<BannerProps, void> {
         </CustomView>
       )
     }
+
     return null
   }
 }
 
 const mapStateToProps = (state: Store) => {
   return {
+    offline: getOfflineStatus(state),
     showBanner: getBackupShowBanner(state),
     lastSuccessfulBackupTimeStamp: getLastSuccessfulBackupTimeStamp(state),
   }

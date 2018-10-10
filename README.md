@@ -6,7 +6,7 @@ App to connect Sovrin with 3rd party authentication
 - Mac machine
 - XCode 9
 - Node 8+. Preferred way to install node is via [nvm](https://www.sitepoint.com/quick-tip-multiple-versions-node-nvm/)
-- [React native setup](http://facebook.github.io/react-native/docs/getting-started.html). Use tab `Building Projects with Native Code`. 
+- [React native setup](http://facebook.github.io/react-native/docs/getting-started.html). Use tab `Building Projects with Native Code`.
 - Ruby
 - Make sure `pod` (1.5.3) is installed or run `sudo gem install cocoapods -v 1.5.3`
 - Android Studio 3+
@@ -140,3 +140,7 @@ Keyboard -> Connect Hardware Keyboard to unselect that option). Then only using 
 bring up the React Native Developer Menu and then you select the Reload option from the React Native Developer Menu
 and then the software keyboard will come up and allow you to use the mouse to input characters. After a while you can
 try to re-enable The MacBook Pro keyboard but if it still fails then use this workaround again.
+
+## iOS build issue
+
+- *Problem*: `third-party/glog-0.3.4/src/base/mutex.h 'config.h' file not found`. *Solution*: https://github.com/facebook/react-native/issues/16097. Basically from the ConnectMe toplevel source code directory do 1) cd node_modules/react-native/third-party/glog-0.3.4/ then 2) ../../scripts/ios-configure-glog.sh

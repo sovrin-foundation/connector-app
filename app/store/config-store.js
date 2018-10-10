@@ -525,6 +525,7 @@ export function* initVcx(): Generator<*, *, *> {
       yield put(connectRegisterCreateAgentDone(userOneTimeInfo))
     } catch (e) {
       captureError(e)
+      yield call(vcxShutdown, false)
       yield put(vcxInitFail(ERROR_VCX_PROVISION_FAIL(e.message)))
 
       return

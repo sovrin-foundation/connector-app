@@ -165,7 +165,7 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
                 + inviteDetails + "], promise = [" + promise + "]");
         try {
             ConnectionApi.vcxCreateConnectionWithInvite(invitationId, inviteDetails).exceptionally((t) -> {
-                Log.e(TAG, "createOneTimeInfo: ", t);
+                Log.e(TAG, "createConnectionWithInvite: ", t);
                 promise.reject("FutureException", t.getMessage());
                 return -1;
             }).thenAccept(result -> {
@@ -560,9 +560,9 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
             }).thenAccept(result -> {
                 if(result != -1){
                    BridgeUtils.resolveIfValid(promise, result);
-                }        
+                }
             });
-           
+
 
         } catch (Exception e) {
             promise.reject("VCXException", e.getMessage());
@@ -836,16 +836,16 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
           promise.reject("FutureException", t.getMessage());
           return null;
         }).thenAccept(result -> BridgeUtils.resolveIfValid(promise, result));
-  
+
       } catch (VcxException e) {
         promise.reject("VCXException", e.getMessage());
       }
     }
-  
+
     @ReactMethod
     public void updateMessages(String messageStatus, String pwdidsJson, Promise promise) {
       Log.d(TAG, "updateMessages() called with messageStatus = [ " + messageStatus + "], pwdidJson = [" + pwdidsJson);
-  
+
       try {
         UtilsApi.vcxUpdateMessages(messageStatus, pwdidsJson).exceptionally((t) -> {
           Log.d(TAG, "updateMessages: ", t);

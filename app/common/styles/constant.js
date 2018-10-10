@@ -52,6 +52,7 @@ const darkOrange = 'rgba(207, 127, 20, 1)'
 const errorBg = 'rgba(255, 214, 219, 1)'
 const darkgray = '#4A4A4A'
 const jordyBlue = '#79ade7'
+const palePink = '#FFD5DB'
 
 // color shades
 const primaryShade = '1.0'
@@ -198,6 +199,7 @@ export const color = {
     grey: grey,
     darkgray: darkgray,
   },
+  palePink,
 }
 
 export const font = {

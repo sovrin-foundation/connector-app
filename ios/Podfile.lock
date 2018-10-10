@@ -71,6 +71,8 @@ PODS:
     - RSKImageCropper
   - RNShare (1.0.27):
     - React
+  - RNSVG (7.0.3):
+    - React
   - RNZipArchive (2.2.6):
     - React
     - RNZipArchive/Core (= 2.2.6)
@@ -100,6 +102,7 @@ DEPENDENCIES:
   - React/RCTWebSocket (from `../node_modules/react-native`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNShare (from `../node_modules/react-native-share`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - RNZipArchive (from `../node_modules/react-native-zip-archive`)
   - vcx (= 0.0.53)
   - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
@@ -130,6 +133,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-crop-picker"
   RNShare:
     :path: "../node_modules/react-native-share"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   RNZipArchive:
     :path: "../node_modules/react-native-zip-archive"
   yoga:
@@ -155,11 +160,12 @@ SPEC CHECKSUMS:
   react-native-image-resizer: 04a3409e7d4ad646c4468671c69dec490def139c
   RNImageCropPicker: 32ca4b9fef4e1b7b85ba69494242122948117e06
   RNShare: 80d4472ab25e77d9f824cb8d49d7e85af91c66e0
+  RNSVG: 6252323c0312735f0af5f58b5adf2965b6a9ffbf
   RNZipArchive: 4f72d162e01ba473a6c2365b4e949183fd208f35
   RSKImageCropper: 0d0c6d8525a2381f03fde32a47c6703817a2feed
   vcx: 7949c57855d186823b33ff4bc1cca4d7b0da2f55
   yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
-PODFILE CHECKSUM: 9abaaaf843f7e96ddf245ba86f0b952b83cd4664
+PODFILE CHECKSUM: f1dc9fb3c154b59b740cee43d1670801462367ab
 
 COCOAPODS: 1.5.3

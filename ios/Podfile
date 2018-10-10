@@ -48,6 +48,8 @@ target 'ConnectMe' do
     pod 'RNZipArchive', :path => '../node_modules/react-native-zip-archive'
 
 
+    pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
     target 'ConnectMeTests' do
         inherit! :search_paths
         # Pods for testing

@@ -39,7 +39,7 @@ const walletTabsHeaderBalanceFontSize = (balance: string) => {
    * Normally, we would have preferred to just wrap the text, but we can't wrap it
    * because it is a number. Also, header is hard coded with a height
    */
-  const digits = balance.length
+  const digits = balance ? balance.length : 0
   switch (true) {
     case digits < 13:
       return scale(30)
@@ -86,7 +86,7 @@ export class Wallet extends PureComponent<WalletProps, void> {
               </Container>
               <CustomView row center>
                 <Icon
-                  {...sovrinTokenIconSize(balance.length)}
+                  {...sovrinTokenIconSize(balance ? balance.length : 0)}
                   src={tokenLogo}
                 />
                 <CustomView horizontalSpace>

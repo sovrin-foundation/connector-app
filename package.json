@@ -58,6 +58,7 @@
     "react-native-share": "^1.0.27",
     "react-native-size-matters": "^0.1.2",
     "react-native-splash-screen": "3.0.6",
+    "react-native-svg": "^7.0.3",
     "react-native-swiper": "^1.5.13",
     "react-native-switch": "^1.5.0",
     "react-native-touch-id": "4.1.0",

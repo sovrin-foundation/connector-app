@@ -54,6 +54,7 @@ import {
 import {
   resetVcx as resetNative,
   createOneTimeInfo,
+  vcxShutdown,
   init,
 } from '../../bridge/react-native-cxs/RNCxs'
 import { updatePushToken } from '../../push-notification/push-notification-store'
@@ -326,6 +327,7 @@ describe('config-store:saga', () => {
           matchers.call.fn(createOneTimeInfo, agencyConfig),
           throwError(failProvisionError),
         ],
+        [matchers.call.fn(vcxShutdown, false), true],
       ])
       .put(vcxInitFail(ERROR_VCX_PROVISION_FAIL(errorMessage)))
       .run()

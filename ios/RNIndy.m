@@ -248,7 +248,7 @@ RCT_EXPORT_METHOD(createOneTimeInfo: (NSString *)config
                            rejecter: (RCTPromiseRejectBlock) reject)
 {
   [[[ConnectMeVcx alloc] init] agentProvisionAsync:config completion:^(NSError *error, NSString *oneTimeInfo) {
-    NSLog(@"applicationDidBecomeActive callback:%@",oneTimeInfo);
+    NSLog(@"createOneTimeInfo callback:%@",oneTimeInfo);
     if (error != nil && error.code != 0)
     {
       NSString *indyErrorCode = [NSString stringWithFormat:@"%ld", (long)error.code];
