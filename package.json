@@ -49,6 +49,7 @@
     "react-native-flip-toggle-button": "^1.0.5",
     "react-native-image-crop-picker": "^0.20.1",
     "react-native-image-resizer": "^1.0.0",
+    "react-native-keep-screen-on": "^1.2.0",
     "react-native-keyboard-aware-scroll-view": "^0.4.4",
     "react-native-modal": "5.0.0",
     "react-native-pbkdf2": "https://github.com/quan-to/react-native-pbkdf2",

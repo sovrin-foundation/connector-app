@@ -59,6 +59,7 @@
 		575A61EB095A4965A504BA73 /* Lato-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62308B27968E44338B98B26B /* Lato-SemiboldItalic.ttf */; };
 		59F4F33E508F430B9A42B31E /* Lato-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 922C5E6A7C0143A6B6B78CD5 /* Lato-BlackItalic.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		625B4D73617348FDB4B65C47 /* libKeepScreenOn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 520573046AC04CBCB6614538 /* libKeepScreenOn.a */; };
 		62BFBDD420D10F21009661B5 /* libRNVersionNumber.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D1CE45520AADE10009FA551 /* libRNVersionNumber.a */; };
 		64BA20F4C07843B4A91A4D1A /* Lato-HeavyItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D574DAA90D74CB795F753DF /* Lato-HeavyItalic.ttf */; };
 		6CF184F8178A4D7780ECBA70 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBC83535D6244D318A899CC5 /* Lato-LightItalic.ttf */; };
@@ -457,6 +458,13 @@
 			remoteGlobalIDString = 4107012F1ACB723B00C6AA39;
 			remoteInfo = RCTCamera;
 		};
+		DDD64D93216E2ED700BE706A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 638D052AC7414AD7993FF11E /* KeepScreenOn.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 668B81461DB666B90041B069;
+			remoteInfo = KeepScreenOn;
+		};
 		F1F0B5431EF3B12D006FBB0B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F1F0B53F1EF3B12D006FBB0B /* SplashScreen.xcodeproj */;
@@ -508,11 +516,13 @@
 		4855373D09494E1EB7278B71 /* libRCTPBKDF2.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTPBKDF2.a; sourceTree = "<group>"; };
 		4E7C136EC20146D995AC728B /* Lato-Heavy.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Heavy.ttf"; path = "../app/fonts/Lato/Lato-Heavy.ttf"; sourceTree = "<group>"; };
 		519C21AEDA294F1A971EAD12 /* Lato-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Black.ttf"; path = "../app/fonts/Lato/Lato-Black.ttf"; sourceTree = "<group>"; };
+		520573046AC04CBCB6614538 /* libKeepScreenOn.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libKeepScreenOn.a; sourceTree = "<group>"; };
 		528F6ADE16534D5B9A90D8B6 /* libRNRandomBytes-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNRandomBytes-tvOS.a"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		5F1C0EA51D004542A35973F1 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		62308B27968E44338B98B26B /* Lato-SemiboldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-SemiboldItalic.ttf"; path = "../app/fonts/Lato/Lato-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		6289865CCC3A4745A77A87B9 /* libSplashScreen.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libSplashScreen.a; sourceTree = "<group>"; };
+		638D052AC7414AD7993FF11E /* KeepScreenOn.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = KeepScreenOn.xcodeproj; path = "../node_modules/react-native-keep-screen-on/ios/KeepScreenOn.xcodeproj"; sourceTree = "<group>"; };
 		66ACA94543464AB6BC1138FE /* libRNFetchBlob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFetchBlob.a; sourceTree = "<group>"; };
 		6AAE69EA05BD44F69D5B0E40 /* Lato-Hairline.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Hairline.ttf"; path = "../app/fonts/Lato/Lato-Hairline.ttf"; sourceTree = "<group>"; };
 		6E17F6315587487A80A77FCE /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-ThinItalic.ttf"; path = "../app/fonts/Lato/Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
@@ -642,6 +652,7 @@
 				A74C5698A80E4A9B9E0CA956 /* libRNRandomBytes.a in Frameworks */,
 				06D727C3129E45618F42029A /* libRNFirebase.a in Frameworks */,
 				0D7053EE074B45559597F368 /* libRCTPBKDF2.a in Frameworks */,
+				625B4D73617348FDB4B65C47 /* libKeepScreenOn.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -914,6 +925,7 @@
 				DD50AF6061694976ADE6B034 /* RNRandomBytes.xcodeproj */,
 				73179CBCE6F94EFD82E4CCDC /* RNFirebase.xcodeproj */,
 				0956E774AD744F0DA417A286 /* RNPBKDF2.xcodeproj */,
+				638D052AC7414AD7993FF11E /* KeepScreenOn.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1094,6 +1106,14 @@
 			path = "connectme-website";
 			sourceTree = "<group>";
 		};
+		DDD64D90216E2ED600BE706A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DDD64D94216E2ED700BE706A /* libKeepScreenOn.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		DDFFF3AC1F3834A200F66D71 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -1109,6 +1129,7 @@
 				528F6ADE16534D5B9A90D8B6 /* libRNRandomBytes-tvOS.a */,
 				EE5B1685809A402EB66146F0 /* libRNFirebase.a */,
 				4855373D09494E1EB7278B71 /* libRCTPBKDF2.a */,
+				520573046AC04CBCB6614538 /* libKeepScreenOn.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1270,6 +1291,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = DDD64D90216E2ED600BE706A /* Products */;
+					ProjectRef = 638D052AC7414AD7993FF11E /* KeepScreenOn.xcodeproj */;
+				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
@@ -1736,6 +1761,13 @@
 			remoteRef = DDD0E1C61F34B1AD00C76C0B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		DDD64D94216E2ED700BE706A /* libKeepScreenOn.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libKeepScreenOn.a;
+			remoteRef = DDD64D93216E2ED700BE706A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		F1F0B5441EF3B12D006FBB0B /* libSplashScreen.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2024,12 +2056,14 @@
 					"$(SRCROOT)/../node_modules/react-native-randombytes",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-pbkdf2/ios/RCTPBKDF2/**",
+					"$(SRCROOT)/../node_modules/react-native-keep-screen-on/ios/KeepScreenOn",
 				);
 				INFOPLIST_FILE = ConnectMeTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -2065,12 +2099,14 @@
 					"$(SRCROOT)/../node_modules/react-native-randombytes",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-pbkdf2/ios/RCTPBKDF2/**",
+					"$(SRCROOT)/../node_modules/react-native-keep-screen-on/ios/KeepScreenOn",
 				);
 				INFOPLIST_FILE = ConnectMeTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -2115,6 +2151,7 @@
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native/ReactCommon",
 					"$(SRCROOT)/../node_modules/react-native-pbkdf2/ios/RCTPBKDF2/**",
+					"$(SRCROOT)/../node_modules/react-native-keep-screen-on/ios/KeepScreenOn",
 				);
 				INFOPLIST_FILE = ConnectMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -2163,6 +2200,7 @@
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native/ReactCommon",
 					"$(SRCROOT)/../node_modules/react-native-pbkdf2/ios/RCTPBKDF2/**",
+					"$(SRCROOT)/../node_modules/react-native-keep-screen-on/ios/KeepScreenOn",
 				);
 				INFOPLIST_FILE = ConnectMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -2210,11 +2248,13 @@
 					"$(SRCROOT)/../node_modules/react-native-randombytes",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-pbkdf2/ios/RCTPBKDF2/**",
+					"$(SRCROOT)/../node_modules/react-native-keep-screen-on/ios/KeepScreenOn",
 				);
 				INFOPLIST_FILE = "ConnectMe-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -2258,11 +2298,13 @@
 					"$(SRCROOT)/../node_modules/react-native-randombytes",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
 					"$(SRCROOT)/../node_modules/react-native-pbkdf2/ios/RCTPBKDF2/**",
+					"$(SRCROOT)/../node_modules/react-native-keep-screen-on/ios/KeepScreenOn",
 				);
 				INFOPLIST_FILE = "ConnectMe-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -2295,6 +2337,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ConnectMe-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2321,6 +2364,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ConnectMe-tvOSTests";

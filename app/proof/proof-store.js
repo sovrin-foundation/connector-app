@@ -72,6 +72,7 @@ import type { Attribute } from '../push-notification/type-push-notification'
 import { RESET } from '../common/type-common'
 import { PROOF_REQUEST_SHOW_START } from '../proof-request/type-proof-request'
 import { captureError } from '../services/error/error-handler'
+import KeepScreenOn from 'react-native-keep-screen-on'
 
 export const updateAttributeClaim = (
   uid: string,
@@ -411,6 +412,9 @@ export function* updateAttributeClaimAndSendProof(
     const selectedSelfAttestedAttributes = convertSelfAttestedToIndySelfAttested(
       selfAttestedAttributes
     )
+    // keeping device's screen ON so that phone doesn't lock
+    // while generating or sending proof
+    KeepScreenOn.setKeepScreenOn(true)
     yield call(
       generateProof,
       proofHandle,
@@ -441,6 +445,7 @@ export function* updateAttributeClaimAndSendProof(
     }
     yield put(proofSuccess(proof, action.uid))
   } catch (e) {
+    KeepScreenOn.setKeepScreenOn(false)
     // captureError(e)
     yield put(errorSendProofFail(action.uid, e))
   }

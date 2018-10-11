@@ -6639,6 +6639,10 @@ react-native-iphone-x-helper@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.0.2.tgz#7dbca530930f7c1ce8633cc8fd13ba94102992e1"
 
+react-native-keep-screen-on@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-keep-screen-on/-/react-native-keep-screen-on-1.2.0.tgz#8e243c2f8ab23e4ebee6ec5b880fd2f386c38df7"
+
 react-native-keyboard-aware-scroll-view@^0.4.4:
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.4.4.tgz#116d08975a84482e4ee64dd0b526a8f04138b0a7"

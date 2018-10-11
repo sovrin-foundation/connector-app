@@ -16,5 +16,5 @@ export type OfflineProps = {
   overlay: boolean,
   isOffline: boolean,
   offline: (offline: boolean) => void,
-  render: (connection: string | null) => void,
+  render: (connection: boolean | null) => void,
 }

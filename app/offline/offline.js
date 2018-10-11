@@ -11,9 +11,8 @@ import { getOfflineStatus } from '../store/store-selector'
 import { Container } from '../components'
 import VectorIcon from '../components/vector-icon/vector-icon'
 
-// TODO: add types
 export class Offline extends PureComponent<OfflineProps, void> {
-  connection: string | null
+  connection: boolean | null
 
   componentDidMount() {
     NetInfo.isConnected.addEventListener(
@@ -29,7 +28,7 @@ export class Offline extends PureComponent<OfflineProps, void> {
     )
   }
 
-  handleConnectivityChange = (isConnected: any) => {
+  handleConnectivityChange = (isConnected: boolean) => {
     if (isConnected) {
       this.props.offline(false)
       this.connection = isConnected
