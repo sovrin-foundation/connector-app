@@ -7,6 +7,7 @@ export type RouteStoreAction = typeof handleRouteUpdate | InitialTestAction
 
 const initialState = {
   currentScreen: splashScreenRoute,
+  timeStamp: new Date().getTime(),
 }
 
 export const ROUTE_UPDATE = 'ROUTE_UPDATE'
@@ -24,6 +25,7 @@ export default function routeReducer(
     case ROUTE_UPDATE:
       return {
         currentScreen: action.currentScreen,
+        timeStamp: new Date().getTime(),
       }
     default:
       return state

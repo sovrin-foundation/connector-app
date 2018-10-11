@@ -77,6 +77,7 @@ const SettingText = props => (
 export class Settings extends PureComponent<SettingsProps, SettingsState> {
   state = {
     walletBackupModalVisible: false,
+    disableTouchIdSwitch: false,
   }
   onChangePinClick = () => {
     this.props.navigation.push(lockEnterPinRoute, {
@@ -130,6 +131,19 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
   }
 
   componentWillReceiveProps(nextProps: SettingsProps) {
+    if (
+      this.props.currentScreen === nextProps.currentScreen &&
+      nextProps.currentScreen === settingsRoute &&
+      this.props.timeStamp !== nextProps.timeStamp
+    ) {
+      this.setState({ disableTouchIdSwitch: false })
+    } else if (
+      nextProps.currentScreen === lockTouchIdSetupRoute &&
+      this.props.currentScreen === settingsRoute
+    ) {
+      // if user has left settings screen and navigated to lockTouchIdSetup screen
+      this.setState({ disableTouchIdSwitch: true })
+    }
     if (
       nextProps.walletBackup.status !== this.props.walletBackup.status &&
       nextProps.walletBackup.status === 'SUCCESS'
@@ -198,6 +212,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
     const toggleSwitch =
       Platform.OS === 'ios' ? (
         <Switch
+          disabled={this.state.disableTouchIdSwitch}
           onTintColor={mantis}
           onValueChange={this.onChangeTouchId}
           value={this.props.touchIdActive}
@@ -317,6 +332,8 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
 const mapStateToProps = (state: Store) => ({
   touchIdActive: state.lock.isTouchIdEnabled,
   walletBackup: state.wallet.backup,
+  currentScreen: state.route.currentScreen,
+  timeStamp: state.route.timeStamp,
 })
 
 const mapDispatchToProps = dispatch =>

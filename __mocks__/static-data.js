@@ -956,6 +956,7 @@ export function getStore(store?: Store) {
         },
         route: {
           currentScreen: qrCodeScannerTabRoute,
+          timeStamp: new Date().getTime(),
         },
         smsPendingInvitation: {},
         ...(store || {}),

@@ -3,6 +3,8 @@ import type { ReactNavigation } from '../common/type-common'
 
 export type SettingsProps = {
   touchIdActive: boolean,
+  currentScreen: string,
+  timeStamp: number,
   selectUserAvatar: () => void,
   walletBackup: {
     status: string,
@@ -12,4 +14,5 @@ export type SettingsProps = {
 
 export type SettingsState = {
   walletBackupModalVisible: boolean,
+  disableTouchIdSwitch: boolean,
 }

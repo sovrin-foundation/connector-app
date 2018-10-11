@@ -5,6 +5,7 @@ import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 import { Settings } from '../settings'
 import { getStore, getNavigation } from '../../../__mocks__/static-data'
+import { settingsRoute } from '../../common'
 
 describe('user settings screen', () => {
   const store = getStore()
@@ -15,6 +16,8 @@ describe('user settings screen', () => {
         encryptionKey: 'walletEncryptionKey',
         status: 'IDLE',
       },
+      timeStamp: new Date().getTime(),
+      currentScreen: settingsRoute,
       navigation: getNavigation(),
       selectUserAvatar: jest.fn(),
       touchIdActive: false,

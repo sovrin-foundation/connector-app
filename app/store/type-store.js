@@ -32,6 +32,7 @@ export type PushNotificationStore = {
 
 export type RouteStore = {
   currentScreen: string,
+  timeStamp: number,
 }
 
 export type Store = {
