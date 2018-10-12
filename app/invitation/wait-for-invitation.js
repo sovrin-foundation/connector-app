@@ -1,14 +1,18 @@
 // @flow
 import React, { PureComponent } from 'react'
 import { View, Image, StyleSheet } from 'react-native'
-import { Container, CustomView, CustomText, Loader } from '../components'
+import { Container, CustomView, CustomText } from '../components'
 import { OFFSET_3X, OFFSET_4X } from '../common/styles'
 
 export default class WaitForInvitation extends PureComponent<void, void> {
   render() {
     return (
-      <Container center style={[styles.expiredTokenContainer]}>
-        <Loader />
+      <Container primary style={[styles.expiredTokenContainer]}>
+        <CustomView vCenter style={[styles.textContainer]}>
+          <CustomText h1 style={[styles.sorryText]}>
+            One sec... Waking up the hamsters...
+          </CustomText>
+        </CustomView>
       </Container>
     )
   }

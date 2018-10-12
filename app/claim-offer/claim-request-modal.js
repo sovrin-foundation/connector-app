@@ -3,19 +3,9 @@ import React, { PureComponent } from 'react'
 import { View, StyleSheet, Image } from 'react-native'
 import { Button } from 'react-native-elements'
 import Modal from 'react-native-modal'
-import {
-  CustomModal,
-  CustomView,
-  AvatarsPair,
-  CustomText,
-  Loader,
-} from '../components'
-import { color, font, OFFSET_1X, OFFSET_2X } from '../common/styles'
-import {
-  CLAIM_REQUEST_STATUS,
-  ACCEPTING_TEXT,
-  PAYING_TEXT,
-} from './type-claim-offer'
+import { CustomModal, AvatarsPair, CustomText } from '../components'
+import { color, font, OFFSET_1X } from '../common/styles'
+import { CLAIM_REQUEST_STATUS } from './type-claim-offer'
 import type { GenericObject } from '../common/type-common'
 import type {
   ClaimRequestStatusModalProps,
@@ -43,8 +33,6 @@ export class ClaimRequestStatusModal extends PureComponent<
   ClaimRequestStatusModalProps,
   ClaimRequestStatusModalState
 > {
-  // modalText: string
-
   state = {
     isVisible: false,
   }
@@ -63,11 +51,6 @@ export class ClaimRequestStatusModal extends PureComponent<
     CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST,
   ]
 
-  successStates = [
-    CLAIM_REQUEST_STATUS.PAID_CREDENTIAL_REQUEST_SUCCESS,
-    CLAIM_REQUEST_STATUS.SEND_CLAIM_REQUEST_SUCCESS,
-  ]
-
   onContinue = () => {
     this.hideModal()
     this.props.onContinue()
@@ -82,17 +65,6 @@ export class ClaimRequestStatusModal extends PureComponent<
   }
 
   toggleModal(claimRequestStatus: ClaimRequestStatus) {
-    if (
-      this.successStates.indexOf(claimRequestStatus) > -1 &&
-      !this.props.isPending
-    ) {
-      // wait for a bit to prevent flashing of component mounting and unmounting quickly
-      setTimeout(() => {
-        this.hideModal()
-        this.props.onContinue()
-      }, 1000)
-    }
-
     if (this.visibleStates.indexOf(claimRequestStatus) > -1) {
       this.showModal()
     } else {
@@ -111,35 +83,10 @@ export class ClaimRequestStatusModal extends PureComponent<
     }
   }
 
-  componentDidUpdate(
-    prevProps: ClaimRequestStatusModalProps,
-    prevState: ClaimRequestStatusModalState
-  ) {
+  componentDidUpdate(prevProps: ClaimRequestStatusModalProps) {
     if (this.props.claimRequestStatus !== prevProps.claimRequestStatus) {
       // if component was not unmounted, and claim request status updates
       this.toggleModal(this.props.claimRequestStatus)
-    }
-    if (
-      this.props.claimRequestStatus ===
-      CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
-    ) {
-      this.modalText = PAYING_TEXT
-    }
-
-    if (
-      this.props.claimRequestStatus ===
-        CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST &&
-      this.modalText !== ACCEPTING_TEXT
-    ) {
-      this.modalText = ACCEPTING_TEXT
-    }
-    // prevents modal flashing
-    if (
-      prevState.isVisible &&
-      !this.state.isVisible &&
-      this.props.onModalHide
-    ) {
-      this.props.onModalHide()
     }
   }
 
@@ -154,7 +101,6 @@ export class ClaimRequestStatusModal extends PureComponent<
       message5,
       message6, //message6 is for payTokenValue related usage
       payTokenValue,
-      fromConnectionHistory = false,
     }: ClaimRequestStatusModalProps = this.props
     let message2 = data.name
     let message4 = issuer.name
@@ -171,10 +117,13 @@ export class ClaimRequestStatusModal extends PureComponent<
     const isSendingPaidCredentialRequest =
       claimRequestStatus ===
       CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
+
     const isSendingCredentialRequest =
       claimRequestStatus === CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST
+
     const isSending =
       isSendingPaidCredentialRequest || isSendingCredentialRequest
+
     const avatarRight = senderLogoUrl
       ? { uri: senderLogoUrl }
       : require('../images/cb_evernym.png')
@@ -193,88 +142,59 @@ export class ClaimRequestStatusModal extends PureComponent<
             middleImage: require('../images/checkMark.png'),
             middleImageStyle: null,
           }
+
     const conditionalMessage =
       message6 !== undefined ? (payTokenValue ? message6 : null) : message5
 
-    const modalProps =
-      isPending && !isSending
-        ? {
-            onPress: this.onContinue,
-            buttonText: 'Continue',
-          }
-        : {
-            fullScreen: true,
-          }
+    return (
+      <CustomModal
+        onPress={this.onContinue}
+        buttonText="Continue"
+        testID={'claim-request'}
+        isVisible={this.state.isVisible}
+        onModalHide={this.props.onModalHide}
+        disabled={isSending}
+      >
+        <AvatarsPair
+          middleImage={middleImage}
+          middleImageStyle={middleImageStyle}
+          avatarRight={avatarRight}
+          testID={'claim-request'}
+        />
+        {!isSending && (
+          <ClaimRequestModalText>{message1}</ClaimRequestModalText>
+        )}
 
-    if (this.state.isVisible) {
-      return (
-        <CustomModal
-          testID="claim-request"
-          isVisible={this.state.isVisible}
-          {...modalProps}
-        >
-          <CustomView center fifth shadow style={[styles.container]}>
-            {isPending &&
-              fromConnectionHistory && (
-                <AvatarsPair
-                  middleImage={middleImage}
-                  middleImageStyle={middleImageStyle}
-                  avatarRight={avatarRight}
-                  testID={'claim-request'}
-                />
-              )}
-            <CustomView
-              center
-              style={[!fromConnectionHistory && styles.container]}
-            >
-              {isPending &&
-                !isSending && (
-                  <ClaimRequestModalText>{message1}</ClaimRequestModalText>
-                )}
+        {payTokenValue && !isSendingPaidCredentialRequest ? (
+          <ClaimRequestModalText bold>
+            {`${formatNumbers(payTokenValue)} tokens`}
+          </ClaimRequestModalText>
+        ) : null}
 
-              {isPending && payTokenValue && !isSendingPaidCredentialRequest ? (
-                <ClaimRequestModalText bold>
-                  {`${formatNumbers(payTokenValue)} tokens`}
-                </ClaimRequestModalText>
-              ) : null}
+        <ClaimRequestModalText bold>
+          {isSendingPaidCredentialRequest
+            ? 'Paying...'
+            : isSendingCredentialRequest ? 'Accepting...' : message2}
+        </ClaimRequestModalText>
 
-              <ClaimRequestModalText bold>
-                {isPending && fromConnectionHistory ? message2 : this.modalText}
-              </ClaimRequestModalText>
+        {!isSending && message3 ? (
+          <ClaimRequestModalText>{message3}</ClaimRequestModalText>
+        ) : null}
 
-              {isPending && !isSending && message3 ? (
-                <ClaimRequestModalText>{message3}</ClaimRequestModalText>
-              ) : null}
+        {!isSending && !payTokenValue ? (
+          <ClaimRequestModalText bold>{message4}</ClaimRequestModalText>
+        ) : null}
 
-              {isPending && !isSending && !payTokenValue ? (
-                <ClaimRequestModalText bold>{message4}</ClaimRequestModalText>
-              ) : null}
-
-              {isPending &&
-                conditionalMessage &&
-                fromConnectionHistory &&
-                !isSending && (
-                  <ClaimRequestModalText>
-                    {conditionalMessage}
-                  </ClaimRequestModalText>
-                )}
-
-              {(!isPending || !fromConnectionHistory) && <Loader />}
-            </CustomView>
-          </CustomView>
-        </CustomModal>
-      )
-    }
-    return null
+        {conditionalMessage &&
+          !isSending && (
+            <ClaimRequestModalText>{conditionalMessage}</ClaimRequestModalText>
+          )}
+      </CustomModal>
+    )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: '90%',
-    marginHorizontal: OFFSET_1X,
-    padding: OFFSET_2X,
-  },
   connectedArrow: {
     height: 20,
     width: 80,

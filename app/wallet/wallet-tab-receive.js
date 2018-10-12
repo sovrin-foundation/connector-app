@@ -4,13 +4,11 @@ import React, { PureComponent } from 'react'
 import { StyleSheet, Clipboard, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import {
-  Container,
-  CustomView,
-  CustomText,
-  CustomButton,
-  Loader,
-} from '../components'
+import { Container } from '../components/layout/container'
+import { CustomView } from '../components/layout/custom-view'
+import CustomText from '../components/text'
+import CustomButton from '../components/button'
+import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
 import type {
   WalletTabReceiveProps,
   WalletTabReceiveState,
@@ -73,7 +71,7 @@ export class WalletTabReceive extends PureComponent<
                   ? 'FETCHING YOUR SOVRIN TOKEN PAYMENT ADDRESS'
                   : 'YOUR SOVRIN TOKEN PAYMENT ADDRESS IS:'}
               </CustomText>
-              {isLoading && <Loader showMessage={false} />}
+              {isLoading && <CustomActivityIndicator />}
               {walletAddresses.map((walletAddress: string) => {
                 return (
                   <CustomText
@@ -114,7 +112,6 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     letterSpacing: -0.38,
     marginBottom: 20,
-    paddingHorizontal: 16,
   },
   paymentAddress: {
     marginTop: 5,

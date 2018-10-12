@@ -25,7 +25,6 @@ export class ConnectionHistoryPending extends PureComponent<
     return (
       <Container fifth>
         <ClaimRequestStatusModal
-          fromConnectionHistory
           claimRequestStatus={CLAIM_REQUEST_STATUS.SEND_CLAIM_REQUEST_SUCCESS}
           payload={payload}
           onContinue={this.close}

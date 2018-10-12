@@ -36,7 +36,6 @@ function props(claimOfferStatus) {
           ...myPairWiseConnectionDetails,
         },
       },
-      hydrated: true,
     },
     navigation: getNavigation(),
     claimOfferStatus: claimOfferStatus || CLAIM_OFFER_STATUS.RECEIVED,
@@ -60,19 +59,6 @@ describe('<DashboardScreen />', () => {
 
   it('should render Home and redirect user to claim offer modal', () => {
     const dashboardProps = props()
-    const wrapper = renderer
-      .create(
-        <Provider store={store}>
-          <DashboardScreen {...dashboardProps} />
-        </Provider>
-      )
-      .toJSON()
-    expect(wrapper).toMatchSnapshot()
-  })
-
-  it('should render Home and show loader', () => {
-    const dashboardProps = props()
-    dashboardProps.connections.hydrated = false
     const wrapper = renderer
       .create(
         <Provider store={store}>

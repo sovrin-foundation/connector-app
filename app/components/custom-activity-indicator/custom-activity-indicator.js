@@ -1,18 +1,18 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Image, View, StyleSheet, Animated, Easing } from 'react-native'
-import type { LoadingIndicatorProps } from './type-loader'
-import { DARK } from './type-loader'
+import { Animated, Easing } from 'react-native'
+import { Container } from '../layout/container'
 import { color } from '../../common/styles/constant'
+import type { CustomActivityIndicatorProps } from './type-custom-activity-indicator'
 
-export default class LoadingIndicator extends PureComponent<
-  LoadingIndicatorProps,
+export default class CustomActivityIndicator extends PureComponent<
+  CustomActivityIndicatorProps,
   void
 > {
   spinValue = new Animated.Value(0)
 
   static defaultProps = {
-    type: DARK,
+    tintColor: color.actions.sixth,
   }
 
   spin() {
@@ -36,21 +36,19 @@ export default class LoadingIndicator extends PureComponent<
       inputRange: [0, 1],
       outputRange: ['0deg', '360deg'],
     })
-    const { type, size } = this.props
-    const tintColor = type === DARK ? color.actions.sixth : color.actions.none
 
     return (
-      <Animated.Image
-        style={[
-          {
-            tintColor,
+      <Container center>
+        <Animated.Image
+          style={{
+            tintColor: this.props.tintColor,
             transform: [{ rotate: rotate }],
-            width: size,
-            height: size,
-          },
-        ]}
-        source={require('../../images/icon_sovrin.png')}
-      />
+            width: 30,
+            height: 30,
+          }}
+          source={require('../../images/icon_sovrin.png')}
+        />
+      </Container>
     )
   }
 }

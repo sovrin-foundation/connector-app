@@ -3,13 +3,7 @@ import React, { PureComponent } from 'react'
 import { View, StyleSheet, Image } from 'react-native'
 import { Button } from 'react-native-elements'
 import Modal from 'react-native-modal'
-import {
-  CustomModal,
-  AvatarsPair,
-  CustomView,
-  CustomText,
-  Loader,
-} from '../components'
+import { CustomModal, AvatarsPair, CustomText } from '../components'
 import { color, font, OFFSET_1X } from '../common/styles'
 import { PROOF_STATUS } from './type-proof-request'
 import type {
@@ -29,8 +23,6 @@ export default class ProofModal extends PureComponent<
   // only states for which claim request modal will be visible
   visibleStates = [PROOF_STATUS.SENDING_PROOF, PROOF_STATUS.SEND_PROOF_SUCCESS]
 
-  successStates = [PROOF_STATUS.SEND_PROOF_SUCCESS]
-
   onContinue = () => {
     this.hideModal()
     this.props.onContinue()
@@ -45,10 +37,6 @@ export default class ProofModal extends PureComponent<
   }
 
   toggleModal(proofStatus: ProofStatus) {
-    if (this.successStates.indexOf(proofStatus) > -1) {
-      return this.onContinue()
-    }
-
     if (this.visibleStates.indexOf(proofStatus) > -1) {
       this.showModal()
     } else {
@@ -69,39 +57,81 @@ export default class ProofModal extends PureComponent<
   }
 
   render() {
-    const message = 'Sending...'
+    const { proofStatus, name, title, logoUrl } = this.props
+    const avatarRight = logoUrl
+      ? { uri: logoUrl }
+      : require('../images/cb_evernym.png')
+    const { middleImage, middleImageStyle } =
+      proofStatus === PROOF_STATUS.SEND_PROOF_SUCCESS
+        ? {
+            middleImage: require('../images/checkMark.png'),
+            middleImageStyle: null,
+          }
+        : {
+            middleImage: require('../images/connectArrowsRight.png'),
+            middleImageStyle: styles.connectedArrow,
+          }
+
+    const { message, subject } =
+      proofStatus === PROOF_STATUS.SENDING_PROOF
+        ? { message: `Sending Proof to`, subject: name }
+        : { message: 'Successfully Sent', subject: title }
 
     return (
       <CustomModal
+        disabled={proofStatus !== PROOF_STATUS.SEND_PROOF_SUCCESS}
+        onPress={this.onContinue}
+        buttonText="Continue"
         testID={'send-proof'}
         isVisible={this.state.isVisible}
-        fullScreen
       >
-        <CustomView center style={[styles.container]}>
-          <CustomText
-            h5
-            center
-            tertiary
-            bg="tertiary"
-            transparentBg
-            style={[styles.message]}
-            testID={`send-proof-message`}
-          >
-            {message}
-          </CustomText>
-          <Loader />
-        </CustomView>
+        <AvatarsPair
+          middleImage={middleImage}
+          middleImageStyle={middleImageStyle}
+          avatarRight={avatarRight}
+          testID={'send-proof'}
+        />
+        <CustomText
+          h6
+          demiBold
+          center
+          tertiary
+          bg="tertiary"
+          transparentBg
+          style={[styles.message]}
+          testID={`send-proof-message`}
+        >
+          {message}
+        </CustomText>
+        <CustomText
+          h5
+          bold
+          center
+          tertiary
+          bg="tertiary"
+          transparentBg
+          style={[styles.subject]}
+          testID={`proof-verify-name`}
+        >
+          {subject}
+        </CustomText>
       </CustomModal>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    height: '90%',
+  connectedArrow: {
+    height: 20,
+    width: 80,
+    zIndex: -1,
+    right: 7,
   },
   message: {
     paddingTop: OFFSET_1X,
     marginBottom: OFFSET_1X / 2,
+  },
+  subject: {
+    marginBottom: OFFSET_1X,
   },
 })

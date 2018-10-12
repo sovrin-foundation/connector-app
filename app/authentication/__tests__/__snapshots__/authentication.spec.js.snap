@@ -675,10 +675,12 @@ exports[`<AuthenticationScreen /> should match snapshot 1`] = `
       }
     >
       <View
+        spaceBetween={true}
         style={
           Object {
             "borderBottomColor": "#3f3f3f",
             "borderBottomWidth": 0.2,
+            "justifyContent": "space-between",
             "paddingVertical": 10,
           }
         }

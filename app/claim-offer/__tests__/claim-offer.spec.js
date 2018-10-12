@@ -4,11 +4,7 @@ import 'react-native'
 import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 import { ClaimOffer } from '../claim-offer'
-import {
-  CLAIM_OFFER_STATUS,
-  CLAIM_REQUEST_STATUS,
-  CREDENTIAL_OFFER_MODAL_STATUS,
-} from '../type-claim-offer'
+import { CLAIM_OFFER_STATUS, CLAIM_REQUEST_STATUS } from '../type-claim-offer'
 import { color } from '../../common/styles'
 import {
   getStore,
@@ -210,7 +206,6 @@ describe('<ClaimOffer />', () => {
     expect(claimOfferIgnored).toHaveBeenCalled()
     expect(navigation.goBack).toHaveBeenCalled()
   })
-
   it('should show Insufficient Balance Modal', () => {
     jest.useFakeTimers()
     wrapper.update(
@@ -236,13 +231,10 @@ describe('<ClaimOffer />', () => {
         />
       </Provider>
     )
-    componentInstance.onCredentialOfferModalHide()
-    jest.runOnlyPendingTimers()
-    expect(componentInstance.state.credentialOfferModalStatus).toBe(
-      CREDENTIAL_OFFER_MODAL_STATUS.INSUFFICIENT_BALANCE
-    )
+    componentInstance.onClaimRequestStatusModal()
+    jest.runAllTimers()
+    expect(componentInstance.state.showInsufficientBalanceModal).toBe(true)
   })
-
   it('should show Send Paid Credential Request Fail Modal', () => {
     jest.useFakeTimers()
     wrapper.update(
@@ -269,13 +261,12 @@ describe('<ClaimOffer />', () => {
         />
       </Provider>
     )
-    componentInstance.onCredentialOfferModalHide()
-    jest.runOnlyPendingTimers()
-    expect(componentInstance.state.credentialOfferModalStatus).toBe(
-      CREDENTIAL_OFFER_MODAL_STATUS.SEND_PAID_CREDENTIAL_REQUEST_FAIL
+    componentInstance.onClaimRequestStatusModal()
+    jest.runAllTimers()
+    expect(componentInstance.state.showSendPaidCredentialRequestFailModal).toBe(
+      true
     )
   })
-
   it('should enable accept button if claim offer error occurs', () => {
     jest.useFakeTimers()
     wrapper.update(
@@ -301,7 +292,7 @@ describe('<ClaimOffer />', () => {
         />
       </Provider>
     )
-    jest.runOnlyPendingTimers()
+    jest.runAllTimers()
     expect(componentInstance.state.disableAcceptButton).toBe(false)
   })
 

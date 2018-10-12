@@ -35,64 +35,77 @@ export default class PaymentFailureModal extends PureComponent<
   render() {
     const { testID, onClose } = this.props
     return (
-      <CustomView fifth shadow style={[styles.container]}>
-        <CustomView spaceBetween style={[styles.innerContainer]}>
-          <Icon
-            iconStyle={[{ margin: 10 }]}
-            src={require('../images/alertInfo.png')}
-            extraLarge
-            center
-            resizeMode="contain"
-            testID={`${testID}-modal-header-icon`}
-          />
-          <CustomText
-            h5
-            center
-            tertiary
-            bg="tertiary"
-            transparentBg
-            style={[styles.message]}
-            demiBold
-            testID={`${testID}-modal-title`}
-          >
-            {'Payment Failure'}
-          </CustomText>
-          <CustomText
-            h5
-            center
-            tertiary
-            bg="tertiary"
-            transparentBg
-            style={[styles.message]}
-            demiBold
-            testID={`${testID}-modal-content`}
-          >
-            {`Something went wrong trying to pay ${
-              this.props.connectionName
-            }. Please try again.`}
-          </CustomText>
-        </CustomView>
-        <CustomView row>
-          <Container>
-            <CustomButton
-              fifth
-              onPress={onClose}
-              title={'Cancel'}
-              testID={`${testID}-modal-cancel`}
-              textStyle={{ fontWeight: 'bold' }}
+      <Modal
+        backdropOpacity={0.7}
+        backdropColor={whiteSmoke}
+        isVisible={this.props.isModalVisible}
+        animationIn="zoomIn"
+        animationOut="zoomOut"
+        animationOutTiming={100}
+        useNativeDriver={true}
+        hideModalContentWhileAnimating={true}
+        onBackButtonPress={onClose}
+        onBackdropPress={onClose}
+      >
+        <CustomView fifth shadow style={[styles.container]}>
+          <CustomView spaceBetween style={[styles.innerContainer]}>
+            <Icon
+              iconStyle={[{ margin: 10 }]}
+              src={require('../images/alertInfo.png')}
+              extraLarge
+              center
+              resizeMode="contain"
+              testID={`${testID}-modal-header-icon`}
             />
-          </Container>
-          <Container>
-            <CustomButton
-              fifth
-              onPress={this.props.onRetry}
-              title={'Retry'}
-              testID={`${testID}-modal-retry`}
-              textStyle={{ fontWeight: 'bold' }}
-            />
-          </Container>
+            <CustomText
+              h5
+              center
+              tertiary
+              bg="tertiary"
+              transparentBg
+              style={[styles.message]}
+              demiBold
+              testID={`${testID}-modal-title`}
+            >
+              {'Payment Failure'}
+            </CustomText>
+            <CustomText
+              h5
+              center
+              tertiary
+              bg="tertiary"
+              transparentBg
+              style={[styles.message]}
+              demiBold
+              testID={`${testID}-modal-content`}
+            >
+              {`Something went wrong trying to pay ${
+                this.props.connectionName
+              }. Please try again.`}
+            </CustomText>
+          </CustomView>
+          <CustomView row>
+            <Container>
+              <CustomButton
+                fifth
+                onPress={onClose}
+                title={'Cancel'}
+                testID={`${testID}-modal-cancel`}
+                textStyle={{ fontWeight: 'bold' }}
+              />
+            </Container>
+            <Container>
+              <CustomButton
+                fifth
+                onPress={this.props.onRetry}
+                title={'Retry'}
+                testID={`${testID}-modal-retry`}
+                textStyle={{ fontWeight: 'bold' }}
+              />
+            </Container>
+          </CustomView>
         </CustomView>
-      </CustomView>
+      </Modal>
     )
   }
 }

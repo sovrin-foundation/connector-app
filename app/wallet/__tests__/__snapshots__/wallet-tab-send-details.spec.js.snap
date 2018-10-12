@@ -556,10 +556,440 @@ exports[`<WalletTabSendDetails /> should render properly and match the snapshot 
     backdropOpacity={0.7}
     hideModalContentWhileAnimating={true}
     isVisible={false}
-    onBackButtonPress={undefined}
-    onBackdropPress={undefined}
-    onModalHide={undefined}
+    onBackButtonPress={[Function]}
+    onBackdropPress={[Function]}
     useNativeDriver={true}
-  />
+  >
+    <View
+      fifth={true}
+      shadow={true}
+      style={
+        Object {
+          "backgroundColor": "#ffffff",
+          "elevation": 10,
+          "marginHorizontal": 30,
+          "shadowColor": "rgba(0, 0, 0, 0.2)",
+          "shadowOffset": Object {
+            "height": 10,
+            "width": 0,
+          },
+          "shadowOpacity": 1,
+          "shadowRadius": 30,
+        }
+      }
+    >
+      <View
+        spaceBetween={true}
+        style={
+          Object {
+            "borderBottomColor": "#3f3f3f",
+            "borderBottomWidth": 0.2,
+            "justifyContent": "space-between",
+            "padding": 20,
+          }
+        }
+      >
+        <View
+          accessibilityLabel="wallet-tab-send-details-modal-header-icon"
+          accessible={true}
+          center={true}
+          clearBg={true}
+          extraLarge={true}
+          iconStyle={
+            Array [
+              Object {
+                "margin": 10,
+              },
+            ]
+          }
+          resizeMode="contain"
+          src={1}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "justifyContent": "center",
+            }
+          }
+          testID="wallet-tab-send-details-modal-header-icon"
+        >
+          <View
+            style={Object {}}
+          >
+            <Image
+              accessibilityLabel="wallet-tab-send-details-modal-header-icon"
+              accessible={true}
+              resizeMode="contain"
+              source={1}
+              style={
+                Array [
+                  Object {
+                    "height": 80,
+                    "width": 80,
+                  },
+                  null,
+                  Object {
+                    "margin": 10,
+                  },
+                ]
+              }
+              testID="wallet-tab-send-details-modal-header-icon"
+            />
+          </View>
+        </View>
+        <Text
+          accessibilityLabel="wallet-tab-send-details-modal-title"
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#ffffff",
+                "color": "#777777",
+              },
+              Object {
+                "fontWeight": "600",
+              },
+              Object {
+                "textAlign": "center",
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              Object {
+                "marginBottom": 5,
+              },
+            ]
+          }
+          testID="wallet-tab-send-details-modal-title"
+        >
+          Payment Failure
+        </Text>
+        <Text
+          accessibilityLabel="wallet-tab-send-details-modal-content"
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#ffffff",
+                "color": "#777777",
+              },
+              Object {
+                "fontWeight": "600",
+              },
+              Object {
+                "textAlign": "center",
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              Object {
+                "marginBottom": 5,
+              },
+            ]
+          }
+          testID="wallet-tab-send-details-modal-content"
+        >
+          Something went wrong trying to pay pay:sov:somepaymentaddress. Please try again.
+        </Text>
+      </View>
+      <View
+        row={true}
+        style={
+          Object {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flex": 1,
+            }
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "marginLeft": 15,
+                  "marginRight": 15,
+                },
+                undefined,
+                Object {
+                  "marginLeft": 0,
+                  "marginRight": 0,
+                },
+                undefined,
+              ]
+            }
+          >
+            <View
+              accessibilityComponentType={undefined}
+              accessibilityLabel="wallet-tab-send-details-modal-cancel"
+              accessibilityTraits={undefined}
+              accessible={true}
+              hasTVPreferredFocus={undefined}
+              hitSlop={undefined}
+              isTVSelectable={true}
+              nativeID={undefined}
+              onLayout={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
+                  undefined,
+                ]
+              }
+              testID="wallet-tab-send-details-modal-cancel"
+              tvParallaxProperties={undefined}
+            >
+              <View
+                pointerEvents="box-only"
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#9E9E9E",
+                      "flexDirection": "row",
+                      "justifyContent": "center",
+                      "padding": 19,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                    undefined,
+                    Object {
+                      "padding": 12,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                    Array [
+                      null,
+                    ],
+                    undefined,
+                    undefined,
+                  ]
+                }
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {},
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      Array [
+                        Object {
+                          "color": "white",
+                          "fontSize": 16,
+                        },
+                        Object {
+                          "color": "#4A8FE3",
+                        },
+                        Object {
+                          "fontSize": 14,
+                        },
+                        undefined,
+                        Object {
+                          "fontWeight": "bold",
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                      ],
+                    ]
+                  }
+                >
+                  Cancel
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "flex": 1,
+            }
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "marginLeft": 15,
+                  "marginRight": 15,
+                },
+                undefined,
+                Object {
+                  "marginLeft": 0,
+                  "marginRight": 0,
+                },
+                undefined,
+              ]
+            }
+          >
+            <View
+              accessibilityComponentType={undefined}
+              accessibilityLabel="wallet-tab-send-details-modal-retry"
+              accessibilityTraits={undefined}
+              accessible={true}
+              hasTVPreferredFocus={undefined}
+              hitSlop={undefined}
+              isTVSelectable={true}
+              nativeID={undefined}
+              onLayout={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
+                  undefined,
+                ]
+              }
+              testID="wallet-tab-send-details-modal-retry"
+              tvParallaxProperties={undefined}
+            >
+              <View
+                pointerEvents="box-only"
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "#9E9E9E",
+                      "flexDirection": "row",
+                      "justifyContent": "center",
+                      "padding": 19,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    Object {
+                      "backgroundColor": "#ffffff",
+                    },
+                    undefined,
+                    Object {
+                      "padding": 12,
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                    Array [
+                      null,
+                    ],
+                    undefined,
+                    undefined,
+                  ]
+                }
+              >
+                <Text
+                  accessible={true}
+                  allowFontScaling={true}
+                  ellipsizeMode="tail"
+                  style={
+                    Array [
+                      Object {},
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      undefined,
+                      Array [
+                        Object {
+                          "color": "white",
+                          "fontSize": 16,
+                        },
+                        Object {
+                          "color": "#4A8FE3",
+                        },
+                        Object {
+                          "fontSize": 14,
+                        },
+                        undefined,
+                        Object {
+                          "fontWeight": "bold",
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                      ],
+                    ]
+                  }
+                >
+                  Retry
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </Modal>
 </RCTSafeAreaView>
 `;

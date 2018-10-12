@@ -215,7 +215,7 @@ export const baseUrls = {
 // what settings should be in dev environment
 const isDevEnvironment = __DEV__ && process.env.NODE_ENV !== 'test'
 const defaultEnvironment = isDevEnvironment
-  ? SERVER_ENVIRONMENT.DEVELOPMENT
+  ? SERVER_ENVIRONMENT.SANDBOX
   : SERVER_ENVIRONMENT.DEMO
 
 const initialState: ConfigStore = {

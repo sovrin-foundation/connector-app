@@ -1097,24 +1097,44 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for loading state 1`] 
         }
       />
       <View
+        center={true}
         style={
           Object {
-            "left": 20,
-            "paddingHorizontal": "7%",
+            "alignItems": "center",
+            "justifyContent": "center",
+            "padding": 40,
             "position": "absolute",
             "top": 20,
           }
         }
       >
         <View
+          center={true}
           style={
             Object {
-              "padding": 40,
-              "position": "absolute",
-              "top": 20,
+              "alignItems": "center",
+              "flex": 1,
+              "justifyContent": "center",
             }
           }
-        />
+        >
+          <Image
+            collapsable={undefined}
+            source={1}
+            style={
+              Object {
+                "height": 30,
+                "tintColor": "#777777",
+                "transform": Array [
+                  Object {
+                    "rotate": "0deg",
+                  },
+                ],
+                "width": 30,
+              }
+            }
+          />
+        </View>
       </View>
     </View>
     <View

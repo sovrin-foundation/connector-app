@@ -14,27 +14,20 @@ import debounce from 'lodash.debounce'
 import { noop } from '../common'
 
 type CustomModalProps = {
-  onPress?: (event: any) => void,
+  onPress: (event: any) => void,
   children?: any,
   disabled?: boolean,
-  buttonText?: string,
+  buttonText: string,
   testID: string,
   isVisible: boolean,
   accessibilityLabel?: string,
   backdropOpacity?: number,
-  animationIn: string,
-  animationOut: string,
-  animationOutTiming: number,
   onModalHide?: () => void,
-  fullScreen?: boolean,
 }
 
 export default class CustomModal extends PureComponent<CustomModalProps, void> {
   static defaultProps = {
     backdropOpacity: 1,
-    animationIn: 'zoomIn',
-    animationOut: 'zoomOut',
-    animationOutTiming: 100,
   }
 
   onPressDebounce = debounce(
@@ -56,10 +49,6 @@ export default class CustomModal extends PureComponent<CustomModalProps, void> {
       isVisible,
       accessibilityLabel = 'Continue to see your new connection',
       backdropOpacity,
-      animationIn,
-      animationOut,
-      animationOutTiming,
-      fullScreen,
       onModalHide = noop,
     } = this.props
     return (
@@ -67,35 +56,27 @@ export default class CustomModal extends PureComponent<CustomModalProps, void> {
         backdropColor={color.bg.tertiary.color}
         backdropOpacity={backdropOpacity}
         isVisible={isVisible}
-        animationIn={animationIn}
-        animationOut={animationOut}
-        animationOutTiming={animationOutTiming}
+        animationIn="zoomIn"
+        animationOut="zoomOut"
+        animationOutTiming={100}
         onModalHide={onModalHide}
         useNativeDriver={true}
         hideModalContentWhileAnimating={true}
       >
-        {fullScreen ? (
-          <CustomView fifth>
-            <CustomView>{this.props.children}</CustomView>
+        <CustomView fifth shadow style={[styles.container]}>
+          <CustomView spaceBetween style={[styles.innerContainer]}>
+            {this.props.children}
           </CustomView>
-        ) : (
-          <CustomView fifth shadow style={[styles.container]}>
-            <CustomView style={[styles.innerContainer]}>
-              {this.props.children}
-            </CustomView>
-            {onPress && (
-              <CustomButton
-                fifth
-                disabled={disabled}
-                disabledStyle={[styles.disabledStyle]}
-                onPress={this.onPressDebounce}
-                title={buttonText}
-                testID={`${testID}-success-continue`}
-                textStyle={{ fontWeight: 'bold' }}
-              />
-            )}
-          </CustomView>
-        )}
+          <CustomButton
+            fifth
+            disabled={disabled}
+            disabledStyle={[styles.disabledStyle]}
+            onPress={this.onPressDebounce}
+            title={buttonText}
+            testID={`${testID}-success-continue`}
+            textStyle={{ fontWeight: 'bold' }}
+          />
+        </CustomView>
       </Modal>
     )
   }

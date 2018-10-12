@@ -4,18 +4,11 @@ import { View, StatusBar } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { captureError } from '../services/error/error-handler'
-import {
-  Request,
-  Container,
-  CustomModal,
-  Loader,
-  CustomText,
-  CustomView,
-} from '../components'
+import { Request, Container } from '../components'
 import { homeRoute } from '../common'
-import { OFFSET_1X } from '../common/styles'
 import { ResponseType } from '../components/request/type-request'
 import { sendInvitationResponse, invitationRejected } from './invitation-store'
+import ConnectionSuccessModal from '../authentication/connection-success-modal'
 import type { Store } from '../store/type-store'
 import type { ResponseTypes } from '../components/request/type-request'
 import type { InvitationProps, InvitationState } from './type-invitation'
@@ -30,19 +23,20 @@ export class Invitation extends PureComponent<
   InvitationState
 > {
   state = {
-    loading: false,
+    isSuccessModalVisible: false,
   }
 
-  isLoading = (state: boolean) => this.setState({ loading: state })
+  _showModal = () => this.setState({ isSuccessModalVisible: true })
+
+  _hideModal = () => this.setState({ isSuccessModalVisible: false })
 
   navigate = () => {
     this.props.navigation.navigate(homeRoute)
   }
 
-  onSuccess = () => {
-    setTimeout(() => {
-      this.navigate()
-    }, 500)
+  onSuccessModalContinue = () => {
+    this._hideModal()
+    this.navigate()
   }
 
   onAction = (response: ResponseTypes) => {
@@ -60,7 +54,7 @@ export class Invitation extends PureComponent<
           this.navigate()
         }
       } else {
-        this.onSuccess()
+        this.navigate()
       }
     }
   }
@@ -73,7 +67,7 @@ export class Invitation extends PureComponent<
         nextProps.invitation.payload !== this.props.invitation.payload
       ) {
         // a new invitation was received
-        this.isLoading(true)
+        this._hideModal()
       } else {
         if (nextProps.invitation.isFetching === false) {
           if (nextProps.invitation.error) {
@@ -88,13 +82,11 @@ export class Invitation extends PureComponent<
             // api response was successful, but now we have to check
             // if user accepted or declined the request
             if (nextProps.invitation.status === ResponseType.accepted) {
-              this.isLoading(false)
-              this.onSuccess()
+              this._showModal()
             }
           }
         } else {
           // TODO:KS show loading indicator, API request was sent
-          this.isLoading(true)
         }
       }
     }
@@ -107,10 +99,8 @@ export class Invitation extends PureComponent<
   }
 
   render() {
-    const { invitation, showErrorAlerts, navigation } = this.props
-
-    if (invitation) {
-      let { payload } = invitation
+    if (this.props.invitation) {
+      let { payload } = this.props.invitation
       let senderName = ''
       let title = 'Hi'
       let message = 'You have received a connection request'
@@ -133,32 +123,16 @@ export class Invitation extends PureComponent<
               senderLogoUrl={senderLogoUrl}
               onAction={this.onAction}
               testID={'invitation'}
-              navigation={navigation}
-              showErrorAlerts={showErrorAlerts}
-              invitationError={invitation.error}
+              navigation={this.props.navigation}
+              showErrorAlerts={this.props.showErrorAlerts}
+              invitationError={this.props.invitation.error}
             />
-            {this.state.loading && (
-              <CustomModal
-                testID={'invitation'}
-                isVisible={this.state.loading}
-                fullScreen
-              >
-                <CustomView center style={[{ height: '90%' }]}>
-                  <CustomText
-                    h5
-                    center
-                    tertiary
-                    bg="tertiary"
-                    transparentBg
-                    style={[{ marginBottom: OFFSET_1X / 2 }]}
-                    bold
-                  >
-                    Connecting...
-                  </CustomText>
-                  <Loader />
-                </CustomView>
-              </CustomModal>
-            )}
+            <ConnectionSuccessModal
+              isModalVisible={this.state.isSuccessModalVisible}
+              showConnectionSuccessModal={this.onSuccessModalContinue}
+              name={senderName}
+              logoUrl={senderLogoUrl}
+            />
           </Container>
         )
       }

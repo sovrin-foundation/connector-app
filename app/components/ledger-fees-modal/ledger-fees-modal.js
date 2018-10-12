@@ -24,7 +24,6 @@ import {
   CustomText,
   CustomButton,
   Container,
-  Loader,
 } from '../../components'
 import {
   OFFSET_1X,
@@ -36,6 +35,7 @@ import {
   HAIRLINE_WIDTH,
   whiteSmoke,
 } from '../../common/styles/constant'
+import CustomActivityIndicator from '../../components/custom-activity-indicator/custom-activity-indicator'
 
 export type LedgerFeesModalProps = {
   transferAmount?: string,
@@ -114,57 +114,70 @@ export class LedgerFeesModalComponent extends PureComponent<
     const isSuccess = status === STORE_STATUS.SUCCESS
 
     return (
-      <CustomView fifth shadow style={[styles.container]}>
-        <CustomView spaceBetween style={[styles.innerContainer]}>
-          <LedgerFeesModalIcon status={status} />
-          {isSuccess && (
+      <Modal
+        backdropOpacity={0.7}
+        backdropColor={whiteSmoke}
+        isVisible={isVisible}
+        animationIn="zoomIn"
+        animationOut="zoomOut"
+        animationOutTiming={100}
+        useNativeDriver={true}
+        hideModalContentWhileAnimating={true}
+        onBackButtonPress={onNo}
+        onBackdropPress={onNo}
+      >
+        <CustomView fifth shadow style={[styles.container]}>
+          <CustomView spaceBetween style={[styles.innerContainer]}>
+            <LedgerFeesModalIcon status={status} />
+            {isSuccess && (
+              <CustomText
+                h3
+                center
+                tertiary
+                bg="tertiary"
+                transparentBg
+                style={[styles.message]}
+                bold
+                testID={`${testID}-modal-title`}
+              >
+                {formatNumbers(data.transfer)}
+              </CustomText>
+            )}
+            {isSuccess && (
+              <CustomText
+                h4
+                center
+                tertiary
+                bg="tertiary"
+                transparentBg
+                style={[styles.message]}
+                bold
+                testID={`${testID}-modal-title`}
+              >
+                {'Transaction Fee'}
+              </CustomText>
+            )}
             <CustomText
-              h3
+              h5
               center
               tertiary
               bg="tertiary"
               transparentBg
               style={[styles.message]}
-              bold
-              testID={`${testID}-modal-title`}
+              testID={`${testID}-modal-content`}
             >
-              {formatNumbers(data.transfer)}
+              {ledgerFeesText}
             </CustomText>
-          )}
-          {isSuccess && (
-            <CustomText
-              h4
-              center
-              tertiary
-              bg="tertiary"
-              transparentBg
-              style={[styles.message]}
-              bold
-              testID={`${testID}-modal-title`}
-            >
-              {'Transaction Fee'}
-            </CustomText>
-          )}
-          <CustomText
-            h5
-            center
-            tertiary
-            bg="tertiary"
-            transparentBg
-            style={[styles.message]}
-            testID={`${testID}-modal-content`}
-          >
-            {ledgerFeesText}
-          </CustomText>
+          </CustomView>
+          <ActionButtons
+            status={feesModalStatus}
+            onYes={onYes}
+            onNo={onNo}
+            onRetry={this.onRetry}
+            fees={data.transfer}
+          />
         </CustomView>
-        <ActionButtons
-          status={feesModalStatus}
-          onYes={onYes}
-          onNo={onNo}
-          onRetry={this.onRetry}
-          fees={data.transfer}
-        />
-      </CustomView>
+      </Modal>
     )
   }
 }
@@ -332,7 +345,7 @@ const LedgerFeesModalIcon = ({ status }: *) => {
   switch (status) {
     case STORE_STATUS.IDLE:
     case STORE_STATUS.IN_PROGRESS:
-      return LoaderComponent
+      return Loader
 
     case STORE_STATUS.SUCCESS:
       return <SovrinIcon icon={sovrinIconOrange} />
@@ -419,8 +432,8 @@ const styles = StyleSheet.create({
   },
 })
 
-const LoaderComponent = (
+const Loader = (
   <CustomView center style={[styles.loaderContainer]}>
-    <Loader showMessage={false} />
+    <CustomActivityIndicator />
   </CustomView>
 )

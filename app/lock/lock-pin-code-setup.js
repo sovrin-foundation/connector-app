@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { StyleSheet, Keyboard } from 'react-native'
+import { StyleSheet, InteractionManager, Keyboard } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -59,6 +59,7 @@ export class LockPinSetup extends PureComponent<
 > {
   state: LockPinSetupState = {
     pinSetupState: PIN_SETUP_STATE.INITIAL,
+    interactionsDone: false,
     enteredPin: null,
     pinReEnterSuccessPin: null,
     keyboardHidden: false,
@@ -184,6 +185,9 @@ export class LockPinSetup extends PureComponent<
         this.onKeyboardHide(false)
       }
     )
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ interactionsDone: true })
+    })
   }
 
   componentDidUpdate(prevProps: LockPinCodeSetupProps) {
@@ -223,7 +227,7 @@ export class LockPinSetup extends PureComponent<
   }
 
   render() {
-    const { pinSetupState } = this.state
+    const { pinSetupState, interactionsDone } = this.state
     const passCodeSetupText =
       this.props.navigation.state &&
       this.props.navigation.state.params &&
@@ -272,12 +276,14 @@ export class LockPinSetup extends PureComponent<
           {pinSetupState === PIN_SETUP_STATE.REENTER_FAIL && ReEnterPinFailText}
         </CustomView>
         <CustomView center>
-          <PinCodeBox
-            ref={pinCodeBox => {
-              this.pinCodeBox = pinCodeBox
-            }}
-            onPinComplete={this.onPinComplete}
-          />
+          {interactionsDone && (
+            <PinCodeBox
+              ref={pinCodeBox => {
+                this.pinCodeBox = pinCodeBox
+              }}
+              onPinComplete={this.onPinComplete}
+            />
+          )}
         </CustomView>
       </Container>
     )
