@@ -5,6 +5,11 @@ import mockCamera from './camera-mock'
 import mockModal from './modal-mock'
 import mockView from './view-mock'
 
+// mock Math.random for <Loader />
+const mockMath = Object.create(global.Math)
+mockMath.random = () => 0.1
+global.Math = mockMath
+
 // mock this module to allow react-navigation to mock Linking
 jest.mock('Linking', () => ({
   addEventListener: jest.fn(),

@@ -30,6 +30,18 @@ export const VCX_CLAIM_OFFER_STATE = {
   ACCEPTED: 4,
 }
 
+export const ACCEPTING_TEXT = 'Accepting...'
+export const PAYING_TEXT = 'Paying...'
+
+export const CREDENTIAL_OFFER_MODAL_STATUS = {
+  NONE: 'NONE',
+  INSUFFICIENT_BALANCE: 'INSUFFICIENT_BALANCE',
+  LEDGER_FEES: 'LEDGER_FEES',
+  CREDENTIAL_REQUEST_STATUS: 'CREDENTIAL_REQUEST_STATUS',
+  SEND_PAID_CREDENTIAL_REQUEST_FAIL: 'SEND_PAID_CREDENTIAL_REQUEST_FAIL',
+  CREDENTIAL_REQUEST_FAIL: 'CREDENTIAL_REQUEST_FAIL',
+  TOKEN_SENT_FAIL: 'TOKEN_SENT_FAIL',
+}
 export type ClaimOfferStatus = $Keys<typeof CLAIM_OFFER_STATUS>
 
 export const CLAIM_OFFER_RECEIVED = 'CLAIM_OFFER_RECEIVED'
@@ -224,11 +236,7 @@ export type ClaimOfferProps = {
 
 export type ClaimOfferState = {
   disableAcceptButton: boolean,
-  insufficientBalanceModalHidden: boolean,
-  showLedgerFeesModal: boolean,
-  showSendPaidCredentialRequestFailModal: boolean,
-  showInsufficientBalanceModal: boolean,
-  showClaimRequestFailModal: boolean,
+  credentialOfferModalStatus: CredentialOfferModalStatus,
 }
 
 export type ClaimRequestStatusModalProps = {
@@ -244,8 +252,29 @@ export type ClaimRequestStatusModalProps = {
   buttonDisabled?: boolean,
   payTokenValue?: ?string,
   onModalHide?: () => void,
+  fromConnectionHistory?: boolean,
 }
 
+export type CredentialOfferModalProps = {
+  isValid?: boolean,
+  claimRequestStatus?: ClaimRequestStatus,
+  onModalHide?: () => void,
+  claimOfferData?: ClaimOfferPayload,
+  onClose: (event: any) => void,
+  logoUrl?: string,
+  payTokenValue?: ?string,
+  credentialOfferModalStatus: CredentialOfferModalStatus,
+  testID: string,
+  onRetry: () => void,
+  onNo?: () => void,
+  onYes?: () => void,
+  transferAmount?: string,
+  connectionName?: string,
+}
+
+export type CredentialOfferModalState = {
+  isVisible: boolean,
+}
 export type ClaimRequestStatusModalState = {
   isVisible: boolean,
 }
@@ -320,3 +349,7 @@ export const CLAIM_REQUEST_STATUS = {
 }
 
 export type ClaimRequestStatus = $Keys<typeof CLAIM_REQUEST_STATUS>
+
+export type CredentialOfferModalStatus = $Keys<
+  typeof CREDENTIAL_OFFER_MODAL_STATUS
+>

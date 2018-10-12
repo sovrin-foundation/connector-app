@@ -14,8 +14,8 @@ import {
   Icon,
   CustomButton,
   CustomHeader,
+  Loader,
 } from '../components'
-import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
 import { isBiggerThanShortDevice } from '../common/styles'
 import { genRecoveryPhraseRoute, verifyRecoveryPhraseRoute } from '../common'
 import { color } from '../common/styles/constant'
@@ -44,8 +44,10 @@ const textBubble = require('../images/textBubble.png')
 
 const PassphraseLoader = () => {
   return (
-    <CustomView center style={[styles.genRecoveryPhraseLoadingContainer]}>
-      <CustomActivityIndicator />
+    <CustomView style={[styles.genRecoveryPhraseContainer]}>
+      <CustomView style={[styles.genRecoveryPhraseLoadingContainer]}>
+        <Loader delay={1000} showMessage={false} size={30} />
+      </CustomView>
     </CustomView>
   )
 }

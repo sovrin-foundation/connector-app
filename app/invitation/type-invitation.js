@@ -108,7 +108,7 @@ export type InvitationProps = {
 } & ReactNavigation
 
 export type InvitationState = {
-  isSuccessModalVisible: boolean,
+  loading: boolean,
 }
 
 export const ERROR_INVITATION_VCX_INIT = {

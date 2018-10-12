@@ -12,8 +12,8 @@ import {
   Icon,
   CustomButton,
   CustomHeader,
+  Loader,
 } from '../components'
-import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
 
 import {
   exportBackupFileRoute,
@@ -98,7 +98,7 @@ export class ExportBackupFile extends PureComponent<
     ) {
       return (
         <CustomView doubleVerticalSpace>
-          <CustomActivityIndicator tintColor={color.actions.none} />
+          <Loader showMessage={false} type="light" size={40} />
         </CustomView>
       )
     }

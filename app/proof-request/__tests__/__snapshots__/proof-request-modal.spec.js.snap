@@ -14,395 +14,139 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
 >
   <View
     fifth={true}
-    shadow={true}
     style={
       Object {
         "backgroundColor": "#ffffff",
-        "elevation": 10,
-        "marginHorizontal": 10,
-        "shadowColor": "rgba(0, 0, 0, 0.2)",
-        "shadowOffset": Object {
-          "height": 10,
-          "width": 0,
-        },
-        "shadowOpacity": 1,
-        "shadowRadius": 30,
       }
     }
   >
     <View
-      spaceBetween={true}
-      style={
-        Object {
-          "borderBottomColor": "#3f3f3f",
-          "borderBottomWidth": 0.2,
-          "justifyContent": "space-between",
-          "paddingVertical": 10,
-        }
-      }
+      style={Object {}}
     >
       <View
-        accessibilityLabel="send-proof-text-avatars-container"
-        accessible={true}
-        row={true}
-        spaceBetween={true}
+        center={true}
         style={
           Object {
             "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginHorizontal": 10,
-            "marginVertical": 10,
+            "height": "90%",
+            "justifyContent": "center",
           }
         }
-        testID="send-proof-text-avatars-container"
-        vCenter={true}
       >
-        <View
-          accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
-          accessibilityTraits={undefined}
+        <Text
+          accessibilityLabel="send-proof-message"
           accessible={true}
-          hitSlop={undefined}
-          nativeID={undefined}
-          onLayout={undefined}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          pointerEvents="box-only"
-          style={undefined}
-          testID={undefined}
-        >
-          <View
-            accessibilityLabel="avatars-pair-avatars-invitee"
-            accessible={true}
-            imageShadow={null}
-            style={
-              Object {
-                "borderRadius": 38,
-              }
-            }
-            testID="avatars-pair-avatars-invitee"
-          >
-            <Image
-              accessibilityComponentType={undefined}
-              accessibilityLabel={undefined}
-              accessibilityTraits={undefined}
-              accessible={true}
-              hitSlop={undefined}
-              nativeID={undefined}
-              onError={undefined}
-              onLayout={undefined}
-              onLoad={undefined}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              source={
-                Object {
-                  "uri": "/var/application/DocumentDir/user-avatar.jpeg",
-                }
-              }
-              style={
-                Array [
-                  Object {
-                    "height": 76,
-                    "width": 76,
-                  },
-                  Object {
-                    "borderRadius": 38,
-                  },
-                ]
-              }
-              testID={undefined}
-            />
-          </View>
-        </View>
-        <Image
-          accessibilityLabel="send-proof-check-mark"
-          accessible={true}
-          source={1}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
           style={
             Array [
               Object {
-                "height": 22,
-                "width": 30,
+                "fontSize": 17,
               },
               Object {
-                "height": 20,
-                "right": 7,
-                "width": 80,
-                "zIndex": -1,
+                "fontFamily": "Lato",
               },
-            ]
-          }
-          testID="send-proof-check-mark"
-        />
-        <View
-          accessibilityLabel="send-proof-text-avatars-inviter"
-          accessible={true}
-          imageShadow={null}
-          style={
-            Object {
-              "borderRadius": 38,
-            }
-          }
-          testID="send-proof-text-avatars-inviter"
-        >
-          <Image
-            accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
-            accessibilityTraits={undefined}
-            accessible={true}
-            hitSlop={undefined}
-            nativeID={undefined}
-            onError={undefined}
-            onLayout={undefined}
-            onLoad={undefined}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            source={
-              Object {
-                "uri": "http://testissuer.com/logoUrl.png",
-              }
-            }
-            style={
-              Array [
-                Object {
-                  "height": 76,
-                  "width": 76,
-                },
-                Object {
-                  "borderRadius": 38,
-                },
-              ]
-            }
-            testID={undefined}
-          />
-        </View>
-      </View>
-      <Text
-        accessibilityLabel="send-proof-message"
-        accessible={true}
-        allowFontScaling={false}
-        ellipsizeMode="tail"
-        style={
-          Array [
-            Object {
-              "fontSize": 15,
-            },
-            Object {
-              "fontFamily": "Lato",
-            },
-            Object {
-              "backgroundColor": "#ffffff",
-              "color": "#777777",
-            },
-            Object {
-              "fontWeight": "600",
-            },
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "marginBottom": 5,
-              "paddingTop": 10,
-            },
-          ]
-        }
-        testID="send-proof-message"
-      >
-        Successfully Sent
-      </Text>
-      <Text
-        accessibilityLabel="proof-verify-name"
-        accessible={true}
-        allowFontScaling={false}
-        ellipsizeMode="tail"
-        style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "Lato",
-            },
-            Object {
-              "backgroundColor": "#ffffff",
-              "color": "#777777",
-            },
-            Object {
-              "fontWeight": "bold",
-            },
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "marginBottom": 10,
-            },
-          ]
-        }
-        testID="proof-verify-name"
-      >
-        Home Address
-      </Text>
-    </View>
-    <View
-      style={
-        Array [
-          Object {
-            "marginLeft": 15,
-            "marginRight": 15,
-          },
-          undefined,
-          Object {
-            "marginLeft": 0,
-            "marginRight": 0,
-          },
-          undefined,
-        ]
-      }
-    >
-      <View
-        accessibilityComponentType={undefined}
-        accessibilityLabel="send-proof-success-continue"
-        accessibilityTraits={undefined}
-        accessible={true}
-        hasTVPreferredFocus={undefined}
-        hitSlop={undefined}
-        isTVSelectable={true}
-        nativeID={undefined}
-        onLayout={undefined}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Array [
-            Object {
-              "backgroundColor": "transparent",
-            },
-            undefined,
-          ]
-        }
-        testID="send-proof-success-continue"
-        tvParallaxProperties={undefined}
-      >
-        <View
-          pointerEvents="box-only"
-          style={
-            Array [
-              Object {
-                "alignItems": "center",
-                "backgroundColor": "#9E9E9E",
-                "flexDirection": "row",
-                "justifyContent": "center",
-                "padding": 19,
-              },
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              undefined,
               Object {
                 "backgroundColor": "#ffffff",
+                "color": "#777777",
               },
-              undefined,
+              null,
               Object {
-                "padding": 12,
+                "textAlign": "center",
               },
-              undefined,
-              undefined,
-              undefined,
-              Array [
-                null,
-              ],
               Object {
-                "backgroundColor": "#dadee0",
+                "backgroundColor": "transparent",
               },
-              Array [
-                Object {
-                  "backgroundColor": "#ffffff",
-                },
-                Object {
-                  "opacity": 0.4,
-                },
-              ],
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              Object {
+                "marginBottom": 5,
+                "paddingTop": 10,
+              },
             ]
           }
+          testID="send-proof-message"
         >
+          Sending...
+        </Text>
+        <View
+          center={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "flex": 1,
+              "justifyContent": "center",
+              "padding": 20,
+            }
+          }
+        >
+          <Image
+            collapsable={undefined}
+            source={1}
+            style={
+              Object {
+                "height": 30,
+                "tintColor": "#777777",
+                "transform": Array [
+                  Object {
+                    "rotate": "0deg",
+                  },
+                ],
+                "width": 30,
+              }
+            }
+          />
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             ellipsizeMode="tail"
             style={
               Array [
-                Object {},
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                Array [
-                  Object {
-                    "color": "white",
-                    "fontSize": 16,
-                  },
-                  Object {
-                    "color": "#4A8FE3",
-                  },
-                  Object {
-                    "fontSize": 14,
-                  },
-                  undefined,
-                  Object {
-                    "fontWeight": "bold",
-                  },
-                  undefined,
-                  undefined,
-                  undefined,
-                ],
+                Object {
+                  "fontSize": 17,
+                },
+                Object {
+                  "fontFamily": "Lato",
+                },
+                Object {
+                  "backgroundColor": "#333333",
+                  "color": "#ffffff",
+                },
+                null,
+                Object {
+                  "textAlign": "center",
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                Object {
+                  "color": "#464646",
+                },
+                Object {
+                  "fontSize": 17,
+                  "fontWeight": "500",
+                  "letterSpacing": -0.42,
+                  "lineHeight": 21,
+                  "marginTop": 20,
+                },
               ]
             }
           >
-            Continue
+            Please wait…
           </Text>
         </View>
       </View>
@@ -419,387 +163,145 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
   backdropColor="#ffffff"
   backdropOpacity={1}
   hideModalContentWhileAnimating={true}
-  isVisible={true}
+  isVisible={false}
   onModalHide={[Function]}
   useNativeDriver={true}
 >
   <View
     fifth={true}
-    shadow={true}
     style={
       Object {
         "backgroundColor": "#ffffff",
-        "elevation": 10,
-        "marginHorizontal": 10,
-        "shadowColor": "rgba(0, 0, 0, 0.2)",
-        "shadowOffset": Object {
-          "height": 10,
-          "width": 0,
-        },
-        "shadowOpacity": 1,
-        "shadowRadius": 30,
       }
     }
   >
     <View
-      spaceBetween={true}
-      style={
-        Object {
-          "borderBottomColor": "#3f3f3f",
-          "borderBottomWidth": 0.2,
-          "justifyContent": "space-between",
-          "paddingVertical": 10,
-        }
-      }
+      style={Object {}}
     >
       <View
-        accessibilityLabel="send-proof-text-avatars-container"
-        accessible={true}
-        row={true}
-        spaceBetween={true}
+        center={true}
         style={
           Object {
             "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginHorizontal": 10,
-            "marginVertical": 10,
+            "height": "90%",
+            "justifyContent": "center",
           }
         }
-        testID="send-proof-text-avatars-container"
-        vCenter={true}
       >
-        <View
-          accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
-          accessibilityTraits={undefined}
+        <Text
+          accessibilityLabel="send-proof-message"
           accessible={true}
-          hitSlop={undefined}
-          nativeID={undefined}
-          onLayout={undefined}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          pointerEvents="box-only"
-          style={undefined}
-          testID={undefined}
-        >
-          <View
-            accessibilityLabel="avatars-pair-avatars-invitee"
-            accessible={true}
-            imageShadow={null}
-            style={
-              Object {
-                "borderRadius": 38,
-              }
-            }
-            testID="avatars-pair-avatars-invitee"
-          >
-            <Image
-              accessibilityComponentType={undefined}
-              accessibilityLabel={undefined}
-              accessibilityTraits={undefined}
-              accessible={true}
-              hitSlop={undefined}
-              nativeID={undefined}
-              onError={undefined}
-              onLayout={undefined}
-              onLoad={undefined}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              source={
-                Object {
-                  "uri": "/var/application/DocumentDir/user-avatar.jpeg",
-                }
-              }
-              style={
-                Array [
-                  Object {
-                    "height": 76,
-                    "width": 76,
-                  },
-                  Object {
-                    "borderRadius": 38,
-                  },
-                ]
-              }
-              testID={undefined}
-            />
-          </View>
-        </View>
-        <Image
-          accessibilityLabel="send-proof-check-mark"
-          accessible={true}
-          source={1}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
           style={
             Array [
               Object {
-                "height": 22,
-                "width": 30,
+                "fontSize": 17,
               },
-              null,
-            ]
-          }
-          testID="send-proof-check-mark"
-        />
-        <View
-          accessibilityLabel="send-proof-text-avatars-inviter"
-          accessible={true}
-          imageShadow={null}
-          style={
-            Object {
-              "borderRadius": 38,
-            }
-          }
-          testID="send-proof-text-avatars-inviter"
-        >
-          <Image
-            accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
-            accessibilityTraits={undefined}
-            accessible={true}
-            hitSlop={undefined}
-            nativeID={undefined}
-            onError={undefined}
-            onLayout={undefined}
-            onLoad={undefined}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            source={
               Object {
-                "uri": "http://testissuer.com/logoUrl.png",
-              }
-            }
-            style={
-              Array [
-                Object {
-                  "height": 76,
-                  "width": 76,
-                },
-                Object {
-                  "borderRadius": 38,
-                },
-              ]
-            }
-            testID={undefined}
-          />
-        </View>
-      </View>
-      <Text
-        accessibilityLabel="send-proof-message"
-        accessible={true}
-        allowFontScaling={false}
-        ellipsizeMode="tail"
-        style={
-          Array [
-            Object {
-              "fontSize": 15,
-            },
-            Object {
-              "fontFamily": "Lato",
-            },
-            Object {
-              "backgroundColor": "#ffffff",
-              "color": "#777777",
-            },
-            Object {
-              "fontWeight": "600",
-            },
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "marginBottom": 5,
-              "paddingTop": 10,
-            },
-          ]
-        }
-        testID="send-proof-message"
-      >
-        Successfully Sent
-      </Text>
-      <Text
-        accessibilityLabel="proof-verify-name"
-        accessible={true}
-        allowFontScaling={false}
-        ellipsizeMode="tail"
-        style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "Lato",
-            },
-            Object {
-              "backgroundColor": "#ffffff",
-              "color": "#777777",
-            },
-            Object {
-              "fontWeight": "bold",
-            },
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "marginBottom": 10,
-            },
-          ]
-        }
-        testID="proof-verify-name"
-      >
-        Home Address
-      </Text>
-    </View>
-    <View
-      style={
-        Array [
-          Object {
-            "marginLeft": 15,
-            "marginRight": 15,
-          },
-          undefined,
-          Object {
-            "marginLeft": 0,
-            "marginRight": 0,
-          },
-          undefined,
-        ]
-      }
-    >
-      <View
-        accessibilityComponentType={undefined}
-        accessibilityLabel="send-proof-success-continue"
-        accessibilityTraits={undefined}
-        accessible={true}
-        hasTVPreferredFocus={undefined}
-        hitSlop={undefined}
-        isTVSelectable={true}
-        nativeID={undefined}
-        onLayout={undefined}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Array [
-            Object {
-              "backgroundColor": "transparent",
-            },
-            undefined,
-          ]
-        }
-        testID="send-proof-success-continue"
-        tvParallaxProperties={undefined}
-      >
-        <View
-          pointerEvents="box-only"
-          style={
-            Array [
-              Object {
-                "alignItems": "center",
-                "backgroundColor": "#9E9E9E",
-                "flexDirection": "row",
-                "justifyContent": "center",
-                "padding": 19,
+                "fontFamily": "Lato",
               },
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              undefined,
               Object {
                 "backgroundColor": "#ffffff",
+                "color": "#777777",
               },
-              undefined,
+              null,
               Object {
-                "padding": 12,
+                "textAlign": "center",
               },
-              undefined,
-              undefined,
-              undefined,
-              Array [
-                null,
-              ],
-              false,
-              false,
+              Object {
+                "backgroundColor": "transparent",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              Object {
+                "marginBottom": 5,
+                "paddingTop": 10,
+              },
             ]
           }
+          testID="send-proof-message"
         >
+          Sending...
+        </Text>
+        <View
+          center={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "flex": 1,
+              "justifyContent": "center",
+              "padding": 20,
+            }
+          }
+        >
+          <Image
+            collapsable={undefined}
+            source={1}
+            style={
+              Object {
+                "height": 30,
+                "tintColor": "#777777",
+                "transform": Array [
+                  Object {
+                    "rotate": "0deg",
+                  },
+                ],
+                "width": 30,
+              }
+            }
+          />
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             ellipsizeMode="tail"
             style={
               Array [
-                Object {},
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                Array [
-                  Object {
-                    "color": "white",
-                    "fontSize": 16,
-                  },
-                  Object {
-                    "color": "#4A8FE3",
-                  },
-                  Object {
-                    "fontSize": 14,
-                  },
-                  undefined,
-                  Object {
-                    "fontWeight": "bold",
-                  },
-                  undefined,
-                  undefined,
-                  false,
-                ],
+                Object {
+                  "fontSize": 17,
+                },
+                Object {
+                  "fontFamily": "Lato",
+                },
+                Object {
+                  "backgroundColor": "#333333",
+                  "color": "#ffffff",
+                },
+                null,
+                Object {
+                  "textAlign": "center",
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                Object {
+                  "color": "#464646",
+                },
+                Object {
+                  "fontSize": 17,
+                  "fontWeight": "500",
+                  "letterSpacing": -0.42,
+                  "lineHeight": 21,
+                  "marginTop": 20,
+                },
               ]
             }
           >
-            Continue
+            Please wait…
           </Text>
         </View>
       </View>
@@ -822,395 +324,139 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
 >
   <View
     fifth={true}
-    shadow={true}
     style={
       Object {
         "backgroundColor": "#ffffff",
-        "elevation": 10,
-        "marginHorizontal": 10,
-        "shadowColor": "rgba(0, 0, 0, 0.2)",
-        "shadowOffset": Object {
-          "height": 10,
-          "width": 0,
-        },
-        "shadowOpacity": 1,
-        "shadowRadius": 30,
       }
     }
   >
     <View
-      spaceBetween={true}
-      style={
-        Object {
-          "borderBottomColor": "#3f3f3f",
-          "borderBottomWidth": 0.2,
-          "justifyContent": "space-between",
-          "paddingVertical": 10,
-        }
-      }
+      style={Object {}}
     >
       <View
-        accessibilityLabel="send-proof-text-avatars-container"
-        accessible={true}
-        row={true}
-        spaceBetween={true}
+        center={true}
         style={
           Object {
             "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginHorizontal": 10,
-            "marginVertical": 10,
+            "height": "90%",
+            "justifyContent": "center",
           }
         }
-        testID="send-proof-text-avatars-container"
-        vCenter={true}
       >
-        <View
-          accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
-          accessibilityTraits={undefined}
+        <Text
+          accessibilityLabel="send-proof-message"
           accessible={true}
-          hitSlop={undefined}
-          nativeID={undefined}
-          onLayout={undefined}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          pointerEvents="box-only"
-          style={undefined}
-          testID={undefined}
-        >
-          <View
-            accessibilityLabel="avatars-pair-avatars-invitee"
-            accessible={true}
-            imageShadow={null}
-            style={
-              Object {
-                "borderRadius": 38,
-              }
-            }
-            testID="avatars-pair-avatars-invitee"
-          >
-            <Image
-              accessibilityComponentType={undefined}
-              accessibilityLabel={undefined}
-              accessibilityTraits={undefined}
-              accessible={true}
-              hitSlop={undefined}
-              nativeID={undefined}
-              onError={undefined}
-              onLayout={undefined}
-              onLoad={undefined}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              source={
-                Object {
-                  "uri": "/var/application/DocumentDir/user-avatar.jpeg",
-                }
-              }
-              style={
-                Array [
-                  Object {
-                    "height": 76,
-                    "width": 76,
-                  },
-                  Object {
-                    "borderRadius": 38,
-                  },
-                ]
-              }
-              testID={undefined}
-            />
-          </View>
-        </View>
-        <Image
-          accessibilityLabel="send-proof-check-mark"
-          accessible={true}
-          source={1}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
           style={
             Array [
               Object {
-                "height": 22,
-                "width": 30,
+                "fontSize": 17,
               },
               Object {
-                "height": 20,
-                "right": 7,
-                "width": 80,
-                "zIndex": -1,
+                "fontFamily": "Lato",
               },
-            ]
-          }
-          testID="send-proof-check-mark"
-        />
-        <View
-          accessibilityLabel="send-proof-text-avatars-inviter"
-          accessible={true}
-          imageShadow={null}
-          style={
-            Object {
-              "borderRadius": 38,
-            }
-          }
-          testID="send-proof-text-avatars-inviter"
-        >
-          <Image
-            accessibilityComponentType={undefined}
-            accessibilityLabel={undefined}
-            accessibilityTraits={undefined}
-            accessible={true}
-            hitSlop={undefined}
-            nativeID={undefined}
-            onError={undefined}
-            onLayout={undefined}
-            onLoad={undefined}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            source={
-              Object {
-                "uri": "http://testissuer.com/logoUrl.png",
-              }
-            }
-            style={
-              Array [
-                Object {
-                  "height": 76,
-                  "width": 76,
-                },
-                Object {
-                  "borderRadius": 38,
-                },
-              ]
-            }
-            testID={undefined}
-          />
-        </View>
-      </View>
-      <Text
-        accessibilityLabel="send-proof-message"
-        accessible={true}
-        allowFontScaling={false}
-        ellipsizeMode="tail"
-        style={
-          Array [
-            Object {
-              "fontSize": 15,
-            },
-            Object {
-              "fontFamily": "Lato",
-            },
-            Object {
-              "backgroundColor": "#ffffff",
-              "color": "#777777",
-            },
-            Object {
-              "fontWeight": "600",
-            },
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "marginBottom": 5,
-              "paddingTop": 10,
-            },
-          ]
-        }
-        testID="send-proof-message"
-      >
-        Sending Proof to
-      </Text>
-      <Text
-        accessibilityLabel="proof-verify-name"
-        accessible={true}
-        allowFontScaling={false}
-        ellipsizeMode="tail"
-        style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "Lato",
-            },
-            Object {
-              "backgroundColor": "#ffffff",
-              "color": "#777777",
-            },
-            Object {
-              "fontWeight": "bold",
-            },
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "marginBottom": 10,
-            },
-          ]
-        }
-        testID="proof-verify-name"
-      >
-        Test Issuer
-      </Text>
-    </View>
-    <View
-      style={
-        Array [
-          Object {
-            "marginLeft": 15,
-            "marginRight": 15,
-          },
-          undefined,
-          Object {
-            "marginLeft": 0,
-            "marginRight": 0,
-          },
-          undefined,
-        ]
-      }
-    >
-      <View
-        accessibilityComponentType={undefined}
-        accessibilityLabel="send-proof-success-continue"
-        accessibilityTraits={undefined}
-        accessible={true}
-        hasTVPreferredFocus={undefined}
-        hitSlop={undefined}
-        isTVSelectable={true}
-        nativeID={undefined}
-        onLayout={undefined}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Array [
-            Object {
-              "backgroundColor": "transparent",
-            },
-            undefined,
-          ]
-        }
-        testID="send-proof-success-continue"
-        tvParallaxProperties={undefined}
-      >
-        <View
-          pointerEvents="box-only"
-          style={
-            Array [
-              Object {
-                "alignItems": "center",
-                "backgroundColor": "#9E9E9E",
-                "flexDirection": "row",
-                "justifyContent": "center",
-                "padding": 19,
-              },
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              undefined,
               Object {
                 "backgroundColor": "#ffffff",
+                "color": "#777777",
               },
-              undefined,
+              null,
               Object {
-                "padding": 12,
+                "textAlign": "center",
               },
-              undefined,
-              undefined,
-              undefined,
-              Array [
-                null,
-              ],
               Object {
-                "backgroundColor": "#dadee0",
+                "backgroundColor": "transparent",
               },
-              Array [
-                Object {
-                  "backgroundColor": "#ffffff",
-                },
-                Object {
-                  "opacity": 0.4,
-                },
-              ],
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              Object {
+                "marginBottom": 5,
+                "paddingTop": 10,
+              },
             ]
           }
+          testID="send-proof-message"
         >
+          Sending...
+        </Text>
+        <View
+          center={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "flex": 1,
+              "justifyContent": "center",
+              "padding": 20,
+            }
+          }
+        >
+          <Image
+            collapsable={undefined}
+            source={1}
+            style={
+              Object {
+                "height": 30,
+                "tintColor": "#777777",
+                "transform": Array [
+                  Object {
+                    "rotate": "0deg",
+                  },
+                ],
+                "width": 30,
+              }
+            }
+          />
           <Text
             accessible={true}
-            allowFontScaling={true}
+            allowFontScaling={false}
             ellipsizeMode="tail"
             style={
               Array [
-                Object {},
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                Array [
-                  Object {
-                    "color": "white",
-                    "fontSize": 16,
-                  },
-                  Object {
-                    "color": "#4A8FE3",
-                  },
-                  Object {
-                    "fontSize": 14,
-                  },
-                  undefined,
-                  Object {
-                    "fontWeight": "bold",
-                  },
-                  undefined,
-                  undefined,
-                  undefined,
-                ],
+                Object {
+                  "fontSize": 17,
+                },
+                Object {
+                  "fontFamily": "Lato",
+                },
+                Object {
+                  "backgroundColor": "#333333",
+                  "color": "#ffffff",
+                },
+                null,
+                Object {
+                  "textAlign": "center",
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                Object {
+                  "color": "#464646",
+                },
+                Object {
+                  "fontSize": 17,
+                  "fontWeight": "500",
+                  "letterSpacing": -0.42,
+                  "lineHeight": 21,
+                  "marginTop": 20,
+                },
               ]
             }
           >
-            Continue
+            Please wait…
           </Text>
         </View>
       </View>

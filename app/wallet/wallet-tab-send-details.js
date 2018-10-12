@@ -11,10 +11,10 @@ import {
   CustomView,
   CustomButton,
   CustomHeader,
+  Icon,
+  Loader,
 } from '../components'
 import { primaryHeaderStyles } from '../components/layout/header-styles'
-import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
-import Icon from '../components/icon'
 import {
   OFFSET_1X,
   OFFSET_2X,
@@ -44,9 +44,11 @@ import { sendTokens } from '../wallet/wallet-store'
 import { getWalletAddresses, getTokenAmount } from '../store/store-selector'
 import type { Store } from '../store/type-store'
 import { STORE_STATUS } from './type-wallet'
+import { CREDENTIAL_OFFER_MODAL_STATUS } from '../claim-offer/type-claim-offer'
 import Modal from 'react-native-modal'
 import PaymentFailureModal from './payment-failure-modal'
 import { LedgerFeesModal } from '../components/ledger-fees-modal/ledger-fees-modal'
+import CredentialOfferModal from './credential-offer-modal'
 
 export class WalletTabSendDetails extends Component<
   WalletTabSendDetailsProps,
@@ -91,8 +93,7 @@ export class WalletTabSendDetails extends Component<
   state = {
     showPaymentAddress: false,
     isPaymentAddressValid: 'IDLE',
-    tokenSentFailedVisible: false,
-    showTransactionFeesModal: false,
+    credentialOfferModalStatus: CREDENTIAL_OFFER_MODAL_STATUS.NONE,
   }
 
   paymentData: WalletSendPaymentData = {
@@ -115,7 +116,10 @@ export class WalletTabSendDetails extends Component<
         this.props.navigation.state &&
           this.props.navigation.state.params.navigate(receiveTabRoute)
       } else if (this.props.tokenSentStatus === STORE_STATUS.ERROR) {
-        this.setState({ tokenSentFailedVisible: true })
+        this.setState({
+          credentialOfferModalStatus:
+            CREDENTIAL_OFFER_MODAL_STATUS.TOKEN_SENT_FAIL,
+        })
       }
     }
   }
@@ -140,7 +144,9 @@ export class WalletTabSendDetails extends Component<
   }
 
   onTokenSentFailedClose = () => {
-    this.setState({ tokenSentFailedVisible: false })
+    this.setState({
+      credentialOfferModalStatus: CREDENTIAL_OFFER_MODAL_STATUS.NONE,
+    })
   }
 
   throttledAsyncValidationFunction = () => {
@@ -162,13 +168,13 @@ export class WalletTabSendDetails extends Component<
 
   onShowTransactionFeesModal() {
     this.setState({
-      showTransactionFeesModal: true,
+      credentialOfferModalStatus: CREDENTIAL_OFFER_MODAL_STATUS.LEDGER_FEES,
     })
   }
 
   onHideTransactionFeesModal = () => {
     this.setState({
-      showTransactionFeesModal: false,
+      credentialOfferModalStatus: CREDENTIAL_OFFER_MODAL_STATUS.NONE,
     })
   }
 
@@ -212,7 +218,7 @@ export class WalletTabSendDetails extends Component<
         />
         {this.props.tokenSentStatus === STORE_STATUS.IN_PROGRESS && (
           <CustomView center style={[styles.loaderContainer]}>
-            <CustomActivityIndicator />
+            <Loader showMessage={false} />
           </CustomView>
         )}
         <CustomView row center style={[{ width: '100%' }]} horizontalSpace>
@@ -277,22 +283,16 @@ export class WalletTabSendDetails extends Component<
           </CustomView>
         )}
 
-        <PaymentFailureModal
-          isModalVisible={this.state.tokenSentFailedVisible}
+        <CredentialOfferModal
           connectionName={this.paymentData.paymentTo}
-          testID={testID}
+          credentialOfferModalStatus={this.state.credentialOfferModalStatus}
+          testID={`${testID}-payment-failure-modal`}
           onClose={this.onTokenSentFailedClose}
           onRetry={this.onSendTokens}
+          onYes={this.onStartTransfer}
+          onNo={this.onHideTransactionFeesModal}
+          transferAmount={this.props.tokenAmount}
         />
-
-        {this.state.showTransactionFeesModal && (
-          <LedgerFeesModal
-            isVisible={true}
-            onYes={this.onStartTransfer}
-            onNo={this.onHideTransactionFeesModal}
-            transferAmount={this.props.tokenAmount}
-          />
-        )}
       </Container>
     )
   }
