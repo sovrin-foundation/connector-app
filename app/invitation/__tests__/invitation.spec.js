@@ -158,29 +158,6 @@ describe('<Invitation />', () => {
     navigation.dispatch.mockReset()
   })
 
-  it('should show success modal once acceptance is sent to agent', () => {
-    const invitationAfterAccept = {
-      ...invitation,
-      status: ResponseType.accepted,
-    }
-    component.update(
-      <Provider store={store}>
-        <Invitation
-          invitation={invitationAfterAccept}
-          showErrorAlerts
-          navigation={navigation}
-          sendInvitationResponse={sendInvitationResponse}
-          invitationRejected={invitationRejected}
-          smsPendingInvitationSeen={smsPendingInvitationSeen}
-          smsToken={smsToken}
-          isSmsInvitationNotSeen={false}
-        />
-      </Provider>
-    )
-
-    expect(instance.state.isSuccessModalVisible).toBe(true)
-  })
-
   it('should call smsPendingInvitationSeen action if isSmsInvitationNotSeen is true', () => {
     const invitationAfterAccept = {
       ...invitation,
@@ -225,7 +202,7 @@ describe('<Invitation />', () => {
     expect(smsPendingInvitationSeen).not.toHaveBeenCalledWith(smsToken)
   })
 
-  it('should close modal and redirect to Home on Continue', () => {
+  xit('should close modal and redirect to Home on Continue', () => {
     instance.onSuccessModalContinue()
 
     expect(instance.state.isSuccessModalVisible).toBe(false)

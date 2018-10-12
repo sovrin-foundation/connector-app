@@ -289,6 +289,374 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
       </Animatable.View>
     </View>
     <View
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "left": 120,
+          "position": "absolute",
+          "top": 320,
+          "width": 80,
+        }
+      }
+    >
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel="user-avatar-touchable"
+        accessibilityTraits={undefined}
+        accessible={false}
+        clearBg={true}
+        extraLarge={true}
+        hitSlop={
+          Object {
+            "bottom": 20,
+            "left": 20,
+            "right": 20,
+            "top": 20,
+          }
+        }
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        resizeMode="cover"
+        round={true}
+        src={
+          Object {
+            "uri": "/var/application/DocumentDir/user-avatar.jpeg",
+          }
+        }
+        style={
+          Object {
+            "backgroundColor": "transparent",
+          }
+        }
+        testID="user-avatar-touchable"
+      >
+        <View
+          style={Object {}}
+        >
+          <Image
+            accessibilityLabel="user-avatar"
+            accessible={true}
+            resizeMode="cover"
+            source={
+              Object {
+                "uri": "/var/application/DocumentDir/user-avatar.jpeg",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 80,
+                  "width": 80,
+                },
+                Object {
+                  "borderRadius": 40,
+                },
+              ]
+            }
+            testID="user-avatar"
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<DashboardScreen /> should render Home and show loader 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+    }
+  }
+  tertiary={true}
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+        "flex": 1,
+      }
+    }
+    tertiary={true}
+  >
+    <View
+      style={Object {}}
+    >
+      <View>
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel="wallet-backup-banner-label-touchable"
+          accessibilityTraits={undefined}
+          accessible={false}
+          hitSlop={
+            Object {
+              "bottom": 20,
+              "left": 20,
+              "right": 20,
+              "top": 20,
+            }
+          }
+          horizontalSpace={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          row={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#d0021b",
+              "flexDirection": "row",
+              "paddingHorizontal": 15,
+              "paddingVertical": 8,
+            }
+          }
+          testID="wallet-backup-banner-label-touchable"
+          vCenter={true}
+          verticalSpace={true}
+        >
+          <View
+            clearBg={true}
+            iconStyle={
+              Array [
+                Object {
+                  "height": 25,
+                  "width": 29,
+                },
+                Object {
+                  "tintColor": "white",
+                },
+              ]
+            }
+            src={1}
+            style={
+              Object {
+                "backgroundColor": "transparent",
+              }
+            }
+          >
+            <View
+              style={Object {}}
+            >
+              <Image
+                resizeMode="contain"
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "height": 50,
+                      "width": 50,
+                    },
+                    null,
+                    Object {
+                      "height": 25,
+                      "width": 29,
+                    },
+                    Object {
+                      "tintColor": "white",
+                    },
+                  ]
+                }
+              />
+            </View>
+          </View>
+          <View
+            horizontalSpace={true}
+            style={
+              Object {
+                "paddingHorizontal": 15,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "fontSize": 17,
+                  },
+                  Object {
+                    "fontFamily": "Lato",
+                  },
+                  Object {
+                    "backgroundColor": "#333333",
+                    "color": "#ffffff",
+                  },
+                  Object {
+                    "fontWeight": "bold",
+                  },
+                  null,
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                ]
+              }
+            >
+              You have new data that is not backed up.
+            </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "fontSize": 15,
+                  },
+                  Object {
+                    "fontFamily": "Lato",
+                  },
+                  Object {
+                    "backgroundColor": "#333333",
+                    "color": "#ffffff",
+                  },
+                  null,
+                  null,
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                ]
+              }
+            >
+              Create another backup so you don't lose anything.
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      collapsable={undefined}
+      style={
+        Object {
+          "height": 486,
+          "left": 0,
+          "overflow": "hidden",
+          "position": "absolute",
+          "right": 0,
+          "top": -70,
+          "transform": Array [
+            Object {
+              "translateY": 0,
+            },
+          ],
+          "zIndex": -1,
+        }
+      }
+    >
+      <Animatable.View
+        animation="zoomIn"
+        delay={200}
+        duration={600}
+        style={
+          Array [
+            Object {
+              "position": "absolute",
+            },
+            Object {
+              "left": 126,
+              "top": 313,
+            },
+          ]
+        }
+      >
+        <View
+          row={true}
+          style={
+            Object {
+              "flexDirection": "row",
+            }
+          }
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "zIndex": 0,
+                },
+              ]
+            }
+          >
+            <View
+              accessibilityLabel="bubble-3nj819kkjywdppuje79"
+              accessible={true}
+              imageShadow={null}
+              style={
+                Object {
+                  "borderRadius": 50,
+                }
+              }
+              testID="bubble-3nj819kkjywdppuje79"
+            >
+              <Image
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
+                accessible={true}
+                hitSlop={undefined}
+                nativeID={undefined}
+                onError={[Function]}
+                onLayout={undefined}
+                onLoad={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                source={
+                  Object {
+                    "uri": "https://logourl.com/logo.png",
+                  }
+                }
+                style={
+                  Array [
+                    Object {
+                      "height": 66,
+                      "width": 66,
+                    },
+                    Object {
+                      "borderRadius": 33,
+                    },
+                  ]
+                }
+                testID={undefined}
+              />
+            </View>
+          </View>
+        </View>
+      </Animatable.View>
+    </View>
+    <View
       center={true}
       style={
         Object {
@@ -297,24 +665,7 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
           "justifyContent": "center",
         }
       }
-    >
-      <Image
-        collapsable={undefined}
-        source={1}
-        style={
-          Object {
-            "height": 30,
-            "tintColor": "#777777",
-            "transform": Array [
-              Object {
-                "rotate": "0deg",
-              },
-            ],
-            "width": 30,
-          }
-        }
-      />
-    </View>
+    />
     <View
       style={
         Object {

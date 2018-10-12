@@ -189,7 +189,6 @@ export const PIN_SETUP_STATE = {
 
 export type LockPinSetupState = {
   pinSetupState: $Keys<typeof PIN_SETUP_STATE>,
-  interactionsDone: boolean,
   enteredPin: ?string,
   pinReEnterSuccessPin: ?string,
   keyboardHidden: boolean,

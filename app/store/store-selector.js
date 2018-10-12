@@ -46,9 +46,8 @@ export const getConnectionLogoUrl = (
   state: Store,
   remotePairwiseDid: string
 ): string => {
-  const { logoUrl } = getConnection(state, remotePairwiseDid)[0]
-
-  return logoUrl
+  const connections = getConnection(state, remotePairwiseDid)
+  return connections.length > 0 ? connections[0].logoUrl : ''
 }
 
 export const getConnection = (

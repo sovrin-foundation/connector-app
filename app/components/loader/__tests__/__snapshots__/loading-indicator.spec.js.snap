@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LoadingIndicator /> should render properly and match the snapshot 1`] = `
+<Image
+  collapsable={undefined}
+  source={1}
+  style={
+    Object {
+      "height": 30,
+      "tintColor": "#777777",
+      "transform": Array [
+        Object {
+          "rotate": "0deg",
+        },
+      ],
+      "width": 30,
+    }
+  }
+/>
+`;

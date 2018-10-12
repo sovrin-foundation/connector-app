@@ -10,8 +10,9 @@ import {
   UserAvatar,
   CustomText,
   CustomHeader,
+  Loader,
 } from '../components'
-import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
+
 import { createStackNavigator } from 'react-navigation'
 import Bubbles from './bubbles'
 import {
@@ -144,7 +145,11 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
               unSeenMessages={unSeenMessages}
             />
           )}
-          {!hydrated ? <CustomActivityIndicator /> : null}
+          {!hydrated ? (
+            <Container center>
+              <Loader type="dark" delay={1000} />
+            </Container>
+          ) : null}
           <CustomView style={[styles.userAvatarContainer]}>
             <UserAvatar />
           </CustomView>

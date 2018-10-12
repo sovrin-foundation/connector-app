@@ -10,11 +10,11 @@ import {
   Icon,
   CustomText,
   CustomDate,
+  Loader,
 } from '../components'
 import { color, OFFSET_1X, OFFSET_3X } from '../common/styles/constant'
 import type { Store } from '../store/type-store'
 import type { WalletHistoryProps, WalletHistoryEvent } from './type-wallet'
-import CustomActivityIndicator from '../components/custom-activity-indicator/custom-activity-indicator'
 import { getWalletHistory } from '../store/store-selector'
 import { refreshWalletHistory } from './wallet-store'
 import { bindActionCreators } from 'redux'
@@ -101,7 +101,7 @@ export class WalletTabHistory extends Component<WalletHistoryProps, void> {
 
     return (
       <Container>
-        {status === STORE_STATUS.IN_PROGRESS && <CustomActivityIndicator />}
+        {status === STORE_STATUS.IN_PROGRESS && <Loader showMessage={false} />}
         {transactions.length < 1 &&
           status !== STORE_STATUS.SUCCESS && (
             <Container center>

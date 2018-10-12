@@ -49,7 +49,10 @@ import type {
   ClaimOfferAttributeListProps,
   ClaimOfferState,
 } from './type-claim-offer'
-import { CLAIM_REQUEST_STATUS } from './type-claim-offer'
+import {
+  CLAIM_REQUEST_STATUS,
+  CREDENTIAL_OFFER_MODAL_STATUS,
+} from './type-claim-offer'
 import type { Store } from '../store/type-store'
 import { ClaimRequestStatusModal } from './claim-request-modal'
 import {
@@ -61,6 +64,7 @@ import type { ReactNavigation } from '../common/type-common'
 import { updateStatusBarTheme } from '../../app/store/connections-store'
 import { CustomModal } from '../components'
 import PaymentFailureModal from '../wallet/payment-failure-modal'
+import CredentialOfferModal from '../wallet/credential-offer-modal'
 import { LedgerFeesModal } from '../components/ledger-fees-modal/ledger-fees-modal'
 import { getStatusBarStyle } from '../components/custom-header/custom-header'
 
@@ -123,14 +127,19 @@ export class ClaimOffer extends PureComponent<
 
   state = {
     disableAcceptButton: false,
-    insufficientBalanceModalHidden: false,
-    showLedgerFeesModal: false,
-    showSendPaidCredentialRequestFailModal: false,
-    showInsufficientBalanceModal: false,
-    showClaimRequestFailModal: false,
+    credentialOfferModalStatus: CREDENTIAL_OFFER_MODAL_STATUS.NONE,
   }
 
   close = () => {
+    if (
+      this.state.credentialOfferModalStatus !==
+      CREDENTIAL_OFFER_MODAL_STATUS.INSUFFICIENT_BALANCE
+    ) {
+      this.setState({
+        credentialOfferModalStatus: CREDENTIAL_OFFER_MODAL_STATUS.NONE,
+      })
+    }
+
     this.props.navigation.goBack()
   }
 
@@ -160,14 +169,14 @@ export class ClaimOffer extends PureComponent<
 
   onProceedPaidCredTransaction = () => {
     this.setState({
-      showLedgerFeesModal: false,
+      credentialOfferModalStatus: CREDENTIAL_OFFER_MODAL_STATUS.NONE,
     })
     this.props.acceptClaimOffer(this.props.uid)
   }
 
   onRejectPaidCredTransaction = () => {
     this.setState({
-      showLedgerFeesModal: false,
+      credentialOfferModalStatus: CREDENTIAL_OFFER_MODAL_STATUS.NONE,
       disableAcceptButton: false,
     })
   }
@@ -175,20 +184,14 @@ export class ClaimOffer extends PureComponent<
   onAccept = () => {
     this.setState({
       disableAcceptButton: true,
-      showSendPaidCredentialRequestFailModal: false,
-      showInsufficientBalanceModal: false,
     })
     if (this.props.claimOfferData.payTokenValue) {
-      this.setState({ showLedgerFeesModal: true })
+      this.setState({
+        credentialOfferModalStatus: CREDENTIAL_OFFER_MODAL_STATUS.LEDGER_FEES,
+      })
     } else {
       this.props.acceptClaimOffer(this.props.uid)
     }
-  }
-
-  onInsufficientModalHide = () => {
-    this.setState({
-      insufficientBalanceModalHidden: true,
-    })
   }
 
   componentDidMount() {
@@ -197,25 +200,21 @@ export class ClaimOffer extends PureComponent<
     this.props.updateStatusBarTheme(this.props.claimThemePrimary)
   }
 
-  componentDidUpdate(prevProps: ClaimOfferProps, prevState: ClaimOfferState) {
-    if (
-      this.state.insufficientBalanceModalHidden !==
-        prevState.insufficientBalanceModalHidden &&
-      this.state.insufficientBalanceModalHidden
-    ) {
-      // once we are sure that insufficient balance modal was properly hidden
-      // we can go ahead and close claim offer screen as well
-      this.close()
-    }
-  }
-  onClaimRequestStatusModal = () => {
+  onCredentialOfferModalHide = () => {
+    console.log('onCredentialModalHide clicked')
+    console.log(this.props)
     const { claimOfferData } = this.props
     const { claimRequestStatus }: ClaimOfferPayload = claimOfferData
+    console.log(claimRequestStatus)
     if (
       claimRequestStatus === CLAIM_REQUEST_STATUS.INSUFFICIENT_BALANCE &&
-      !this.state.showInsufficientBalanceModal
+      this.state.credentialOfferModalStatus !==
+        CREDENTIAL_OFFER_MODAL_STATUS.INSUFFICIENT_BALANCE
     ) {
-      this.setState({ showInsufficientBalanceModal: true })
+      this.setState({
+        credentialOfferModalStatus:
+          CREDENTIAL_OFFER_MODAL_STATUS.INSUFFICIENT_BALANCE,
+      })
     }
     if (
       claimRequestStatus === CLAIM_REQUEST_STATUS.SEND_CLAIM_REQUEST_FAIL ||
@@ -224,16 +223,21 @@ export class ClaimOffer extends PureComponent<
       if (this.state.disableAcceptButton === true) {
         this.setState({
           disableAcceptButton: false,
-          showClaimRequestFailModal: true,
+          credentialOfferModalStatus:
+            CREDENTIAL_OFFER_MODAL_STATUS.CREDENTIAL_REQUEST_FAIL,
         })
       }
     }
     if (
       claimRequestStatus ===
         CLAIM_REQUEST_STATUS.PAID_CREDENTIAL_REQUEST_FAIL &&
-      !this.state.showSendPaidCredentialRequestFailModal
+      this.state.credentialOfferModalStatus !==
+        CREDENTIAL_OFFER_MODAL_STATUS.SEND_PAID_CREDENTIAL_REQUEST_FAIL
     ) {
-      this.setState({ showSendPaidCredentialRequestFailModal: true })
+      this.setState({
+        credentialOfferModalStatus:
+          CREDENTIAL_OFFER_MODAL_STATUS.SEND_PAID_CREDENTIAL_REQUEST_FAIL,
+      })
     }
   }
   render() {
@@ -324,83 +328,21 @@ export class ClaimOffer extends PureComponent<
           testID={`${testID}-footer`}
           disableAccept={this.state.disableAcceptButton}
         />
-        {isValid && (
-          <ClaimRequestStatusModal
-            claimRequestStatus={claimRequestStatus}
-            onModalHide={this.onClaimRequestStatusModal}
-            payload={claimOfferData}
-            onContinue={this.close}
-            senderLogoUrl={logoUrl}
-            payTokenValue={payTokenValue}
-            message1={payTokenValue ? 'You paid' : 'You accepted'}
-            message3={payTokenValue ? '' : 'from'}
-            message6={payTokenValue ? 'They will issue it to you shortly.' : ''}
-            isPending={
-              claimRequestStatus ===
-              CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
-            }
-          />
-        )}
-        {isValid &&
-          this.state.showClaimRequestFailModal && (
-            <CustomModal
-              buttonText="OK"
-              onPress={this.hideInsufficientBalanceModal}
-              testID={`error-accepting-credential`}
-              isVisible={
-                claimRequestStatus ===
-                  CLAIM_REQUEST_STATUS.SEND_CLAIM_REQUEST_FAIL ||
-                claimRequestStatus === CLAIM_REQUEST_STATUS.CLAIM_REQUEST_FAIL
-              }
-            >
-              <CustomView center horizontalSpace doubleVerticalSpace>
-                <Icon src={require('../images/alertInfo.png')} />
-                <CustomText transparentBg primary center bold>
-                  Error accepting credential. Please try again.
-                </CustomText>
-              </CustomView>
-            </CustomModal>
-          )}
-        {isValid &&
-          this.state.showInsufficientBalanceModal &&
-          payTokenValue && (
-            <CustomModal
-              buttonText="OK"
-              onPress={this.hideInsufficientBalanceModal}
-              onModalHide={this.onInsufficientModalHide}
-              testID={`no-sufficient-balance`}
-              isVisible={
-                claimRequestStatus === CLAIM_REQUEST_STATUS.INSUFFICIENT_BALANCE
-              }
-            >
-              <CustomView center doubleVerticalSpace>
-                <Icon src={require('../images/alertInfo.png')} />
-                <CustomText transparentBg primary center bold>
-                  You do not have enough tokens to purchase this credential
-                </CustomText>
-              </CustomView>
-            </CustomModal>
-          )}
-        {payTokenValue &&
-          this.state.showSendPaidCredentialRequestFailModal && (
-            <PaymentFailureModal
-              isModalVisible={
-                claimRequestStatus ===
-                CLAIM_REQUEST_STATUS.PAID_CREDENTIAL_REQUEST_FAIL
-              }
-              connectionName={issuer.name}
-              testID={`${testID}-payment-failure-modal`}
-              onClose={this.close}
-              onRetry={this.onAccept}
-            />
-          )}
-        {payTokenValue && this.state.showLedgerFeesModal ? (
-          <LedgerFeesModal
-            isVisible={true}
-            onNo={this.onRejectPaidCredTransaction}
-            onYes={this.onProceedPaidCredTransaction}
-          />
-        ) : null}
+
+        <CredentialOfferModal
+          isValid={isValid}
+          claimRequestStatus={claimRequestStatus}
+          onModalHide={this.onCredentialOfferModalHide}
+          claimOfferData={claimOfferData}
+          onClose={this.close}
+          senderLogoUrl={logoUrl}
+          payTokenValue={payTokenValue}
+          credentialOfferModalStatus={this.state.credentialOfferModalStatus}
+          testID={`${testID}-payment-failure-modal`}
+          onRetry={this.onAccept}
+          onNo={this.onRejectPaidCredTransaction}
+          onYes={this.onProceedPaidCredTransaction}
+        />
       </Container>
     )
   }

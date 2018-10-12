@@ -66,10 +66,6 @@ export const WrongPinText = (
 )
 
 export class LockEnter extends PureComponent<LockEnterProps, LockEnterState> {
-  state = {
-    interactionsDone: false,
-  }
-
   pinCodeBox = null
 
   clearFailStatus = () => {
@@ -101,10 +97,6 @@ export class LockEnter extends PureComponent<LockEnterProps, LockEnterState> {
     if (this.props.checkPinStatus === CHECK_PIN_SUCCESS) {
       this.clearFailStatus()
     }
-
-    InteractionManager.runAfterInteractions(() => {
-      this.setState({ interactionsDone: true })
-    })
   }
 
   render() {
@@ -157,14 +149,12 @@ export class LockEnter extends PureComponent<LockEnterProps, LockEnterState> {
               </CustomText>
             </CustomView>
             <CustomView center>
-              {this.state.interactionsDone && (
-                <PinCodeBox
-                  ref={pinCodeBox => {
-                    this.pinCodeBox = pinCodeBox
-                  }}
-                  onPinComplete={this.onPinComplete}
-                />
-              )}
+              <PinCodeBox
+                ref={pinCodeBox => {
+                  this.pinCodeBox = pinCodeBox
+                }}
+                onPinComplete={this.onPinComplete}
+              />
             </CustomView>
             <CustomView center doubleVerticalSpace>
               <CustomText
@@ -193,14 +183,12 @@ export class LockEnter extends PureComponent<LockEnterProps, LockEnterState> {
               {checkPinStatus === CHECK_PIN_FAIL && WrongPinText}
             </CustomView>
             <CustomView center>
-              {this.state.interactionsDone && (
-                <PinCodeBox
-                  ref={pinCodeBox => {
-                    this.pinCodeBox = pinCodeBox
-                  }}
-                  onPinComplete={this.onPinComplete}
-                />
-              )}
+              <PinCodeBox
+                ref={pinCodeBox => {
+                  this.pinCodeBox = pinCodeBox
+                }}
+                onPinComplete={this.onPinComplete}
+              />
             </CustomView>
           </Container>
         )}
