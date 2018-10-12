@@ -13,8 +13,8 @@ export type OfflineStatus = {
 }
 
 export type OfflineProps = {
-  overlay: boolean,
+  overlay?: boolean,
   isOffline: boolean,
   offline: (offline: boolean) => void,
-  render: (connection: boolean | null) => void,
+  render?: (isConnected: ?boolean) => any,
 }

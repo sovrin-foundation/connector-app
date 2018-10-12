@@ -11,9 +11,7 @@ import { getOfflineStatus } from '../store/store-selector'
 import { Container } from '../components'
 import VectorIcon from '../components/vector-icon/vector-icon'
 
-export class Offline extends PureComponent<OfflineProps, void> {
-  connection: boolean | null
-
+export class Offline extends PureComponent<OfflineProps> {
   componentDidMount() {
     NetInfo.isConnected.addEventListener(
       'connectionChange',
@@ -29,12 +27,7 @@ export class Offline extends PureComponent<OfflineProps, void> {
   }
 
   handleConnectivityChange = (isConnected: boolean) => {
-    if (isConnected) {
-      this.props.offline(false)
-      this.connection = isConnected
-    } else {
-      this.props.offline(true)
-    }
+    this.props.offline(!isConnected)
   }
 
   render() {
@@ -42,8 +35,8 @@ export class Offline extends PureComponent<OfflineProps, void> {
     // Will only render if it's passed the banner prop. This allows us to add the component
     // to the app root so that it's the only one setting/removing the connectionChange event listener
 
-    if (isOffline && !overlay) {
-      return render(this.connection)
+    if (isOffline && !overlay && render) {
+      return render(!isOffline)
     }
 
     if (isOffline && overlay) {
@@ -64,13 +57,7 @@ const mapStateToProps = (state: Store) => ({
   isOffline: getOfflineStatus(state),
 })
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      offline,
-    },
-    dispatch
-  )
+const mapDispatchToProps = dispatch => bindActionCreators({ offline }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Offline)
 
