@@ -216,7 +216,7 @@ export class QRCodeScannerScreen extends PureComponent<
   }
 
   updateStatusBarTheme() {
-    if (this.props.navigation.isFocused) {
+    if (this.props.navigation.isFocused()) {
       StatusBar.setBarStyle(barStyleLight, true)
       if (Platform.OS === 'android') {
         StatusBar.setBackgroundColor(color.bg.sixth.color)

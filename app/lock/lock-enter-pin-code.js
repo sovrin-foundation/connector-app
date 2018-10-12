@@ -83,7 +83,7 @@ export class LockEnterPin extends PureComponent<
     }
 
     // we are removing the keyboard listener every time we navigate out of this screen.
-    if (nextProps.navigation.isFocused) {
+    if (nextProps.navigation.isFocused()) {
       if (!this.keyboardListener) {
         this.keyboardListener = Keyboard.addListener(
           'keyboardDidHide',

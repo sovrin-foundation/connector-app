@@ -106,11 +106,6 @@ export class LockPinSetup extends PureComponent<
 
   onPinSetup = (pin: string) => {
     this.props.setPinAction(pin)
-    this.setState({
-      pinSetupState: PIN_SETUP_STATE.INITIAL,
-      pinReEnterSuccessPin: null,
-      keyboardHidden: false,
-    })
     this.props.navigation.state &&
     this.props.navigation.state.params &&
     this.props.navigation.state.params.existingPin === true
@@ -190,13 +185,12 @@ export class LockPinSetup extends PureComponent<
     if (
       this.state.keyboardHidden &&
       this.state.pinSetupState === PIN_SETUP_STATE.REENTER_SUCCESS &&
-      this.props.navigation.isFocused
+      this.props.navigation.isFocused()
     ) {
       const pin = this.state.pinReEnterSuccessPin || ''
       this.onPinSetup(pin)
     }
-
-    if (this.props.navigation.isFocused) {
+    if (this.props.navigation.isFocused()) {
       if (!this.keyboardDidHideListener && !this.keyboardDidShowListener) {
         this.keyboardDidHideListener = Keyboard.addListener(
           'keyboardDidHide',
@@ -212,6 +206,13 @@ export class LockPinSetup extends PureComponent<
         )
       }
     } else {
+      if (this.state.pinSetupState === PIN_SETUP_STATE.REENTER_SUCCESS) {
+        this.setState({
+          pinSetupState: PIN_SETUP_STATE.INITIAL,
+          pinReEnterSuccessPin: null,
+          keyboardHidden: false,
+        })
+      }
       this.keyboardDidShowListener && this.keyboardDidShowListener.remove()
       this.keyboardDidHideListener && this.keyboardDidHideListener.remove()
     }
@@ -269,6 +270,7 @@ export class LockPinSetup extends PureComponent<
         <CustomView style={[styles.title]}>
           {pinSetupState === PIN_SETUP_STATE.INITIAL && EnterPinText}
           {pinSetupState === PIN_SETUP_STATE.REENTER && ReEnterPinText}
+          {pinSetupState === PIN_SETUP_STATE.REENTER_SUCCESS && ReEnterPinText}
           {pinSetupState === PIN_SETUP_STATE.REENTER_FAIL && ReEnterPinFailText}
         </CustomView>
         <CustomView center>
