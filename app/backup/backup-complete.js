@@ -71,14 +71,12 @@ export class BackupComplete extends PureComponent<BackupCompleteProps, void> {
                 Backup Complete
               </CustomText>
             </CustomView>
-            <CustomView
-              center
-              doubleVerticalSpace={isBiggerThanVeryShortDevice ? true : false}
-            >
+            <CustomView center>
               <Image source={successCheck} />
             </CustomView>
             <CustomView horizontalSpace>
               <CustomView
+                verticalSpace
                 doubleVerticalSpace={isBiggerThanVeryShortDevice ? true : false}
               >
                 <CustomText
@@ -91,7 +89,9 @@ export class BackupComplete extends PureComponent<BackupCompleteProps, void> {
                   file.
                 </CustomText>
               </CustomView>
-              <CustomView doubleVerticalSpace>
+              <CustomView
+                doubleVerticalSpace={isBiggerThanVeryShortDevice ? true : false}
+              >
                 <CustomText
                   transparentBg
                   center

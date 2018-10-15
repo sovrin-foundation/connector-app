@@ -31,18 +31,18 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   headerIcon: {
-    marginRight: PADDING_HORIZONTAL,
-    marginTop: 15,
+    marginRight: isBiggerThanShortDevice ? 5 : 0,
+    marginTop: isBiggerThanShortDevice ? 15 : 5,
     alignSelf: 'flex-end',
   },
   headerBackIcon: {
-    marginLeft: PADDING_HORIZONTAL,
-    marginTop: 15,
-    alignSelf: 'flex-end',
+    marginLeft: isBiggerThanShortDevice ? 5 : 0,
+    marginTop: isBiggerThanShortDevice ? 15 : 5,
+    alignSelf: 'flex-start',
   },
   headerSpacer: {
     height: '100%',
-    width: SPACE_FILLER,
+    width: isBiggerThanShortDevice ? SPACE_FILLER : SPACE_FILLER * 3 / 4,
   },
   showRecoveryPassphrase: {
     width: '86%',
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     fontSize: isBiggerThanShortDevice ? 18 : 16,
     lineHeight: isBiggerThanShortDevice ? 22 : 20,
     fontWeight: '500',
-    marginBottom: isBiggerThanShortDevice ? 20 : 0,
+    marginBottom: isBiggerThanShortDevice ? 20 : 5,
   },
   genRecoverySecondMessage: {
     paddingHorizontal: 20,
@@ -118,8 +118,8 @@ const styles = StyleSheet.create({
   },
   exportBackupMainText: {
     paddingHorizontal: 10,
-    fontSize: 18,
-    lineHeight: 22,
+    fontSize: isBiggerThanShortDevice ? 18 : 16,
+    lineHeight: isBiggerThanShortDevice ? 22 : 20,
     fontWeight: '500',
   },
   inputBox: {
@@ -159,16 +159,16 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: '600',
-    lineHeight: 27,
-    fontSize: 22,
-    marginBottom: 20,
+    lineHeight: isBiggerThanShortDevice ? 27 : 22,
+    fontSize: isBiggerThanShortDevice ? 22 : 20,
+    marginBottom: isBiggerThanShortDevice ? 20 : 10,
     width: '100%',
   },
   exportBackupTitle: {
     fontWeight: '600',
-    lineHeight: 27,
-    fontSize: 22,
-    marginBottom: isBiggerThanShortDevice ? 30 : 0,
+    lineHeight: isBiggerThanShortDevice ? 27 : 22,
+    fontSize: isBiggerThanShortDevice ? 22 : 20,
+    marginBottom: isBiggerThanShortDevice ? 30 : 10,
     marginTop: isBiggerThanShortDevice ? 10 : 0,
     maxWidth: 290,
   },
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
   },
   imageIconEncryptFile: {
     resizeMode: 'contain',
-    width: '100%',
+    width: isBiggerThanShortDevice ? '100%' : '80%',
     marginBottom: isBiggerThanShortDevice ? 20 : 0,
   },
 })

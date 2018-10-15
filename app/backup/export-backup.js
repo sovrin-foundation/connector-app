@@ -168,7 +168,8 @@ export class ExportBackupFile extends PureComponent<
           </CustomView>
           <CustomView
             center
-            verticalSpace={isBiggerThanVeryShortDevice ? true : false}
+            verticalSpace
+            doubleVerticalSpace={isBiggerThanVeryShortDevice ? true : false}
           >
             <CustomText
               center
@@ -184,7 +185,7 @@ export class ExportBackupFile extends PureComponent<
           {this.BackupPath(backupPath)}
         </Container>
 
-        <CustomView verticalSpace>
+        <CustomView verticalSpace={isBiggerThanVeryShortDevice ? true : false}>
           <CustomView center>
             <CustomText
               center

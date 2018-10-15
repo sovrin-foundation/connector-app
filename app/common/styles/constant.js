@@ -250,7 +250,7 @@ export const responsiveHorizontalPadding = isSmallWidthDevice
   ? 5
   : PADDING_HORIZONTAL
 export const SHORT_DEVICE = 600
-export const VERY_SHORT_DEVICE = 550
+export const VERY_SHORT_DEVICE = 570
 export const errorBoxVerifyPassphraseContainer = height > SHORT_DEVICE ? 60 : 90
 export const dangerBannerHeight = height > SHORT_DEVICE ? 64 : 90
 export const inputBoxVerifyPassphraseHeight =

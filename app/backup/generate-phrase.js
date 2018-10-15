@@ -129,12 +129,12 @@ export class GenerateRecoveryPhrase extends PureComponent<
       >
         <CustomView />
 
-        <CustomView style={[styles.genRecoveryHeader]}>
+        <CustomView style={[styles.headerSpacer]}>
           <Icon
             medium
             onPress={() => navigation.goBack(null)}
             testID={RECOVERY_PHRASE_CLOSE_TEST_ID}
-            iconStyle={[styles.headerCloseIcon]}
+            iconStyle={[styles.headerIcon]}
             src={closeImage}
           />
         </CustomView>
