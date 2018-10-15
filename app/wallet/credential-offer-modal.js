@@ -7,6 +7,7 @@ import {
   CustomText,
   CustomButton,
   Container,
+  CustomModal,
 } from '../components'
 import {
   OFFSET_1X,
@@ -37,63 +38,8 @@ export default class CredentialOfferModal extends PureComponent<
   CredentialOfferModalProps,
   CredentialOfferModalState
 > {
-  state = {
-    isVisible: false,
-  }
-
-  visibleStates = [
-    CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST,
-    CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS,
-    CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST,
-    CLAIM_REQUEST_STATUS.PAID_CREDENTIAL_REQUEST_SUCCESS,
-    CLAIM_REQUEST_STATUS.SEND_CLAIM_REQUEST_SUCCESS,
-  ]
-
-  noInitialStatesVisible = [
-    CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST,
-    CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST,
-  ]
-
-  componentDidMount() {
-    // if modal is opened when it was unmounted or freshly mounted
-    if (
-      this.noInitialStatesVisible.indexOf(this.props.claimRequestStatus) < 0 &&
-      this.props.claimRequestStatus != null
-    ) {
-      this.toggleModal(this.props.claimRequestStatus)
-    } else {
-      this.hideModal()
-    }
-  }
-
-  componentDidUpdate(prevProps: CredentialOfferModalProps) {
-    if (
-      this.props.claimRequestStatus !== prevProps.claimRequestStatus &&
-      this.props.claimRequestStatus != null
-    ) {
-      // if component was not unmounted, and claim request status updates
-      this.toggleModal(this.props.claimRequestStatus)
-    }
-  }
   onContinue = () => {
-    this.hideModal()
     this.props.onClose()
-  }
-
-  showModal() {
-    this.setState({ isVisible: true })
-  }
-
-  hideModal() {
-    this.setState({ isVisible: false })
-  }
-
-  toggleModal(claimRequestStatus: ClaimRequestStatus) {
-    if (this.visibleStates.indexOf(claimRequestStatus) > -1) {
-      this.showModal()
-    } else {
-      this.hideModal()
-    }
   }
 
   render() {
@@ -111,11 +57,9 @@ export default class CredentialOfferModal extends PureComponent<
       connectionName,
     } = this.props
     return (
-      <Modal
-        backdropOpacity={0.7}
+      <CustomModal
         backdropColor={whiteSmoke}
         isVisible={
-          this.state.isVisible ||
           credentialOfferModalStatus !== CREDENTIAL_OFFER_MODAL_STATUS.NONE
         }
         animationIn="zoomIn"
@@ -126,6 +70,8 @@ export default class CredentialOfferModal extends PureComponent<
         onBackButtonPress={this.props.onClose}
         onBackdropPress={this.props.onClose}
         onModalHide={this.props.onModalHide}
+        fullScreen
+        testID={'credential-offer-modal'}
       >
         {isValid &&
           credentialOfferModalStatus ===
@@ -174,10 +120,11 @@ export default class CredentialOfferModal extends PureComponent<
               />
             </CustomView>
           )}
-        {this.state.isVisible &&
-          claimRequestStatus &&
+        {claimRequestStatus &&
           claimOfferData &&
-          isValid && (
+          isValid &&
+          credentialOfferModalStatus ===
+            CREDENTIAL_OFFER_MODAL_STATUS.CREDENTIAL_REQUEST_STATUS && (
             <ClaimRequestStatusModal
               claimRequestStatus={claimRequestStatus}
               payload={claimOfferData}
@@ -193,6 +140,7 @@ export default class CredentialOfferModal extends PureComponent<
                 claimRequestStatus ===
                 CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
               }
+              onModalHide={this.props.onModalHide}
             />
           )}
 
@@ -223,7 +171,7 @@ export default class CredentialOfferModal extends PureComponent<
             renderFeesText={this.props.renderFeesText}
           />
         ) : null}
-      </Modal>
+      </CustomModal>
     )
   }
 }

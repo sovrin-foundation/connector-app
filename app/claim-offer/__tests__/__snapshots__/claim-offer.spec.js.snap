@@ -926,15 +926,26 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
     animationIn="zoomIn"
     animationOut="zoomOut"
     animationOutTiming={100}
-    backdropColor="#f0f0f0"
-    backdropOpacity={0.7}
+    backdropColor="#ffffff"
+    backdropOpacity={1}
     hideModalContentWhileAnimating={true}
     isVisible={false}
-    onBackButtonPress={[Function]}
-    onBackdropPress={[Function]}
     onModalHide={[Function]}
     useNativeDriver={true}
-  />
+  >
+    <View
+      fifth={true}
+      style={
+        Object {
+          "backgroundColor": "#ffffff",
+        }
+      }
+    >
+      <View
+        style={Object {}}
+      />
+    </View>
+  </Modal>
 </View>
 `;
 
@@ -2099,14 +2110,25 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
     animationIn="zoomIn"
     animationOut="zoomOut"
     animationOutTiming={100}
-    backdropColor="#f0f0f0"
-    backdropOpacity={0.7}
+    backdropColor="#ffffff"
+    backdropOpacity={1}
     hideModalContentWhileAnimating={true}
     isVisible={false}
-    onBackButtonPress={[Function]}
-    onBackdropPress={[Function]}
     onModalHide={[Function]}
     useNativeDriver={true}
-  />
+  >
+    <View
+      fifth={true}
+      style={
+        Object {
+          "backgroundColor": "#ffffff",
+        }
+      }
+    >
+      <View
+        style={Object {}}
+      />
+    </View>
+  </Modal>
 </View>
 `;

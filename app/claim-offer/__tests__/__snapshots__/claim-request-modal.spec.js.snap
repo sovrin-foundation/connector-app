@@ -1,988 +1,1043 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ClaimRequestStatusModal /> should hideModal if continue is clicked 1`] = `null`;
-
-exports[`<ClaimRequestStatusModal /> should match paid credential success, if sending state changes to success 1`] = `
-<Modal
-  animationIn="zoomIn"
-  animationOut="zoomOut"
-  animationOutTiming={100}
-  backdropColor="#ffffff"
-  backdropOpacity={1}
-  hideModalContentWhileAnimating={true}
-  isVisible={true}
-  onModalHide={[Function]}
-  useNativeDriver={true}
->
-  <View
-    fifth={true}
-    style={
-      Object {
-        "backgroundColor": "#ffffff",
-      }
+exports[`<ClaimRequestStatusModal /> should hideModal if continue is clicked 1`] = `
+<View
+  center={true}
+  fifth={true}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+      "justifyContent": "center",
     }
-  >
-    <View
-      style={Object {}}
-    >
-      <View
-        center={true}
-        fifth={true}
-        shadow={true}
-        style={
-          Object {
-            "alignItems": "center",
-            "backgroundColor": "#ffffff",
-            "elevation": 10,
-            "height": "90%",
-            "justifyContent": "center",
-            "marginHorizontal": 10,
-            "padding": 20,
-            "shadowColor": "rgba(0, 0, 0, 0.2)",
-            "shadowOffset": Object {
-              "height": 10,
-              "width": 0,
-            },
-            "shadowOpacity": 1,
-            "shadowRadius": 30,
-          }
-        }
-      >
-        <View
-          center={true}
-          style={
-            Object {
-              "alignItems": "center",
-              "height": "90%",
-              "justifyContent": "center",
-              "marginHorizontal": 10,
-              "padding": 20,
-            }
-          }
-        >
-          <Text
-            accessibilityLabel="claim-request-message"
-            accessible={true}
-            allowFontScaling={false}
-            ellipsizeMode="tail"
-            style={
-              Array [
-                Object {
-                  "fontSize": 17,
-                },
-                Object {
-                  "fontFamily": "Lato",
-                },
-                Object {
-                  "backgroundColor": "#ffffff",
-                  "color": "#777777",
-                },
-                Object {
-                  "fontWeight": "bold",
-                },
-                Object {
-                  "textAlign": "center",
-                },
-                Object {
-                  "backgroundColor": "transparent",
-                },
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                Object {
-                  "marginBottom": 5,
-                },
-              ]
-            }
-            testID="claim-request-message"
-          />
-          <View
-            center={true}
-            style={
-              Object {
-                "alignItems": "center",
-                "flex": 1,
-                "justifyContent": "center",
-                "padding": 20,
-              }
-            }
-          >
-            <Image
-              collapsable={undefined}
-              source={1}
-              style={
-                Object {
-                  "height": 30,
-                  "tintColor": "#777777",
-                  "transform": Array [
-                    Object {
-                      "rotate": "0deg",
-                    },
-                  ],
-                  "width": 30,
-                }
-              }
-            />
-            <Text
-              accessible={true}
-              allowFontScaling={false}
-              ellipsizeMode="tail"
-              style={
-                Array [
-                  Object {
-                    "fontSize": 17,
-                  },
-                  Object {
-                    "fontFamily": "Lato",
-                  },
-                  Object {
-                    "backgroundColor": "#333333",
-                    "color": "#ffffff",
-                  },
-                  null,
-                  Object {
-                    "textAlign": "center",
-                  },
-                  Object {
-                    "backgroundColor": "transparent",
-                  },
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  Object {
-                    "color": "#464646",
-                  },
-                  Object {
-                    "fontSize": 17,
-                    "fontWeight": "500",
-                    "letterSpacing": -0.42,
-                    "lineHeight": 21,
-                    "marginTop": 20,
-                  },
-                ]
-              }
-            >
-              Please wait…
-            </Text>
-          </View>
-        </View>
-      </View>
-    </View>
-  </View>
-</Modal>
-`;
-
-exports[`<ClaimRequestStatusModal /> should match snapshot when pending popOver 1`] = `
-<Modal
-  animationIn="zoomIn"
-  animationOut="zoomOut"
-  animationOutTiming={100}
-  backdropColor="#ffffff"
-  backdropOpacity={1}
-  hideModalContentWhileAnimating={true}
-  isVisible={true}
-  onModalHide={[Function]}
-  useNativeDriver={true}
+  }
 >
-  <View
-    fifth={true}
-    shadow={true}
+  <Text
+    accessibilityLabel="claim-request-message"
+    accessible={true}
+    allowFontScaling={false}
+    ellipsizeMode="tail"
     style={
-      Object {
-        "backgroundColor": "#ffffff",
-        "elevation": 10,
-        "marginHorizontal": 10,
-        "shadowColor": "rgba(0, 0, 0, 0.2)",
-        "shadowOffset": Object {
-          "height": 10,
-          "width": 0,
+      Array [
+        Object {
+          "fontSize": 17,
         },
-        "shadowOpacity": 1,
-        "shadowRadius": 30,
+        Object {
+          "fontFamily": "Lato",
+        },
+        Object {
+          "backgroundColor": "#ffffff",
+          "color": "#777777",
+        },
+        Object {
+          "fontWeight": "bold",
+        },
+        Object {
+          "textAlign": "center",
+        },
+        Object {
+          "backgroundColor": "transparent",
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        Object {
+          "marginBottom": 5,
+        },
+      ]
+    }
+    testID="claim-request-message"
+  />
+  <View
+    center={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+        "padding": 20,
       }
     }
   >
-    <View
+    <Image
+      collapsable={undefined}
+      source={1}
       style={
         Object {
-          "borderBottomColor": "#3f3f3f",
-          "borderBottomWidth": 0.2,
-          "paddingVertical": 10,
+          "height": 30,
+          "tintColor": "#777777",
+          "transform": Array [
+            Object {
+              "rotate": "0deg",
+            },
+          ],
+          "width": 30,
         }
       }
-    >
-      <View
-        center={true}
-        fifth={true}
-        shadow={true}
-        style={
-          Object {
-            "alignItems": "center",
-            "backgroundColor": "#ffffff",
-            "elevation": 10,
-            "height": "90%",
-            "justifyContent": "center",
-            "marginHorizontal": 10,
-            "padding": 20,
-            "shadowColor": "rgba(0, 0, 0, 0.2)",
-            "shadowOffset": Object {
-              "height": 10,
-              "width": 0,
-            },
-            "shadowOpacity": 1,
-            "shadowRadius": 30,
-          }
-        }
-      >
-        <View
-          center={true}
-          style={
-            Object {
-              "alignItems": "center",
-              "height": "90%",
-              "justifyContent": "center",
-              "marginHorizontal": 10,
-              "padding": 20,
-            }
-          }
-        >
-          <Text
-            accessibilityLabel="claim-request-message"
-            accessible={true}
-            allowFontScaling={false}
-            ellipsizeMode="tail"
-            style={
-              Array [
-                Object {
-                  "fontSize": 17,
-                },
-                Object {
-                  "fontFamily": "Lato",
-                },
-                Object {
-                  "backgroundColor": "#ffffff",
-                  "color": "#777777",
-                },
-                null,
-                Object {
-                  "textAlign": "center",
-                },
-                Object {
-                  "backgroundColor": "transparent",
-                },
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                Object {
-                  "marginBottom": 5,
-                },
-              ]
-            }
-            testID="claim-request-message"
-          >
-            As soon as 
-          </Text>
-          <Text
-            accessibilityLabel="claim-request-message"
-            accessible={true}
-            allowFontScaling={false}
-            ellipsizeMode="tail"
-            style={
-              Array [
-                Object {
-                  "fontSize": 17,
-                },
-                Object {
-                  "fontFamily": "Lato",
-                },
-                Object {
-                  "backgroundColor": "#ffffff",
-                  "color": "#777777",
-                },
-                Object {
-                  "fontWeight": "bold",
-                },
-                Object {
-                  "textAlign": "center",
-                },
-                Object {
-                  "backgroundColor": "transparent",
-                },
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                Object {
-                  "marginBottom": 5,
-                },
-              ]
-            }
-            testID="claim-request-message"
-          />
-          <Text
-            accessibilityLabel="claim-request-message"
-            accessible={true}
-            allowFontScaling={false}
-            ellipsizeMode="tail"
-            style={
-              Array [
-                Object {
-                  "fontSize": 17,
-                },
-                Object {
-                  "fontFamily": "Lato",
-                },
-                Object {
-                  "backgroundColor": "#ffffff",
-                  "color": "#777777",
-                },
-                null,
-                Object {
-                  "textAlign": "center",
-                },
-                Object {
-                  "backgroundColor": "transparent",
-                },
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                Object {
-                  "marginBottom": 5,
-                },
-              ]
-            }
-            testID="claim-request-message"
-          >
-             signs and issues 
-          </Text>
-          <Text
-            accessibilityLabel="claim-request-message"
-            accessible={true}
-            allowFontScaling={false}
-            ellipsizeMode="tail"
-            style={
-              Array [
-                Object {
-                  "fontSize": 17,
-                },
-                Object {
-                  "fontFamily": "Lato",
-                },
-                Object {
-                  "backgroundColor": "#ffffff",
-                  "color": "#777777",
-                },
-                Object {
-                  "fontWeight": "bold",
-                },
-                Object {
-                  "textAlign": "center",
-                },
-                Object {
-                  "backgroundColor": "transparent",
-                },
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                Object {
-                  "marginBottom": 5,
-                },
-              ]
-            }
-            testID="claim-request-message"
-          >
-            "Home Address"
-          </Text>
-          <View
-            center={true}
-            style={
-              Object {
-                "alignItems": "center",
-                "flex": 1,
-                "justifyContent": "center",
-                "padding": 20,
-              }
-            }
-          >
-            <Image
-              collapsable={undefined}
-              source={1}
-              style={
-                Object {
-                  "height": 30,
-                  "tintColor": "#777777",
-                  "transform": Array [
-                    Object {
-                      "rotate": "0deg",
-                    },
-                  ],
-                  "width": 30,
-                }
-              }
-            />
-            <Text
-              accessible={true}
-              allowFontScaling={false}
-              ellipsizeMode="tail"
-              style={
-                Array [
-                  Object {
-                    "fontSize": 17,
-                  },
-                  Object {
-                    "fontFamily": "Lato",
-                  },
-                  Object {
-                    "backgroundColor": "#333333",
-                    "color": "#ffffff",
-                  },
-                  null,
-                  Object {
-                    "textAlign": "center",
-                  },
-                  Object {
-                    "backgroundColor": "transparent",
-                  },
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  Object {
-                    "color": "#464646",
-                  },
-                  Object {
-                    "fontSize": 17,
-                    "fontWeight": "500",
-                    "letterSpacing": -0.42,
-                    "lineHeight": 21,
-                    "marginTop": 20,
-                  },
-                ]
-              }
-            >
-              Please wait…
-            </Text>
-          </View>
-        </View>
-      </View>
-    </View>
-    <View
+    />
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
       style={
         Array [
           Object {
-            "marginLeft": 15,
-            "marginRight": 15,
+            "fontSize": 17,
           },
-          undefined,
           Object {
-            "marginLeft": 0,
-            "marginRight": 0,
+            "fontFamily": "Lato",
           },
-          undefined,
+          Object {
+            "backgroundColor": "#333333",
+            "color": "#ffffff",
+          },
+          null,
+          Object {
+            "textAlign": "center",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "color": "#464646",
+          },
+          Object {
+            "fontSize": 17,
+            "fontWeight": "500",
+            "letterSpacing": -0.42,
+            "lineHeight": 21,
+            "marginTop": 20,
+          },
         ]
       }
     >
-      <View
-        accessibilityComponentType={undefined}
-        accessibilityLabel="claim-request-success-continue"
-        accessibilityTraits={undefined}
-        accessible={true}
-        hasTVPreferredFocus={undefined}
-        hitSlop={undefined}
-        isTVSelectable={true}
-        nativeID={undefined}
-        onLayout={undefined}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Array [
-            Object {
-              "backgroundColor": "transparent",
-            },
-            undefined,
-          ]
-        }
-        testID="claim-request-success-continue"
-        tvParallaxProperties={undefined}
-      >
-        <View
-          pointerEvents="box-only"
-          style={
-            Array [
-              Object {
-                "alignItems": "center",
-                "backgroundColor": "#9E9E9E",
-                "flexDirection": "row",
-                "justifyContent": "center",
-                "padding": 19,
-              },
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              undefined,
-              Object {
-                "backgroundColor": "#ffffff",
-              },
-              undefined,
-              Object {
-                "padding": 12,
-              },
-              undefined,
-              undefined,
-              undefined,
-              Array [
-                null,
-              ],
-              undefined,
-              undefined,
-            ]
-          }
-        >
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Array [
-                Object {},
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                Array [
-                  Object {
-                    "color": "white",
-                    "fontSize": 16,
-                  },
-                  Object {
-                    "color": "#4A8FE3",
-                  },
-                  Object {
-                    "fontSize": 14,
-                  },
-                  undefined,
-                  Object {
-                    "fontWeight": "bold",
-                  },
-                  undefined,
-                  undefined,
-                  undefined,
-                ],
-              ]
-            }
-          >
-            Continue
-          </Text>
-        </View>
-      </View>
-    </View>
+      Please wait…
+    </Text>
   </View>
-</Modal>
+</View>
 `;
 
-exports[`<ClaimRequestStatusModal /> should show arrow right and accepting text, if claim request is being sent 1`] = `null`;
-
-exports[`<ClaimRequestStatusModal /> should show arrow right and only Paying text if paid credential request is being sent 1`] = `null`;
-
-exports[`<ClaimRequestStatusModal /> should show check mark, token amount, if paid credential request is sent 1`] = `
-<Modal
-  animationIn="zoomIn"
-  animationOut="zoomOut"
-  animationOutTiming={100}
-  backdropColor="#ffffff"
-  backdropOpacity={1}
-  hideModalContentWhileAnimating={true}
-  isVisible={true}
-  onModalHide={[Function]}
-  useNativeDriver={true}
+exports[`<ClaimRequestStatusModal /> should match paid credential success, if sending state changes to success 1`] = `
+<View
+  center={true}
+  fifth={true}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
 >
+  <Text
+    accessibilityLabel="claim-request-message"
+    accessible={true}
+    allowFontScaling={false}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Object {
+          "fontSize": 17,
+        },
+        Object {
+          "fontFamily": "Lato",
+        },
+        Object {
+          "backgroundColor": "#ffffff",
+          "color": "#777777",
+        },
+        Object {
+          "fontWeight": "bold",
+        },
+        Object {
+          "textAlign": "center",
+        },
+        Object {
+          "backgroundColor": "transparent",
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        Object {
+          "marginBottom": 5,
+        },
+      ]
+    }
+    testID="claim-request-message"
+  />
   <View
-    fifth={true}
+    center={true}
     style={
       Object {
-        "backgroundColor": "#ffffff",
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+        "padding": 20,
       }
     }
   >
-    <View
-      style={Object {}}
-    >
-      <View
-        center={true}
-        fifth={true}
-        shadow={true}
-        style={
-          Object {
-            "alignItems": "center",
-            "backgroundColor": "#ffffff",
-            "elevation": 10,
-            "height": "90%",
-            "justifyContent": "center",
-            "marginHorizontal": 10,
-            "padding": 20,
-            "shadowColor": "rgba(0, 0, 0, 0.2)",
-            "shadowOffset": Object {
-              "height": 10,
-              "width": 0,
-            },
-            "shadowOpacity": 1,
-            "shadowRadius": 30,
-          }
-        }
-      >
-        <View
-          center={true}
-          style={
+    <Image
+      collapsable={undefined}
+      source={1}
+      style={
+        Object {
+          "height": 30,
+          "tintColor": "#777777",
+          "transform": Array [
             Object {
-              "alignItems": "center",
-              "height": "90%",
-              "justifyContent": "center",
-              "marginHorizontal": 10,
-              "padding": 20,
-            }
-          }
-        >
-          <Text
-            accessibilityLabel="claim-request-message"
-            accessible={true}
-            allowFontScaling={false}
-            ellipsizeMode="tail"
-            style={
-              Array [
-                Object {
-                  "fontSize": 17,
-                },
-                Object {
-                  "fontFamily": "Lato",
-                },
-                Object {
-                  "backgroundColor": "#ffffff",
-                  "color": "#777777",
-                },
-                Object {
-                  "fontWeight": "bold",
-                },
-                Object {
-                  "textAlign": "center",
-                },
-                Object {
-                  "backgroundColor": "transparent",
-                },
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                Object {
-                  "marginBottom": 5,
-                },
-              ]
-            }
-            testID="claim-request-message"
-          />
-          <View
-            center={true}
-            style={
-              Object {
-                "alignItems": "center",
-                "flex": 1,
-                "justifyContent": "center",
-                "padding": 20,
-              }
-            }
-          >
-            <Image
-              collapsable={undefined}
-              source={1}
-              style={
-                Object {
-                  "height": 30,
-                  "tintColor": "#777777",
-                  "transform": Array [
-                    Object {
-                      "rotate": "0deg",
-                    },
-                  ],
-                  "width": 30,
-                }
-              }
-            />
-            <Text
-              accessible={true}
-              allowFontScaling={false}
-              ellipsizeMode="tail"
-              style={
-                Array [
-                  Object {
-                    "fontSize": 17,
-                  },
-                  Object {
-                    "fontFamily": "Lato",
-                  },
-                  Object {
-                    "backgroundColor": "#333333",
-                    "color": "#ffffff",
-                  },
-                  null,
-                  Object {
-                    "textAlign": "center",
-                  },
-                  Object {
-                    "backgroundColor": "transparent",
-                  },
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  Object {
-                    "color": "#464646",
-                  },
-                  Object {
-                    "fontSize": 17,
-                    "fontWeight": "500",
-                    "letterSpacing": -0.42,
-                    "lineHeight": 21,
-                    "marginTop": 20,
-                  },
-                ]
-              }
-            >
-              Please wait…
-            </Text>
-          </View>
-        </View>
-      </View>
-    </View>
+              "rotate": "0deg",
+            },
+          ],
+          "width": 30,
+        }
+      }
+    />
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#333333",
+            "color": "#ffffff",
+          },
+          null,
+          Object {
+            "textAlign": "center",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "color": "#464646",
+          },
+          Object {
+            "fontSize": 17,
+            "fontWeight": "500",
+            "letterSpacing": -0.42,
+            "lineHeight": 21,
+            "marginTop": 20,
+          },
+        ]
+      }
+    >
+      Please wait…
+    </Text>
   </View>
-</Modal>
+</View>
+`;
+
+exports[`<ClaimRequestStatusModal /> should match snapshot when pending popOver 1`] = `
+<View
+  center={true}
+  fifth={true}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    accessibilityLabel="claim-request-message"
+    accessible={true}
+    allowFontScaling={false}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Object {
+          "fontSize": 17,
+        },
+        Object {
+          "fontFamily": "Lato",
+        },
+        Object {
+          "backgroundColor": "#ffffff",
+          "color": "#777777",
+        },
+        null,
+        Object {
+          "textAlign": "center",
+        },
+        Object {
+          "backgroundColor": "transparent",
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        Object {
+          "marginBottom": 5,
+        },
+      ]
+    }
+    testID="claim-request-message"
+  >
+    As soon as 
+  </Text>
+  <Text
+    accessibilityLabel="claim-request-message"
+    accessible={true}
+    allowFontScaling={false}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Object {
+          "fontSize": 17,
+        },
+        Object {
+          "fontFamily": "Lato",
+        },
+        Object {
+          "backgroundColor": "#ffffff",
+          "color": "#777777",
+        },
+        Object {
+          "fontWeight": "bold",
+        },
+        Object {
+          "textAlign": "center",
+        },
+        Object {
+          "backgroundColor": "transparent",
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        Object {
+          "marginBottom": 5,
+        },
+      ]
+    }
+    testID="claim-request-message"
+  />
+  <Text
+    accessibilityLabel="claim-request-message"
+    accessible={true}
+    allowFontScaling={false}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Object {
+          "fontSize": 17,
+        },
+        Object {
+          "fontFamily": "Lato",
+        },
+        Object {
+          "backgroundColor": "#ffffff",
+          "color": "#777777",
+        },
+        null,
+        Object {
+          "textAlign": "center",
+        },
+        Object {
+          "backgroundColor": "transparent",
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        Object {
+          "marginBottom": 5,
+        },
+      ]
+    }
+    testID="claim-request-message"
+  >
+     signs and issues 
+  </Text>
+  <Text
+    accessibilityLabel="claim-request-message"
+    accessible={true}
+    allowFontScaling={false}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Object {
+          "fontSize": 17,
+        },
+        Object {
+          "fontFamily": "Lato",
+        },
+        Object {
+          "backgroundColor": "#ffffff",
+          "color": "#777777",
+        },
+        Object {
+          "fontWeight": "bold",
+        },
+        Object {
+          "textAlign": "center",
+        },
+        Object {
+          "backgroundColor": "transparent",
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        Object {
+          "marginBottom": 5,
+        },
+      ]
+    }
+    testID="claim-request-message"
+  >
+    "Home Address"
+  </Text>
+  <View
+    center={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+        "padding": 20,
+      }
+    }
+  >
+    <Image
+      collapsable={undefined}
+      source={1}
+      style={
+        Object {
+          "height": 30,
+          "tintColor": "#777777",
+          "transform": Array [
+            Object {
+              "rotate": "0deg",
+            },
+          ],
+          "width": 30,
+        }
+      }
+    />
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#333333",
+            "color": "#ffffff",
+          },
+          null,
+          Object {
+            "textAlign": "center",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "color": "#464646",
+          },
+          Object {
+            "fontSize": 17,
+            "fontWeight": "500",
+            "letterSpacing": -0.42,
+            "lineHeight": 21,
+            "marginTop": 20,
+          },
+        ]
+      }
+    >
+      Please wait…
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`<ClaimRequestStatusModal /> should show arrow right and accepting text, if claim request is being sent 1`] = `
+<View
+  center={true}
+  fifth={true}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    accessibilityLabel="claim-request-message"
+    accessible={true}
+    allowFontScaling={false}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Object {
+          "fontSize": 17,
+        },
+        Object {
+          "fontFamily": "Lato",
+        },
+        Object {
+          "backgroundColor": "#ffffff",
+          "color": "#777777",
+        },
+        Object {
+          "fontWeight": "bold",
+        },
+        Object {
+          "textAlign": "center",
+        },
+        Object {
+          "backgroundColor": "transparent",
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        Object {
+          "marginBottom": 5,
+        },
+      ]
+    }
+    testID="claim-request-message"
+  />
+  <View
+    center={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+        "padding": 20,
+      }
+    }
+  >
+    <Image
+      collapsable={undefined}
+      source={1}
+      style={
+        Object {
+          "height": 30,
+          "tintColor": "#777777",
+          "transform": Array [
+            Object {
+              "rotate": "0deg",
+            },
+          ],
+          "width": 30,
+        }
+      }
+    />
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#333333",
+            "color": "#ffffff",
+          },
+          null,
+          Object {
+            "textAlign": "center",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "color": "#464646",
+          },
+          Object {
+            "fontSize": 17,
+            "fontWeight": "500",
+            "letterSpacing": -0.42,
+            "lineHeight": 21,
+            "marginTop": 20,
+          },
+        ]
+      }
+    >
+      Please wait…
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`<ClaimRequestStatusModal /> should show arrow right and only Paying text if paid credential request is being sent 1`] = `
+<View
+  center={true}
+  fifth={true}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    accessibilityLabel="claim-request-message"
+    accessible={true}
+    allowFontScaling={false}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Object {
+          "fontSize": 17,
+        },
+        Object {
+          "fontFamily": "Lato",
+        },
+        Object {
+          "backgroundColor": "#ffffff",
+          "color": "#777777",
+        },
+        Object {
+          "fontWeight": "bold",
+        },
+        Object {
+          "textAlign": "center",
+        },
+        Object {
+          "backgroundColor": "transparent",
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        Object {
+          "marginBottom": 5,
+        },
+      ]
+    }
+    testID="claim-request-message"
+  />
+  <View
+    center={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+        "padding": 20,
+      }
+    }
+  >
+    <Image
+      collapsable={undefined}
+      source={1}
+      style={
+        Object {
+          "height": 30,
+          "tintColor": "#777777",
+          "transform": Array [
+            Object {
+              "rotate": "0deg",
+            },
+          ],
+          "width": 30,
+        }
+      }
+    />
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#333333",
+            "color": "#ffffff",
+          },
+          null,
+          Object {
+            "textAlign": "center",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "color": "#464646",
+          },
+          Object {
+            "fontSize": 17,
+            "fontWeight": "500",
+            "letterSpacing": -0.42,
+            "lineHeight": 21,
+            "marginTop": 20,
+          },
+        ]
+      }
+    >
+      Please wait…
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`<ClaimRequestStatusModal /> should show check mark, token amount, if paid credential request is sent 1`] = `
+<View
+  center={true}
+  fifth={true}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    accessibilityLabel="claim-request-message"
+    accessible={true}
+    allowFontScaling={false}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Object {
+          "fontSize": 17,
+        },
+        Object {
+          "fontFamily": "Lato",
+        },
+        Object {
+          "backgroundColor": "#ffffff",
+          "color": "#777777",
+        },
+        Object {
+          "fontWeight": "bold",
+        },
+        Object {
+          "textAlign": "center",
+        },
+        Object {
+          "backgroundColor": "transparent",
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        Object {
+          "marginBottom": 5,
+        },
+      ]
+    }
+    testID="claim-request-message"
+  />
+  <View
+    center={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+        "padding": 20,
+      }
+    }
+  >
+    <Image
+      collapsable={undefined}
+      source={1}
+      style={
+        Object {
+          "height": 30,
+          "tintColor": "#777777",
+          "transform": Array [
+            Object {
+              "rotate": "0deg",
+            },
+          ],
+          "width": 30,
+        }
+      }
+    />
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#333333",
+            "color": "#ffffff",
+          },
+          null,
+          Object {
+            "textAlign": "center",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "color": "#464646",
+          },
+          Object {
+            "fontSize": 17,
+            "fontWeight": "500",
+            "letterSpacing": -0.42,
+            "lineHeight": 21,
+            "marginTop": 20,
+          },
+        ]
+      }
+    >
+      Please wait…
+    </Text>
+  </View>
+</View>
 `;
 
 exports[`<ClaimRequestStatusModal /> should show check mark, you accepted text, if claim request is sent 1`] = `
-<Modal
-  animationIn="zoomIn"
-  animationOut="zoomOut"
-  animationOutTiming={100}
-  backdropColor="#ffffff"
-  backdropOpacity={1}
-  hideModalContentWhileAnimating={true}
-  isVisible={true}
-  onModalHide={[Function]}
-  useNativeDriver={true}
+<View
+  center={true}
+  fifth={true}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
 >
+  <Text
+    accessibilityLabel="claim-request-message"
+    accessible={true}
+    allowFontScaling={false}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Object {
+          "fontSize": 17,
+        },
+        Object {
+          "fontFamily": "Lato",
+        },
+        Object {
+          "backgroundColor": "#ffffff",
+          "color": "#777777",
+        },
+        Object {
+          "fontWeight": "bold",
+        },
+        Object {
+          "textAlign": "center",
+        },
+        Object {
+          "backgroundColor": "transparent",
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        Object {
+          "marginBottom": 5,
+        },
+      ]
+    }
+    testID="claim-request-message"
+  />
   <View
-    fifth={true}
+    center={true}
     style={
       Object {
-        "backgroundColor": "#ffffff",
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+        "padding": 20,
       }
     }
   >
-    <View
-      style={Object {}}
-    >
-      <View
-        center={true}
-        fifth={true}
-        shadow={true}
-        style={
-          Object {
-            "alignItems": "center",
-            "backgroundColor": "#ffffff",
-            "elevation": 10,
-            "height": "90%",
-            "justifyContent": "center",
-            "marginHorizontal": 10,
-            "padding": 20,
-            "shadowColor": "rgba(0, 0, 0, 0.2)",
-            "shadowOffset": Object {
-              "height": 10,
-              "width": 0,
-            },
-            "shadowOpacity": 1,
-            "shadowRadius": 30,
-          }
-        }
-      >
-        <View
-          center={true}
-          style={
+    <Image
+      collapsable={undefined}
+      source={1}
+      style={
+        Object {
+          "height": 30,
+          "tintColor": "#777777",
+          "transform": Array [
             Object {
-              "alignItems": "center",
-              "height": "90%",
-              "justifyContent": "center",
-              "marginHorizontal": 10,
-              "padding": 20,
-            }
-          }
-        >
-          <Text
-            accessibilityLabel="claim-request-message"
-            accessible={true}
-            allowFontScaling={false}
-            ellipsizeMode="tail"
-            style={
-              Array [
-                Object {
-                  "fontSize": 17,
-                },
-                Object {
-                  "fontFamily": "Lato",
-                },
-                Object {
-                  "backgroundColor": "#ffffff",
-                  "color": "#777777",
-                },
-                Object {
-                  "fontWeight": "bold",
-                },
-                Object {
-                  "textAlign": "center",
-                },
-                Object {
-                  "backgroundColor": "transparent",
-                },
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                Object {
-                  "marginBottom": 5,
-                },
-              ]
-            }
-            testID="claim-request-message"
-          />
-          <View
-            center={true}
-            style={
-              Object {
-                "alignItems": "center",
-                "flex": 1,
-                "justifyContent": "center",
-                "padding": 20,
-              }
-            }
-          >
-            <Image
-              collapsable={undefined}
-              source={1}
-              style={
-                Object {
-                  "height": 30,
-                  "tintColor": "#777777",
-                  "transform": Array [
-                    Object {
-                      "rotate": "0deg",
-                    },
-                  ],
-                  "width": 30,
-                }
-              }
-            />
-            <Text
-              accessible={true}
-              allowFontScaling={false}
-              ellipsizeMode="tail"
-              style={
-                Array [
-                  Object {
-                    "fontSize": 17,
-                  },
-                  Object {
-                    "fontFamily": "Lato",
-                  },
-                  Object {
-                    "backgroundColor": "#333333",
-                    "color": "#ffffff",
-                  },
-                  null,
-                  Object {
-                    "textAlign": "center",
-                  },
-                  Object {
-                    "backgroundColor": "transparent",
-                  },
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  null,
-                  Object {
-                    "color": "#464646",
-                  },
-                  Object {
-                    "fontSize": 17,
-                    "fontWeight": "500",
-                    "letterSpacing": -0.42,
-                    "lineHeight": 21,
-                    "marginTop": 20,
-                  },
-                ]
-              }
-            >
-              Please wait…
-            </Text>
-          </View>
-        </View>
-      </View>
-    </View>
+              "rotate": "0deg",
+            },
+          ],
+          "width": 30,
+        }
+      }
+    />
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#333333",
+            "color": "#ffffff",
+          },
+          null,
+          Object {
+            "textAlign": "center",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "color": "#464646",
+          },
+          Object {
+            "fontSize": 17,
+            "fontWeight": "500",
+            "letterSpacing": -0.42,
+            "lineHeight": 21,
+            "marginTop": 20,
+          },
+        ]
+      }
+    >
+      Please wait…
+    </Text>
   </View>
-</Modal>
+</View>
 `;

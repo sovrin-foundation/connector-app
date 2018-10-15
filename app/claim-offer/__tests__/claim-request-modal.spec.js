@@ -21,6 +21,7 @@ describe('<ClaimRequestStatusModal />', () => {
       payload: claimOfferPayload,
       senderLogoUrl,
       claimRequestStatus: CLAIM_REQUEST_STATUS.SEND_CLAIM_REQUEST_SUCCESS,
+      onModalHide: jest.fn(),
       ...props,
     }
   }
@@ -111,7 +112,6 @@ describe('<ClaimRequestStatusModal />', () => {
     }
     const { wrapper, instance } = setup(extraProps)
     instance.onContinue()
-    expect(instance.state.isVisible).toBe(false)
     expect(wrapper.toJSON()).toMatchSnapshot()
   })
 

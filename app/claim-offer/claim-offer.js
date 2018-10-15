@@ -173,7 +173,8 @@ export class ClaimOffer extends PureComponent<
 
   onProceedPaidCredTransaction = () => {
     this.setState({
-      credentialOfferModalStatus: CREDENTIAL_OFFER_MODAL_STATUS.NONE,
+      credentialOfferModalStatus:
+        CREDENTIAL_OFFER_MODAL_STATUS.CREDENTIAL_REQUEST_STATUS,
     })
     this.props.acceptClaimOffer(this.props.uid)
   }
@@ -194,6 +195,10 @@ export class ClaimOffer extends PureComponent<
         credentialOfferModalStatus: CREDENTIAL_OFFER_MODAL_STATUS.LEDGER_FEES,
       })
     } else {
+      this.setState({
+        credentialOfferModalStatus:
+          CREDENTIAL_OFFER_MODAL_STATUS.CREDENTIAL_REQUEST_STATUS,
+      })
       this.props.acceptClaimOffer(this.props.uid)
     }
   }
@@ -216,8 +221,7 @@ export class ClaimOffer extends PureComponent<
         credentialOfferModalStatus:
           CREDENTIAL_OFFER_MODAL_STATUS.INSUFFICIENT_BALANCE,
       })
-    }
-    if (
+    } else if (
       claimRequestStatus === CLAIM_REQUEST_STATUS.SEND_CLAIM_REQUEST_FAIL ||
       claimRequestStatus === CLAIM_REQUEST_STATUS.CLAIM_REQUEST_FAIL
     ) {
@@ -228,8 +232,7 @@ export class ClaimOffer extends PureComponent<
             CREDENTIAL_OFFER_MODAL_STATUS.CREDENTIAL_REQUEST_FAIL,
         })
       }
-    }
-    if (
+    } else if (
       claimRequestStatus ===
         CLAIM_REQUEST_STATUS.PAID_CREDENTIAL_REQUEST_FAIL &&
       this.state.credentialOfferModalStatus !==
@@ -239,6 +242,24 @@ export class ClaimOffer extends PureComponent<
         credentialOfferModalStatus:
           CREDENTIAL_OFFER_MODAL_STATUS.SEND_PAID_CREDENTIAL_REQUEST_FAIL,
       })
+    } else if (
+      claimRequestStatus === CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS &&
+      this.state.credentialOfferModalStatus !==
+        CREDENTIAL_OFFER_MODAL_STATUS.NONE
+    ) {
+      this.setState({
+        credentialOfferModalStatus: CREDENTIAL_OFFER_MODAL_STATUS.NONE,
+      })
+      this.close()
+    } else if (
+      claimRequestStatus === CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS &&
+      this.state.credentialOfferModalStatus !==
+        CREDENTIAL_OFFER_MODAL_STATUS.NONE
+    ) {
+      this.setState({
+        credentialOfferModalStatus: CREDENTIAL_OFFER_MODAL_STATUS.NONE,
+      })
+      this.close()
     }
   }
 
@@ -293,7 +314,6 @@ export class ClaimOffer extends PureComponent<
       : require('../images/cb_evernym.png')
     const testID = 'claim-offer'
     let acceptButtonText = payTokenValue ? 'Accept & Pay' : 'Accept'
-
     return (
       <Container style={[{ backgroundColor: claimThemePrimary }]}>
         <StatusBar
