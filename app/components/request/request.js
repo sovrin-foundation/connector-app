@@ -5,7 +5,7 @@ import firebase from 'react-native-firebase'
 import { bindActionCreators } from 'redux'
 import { Container, TouchId } from '../../components'
 import { connect } from 'react-redux'
-import { TOUCH_ID_MESSAGE, TOUCH_ID_NOT_AVAILABLE } from '../../common'
+import { TOUCH_ID_MESSAGE, TOUCH_ID_NOT_AVAILABLE, noop } from '../../common'
 import RequestDetail from './request-detail'
 import FooterActions from '../footer-actions/footer-actions'
 import type { RequestProps, RequestState, ResponseTypes } from './type-request'
@@ -13,6 +13,10 @@ import { captureError } from '../../services/error/error-handler'
 import { lockAuthorizationRoute } from '../../common/route-constants'
 import type { Store } from '../../store/type-store'
 import { pushNotificationPermissionAction } from '../../push-notification/push-notification-store'
+import {
+  ERROR_ALREADY_EXIST,
+  ERROR_INVITATION_RESPONSE_FAILED,
+} from '../../api/api-constants'
 
 export class Request extends PureComponent<RequestProps, RequestState> {
   state = {
@@ -32,6 +36,10 @@ export class Request extends PureComponent<RequestProps, RequestState> {
 
   onSuccessfulAuthorization = (response: ResponseTypes) => {
     this.props.onAction(response)
+  }
+
+  onDuplicateConnectionError = () => {
+    this.onSuccessfulAuthorization('rejected')
   }
 
   onAvoidAuthorization = () => {
@@ -94,12 +102,17 @@ export class Request extends PureComponent<RequestProps, RequestState> {
       this.props.invitationError !== prevProps.invitationError &&
       this.props.invitationError
     ) {
-      Alert.alert(
-        null,
-        'Failed to establish connection. Please try again later.',
-        [{ text: 'Ok' }],
-        { cancelable: false }
-      )
+      const isDuplicateConnection =
+        this.props.invitationError.code === ERROR_ALREADY_EXIST.code
+      const errorMessage = isDuplicateConnection
+        ? this.props.invitationError.message
+        : ERROR_INVITATION_RESPONSE_FAILED
+      const okAction = isDuplicateConnection
+        ? this.onDuplicateConnectionError
+        : noop
+      Alert.alert(null, errorMessage, [{ text: 'Ok', onPress: okAction }], {
+        cancelable: false,
+      })
       this.setState({
         disableAccept: false,
       })
