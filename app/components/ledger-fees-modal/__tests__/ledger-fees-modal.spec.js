@@ -5,7 +5,11 @@ import 'react-native'
 import renderer from 'react-test-renderer'
 import { STORE_STATUS } from '../../../common/type-common'
 import type { GenericObject } from '../../../common/type-common'
-import { LedgerFeesModalComponent } from '../ledger-fees-modal'
+import {
+  LedgerFeesModalComponent,
+  LedgerFeesModalStatus,
+  LedgerFeesDescriptionText,
+} from '../ledger-fees-modal'
 import type { LedgerFeesModalProps } from '../ledger-fees-modal'
 import { ERROR_GET_LEDGER_FEES } from '../../../store/ledger/type-ledger-store'
 import type { LedgerFees } from '../../../store/ledger/type-ledger-store'
@@ -81,6 +85,34 @@ describe('<LedgerFeesModalComponent />', () => {
       error: null,
     }
     const { wrapper } = setup({ ledgerFees: fees, walletBalance: '1' })
+    expect(wrapper.toJSON()).toMatchSnapshot()
+  })
+
+  it('show text passed by consumer of component, if renderFeesText is passed', () => {
+    const fees = {
+      data: {
+        transfer: '0.01',
+      },
+      status: STORE_STATUS.SUCCESS,
+      error: null,
+    }
+    const renderFeesText = (fees: string, status: string) => {
+      switch (status) {
+        case LedgerFeesModalStatus.TRANSFER_POSSIBLE_WITH_FEES:
+          return (
+            <LedgerFeesDescriptionText>
+              Passed message {fees}
+            </LedgerFeesDescriptionText>
+          )
+        default:
+          return null
+      }
+    }
+    const { wrapper } = setup({
+      ledgerFees: fees,
+      walletBalance: '1',
+      renderFeesText,
+    })
     expect(wrapper.toJSON()).toMatchSnapshot()
   })
 })

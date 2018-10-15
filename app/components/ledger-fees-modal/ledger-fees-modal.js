@@ -46,6 +46,9 @@ export type LedgerFeesModalProps = {
   ledgerFees: LedgerFees,
   isVisible: boolean,
   walletBalance: string,
+  // Adding React.Node type as return type failing something entirely
+  // different in flow definition, it seems like we need to properly fix fot React types
+  renderFeesText?: (fees: string, status: LedgerFeesModalStatusEnum) => any,
 }
 
 const testID = 'ledger-fees'
@@ -97,6 +100,7 @@ export class LedgerFeesModalComponent extends PureComponent<
       onNo,
       onYes,
       walletBalance,
+      renderFeesText,
     } = this.props
     const { data, error, status } = ledgerFees
     const feesModalStatus = getLedgerFeesModalStatus(
@@ -111,6 +115,13 @@ export class LedgerFeesModalComponent extends PureComponent<
       walletBalance,
       transferAmount
     )
+    // if consumer of this component wants to handle
+    // rendering of text differently, then that consumer
+    // can pass it's own description text rendering function
+    let consumerLedgerFeesText = null
+    if (renderFeesText) {
+      consumerLedgerFeesText = renderFeesText(data.transfer, feesModalStatus)
+    }
     const isSuccess = status === STORE_STATUS.SUCCESS
 
     return (
@@ -145,17 +156,11 @@ export class LedgerFeesModalComponent extends PureComponent<
               {'Transaction Fee'}
             </CustomText>
           )}
-          <CustomText
-            h5
-            center
-            tertiary
-            bg="tertiary"
-            transparentBg
-            style={[styles.message]}
-            testID={`${testID}-modal-content`}
-          >
-            {ledgerFeesText}
-          </CustomText>
+          {/*
+            if consumer of component has handled text rendering,
+            then this component will not render it's own description text
+          */}
+          {consumerLedgerFeesText || ledgerFeesText}
         </CustomView>
         <ActionButtons
           status={feesModalStatus}
@@ -181,24 +186,52 @@ export const LedgerFeesModal = connect(mapStateToProps, mapDispatchToProps)(
   LedgerFeesModalComponent
 )
 
+export const LedgerFeesDescriptionText = (props: {
+  children: any,
+  bold?: boolean,
+}) => (
+  <CustomText
+    h5
+    center
+    tertiary
+    bg="tertiary"
+    transparentBg
+    style={[styles.message]}
+    testID={`${testID}-modal-content`}
+    bold={props.bold}
+  >
+    {props.children}
+  </CustomText>
+)
+
 const zeroAmount = new BigNumber('0')
-const TEXT_LEDGER_FEES_FETCH_ERROR =
-  'There was a problem checking transaction fees. Retry?'
+const TEXT_LEDGER_FEES_FETCH_ERROR = (
+  <LedgerFeesDescriptionText>
+    There was a problem checking transaction fees. Retry?
+  </LedgerFeesDescriptionText>
+)
 
-const TEXT_LEDGER_FEES_FETCHING = 'Getting fees...'
+const TEXT_LEDGER_FEES_FETCHING = (
+  <LedgerFeesDescriptionText>Getting fees...</LedgerFeesDescriptionText>
+)
 
-const TEXT_NO_LEDGER_FEES =
-  'No fees for this transaction. Transferring tokens...'
+const TEXT_NO_LEDGER_FEES = (
+  <LedgerFeesDescriptionText>
+    No fees for this transaction. Transferring tokens...
+  </LedgerFeesDescriptionText>
+)
 
-const TEXT_LEDGER_FEES = (fees: string) =>
-  `This transaction will cost you ${formatNumbers(
-    fees
-  )} Sovrin Tokens. Do you wish to continue?`
+const TEXT_LEDGER_FEES = (fees: string) => (
+  <LedgerFeesDescriptionText>
+    This transaction will cost you{' '}
+    <LedgerFeesDescriptionText bold={true}>
+      {formatNumbers(fees)}
+    </LedgerFeesDescriptionText>{' '}
+    Sovrin Tokens. Do you wish to continue?
+  </LedgerFeesDescriptionText>
+)
 
-const TEXT_AMOUNT_AFTER_FEES_DEDUCTION = (
-  fees: string,
-  transfer: ?string
-): string => {
+const TEXT_AMOUNT_AFTER_FEES_DEDUCTION = (fees: string, transfer: ?string) => {
   const feesAmount = new BigNumber(fees)
   const transferAmount = new BigNumber(transfer || '0')
   const amountAfterFeesDeduction = transferAmount
@@ -206,13 +239,24 @@ const TEXT_AMOUNT_AFTER_FEES_DEDUCTION = (
     .toFixed()
     .toString()
 
-  return `The recipient will receive ${amountAfterFeesDeduction} after the transaction fee. Proceed?`
+  return (
+    <LedgerFeesDescriptionText>
+      The recipient will receive{' '}
+      <LedgerFeesDescriptionText bold={true}>
+        {amountAfterFeesDeduction}
+      </LedgerFeesDescriptionText>{' '}
+      after the transaction fee. Proceed?
+    </LedgerFeesDescriptionText>
+  )
 }
 
-const TEXT_TRANSFER_LESS_THAN_EQUAL_TO_ZERO =
-  'You do not have enough tokens to pay the transaction fee.'
+const TEXT_TRANSFER_LESS_THAN_EQUAL_TO_ZERO = (
+  <LedgerFeesDescriptionText>
+    You do not have enough tokens to pay the transaction fee.
+  </LedgerFeesDescriptionText>
+)
 
-const LedgerFeesModalStatus = {
+export const LedgerFeesModalStatus = {
   IN_PROGRESS: 'IN_PROGRESS',
   ERROR: 'ERROR',
   ZERO_FEES: 'ZERO_FEES',
@@ -221,7 +265,7 @@ const LedgerFeesModalStatus = {
   TRANSFER_NOT_POSSIBLE_WITH_FEES: 'TRANSFER_NOT_POSSIBLE_WITH_FEES',
 }
 
-type LedgerFeesModalStatusEnum = $Keys<typeof LedgerFeesModalStatus>
+export type LedgerFeesModalStatusEnum = $Keys<typeof LedgerFeesModalStatus>
 
 const getLedgerFeesModalStatus = (
   fees: string,

@@ -65,8 +65,12 @@ import { updateStatusBarTheme } from '../../app/store/connections-store'
 import { CustomModal } from '../components'
 import PaymentFailureModal from '../wallet/payment-failure-modal'
 import CredentialOfferModal from '../wallet/credential-offer-modal'
-import { LedgerFeesModal } from '../components/ledger-fees-modal/ledger-fees-modal'
 import { getStatusBarStyle } from '../components/custom-header/custom-header'
+import {
+  LedgerFeesModalStatus,
+  LedgerFeesDescriptionText,
+} from '../components/ledger-fees-modal/ledger-fees-modal'
+import { BigNumber } from 'bignumber.js'
 
 class ClaimOfferAttributeList extends PureComponent<
   ClaimOfferAttributeListProps,
@@ -201,11 +205,8 @@ export class ClaimOffer extends PureComponent<
   }
 
   onCredentialOfferModalHide = () => {
-    console.log('onCredentialModalHide clicked')
-    console.log(this.props)
     const { claimOfferData } = this.props
     const { claimRequestStatus }: ClaimOfferPayload = claimOfferData
-    console.log(claimRequestStatus)
     if (
       claimRequestStatus === CLAIM_REQUEST_STATUS.INSUFFICIENT_BALANCE &&
       this.state.credentialOfferModalStatus !==
@@ -240,6 +241,39 @@ export class ClaimOffer extends PureComponent<
       })
     }
   }
+
+  renderFeesText = (fees: string, status: string) => {
+    const credentialFees = this.props.claimOfferData.payTokenValue
+    if (!credentialFees) {
+      // if not paid credential, we don't want to render any text
+      return null
+    }
+
+    const credentialFeesAmount = new BigNumber(credentialFees)
+    const transferFeesAmount = new BigNumber(fees)
+    const totalSpend = credentialFeesAmount
+      .plus(transferFeesAmount)
+      .toFixed()
+      .toString()
+
+    switch (status) {
+      // this component will show it's own text only in case of following statues
+      case LedgerFeesModalStatus.TRANSFER_EQUAL_TO_BALANCE:
+      case LedgerFeesModalStatus.TRANSFER_POSSIBLE_WITH_FEES:
+        return (
+          <LedgerFeesDescriptionText>
+            The Sovrin ledger transaction fees brings your total spend to{' '}
+            <LedgerFeesDescriptionText bold>
+              {totalSpend}
+            </LedgerFeesDescriptionText>. Proceed?
+          </LedgerFeesDescriptionText>
+        )
+
+      default:
+        return null
+    }
+  }
+
   render() {
     const {
       claimOfferData,
@@ -342,6 +376,7 @@ export class ClaimOffer extends PureComponent<
           onRetry={this.onAccept}
           onNo={this.onRejectPaidCredTransaction}
           onYes={this.onProceedPaidCredTransaction}
+          renderFeesText={this.renderFeesText}
         />
       </Container>
     )

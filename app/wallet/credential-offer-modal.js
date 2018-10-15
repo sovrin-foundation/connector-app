@@ -220,6 +220,7 @@ export default class CredentialOfferModal extends PureComponent<
             onNo={this.props.onNo}
             onYes={this.props.onYes}
             transferAmount={transferAmount}
+            renderFeesText={this.props.renderFeesText}
           />
         ) : null}
       </Modal>

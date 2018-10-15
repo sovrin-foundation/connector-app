@@ -47,7 +47,6 @@ import { STORE_STATUS } from './type-wallet'
 import { CREDENTIAL_OFFER_MODAL_STATUS } from '../claim-offer/type-claim-offer'
 import Modal from 'react-native-modal'
 import PaymentFailureModal from './payment-failure-modal'
-import { LedgerFeesModal } from '../components/ledger-fees-modal/ledger-fees-modal'
 import CredentialOfferModal from './credential-offer-modal'
 
 export class WalletTabSendDetails extends Component<

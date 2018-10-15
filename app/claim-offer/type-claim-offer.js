@@ -270,6 +270,7 @@ export type CredentialOfferModalProps = {
   onYes?: () => void,
   transferAmount?: string,
   connectionName?: string,
+  renderFeesText?: (fees: string, status: string) => any,
 }
 
 export type CredentialOfferModalState = {
