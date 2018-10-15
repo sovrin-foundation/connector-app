@@ -83,6 +83,7 @@ export class Invitation extends PureComponent<
               // as of now it would fail for JSON objects, as we are using
               // captureException of Sentry which is supposed to take only Error object
               // captureError(nextProps.invitation.error, this.props.showErrorAlerts)
+              this.isLoading(false)
             }
           } else {
             // api response was successful, but now we have to check
