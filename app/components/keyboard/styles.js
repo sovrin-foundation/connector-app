@@ -1,12 +1,20 @@
 // @flow
 
-import { StyleSheet, Dimensions } from 'react-native'
-import { isBiggerThanShortDevice } from '../../common/styles/constant'
+import { StyleSheet, Dimensions, Platform } from 'react-native'
+import {
+  isBiggerThanShortDevice,
+  deviceHeight,
+  MEDIUM_DEVICE,
+} from '../../common/styles/constant'
 import { PUSH_NOTIFICATION_PERMISSION } from '../../push-notification/type-push-notification'
 
 const ROW_MARGIN = isBiggerThanShortDevice ? 36 : 15
 const FIRST_ROW_MARGIN = isBiggerThanShortDevice ? 24 : 8
-const ROW_HEIGHT = isBiggerThanShortDevice ? 36 : 30
+// const ROW_HEIGHT = isBiggerThanShortDevice ? 36 : 30
+
+const ROW_HEIGHT =
+  Platform.OS === 'ios' ? 35 : deviceHeight < MEDIUM_DEVICE ? 25 : 35
+
 const FONT_SIZE = isBiggerThanShortDevice ? 28 : 26
 export const INPUT_RANGE = [0, 0.5, 1]
 export const OUTPUT_RANGE = isBiggerThanShortDevice

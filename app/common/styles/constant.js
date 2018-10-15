@@ -249,6 +249,7 @@ export const isSmallWidthDevice = isiPhone5
 export const responsiveHorizontalPadding = isSmallWidthDevice
   ? 5
   : PADDING_HORIZONTAL
+export const MEDIUM_DEVICE = 700
 export const SHORT_DEVICE = 600
 export const VERY_SHORT_DEVICE = 570
 export const errorBoxVerifyPassphraseContainer = height > SHORT_DEVICE ? 60 : 90
@@ -258,3 +259,4 @@ export const inputBoxVerifyPassphraseHeight =
 export const isBiggerThanShortDevice = height > SHORT_DEVICE
 export const isBiggerThanVeryShortDevice = height > VERY_SHORT_DEVICE
 export const isIphoneX = Platform.OS === 'ios' && height === 812
+export const deviceHeight = height

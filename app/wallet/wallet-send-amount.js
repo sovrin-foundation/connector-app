@@ -7,7 +7,7 @@ import { Text, Animated } from 'react-native'
 import { scale } from 'react-native-size-matters'
 import { Container, CustomView, CustomText, CustomButton } from '../components'
 import { Keyboard } from '../components'
-import { color } from '../common/styles/constant'
+import { color, MEDIUM_DEVICE, deviceHeight } from '../common/styles/constant'
 import { SEND_TOKEN_BUTTON, FONT_SIZE_MAPPING } from './wallet-constants'
 import styles from './styles'
 import type {
@@ -100,8 +100,8 @@ class WalletSendAmount extends PureComponent<
                   {
                     fontSize,
                     color: color.bg.seventh.font.fifth,
-                    height: 70,
-                    lineHeight: 75,
+                    height: deviceHeight < MEDIUM_DEVICE ? 70 : 90,
+                    lineHeight: deviceHeight < MEDIUM_DEVICE ? 75 : 80,
                   },
                 ]}
                 numberOfLines={1}
