@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { View } from 'react-native'
+import { View, Alert } from 'react-native'
 import firebase from 'react-native-firebase'
 import { bindActionCreators } from 'redux'
 import { Container, TouchId } from '../../components'
@@ -94,6 +94,12 @@ export class Request extends PureComponent<RequestProps, RequestState> {
       this.props.invitationError !== prevProps.invitationError &&
       this.props.invitationError
     ) {
+      Alert.alert(
+        null,
+        'Failed to establish connection. Please try again later.',
+        [{ text: 'Ok' }],
+        { cancelable: false }
+      )
       this.setState({
         disableAccept: false,
       })

@@ -69,7 +69,7 @@ import {
   getHandleBySerializedConnection,
   serializeClaimOffer,
 } from '../bridge/react-native-cxs/RNCxs'
-import { HYDRATED } from '../store/type-config-store'
+import { HYDRATED, VCX_INIT_SUCCESS } from '../store/type-config-store'
 import { CONNECT_REGISTER_CREATE_AGENT_DONE } from '../store/user/type-user-store'
 import uniqueId from 'react-native-unique-id'
 import { RESET } from '../common/type-common'
@@ -154,7 +154,10 @@ export function* onPushTokenUpdate(
   try {
     const pushToken = `FCM:${action.token}`
     const id = yield uniqueId()
-    yield* ensureVcxInitSuccess()
+    const vcxResult = yield* ensureVcxInitSuccess()
+    if (vcxResult && vcxResult.fail) {
+      yield take(VCX_INIT_SUCCESS)
+    }
     yield call(updatePushTokenVcx, { uniqueId: id, pushToken })
     yield* savePushTokenSaga(pushToken)
   } catch (e) {
@@ -284,7 +287,11 @@ export function* fetchAdditionalDataSaga(
     }
     yield put(setFetchAdditionalDataPendingKeys(uid, forDID))
   }
-  yield* ensureVcxInitSuccess()
+
+  const vcxResult = yield* ensureVcxInitSuccess()
+  if (vcxResult && vcxResult.fail) {
+    yield take(VCX_INIT_SUCCESS)
+  }
 
   if (!forDID) {
     yield put(

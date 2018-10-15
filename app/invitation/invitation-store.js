@@ -89,17 +89,19 @@ export const invitationRejected = (senderDID: string) => ({
 export function* sendResponse(
   action: InvitationResponseSendAction
 ): Generator<*, *, *> {
-  yield* ensureVcxInitSuccess()
-
   const { senderDID } = action.data
-  const alreadyExist: boolean = yield select(isDuplicateConnection, senderDID)
-  if (alreadyExist) {
-    yield put(invitationFail(ERROR_ALREADY_EXIST, senderDID))
-
-    return
-  }
 
   try {
+    const vcxResult = yield* ensureVcxInitSuccess()
+    const alreadyExist: boolean = yield select(isDuplicateConnection, senderDID)
+    if (alreadyExist) {
+      yield put(invitationFail(ERROR_ALREADY_EXIST, senderDID))
+
+      return
+    }
+    if (vcxResult && vcxResult.fail) {
+      throw new Error(vcxResult.fail.message)
+    }
     const payload: InvitationPayload = yield select(
       getInvitationPayload,
       senderDID

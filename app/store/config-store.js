@@ -145,6 +145,7 @@ import { SEND_CLAIM_REQUEST } from '../claim-offer/type-claim-offer'
 import { getPendingFetchAdditionalDataKey } from './store-selector'
 import firebase from 'react-native-firebase'
 import { captureError } from '../services/error/error-handler'
+import { race } from 'redux-saga/effects'
 
 /**
  * this file contains configuration which is changed only from user action
@@ -593,17 +594,19 @@ export function* ensureVcxInitSuccess(): Generator<*, *, *> {
 
   // if we are here, that means we either started vcx init
   // or vcx init was already in progress and now we need to wait for success
-  yield take(VCX_INIT_SUCCESS)
-
-  // TODO we could put a logic to retry in case we get a fail event
-  // so instead of above statement we can start a race b/w fail and success action
-  // and then if we get fail, we can retry with exponential backoff
+  return yield race({
+    success: take(VCX_INIT_SUCCESS),
+    fail: take(VCX_INIT_FAIL),
+  })
 }
 
 export function* getMessagesSaga(): Generator<*, *, *> {
   try {
     //make sure vcx is initialized
-    yield* ensureVcxInitSuccess()
+    const vcxResult = yield* ensureVcxInitSuccess()
+    if (vcxResult && vcxResult.fail) {
+      yield take(VCX_INIT_SUCCESS)
+    }
     const allConnectionsPairwiseDids = yield select(
       getAllConnectionsPairwiseDid
     )

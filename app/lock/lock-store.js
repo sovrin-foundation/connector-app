@@ -194,7 +194,10 @@ export function* checkPin(action: CheckPinAction): Generator<*, *, *> {
   const inRecovery: string | null = yield call(safeGet, IN_RECOVERY)
 
   if (inRecovery === 'true') {
-    yield* ensureVcxInitSuccess()
+    const vcxResult = yield* ensureVcxInitSuccess()
+    if (vcxResult && vcxResult.fail) {
+      return
+    }
   }
   const salt: string = yield call(getHydrationItem, SALT)
   const expectedPinHash: string = yield call(getHydrationItem, PIN_HASH)

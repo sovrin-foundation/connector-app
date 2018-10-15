@@ -134,7 +134,10 @@ export function* claimReceivedVcxSaga(
   action: ClaimReceivedAction
 ): Generator<*, *, *> {
   const { forDID, remotePairwiseDID, connectionHandle, uid } = action.claim
-  yield* ensureVcxInitSuccess()
+  const vcxResult = yield* ensureVcxInitSuccess()
+  if (vcxResult && vcxResult.fail) {
+    return
+  }
 
   // when we receive a claim we only know claim message id,
   // and user id for which claim was sent

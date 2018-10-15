@@ -31,8 +31,11 @@ const initialState = {
 }
 
 export function* getLedgerFeesSaga(): Generator<*, *, *> {
-  yield* ensureVcxInitSuccess()
   try {
+    const vcxResult = yield* ensureVcxInitSuccess()
+    if (vcxResult && vcxResult.fail) {
+      throw new Error(JSON.stringify(vcxResult.fail.message))
+    }
     const fees: LedgerFeesData = yield call(getLedgerFees)
     yield put(getLedgerFeesSuccess(fees))
   } catch (e) {

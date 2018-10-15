@@ -274,7 +274,10 @@ export function* hydrate(): any {
         yield call(vcxShutdown, false)
       }
       yield put(hydrated())
-      yield* ensureVcxInitSuccess()
+      const vcxResult = yield* ensureVcxInitSuccess()
+      if (vcxResult && vcxResult.fail) {
+        throw new Error(JSON.stringify(vcxResult.fail.message))
+      }
     } catch (e) {
       captureError(e)
       console.error(`hydrateSaga: ${e}`)
