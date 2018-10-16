@@ -18,6 +18,7 @@ import {
   color,
   HAIRLINE_WIDTH,
   whiteSmoke,
+  isiPhone5,
 } from '../common/styles/constant'
 import Modal from 'react-native-modal'
 import PaymentFailureModal from './payment-failure-modal'
@@ -57,7 +58,7 @@ export default class CredentialOfferModal extends PureComponent<
       connectionName,
     } = this.props
     return (
-      <CustomModal
+      <Modal
         backdropColor={whiteSmoke}
         isVisible={
           credentialOfferModalStatus !== CREDENTIAL_OFFER_MODAL_STATUS.NONE
@@ -70,29 +71,40 @@ export default class CredentialOfferModal extends PureComponent<
         onBackButtonPress={this.props.onClose}
         onBackdropPress={this.props.onClose}
         onModalHide={this.props.onModalHide}
-        fullScreen
         testID={'credential-offer-modal'}
+        style={[
+          claimRequestStatus ===
+          CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
+            ? {
+                padding: 0,
+                margin: 0,
+              }
+            : {},
+        ]}
       >
         {isValid &&
           credentialOfferModalStatus ===
             CREDENTIAL_OFFER_MODAL_STATUS.INSUFFICIENT_BALANCE &&
           payTokenValue && (
-            <CustomView
-              center
-              doubleVerticalSpace
-              fifth
-              shadow
-              style={[styles.container]}
-            >
-              <Icon src={require('../images/alertInfo.png')} />
-              <CustomText transparentBg primary center bold>
-                You do not have enough tokens to purchase this credential
-              </CustomText>
+            <CustomView center fifth shadow style={[styles.container]}>
+              <CustomView style={[styles.innerContainer]} center verticalSpace>
+                <CustomView center verticalSpace>
+                  <Icon src={require('../images/alertInfo.png')} />
+                </CustomView>
+                <CustomText
+                  transparentBg
+                  style={[styles.fontBlack]}
+                  center
+                  demiBold
+                >
+                  You do not have enough tokens to purchase this credential
+                </CustomText>
+              </CustomView>
               <CustomButton
                 fifth
                 onPress={this.props.onClose}
-                title={'OK'}
-                textStyle={{ fontWeight: 'bold' }}
+                title={'Continue'}
+                textStyle={{ fontWeight: 'bold', color: '#85BF43' }}
               />
             </CustomView>
           )}
@@ -171,14 +183,14 @@ export default class CredentialOfferModal extends PureComponent<
             renderFeesText={this.props.renderFeesText}
           />
         ) : null}
-      </CustomModal>
+      </Modal>
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: OFFSET_3X,
+    marginHorizontal: isiPhone5 ? OFFSET_1X : OFFSET_3X,
   },
   innerContainer: {
     ...Platform.select({
@@ -191,9 +203,13 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
       },
     }),
-    padding: OFFSET_2X,
+    paddingVertical: OFFSET_2X,
+    paddingHorizontal: OFFSET_3X,
   },
   message: {
     marginBottom: OFFSET_1X / 2,
+  },
+  fontBlack: {
+    color: '#777777',
   },
 })

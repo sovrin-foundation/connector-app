@@ -926,26 +926,20 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
     animationIn="zoomIn"
     animationOut="zoomOut"
     animationOutTiming={100}
-    backdropColor="#ffffff"
-    backdropOpacity={1}
+    backdropColor="#f0f0f0"
     hideModalContentWhileAnimating={true}
     isVisible={false}
+    onBackButtonPress={[Function]}
+    onBackdropPress={[Function]}
     onModalHide={[Function]}
+    style={
+      Array [
+        Object {},
+      ]
+    }
+    testID="credential-offer-modal"
     useNativeDriver={true}
-  >
-    <View
-      fifth={true}
-      style={
-        Object {
-          "backgroundColor": "#ffffff",
-        }
-      }
-    >
-      <View
-        style={Object {}}
-      />
-    </View>
-  </Modal>
+  />
 </View>
 `;
 
@@ -2110,25 +2104,19 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
     animationIn="zoomIn"
     animationOut="zoomOut"
     animationOutTiming={100}
-    backdropColor="#ffffff"
-    backdropOpacity={1}
+    backdropColor="#f0f0f0"
     hideModalContentWhileAnimating={true}
     isVisible={false}
+    onBackButtonPress={[Function]}
+    onBackdropPress={[Function]}
     onModalHide={[Function]}
+    style={
+      Array [
+        Object {},
+      ]
+    }
+    testID="credential-offer-modal"
     useNativeDriver={true}
-  >
-    <View
-      fifth={true}
-      style={
-        Object {
-          "backgroundColor": "#ffffff",
-        }
-      }
-    >
-      <View
-        style={Object {}}
-      />
-    </View>
-  </Modal>
+  />
 </View>
 `;

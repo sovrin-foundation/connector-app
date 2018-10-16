@@ -45,8 +45,10 @@ export class LockSelection extends PureComponent<LockSelectionProps, void> {
   }
 
   goTouchIdSetup = () => {
-    this.props.navigation.navigate(lockTouchIdSetupRoute)
-    this.props.safeToDownloadSmsInvitation()
+    if (this.props.navigation.isFocused()) {
+      this.props.navigation.navigate(lockTouchIdSetupRoute)
+      this.props.safeToDownloadSmsInvitation()
+    }
   }
 
   goPinCodeSetup = () => {
