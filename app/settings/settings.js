@@ -80,9 +80,11 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
     disableTouchIdSwitch: false,
   }
   onChangePinClick = () => {
-    this.props.navigation.push(lockEnterPinRoute, {
-      existingPin: true,
-    })
+    if (this.props.navigation.isFocused()) {
+      this.props.navigation.push(lockEnterPinRoute, {
+        existingPin: true,
+      })
+    }
   }
 
   onChangeTouchId = (switchState: boolean) => {
@@ -90,7 +92,10 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
     // reason for the behaviour: the onChangeTouchId function is being invoked twice making to navigate twice.
     // solution: the if condition will check for the current state of the switch and compares with the actual state of the switch
     // this confirms to make the onChangeTouchId function to invoke only once at all the times
-    if (this.props.touchIdActive !== switchState) {
+    if (
+      this.props.touchIdActive !== switchState &&
+      this.props.navigation.isFocused()
+    ) {
       this.props.navigation.push(lockTouchIdSetupRoute, {
         fromSettings: true,
       })
@@ -98,7 +103,9 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
   }
 
   openAboutApp = () => {
-    this.props.navigation.navigate(aboutAppRoute, {})
+    if (this.props.navigation.isFocused()) {
+      this.props.navigation.navigate(aboutAppRoute, {})
+    }
   }
 
   openFeedback = () => {
