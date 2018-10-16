@@ -1099,23 +1099,12 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for loading state 1`] 
       <View
         style={
           Object {
-            "left": 20,
-            "paddingHorizontal": "7%",
+            "padding": 40,
             "position": "absolute",
-            "top": 20,
+            "top": 0,
           }
         }
-      >
-        <View
-          style={
-            Object {
-              "padding": 40,
-              "position": "absolute",
-              "top": 20,
-            }
-          }
-        />
-      </View>
+      />
     </View>
     <View
       center={true}
