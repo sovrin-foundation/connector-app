@@ -87,6 +87,7 @@ export default class Keyboard extends Component<KeyboardProps, void> {
         <CustomText
           transparentBg
           animated
+          allowFontScaling
           center
           style={[
             styles.number,
@@ -132,6 +133,7 @@ export default class Keyboard extends Component<KeyboardProps, void> {
         <Container center>
           <CustomText
             transparentBg
+            allowFontScaling
             animated
             center
             style={[

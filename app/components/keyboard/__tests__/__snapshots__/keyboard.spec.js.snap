@@ -5,6 +5,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
   style={
     Object {
       "alignItems": "flex-start",
+      "marginBottom": 5,
       "marginHorizontal": 32,
     }
   }
@@ -45,7 +46,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={false}
+        allowFontScaling={true}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -88,7 +89,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={false}
+        allowFontScaling={true}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -131,7 +132,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={false}
+        allowFontScaling={true}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -185,7 +186,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={false}
+        allowFontScaling={true}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -228,7 +229,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={false}
+        allowFontScaling={true}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -271,7 +272,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={false}
+        allowFontScaling={true}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -325,7 +326,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={false}
+        allowFontScaling={true}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -368,7 +369,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={false}
+        allowFontScaling={true}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -411,7 +412,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={false}
+        allowFontScaling={true}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -465,7 +466,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={false}
+        allowFontScaling={true}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -508,7 +509,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={false}
+        allowFontScaling={true}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={
@@ -558,7 +559,7 @@ exports[`<Keyboard /> should render properly and match the snapshot 1`] = `
     >
       <Text
         accessible={true}
-        allowFontScaling={false}
+        allowFontScaling={true}
         collapsable={undefined}
         ellipsizeMode="tail"
         style={

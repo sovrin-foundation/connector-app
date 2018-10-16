@@ -24,6 +24,7 @@ export const OUTPUT_RANGE =
 export const styles = StyleSheet.create({
   container: {
     marginHorizontal: 32, // TODO: update style guide to reflect new constant
+    marginBottom: 5,
   },
   firstRow: {
     height: ROW_HEIGHT,

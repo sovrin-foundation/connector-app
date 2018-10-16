@@ -17,18 +17,20 @@ const styles = StyleSheet.create({
     marginTop: PADDING_VERTICAL,
   },
   ctaButton: {
-    width: '100%',
+    flex: -1,
     height: ctaButtonHeight,
     borderRadius: 5,
     backgroundColor: color.bg.eighth.color,
+    margin: '5%',
   },
   alignItemsCenter: {
     marginBottom: 6,
-    marginLeft: '5%',
-    marginRight: '5%',
+    marginHorizontal: '5%',
   },
   verticalSpacing: {
-    paddingTop: amountSpacing,
+    flexDirection: 'column',
+    alignContent: 'center',
+    justifyContent: 'space-around',
   },
 })
 

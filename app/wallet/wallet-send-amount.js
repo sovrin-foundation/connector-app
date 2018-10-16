@@ -86,52 +86,49 @@ class WalletSendAmount extends PureComponent<
     const isSendDisabled = text.length < 1 || text === '0'
 
     return (
-      <Container tertiary>
-        <Container style={[styles.verticalSpacing]}>
-          <CustomView>
-            <CustomView verticalSpace>
-              <CustomText
-                animated
-                formatNumber
-                transparentBg
-                center
-                style={[
-                  animatedStyle,
-                  {
-                    fontSize,
-                    color: color.bg.seventh.font.fifth,
-                    height: deviceHeight < MEDIUM_DEVICE ? 70 : 90,
-                    lineHeight: deviceHeight < MEDIUM_DEVICE ? 75 : 80,
-                  },
-                ]}
-                numberOfLines={1}
-              >
-                {text || 0}
-              </CustomText>
-            </CustomView>
-            <CustomText h6 center tertiary demibold uppercase transparentBg>
-              sovrin tokens
+      <Container tertiary style={[styles.verticalSpacing]}>
+        <CustomView>
+          <CustomView verticalSpace>
+            <CustomText
+              animated
+              formatNumber
+              transparentBg
+              center
+              style={[
+                animatedStyle,
+                {
+                  fontSize,
+                  color: color.bg.seventh.font.fifth,
+                  height: deviceHeight < MEDIUM_DEVICE ? 70 : 90,
+                  lineHeight: deviceHeight < MEDIUM_DEVICE ? 75 : 80,
+                },
+              ]}
+              numberOfLines={1}
+            >
+              {text || 0}
             </CustomText>
           </CustomView>
-          <Keyboard
-            color={color.bg.seventh.font.fifth}
-            onPress={this.changeText}
-            maxValue={this.props.walletBalance}
-            ref={this.saveTokenKeyboardRef}
-            afterDecimalSeparatorMaxLength={conversionFactorLength}
-          />
-        </Container>
-        <CustomView safeArea style={[styles.alignItemsCenter]}>
-          <CustomButton
-            disabled={isSendDisabled}
-            customColor={{ backgroundColor: color.bg.eighth.color }}
-            onPress={this.sendTokenAmount}
-            testID={SEND_TOKEN_BUTTON}
-            style={[styles.ctaButton]}
-            primary
-            title="Select Recipient"
-          />
+          <CustomText h6 center tertiary demibold uppercase transparentBg>
+            sovrin tokens
+          </CustomText>
         </CustomView>
+        <Keyboard
+          color={color.bg.seventh.font.fifth}
+          onPress={this.changeText}
+          maxValue={this.props.walletBalance}
+          ref={this.saveTokenKeyboardRef}
+          afterDecimalSeparatorMaxLength={conversionFactorLength}
+        />
+
+        <CustomButton
+          disabled={isSendDisabled}
+          customColor={{ backgroundColor: color.bg.eighth.color }}
+          onPress={this.sendTokenAmount}
+          testID={SEND_TOKEN_BUTTON}
+          style={[styles.ctaButton]}
+          primary
+          title="Select Recipient"
+        />
       </Container>
     )
   }
