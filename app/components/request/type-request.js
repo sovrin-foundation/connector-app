@@ -33,6 +33,7 @@ export type RequestProps = RequestDetailProps & {
   isTouchIdEnabled: boolean,
   pushNotificationPermissionAction: boolean => void,
   invitationError?: ?CustomError,
+  senderName: string,
 } & ReactNavigation
 
 export type RequestState = {

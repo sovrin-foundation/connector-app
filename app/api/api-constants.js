@@ -44,8 +44,10 @@ export const STATUS_CODE = {
 
 export const ERROR_ALREADY_EXIST = {
   code: 'OCS',
-  message: 'Already connected with sender.',
+  message: 'You already have a relationship with ',
 }
+
+export const ERROR_ALREADY_EXIST_TITLE = 'Relationship already established'
 
 export const ERROR_INVITATION_RESPONSE_PARSE_CODE = 'RN-100'
 

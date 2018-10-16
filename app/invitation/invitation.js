@@ -137,6 +137,7 @@ export class Invitation extends PureComponent<
               navigation={navigation}
               showErrorAlerts={showErrorAlerts}
               invitationError={invitation.error}
+              senderName={senderName}
             />
             {this.state.loading && (
               <CustomModal

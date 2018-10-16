@@ -23,6 +23,7 @@ describe('<Request />', () => {
     title: 'Hi Test User',
     message: 'Enterprise A agent wants to connect with you',
     senderLogoUrl: 'https://image.url',
+    senderName: 'Enterprise A agent',
     onAction: jest.fn(),
     showErrorAlerts: false,
     testID: 'request',

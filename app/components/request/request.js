@@ -16,6 +16,7 @@ import { pushNotificationPermissionAction } from '../../push-notification/push-n
 import {
   ERROR_ALREADY_EXIST,
   ERROR_INVITATION_RESPONSE_FAILED,
+  ERROR_ALREADY_EXIST_TITLE,
 } from '../../api/api-constants'
 
 export class Request extends PureComponent<RequestProps, RequestState> {
@@ -105,14 +106,24 @@ export class Request extends PureComponent<RequestProps, RequestState> {
       const isDuplicateConnection =
         this.props.invitationError.code === ERROR_ALREADY_EXIST.code
       const errorMessage = isDuplicateConnection
-        ? this.props.invitationError.message
+        ? `${this.props.invitationError.message}${this.props.senderName}`
         : ERROR_INVITATION_RESPONSE_FAILED
       const okAction = isDuplicateConnection
         ? this.onDuplicateConnectionError
         : noop
-      Alert.alert(null, errorMessage, [{ text: 'Ok', onPress: okAction }], {
-        cancelable: false,
-      })
+      const errorTitle = isDuplicateConnection
+        ? ERROR_ALREADY_EXIST_TITLE
+        : null
+
+      Alert.alert(
+        errorTitle,
+        errorMessage,
+        [{ text: 'Ok', onPress: okAction }],
+        {
+          cancelable: false,
+        }
+      )
+
       this.setState({
         disableAccept: false,
       })
