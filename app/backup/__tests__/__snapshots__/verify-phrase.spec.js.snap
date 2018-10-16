@@ -130,7 +130,7 @@ exports[`<VerifyRecoveryPhrase /> should match snapshot 1`] = `
               ]
             }
           >
-            Verify Your Recovery Phrase
+            Verify your Recovery Phrase
           </Text>
         </View>
         <View

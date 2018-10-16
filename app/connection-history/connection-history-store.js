@@ -149,7 +149,7 @@ export function convertConnectionSuccessToHistoryEvent(
     action: HISTORY_EVENT_STATUS[NEW_CONNECTION_SUCCESS],
     data: [
       {
-        label: 'Established On',
+        label: 'Established on',
         data: moment().format(),
       },
     ],

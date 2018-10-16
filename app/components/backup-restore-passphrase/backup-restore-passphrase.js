@@ -51,7 +51,7 @@ export default class BackupRestorePassphrase extends PureComponent<
                 </CustomView>
               ) : (
                 <CustomText transparentBg center style={[styles.title]}>
-                  Verify Your Recovery Phrase
+                  Verify your Recovery Phrase
                 </CustomText>
               )}
             </CustomView>
@@ -69,7 +69,7 @@ export default class BackupRestorePassphrase extends PureComponent<
             </CustomView>
             {errorState ? (
               <ErrorBanner
-                bannerTitle={'Recovery Phrase Does Not Match!'}
+                bannerTitle={'Recovery Phrase does not match!'}
                 bannerSubtext={'Try entering it again or go back and verify'}
                 style={[styles.dangerBannerBox]}
                 testID={'verify-passphrase-error-banner'}

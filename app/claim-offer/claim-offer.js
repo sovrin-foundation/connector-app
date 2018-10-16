@@ -283,7 +283,7 @@ export class ClaimOffer extends PureComponent<
       case LedgerFeesModalStatus.TRANSFER_POSSIBLE_WITH_FEES:
         return (
           <LedgerFeesDescriptionText>
-            The Sovrin ledger transaction fees brings your total spend to{' '}
+            The Sovrin Ledger transaction fees brings your total spend to{' '}
             <LedgerFeesDescriptionText bold>
               {totalSpend}
             </LedgerFeesDescriptionText>. Proceed?
@@ -369,7 +369,7 @@ export class ClaimOffer extends PureComponent<
         ) : (
           <Container fifth center>
             <CustomText h5 bg="fifth">
-              Invalid claim offer. Please ignore.
+              Invalid credential offer. Please ignore.
             </CustomText>
           </Container>
         )}

@@ -664,7 +664,7 @@ exports[`<LedgerFeesModalComponent /> show text passed by consumer of component,
       }
       testID="ledger-fees-modal-title"
     >
-      Transaction Fee
+      Transaction fee
     </Text>
     <Text
       accessibilityLabel="ledger-fees-modal-content"
@@ -1139,7 +1139,7 @@ exports[`<LedgerFeesModalComponent /> show transfer fees, Yes & No buttons, if f
       }
       testID="ledger-fees-modal-title"
     >
-      Transaction Fee
+      Transaction fee
     </Text>
     <Text
       accessibilityLabel="ledger-fees-modal-content"

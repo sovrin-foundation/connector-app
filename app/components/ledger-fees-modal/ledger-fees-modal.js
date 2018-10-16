@@ -153,7 +153,7 @@ export class LedgerFeesModalComponent extends PureComponent<
               bold
               testID={`${testID}-modal-title`}
             >
-              {'Transaction Fee'}
+              {'Transaction fee'}
             </CustomText>
           )}
           {/*

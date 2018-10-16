@@ -190,7 +190,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
               numberOfLines={1}
               style={[styles.genRecoveryText]}
             >
-              Recovery Phrase Generated
+              Recovery Phrase generated
             </CustomText>
           </CustomView>
           <CustomView center>
@@ -199,7 +199,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
               transparentBg
               style={[styles.genRecoveryMessage]}
             >
-              This is your recovery phrase. Write it down, and don't share it
+              This is your Recovery Phrase. Write it down, and don't share it
               with anyone.
             </CustomText>
           </CustomView>
@@ -223,7 +223,7 @@ export class GenerateRecoveryPhrase extends PureComponent<
               transparentBg
               style={[styles.genRecoverySecondMessage]}
             >
-              You will need this recovery phrase to restore from a backup. Keep
+              You will need this Recovery Phrase to restore from a backup. Keep
               it safe.
             </CustomText>
           </CustomView>

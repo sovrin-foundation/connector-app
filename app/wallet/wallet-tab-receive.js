@@ -70,8 +70,8 @@ export class WalletTabReceive extends PureComponent<
                 style={[styles.heading]}
               >
                 {isLoading
-                  ? 'FETCHING YOUR SOVRIN TOKEN PAYMENT ADDRESS'
-                  : 'YOUR SOVRIN TOKEN PAYMENT ADDRESS IS:'}
+                  ? 'Fetching your Sovrin token payment address'
+                  : 'Your Sovrin token payment address is:'}
               </CustomText>
               {isLoading && <Loader showMessage={false} />}
               {walletAddresses.map((walletAddress: string) => {

@@ -70,7 +70,7 @@ exports[`<WalletTabReceive /> should render properly and match the snapshot 1`] 
               ]
             }
           >
-            YOUR SOVRIN TOKEN PAYMENT ADDRESS IS:
+            Your Sovrin token payment address is:
           </Text>
           <Text
             accessible={true}

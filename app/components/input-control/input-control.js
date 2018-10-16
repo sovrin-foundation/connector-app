@@ -110,7 +110,7 @@ export default class ControlInput extends PureComponent<
         </CustomView>
         {/* for validation */}
         {this.props.validation && isValid === 'ERROR' ? (
-          <ErrorCustomInput>Invalid Payment Address</ErrorCustomInput>
+          <ErrorCustomInput>Invalid payment address</ErrorCustomInput>
         ) : null}
       </CustomView>
     )

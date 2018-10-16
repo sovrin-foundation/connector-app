@@ -539,7 +539,7 @@ exports[`<LockEnter /> should match snapshot for recovery flow 1`] = `
           ]
         }
       >
-        Please Enter Your Current Connect.Me Passcode!
+        Please enter your current Connect.Me passcode!
       </Text>
     </View>
     <View
@@ -871,7 +871,7 @@ exports[`<LockEnter /> should match snapshot for recovery flow 1`] = `
         }
         testID="set-up-new-passcode-recovery"
       >
-        Or setup new Passcode
+        Or Setup New Passcode
       </Text>
     </View>
   </RCTSafeAreaView>

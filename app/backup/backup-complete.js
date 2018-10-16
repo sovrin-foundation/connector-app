@@ -68,7 +68,7 @@ export class BackupComplete extends PureComponent<BackupCompleteProps, void> {
           <Container>
             <CustomView center>
               <CustomText transparentBg center style={[styles.title]}>
-                Backup Complete
+                Backup complete
               </CustomText>
             </CustomView>
             <CustomView center>
@@ -85,7 +85,7 @@ export class BackupComplete extends PureComponent<BackupCompleteProps, void> {
                   style={styles.backupCompleteText}
                 >
                   If you ever have to start with a new installation of
-                  connect.me you will need to recover from this saved backup
+                  Connect.Me you will need to recover from this saved backup
                   file.
                 </CustomText>
               </CustomView>

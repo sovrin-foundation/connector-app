@@ -260,7 +260,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
           src={require('../images/icon_aboutApp.png')}
         />
         <CustomView center>
-          <SettingText>About This App</SettingText>
+          <SettingText>About this App</SettingText>
         </CustomView>
       </CustomView>
     )

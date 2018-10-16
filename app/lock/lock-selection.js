@@ -93,7 +93,7 @@ export class LockSelection extends PureComponent<LockSelectionProps, void> {
           onLongPress={this._onLongPressButton}
         >
           <CustomText h5 bg="tertiary" tertiary semiBold center>
-            Choose How To Unlock App
+            Choose how to unlock App
           </CustomText>
         </CustomView>
         <CustomView style={[style.messageText]}>

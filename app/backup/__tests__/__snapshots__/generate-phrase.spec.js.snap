@@ -71,7 +71,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot 1`] = `
           ]
         }
       >
-        Recovery Phrase Generated
+        Recovery Phrase generated
       </Text>
     </View>
     <View
@@ -125,7 +125,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot 1`] = `
           ]
         }
       >
-        This is your recovery phrase. Write it down, and don't share it with anyone.
+        This is your Recovery Phrase. Write it down, and don't share it with anyone.
       </Text>
     </View>
     <View
@@ -254,7 +254,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot 1`] = `
           ]
         }
       >
-        You will need this recovery phrase to restore from a backup. Keep it safe.
+        You will need this Recovery Phrase to restore from a backup. Keep it safe.
       </Text>
     </View>
   </View>
@@ -541,7 +541,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for error state 1`] = 
           ]
         }
       >
-        Recovery Phrase Generated
+        Recovery Phrase generated
       </Text>
     </View>
     <View
@@ -595,7 +595,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for error state 1`] = 
           ]
         }
       >
-        This is your recovery phrase. Write it down, and don't share it with anyone.
+        This is your Recovery Phrase. Write it down, and don't share it with anyone.
       </Text>
     </View>
     <View
@@ -721,7 +721,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for error state 1`] = 
           ]
         }
       >
-        You will need this recovery phrase to restore from a backup. Keep it safe.
+        You will need this Recovery Phrase to restore from a backup. Keep it safe.
       </Text>
     </View>
   </View>
@@ -1017,7 +1017,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for loading state 1`] 
           ]
         }
       >
-        Recovery Phrase Generated
+        Recovery Phrase generated
       </Text>
     </View>
     <View
@@ -1071,7 +1071,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for loading state 1`] 
           ]
         }
       >
-        This is your recovery phrase. Write it down, and don't share it with anyone.
+        This is your Recovery Phrase. Write it down, and don't share it with anyone.
       </Text>
     </View>
     <View
@@ -1156,7 +1156,7 @@ exports[`<GenerateRecoveryPhrase /> should match snapshot for loading state 1`] 
           ]
         }
       >
-        You will need this recovery phrase to restore from a backup. Keep it safe.
+        You will need this Recovery Phrase to restore from a backup. Keep it safe.
       </Text>
     </View>
   </View>

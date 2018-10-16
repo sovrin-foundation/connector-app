@@ -154,7 +154,7 @@ export class ExportBackupFile extends PureComponent<
         <Container style={[styles.wrapper]}>
           <CustomView center>
             <CustomText transparentBg center style={[styles.exportBackupTitle]}>
-              Export Your Encrypted Backup File
+              Export your encrypted backup file
             </CustomText>
           </CustomView>
           <CustomView center>

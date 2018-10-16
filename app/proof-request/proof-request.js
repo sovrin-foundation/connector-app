@@ -221,7 +221,7 @@ class ProofRequestAttributeList extends PureComponent<
                         multiline={true}
                         maxLength={200}
                         maxHeight={50}
-                        placeholder={`enter ${item.label}`}
+                        placeholder={`Enter ${item.label}`}
                         returnKeyType="done"
                         testID={`${testID}-input-${adjustedLabel}`}
                         accessible={true}

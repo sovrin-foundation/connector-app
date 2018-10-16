@@ -69,7 +69,7 @@ export class RestorePassphrase extends Component<RestorePassphraseProps, void> {
       <EnterPassphrase
         testID={'restore-encrypt-phrase'}
         onSubmit={this.submitPhrase}
-        placeholder={'Enter recovery phrase here'}
+        placeholder={'Enter Recovery Phrase here'}
         filename={filename}
       />
     )

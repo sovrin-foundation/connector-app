@@ -46,7 +46,7 @@ export class LockFingerprintSetup extends PureComponent<
         touchIDAlerts.usePasscodeAlert,
         [
           {
-            text: 'OK',
+            text: 'Ok',
             onPress: () => this.props.navigation.goBack(null),
           },
         ],

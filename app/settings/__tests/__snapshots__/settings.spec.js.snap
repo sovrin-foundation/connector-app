@@ -835,7 +835,7 @@ exports[`user settings screen should render properly and snapshot should match 1
                       ]
                     }
                   >
-                    About This App
+                    About this App
                   </Text>
                 </View>
               </View>

@@ -71,7 +71,7 @@ exports[`app lock selection page should render properly 1`] = `
         ]
       }
     >
-      Choose How To Unlock App
+      Choose how to unlock App
     </Text>
   </View>
   <View

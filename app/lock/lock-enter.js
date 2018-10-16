@@ -145,7 +145,7 @@ export class LockEnter extends PureComponent<LockEnterProps, LockEnterState> {
                 heavy
                 charcoal
               >
-                Please Enter Your Current Connect.Me Passcode!
+                Please enter your current Connect.Me passcode!
               </CustomText>
             </CustomView>
             <CustomView center>
@@ -166,7 +166,7 @@ export class LockEnter extends PureComponent<LockEnterProps, LockEnterState> {
                 onPress={this.props.setupNewPassCode}
                 testID={'set-up-new-passcode-recovery'}
               >
-                Or setup new Passcode
+                Or Setup New Passcode
               </CustomText>
             </CustomView>
           </Container>
