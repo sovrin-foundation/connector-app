@@ -9,7 +9,7 @@ VAGRANT_HOME=/home/vagrant
 # which holds our machine shared directory, this path would be inside vagrant VM shared directory
 INDY_VAGRANT_WORKDIR=/home/vagrant/Work/indy-sdk
 # Path on our machine that point to indy-sdk clone
-INDY_WORKDIR=~/dev/vagrant/indy-so-files/indy-sdk 
+INDY_WORKDIR=~/dev/vagrant/indy-so-files/indy-sdk
 # path of vcx on our machine
 VCX_WORKDIR=~/dev/evernym/sdk
 # path of connectme repo on our machine
@@ -32,7 +32,7 @@ generate_flags(){
 		echo "please provide the arch e.g arm, x86 or arm64"
 	fi
 	if [ $1 == "arm" ]; then
-		export ARCH="arm" 
+		export ARCH="arm"
 		export TRIPLET="arm-linux-androideabi"
 		export PLATFORM="16"
 		export ABI="armeabi-v7a"
@@ -112,7 +112,7 @@ build_wrapper_and_update_gradle_files(){
 }
 
 uninstall_app(){
-		adb uninstall com.connectme
+		adb uninstall me.connect
 		sleep 10
 }
 delete_existing_wallet(){
@@ -125,13 +125,13 @@ run_app(){
 		pushd android
 			../gradlew clean installDebug --stacktrace && \
 			adb -s emulator-5554 reverse tcp:8081 tcp:8081 && \
-			adb shell pm grant com.connectme android.permission.SYSTEM_ALERT_WINDOW && \
-			adb shell pm grant com.connectme android.permission.WRITE_EXTERNAL_STORAGE && \
-			adb shell pm grant com.connectme android.permission.READ_EXTERNAL_STORAGE && \
-			adb -s emulator-5554 shell am start -n com.connectme/com.connectme.MainActivity
+			adb shell pm grant me.connect android.permission.SYSTEM_ALERT_WINDOW && \
+			adb shell pm grant me.connect android.permission.WRITE_EXTERNAL_STORAGE && \
+			adb shell pm grant me.connect android.permission.READ_EXTERNAL_STORAGE && \
+			adb -s emulator-5554 shell am start -n me.connect/me.connect.MainActivity
 
 
-		popd 
+		popd
 	popd
 }
 

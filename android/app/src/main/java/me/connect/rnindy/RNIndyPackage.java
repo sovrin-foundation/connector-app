@@ -1,6 +1,6 @@
 //  Created by react-native-create-bridge
 
-package com.connectme.rnindy;
+package me.connect.rnindy;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;

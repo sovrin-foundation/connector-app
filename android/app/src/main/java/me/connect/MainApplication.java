@@ -1,4 +1,4 @@
-package com.connectme;
+package me.connect;
 
 import android.app.Application;
 import com.apptentive.android.sdk.reactlibrary.RNApptentivePackage;
@@ -27,7 +27,7 @@ import io.branch.rnbranch.RNBranchPackage;
 import io.branch.referral.Branch;
 import com.oblador.vectoricons.VectorIconsPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
-import com.connectme.rnindy.RNIndyPackage;
+import me.connect.rnindy.RNIndyPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -98,6 +98,6 @@ public class MainApplication extends Application implements ShareApplication, Re
 
   @Override
   public String getFileProviderAuthority() {
-    return "com.connectme.provider";
+    return "me.connect.provider";
   }
 }

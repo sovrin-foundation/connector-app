@@ -1,4 +1,4 @@
-package com.connectme;
+package me.connect;
 
 /**
  * Created by abdussami on 08/06/18.
@@ -22,8 +22,8 @@ import org.junit.runner.RunWith;
 
 import java.io.File;
 
-import static com.connectme.BridgeUtils.generateCaCertContents;
-import static com.connectme.BridgeUtils.writeCACert;
+import static me.connect.BridgeUtils.generateCaCertContents;
+import static me.connect.BridgeUtils.writeCACert;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest

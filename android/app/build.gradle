@@ -107,11 +107,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.connectme"
+        applicationId "me.connect"
         minSdkVersion 23
         targetSdkVersion 26
         multiDexEnabled true
-        versionCode 705
+        versionCode 706
         versionName "1.0"
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8

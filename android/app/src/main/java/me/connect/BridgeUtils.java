@@ -1,4 +1,4 @@
-package com.connectme;
+package me.connect;
 
 import android.content.Context;
 import android.os.Environment;

@@ -1,6 +1,6 @@
 //  Created by react-native-create-bridge
 
-package com.connectme.rnindy;
+package me.connect.rnindy;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,7 +11,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.content.ContextWrapper;
 
-import com.connectme.BridgeUtils;
+import me.connect.BridgeUtils;
 import com.evernym.sdk.vcx.VcxException;
 import com.evernym.sdk.vcx.wallet.WalletApi;
 import com.evernym.sdk.vcx.connection.ConnectionApi;

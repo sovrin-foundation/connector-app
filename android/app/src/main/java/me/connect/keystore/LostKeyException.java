@@ -1,4 +1,4 @@
-package com.connectme.keystore;
+package me.connect.keystore;
 
 public class LostKeyException extends Exception {
     public LostKeyException() {

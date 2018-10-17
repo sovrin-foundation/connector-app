@@ -1,4 +1,4 @@
-package com.connectme;
+package me.connect;
 
 import com.facebook.react.ReactActivity;
 

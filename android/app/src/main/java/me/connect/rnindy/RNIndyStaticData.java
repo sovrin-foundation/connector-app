@@ -1,4 +1,4 @@
-package com.connectme.rnindy;
+package me.connect.rnindy;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableArray;

@@ -1,4 +1,4 @@
-package com.connectme;
+package me.connect;
 
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;

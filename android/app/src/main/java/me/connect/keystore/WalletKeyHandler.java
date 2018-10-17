@@ -1,4 +1,4 @@
-package com.connectme.keystore;
+package me.connect.keystore;
 
 import android.app.KeyguardManager;
 import android.content.Context;

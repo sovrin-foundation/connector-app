@@ -5,38 +5,32 @@
     "project_id": "***REMOVED***",
     "storage_bucket": "***REMOVED***.appspot.com"
   },
-  "client": [
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:***REMOVED***:android:be30b7f3a5945b65",
-        "android_client_info": {
-          "package_name": "com.connectme"
-        }
+  "client": [{
+    "client_info": {
+      "mobilesdk_app_id": "1:***REMOVED***:android:be30b7f3a5945b65",
+      "android_client_info": {
+        "package_name": "me.connect"
+      }
+    },
+    "oauth_client": [{
+      "client_id": "***REMOVED***-nmqr9o4epga5c98dj4ae7l41h745tnkb.apps.googleusercontent.com",
+      "client_type": 3
+    }],
+    "api_key": [{
+      "current_key": "***REMOVED***"
+    }],
+    "services": {
+      "analytics_service": {
+        "status": 1
       },
-      "oauth_client": [
-        {
-          "client_id": "***REMOVED***-nmqr9o4epga5c98dj4ae7l41h745tnkb.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "***REMOVED***"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
-        }
+      "appinvite_service": {
+        "status": 1,
+        "other_platform_oauth_client": []
+      },
+      "ads_service": {
+        "status": 2
       }
     }
-  ],
+  }],
   "configuration_version": "1"
 }
