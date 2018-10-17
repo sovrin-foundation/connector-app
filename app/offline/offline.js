@@ -12,6 +12,8 @@ import { Container } from '../components'
 import VectorIcon from '../components/vector-icon/vector-icon'
 
 export class Offline extends PureComponent<OfflineProps> {
+  connectivityChecker: number
+
   componentDidMount() {
     NetInfo.isConnected.addEventListener(
       'connectionChange',
@@ -24,10 +26,43 @@ export class Offline extends PureComponent<OfflineProps> {
       'connectionChange',
       this.handleConnectivityChange
     )
+    this.clearInternetCheck()
+  }
+
+  clearInternetCheck() {
+    this.connectivityChecker && clearInterval(this.connectivityChecker)
   }
 
   handleConnectivityChange = (isConnected: boolean) => {
+    if (!isConnected) {
+      // NetInfo does not reliably change status to connected
+      // however, it works pretty well to change status to offline
+      if (!this.connectivityChecker) {
+        // once we know that we are offline, then we start checking for online
+        // and does not solely rely on NetInfo module
+        this.connectivityChecker = setInterval(this.checkConnectivity, 5000)
+      }
+    } else {
+      this.clearInternetCheck()
+    }
     this.props.offline(!isConnected)
+  }
+
+  checkConnectivity = () => {
+    fetch('https://www.google.com/', {
+      method: 'HEAD',
+    })
+      .then(response => {
+        if (response.status < 500) {
+          this.handleConnectivityChange(true)
+          this.clearInternetCheck()
+        } else {
+          this.handleConnectivityChange(false)
+        }
+      })
+      .catch(error => {
+        this.handleConnectivityChange(false)
+      })
   }
 
   render() {
