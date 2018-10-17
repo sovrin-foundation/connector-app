@@ -294,7 +294,7 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
           "backgroundColor": "transparent",
           "left": 120,
           "position": "absolute",
-          "top": 320,
+          "top": 316,
           "width": 80,
         }
       }
@@ -672,7 +672,7 @@ exports[`<DashboardScreen /> should render Home and show loader 1`] = `
           "backgroundColor": "transparent",
           "left": 120,
           "position": "absolute",
-          "top": 320,
+          "top": 316,
           "width": 80,
         }
       }

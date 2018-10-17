@@ -179,7 +179,7 @@ const getHeight = height => {
   if (isBiggerThanShortDevice) {
     return height - 250
   }
-  return height - 220
+  return height - 224
 }
 export default createStackNavigator({
   [homeRoute]: {

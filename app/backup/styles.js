@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   headerIcon: {
     marginRight: isBiggerThanShortDevice ? 5 : 0,
-    marginTop: isBiggerThanShortDevice ? 15 : 5,
+    marginTop: isBiggerThanShortDevice ? 15 : 0,
     alignSelf: 'flex-end',
   },
   headerBackIcon: {
