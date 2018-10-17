@@ -7,6 +7,8 @@ import type { ReactNavigation } from '../common/type-common'
 
 export type QRCodeScannerScreenState = {
   isCameraAuthorized: boolean,
+  isCameraEnabled: boolean,
+  appState: ?string,
 }
 
 export type QRCodeScannerScreenProps = {

@@ -26,7 +26,7 @@ export const ENTER_PASS_CODE_MESSAGE = 'Enter passcode'
 
 export const ENTER_YOUR_PASS_CODE_MESSAGE = 'Enter your passcode'
 
-export const FIRST_BACKUP_TITLE = 'Set up Data Recovery Now!'
+export const FIRST_BACKUP_TITLE = 'Set up data recovery now!'
 
 export const FIRST_BACKUP_SUBTEXT = '2 easy steps, takes 3 minutes.'
 

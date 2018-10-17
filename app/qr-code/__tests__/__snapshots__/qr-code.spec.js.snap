@@ -2,6 +2,7 @@
 
 exports[`<QRScannerScreen /> match snapshot when camera is not authorized 1`] = `
 <View
+  collapsable={true}
   dark={true}
   style={
     Object {
@@ -47,6 +48,7 @@ Object {
 
 exports[`<QRScannerScreen /> should match snapshot 1`] = `
 <View
+  collapsable={true}
   dark={true}
   style={
     Object {

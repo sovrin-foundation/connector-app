@@ -3,7 +3,13 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Camera from 'react-native-camera'
-import { Alert, Platform, PermissionsAndroid, StatusBar } from 'react-native'
+import {
+  Alert,
+  Platform,
+  PermissionsAndroid,
+  StatusBar,
+  AppState,
+} from 'react-native'
 import { Container, QRScanner } from '../components'
 import { color, barStyleLight, barStyleDark } from '../common/styles/constant'
 import { invitationReceived } from '../invitation/invitation-store'
@@ -92,7 +98,9 @@ export class QRCodeScannerScreen extends PureComponent<
   QRCodeScannerScreenState
 > {
   state = {
+    appState: AppState.currentState,
     isCameraAuthorized: false,
+    isCameraEnabled: false,
   }
 
   permissionCheckIntervalId = 0
@@ -129,6 +137,7 @@ export class QRCodeScannerScreen extends PureComponent<
 
   onClose = () => {
     this.props.navigation.navigate(homeTabRoute)
+    this.setState({ isCameraEnabled: false })
   }
 
   allowCameraPermissionAcknowledged = () => {
@@ -176,7 +185,10 @@ export class QRCodeScannerScreen extends PureComponent<
   }
 
   componentWillReceiveProps(nextProps: QRCodeScannerScreenProps) {
-    if (nextProps.currentScreen === qrCodeScannerTabRoute) {
+    if (
+      nextProps.currentScreen !== this.props.currentScreen &&
+      nextProps.currentScreen === qrCodeScannerTabRoute
+    ) {
       // whenever user navigates to this screen, we have to check permission
       // every time, although we should have this logic in componentDidMount
       // but in the router (react navigation) that we are using
@@ -186,6 +198,9 @@ export class QRCodeScannerScreen extends PureComponent<
       // such as `cwrp` or `cdu`, we are `cwrp` to check the status every time
       // also, we check status only on the basis of screen switching
       // and only check status if user is redirecting to QrCodeScanScreen
+      if (nextProps.navigation.isFocused()) {
+        this.setState({ isCameraEnabled: true })
+      }
 
       if (Platform.OS === 'android') {
         this.permissionCheckIntervalId = setInterval(() => {
@@ -231,6 +246,7 @@ export class QRCodeScannerScreen extends PureComponent<
       this.checkCameraAuthorization()
       this.updateStatusBarTheme()
     }
+    AppState.addEventListener('change', this._handleAppStateChange)
   }
 
   componentDidUpdate() {
@@ -239,13 +255,35 @@ export class QRCodeScannerScreen extends PureComponent<
     }
   }
 
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange)
+  }
+
+  _handleAppStateChange = nextAppState => {
+    if (
+      this.state.appState &&
+      this.state.appState.match(/inactive|background/) &&
+      nextAppState === 'active'
+    ) {
+      this.setState({ isCameraEnabled: true })
+    } else if (
+      this.state.appState &&
+      nextAppState.match(/inactive|background/) &&
+      this.state.appState === 'active'
+    ) {
+      this.setState({ isCameraEnabled: false })
+    }
+    this.setState({ appState: nextAppState })
+  }
+
   render() {
     return (
       //Till the time camera authorization is checked
       //empty black screen will be returned
       //so that it doesn't look odd
-      <Container dark>
+      <Container dark collapsable={true}>
         {this.state.isCameraAuthorized &&
+        this.state.isCameraEnabled &&
         this.props.currentScreen === qrCodeScannerTabRoute ? (
           <QRScanner
             onRead={this.onRead}

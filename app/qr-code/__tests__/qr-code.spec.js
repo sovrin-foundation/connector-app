@@ -24,6 +24,8 @@ describe('<QRScannerScreen />', () => {
       invitationReceived: jest.fn(),
       currentScreen: qrCodeScannerTabRoute,
       changeEnvironmentUrl: jest.fn(),
+      enableCamera: jest.fn(),
+      isCameraEnabled: true,
     }
   }
 
@@ -37,7 +39,7 @@ describe('<QRScannerScreen />', () => {
 
   it('should match snapshot', () => {
     const { instance, component } = setup()
-    instance.setState({ isCameraAuthorized: true })
+    instance.setState({ isCameraAuthorized: true, isCameraEnabled: true })
 
     let tree = component.toJSON()
     expect(tree).toMatchSnapshot()
