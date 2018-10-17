@@ -158,6 +158,7 @@ export type LockEnterPinProps = {
   existingPin: boolean,
   isAppLocked: boolean,
   inRecovery: string,
+  currentScreen: string,
 } & ReactNavigation
 
 export type LockEnterFingerProps = {

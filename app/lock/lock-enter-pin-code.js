@@ -65,6 +65,19 @@ export class LockEnterPin extends PureComponent<
     this.setState({
       isKeyboardHidden: true,
     })
+
+    if (
+      this.state.authenticationSuccess &&
+      this.props.currentScreen === lockEnterPinRoute
+    ) {
+      // if we reach at this screen from settings page
+      // then user is trying to enable/disable touch id
+      if (this.props.existingPin) {
+        this.props.navigation.push(lockPinSetupRoute, {
+          existingPin: true,
+        })
+      }
+    }
   }
 
   componentWillReceiveProps(nextProps: LockEnterPinProps) {
@@ -90,7 +103,10 @@ export class LockEnterPin extends PureComponent<
           this.keyboardHideState
         )
       }
-    } else {
+    } else if (
+      this.props.currentScreen === lockEnterPinRoute &&
+      nextProps.currentScreen !== lockEnterPinRoute
+    ) {
       this.keyboardListener && this.keyboardListener.remove()
     }
   }
@@ -120,11 +136,10 @@ export class LockEnterPin extends PureComponent<
       this.setState({ authenticationSuccess: true })
       // if we reach at this screen from settings page
       // then user is trying to enable/disable touch id
-      if (this.props.existingPin) {
-        this.props.navigation.push(lockPinSetupRoute, {
-          existingPin: true,
-        })
-      } else if (this.props.isFetchingInvitation === false) {
+      if (
+        !this.props.existingPin &&
+        this.props.isFetchingInvitation === false
+      ) {
         // user is trying to unlock the app
         // check if user has some pending action, so redirect to those
         this.redirect(this.props)
@@ -177,6 +192,7 @@ const mapStateToProps = (state: Store, { navigation }: ReactNavigation) => ({
     : false,
   isAppLocked: state.lock.isAppLocked,
   inRecovery: state.lock.inRecovery,
+  currentScreen: state.route.currentScreen,
 })
 
 const mapDispatchToProps = dispatch =>

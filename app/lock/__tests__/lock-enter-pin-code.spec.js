@@ -5,7 +5,12 @@ import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux'
 import { CHECK_PIN_IDLE, CHECK_PIN_FAIL, CHECK_PIN_SUCCESS } from '../type-lock'
 import { LockEnterPin } from '../lock-enter-pin-code'
-import { homeRoute, claimOfferRoute, lockPinSetupRoute } from '../../common'
+import {
+  homeRoute,
+  claimOfferRoute,
+  lockPinSetupRoute,
+  lockEnterPinRoute,
+} from '../../common'
 import {
   getStore,
   getNavigation,
@@ -24,6 +29,7 @@ describe('<LockPinCodeEnter />', () => {
     isFetchingInvitation: false,
     isAppLocked: true,
     inRecovery: 'false',
+    currentScreen: lockEnterPinRoute,
   })
 
   let component
@@ -61,6 +67,7 @@ describe('<LockPinCodeEnter />', () => {
 
   it('should navigate to pin setup onSuccess', () => {
     componentInstance.onSuccess()
+    componentInstance.keyboardHideState()
     expect(props.navigation.push).toHaveBeenCalledWith(lockPinSetupRoute, {
       existingPin: true,
     })

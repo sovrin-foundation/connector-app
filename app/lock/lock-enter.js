@@ -67,7 +67,6 @@ export const WrongPinText = (
 
 export class LockEnter extends PureComponent<LockEnterProps, LockEnterState> {
   pinCodeBox = null
-
   clearFailStatus = () => {
     this.props.checkPinStatusIdle()
   }
