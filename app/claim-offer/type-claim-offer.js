@@ -276,7 +276,9 @@ export type CredentialOfferModalProps = {
 export type CredentialOfferModalState = {
   isVisible: boolean,
 }
-export type ClaimRequestStatusModalState = {}
+export type ClaimRequestStatusModalState = {
+  modalText: string,
+}
 
 export type ClaimOfferResponse = {
   msgs: [

@@ -50,7 +50,9 @@ exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
                 "backgroundColor": "#ffffff",
                 "color": "#777777",
               },
-              null,
+              Object {
+                "fontWeight": "bold",
+              },
               Object {
                 "textAlign": "center",
               },
@@ -205,7 +207,9 @@ exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
                 "backgroundColor": "#ffffff",
                 "color": "#777777",
               },
-              null,
+              Object {
+                "fontWeight": "bold",
+              },
               Object {
                 "textAlign": "center",
               },
@@ -360,7 +364,9 @@ exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
                 "backgroundColor": "#ffffff",
                 "color": "#777777",
               },
-              null,
+              Object {
+                "fontWeight": "bold",
+              },
               Object {
                 "textAlign": "center",
               },

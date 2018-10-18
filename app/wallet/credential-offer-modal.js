@@ -74,7 +74,9 @@ export default class CredentialOfferModal extends PureComponent<
         testID={'credential-offer-modal'}
         style={[
           claimRequestStatus ===
-          CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
+            CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST ||
+          claimRequestStatus === CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST ||
+          claimRequestStatus === CLAIM_REQUEST_STATUS.SEND_CLAIM_REQUEST_SUCCESS
             ? {
                 padding: 0,
                 margin: 0,
@@ -87,7 +89,12 @@ export default class CredentialOfferModal extends PureComponent<
             CREDENTIAL_OFFER_MODAL_STATUS.INSUFFICIENT_BALANCE &&
           payTokenValue && (
             <CustomView center fifth shadow style={[styles.container]}>
-              <CustomView style={[styles.innerContainer]} center verticalSpace>
+              <CustomView
+                spaceBetween
+                style={[styles.innerContainer]}
+                center
+                verticalSpace
+              >
                 <CustomView center verticalSpace>
                   <Icon src={require('../images/alertInfo.png')} />
                 </CustomView>
@@ -112,18 +119,25 @@ export default class CredentialOfferModal extends PureComponent<
         {isValid &&
           credentialOfferModalStatus ===
             CREDENTIAL_OFFER_MODAL_STATUS.CREDENTIAL_REQUEST_FAIL && (
-            <CustomView
-              center
-              horizontalSpace
-              doubleVerticalSpace
-              fifth
-              shadow
-              style={[styles.container]}
-            >
-              <Icon src={require('../images/alertInfo.png')} />
-              <CustomText transparentBg primary center bold>
-                Error accepting credential. Please try again.
-              </CustomText>
+            <CustomView center fifth shadow style={[styles.container]}>
+              <CustomView
+                spaceBetween
+                style={[styles.innerContainer]}
+                center
+                verticalSpace
+              >
+                <CustomView center verticalSpace>
+                  <Icon src={require('../images/alertInfo.png')} />
+                </CustomView>
+                <CustomText
+                  transparentBg
+                  style={[styles.fontBlack]}
+                  center
+                  demiBold
+                >
+                  Error accepting credential. Please try again.
+                </CustomText>
+              </CustomView>
               <CustomButton
                 fifth
                 onPress={this.props.onClose}
@@ -132,6 +146,7 @@ export default class CredentialOfferModal extends PureComponent<
               />
             </CustomView>
           )}
+
         {claimRequestStatus &&
           claimOfferData &&
           isValid &&
@@ -150,7 +165,9 @@ export default class CredentialOfferModal extends PureComponent<
               }
               isPending={
                 claimRequestStatus ===
-                CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST
+                  CLAIM_REQUEST_STATUS.SENDING_PAID_CREDENTIAL_REQUEST ||
+                claimRequestStatus ===
+                  CLAIM_REQUEST_STATUS.SENDING_CLAIM_REQUEST
               }
               onModalHide={this.props.onModalHide}
             />
@@ -190,7 +207,7 @@ export default class CredentialOfferModal extends PureComponent<
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: isiPhone5 ? OFFSET_1X : OFFSET_3X,
+    marginHorizontal: OFFSET_3X,
   },
   innerContainer: {
     ...Platform.select({
@@ -203,8 +220,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
       },
     }),
-    paddingVertical: OFFSET_2X,
-    paddingHorizontal: OFFSET_3X,
+    padding: OFFSET_2X,
   },
   message: {
     marginBottom: OFFSET_1X / 2,

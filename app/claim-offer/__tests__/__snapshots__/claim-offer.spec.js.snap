@@ -922,24 +922,6 @@ exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
       </View>
     </View>
   </RCTSafeAreaView>
-  <Modal
-    animationIn="zoomIn"
-    animationOut="zoomOut"
-    animationOutTiming={100}
-    backdropColor="#f0f0f0"
-    hideModalContentWhileAnimating={true}
-    isVisible={false}
-    onBackButtonPress={[Function]}
-    onBackdropPress={[Function]}
-    onModalHide={[Function]}
-    style={
-      Array [
-        Object {},
-      ]
-    }
-    testID="credential-offer-modal"
-    useNativeDriver={true}
-  />
 </View>
 `;
 
@@ -2100,23 +2082,5 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
       </View>
     </View>
   </RCTSafeAreaView>
-  <Modal
-    animationIn="zoomIn"
-    animationOut="zoomOut"
-    animationOutTiming={100}
-    backdropColor="#f0f0f0"
-    hideModalContentWhileAnimating={true}
-    isVisible={false}
-    onBackButtonPress={[Function]}
-    onBackdropPress={[Function]}
-    onModalHide={[Function]}
-    style={
-      Array [
-        Object {},
-      ]
-    }
-    testID="credential-offer-modal"
-    useNativeDriver={true}
-  />
 </View>
 `;

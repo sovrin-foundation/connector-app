@@ -1405,7 +1405,9 @@ exports[`<ProofRequest /> should call proofRequestShown on componentDidMount 1`]
                   "backgroundColor": "#ffffff",
                   "color": "#777777",
                 },
-                null,
+                Object {
+                  "fontWeight": "bold",
+                },
                 Object {
                   "textAlign": "center",
                 },

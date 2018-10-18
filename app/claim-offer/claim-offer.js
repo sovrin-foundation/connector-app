@@ -135,15 +135,9 @@ export class ClaimOffer extends PureComponent<
   }
 
   close = () => {
-    if (
-      this.state.credentialOfferModalStatus !==
-      CREDENTIAL_OFFER_MODAL_STATUS.INSUFFICIENT_BALANCE
-    ) {
-      this.setState({
-        credentialOfferModalStatus: CREDENTIAL_OFFER_MODAL_STATUS.NONE,
-      })
-    }
-
+    this.setState({
+      credentialOfferModalStatus: CREDENTIAL_OFFER_MODAL_STATUS.NONE,
+    })
     this.props.navigation.goBack()
   }
 
@@ -243,22 +237,10 @@ export class ClaimOffer extends PureComponent<
           CREDENTIAL_OFFER_MODAL_STATUS.SEND_PAID_CREDENTIAL_REQUEST_FAIL,
       })
     } else if (
-      claimRequestStatus === CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS &&
+      claimRequestStatus === CLAIM_REQUEST_STATUS.SEND_CLAIM_REQUEST_SUCCESS &&
       this.state.credentialOfferModalStatus !==
         CREDENTIAL_OFFER_MODAL_STATUS.NONE
     ) {
-      this.setState({
-        credentialOfferModalStatus: CREDENTIAL_OFFER_MODAL_STATUS.NONE,
-      })
-      this.close()
-    } else if (
-      claimRequestStatus === CLAIM_REQUEST_STATUS.CLAIM_REQUEST_SUCCESS &&
-      this.state.credentialOfferModalStatus !==
-        CREDENTIAL_OFFER_MODAL_STATUS.NONE
-    ) {
-      this.setState({
-        credentialOfferModalStatus: CREDENTIAL_OFFER_MODAL_STATUS.NONE,
-      })
       this.close()
     }
   }
@@ -382,22 +364,24 @@ export class ClaimOffer extends PureComponent<
           testID={`${testID}-footer`}
           disableAccept={this.state.disableAcceptButton}
         />
-
-        <CredentialOfferModal
-          isValid={isValid}
-          claimRequestStatus={claimRequestStatus}
-          onModalHide={this.onCredentialOfferModalHide}
-          claimOfferData={claimOfferData}
-          onClose={this.close}
-          logoUrl={logoUrl}
-          payTokenValue={payTokenValue}
-          credentialOfferModalStatus={this.state.credentialOfferModalStatus}
-          testID={`${testID}-payment-failure-modal`}
-          onRetry={this.onAccept}
-          onNo={this.onRejectPaidCredTransaction}
-          onYes={this.onProceedPaidCredTransaction}
-          renderFeesText={this.renderFeesText}
-        />
+        {this.state.credentialOfferModalStatus !==
+          CREDENTIAL_OFFER_MODAL_STATUS.NONE && (
+          <CredentialOfferModal
+            isValid={isValid}
+            claimRequestStatus={claimRequestStatus}
+            onModalHide={this.onCredentialOfferModalHide}
+            claimOfferData={claimOfferData}
+            onClose={this.close}
+            logoUrl={logoUrl}
+            payTokenValue={payTokenValue}
+            credentialOfferModalStatus={this.state.credentialOfferModalStatus}
+            testID={`${testID}-payment-failure-modal`}
+            onRetry={this.onAccept}
+            onNo={this.onRejectPaidCredTransaction}
+            onYes={this.onProceedPaidCredTransaction}
+            renderFeesText={this.renderFeesText}
+          />
+        )}
       </Container>
     )
   }

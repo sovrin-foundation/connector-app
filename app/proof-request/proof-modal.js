@@ -86,6 +86,7 @@ export default class ProofModal extends PureComponent<
             transparentBg
             style={[styles.message]}
             testID={`send-proof-message`}
+            bold
           >
             {message}
           </CustomText>

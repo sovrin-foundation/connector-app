@@ -45,7 +45,7 @@ const textBubble = require('../images/textBubble.png')
 const PassphraseLoader = () => {
   return (
     <CustomView style={[styles.genRecoveryPhraseLoadingContainer]}>
-      <Loader delay={1000} showMessage={false} size={30} />
+      <Loader delay={10} showMessage={false} size={30} />
     </CustomView>
   )
 }
