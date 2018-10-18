@@ -14,6 +14,7 @@ import {
 } from '../components'
 import {
   OFFSET_3X,
+  OFFSET_4X,
   OFFSET_6X,
   OFFSET_7X,
   HAIRLINE_WIDTH,
@@ -174,13 +175,21 @@ export class ClaimRequestStatusModal extends PureComponent<
         {isPending && !fromConnectionHistory ? (
           <Container center fifth>
             <CustomView center style={[styles.loaderHeading]}>
-              <ClaimRequestModalText bold>
+              <CustomText
+                h5
+                center
+                tertiary
+                bg="tertiary"
+                transparentBg
+                style={[{ marginBottom: OFFSET_1X / 2 }]}
+                bold
+              >
                 {isPending && fromConnectionHistory
                   ? message2
                   : this.state.modalText}
-              </ClaimRequestModalText>
+              </CustomText>
+              {isPending && !fromConnectionHistory && <Loader />}
             </CustomView>
-            {isPending && !fromConnectionHistory && <Loader />}
           </Container>
         ) : (
           <CustomView
@@ -285,7 +294,5 @@ const styles = StyleSheet.create({
   backgroundColor: {
     backgroundColor: white,
   },
-  loaderHeading: {
-    marginVertical: OFFSET_3X,
-  },
+  loaderHeading: { height: '84%' },
 })

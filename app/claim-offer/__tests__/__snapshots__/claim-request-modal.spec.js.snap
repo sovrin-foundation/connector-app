@@ -454,13 +454,12 @@ exports[`<ClaimRequestStatusModal /> should match snapshot when pending popOver 
       style={
         Object {
           "alignItems": "center",
+          "height": "84%",
           "justifyContent": "center",
-          "marginVertical": 30,
         }
       }
     >
       <Text
-        accessibilityLabel="claim-request-message"
         accessible={true}
         allowFontScaling={false}
         ellipsizeMode="tail"
@@ -498,84 +497,83 @@ exports[`<ClaimRequestStatusModal /> should match snapshot when pending popOver 
             },
           ]
         }
-        testID="claim-request-message"
       >
         
       </Text>
-    </View>
-    <View
-      center={true}
-      style={
-        Object {
-          "alignItems": "center",
-          "flex": 1,
-          "justifyContent": "center",
-          "padding": 20,
-        }
-      }
-    >
-      <Image
-        collapsable={undefined}
-        source={1}
+      <View
+        center={true}
         style={
           Object {
-            "height": 30,
-            "tintColor": "#777777",
-            "transform": Array [
-              Object {
-                "rotate": "0deg",
-              },
-            ],
-            "width": 30,
+            "alignItems": "center",
+            "flex": 1,
+            "justifyContent": "center",
+            "padding": 20,
           }
         }
-      />
-      <Text
-        accessible={true}
-        allowFontScaling={false}
-        ellipsizeMode="tail"
-        style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "Lato",
-            },
-            Object {
-              "backgroundColor": "#333333",
-              "color": "#ffffff",
-            },
-            null,
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "color": "#464646",
-            },
-            Object {
-              "fontSize": 17,
-              "fontWeight": "500",
-              "letterSpacing": -0.42,
-              "lineHeight": 21,
-              "marginTop": 20,
-            },
-          ]
-        }
       >
-        Please wait…
-      </Text>
+        <Image
+          collapsable={undefined}
+          source={1}
+          style={
+            Object {
+              "height": 30,
+              "tintColor": "#777777",
+              "transform": Array [
+                Object {
+                  "rotate": "0deg",
+                },
+              ],
+              "width": 30,
+            }
+          }
+        />
+        <Text
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#333333",
+                "color": "#ffffff",
+              },
+              null,
+              Object {
+                "textAlign": "center",
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              Object {
+                "color": "#464646",
+              },
+              Object {
+                "fontSize": 17,
+                "fontWeight": "500",
+                "letterSpacing": -0.42,
+                "lineHeight": 21,
+                "marginTop": 20,
+              },
+            ]
+          }
+        >
+          Please wait…
+        </Text>
+      </View>
     </View>
   </View>
 </View>
@@ -821,13 +819,12 @@ exports[`<ClaimRequestStatusModal /> should show arrow right and only Paying tex
       style={
         Object {
           "alignItems": "center",
+          "height": "84%",
           "justifyContent": "center",
-          "marginVertical": 30,
         }
       }
     >
       <Text
-        accessibilityLabel="claim-request-message"
         accessible={true}
         allowFontScaling={false}
         ellipsizeMode="tail"
@@ -865,84 +862,83 @@ exports[`<ClaimRequestStatusModal /> should show arrow right and only Paying tex
             },
           ]
         }
-        testID="claim-request-message"
       >
         Paying...
       </Text>
-    </View>
-    <View
-      center={true}
-      style={
-        Object {
-          "alignItems": "center",
-          "flex": 1,
-          "justifyContent": "center",
-          "padding": 20,
-        }
-      }
-    >
-      <Image
-        collapsable={undefined}
-        source={1}
+      <View
+        center={true}
         style={
           Object {
-            "height": 30,
-            "tintColor": "#777777",
-            "transform": Array [
-              Object {
-                "rotate": "0deg",
-              },
-            ],
-            "width": 30,
+            "alignItems": "center",
+            "flex": 1,
+            "justifyContent": "center",
+            "padding": 20,
           }
         }
-      />
-      <Text
-        accessible={true}
-        allowFontScaling={false}
-        ellipsizeMode="tail"
-        style={
-          Array [
-            Object {
-              "fontSize": 17,
-            },
-            Object {
-              "fontFamily": "Lato",
-            },
-            Object {
-              "backgroundColor": "#333333",
-              "color": "#ffffff",
-            },
-            null,
-            Object {
-              "textAlign": "center",
-            },
-            Object {
-              "backgroundColor": "transparent",
-            },
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            Object {
-              "color": "#464646",
-            },
-            Object {
-              "fontSize": 17,
-              "fontWeight": "500",
-              "letterSpacing": -0.42,
-              "lineHeight": 21,
-              "marginTop": 20,
-            },
-          ]
-        }
       >
-        Please wait…
-      </Text>
+        <Image
+          collapsable={undefined}
+          source={1}
+          style={
+            Object {
+              "height": 30,
+              "tintColor": "#777777",
+              "transform": Array [
+                Object {
+                  "rotate": "0deg",
+                },
+              ],
+              "width": 30,
+            }
+          }
+        />
+        <Text
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#333333",
+                "color": "#ffffff",
+              },
+              null,
+              Object {
+                "textAlign": "center",
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              Object {
+                "color": "#464646",
+              },
+              Object {
+                "fontSize": 17,
+                "fontWeight": "500",
+                "letterSpacing": -0.42,
+                "lineHeight": 21,
+                "marginTop": 20,
+              },
+            ]
+          }
+        >
+          Please wait…
+        </Text>
+      </View>
     </View>
   </View>
 </View>
