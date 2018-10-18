@@ -1,9 +1,12 @@
 // @flow
+import type { InvitationPayload } from '../../invitation/type-invitation'
 
 export const SCAN_STATUS = {
   SCANNING: 'scanning...',
   SUCCESS: 'Success!',
   FAIL: 'Failed to scan QR code',
+  DOWNLOADING_INVITATION: 'Downloading invitation...',
+  NO_INVITATION_DATA: 'No invitation found',
 }
 
 export type QrCode = {
@@ -33,6 +36,8 @@ type QR_SCAN_STATUS =
   | typeof SCAN_STATUS.SCANNING
   | typeof SCAN_STATUS.FAIL
   | typeof SCAN_STATUS.SUCCESS
+  | typeof SCAN_STATUS.DOWNLOADING_INVITATION
+  | typeof SCAN_STATUS.NO_INVITATION_DATA
 
 export type QrScannerState = {
   scanning: boolean,
@@ -44,6 +49,7 @@ export type QrScannerProps = {
   onRead: QrCode => void,
   onClose: () => void,
   onEnvironmentSwitchUrl: EnvironmentSwitchUrlQrCode => void,
+  onInvitationUrl: InvitationPayload => void,
 }
 
 export type CameraMarkerProps = {
@@ -68,4 +74,8 @@ export type CornerBoxProps = {
 export type EnvironmentSwitchUrlQrCode = {
   url: string,
   name: string,
+}
+
+export type InvitationUrlQrCode = {
+  url: string,
 }

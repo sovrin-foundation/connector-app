@@ -24,6 +24,10 @@ import type {
   CornerBoxProps,
 } from './type-qr-scanner'
 import { isValidUrlQrCode } from './qr-url-validator'
+import { isValidInvitationUrl } from './qr-invitation-url-validator'
+import { invitationDetailsRequest } from '../../api/api'
+import { convertSmsPayloadToInvitation } from '../../sms-pending-invitation/sms-pending-invitation-store'
+import type { SMSPendingInvitationPayload } from '../../sms-pending-invitation/type-sms-pending-invitation'
 
 export default class QRScanner extends PureComponent<
   QrScannerProps,
@@ -43,15 +47,22 @@ export default class QRScanner extends PureComponent<
   // onRead can be called multiple times and we don't want it
   isScanning = false
 
+  // we queue few async tasks by assuming that camera might still be active
+  // however, if this component is unmounted before we could call timers
+  // then we possibly might have memory leak and React issue of updating
+  // state on unmounted components
+  timers = []
+
   reactivateScanning = () => {
     // this method sets scanning status
     // so that we stop accepting qr code scans and user can see
     // "scanning..." text, otherwise as soon as we set state
     // in "reactivate" function, "scanning..." text will disappear and it looks bad
-    setTimeout(() => {
+    const reactivateTimer = setTimeout(() => {
       this.setState({ scanning: false })
       this.isScanning = false
     }, 2000)
+    this.timers.push(reactivateTimer)
   }
 
   reactivate = () => {
@@ -65,16 +76,25 @@ export default class QRScanner extends PureComponent<
 
   delayedReactivate = () => {
     // no anonymous function to save closure to avoid memory leak
-    setTimeout(() => this.reactivate(), 3000)
+    const delayedTimer = setTimeout(this.reactivate, 3000)
+    this.timers.push(delayedTimer)
   }
 
   onSuccessRead = (nextState: QrScannerState) => {
     nextState.scanStatus = SCAN_STATUS.SUCCESS
     nextState.cameraActive = false
     this.setState(nextState)
+    // reset state after work is done
+    // expectation is that parent will finish it's work within this timeout
+    this.delayedReactivate()
   }
 
-  onRead = (event: {| data: string |}) => {
+  componentWillUnmount() {
+    this.timers.map(clearTimeout)
+    this.timers = []
+  }
+
+  onRead = async (event: {| data: string |}) => {
     if (!this.state.scanning && !this.isScanning) {
       // set this instance property to avoid async state issue
       this.isScanning = true
@@ -94,11 +114,36 @@ export default class QRScanner extends PureComponent<
           this.onSuccessRead(nextState)
           this.props.onEnvironmentSwitchUrl(urlQrCode)
         } else {
-          // qr code read failed
-          nextState.scanStatus = SCAN_STATUS.FAIL
-          // if qr code read failed, we reactivate qr code scan after delay
-          // so that user can see that QR code scan failed
-          this.setState(nextState, this.delayedReactivate)
+          // now check if we get invitation url in qr-code
+          const urlInvitationQrCode = isValidInvitationUrl(event.data)
+          if (urlInvitationQrCode && typeof urlInvitationQrCode === 'object') {
+            nextState.scanStatus = SCAN_STATUS.DOWNLOADING_INVITATION
+            this.setState(nextState)
+            try {
+              const invitationData: SMSPendingInvitationPayload = await invitationDetailsRequest(
+                {
+                  url: urlInvitationQrCode.url,
+                }
+              )
+              const invitationPayload = convertSmsPayloadToInvitation(
+                invitationData
+              )
+              nextState.scanStatus = SCAN_STATUS.SUCCESS
+              this.onSuccessRead(nextState)
+              this.props.onInvitationUrl(invitationPayload)
+            } catch (e) {
+              // set status that no invitation data was found at the url
+              nextState.scanStatus = SCAN_STATUS.NO_INVITATION_DATA
+              // re-activate scanning after setting fail status
+              this.setState(nextState, this.delayedReactivate)
+            }
+          } else {
+            // qr code read failed
+            nextState.scanStatus = SCAN_STATUS.FAIL
+            // if qr code read failed, we reactivate qr code scan after delay
+            // so that user can see that QR code scan failed
+            this.setState(nextState, this.delayedReactivate)
+          }
         }
       }
     }
@@ -119,7 +164,6 @@ export default class QRScanner extends PureComponent<
     )
   }
 }
-
 export class CameraMarker extends PureComponent<CameraMarkerProps, void> {
   render() {
     const { status, onClose } = this.props
@@ -177,9 +221,11 @@ export class CornerBox extends PureComponent<CornerBoxProps, void> {
   render() {
     const { status } = this.props
     const borderStyle =
-      status === SCAN_STATUS.SUCCESS
+      status === SCAN_STATUS.SUCCESS ||
+      status === SCAN_STATUS.DOWNLOADING_INVITATION
         ? cameraMarkerStyles.borderSuccess
-        : status === SCAN_STATUS.FAIL
+        : status === SCAN_STATUS.FAIL ||
+          status === SCAN_STATUS.NO_INVITATION_DATA
           ? cameraMarkerStyles.borderFail
           : cameraMarkerStyles.border
 
@@ -218,7 +264,7 @@ const cameraMarkerStyles = StyleSheet.create({
     borderColor: color.bg.primary.font.primary,
   },
   borderSuccess: {
-    borderColor: color.actions.primary,
+    borderColor: color.actions.tertiary,
   },
   borderFail: {
     borderColor: color.actions.dangerous,
@@ -262,9 +308,15 @@ const scanStatusStyle = StyleSheet.create({
     color: color.actions.none,
   },
   [SCAN_STATUS.SUCCESS]: {
-    color: color.actions.primary,
+    color: color.actions.tertiary,
   },
   [SCAN_STATUS.FAIL]: {
+    color: color.actions.dangerous,
+  },
+  [SCAN_STATUS.DOWNLOADING_INVITATION]: {
+    color: color.actions.tertiary,
+  },
+  [SCAN_STATUS.NO_INVITATION_DATA]: {
     color: color.actions.dangerous,
   },
   scanStatusOffset: {

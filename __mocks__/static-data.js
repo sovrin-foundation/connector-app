@@ -1105,6 +1105,8 @@ export const parsedClaimRequest = {
 export const validQrCodeEnvironmentSwitchUrl =
   'https://s3-us-west-2.amazonaws.com/vcx-env/dev'
 
+export const validInvitationUrlQrCode = 'https://dev-agency.com/vcx-env/dev'
+
 export const environmentSwitchQrCodeData = {
   name: 'dev',
   url: validQrCodeEnvironmentSwitchUrl,

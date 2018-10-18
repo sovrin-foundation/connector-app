@@ -135,6 +135,15 @@ export class QRCodeScannerScreen extends PureComponent<
     }
   }
 
+  onInvitationUrl = (payload: InvitationPayload) => {
+    if (this.props.currentScreen === qrCodeScannerTabRoute) {
+      this.props.invitationReceived({ payload })
+      this.props.navigation.push(invitationRoute, {
+        senderDID: payload.senderDID,
+      })
+    }
+  }
+
   onClose = () => {
     this.props.navigation.navigate(homeTabRoute)
     this.setState({ isCameraEnabled: false })
@@ -289,6 +298,7 @@ export class QRCodeScannerScreen extends PureComponent<
             onRead={this.onRead}
             onClose={this.onClose}
             onEnvironmentSwitchUrl={this.onEnvironmentSwitchUrl}
+            onInvitationUrl={this.onInvitationUrl}
           />
         ) : null}
       </Container>

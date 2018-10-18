@@ -42,6 +42,7 @@ import {
 } from '../store/type-config-store'
 import { RESET } from '../common/type-common'
 import { captureError } from '../services/error/error-handler'
+import { isValidInvitationUrl } from '../components/qr-scanner/qr-invitation-url-validator'
 
 const initialState = {}
 
@@ -141,12 +142,32 @@ export function* callSmsPendingInvitationRequest(
   const { smsToken } = action
 
   try {
-    // get invitation link
-    // TODO:KS Handle error for this API, all business logic and API related
-    const invitationLink: { url: string } = yield call(getInvitationLink, {
-      agencyUrl,
-      smsToken,
-    })
+    // there can be two types of token that we can get from deep link
+    // 1. it can be 8 characters token
+    // 2. it can be a url that would return invitation details
+
+    if (!smsToken) {
+      throw new Error('No data in token received')
+    }
+
+    let invitationLink = {
+      url: '',
+    }
+    if (smsToken.length < 12) {
+      // we are assuming that if length is less than 12, then we got a token
+      // get invitation link
+      invitationLink = yield call(getInvitationLink, {
+        agencyUrl,
+        smsToken,
+      })
+    } else if (isValidInvitationUrl(smsToken)) {
+      // check if we got the url, then directly assign url
+      invitationLink = {
+        url: smsToken,
+      }
+    } else {
+      throw new Error('Not recognized for any type of token that we know')
+    }
 
     // get pending invitation
     // TODO:KS Handle error for this API, all business logic and API related
@@ -163,7 +184,7 @@ export function* callSmsPendingInvitationRequest(
   } catch (e) {
     let error: CustomError = {
       code: ERROR_PENDING_INVITATION_RESPONSE_PARSE_CODE,
-      message: ERROR_PENDING_INVITATION_RESPONSE_PARSE,
+      message: `${ERROR_PENDING_INVITATION_RESPONSE_PARSE}: ${e.message}`,
     }
 
     try {

@@ -7,13 +7,18 @@ import QRScanner from '../qr-scanner'
 import {
   qrData,
   validQrCodeEnvironmentSwitchUrl,
+  validInvitationUrlQrCode,
+  smsDownloadedPayload,
 } from '../../../../__mocks__/static-data'
+import * as api from '../../../api/api'
+import { convertSmsPayloadToInvitation } from '../../../sms-pending-invitation/sms-pending-invitation-store'
 
 describe('<QRScanner />', () => {
   const getProps = () => ({
     onClose: jest.fn(),
     onRead: jest.fn(),
     onEnvironmentSwitchUrl: jest.fn(),
+    onInvitationUrl: jest.fn(),
   })
 
   function setup() {
@@ -68,5 +73,38 @@ describe('<QRScanner />', () => {
       url: validQrCodeEnvironmentSwitchUrl,
     })
     expect(instance.state.scanStatus).toBe(SCAN_STATUS.SUCCESS)
+  })
+
+  it('should send a request to download invitation if url is scanned', async () => {
+    jest.useFakeTimers()
+    const invitationDetailRequestSpy = jest.spyOn(
+      api,
+      'invitationDetailsRequest'
+    )
+
+    invitationDetailRequestSpy.mockImplementation(() =>
+      Promise.resolve(smsDownloadedPayload)
+    )
+
+    const { onInvitationUrl, instance } = setup()
+
+    const pendingQrProcessing = instance.onRead({
+      data: validInvitationUrlQrCode,
+    })
+    expect(instance.state.scanStatus).toBe(SCAN_STATUS.DOWNLOADING_INVITATION)
+    // process API call
+    await pendingQrProcessing
+
+    expect(onInvitationUrl).toHaveBeenCalledWith(
+      convertSmsPayloadToInvitation(smsDownloadedPayload)
+    )
+    expect(instance.state.scanStatus).toBe(SCAN_STATUS.SUCCESS)
+
+    invitationDetailRequestSpy.mockReset()
+    invitationDetailRequestSpy.mockRestore()
+
+    jest.runAllTimers()
+
+    expect(instance.state.scanStatus).toBe(SCAN_STATUS.SCANNING)
   })
 })
