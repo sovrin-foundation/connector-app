@@ -207,8 +207,8 @@ exports[`<DashboardScreen /> should render Home and redirect user to claim offer
     >
       <Animatable.View
         animation="zoomIn"
-        delay={200}
-        duration={600}
+        delay={600}
+        duration={200}
         style={
           Array [
             Object {
@@ -575,8 +575,8 @@ exports[`<DashboardScreen /> should render Home and show loader 1`] = `
     >
       <Animatable.View
         animation="zoomIn"
-        delay={200}
-        duration={600}
+        delay={600}
+        duration={200}
         style={
           Array [
             Object {

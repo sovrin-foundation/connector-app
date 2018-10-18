@@ -198,3 +198,5 @@ export type WalletTokenInfo = {
   balance_str: string,
   addresses: PaymentAddress[],
 }
+
+export const smallDeviceMemory = 1073741824

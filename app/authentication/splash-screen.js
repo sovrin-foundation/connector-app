@@ -1,6 +1,7 @@
 // @flow
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
+import { View } from 'react-native'
 import { bindActionCreators } from 'redux'
 import SplashScreen from 'react-native-splash-screen'
 import {

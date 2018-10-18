@@ -21,6 +21,7 @@ import { getWalletAddresses } from '../store/store-selector'
 import { refreshWalletAddresses } from './wallet-store'
 import { promptBackupBanner } from '../backup/backup-store'
 import { STORE_STATUS } from './type-wallet'
+import { walletRoute } from '../common'
 
 export class WalletTabReceive extends PureComponent<
   WalletTabReceiveProps,
@@ -36,7 +37,6 @@ export class WalletTabReceive extends PureComponent<
 
   copyToClipboard = () => {
     const { walletAddresses, promptBackupBanner } = this.props
-
     if (walletAddresses.length) {
       promptBackupBanner(true)
       Clipboard.setString(walletAddresses[0])
@@ -44,9 +44,11 @@ export class WalletTabReceive extends PureComponent<
         copyButtonText: 'Copied!',
       })
       setTimeout(() => {
-        this.setState({
-          copyButtonText: 'Copy Address To Clipboard',
-        })
+        if (this.props.currentScreen === walletRoute) {
+          this.setState({
+            copyButtonText: 'Copy Address To Clipboard',
+          })
+        }
       }, 2000)
     }
   }
@@ -139,6 +141,7 @@ const mapStateToProps = (state: Store) => {
   return {
     walletAddresses: getWalletAddresses(state),
     addressStatus: state.wallet.walletAddresses.status,
+    currentScreen: state.route.currentScreen,
   }
 }
 

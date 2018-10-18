@@ -86,6 +86,7 @@ export type WalletTabReceiveProps = {
   refreshWalletAddresses: () => {},
   promptBackupBanner: (showBackup: boolean) => {},
   addressStatus: $Keys<typeof STORE_STATUS>,
+  currentScreen: string,
 }
 
 export type WalletTabReceiveState = {

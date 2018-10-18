@@ -33,7 +33,9 @@ export default class ProofModal extends PureComponent<
 
   onContinue = () => {
     this.hideModal()
-    this.props.onContinue()
+    setTimeout(() => {
+      this.props.onContinue()
+    }, 1)
   }
 
   showModal() {

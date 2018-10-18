@@ -72,10 +72,6 @@ export default class QRScanner extends PureComponent<
     nextState.scanStatus = SCAN_STATUS.SUCCESS
     nextState.cameraActive = false
     this.setState(nextState)
-    // reset state after work is done
-    // assume some arbitrary timeout (1200) of resetting state
-    // expectation is that parent will finish it's work within this timeout
-    setTimeout(this.delayedReactivate, 100)
   }
 
   onRead = (event: {| data: string |}) => {

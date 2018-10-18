@@ -57,7 +57,6 @@ describe('<DashboardScreen />', () => {
   const store = getStore()
 
   jest.useFakeTimers()
-
   it('should render Home and redirect user to claim offer modal', () => {
     const dashboardProps = props()
     const wrapper = renderer

@@ -73,7 +73,9 @@ export class ClaimRequestStatusModal extends PureComponent<
   ]
 
   onContinue = () => {
-    this.props.onContinue()
+    setTimeout(() => {
+      this.props.onContinue()
+    }, 1)
   }
 
   componentDidMount() {

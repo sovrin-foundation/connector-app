@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { TextInput, StyleSheet, Platform, Keyboard } from 'react-native'
+import { TextInput, StyleSheet, Platform, Keyboard, Text } from 'react-native'
 import { PIN_SETUP_STATE } from '../../lock/type-lock'
 import PinCodeDigit from './pin-code-digit'
 import { CustomView } from '../../components'
@@ -31,6 +31,8 @@ export default class PinCodeBox extends PureComponent<
   keyboardDidHideListener = null
 
   inputBox: ?TextInputRef = null
+
+  pinCodeArray = [1, 2, 3, 4, 5, 6]
 
   maxLength = 6
 
@@ -79,30 +81,19 @@ export default class PinCodeBox extends PureComponent<
   }
 
   render() {
-    // We always want to render 6 <PinCodeDigit />
-    // however, they will contain a sovrin icon, only if that digit is entered
-    // in text input, if user entered only 2 digits, then logic for `isEntered`
-    // will return true for first 2 and false for rest of them
-    // this will give an impression that we are showing all underlines and
-    // filling only the ones which are typed
-    let pinCodeDigits = []
-    let isEntered = false
-    for (let i = 0; i < this.maxLength; i++) {
-      isEntered = this.state.pin[i] !== undefined
-      pinCodeDigits.push(
-        <PinCodeDigit
-          onPress={this.showKeyboard}
-          key={i}
-          entered={isEntered}
-          testID={`pin-code-digit-${i}`}
-        />
-      )
-    }
-
     return (
       <CustomView>
         <CustomView onPress={this.showKeyboard} row>
-          {pinCodeDigits}
+          {this.pinCodeArray.map((keycode, index) => {
+            return (
+              <PinCodeDigit
+                onPress={this.showKeyboard}
+                key={index}
+                entered={this.state.pin[index] !== undefined}
+                testID={`pin-code-digit-${index}`}
+              />
+            )
+          })}
         </CustomView>
         <TextInput
           autoCorrect={false}

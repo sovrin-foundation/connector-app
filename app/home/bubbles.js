@@ -19,6 +19,7 @@ import type {
   ConnectionBubblesState,
 } from './type-home'
 import { Dot as BadgeDot } from '../components/badges-dot'
+import { checkIfAnimationToUse } from '../bridge/react-native-cxs/RNCxs'
 
 export class Bubble extends PureComponent<BubbleProps, BubbleState> {
   state = {
@@ -261,8 +262,9 @@ export default class ConnectionBubbles extends PureComponent<
           }) => (
             <AnimationView
               animation="zoomIn"
-              duration={600}
-              delay={200}
+              // TODO: SC, need to change to duration={600} delay={200} and for lower end devices have to change the duration accordingly
+              duration={checkIfAnimationToUse() ? 20 : 200}
+              delay={checkIfAnimationToUse() ? 60 : 600}
               style={[
                 styles.avatar,
                 this.getBubblePosition(index, width, height),

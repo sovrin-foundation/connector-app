@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, InteractionManager } from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
@@ -15,12 +15,15 @@ import { unlockApp, clearPendingRedirect } from './lock-store'
 import type { Store } from '../store/type-store'
 import { OFFSET_1X, OFFSET_2X, OFFSET_4X, color } from '../common/styles'
 import { UNLOCKING_APP_WAIT_MESSAGE } from '../common/message-constants'
-import type { LockSetupSuccessProps } from './type-lock'
+import type { LockSetupSuccessProps, LockSetupSuccessState } from './type-lock'
 
 export class LockSetupSuccess extends PureComponent<
   LockSetupSuccessProps,
-  void
+  LockSetupSuccessState
 > {
+  state = {
+    interactionsDone: false,
+  }
   onClose = () => {
     this.props.unlockApp()
     if (
@@ -41,6 +44,12 @@ export class LockSetupSuccess extends PureComponent<
     } else {
       this.props.navigation.navigate(homeTabRoute)
     }
+  }
+
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.setState({ interactionsDone: true })
+    })
   }
 
   render() {

@@ -206,6 +206,7 @@ describe('<Invitation />', () => {
     instance.onSuccessModalContinue()
 
     expect(instance.state.isSuccessModalVisible).toBe(false)
+    jest.runAllTimers()
     expect(navigation.navigate).toHaveBeenCalled()
     const redirectScreen = navigation.navigate.mock.calls[0][0]
     expect(redirectScreen).toBe(homeRoute)

@@ -76,6 +76,7 @@ import EulaScreen from './eula/eula'
 import RestoreStartScreen from './restore/restore'
 import RestoreWaitScreen from './restore/restore-wait'
 import RestorePassphrase from './restore/restore-passphrase'
+import { checkIfAnimationToUse } from './bridge/react-native-cxs/RNCxs'
 
 if (__DEV__) {
   require('../tools/reactotron-config')
@@ -232,7 +233,7 @@ const CardStack = createStackNavigator(
 const transitionConfig = () => {
   return {
     transitionSpec: {
-      duration: 300,
+      duration: checkIfAnimationToUse() ? 30 : 300,
       easing: Easing.out(Easing.poly(4)),
       timing: Animated.timing,
       useNativeDriver: true,

@@ -43,10 +43,6 @@ describe('<QRScanner />', () => {
     instance.onRead(qrReadEvent)
     expect(onRead).toHaveBeenCalledWith(expect.objectContaining(qrData))
     expect(instance.state.scanStatus).toBe(SCAN_STATUS.SUCCESS)
-
-    jest.runAllTimers()
-    // qr scanner should be reactivated after all timers are done
-    expect(instance.state.scanStatus).toBe(SCAN_STATUS.SCANNING)
   })
 
   it('should set state to fail if QR code is not correct', () => {
@@ -72,9 +68,5 @@ describe('<QRScanner />', () => {
       url: validQrCodeEnvironmentSwitchUrl,
     })
     expect(instance.state.scanStatus).toBe(SCAN_STATUS.SUCCESS)
-
-    jest.runAllTimers()
-
-    expect(instance.state.scanStatus).toBe(SCAN_STATUS.SCANNING)
   })
 })

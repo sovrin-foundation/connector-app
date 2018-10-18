@@ -22,8 +22,8 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
 >
   <Animatable.View
     animation="zoomIn"
-    delay={200}
-    duration={600}
+    delay={600}
+    duration={200}
     style={
       Array [
         Object {
@@ -104,8 +104,8 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
   </Animatable.View>
   <Animatable.View
     animation="zoomIn"
-    delay={200}
-    duration={600}
+    delay={600}
+    duration={200}
     style={
       Array [
         Object {
@@ -186,8 +186,8 @@ exports[`<Bubbles/> should render Bubbles 1`] = `
   </Animatable.View>
   <Animatable.View
     animation="zoomIn"
-    delay={200}
-    duration={600}
+    delay={600}
+    duration={200}
     style={
       Array [
         Object {
@@ -291,8 +291,8 @@ exports[`<Bubbles/> should show the dot on the Bubbles 1`] = `
 >
   <Animatable.View
     animation="zoomIn"
-    delay={200}
-    duration={600}
+    delay={600}
+    duration={200}
     style={
       Array [
         Object {
@@ -373,8 +373,8 @@ exports[`<Bubbles/> should show the dot on the Bubbles 1`] = `
   </Animatable.View>
   <Animatable.View
     animation="zoomIn"
-    delay={200}
-    duration={600}
+    delay={600}
+    duration={200}
     style={
       Array [
         Object {
@@ -455,8 +455,8 @@ exports[`<Bubbles/> should show the dot on the Bubbles 1`] = `
   </Animatable.View>
   <Animatable.View
     animation="zoomIn"
-    delay={200}
-    duration={600}
+    delay={600}
+    duration={200}
     style={
       Array [
         Object {

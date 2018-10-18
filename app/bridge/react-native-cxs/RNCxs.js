@@ -54,6 +54,7 @@ import type { GenericStringObject } from '../../common/type-common'
 import type { Passphrase } from '../../backup/type-backup'
 import type { GetClaimVcxResult } from '../../claim/type-claim'
 import uniqueId from 'react-native-unique-id'
+import { smallDeviceMemory } from './type-cxs'
 import { secureSet } from '../../services/storage'
 import { __uniqueId } from '../../store/type-config-store'
 import type { LedgerFeesData } from '../../store/ledger/type-ledger-store'
@@ -537,6 +538,12 @@ export async function getLedgerFees(): Promise<LedgerFeesData> {
 
   return convertVcxLedgerFeesToLedgerFees(fees)
 }
+
+export const checkIfAnimationToUse = memoize(function() {
+  return Platform.OS === 'android'
+    ? RNIndy.totalMemory / smallDeviceMemory < 1 ? true : false
+    : false
+})
 
 export async function getBiometricError(): Promise<string> {
   if (Platform.OS === 'ios') {

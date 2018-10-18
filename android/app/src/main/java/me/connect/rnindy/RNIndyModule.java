@@ -9,6 +9,9 @@ import android.os.Environment;
 import android.support.v7.graphics.Palette;
 import android.util.Base64;
 import android.util.Log;
+import android.app.ActivityManager;
+import android.app.ActivityManager.MemoryInfo;
+import android.content.Context;
 import android.content.ContextWrapper;
 
 import me.connect.BridgeUtils;
@@ -51,6 +54,11 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import android.net.Uri;
 import java.io.InputStream;
+import java.lang.Long;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Nullable;
 
 public class RNIndyModule extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "RNIndy";
@@ -940,5 +948,16 @@ public class RNIndyModule extends ReactContextBaseJavaModule {
             Log.e(TAG, "createWalletKey: ", e);
             promise.reject("Exception", e.getMessage());
         }
+    }
+
+    @Override
+    public @Nullable
+    Map<String, Object> getConstants() {
+    HashMap<String, Object> constants = new HashMap<String, Object>();
+      ActivityManager actManager = (ActivityManager) reactContext.getSystemService(Context.ACTIVITY_SERVICE);
+      MemoryInfo memInfo = new ActivityManager.MemoryInfo();
+      actManager.getMemoryInfo(memInfo);
+      constants.put("totalMemory", memInfo.totalMem);
+      return constants;
     }
 }
