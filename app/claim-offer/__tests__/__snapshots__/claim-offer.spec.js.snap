@@ -1286,7 +1286,7 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
             style={
               Array [
                 Object {
-                  "fontSize": 40,
+                  "fontSize": 17,
                 },
                 Object {
                   "fontFamily": "Lato",
@@ -1315,6 +1315,12 @@ exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`
                     "color": "#ffffff",
                   },
                 ],
+                Object {
+                  "marginTop": 5,
+                },
+                Object {
+                  "fontSize": 36.57142857142857,
+                },
               ]
             }
           >

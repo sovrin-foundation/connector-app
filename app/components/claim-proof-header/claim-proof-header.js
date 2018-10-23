@@ -22,6 +22,7 @@ import type {
   ClaimProofHeaderProps,
   ClaimProofHeaderNotchProps,
 } from './type-claim-proof-header'
+import { scale } from 'react-native-size-matters'
 var { height, width } = Dimensions.get('screen')
 
 export class ClaimProofHeaderNotch extends PureComponent<
@@ -95,9 +96,17 @@ export default class ClaimProofHeader extends PureComponent<
                   pay
                 </CustomText>
                 <CustomText
-                  h3
+                  style={[
+                    styles.title,
+                    titleStyle,
+                    styles.payTokenText,
+                    {
+                      fontSize: tokenAmountSize(
+                        payTokenValue ? payTokenValue.length : 0
+                      ),
+                    },
+                  ]}
                   bg="fifth"
-                  style={[styles.title, titleStyle]}
                   formatNumber
                 >
                   {payTokenValue}
@@ -175,4 +184,21 @@ const styles = StyleSheet.create({
     borderRightColor: 'transparent',
     transform: [{ rotate: '180deg' }],
   },
+  payTokenText: {
+    marginTop: OFFSET_1X / 2,
+  },
 })
+
+const tokenAmountSize = (tokenAmountLength: number): number => {
+  // this resizing logic is different than wallet tabs header
+  switch (true) {
+    case tokenAmountLength < 13:
+      return scale(40)
+    case tokenAmountLength < 16:
+      return scale(35)
+    case tokenAmountLength < 20:
+      return scale(28)
+    default:
+      return scale(20)
+  }
+}
