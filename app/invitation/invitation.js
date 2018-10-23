@@ -73,7 +73,7 @@ export class Invitation extends PureComponent<
         nextProps.invitation.payload !== this.props.invitation.payload
       ) {
         // a new invitation was received
-        this.isLoading(true)
+        this.isLoading(false)
       } else {
         if (nextProps.invitation.isFetching === false) {
           if (nextProps.invitation.error) {

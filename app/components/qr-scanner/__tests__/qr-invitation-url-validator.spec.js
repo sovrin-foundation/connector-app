@@ -18,8 +18,15 @@ describe('fn:isValidInvitationUrl', () => {
     expect(isValidInvitationUrl(urlQrCode)).toBe(false)
   })
 
-  it('should return false, if protocol is not https', () => {
+  it('should return correct url, if protocol is http', () => {
     const urlQrCode = `http://some.com/dev`
+    expect(isValidInvitationUrl(urlQrCode)).toEqual({
+      url: urlQrCode,
+    })
+  })
+
+  it('should return false, if protocol is neither http or https', () => {
+    const urlQrCode = `mail://some.com/dev`
     expect(isValidInvitationUrl(urlQrCode)).toBe(false)
   })
 })

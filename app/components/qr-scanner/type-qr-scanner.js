@@ -4,9 +4,9 @@ import type { InvitationPayload } from '../../invitation/type-invitation'
 export const SCAN_STATUS = {
   SCANNING: 'scanning...',
   SUCCESS: 'Success!',
-  FAIL: 'Failed to scan QR code',
+  FAIL: 'QR code format is invalid.',
   DOWNLOADING_INVITATION: 'Downloading invitation...',
-  NO_INVITATION_DATA: 'No invitation found',
+  NO_INVITATION_DATA: 'No message found behind this QR code.',
 }
 
 export type QrCode = {
