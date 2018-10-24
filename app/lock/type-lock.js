@@ -193,6 +193,7 @@ export type LockPinSetupState = {
   enteredPin: ?string,
   pinReEnterSuccessPin: ?string,
   keyboardHidden: boolean,
+  showCustomKeyboard: boolean,
 }
 
 export const SHOW_DEV_MODE = 'SHOW_DEV_MODE'

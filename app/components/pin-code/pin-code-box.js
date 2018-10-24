@@ -3,12 +3,13 @@ import React, { PureComponent } from 'react'
 import { TextInput, StyleSheet, Platform, Keyboard, Text } from 'react-native'
 import { PIN_SETUP_STATE } from '../../lock/type-lock'
 import PinCodeDigit from './pin-code-digit'
-import { CustomView } from '../../components'
+import { CustomView, Keyboard as CustomKeyboard } from '../../components'
 import type {
   PinCodeBoxProps,
   PinCodeBoxState,
   TextInputRef,
 } from './type-pin-code-box'
+import { color } from '../../common/styles/constant'
 
 const keyboard = Platform.OS === 'ios' ? 'number-pad' : 'numeric'
 
@@ -30,11 +31,15 @@ export default class PinCodeBox extends PureComponent<
 
   keyboardDidHideListener = null
 
+  customKeyboardRef = null
+
   inputBox: ?TextInputRef = null
 
   pinCodeArray = [1, 2, 3, 4, 5, 6]
 
   maxLength = 6
+
+  maxValue = '999999'
 
   componentDidMount = () => {
     this.keyboardDidHideListener = Keyboard.addListener(
@@ -57,6 +62,7 @@ export default class PinCodeBox extends PureComponent<
     // parent can call this to clear entered input
     // either in case pin was wrong, or we want them to enter it again
     this.inputBox && this.inputBox.clear()
+    this.customKeyboardRef && this.customKeyboardRef.clear()
     this.setState({ pin: '' })
   }
 
@@ -79,6 +85,24 @@ export default class PinCodeBox extends PureComponent<
       this.props.onPinComplete(this.state.pin)
     }
   }
+  saveCustomKeyboardRef: Function = (ref: CustomKeyboard) =>
+    (this.customKeyboardRef = ref)
+  customKeyboard = () => {
+    if (this.props.enableCustomKeyboard) {
+      return (
+        <CustomKeyboard
+          maxLength={this.maxLength}
+          onPress={this.onPinChange}
+          color={color.bg.seventh.font.fifth}
+          customKeyboard
+          showDecimal
+          ref={this.saveCustomKeyboardRef}
+          maxValue={this.maxValue}
+        />
+      )
+    }
+    return null
+  }
 
   render() {
     return (
@@ -95,6 +119,7 @@ export default class PinCodeBox extends PureComponent<
             )
           })}
         </CustomView>
+        {this.customKeyboard()}
         <TextInput
           autoCorrect={false}
           autoFocus={true}

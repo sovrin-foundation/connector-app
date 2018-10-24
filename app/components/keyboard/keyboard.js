@@ -171,6 +171,14 @@ export default class Keyboard extends Component<KeyboardProps, void> {
       }
     }
 
+    if (this.props.customKeyboard) {
+      let animate = false
+      const manualUpdatedText: string =
+        key === BACK_SPACE_SYMBOL ? curText.slice(0, -1) : (curText += key)
+      this.text = manualUpdatedText
+      return this.props.onPress(manualUpdatedText, animate)
+    }
+
     if (
       MAX_LENGTH ||
       (isAfterDecimalMaxLengthReached && key !== BACK_SPACE_SYMBOL)
@@ -206,7 +214,7 @@ export default class Keyboard extends Component<KeyboardProps, void> {
 
       return this.props.onPress(text, animate)
     } else {
-      let updatedText = (curText += key)
+      let updatedText: string = (curText += key)
       let animate = false
       const previousEnteredValue = new BigNumber(this.text)
       const updatedEnteredValue = new BigNumber(updatedText)
@@ -236,7 +244,7 @@ export default class Keyboard extends Component<KeyboardProps, void> {
         {this.Row([FOUR, FIVE, SIX])}
         {this.Row([SEVEN, EIGHT, NINE])}
         <CustomView row style={[styles.row]}>
-          {this.Cell(DECIMAL)}
+          {this.props.showDecimal ? <Container /> : this.Cell(DECIMAL)}
           {this.Cell(ZERO)}
           {this.Backspace(BACK_SPACE_SYMBOL)}
         </CustomView>

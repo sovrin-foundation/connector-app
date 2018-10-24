@@ -1,6 +1,6 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { StyleSheet, Keyboard } from 'react-native'
+import { StyleSheet, Keyboard, Platform } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -62,6 +62,7 @@ export class LockPinSetup extends PureComponent<
     enteredPin: null,
     pinReEnterSuccessPin: null,
     keyboardHidden: false,
+    showCustomKeyboard: false,
   }
 
   pinCodeBox = null
@@ -136,11 +137,22 @@ export class LockPinSetup extends PureComponent<
     })
   }
 
-  onKeyboardHide = (status: boolean) => {
+  onKeyboardHide = (status: boolean, event: any = null) => {
     if (this.state.keyboardHidden !== status) {
       this.setState({
         keyboardHidden: status,
       })
+    } else {
+      if (
+        status === false &&
+        event &&
+        event.endCoordinates.height < 100 &&
+        Platform.OS === 'ios'
+      ) {
+        this.setState({
+          showCustomKeyboard: true,
+        })
+      }
     }
   }
 
@@ -175,8 +187,8 @@ export class LockPinSetup extends PureComponent<
     )
     this.keyboardDidShowListener = Keyboard.addListener(
       'keyboardDidShow',
-      () => {
-        this.onKeyboardHide(false)
+      e => {
+        this.onKeyboardHide(false, e)
       }
     )
   }
@@ -200,8 +212,8 @@ export class LockPinSetup extends PureComponent<
         )
         this.keyboardDidShowListener = Keyboard.addListener(
           'keyboardDidShow',
-          () => {
-            this.onKeyboardHide(false)
+          e => {
+            this.onKeyboardHide(false, e)
           }
         )
       }
@@ -279,6 +291,7 @@ export class LockPinSetup extends PureComponent<
               this.pinCodeBox = pinCodeBox
             }}
             onPinComplete={this.onPinComplete}
+            enableCustomKeyboard={this.state.showCustomKeyboard}
           />
         </CustomView>
       </Container>
