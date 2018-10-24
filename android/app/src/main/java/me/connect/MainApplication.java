@@ -2,7 +2,6 @@ package me.connect;
 
 import android.app.Application;
 import com.apptentive.android.sdk.reactlibrary.RNApptentivePackage;
-import com.surajit.rnrg.RNRadialGradientPackage;
 import com.facebook.react.ReactApplication;
 import com.gijoehosaphat.keepscreenon.KeepScreenOnPackage;
 import com.horcrux.svg.SvgPackage;
@@ -71,7 +70,6 @@ public class MainApplication extends Application implements ShareApplication, Re
         new VectorIconsPackage(),
         new SplashScreenReactPackage(),
         new RNIndyPackage(),
-        new RNRadialGradientPackage(),
         new RNApptentivePackage()
       );
     }

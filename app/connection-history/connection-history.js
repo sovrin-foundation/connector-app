@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react'
-import RadialGradient from 'react-native-radial-gradient'
 import {
   Alert,
   ScrollView,
@@ -316,74 +315,65 @@ export class ConnectionHistory extends Component<
               this.props.activeConnectionThemePrimary
             )}
           />
-          <RadialGradient
-            colors={[
-              this.props.activeConnectionThemePrimary,
-              this.props.activeConnectionThemeSecondary,
+
+          <ClaimProofHeader
+            message={senderName}
+            onClose={this.closeDebounce}
+            logoUrl={image}
+            testID={testID}
+            containerStyle={{ backgroundColor: 'transparent' }}
+            textContainerStyle={[
+              styles.textContainerStyle,
+              { backgroundColor: 'transparent' },
             ]}
-            stops={[0.1, 0.4]}
-            center={[width / 2, OFFSET_9X / 2]}
-            radius={width * 3}
+            messageStyle={[
+              styles.senderName,
+              { backgroundColor: 'transparent' },
+            ]}
           >
-            <ClaimProofHeader
-              message={senderName}
-              onClose={this.closeDebounce}
-              logoUrl={image}
-              testID={testID}
-              containerStyle={{ backgroundColor: 'transparent' }}
-              textContainerStyle={[
-                styles.textContainerStyle,
-                { backgroundColor: 'transparent' },
-              ]}
-              messageStyle={[
-                styles.senderName,
+            <CustomView
+              fifth
+              hCenter
+              style={[
+                headerStyles.headerLogoContainer,
                 { backgroundColor: 'transparent' },
               ]}
             >
-              <CustomView
-                fifth
-                hCenter
-                style={[
-                  headerStyles.headerLogoContainer,
-                  { backgroundColor: 'transparent' },
-                ]}
-              >
-                <Icon
-                  absolute="TopRight"
-                  src={require('../images/close_white.png')}
-                  small
-                  testID={`${testID}-icon-close`}
-                  onPress={this.closeDebounce}
-                  iconStyle={[styles.headerCloseIcon]}
-                  style={[styles.headerIconContainer]}
-                />
-                <Icon
-                  center
-                  halo
-                  extraLarge
-                  resizeMode="cover"
-                  src={logoUri}
-                  style={[styles.issuerLogo]}
-                  iconStyle={[styles.issuerLogoIcon]}
-                  testID={`${testID}-issuer-logo`}
-                  onLongPress={() => showDID(senderDID, identifier)}
-                  backgroundRoundWhite
-                />
-                <Icon
-                  absolute="TopLeft"
-                  src={require('../images/delete.png')}
-                  small
-                  iconStyle={[styles.headerDeleteIcon]}
-                  style={[styles.headerIconContainer]}
-                  resizeMode="contain"
-                  testID={`${testID}-icon-delete`}
-                  onPress={() => {
-                    this.onDeleteConnection(senderName, senderDID)
-                  }}
-                />
-              </CustomView>
-            </ClaimProofHeader>
-          </RadialGradient>
+              <Icon
+                absolute="TopRight"
+                src={require('../images/close_white.png')}
+                small
+                testID={`${testID}-icon-close`}
+                onPress={this.closeDebounce}
+                iconStyle={[styles.headerCloseIcon]}
+                style={[styles.headerIconContainer]}
+              />
+              <Icon
+                center
+                halo
+                extraLarge
+                resizeMode="cover"
+                src={logoUri}
+                style={[styles.issuerLogo]}
+                iconStyle={[styles.issuerLogoIcon]}
+                testID={`${testID}-issuer-logo`}
+                onLongPress={() => showDID(senderDID, identifier)}
+                backgroundRoundWhite
+              />
+              <Icon
+                absolute="TopLeft"
+                src={require('../images/delete.png')}
+                small
+                iconStyle={[styles.headerDeleteIcon]}
+                style={[styles.headerIconContainer]}
+                resizeMode="contain"
+                testID={`${testID}-icon-delete`}
+                onPress={() => {
+                  this.onDeleteConnection(senderName, senderDID)
+                }}
+              />
+            </CustomView>
+          </ClaimProofHeader>
 
           <ScrollView>
             <List containerStyle={styles.listContainer}>{historyList}</List>

@@ -17,7 +17,6 @@
 		06D727C3129E45618F42029A /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE5B1685809A402EB66146F0 /* libRNFirebase.a */; };
 		08908E89D4E84FACB3C6F3A8 /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6289865CCC3A4745A77A87B9 /* libSplashScreen.a */; };
 		09B2A97320D26D850034DDC8 /* libRNDocumentPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09B2A96820D26D750034DDC8 /* libRNDocumentPicker.a */; };
-		09DEF3F22060FB8700EB316C /* libSRSRadialGradient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09DEF3F12060FB7100EB316C /* libSRSRadialGradient.a */; };
 		0BD2C45C804C1F35FFF74077 /* libPods-ConnectMeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A530A295487D8DB70CBD2F84 /* libPods-ConnectMeTests.a */; };
 		0D7053EE074B45559597F368 /* libRCTPBKDF2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4855373D09494E1EB7278B71 /* libRCTPBKDF2.a */; };
 		10E89B21A64B4DCB984BD9CA /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAA1D8F3C0F6456FB999E520 /* Entypo.ttf */; };
@@ -205,13 +204,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 9936F32F1F5F2E5B0010BF04;
 			remoteInfo = "privatedata-tvOS";
-		};
-		09DEF3F02060FB7100EB316C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 09DEF3EC2060FB7100EB316C /* SRSRadialGradient.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = SRSRadialGradient;
 		};
 		139105C01AF99BAD00B5F7CC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -488,7 +480,6 @@
 		0915D5E7C9B34B76A5B080C3 /* TouchID.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = TouchID.xcodeproj; path = "../node_modules/react-native-touch-id/TouchID.xcodeproj"; sourceTree = "<group>"; };
 		0956E774AD744F0DA417A286 /* RNPBKDF2.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNPBKDF2.xcodeproj; path = "../node_modules/react-native-pbkdf2/ios/RNPBKDF2.xcodeproj"; sourceTree = "<group>"; };
 		09B2A93D20D26D750034DDC8 /* RNDocumentPicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNDocumentPicker.xcodeproj; path = "../node_modules/react-native-document-picker/ios/RNDocumentPicker.xcodeproj"; sourceTree = "<group>"; };
-		09DEF3EC2060FB7100EB316C /* SRSRadialGradient.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SRSRadialGradient.xcodeproj; path = "../node_modules/react-native-radial-gradient/ios/SRSRadialGradient.xcodeproj"; sourceTree = "<group>"; };
 		0F945AEC1592437AAFED65F2 /* RNVersionNumber.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVersionNumber.xcodeproj; path = "../node_modules/react-native-version-number/ios/RNVersionNumber.xcodeproj"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
@@ -625,7 +616,6 @@
 				09B2A97320D26D850034DDC8 /* libRNDocumentPicker.a in Frameworks */,
 				62BFBDD420D10F21009661B5 /* libRNVersionNumber.a in Frameworks */,
 				3DC102312077754D009B18A6 /* libRNApptentiveModule.a in Frameworks */,
-				09DEF3F22060FB8700EB316C /* libSRSRadialGradient.a in Frameworks */,
 				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
@@ -744,14 +734,6 @@
 			isa = PBXGroup;
 			children = (
 				09B2A96820D26D750034DDC8 /* libRNDocumentPicker.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		09DEF3ED2060FB7100EB316C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				09DEF3F12060FB7100EB316C /* libSRSRadialGradient.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -901,7 +883,6 @@
 			children = (
 				09B2A93D20D26D750034DDC8 /* RNDocumentPicker.xcodeproj */,
 				3DC101FE2077752E009B18A6 /* RNApptentiveModule.xcodeproj */,
-				09DEF3EC2060FB7100EB316C /* SRSRadialGradient.xcodeproj */,
 				F1F0B53F1EF3B12D006FBB0B /* SplashScreen.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -1392,10 +1373,6 @@
 					ProjectRef = F1F0B53F1EF3B12D006FBB0B /* SplashScreen.xcodeproj */;
 				},
 				{
-					ProductGroup = 09DEF3ED2060FB7100EB316C /* Products */;
-					ProjectRef = 09DEF3EC2060FB7100EB316C /* SRSRadialGradient.xcodeproj */;
-				},
-				{
 					ProductGroup = DD564C6F1EA18FF5007629F6 /* Products */;
 					ProjectRef = 0915D5E7C9B34B76A5B080C3 /* TouchID.xcodeproj */;
 				},
@@ -1514,13 +1491,6 @@
 			fileType = archive.ar;
 			path = "libprivatedata-tvOS.a";
 			remoteRef = 09DEF3EA2060F77800EB316C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		09DEF3F12060FB7100EB316C /* libSRSRadialGradient.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libSRSRadialGradient.a;
-			remoteRef = 09DEF3F02060FB7100EB316C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		139105C11AF99BAD00B5F7CC /* libRCTSettings.a */ = {
@@ -2061,11 +2031,7 @@
 				INFOPLIST_FILE = ConnectMeTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -2104,11 +2070,7 @@
 				INFOPLIST_FILE = ConnectMeTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -2252,11 +2214,7 @@
 				);
 				INFOPLIST_FILE = "ConnectMe-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -2302,11 +2260,7 @@
 				);
 				INFOPLIST_FILE = "ConnectMe-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -2334,11 +2288,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "ConnectMe-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ConnectMe-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -2362,11 +2312,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "ConnectMe-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.ConnectMe-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;

@@ -6661,10 +6661,6 @@ react-native-modal@5.0.0:
   version "0.1.1"
   resolved "https://github.com/quan-to/react-native-pbkdf2#56f8c5879efcac38f2ade16cba027540dc1e1bd8"
 
-react-native-radial-gradient@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/react-native-radial-gradient/-/react-native-radial-gradient-1.0.3.tgz#ad1c23c31435aa96f1965a6be101962cdaa084c6"
-
 react-native-randombytes@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/react-native-randombytes/-/react-native-randombytes-3.2.0.tgz#81ad85c854992ad5b36427095aa179acaff84ed0"

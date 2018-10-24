@@ -53,7 +53,6 @@
     "react-native-keyboard-aware-scroll-view": "^0.4.4",
     "react-native-modal": "5.0.0",
     "react-native-pbkdf2": "https://github.com/quan-to/react-native-pbkdf2",
-    "react-native-radial-gradient": "^1.0.3",
     "react-native-randombytes": "^3.2.0",
     "react-native-sensitive-info": "5.2.0",
     "react-native-share": "^1.0.27",
@@ -62,7 +61,7 @@
     "react-native-svg": "^7.0.3",
     "react-native-swiper": "^1.5.13",
     "react-native-switch": "^1.5.0",
-    "react-native-touch-id": "4.1.0",
+    "react-native-touch-id": "naoufal/react-native-touch-id",
     "react-native-unique-id": "^1.0.4",
     "react-native-vector-icons": "4.5.0",
     "react-native-version-number": "^0.3.3",
@@ -144,4 +143,3 @@
     "runner-config": "e2e/config.json"
   }
 }
-
