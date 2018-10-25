@@ -315,66 +315,70 @@ export class ConnectionHistory extends Component<
               this.props.activeConnectionThemePrimary
             )}
           />
-
-          <ClaimProofHeader
-            message={senderName}
-            onClose={this.closeDebounce}
-            logoUrl={image}
-            testID={testID}
-            containerStyle={{ backgroundColor: 'transparent' }}
-            textContainerStyle={[
-              styles.textContainerStyle,
-              { backgroundColor: 'transparent' },
-            ]}
-            messageStyle={[
-              styles.senderName,
-              { backgroundColor: 'transparent' },
+          <CustomView
+            style={[
+              { backgroundColor: this.props.activeConnectionThemePrimary },
             ]}
           >
-            <CustomView
-              fifth
-              hCenter
-              style={[
-                headerStyles.headerLogoContainer,
+            <ClaimProofHeader
+              message={senderName}
+              onClose={this.closeDebounce}
+              logoUrl={image}
+              testID={testID}
+              containerStyle={{ backgroundColor: 'transparent' }}
+              textContainerStyle={[
+                styles.textContainerStyle,
+                { backgroundColor: 'transparent' },
+              ]}
+              messageStyle={[
+                styles.senderName,
                 { backgroundColor: 'transparent' },
               ]}
             >
-              <Icon
-                absolute="TopRight"
-                src={require('../images/close_white.png')}
-                small
-                testID={`${testID}-icon-close`}
-                onPress={this.closeDebounce}
-                iconStyle={[styles.headerCloseIcon]}
-                style={[styles.headerIconContainer]}
-              />
-              <Icon
-                center
-                halo
-                extraLarge
-                resizeMode="cover"
-                src={logoUri}
-                style={[styles.issuerLogo]}
-                iconStyle={[styles.issuerLogoIcon]}
-                testID={`${testID}-issuer-logo`}
-                onLongPress={() => showDID(senderDID, identifier)}
-                backgroundRoundWhite
-              />
-              <Icon
-                absolute="TopLeft"
-                src={require('../images/delete.png')}
-                small
-                iconStyle={[styles.headerDeleteIcon]}
-                style={[styles.headerIconContainer]}
-                resizeMode="contain"
-                testID={`${testID}-icon-delete`}
-                onPress={() => {
-                  this.onDeleteConnection(senderName, senderDID)
-                }}
-              />
-            </CustomView>
-          </ClaimProofHeader>
-
+              <CustomView
+                fifth
+                hCenter
+                style={[
+                  headerStyles.headerLogoContainer,
+                  { backgroundColor: 'transparent' },
+                ]}
+              >
+                <Icon
+                  absolute="TopRight"
+                  src={require('../images/close_white.png')}
+                  small
+                  testID={`${testID}-icon-close`}
+                  onPress={this.closeDebounce}
+                  iconStyle={[styles.headerCloseIcon]}
+                  style={[styles.headerIconContainer]}
+                />
+                <Icon
+                  center
+                  halo
+                  extraLarge
+                  resizeMode="cover"
+                  src={logoUri}
+                  style={[styles.issuerLogo]}
+                  iconStyle={[styles.issuerLogoIcon]}
+                  testID={`${testID}-issuer-logo`}
+                  onLongPress={() => showDID(senderDID, identifier)}
+                  backgroundRoundWhite
+                />
+                <Icon
+                  absolute="TopLeft"
+                  src={require('../images/delete.png')}
+                  small
+                  iconStyle={[styles.headerDeleteIcon]}
+                  style={[styles.headerIconContainer]}
+                  resizeMode="contain"
+                  testID={`${testID}-icon-delete`}
+                  onPress={() => {
+                    this.onDeleteConnection(senderName, senderDID)
+                  }}
+                />
+              </CustomView>
+            </ClaimProofHeader>
+          </CustomView>
           <ScrollView>
             <List containerStyle={styles.listContainer}>{historyList}</List>
           </ScrollView>
