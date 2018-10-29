@@ -131,7 +131,13 @@ exports[`<WalletTabReceive /> should render properly and match the snapshot 1`] 
   </View>
   <RCTSafeAreaView
     safeArea={true}
-    style={Object {}}
+    style={
+      Object {
+        "marginBottom": 6,
+        "marginLeft": "5%",
+        "marginRight": "5%",
+      }
+    }
   >
     <View
       style={
@@ -176,7 +182,6 @@ exports[`<WalletTabReceive /> should render properly and match the snapshot 1`] 
                 "borderRadius": 5,
                 "flex": -1,
                 "height": 43,
-                "margin": "5%",
               },
             ],
           ]
@@ -217,11 +222,10 @@ exports[`<WalletTabReceive /> should render properly and match the snapshot 1`] 
                   "borderRadius": 5,
                   "flex": -1,
                   "height": 43,
-                  "margin": "5%",
                 },
               ],
-              false,
-              false,
+              undefined,
+              undefined,
             ]
           }
         >
@@ -256,7 +260,7 @@ exports[`<WalletTabReceive /> should render properly and match the snapshot 1`] 
                   undefined,
                   undefined,
                   undefined,
-                  false,
+                  undefined,
                 ],
               ]
             }

@@ -93,15 +93,16 @@ export class WalletTabReceive extends PureComponent<
             </ScrollView>
           </CustomView>
         </Container>
-        <CustomView safeArea>
-          <CustomButton
-            onPress={this.copyToClipboard}
-            testID="token-copy-to-clipboard-label"
-            style={[customStyles.ctaButton]}
-            primary
-            title={this.state.copyButtonText}
-            disabled={isLoading}
-          />
+        <CustomView safeArea style={[styles.alignItemsCenter]}>
+          {!isLoading && (
+            <CustomButton
+              onPress={this.copyToClipboard}
+              testID="token-copy-to-clipboard-label"
+              style={[customStyles.ctaButton]}
+              primary
+              title={this.state.copyButtonText}
+            />
+          )}
         </CustomView>
       </Container>
     )

@@ -119,16 +119,17 @@ class WalletSendAmount extends PureComponent<
           ref={this.saveTokenKeyboardRef}
           afterDecimalSeparatorMaxLength={conversionFactorLength}
         />
-
-        <CustomButton
-          disabled={isSendDisabled}
-          customColor={{ backgroundColor: color.bg.eighth.color }}
-          onPress={this.sendTokenAmount}
-          testID={SEND_TOKEN_BUTTON}
-          style={[styles.ctaButton]}
-          primary
-          title="Select Recipient"
-        />
+        <CustomView safeArea style={[styles.alignItemsCenter]}>
+          <CustomButton
+            disabled={isSendDisabled}
+            customColor={{ backgroundColor: color.bg.eighth.color }}
+            onPress={this.sendTokenAmount}
+            testID={SEND_TOKEN_BUTTON}
+            style={[styles.ctaButton]}
+            primary
+            title="Select Recipient"
+          />
+        </CustomView>
       </Container>
     )
   }

@@ -664,147 +664,155 @@ exports[`<WalletSendAmount /> should render properly and match the snapshot 1`] 
       </View>
     </View>
   </View>
-  <View
+  <RCTSafeAreaView
+    safeArea={true}
     style={
-      Array [
-        Object {
-          "marginLeft": 15,
-          "marginRight": 15,
-        },
-        undefined,
-        Object {
-          "marginLeft": 0,
-          "marginRight": 0,
-        },
-        undefined,
-      ]
+      Object {
+        "marginBottom": 6,
+        "marginHorizontal": "5%",
+      }
     }
   >
     <View
-      accessibilityComponentType={undefined}
-      accessibilityLabel="wallet-send-token-button"
-      accessibilityTraits={undefined}
-      accessible={true}
-      hasTVPreferredFocus={undefined}
-      hitSlop={undefined}
-      isTVSelectable={true}
-      nativeID={undefined}
-      onLayout={undefined}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         Array [
           Object {
-            "backgroundColor": "transparent",
+            "marginLeft": 15,
+            "marginRight": 15,
           },
-          Array [
-            Object {
-              "backgroundColor": "rgba(237, 156, 46, 1)",
-              "borderRadius": 5,
-              "flex": -1,
-              "height": 43,
-              "margin": "5%",
-            },
-          ],
+          undefined,
+          Object {
+            "marginLeft": 0,
+            "marginRight": 0,
+          },
+          undefined,
         ]
       }
-      testID="wallet-send-token-button"
-      tvParallaxProperties={undefined}
     >
       <View
-        pointerEvents="box-only"
+        accessibilityComponentType={undefined}
+        accessibilityLabel="wallet-send-token-button"
+        accessibilityTraits={undefined}
+        accessible={true}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Array [
             Object {
-              "alignItems": "center",
-              "backgroundColor": "#9E9E9E",
-              "flexDirection": "row",
-              "justifyContent": "center",
-              "padding": 19,
+              "backgroundColor": "transparent",
             },
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            undefined,
-            Object {
-              "backgroundColor": "rgba(237, 156, 46, 1)",
-            },
-            undefined,
-            Object {
-              "padding": 12,
-            },
-            undefined,
-            undefined,
-            undefined,
             Array [
-              null,
               Object {
                 "backgroundColor": "rgba(237, 156, 46, 1)",
                 "borderRadius": 5,
                 "flex": -1,
                 "height": 43,
-                "margin": "5%",
-              },
-            ],
-            Object {
-              "backgroundColor": "#dadee0",
-            },
-            Array [
-              Object {
-                "backgroundColor": "rgba(237, 156, 46, 1)",
-              },
-              Object {
-                "opacity": 0.4,
               },
             ],
           ]
         }
+        testID="wallet-send-token-button"
+        tvParallaxProperties={undefined}
       >
-        <Text
-          accessible={true}
-          allowFontScaling={true}
-          ellipsizeMode="tail"
+        <View
+          pointerEvents="box-only"
           style={
             Array [
-              Object {},
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#9E9E9E",
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "padding": 19,
+              },
               undefined,
               undefined,
               undefined,
               undefined,
               undefined,
+              Object {
+                "backgroundColor": "rgba(237, 156, 46, 1)",
+              },
               undefined,
+              Object {
+                "padding": 12,
+              },
               undefined,
               undefined,
               undefined,
               Array [
+                null,
                 Object {
-                  "color": "white",
-                  "fontSize": 16,
+                  "backgroundColor": "rgba(237, 156, 46, 1)",
+                  "borderRadius": 5,
+                  "flex": -1,
+                  "height": 43,
+                },
+              ],
+              Object {
+                "backgroundColor": "#dadee0",
+              },
+              Array [
+                Object {
+                  "backgroundColor": "rgba(237, 156, 46, 1)",
                 },
                 Object {
-                  "color": "#ffffff",
+                  "opacity": 0.4,
                 },
-                Object {
-                  "fontSize": 14,
-                },
-                undefined,
-                undefined,
-                undefined,
-                undefined,
-                undefined,
               ],
             ]
           }
         >
-          Select Recipient
-        </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {},
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                Array [
+                  Object {
+                    "color": "white",
+                    "fontSize": 16,
+                  },
+                  Object {
+                    "color": "#ffffff",
+                  },
+                  Object {
+                    "fontSize": 14,
+                  },
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                ],
+              ]
+            }
+          >
+            Select Recipient
+          </Text>
+        </View>
       </View>
     </View>
-  </View>
+  </RCTSafeAreaView>
 </View>
 `;

@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     height: ctaButtonHeight,
     borderRadius: 5,
     backgroundColor: color.bg.eighth.color,
-    margin: '5%',
   },
   alignItemsCenter: {
     marginBottom: 6,
