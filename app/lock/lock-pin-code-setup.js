@@ -141,16 +141,22 @@ export class LockPinSetup extends PureComponent<
     if (this.state.keyboardHidden !== status) {
       this.setState({
         keyboardHidden: status,
+        showCustomKeyboard: false,
       })
     } else {
       if (
         status === false &&
         event &&
         event.endCoordinates.height < 100 &&
+        !this.state.keyboardHidden &&
         Platform.OS === 'ios'
       ) {
         this.setState({
           showCustomKeyboard: true,
+        })
+      } else {
+        this.setState({
+          showCustomKeyboard: false,
         })
       }
     }

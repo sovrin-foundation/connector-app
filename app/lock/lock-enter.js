@@ -187,6 +187,7 @@ export class LockEnter extends PureComponent<LockEnterProps, LockEnterState> {
                   this.pinCodeBox = pinCodeBox
                 }}
                 onPinComplete={this.onPinComplete}
+                enableCustomKeyboard={this.props.enableCustomKeyboard}
               />
             </CustomView>
           </Container>

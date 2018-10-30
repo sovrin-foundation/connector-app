@@ -23,7 +23,7 @@ import { color } from '../common/styles'
 import { UNLOCKING_APP_WAIT_MESSAGE } from '../common/message-constants'
 import { unlockApp } from './lock-store'
 import { CustomText, CustomHeader } from '../components'
-import { Keyboard } from 'react-native'
+import { Keyboard, Platform } from 'react-native'
 
 export class LockEnterPin extends PureComponent<
   LockEnterPinProps,
@@ -32,9 +32,11 @@ export class LockEnterPin extends PureComponent<
   state = {
     authenticationSuccess: false,
     isKeyboardHidden: false,
+    showCustomKeyboard: false,
   }
 
   keyboardListener = null
+  keyboardShowListener = null
 
   static navigationOptions = ({ navigation }) => ({
     header:
@@ -59,6 +61,22 @@ export class LockEnterPin extends PureComponent<
       'keyboardDidHide',
       this.keyboardHideState
     )
+    this.keyboardShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      this.keyboardShowState
+    )
+  }
+
+  keyboardShowState = (event: any) => {
+    if (event && event.endCoordinates.height < 100 && Platform.OS === 'ios') {
+      this.setState({
+        showCustomKeyboard: true,
+      })
+    } else {
+      this.setState({
+        showCustomKeyboard: false,
+      })
+    }
   }
 
   keyboardHideState = () => {
@@ -103,11 +121,18 @@ export class LockEnterPin extends PureComponent<
           this.keyboardHideState
         )
       }
+      if (!this.keyboardShowListener) {
+        this.keyboardShowListener = Keyboard.addListener(
+          'keyboardDidShow',
+          this.keyboardShowState
+        )
+      }
     } else if (
       this.props.currentScreen === lockEnterPinRoute &&
       nextProps.currentScreen !== lockEnterPinRoute
     ) {
       this.keyboardListener && this.keyboardListener.remove()
+      this.keyboardShowListener && this.keyboardShowListener.remove()
     }
   }
 
@@ -175,6 +200,7 @@ export class LockEnterPin extends PureComponent<
         onSuccess={this.onSuccess}
         message={message}
         setupNewPassCode={this.redirectToSetupPasscode}
+        enableCustomKeyboard={this.state.showCustomKeyboard}
       />
     )
   }

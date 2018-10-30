@@ -172,6 +172,7 @@ export type LockEnterFingerProps = {
 export type LockEnterPinState = {
   authenticationSuccess: boolean,
   isKeyboardHidden: boolean,
+  showCustomKeyboard: boolean,
 }
 export type LockEnterFingerState = {
   authenticationSuccess: boolean,
@@ -215,6 +216,7 @@ export type LockEnterProps = {
   checkPinStatus: CheckPinStatus,
   fromRecovery: boolean,
   setupNewPassCode?: () => void,
+  enableCustomKeyboard?: boolean,
 }
 
 export type LockAuthorizationProps = {
