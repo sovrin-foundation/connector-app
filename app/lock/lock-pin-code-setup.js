@@ -71,29 +71,32 @@ export class LockPinSetup extends PureComponent<
 
   static navigationOptions = ({ navigation }) => ({
     header: (
-      <CustomHeader flatHeader backgroundColor={color.bg.tertiary.color}>
-        <CustomView>
-          <Icon
-            small
-            testID={'back-arrow'}
-            iconStyle={[styles.headerLeft]}
-            src={require('../images/icon_backArrow.png')}
-            resizeMode="contain"
-            onPress={() =>
-              navigation.state.params &&
-              navigation.state.params.existingPin === true
-                ? navigation.navigate(settingsTabRoute)
-                : navigation.navigate(lockSelectionRoute)
-            }
-          />
-        </CustomView>
-
-        <CustomText bg="tertiary" tertiary transparentBg semiBold>
-          App Security
-        </CustomText>
-
-        <CustomView />
-      </CustomHeader>
+      <CustomHeader
+        flatHeader
+        backgroundColor={color.bg.tertiary.color}
+        leftComponent={
+          <CustomView>
+            <Icon
+              small
+              testID={'back-arrow'}
+              iconStyle={[styles.headerLeft]}
+              src={require('../images/icon_backArrow.png')}
+              resizeMode="contain"
+              onPress={() =>
+                navigation.state.params &&
+                navigation.state.params.existingPin === true
+                  ? navigation.navigate(settingsTabRoute)
+                  : navigation.navigate(lockSelectionRoute)
+              }
+            />
+          </CustomView>
+        }
+        centerComponent={
+          <CustomText bg="tertiary" tertiary transparentBg semiBold>
+            App Security
+          </CustomText>
+        }
+      />
     ),
   })
 

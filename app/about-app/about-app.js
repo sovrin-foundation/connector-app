@@ -93,22 +93,22 @@ export class AboutApp extends PureComponent<AboutAppProps, void> {
       <CustomHeader
         backgroundColor={color.bg.tertiary.color}
         outerContainerStyles={{ borderBottomWidth: 0 }}
-      >
-        <Icon
-          testID={'back-arrow'}
-          iconStyle={[styles.headerLeft]}
-          src={require('../images/icon_backArrow.png')}
-          resizeMode="contain"
-          onPress={() => navigation.goBack()}
-          small
-        />
-
-        <CustomText bg="tertiary" tertiary transparentBg semiBold>
-          About this App
-        </CustomText>
-
-        <CustomView />
-      </CustomHeader>
+        leftComponent={
+          <Icon
+            testID={'back-arrow'}
+            iconStyle={[styles.headerLeft]}
+            src={require('../images/icon_backArrow.png')}
+            resizeMode="contain"
+            onPress={() => navigation.goBack()}
+            small
+          />
+        }
+        centerComponent={
+          <CustomText bg="tertiary" tertiary transparentBg semiBold>
+            About this App
+          </CustomText>
+        }
+      />
     ),
     swipeEnabled: false,
   })

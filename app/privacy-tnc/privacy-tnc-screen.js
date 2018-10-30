@@ -50,22 +50,25 @@ export class PrivacyTNC extends PureComponent<
 
   static navigationOptions = ({ navigation }) => ({
     header: (
-      <CustomHeader flatHeader backgroundColor={color.bg.tertiary.color}>
-        <Icon
-          small
-          testID={'back-arrow'}
-          iconStyle={[styles.headerLeft]}
-          src={require('../images/icon_backArrow.png')}
-          resizeMode="contain"
-          onPress={() => navigation.goBack()}
-        />
-
-        <CustomText bg="tertiary" tertiary transparentBg semiBold>
-          {navigation.state.params.title}
-        </CustomText>
-
-        <CustomView />
-      </CustomHeader>
+      <CustomHeader
+        flatHeader
+        backgroundColor={color.bg.tertiary.color}
+        leftComponent={
+          <Icon
+            small
+            testID={'back-arrow'}
+            iconStyle={[styles.headerLeft]}
+            src={require('../images/icon_backArrow.png')}
+            resizeMode="contain"
+            onPress={() => navigation.goBack()}
+          />
+        }
+        centerComponent={
+          <CustomText bg="tertiary" tertiary transparentBg semiBold>
+            {navigation.state.params.title}
+          </CustomText>
+        }
+      />
     ),
     swipeEnabled: false,
   })
