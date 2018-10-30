@@ -7,6 +7,7 @@ import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
+import com.connectme.onfido.OnfidoSDK;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,15 +19,16 @@ public class RNIndyPackage implements ReactPackage {
       // Register your native module
       // https://facebook.github.io/react-native/docs/native-modules-android.html#register-the-module
       return Arrays.<NativeModule>asList(
-          new RNIndyModule(reactContext)
+          new RNIndyModule(reactContext),
+          new OnfidoSDK(reactContext)
       );
     }
 
     public List<Class<? extends JavaScriptModule>> createJSModules() {
         return Collections.emptyList();
     }
-    
-    
+
+
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         return Collections.emptyList();
     }

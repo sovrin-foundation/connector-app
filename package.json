@@ -77,6 +77,7 @@
   "devDependencies": {
     "babel-eslint": "^8.2.3",
     "babel-jest": "22.2.0",
+    "babel-plugin-jest-hoist": "22.4.4",
     "babel-preset-react-native": "4.0.0",
     "child-process-async": "^1.0.1",
     "detox": "^9.0.5",

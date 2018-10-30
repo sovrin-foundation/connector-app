@@ -16,6 +16,7 @@ import {
   lockEnterPinRoute,
   lockTouchIdSetupRoute,
   aboutAppRoute,
+  onfidoRoute,
   privacyTNCRoute,
 } from '../common/route-constants'
 import AndroidSwitch from 'react-native-flip-toggle-button'
@@ -39,6 +40,7 @@ import {
   USER_AVATAR_TEST_ID,
   BACKUP_DATA_WALLET,
   ABOUT_APP_TEST_ID,
+  ONFIDO_TEST_ID,
 } from './settings-constant'
 
 import type { Store } from '../store/type-store'
@@ -49,6 +51,7 @@ import { selectUserAvatar } from '../store/user/user-store'
 import { Apptentive } from 'apptentive-react-native'
 //import WalletBackupSuccessModal from '../backup/wallet-backup-success-modal'
 import AboutApp from '../about-app/about-app'
+import Onfido from '../onfido/onfido'
 import PrivacyTNC from '../privacy-tnc/privacy-tnc-screen'
 import Banner from '../components/banner/banner'
 
@@ -106,6 +109,10 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
     if (this.props.navigation.isFocused()) {
       this.props.navigation.navigate(aboutAppRoute, {})
     }
+  }
+
+  openOnfido = () => {
+    this.props.navigation.navigate(onfidoRoute, {})
   }
 
   openFeedback = () => {
@@ -287,6 +294,18 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
       />
     )
 
+    const onOnfido = (
+      <CustomView row onPress={this.openOnfido} testID={ONFIDO_TEST_ID}>
+        <Icon
+          iconStyle={[style.labelImage, style.editIcon, { tintColor: mantis }]}
+          src={require('../images/onfido_colour.png')}
+        />
+        <CustomView center>
+          <SettingText>Onfido</SettingText>
+        </CustomView>
+      </CustomView>
+    )
+
     const itemList = [
       {
         id: 0,
@@ -321,6 +340,10 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
         id: 6,
         left: onBackup,
       },
+      {
+        id: 7,
+        left: onOnfido,
+      },
     ]
 
     return (
@@ -352,6 +375,9 @@ export const SettingStack = createStackNavigator({
   },
   [aboutAppRoute]: {
     screen: AboutApp,
+  },
+  [onfidoRoute]: {
+    screen: Onfido,
   },
   [privacyTNCRoute]: {
     screen: PrivacyTNC,

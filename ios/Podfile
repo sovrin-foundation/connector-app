@@ -12,67 +12,18 @@ def vcx_version_for_debug_or_release
     end
 end
 
-pod 'vcx', vcx_version_for_debug_or_release
-pod 'Firebase/Messaging', '4.8.0'
-
 target 'ConnectMe' do
 # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
-# use_frameworks!
+   use_frameworks!
+
+    pod 'vcx', vcx_version_for_debug_or_release
+    pod 'Firebase/Messaging', '4.8.0'
+    pod 'Onfido', '10.0.0'
     pod 'apptentive-ios', '5.2.2'
-
-    rn_path = '../node_modules/react-native'
-    pod 'yoga', path: "#{rn_path}/ReactCommon/yoga/yoga.podspec"
-    pod 'React', path: rn_path, subspecs: [
-    'Core',
-    'RCTActionSheet',
-    'RCTAnimation',
-    'RCTGeolocation',
-    'RCTImage',
-    'RCTLinkingIOS',
-    'RCTNetwork',
-    'RCTSettings',
-    'RCTText',
-    'RCTVibration',
-    'RCTWebSocket'
-    ]
-
-  pod 'RNImageCropPicker', :path =>  '../node_modules/react-native-image-crop-picker'
-  pod 'react-native-image-resizer', :path => '../node_modules/react-native-image-resizer'
-
-# Pods for SimpleFcmClient
-
-    pod 'RNShare', :path => '../node_modules/react-native-share'
-
-    pod 'RNZipArchive', :path => '../node_modules/react-native-zip-archive'
-
-
-    pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
     target 'ConnectMeTests' do
         inherit! :search_paths
         # Pods for testing
     end
 
-end
-
-# The below post_install scripts are to handle pods which are swift code based
-
-# 1) hence need week binding CLANG_ENABLE_OBJC_WEAK
-# 2) min requirment of ios 9.3
-# 3) also scrape use_frameworks from swift libraries that have it internally and add $(inherited) method
-#
-post_install do |installer|
-    installer.pods_project.targets.each do |target|
-        target.build_configurations.each do |config|
-            config.build_settings['CLANG_ENABLE_OBJC_WEAK'] ||= 'YES'
-            config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.3'
-            unless installer.podfile.defined_in_file.read().include? "\nuse_frameworks!\n"
-                config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)']
-                config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] << 'NO_USE_FRAMEWORKS=1'
-            end
-        end
-        if target.name == "React"
-            target.remove_from_project
-        end
-    end
 end

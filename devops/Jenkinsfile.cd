@@ -13,7 +13,7 @@ def GEM_HOME = '~/.gem.connectme'
 
 pipelineWrapper({
     nodeWrapper('macos-connectme') {
-		ansiColor('xterm') {	   
+		ansiColor('xterm') {
 		    stage('Checkout from SCM') {
 	            checkout scm
 	            result = sh (script: "git log -1 | grep '\\[[Cc][Ii]\\s[Ss][Kk][Ii][Pp]\\]'", returnStatus: true)
@@ -29,7 +29,7 @@ pipelineWrapper({
 		        sh 'yarn install'
 				sh 'yarn lint && yarn test'
 		    }
-	    
+
 		    stage('Build') {
 		        withEnv([ // WARNING: brew and curl added to PATH in the node configuration.
 		            "GEM_HOME=${GEM_HOME}",
@@ -55,12 +55,12 @@ pipelineWrapper({
                             break
                         default:
                         	logger.error("You can't run the CD JOB on the branches, different from the 'master', 'stage', 'stable'. Your branch is ${GIT_BRANCH}")
-                            error("You can't run the CD JOB on the branches, different from the 'master', 'stage', 'stable'. Your branch is ${GIT_BRANCH}") 
-                            break       
+                            error("You can't run the CD JOB on the branches, different from the 'master', 'stage', 'stable'. Your branch is ${GIT_BRANCH}")
+                            break
                     }
 
                     sshagent(credentials: ['iosdev-evernym-rsa-key']) {
-	                    withEnv(["DEVELOPER_DIR=/Applications/Xcode_9.2.app/Contents/Developer/"]) {
+	                    withEnv(["DEVELOPER_DIR=/Applications/Xcode_10.app/Contents/Developer/"]) {
                         // TODO: Add checks for Xcode version
 	                        withCredentials([
 	                        	string(credentialsId: hockeyapp_credentials, variable: 'HOCKEYAPP_TOKEN'),

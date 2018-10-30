@@ -71,7 +71,7 @@ describe('store: wallet-store: ', () => {
 
   it('action: BACKUP_WALLET_SUCCESS', () => {
     expect(
-      walletReducer(initialState, walletBackupComplete('hibob'))
+      walletReducer(initialState, walletBackupComplete('test_backup_path'))
     ).toMatchSnapshot()
   })
 

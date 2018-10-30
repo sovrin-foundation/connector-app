@@ -10,6 +10,8 @@ const mockMath = Object.create(global.Math)
 mockMath.random = () => 0.1
 global.Math = mockMath
 
+jest.mock('NativeAnimatedHelper')
+
 // mock this module to allow react-navigation to mock Linking
 jest.mock('Linking', () => ({
   addEventListener: jest.fn(),
@@ -208,6 +210,8 @@ jest.mock('react-native-image-crop-picker', () => ({
     Promise.resolve({ path: '/var/application/DocumentDir/user-avatar.jpeg' })
   ),
 }))
+
+jest.mock('react-native-share', () => {})
 
 // Add mock for RNIndy on NativeModules
 // we don't want to mock NativeModules the way we are doing for all above

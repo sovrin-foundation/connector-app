@@ -6,6 +6,7 @@
 .PHONY: test help
 
 POD := $(shell which pod 2> /dev/null)
+BUNDLE := $(shell which bundle 2> /dev/null)
 OS := $(shell sh -c 'uname -s 2>/dev/null')
 BASE_ASSETS = $(shell mkdir -p assets/base) $(shell find assets/base -type d) $(shell find assets/base -type f -name '*')
 OVERRIDE_ASSETS = $(shell find assets/override -type d 2> /dev/null) $(shell find assets/override -type f -name '*' 2> /dev/null)
@@ -23,9 +24,9 @@ OVERRIDE_ASSETS = $(shell find assets/override -type d 2> /dev/null) $(shell fin
 
 .podinstall:
 ifeq ($(OS), Darwin)
-ifdef POD
+ifdef BUNDLE
 	@echo Getting Cocoapods dependencies;
-	@cd ios && pod install;
+	@cd ios && bundle exec pod install;
 else
 	@echo "Cocoapods is not installed https://cocoapods.org/"
 	@exit 1

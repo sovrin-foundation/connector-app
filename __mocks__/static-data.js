@@ -1068,7 +1068,7 @@ export const backup = {
   fileStatus: STORE_STATUS.IDLE,
   error: null,
   latest: '2017-09-06T00:00:00+05:30',
-  backupPath: 'hibob',
+  backupPath: 'test_backup_path',
   encryptionKey: 'walletEncryptionKey',
 }
 

@@ -23,7 +23,7 @@
 #import “React/RCTEventDispatcher.h” // Required when used as a Pod in a Swift project
 #endif
 
-#import <vcx/vcx/vcx.h>
+#import "vcx/vcx.h"
 
 @implementation RNIndy
 @synthesize bridge = _bridge;

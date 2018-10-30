@@ -34,7 +34,7 @@ Object {
 exports[`store: wallet-store:  action: BACKUP_WALLET_SUCCESS 1`] = `
 Object {
   "backup": Object {
-    "backupPath": "hibob",
+    "backupPath": "test_backup_path",
     "error": null,
     "latest": "2018-01-10T04:32:43+05:30",
     "status": "SUCCESS",
