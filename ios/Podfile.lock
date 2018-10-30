@@ -1,5 +1,5 @@
 PODS:
-  - apptentive-ios (5.0.3)
+  - apptentive-ios (5.2.2)
   - Firebase/Core (4.8.0):
     - FirebaseAnalytics (= 4.0.5)
     - FirebaseCore (= 4.0.13)
@@ -86,7 +86,7 @@ PODS:
   - yoga (0.51.0.React)
 
 DEPENDENCIES:
-  - apptentive-ios (from `https://github.com/nagad814/apptentive-ios.git`)
+  - apptentive-ios (= 5.2.2)
   - Firebase/Messaging (= 4.8.0)
   - react-native-image-resizer (from `../node_modules/react-native-image-resizer`)
   - React/Core (from `../node_modules/react-native`)
@@ -111,6 +111,7 @@ SPEC REPOS:
   "git@github.com:evernym/sdk.git":
     - vcx
   https://github.com/cocoapods/specs.git:
+    - apptentive-ios
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -123,8 +124,6 @@ SPEC REPOS:
     - RSKImageCropper
 
 EXTERNAL SOURCES:
-  apptentive-ios:
-    :git: https://github.com/nagad814/apptentive-ios.git
   React:
     :path: "../node_modules/react-native"
   react-native-image-resizer:
@@ -140,13 +139,8 @@ EXTERNAL SOURCES:
   yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga/yoga.podspec"
 
-CHECKOUT OPTIONS:
-  apptentive-ios:
-    :commit: af655173af55822878b42f229ea7942e794e7fdc
-    :git: https://github.com/nagad814/apptentive-ios.git
-
 SPEC CHECKSUMS:
-  apptentive-ios: 5285e206f754eb9424a7699befb0ea66e0278805
+  apptentive-ios: a38ab3b2244f7294a06dd08e56afb8018d414bf4
   Firebase: 710decbbc6d9d48530e9a5dba3209740c3532e05
   FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
   FirebaseCore: 3c02ec652db3d03fdc8bc6d9154af3e20d64b6f5
@@ -166,6 +160,6 @@ SPEC CHECKSUMS:
   vcx: 3c68b5e9c9a10183ce1f05554111005717e5dfd9
   yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
 
-PODFILE CHECKSUM: 7d83d87b3c6438e57e7c168d29c4c03a58ecb242
+PODFILE CHECKSUM: 2e56fdec3705fc7aa735efccfe4acf38db1d3a66
 
 COCOAPODS: 1.5.3

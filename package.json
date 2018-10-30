@@ -25,7 +25,7 @@
   "dependencies": {
     "@types/color": "^3.0.0",
     "ajv": "^5.2.2",
-    "apptentive-react-native": "^5.0.0",
+    "apptentive-react-native": "5.3.1",
     "bignumber.js": "^7.2.1",
     "buffer": "^5.1.0",
     "color": "^3.0.0",
@@ -79,7 +79,7 @@
     "babel-jest": "22.2.0",
     "babel-preset-react-native": "4.0.0",
     "child-process-async": "^1.0.1",
-    "detox": "^7.3.3",
+    "detox": "^9.0.5",
     "eslint": "^3.19.0",
     "eslint-plugin-flowtype": "^2.47.1",
     "eslint-plugin-import": "^2.2.0",
