@@ -23,6 +23,7 @@ describe('<Invitation />', () => {
   let component
   let invitation
   let isSmsInvitationNotSeen
+  let props
 
   const firstInvitation = {
     requestId: 'requestId1',
@@ -103,31 +104,43 @@ describe('<Invitation />', () => {
         smsToken,
       }),
     }
-    const props = getState()
-    invitation = props.invitation.senderDID1
-    const showErrorAlerts = props.config.showErrorAlerts
+    const state = getState()
+    invitation = state.invitation.senderDID1
+    const showErrorAlerts = state.config.showErrorAlerts
     sendInvitationResponse = jest.fn()
     smsPendingInvitationSeen = jest.fn()
     invitationRejected = jest.fn()
     isSmsInvitationNotSeen = false
+    props = {
+      invitation,
+      showErrorAlerts,
+      navigation,
+      sendInvitationResponse,
+      smsPendingInvitationSeen,
+      invitationRejected,
+      smsToken,
+      isSmsInvitationNotSeen,
+    }
     component = renderer.create(
       <Provider store={store}>
-        <Invitation
-          invitation={invitation}
-          showErrorAlerts={showErrorAlerts}
-          navigation={navigation}
-          sendInvitationResponse={sendInvitationResponse}
-          smsPendingInvitationSeen={smsPendingInvitationSeen}
-          invitationRejected={invitationRejected}
-          smsToken={smsToken}
-          isSmsInvitationNotSeen={false}
-        />
+        <Invitation {...props} />
       </Provider>
     )
 
     instance = component.root.findByType(Invitation).instance
   })
-
+  afterEach(() => {
+    sendInvitationResponse.mockReset()
+    sendInvitationResponse.mockRestore()
+    invitationRejected.mockReset()
+    invitationRejected.mockRestore()
+    smsPendingInvitationSeen.mockReset()
+    smsPendingInvitationSeen.mockRestore()
+    dispatch.mockReset()
+    dispatch.mockRestore()
+    subscribe.mockReset()
+    subscribe.mockRestore()
+  })
   it('should match snapshot', () => {
     const tree = renderer
       .create(
@@ -155,7 +168,6 @@ describe('<Invitation />', () => {
     expect(navigation.navigate).toHaveBeenCalled()
     const redirectScreen = navigation.navigate.mock.calls[0][0]
     expect(redirectScreen).toBe(homeRoute)
-    navigation.dispatch.mockReset()
   })
 
   it('should call smsPendingInvitationSeen action if isSmsInvitationNotSeen is true', () => {
@@ -166,13 +178,8 @@ describe('<Invitation />', () => {
     component = renderer.create(
       <Provider store={store}>
         <Invitation
+          {...props}
           invitation={invitationAfterAccept}
-          showErrorAlerts
-          navigation={navigation}
-          sendInvitationResponse={sendInvitationResponse}
-          invitationRejected={invitationRejected}
-          smsPendingInvitationSeen={smsPendingInvitationSeen}
-          smsToken={smsToken}
           isSmsInvitationNotSeen={true}
         />
       </Provider>
@@ -187,16 +194,7 @@ describe('<Invitation />', () => {
     }
     component = renderer.create(
       <Provider store={store}>
-        <Invitation
-          invitation={invitationAfterAccept}
-          showErrorAlerts
-          navigation={navigation}
-          sendInvitationResponse={sendInvitationResponse}
-          invitationRejected={invitationRejected}
-          smsPendingInvitationSeen={smsPendingInvitationSeen}
-          smsToken={smsToken}
-          isSmsInvitationNotSeen={false}
-        />
+        <Invitation {...props} invitation={invitationAfterAccept} />
       </Provider>
     )
     expect(smsPendingInvitationSeen).not.toHaveBeenCalledWith(smsToken)
@@ -210,7 +208,6 @@ describe('<Invitation />', () => {
     expect(navigation.navigate).toHaveBeenCalled()
     const redirectScreen = navigation.navigate.mock.calls[0][0]
     expect(redirectScreen).toBe(homeRoute)
-    navigation.dispatch.mockReset()
   })
 
   it('should return a empty container when invitation is null', () => {
@@ -221,23 +218,31 @@ describe('<Invitation />', () => {
         smsToken: null,
       }),
     }
-
     const wrapper = renderer.create(
       <Provider store={store}>
         <Invitation
+          {...props}
           invitation={invitation}
-          showErrorAlerts
           navigation={navigation}
-          sendInvitationResponse={sendInvitationResponse}
-          invitationRejected={invitationRejected}
-          smsPendingInvitationSeen={smsPendingInvitationSeen}
-          smsToken={smsToken}
-          isSmsInvitationNotSeen={false}
         />
       </Provider>
     )
     expect(wrapper.toJSON()).toMatchSnapshot()
     const instance = wrapper.root
     expect(instance.findByType(Container).children.length).toBe(1)
+  })
+  it('should show "Connecting..." while sending invitation response', () => {
+    const whileSendingInvitation = {
+      ...invitation,
+      error: null,
+      isFetching: true,
+      status: ResponseType.accepted,
+    }
+    component.update(
+      <Provider store={store}>
+        <Invitation {...props} invitation={whileSendingInvitation} />
+      </Provider>
+    )
+    expect(component.toJSON()).toMatchSnapshot()
   })
 })

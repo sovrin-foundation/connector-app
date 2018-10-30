@@ -96,23 +96,27 @@ describe('<ProofRequest />', () => {
     // accept
     componentInstance.onSend()
     expect(getProof).toHaveBeenCalledWith(uid)
+    expect(tree).toMatchSnapshot()
   })
 
   it('should call proofRequestIgnored if close button is pressed', () => {
     componentInstance.onIgnore()
     expect(ignoreProofRequest).toHaveBeenCalledWith(uid)
     expect(navigation.goBack).toHaveBeenCalled()
+    expect(tree).toMatchSnapshot()
   })
 
   it('should call proofRequestRejected if ignore button is pressed', () => {
     componentInstance.onReject()
     expect(rejectProofRequest).toHaveBeenCalledWith(uid)
     expect(navigation.goBack).toHaveBeenCalled()
+    expect(tree).toMatchSnapshot()
   })
 
   it('should go back on close action', () => {
     componentInstance.close()
     expect(navigation.goBack).toHaveBeenCalled()
+    expect(tree).toMatchSnapshot()
   })
 })
 
