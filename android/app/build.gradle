@@ -222,7 +222,7 @@ dependencies {
     compile project(':react-native-vector-icons')
     compile 'net.hockeyapp.android:HockeySDK:4.1.4'
     compile 'com.android.support:palette-v7:26.1.0'
-    compile 'com.evernym:vcx:1.0.0-26-10-2018T16-50@aar'
+    compile 'com.evernym:vcx:1.0.0-31-10-2018T17-30@aar'
     implementation 'net.sourceforge.streamsupport:android-retrofuture:1.6.2'
     implementation 'net.sourceforge.streamsupport:android-retrostreams:1.6.2'
     implementation 'org.bouncycastle:bcprov-jdk15on:1.59'
