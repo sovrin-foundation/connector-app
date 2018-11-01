@@ -224,9 +224,22 @@ NativeModules.RNIndy = {
   deleteWalletItem: jest.fn(_ => Promise.resolve(1)),
   updateWalletItem: jest.fn(_ => Promise.resolve(1)),
   createWalletKey: jest.fn(_ => Promise.resolve('walletKey')),
+  exitAppAndroid: jest.fn(),
 }
 
 jest.mock('react-native-version-number', () => ({
   appVersion: '1.0',
   buildVersion: '500',
+}))
+
+jest.mock('apptentive-react-native', () => ({
+  Apptentive: {
+    register: () => Promise.resolve(null),
+    onAuthenticationFailed: reason => null,
+  },
+  ApptentiveConfiguration: () => null,
+}))
+jest.mock('BackHandler', () => ({
+  addEventListener: jest.fn(),
+  removeEventListener: jest.fn(),
 }))

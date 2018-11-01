@@ -1,6 +1,1192 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`user settings screen should render properly and snapshot should match 1`] = `
+exports[`user settings screen should render properly and snapshot should match for android platform 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+    }
+  }
+  tertiary={true}
+>
+  <View
+    style={
+      Object {
+        "overflow": "scroll",
+      }
+    }
+  >
+    <View
+      style={Object {}}
+    >
+      <View>
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel="wallet-backup-banner-label-touchable"
+          accessibilityTraits={undefined}
+          accessible={true}
+          hitSlop={
+            Object {
+              "bottom": 20,
+              "left": 20,
+              "right": 20,
+              "top": 20,
+            }
+          }
+          horizontalSpace={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          row={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#d0021b",
+              "flexDirection": "row",
+              "paddingHorizontal": 15,
+              "paddingVertical": 8,
+            }
+          }
+          testID="wallet-backup-banner-label-touchable"
+          vCenter={true}
+          verticalSpace={true}
+        >
+          <View
+            clearBg={true}
+            iconStyle={
+              Array [
+                Object {
+                  "height": 25,
+                  "width": 29,
+                },
+                Object {
+                  "tintColor": "white",
+                },
+              ]
+            }
+            src={1}
+            style={
+              Object {
+                "backgroundColor": "transparent",
+              }
+            }
+          >
+            <View
+              style={Object {}}
+            >
+              <Image
+                resizeMode="contain"
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "height": 50,
+                      "width": 50,
+                    },
+                    null,
+                    Object {
+                      "height": 25,
+                      "width": 29,
+                    },
+                    Object {
+                      "tintColor": "white",
+                    },
+                  ]
+                }
+              />
+            </View>
+          </View>
+          <View
+            horizontalSpace={true}
+            style={
+              Object {
+                "paddingHorizontal": 15,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "fontSize": 17,
+                  },
+                  Object {
+                    "fontFamily": "Lato",
+                  },
+                  Object {
+                    "backgroundColor": "#333333",
+                    "color": "#ffffff",
+                  },
+                  Object {
+                    "fontWeight": "bold",
+                  },
+                  null,
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                ]
+              }
+            >
+              You have new data that is not backed up.
+            </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "fontSize": 15,
+                  },
+                  Object {
+                    "fontFamily": "Lato",
+                  },
+                  Object {
+                    "backgroundColor": "#333333",
+                    "color": "#ffffff",
+                  },
+                  null,
+                  null,
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                ]
+              }
+            >
+              Create another backup so you don't lose anything.
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <RCTScrollView>
+      <View>
+        <View
+          style={
+            Array [
+              Object {
+                "marginHorizontal": 20,
+              },
+              undefined,
+            ]
+          }
+        >
+          <View
+            row={true}
+            style={
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "flexDirection": "row",
+                "marginVertical": 20,
+              }
+            }
+            vCenter={true}
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "flex": 1,
+                }
+              }
+            >
+              <View
+                accessibilityComponentType={undefined}
+                accessibilityLabel="settings-user-avatar-label"
+                accessibilityTraits={undefined}
+                accessible={true}
+                hitSlop={undefined}
+                nativeID={undefined}
+                onLayout={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                pointerEvents="box-only"
+                style={undefined}
+                testID="settings-user-avatar-label"
+              >
+                <View
+                  imageShadow={null}
+                  style={
+                    Object {
+                      "borderRadius": 38,
+                    }
+                  }
+                >
+                  <Image
+                    accessibilityComponentType={undefined}
+                    accessibilityLabel={undefined}
+                    accessibilityTraits={undefined}
+                    accessible={true}
+                    hitSlop={undefined}
+                    nativeID={undefined}
+                    onError={undefined}
+                    onLayout={undefined}
+                    onLoad={undefined}
+                    onResponderGrant={[Function]}
+                    onResponderMove={[Function]}
+                    onResponderRelease={[Function]}
+                    onResponderTerminate={[Function]}
+                    onResponderTerminationRequest={[Function]}
+                    onStartShouldSetResponder={[Function]}
+                    source={
+                      Object {
+                        "uri": "file:///var/application/DocumentDir/user-avatar.jpeg",
+                      }
+                    }
+                    style={
+                      Array [
+                        Object {
+                          "height": 76,
+                          "width": 76,
+                        },
+                        Object {
+                          "borderRadius": 38,
+                        },
+                      ]
+                    }
+                    testID={undefined}
+                  />
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "alignItems": "flex-end",
+                }
+              }
+            >
+              <View
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
+                accessible={true}
+                clearBg={true}
+                hitSlop={
+                  Object {
+                    "bottom": 20,
+                    "left": 20,
+                    "right": 20,
+                    "top": 20,
+                  }
+                }
+                iconStyle={
+                  Array [
+                    Object {
+                      "height": 30,
+                      "width": 30,
+                    },
+                    Object {
+                      "tintColor": "grey",
+                    },
+                  ]
+                }
+                nativeID={undefined}
+                onLayout={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                resizeMode="contain"
+                src={1}
+                style={
+                  Object {
+                    "backgroundColor": "transparent",
+                  }
+                }
+                testID={undefined}
+              >
+                <View
+                  style={Object {}}
+                >
+                  <Image
+                    resizeMode="contain"
+                    source={1}
+                    style={
+                      Array [
+                        Object {
+                          "height": 50,
+                          "width": 50,
+                        },
+                        null,
+                        Object {
+                          "height": 30,
+                          "width": 30,
+                        },
+                        Object {
+                          "tintColor": "grey",
+                        },
+                      ]
+                    }
+                  />
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            row={true}
+            style={
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "flexDirection": "row",
+                "marginVertical": 20,
+              }
+            }
+            vCenter={true}
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "flex": 1,
+                }
+              }
+            >
+              <View
+                row={true}
+                style={
+                  Object {
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <Text
+                  accessibilityLabel="settings-pass-code-label"
+                  accessible={true}
+                  allowFontScaling={false}
+                  ellipsizeMode="tail"
+                  onPress={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "fontSize": 17,
+                      },
+                      Object {
+                        "fontFamily": "Lato",
+                      },
+                      Object {
+                        "backgroundColor": "#ffffff",
+                        "color": "#777777",
+                      },
+                      Object {
+                        "fontWeight": "600",
+                      },
+                      null,
+                      null,
+                      null,
+                      null,
+                      null,
+                      null,
+                      null,
+                      null,
+                      null,
+                      null,
+                    ]
+                  }
+                  testID="settings-pass-code-label"
+                >
+                  Passcode:
+                   
+                </Text>
+                <Text
+                  accessibilityLabel="settings-pass-code-asterisk-label"
+                  accessible={true}
+                  allowFontScaling={false}
+                  ellipsizeMode="tail"
+                  onPress={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "fontSize": 17,
+                      },
+                      Object {
+                        "fontFamily": "Lato",
+                      },
+                      Object {
+                        "backgroundColor": "#ffffff",
+                        "color": "#777777",
+                      },
+                      Object {
+                        "fontWeight": "600",
+                      },
+                      null,
+                      null,
+                      null,
+                      null,
+                      null,
+                      null,
+                      null,
+                      null,
+                      null,
+                      null,
+                      Object {
+                        "marginTop": 5,
+                      },
+                    ]
+                  }
+                  testID="settings-pass-code-asterisk-label"
+                >
+                  ******
+                </Text>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "alignItems": "flex-end",
+                }
+              }
+            >
+              <View
+                accessibilityComponentType={undefined}
+                accessibilityLabel={undefined}
+                accessibilityTraits={undefined}
+                accessible={true}
+                clearBg={true}
+                hitSlop={
+                  Object {
+                    "bottom": 20,
+                    "left": 20,
+                    "right": 20,
+                    "top": 20,
+                  }
+                }
+                iconStyle={
+                  Array [
+                    Object {
+                      "height": 30,
+                      "width": 30,
+                    },
+                    Object {
+                      "tintColor": "grey",
+                    },
+                  ]
+                }
+                nativeID={undefined}
+                onLayout={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                resizeMode="contain"
+                src={1}
+                style={
+                  Object {
+                    "backgroundColor": "transparent",
+                  }
+                }
+                testID={undefined}
+              >
+                <View
+                  style={Object {}}
+                >
+                  <Image
+                    resizeMode="contain"
+                    source={1}
+                    style={
+                      Array [
+                        Object {
+                          "height": 50,
+                          "width": 50,
+                        },
+                        null,
+                        Object {
+                          "height": 30,
+                          "width": 30,
+                        },
+                        Object {
+                          "tintColor": "grey",
+                        },
+                      ]
+                    }
+                  />
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            row={true}
+            style={
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "flexDirection": "row",
+                "marginVertical": 20,
+              }
+            }
+            vCenter={true}
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "flex": 1,
+                }
+              }
+            >
+              <View
+                row={true}
+                style={
+                  Object {
+                    "flexDirection": "row",
+                  }
+                }
+              >
+                <View
+                  clearBg={true}
+                  iconStyle={
+                    Array [
+                      Object {
+                        "marginRight": 10,
+                      },
+                      Object {
+                        "height": 30,
+                        "width": 30,
+                      },
+                      Object {
+                        "tintColor": "#85bf43",
+                      },
+                    ]
+                  }
+                  src={1}
+                  style={
+                    Object {
+                      "backgroundColor": "transparent",
+                    }
+                  }
+                >
+                  <View
+                    style={Object {}}
+                  >
+                    <Image
+                      resizeMode="contain"
+                      source={1}
+                      style={
+                        Array [
+                          Object {
+                            "height": 50,
+                            "width": 50,
+                          },
+                          null,
+                          Object {
+                            "marginRight": 10,
+                          },
+                          Object {
+                            "height": 30,
+                            "width": 30,
+                          },
+                          Object {
+                            "tintColor": "#85bf43",
+                          },
+                        ]
+                      }
+                    />
+                  </View>
+                </View>
+                <View
+                  center={true}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "justifyContent": "center",
+                    }
+                  }
+                >
+                  <Text
+                    accessibilityLabel="settings-touch-id-label"
+                    accessible={true}
+                    allowFontScaling={false}
+                    ellipsizeMode="tail"
+                    onPress={[Function]}
+                    style={
+                      Array [
+                        Object {
+                          "fontSize": 17,
+                        },
+                        Object {
+                          "fontFamily": "Lato",
+                        },
+                        Object {
+                          "backgroundColor": "#ffffff",
+                          "color": "#777777",
+                        },
+                        Object {
+                          "fontWeight": "600",
+                        },
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                      ]
+                    }
+                    testID="settings-touch-id-label"
+                  >
+                    Enable Biometrics
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "alignItems": "flex-end",
+                }
+              }
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                    },
+                  ]
+                }
+              >
+                <View
+                  accessibilityComponentType={undefined}
+                  accessibilityLabel={undefined}
+                  accessibilityTraits={undefined}
+                  accessible={true}
+                  collapsable={undefined}
+                  hasTVPreferredFocus={undefined}
+                  hitSlop={undefined}
+                  isTVSelectable={true}
+                  nativeID={undefined}
+                  onLayout={undefined}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Object {
+                      "backgroundColor": "#777777",
+                      "borderRadius": 16,
+                      "height": 30,
+                      "justifyContent": "center",
+                      "opacity": 1,
+                      "width": 55,
+                    }
+                  }
+                  testID={undefined}
+                  tvParallaxProperties={undefined}
+                >
+                  <View
+                    collapsable={undefined}
+                    style={
+                      Object {
+                        "backgroundColor": "#ffffff",
+                        "borderRadius": 16,
+                        "height": 28,
+                        "margin": 1,
+                        "position": "absolute",
+                        "transform": Array [
+                          Object {
+                            "translateX": 0,
+                          },
+                        ],
+                        "width": 28,
+                      }
+                    }
+                  />
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            row={true}
+            style={
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "flexDirection": "row",
+                "marginVertical": 20,
+              }
+            }
+            vCenter={true}
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "flex": 1,
+                }
+              }
+            >
+              <View
+                accessibilityComponentType={undefined}
+                accessibilityLabel="settings-about-app-label-touchable"
+                accessibilityTraits={undefined}
+                accessible={true}
+                hitSlop={
+                  Object {
+                    "bottom": 20,
+                    "left": 20,
+                    "right": 20,
+                    "top": 20,
+                  }
+                }
+                nativeID={undefined}
+                onLayout={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                row={true}
+                style={
+                  Object {
+                    "flexDirection": "row",
+                  }
+                }
+                testID="settings-about-app-label-touchable"
+              >
+                <View
+                  clearBg={true}
+                  iconStyle={
+                    Array [
+                      Object {
+                        "marginRight": 10,
+                      },
+                      Object {
+                        "height": 30,
+                        "width": 30,
+                      },
+                      Object {
+                        "tintColor": "#85bf43",
+                      },
+                    ]
+                  }
+                  src={1}
+                  style={
+                    Object {
+                      "backgroundColor": "transparent",
+                    }
+                  }
+                >
+                  <View
+                    style={Object {}}
+                  >
+                    <Image
+                      resizeMode="contain"
+                      source={1}
+                      style={
+                        Array [
+                          Object {
+                            "height": 50,
+                            "width": 50,
+                          },
+                          null,
+                          Object {
+                            "marginRight": 10,
+                          },
+                          Object {
+                            "height": 30,
+                            "width": 30,
+                          },
+                          Object {
+                            "tintColor": "#85bf43",
+                          },
+                        ]
+                      }
+                    />
+                  </View>
+                </View>
+                <View
+                  center={true}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "justifyContent": "center",
+                    }
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={false}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {
+                          "fontSize": 17,
+                        },
+                        Object {
+                          "fontFamily": "Lato",
+                        },
+                        Object {
+                          "backgroundColor": "#ffffff",
+                          "color": "#777777",
+                        },
+                        Object {
+                          "fontWeight": "600",
+                        },
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                      ]
+                    }
+                  >
+                    About this App
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            row={true}
+            style={
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "flexDirection": "row",
+                "marginVertical": 20,
+              }
+            }
+            vCenter={true}
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "flex": 1,
+                }
+              }
+            >
+              <View
+                accessibilityComponentType={undefined}
+                accessibilityLabel="settings-chat-id-label-touchable"
+                accessibilityTraits={undefined}
+                accessible={true}
+                hitSlop={
+                  Object {
+                    "bottom": 20,
+                    "left": 20,
+                    "right": 20,
+                    "top": 20,
+                  }
+                }
+                nativeID={undefined}
+                onLayout={undefined}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                row={true}
+                style={
+                  Object {
+                    "flexDirection": "row",
+                  }
+                }
+                testID="settings-chat-id-label-touchable"
+              >
+                <View
+                  clearBg={true}
+                  iconStyle={
+                    Array [
+                      Object {
+                        "marginRight": 10,
+                      },
+                      Object {
+                        "height": 30,
+                        "width": 30,
+                      },
+                      Object {
+                        "tintColor": "#85bf43",
+                      },
+                    ]
+                  }
+                  src={1}
+                  style={
+                    Object {
+                      "backgroundColor": "transparent",
+                    }
+                  }
+                >
+                  <View
+                    style={Object {}}
+                  >
+                    <Image
+                      resizeMode="contain"
+                      source={1}
+                      style={
+                        Array [
+                          Object {
+                            "height": 50,
+                            "width": 50,
+                          },
+                          null,
+                          Object {
+                            "marginRight": 10,
+                          },
+                          Object {
+                            "height": 30,
+                            "width": 30,
+                          },
+                          Object {
+                            "tintColor": "#85bf43",
+                          },
+                        ]
+                      }
+                    />
+                  </View>
+                </View>
+                <View
+                  center={true}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "justifyContent": "center",
+                    }
+                  }
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={false}
+                    ellipsizeMode="tail"
+                    style={
+                      Array [
+                        Object {
+                          "fontSize": 17,
+                        },
+                        Object {
+                          "fontFamily": "Lato",
+                        },
+                        Object {
+                          "backgroundColor": "#ffffff",
+                          "color": "#777777",
+                        },
+                        Object {
+                          "fontWeight": "600",
+                        },
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                      ]
+                    }
+                  >
+                    Chat with us
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            row={true}
+            style={
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "flexDirection": "row",
+                "marginVertical": 20,
+              }
+            }
+            vCenter={true}
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "flex": 1,
+                }
+              }
+            >
+              <View>
+                <View
+                  accessibilityComponentType={undefined}
+                  accessibilityLabel="settings-backup-data-wallet-touchable"
+                  accessibilityTraits={undefined}
+                  accessible={true}
+                  hitSlop={
+                    Object {
+                      "bottom": 20,
+                      "left": 20,
+                      "right": 20,
+                      "top": 20,
+                    }
+                  }
+                  nativeID={undefined}
+                  onLayout={undefined}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  row={true}
+                  style={
+                    Object {
+                      "flexDirection": "row",
+                    }
+                  }
+                  testID="settings-backup-data-wallet-touchable"
+                >
+                  <View
+                    clearBg={true}
+                    iconStyle={
+                      Array [
+                        Object {
+                          "marginRight": 10,
+                        },
+                        Object {
+                          "height": 30,
+                          "width": 30,
+                        },
+                        Object {
+                          "tintColor": "#85bf43",
+                        },
+                      ]
+                    }
+                    src={1}
+                    style={
+                      Object {
+                        "backgroundColor": "transparent",
+                      }
+                    }
+                  >
+                    <View
+                      style={Object {}}
+                    >
+                      <Image
+                        resizeMode="contain"
+                        source={1}
+                        style={
+                          Array [
+                            Object {
+                              "height": 50,
+                              "width": 50,
+                            },
+                            null,
+                            Object {
+                              "marginRight": 10,
+                            },
+                            Object {
+                              "height": 30,
+                              "width": 30,
+                            },
+                            Object {
+                              "tintColor": "#85bf43",
+                            },
+                          ]
+                        }
+                      />
+                    </View>
+                  </View>
+                  <View
+                    center={true}
+                    style={
+                      Object {
+                        "alignItems": "center",
+                        "justifyContent": "center",
+                      }
+                    }
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={false}
+                      ellipsizeMode="tail"
+                      style={
+                        Array [
+                          Object {
+                            "fontSize": 17,
+                          },
+                          Object {
+                            "fontFamily": "Lato",
+                          },
+                          Object {
+                            "backgroundColor": "#ffffff",
+                            "color": "#777777",
+                          },
+                          Object {
+                            "fontWeight": "600",
+                          },
+                          null,
+                          null,
+                          null,
+                          null,
+                          null,
+                          null,
+                          null,
+                          null,
+                          null,
+                          null,
+                        ]
+                      }
+                    >
+                      Back up my wallet
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </RCTScrollView>
+  </View>
+</View>
+`;
+
+exports[`user settings screen should render properly and snapshot should match ios platform 1`] = `
 <View
   style={
     Object {

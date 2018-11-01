@@ -345,7 +345,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
         left: onOnfido,
       },
     ]
-
+    console.log(Platform.OS)
     return (
       <Container tertiary>
         <CustomView style={[style.container]}>

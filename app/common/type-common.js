@@ -21,6 +21,18 @@ export const initialTestAction = () => ({
 export type NavigationParams = {
   [string]: any,
 }
+export type NavigationRoute = NavigationLeafRoute
+export type NavigationState = {
+  index: number,
+  routes: Array<NavigationRoute>,
+}
+
+export type NavigationLeafRoute = {|
+  key: string,
+  routeName: string,
+  path?: string,
+  params?: NavigationParams,
+|}
 
 export type ReactNavigation = NavigationScreenProp
 

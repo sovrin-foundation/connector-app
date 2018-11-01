@@ -37,7 +37,8 @@ import {
   expiredTokenRoute,
 } from './common'
 import { NavigationActions } from 'react-navigation'
-import type { AppState } from './type-app'
+import type { AppProps } from './type-app'
+import type { NavigationState, NavigationParams } from './common/type-common'
 import { exitAppAndroid } from './bridge/react-native-cxs/RNCxs'
 import AppStatus from './app-status/app-status'
 import { setupFeedback } from './feedback'
@@ -76,7 +77,7 @@ const backButtonConditionalRoutes = [
   lockAuthorizationHomeRoute,
 ]
 
-class ConnectMeApp extends PureComponent<void, AppState> {
+export class ConnectMeApp extends PureComponent<AppProps, void> {
   currentRouteKey: string = ''
   currentRoute: string = ''
   navigatorRef = null
@@ -146,13 +147,14 @@ class ConnectMeApp extends PureComponent<void, AppState> {
   onBackPressExit() {
     if (this.exitTimeout && this.exitTimeout + 2000 >= Date.now()) {
       exitAppAndroid()
+      return
     }
     this.exitTimeout = Date.now()
     ToastAndroid.show('Press again to exit!', ToastAndroid.SHORT)
   }
 
   // gets the current screen from navigation state
-  getCurrentRoute = navigationState => {
+  getCurrentRoute = (navigationState: NavigationState) => {
     const route = navigationState.routes[navigationState.index]
     // dive into nested navigators
     if (route.routes) {
@@ -162,7 +164,10 @@ class ConnectMeApp extends PureComponent<void, AppState> {
     return route
   }
 
-  navigationChangeHandler = (previousState, currentState) => {
+  navigationChangeHandler = (
+    previousState: NavigationState,
+    currentState: NavigationState
+  ) => {
     if (currentState) {
       const { routeName, key, params } = this.getCurrentRoute(currentState)
       const currentScreen = routeName
@@ -178,7 +183,7 @@ class ConnectMeApp extends PureComponent<void, AppState> {
     }
   }
 
-  navigateToRoute = (routeName, params = {}) => {
+  navigateToRoute = (routeName: string, params: NavigationParams = {}) => {
     const navigateAction = NavigationActions.navigate({
       routeName,
       params,

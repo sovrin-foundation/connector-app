@@ -30,7 +30,23 @@ describe('user settings screen', () => {
     return { props }
   }
 
-  it('should render properly and snapshot should match', () => {
+  it('should render properly and snapshot should match ios platform', () => {
+    const { props } = setup()
+    const tree = renderer
+      .create(
+        <Provider store={store}>
+          <Settings {...props} />
+        </Provider>
+      )
+      .toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+  it('should render properly and snapshot should match for android platform', () => {
+    const platform = jest.mock('Platform', () => {
+      const Platform = jest.requireActual('Platform')
+      Platform.OS = 'android'
+      return Platform
+    })
     const { props } = setup()
     const tree = renderer
       .create(
