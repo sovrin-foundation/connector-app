@@ -249,6 +249,7 @@ const Tabs = createTabNavigator(
           accessibilityRole: 'button',
           accessibilityLabel: `Go to ${TAB_SCAN_TITLE}`,
         },
+        tabBarVisible: false,
         tabBarIcon: ({ focused }) => {
           if (focused) {
             return (
