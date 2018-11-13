@@ -10,6 +10,7 @@ import {
   claimOfferRoute,
   lockPinSetupRoute,
   lockEnterPinRoute,
+  lockSelectionRoute,
 } from '../../common'
 import {
   getStore,
@@ -84,5 +85,44 @@ describe('<LockPinCodeEnter />', () => {
     jest.runAllTimers()
     expect(props.navigation.navigate).toHaveBeenCalledTimes(2)
     expect(props.clearPendingRedirect).toHaveBeenCalled()
+  })
+  it('redirect to home screen is app is locked and there are no pending redirection', () => {
+    component.update(
+      <Provider store={store}>
+        <LockEnterPin
+          {...props}
+          existingPin={false}
+          pendingRedirection={null}
+        />
+      </Provider>
+    )
+    jest.useFakeTimers()
+    componentInstance.onSuccess()
+    jest.runAllTimers()
+    expect(props.navigation.navigate).toHaveBeenCalledWith(homeRoute)
+    expect(component).toMatchSnapshot()
+  })
+  it("should show 'Enter passcode' message if there is no existing pin", () => {
+    const wrapper = renderer.create(
+      <Provider store={store}>
+        <LockEnterPin {...props} existingPin={false} />
+      </Provider>,
+      options
+    )
+    expect(wrapper).toMatchSnapshot()
+  })
+  it('should redirect to lockSelection screen if redirectToSetupPasscode is called', () => {
+    componentInstance.redirectToSetupPasscode()
+    expect(props.navigation.navigate).toHaveBeenCalledWith(lockSelectionRoute)
+  })
+  it('should show UNLOCKING_APP_WAIT_MESSAGE ', () => {
+    let wrapper = renderer.create(
+      <Provider store={store}>
+        <LockEnterPin {...props} isFetchingInvitation={true} />
+      </Provider>
+    )
+    let wrapperInstance = wrapper.root.findByType(LockEnterPin).instance
+    wrapperInstance.onSuccess()
+    expect(wrapper.toJSON()).toMatchSnapshot()
   })
 })

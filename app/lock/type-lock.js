@@ -151,7 +151,7 @@ export type LockActions =
   | SwitchErrorAlerts
 
 export type LockEnterPinProps = {
-  pendingRedirection: Array<PendingRedirection>,
+  pendingRedirection: ?Array<PendingRedirection>,
   isFetchingInvitation?: boolean,
   clearPendingRedirect: () => void,
   unlockApp: () => void,
@@ -162,7 +162,7 @@ export type LockEnterPinProps = {
 } & ReactNavigation
 
 export type LockEnterFingerProps = {
-  pendingRedirection: Array<PendingRedirection>,
+  pendingRedirection: ?Array<PendingRedirection>,
   isFetchingInvitation?: boolean,
   clearPendingRedirect: () => void,
   unlockApp: () => void,
