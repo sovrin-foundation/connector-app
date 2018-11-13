@@ -36,7 +36,7 @@ import {
   SUBSEQUENT_BACKUP_TITLE,
 } from '../../common'
 
-class Banner extends PureComponent<BannerProps, void> {
+export class Banner extends PureComponent<BannerProps, void> {
   render() {
     const {
       offline,
