@@ -10,7 +10,7 @@ import {
   CustomButton,
   Icon,
 } from '../components'
-import { settingsTabRoute, homeTabRoute } from '../common'
+import { settingsTabRoute, homeTabRoute, menuTabRoute } from '../common'
 import { unlockApp, clearPendingRedirect } from './lock-store'
 import type { Store } from '../store/type-store'
 import { OFFSET_1X, OFFSET_2X, OFFSET_4X, color } from '../common/styles'
@@ -31,7 +31,7 @@ export class LockSetupSuccess extends PureComponent<
       this.props.navigation.state.params &&
       this.props.navigation.state.params.changePin === true
     ) {
-      this.props.navigation.navigate(settingsTabRoute)
+      this.props.navigation.navigate(menuTabRoute)
     } else if (this.props.pendingRedirection) {
       // if there is a redirection pending, then redirect and clear it
       this.props.pendingRedirection.map(pendingRedirection => {

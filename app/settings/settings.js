@@ -1,6 +1,13 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Text, Switch, StyleSheet, Platform, ScrollView } from 'react-native'
+import {
+  Text,
+  Switch,
+  StyleSheet,
+  Platform,
+  ScrollView,
+  FlatList,
+} from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 import BackupWallet from './backup-wallet'
 import {
@@ -18,8 +25,9 @@ import {
   aboutAppRoute,
   onfidoRoute,
   privacyTNCRoute,
+  genRecoveryPhraseRoute,
 } from '../common/route-constants'
-import AndroidSwitch from 'react-native-flip-toggle-button'
+import ToggleSwitch from 'react-native-flip-toggle-button'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
@@ -28,6 +36,13 @@ import {
   OFFSET_1X,
   color,
   grey,
+  isIphoneX,
+  responsiveHorizontalPadding,
+  isBiggerThanVeryShortDevice,
+  HAIRLINE_WIDTH,
+  font,
+  lightDarkGray,
+  lightWhite,
 } from '../common/styles/constant'
 import {
   EDIT_ICON_DIMENSIONS,
@@ -54,10 +69,62 @@ import AboutApp from '../about-app/about-app'
 import Onfido from '../onfido/onfido'
 import PrivacyTNC from '../privacy-tnc/privacy-tnc-screen'
 import Banner from '../components/banner/banner'
+import { WalletBalance } from '../wallet/wallet-balance'
+import { size } from '../components/icon'
+import { isBiggerThanShortDevice } from '../common/styles/constant'
+import { Dimensions } from 'react-native'
+import { scale } from 'react-native-size-matters'
+import { darkGray } from '../common/styles/constant'
+import { List, ListItem } from 'react-native-elements'
+import {
+  SOVRINTOKEN_AMOUNT_TEST_ID,
+  SOVRINTOKEN_TEST_ID,
+} from '../home/home-constants'
+import get from 'lodash.get'
+import SvgCustomIcon from '../components/svg-custom-icon'
+import { getWalletBalance } from '../store/store-selector'
+import CustomDate from '../components/custom-date/custom-date'
+import { matterhornSecondary } from '../common/styles/constant'
+import { tokenAmountSize } from '../home/home'
+const { width, height } = Dimensions.get('window')
 
 const style = StyleSheet.create({
-  container: {
-    overflow: 'scroll',
+  mainContainer: {
+    backgroundColor: lightDarkGray,
+  },
+  userAvatarContainer: {
+    paddingTop: '10%',
+    paddingBottom: 0,
+  },
+  listContainer: {
+    borderBottomWidth: 0,
+    borderTopWidth: 0,
+    backgroundColor: lightDarkGray,
+  },
+  listItemContainer: {
+    borderBottomWidth: HAIRLINE_WIDTH,
+    borderTopWidth: 0,
+    paddingTop: 11,
+    paddingBottom: 11,
+  },
+  titleStyle: {
+    fontSize: font.size.M,
+    fontWeight: '500',
+  },
+  subtitleStyle: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: matterhornSecondary,
+  },
+  avatarStyle: { backgroundColor: lightDarkGray, padding: 5 },
+  username: {
+    fontSize: font.size.ML1,
+    padding: '3%',
+  },
+  tokenText: {
+    fontSize: font.size.XS,
+    paddingTop: 5,
+    paddingBottom: 5,
   },
   editIcon: {
     width: EDIT_ICON_DIMENSIONS,
@@ -66,13 +133,21 @@ const style = StyleSheet.create({
   labelImage: {
     marginRight: OFFSET_1X,
   },
-  labelPassCode: {
-    marginTop: PASS_CODE_ASTERISK_TOP_OFFSET,
+  floatTokenAmount: {
+    color: darkGray,
+    paddingHorizontal: 8,
+  },
+  backupTimeSubtitleStyle: {
+    marginLeft: 10,
+    color: matterhornSecondary,
+  },
+  subtitleColor: {
+    color: matterhornSecondary,
   },
 })
 
 const SettingText = props => (
-  <CustomText h5 bg="fifth" tertiary semiBold {...props}>
+  <CustomText h5 bg="fifth" tertiary bold {...props}>
     {props.children}
   </CustomText>
 )
@@ -105,6 +180,15 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
     }
   }
 
+  onBackup = () => {
+    const { navigation: { navigate, state, goBack } } = this.props
+    // If no there is no route, then default to Settings
+    const initialRoute = get(state, 'routeName', settingsRoute)
+    navigate(genRecoveryPhraseRoute, {
+      initialRoute,
+    })
+  }
+
   openAboutApp = () => {
     if (this.props.navigation.isFocused()) {
       this.props.navigation.navigate(aboutAppRoute, {})
@@ -120,18 +204,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
   }
 
   static navigationOptions = {
-    header: (
-      <CustomHeader
-        backgroundColor={color.bg.tertiary.color}
-        largeHeader
-        zeroBottomBorder
-        centerComponent={
-          <CustomText bg="tertiary" tertiary transparentBg semiBold>
-            {settingsRoute}
-          </CustomText>
-        }
-      />
-    ),
+    header: null,
   }
 
   renderAvatarWithSource = (avatarSource: number | ImageSource) => (
@@ -168,61 +241,68 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
     }
   }
 
-  render() {
-    const userAvatar = (
-      <UserAvatar testID={USER_AVATAR_TEST_ID} userCanChange>
-        {this.renderAvatarWithSource}
-      </UserAvatar>
+  getLastBackupTime() {
+    return this.props.lastSuccessfulBackup !== '' ? (
+      <CustomText transparentBg h7 bold style={[style.backupTimeSubtitleStyle]}>
+        Last backup was{' '}
+        <CustomDate transparentBg h7 bold style={[style.subtitleColor]}>
+          {this.props.lastSuccessfulBackup}
+        </CustomDate>
+      </CustomText>
+    ) : (
+      ''
     )
-    const editIcon = (
-      <Icon
-        iconStyle={[style.editIcon, { tintColor: 'grey' }]}
-        resizeMode={'contain'}
-        src={require('../images/edit.png')}
-        onPress={this.props.selectUserAvatar}
-      />
-    )
+  }
 
-    const editIconChangePin = (
-      <Icon
-        iconStyle={[style.editIcon, { tintColor: 'grey' }]}
-        resizeMode={'contain'}
-        src={require('../images/edit.png')}
-        onPress={this.onChangePinClick}
-      />
+  render() {
+    const { walletBalance } = this.props
+    const userAvatar = (
+      <CustomView center style={[style.userAvatarContainer]}>
+        <CustomView verticalSpace>
+          <UserAvatar testID={USER_AVATAR_TEST_ID} userCanChange>
+            {this.renderAvatarWithSource}
+          </UserAvatar>
+        </CustomView>
+        {/* <SettingText testID={USERNAME_TEST_ID} style={[style.username]}>
+          Anonymous
+        </SettingText> */}
+        <CustomView row center testID={SOVRINTOKEN_AMOUNT_TEST_ID}>
+          <Icon
+            small
+            testID={SOVRINTOKEN_TEST_ID}
+            src={require('../images/sovrinTokenOrange.png')}
+          />
+          <CustomText
+            h5
+            demiBold
+            center
+            style={[
+              style.floatTokenAmount,
+              {
+                fontSize: tokenAmountSize(
+                  walletBalance ? walletBalance.length : 0
+                ),
+              },
+            ]}
+            transparentBg
+            testID={SOVRINTOKEN_AMOUNT_TEST_ID}
+            formatNumber
+          >
+            {walletBalance}
+          </CustomText>
+        </CustomView>
+        <CustomView>
+          <CustomText transparentBg bold darkgray style={[style.tokenText]}>
+            TOKENS
+          </CustomText>
+        </CustomView>
+      </CustomView>
     )
 
     const userName = (
       <SettingText testID={USERNAME_TEST_ID}>Name: Anonymous</SettingText>
     )
 
-    const passCode = (
-      <CustomView row>
-        <SettingText testID={PASS_CODE_TEST_ID} onPress={this.onChangePinClick}>
-          Passcode:{' '}
-        </SettingText>
-        <SettingText
-          onPress={this.onChangePinClick}
-          testID={PASS_CODE_ASTERISK_TEST_ID}
-          style={[style.labelPassCode]}
-        >
-          ******
-        </SettingText>
-      </CustomView>
-    )
-    const touchId = (
-      <CustomView row>
-        <Icon
-          iconStyle={[style.labelImage, style.editIcon, { tintColor: mantis }]}
-          src={require('../images/biometrics.png')}
-        />
-        <CustomView center>
-          <SettingText onPress={this.onChangeTouchId} testID={TOUCH_ID_TEST_ID}>
-            Enable Biometrics
-          </SettingText>
-        </CustomView>
-      </CustomView>
-    )
     const toggleSwitch =
       Platform.OS === 'ios' ? (
         <Switch
@@ -232,7 +312,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
           value={this.props.touchIdActive}
         />
       ) : (
-        <AndroidSwitch
+        <ToggleSwitch
           onToggle={this.onChangeTouchId}
           value={this.props.touchIdActive}
           buttonWidth={55}
@@ -242,116 +322,91 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
           sliderHeight={28}
           sliderRadius={58}
           buttonOnColor={mantis}
-          buttonOffColor={grey}
+          buttonOffColor={lightWhite}
           sliderOnColor={white}
           sliderOffColor={white}
         />
       )
 
-    const onChat = (
-      <CustomView row onPress={this.openFeedback} testID={CHAT_TEST_ID}>
-        <Icon
-          iconStyle={[style.labelImage, style.editIcon, { tintColor: mantis }]}
-          src={require('../images/icon_feedback.png')}
-        />
-        <CustomView center>
-          <SettingText>Chat with us</SettingText>
-        </CustomView>
-      </CustomView>
-    )
-
-    const onAboutApp = (
-      <CustomView row onPress={this.openAboutApp} testID={ABOUT_APP_TEST_ID}>
-        <Icon
-          iconStyle={[style.labelImage, style.editIcon, { tintColor: mantis }]}
-          src={require('../images/icon_aboutApp.png')}
-        />
-        <CustomView center>
-          <SettingText>About this App</SettingText>
-        </CustomView>
-      </CustomView>
-    )
-
-    const onBackup = (
-      <BackupWallet
-        navigation={this.props.navigation}
-        render={(status, backupWallet) => (
-          <CustomView row onPress={backupWallet} testID={BACKUP_DATA_WALLET}>
-            {/* TODO: change out placeholder icon */}
-            <Icon
-              iconStyle={[
-                style.labelImage,
-                style.editIcon,
-                { tintColor: mantis },
-              ]}
-              src={require('../images/icon_backup.png')}
-            />
-            <CustomView center>
-              <SettingText>Back up my wallet</SettingText>
-            </CustomView>
-          </CustomView>
-        )}
-      />
-    )
-
-    const onOnfido = (
-      <CustomView row onPress={this.openOnfido} testID={ONFIDO_TEST_ID}>
-        <Icon
-          iconStyle={[style.labelImage, style.editIcon, { tintColor: mantis }]}
-          src={require('../images/onfido_colour.png')}
-        />
-        <CustomView center>
-          <SettingText>Onfido</SettingText>
-        </CustomView>
-      </CustomView>
-    )
-
-    const itemList = [
+    const settingsItemList = [
       {
-        id: 0,
-        left: userAvatar,
-        right: editIcon,
+        id: 1,
+        title: 'Backup Data',
+        subtitle: this.getLastBackupTime(),
+        avatar: <SvgCustomIcon name="Backup" />,
+        rightIcon: '',
+        onPress: this.onBackup,
       },
-      // We don't need Name option for now, will add it later when story comes up
-      // {
-      //   id: 1,
-      //   left: userName,
-      //   right: editIcon,
-      // },
       {
         id: 2,
-        left: passCode,
-        right: editIconChangePin,
+        title: 'Biometrics',
+        subtitle: 'Use your finger or face to secure app',
+        avatar: <SvgCustomIcon name="Biometrics" />,
+        rightIcon: toggleSwitch,
+        onPress: this.onChangeTouchId,
       },
       {
         id: 3,
-        left: touchId,
-        right: toggleSwitch,
+        title: 'Passcode',
+        subtitle: 'Change the code to unlock this app',
+        avatar: <SvgCustomIcon name="Passcode" />,
+        rightIcon: '',
+        onPress: this.onChangePinClick,
       },
       {
         id: 4,
-        left: onAboutApp,
+        title: 'Chat With Us',
+        subtitle: 'Tell us what you think of Connect.Me',
+        avatar: <SvgCustomIcon name="Chat" />,
+        rightIcon: '',
+        onPress: this.openFeedback,
       },
       {
         id: 5,
-        left: onChat,
+        title: 'About',
+        subtitle: 'Legal, Version, and Network Information',
+        avatar: <SvgCustomIcon name="About" />,
+        rightIcon: '',
+        onPress: this.openAboutApp,
       },
       {
         id: 6,
-        left: onBackup,
-      },
-      {
-        id: 7,
-        left: onOnfido,
+        title: 'Onfido',
+        subtitle: '',
+        avatar: <Icon src={require('../images/onfido_colour.png')} />,
+        rightIcon: '',
+        onPress: this.openOnfido,
       },
     ]
-
     return (
-      <Container tertiary>
-        <CustomView style={[style.container]}>
+      <Container style={[style.mainContainer]}>
+        <CustomView tertiary>
           <Banner navigation={this.props.navigation} />
           <ScrollView>
-            <CustomList data={itemList} />
+            {userAvatar}
+            <List containerStyle={[style.mainContainer, style.listContainer]}>
+              {settingsItemList.map((item, index) => {
+                return (
+                  <ListItem
+                    containerStyle={[style.listItemContainer]}
+                    titleStyle={[style.titleStyle]}
+                    subtitleStyle={[style.subtitleStyle]}
+                    key={index}
+                    title={item.title}
+                    subtitle={item.subtitle}
+                    avatarStyle={[style.avatarStyle]}
+                    avatar={item.avatar}
+                    rightIcon={
+                      item.rightIcon !== ''
+                        ? item.rightIcon
+                        : { name: 'chevron-right' }
+                    }
+                    hideChevron={item.rightIcon === ''}
+                    onPress={item.onPress}
+                  />
+                )
+              })}
+            </List>
           </ScrollView>
         </CustomView>
       </Container>
@@ -364,6 +419,8 @@ const mapStateToProps = (state: Store) => ({
   walletBackup: state.wallet.backup,
   currentScreen: state.route.currentScreen,
   timeStamp: state.route.timeStamp,
+  lastSuccessfulBackup: state.backup.lastSuccessfulBackup,
+  walletBalance: getWalletBalance(state),
 })
 
 const mapDispatchToProps = dispatch =>

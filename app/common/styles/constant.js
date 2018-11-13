@@ -20,6 +20,7 @@ export const whisper = '#EAEAEA'
 export const lightDarkBlue = '#4A8FE3'
 export const darkGray = '#505050'
 export const maroonRed = '#d1021b'
+export const lightDarkGray = '#F4F4F4'
 
 const sirocco = '#636564'
 const corduroy = '#3f4140'
@@ -53,6 +54,7 @@ const errorBg = 'rgba(255, 214, 219, 1)'
 const darkgray = '#4A4A4A'
 const jordyBlue = '#79ade7'
 const palePink = '#FFD5DB'
+export const lightWhite = '#E5E5EA'
 
 // color shades
 const primaryShade = '1.0'
@@ -209,6 +211,7 @@ export const font = {
     M: 17,
     M1: 18,
     ML: 20,
+    ML1: 23,
     L1: 34,
     L: 40,
     PREFIX: 14,

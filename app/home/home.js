@@ -169,7 +169,7 @@ const mapStateToProps = (state: Store) => {
     unSeenMessages,
   }
 }
-const getHeight = height => {
+export const getHeight = (height: number) => {
   if (isIphoneX) {
     return height - 300
   }
@@ -187,7 +187,7 @@ export default createStackNavigator({
   },
 })
 
-const tokenAmountSize = (tokenAmountLength: number): number => {
+export const tokenAmountSize = (tokenAmountLength: number): number => {
   // this resizing logic is different than wallet tabs header
   switch (true) {
     case tokenAmountLength < 16:
