@@ -162,6 +162,8 @@ jest.mock('moment', () =>
   }))
 )
 
+jest.mock('react-native-share', () => {})
+
 jest.mock('react-native-branch', () => {
   return {
     ADD_TO_CART_EVENT: 'Add to Cart',
