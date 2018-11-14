@@ -63,31 +63,34 @@ export class LockFingerprintSetup extends PureComponent<
   }
 
   popUpNativeAlert = (message: string) => {
-    Alert.alert(
-      null,
-      message,
-      [
-        {
-          text: 'Ok',
-          onPress: () => {
-            this.props.fromSettings
-              ? this.props.navigation.goBack(null)
-              : this.props.navigation.navigate(lockSelectionRoute)
+    Alert &&
+      Alert.alert(
+        null,
+        message,
+        [
+          {
+            text: 'Ok',
+            onPress: () => {
+              this.props.fromSettings
+                ? this.props.navigation.goBack(null)
+                : this.props.navigation.navigate(lockSelectionRoute)
+            },
           },
-        },
-      ],
-      { cancelable: false }
-    )
+        ],
+        { cancelable: false }
+      )
   }
-
-  touchIdHandler = () => {
+  handleTouchID = () => {
+    this.touchIdHandler()
+  }
+  touchIdHandler = async () => {
     if (
       !this.props.fromSettings ||
       (this.props.fromSettings && this.props.currentScreen === settingsRoute)
     )
-      TouchId.isSupported()
+      return TouchId.isSupported()
         .then(success => {
-          TouchId.authenticate('', this.touchIdHandler)
+          return TouchId.authenticate('', this.handleTouchID)
             .then(success => {
               this.props.fromSettings
                 ? this.goToSettingsScreen()
@@ -116,25 +119,23 @@ export class LockFingerprintSetup extends PureComponent<
               }
               this.popUpNativeAlert(alertMessage)
             } else {
-              getBiometricError()
-                .then()
-                .catch(err => {
-                  if (err.code === 'BiometricsLockOut') {
-                    alertMessage = touchIDAlerts.biometricsExceedAlert
-                  } else if (err.code === 'BiometricsNotEnrolled') {
-                    alertMessage = touchIDAlerts.enableBiometrics
-                  } else {
-                    alertMessage = touchIDAlerts.notSupportedBiometrics
-                  }
-                  this.popUpNativeAlert(alertMessage)
-                })
+              return getBiometricError().catch(err => {
+                if (err.code === 'BiometricsLockOut') {
+                  alertMessage = touchIDAlerts.biometricsExceedAlert
+                } else if (err.code === 'BiometricsNotEnrolled') {
+                  alertMessage = touchIDAlerts.enableBiometrics
+                } else {
+                  alertMessage = touchIDAlerts.notSupportedBiometrics
+                }
+                this.popUpNativeAlert(alertMessage)
+              })
             }
           }
         })
   }
 
   componentDidMount() {
-    this.touchIdHandler()
+    this.handleTouchID()
   }
 
   render() {
