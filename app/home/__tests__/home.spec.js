@@ -21,21 +21,27 @@ import {
   vcxSerializedConnection,
 } from '../../../__mocks__/static-data'
 
-function props(claimOfferStatus) {
+function props(claimOfferStatus, noConnections) {
+  let connectionsData = {
+    '3nj819kkjywdppuje79': {
+      identifier: '3nj819kkjywdppuje79',
+      name: 'Test Connection',
+      senderDID: '70075yyojywdppuje79',
+      senderEndpoint: '34.216.340.155:3000',
+      size: 100,
+      logoUrl: 'https://logourl.com/logo.png',
+      vcxSerializedConnection,
+      ...myPairWiseConnectionDetails,
+    },
+  }
+
+  if (noConnections) {
+    connectionsData = {}
+  }
+
   return {
     connections: {
-      data: {
-        '3nj819kkjywdppuje79': {
-          identifier: '3nj819kkjywdppuje79',
-          name: 'Test Connection',
-          senderDID: '70075yyojywdppuje79',
-          senderEndpoint: '34.216.340.155:3000',
-          size: 100,
-          logoUrl: 'https://logourl.com/logo.png',
-          vcxSerializedConnection,
-          ...myPairWiseConnectionDetails,
-        },
-      },
+      data: connectionsData,
       hydrated: true,
     },
     navigation: getNavigation(),
@@ -58,7 +64,7 @@ describe('<DashboardScreen />', () => {
 
   jest.useFakeTimers()
   it('should render Home and redirect user to claim offer modal', () => {
-    const dashboardProps = props()
+    const dashboardProps = props(false, true)
     const wrapper = renderer
       .create(
         <Provider store={store}>
@@ -70,8 +76,21 @@ describe('<DashboardScreen />', () => {
   })
 
   it('should render Home and show loader', () => {
-    const dashboardProps = props()
+    const dashboardProps = props(false, true)
     dashboardProps.connections.hydrated = false
+    const wrapper = renderer
+      .create(
+        <Provider store={store}>
+          <DashboardScreen {...dashboardProps} />
+        </Provider>
+      )
+      .toJSON()
+    expect(wrapper).toMatchSnapshot()
+  })
+
+  it('should render Home and show introductory text', () => {
+    const dashboardProps = props(false, false)
+    dashboardProps.connections.data = {}
     const wrapper = renderer
       .create(
         <Provider store={store}>

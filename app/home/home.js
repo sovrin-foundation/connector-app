@@ -1,6 +1,13 @@
 // @flow
 import React, { PureComponent } from 'react'
-import { Animated, StyleSheet, Platform, Dimensions } from 'react-native'
+import {
+  Animated,
+  StyleSheet,
+  Platform,
+  Dimensions,
+  View,
+  Text,
+} from 'react-native'
 import { connect } from 'react-redux'
 import firebase from 'react-native-firebase'
 import {
@@ -35,6 +42,10 @@ import {
   FEEDBACK_TEST_ID,
   SOVRINTOKEN_TEST_ID,
   SOVRINTOKEN_AMOUNT_TEST_ID,
+  HOW_IT_WORKS,
+  ON_COMPUTER,
+  GO_TO_FABER,
+  USE_TUTORIAL,
 } from './home-constants'
 import { Apptentive } from 'apptentive-react-native'
 import WalletBalance from '../wallet/wallet-balance'
@@ -137,13 +148,47 @@ export class DashboardScreen extends PureComponent<HomeProps, HomeState> {
       <Container tertiary>
         <Container tertiary>
           <Banner navigation={this.props.navigation} />
-          {connectionsCheck && (
+          {connectionsCheck ? (
             <Bubbles
               navigation={this.props.navigation}
               height={bubblesHeight}
               connections={connections}
               unSeenMessages={unSeenMessages}
             />
+          ) : (
+            <Container center>
+              <View style={styles.messageBox}>
+                <CustomText demiBold primary h4 transparentBg>
+                  {HOW_IT_WORKS}
+                </CustomText>
+                <Text
+                  style={[
+                    styles.messageBoxBodyText,
+                    { paddingTop: 20, paddingBottom: 20 },
+                  ]}
+                >
+                  <Text style={{ color: color.actions.font.seventh }}>
+                    {ON_COMPUTER}
+                  </Text>
+                  <Text
+                    style={{
+                      color: color.bg.secondary.color,
+                    }}
+                  >
+                    {GO_TO_FABER}
+                  </Text>
+                </Text>
+                <CustomText
+                  h4
+                  style={[
+                    { color: color.bg.secondary.color, paddingBottom: '40%' },
+                  ]}
+                  transparentBg
+                >
+                  {USE_TUTORIAL}
+                </CustomText>
+              </View>
+            </Container>
           )}
           {!hydrated ? (
             <Container center>
@@ -213,5 +258,11 @@ const styles = StyleSheet.create({
   },
   headerOuterContainer: {
     paddingHorizontal: responsiveHorizontalPadding,
+  },
+  messageBox: {
+    width: '75%',
+  },
+  messageBoxBodyText: {
+    fontSize: 20,
   },
 })
