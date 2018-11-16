@@ -1,5 +1,5 @@
 # ConnectMe
-App to connect Sovrin with third party authentication
+App to connect Sovrin with 3rd party authentication
 
 # Pre requisite to run
 
