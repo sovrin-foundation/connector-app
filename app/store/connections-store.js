@@ -242,7 +242,7 @@ export const getConnection = (
   })
 
 export const getConnectionLogo = (logoUrl: ?string) =>
-  logoUrl ? { uri: logoUrl } : require('../images/cb_evernym.png')
+  logoUrl ? { uri: logoUrl } : require('../images/logo_sovrin.png')
 
 export const deleteConnectionSuccess = (
   filteredConnections: Connections

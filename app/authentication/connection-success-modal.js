@@ -24,7 +24,7 @@ export default class ConnectionSuccessModal extends PureComponent<
 > {
   render() {
     const {
-      name = 'Evernym',
+      name = 'Sovrin',
       logoUrl,
       showConnectionSuccessModal,
       isModalVisible,

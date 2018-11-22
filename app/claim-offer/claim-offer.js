@@ -293,7 +293,7 @@ export class ClaimOffer extends PureComponent<
     }: ClaimOfferPayload = claimOfferData
     const logoUri = logoUrl
       ? { uri: logoUrl }
-      : require('../images/cb_evernym.png')
+      : require('../images/logo_sovrin.png')
     const testID = 'claim-offer'
     let acceptButtonText = payTokenValue ? 'Accept & Pay' : 'Accept'
     return (
