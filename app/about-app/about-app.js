@@ -72,7 +72,7 @@ export class AboutAppListItem extends PureComponent<
 }
 
 const logoConnectMe = <Image source={require('../images/logo_connectme.png')} />
-const logoEvernym = <Image source={require('../images/logo_evernym.png')} />
+const logoEvernym = <Image source={require('../images/logo_sovrin.png')} />
 const logoSovrin = <Image source={require('../images/logo_sovrin.png')} />
 const versionNumber = VersionNumber
 

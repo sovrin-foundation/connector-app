@@ -144,7 +144,7 @@ export class ClaimRequestStatusModal extends PureComponent<
       isSendingPaidCredentialRequest || isSendingCredentialRequest
     const avatarRight = senderLogoUrl
       ? { uri: senderLogoUrl }
-      : require('../images/cb_evernym.png')
+      : require('../images/logo_sovrin.png')
     const { middleImage, middleImageStyle } =
       isPending || isSending
         ? payTokenValue || isSending

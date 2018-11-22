@@ -75,7 +75,7 @@ export class Bubble extends PureComponent<BubbleProps, BubbleState> {
     let source
 
     if (this.state.failed || Number.isInteger(image) || !image) {
-      source = require('../images/cb_evernym.png')
+      source = require('../images/logo_sovrin.png')
     }
 
     if (typeof this.props.image === 'string') {

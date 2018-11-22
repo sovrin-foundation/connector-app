@@ -249,7 +249,7 @@ export class ConnectionHistory extends Component<
       const testID = 'connection-history'
       const logoUri = image
         ? { uri: image }
-        : require('../images/cb_evernym.png')
+        : require('../images/logo_sovrin.png')
 
       const historySenderDIDs = Object.keys(connectionHistory)
       const historyList = historySenderDIDs.map((sdid, i) => {

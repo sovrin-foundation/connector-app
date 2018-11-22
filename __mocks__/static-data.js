@@ -860,7 +860,7 @@ export const homeAddressPreparedProofWithMissingAttribute = {
       {
         cred_info: {
           referent: 'claim::ea03d8ca-eeb4-4944-b7d6-5abcf4503d73',
-          attrs: { ['Address 1']: 'Evernym Ltd, Hyd.' },
+          attrs: { ['Address 1']: 'Sovrin Ltd, Hyd.' },
           cred_def_id: 'V4SGRU86Z58d6TV7PBUe6f:3:CL:24:tag1',
           schema_id: 'V4SGRU86Z58d6TV7Pf:2:slKljrSQ80tCQ40F:33089',
         },
@@ -1122,7 +1122,7 @@ export const connectionHistory = {
       timestamp: '2017-09-06T00:00:00+05:30',
       data: [
         {
-          label: 'Evernym',
+          label: 'Sovrin',
           data: '2017-09-06T00:00:00+05:30',
         },
       ],

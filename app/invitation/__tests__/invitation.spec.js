@@ -48,7 +48,7 @@ describe('<Invitation />', () => {
           'OXtzqX9LJJsBY/Mrhjff6b9L79Pdg8U4B7dI/3RR65BJr5jktAGMwpMLe1aQRQT0FlplZfNy8QtUd4KNPd+ZAg==',
       },
       DID: '3Bb6zCYMoGnMTho97HGDrn',
-      logoUrl: 'http://www.evernym.com',
+      logoUrl: 'http://www.sovrin.org',
       verKey: '2BzhMgbLXbECPPYiLtSEd36Boxt1oquuGJeS1ofhPoEr',
     },
     senderAgencyDetail: {

@@ -569,7 +569,7 @@ export class ProofRequest extends PureComponent<
     const { name: title, requestedAttributes } = data
     const logoUri = logoUrl
       ? { uri: logoUrl }
-      : require('../images/cb_evernym.png')
+      : require('../images/logo_sovrin.png')
 
     const primaryActionText = getPrimaryActionText(
       missingAttributes,
