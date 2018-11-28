@@ -146,12 +146,6 @@ const style = StyleSheet.create({
   },
 })
 
-const SettingText = props => (
-  <CustomText h5 bg="fifth" tertiary bold {...props}>
-    {props.children}
-  </CustomText>
-)
-
 export class Settings extends PureComponent<SettingsProps, SettingsState> {
   state = {
     walletBackupModalVisible: false,
@@ -166,7 +160,7 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
   }
 
   onChangeTouchId = (switchState: boolean) => {
-    // when the navigation from settings is done by touching the Switch, then the touch id enables with wiered behaviour
+    // when the navigation from settings is done by touching the Switch, then the touch id enables with wierd behaviour
     // reason for the behaviour: the onChangeTouchId function is being invoked twice making to navigate twice.
     // solution: the if condition will check for the current state of the switch and compares with the actual state of the switch
     // this confirms to make the onChangeTouchId function to invoke only once at all the times
@@ -263,9 +257,6 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
             {this.renderAvatarWithSource}
           </UserAvatar>
         </CustomView>
-        {/* <SettingText testID={USERNAME_TEST_ID} style={[style.username]}>
-          Anonymous
-        </SettingText> */}
         <CustomView row center testID={SOVRINTOKEN_AMOUNT_TEST_ID}>
           <Icon
             small
@@ -297,10 +288,6 @@ export class Settings extends PureComponent<SettingsProps, SettingsState> {
           </CustomText>
         </CustomView>
       </CustomView>
-    )
-
-    const userName = (
-      <SettingText testID={USERNAME_TEST_ID}>Name: Anonymous</SettingText>
     )
 
     const toggleSwitch =

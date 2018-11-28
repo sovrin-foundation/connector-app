@@ -237,6 +237,7 @@ jest.mock('react-native-version-number', () => ({
 jest.mock('apptentive-react-native', () => ({
   Apptentive: {
     register: () => Promise.resolve(null),
+    presentMessageCenter: jest.fn(),
     onAuthenticationFailed: reason => null,
   },
   ApptentiveConfiguration: () => null,

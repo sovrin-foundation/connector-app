@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`user settings screen navigation optioons should match snapshot when navigatioon state index is 0 1`] = `
+Object {
+  "swipeEnabled": true,
+  "tabBarVisible": true,
+}
+`;
+
+exports[`user settings screen navigation optioons should match snapshot when navigatioon state index is 1 1`] = `
+Object {
+  "swipeEnabled": false,
+  "tabBarVisible": false,
+}
+`;
+
 exports[`user settings screen should render properly and snapshot should match for android platform 1`] = `
 <View
   style={
