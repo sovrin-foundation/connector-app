@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CustomView /> doubleVerticalSpace should overwrite verticalSpace style if both were provided as props to customView 1`] = `
+<View
+  doubleVerticalSpace={true}
+  style={
+    Object {
+      "paddingVertical": 16,
+    }
+  }
+  verticalSpace={true}
+/>
+`;

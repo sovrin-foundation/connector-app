@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Claim Store should match snapshot for claim received action 1`] = `
+Object {
+  "1": Object {
+    "claim": Object {
+      "claim": Object {
+        "date_of_birth": Array [
+          "20-2-1800",
+          "anon cred date",
+        ],
+        "name": Array [
+          "test",
+          "anon cred test",
+        ],
+      },
+      "forDID": "forDID",
+      "from_did": "from_did",
+      "issuer_did": "issuerDid",
+      "messageId": "1",
+      "remoteDid": "remoteDid",
+      "schema_seq_no": 36,
+      "signature": Object {
+        "primary_claim": Object {
+          "a": "a",
+          "e": "e",
+          "m2": "m2",
+          "v": "v",
+        },
+      },
+      "uid": "usd123",
+    },
+  },
+  "claimMap": Object {},
+}
+`;
+
+exports[`Claim Store should match snapshot when claim storage fails 1`] = `
+Object {
+  "1": Object {
+    "claim": Object {
+      "claim": Object {
+        "date_of_birth": Array [
+          "20-2-1800",
+          "anon cred date",
+        ],
+        "name": Array [
+          "test",
+          "anon cred test",
+        ],
+      },
+      "forDID": "forDID",
+      "from_did": "from_did",
+      "issuer_did": "issuerDid",
+      "messageId": "1",
+      "remoteDid": "remoteDid",
+      "schema_seq_no": 36,
+      "signature": Object {
+        "primary_claim": Object {
+          "a": "a",
+          "e": "e",
+          "m2": "m2",
+          "v": "v",
+        },
+      },
+      "uid": "usd123",
+    },
+    "error": Object {
+      "code": "C-20001",
+      "message": "Failed to store claim ",
+    },
+  },
+  "claimMap": Object {},
+}
+`;
+
+exports[`Claim Store should match snapshot when claim storage is success 1`] = `
+Object {
+  "claimMap": Object {},
+}
+`;
+
+exports[`Claim Store should reset claim store, if RESET action is raised 1`] = `
+Object {
+  "claimMap": Object {},
+}
+`;

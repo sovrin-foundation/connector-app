@@ -1,0 +1,145 @@
+{
+  "name": "ConnectMe",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "lint": "glow",
+    "precommit": "lint-staged",
+    "prepush": "npm test && npm run lint",
+    "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
+    "coverage": "npm test -- --coverage",
+    "test:e2e": "detox test -c ios.sim.release",
+    "test:e2e:build": "detox build",
+    "test:e2e:android": "detox build --configuration android.emu.debug && detox test --configuration android.emu.debug",
+    "pod:dev:install": "cd ios && CONNECTME_DEBUG=true pod install",
+    "pod:install": "cd ios && pod install"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --single-quote --no-semi --trailing-comma es5 --write \"{app,__{tests,mocks}__}/**/*.js\"",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "@types/color": "^3.0.0",
+    "ajv": "^5.2.2",
+    "apptentive-react-native": "5.3.1",
+    "bignumber.js": "^7.2.1",
+    "buffer": "^5.1.0",
+    "color": "^3.0.0",
+    "lodash.debounce": "^4.0.8",
+    "lodash.findkey": "^4.6.0",
+    "lodash.get": "^4.4.2",
+    "lodash.groupby": "^4.6.0",
+    "lodash.memoize": "^4.1.2",
+    "lodash.merge": "^4.6.0",
+    "lodash.throttle": "^4.1.1",
+    "moment": "^2.20.1",
+    "react": "16.0.0",
+    "react-native": "0.51.0",
+    "react-native-animatable": "1.2.4",
+    "react-native-branch": "2.2.4",
+    "react-native-camera": "0.12",
+    "react-native-document-picker": "^2.1.0",
+    "react-native-elements": "0.19.0",
+    "react-native-fetch-blob": "0.10.8",
+    "react-native-firebase": "^4.3.8",
+    "react-native-flip-toggle-button": "^1.0.5",
+    "react-native-image-crop-picker": "^0.20.1",
+    "react-native-image-resizer": "^1.0.0",
+    "react-native-keep-screen-on": "^1.2.0",
+    "react-native-keyboard-aware-scroll-view": "^0.4.4",
+    "react-native-modal": "5.0.0",
+    "react-native-pbkdf2": "https://github.com/quan-to/react-native-pbkdf2",
+    "react-native-randombytes": "^3.2.0",
+    "react-native-sensitive-info": "5.2.0",
+    "react-native-share": "^1.0.27",
+    "react-native-size-matters": "^0.1.2",
+    "react-native-splash-screen": "3.0.6",
+    "react-native-svg": "^7.0.3",
+    "react-native-swiper": "^1.5.13",
+    "react-native-switch": "^1.5.0",
+    "react-native-touch-id": "4.1.1",
+    "react-native-unique-id": "^1.0.4",
+    "react-native-vector-icons": "4.5.0",
+    "react-native-version-number": "^0.3.3",
+    "react-native-zip-archive": "^2.2.6",
+    "react-navigation": "2.11.2",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0",
+    "redux-logger": "^3.0.1",
+    "redux-saga": "0.16.0",
+    "url": "0.11.0",
+    "url-parse": "^1.2.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "babel-jest": "22.2.0",
+    "babel-preset-react-native": "4.0.0",
+    "child-process-async": "^1.0.1",
+    "detox": "^9.0.5",
+    "eslint": "^3.19.0",
+    "eslint-plugin-flowtype": "^2.47.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^5.0.1",
+    "eslint-plugin-react": "^7.0.0",
+    "flow-annotation-check": "^1.8.1",
+    "flow-bin": "0.57.3",
+    "flow-typed": "2.3.0",
+    "glow": "^1.2.2",
+    "husky": "^0.13.3",
+    "jest": "22.2.1",
+    "lint-staged": "^3.4.1",
+    "node-fetch": "next",
+    "prettier": "1.10.2",
+    "react-devtools": "3.1.0",
+    "react-test-renderer": "16.0.0",
+    "reactotron-react-native": "1.14.0",
+    "reactotron-redux": "1.13.0",
+    "redux-saga-test-plan": "^3.6.0",
+    "remote-redux-devtools": "^0.5.12",
+    "remotedev-rn-debugger": "0.8.3"
+  },
+  "rnpm": {
+    "assets": [
+      "./app/fonts/"
+    ]
+  },
+  "jest": {
+    "preset": "react-native",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-navigation|jest-fetch-mock|apptentive-react-native|react-native-version-number)"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "RelativeImageStub"
+    },
+    "setupFiles": [
+      "<rootDir>/__mocks__/setup.js"
+    ],
+    "coverageDirectory": "<rootDir>/coverage",
+    "testPathIgnorePatterns": [
+      "/e2e/",
+      "/node_modules/"
+    ]
+  },
+  "detox": {
+    "configurations": {
+      "ios.sim.release": {
+        "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/ConnectMe.app",
+        "build": "xcodebuild -workspace ios/ConnectMe.xcworkspace -scheme ConnectMe -configuration release -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone 7"
+      },
+      "android.emu.debug": {
+        "binaryPath": "android/app/build/outputs/apk/debug/app-debug.apk",
+        "build": "pushd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug && popd",
+        "type": "android.emulator",
+        "name": "Nexus_5X_API_26"
+      }
+    },
+    "test-runner": "jest",
+    "runner-config": "e2e/config.json"
+  }
+}

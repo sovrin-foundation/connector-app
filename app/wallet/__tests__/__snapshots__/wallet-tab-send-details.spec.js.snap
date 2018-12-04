@@ -1,0 +1,570 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<WalletTabSendDetails /> should render properly and match the snapshot 1`] = `
+<RCTSafeAreaView
+  accessibilityComponentType={undefined}
+  accessibilityLabel="wallet-tab-send-details-touchable"
+  accessibilityTraits={undefined}
+  accessible={false}
+  fifth={true}
+  hitSlop={
+    Object {
+      "bottom": 20,
+      "left": 20,
+      "right": 20,
+      "top": 20,
+    }
+  }
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  safeArea={true}
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+    }
+  }
+  testID="wallet-tab-send-details-touchable"
+>
+  <View
+    accessibilityLabel="To-mainview-wallet-send-details"
+    accessible={true}
+    style={
+      Object {
+        "borderBottomColor": "#EAEAEA",
+        "borderBottomWidth": 1,
+      }
+    }
+    testID="To-mainview-wallet-send-details"
+  >
+    <View
+      accessibilityLabel="To-subview-wallet-send-details"
+      accessible={true}
+      center={true}
+      fifth={true}
+      horizontalSpace={true}
+      row={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#ffffff",
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "paddingHorizontal": 15,
+        }
+      }
+      testID="To-subview-wallet-send-details"
+    >
+      <View
+        fifth={true}
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "backgroundColor": "#ffffff",
+            "paddingVertical": 25,
+            "width": 35,
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#ffffff",
+                "color": "#333333",
+              },
+              Object {
+                "fontWeight": "600",
+              },
+              null,
+              Object {
+                "backgroundColor": "transparent",
+              },
+              Object {
+                "color": "rgba(237, 156, 46, 1)",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              Object {
+                "lineHeight": 20,
+              },
+            ]
+          }
+        >
+          To:
+        </Text>
+      </View>
+      <View
+        accessibilityLabel="To-textinput-wallet-send-details"
+        accessible={true}
+        fifth={true}
+        horizontalSpace={true}
+        style={
+          Object {
+            "alignItems": "flex-start",
+            "backgroundColor": "#ffffff",
+            "paddingHorizontal": 15,
+            "width": "83%",
+          }
+        }
+        testID="To-textinput-wallet-send-details"
+      >
+        <TextInput
+          accessibilityLabel="To-token-send-details-label"
+          accessible={true}
+          autoCapitalize="none"
+          autoCorrect={false}
+          autoFocus={true}
+          maxLength={100}
+          multiline={false}
+          onChangeText={[Function]}
+          placeholder="Enter Payee wallet address"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+                "fontStyle": "italic",
+                "lineHeight": 20,
+                "width": "100%",
+              },
+            ]
+          }
+          testID="To-token-send-details-label"
+          underlineColorAndroid="transparent"
+        />
+      </View>
+      <View
+        style={Object {}}
+      />
+    </View>
+  </View>
+  <View
+    accessibilityLabel="For-mainview-wallet-send-details"
+    accessible={true}
+    style={
+      Object {
+        "borderBottomColor": "#EAEAEA",
+        "borderBottomWidth": 1,
+      }
+    }
+    testID="For-mainview-wallet-send-details"
+  >
+    <View
+      accessibilityLabel="For-subview-wallet-send-details"
+      accessible={true}
+      center={true}
+      fifth={true}
+      horizontalSpace={true}
+      row={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#ffffff",
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "paddingHorizontal": 15,
+        }
+      }
+      testID="For-subview-wallet-send-details"
+    >
+      <View
+        fifth={true}
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "backgroundColor": "#ffffff",
+            "paddingVertical": 25,
+            "width": 35,
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#ffffff",
+                "color": "#333333",
+              },
+              Object {
+                "fontWeight": "600",
+              },
+              null,
+              Object {
+                "backgroundColor": "transparent",
+              },
+              Object {
+                "color": "rgba(237, 156, 46, 1)",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              Object {
+                "lineHeight": 20,
+              },
+            ]
+          }
+        >
+          For:
+        </Text>
+      </View>
+      <View
+        accessibilityLabel="For-textinput-wallet-send-details"
+        accessible={true}
+        fifth={true}
+        horizontalSpace={true}
+        style={
+          Object {
+            "alignItems": "flex-start",
+            "backgroundColor": "#ffffff",
+            "paddingHorizontal": 15,
+            "width": "83%",
+          }
+        }
+        testID="For-textinput-wallet-send-details"
+      >
+        <TextInput
+          accessibilityLabel="For-token-send-details-label"
+          accessible={true}
+          maxLength={80}
+          multiline={true}
+          onChangeText={[Function]}
+          placeholder="credential, gift, etc."
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+                "fontStyle": "italic",
+                "lineHeight": 20,
+                "width": "100%",
+              },
+            ]
+          }
+          testID="For-token-send-details-label"
+          underlineColorAndroid="transparent"
+        />
+      </View>
+      <View
+        style={Object {}}
+      />
+    </View>
+  </View>
+  <View
+    center={true}
+    horizontalSpace={true}
+    row={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "paddingHorizontal": 15,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#333333",
+            "color": "#ffffff",
+          },
+          null,
+          Object {
+            "textAlign": "center",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+          Object {
+            "color": "rgba(237, 156, 46, 1)",
+          },
+          null,
+          null,
+          null,
+          Object {
+            "width": "100%",
+          },
+          null,
+          null,
+          null,
+          Object {
+            "marginTop": 19,
+          },
+          Object {
+            "fontSize": 54.857142857142854,
+          },
+        ]
+      }
+    >
+      12,345
+    </Text>
+  </View>
+  <View
+    center={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#333333",
+            "color": "#ffffff",
+          },
+          null,
+          null,
+          Object {
+            "backgroundColor": "transparent",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "color": "#9B9B9B",
+            "fontSize": 18,
+          },
+        ]
+      }
+    >
+      SOVRIN TOKENS
+    </Text>
+  </View>
+  <View
+    center={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "justifyContent": "center",
+        "marginTop": 36,
+      }
+    }
+  >
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+          "width": "65%",
+        }
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "fontSize": 17,
+            },
+            Object {
+              "fontFamily": "Lato",
+            },
+            Object {
+              "backgroundColor": "#333333",
+              "color": "#ffffff",
+            },
+            null,
+            null,
+            Object {
+              "backgroundColor": "transparent",
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "color": "#6D6D6D",
+              "fontSize": 14,
+              "letterSpacing": -0.35,
+              "lineHeight": 18,
+              "textAlign": "center",
+            },
+          ]
+        }
+      >
+        You are sending
+         
+        <Text
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#333333",
+                "color": "#ffffff",
+              },
+              null,
+              null,
+              Object {
+                "backgroundColor": "transparent",
+              },
+              Object {
+                "color": "rgba(237, 156, 46, 1)",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+            ]
+          }
+        >
+          12,345
+        </Text>
+         
+        tokens to this wallet address:
+      </Text>
+    </View>
+  </View>
+  <View
+    center={true}
+    horizontalSpace={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "justifyContent": "center",
+        "paddingHorizontal": 15,
+      }
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#333333",
+            "color": "#ffffff",
+          },
+          null,
+          Object {
+            "textAlign": "center",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+          null,
+          null,
+          null,
+          Object {
+            "color": "#333333",
+          },
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "marginTop": 10,
+          },
+          Object {
+            "color": "#d0021b",
+          },
+        ]
+      }
+    >
+      pay:sov:somepaymentaddress
+    </Text>
+  </View>
+  <Modal
+    animationIn="zoomIn"
+    animationOut="zoomOut"
+    animationOutTiming={100}
+    backdropColor="#f0f0f0"
+    hideModalContentWhileAnimating={true}
+    isVisible={false}
+    onBackButtonPress={[Function]}
+    onBackdropPress={[Function]}
+    onModalHide={undefined}
+    style={
+      Array [
+        Object {},
+      ]
+    }
+    testID="credential-offer-modal"
+    useNativeDriver={true}
+  />
+</RCTSafeAreaView>
+`;

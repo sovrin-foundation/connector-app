@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RestoreWait screen should render properly and match the snapshot 1`] = `
+<RCTSafeAreaView
+  center={true}
+  fifth={true}
+  safeArea={true}
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "marginTop": "-20%",
+      }
+    }
+  >
+    <Image
+      source={1}
+      style={
+        Array [
+          Object {
+            "marginTop": "-58%",
+            "position": "absolute",
+            "width": "100%",
+            "zIndex": -1,
+          },
+        ]
+      }
+    />
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "backgroundColor": "#505050",
+            "height": 8,
+            "position": "absolute",
+            "width": "110%",
+          }
+        }
+      />
+      <View
+        clearBg={true}
+        src={1}
+        style={
+          Object {
+            "backgroundColor": "#505050",
+            "borderRadius": 80,
+            "padding": 15,
+          }
+        }
+        xxLarge={true}
+      >
+        <View
+          style={Object {}}
+        >
+          <Image
+            resizeMode="contain"
+            source={1}
+            style={
+              Array [
+                Object {
+                  "height": 90,
+                  "width": 90,
+                },
+                null,
+              ]
+            }
+          />
+        </View>
+      </View>
+    </View>
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "fontSize": 17,
+            },
+            Object {
+              "fontFamily": "Lato",
+            },
+            Object {
+              "backgroundColor": "#333333",
+              "color": "#ffffff",
+            },
+            Object {
+              "fontWeight": "bold",
+            },
+            Object {
+              "textAlign": "center",
+            },
+            Object {
+              "backgroundColor": "transparent",
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "color": "#505050",
+              "fontSize": 23,
+              "marginBottom": "6%",
+              "marginTop": "15%",
+              "paddingHorizontal": "5%",
+            },
+          ]
+        }
+      >
+        Please wait while your data is restored.
+      </Text>
+    </View>
+  </View>
+</RCTSafeAreaView>
+`;

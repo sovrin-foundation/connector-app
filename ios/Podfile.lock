@@ -1,0 +1,165 @@
+PODS:
+  - apptentive-ios (5.2.2)
+  - Firebase/Core (4.8.0):
+    - FirebaseAnalytics (= 4.0.5)
+    - FirebaseCore (= 4.0.13)
+  - Firebase/Messaging (4.8.0):
+    - Firebase/Core
+    - FirebaseMessaging (= 2.0.8)
+  - FirebaseAnalytics (4.0.5):
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - nanopb (~> 0.3)
+  - FirebaseCore (4.0.13):
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+  - FirebaseInstanceID (2.0.10):
+    - FirebaseCore (~> 4.0)
+  - FirebaseMessaging (2.0.8):
+    - FirebaseAnalytics (~> 4.0)
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - Protobuf (~> 3.1)
+  - GoogleToolboxForMac/Defines (2.1.4)
+  - GoogleToolboxForMac/Logger (2.1.4):
+    - GoogleToolboxForMac/Defines (= 2.1.4)
+  - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
+    - GoogleToolboxForMac/Defines (= 2.1.4)
+  - nanopb (0.3.8):
+    - nanopb/decode (= 0.3.8)
+    - nanopb/encode (= 0.3.8)
+  - nanopb/decode (0.3.8)
+  - nanopb/encode (0.3.8)
+  - Protobuf (3.6.1)
+  - QBImagePickerController (3.4.0)
+  - React (0.51.0):
+    - React/Core (= 0.51.0)
+  - react-native-image-resizer (1.0.0):
+    - React
+  - React/Core (0.51.0):
+    - yoga (= 0.51.0.React)
+  - React/fishhook (0.51.0)
+  - React/RCTActionSheet (0.51.0):
+    - React/Core
+  - React/RCTAnimation (0.51.0):
+    - React/Core
+  - React/RCTBlob (0.51.0):
+    - React/Core
+  - React/RCTGeolocation (0.51.0):
+    - React/Core
+  - React/RCTImage (0.51.0):
+    - React/Core
+    - React/RCTNetwork
+  - React/RCTLinkingIOS (0.51.0):
+    - React/Core
+  - React/RCTNetwork (0.51.0):
+    - React/Core
+  - React/RCTSettings (0.51.0):
+    - React/Core
+  - React/RCTText (0.51.0):
+    - React/Core
+  - React/RCTVibration (0.51.0):
+    - React/Core
+  - React/RCTWebSocket (0.51.0):
+    - React/Core
+    - React/fishhook
+    - React/RCTBlob
+  - RNImageCropPicker (0.20.1):
+    - QBImagePickerController
+    - React/Core
+    - RSKImageCropper
+  - RNShare (1.0.27):
+    - React
+  - RNSVG (7.0.3):
+    - React
+  - RNZipArchive (2.2.6):
+    - React
+    - RNZipArchive/Core (= 2.2.6)
+    - RNZipArchive/RNZASSZipArchive (= 2.2.6)
+  - RNZipArchive/Core (2.2.6):
+    - React
+  - RNZipArchive/RNZASSZipArchive (2.2.6):
+    - React
+  - RSKImageCropper (2.1.0)
+  - vcx (0.0.57)
+  - yoga (0.51.0.React)
+
+DEPENDENCIES:
+  - apptentive-ios (= 5.2.2)
+  - Firebase/Messaging (= 4.8.0)
+  - react-native-image-resizer (from `../node_modules/react-native-image-resizer`)
+  - React/Core (from `../node_modules/react-native`)
+  - React/RCTActionSheet (from `../node_modules/react-native`)
+  - React/RCTAnimation (from `../node_modules/react-native`)
+  - React/RCTGeolocation (from `../node_modules/react-native`)
+  - React/RCTImage (from `../node_modules/react-native`)
+  - React/RCTLinkingIOS (from `../node_modules/react-native`)
+  - React/RCTNetwork (from `../node_modules/react-native`)
+  - React/RCTSettings (from `../node_modules/react-native`)
+  - React/RCTText (from `../node_modules/react-native`)
+  - React/RCTVibration (from `../node_modules/react-native`)
+  - React/RCTWebSocket (from `../node_modules/react-native`)
+  - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
+  - RNShare (from `../node_modules/react-native-share`)
+  - RNSVG (from `../node_modules/react-native-svg`)
+  - RNZipArchive (from `../node_modules/react-native-zip-archive`)
+  - vcx (= 0.0.57)
+  - yoga (from `../node_modules/react-native/ReactCommon/yoga/yoga.podspec`)
+
+SPEC REPOS:
+  "git@github.com:evernym/sdk.git":
+    - vcx
+  https://github.com/cocoapods/specs.git:
+    - apptentive-ios
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseInstanceID
+    - FirebaseMessaging
+    - GoogleToolboxForMac
+    - nanopb
+    - Protobuf
+    - QBImagePickerController
+    - RSKImageCropper
+
+EXTERNAL SOURCES:
+  React:
+    :path: "../node_modules/react-native"
+  react-native-image-resizer:
+    :path: "../node_modules/react-native-image-resizer"
+  RNImageCropPicker:
+    :path: "../node_modules/react-native-image-crop-picker"
+  RNShare:
+    :path: "../node_modules/react-native-share"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
+  RNZipArchive:
+    :path: "../node_modules/react-native-zip-archive"
+  yoga:
+    :path: "../node_modules/react-native/ReactCommon/yoga/yoga.podspec"
+
+SPEC CHECKSUMS:
+  apptentive-ios: a38ab3b2244f7294a06dd08e56afb8018d414bf4
+  Firebase: 710decbbc6d9d48530e9a5dba3209740c3532e05
+  FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
+  FirebaseCore: 3c02ec652db3d03fdc8bc6d9154af3e20d64b6f5
+  FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
+  FirebaseMessaging: dfdcd307c2382290a1e297a81d0f18370f5b1bcd
+  GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+  QBImagePickerController: d54cf93db6decf26baf6ed3472f336ef35cae022
+  React: 541ba768b9855e10cdc76f55427a5cd0653ca806
+  react-native-image-resizer: 04a3409e7d4ad646c4468671c69dec490def139c
+  RNImageCropPicker: 32ca4b9fef4e1b7b85ba69494242122948117e06
+  RNShare: 80d4472ab25e77d9f824cb8d49d7e85af91c66e0
+  RNSVG: 6252323c0312735f0af5f58b5adf2965b6a9ffbf
+  RNZipArchive: 4f72d162e01ba473a6c2365b4e949183fd208f35
+  RSKImageCropper: 0d0c6d8525a2381f03fde32a47c6703817a2feed
+  vcx: 3c68b5e9c9a10183ce1f05554111005717e5dfd9
+  yoga: 17521bbb0dd54a47c0b3ac43253e78cdac7488e0
+
+PODFILE CHECKSUM: 2e56fdec3705fc7aa735efccfe4acf38db1d3a66
+
+COCOAPODS: 1.5.3

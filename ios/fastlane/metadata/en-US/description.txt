@@ -1,0 +1,3 @@
+Meet Connect.Me, the first Sovrin wallet implementation that is usable by an individual. Take control of your digital things. Easily and privately share them. Built using Hyperledger's  LibIndy core, based on Sovrin open standards. Catch a glimpse of what a world of self-sovereignty can look like. 
+
+Connect to any participating organization, collect credentials and easily share them wherever you want.

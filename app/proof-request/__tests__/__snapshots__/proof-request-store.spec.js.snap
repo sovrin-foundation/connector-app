@@ -1,0 +1,556 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`proof request store ACTION: MISSING_ATTRIBUTES_FOUND 1`] = `
+Object {
+  "pid123": Object {
+    "data": Object {
+      "name": "Home Address",
+      "requestedAttributes": Array [
+        Object {
+          "label": "Address 1",
+        },
+        Object {
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "missingAttributes": Object {
+      "sex": Object {
+        "data": "",
+        "key": "attr2_uuid",
+        "name": "sex",
+      },
+    },
+    "originalProofRequestData": Object {
+      "name": "proof_req_1",
+      "nonce": "123432421212",
+      "requested_attributes": Object {
+        "attr1_uuid": Object {
+          "name": "Address 1",
+        },
+        "attr2_uuid": Object {
+          "name": "Address 2",
+        },
+      },
+      "requested_predicates": Object {},
+      "version": "0.1",
+    },
+    "proofHandle": 1,
+    "proofStatus": "SEND_PROOF_FAIL",
+    "remotePairwiseDID": "senderDID1",
+    "requester": Object {
+      "name": "Test Issuer",
+    },
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
+    "status": "IGNORED",
+    "statusMsg": "pending",
+    "uid": "pid123",
+  },
+}
+`;
+
+exports[`proof request store ACTION: PROOF_REQUEST_AUTO_FILL 1`] = `
+Object {
+  "pid123": Object {
+    "data": Object {
+      "name": "Home Address",
+      "requestedAttributes": Array [
+        Object {
+          "data": "Address 1",
+          "label": "address1",
+        },
+        Object {
+          "data": "Address 2",
+          "label": "address2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "originalProofRequestData": Object {
+      "name": "proof_req_1",
+      "nonce": "123432421212",
+      "requested_attributes": Object {
+        "attr1_uuid": Object {
+          "name": "Address 1",
+        },
+        "attr2_uuid": Object {
+          "name": "Address 2",
+        },
+      },
+      "requested_predicates": Object {},
+      "version": "0.1",
+    },
+    "proofHandle": 1,
+    "proofStatus": "SEND_PROOF_FAIL",
+    "remotePairwiseDID": "senderDID1",
+    "requester": Object {
+      "name": "Test Issuer",
+    },
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
+    "status": "IGNORED",
+    "statusMsg": "pending",
+    "uid": "pid123",
+  },
+}
+`;
+
+exports[`proof request store ACTION: PROOF_REQUEST_SHOWN, after missing attributes were found 1`] = `
+Object {
+  "pid123": Object {
+    "data": Object {
+      "name": "Home Address",
+      "requestedAttributes": Array [
+        Object {
+          "label": "Address 1",
+        },
+        Object {
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "missingAttributes": Object {},
+    "originalProofRequestData": Object {
+      "name": "proof_req_1",
+      "nonce": "123432421212",
+      "requested_attributes": Object {
+        "attr1_uuid": Object {
+          "name": "Address 1",
+        },
+        "attr2_uuid": Object {
+          "name": "Address 2",
+        },
+      },
+      "requested_predicates": Object {},
+      "version": "0.1",
+    },
+    "proofHandle": 1,
+    "proofStatus": "NONE",
+    "remotePairwiseDID": "senderDID1",
+    "requester": Object {
+      "name": "Test Issuer",
+    },
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
+    "status": "RECEIVED",
+    "statusMsg": "pending",
+    "uid": "pid123",
+  },
+}
+`;
+
+exports[`proof request store proof request is accepted 1`] = `
+Object {
+  "pid123": Object {
+    "data": Object {
+      "name": "Home Address",
+      "requestedAttributes": Array [
+        Object {
+          "label": "Address 1",
+        },
+        Object {
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "originalProofRequestData": Object {
+      "name": "proof_req_1",
+      "nonce": "123432421212",
+      "requested_attributes": Object {
+        "attr1_uuid": Object {
+          "name": "Address 1",
+        },
+        "attr2_uuid": Object {
+          "name": "Address 2",
+        },
+      },
+      "requested_predicates": Object {},
+      "version": "0.1",
+    },
+    "proofHandle": 1,
+    "proofStatus": "NONE",
+    "remotePairwiseDID": "senderDID1",
+    "requester": Object {
+      "name": "Test Issuer",
+    },
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
+    "status": "ACCEPTED",
+    "statusMsg": "pending",
+    "uid": "pid123",
+  },
+}
+`;
+
+exports[`proof request store proof request is ignored 1`] = `
+Object {
+  "pid123": Object {
+    "data": Object {
+      "name": "Home Address",
+      "requestedAttributes": Array [
+        Object {
+          "label": "Address 1",
+        },
+        Object {
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "originalProofRequestData": Object {
+      "name": "proof_req_1",
+      "nonce": "123432421212",
+      "requested_attributes": Object {
+        "attr1_uuid": Object {
+          "name": "Address 1",
+        },
+        "attr2_uuid": Object {
+          "name": "Address 2",
+        },
+      },
+      "requested_predicates": Object {},
+      "version": "0.1",
+    },
+    "proofHandle": 1,
+    "proofStatus": "NONE",
+    "remotePairwiseDID": "senderDID1",
+    "requester": Object {
+      "name": "Test Issuer",
+    },
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
+    "status": "IGNORED",
+    "statusMsg": "pending",
+    "uid": "pid123",
+  },
+}
+`;
+
+exports[`proof request store proof request is ignored 2`] = `
+Object {
+  "pid123": Object {
+    "data": Object {
+      "name": "Home Address",
+      "requestedAttributes": Array [
+        Object {
+          "label": "Address 1",
+        },
+        Object {
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "originalProofRequestData": Object {
+      "name": "proof_req_1",
+      "nonce": "123432421212",
+      "requested_attributes": Object {
+        "attr1_uuid": Object {
+          "name": "Address 1",
+        },
+        "attr2_uuid": Object {
+          "name": "Address 2",
+        },
+      },
+      "requested_predicates": Object {},
+      "version": "0.1",
+    },
+    "proofHandle": 1,
+    "proofStatus": "NONE",
+    "remotePairwiseDID": "senderDID1",
+    "requester": Object {
+      "name": "Test Issuer",
+    },
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
+    "status": "IGNORED",
+    "statusMsg": "pending",
+    "uid": "pid123",
+  },
+}
+`;
+
+exports[`proof request store proof request is received 1`] = `
+Object {
+  "pid123": Object {
+    "data": Object {
+      "name": "Home Address",
+      "requestedAttributes": Array [
+        Object {
+          "label": "Address 1",
+        },
+        Object {
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "originalProofRequestData": Object {
+      "name": "proof_req_1",
+      "nonce": "123432421212",
+      "requested_attributes": Object {
+        "attr1_uuid": Object {
+          "name": "Address 1",
+        },
+        "attr2_uuid": Object {
+          "name": "Address 2",
+        },
+      },
+      "requested_predicates": Object {},
+      "version": "0.1",
+    },
+    "proofHandle": 1,
+    "proofStatus": "NONE",
+    "remotePairwiseDID": "senderDID1",
+    "requester": Object {
+      "name": "Test Issuer",
+    },
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
+    "status": "RECEIVED",
+    "statusMsg": "pending",
+    "uid": "pid123",
+  },
+}
+`;
+
+exports[`proof request store proof request is rejected 1`] = `
+Object {
+  "pid123": Object {
+    "data": Object {
+      "name": "Home Address",
+      "requestedAttributes": Array [
+        Object {
+          "label": "Address 1",
+        },
+        Object {
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "originalProofRequestData": Object {
+      "name": "proof_req_1",
+      "nonce": "123432421212",
+      "requested_attributes": Object {
+        "attr1_uuid": Object {
+          "name": "Address 1",
+        },
+        "attr2_uuid": Object {
+          "name": "Address 2",
+        },
+      },
+      "requested_predicates": Object {},
+      "version": "0.1",
+    },
+    "proofHandle": 1,
+    "proofStatus": "NONE",
+    "remotePairwiseDID": "senderDID1",
+    "requester": Object {
+      "name": "Test Issuer",
+    },
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
+    "status": "REJECTED",
+    "statusMsg": "pending",
+    "uid": "pid123",
+  },
+}
+`;
+
+exports[`proof request store proof request is shown 1`] = `
+Object {
+  "pid123": Object {
+    "data": Object {
+      "name": "Home Address",
+      "requestedAttributes": Array [
+        Object {
+          "label": "Address 1",
+        },
+        Object {
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "originalProofRequestData": Object {
+      "name": "proof_req_1",
+      "nonce": "123432421212",
+      "requested_attributes": Object {
+        "attr1_uuid": Object {
+          "name": "Address 1",
+        },
+        "attr2_uuid": Object {
+          "name": "Address 2",
+        },
+      },
+      "requested_predicates": Object {},
+      "version": "0.1",
+    },
+    "proofHandle": 1,
+    "proofStatus": "NONE",
+    "remotePairwiseDID": "senderDID1",
+    "requester": Object {
+      "name": "Test Issuer",
+    },
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
+    "status": "SHOWN",
+    "statusMsg": "pending",
+    "uid": "pid123",
+  },
+}
+`;
+
+exports[`proof request store sending proof 1`] = `
+Object {
+  "pid123": Object {
+    "data": Object {
+      "name": "Home Address",
+      "requestedAttributes": Array [
+        Object {
+          "label": "Address 1",
+        },
+        Object {
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "originalProofRequestData": Object {
+      "name": "proof_req_1",
+      "nonce": "123432421212",
+      "requested_attributes": Object {
+        "attr1_uuid": Object {
+          "name": "Address 1",
+        },
+        "attr2_uuid": Object {
+          "name": "Address 2",
+        },
+      },
+      "requested_predicates": Object {},
+      "version": "0.1",
+    },
+    "proofHandle": 1,
+    "proofStatus": "SENDING_PROOF",
+    "remotePairwiseDID": "senderDID1",
+    "requester": Object {
+      "name": "Test Issuer",
+    },
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
+    "status": "IGNORED",
+    "statusMsg": "pending",
+    "uid": "pid123",
+  },
+}
+`;
+
+exports[`proof request store sending proof failed 1`] = `
+Object {
+  "pid123": Object {
+    "data": Object {
+      "name": "Home Address",
+      "requestedAttributes": Array [
+        Object {
+          "label": "Address 1",
+        },
+        Object {
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "originalProofRequestData": Object {
+      "name": "proof_req_1",
+      "nonce": "123432421212",
+      "requested_attributes": Object {
+        "attr1_uuid": Object {
+          "name": "Address 1",
+        },
+        "attr2_uuid": Object {
+          "name": "Address 2",
+        },
+      },
+      "requested_predicates": Object {},
+      "version": "0.1",
+    },
+    "proofHandle": 1,
+    "proofStatus": "SEND_PROOF_FAIL",
+    "remotePairwiseDID": "senderDID1",
+    "requester": Object {
+      "name": "Test Issuer",
+    },
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
+    "status": "IGNORED",
+    "statusMsg": "pending",
+    "uid": "pid123",
+  },
+}
+`;
+
+exports[`proof request store sending proof success 1`] = `
+Object {
+  "pid123": Object {
+    "data": Object {
+      "name": "Home Address",
+      "requestedAttributes": Array [
+        Object {
+          "label": "Address 1",
+        },
+        Object {
+          "label": "Address 2",
+        },
+      ],
+      "version": "1.0.0",
+    },
+    "originalProofRequestData": Object {
+      "name": "proof_req_1",
+      "nonce": "123432421212",
+      "requested_attributes": Object {
+        "attr1_uuid": Object {
+          "name": "Address 1",
+        },
+        "attr2_uuid": Object {
+          "name": "Address 2",
+        },
+      },
+      "requested_predicates": Object {},
+      "version": "0.1",
+    },
+    "proofHandle": 1,
+    "proofStatus": "SEND_PROOF_SUCCESS",
+    "remotePairwiseDID": "senderDID1",
+    "requester": Object {
+      "name": "Test Issuer",
+    },
+    "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
+    "status": "IGNORED",
+    "statusMsg": "pending",
+    "uid": "pid123",
+  },
+}
+`;
+
+exports[`proof request store should convert missing attributes to self attested attributes 1`] = `
+Object {
+  "sex": Object {
+    "data": "",
+    "key": "attr2_uuid",
+    "name": "sex",
+  },
+}
+`;
+
+exports[`proof request store should convert missing attributes to self attested attributes 2`] = `
+Object {
+  "height": Object {
+    "data": "",
+    "key": "attr3_uuid",
+    "name": "height",
+  },
+  "sex": Object {
+    "data": "",
+    "key": "attr2_uuid",
+    "name": "sex",
+  },
+}
+`;
+
+exports[`proof request store should correctly calculate initial state 1`] = `Object {}`;
+
+exports[`proof request store should reset proof request store, if RESET action is raised 1`] = `Object {}`;

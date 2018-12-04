@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`store: backup-store:  action: ERROR_RESTORE 1`] = `
+Object {
+  "error": Object {
+    "code": "WR-001",
+    "message": "Error while restoring",
+  },
+  "passphrase": "",
+  "restoreFile": Object {
+    "fileName": "",
+    "fileSize": 0,
+    "type": "",
+    "uri": "",
+  },
+  "status": "RESTORE_FAILED",
+}
+`;
+
+exports[`store: backup-store:  action: RESTORE_STATUS 1`] = `
+Object {
+  "error": null,
+  "passphrase": "",
+  "restoreFile": Object {
+    "fileName": "",
+    "fileSize": 0,
+    "type": "",
+    "uri": "",
+  },
+  "status": "RESTORE_SUCCESS",
+}
+`;
+
+exports[`store: backup-store:  action: RESTORE_SUBMIT_PASSPHRASE 1`] = `
+Object {
+  "error": null,
+  "passphrase": "one two three",
+  "restoreFile": Object {
+    "fileName": "",
+    "fileSize": 0,
+    "type": "",
+    "uri": "",
+  },
+  "status": "none",
+}
+`;
+
+exports[`store: backup-store:  action: SAVE_FILE_TO_APP_DIRECTORY 1`] = `
+Object {
+  "error": null,
+  "passphrase": "",
+  "restoreFile": Object {
+    "fileName": "backup.zip",
+    "fileSize": 22,
+    "type": "application/zip",
+    "uri": "file://data/Containers/Data/Application/021D78D1-044B-4874-BE8D-EC71781CA978/tmp/com.evernym.connectme.callcenter-Inbox/backup.zip",
+  },
+  "status": "none",
+}
+`;

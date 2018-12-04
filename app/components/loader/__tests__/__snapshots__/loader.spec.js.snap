@@ -1,0 +1,356 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Loader /> should check that custom message works 1`] = `
+<View
+  center={true}
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+      "padding": 20,
+    }
+  }
+>
+  <Image
+    collapsable={undefined}
+    source={1}
+    style={
+      Object {
+        "height": 30,
+        "tintColor": "#777777",
+        "transform": Array [
+          Object {
+            "rotate": "0deg",
+          },
+        ],
+        "width": 30,
+      }
+    }
+  />
+  <Text
+    accessible={true}
+    allowFontScaling={false}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Object {
+          "fontSize": 17,
+        },
+        Object {
+          "fontFamily": "Lato",
+        },
+        Object {
+          "backgroundColor": "#333333",
+          "color": "#ffffff",
+        },
+        null,
+        Object {
+          "textAlign": "center",
+        },
+        Object {
+          "backgroundColor": "transparent",
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        Object {
+          "color": "#464646",
+        },
+        Object {
+          "fontSize": 17,
+          "fontWeight": "500",
+          "letterSpacing": -0.42,
+          "lineHeight": 21,
+          "marginTop": 20,
+        },
+      ]
+    }
+  >
+    sovrin is cool
+  </Text>
+</View>
+`;
+
+exports[`<Loader /> should check that dark type works 1`] = `
+<View
+  center={true}
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+      "padding": 20,
+    }
+  }
+>
+  <Image
+    collapsable={undefined}
+    source={1}
+    style={
+      Object {
+        "height": 30,
+        "tintColor": "#777777",
+        "transform": Array [
+          Object {
+            "rotate": "0deg",
+          },
+        ],
+        "width": 30,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`<Loader /> should check that light type works 1`] = `
+<View
+  center={true}
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+      "padding": 20,
+    }
+  }
+>
+  <Image
+    collapsable={undefined}
+    source={1}
+    style={
+      Object {
+        "height": 30,
+        "tintColor": "#ffffff",
+        "transform": Array [
+          Object {
+            "rotate": "0deg",
+          },
+        ],
+        "width": 30,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`<Loader /> should check that showMessage works as expected when false 1`] = `
+<View
+  center={true}
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+      "padding": 20,
+    }
+  }
+>
+  <Image
+    collapsable={undefined}
+    source={1}
+    style={
+      Object {
+        "height": 30,
+        "tintColor": "#777777",
+        "transform": Array [
+          Object {
+            "rotate": "0deg",
+          },
+        ],
+        "width": 30,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`<Loader /> should check that showMessage works as expected when true 1`] = `
+<View
+  center={true}
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+      "padding": 20,
+    }
+  }
+>
+  <Image
+    collapsable={undefined}
+    source={1}
+    style={
+      Object {
+        "height": 30,
+        "tintColor": "#777777",
+        "transform": Array [
+          Object {
+            "rotate": "0deg",
+          },
+        ],
+        "width": 30,
+      }
+    }
+  />
+  <Text
+    accessible={true}
+    allowFontScaling={false}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Object {
+          "fontSize": 17,
+        },
+        Object {
+          "fontFamily": "Lato",
+        },
+        Object {
+          "backgroundColor": "#333333",
+          "color": "#ffffff",
+        },
+        null,
+        Object {
+          "textAlign": "center",
+        },
+        Object {
+          "backgroundColor": "transparent",
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        Object {
+          "color": "#464646",
+        },
+        Object {
+          "fontSize": 17,
+          "fontWeight": "500",
+          "letterSpacing": -0.42,
+          "lineHeight": 21,
+          "marginTop": 20,
+        },
+      ]
+    }
+  >
+    show me
+  </Text>
+</View>
+`;
+
+exports[`<Loader /> should check that size works 1`] = `
+<View
+  center={true}
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+      "padding": 20,
+    }
+  }
+>
+  <Image
+    collapsable={undefined}
+    source={1}
+    style={
+      Object {
+        "height": 48,
+        "tintColor": "#777777",
+        "transform": Array [
+          Object {
+            "rotate": "0deg",
+          },
+        ],
+        "width": 48,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`<Loader /> should render properly and match the snapshot 1`] = `
+<View
+  center={true}
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+      "padding": 20,
+    }
+  }
+>
+  <Image
+    collapsable={undefined}
+    source={1}
+    style={
+      Object {
+        "height": 30,
+        "tintColor": "#777777",
+        "transform": Array [
+          Object {
+            "rotate": "0deg",
+          },
+        ],
+        "width": 30,
+      }
+    }
+  />
+  <Text
+    accessible={true}
+    allowFontScaling={false}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Object {
+          "fontSize": 17,
+        },
+        Object {
+          "fontFamily": "Lato",
+        },
+        Object {
+          "backgroundColor": "#333333",
+          "color": "#ffffff",
+        },
+        null,
+        Object {
+          "textAlign": "center",
+        },
+        Object {
+          "backgroundColor": "transparent",
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        Object {
+          "color": "#464646",
+        },
+        Object {
+          "fontSize": 17,
+          "fontWeight": "500",
+          "letterSpacing": -0.42,
+          "lineHeight": 21,
+          "marginTop": 20,
+        },
+      ]
+    }
+  >
+    test
+  </Text>
+</View>
+`;

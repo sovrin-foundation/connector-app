@@ -1,0 +1,1612 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LedgerFeesModalComponent /> show error if fetching fees failed, show retry and cancel buttons 1`] = `
+<View
+  fifth={true}
+  shadow={true}
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+      "elevation": 10,
+      "marginHorizontal": 30,
+      "shadowColor": "rgba(0, 0, 0, 0.2)",
+      "shadowOffset": Object {
+        "height": 10,
+        "width": 0,
+      },
+      "shadowOpacity": 1,
+      "shadowRadius": 30,
+    }
+  }
+>
+  <View
+    spaceBetween={true}
+    style={
+      Object {
+        "borderBottomColor": "#3f3f3f",
+        "borderBottomWidth": 0.2,
+        "justifyContent": "space-between",
+        "padding": 20,
+      }
+    }
+  >
+    <View
+      accessibilityLabel="ledger-fees-modal-header-icon"
+      accessible={true}
+      center={true}
+      clearBg={true}
+      iconStyle={
+        Array [
+          Object {
+            "margin": 10,
+          },
+        ]
+      }
+      medium={true}
+      resizeMode="contain"
+      src={1}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "justifyContent": "center",
+        }
+      }
+      testID="ledger-fees-modal-header-icon"
+    >
+      <View
+        style={Object {}}
+      >
+        <Image
+          accessibilityLabel="ledger-fees-modal-header-icon"
+          accessible={true}
+          resizeMode="contain"
+          source={1}
+          style={
+            Array [
+              Object {
+                "height": 30,
+                "width": 30,
+              },
+              null,
+              Object {
+                "margin": 10,
+              },
+            ]
+          }
+          testID="ledger-fees-modal-header-icon"
+        />
+      </View>
+    </View>
+    <Text
+      accessibilityLabel="ledger-fees-modal-content"
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#ffffff",
+            "color": "#777777",
+          },
+          null,
+          Object {
+            "textAlign": "center",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "marginBottom": 5,
+          },
+        ]
+      }
+      testID="ledger-fees-modal-content"
+    >
+      There was a problem checking transaction fees. Retry?
+    </Text>
+  </View>
+  <View
+    row={true}
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "marginLeft": 15,
+              "marginRight": 15,
+            },
+            undefined,
+            Object {
+              "marginLeft": 0,
+              "marginRight": 0,
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel="ledger-fees-modal-Cancel"
+          accessibilityTraits={undefined}
+          accessible={true}
+          hasTVPreferredFocus={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+              },
+              undefined,
+            ]
+          }
+          testID="ledger-fees-modal-Cancel"
+          tvParallaxProperties={undefined}
+        >
+          <View
+            pointerEvents="box-only"
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#9E9E9E",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "padding": 19,
+                },
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                Object {
+                  "backgroundColor": "#ffffff",
+                },
+                undefined,
+                Object {
+                  "padding": 12,
+                },
+                undefined,
+                undefined,
+                undefined,
+                Array [
+                  null,
+                ],
+                undefined,
+                undefined,
+              ]
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {},
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  Array [
+                    Object {
+                      "color": "white",
+                      "fontSize": 16,
+                    },
+                    Object {
+                      "color": "#4A8FE3",
+                    },
+                    Object {
+                      "fontSize": 14,
+                    },
+                    undefined,
+                    Object {
+                      "fontWeight": "bold",
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ],
+                ]
+              }
+            >
+              Cancel
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "marginLeft": 15,
+              "marginRight": 15,
+            },
+            undefined,
+            Object {
+              "marginLeft": 0,
+              "marginRight": 0,
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel="ledger-fees-modal-Retry"
+          accessibilityTraits={undefined}
+          accessible={true}
+          hasTVPreferredFocus={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+              },
+              undefined,
+            ]
+          }
+          testID="ledger-fees-modal-Retry"
+          tvParallaxProperties={undefined}
+        >
+          <View
+            pointerEvents="box-only"
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#9E9E9E",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "padding": 19,
+                },
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                Object {
+                  "backgroundColor": "#ffffff",
+                },
+                undefined,
+                Object {
+                  "padding": 12,
+                },
+                undefined,
+                undefined,
+                undefined,
+                Array [
+                  null,
+                ],
+                undefined,
+                undefined,
+              ]
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {},
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  Array [
+                    Object {
+                      "color": "white",
+                      "fontSize": 16,
+                    },
+                    Object {
+                      "color": "#4A8FE3",
+                    },
+                    Object {
+                      "fontSize": 14,
+                    },
+                    undefined,
+                    Object {
+                      "fontWeight": "bold",
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ],
+                ]
+              }
+            >
+              Retry
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<LedgerFeesModalComponent /> show loader, loading text, no buttons, if fetching fees 1`] = `
+<View
+  fifth={true}
+  shadow={true}
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+      "elevation": 10,
+      "marginHorizontal": 30,
+      "shadowColor": "rgba(0, 0, 0, 0.2)",
+      "shadowOffset": Object {
+        "height": 10,
+        "width": 0,
+      },
+      "shadowOpacity": 1,
+      "shadowRadius": 30,
+    }
+  }
+>
+  <View
+    spaceBetween={true}
+    style={
+      Object {
+        "borderBottomColor": "#3f3f3f",
+        "borderBottomWidth": 0.2,
+        "justifyContent": "space-between",
+        "padding": 20,
+      }
+    }
+  >
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "height": 40,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <View
+        center={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "justifyContent": "center",
+            "padding": 20,
+          }
+        }
+      >
+        <Image
+          collapsable={undefined}
+          source={1}
+          style={
+            Object {
+              "height": 30,
+              "tintColor": "#777777",
+              "transform": Array [
+                Object {
+                  "rotate": "0deg",
+                },
+              ],
+              "width": 30,
+            }
+          }
+        />
+      </View>
+    </View>
+    <Text
+      accessibilityLabel="ledger-fees-modal-content"
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#ffffff",
+            "color": "#777777",
+          },
+          null,
+          Object {
+            "textAlign": "center",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "marginBottom": 5,
+          },
+        ]
+      }
+      testID="ledger-fees-modal-content"
+    >
+      Getting fees...
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`<LedgerFeesModalComponent /> show text passed by consumer of component, if renderFeesText is passed 1`] = `
+<View
+  fifth={true}
+  shadow={true}
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+      "elevation": 10,
+      "marginHorizontal": 30,
+      "shadowColor": "rgba(0, 0, 0, 0.2)",
+      "shadowOffset": Object {
+        "height": 10,
+        "width": 0,
+      },
+      "shadowOpacity": 1,
+      "shadowRadius": 30,
+    }
+  }
+>
+  <View
+    spaceBetween={true}
+    style={
+      Object {
+        "borderBottomColor": "#3f3f3f",
+        "borderBottomWidth": 0.2,
+        "justifyContent": "space-between",
+        "padding": 20,
+      }
+    }
+  >
+    <View
+      accessibilityLabel="ledger-fees-modal-header-icon"
+      accessible={true}
+      center={true}
+      clearBg={true}
+      iconStyle={
+        Array [
+          Object {
+            "margin": 10,
+          },
+        ]
+      }
+      medium={true}
+      resizeMode="contain"
+      src={1}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "justifyContent": "center",
+        }
+      }
+      testID="ledger-fees-modal-header-icon"
+    >
+      <View
+        style={Object {}}
+      >
+        <Image
+          accessibilityLabel="ledger-fees-modal-header-icon"
+          accessible={true}
+          resizeMode="contain"
+          source={1}
+          style={
+            Array [
+              Object {
+                "height": 30,
+                "width": 30,
+              },
+              null,
+              Object {
+                "margin": 10,
+              },
+            ]
+          }
+          testID="ledger-fees-modal-header-icon"
+        />
+      </View>
+    </View>
+    <Text
+      accessibilityLabel="ledger-fees-modal-title"
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 40,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#ffffff",
+            "color": "#777777",
+          },
+          Object {
+            "fontWeight": "bold",
+          },
+          Object {
+            "textAlign": "center",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "marginBottom": 5,
+          },
+        ]
+      }
+      testID="ledger-fees-modal-title"
+    >
+      0.01
+    </Text>
+    <Text
+      accessibilityLabel="ledger-fees-modal-title"
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 20,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#ffffff",
+            "color": "#777777",
+          },
+          Object {
+            "fontWeight": "bold",
+          },
+          Object {
+            "textAlign": "center",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "marginBottom": 5,
+          },
+        ]
+      }
+      testID="ledger-fees-modal-title"
+    >
+      Transaction fee
+    </Text>
+    <Text
+      accessibilityLabel="ledger-fees-modal-content"
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#ffffff",
+            "color": "#777777",
+          },
+          null,
+          Object {
+            "textAlign": "center",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "marginBottom": 5,
+          },
+        ]
+      }
+      testID="ledger-fees-modal-content"
+    >
+      Passed message 
+      0.01
+    </Text>
+  </View>
+  <View
+    row={true}
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "marginLeft": 15,
+              "marginRight": 15,
+            },
+            undefined,
+            Object {
+              "marginLeft": 0,
+              "marginRight": 0,
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel="ledger-fees-modal-No"
+          accessibilityTraits={undefined}
+          accessible={true}
+          hasTVPreferredFocus={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+              },
+              undefined,
+            ]
+          }
+          testID="ledger-fees-modal-No"
+          tvParallaxProperties={undefined}
+        >
+          <View
+            pointerEvents="box-only"
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#9E9E9E",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "padding": 19,
+                },
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                Object {
+                  "backgroundColor": "#ffffff",
+                },
+                undefined,
+                Object {
+                  "padding": 12,
+                },
+                undefined,
+                undefined,
+                undefined,
+                Array [
+                  null,
+                ],
+                undefined,
+                undefined,
+              ]
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {},
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  Array [
+                    Object {
+                      "color": "white",
+                      "fontSize": 16,
+                    },
+                    Object {
+                      "color": "#4A8FE3",
+                    },
+                    Object {
+                      "fontSize": 14,
+                    },
+                    undefined,
+                    Object {
+                      "fontWeight": "bold",
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ],
+                ]
+              }
+            >
+              No
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "marginLeft": 15,
+              "marginRight": 15,
+            },
+            undefined,
+            Object {
+              "marginLeft": 0,
+              "marginRight": 0,
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel="ledger-fees-modal-Yes"
+          accessibilityTraits={undefined}
+          accessible={true}
+          hasTVPreferredFocus={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+              },
+              undefined,
+            ]
+          }
+          testID="ledger-fees-modal-Yes"
+          tvParallaxProperties={undefined}
+        >
+          <View
+            pointerEvents="box-only"
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#9E9E9E",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "padding": 19,
+                },
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                Object {
+                  "backgroundColor": "#ffffff",
+                },
+                undefined,
+                Object {
+                  "padding": 12,
+                },
+                undefined,
+                undefined,
+                undefined,
+                Array [
+                  null,
+                ],
+                undefined,
+                undefined,
+              ]
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {},
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  Array [
+                    Object {
+                      "color": "white",
+                      "fontSize": 16,
+                    },
+                    Object {
+                      "color": "#4A8FE3",
+                    },
+                    Object {
+                      "fontSize": 14,
+                    },
+                    undefined,
+                    Object {
+                      "fontWeight": "bold",
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ],
+                ]
+              }
+            >
+              Yes
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<LedgerFeesModalComponent /> show transfer fees, Yes & No buttons, if fees is fetched 1`] = `
+<View
+  fifth={true}
+  shadow={true}
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+      "elevation": 10,
+      "marginHorizontal": 30,
+      "shadowColor": "rgba(0, 0, 0, 0.2)",
+      "shadowOffset": Object {
+        "height": 10,
+        "width": 0,
+      },
+      "shadowOpacity": 1,
+      "shadowRadius": 30,
+    }
+  }
+>
+  <View
+    spaceBetween={true}
+    style={
+      Object {
+        "borderBottomColor": "#3f3f3f",
+        "borderBottomWidth": 0.2,
+        "justifyContent": "space-between",
+        "padding": 20,
+      }
+    }
+  >
+    <View
+      accessibilityLabel="ledger-fees-modal-header-icon"
+      accessible={true}
+      center={true}
+      clearBg={true}
+      iconStyle={
+        Array [
+          Object {
+            "margin": 10,
+          },
+        ]
+      }
+      medium={true}
+      resizeMode="contain"
+      src={1}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "transparent",
+          "justifyContent": "center",
+        }
+      }
+      testID="ledger-fees-modal-header-icon"
+    >
+      <View
+        style={Object {}}
+      >
+        <Image
+          accessibilityLabel="ledger-fees-modal-header-icon"
+          accessible={true}
+          resizeMode="contain"
+          source={1}
+          style={
+            Array [
+              Object {
+                "height": 30,
+                "width": 30,
+              },
+              null,
+              Object {
+                "margin": 10,
+              },
+            ]
+          }
+          testID="ledger-fees-modal-header-icon"
+        />
+      </View>
+    </View>
+    <Text
+      accessibilityLabel="ledger-fees-modal-title"
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 40,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#ffffff",
+            "color": "#777777",
+          },
+          Object {
+            "fontWeight": "bold",
+          },
+          Object {
+            "textAlign": "center",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "marginBottom": 5,
+          },
+        ]
+      }
+      testID="ledger-fees-modal-title"
+    >
+      0.01
+    </Text>
+    <Text
+      accessibilityLabel="ledger-fees-modal-title"
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 20,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#ffffff",
+            "color": "#777777",
+          },
+          Object {
+            "fontWeight": "bold",
+          },
+          Object {
+            "textAlign": "center",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "marginBottom": 5,
+          },
+        ]
+      }
+      testID="ledger-fees-modal-title"
+    >
+      Transaction fee
+    </Text>
+    <Text
+      accessibilityLabel="ledger-fees-modal-content"
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#ffffff",
+            "color": "#777777",
+          },
+          null,
+          Object {
+            "textAlign": "center",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "marginBottom": 5,
+          },
+        ]
+      }
+      testID="ledger-fees-modal-content"
+    >
+      This transaction will cost you
+       
+      <Text
+        accessibilityLabel="ledger-fees-modal-content"
+        accessible={true}
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "fontSize": 17,
+            },
+            Object {
+              "fontFamily": "Lato",
+            },
+            Object {
+              "backgroundColor": "#ffffff",
+              "color": "#777777",
+            },
+            Object {
+              "fontWeight": "bold",
+            },
+            Object {
+              "textAlign": "center",
+            },
+            Object {
+              "backgroundColor": "transparent",
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "marginBottom": 5,
+            },
+          ]
+        }
+        testID="ledger-fees-modal-content"
+      >
+        0.01
+      </Text>
+       
+      Sovrin Tokens. Do you wish to continue?
+    </Text>
+  </View>
+  <View
+    row={true}
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "marginLeft": 15,
+              "marginRight": 15,
+            },
+            undefined,
+            Object {
+              "marginLeft": 0,
+              "marginRight": 0,
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel="ledger-fees-modal-No"
+          accessibilityTraits={undefined}
+          accessible={true}
+          hasTVPreferredFocus={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+              },
+              undefined,
+            ]
+          }
+          testID="ledger-fees-modal-No"
+          tvParallaxProperties={undefined}
+        >
+          <View
+            pointerEvents="box-only"
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#9E9E9E",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "padding": 19,
+                },
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                Object {
+                  "backgroundColor": "#ffffff",
+                },
+                undefined,
+                Object {
+                  "padding": 12,
+                },
+                undefined,
+                undefined,
+                undefined,
+                Array [
+                  null,
+                ],
+                undefined,
+                undefined,
+              ]
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {},
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  Array [
+                    Object {
+                      "color": "white",
+                      "fontSize": 16,
+                    },
+                    Object {
+                      "color": "#4A8FE3",
+                    },
+                    Object {
+                      "fontSize": 14,
+                    },
+                    undefined,
+                    Object {
+                      "fontWeight": "bold",
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ],
+                ]
+              }
+            >
+              No
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "marginLeft": 15,
+              "marginRight": 15,
+            },
+            undefined,
+            Object {
+              "marginLeft": 0,
+              "marginRight": 0,
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel="ledger-fees-modal-Yes"
+          accessibilityTraits={undefined}
+          accessible={true}
+          hasTVPreferredFocus={undefined}
+          hitSlop={undefined}
+          isTVSelectable={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              Object {
+                "backgroundColor": "transparent",
+              },
+              undefined,
+            ]
+          }
+          testID="ledger-fees-modal-Yes"
+          tvParallaxProperties={undefined}
+        >
+          <View
+            pointerEvents="box-only"
+            style={
+              Array [
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#9E9E9E",
+                  "flexDirection": "row",
+                  "justifyContent": "center",
+                  "padding": 19,
+                },
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                Object {
+                  "backgroundColor": "#ffffff",
+                },
+                undefined,
+                Object {
+                  "padding": 12,
+                },
+                undefined,
+                undefined,
+                undefined,
+                Array [
+                  null,
+                ],
+                undefined,
+                undefined,
+              ]
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={true}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {},
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  undefined,
+                  Array [
+                    Object {
+                      "color": "white",
+                      "fontSize": 16,
+                    },
+                    Object {
+                      "color": "#4A8FE3",
+                    },
+                    Object {
+                      "fontSize": 14,
+                    },
+                    undefined,
+                    Object {
+                      "fontWeight": "bold",
+                    },
+                    undefined,
+                    undefined,
+                    undefined,
+                  ],
+                ]
+              }
+            >
+              Yes
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<LedgerFeesModalComponent /> trigger getLedgerFees to start fetching ledger fees 1`] = `
+<View
+  fifth={true}
+  shadow={true}
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+      "elevation": 10,
+      "marginHorizontal": 30,
+      "shadowColor": "rgba(0, 0, 0, 0.2)",
+      "shadowOffset": Object {
+        "height": 10,
+        "width": 0,
+      },
+      "shadowOpacity": 1,
+      "shadowRadius": 30,
+    }
+  }
+>
+  <View
+    spaceBetween={true}
+    style={
+      Object {
+        "borderBottomColor": "#3f3f3f",
+        "borderBottomWidth": 0.2,
+        "justifyContent": "space-between",
+        "padding": 20,
+      }
+    }
+  >
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "height": 40,
+          "justifyContent": "center",
+        }
+      }
+    >
+      <View
+        center={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "justifyContent": "center",
+            "padding": 20,
+          }
+        }
+      >
+        <Image
+          collapsable={undefined}
+          source={1}
+          style={
+            Object {
+              "height": 30,
+              "tintColor": "#777777",
+              "transform": Array [
+                Object {
+                  "rotate": "0deg",
+                },
+              ],
+              "width": 30,
+            }
+          }
+        />
+      </View>
+    </View>
+    <Text
+      accessibilityLabel="ledger-fees-modal-content"
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#ffffff",
+            "color": "#777777",
+          },
+          null,
+          Object {
+            "textAlign": "center",
+          },
+          Object {
+            "backgroundColor": "transparent",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "marginBottom": 5,
+          },
+        ]
+      }
+      testID="ledger-fees-modal-content"
+    >
+      Getting fees...
+    </Text>
+  </View>
+</View>
+`;

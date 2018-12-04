@@ -1,0 +1,472 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProofModal /> should match snapshot when proof sent fail 1`] = `
+<Modal
+  animationIn="zoomIn"
+  animationOut="zoomOut"
+  animationOutTiming={100}
+  backdropColor="#ffffff"
+  backdropOpacity={1}
+  hideModalContentWhileAnimating={true}
+  isVisible={false}
+  onModalHide={[Function]}
+  useNativeDriver={true}
+>
+  <View
+    fifth={true}
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+      }
+    }
+  >
+    <View
+      style={Object {}}
+    >
+      <View
+        center={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "height": "90%",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          accessibilityLabel="send-proof-message"
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#ffffff",
+                "color": "#777777",
+              },
+              Object {
+                "fontWeight": "bold",
+              },
+              Object {
+                "textAlign": "center",
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              Object {
+                "marginBottom": 5,
+                "paddingTop": 10,
+              },
+            ]
+          }
+          testID="send-proof-message"
+        >
+          Sending...
+        </Text>
+        <View
+          center={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "flex": 1,
+              "justifyContent": "center",
+              "padding": 20,
+            }
+          }
+        >
+          <Image
+            collapsable={undefined}
+            source={1}
+            style={
+              Object {
+                "height": 30,
+                "tintColor": "#777777",
+                "transform": Array [
+                  Object {
+                    "rotate": "0deg",
+                  },
+                ],
+                "width": 30,
+              }
+            }
+          />
+          <Text
+            accessible={true}
+            allowFontScaling={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "fontSize": 17,
+                },
+                Object {
+                  "fontFamily": "Lato",
+                },
+                Object {
+                  "backgroundColor": "#333333",
+                  "color": "#ffffff",
+                },
+                null,
+                Object {
+                  "textAlign": "center",
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                Object {
+                  "color": "#464646",
+                },
+                Object {
+                  "fontSize": 17,
+                  "fontWeight": "500",
+                  "letterSpacing": -0.42,
+                  "lineHeight": 21,
+                  "marginTop": 20,
+                },
+              ]
+            }
+          >
+            Please wait…
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</Modal>
+`;
+
+exports[`<ProofModal /> should match snapshot when proof sent success 1`] = `
+<Modal
+  animationIn="zoomIn"
+  animationOut="zoomOut"
+  animationOutTiming={100}
+  backdropColor="#ffffff"
+  backdropOpacity={1}
+  hideModalContentWhileAnimating={true}
+  isVisible={false}
+  onModalHide={[Function]}
+  useNativeDriver={true}
+>
+  <View
+    fifth={true}
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+      }
+    }
+  >
+    <View
+      style={Object {}}
+    >
+      <View
+        center={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "height": "90%",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          accessibilityLabel="send-proof-message"
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#ffffff",
+                "color": "#777777",
+              },
+              Object {
+                "fontWeight": "bold",
+              },
+              Object {
+                "textAlign": "center",
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              Object {
+                "marginBottom": 5,
+                "paddingTop": 10,
+              },
+            ]
+          }
+          testID="send-proof-message"
+        >
+          Sending...
+        </Text>
+        <View
+          center={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "flex": 1,
+              "justifyContent": "center",
+              "padding": 20,
+            }
+          }
+        >
+          <Image
+            collapsable={undefined}
+            source={1}
+            style={
+              Object {
+                "height": 30,
+                "tintColor": "#777777",
+                "transform": Array [
+                  Object {
+                    "rotate": "0deg",
+                  },
+                ],
+                "width": 30,
+              }
+            }
+          />
+          <Text
+            accessible={true}
+            allowFontScaling={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "fontSize": 17,
+                },
+                Object {
+                  "fontFamily": "Lato",
+                },
+                Object {
+                  "backgroundColor": "#333333",
+                  "color": "#ffffff",
+                },
+                null,
+                Object {
+                  "textAlign": "center",
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                Object {
+                  "color": "#464646",
+                },
+                Object {
+                  "fontSize": 17,
+                  "fontWeight": "500",
+                  "letterSpacing": -0.42,
+                  "lineHeight": 21,
+                  "marginTop": 20,
+                },
+              ]
+            }
+          >
+            Please wait…
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</Modal>
+`;
+
+exports[`<ProofModal /> should match snapshot when sending proof 1`] = `
+<Modal
+  animationIn="zoomIn"
+  animationOut="zoomOut"
+  animationOutTiming={100}
+  backdropColor="#ffffff"
+  backdropOpacity={1}
+  hideModalContentWhileAnimating={true}
+  isVisible={true}
+  onModalHide={[Function]}
+  useNativeDriver={true}
+>
+  <View
+    fifth={true}
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+      }
+    }
+  >
+    <View
+      style={Object {}}
+    >
+      <View
+        center={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "height": "90%",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          accessibilityLabel="send-proof-message"
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#ffffff",
+                "color": "#777777",
+              },
+              Object {
+                "fontWeight": "bold",
+              },
+              Object {
+                "textAlign": "center",
+              },
+              Object {
+                "backgroundColor": "transparent",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              Object {
+                "marginBottom": 5,
+                "paddingTop": 10,
+              },
+            ]
+          }
+          testID="send-proof-message"
+        >
+          Sending...
+        </Text>
+        <View
+          center={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "flex": 1,
+              "justifyContent": "center",
+              "padding": 20,
+            }
+          }
+        >
+          <Image
+            collapsable={undefined}
+            source={1}
+            style={
+              Object {
+                "height": 30,
+                "tintColor": "#777777",
+                "transform": Array [
+                  Object {
+                    "rotate": "0deg",
+                  },
+                ],
+                "width": 30,
+              }
+            }
+          />
+          <Text
+            accessible={true}
+            allowFontScaling={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "fontSize": 17,
+                },
+                Object {
+                  "fontFamily": "Lato",
+                },
+                Object {
+                  "backgroundColor": "#333333",
+                  "color": "#ffffff",
+                },
+                null,
+                Object {
+                  "textAlign": "center",
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                Object {
+                  "color": "#464646",
+                },
+                Object {
+                  "fontSize": 17,
+                  "fontWeight": "500",
+                  "letterSpacing": -0.42,
+                  "lineHeight": 21,
+                  "marginTop": 20,
+                },
+              ]
+            }
+          >
+            Please wait…
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</Modal>
+`;

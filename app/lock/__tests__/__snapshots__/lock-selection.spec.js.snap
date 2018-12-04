@@ -1,0 +1,689 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`app lock selection page should render properly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+      "paddingBottom": 20,
+      "paddingHorizontal": 20,
+      "paddingTop": 30,
+    }
+  }
+  tertiary={true}
+>
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    hitSlop={
+      Object {
+        "bottom": 20,
+        "left": 20,
+        "right": 20,
+        "top": 20,
+      }
+    }
+    nativeID={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={Object {}}
+    testID={undefined}
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#ffffff",
+            "color": "#777777",
+          },
+          Object {
+            "fontWeight": "600",
+          },
+          Object {
+            "textAlign": "center",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+        ]
+      }
+    >
+      Choose how to unlock App
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "paddingBottom": 15,
+        "paddingHorizontal": 0,
+        "paddingTop": 25,
+      }
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 17,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#ffffff",
+            "color": "#777777",
+          },
+          Object {
+            "fontWeight": "bold",
+          },
+          Object {
+            "textAlign": "center",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+        ]
+      }
+    >
+      This application must be protected by Biometrics or a passcode at all times.
+    </Text>
+  </View>
+  <View
+    spaceAround={true}
+    style={
+      Object {
+        "flex": 1,
+        "justifyContent": "space-around",
+      }
+    }
+  >
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel="touch-id-selection-touchable"
+      accessibilityTraits={undefined}
+      accessible={false}
+      center={true}
+      fifth={true}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      shadow={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#ffffff",
+          "borderRadius": 13,
+          "elevation": 10,
+          "justifyContent": "center",
+          "marginHorizontal": 30,
+          "paddingBottom": 20,
+          "paddingHorizontal": 20,
+          "paddingTop": 5,
+          "shadowColor": "rgba(0, 0, 0, 0.2)",
+          "shadowOffset": Object {
+            "height": 10,
+            "width": 0,
+          },
+          "shadowOpacity": 1,
+          "shadowRadius": 30,
+        }
+      }
+      testID="touch-id-selection-touchable"
+    >
+      <Image
+        source={1}
+        style={
+          Object {
+            "height": 60,
+            "marginVertical": 15,
+            "width": 60,
+          }
+        }
+      />
+      <Text
+        accessibilityLabel="use-touch-id-text"
+        accessible={true}
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        onLongPress={[Function]}
+        onPress={[Function]}
+        style={
+          Array [
+            Object {
+              "fontSize": 17,
+            },
+            Object {
+              "fontFamily": "Lato",
+            },
+            Object {
+              "backgroundColor": "#333333",
+              "color": "#333333",
+            },
+            Object {
+              "fontWeight": "600",
+            },
+            Object {
+              "textAlign": "center",
+            },
+            Object {
+              "backgroundColor": "transparent",
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+          ]
+        }
+        testID="use-touch-id-text"
+      >
+        Use Biometrics
+      </Text>
+    </View>
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel="lock-selection-or-text-touchable"
+      accessibilityTraits={undefined}
+      accessible={false}
+      debounceAction={false}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={Object {}}
+      testID="lock-selection-or-text-touchable"
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "fontSize": 20,
+            },
+            Object {
+              "fontFamily": "Lato",
+            },
+            Object {
+              "backgroundColor": "#ffffff",
+              "color": "#777777",
+            },
+            Object {
+              "fontWeight": "800",
+            },
+            Object {
+              "textAlign": "center",
+            },
+            Object {
+              "backgroundColor": "transparent",
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+          ]
+        }
+      >
+        or
+      </Text>
+    </View>
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel="pin-code-selection-touchable"
+      accessibilityTraits={undefined}
+      accessible={false}
+      fifth={true}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      shadow={true}
+      style={
+        Object {
+          "backgroundColor": "#ffffff",
+          "borderRadius": 13,
+          "elevation": 10,
+          "marginHorizontal": 30,
+          "paddingBottom": 20,
+          "paddingHorizontal": 20,
+          "paddingTop": 5,
+          "shadowColor": "rgba(0, 0, 0, 0.2)",
+          "shadowOffset": Object {
+            "height": 10,
+            "width": 0,
+          },
+          "shadowOpacity": 1,
+          "shadowRadius": 30,
+        }
+      }
+      testID="pin-code-selection-touchable"
+    >
+      <View
+        center={true}
+        row={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "center",
+            "marginBottom": 25,
+            "marginVertical": 30,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "borderBottomColor": "#777777",
+              "borderBottomWidth": 4,
+              "marginRight": 5,
+              "paddingBottom": 10,
+              "paddingHorizontal": 5,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "fontSize": 20,
+                },
+                Object {
+                  "fontFamily": "Lato",
+                },
+                Object {
+                  "backgroundColor": "#ffffff",
+                  "color": "#777777",
+                },
+                Object {
+                  "fontWeight": "800",
+                },
+                Object {
+                  "textAlign": "center",
+                },
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+              ]
+            }
+          >
+            1
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "borderBottomColor": "#777777",
+              "borderBottomWidth": 4,
+              "marginRight": 5,
+              "paddingBottom": 10,
+              "paddingHorizontal": 5,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "fontSize": 20,
+                },
+                Object {
+                  "fontFamily": "Lato",
+                },
+                Object {
+                  "backgroundColor": "#ffffff",
+                  "color": "#777777",
+                },
+                Object {
+                  "fontWeight": "800",
+                },
+                Object {
+                  "textAlign": "center",
+                },
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+              ]
+            }
+          >
+            2
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "borderBottomColor": "#777777",
+              "borderBottomWidth": 4,
+              "marginRight": 5,
+              "paddingBottom": 10,
+              "paddingHorizontal": 5,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "fontSize": 20,
+                },
+                Object {
+                  "fontFamily": "Lato",
+                },
+                Object {
+                  "backgroundColor": "#ffffff",
+                  "color": "#777777",
+                },
+                Object {
+                  "fontWeight": "800",
+                },
+                Object {
+                  "textAlign": "center",
+                },
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+              ]
+            }
+          >
+            3
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "borderBottomColor": "#777777",
+              "borderBottomWidth": 4,
+              "marginRight": 5,
+              "paddingBottom": 10,
+              "paddingHorizontal": 5,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "fontSize": 20,
+                },
+                Object {
+                  "fontFamily": "Lato",
+                },
+                Object {
+                  "backgroundColor": "#ffffff",
+                  "color": "#777777",
+                },
+                Object {
+                  "fontWeight": "800",
+                },
+                Object {
+                  "textAlign": "center",
+                },
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+              ]
+            }
+          >
+            4
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "borderBottomColor": "#777777",
+              "borderBottomWidth": 4,
+              "marginRight": 5,
+              "paddingBottom": 10,
+              "paddingHorizontal": 5,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "fontSize": 20,
+                },
+                Object {
+                  "fontFamily": "Lato",
+                },
+                Object {
+                  "backgroundColor": "#ffffff",
+                  "color": "#777777",
+                },
+                Object {
+                  "fontWeight": "800",
+                },
+                Object {
+                  "textAlign": "center",
+                },
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+              ]
+            }
+          >
+            5
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "borderBottomColor": "#777777",
+              "borderBottomWidth": 4,
+              "marginRight": 5,
+              "paddingBottom": 10,
+              "paddingHorizontal": 5,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "fontSize": 20,
+                },
+                Object {
+                  "fontFamily": "Lato",
+                },
+                Object {
+                  "backgroundColor": "#ffffff",
+                  "color": "#777777",
+                },
+                Object {
+                  "fontWeight": "800",
+                },
+                Object {
+                  "textAlign": "center",
+                },
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+              ]
+            }
+          >
+            6
+          </Text>
+        </View>
+      </View>
+      <Text
+        accessibilityLabel="use-pass-code-text"
+        accessible={true}
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        onLongPress={[Function]}
+        onPress={[Function]}
+        style={
+          Array [
+            Object {
+              "fontSize": 17,
+            },
+            Object {
+              "fontFamily": "Lato",
+            },
+            Object {
+              "backgroundColor": "#333333",
+              "color": "#333333",
+            },
+            Object {
+              "fontWeight": "600",
+            },
+            Object {
+              "textAlign": "center",
+            },
+            Object {
+              "backgroundColor": "transparent",
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "lineHeight": 22,
+              "paddingBottom": 5,
+            },
+          ]
+        }
+        testID="use-pass-code-text"
+      >
+        Use Passcode
+      </Text>
+    </View>
+  </View>
+</View>
+`;

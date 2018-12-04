@@ -1,0 +1,2092 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#777777",
+      "flex": 1,
+    }
+  }
+>
+  <RCTSafeAreaView
+    style={Object {}}
+  >
+    <View
+      fifth={true}
+      style={
+        Object {
+          "backgroundColor": "#777777",
+          "borderBottomColor": "#777777",
+          "marginBottom": -10,
+          "paddingTop": 30,
+          "shadowColor": "#777777",
+          "shadowOffset": Object {
+            "height": 20,
+            "width": 0,
+          },
+          "shadowOpacity": 0.2,
+          "shadowRadius": 10,
+          "zIndex": 4,
+        }
+      }
+    >
+      <View
+        fifth={true}
+        hCenter={true}
+        style={
+          Object {
+            "backgroundColor": "transparent",
+            "height": 90,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <View
+          absolute="TopRight"
+          accessibilityComponentType={undefined}
+          accessibilityLabel="claim-offer-icon-close-touchable"
+          accessibilityTraits={undefined}
+          accessible={false}
+          clearBg={true}
+          hitSlop={
+            Object {
+              "bottom": 20,
+              "left": 20,
+              "right": 20,
+              "top": 20,
+            }
+          }
+          iconStyle={
+            Array [
+              Object {
+                "marginRight": 15,
+              },
+            ]
+          }
+          medium={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          src={1}
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "zIndex": 2,
+            }
+          }
+          testID="claim-offer-icon-close-touchable"
+        >
+          <View
+            style={Object {}}
+          >
+            <Image
+              accessibilityLabel="claim-offer-icon-close"
+              accessible={true}
+              resizeMode="contain"
+              source={1}
+              style={
+                Array [
+                  Object {
+                    "height": 30,
+                    "width": 30,
+                  },
+                  null,
+                  Object {
+                    "marginRight": 15,
+                  },
+                ]
+              }
+              testID="claim-offer-icon-close"
+            />
+          </View>
+        </View>
+        <View
+          accessibilityLabel="claim-offer-issuer-logo"
+          accessible={true}
+          backgroundRoundWhite={true}
+          center={true}
+          clearBg={true}
+          extraLarge={true}
+          halo={true}
+          iconStyle={
+            Array [
+              Object {
+                "borderRadius": 40,
+              },
+            ]
+          }
+          resizeMode="cover"
+          src={
+            Object {
+              "uri": "http://testissuer.com/logoUrl.png",
+            }
+          }
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "center",
+              "backgroundColor": "transparent",
+              "bottom": 0,
+              "justifyContent": "center",
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "zIndex": 1,
+            }
+          }
+          testID="claim-offer-issuer-logo"
+        >
+          <View
+            center={true}
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "rgba(0,0,0,0.07)",
+                "borderRadius": 50,
+                "height": 100,
+                "justifyContent": "center",
+                "width": 100,
+              }
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#ffffff",
+                  },
+                  Object {
+                    "borderRadius": 40,
+                  },
+                ]
+              }
+            >
+              <Image
+                accessibilityLabel="claim-offer-issuer-logo"
+                accessible={true}
+                resizeMode="cover"
+                source={
+                  Object {
+                    "uri": "http://testissuer.com/logoUrl.png",
+                  }
+                }
+                style={
+                  Array [
+                    Object {
+                      "height": 80,
+                      "width": 80,
+                    },
+                    Object {
+                      "borderRadius": 40,
+                    },
+                    Object {
+                      "borderRadius": 40,
+                    },
+                  ]
+                }
+                testID="claim-offer-issuer-logo"
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        center={true}
+        fifth={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "justifyContent": "center",
+            "marginHorizontal": 10,
+            "marginTop": 5,
+            "paddingBottom": 10,
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#ffffff",
+                "color": "#777777",
+              },
+              Object {
+                "fontWeight": "600",
+              },
+              Object {
+                "textAlign": "center",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                Object {
+                  "color": "#ffffff",
+                },
+              ],
+            ]
+          }
+        >
+          Test Issuer is offering you
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 20,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#ffffff",
+                "color": "#777777",
+              },
+              Object {
+                "fontWeight": "900",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              Object {
+                "marginTop": 5,
+              },
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#ffffff",
+                },
+              ],
+            ]
+          }
+        >
+          Home Address
+        </Text>
+      </View>
+    </View>
+  </RCTSafeAreaView>
+  <View
+    fifth={true}
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+        "flex": 1,
+        "zIndex": -1,
+      }
+    }
+  >
+    <RCTScrollView
+      ItemSeparatorComponent={[Function]}
+      ListFooterComponent={[Function]}
+      data={
+        Array [
+          Object {
+            "data": "An Address",
+            "label": "Address 1",
+          },
+          Object {
+            "data": "An Address 2",
+            "label": "Address 2",
+          },
+        ]
+      }
+      disableVirtualization={false}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      horizontal={false}
+      initialNumToRender={10}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      numColumns={1}
+      onContentSizeChange={[Function]}
+      onEndReachedThreshold={2}
+      onLayout={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      stickyHeaderIndices={Array []}
+      updateCellsBatchingPeriod={50}
+      viewabilityConfigCallbackPairs={Array []}
+      windowSize={21}
+    >
+      <View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            doubleVerticalSpace={true}
+            fifth={true}
+            horizontalSpace={true}
+            row={true}
+            style={
+              Object {
+                "backgroundColor": "#ffffff",
+                "flexDirection": "row",
+                "paddingHorizontal": 15,
+                "paddingVertical": 16,
+              }
+            }
+          >
+            <View
+              fifth={true}
+              style={
+                Object {
+                  "alignItems": "flex-end",
+                  "backgroundColor": "#ffffff",
+                  "flex": 4,
+                  "paddingRight": 15,
+                }
+              }
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={false}
+                ellipsizeMode="tail"
+                style={
+                  Array [
+                    Object {
+                      "fontSize": 12,
+                    },
+                    Object {
+                      "fontFamily": "Lato",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                      "color": "#333333",
+                    },
+                    Object {
+                      "fontWeight": "600",
+                    },
+                    null,
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    Object {
+                      "lineHeight": 19,
+                    },
+                  ]
+                }
+              >
+                ADDRESS 1
+              </Text>
+            </View>
+            <View
+              fifth={true}
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "backgroundColor": "#ffffff",
+                  "flex": 6,
+                }
+              }
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={false}
+                ellipsizeMode="tail"
+                style={
+                  Array [
+                    Object {
+                      "fontSize": 15,
+                    },
+                    Object {
+                      "fontFamily": "Lato",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                      "color": "#333333",
+                    },
+                    Object {
+                      "fontWeight": "600",
+                    },
+                    null,
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                  ]
+                }
+              >
+                An Address
+              </Text>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "backgroundColor": "#f0f0f0",
+                "height": 2,
+              }
+            }
+          />
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            doubleVerticalSpace={true}
+            fifth={true}
+            horizontalSpace={true}
+            row={true}
+            style={
+              Object {
+                "backgroundColor": "#ffffff",
+                "flexDirection": "row",
+                "paddingHorizontal": 15,
+                "paddingVertical": 16,
+              }
+            }
+          >
+            <View
+              fifth={true}
+              style={
+                Object {
+                  "alignItems": "flex-end",
+                  "backgroundColor": "#ffffff",
+                  "flex": 4,
+                  "paddingRight": 15,
+                }
+              }
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={false}
+                ellipsizeMode="tail"
+                style={
+                  Array [
+                    Object {
+                      "fontSize": 12,
+                    },
+                    Object {
+                      "fontFamily": "Lato",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                      "color": "#333333",
+                    },
+                    Object {
+                      "fontWeight": "600",
+                    },
+                    null,
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    Object {
+                      "lineHeight": 19,
+                    },
+                  ]
+                }
+              >
+                ADDRESS 2
+              </Text>
+            </View>
+            <View
+              fifth={true}
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "backgroundColor": "#ffffff",
+                  "flex": 6,
+                }
+              }
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={false}
+                ellipsizeMode="tail"
+                style={
+                  Array [
+                    Object {
+                      "fontSize": 15,
+                    },
+                    Object {
+                      "fontFamily": "Lato",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                      "color": "#333333",
+                    },
+                    Object {
+                      "fontWeight": "600",
+                    },
+                    null,
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                  ]
+                }
+              >
+                An Address 2
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            style={
+              Object {
+                "backgroundColor": "#f0f0f0",
+                "height": 2,
+              }
+            }
+          />
+        </View>
+      </View>
+    </RCTScrollView>
+  </View>
+  <RCTSafeAreaView
+    style={
+      Object {
+        "backgroundColor": "rgba(119, 119, 119, 1.0)",
+      }
+    }
+  >
+    <View
+      fifth={true}
+      style={
+        Object {
+          "backgroundColor": "#ffffff",
+        }
+      }
+    >
+      <View
+        style={Object {}}
+      >
+        <View
+          customColor={
+            Object {
+              "backgroundColor": "rgba(119, 119, 119, 1.0)",
+            }
+          }
+          row={true}
+          style={
+            Object {
+              "flexDirection": "row",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "flex": 1,
+              }
+            }
+          >
+            <View
+              style={Object {}}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "marginLeft": 15,
+                      "marginRight": 15,
+                    },
+                    undefined,
+                    Object {
+                      "marginLeft": 0,
+                      "marginRight": 0,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <View
+                  accessibilityComponentType={undefined}
+                  accessibilityLabel="claim-offer-footer-deny"
+                  accessibilityTraits={undefined}
+                  accessible={true}
+                  hasTVPreferredFocus={undefined}
+                  hitSlop={undefined}
+                  isTVSelectable={true}
+                  nativeID={undefined}
+                  onLayout={undefined}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "transparent",
+                      },
+                      undefined,
+                    ]
+                  }
+                  testID="claim-offer-footer-deny"
+                  tvParallaxProperties={undefined}
+                >
+                  <View
+                    pointerEvents="box-only"
+                    style={
+                      Array [
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "#9E9E9E",
+                          "flexDirection": "row",
+                          "justifyContent": "center",
+                          "padding": 19,
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Object {
+                          "backgroundColor": "rgba(119, 119, 119, 1.0)",
+                        },
+                        undefined,
+                        Object {
+                          "padding": 12,
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "paddingVertical": 17,
+                          },
+                        ],
+                        false,
+                        false,
+                      ]
+                    }
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      ellipsizeMode="tail"
+                      style={
+                        Array [
+                          Object {},
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          Array [
+                            Object {
+                              "color": "white",
+                              "fontSize": 16,
+                            },
+                            Object {
+                              "color": "#ffffff",
+                            },
+                            Object {
+                              "fontSize": 14,
+                            },
+                            undefined,
+                            undefined,
+                            undefined,
+                            undefined,
+                            false,
+                          ],
+                        ]
+                      }
+                    >
+                      Ignore
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "flex": 1,
+              }
+            }
+          >
+            <View
+              style={Object {}}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "marginLeft": 15,
+                      "marginRight": 15,
+                    },
+                    undefined,
+                    Object {
+                      "marginLeft": 0,
+                      "marginRight": 0,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <View
+                  accessibilityComponentType={undefined}
+                  accessibilityLabel="claim-offer-footer-accept"
+                  accessibilityTraits={undefined}
+                  accessible={true}
+                  hasTVPreferredFocus={undefined}
+                  hitSlop={undefined}
+                  isTVSelectable={true}
+                  nativeID={undefined}
+                  onLayout={undefined}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "transparent",
+                      },
+                      Array [
+                        Object {
+                          "borderLeftColor": "#ffffff",
+                          "borderLeftWidth": 0.4,
+                        },
+                      ],
+                    ]
+                  }
+                  testID="claim-offer-footer-accept"
+                  tvParallaxProperties={undefined}
+                >
+                  <View
+                    pointerEvents="box-only"
+                    style={
+                      Array [
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "#9E9E9E",
+                          "flexDirection": "row",
+                          "justifyContent": "center",
+                          "padding": 19,
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Object {
+                          "backgroundColor": "rgba(119, 119, 119, 1.0)",
+                        },
+                        undefined,
+                        Object {
+                          "padding": 12,
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "paddingVertical": 17,
+                          },
+                          Object {
+                            "borderLeftColor": "#ffffff",
+                            "borderLeftWidth": 0.4,
+                          },
+                        ],
+                        false,
+                        false,
+                      ]
+                    }
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      ellipsizeMode="tail"
+                      style={
+                        Array [
+                          Object {},
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          Array [
+                            Object {
+                              "color": "white",
+                              "fontSize": 16,
+                            },
+                            Object {
+                              "color": "#ffffff",
+                            },
+                            Object {
+                              "fontSize": 14,
+                            },
+                            undefined,
+                            undefined,
+                            Object {
+                              "fontWeight": "bold",
+                            },
+                            undefined,
+                            false,
+                          ],
+                        ]
+                      }
+                    >
+                      Accept
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTSafeAreaView>
+</View>
+`;
+
+exports[`Paid <ClaimOffer /> should call claimOfferShown on componentDidMount 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#777777",
+      "flex": 1,
+    }
+  }
+>
+  <RCTSafeAreaView
+    style={Object {}}
+  >
+    <View
+      fifth={true}
+      style={
+        Object {
+          "backgroundColor": "#777777",
+          "borderBottomColor": "#777777",
+          "marginBottom": -10,
+          "paddingTop": 30,
+          "shadowColor": "#777777",
+          "shadowOffset": Object {
+            "height": 20,
+            "width": 0,
+          },
+          "shadowOpacity": 0.2,
+          "shadowRadius": 10,
+          "zIndex": 4,
+        }
+      }
+    >
+      <View
+        fifth={true}
+        hCenter={true}
+        style={
+          Object {
+            "backgroundColor": "transparent",
+            "height": 90,
+            "justifyContent": "center",
+          }
+        }
+      >
+        <View
+          absolute="TopRight"
+          accessibilityComponentType={undefined}
+          accessibilityLabel="claim-offer-icon-close-touchable"
+          accessibilityTraits={undefined}
+          accessible={false}
+          clearBg={true}
+          hitSlop={
+            Object {
+              "bottom": 20,
+              "left": 20,
+              "right": 20,
+              "top": 20,
+            }
+          }
+          iconStyle={
+            Array [
+              Object {
+                "marginRight": 15,
+              },
+            ]
+          }
+          medium={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          src={1}
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "zIndex": 2,
+            }
+          }
+          testID="claim-offer-icon-close-touchable"
+        >
+          <View
+            style={Object {}}
+          >
+            <Image
+              accessibilityLabel="claim-offer-icon-close"
+              accessible={true}
+              resizeMode="contain"
+              source={1}
+              style={
+                Array [
+                  Object {
+                    "height": 30,
+                    "width": 30,
+                  },
+                  null,
+                  Object {
+                    "marginRight": 15,
+                  },
+                ]
+              }
+              testID="claim-offer-icon-close"
+            />
+          </View>
+        </View>
+        <View
+          accessibilityLabel="claim-offer-issuer-logo"
+          accessible={true}
+          backgroundRoundWhite={true}
+          center={true}
+          clearBg={true}
+          extraLarge={true}
+          halo={true}
+          iconStyle={
+            Array [
+              Object {
+                "borderRadius": 40,
+              },
+            ]
+          }
+          resizeMode="cover"
+          src={
+            Object {
+              "uri": "http://testissuer.com/logoUrl.png",
+            }
+          }
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "center",
+              "backgroundColor": "transparent",
+              "bottom": 0,
+              "justifyContent": "center",
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "zIndex": 1,
+            }
+          }
+          testID="claim-offer-issuer-logo"
+        >
+          <View
+            center={true}
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "rgba(0,0,0,0.07)",
+                "borderRadius": 50,
+                "height": 100,
+                "justifyContent": "center",
+                "width": 100,
+              }
+            }
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "#ffffff",
+                  },
+                  Object {
+                    "borderRadius": 40,
+                  },
+                ]
+              }
+            >
+              <Image
+                accessibilityLabel="claim-offer-issuer-logo"
+                accessible={true}
+                resizeMode="cover"
+                source={
+                  Object {
+                    "uri": "http://testissuer.com/logoUrl.png",
+                  }
+                }
+                style={
+                  Array [
+                    Object {
+                      "height": 80,
+                      "width": 80,
+                    },
+                    Object {
+                      "borderRadius": 40,
+                    },
+                    Object {
+                      "borderRadius": 40,
+                    },
+                  ]
+                }
+                testID="claim-offer-issuer-logo"
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+      <View
+        center={true}
+        fifth={true}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "justifyContent": "center",
+            "marginHorizontal": 10,
+            "marginTop": 5,
+            "paddingBottom": 10,
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#ffffff",
+                "color": "#777777",
+              },
+              Object {
+                "fontWeight": "600",
+              },
+              Object {
+                "textAlign": "center",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                Object {
+                  "color": "#ffffff",
+                },
+              ],
+            ]
+          }
+        >
+          Test Issuer is offering you
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 20,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#ffffff",
+                "color": "#777777",
+              },
+              Object {
+                "fontWeight": "900",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              Object {
+                "marginTop": 5,
+              },
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#ffffff",
+                },
+              ],
+            ]
+          }
+        >
+          Home Address
+        </Text>
+        <View
+          horizontalSpace={true}
+          row={true}
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "flexDirection": "row",
+              "paddingHorizontal": 15,
+            }
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "fontSize": 20,
+                },
+                Object {
+                  "fontFamily": "Lato",
+                },
+                Object {
+                  "backgroundColor": "#ffffff",
+                  "color": "#777777",
+                },
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                Object {
+                  "fontSize": 14,
+                  "marginTop": 15,
+                },
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "color": "#ffffff",
+                  },
+                ],
+              ]
+            }
+          >
+            PAY
+          </Text>
+          <Text
+            accessible={true}
+            allowFontScaling={false}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {
+                  "fontSize": 17,
+                },
+                Object {
+                  "fontFamily": "Lato",
+                },
+                Object {
+                  "backgroundColor": "#ffffff",
+                  "color": "#777777",
+                },
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                Object {
+                  "marginTop": 5,
+                },
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "color": "#ffffff",
+                  },
+                ],
+                Object {
+                  "marginTop": 5,
+                },
+                Object {
+                  "fontSize": 36.57142857142857,
+                },
+              ]
+            }
+          >
+            8,000.0675854
+          </Text>
+          <View
+            clearBg={true}
+            iconStyle={
+              Array [
+                Object {
+                  "marginTop": 15,
+                },
+              ]
+            }
+            small={true}
+            src={1}
+            style={
+              Object {
+                "backgroundColor": "transparent",
+              }
+            }
+          >
+            <View
+              style={Object {}}
+            >
+              <Image
+                resizeMode="contain"
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "height": 20,
+                      "width": 20,
+                    },
+                    null,
+                    Object {
+                      "marginTop": 15,
+                    },
+                  ]
+                }
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "backgroundColor": "#ffffff",
+          "zIndex": 5,
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "borderBottomLeftRadius": 10,
+              "borderBottomRightRadius": 10,
+              "borderBottomWidth": 20,
+              "borderLeftColor": "transparent",
+              "borderLeftWidth": 0,
+              "borderRightColor": "transparent",
+              "borderRightWidth": 0,
+              "borderStyle": "solid",
+              "height": 0,
+              "width": "100%",
+            },
+            Object {
+              "backgroundColor": "#777777",
+              "borderBottomColor": "#777777",
+            },
+          ]
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 12,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#333333",
+                "color": "#ffffff",
+              },
+              null,
+              Object {
+                "textAlign": "center",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              Object {
+                "marginBottom": -10,
+              },
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#ffffff",
+                },
+              ],
+            ]
+          }
+        >
+          SOVRIN TOKENS
+        </Text>
+      </View>
+      <View
+        style={
+          Array [
+            Object {
+              "backgroundColor": "#777777",
+              "borderBottomColor": "#777777",
+            },
+            Object {
+              "alignSelf": "center",
+              "backgroundColor": "transparent",
+              "borderBottomWidth": 20,
+              "borderLeftColor": "transparent",
+              "borderLeftWidth": 152.38095238095238,
+              "borderRightColor": "transparent",
+              "borderRightWidth": 152.38095238095238,
+              "borderStyle": "solid",
+              "height": 0,
+              "transform": Array [
+                Object {
+                  "rotate": "180deg",
+                },
+              ],
+              "width": "95%",
+            },
+          ]
+        }
+      />
+    </View>
+  </RCTSafeAreaView>
+  <View
+    fifth={true}
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+        "flex": 1,
+        "zIndex": -1,
+      }
+    }
+  >
+    <RCTScrollView
+      ItemSeparatorComponent={[Function]}
+      ListFooterComponent={[Function]}
+      data={
+        Array [
+          Object {
+            "data": "An Address",
+            "label": "Address 1",
+          },
+          Object {
+            "data": "An Address 2",
+            "label": "Address 2",
+          },
+        ]
+      }
+      disableVirtualization={false}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      horizontal={false}
+      initialNumToRender={10}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      numColumns={1}
+      onContentSizeChange={[Function]}
+      onEndReachedThreshold={2}
+      onLayout={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      stickyHeaderIndices={Array []}
+      updateCellsBatchingPeriod={50}
+      viewabilityConfigCallbackPairs={Array []}
+      windowSize={21}
+    >
+      <View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            doubleVerticalSpace={true}
+            fifth={true}
+            horizontalSpace={true}
+            row={true}
+            style={
+              Object {
+                "backgroundColor": "#ffffff",
+                "flexDirection": "row",
+                "paddingHorizontal": 15,
+                "paddingVertical": 16,
+              }
+            }
+          >
+            <View
+              fifth={true}
+              style={
+                Object {
+                  "alignItems": "flex-end",
+                  "backgroundColor": "#ffffff",
+                  "flex": 4,
+                  "paddingRight": 15,
+                }
+              }
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={false}
+                ellipsizeMode="tail"
+                style={
+                  Array [
+                    Object {
+                      "fontSize": 12,
+                    },
+                    Object {
+                      "fontFamily": "Lato",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                      "color": "#333333",
+                    },
+                    Object {
+                      "fontWeight": "600",
+                    },
+                    null,
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    Object {
+                      "lineHeight": 19,
+                    },
+                  ]
+                }
+              >
+                ADDRESS 1
+              </Text>
+            </View>
+            <View
+              fifth={true}
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "backgroundColor": "#ffffff",
+                  "flex": 6,
+                }
+              }
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={false}
+                ellipsizeMode="tail"
+                style={
+                  Array [
+                    Object {
+                      "fontSize": 15,
+                    },
+                    Object {
+                      "fontFamily": "Lato",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                      "color": "#333333",
+                    },
+                    Object {
+                      "fontWeight": "600",
+                    },
+                    null,
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                  ]
+                }
+              >
+                An Address
+              </Text>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "backgroundColor": "#f0f0f0",
+                "height": 2,
+              }
+            }
+          />
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            doubleVerticalSpace={true}
+            fifth={true}
+            horizontalSpace={true}
+            row={true}
+            style={
+              Object {
+                "backgroundColor": "#ffffff",
+                "flexDirection": "row",
+                "paddingHorizontal": 15,
+                "paddingVertical": 16,
+              }
+            }
+          >
+            <View
+              fifth={true}
+              style={
+                Object {
+                  "alignItems": "flex-end",
+                  "backgroundColor": "#ffffff",
+                  "flex": 4,
+                  "paddingRight": 15,
+                }
+              }
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={false}
+                ellipsizeMode="tail"
+                style={
+                  Array [
+                    Object {
+                      "fontSize": 12,
+                    },
+                    Object {
+                      "fontFamily": "Lato",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                      "color": "#333333",
+                    },
+                    Object {
+                      "fontWeight": "600",
+                    },
+                    null,
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    Object {
+                      "lineHeight": 19,
+                    },
+                  ]
+                }
+              >
+                ADDRESS 2
+              </Text>
+            </View>
+            <View
+              fifth={true}
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "backgroundColor": "#ffffff",
+                  "flex": 6,
+                }
+              }
+            >
+              <Text
+                accessible={true}
+                allowFontScaling={false}
+                ellipsizeMode="tail"
+                style={
+                  Array [
+                    Object {
+                      "fontSize": 15,
+                    },
+                    Object {
+                      "fontFamily": "Lato",
+                    },
+                    Object {
+                      "backgroundColor": "#ffffff",
+                      "color": "#333333",
+                    },
+                    Object {
+                      "fontWeight": "600",
+                    },
+                    null,
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                  ]
+                }
+              >
+                An Address 2
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            style={
+              Object {
+                "backgroundColor": "#f0f0f0",
+                "height": 2,
+              }
+            }
+          />
+        </View>
+      </View>
+    </RCTScrollView>
+  </View>
+  <RCTSafeAreaView
+    style={
+      Object {
+        "backgroundColor": "rgba(119, 119, 119, 1.0)",
+      }
+    }
+  >
+    <View
+      fifth={true}
+      style={
+        Object {
+          "backgroundColor": "#ffffff",
+        }
+      }
+    >
+      <View
+        style={Object {}}
+      >
+        <View
+          customColor={
+            Object {
+              "backgroundColor": "rgba(119, 119, 119, 1.0)",
+            }
+          }
+          row={true}
+          style={
+            Object {
+              "flexDirection": "row",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "flex": 1,
+              }
+            }
+          >
+            <View
+              style={Object {}}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "marginLeft": 15,
+                      "marginRight": 15,
+                    },
+                    undefined,
+                    Object {
+                      "marginLeft": 0,
+                      "marginRight": 0,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <View
+                  accessibilityComponentType={undefined}
+                  accessibilityLabel="claim-offer-footer-deny"
+                  accessibilityTraits={undefined}
+                  accessible={true}
+                  hasTVPreferredFocus={undefined}
+                  hitSlop={undefined}
+                  isTVSelectable={true}
+                  nativeID={undefined}
+                  onLayout={undefined}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "transparent",
+                      },
+                      undefined,
+                    ]
+                  }
+                  testID="claim-offer-footer-deny"
+                  tvParallaxProperties={undefined}
+                >
+                  <View
+                    pointerEvents="box-only"
+                    style={
+                      Array [
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "#9E9E9E",
+                          "flexDirection": "row",
+                          "justifyContent": "center",
+                          "padding": 19,
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Object {
+                          "backgroundColor": "rgba(119, 119, 119, 1.0)",
+                        },
+                        undefined,
+                        Object {
+                          "padding": 12,
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "paddingVertical": 17,
+                          },
+                        ],
+                        false,
+                        false,
+                      ]
+                    }
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      ellipsizeMode="tail"
+                      style={
+                        Array [
+                          Object {},
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          Array [
+                            Object {
+                              "color": "white",
+                              "fontSize": 16,
+                            },
+                            Object {
+                              "color": "#ffffff",
+                            },
+                            Object {
+                              "fontSize": 14,
+                            },
+                            undefined,
+                            undefined,
+                            undefined,
+                            undefined,
+                            false,
+                          ],
+                        ]
+                      }
+                    >
+                      Ignore
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "flex": 1,
+              }
+            }
+          >
+            <View
+              style={Object {}}
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "marginLeft": 15,
+                      "marginRight": 15,
+                    },
+                    undefined,
+                    Object {
+                      "marginLeft": 0,
+                      "marginRight": 0,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <View
+                  accessibilityComponentType={undefined}
+                  accessibilityLabel="claim-offer-footer-accept"
+                  accessibilityTraits={undefined}
+                  accessible={true}
+                  hasTVPreferredFocus={undefined}
+                  hitSlop={undefined}
+                  isTVSelectable={true}
+                  nativeID={undefined}
+                  onLayout={undefined}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Array [
+                      Object {
+                        "backgroundColor": "transparent",
+                      },
+                      Array [
+                        Object {
+                          "borderLeftColor": "#ffffff",
+                          "borderLeftWidth": 0.4,
+                        },
+                      ],
+                    ]
+                  }
+                  testID="claim-offer-footer-accept"
+                  tvParallaxProperties={undefined}
+                >
+                  <View
+                    pointerEvents="box-only"
+                    style={
+                      Array [
+                        Object {
+                          "alignItems": "center",
+                          "backgroundColor": "#9E9E9E",
+                          "flexDirection": "row",
+                          "justifyContent": "center",
+                          "padding": 19,
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Object {
+                          "backgroundColor": "rgba(119, 119, 119, 1.0)",
+                        },
+                        undefined,
+                        Object {
+                          "padding": 12,
+                        },
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "paddingVertical": 17,
+                          },
+                          Object {
+                            "borderLeftColor": "#ffffff",
+                            "borderLeftWidth": 0.4,
+                          },
+                        ],
+                        false,
+                        false,
+                      ]
+                    }
+                  >
+                    <Text
+                      accessible={true}
+                      allowFontScaling={true}
+                      ellipsizeMode="tail"
+                      style={
+                        Array [
+                          Object {},
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          undefined,
+                          Array [
+                            Object {
+                              "color": "white",
+                              "fontSize": 16,
+                            },
+                            Object {
+                              "color": "#ffffff",
+                            },
+                            Object {
+                              "fontSize": 14,
+                            },
+                            undefined,
+                            undefined,
+                            Object {
+                              "fontWeight": "bold",
+                            },
+                            undefined,
+                            false,
+                          ],
+                        ]
+                      }
+                    >
+                      Accept & Pay
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTSafeAreaView>
+</View>
+`;
