@@ -1,0 +1,558 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LockSetupSuccess /> should display Loading while fetching the invitation 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+    }
+  }
+  tertiary={true}
+>
+  <View
+    center={true}
+    clearBg={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "transparent",
+        "flex": 1,
+        "justifyContent": "center",
+        "paddingHorizontal": 20,
+      }
+    }
+  >
+    <View
+      accessibilityLabel="lock-success-lock-logo"
+      accessible={true}
+      clearBg={true}
+      extraLarge={true}
+      resizeMode="cover"
+      src={1}
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+      testID="lock-success-lock-logo"
+    >
+      <View
+        style={Object {}}
+      >
+        <Image
+          accessibilityLabel="lock-success-lock-logo"
+          accessible={true}
+          resizeMode="cover"
+          source={1}
+          style={
+            Array [
+              Object {
+                "height": 80,
+                "width": 80,
+              },
+              null,
+            ]
+          }
+          testID="lock-success-lock-logo"
+        />
+      </View>
+    </View>
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 20,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#ffffff",
+            "color": "#777777",
+          },
+          Object {
+            "fontWeight": "800",
+          },
+          Object {
+            "textAlign": "center",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "paddingVertical": 40,
+          },
+        ]
+      }
+    >
+      Loading please wait...
+    </Text>
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 15,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#ffffff",
+            "color": "#777777",
+          },
+          Object {
+            "fontWeight": "800",
+          },
+          Object {
+            "textAlign": "center",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "paddingVertical": 40,
+          },
+        ]
+      }
+    >
+       
+    </Text>
+  </View>
+  <View
+    style={Object {}}
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "marginLeft": 15,
+            "marginRight": 15,
+          },
+          Object {
+            "shadowColor": "rgba(0,0,0, .4)",
+            "shadowOffset": Object {
+              "height": 1,
+              "width": 1,
+            },
+            "shadowOpacity": 1,
+            "shadowRadius": 1,
+          },
+          Object {
+            "marginLeft": 0,
+            "marginRight": 0,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel="close-button"
+        accessibilityTraits={undefined}
+        accessible={true}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+            },
+            undefined,
+          ]
+        }
+        testID="close-button"
+        tvParallaxProperties={undefined}
+      >
+        <View
+          pointerEvents="box-only"
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#9E9E9E",
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "padding": 19,
+              },
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              Object {
+                "backgroundColor": "#777777",
+              },
+              undefined,
+              Object {
+                "padding": 12,
+              },
+              undefined,
+              undefined,
+              undefined,
+              Array [
+                Object {
+                  "paddingVertical": 17,
+                },
+              ],
+              Object {
+                "backgroundColor": "#dadee0",
+              },
+              Array [
+                Object {
+                  "backgroundColor": "#ffffff",
+                },
+                Object {
+                  "opacity": 0.4,
+                },
+              ],
+            ]
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {},
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                Array [
+                  Object {
+                    "color": "white",
+                    "fontSize": 16,
+                  },
+                  Object {
+                    "color": "#ffffff",
+                  },
+                  Object {
+                    "fontSize": 14,
+                  },
+                  undefined,
+                  undefined,
+                  Object {
+                    "fontWeight": "600",
+                  },
+                  undefined,
+                  undefined,
+                ],
+              ]
+            }
+          >
+            Close
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<LockSetupSuccess /> should render Lock setup success Screen 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+    }
+  }
+  tertiary={true}
+>
+  <View
+    center={true}
+    clearBg={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "transparent",
+        "flex": 1,
+        "justifyContent": "center",
+        "paddingHorizontal": 20,
+      }
+    }
+  >
+    <View
+      accessibilityLabel="lock-success-lock-logo"
+      accessible={true}
+      clearBg={true}
+      extraLarge={true}
+      resizeMode="cover"
+      src={1}
+      style={
+        Object {
+          "backgroundColor": "transparent",
+        }
+      }
+      testID="lock-success-lock-logo"
+    >
+      <View
+        style={Object {}}
+      >
+        <Image
+          accessibilityLabel="lock-success-lock-logo"
+          accessible={true}
+          resizeMode="cover"
+          source={1}
+          style={
+            Array [
+              Object {
+                "height": 80,
+                "width": 80,
+              },
+              null,
+            ]
+          }
+          testID="lock-success-lock-logo"
+        />
+      </View>
+    </View>
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 20,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#ffffff",
+            "color": "#777777",
+          },
+          Object {
+            "fontWeight": "800",
+          },
+          Object {
+            "textAlign": "center",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "paddingVertical": 40,
+          },
+        ]
+      }
+    >
+      Your connect.me app is now secured
+    </Text>
+    <Text
+      accessible={true}
+      allowFontScaling={false}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "fontSize": 15,
+          },
+          Object {
+            "fontFamily": "Lato",
+          },
+          Object {
+            "backgroundColor": "#ffffff",
+            "color": "#777777",
+          },
+          Object {
+            "fontWeight": "800",
+          },
+          Object {
+            "textAlign": "center",
+          },
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          Object {
+            "paddingVertical": 40,
+          },
+        ]
+      }
+    >
+       
+    </Text>
+  </View>
+  <View
+    style={Object {}}
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "marginLeft": 15,
+            "marginRight": 15,
+          },
+          Object {
+            "shadowColor": "rgba(0,0,0, .4)",
+            "shadowOffset": Object {
+              "height": 1,
+              "width": 1,
+            },
+            "shadowOpacity": 1,
+            "shadowRadius": 1,
+          },
+          Object {
+            "marginLeft": 0,
+            "marginRight": 0,
+          },
+          undefined,
+        ]
+      }
+    >
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel="close-button"
+        accessibilityTraits={undefined}
+        accessible={true}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+            },
+            undefined,
+          ]
+        }
+        testID="close-button"
+        tvParallaxProperties={undefined}
+      >
+        <View
+          pointerEvents="box-only"
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#9E9E9E",
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "padding": 19,
+              },
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              undefined,
+              Object {
+                "backgroundColor": "#777777",
+              },
+              undefined,
+              Object {
+                "padding": 12,
+              },
+              undefined,
+              undefined,
+              undefined,
+              Array [
+                Object {
+                  "paddingVertical": 17,
+                },
+              ],
+              false,
+              false,
+            ]
+          }
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Array [
+                Object {},
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                Array [
+                  Object {
+                    "color": "white",
+                    "fontSize": 16,
+                  },
+                  Object {
+                    "color": "#ffffff",
+                  },
+                  Object {
+                    "fontSize": 14,
+                  },
+                  undefined,
+                  undefined,
+                  Object {
+                    "fontWeight": "600",
+                  },
+                  undefined,
+                  false,
+                ],
+              ]
+            }
+          >
+            Close
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;

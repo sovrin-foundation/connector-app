@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`QR Scanner validator should return data for valid schema 1`] = `
+Object {
+  "id": "yta2odh",
+  "s": Object {
+    "d": "F2axeahCaZfbUYUcKefc3j",
+    "dp": Object {
+      "d": "N2Uyi6SVsHZq1VWXuA3EMg",
+      "k": "CTfF2sZ5q4oPcBvTP75pgx3WGzYiLSTwHGg9zUsJJegi",
+      "s": "/FxHMzX8JaH461k1SI5PfyxF5KwBAe6VlaYBNLI2aSZU3APsiWBfvSC+mxBYJ/zAhX9IUeTEX67fj+FCXZZ2Cg==",
+    },
+    "l": "ent-logo-url",
+    "n": "ent-name",
+    "v": "74xeXSEac5QTWzQmh84JqzjuXc8yvXLzWKeiqyUnYokx",
+  },
+  "sa": Object {
+    "d": "BDSmVkzxRYGE4HKyMKxd1H",
+    "e": "52.38.32.107:80/agency/msg",
+    "v": "6yUatReYWNSUfEtC2ABgRXmmLaxCyQqsjLwv2BomxsxD",
+  },
+  "t": "there",
+}
+`;

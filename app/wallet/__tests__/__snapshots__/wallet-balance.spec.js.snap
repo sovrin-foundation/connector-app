@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<WalletBalance /> should render WalletBalance 1`] = `
+<View>
+  <View>
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+    >
+      1000
+    </Text>
+  </View>
+</View>
+`;

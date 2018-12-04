@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PinCodeDigit /> when digit is entered 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  center={true}
+  hitSlop={
+    Object {
+      "bottom": 20,
+      "left": 20,
+      "right": 20,
+      "top": 20,
+    }
+  }
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "borderBottomColor": "#777777",
+      "borderBottomWidth": 5,
+      "height": 66,
+      "justifyContent": "center",
+      "marginHorizontal": 5,
+      "width": 38,
+    }
+  }
+  testID={undefined}
+>
+  <Image
+    resizeMode="contain"
+    source={1}
+    style={
+      Object {
+        "height": 26,
+        "width": 26,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`<PinCodeDigit /> when digit is not entered 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel={undefined}
+  accessibilityTraits={undefined}
+  accessible={true}
+  center={true}
+  hitSlop={
+    Object {
+      "bottom": 20,
+      "left": 20,
+      "right": 20,
+      "top": 20,
+    }
+  }
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "borderBottomColor": "#777777",
+      "borderBottomWidth": 5,
+      "height": 66,
+      "justifyContent": "center",
+      "marginHorizontal": 5,
+      "width": 38,
+    }
+  }
+  testID={undefined}
+/>
+`;

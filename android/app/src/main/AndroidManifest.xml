@@ -1,0 +1,97 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="me.connect"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-sdk
+        android:minSdkVersion="23"
+        android:targetSdkVersion="26" />
+
+    <uses-feature android:name="android.hardware.fingerprint" android:required="false" />
+
+    <application
+      android:name=".MainApplication"
+        tools:replace="android:label,allowBackup"
+        android:label="@string/app_name"
+        android:allowBackup="false"
+        android:theme="@style/AppTheme"
+        android:icon="@mipmap/ic_launcher">
+
+        <service android:name="io.invertase.firebase.messaging.RNFirebaseMessagingService">
+            <intent-filter>
+            <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name="io.invertase.firebase.messaging.RNFirebaseInstanceIdService">
+            <intent-filter>
+            <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service android:name="io.invertase.firebase.messaging.RNFirebaseBackgroundMessagingService" />
+
+        <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@mipmap/ic_launcher_1"/>
+        <meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/ic_logo_color" />
+        <!-- launchMode needs to be singleTask, otherwise deep links will not work correctly -->
+      <activity
+        android:name=".MainActivity"
+        android:launchMode="singleTask"
+        android:label="@string/app_name"
+        android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+        android:screenOrientation="portrait"
+        android:windowSoftInputMode="adjustResize">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
+        <intent-filter>
+            <data android:scheme="branchandroid" />
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+        </intent-filter>
+
+        <!-- Branch App Links (optional) -->
+        <intent-filter android:autoVerify="true">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" android:host="connectme.app.link" />
+            <data android:scheme="connectme" android:host="app.link" />
+        </intent-filter>
+      </activity>
+
+              <!-- Branch init -->
+        <meta-data android:name="io.branch.sdk.BranchKey" android:value="${BRANCH_LIVE_KEY}" />
+        <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="${BRANCH_TEST_KEY}" />
+        <meta-data android:name="io.branch.sdk.TestMode" android:value="false" />
+
+      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+        <meta-data android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />
+       //TODO add InstanceIdService.java to manifest file
+
+      // tools:replace="android:authorities"
+      <provider
+          android:name="android.support.v4.content.FileProvider"
+          android:authorities="me.connect.provider"
+          android:grantUriPermissions="true"
+          android:exported="false">
+          <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/filepaths" tools:replace="resource"/>
+      </provider>
+    </application>
+
+</manifest>

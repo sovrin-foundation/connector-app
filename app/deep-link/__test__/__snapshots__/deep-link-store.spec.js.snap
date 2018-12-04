@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Deep link store should correctly update store when we get deep link data 1`] = `
+Object {
+  "error": null,
+  "isLoading": false,
+  "tokens": Object {
+    "erg76sd": Object {
+      "error": null,
+      "status": "NONE",
+      "token": "erg76sd",
+    },
+  },
+}
+`;
+
+exports[`Deep link store should reset, if RESET action is raised 1`] = `
+Object {
+  "error": null,
+  "isLoading": true,
+  "tokens": Object {},
+}
+`;
+
+exports[`Deep link store should update store for empty link 1`] = `
+Object {
+  "error": null,
+  "isLoading": false,
+  "tokens": Object {},
+}
+`;
+
+exports[`Deep link store should update store for error 1`] = `
+Object {
+  "error": "error",
+  "isLoading": false,
+  "tokens": Object {},
+}
+`;

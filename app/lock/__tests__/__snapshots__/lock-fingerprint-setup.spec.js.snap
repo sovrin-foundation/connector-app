@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LockFingerprintSetup /> should render touchId modal 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+      "paddingBottom": 20,
+      "paddingHorizontal": 20,
+      "paddingTop": 30,
+    }
+  }
+  tertiary={true}
+/>
+`;
+
+exports[`<LockFingerprintSetup /> should test touchId handler is called 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+      "paddingBottom": 20,
+      "paddingHorizontal": 20,
+      "paddingTop": 30,
+    }
+  }
+  tertiary={true}
+/>
+`;

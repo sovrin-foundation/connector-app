@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Badge /> should render dark colored badge 1`] = `
+<View
+  clearBg={true}
+  style={
+    Object {
+      "backgroundColor": "transparent",
+    }
+  }
+>
+  <Image
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    hitSlop={undefined}
+    nativeID={undefined}
+    onLayout={undefined}
+    onPress={[MockFunction]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    resizeMode="contain"
+    source={1}
+    style={
+      Object {
+        "height": 26,
+        "width": 22,
+      }
+    }
+    testID={undefined}
+  />
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    center={true}
+    ellipsizeMode="tail"
+    secondary={false}
+    style={
+      Array [
+        Object {
+          "fontSize": 12,
+          "fontWeight": "bold",
+        },
+        Object {
+          "color": "#f0f0f0",
+        },
+        Object {
+          "textAlign": "center",
+          "textAlignVertical": "center",
+        },
+        Object {},
+      ]
+    }
+    text={10}
+  >
+    10
+  </Text>
+</View>
+`;
+
+exports[`<Badge /> should render light colored badge 1`] = `
+<View
+  clearBg={true}
+  style={
+    Object {
+      "backgroundColor": "transparent",
+    }
+  }
+>
+  <Image
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    hitSlop={undefined}
+    nativeID={undefined}
+    onLayout={undefined}
+    onPress={[MockFunction]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    resizeMode="contain"
+    source={1}
+    style={
+      Object {
+        "height": 26,
+        "width": 22,
+      }
+    }
+    testID={undefined}
+  />
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    center={true}
+    ellipsizeMode="tail"
+    secondary={false}
+    style={
+      Array [
+        Object {
+          "fontSize": 12,
+          "fontWeight": "bold",
+        },
+        Object {
+          "color": "#f0f0f0",
+        },
+        Object {
+          "textAlign": "center",
+          "textAlignVertical": "center",
+        },
+        Object {},
+      ]
+    }
+    text={10}
+  >
+    10
+  </Text>
+</View>
+`;

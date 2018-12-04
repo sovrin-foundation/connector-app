@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`app lock selection page should in case of fetching invitation show message 1`] = `
+<View
+  center={true}
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text
+    accessible={true}
+    allowFontScaling={false}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Object {
+          "fontSize": 17,
+        },
+        Object {
+          "fontFamily": "Lato",
+        },
+        Object {
+          "backgroundColor": "#ffffff",
+          "color": "#777777",
+        },
+        Object {
+          "fontWeight": "600",
+        },
+        Object {
+          "textAlign": "center",
+        },
+        Object {
+          "backgroundColor": "transparent",
+        },
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+      ]
+    }
+  >
+    Loading please wait...
+  </Text>
+</View>
+`;
+
+exports[`app lock selection page should render properly 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+/>
+`;

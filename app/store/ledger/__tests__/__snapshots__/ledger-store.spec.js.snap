@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ledgerStore action: GET_LEDGER_FEES 1`] = `
+Object {
+  "fees": Object {
+    "data": Object {
+      "transfer": "0",
+    },
+    "error": null,
+    "status": "IN_PROGRESS",
+  },
+}
+`;
+
+exports[`ledgerStore action: GET_LEDGER_FEES_FAIL 1`] = `
+Object {
+  "fees": Object {
+    "data": Object {
+      "transfer": "0",
+    },
+    "error": Object {
+      "code": "LE-001",
+      "message": "Error occurred while fetching ledger fees: Test error",
+    },
+    "status": "ERROR",
+  },
+}
+`;
+
+exports[`ledgerStore action: GET_LEDGER_FEES_SUCCESS 1`] = `
+Object {
+  "fees": Object {
+    "data": Object {
+      "transfer": "0.00001",
+    },
+    "error": null,
+    "status": "SUCCESS",
+  },
+}
+`;
+
+exports[`ledgerStore action: RESET_LEDGER_FEES 1`] = `
+Object {
+  "fees": Object {
+    "data": Object {
+      "transfer": "0",
+    },
+    "error": null,
+    "status": "IDLE",
+  },
+}
+`;

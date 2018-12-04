@@ -1,0 +1,577 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Store: ConnectionHistory convertConnectionSuccessToHistoryEvent should raise success 1`] = `
+Object {
+  "action": "CONNECTED",
+  "data": Array [
+    Object {
+      "data": "2018-01-10T04:32:43+05:30",
+      "label": "Established on",
+    },
+  ],
+  "id": "a4f35623-b50c-40ea-a2b0-f7cd06e03142",
+  "name": "sender1",
+  "originalPayload": Object {
+    "connection": Object {
+      "identifier": "pairwiseIdentifier1",
+      "logoUrl": "lu",
+      "myPairwiseAgentDid": "myPairwiseAgentDID",
+      "myPairwiseAgentVerKey": "myPairwiseAgentVerKey",
+      "myPairwiseDid": "pairwiseIdentifier1",
+      "myPairwisePeerVerKey": "senderVerificationKey1",
+      "myPairwiseVerKey": "pairwiseVerificationKey1",
+      "requestId": "requestId1",
+      "senderAgencyDetail": Object {
+        "DID": "senderDID1",
+        "endpoint": "endpoint",
+        "verKey": "senderVerificationKey1",
+      },
+      "senderAgentKeyDelegationProof": Object {
+        "agentDID": "senderAgentDID1",
+        "agentDelegatedKey": "agentDelegatedKey",
+        "signature": "signature",
+      },
+      "senderDID": "senderDID1",
+      "senderDetail": Object {
+        "DID": "senderDID1",
+        "agentKeyDlgProof": Object {
+          "agentDID": "senderAgentDID1",
+          "agentDelegatedKey": "agentDelegatedKey",
+          "signature": "signature",
+        },
+        "logoUrl": "http://testissuer.com/logoUrl.png",
+        "name": "sender1",
+        "verKey": "senderVerificationKey1",
+      },
+      "senderEndpoint": "endpoint",
+      "senderLogoUrl": "lu",
+      "senderName": "sender1",
+      "senderVerificationKey": "sVk",
+      "targetName": "target name",
+    },
+    "type": "NEW_CONNECTION_SUCCESS",
+  },
+  "remoteDid": "senderDID1",
+  "status": "CONNECTED",
+  "timestamp": "2018-01-10T04:32:43+05:30",
+  "type": "INVITATION",
+}
+`;
+
+exports[`Store: ConnectionHistory convertInvitationToHistoryEvent should raise success 1`] = `
+Object {
+  "action": "CONNECTION REQUEST",
+  "data": Object {},
+  "id": "a4f35623-b50c-40ea-a2b0-f7cd06e03142",
+  "name": "sender1",
+  "originalPayload": Object {
+    "requestId": "requestId1",
+    "senderAgencyDetail": Object {
+      "DID": "senderDID1",
+      "endpoint": "endpoint",
+      "verKey": "senderVerificationKey1",
+    },
+    "senderAgentKeyDelegationProof": Object {
+      "agentDID": "senderAgentDID1",
+      "agentDelegatedKey": "agentDelegatedKey",
+      "signature": "signature",
+    },
+    "senderDID": "senderDID1",
+    "senderDetail": Object {
+      "DID": "senderDID1",
+      "agentKeyDlgProof": Object {
+        "agentDID": "senderAgentDID1",
+        "agentDelegatedKey": "agentDelegatedKey",
+        "signature": "signature",
+      },
+      "logoUrl": "http://testissuer.com/logoUrl.png",
+      "name": "sender1",
+      "verKey": "senderVerificationKey1",
+    },
+    "senderEndpoint": "endpoint",
+    "senderLogoUrl": "lu",
+    "senderName": "sender1",
+    "senderVerificationKey": "sVk",
+    "targetName": "target name",
+  },
+  "remoteDid": "senderDID1",
+  "status": "CONNECTION REQUEST",
+  "timestamp": "2018-01-10T04:32:43+05:30",
+  "type": "INVITATION",
+}
+`;
+
+exports[`Store: ConnectionHistory convertProofAutoFillToHistoryEvent should raise success 1`] = `
+Object {
+  "action": "SHARED",
+  "data": Array [
+    Object {
+      "claimUuid": "claim::f760213b-e719-47fb-9669-b72c5c410e8c",
+      "data": "male",
+      "key": "attr2_uuid",
+      "label": "Address 2",
+    },
+    Object {
+      "claimUuid": "claim::f760213b-e719-47fb-9669-b72c5c410e8c",
+      "data": "Alex",
+      "key": "attr1_uuid",
+      "label": "Address 1",
+    },
+  ],
+  "id": "a4f35623-b50c-40ea-a2b0-f7cd06e03142",
+  "name": "proof_req_auto_filled",
+  "originalPayload": Object {
+    "type": "SEND_PROOF_SUCCESS",
+    "uid": "pid123",
+  },
+  "remoteDid": "remotePairWiseDID",
+  "status": "SHARED",
+  "timestamp": "2018-01-10T04:32:43+05:30",
+  "type": "PROOF",
+}
+`;
+
+exports[`Store: ConnectionHistory convertProofRequestToHistoryEvent should raise success 1`] = `
+Object {
+  "action": "PROOF RECEIVED",
+  "data": Array [
+    Object {
+      "label": "Address 1",
+    },
+    Object {
+      "label": "Address 2",
+    },
+  ],
+  "id": "a4f35623-b50c-40ea-a2b0-f7cd06e03142",
+  "name": "Home Address",
+  "originalPayload": Object {
+    "payload": Object {
+      "data": Object {
+        "name": "Home Address",
+        "requestedAttributes": Array [
+          Object {
+            "label": "Address 1",
+          },
+          Object {
+            "label": "Address 2",
+          },
+        ],
+        "version": "1.0.0",
+      },
+      "originalProofRequestData": Object {
+        "name": "proof_req_1",
+        "nonce": "123432421212",
+        "requested_attributes": Object {
+          "attr1_uuid": Object {
+            "name": "Address 1",
+          },
+          "attr2_uuid": Object {
+            "name": "Address 2",
+          },
+        },
+        "requested_predicates": Object {},
+        "version": "0.1",
+      },
+      "proofHandle": 1,
+      "requester": Object {
+        "name": "Test Issuer",
+      },
+      "statusMsg": "pending",
+    },
+    "payloadInfo": Object {
+      "remotePairwiseDID": "senderDID1",
+      "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
+      "uid": "pid123",
+    },
+    "type": "PROOF_REQUEST_RECEIVED",
+  },
+  "remoteDid": "senderDID1",
+  "status": "PROOF RECEIVED",
+  "timestamp": "2018-01-10T04:32:43+05:30",
+  "type": "PROOF",
+}
+`;
+
+exports[`Store: ConnectionHistory convertSendClaimRequestSuccessToHistoryEvent should raise success 1`] = `
+Object {
+  "action": "PENDING",
+  "data": Array [
+    Object {
+      "data": "Address Address Address",
+      "label": "Address 1",
+    },
+    Object {
+      "data": "Address 2 Address 2 Address 2",
+      "label": "Address 2",
+    },
+  ],
+  "id": "a4f35623-b50c-40ea-a2b0-f7cd06e03142",
+  "name": "Home Address",
+  "originalPayload": Object {
+    "payload": Object {
+      "claimRequestStatus": "CLAIM_REQUEST_SUCCESS",
+      "data": Object {
+        "claimDefinitionSchemaSequenceNumber": 36,
+        "name": "Home Address",
+        "revealedAttributes": Array [
+          Object {
+            "data": "Address Address Address",
+            "label": "Address 1",
+          },
+          Object {
+            "data": "Address 2 Address 2 Address 2",
+            "label": "Address 2",
+          },
+        ],
+        "version": "1.0.0",
+      },
+      "issuer": Object {
+        "did": "issuerDid",
+        "name": "Test Issuer",
+      },
+      "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+      "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+      "status": "RECEIVED",
+      "statusMsg": "pending",
+      "uid": "usd123",
+    },
+    "type": "SEND_CLAIM_REQUEST_SUCCESS",
+    "uid": "uid",
+  },
+  "remoteDid": "ha66899sadfjZJGINKN0770",
+  "status": "PENDING",
+  "timestamp": "2018-01-10T04:32:43+05:30",
+  "type": "CLAIM",
+}
+`;
+
+exports[`Store: ConnectionHistory match loadHistory 1`] = `
+Object {
+  "data": null,
+  "error": null,
+  "isLoading": true,
+}
+`;
+
+exports[`Store: ConnectionHistory match loadHistoryFail 1`] = `
+Object {
+  "data": null,
+  "error": Object {
+    "code": "TEST 101",
+    "message": "Load History failed",
+  },
+  "isLoading": false,
+}
+`;
+
+exports[`Store: ConnectionHistory match loadHistorySuccess 1`] = `
+Object {
+  "data": Object {
+    "senderDID1": Array [
+      Object {
+        "action": "CONNECTION REQUEST",
+        "data": Object {},
+        "id": "a4f35623-b50c-40ea-a2b0-f7cd06e03142",
+        "name": "sender1",
+        "originalPayload": Object {
+          "requestId": "requestId1",
+          "senderAgencyDetail": Object {
+            "DID": "senderDID1",
+            "endpoint": "endpoint",
+            "verKey": "senderVerificationKey1",
+          },
+          "senderAgentKeyDelegationProof": Object {
+            "agentDID": "senderAgentDID1",
+            "agentDelegatedKey": "agentDelegatedKey",
+            "signature": "signature",
+          },
+          "senderDID": "senderDID1",
+          "senderDetail": Object {
+            "DID": "senderDID1",
+            "agentKeyDlgProof": Object {
+              "agentDID": "senderAgentDID1",
+              "agentDelegatedKey": "agentDelegatedKey",
+              "signature": "signature",
+            },
+            "logoUrl": "http://testissuer.com/logoUrl.png",
+            "name": "sender1",
+            "verKey": "senderVerificationKey1",
+          },
+          "senderEndpoint": "endpoint",
+          "senderLogoUrl": "lu",
+          "senderName": "sender1",
+          "senderVerificationKey": "sVk",
+          "targetName": "target name",
+        },
+        "remoteDid": "senderDID1",
+        "status": "CONNECTION REQUEST",
+        "timestamp": "2018-01-10T04:32:43+05:30",
+        "type": "INVITATION",
+      },
+      Object {
+        "action": "CONNECTED",
+        "data": Array [
+          Object {
+            "data": "2018-01-10T04:32:43+05:30",
+            "label": "Established on",
+          },
+        ],
+        "id": "a4f35623-b50c-40ea-a2b0-f7cd06e03142",
+        "name": undefined,
+        "originalPayload": Object {
+          "connection": Object {
+            "newConnection": Object {
+              "identifier": "pairwiseIdentifier1",
+              "logoUrl": "lu",
+              "myPairwiseAgentDid": "myPairwiseAgentDID",
+              "myPairwiseAgentVerKey": "myPairwiseAgentVerKey",
+              "myPairwiseDid": "pairwiseIdentifier1",
+              "myPairwisePeerVerKey": "senderVerificationKey1",
+              "myPairwiseVerKey": "pairwiseVerificationKey1",
+              "requestId": "requestId1",
+              "senderAgencyDetail": Object {
+                "DID": "senderDID1",
+                "endpoint": "endpoint",
+                "verKey": "senderVerificationKey1",
+              },
+              "senderAgentKeyDelegationProof": Object {
+                "agentDID": "senderAgentDID1",
+                "agentDelegatedKey": "agentDelegatedKey",
+                "signature": "signature",
+              },
+              "senderDID": "senderDID1",
+              "senderDetail": Object {
+                "DID": "senderDID1",
+                "agentKeyDlgProof": Object {
+                  "agentDID": "senderAgentDID1",
+                  "agentDelegatedKey": "agentDelegatedKey",
+                  "signature": "signature",
+                },
+                "logoUrl": "http://testissuer.com/logoUrl.png",
+                "name": "sender1",
+                "verKey": "senderVerificationKey1",
+              },
+              "senderEndpoint": "endpoint",
+              "senderLogoUrl": "lu",
+              "senderName": "sender1",
+              "senderVerificationKey": "sVk",
+              "targetName": "target name",
+            },
+          },
+          "type": "NEW_CONNECTION",
+        },
+        "remoteDid": undefined,
+        "status": "CONNECTED",
+        "timestamp": "2018-01-10T04:32:43+05:30",
+        "type": "INVITATION",
+      },
+      Object {
+        "action": "PENDING",
+        "data": Array [
+          Object {
+            "data": "Address Address Address",
+            "label": "Address 1",
+          },
+          Object {
+            "data": "Address 2 Address 2 Address 2",
+            "label": "Address 2",
+          },
+        ],
+        "id": "a4f35623-b50c-40ea-a2b0-f7cd06e03142",
+        "name": "Home Address",
+        "originalPayload": Object {
+          "payload": Object {
+            "claimRequestStatus": "CLAIM_REQUEST_SUCCESS",
+            "data": Object {
+              "claimDefinitionSchemaSequenceNumber": 36,
+              "name": "Home Address",
+              "revealedAttributes": Array [
+                Object {
+                  "data": "Address Address Address",
+                  "label": "Address 1",
+                },
+                Object {
+                  "data": "Address 2 Address 2 Address 2",
+                  "label": "Address 2",
+                },
+              ],
+              "version": "1.0.0",
+            },
+            "issuer": Object {
+              "did": "issuerDid",
+              "name": "Test Issuer",
+            },
+            "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+            "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+            "status": "RECEIVED",
+            "statusMsg": "pending",
+            "uid": "usd123",
+          },
+          "type": "SEND_CLAIM_REQUEST_SUCCESS",
+          "uid": "uid",
+        },
+        "remoteDid": "ha66899sadfjZJGINKN0770",
+        "status": "PENDING",
+        "timestamp": "2018-01-10T04:32:43+05:30",
+        "type": "CLAIM",
+      },
+      Object {
+        "action": "PROOF RECEIVED",
+        "data": Array [
+          Object {
+            "label": "Address 1",
+          },
+          Object {
+            "label": "Address 2",
+          },
+        ],
+        "id": "a4f35623-b50c-40ea-a2b0-f7cd06e03142",
+        "name": "Home Address",
+        "originalPayload": Object {
+          "payload": Object {
+            "data": Object {
+              "name": "Home Address",
+              "requestedAttributes": Array [
+                Object {
+                  "label": "Address 1",
+                },
+                Object {
+                  "label": "Address 2",
+                },
+              ],
+              "version": "1.0.0",
+            },
+            "originalProofRequestData": Object {
+              "name": "proof_req_1",
+              "nonce": "123432421212",
+              "requested_attributes": Object {
+                "attr1_uuid": Object {
+                  "name": "Address 1",
+                },
+                "attr2_uuid": Object {
+                  "name": "Address 2",
+                },
+              },
+              "requested_predicates": Object {},
+              "version": "0.1",
+            },
+            "proofHandle": 1,
+            "requester": Object {
+              "name": "Test Issuer",
+            },
+            "statusMsg": "pending",
+          },
+          "payloadInfo": Object {
+            "remotePairwiseDID": "senderDID1",
+            "senderLogoUrl": "http://cr0ybot.github.io/ingress-logos/ingress.png",
+            "uid": "pid123",
+          },
+          "type": "PROOF_REQUEST_RECEIVED",
+        },
+        "remoteDid": "senderDID1",
+        "status": "PROOF RECEIVED",
+        "timestamp": "2018-01-10T04:32:43+05:30",
+        "type": "PROOF",
+      },
+      Object {
+        "action": "SHARED",
+        "data": Array [
+          Object {
+            "claimUuid": "claim::f760213b-e719-47fb-9669-b72c5c410e8c",
+            "data": "male",
+            "key": "attr2_uuid",
+            "label": "Address 2",
+          },
+          Object {
+            "claimUuid": "claim::f760213b-e719-47fb-9669-b72c5c410e8c",
+            "data": "Alex",
+            "key": "attr1_uuid",
+            "label": "Address 1",
+          },
+        ],
+        "id": "a4f35623-b50c-40ea-a2b0-f7cd06e03142",
+        "name": "proof_req_auto_filled",
+        "originalPayload": Object {
+          "type": "SEND_PROOF_SUCCESS",
+          "uid": "pid123",
+        },
+        "remoteDid": "remotePairWiseDID",
+        "status": "SHARED",
+        "timestamp": "2018-01-10T04:32:43+05:30",
+        "type": "PROOF",
+      },
+    ],
+  },
+  "error": null,
+  "isLoading": false,
+}
+`;
+
+exports[`Store: ConnectionHistory match record history event 1`] = `
+Object {
+  "data": Object {
+    "ha66899sadfjZJGINKN0770": Array [
+      Object {
+        "action": "PENDING",
+        "data": Array [
+          Object {
+            "data": "Address Address Address",
+            "label": "Address 1",
+          },
+          Object {
+            "data": "Address 2 Address 2 Address 2",
+            "label": "Address 2",
+          },
+        ],
+        "id": "a4f35623-b50c-40ea-a2b0-f7cd06e03142",
+        "name": "Home Address",
+        "originalPayload": Object {
+          "payload": Object {
+            "claimRequestStatus": "CLAIM_REQUEST_SUCCESS",
+            "data": Object {
+              "claimDefinitionSchemaSequenceNumber": 36,
+              "name": "Home Address",
+              "revealedAttributes": Array [
+                Object {
+                  "data": "Address Address Address",
+                  "label": "Address 1",
+                },
+                Object {
+                  "data": "Address 2 Address 2 Address 2",
+                  "label": "Address 2",
+                },
+              ],
+              "version": "1.0.0",
+            },
+            "issuer": Object {
+              "did": "issuerDid",
+              "name": "Test Issuer",
+            },
+            "remotePairwiseDID": "ha66899sadfjZJGINKN0770",
+            "senderLogoUrl": "http://testissuer.com/logoUrl.png",
+            "status": "RECEIVED",
+            "statusMsg": "pending",
+            "uid": "usd123",
+          },
+          "type": "SEND_CLAIM_REQUEST_SUCCESS",
+          "uid": "uid",
+        },
+        "remoteDid": "ha66899sadfjZJGINKN0770",
+        "status": "PENDING",
+        "timestamp": "2018-01-10T04:32:43+05:30",
+        "type": "CLAIM",
+      },
+    ],
+  },
+  "error": null,
+  "isLoading": false,
+}
+`;
+
+exports[`Store: ConnectionHistory should reset history if RESET action is raised 1`] = `
+Object {
+  "data": null,
+  "error": null,
+  "isLoading": false,
+}
+`;

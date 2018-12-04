@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SMS Connection Request store should reset store, if RESET action is raised 1`] = `Object {}`;
+
+exports[`SMS Connection Request store should update store when invitation is seen 1`] = `
+Object {
+  "gm76ku": Object {
+    "error": null,
+    "isFetching": false,
+    "payload": Object {
+      "connReqId": "requestId1",
+      "senderAgencyDetail": Object {
+        "DID": "senderDID1",
+        "endpoint": "endpoint",
+        "verKey": "senderVerificationKey1",
+      },
+      "senderDetail": Object {
+        "DID": "senderDID1",
+        "agentKeyDlgProof": Object {
+          "agentDID": "senderAgentDID1",
+          "agentDelegatedKey": "agentDelegatedKey",
+          "signature": "signature",
+        },
+        "logoUrl": "http://testissuer.com/logoUrl.png",
+        "name": "sender1",
+        "verKey": "senderVerificationKey1",
+      },
+      "statusCode": "MS-102",
+      "statusMsg": "message sent",
+      "targetName": "target name",
+    },
+    "status": "SEEN",
+  },
+}
+`;
+
+exports[`SMS Connection Request store should update store when invitation receive fail 1`] = `
+Object {
+  "gm76ku": Object {
+    "error": Object {
+      "code": "TEST-FAIL",
+      "message": "Test fail message",
+    },
+    "isFetching": false,
+    "payload": null,
+    "status": "FETCH_FAILED",
+  },
+}
+`;
+
+exports[`SMS Connection Request store should update store when invitation received 1`] = `
+Object {
+  "gm76ku": Object {
+    "error": null,
+    "isFetching": false,
+    "payload": Object {
+      "connReqId": "requestId1",
+      "senderAgencyDetail": Object {
+        "DID": "senderDID1",
+        "endpoint": "endpoint",
+        "verKey": "senderVerificationKey1",
+      },
+      "senderDetail": Object {
+        "DID": "senderDID1",
+        "agentKeyDlgProof": Object {
+          "agentDID": "senderAgentDID1",
+          "agentDelegatedKey": "agentDelegatedKey",
+          "signature": "signature",
+        },
+        "logoUrl": "http://testissuer.com/logoUrl.png",
+        "name": "sender1",
+        "verKey": "senderVerificationKey1",
+      },
+      "statusCode": "MS-102",
+      "statusMsg": "message sent",
+      "targetName": "target name",
+    },
+    "status": "RECEIVED",
+  },
+}
+`;
+
+exports[`SMS Connection Request store should update store when pending invitation is requested 1`] = `
+Object {
+  "gm76ku": Object {
+    "error": null,
+    "isFetching": true,
+    "payload": null,
+    "status": "NONE",
+  },
+}
+`;
+
+exports[`SMS Connection Request store sms invitation download error should raise fail action 1`] = `"TabQRCodeScanner"`;
+
+exports[`SMS Connection Request store sms invitation download error should raise fail action 2`] = `false`;
+
+exports[`SMS Connection Request store sms invitation download workflow should work fine if api returns success 1`] = `"TabQRCodeScanner"`;
+
+exports[`SMS Connection Request store sms invitation download workflow should work fine if api returns success 2`] = `false`;
