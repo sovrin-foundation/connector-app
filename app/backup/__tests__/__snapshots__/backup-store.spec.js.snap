@@ -1,0 +1,164 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`store: backup-store:  action: BACKUP_WALLET_FAIL 1`] = `
+Object {
+  "backupWalletPath": "",
+  "error": Object {
+    "code": "WB-001",
+    "message": "Error while backing up wallet",
+  },
+  "lastSuccessfulBackup": "",
+  "passphrase": Object {
+    "hash": "h",
+    "phrase": "",
+    "salt": "s",
+  },
+  "prepareBackupStatus": "PREPARE_BACKUP_IDLE",
+  "showBanner": false,
+  "status": "IDLE",
+}
+`;
+
+exports[`store: backup-store:  action: EXPORT_BACKUP 1`] = `
+Object {
+  "backupWalletPath": "/Users/CoreSimulator/Devices/5F89AA14-B694-465F-82C3-838552AB4B85/data/Containers/Data/Application/4536A441-4B70-4A30-8DCC-5274E6781535/Documents/backup.zip",
+  "error": null,
+  "lastSuccessfulBackup": "",
+  "passphrase": Object {
+    "hash": "h",
+    "phrase": "",
+    "salt": "s",
+  },
+  "prepareBackupStatus": "PREPARE_BACKUP_IDLE",
+  "showBanner": false,
+  "status": "EXPORT_BACKUP_LOADING",
+}
+`;
+
+exports[`store: backup-store:  action: EXPORT_BACKUP_SUCCESS 1`] = `
+Object {
+  "backupWalletPath": "/Users/CoreSimulator/Devices/5F89AA14-B694-465F-82C3-838552AB4B85/data/Containers/Data/Application/4536A441-4B70-4A30-8DCC-5274E6781535/Documents/backup.zip",
+  "error": null,
+  "lastSuccessfulBackup": "2018-06-27T18:27:35+05:30",
+  "passphrase": Object {
+    "hash": "h",
+    "phrase": "",
+    "salt": "s",
+  },
+  "prepareBackupStatus": "PREPARE_BACKUP_IDLE",
+  "showBanner": false,
+  "status": "BACKUP_COMPLETE",
+}
+`;
+
+exports[`store: backup-store:  action: GENERATE_BACKUP_FILE 1`] = `
+Object {
+  "backupWalletPath": "",
+  "error": null,
+  "lastSuccessfulBackup": "",
+  "passphrase": Object {
+    "hash": "b7a563bcbbeb892b",
+    "phrase": "gander troubling deodorize justify twitter darkish confront politely",
+    "salt": "s",
+  },
+  "prepareBackupStatus": "PREPARE_BACKUP_IDLE",
+  "showBanner": false,
+  "status": "GENERATE_BACKUP_FILE_LOADING",
+}
+`;
+
+exports[`store: backup-store:  action: GENERATE_BACKUP_FILE_SUCCESS 1`] = `
+Object {
+  "backupWalletPath": "/Users/CoreSimulator/Devices/5F89AA14-B694-465F-82C3-838552AB4B85/data/Containers/Data/Application/4536A441-4B70-4A30-8DCC-5274E6781535/Documents/backup.zip",
+  "error": null,
+  "lastSuccessfulBackup": "",
+  "passphrase": Object {
+    "hash": "h",
+    "phrase": "",
+    "salt": "s",
+  },
+  "prepareBackupStatus": "PREPARE_BACKUP_IDLE",
+  "showBanner": false,
+  "status": "GENERATE_BACKUP_FILE_SUCCESS",
+}
+`;
+
+exports[`store: backup-store:  action: GENERATE_RECOVERY_PHRASE 1`] = `
+Object {
+  "backupWalletPath": "",
+  "error": null,
+  "lastSuccessfulBackup": "",
+  "passphrase": Object {
+    "hash": "h",
+    "phrase": "",
+    "salt": "s",
+  },
+  "prepareBackupStatus": "PREPARE_BACKUP_IDLE",
+  "showBanner": false,
+  "status": "GENERATE_PHRASE_LOADING",
+}
+`;
+
+exports[`store: backup-store:  action: GENERATE_RECOVERY_PHRASE_SUCCESS 1`] = `
+Object {
+  "backupWalletPath": "",
+  "error": undefined,
+  "lastSuccessfulBackup": "",
+  "passphrase": Object {
+    "hash": "b7a563bcbbeb892b",
+    "phrase": "gander troubling deodorize justify twitter darkish confront politely",
+    "salt": "s",
+  },
+  "prepareBackupStatus": "PREPARE_BACKUP_IDLE",
+  "showBanner": false,
+  "status": "GENERATE_PHRASE_SUCCESS",
+}
+`;
+
+exports[`store: backup-store:  action: PREPARE_BACKUP_FAILURE 1`] = `
+Object {
+  "backupWalletPath": "",
+  "error": null,
+  "lastSuccessfulBackup": "",
+  "passphrase": Object {
+    "hash": "h",
+    "phrase": "",
+    "salt": "s",
+  },
+  "prepareBackupStatus": "PREPARE_BACKUP_FAILURE",
+  "showBanner": false,
+  "status": "IDLE",
+}
+`;
+
+exports[`store: backup-store:  action: PREPARE_BACKUP_LOADING 1`] = `
+Object {
+  "backupWalletPath": "",
+  "error": null,
+  "lastSuccessfulBackup": "",
+  "passphrase": Object {
+    "hash": "h",
+    "phrase": "",
+    "salt": "s",
+  },
+  "prepareBackupStatus": "PREPARE_BACKUP_LOADING",
+  "showBanner": false,
+  "status": "IDLE",
+}
+`;
+
+exports[`store: backup-store:  action: PREPARE_BACKUP_SUCCESS 1`] = `
+Object {
+  "backupWalletPath": "",
+  "error": null,
+  "lastSuccessfulBackup": "",
+  "passphrase": Object {
+    "hash": "h",
+    "phrase": "",
+    "salt": "s",
+  },
+  "prepareBackupStatus": "PREPARE_BACKUP_SUCCESS",
+  "showBanner": false,
+  "status": "IDLE",
+}
+`;

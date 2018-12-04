@@ -1,0 +1,3739 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`user settings screen navigation optioons should match snapshot when navigatioon state index is 0 1`] = `
+Object {
+  "swipeEnabled": true,
+  "tabBarVisible": true,
+}
+`;
+
+exports[`user settings screen navigation optioons should match snapshot when navigatioon state index is 1 1`] = `
+Object {
+  "swipeEnabled": false,
+  "tabBarVisible": false,
+}
+`;
+
+exports[`user settings screen should render properly and snapshot should match for android platform 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#F4F4F4",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+      }
+    }
+    tertiary={true}
+  >
+    <View
+      style={Object {}}
+    >
+      <View>
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel="wallet-backup-banner-label-touchable"
+          accessibilityTraits={undefined}
+          accessible={true}
+          hitSlop={
+            Object {
+              "bottom": 20,
+              "left": 20,
+              "right": 20,
+              "top": 20,
+            }
+          }
+          horizontalSpace={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          row={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#d0021b",
+              "flexDirection": "row",
+              "paddingHorizontal": 15,
+              "paddingVertical": 8,
+            }
+          }
+          testID="wallet-backup-banner-label-touchable"
+          vCenter={true}
+          verticalSpace={true}
+        >
+          <View
+            clearBg={true}
+            iconStyle={
+              Array [
+                Object {
+                  "height": 25,
+                  "width": 29,
+                },
+                Object {
+                  "tintColor": "white",
+                },
+              ]
+            }
+            src={1}
+            style={
+              Object {
+                "backgroundColor": "transparent",
+              }
+            }
+          >
+            <View
+              style={Object {}}
+            >
+              <Image
+                resizeMode="contain"
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "height": 50,
+                      "width": 50,
+                    },
+                    null,
+                    Object {
+                      "height": 25,
+                      "width": 29,
+                    },
+                    Object {
+                      "tintColor": "white",
+                    },
+                  ]
+                }
+              />
+            </View>
+          </View>
+          <View
+            horizontalSpace={true}
+            style={
+              Object {
+                "paddingHorizontal": 15,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "fontSize": 17,
+                  },
+                  Object {
+                    "fontFamily": "Lato",
+                  },
+                  Object {
+                    "backgroundColor": "#333333",
+                    "color": "#ffffff",
+                  },
+                  Object {
+                    "fontWeight": "bold",
+                  },
+                  null,
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                ]
+              }
+            >
+              You have new data that is not backed up.
+            </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "fontSize": 15,
+                  },
+                  Object {
+                    "fontFamily": "Lato",
+                  },
+                  Object {
+                    "backgroundColor": "#333333",
+                    "color": "#ffffff",
+                  },
+                  null,
+                  null,
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                ]
+              }
+            >
+              Create another backup so you don't lose anything.
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <RCTScrollView>
+      <View>
+        <View
+          center={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "justifyContent": "center",
+              "paddingBottom": 0,
+              "paddingTop": "10%",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "paddingVertical": 8,
+              }
+            }
+            verticalSpace={true}
+          >
+            <View
+              accessibilityComponentType={undefined}
+              accessibilityLabel="settings-user-avatar-label"
+              accessibilityTraits={undefined}
+              accessible={true}
+              hitSlop={undefined}
+              nativeID={undefined}
+              onLayout={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              pointerEvents="box-only"
+              style={undefined}
+              testID="settings-user-avatar-label"
+            >
+              <View
+                imageShadow={null}
+                style={
+                  Object {
+                    "borderRadius": 38,
+                  }
+                }
+              >
+                <Image
+                  accessibilityComponentType={undefined}
+                  accessibilityLabel={undefined}
+                  accessibilityTraits={undefined}
+                  accessible={true}
+                  hitSlop={undefined}
+                  nativeID={undefined}
+                  onError={undefined}
+                  onLayout={undefined}
+                  onLoad={undefined}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  source={
+                    Object {
+                      "uri": "file:///var/application/DocumentDir/user-avatar.jpeg",
+                    }
+                  }
+                  style={
+                    Array [
+                      Object {
+                        "height": 76,
+                        "width": 76,
+                      },
+                      Object {
+                        "borderRadius": 38,
+                      },
+                    ]
+                  }
+                  testID={undefined}
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            accessibilityLabel="home-sovrintoken-amount"
+            accessible={true}
+            center={true}
+            row={true}
+            style={
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "center",
+              }
+            }
+            testID="home-sovrintoken-amount"
+          >
+            <View
+              accessibilityLabel="home-sovrintoken-id-label"
+              accessible={true}
+              clearBg={true}
+              small={true}
+              src={1}
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                }
+              }
+              testID="home-sovrintoken-id-label"
+            >
+              <View
+                style={Object {}}
+              >
+                <Image
+                  accessibilityLabel="home-sovrintoken-id-label"
+                  accessible={true}
+                  resizeMode="contain"
+                  source={1}
+                  style={
+                    Array [
+                      Object {
+                        "height": 20,
+                        "width": 20,
+                      },
+                      null,
+                    ]
+                  }
+                  testID="home-sovrintoken-id-label"
+                />
+              </View>
+            </View>
+            <Text
+              accessibilityLabel="home-sovrintoken-amount"
+              accessible={true}
+              allowFontScaling={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "fontSize": 17,
+                  },
+                  Object {
+                    "fontFamily": "Lato",
+                  },
+                  Object {
+                    "backgroundColor": "#333333",
+                    "color": "#ffffff",
+                  },
+                  Object {
+                    "fontWeight": "600",
+                  },
+                  Object {
+                    "textAlign": "center",
+                  },
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  Object {
+                    "color": "#505050",
+                    "paddingHorizontal": 8,
+                  },
+                  Object {
+                    "fontSize": 23.771428571428572,
+                  },
+                ]
+              }
+              testID="home-sovrintoken-amount"
+            />
+          </View>
+          <View
+            style={Object {}}
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "fontSize": 17,
+                  },
+                  Object {
+                    "fontFamily": "Lato",
+                  },
+                  Object {
+                    "backgroundColor": "#333333",
+                    "color": "#ffffff",
+                  },
+                  Object {
+                    "fontWeight": "bold",
+                  },
+                  null,
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  Object {
+                    "color": "#4A4A4A",
+                  },
+                  Object {
+                    "fontSize": 12,
+                    "paddingBottom": 5,
+                    "paddingTop": 5,
+                  },
+                ]
+              }
+            >
+              TOKENS
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#ffffff",
+                "borderColor": "#bbb",
+                "borderTopWidth": 1,
+                "marginTop": 20,
+              },
+              Array [
+                Object {
+                  "backgroundColor": "#F4F4F4",
+                },
+                Object {
+                  "backgroundColor": "#F4F4F4",
+                  "borderBottomWidth": 0,
+                  "borderTopWidth": 0,
+                },
+              ],
+            ]
+          }
+        >
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hasTVPreferredFocus={undefined}
+            hitSlop={undefined}
+            isTVSelectable={true}
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderBottomColor": "#bbb",
+                    "borderBottomWidth": 1,
+                    "paddingBottom": 10,
+                    "paddingRight": 10,
+                    "paddingTop": 10,
+                  },
+                  Array [
+                    Object {
+                      "borderBottomWidth": 0.2,
+                      "borderTopWidth": 0,
+                      "paddingBottom": 11,
+                      "paddingTop": 11,
+                    },
+                  ],
+                  false,
+                  false,
+                ],
+              ]
+            }
+            testID={undefined}
+            tvParallaxProperties={undefined}
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "marginLeft": 10,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight="24"
+                bbWidth="44"
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    undefined,
+                    false,
+                    Object {
+                      "flex": 0,
+                      "height": 24,
+                      "width": 44,
+                    },
+                  ]
+                }
+                vbHeight={24}
+                vbWidth={24}
+              >
+                <RNSVGPath
+                  d="M12 6v6.429l4.272 4.299-1.044 1.044-4.728-4.7V6H12zm6 1.5h3.482a10.598 10.598 0 0 0-3.877-4.373 10.569 10.569 0 0 0-2.665-1.205A10.31 10.31 0 0 0 12 1.5c-.964 0-1.893.125-2.786.375s-1.727.603-2.504 1.058A10.537 10.537 0 0 0 4.58 4.58a10.536 10.536 0 0 0-1.647 2.13 10.558 10.558 0 0 0-1.058 2.504c-.25.893-.375 1.822-.375 2.786s.125 1.893.375 2.786.603 1.727 1.058 2.504a10.537 10.537 0 0 0 1.647 2.13 10.536 10.536 0 0 0 2.13 1.647c.777.455 1.611.808 2.504 1.058s1.822.375 2.786.375c1.17 0 2.3-.19 3.388-.57a10.59 10.59 0 0 0 2.967-1.586 10.686 10.686 0 0 0 2.31-2.431 10.185 10.185 0 0 0 1.447-3.114l1.446.402a11.703 11.703 0 0 1-1.654 3.562 12.025 12.025 0 0 1-6.027 4.594A11.756 11.756 0 0 1 12 24c-1.098 0-2.16-.143-3.188-.429a12.139 12.139 0 0 1-2.872-1.205 11.9 11.9 0 0 1-2.431-1.875 11.9 11.9 0 0 1-1.875-2.43 12.168 12.168 0 0 1-1.205-2.867A11.787 11.787 0 0 1 0 12.007c0-1.103.143-2.168.429-3.195A12.139 12.139 0 0 1 1.634 5.94a11.9 11.9 0 0 1 1.875-2.431 11.9 11.9 0 0 1 2.43-1.875c.89-.518 1.844-.92 2.867-1.205A11.787 11.787 0 0 1 11.993 0c1.103 0 2.17.145 3.201.435a12.11 12.11 0 0 1 5.39 3.188c.75.763 1.39 1.627 1.916 2.591V3H24v6h-6V7.5z"
+                  fill={
+                    Array [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                    ]
+                  }
+                  fillOpacity={1}
+                  fillRule={0}
+                  matrix={
+                    Array [
+                      1,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                    ]
+                  }
+                  onLayout={undefined}
+                  opacity={1}
+                  originX={0}
+                  originY={0}
+                  propList={
+                    Array [
+                      "stroke",
+                      "strokeWidth",
+                      "fill",
+                      "fillRule",
+                    ]
+                  }
+                  rotation={0}
+                  scaleX={1}
+                  scaleY={1}
+                  skewX={0}
+                  skewY={0}
+                  stroke={null}
+                  strokeDasharray={null}
+                  strokeDashoffset={null}
+                  strokeLinecap={0}
+                  strokeLinejoin={0}
+                  strokeMiterlimit={4}
+                  strokeOpacity={1}
+                  strokeWidth="1"
+                  x={0}
+                  y={0}
+                />
+              </RNSVGSvgView>
+              <View
+                style={
+                  Object {
+                    "flex": 1,
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#43484d",
+                            "fontSize": 14,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                              "fontWeight": "500",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Backup Data
+                  </Text>
+                </View>
+                <View
+                  style={undefined}
+                >
+                  <View>
+                    <Text
+                      accessible={true}
+                      allowFontScaling={false}
+                      ellipsizeMode="tail"
+                      style={
+                        Array [
+                          Object {
+                            "fontSize": 12,
+                          },
+                          Object {
+                            "fontFamily": "Lato",
+                          },
+                          Object {
+                            "backgroundColor": "#333333",
+                            "color": "#ffffff",
+                          },
+                          Object {
+                            "fontWeight": "bold",
+                          },
+                          null,
+                          Object {
+                            "backgroundColor": "transparent",
+                          },
+                          null,
+                          null,
+                          null,
+                          null,
+                          null,
+                          null,
+                          null,
+                          null,
+                          Object {
+                            "color": "#505050",
+                            "marginLeft": 10,
+                          },
+                        ]
+                      }
+                    >
+                      Last backup was
+                       
+                      <Text
+                        accessible={true}
+                        allowFontScaling={false}
+                        ellipsizeMode="tail"
+                        style={
+                          Array [
+                            Object {
+                              "fontSize": 12,
+                            },
+                            Object {
+                              "fontFamily": "Lato",
+                            },
+                            Object {
+                              "backgroundColor": "#333333",
+                              "color": "#ffffff",
+                            },
+                            Object {
+                              "fontWeight": "bold",
+                            },
+                            null,
+                            Object {
+                              "backgroundColor": "transparent",
+                            },
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            Object {
+                              "color": "#505050",
+                            },
+                          ]
+                        }
+                      >
+                        2018-01-10T04:32:43+05:30
+                      </Text>
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hasTVPreferredFocus={undefined}
+            hitSlop={undefined}
+            isTVSelectable={true}
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderBottomColor": "#bbb",
+                    "borderBottomWidth": 1,
+                    "paddingBottom": 10,
+                    "paddingRight": 10,
+                    "paddingTop": 10,
+                  },
+                  Array [
+                    Object {
+                      "borderBottomWidth": 0.2,
+                      "borderTopWidth": 0,
+                      "paddingBottom": 11,
+                      "paddingTop": 11,
+                    },
+                  ],
+                  false,
+                  false,
+                ],
+              ]
+            }
+            testID={undefined}
+            tvParallaxProperties={undefined}
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "marginLeft": 10,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight="24"
+                bbWidth="44"
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    undefined,
+                    false,
+                    Object {
+                      "flex": 0,
+                      "height": 24,
+                      "width": 44,
+                    },
+                  ]
+                }
+                vbHeight={24}
+                vbWidth={24}
+              >
+                <RNSVGPath
+                  d="M3.658 22.5a.838.838 0 0 1-.604-.245.818.818 0 0 1-.253-.612c0-.184.048-.347.145-.49a.874.874 0 0 1 .421-.321 7.58 7.58 0 0 0 1.845-1.11 8.917 8.917 0 0 0 1.477-1.53c.428-.567.803-1.18 1.125-1.837.321-.659.589-1.324.803-1.998.062-.184.161-.337.299-.459.138-.122.319-.184.543-.184.225 0 .421.087.59.26a.85.85 0 0 1 .252.613c0 .367-.107.819-.321 1.354-.215.536-.5 1.095-.858 1.676A18.065 18.065 0 0 1 7.89 19.37c-.464.587-.941 1.11-1.43 1.569-.49.459-.98.834-1.47 1.125-.49.29-.934.436-1.332.436zM7.73 24a.825.825 0 0 1-.605-.253.825.825 0 0 1-.253-.604c0-.296.128-.536.383-.72a8.035 8.035 0 0 0 1.01-.872c.357-.357.712-.755 1.064-1.194.352-.439.694-.9 1.026-1.385.331-.485.622-.975.872-1.47.25-.494.449-.976.597-1.446.148-.47.222-.908.222-1.316 0-.49-.036-.908-.107-1.255-.072-.347-.204-.63-.398-.85-.194-.22-.462-.38-.804-.482-.342-.102-.773-.153-1.293-.153-.357 0-.666.074-.926.222-.26.148-.487.344-.681.59-.194.244-.378.53-.551.856l-.505 1.056c-.184.368-.383.745-.597 1.133-.215.388-.47.76-.766 1.117a6.664 6.664 0 0 1-1.056 1.01 5.99 5.99 0 0 1-1.454.812c-.122.04-.235.061-.337.061a.825.825 0 0 1-.604-.252.825.825 0 0 1-.253-.605c0-.184.051-.344.153-.482a.968.968 0 0 1 .398-.314 6.28 6.28 0 0 0 1.661-1.14 5.192 5.192 0 0 0 1.156-1.66c.224-.521.454-1.029.688-1.524.235-.495.513-.936.835-1.324a3.636 3.636 0 0 1 1.155-.926c.45-.23 1.01-.344 1.684-.344 1.52 0 2.62.372 3.298 1.117.679.745 1.018 1.857 1.018 3.337 0 .47-.087.984-.26 1.546-.173.56-.4 1.14-.681 1.737-.28.597-.607 1.196-.98 1.798a17.555 17.555 0 0 1-1.178 1.684c-.414.52-.834.985-1.263 1.393a7.66 7.66 0 0 1-1.21.964.703.703 0 0 1-.458.138zm5.142 0a.825.825 0 0 1-.604-.253.825.825 0 0 1-.253-.604c0-.133.026-.253.077-.36.05-.107.127-.212.23-.314a9.47 9.47 0 0 0 1.385-1.691c.413-.638.773-1.314 1.079-2.028.306-.714.54-1.444.704-2.189.163-.745.245-1.47.245-2.173 0-.735-.14-1.452-.421-2.15a6.168 6.168 0 0 0-1.156-1.86 5.827 5.827 0 0 0-1.73-1.31 4.693 4.693 0 0 0-2.127-.497c-.837 0-1.523.057-2.059.169-.535.112-.977.27-1.324.474a2.82 2.82 0 0 0-.85.75c-.219.296-.435.628-.65.995-.214.368-.456.773-.727 1.217-.27.444-.625.91-1.063 1.4a7.938 7.938 0 0 1-1.133 1.095 4.136 4.136 0 0 1-1.393.727.247.247 0 0 1-.107.03H.888a.855.855 0 0 1-.628-.26.838.838 0 0 1-.26-.612c0-.204.061-.372.184-.505.122-.133.27-.235.444-.306.52-.204.951-.454 1.293-.75.342-.296.635-.625.88-.987.245-.363.47-.74.673-1.133.205-.393.421-.78.651-1.163.23-.383.5-.748.811-1.095a4.331 4.331 0 0 1 1.171-.903c.47-.255 1.044-.461 1.722-.62.679-.158 1.503-.237 2.472-.237a6.3 6.3 0 0 1 1.913.291 7.118 7.118 0 0 1 1.715.804c.53.341 1.012.75 1.446 1.224.434.475.806.992 1.117 1.554.312.56.549 1.153.712 1.775a7.51 7.51 0 0 1 .245 1.913c0 .46-.046.97-.138 1.531a15.507 15.507 0 0 1-.398 1.753 18.33 18.33 0 0 1-.627 1.821 16.862 16.862 0 0 1-.812 1.73 10.22 10.22 0 0 1-.971 1.484 5.726 5.726 0 0 1-1.095 1.08 1.549 1.549 0 0 1-.26.13.755.755 0 0 1-.276.053zm5.97-13.714c-.347 0-.607-.164-.78-.49-.848-1.54-1.914-2.702-3.2-3.482-1.285-.78-2.816-1.171-4.592-1.171-.724 0-1.415.038-2.074.115a8.177 8.177 0 0 0-1.867.436 6.017 6.017 0 0 0-1.638.91c-.505.393-.967.901-1.385 1.524-.092.132-.196.24-.314.321a.745.745 0 0 1-.436.122.825.825 0 0 1-.604-.252.825.825 0 0 1-.253-.605c0-.132.036-.27.107-.413A5.736 5.736 0 0 1 3.36 5.403a8.067 8.067 0 0 1 2.089-1.186c.755-.291 1.548-.495 2.38-.612a17.463 17.463 0 0 1 2.441-.176c.97 0 1.926.122 2.87.367.944.245 1.832.605 2.664 1.079a9.561 9.561 0 0 1 2.234 1.76 8.346 8.346 0 0 1 1.584 2.426c.051.133.077.255.077.368a.825.825 0 0 1-.253.604.825.825 0 0 1-.604.253zm-1.714-6.812a.923.923 0 0 1-.414-.107 16.483 16.483 0 0 0-3.122-1.224 12.498 12.498 0 0 0-3.322-.429c-1.01 0-1.972.107-2.885.322-.913.214-1.829.52-2.747.918a.819.819 0 0 1-.383.092.8.8 0 0 1-.597-.253.838.838 0 0 1-.245-.604c0-.255.14-.487.421-.697.28-.209.643-.395 1.087-.558A11.32 11.32 0 0 1 6.383.513a23.105 23.105 0 0 1 2.954-.46C9.755.019 10.07 0 10.286 0c.214 0 .556.026 1.025.077.47.05.99.127 1.561.23.572.101 1.161.226 1.768.374s1.158.319 1.653.513c.495.194.9.408 1.217.643.317.234.475.495.475.78a.825.825 0 0 1-.253.605.825.825 0 0 1-.604.252z"
+                  fill={
+                    Array [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                    ]
+                  }
+                  fillOpacity={1}
+                  fillRule={0}
+                  matrix={
+                    Array [
+                      1,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                    ]
+                  }
+                  onLayout={undefined}
+                  opacity={1}
+                  originX={0}
+                  originY={0}
+                  propList={
+                    Array [
+                      "stroke",
+                      "strokeWidth",
+                      "fill",
+                      "fillRule",
+                    ]
+                  }
+                  rotation={0}
+                  scaleX={1}
+                  scaleY={1}
+                  skewX={0}
+                  skewY={0}
+                  stroke={null}
+                  strokeDasharray={null}
+                  strokeDashoffset={null}
+                  strokeLinecap={0}
+                  strokeLinejoin={0}
+                  strokeMiterlimit={4}
+                  strokeOpacity={1}
+                  strokeWidth="1"
+                  x={0}
+                  y={0}
+                />
+              </RNSVGSvgView>
+              <View
+                style={
+                  Object {
+                    "flex": 1,
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#43484d",
+                            "fontSize": 14,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                              "fontWeight": "500",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Biometrics
+                  </Text>
+                </View>
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#86939e",
+                            "fontSize": 12,
+                            "fontWeight": "600",
+                            "marginTop": 1,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "color": "#505050",
+                              "fontSize": 12,
+                              "fontWeight": "bold",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Use your finger or face to secure app
+                  </Text>
+                </View>
+              </View>
+              <View
+                style={
+                  Array [
+                    Object {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                    },
+                  ]
+                }
+              >
+                <View
+                  accessibilityComponentType={undefined}
+                  accessibilityLabel={undefined}
+                  accessibilityTraits={undefined}
+                  accessible={true}
+                  collapsable={undefined}
+                  hasTVPreferredFocus={undefined}
+                  hitSlop={undefined}
+                  isTVSelectable={true}
+                  nativeID={undefined}
+                  onLayout={undefined}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  style={
+                    Object {
+                      "backgroundColor": "#E5E5EA",
+                      "borderRadius": 16,
+                      "height": 30,
+                      "justifyContent": "center",
+                      "opacity": 1,
+                      "width": 55,
+                    }
+                  }
+                  testID={undefined}
+                  tvParallaxProperties={undefined}
+                >
+                  <View
+                    collapsable={undefined}
+                    style={
+                      Object {
+                        "backgroundColor": "#ffffff",
+                        "borderRadius": 16,
+                        "height": 28,
+                        "margin": 1,
+                        "position": "absolute",
+                        "transform": Array [
+                          Object {
+                            "translateX": 0,
+                          },
+                        ],
+                        "width": 28,
+                      }
+                    }
+                  />
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hasTVPreferredFocus={undefined}
+            hitSlop={undefined}
+            isTVSelectable={true}
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderBottomColor": "#bbb",
+                    "borderBottomWidth": 1,
+                    "paddingBottom": 10,
+                    "paddingRight": 10,
+                    "paddingTop": 10,
+                  },
+                  Array [
+                    Object {
+                      "borderBottomWidth": 0.2,
+                      "borderTopWidth": 0,
+                      "paddingBottom": 11,
+                      "paddingTop": 11,
+                    },
+                  ],
+                  false,
+                  false,
+                ],
+              ]
+            }
+            testID={undefined}
+            tvParallaxProperties={undefined}
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "marginLeft": 10,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight="24"
+                bbWidth="44"
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    undefined,
+                    false,
+                    Object {
+                      "flex": 0,
+                      "height": 24,
+                      "width": 44,
+                    },
+                  ]
+                }
+                vbHeight={24}
+                vbWidth={24}
+              >
+                <RNSVGPath
+                  d="M24 18.429V24h-6v-3h-3v-3h-3v-2.424a8.003 8.003 0 0 1-3.75.924 8.076 8.076 0 0 1-2.19-.295 8.222 8.222 0 0 1-3.643-2.123A8.222 8.222 0 0 1 .295 10.44 8.076 8.076 0 0 1 0 8.25c0-.759.098-1.489.295-2.19a8.222 8.222 0 0 1 2.123-3.643A8.222 8.222 0 0 1 6.06.295C6.761.098 7.491 0 8.25 0c.759 0 1.489.098 2.19.295a8.222 8.222 0 0 1 3.643 2.123 8.222 8.222 0 0 1 2.122 3.642 8.076 8.076 0 0 1 .201 3.375 8.36 8.36 0 0 1-.268 1.145L24 18.43zm-1.5.642l-8.09-8.089c.18-.446.322-.895.43-1.346a6.512 6.512 0 0 0-.375-4.011 6.872 6.872 0 0 0-1.447-2.143 6.872 6.872 0 0 0-2.143-1.446A6.512 6.512 0 0 0 8.25 1.5c-.929 0-1.804.179-2.625.536a6.872 6.872 0 0 0-2.143 1.446 6.872 6.872 0 0 0-1.446 2.143A6.512 6.512 0 0 0 1.5 8.25c0 .929.179 1.804.536 2.625.357.821.839 1.536 1.446 2.143a6.872 6.872 0 0 0 2.143 1.446A6.512 6.512 0 0 0 8.25 15c.759 0 1.504-.13 2.237-.388a6.384 6.384 0 0 0 1.968-1.112H13.5v3h3v3h3v3h3v-3.429zM6 4.5c.214 0 .41.038.59.114.178.076.336.183.475.321.138.139.245.297.321.476.076.178.114.375.114.589 0 .214-.038.41-.114.59a1.417 1.417 0 0 1-.321.468 1.654 1.654 0 0 1-.476.321A1.42 1.42 0 0 1 6 7.5c-.214 0-.41-.04-.59-.12a1.564 1.564 0 0 1-.79-.79A1.42 1.42 0 0 1 4.5 6c0-.214.04-.41.12-.59.08-.178.188-.336.322-.475.134-.138.29-.245.469-.321.178-.076.375-.114.589-.114z"
+                  fill={
+                    Array [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                    ]
+                  }
+                  fillOpacity={1}
+                  fillRule={0}
+                  matrix={
+                    Array [
+                      1,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                    ]
+                  }
+                  onLayout={undefined}
+                  opacity={1}
+                  originX={0}
+                  originY={0}
+                  propList={
+                    Array [
+                      "stroke",
+                      "strokeWidth",
+                      "fill",
+                      "fillRule",
+                    ]
+                  }
+                  rotation={0}
+                  scaleX={1}
+                  scaleY={1}
+                  skewX={0}
+                  skewY={0}
+                  stroke={null}
+                  strokeDasharray={null}
+                  strokeDashoffset={null}
+                  strokeLinecap={0}
+                  strokeLinejoin={0}
+                  strokeMiterlimit={4}
+                  strokeOpacity={1}
+                  strokeWidth="1"
+                  x={0}
+                  y={0}
+                />
+              </RNSVGSvgView>
+              <View
+                style={
+                  Object {
+                    "flex": 1,
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#43484d",
+                            "fontSize": 14,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                              "fontWeight": "500",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Passcode
+                  </Text>
+                </View>
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#86939e",
+                            "fontSize": 12,
+                            "fontWeight": "600",
+                            "marginTop": 1,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "color": "#505050",
+                              "fontSize": 12,
+                              "fontWeight": "bold",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Change the code to unlock this app
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hasTVPreferredFocus={undefined}
+            hitSlop={undefined}
+            isTVSelectable={true}
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderBottomColor": "#bbb",
+                    "borderBottomWidth": 1,
+                    "paddingBottom": 10,
+                    "paddingRight": 10,
+                    "paddingTop": 10,
+                  },
+                  Array [
+                    Object {
+                      "borderBottomWidth": 0.2,
+                      "borderTopWidth": 0,
+                      "paddingBottom": 11,
+                      "paddingTop": 11,
+                    },
+                  ],
+                  false,
+                  false,
+                ],
+              ]
+            }
+            testID={undefined}
+            tvParallaxProperties={undefined}
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "marginLeft": 10,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight="24"
+                bbWidth="44"
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    undefined,
+                    false,
+                    Object {
+                      "flex": 0,
+                      "height": 24,
+                      "width": 44,
+                    },
+                  ]
+                }
+                vbHeight={24}
+                vbWidth={24}
+              >
+                <RNSVGPath
+                  d="M11.223 15.562a8.304 8.304 0 0 1 2.163 1.246 8.19 8.19 0 0 1 1.66 1.788c.46.674.818 1.406 1.072 2.196.255.79.382 1.61.382 2.458V24H15v-.75c0-.929-.179-1.804-.536-2.625a6.872 6.872 0 0 0-1.446-2.143 6.872 6.872 0 0 0-2.143-1.446A6.512 6.512 0 0 0 8.25 16.5c-.929 0-1.804.179-2.625.536a6.872 6.872 0 0 0-2.143 1.446 6.872 6.872 0 0 0-1.446 2.143A6.512 6.512 0 0 0 1.5 23.25V24H0v-.75c0-.848.127-1.667.382-2.458a8.499 8.499 0 0 1 1.071-2.196 8.19 8.19 0 0 1 1.66-1.788 8.304 8.304 0 0 1 2.164-1.246 4.936 4.936 0 0 1-.958-.843 5.216 5.216 0 0 1-.71-1.038 5.626 5.626 0 0 1-.448-1.172c-.107-.41-.161-.83-.161-1.259 0-.723.138-1.404.415-2.042A5.331 5.331 0 0 1 4.54 7.54a5.332 5.332 0 0 1 1.668-1.125A5.079 5.079 0 0 1 8.25 6c.723 0 1.404.138 2.042.415A5.331 5.331 0 0 1 11.96 7.54a5.332 5.332 0 0 1 1.125 1.668c.277.638.415 1.319.415 2.042 0 .429-.054.848-.16 1.259-.108.41-.257.801-.45 1.172-.191.37-.428.716-.71 1.038-.28.321-.6.602-.957.843zM8.25 15c.518 0 1.002-.098 1.453-.295A3.813 3.813 0 0 0 11.7 12.71c.2-.456.301-.942.301-1.46s-.1-1.002-.301-1.453a3.91 3.91 0 0 0-.81-1.185 3.91 3.91 0 0 0-1.186-.81A3.53 3.53 0 0 0 8.25 7.5c-.518 0-1.004.1-1.46.301a3.813 3.813 0 0 0-1.996 1.996c-.196.45-.294.935-.294 1.453s.098 1.004.295 1.46c.196.455.464.852.803 1.192.34.34.737.607 1.192.803.456.197.942.295 1.46.295zM24 0v12h-3l-4.5 4.5V12H15v-1.5h3v2.384l2.384-2.384H22.5v-9h-15v2.692c-.25.036-.502.078-.757.127-.254.05-.502.119-.743.208V0h18z"
+                  fill={
+                    Array [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                    ]
+                  }
+                  fillOpacity={1}
+                  fillRule={0}
+                  matrix={
+                    Array [
+                      1,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                    ]
+                  }
+                  onLayout={undefined}
+                  opacity={1}
+                  originX={0}
+                  originY={0}
+                  propList={
+                    Array [
+                      "stroke",
+                      "strokeWidth",
+                      "fill",
+                      "fillRule",
+                    ]
+                  }
+                  rotation={0}
+                  scaleX={1}
+                  scaleY={1}
+                  skewX={0}
+                  skewY={0}
+                  stroke={null}
+                  strokeDasharray={null}
+                  strokeDashoffset={null}
+                  strokeLinecap={0}
+                  strokeLinejoin={0}
+                  strokeMiterlimit={4}
+                  strokeOpacity={1}
+                  strokeWidth="1"
+                  x={0}
+                  y={0}
+                />
+              </RNSVGSvgView>
+              <View
+                style={
+                  Object {
+                    "flex": 1,
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#43484d",
+                            "fontSize": 14,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                              "fontWeight": "500",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Chat With Us
+                  </Text>
+                </View>
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#86939e",
+                            "fontSize": 12,
+                            "fontWeight": "600",
+                            "marginTop": 1,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "color": "#505050",
+                              "fontSize": 12,
+                              "fontWeight": "bold",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Tell us what you think of Connect.Me
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hasTVPreferredFocus={undefined}
+            hitSlop={undefined}
+            isTVSelectable={true}
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderBottomColor": "#bbb",
+                    "borderBottomWidth": 1,
+                    "paddingBottom": 10,
+                    "paddingRight": 10,
+                    "paddingTop": 10,
+                  },
+                  Array [
+                    Object {
+                      "borderBottomWidth": 0.2,
+                      "borderTopWidth": 0,
+                      "paddingBottom": 11,
+                      "paddingTop": 11,
+                    },
+                  ],
+                  false,
+                  false,
+                ],
+              ]
+            }
+            testID={undefined}
+            tvParallaxProperties={undefined}
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "marginLeft": 10,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight="24"
+                bbWidth="44"
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    undefined,
+                    false,
+                    Object {
+                      "flex": 0,
+                      "height": 24,
+                      "width": 44,
+                    },
+                  ]
+                }
+                vbHeight={24}
+                vbWidth={24}
+              >
+                <RNSVGPath
+                  d="M12 24c-1.105 0-2.169-.143-3.193-.429a12.172 12.172 0 0 1-2.871-1.207c-.89-.519-1.7-1.143-2.429-1.871a11.883 11.883 0 0 1-1.871-2.429 12.172 12.172 0 0 1-1.207-2.871A11.823 11.823 0 0 1 0 12c0-1.105.143-2.169.429-3.193a12.172 12.172 0 0 1 1.207-2.871c.519-.89 1.143-1.7 1.871-2.429A12.087 12.087 0 0 1 5.936 1.63C6.826 1.105 7.783.702 8.807.42A12.01 12.01 0 0 1 12 0c1.105 0 2.169.14 3.193.421 1.024.281 1.98.684 2.871 1.208a12.087 12.087 0 0 1 4.307 4.307c.524.89.927 1.847 1.208 2.871A12.01 12.01 0 0 1 24 12c0 1.105-.14 2.169-.421 3.193a11.788 11.788 0 0 1-1.208 2.871c-.523.89-1.15 1.7-1.878 2.429a11.883 11.883 0 0 1-2.429 1.871c-.89.52-1.847.922-2.871 1.207A11.823 11.823 0 0 1 12 24zm0-22.4c-.962 0-1.883.124-2.764.371A10.429 10.429 0 0 0 4.65 4.65a10.226 10.226 0 0 0-1.621 2.107c-.448.772-.798 1.6-1.05 2.486A10.012 10.012 0 0 0 1.6 12c0 .952.126 1.871.379 2.757.252.886.602 1.714 1.05 2.486.447.771.988 1.474 1.621 2.107a10.226 10.226 0 0 0 2.107 1.621c.772.448 1.598.798 2.479 1.05.88.253 1.8.379 2.757.379.957 0 1.878-.126 2.764-.379a10.861 10.861 0 0 0 2.486-1.05 10.226 10.226 0 0 0 2.107-1.621 10.429 10.429 0 0 0 2.679-4.586c.247-.88.371-1.8.371-2.757 0-.957-.124-1.878-.371-2.764A10.429 10.429 0 0 0 19.35 4.65a10.429 10.429 0 0 0-4.593-2.679A10.192 10.192 0 0 0 12 1.6zm-.8 8h1.6v8h-1.6v-8zm0-3.2h1.6V8h-1.6V6.4z"
+                  fill={
+                    Array [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                    ]
+                  }
+                  fillOpacity={1}
+                  fillRule={0}
+                  matrix={
+                    Array [
+                      1,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                    ]
+                  }
+                  onLayout={undefined}
+                  opacity={1}
+                  originX={0}
+                  originY={0}
+                  propList={
+                    Array [
+                      "stroke",
+                      "strokeWidth",
+                      "fill",
+                      "fillRule",
+                    ]
+                  }
+                  rotation={0}
+                  scaleX={1}
+                  scaleY={1}
+                  skewX={0}
+                  skewY={0}
+                  stroke={null}
+                  strokeDasharray={null}
+                  strokeDashoffset={null}
+                  strokeLinecap={0}
+                  strokeLinejoin={0}
+                  strokeMiterlimit={4}
+                  strokeOpacity={1}
+                  strokeWidth="1"
+                  x={0}
+                  y={0}
+                />
+              </RNSVGSvgView>
+              <View
+                style={
+                  Object {
+                    "flex": 1,
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#43484d",
+                            "fontSize": 14,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                              "fontWeight": "500",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    About
+                  </Text>
+                </View>
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#86939e",
+                            "fontSize": 12,
+                            "fontWeight": "600",
+                            "marginTop": 1,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "color": "#505050",
+                              "fontSize": 12,
+                              "fontWeight": "bold",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Legal, Version, and Network Information
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hasTVPreferredFocus={undefined}
+            hitSlop={undefined}
+            isTVSelectable={true}
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderBottomColor": "#bbb",
+                    "borderBottomWidth": 1,
+                    "paddingBottom": 10,
+                    "paddingRight": 10,
+                    "paddingTop": 10,
+                  },
+                  Array [
+                    Object {
+                      "borderBottomWidth": 0.2,
+                      "borderTopWidth": 0,
+                      "paddingBottom": 11,
+                      "paddingTop": 11,
+                    },
+                  ],
+                  false,
+                  false,
+                ],
+              ]
+            }
+            testID={undefined}
+            tvParallaxProperties={undefined}
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "marginLeft": 10,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <View
+                clearBg={true}
+                src={1}
+                style={
+                  Object {
+                    "backgroundColor": "transparent",
+                  }
+                }
+              >
+                <View
+                  style={Object {}}
+                >
+                  <Image
+                    resizeMode="contain"
+                    source={1}
+                    style={
+                      Array [
+                        Object {
+                          "height": 50,
+                          "width": 50,
+                        },
+                        null,
+                      ]
+                    }
+                  />
+                </View>
+              </View>
+              <View
+                style={
+                  Object {
+                    "flex": 1,
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#43484d",
+                            "fontSize": 14,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                              "fontWeight": "500",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Onfido
+                  </Text>
+                </View>
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#86939e",
+                            "fontSize": 12,
+                            "fontWeight": "600",
+                            "marginTop": 1,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "color": "#505050",
+                              "fontSize": 12,
+                              "fontWeight": "bold",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </RCTScrollView>
+  </View>
+</View>
+`;
+
+exports[`user settings screen should render properly and snapshot should match ios platform 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#F4F4F4",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+      }
+    }
+    tertiary={true}
+  >
+    <View
+      style={Object {}}
+    >
+      <View>
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel="wallet-backup-banner-label-touchable"
+          accessibilityTraits={undefined}
+          accessible={false}
+          hitSlop={
+            Object {
+              "bottom": 20,
+              "left": 20,
+              "right": 20,
+              "top": 20,
+            }
+          }
+          horizontalSpace={true}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          row={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#d0021b",
+              "flexDirection": "row",
+              "paddingHorizontal": 15,
+              "paddingVertical": 8,
+            }
+          }
+          testID="wallet-backup-banner-label-touchable"
+          vCenter={true}
+          verticalSpace={true}
+        >
+          <View
+            clearBg={true}
+            iconStyle={
+              Array [
+                Object {
+                  "height": 25,
+                  "width": 29,
+                },
+                Object {
+                  "tintColor": "white",
+                },
+              ]
+            }
+            src={1}
+            style={
+              Object {
+                "backgroundColor": "transparent",
+              }
+            }
+          >
+            <View
+              style={Object {}}
+            >
+              <Image
+                resizeMode="contain"
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "height": 50,
+                      "width": 50,
+                    },
+                    null,
+                    Object {
+                      "height": 25,
+                      "width": 29,
+                    },
+                    Object {
+                      "tintColor": "white",
+                    },
+                  ]
+                }
+              />
+            </View>
+          </View>
+          <View
+            horizontalSpace={true}
+            style={
+              Object {
+                "paddingHorizontal": 15,
+              }
+            }
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "fontSize": 17,
+                  },
+                  Object {
+                    "fontFamily": "Lato",
+                  },
+                  Object {
+                    "backgroundColor": "#333333",
+                    "color": "#ffffff",
+                  },
+                  Object {
+                    "fontWeight": "bold",
+                  },
+                  null,
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                ]
+              }
+            >
+              You have new data that is not backed up.
+            </Text>
+            <Text
+              accessible={true}
+              allowFontScaling={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "fontSize": 15,
+                  },
+                  Object {
+                    "fontFamily": "Lato",
+                  },
+                  Object {
+                    "backgroundColor": "#333333",
+                    "color": "#ffffff",
+                  },
+                  null,
+                  null,
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                ]
+              }
+            >
+              Create another backup so you don't lose anything.
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <RCTScrollView>
+      <View>
+        <View
+          center={true}
+          style={
+            Object {
+              "alignItems": "center",
+              "justifyContent": "center",
+              "paddingBottom": 0,
+              "paddingTop": "10%",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "paddingVertical": 8,
+              }
+            }
+            verticalSpace={true}
+          >
+            <View
+              accessibilityComponentType={undefined}
+              accessibilityLabel="settings-user-avatar-label"
+              accessibilityTraits={undefined}
+              accessible={true}
+              hitSlop={undefined}
+              nativeID={undefined}
+              onLayout={undefined}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              pointerEvents="box-only"
+              style={undefined}
+              testID="settings-user-avatar-label"
+            >
+              <View
+                imageShadow={null}
+                style={
+                  Object {
+                    "borderRadius": 38,
+                  }
+                }
+              >
+                <Image
+                  accessibilityComponentType={undefined}
+                  accessibilityLabel={undefined}
+                  accessibilityTraits={undefined}
+                  accessible={true}
+                  hitSlop={undefined}
+                  nativeID={undefined}
+                  onError={undefined}
+                  onLayout={undefined}
+                  onLoad={undefined}
+                  onResponderGrant={[Function]}
+                  onResponderMove={[Function]}
+                  onResponderRelease={[Function]}
+                  onResponderTerminate={[Function]}
+                  onResponderTerminationRequest={[Function]}
+                  onStartShouldSetResponder={[Function]}
+                  source={
+                    Object {
+                      "uri": "/var/application/DocumentDir/user-avatar.jpeg",
+                    }
+                  }
+                  style={
+                    Array [
+                      Object {
+                        "height": 76,
+                        "width": 76,
+                      },
+                      Object {
+                        "borderRadius": 38,
+                      },
+                    ]
+                  }
+                  testID={undefined}
+                />
+              </View>
+            </View>
+          </View>
+          <View
+            accessibilityLabel="home-sovrintoken-amount"
+            accessible={true}
+            center={true}
+            row={true}
+            style={
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "center",
+              }
+            }
+            testID="home-sovrintoken-amount"
+          >
+            <View
+              accessibilityLabel="home-sovrintoken-id-label"
+              accessible={true}
+              clearBg={true}
+              small={true}
+              src={1}
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                }
+              }
+              testID="home-sovrintoken-id-label"
+            >
+              <View
+                style={Object {}}
+              >
+                <Image
+                  accessibilityLabel="home-sovrintoken-id-label"
+                  accessible={true}
+                  resizeMode="contain"
+                  source={1}
+                  style={
+                    Array [
+                      Object {
+                        "height": 20,
+                        "width": 20,
+                      },
+                      null,
+                    ]
+                  }
+                  testID="home-sovrintoken-id-label"
+                />
+              </View>
+            </View>
+            <Text
+              accessibilityLabel="home-sovrintoken-amount"
+              accessible={true}
+              allowFontScaling={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "fontSize": 17,
+                  },
+                  Object {
+                    "fontFamily": "Lato",
+                  },
+                  Object {
+                    "backgroundColor": "#333333",
+                    "color": "#ffffff",
+                  },
+                  Object {
+                    "fontWeight": "600",
+                  },
+                  Object {
+                    "textAlign": "center",
+                  },
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  Object {
+                    "color": "#505050",
+                    "paddingHorizontal": 8,
+                  },
+                  Object {
+                    "fontSize": 23.771428571428572,
+                  },
+                ]
+              }
+              testID="home-sovrintoken-amount"
+            />
+          </View>
+          <View
+            style={Object {}}
+          >
+            <Text
+              accessible={true}
+              allowFontScaling={false}
+              ellipsizeMode="tail"
+              style={
+                Array [
+                  Object {
+                    "fontSize": 17,
+                  },
+                  Object {
+                    "fontFamily": "Lato",
+                  },
+                  Object {
+                    "backgroundColor": "#333333",
+                    "color": "#ffffff",
+                  },
+                  Object {
+                    "fontWeight": "bold",
+                  },
+                  null,
+                  Object {
+                    "backgroundColor": "transparent",
+                  },
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  Object {
+                    "color": "#4A4A4A",
+                  },
+                  Object {
+                    "fontSize": 12,
+                    "paddingBottom": 5,
+                    "paddingTop": 5,
+                  },
+                ]
+              }
+            >
+              TOKENS
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "backgroundColor": "#ffffff",
+                "borderColor": "#bbb",
+                "borderTopWidth": 1,
+                "marginTop": 20,
+              },
+              Array [
+                Object {
+                  "backgroundColor": "#F4F4F4",
+                },
+                Object {
+                  "backgroundColor": "#F4F4F4",
+                  "borderBottomWidth": 0,
+                  "borderTopWidth": 0,
+                },
+              ],
+            ]
+          }
+        >
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hasTVPreferredFocus={undefined}
+            hitSlop={undefined}
+            isTVSelectable={true}
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderBottomColor": "#bbb",
+                    "borderBottomWidth": 1,
+                    "paddingBottom": 10,
+                    "paddingRight": 10,
+                    "paddingTop": 10,
+                  },
+                  Array [
+                    Object {
+                      "borderBottomWidth": 0.2,
+                      "borderTopWidth": 0,
+                      "paddingBottom": 11,
+                      "paddingTop": 11,
+                    },
+                  ],
+                  false,
+                  false,
+                ],
+              ]
+            }
+            testID={undefined}
+            tvParallaxProperties={undefined}
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "marginLeft": 10,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight="24"
+                bbWidth="44"
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    undefined,
+                    false,
+                    Object {
+                      "flex": 0,
+                      "height": 24,
+                      "width": 44,
+                    },
+                  ]
+                }
+                vbHeight={24}
+                vbWidth={24}
+              >
+                <RNSVGPath
+                  d="M12 6v6.429l4.272 4.299-1.044 1.044-4.728-4.7V6H12zm6 1.5h3.482a10.598 10.598 0 0 0-3.877-4.373 10.569 10.569 0 0 0-2.665-1.205A10.31 10.31 0 0 0 12 1.5c-.964 0-1.893.125-2.786.375s-1.727.603-2.504 1.058A10.537 10.537 0 0 0 4.58 4.58a10.536 10.536 0 0 0-1.647 2.13 10.558 10.558 0 0 0-1.058 2.504c-.25.893-.375 1.822-.375 2.786s.125 1.893.375 2.786.603 1.727 1.058 2.504a10.537 10.537 0 0 0 1.647 2.13 10.536 10.536 0 0 0 2.13 1.647c.777.455 1.611.808 2.504 1.058s1.822.375 2.786.375c1.17 0 2.3-.19 3.388-.57a10.59 10.59 0 0 0 2.967-1.586 10.686 10.686 0 0 0 2.31-2.431 10.185 10.185 0 0 0 1.447-3.114l1.446.402a11.703 11.703 0 0 1-1.654 3.562 12.025 12.025 0 0 1-6.027 4.594A11.756 11.756 0 0 1 12 24c-1.098 0-2.16-.143-3.188-.429a12.139 12.139 0 0 1-2.872-1.205 11.9 11.9 0 0 1-2.431-1.875 11.9 11.9 0 0 1-1.875-2.43 12.168 12.168 0 0 1-1.205-2.867A11.787 11.787 0 0 1 0 12.007c0-1.103.143-2.168.429-3.195A12.139 12.139 0 0 1 1.634 5.94a11.9 11.9 0 0 1 1.875-2.431 11.9 11.9 0 0 1 2.43-1.875c.89-.518 1.844-.92 2.867-1.205A11.787 11.787 0 0 1 11.993 0c1.103 0 2.17.145 3.201.435a12.11 12.11 0 0 1 5.39 3.188c.75.763 1.39 1.627 1.916 2.591V3H24v6h-6V7.5z"
+                  fill={
+                    Array [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                    ]
+                  }
+                  fillOpacity={1}
+                  fillRule={0}
+                  matrix={
+                    Array [
+                      1,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                    ]
+                  }
+                  onLayout={undefined}
+                  opacity={1}
+                  originX={0}
+                  originY={0}
+                  propList={
+                    Array [
+                      "stroke",
+                      "strokeWidth",
+                      "fill",
+                      "fillRule",
+                    ]
+                  }
+                  rotation={0}
+                  scaleX={1}
+                  scaleY={1}
+                  skewX={0}
+                  skewY={0}
+                  stroke={null}
+                  strokeDasharray={null}
+                  strokeDashoffset={null}
+                  strokeLinecap={0}
+                  strokeLinejoin={0}
+                  strokeMiterlimit={4}
+                  strokeOpacity={1}
+                  strokeWidth="1"
+                  x={0}
+                  y={0}
+                />
+              </RNSVGSvgView>
+              <View
+                style={
+                  Object {
+                    "flex": 1,
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#43484d",
+                            "fontSize": 14,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                              "fontWeight": "500",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Backup Data
+                  </Text>
+                </View>
+                <View
+                  style={undefined}
+                >
+                  <View>
+                    <Text
+                      accessible={true}
+                      allowFontScaling={false}
+                      ellipsizeMode="tail"
+                      style={
+                        Array [
+                          Object {
+                            "fontSize": 12,
+                          },
+                          Object {
+                            "fontFamily": "Lato",
+                          },
+                          Object {
+                            "backgroundColor": "#333333",
+                            "color": "#ffffff",
+                          },
+                          Object {
+                            "fontWeight": "bold",
+                          },
+                          null,
+                          Object {
+                            "backgroundColor": "transparent",
+                          },
+                          null,
+                          null,
+                          null,
+                          null,
+                          null,
+                          null,
+                          null,
+                          null,
+                          Object {
+                            "color": "#505050",
+                            "marginLeft": 10,
+                          },
+                        ]
+                      }
+                    >
+                      Last backup was
+                       
+                      <Text
+                        accessible={true}
+                        allowFontScaling={false}
+                        ellipsizeMode="tail"
+                        style={
+                          Array [
+                            Object {
+                              "fontSize": 12,
+                            },
+                            Object {
+                              "fontFamily": "Lato",
+                            },
+                            Object {
+                              "backgroundColor": "#333333",
+                              "color": "#ffffff",
+                            },
+                            Object {
+                              "fontWeight": "bold",
+                            },
+                            null,
+                            Object {
+                              "backgroundColor": "transparent",
+                            },
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            Object {
+                              "color": "#505050",
+                            },
+                          ]
+                        }
+                      >
+                        2018-01-10T04:32:43+05:30
+                      </Text>
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hasTVPreferredFocus={undefined}
+            hitSlop={undefined}
+            isTVSelectable={true}
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderBottomColor": "#bbb",
+                    "borderBottomWidth": 1,
+                    "paddingBottom": 10,
+                    "paddingRight": 10,
+                    "paddingTop": 10,
+                  },
+                  Array [
+                    Object {
+                      "borderBottomWidth": 0.2,
+                      "borderTopWidth": 0,
+                      "paddingBottom": 11,
+                      "paddingTop": 11,
+                    },
+                  ],
+                  false,
+                  false,
+                ],
+              ]
+            }
+            testID={undefined}
+            tvParallaxProperties={undefined}
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "marginLeft": 10,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight="24"
+                bbWidth="44"
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    undefined,
+                    false,
+                    Object {
+                      "flex": 0,
+                      "height": 24,
+                      "width": 44,
+                    },
+                  ]
+                }
+                vbHeight={24}
+                vbWidth={24}
+              >
+                <RNSVGPath
+                  d="M3.658 22.5a.838.838 0 0 1-.604-.245.818.818 0 0 1-.253-.612c0-.184.048-.347.145-.49a.874.874 0 0 1 .421-.321 7.58 7.58 0 0 0 1.845-1.11 8.917 8.917 0 0 0 1.477-1.53c.428-.567.803-1.18 1.125-1.837.321-.659.589-1.324.803-1.998.062-.184.161-.337.299-.459.138-.122.319-.184.543-.184.225 0 .421.087.59.26a.85.85 0 0 1 .252.613c0 .367-.107.819-.321 1.354-.215.536-.5 1.095-.858 1.676A18.065 18.065 0 0 1 7.89 19.37c-.464.587-.941 1.11-1.43 1.569-.49.459-.98.834-1.47 1.125-.49.29-.934.436-1.332.436zM7.73 24a.825.825 0 0 1-.605-.253.825.825 0 0 1-.253-.604c0-.296.128-.536.383-.72a8.035 8.035 0 0 0 1.01-.872c.357-.357.712-.755 1.064-1.194.352-.439.694-.9 1.026-1.385.331-.485.622-.975.872-1.47.25-.494.449-.976.597-1.446.148-.47.222-.908.222-1.316 0-.49-.036-.908-.107-1.255-.072-.347-.204-.63-.398-.85-.194-.22-.462-.38-.804-.482-.342-.102-.773-.153-1.293-.153-.357 0-.666.074-.926.222-.26.148-.487.344-.681.59-.194.244-.378.53-.551.856l-.505 1.056c-.184.368-.383.745-.597 1.133-.215.388-.47.76-.766 1.117a6.664 6.664 0 0 1-1.056 1.01 5.99 5.99 0 0 1-1.454.812c-.122.04-.235.061-.337.061a.825.825 0 0 1-.604-.252.825.825 0 0 1-.253-.605c0-.184.051-.344.153-.482a.968.968 0 0 1 .398-.314 6.28 6.28 0 0 0 1.661-1.14 5.192 5.192 0 0 0 1.156-1.66c.224-.521.454-1.029.688-1.524.235-.495.513-.936.835-1.324a3.636 3.636 0 0 1 1.155-.926c.45-.23 1.01-.344 1.684-.344 1.52 0 2.62.372 3.298 1.117.679.745 1.018 1.857 1.018 3.337 0 .47-.087.984-.26 1.546-.173.56-.4 1.14-.681 1.737-.28.597-.607 1.196-.98 1.798a17.555 17.555 0 0 1-1.178 1.684c-.414.52-.834.985-1.263 1.393a7.66 7.66 0 0 1-1.21.964.703.703 0 0 1-.458.138zm5.142 0a.825.825 0 0 1-.604-.253.825.825 0 0 1-.253-.604c0-.133.026-.253.077-.36.05-.107.127-.212.23-.314a9.47 9.47 0 0 0 1.385-1.691c.413-.638.773-1.314 1.079-2.028.306-.714.54-1.444.704-2.189.163-.745.245-1.47.245-2.173 0-.735-.14-1.452-.421-2.15a6.168 6.168 0 0 0-1.156-1.86 5.827 5.827 0 0 0-1.73-1.31 4.693 4.693 0 0 0-2.127-.497c-.837 0-1.523.057-2.059.169-.535.112-.977.27-1.324.474a2.82 2.82 0 0 0-.85.75c-.219.296-.435.628-.65.995-.214.368-.456.773-.727 1.217-.27.444-.625.91-1.063 1.4a7.938 7.938 0 0 1-1.133 1.095 4.136 4.136 0 0 1-1.393.727.247.247 0 0 1-.107.03H.888a.855.855 0 0 1-.628-.26.838.838 0 0 1-.26-.612c0-.204.061-.372.184-.505.122-.133.27-.235.444-.306.52-.204.951-.454 1.293-.75.342-.296.635-.625.88-.987.245-.363.47-.74.673-1.133.205-.393.421-.78.651-1.163.23-.383.5-.748.811-1.095a4.331 4.331 0 0 1 1.171-.903c.47-.255 1.044-.461 1.722-.62.679-.158 1.503-.237 2.472-.237a6.3 6.3 0 0 1 1.913.291 7.118 7.118 0 0 1 1.715.804c.53.341 1.012.75 1.446 1.224.434.475.806.992 1.117 1.554.312.56.549 1.153.712 1.775a7.51 7.51 0 0 1 .245 1.913c0 .46-.046.97-.138 1.531a15.507 15.507 0 0 1-.398 1.753 18.33 18.33 0 0 1-.627 1.821 16.862 16.862 0 0 1-.812 1.73 10.22 10.22 0 0 1-.971 1.484 5.726 5.726 0 0 1-1.095 1.08 1.549 1.549 0 0 1-.26.13.755.755 0 0 1-.276.053zm5.97-13.714c-.347 0-.607-.164-.78-.49-.848-1.54-1.914-2.702-3.2-3.482-1.285-.78-2.816-1.171-4.592-1.171-.724 0-1.415.038-2.074.115a8.177 8.177 0 0 0-1.867.436 6.017 6.017 0 0 0-1.638.91c-.505.393-.967.901-1.385 1.524-.092.132-.196.24-.314.321a.745.745 0 0 1-.436.122.825.825 0 0 1-.604-.252.825.825 0 0 1-.253-.605c0-.132.036-.27.107-.413A5.736 5.736 0 0 1 3.36 5.403a8.067 8.067 0 0 1 2.089-1.186c.755-.291 1.548-.495 2.38-.612a17.463 17.463 0 0 1 2.441-.176c.97 0 1.926.122 2.87.367.944.245 1.832.605 2.664 1.079a9.561 9.561 0 0 1 2.234 1.76 8.346 8.346 0 0 1 1.584 2.426c.051.133.077.255.077.368a.825.825 0 0 1-.253.604.825.825 0 0 1-.604.253zm-1.714-6.812a.923.923 0 0 1-.414-.107 16.483 16.483 0 0 0-3.122-1.224 12.498 12.498 0 0 0-3.322-.429c-1.01 0-1.972.107-2.885.322-.913.214-1.829.52-2.747.918a.819.819 0 0 1-.383.092.8.8 0 0 1-.597-.253.838.838 0 0 1-.245-.604c0-.255.14-.487.421-.697.28-.209.643-.395 1.087-.558A11.32 11.32 0 0 1 6.383.513a23.105 23.105 0 0 1 2.954-.46C9.755.019 10.07 0 10.286 0c.214 0 .556.026 1.025.077.47.05.99.127 1.561.23.572.101 1.161.226 1.768.374s1.158.319 1.653.513c.495.194.9.408 1.217.643.317.234.475.495.475.78a.825.825 0 0 1-.253.605.825.825 0 0 1-.604.252z"
+                  fill={
+                    Array [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                    ]
+                  }
+                  fillOpacity={1}
+                  fillRule={0}
+                  matrix={
+                    Array [
+                      1,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                    ]
+                  }
+                  onLayout={undefined}
+                  opacity={1}
+                  originX={0}
+                  originY={0}
+                  propList={
+                    Array [
+                      "stroke",
+                      "strokeWidth",
+                      "fill",
+                      "fillRule",
+                    ]
+                  }
+                  rotation={0}
+                  scaleX={1}
+                  scaleY={1}
+                  skewX={0}
+                  skewY={0}
+                  stroke={null}
+                  strokeDasharray={null}
+                  strokeDashoffset={null}
+                  strokeLinecap={0}
+                  strokeLinejoin={0}
+                  strokeMiterlimit={4}
+                  strokeOpacity={1}
+                  strokeWidth="1"
+                  x={0}
+                  y={0}
+                />
+              </RNSVGSvgView>
+              <View
+                style={
+                  Object {
+                    "flex": 1,
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#43484d",
+                            "fontSize": 14,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                              "fontWeight": "500",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Biometrics
+                  </Text>
+                </View>
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#86939e",
+                            "fontSize": 12,
+                            "fontWeight": "600",
+                            "marginTop": 1,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "color": "#505050",
+                              "fontSize": 12,
+                              "fontWeight": "bold",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Use your finger or face to secure app
+                  </Text>
+                </View>
+              </View>
+              <RCTSwitch
+                disabled={false}
+                onChange={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                onTintColor="#85bf43"
+                onValueChange={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "height": 31,
+                      "width": 51,
+                    },
+                    undefined,
+                  ]
+                }
+                value={false}
+              />
+            </View>
+          </View>
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hasTVPreferredFocus={undefined}
+            hitSlop={undefined}
+            isTVSelectable={true}
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderBottomColor": "#bbb",
+                    "borderBottomWidth": 1,
+                    "paddingBottom": 10,
+                    "paddingRight": 10,
+                    "paddingTop": 10,
+                  },
+                  Array [
+                    Object {
+                      "borderBottomWidth": 0.2,
+                      "borderTopWidth": 0,
+                      "paddingBottom": 11,
+                      "paddingTop": 11,
+                    },
+                  ],
+                  false,
+                  false,
+                ],
+              ]
+            }
+            testID={undefined}
+            tvParallaxProperties={undefined}
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "marginLeft": 10,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight="24"
+                bbWidth="44"
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    undefined,
+                    false,
+                    Object {
+                      "flex": 0,
+                      "height": 24,
+                      "width": 44,
+                    },
+                  ]
+                }
+                vbHeight={24}
+                vbWidth={24}
+              >
+                <RNSVGPath
+                  d="M24 18.429V24h-6v-3h-3v-3h-3v-2.424a8.003 8.003 0 0 1-3.75.924 8.076 8.076 0 0 1-2.19-.295 8.222 8.222 0 0 1-3.643-2.123A8.222 8.222 0 0 1 .295 10.44 8.076 8.076 0 0 1 0 8.25c0-.759.098-1.489.295-2.19a8.222 8.222 0 0 1 2.123-3.643A8.222 8.222 0 0 1 6.06.295C6.761.098 7.491 0 8.25 0c.759 0 1.489.098 2.19.295a8.222 8.222 0 0 1 3.643 2.123 8.222 8.222 0 0 1 2.122 3.642 8.076 8.076 0 0 1 .201 3.375 8.36 8.36 0 0 1-.268 1.145L24 18.43zm-1.5.642l-8.09-8.089c.18-.446.322-.895.43-1.346a6.512 6.512 0 0 0-.375-4.011 6.872 6.872 0 0 0-1.447-2.143 6.872 6.872 0 0 0-2.143-1.446A6.512 6.512 0 0 0 8.25 1.5c-.929 0-1.804.179-2.625.536a6.872 6.872 0 0 0-2.143 1.446 6.872 6.872 0 0 0-1.446 2.143A6.512 6.512 0 0 0 1.5 8.25c0 .929.179 1.804.536 2.625.357.821.839 1.536 1.446 2.143a6.872 6.872 0 0 0 2.143 1.446A6.512 6.512 0 0 0 8.25 15c.759 0 1.504-.13 2.237-.388a6.384 6.384 0 0 0 1.968-1.112H13.5v3h3v3h3v3h3v-3.429zM6 4.5c.214 0 .41.038.59.114.178.076.336.183.475.321.138.139.245.297.321.476.076.178.114.375.114.589 0 .214-.038.41-.114.59a1.417 1.417 0 0 1-.321.468 1.654 1.654 0 0 1-.476.321A1.42 1.42 0 0 1 6 7.5c-.214 0-.41-.04-.59-.12a1.564 1.564 0 0 1-.79-.79A1.42 1.42 0 0 1 4.5 6c0-.214.04-.41.12-.59.08-.178.188-.336.322-.475.134-.138.29-.245.469-.321.178-.076.375-.114.589-.114z"
+                  fill={
+                    Array [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                    ]
+                  }
+                  fillOpacity={1}
+                  fillRule={0}
+                  matrix={
+                    Array [
+                      1,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                    ]
+                  }
+                  onLayout={undefined}
+                  opacity={1}
+                  originX={0}
+                  originY={0}
+                  propList={
+                    Array [
+                      "stroke",
+                      "strokeWidth",
+                      "fill",
+                      "fillRule",
+                    ]
+                  }
+                  rotation={0}
+                  scaleX={1}
+                  scaleY={1}
+                  skewX={0}
+                  skewY={0}
+                  stroke={null}
+                  strokeDasharray={null}
+                  strokeDashoffset={null}
+                  strokeLinecap={0}
+                  strokeLinejoin={0}
+                  strokeMiterlimit={4}
+                  strokeOpacity={1}
+                  strokeWidth="1"
+                  x={0}
+                  y={0}
+                />
+              </RNSVGSvgView>
+              <View
+                style={
+                  Object {
+                    "flex": 1,
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#43484d",
+                            "fontSize": 14,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                              "fontWeight": "500",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Passcode
+                  </Text>
+                </View>
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#86939e",
+                            "fontSize": 12,
+                            "fontWeight": "600",
+                            "marginTop": 1,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "color": "#505050",
+                              "fontSize": 12,
+                              "fontWeight": "bold",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Change the code to unlock this app
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hasTVPreferredFocus={undefined}
+            hitSlop={undefined}
+            isTVSelectable={true}
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderBottomColor": "#bbb",
+                    "borderBottomWidth": 1,
+                    "paddingBottom": 10,
+                    "paddingRight": 10,
+                    "paddingTop": 10,
+                  },
+                  Array [
+                    Object {
+                      "borderBottomWidth": 0.2,
+                      "borderTopWidth": 0,
+                      "paddingBottom": 11,
+                      "paddingTop": 11,
+                    },
+                  ],
+                  false,
+                  false,
+                ],
+              ]
+            }
+            testID={undefined}
+            tvParallaxProperties={undefined}
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "marginLeft": 10,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight="24"
+                bbWidth="44"
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    undefined,
+                    false,
+                    Object {
+                      "flex": 0,
+                      "height": 24,
+                      "width": 44,
+                    },
+                  ]
+                }
+                vbHeight={24}
+                vbWidth={24}
+              >
+                <RNSVGPath
+                  d="M11.223 15.562a8.304 8.304 0 0 1 2.163 1.246 8.19 8.19 0 0 1 1.66 1.788c.46.674.818 1.406 1.072 2.196.255.79.382 1.61.382 2.458V24H15v-.75c0-.929-.179-1.804-.536-2.625a6.872 6.872 0 0 0-1.446-2.143 6.872 6.872 0 0 0-2.143-1.446A6.512 6.512 0 0 0 8.25 16.5c-.929 0-1.804.179-2.625.536a6.872 6.872 0 0 0-2.143 1.446 6.872 6.872 0 0 0-1.446 2.143A6.512 6.512 0 0 0 1.5 23.25V24H0v-.75c0-.848.127-1.667.382-2.458a8.499 8.499 0 0 1 1.071-2.196 8.19 8.19 0 0 1 1.66-1.788 8.304 8.304 0 0 1 2.164-1.246 4.936 4.936 0 0 1-.958-.843 5.216 5.216 0 0 1-.71-1.038 5.626 5.626 0 0 1-.448-1.172c-.107-.41-.161-.83-.161-1.259 0-.723.138-1.404.415-2.042A5.331 5.331 0 0 1 4.54 7.54a5.332 5.332 0 0 1 1.668-1.125A5.079 5.079 0 0 1 8.25 6c.723 0 1.404.138 2.042.415A5.331 5.331 0 0 1 11.96 7.54a5.332 5.332 0 0 1 1.125 1.668c.277.638.415 1.319.415 2.042 0 .429-.054.848-.16 1.259-.108.41-.257.801-.45 1.172-.191.37-.428.716-.71 1.038-.28.321-.6.602-.957.843zM8.25 15c.518 0 1.002-.098 1.453-.295A3.813 3.813 0 0 0 11.7 12.71c.2-.456.301-.942.301-1.46s-.1-1.002-.301-1.453a3.91 3.91 0 0 0-.81-1.185 3.91 3.91 0 0 0-1.186-.81A3.53 3.53 0 0 0 8.25 7.5c-.518 0-1.004.1-1.46.301a3.813 3.813 0 0 0-1.996 1.996c-.196.45-.294.935-.294 1.453s.098 1.004.295 1.46c.196.455.464.852.803 1.192.34.34.737.607 1.192.803.456.197.942.295 1.46.295zM24 0v12h-3l-4.5 4.5V12H15v-1.5h3v2.384l2.384-2.384H22.5v-9h-15v2.692c-.25.036-.502.078-.757.127-.254.05-.502.119-.743.208V0h18z"
+                  fill={
+                    Array [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                    ]
+                  }
+                  fillOpacity={1}
+                  fillRule={0}
+                  matrix={
+                    Array [
+                      1,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                    ]
+                  }
+                  onLayout={undefined}
+                  opacity={1}
+                  originX={0}
+                  originY={0}
+                  propList={
+                    Array [
+                      "stroke",
+                      "strokeWidth",
+                      "fill",
+                      "fillRule",
+                    ]
+                  }
+                  rotation={0}
+                  scaleX={1}
+                  scaleY={1}
+                  skewX={0}
+                  skewY={0}
+                  stroke={null}
+                  strokeDasharray={null}
+                  strokeDashoffset={null}
+                  strokeLinecap={0}
+                  strokeLinejoin={0}
+                  strokeMiterlimit={4}
+                  strokeOpacity={1}
+                  strokeWidth="1"
+                  x={0}
+                  y={0}
+                />
+              </RNSVGSvgView>
+              <View
+                style={
+                  Object {
+                    "flex": 1,
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#43484d",
+                            "fontSize": 14,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                              "fontWeight": "500",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Chat With Us
+                  </Text>
+                </View>
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#86939e",
+                            "fontSize": 12,
+                            "fontWeight": "600",
+                            "marginTop": 1,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "color": "#505050",
+                              "fontSize": 12,
+                              "fontWeight": "bold",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Tell us what you think of Connect.Me
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hasTVPreferredFocus={undefined}
+            hitSlop={undefined}
+            isTVSelectable={true}
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderBottomColor": "#bbb",
+                    "borderBottomWidth": 1,
+                    "paddingBottom": 10,
+                    "paddingRight": 10,
+                    "paddingTop": 10,
+                  },
+                  Array [
+                    Object {
+                      "borderBottomWidth": 0.2,
+                      "borderTopWidth": 0,
+                      "paddingBottom": 11,
+                      "paddingTop": 11,
+                    },
+                  ],
+                  false,
+                  false,
+                ],
+              ]
+            }
+            testID={undefined}
+            tvParallaxProperties={undefined}
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "marginLeft": 10,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <RNSVGSvgView
+                align="xMidYMid"
+                bbHeight="24"
+                bbWidth="44"
+                meetOrSlice={0}
+                minX={0}
+                minY={0}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                    },
+                    undefined,
+                    false,
+                    Object {
+                      "flex": 0,
+                      "height": 24,
+                      "width": 44,
+                    },
+                  ]
+                }
+                vbHeight={24}
+                vbWidth={24}
+              >
+                <RNSVGPath
+                  d="M12 24c-1.105 0-2.169-.143-3.193-.429a12.172 12.172 0 0 1-2.871-1.207c-.89-.519-1.7-1.143-2.429-1.871a11.883 11.883 0 0 1-1.871-2.429 12.172 12.172 0 0 1-1.207-2.871A11.823 11.823 0 0 1 0 12c0-1.105.143-2.169.429-3.193a12.172 12.172 0 0 1 1.207-2.871c.519-.89 1.143-1.7 1.871-2.429A12.087 12.087 0 0 1 5.936 1.63C6.826 1.105 7.783.702 8.807.42A12.01 12.01 0 0 1 12 0c1.105 0 2.169.14 3.193.421 1.024.281 1.98.684 2.871 1.208a12.087 12.087 0 0 1 4.307 4.307c.524.89.927 1.847 1.208 2.871A12.01 12.01 0 0 1 24 12c0 1.105-.14 2.169-.421 3.193a11.788 11.788 0 0 1-1.208 2.871c-.523.89-1.15 1.7-1.878 2.429a11.883 11.883 0 0 1-2.429 1.871c-.89.52-1.847.922-2.871 1.207A11.823 11.823 0 0 1 12 24zm0-22.4c-.962 0-1.883.124-2.764.371A10.429 10.429 0 0 0 4.65 4.65a10.226 10.226 0 0 0-1.621 2.107c-.448.772-.798 1.6-1.05 2.486A10.012 10.012 0 0 0 1.6 12c0 .952.126 1.871.379 2.757.252.886.602 1.714 1.05 2.486.447.771.988 1.474 1.621 2.107a10.226 10.226 0 0 0 2.107 1.621c.772.448 1.598.798 2.479 1.05.88.253 1.8.379 2.757.379.957 0 1.878-.126 2.764-.379a10.861 10.861 0 0 0 2.486-1.05 10.226 10.226 0 0 0 2.107-1.621 10.429 10.429 0 0 0 2.679-4.586c.247-.88.371-1.8.371-2.757 0-.957-.124-1.878-.371-2.764A10.429 10.429 0 0 0 19.35 4.65a10.429 10.429 0 0 0-4.593-2.679A10.192 10.192 0 0 0 12 1.6zm-.8 8h1.6v8h-1.6v-8zm0-3.2h1.6V8h-1.6V6.4z"
+                  fill={
+                    Array [
+                      0,
+                      0,
+                      0,
+                      0,
+                      1,
+                    ]
+                  }
+                  fillOpacity={1}
+                  fillRule={0}
+                  matrix={
+                    Array [
+                      1,
+                      0,
+                      0,
+                      1,
+                      0,
+                      0,
+                    ]
+                  }
+                  onLayout={undefined}
+                  opacity={1}
+                  originX={0}
+                  originY={0}
+                  propList={
+                    Array [
+                      "stroke",
+                      "strokeWidth",
+                      "fill",
+                      "fillRule",
+                    ]
+                  }
+                  rotation={0}
+                  scaleX={1}
+                  scaleY={1}
+                  skewX={0}
+                  skewY={0}
+                  stroke={null}
+                  strokeDasharray={null}
+                  strokeDashoffset={null}
+                  strokeLinecap={0}
+                  strokeLinejoin={0}
+                  strokeMiterlimit={4}
+                  strokeOpacity={1}
+                  strokeWidth="1"
+                  x={0}
+                  y={0}
+                />
+              </RNSVGSvgView>
+              <View
+                style={
+                  Object {
+                    "flex": 1,
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#43484d",
+                            "fontSize": 14,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                              "fontWeight": "500",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    About
+                  </Text>
+                </View>
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#86939e",
+                            "fontSize": 12,
+                            "fontWeight": "600",
+                            "marginTop": 1,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "color": "#505050",
+                              "fontSize": 12,
+                              "fontWeight": "bold",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Legal, Version, and Network Information
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hasTVPreferredFocus={undefined}
+            hitSlop={undefined}
+            isTVSelectable={true}
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderBottomColor": "#bbb",
+                    "borderBottomWidth": 1,
+                    "paddingBottom": 10,
+                    "paddingRight": 10,
+                    "paddingTop": 10,
+                  },
+                  Array [
+                    Object {
+                      "borderBottomWidth": 0.2,
+                      "borderTopWidth": 0,
+                      "paddingBottom": 11,
+                      "paddingTop": 11,
+                    },
+                  ],
+                  false,
+                  false,
+                ],
+              ]
+            }
+            testID={undefined}
+            tvParallaxProperties={undefined}
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "flexDirection": "row",
+                    "marginLeft": 10,
+                  },
+                  undefined,
+                ]
+              }
+            >
+              <View
+                clearBg={true}
+                src={1}
+                style={
+                  Object {
+                    "backgroundColor": "transparent",
+                  }
+                }
+              >
+                <View
+                  style={Object {}}
+                >
+                  <Image
+                    resizeMode="contain"
+                    source={1}
+                    style={
+                      Array [
+                        Object {
+                          "height": 50,
+                          "width": 50,
+                        },
+                        null,
+                      ]
+                    }
+                  />
+                </View>
+              </View>
+              <View
+                style={
+                  Object {
+                    "flex": 1,
+                    "justifyContent": "center",
+                  }
+                }
+              >
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#43484d",
+                            "fontSize": 14,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "fontSize": 17,
+                              "fontWeight": "500",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    Onfido
+                  </Text>
+                </View>
+                <View
+                  style={undefined}
+                >
+                  <Text
+                    accessible={true}
+                    allowFontScaling={true}
+                    ellipsizeMode="tail"
+                    numberOfLines={1}
+                    style={
+                      Array [
+                        Object {},
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        undefined,
+                        Array [
+                          Object {
+                            "color": "#86939e",
+                            "fontSize": 12,
+                            "fontWeight": "600",
+                            "marginTop": 1,
+                          },
+                          Object {
+                            "marginLeft": 10,
+                          },
+                          Array [
+                            Object {
+                              "color": "#505050",
+                              "fontSize": 12,
+                              "fontWeight": "bold",
+                            },
+                          ],
+                          undefined,
+                        ],
+                      ]
+                    }
+                  >
+                    
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </RCTScrollView>
+  </View>
+</View>
+`;

@@ -1,0 +1,418 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Banner/> should display "Set up data recovery now!" FIRST_BACKUP_TITLE text 1`] = `
+<View
+  style={Object {}}
+>
+  <View>
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel="wallet-backup-banner-label-touchable"
+      accessibilityTraits={undefined}
+      accessible={false}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      horizontalSpace={true}
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      row={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#d0021b",
+          "flexDirection": "row",
+          "paddingHorizontal": 15,
+          "paddingVertical": 8,
+        }
+      }
+      testID="wallet-backup-banner-label-touchable"
+      vCenter={true}
+      verticalSpace={true}
+    >
+      <View
+        clearBg={true}
+        iconStyle={
+          Array [
+            Object {
+              "height": 25,
+              "width": 29,
+            },
+            Object {
+              "tintColor": "white",
+            },
+          ]
+        }
+        src={1}
+        style={
+          Object {
+            "backgroundColor": "transparent",
+          }
+        }
+      >
+        <View
+          style={Object {}}
+        >
+          <Image
+            resizeMode="contain"
+            source={1}
+            style={
+              Array [
+                Object {
+                  "height": 50,
+                  "width": 50,
+                },
+                null,
+                Object {
+                  "height": 25,
+                  "width": 29,
+                },
+                Object {
+                  "tintColor": "white",
+                },
+              ]
+            }
+          />
+        </View>
+      </View>
+      <View
+        horizontalSpace={true}
+        style={
+          Object {
+            "paddingHorizontal": 15,
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#333333",
+                "color": "#ffffff",
+              },
+              Object {
+                "fontWeight": "bold",
+              },
+              null,
+              Object {
+                "backgroundColor": "transparent",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+            ]
+          }
+        >
+          Set up data recovery now!
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 15,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#333333",
+                "color": "#ffffff",
+              },
+              null,
+              null,
+              Object {
+                "backgroundColor": "transparent",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+            ]
+          }
+        >
+          2 easy steps, takes 3 minutes.
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<Banner/> should display "You have new data that is not backed up" SUBSEQUENT_BACKUP_TITLE text 1`] = `
+<View
+  style={Object {}}
+>
+  <View>
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel="wallet-backup-banner-label-touchable"
+      accessibilityTraits={undefined}
+      accessible={false}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      horizontalSpace={true}
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      row={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#d0021b",
+          "flexDirection": "row",
+          "paddingHorizontal": 15,
+          "paddingVertical": 8,
+        }
+      }
+      testID="wallet-backup-banner-label-touchable"
+      vCenter={true}
+      verticalSpace={true}
+    >
+      <View
+        clearBg={true}
+        iconStyle={
+          Array [
+            Object {
+              "height": 25,
+              "width": 29,
+            },
+            Object {
+              "tintColor": "white",
+            },
+          ]
+        }
+        src={1}
+        style={
+          Object {
+            "backgroundColor": "transparent",
+          }
+        }
+      >
+        <View
+          style={Object {}}
+        >
+          <Image
+            resizeMode="contain"
+            source={1}
+            style={
+              Array [
+                Object {
+                  "height": 50,
+                  "width": 50,
+                },
+                null,
+                Object {
+                  "height": 25,
+                  "width": 29,
+                },
+                Object {
+                  "tintColor": "white",
+                },
+              ]
+            }
+          />
+        </View>
+      </View>
+      <View
+        horizontalSpace={true}
+        style={
+          Object {
+            "paddingHorizontal": 15,
+          }
+        }
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 17,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#333333",
+                "color": "#ffffff",
+              },
+              Object {
+                "fontWeight": "bold",
+              },
+              null,
+              Object {
+                "backgroundColor": "transparent",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+            ]
+          }
+        >
+          You have new data that is not backed up.
+        </Text>
+        <Text
+          accessible={true}
+          allowFontScaling={false}
+          ellipsizeMode="tail"
+          style={
+            Array [
+              Object {
+                "fontSize": 15,
+              },
+              Object {
+                "fontFamily": "Lato",
+              },
+              Object {
+                "backgroundColor": "#333333",
+                "color": "#ffffff",
+              },
+              null,
+              null,
+              Object {
+                "backgroundColor": "transparent",
+              },
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+            ]
+          }
+        >
+          Create another backup so you don't lose anything.
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<Banner/> should display nothing  1`] = `null`;
+
+exports[`<Banner/> should display offline banner 1`] = `
+<View
+  style={Object {}}
+>
+  <View
+    accessibilityLabel="wallet-backup-banner-label"
+    accessible={true}
+    horizontalSpace={true}
+    row={true}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#FFD5DB",
+        "flexDirection": "row",
+        "paddingHorizontal": 15,
+        "paddingVertical": 8,
+      }
+    }
+    testID="wallet-backup-banner-label"
+    vCenter={true}
+    verticalSpace={true}
+  >
+    <View
+      horizontalSpace={true}
+      style={
+        Object {
+          "paddingHorizontal": 15,
+        }
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "fontSize": 17,
+            },
+            Object {
+              "fontFamily": "Lato",
+            },
+            Object {
+              "backgroundColor": "#333333",
+              "color": "#ffffff",
+            },
+            Object {
+              "fontWeight": "bold",
+            },
+            Object {
+              "textAlign": "center",
+            },
+            Object {
+              "backgroundColor": "transparent",
+            },
+            null,
+            Object {
+              "color": "#d0021b",
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+          ]
+        }
+      >
+        You are not connected to the internet
+      </Text>
+    </View>
+  </View>
+</View>
+`;

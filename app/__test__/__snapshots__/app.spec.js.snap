@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App/> in android environment. should dispatch navigation action 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Arguments [
+        Object {
+          "params": Object {
+            "existingPin": true,
+          },
+          "routeName": "routeName",
+        },
+      ],
+    ],
+  ],
+}
+`;
+
+exports[`<App/> in android environment. should redirect to lockSelectionRoute screen if user has no existing pin ands pressed back button from lockPinSetup screen  1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Arguments [
+        Object {
+          "routeName": "LockSelection",
+        },
+      ],
+    ],
+  ],
+}
+`;
+
+exports[`<App/> in android environment. should redirect to settingsTab screen if user has pressed back button from lockPinSetup screen if user has already setup  1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      Arguments [
+        Object {
+          "routeName": "TabSettings",
+        },
+      ],
+    ],
+  ],
+}
+`;
+
+exports[`<App/> in ios environment. should render properly and snapshot should match 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View />
+</View>
+`;

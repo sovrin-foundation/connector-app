@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PushNotification /> should render PushNotification Navigator components properly 1`] = `
+<PushNotificationNavigator
+  navigateToRoute={[MockFunction]}
+/>
+`;

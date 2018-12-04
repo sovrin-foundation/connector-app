@@ -1,0 +1,539 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Bubbles/> should render Bubbles 1`] = `
+<View
+  collapsable={undefined}
+  style={
+    Object {
+      "height": 486,
+      "left": 0,
+      "overflow": "hidden",
+      "position": "absolute",
+      "right": 0,
+      "top": -70,
+      "transform": Array [
+        Object {
+          "translateY": 300,
+        },
+      ],
+      "zIndex": -1,
+    }
+  }
+>
+  <Animatable.View
+    animation="zoomIn"
+    delay={600}
+    duration={200}
+    style={
+      Array [
+        Object {
+          "position": "absolute",
+        },
+        Object {
+          "left": 126,
+          "top": 313,
+        },
+      ]
+    }
+  >
+    <View
+      row={true}
+      style={
+        Object {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "zIndex": 0,
+            },
+          ]
+        }
+      >
+        <View
+          accessibilityLabel="bubble-4ej819kkjywdppuje79"
+          accessible={true}
+          imageShadow={null}
+          style={
+            Object {
+              "borderRadius": 50,
+            }
+          }
+          testID="bubble-4ej819kkjywdppuje79"
+        >
+          <Image
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hitSlop={undefined}
+            nativeID={undefined}
+            onError={[Function]}
+            onLayout={undefined}
+            onLoad={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            source={
+              Object {
+                "uri": "https://logourl.com/logo.png",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 66,
+                  "width": 66,
+                },
+                Object {
+                  "borderRadius": 33,
+                },
+              ]
+            }
+            testID={undefined}
+          />
+        </View>
+      </View>
+    </View>
+  </Animatable.View>
+  <Animatable.View
+    animation="zoomIn"
+    delay={600}
+    duration={200}
+    style={
+      Array [
+        Object {
+          "position": "absolute",
+        },
+        Object {
+          "left": 34,
+          "top": 363,
+        },
+      ]
+    }
+  >
+    <View
+      row={true}
+      style={
+        Object {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "zIndex": 0,
+            },
+          ]
+        }
+      >
+        <View
+          accessibilityLabel="bubble-3nj819kkjywdppuje86"
+          accessible={true}
+          imageShadow={null}
+          style={
+            Object {
+              "borderRadius": 50,
+            }
+          }
+          testID="bubble-3nj819kkjywdppuje86"
+        >
+          <Image
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hitSlop={undefined}
+            nativeID={undefined}
+            onError={[Function]}
+            onLayout={undefined}
+            onLoad={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            source={
+              Object {
+                "uri": "https://logourl.com/logo.png",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 66,
+                  "width": 66,
+                },
+                Object {
+                  "borderRadius": 33,
+                },
+              ]
+            }
+            testID={undefined}
+          />
+        </View>
+      </View>
+    </View>
+  </Animatable.View>
+  <Animatable.View
+    animation="zoomIn"
+    delay={600}
+    duration={200}
+    style={
+      Array [
+        Object {
+          "position": "absolute",
+        },
+        Object {
+          "left": 217,
+          "top": 363,
+        },
+      ]
+    }
+  >
+    <View
+      row={true}
+      style={
+        Object {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "zIndex": 0,
+            },
+          ]
+        }
+      >
+        <View
+          accessibilityLabel="bubble-7fj819kkjywdppuje34"
+          accessible={true}
+          imageShadow={null}
+          style={
+            Object {
+              "borderRadius": 50,
+            }
+          }
+          testID="bubble-7fj819kkjywdppuje34"
+        >
+          <Image
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hitSlop={undefined}
+            nativeID={undefined}
+            onError={[Function]}
+            onLayout={undefined}
+            onLoad={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            source={
+              Object {
+                "uri": "https://logourl.com/logo.png",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 66,
+                  "width": 66,
+                },
+                Object {
+                  "borderRadius": 33,
+                },
+              ]
+            }
+            testID={undefined}
+          />
+        </View>
+      </View>
+    </View>
+  </Animatable.View>
+</View>
+`;
+
+exports[`<Bubbles/> should show the dot on the Bubbles 1`] = `
+<View
+  collapsable={undefined}
+  style={
+    Object {
+      "height": 486,
+      "left": 0,
+      "overflow": "hidden",
+      "position": "absolute",
+      "right": 0,
+      "top": -70,
+      "transform": Array [
+        Object {
+          "translateY": 300,
+        },
+      ],
+      "zIndex": -1,
+    }
+  }
+>
+  <Animatable.View
+    animation="zoomIn"
+    delay={600}
+    duration={200}
+    style={
+      Array [
+        Object {
+          "position": "absolute",
+        },
+        Object {
+          "left": 126,
+          "top": 313,
+        },
+      ]
+    }
+  >
+    <View
+      row={true}
+      style={
+        Object {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "zIndex": 0,
+            },
+          ]
+        }
+      >
+        <View
+          accessibilityLabel="bubble-4ej819kkjywdppuje79"
+          accessible={true}
+          imageShadow={null}
+          style={
+            Object {
+              "borderRadius": 50,
+            }
+          }
+          testID="bubble-4ej819kkjywdppuje79"
+        >
+          <Image
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hitSlop={undefined}
+            nativeID={undefined}
+            onError={[Function]}
+            onLayout={undefined}
+            onLoad={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            source={
+              Object {
+                "uri": "https://logourl.com/logo.png",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 66,
+                  "width": 66,
+                },
+                Object {
+                  "borderRadius": 33,
+                },
+              ]
+            }
+            testID={undefined}
+          />
+        </View>
+      </View>
+    </View>
+  </Animatable.View>
+  <Animatable.View
+    animation="zoomIn"
+    delay={600}
+    duration={200}
+    style={
+      Array [
+        Object {
+          "position": "absolute",
+        },
+        Object {
+          "left": 34,
+          "top": 363,
+        },
+      ]
+    }
+  >
+    <View
+      row={true}
+      style={
+        Object {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "zIndex": 0,
+            },
+          ]
+        }
+      >
+        <View
+          accessibilityLabel="bubble-3nj819kkjywdppuje86"
+          accessible={true}
+          imageShadow={null}
+          style={
+            Object {
+              "borderRadius": 50,
+            }
+          }
+          testID="bubble-3nj819kkjywdppuje86"
+        >
+          <Image
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hitSlop={undefined}
+            nativeID={undefined}
+            onError={[Function]}
+            onLayout={undefined}
+            onLoad={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            source={
+              Object {
+                "uri": "https://logourl.com/logo.png",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 66,
+                  "width": 66,
+                },
+                Object {
+                  "borderRadius": 33,
+                },
+              ]
+            }
+            testID={undefined}
+          />
+        </View>
+      </View>
+    </View>
+  </Animatable.View>
+  <Animatable.View
+    animation="zoomIn"
+    delay={600}
+    duration={200}
+    style={
+      Array [
+        Object {
+          "position": "absolute",
+        },
+        Object {
+          "left": 217,
+          "top": 363,
+        },
+      ]
+    }
+  >
+    <View
+      row={true}
+      style={
+        Object {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "zIndex": 0,
+            },
+          ]
+        }
+      >
+        <View
+          accessibilityLabel="bubble-7fj819kkjywdppuje34"
+          accessible={true}
+          imageShadow={null}
+          style={
+            Object {
+              "borderRadius": 50,
+            }
+          }
+          testID="bubble-7fj819kkjywdppuje34"
+        >
+          <Image
+            accessibilityComponentType={undefined}
+            accessibilityLabel={undefined}
+            accessibilityTraits={undefined}
+            accessible={true}
+            hitSlop={undefined}
+            nativeID={undefined}
+            onError={[Function]}
+            onLayout={undefined}
+            onLoad={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            source={
+              Object {
+                "uri": "https://logourl.com/logo.png",
+              }
+            }
+            style={
+              Array [
+                Object {
+                  "height": 66,
+                  "width": 66,
+                },
+                Object {
+                  "borderRadius": 33,
+                },
+              ]
+            }
+            testID={undefined}
+          />
+        </View>
+      </View>
+    </View>
+  </Animatable.View>
+</View>
+`;

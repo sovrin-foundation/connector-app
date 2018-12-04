@@ -1,0 +1,879 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LockEnter /> should match snapshot 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+        "flex": 1,
+      }
+    }
+    tertiary={true}
+  >
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel="pin-code-input-boxes-touchable"
+      accessibilityTraits={undefined}
+      accessible={false}
+      center={true}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+          "marginBottom": 40,
+          "marginTop": 40,
+          "minHeight": 30,
+        }
+      }
+      testID="pin-code-input-boxes-touchable"
+    >
+      <Text
+        accessibilityLabel="pass-code-input-text"
+        accessible={true}
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "fontSize": 20,
+            },
+            Object {
+              "fontFamily": "Lato",
+            },
+            Object {
+              "backgroundColor": "#ffffff",
+              "color": "#777777",
+            },
+            Object {
+              "fontWeight": "800",
+            },
+            Object {
+              "textAlign": "center",
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "letterSpacing": 0.5,
+              "lineHeight": 28,
+            },
+          ]
+        }
+        testID="pass-code-input-text"
+      >
+        Enter your passcode
+      </Text>
+    </View>
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <View
+        style={Object {}}
+      >
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          hitSlop={
+            Object {
+              "bottom": 20,
+              "left": 20,
+              "right": 20,
+              "top": 20,
+            }
+          }
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          row={true}
+          style={
+            Object {
+              "flexDirection": "row",
+            }
+          }
+          testID={undefined}
+        >
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel="pin-code-digit-0-touchable"
+            accessibilityTraits={undefined}
+            accessible={false}
+            center={true}
+            hitSlop={
+              Object {
+                "bottom": 20,
+                "left": 20,
+                "right": 20,
+                "top": 20,
+              }
+            }
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "#777777",
+                "borderBottomWidth": 5,
+                "height": 66,
+                "justifyContent": "center",
+                "marginHorizontal": 5,
+                "width": 38,
+              }
+            }
+            testID="pin-code-digit-0-touchable"
+          />
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel="pin-code-digit-1-touchable"
+            accessibilityTraits={undefined}
+            accessible={false}
+            center={true}
+            hitSlop={
+              Object {
+                "bottom": 20,
+                "left": 20,
+                "right": 20,
+                "top": 20,
+              }
+            }
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "#777777",
+                "borderBottomWidth": 5,
+                "height": 66,
+                "justifyContent": "center",
+                "marginHorizontal": 5,
+                "width": 38,
+              }
+            }
+            testID="pin-code-digit-1-touchable"
+          />
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel="pin-code-digit-2-touchable"
+            accessibilityTraits={undefined}
+            accessible={false}
+            center={true}
+            hitSlop={
+              Object {
+                "bottom": 20,
+                "left": 20,
+                "right": 20,
+                "top": 20,
+              }
+            }
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "#777777",
+                "borderBottomWidth": 5,
+                "height": 66,
+                "justifyContent": "center",
+                "marginHorizontal": 5,
+                "width": 38,
+              }
+            }
+            testID="pin-code-digit-2-touchable"
+          />
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel="pin-code-digit-3-touchable"
+            accessibilityTraits={undefined}
+            accessible={false}
+            center={true}
+            hitSlop={
+              Object {
+                "bottom": 20,
+                "left": 20,
+                "right": 20,
+                "top": 20,
+              }
+            }
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "#777777",
+                "borderBottomWidth": 5,
+                "height": 66,
+                "justifyContent": "center",
+                "marginHorizontal": 5,
+                "width": 38,
+              }
+            }
+            testID="pin-code-digit-3-touchable"
+          />
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel="pin-code-digit-4-touchable"
+            accessibilityTraits={undefined}
+            accessible={false}
+            center={true}
+            hitSlop={
+              Object {
+                "bottom": 20,
+                "left": 20,
+                "right": 20,
+                "top": 20,
+              }
+            }
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "#777777",
+                "borderBottomWidth": 5,
+                "height": 66,
+                "justifyContent": "center",
+                "marginHorizontal": 5,
+                "width": 38,
+              }
+            }
+            testID="pin-code-digit-4-touchable"
+          />
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel="pin-code-digit-5-touchable"
+            accessibilityTraits={undefined}
+            accessible={false}
+            center={true}
+            hitSlop={
+              Object {
+                "bottom": 20,
+                "left": 20,
+                "right": 20,
+                "top": 20,
+              }
+            }
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "#777777",
+                "borderBottomWidth": 5,
+                "height": 66,
+                "justifyContent": "center",
+                "marginHorizontal": 5,
+                "width": 38,
+              }
+            }
+            testID="pin-code-digit-5-touchable"
+          />
+        </View>
+        <TextInput
+          accessibilityLabel="pin-code-input-box"
+          accessible={true}
+          autoCorrect={false}
+          autoFocus={true}
+          blurOnSubmit={false}
+          enablesReturnKeyAutomatically={false}
+          keyboardAppearance="dark"
+          keyboardType="number-pad"
+          maxLength={6}
+          onChangeText={[Function]}
+          style={
+            Object {
+              "height": 0,
+              "position": "absolute",
+              "right": -999,
+              "width": 0,
+            }
+          }
+          testID="pin-code-input-box"
+          value=""
+        />
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<LockEnter /> should match snapshot for recovery flow 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <RCTSafeAreaView
+    fifth={true}
+    safeArea={true}
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+        "flex": 1,
+      }
+    }
+  >
+    <Image
+      source={1}
+      style={
+        Array [
+          Object {
+            "marginTop": "-92%",
+            "position": "absolute",
+            "transform": Array [
+              Object {
+                "rotate": "-180deg",
+              },
+            ],
+            "width": "100%",
+          },
+        ]
+      }
+    />
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+          "marginTop": "3%",
+        }
+      }
+      transparentBg={true}
+    >
+      <View
+        style={
+          Object {
+            "backgroundColor": "#505050",
+            "height": 8,
+            "position": "absolute",
+            "width": "100%",
+          }
+        }
+      />
+      <View
+        style={
+          Object {
+            "backgroundColor": "#505050",
+            "borderRadius": 50,
+          }
+        }
+      >
+        <View
+          clearBg={true}
+          extraLarge={true}
+          halo={true}
+          src={1}
+          style={
+            Object {
+              "backgroundColor": "transparent",
+            }
+          }
+        >
+          <View
+            center={true}
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "rgba(0,0,0,0.07)",
+                "borderRadius": 50,
+                "height": 100,
+                "justifyContent": "center",
+                "width": 100,
+              }
+            }
+          >
+            <View
+              style={Object {}}
+            >
+              <Image
+                resizeMode="contain"
+                source={1}
+                style={
+                  Array [
+                    Object {
+                      "height": 80,
+                      "width": 80,
+                    },
+                    Object {
+                      "borderRadius": 40,
+                    },
+                  ]
+                }
+              />
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+          "paddingVertical": 8,
+        }
+      }
+      verticalSpace={true}
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "fontSize": 17,
+            },
+            Object {
+              "fontFamily": "Lato",
+            },
+            Object {
+              "backgroundColor": "#333333",
+              "color": "#ffffff",
+            },
+            Object {
+              "fontWeight": "900",
+            },
+            Object {
+              "textAlign": "center",
+            },
+            Object {
+              "backgroundColor": "transparent",
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "color": "#464646",
+            },
+            null,
+            null,
+            Object {
+              "fontSize": 16,
+              "marginBottom": "-1%",
+              "marginTop": "2%",
+              "width": "80%",
+            },
+          ]
+        }
+      >
+        Please enter your current Connect.Me passcode!
+      </Text>
+    </View>
+    <View
+      center={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <View
+        style={Object {}}
+      >
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          hitSlop={
+            Object {
+              "bottom": 20,
+              "left": 20,
+              "right": 20,
+              "top": 20,
+            }
+          }
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          row={true}
+          style={
+            Object {
+              "flexDirection": "row",
+            }
+          }
+          testID={undefined}
+        >
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel="pin-code-digit-0-touchable"
+            accessibilityTraits={undefined}
+            accessible={false}
+            center={true}
+            hitSlop={
+              Object {
+                "bottom": 20,
+                "left": 20,
+                "right": 20,
+                "top": 20,
+              }
+            }
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "#777777",
+                "borderBottomWidth": 5,
+                "height": 66,
+                "justifyContent": "center",
+                "marginHorizontal": 5,
+                "width": 38,
+              }
+            }
+            testID="pin-code-digit-0-touchable"
+          />
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel="pin-code-digit-1-touchable"
+            accessibilityTraits={undefined}
+            accessible={false}
+            center={true}
+            hitSlop={
+              Object {
+                "bottom": 20,
+                "left": 20,
+                "right": 20,
+                "top": 20,
+              }
+            }
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "#777777",
+                "borderBottomWidth": 5,
+                "height": 66,
+                "justifyContent": "center",
+                "marginHorizontal": 5,
+                "width": 38,
+              }
+            }
+            testID="pin-code-digit-1-touchable"
+          />
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel="pin-code-digit-2-touchable"
+            accessibilityTraits={undefined}
+            accessible={false}
+            center={true}
+            hitSlop={
+              Object {
+                "bottom": 20,
+                "left": 20,
+                "right": 20,
+                "top": 20,
+              }
+            }
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "#777777",
+                "borderBottomWidth": 5,
+                "height": 66,
+                "justifyContent": "center",
+                "marginHorizontal": 5,
+                "width": 38,
+              }
+            }
+            testID="pin-code-digit-2-touchable"
+          />
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel="pin-code-digit-3-touchable"
+            accessibilityTraits={undefined}
+            accessible={false}
+            center={true}
+            hitSlop={
+              Object {
+                "bottom": 20,
+                "left": 20,
+                "right": 20,
+                "top": 20,
+              }
+            }
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "#777777",
+                "borderBottomWidth": 5,
+                "height": 66,
+                "justifyContent": "center",
+                "marginHorizontal": 5,
+                "width": 38,
+              }
+            }
+            testID="pin-code-digit-3-touchable"
+          />
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel="pin-code-digit-4-touchable"
+            accessibilityTraits={undefined}
+            accessible={false}
+            center={true}
+            hitSlop={
+              Object {
+                "bottom": 20,
+                "left": 20,
+                "right": 20,
+                "top": 20,
+              }
+            }
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "#777777",
+                "borderBottomWidth": 5,
+                "height": 66,
+                "justifyContent": "center",
+                "marginHorizontal": 5,
+                "width": 38,
+              }
+            }
+            testID="pin-code-digit-4-touchable"
+          />
+          <View
+            accessibilityComponentType={undefined}
+            accessibilityLabel="pin-code-digit-5-touchable"
+            accessibilityTraits={undefined}
+            accessible={false}
+            center={true}
+            hitSlop={
+              Object {
+                "bottom": 20,
+                "left": 20,
+                "right": 20,
+                "top": 20,
+              }
+            }
+            nativeID={undefined}
+            onLayout={undefined}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomColor": "#777777",
+                "borderBottomWidth": 5,
+                "height": 66,
+                "justifyContent": "center",
+                "marginHorizontal": 5,
+                "width": 38,
+              }
+            }
+            testID="pin-code-digit-5-touchable"
+          />
+        </View>
+        <TextInput
+          accessibilityLabel="pin-code-input-box"
+          accessible={true}
+          autoCorrect={false}
+          autoFocus={true}
+          blurOnSubmit={false}
+          enablesReturnKeyAutomatically={false}
+          keyboardAppearance="dark"
+          keyboardType="number-pad"
+          maxLength={6}
+          onChangeText={[Function]}
+          style={
+            Object {
+              "height": 0,
+              "position": "absolute",
+              "right": -999,
+              "width": 0,
+            }
+          }
+          testID="pin-code-input-box"
+          value=""
+        />
+      </View>
+    </View>
+    <View
+      center={true}
+      doubleVerticalSpace={true}
+      style={
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+          "paddingVertical": 16,
+        }
+      }
+    >
+      <Text
+        accessibilityLabel="set-up-new-passcode-recovery"
+        accessible={true}
+        allowFontScaling={false}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "fontSize": 15,
+            },
+            Object {
+              "fontFamily": "Lato",
+            },
+            Object {
+              "backgroundColor": "#333333",
+              "color": "#ffffff",
+            },
+            Object {
+              "fontWeight": "bold",
+            },
+            Object {
+              "textAlign": "center",
+            },
+            Object {
+              "backgroundColor": "transparent",
+            },
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            Object {
+              "color": "#79ade7",
+              "marginTop": "1%",
+            },
+          ]
+        }
+        testID="set-up-new-passcode-recovery"
+      >
+        Or Setup New Passcode
+      </Text>
+    </View>
+  </RCTSafeAreaView>
+</View>
+`;

@@ -1,0 +1,7 @@
+
+git_url "git@github.com:evernym/connectme-callcenter-certs.git"
+
+type "development"
+
+app_identifier "com.evernym.connectme.callcenter"
+username "automation@evernym.com"

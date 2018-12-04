@@ -1,0 +1,74 @@
+PODS:
+  - apptentive-ios (5.2.2)
+  - Firebase/Core (4.8.0):
+    - FirebaseAnalytics (= 4.0.5)
+    - FirebaseCore (= 4.0.13)
+  - Firebase/Messaging (4.8.0):
+    - Firebase/Core
+    - FirebaseMessaging (= 2.0.8)
+  - FirebaseAnalytics (4.0.5):
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - nanopb (~> 0.3)
+  - FirebaseCore (4.0.13):
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+  - FirebaseInstanceID (2.0.10):
+    - FirebaseCore (~> 4.0)
+  - FirebaseMessaging (2.0.8):
+    - FirebaseAnalytics (~> 4.0)
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - Protobuf (~> 3.1)
+  - GoogleToolboxForMac/Defines (2.1.4)
+  - GoogleToolboxForMac/Logger (2.1.4):
+    - GoogleToolboxForMac/Defines (= 2.1.4)
+  - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
+    - GoogleToolboxForMac/Defines (= 2.1.4)
+  - nanopb (0.3.901):
+    - nanopb/decode (= 0.3.901)
+    - nanopb/encode (= 0.3.901)
+  - nanopb/decode (0.3.901)
+  - nanopb/encode (0.3.901)
+  - Onfido (10.0.0)
+  - Protobuf (3.6.1)
+  - vcx (0.0.59)
+
+DEPENDENCIES:
+  - apptentive-ios (= 5.2.2)
+  - Firebase/Messaging (= 4.8.0)
+  - Onfido (= 10.0.0)
+  - vcx (= 0.0.59)
+
+SPEC REPOS:
+  "git@github.com:evernym/sdk.git":
+    - vcx
+  https://github.com/cocoapods/specs.git:
+    - apptentive-ios
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseInstanceID
+    - FirebaseMessaging
+    - GoogleToolboxForMac
+    - nanopb
+    - Onfido
+    - Protobuf
+
+SPEC CHECKSUMS:
+  apptentive-ios: a38ab3b2244f7294a06dd08e56afb8018d414bf4
+  Firebase: 710decbbc6d9d48530e9a5dba3209740c3532e05
+  FirebaseAnalytics: 5b02a63ead2c3f0259cfc7f15e053e440587ecf8
+  FirebaseCore: 3c02ec652db3d03fdc8bc6d9154af3e20d64b6f5
+  FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
+  FirebaseMessaging: dfdcd307c2382290a1e297a81d0f18370f5b1bcd
+  GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
+  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  Onfido: eb3bde6295f0dc6dd334b9eb01626d2bad5d3c1d
+  Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
+  vcx: 011eaeb286aa109f5e5c9973151e5eeb15bd0418
+
+PODFILE CHECKSUM: a7a2814d243214e7c5da8cffdf3188b689198145
+
+COCOAPODS: 1.5.3

@@ -1,0 +1,50 @@
+fastlane_version "2.27.0"
+
+default_platform :android
+platform :android do
+  before_all do
+     ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+end
+  
+lane :alpha do
+  path = '../app/build.gradle'
+  re = /versionCode\s+(\d+)/ 
+  androidBuildGradleFileContent = File.read(path)
+  versionCode = (androidBuildGradleFileContent[re, 1].to_i+1)
+  androidBuildGradleFileContent[re, 1] = versionCode.to_s
+  androidBuildGradleFile = File.new(path, 'w')
+  androidBuildGradleFile.write(androidBuildGradleFileContent)
+  androidBuildGradleFile.close
+  gradle(
+    task: "assemble",
+    build_type: "Release",
+  )
+
+  ENV["BUILD_VERSION_CODE"] = versionCode.to_s
+  remote_branch = git_branch
+  remote_branch = remote_branch.split('/').last
+  
+  if remote_branch == "master"
+    ENV["BUILD_NAME"] = "QA ConnectMe"
+    hockey(api_token: ENV["HOCKEY_APP_API_TOKEN"])
+  elsif remote_branch == "stable" || remote_branch == "stage"
+    ENV["BUILD_NAME"] = "Stable ConnectMe"
+    hockey(api_token: ENV["HOCKEY_APP_STAGE_ANDROID_API_TOKEN"])
+  else
+    ENV["BUILD_NAME"] = "Dev ConnectMe"
+    hockey(api_token: ENV["HOCKEY_APP_DEV_API_TOKEN"])
+  end
+  
+end
+
+  after_all do |lane|
+     slack(channel: "connectme_build", message: "#{ENV["BUILD_NAME"]} Android build #{ENV["BUILD_VERSION_CODE"]}")
+  end
+
+  error do |lane, exception|
+     slack(
+       message: exception.message,
+       success: false
+     )
+  end
+end

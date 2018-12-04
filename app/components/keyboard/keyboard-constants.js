@@ -1,0 +1,18 @@
+// @flow
+
+export const KEYBOARD_TEST_ID = 'wallet-keyboard-id-label'
+export const SPECIAL_DECIMAL_FORMAT = '0.'
+export const BACK_SPACE_SYMBOL = '<'
+export const BACK_SPACE = 'backspace'
+export const MAX_LENGTH = 'maxLength'
+export const DECIMAL = '.'
+export const ZERO = '0'
+export const ONE = '1'
+export const TWO = '2'
+export const THREE = '3'
+export const FOUR = '4'
+export const FIVE = '5'
+export const SIX = '6'
+export const SEVEN = '7'
+export const EIGHT = '8'
+export const NINE = '9'

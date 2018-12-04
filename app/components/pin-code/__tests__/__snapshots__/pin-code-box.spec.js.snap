@@ -1,0 +1,561 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PinCodeBox /> should match snapshot 1`] = `
+<View
+  style={Object {}}
+>
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    hitSlop={
+      Object {
+        "bottom": 20,
+        "left": 20,
+        "right": 20,
+        "top": 20,
+      }
+    }
+    nativeID={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    row={true}
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+    testID={undefined}
+  >
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel="pin-code-digit-0-touchable"
+      accessibilityTraits={undefined}
+      accessible={false}
+      center={true}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#777777",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+      testID="pin-code-digit-0-touchable"
+    />
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel="pin-code-digit-1-touchable"
+      accessibilityTraits={undefined}
+      accessible={false}
+      center={true}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#777777",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+      testID="pin-code-digit-1-touchable"
+    />
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel="pin-code-digit-2-touchable"
+      accessibilityTraits={undefined}
+      accessible={false}
+      center={true}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#777777",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+      testID="pin-code-digit-2-touchable"
+    />
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel="pin-code-digit-3-touchable"
+      accessibilityTraits={undefined}
+      accessible={false}
+      center={true}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#777777",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+      testID="pin-code-digit-3-touchable"
+    />
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel="pin-code-digit-4-touchable"
+      accessibilityTraits={undefined}
+      accessible={false}
+      center={true}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#777777",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+      testID="pin-code-digit-4-touchable"
+    />
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel="pin-code-digit-5-touchable"
+      accessibilityTraits={undefined}
+      accessible={false}
+      center={true}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#777777",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+      testID="pin-code-digit-5-touchable"
+    />
+  </View>
+  <TextInput
+    accessibilityLabel="pin-code-input-box"
+    accessible={true}
+    autoCorrect={false}
+    autoFocus={true}
+    blurOnSubmit={false}
+    enablesReturnKeyAutomatically={false}
+    keyboardAppearance="dark"
+    keyboardType="number-pad"
+    maxLength={6}
+    onChangeText={[Function]}
+    style={
+      Object {
+        "height": 0,
+        "position": "absolute",
+        "right": -999,
+        "width": 0,
+      }
+    }
+    testID="pin-code-input-box"
+    value=""
+  />
+</View>
+`;
+
+exports[`<PinCodeBox /> should show two sovrin symbol if two digits are entered 1`] = `
+<View
+  style={Object {}}
+>
+  <View
+    accessibilityComponentType={undefined}
+    accessibilityLabel={undefined}
+    accessibilityTraits={undefined}
+    accessible={true}
+    hitSlop={
+      Object {
+        "bottom": 20,
+        "left": 20,
+        "right": 20,
+        "top": 20,
+      }
+    }
+    nativeID={undefined}
+    onLayout={undefined}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    row={true}
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+    testID={undefined}
+  >
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel="pin-code-digit-0-touchable"
+      accessibilityTraits={undefined}
+      accessible={false}
+      center={true}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#777777",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+      testID="pin-code-digit-0-touchable"
+    >
+      <Image
+        resizeMode="contain"
+        source={1}
+        style={
+          Object {
+            "height": 26,
+            "width": 26,
+          }
+        }
+      />
+    </View>
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel="pin-code-digit-1-touchable"
+      accessibilityTraits={undefined}
+      accessible={false}
+      center={true}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#777777",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+      testID="pin-code-digit-1-touchable"
+    >
+      <Image
+        resizeMode="contain"
+        source={1}
+        style={
+          Object {
+            "height": 26,
+            "width": 26,
+          }
+        }
+      />
+    </View>
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel="pin-code-digit-2-touchable"
+      accessibilityTraits={undefined}
+      accessible={false}
+      center={true}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#777777",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+      testID="pin-code-digit-2-touchable"
+    />
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel="pin-code-digit-3-touchable"
+      accessibilityTraits={undefined}
+      accessible={false}
+      center={true}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#777777",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+      testID="pin-code-digit-3-touchable"
+    />
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel="pin-code-digit-4-touchable"
+      accessibilityTraits={undefined}
+      accessible={false}
+      center={true}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#777777",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+      testID="pin-code-digit-4-touchable"
+    />
+    <View
+      accessibilityComponentType={undefined}
+      accessibilityLabel="pin-code-digit-5-touchable"
+      accessibilityTraits={undefined}
+      accessible={false}
+      center={true}
+      hitSlop={
+        Object {
+          "bottom": 20,
+          "left": 20,
+          "right": 20,
+          "top": 20,
+        }
+      }
+      nativeID={undefined}
+      onLayout={undefined}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "borderBottomColor": "#777777",
+          "borderBottomWidth": 5,
+          "height": 66,
+          "justifyContent": "center",
+          "marginHorizontal": 5,
+          "width": 38,
+        }
+      }
+      testID="pin-code-digit-5-touchable"
+    />
+  </View>
+  <TextInput
+    accessibilityLabel="pin-code-input-box"
+    accessible={true}
+    autoCorrect={false}
+    autoFocus={true}
+    blurOnSubmit={false}
+    enablesReturnKeyAutomatically={false}
+    keyboardAppearance="dark"
+    keyboardType="number-pad"
+    maxLength={6}
+    onChangeText={[Function]}
+    style={
+      Object {
+        "height": 0,
+        "position": "absolute",
+        "right": -999,
+        "width": 0,
+      }
+    }
+    testID="pin-code-input-box"
+    value="12"
+  />
+</View>
+`;

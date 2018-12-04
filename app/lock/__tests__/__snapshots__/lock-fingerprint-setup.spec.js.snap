@@ -1,0 +1,164 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LockFingerprintSetup /> should render touchId modal 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+      "paddingBottom": 20,
+      "paddingHorizontal": 20,
+      "paddingTop": 30,
+    }
+  }
+  tertiary={true}
+/>
+`;
+
+exports[`<LockFingerprintSetup /> should show Your phone doesn’t support biometrics. alert in ios 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      null,
+      "Your phone doesn’t support biometrics.",
+      Array [
+        Object {
+          "onPress": [Function],
+          "text": "Ok",
+        },
+      ],
+      Object {
+        "cancelable": false,
+      },
+    ],
+  ],
+}
+`;
+
+exports[`<LockFingerprintSetup /> should show biometrics exceed alert if authentication fails 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      null,
+      "You have exceeded the maximum biometric attempts allowed by your phone. Try again later.",
+      Array [
+        Object {
+          "onPress": [Function],
+          "text": "Ok",
+        },
+      ],
+      Object {
+        "cancelable": false,
+      },
+    ],
+    Array [
+      null,
+      "You have exceeded the maximum biometric attempts allowed by your phone. Try again later.",
+      Array [
+        Object {
+          "onPress": [Function],
+          "text": "Ok",
+        },
+      ],
+      Object {
+        "cancelable": false,
+      },
+    ],
+  ],
+}
+`;
+
+exports[`<LockFingerprintSetup /> should show biometrics exceed alert in ios 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      null,
+      "You have exceeded the maximum biometric attempts allowed by your phone. Try again later.",
+      Array [
+        Object {
+          "onPress": [Function],
+          "text": "Ok",
+        },
+      ],
+      Object {
+        "cancelable": false,
+      },
+    ],
+  ],
+}
+`;
+
+exports[`<LockFingerprintSetup /> should show enable biometrics alert in android 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      null,
+      "You need to enable biometrics for Connect.Me in your device settings.",
+      Array [
+        Object {
+          "onPress": [Function],
+          "text": "Ok",
+        },
+      ],
+      Object {
+        "cancelable": false,
+      },
+    ],
+  ],
+}
+`;
+
+exports[`<LockFingerprintSetup /> should show enable biometrics alert in ios 1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      null,
+      "You need to enable biometrics for Connect.Me in your device settings.",
+      Array [
+        Object {
+          "onPress": [Function],
+          "text": "Ok",
+        },
+      ],
+      Object {
+        "cancelable": false,
+      },
+    ],
+  ],
+}
+`;
+
+exports[`<LockFingerprintSetup /> should show use Passcode Alert  1`] = `
+[MockFunction] {
+  "calls": Array [
+    Array [
+      null,
+      "You'll need to use your passcode to unlock this app from now on",
+      Array [
+        Object {
+          "onPress": [Function],
+          "text": "Ok",
+        },
+      ],
+      Object {
+        "cancelable": false,
+      },
+    ],
+  ],
+}
+`;
+
+exports[`<LockFingerprintSetup /> should test touchId handler is called 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+      "flex": 1,
+      "paddingBottom": 20,
+      "paddingHorizontal": 20,
+      "paddingTop": 30,
+    }
+  }
+  tertiary={true}
+/>
+`;

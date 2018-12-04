@@ -1,0 +1,29 @@
+# Uncomment the next line to define a global platform for your project
+
+platform :ios, '10.2'
+source 'https://github.com/CocoaPods/Specs.git'
+source 'git@github.com:evernym/sdk.git'
+
+def vcx_version_for_debug_or_release
+    if ENV['CONNECTME_DEBUG'] == "true"
+        '0.0.60'
+    else
+        '0.0.59'
+    end
+end
+
+target 'ConnectMe' do
+# Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+   use_frameworks!
+
+    pod 'vcx', vcx_version_for_debug_or_release
+    pod 'Firebase/Messaging', '4.8.0'
+    pod 'Onfido', '10.0.0'
+    pod 'apptentive-ios', '5.2.2'
+
+    target 'ConnectMeTests' do
+        inherit! :search_paths
+        # Pods for testing
+    end
+
+end

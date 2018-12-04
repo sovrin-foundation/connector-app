@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Authentication request tests authentication status reset action should update store 1`] = `
+Object {
+  "data": null,
+  "error": null,
+  "invitee": Object {
+    "image": "./images/inviter.jpeg",
+  },
+  "inviter": Object {
+    "image": "",
+  },
+  "isFetching": false,
+  "isPristine": true,
+  "status": "NONE",
+  "type": "NONE",
+}
+`;
+
+exports[`Authentication request tests send user authentication response 1`] = `
+Object {
+  "data": null,
+  "error": null,
+  "invitee": Object {
+    "image": "./images/inviter.jpeg",
+  },
+  "inviter": Object {
+    "image": "",
+  },
+  "isFetching": true,
+  "isPristine": false,
+  "status": "NONE",
+  "type": "NONE",
+}
+`;
+
+exports[`Authentication request tests send user authentication response failure action should update store 1`] = `
+Object {
+  "data": null,
+  "error": Object {
+    "authenticationType": "AUTHENTICATION_REQUEST",
+    "message": "",
+  },
+  "invitee": Object {
+    "image": "./images/inviter.jpeg",
+  },
+  "inviter": Object {
+    "image": "",
+  },
+  "isFetching": false,
+  "isPristine": true,
+  "status": "NONE",
+  "type": "NONE",
+}
+`;
+
+exports[`Authentication request tests send user authentication response received action should update store 1`] = `
+Object {
+  "data": Object {
+    "logoUrl": null,
+    "offerMsgText": "Suncoast Credit Union (sandbox) wants to connect with you",
+    "offerMsgTitle": "Hi There",
+    "remoteConnectionId": "B4Y9fhpeHdGHBKKtSgAYrB",
+    "statusCode": "push-notification-sent",
+  },
+  "error": null,
+  "invitee": Object {
+    "image": "./images/inviter.jpeg",
+  },
+  "inviter": Object {
+    "image": "",
+  },
+  "isFetching": false,
+  "isPristine": true,
+  "status": "NONE",
+  "type": "AUTHENTICATION_REQUEST",
+}
+`;
+
+exports[`Authentication request tests send user authentication response success action should update store 1`] = `
+Object {
+  "data": null,
+  "error": null,
+  "invitee": Object {
+    "image": "./images/inviter.jpeg",
+  },
+  "inviter": Object {
+    "image": "",
+  },
+  "isFetching": false,
+  "isPristine": true,
+  "status": "accepted",
+  "type": "NONE",
+}
+`;
+
+exports[`Authentication request tests should correctly match initial state 1`] = `
+Object {
+  "data": null,
+  "error": null,
+  "invitee": Object {
+    "image": "./images/inviter.jpeg",
+  },
+  "inviter": Object {
+    "image": "",
+  },
+  "isFetching": false,
+  "isPristine": true,
+  "status": "NONE",
+  "type": "NONE",
+}
+`;
+
+exports[`Authentication request tests should reset authentication store when reset action is raised 1`] = `
+Object {
+  "data": null,
+  "error": null,
+  "invitee": Object {
+    "image": "./images/inviter.jpeg",
+  },
+  "inviter": Object {
+    "image": "",
+  },
+  "isFetching": false,
+  "isPristine": true,
+  "status": "NONE",
+  "type": "NONE",
+}
+`;

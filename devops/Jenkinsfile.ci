@@ -1,0 +1,78 @@
+#!groovy
+
+def evLibrary = library(identifier: '***REMOVED***', retriever: modernSCM(
+    github(credentialsId: '***REMOVED***', repoOwner: 'evernym', repository: 'jenkins-shared')
+)).com.evernym.pipeline
+
+logger = evLibrary.Logger.new(this)
+notifier = evLibrary.Notifier.new(this)
+logger.setGlobalLevel('TRACE')
+
+def GEM_HOME = '~/.gem.connectme'
+
+
+pipelineWrapper({
+    nodeWrapper('macos-connectme') {
+		ansiColor('xterm') {
+		    stage('Checkout from SCM') {
+	            checkout scm
+	            result = sh (script: "git log -1 | grep '\\[[Cc][Ii]\\s[Ss][Kk][Ii][Pp]\\]'", returnStatus: true)
+	        }
+
+			if (result == 0) {
+			    logger.info("This build should be skipped. Aborting.")
+			    return
+			}
+
+		    stage('Prepare') {
+		    	logger.info("yarn install")
+		        sh 'yarn install'
+				sh 'yarn lint && yarn test'
+		    }
+
+		    stage('Build') {
+		        withEnv([ // WARNING: brew and curl added to PATH in the node configuration.
+		            "GEM_HOME=${GEM_HOME}",
+		            "LANG=en_US.UTF-8", // Needed for cocoapods and Fastlane
+		            "LC_ALL=en_US.UTF-8", // Needed for cocoapods and Fastlane
+		        ]) {
+		            withCredentials([usernamePassword(credentialsId: 'jenkins-macos-userpass', usernameVariable: 'USRN', passwordVariable: 'PSWD')]) {
+		            	sh ''' set +x
+		            		security -v unlock-keychain -p "$PSWD"
+		            	'''
+		            }
+
+               	 	sh "git config --local user.name 'Jenkins'"
+               	 	sh "git config --local user.email 'jenkins@ci.corp.evernym.com'"
+
+                    hockeyapp_credentials = 'connectme-ios-hockeyapp-dev-token'
+                    env.BUILD_TYPE = 'ConnectMe Dev Build'
+
+                    sshagent(credentials: ['iosdev-evernym-rsa-key']) {
+	                    withEnv(["DEVELOPER_DIR=/Applications/Xcode_10.app/Contents/Developer/"]) {
+                        // TODO: Add checks for Xcode version
+	                        withCredentials([
+	                        	string(credentialsId: hockeyapp_credentials, variable: 'HOCKEYAPP_TOKEN'),
+	                        	string(credentialsId: "***REMOVED***", variable: 'FASTLANE_PASSWORD'),
+	                        	string(credentialsId: "***REMOVED***", variable: 'MATCH_PASSWORD')
+	                        ]) {
+	                        	dir('ios'){
+		              				sh 'bundle install'
+		              				sh 'bundle exec fastlane ci'
+			                    }
+		                    }
+		                }
+		            }
+		        }
+		    }
+		}
+	}
+}, { err ->
+    if (err) {
+        logger.error("Pipeline failed with the error $err")
+    }
+
+    stage("Build result notification") {
+        notifier.email()
+    }
+})

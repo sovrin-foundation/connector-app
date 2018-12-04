@@ -1,0 +1,127 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ConnectedUserAvatar /> should match snapshot when no user image is selected 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel="user-avatar-touchable"
+  accessibilityTraits={undefined}
+  accessible={false}
+  clearBg={true}
+  extraLarge={true}
+  hitSlop={
+    Object {
+      "bottom": 20,
+      "left": 20,
+      "right": 20,
+      "top": 20,
+    }
+  }
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  resizeMode="cover"
+  round={true}
+  src={1}
+  style={
+    Object {
+      "backgroundColor": "transparent",
+    }
+  }
+  testID="user-avatar-touchable"
+>
+  <View
+    style={Object {}}
+  >
+    <Image
+      accessibilityLabel="user-avatar"
+      accessible={true}
+      resizeMode="cover"
+      source={1}
+      style={
+        Array [
+          Object {
+            "height": 80,
+            "width": 80,
+          },
+          Object {
+            "borderRadius": 40,
+          },
+        ]
+      }
+      testID="user-avatar"
+    />
+  </View>
+</View>
+`;
+
+exports[`<ConnectedUserAvatar /> should match snapshot when user image is selected 1`] = `
+<View
+  accessibilityComponentType={undefined}
+  accessibilityLabel="user-avatar-touchable"
+  accessibilityTraits={undefined}
+  accessible={false}
+  clearBg={true}
+  extraLarge={true}
+  hitSlop={
+    Object {
+      "bottom": 20,
+      "left": 20,
+      "right": 20,
+      "top": 20,
+    }
+  }
+  nativeID={undefined}
+  onLayout={undefined}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  resizeMode="cover"
+  round={true}
+  src={
+    Object {
+      "uri": "/var/application/DocumentDir/user-avatar.jpeg",
+    }
+  }
+  style={
+    Object {
+      "backgroundColor": "transparent",
+    }
+  }
+  testID="user-avatar-touchable"
+>
+  <View
+    style={Object {}}
+  >
+    <Image
+      accessibilityLabel="user-avatar"
+      accessible={true}
+      resizeMode="cover"
+      source={
+        Object {
+          "uri": "/var/application/DocumentDir/user-avatar.jpeg",
+        }
+      }
+      style={
+        Array [
+          Object {
+            "height": 80,
+            "width": 80,
+          },
+          Object {
+            "borderRadius": 40,
+          },
+        ]
+      }
+      testID="user-avatar"
+    />
+  </View>
+</View>
+`;
