@@ -6,6 +6,6 @@ pushd ${SCRIPTPATH}/../../
     yarn install
     react-native bundle --platform android --dev true --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
     pushd android
-        ./gradlew clean build --debug
+        ./gradlew clean build
     popd
 popd
