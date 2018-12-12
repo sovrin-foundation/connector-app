@@ -41,6 +41,7 @@ subprojects {
     afterEvaluate {project ->
         if (project.hasProperty("android")) {
             android {
+                lintOptions.abortOnError false
                 compileSdkVersion 26
                 buildToolsVersion '26.0.3'
             }
