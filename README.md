@@ -1,6 +1,12 @@
 # ConnectMe
 App to connect Sovrin with 3rd party authentication
 
+# Introduction
+
+We have an ongoing effort to build and run the Connector App, then make it interoperable with the hyperledger Indy open source protocols. 
+
+* [Building the Connector App Q&A Video](https://youtu.be/EHrlqku3OC8)
+  
 # Pre requisite to run
 
 - Mac machine
