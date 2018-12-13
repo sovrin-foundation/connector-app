@@ -39,9 +39,14 @@ git clone 'git@github.com:evernym/connectme-callcenter-certs.git' '/var/folders/
 - Open Xcode, select your device and run
 
 ## Run on Android simulator
+### Manual steps
 - Make sure a simulator is already created. Otherwise create one from Android studio
 - `cd android/keystores && keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000`
 - `yarn react-native run-android`
+
+### By using scripts
+- Run `android/scripts/generate.key.sh` one time to generate keystore
+- Run `android/scripts/android.build.sh` to build android apk
 
 ## Create a release build for ios
 - `yarn pod:install`
