@@ -5,7 +5,7 @@ This is an early-stage project to create a functional open source
 mobile application that works as an edge agent in the Sovrin ecosystem. 
 
 The best place to understand more about the Connector app is in our 
-`introduction <introduction.md>`_
+`introduction <introduction.html>`_
 
 As the project progresses, we hope that this documentation will serve both 
 users and contributors of the Connector app. At this stage, this project is 
