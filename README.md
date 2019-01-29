@@ -104,7 +104,7 @@ Failed to capture snapshot of input files for task ':app:bundleReleaseJsAndAsset
 
 > If you get an error in logs saying that `image not found`. Run `$ detox clean-framework-cache && detox build-framework-cache`, then run last command in above steps
 
-## #IDE
+### IDE
 - You may use any IDE you feel more comfortable with.
 - Our preferred IDE would be "VS Code" with extensions like
   - Prettier - Code formatter (esbenp.prettier-vscode)
