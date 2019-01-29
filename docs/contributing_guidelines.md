@@ -1,3 +1,4 @@
+# Contributing Guidelines
 ## Steps to contribute
 - Create branch for each feature
 - Follow TDD for each component/store
