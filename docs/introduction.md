@@ -1,6 +1,8 @@
 # Sovrin Connector App
 App to connect Sovrin with 3rd party authentication
 
+> note: While this is currently just a mirror of the README.md, we will want to edit this to have more user/consumer oriented instructions
+
 ## Introduction
 
 We have an ongoing effort to build and run the Connector App, then make it interoperable with the hyperledger Indy open source protocols. 
