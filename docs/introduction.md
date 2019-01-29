@@ -1,4 +1,4 @@
-# Connector App
+# Sovrin Connector App
 App to connect Sovrin with 3rd party authentication
 
 ## Introduction

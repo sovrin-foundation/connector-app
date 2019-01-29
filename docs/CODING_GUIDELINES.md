@@ -1,3 +1,5 @@
+# Coding Guidelines
+
 ## Comments
 - Comments should describe *WHY* and *NOT WHAT*
 ```js
@@ -11,7 +13,7 @@ yield call(deleteItem, CONNECTIONS)
 yield call(deleteItem, CONNECTIONS)
 ```
 
-- ### Be thorough
+### Be thorough
     - Imagine the next person landing in your code to have no context whatsoever and VERY limited time to change it.
     - Explain without the assumption that people already know how your code works
     - Explain the hacks you needed to do and why they work
@@ -45,4 +47,4 @@ const invitationRequest, connectionRequest, authenticationRequest
 - Try to use as many common components as possible
 - No inline style
 
-> *Note:* This is a work in progress guidelines and will keep on improving as we move along
+- *Note:* This is a work in progress guidelines and will keep on improving as we move along
