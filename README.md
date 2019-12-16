@@ -1,3 +1,6 @@
+# THIS REPO IS NOW DEPRECATED
+This repo is not expected to build and is no longer used or maintained.  May be used for historical reference if desired.
+
 # Connector App
 App to connect Sovrin with 3rd party authentication
 
